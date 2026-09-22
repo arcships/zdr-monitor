@@ -112,6 +112,16 @@ const passes = (facet: Facet, sel: Selection, row: Row) => {
   return facet.options.some((o) => picked.includes(o.v) && o.match(row))
 }
 
+/** ?only=id1,id2 —— 直接在链接里点名要哪几行，按给定顺序排。
+ *
+ *  做对比图时要的是「这几家并排」，而这个名单是当次说话的人选的，不是台账的
+ *  判断。所以它只活在 URL 里：换一组就是换一条链接，谁都能复现，数据里不留
+ *  任何人工排序。 */
+export function only(rows: Row[], ids: string[]): Row[] {
+  const order = new Map(ids.map((id, i) => [id, i]))
+  return rows.filter((row) => order.has(row.id)).sort((a, b) => order.get(a.id)! - order.get(b.id)!)
+}
+
 export function apply(rows: Row[], sel: Selection, needle: string): Row[] {
   const q = needle.trim().toLowerCase()
   return rows.filter((row) => {

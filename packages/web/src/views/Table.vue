@@ -5,7 +5,7 @@ import { catalog, good, LABELS, WIDTHS, BOOLEAN_DIMS, MODE, MODE_SHORT, type Row
 import { t, pick } from "../i18n"
 import Mark from "../components/Mark.vue"
 import { logo, logoStyle } from "../logos"
-import { apply, counts, parse, toQuery, activeCount, type Selection } from "../facets"
+import { apply, counts, only as pickOnly, parse, toQuery, activeCount, type Selection } from "../facets"
 import Facets from "../components/Facets.vue"
 
 const router = useRouter()
@@ -19,6 +19,7 @@ const box = ref<HTMLInputElement>()
 
 // 筛选状态全写进地址栏：一条链接就能把「企业版 + 可零保留」发给同事。
 watch([sel, q, sortDim, asc], () => {
+  if (picked.value.length) return
   const query: Record<string, string> = { ...toQuery(sel.value) }
   if (q.value.trim()) query.q = q.value.trim()
   if (sortDim.value) {
@@ -52,7 +53,13 @@ function hotkey(e: KeyboardEvent) {
 
 const dims = catalog.dimensions
 const all = catalog.rows
-const rowsFiltered = computed(() => apply(all, sel.value, q.value))
+// ?only= 点名的那几行优先，其余筛选一律让位——它是「就要看这几个」的意思
+const picked = computed(() =>
+  typeof route.query.only === "string" && route.query.only ? route.query.only.split(",") : [],
+)
+const rowsFiltered = computed(() =>
+  picked.value.length ? pickOnly(all, picked.value) : apply(all, sel.value, q.value),
+)
 const tally = computed(() => counts(all, sel.value, q.value))
 const active = computed(() => activeCount(sel.value))
 
