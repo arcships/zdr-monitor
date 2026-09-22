@@ -1,0 +1,480 @@
+name = "Mistral AI"
+line = "mistral"
+site = "global"
+entity = "Mistral AI"
+endpoint = ""
+doc = "https://legal.mistral.ai/terms/commercial-terms-of-service"
+
+[[source]]
+url = "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "官方开发者文档 Zero data retention 页(2026-09-21 现行有效)。覆盖按量付费的无状态 API;明确排除 stateful API / Agents / Batch / Conversations / Libraries / /v1/files / Vibe Work / Chat 与 Labs 模型。只覆盖 zdr 维度(及 zdr 与训练 opt-out 相互独立这一点),不含保留期限、处理地、角色条款。"
+
+[[source]]
+url = "https://docs.mistral.ai/inference/regional-inference"
+channel = "developer_data"
+tier = "core"
+note = "官方开发者文档 Regional inference 页(2026-09-21 现行有效)。覆盖 API 推理的处理地理:global / EU / US 三端点、区域化不覆盖控制面数据、与 ZDR 相互独立。"
+
+[[source]]
+url = "https://legal.mistral.ai/terms/commercial-terms-of-service"
+channel = "contract"
+tier = "core"
+note = "商业客户合同(Commercial ToS),覆盖 Studio / Vibe / API 的商业使用(按量付费 API 档即在此层)。消费者另有 EU / ROW Consumer ToS,不适用本档。§4 为训练默认值与例外的合同依据,§12 为隐私/角色条款。"
+
+[[source]]
+url = "https://legal.mistral.ai/terms/data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "Data Processing Addendum(DPA),经 §11.2 并入商业协议,适用于在 Mistral AI Infrastructure 上使用产品的商业客户(含按量付费 API)。§2.1 角色、§2.3 Mistral 作为 Controller 的处理目的(训练 / 滥用监测 / 用量聚合)、§8 跨境传输、§10.1 终止后 30 天、§11.2 冲突时 DPA 优先。"
+
+[[source]]
+url = "https://legal.mistral.ai/terms/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Mistral AI 通用隐私政策(Controller 视角)。其 Scope 明确『不适用于你以企业身份处理个人数据的场景』,故对本家 API 档的约束力来自 §5 中专门针对 API 的条目,而非作为企业合同;§3 的训练条目是消费者向表述(subject to your opt-out)。channel 由旧记录的 enterprise_privacy_faq 更正为 consumer_privacy。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "mistral-training-4-2-no-train"
+
+[[product.training.point]]
+text = "Commercial ToS §4.2 is a direct contract-level clause: \"Mistral AI will not use Customer Data or Outputs to train its artificial intelligence models\", except (a) where the customer opted in to training on a Mistral AI Product set to opt-out by default, or has not opted out of training on a Product set to opt-in by default, (b) where Customer or an End User provides Feedback, (c) as otherwise provided in an Order Form, or (d) where Customer uses Labs or Preview Models"
+text_zh = "Commercial ToS §4.2 是合同层的直接条款:Mistral AI 不会用 Customer Data / Outputs 训练其模型,例外为 (a) 产品被设为 opt-out by default 时用户主动 opt-in,或产品被设为 opt-in by default 时用户未 opt-out、(b) Feedback、(c) Order Form 另行约定、(d) Labs / Preview 模型"
+
+[[product.training.point]]
+text = "§4.1 expressly puts model training outside the license granted by the customer (\"excludes model training\")"
+text_zh = "§4.1 把 model training 明确排除在客户授予的许可之外"
+
+[[product.training.point]]
+text = "§4.3 states separately for Labs / Preview Models that \"Mistral AI may use Customer Data and Outputs generated from Labs or Preview Models to train its artificial intelligence models\" (use means training, and it is unaffected by the opt-out and ZDR available on other products). But DPA §2.3 in the same contract package authorizes Mistral AI to process Personal Data as Controller for training purposes, conditioned as \"unless Customer is or has opted-out of training\" (an opt-out regime: training by default unless the customer opts out), and DPA §11.2 provides that the DPA prevails in the event of conflict → the two contract-level clauses conflict, so §4.2's \"no training by default\" cannot stand on its own. The former direct statement at product/developer level (the old docs page \"Privacy and data controls\": \"API: data sent through the API isn't used for model training.\") now returns 404 and has been removed from the docs sitemap (896 entries)"
+text_zh = "§4.3 对 Labs / Preview 模型另有明示(用了就训练,且不受其他产品的 opt-out 与 ZDR 影响)。但同一合同包内的 DPA §2.3 授权 Mistral AI 以 Controller 身份为训练目的处理 Personal Data,条件写作『unless Customer is or has opted-out of training』(即 opt-out 制:默认训练,除非客户退出),且 DPA §11.2 规定冲突时以 DPA 为准 → 合同层两条互相冲突,§4.2 的『默认不训练』不能单独成立。产品/开发者层原先的直接声明(旧 docs 页『Privacy and data controls』:API : data sent through the API isn't used for model training.)现行 404、已从 docs sitemap(896 条)移除"
+
+[[product.training.point]]
+text = "The current Help Center says of Studio Pay-as-you-go only that \"Customers retain full control over this processing and have the right to opt out at any time.\", no longer stating that there is no training by default, while the Free mode paragraph on the same page says plainly \"we may use your data (input and output) to train\". Conclusion: the current official texts cannot establish that paid API inputs and outputs are not used for training by default, hence confidence=low (this is a disclosure conflict/gap, not a commitment to the contrary by the vendor)."
+text_zh = "现行 Help Center 对 Studio Pay-as-you-go 只写『Customers retain full control over this processing and have the right to opt out at any time.』,不再声明默认不训练,而同页 Free mode 段明写『we may use your data (input and output) to train』。结论:现行官方文本无法确证付费 API 输入输出默认不训练,故 confidence=low(这是披露冲突/缺口,不等于厂商反向承诺)。"
+
+[[product.training.point]]
+text = "Structured conclusion: the contract layer conflicts with itself (§4.2 says no training by default; DPA §2.3 authorizes processing for training purposes as Controller under an opt-out regime, and DPA §11.2 gives the DPA precedence), and the current Help Center no longer states a no-training default. Under the conservative assumption (✓ requires an explicit no-training commitment) the tier is recorded as mark=no (used for training) with mode=opt_out. Both clauses are kept side by side; no averaging."
+text_zh = "结构化结论：合同层自相冲突（§4.2 默认不训练 vs DPA §2.3 授权以 Controller 身份为训练目的处理、opt-out 制，且 §11.2 冲突时 DPA 优先），现行 Help Center 又不再声明默认不训练。按保守假设（✓ 要求明确的不训练承诺）记 mark=no（会训练）+ mode=opt_out；两条官方文本并列保留，不取平均。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "mistral-zdr-paid-stateless"
+
+[[product.zdr.point]]
+text = "Official developer documentation, ZDR page (current this round, 2026-09-21): \"ZDR is available on paid plans for supported stateless API calls\", and once enabled Mistral \"does not store or log inputs and outputs for supported API requests\" beyond what is needed to generate the output. It covers stateless endpoints such as /v1/chat/completions, /v1/fim/completions, /v1/embeddings, moderations, classifications, ocr and audio, and does not apply to stateful APIs or products (Agents, Batch, Conversations, Libraries, /v1/files, Vibe Work, Chat) or to Labs models. Application-based: a justification must be submitted to support, \"We review each request and may approve or deny it.\", and once approved it appears in Admin privacy settings"
+text_zh = "官方开发者文档 ZDR 页(本轮 2026-09-21 现行):ZDR 在付费计划上对受支持的无状态 API 调用可用,启用后 Mistral 不会为受支持的 API 请求存储或记录输入输出(超出生成输出所需)。覆盖 /v1/chat/completions、/v1/fim/completions、/v1/embeddings、moderations、classifications、ocr、audio 等无状态端点,不覆盖 stateful API 与产品(Agents、Batch、Conversations、Libraries、/v1/files、Vibe Work、Chat)与 Labs 模型。申请制:需向支持提交正当理由,逐案审核,可批准或拒绝,批准后出现在 Admin privacy settings"
+
+[[product.zdr.point]]
+text = "ZDR and training opt-out are two separate controls. Help Center 347612 (updated 2026-08-12) is stricter in wording: pay-as-you-go only (Free mode must first enable pay-as-you-go), stateless APIs only. At contract level, DPA §2.3 excludes abuse monitoring as a processing purpose \"when zero data retention has been activated\", so ZDR is recognized in the DPA."
+text_zh = "ZDR 与训练 opt-out 是两个独立控制。Help Center 347612(2026-08-12 更新)措辞更严:仅 pay-as-you-go(Free mode 需先开通按量付费)、仅无状态 API。合同层另有 DPA §2.3:滥用监测这一处理目的在『zero data retention has been activated』时被排除,即 ZDR 在 DPA 里被承认。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "mistral-retention-api-30-rolling-days"
+
+[[product.retention.point]]
+text = "Privacy Policy §5: \"Except for specific APIs, we keep your Input and Output for the period necessary to generate the Output and then for thirty (30) rolling days to monitor abuse (unless zero data retention is activated).\" Exception: with the Agents API, Input and Output are kept until the account is terminated"
+text_zh = "Privacy Policy §5:除特定 API 外,Input / Output 在生成输出所需时间之后滚动保留 30 天用于滥用监测,除非启用 ZDR。例外:Agents API 的 Input / Output 保留至销户"
+
+[[product.retention.point]]
+text = "With the Fine-Tuning API, fine-tuning data is kept until it is deleted or the account is terminated. DPA §10.1 separately provides that Personal Data will no longer be accessible upon expiry of a thirty (30) day period following termination (a termination-cleanup rule). The ZDR page and Help Center 347612 give the contrasting state once ZDR is enabled (no longer retained). Help Center 347628 adds statutory retention periods for account-level data (identity data 5 years, account data 1 year, technical data 1 rolling year, invoices 10 years), but that is account/billing data, not API inputs and outputs."
+text_zh = "Fine-Tuning API 的微调数据保留至主动删除或销户。DPA §10.1 另定终止后 30 天内 Personal Data 不再可访问(终止清理口径)。ZDR 页与 Help Center 347612 给出启用 ZDR 后的对照态(不再留存)。Help Center 347628 补充账户类数据的法定保留期(身份数据 5 年、账户数据 1 年、技术数据 1 滚动年、发票 10 年),但那是账号/账单数据而非 API 输入输出。"
+
+[product.processing_region]
+codes = ["global", "selected"]
+anchor = "mistral-region-global-no-commit"
+
+[[product.processing_region.point]]
+text = "Official developer documentation, Regional inference page (independently re-checked this round): the default global endpoint is api.mistral.ai, and Mistral states expressly that \"Mistral does not commit to a specific inference location for requests sent to this endpoint\""
+text_zh = "官方开发者文档 Regional inference 页(本轮独立复核):默认 global 端点 api.mistral.ai,官方明确『Mistral does not commit to a specific inference location for requests sent to this endpoint』"
+
+[[product.processing_region.point]]
+text = "Regional endpoints api.eu.mistral.ai (multiple data centers in EU and EFTA countries, 1.1x price) and api.us.mistral.ai (multiple data centers in the United States)"
+text_zh = "区域端点 api.eu.mistral.ai(EU 与 EFTA 多数据中心,加价 1.1×)与 api.us.mistral.ai(美国多数据中心)"
+
+[[product.processing_region.point]]
+text = "Regionalization covers inference only; control-plane data (account configuration, API keys, billing, access management, usage analytics and other operational metadata) may still be handled by Mistral systems outside the selected geography"
+text_zh = "区域化只覆盖推理,控制面数据(账号配置、API key、账单、访问管理、用量分析等运营元数据)仍可能在所选地理之外处理"
+
+[[product.processing_region.point]]
+text = "Regionalization and ZDR are two separate controls. Help Center 347629 (updated 2026-08-12) adds that data is hosted in the EU by default and in the United States where the US API endpoint is used explicitly, and that some features may temporarily transfer data outside the EU (destinations listed in the Trust Center subprocessors). DPA §8.1 is the contractual authorization for cross-border transfers (adequacy-decision countries / appropriate safeguards / SCCs). Note the difference between the two statements: the Help Center speaks of hosting (storage) being in the EU by default, while the docs speak of the global endpoint not committing to an inference location."
+text_zh = "区域化与 ZDR 是两个独立控制。Help Center 347629(2026-08-12 更新)补充:默认数据托管在欧盟,显式使用 US API 端点则托管在美国,部分功能可能临时把数据传出欧盟(去向见 Trust Center subprocessors)。DPA §8.1 为跨境传输的合同授权(充分性认定国家 / 适当保障 / SCC)。注意两处口径差异:Help Center 说的是『托管(存储)默认在欧盟』,docs 说的是『global 端点不承诺推理处理地』。"
+
+[product.role]
+kind = "processor"
+anchor = "mistral-role-dpa-2-1"
+
+[[product.role.point]]
+text = "DPA §2.1: \"Customer is the Controller of the Personal Data. Mistral AI Processes the Personal Data on behalf of Customer as a Processor.\" (the DPA is incorporated into the Agreement by §11.2 and applies to commercial customers using the Products on Mistral AI Infrastructure). The role splits by data category: Commercial ToS §12.2 states that account-level Personal Data is collected and processed by Mistral AI as Data Controller (under its privacy policy), while §12.3 repeats the Processor role in the Mistral Infrastructure case and points to this DPA"
+text_zh = "DPA §2.1:客户是 Personal Data 的 Controller,Mistral AI 以 Processor 身份代表客户处理(DPA 经 §11.2 并入协议,适用于在 Mistral AI Infrastructure 上使用产品的商业客户)。角色按数据类别分裂:Commercial ToS §12.2 明确账户类 Personal Data 由 Mistral AI 以 Data Controller 身份收集处理(依其隐私政策),§12.3 重申 Mistral Infrastructure 场景下的Processor 身份并指向本 DPA"
+
+[[product.role.point]]
+text = "DPA §2.3 lists the limited purposes for which Mistral may process as Controller (training, abuse monitoring, aggregated usage statistics). The general privacy policy's own Scope states that it \"does not apply if you use our Mistral AI Products to process personal data in the context of your business activities\" (in that case the customer is controller and Mistral the processor), consistent with this conclusion."
+text_zh = "DPA §2.3 列出 Mistral 以 Controller 身份可做的有限处理目的(训练、滥用监测、用量聚合统计)。通用隐私政策自身 Scope 明确不适用于『以企业身份处理个人数据』的场景(该场景客户是 controller、Mistral 是 processor),与本结论一致。"
+
+[[anchor]]
+id = "mistral-training-4-2-no-train"
+source_id = "af68fe494f5c6a73"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+der these Terms or the Additional Terms.
+
+**4.2. Training.**"""
+exact = "Mistral AI will not use Customer Data or Outputs to train its artificial intelligence models except (a) when you (i) opted-in to training on a Mistral AI Product set to opt-out by default or (ii) have not opted-out of training on a Mistral AI Product set to opt-in by default, (b) when Customer or an End User provides Feedback to Mistral AI, (c) as otherwise may be provided in an Order Form or (d) when Customer uses Labs or Preview Models."
+suffix = " Customer grants Mistral AI a perpetual, irrevocable, worldw"
+
+[[anchor]]
+id = "mistral-training-4-1-excludes-training"
+source_id = "af68fe494f5c6a73"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "iding, maintaining, and optimizing the Mistral AI Products, "
+exact = "which includes debugging, assessing, reviewing, and correcting the performance of the Mistral AI Products but excludes model training"
+suffix = ", and (b) performing our obligations under these Terms or th"
+
+[[anchor]]
+id = "mistral-training-4-3-labs"
+source_id = "af68fe494f5c6a73"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ". By using Labs or Preview Models, you acknowledge that (i) "
+exact = "Mistral AI may use Customer Data and Outputs generated from Labs or Preview Models to train its artificial intelligence models"
+suffix = " and (ii) the opt-out preferences you selected for other Mis"
+
+[[anchor]]
+id = "mistral-role-12-3-processor"
+source_id = "af68fe494f5c6a73"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+rom time to time).
+
+**12.3. Mistral AI as Data Processor.** """
+exact = "If Customer uses the Mistral AI Products on Mistral Infrastructure, Mistral AI may Process Personal Data on behalf of Customer as a Data Processor"
+suffix = ". In such case, the Data Processing Agreement available at ["
+
+[[anchor]]
+id = "mistral-role-12-2-controller"
+source_id = "af68fe494f5c6a73"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+since 25 May 2018.
+
+**12.2. Mistral AI as Data Controller.**"""
+exact = "Mistral AI collects and Processes Customer"
+suffix = "’s Personal Data as a Data Controller in accordance with Mis"
+
+[[anchor]]
+id = "mistral-role-dpa-2-1"
+source_id = "896a0f7b895680ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+description of the Processing
+
+### 2.1 Role of the Parties
+
+"""
+exact = "Customer is the Controller of the Personal Data. Mistral AI Processes the Personal Data on behalf of Customer as a Processor."
+suffix = """
+
+
+### 2.2 Description of the Processing
+
+A description of th"""
+
+[[anchor]]
+id = "mistral-training-dpa-2-3-optout"
+source_id = "896a0f7b895680ab"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "acy Policy](https://legal.mistral.ai/terms/privacy-policy), "
+exact = "unless Customer is or has opted-out of training"
+suffix = ". Customer acknowledges that if Customer provides feedback t"
+
+[[anchor]]
+id = "mistral-zdr-dpa-2-3-abuse-monitoring"
+source_id = "896a0f7b895680ab"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+s, conduct research or improve the Mistral AI Products.
+*   """
+exact = "Automated moderation, including abuse monitoring on our APIs (except, in this last case, when zero data retention has been activated), to enforce the Agreement."
+suffix = """
+
+*   Processing usage and operational data (such as product """
+
+[[anchor]]
+id = "mistral-retention-dpa-10-1"
+source_id = "896a0f7b895680ab"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ordance with Mistral AI’s deletion policies and procedures. "
+exact = "Customer acknowledges that the Personal Data will no longer be accessible upon the expiry of a thirty (30) days period following the termination of the Customer"
+suffix = """
+’s access to and use of the Mistral AI Products.
+
+## 11. Gen"""
+
+[[anchor]]
+id = "mistral-region-dpa-8-1"
+source_id = "896a0f7b895680ab"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ata to a Restricted Country
+
+### 8.1 General authorization
+
+"""
+exact = "Customer authorizes Mistral AI to transfer Personal Data to any country deemed to have an adequate level of data protection by the European Commission."
+suffix = " Customer also authorizes Mistral AI to perform Internationa"
+
+[[anchor]]
+id = "mistral-dpa-11-2-prevails"
+source_id = "896a0f7b895680ab"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "t by reference and forms an integral part of the Agreement. "
+exact = "In the event of any conflict between the terms of the DPA and the remainder of the Agreement, the terms of the DPA shall prevail to the extent of such conflict."
+suffix = """
+
+
+### 11.3 Liability
+
+The liability of each Party and each P"""
+
+[[anchor]]
+id = "mistral-retention-api-30-rolling-days"
+source_id = "410c7a9e7180b2a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+e.
+*   **Data we use to provide our APIs to you:**
+
+    *   """
+exact = "Except for specific APIs, we keep your Input and Output for the period necessary to generate the Output and then for thirty (30) rolling days to monitor abuse (unless zero data retention is activated)."
+suffix = """
+
+    *   If you use our Agents API, we keep your Input and O"""
+
+[[anchor]]
+id = "mistral-retention-agents-api"
+source_id = "410c7a9e7180b2a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+or abuse (unless zero data retention is activated).
+    *   """
+exact = "If you use our Agents API, we keep your Input and Output until you terminate your account."
+suffix = """
+
+    *   If you use our Fine-Tuning API, we keep your fine-t"""
+
+[[anchor]]
+id = "mistral-retention-finetuning-api"
+source_id = "410c7a9e7180b2a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ Input and Output until you terminate your account.
+    *   """
+exact = "If you use our Fine-Tuning API, we keep your fine-tuning data until you delete it from Mistral AI Studio or until you terminate your account."
+suffix = """
+
+
+*   **Non-essential cookies data:** only as long as you co"""
+
+[[anchor]]
+id = "mistral-scope-excludes-business-processing"
+source_id = "410c7a9e7180b2a0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+*Mistral AI Products**").
+
+**Scope of this Privacy Policy.**"""
+exact = "This Privacy Policy does not apply if you use our Mistral AI Products to process personal data in the context of your business activities."
+suffix = " In this case, you are the data controller, and Mistral AI i"
+
+[[anchor]]
+id = "mistral-training-consumer-opt-out"
+source_id = "410c7a9e7180b2a0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+rnet, despite our efforts to filter out such personal data
+
+"""
+exact = "Your Input and Output, subject to your opt-out."
+suffix = """
+
+
+Your Feedback.Our legitimate interest in developing and pr"""
+
+[[anchor]]
+id = "mistral-region-privacy-eu-preference"
+source_id = "410c7a9e7180b2a0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+transfer Your Personal Data Outside of the European Union?
+
+"""
+exact = "We prioritize selecting providers within the European Union that strictly adhere to the GDPR."
+suffix = " However, in exceptional cases, we may opt for non-EU provid"
+
+[[anchor]]
+id = "mistral-zdr-paid-stateless"
+source_id = "0e909cdd599f3682"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+how to request it for your Organization.
+
+i
+
+Information
+
+**"""
+exact = "ZDR is available on paid plans for supported stateless API calls."
+suffix = "** It gives eligible Organizations stricter control over whe"
+
+[[anchor]]
+id = "mistral-zdr-no-store-log"
+source_id = "0e909cdd599f3682"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ retained after processing.
+
+When ZDR is enabled, Mistral **"""
+exact = "does not store or log inputs and outputs for supported API requests"
+suffix = """
+** longer than required to generate the output.
+
+ZDR applies"""
+
+[[anchor]]
+id = "mistral-zdr-excludes-stateful"
+source_id = "0e909cdd599f3682"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+supported endpoints across models, **except Labs models**.
+
+"""
+exact = "ZDR **does not apply to stateful APIs or products"
+suffix = "**. These services must store data to work, for example to s"
+
+[[anchor]]
+id = "mistral-zdr-vs-training-separate"
+source_id = "0e909cdd599f3682"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+s follow the ZDR rules of the **underlying API endpoint**.
+
+"""
+exact = "ZDR and training opt-out are"
+suffix = """
+ **separate controls**.
+
+| Control | What it controls |
+| --"""
+
+[[anchor]]
+id = "mistral-zdr-review-approval"
+source_id = "0e909cdd599f3682"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "h detail about your legitimate reason for requesting ZDR. **"
+exact = "We review each request and may approve or deny it."
+suffix = """
+**
+
+After your request is approved, **ZDR appears in your Ad"""
+
+[[anchor]]
+id = "mistral-region-global-no-commit"
+source_id = "63e8828c958e7d41"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ndpoint when you do not need a specific inference location. "
+exact = "Mistral does not commit to a specific inference location for requests sent to this endpoint."
+suffix = """
+ |
+| [`api.eu.mistral.ai`](https://api.eu.mistral.ai/) | EU """
+
+[[anchor]]
+id = "mistral-region-eu-datacenters"
+source_id = "63e8828c958e7d41"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "pi.eu.mistral.ai`](https://api.eu.mistral.ai/) | EU | Yes | "
+exact = "Multiple data centers in EU and EFTA countries"
+suffix = " | Use the EU regional endpoint to support inference process"
+
+[[anchor]]
+id = "mistral-region-control-plane-out-of-scope"
+source_id = "63e8828c958e7d41"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "e regional storage for all control-plane data. For example, "
+exact = "account configuration, API keys, billing, access management, usage analytics, and other operational metadata may still be handled by Mistral systems outside the selected inference geography"
+suffix = """
+.
+
+Additionally, if you do not specify a region, the API use"""
+
+[[anchor]]
+id = "mistral-region-vs-zdr-separate"
+source_id = "63e8828c958e7d41"
+topics = ["processing_region", "zdr"]
+
+[anchor.selector]
+prefix = "e controls where eligible inference requests are processed. "
+exact = "Zero data retention controls whether eligible request and response content is retained after processing. These are separate controls"
+suffix = ", and you may need both depending on your data handling requ"

@@ -1,0 +1,1035 @@
+name = "Oracle Cloud"
+line = "oci"
+site = "global"
+entity = "Oracle America, Inc."
+endpoint = ""
+doc = "https://www.oracle.com/contracts/docs/data-processing-agreement-oracle-services-081425.pdf"
+
+[[source]]
+url = "https://blogs.oracle.com/ai-and-datascience/oci-generative-ai-adds-x-ai-model"
+channel = "official_blog"
+tier = "core"
+note = "Oracle AI 博客（2026-01-21，Grok 4.1 Fast 上 OCI）：『In-region data processing, supporting data residency and regulatory requirements』——xAI 模型档的地域口径（与 xAI 平台托管说法并列，未说明 in-region 指 OCI Region 还是 xAI 侧 Region）。"
+
+[[source]]
+url = "https://blogs.oracle.com/cloud-infrastructure/oci-gen-ai-service-in-us-classified-cloud"
+channel = "official_blog"
+tier = "core"
+note = "Oracle 博客（2026-01-13，OCI Generative AI 进入美国 Top Secret 分类云 Region）。同一段里既写『all data sent to the OCI Generative AI service is secure and private, remaining within the customer's tenancy』，又写『xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints』——**厂商自己的文本把『数据留在客户 tenancy 内』与『xAI 模型托管在 xAI 平台』并列**，是第三方模型路径的关键证据（对象限定为该篇所述的分类云 Region 部署）。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai-agents/data-handling.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Data Handling in Generative AI Agents』（Updated 2024-09-25）。**这是独立的 OCI Generative AI Agents 服务**（docs.oracle.com/en-us/iaas/Content/generative-ai-agents/，与 Generative AI 服务不同），有独立的保留条款：聊天数据不留存到会话之后、查询与检索上下文仅会话期内保留、不用客户知识库与聊天数据训练、托管知识库隔离存储不跨客户混合。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/ai-cluster.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Managing Dedicated AI Clusters』（Updated 2025-11-13）。Dedicated AI Cluster 档的产品定义与隔离声明：集群专用于你的模型、不与其他 tenancy 的用户共享；用于微调自定义模型或托管预训练/自定义/导入模型的端点。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/create-project.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Creating a Project』（Updated 2026-05-01）。给出 agentic 档保留的**上限量化值**：response retention 与 conversation retention 分别配置，超过后自动删除，最大 720 小时（30 天）。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/data-handling.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Data Handling in Generative AI』（页面标注 Updated 2025-10-21；导航已改为 Enterprise AI Models / Enterprise AI Agents）。FAQ 体例，覆盖 OCI Generative AI 推理档与微调档：推理输入不保留、输入输出均不存储在 OCI Generative AI 内；微调训练数据由客户自持、作业结束后不留存、作业完成即从微调集群删除、不用于改进通用场景；不与 Cohere/Meta/xAI/Google Vertex AI 等第三方模型提供商共享 prompts/responses/微调数据。**全文无 ZDR 字样、无处理地域、无角色条款**。旧记录引用的原句仍逐字在位。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/projects.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Projects』（Updated 2026-04-17）。OCI Generative AI 的 agentic 档（Responses/Conversations API + Files/Vector Stores/Containers）以 project 为边界：project 内可设置 responses 与 conversations 的保留时长、长期记忆、短期记忆压缩；project 相互隔离；删除 project 连带删除其下全部 artifacts。与 data-handling 页的『推理输入输出不存储』并存，是保留维度分对象记录的依据。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/regions.htm"
+channel = "developer_data"
+tier = "core"
+note = "『Generative AI Regions』（Updated 2026-05-06）。列出 OCI Generative AI 可用的商业/政府/主权 Region，并说明该服务并未覆盖所有 OCI 商业 Region：调用 Region 与目标 Region 不一致时会发生跨 Region 调用（EU 的 AMS/MRS/LIN/ARN/CDG/MAD/ZRH/FRA 一律落到 FRA）。"
+
+[[source]]
+url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/responses-api.htm"
+channel = "developer_data"
+tier = "core"
+note = "『OCI Responses API』（Updated 2026-08-08）。agentic 档主 API。关键两点：(1) 后台执行模式即使请求里 `store` 设为 false 也必须做临时响应存储，响应数据留在 OCI；(2) 与 OpenAI Responses API 的对照表写明『Data retention: Data remains in OCI』、『Endpoint model: Regional endpoints』。"
+
+[[source]]
+url = "https://www.oracle.com/contracts/docs/cloud_csa_online_v062223_us_eng.pdf"
+channel = "contract"
+tier = "core"
+note = "《Oracle Cloud Services Agreement》(CSA, Online, v062223, US_ENG, Oracle America, Inc.)，OCI 主合同。§5.2 把 DPA 并入本合同（且 DPA 与 Service Specifications/隐私政策冲突时 DPA 优先）；§9.5 服务期结束后的取回期与删除；§11.1 监控工具不收集/存储 Your Content（除必要）；§11.2 Service Analyses（聚合数据用于研发）；§13.2 客户自行负责跨地域传输。全文无『不用于训练』条款，也无 ZDR 条款。"
+
+[[source]]
+url = "https://www.oracle.com/contracts/docs/data-processing-agreement-oracle-services-081425.pdf"
+channel = "contract"
+tier = "core"
+note = "《Data Processing Agreement for Oracle Services》Version 14 August, 2025（PDF 8 页，经 r.jina.ai 渲染）。DPA §1 自述适用于『Oracle's Processing of Personal Information on Your behalf as a Processor』，并规定与 Services Agreement（含 Service Descriptions/Service Specifications）冲突时 DPA 优先。覆盖 OCI 全产品线（含 OCI Generative AI / Enterprise AI）：§2.1 角色定性、§6.1 存储地域、§6.2 全球访问、§10.1 终止后删除、§5.1 分包处理者。注意对象是『Personal Information』，不含非个人信息的客户内容；后者走 CSA/HDP。"
+
+[[source]]
+url = "https://www.oracle.com/contracts/docs/ocloud_hosting_delivery_policies_3089853.pdf"
+channel = "contract"
+tier = "core"
+note = "《Oracle Cloud Hosting and Delivery Policies》Effective Date May 2026, Version 3.12（19 页 PDF）。CSA §5.1 与 DPA §7.1 指定它为 Cloud Services 的安全与交付政策。量化期限：§1.14 安全日志在线保留至少 1 年；§2.2 备份通常在线/离线保留至少 60 天；§4.1.2 数据中心迁移限于同一 Data Center Region（提前 30 天通知）；§6.1 服务期结束后 60 天取回期、试用/试点 30 天、取回期届满删除 Your Content。注意 §2.2 已被 PaaS/IaaS Pillar Document §2.1 取代，§4.1.2 对试用/免费档被 Pillar §2.2 取代。"
+
+[[source]]
+url = "https://www.oracle.com/legal/privacy/privacy-policy.html"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Oracle Privacy Policy》（Oracle 集团网站与账户侧个人信息）。§3 自认对政策所述个人信息负责（这一层是独立控制者，与 DPA 的受托层分开记）；§4 把『analyze, develop, improve and optimize … including for quality assurance and training purposes』列为处理目的；§7 给出账户/联系信息保留口径（Oracle Cloud 账户信息随账户存续保留、注销后保留最小账户信息）。**不覆盖 API 内容**：API 内容由 CSA + DPA 管辖（CSA §5.2 指向隐私政策与 DPA，且 DPA 冲突时优先）。"
+
+[[source]]
+url = "https://www.oracle.com/middleeast/contracts/docs/paas_iaas_pub_cld_srvs_pillar_4021422.pdf"
+channel = "contract"
+tier = "core"
+note = "《Oracle PaaS and IaaS Public Cloud Services Pillar Document》September 2026（150 页 PDF；Oracle 中东区路径下的同一份文档，US 版由 oracle.com/contracts/cloud-services 入口分发）。两处直接改写 HDP 对 PaaS/IaaS（含 OCI Generative AI，见 §3.6.38/§3.6.39 SKU 表）的适用：§2.1 备份责任改由客户承担（取代 HDP §2.2 的『Oracle 定期备份、至少 60 天』）；§2.2 仅对试用/Free Tier/Always Free 档允许跨 Region 迁移（取代 HDP §4.1.2）。另含 EUSC 主权条款。SKU 表确认 xAI 系模型按 Input/Output/Cached Input Tokens 计费，但未披露缓存 TTL 或保留期限。"
+
+[[source]]
+url = "https://www.oracle.com/news/announcement/xais-grok-models-are-now-on-oracle-cloud-infrastructure-2025-06-17/"
+channel = "official_blog"
+tier = "core"
+note = "Oracle 官方新闻稿（2025-06-17，xAI Grok 上 OCI）：『all data sent by Oracle to Grok models is processed on zero data retention endpoints』——xAI 模型档 ZDR 的官方出处（营销/新闻口径，最低权威）。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "oci-genai-dh-finetune-not-improve-general"
+
+[[product.training.point]]
+text_zh = "同顶层 training：微调数据明文不用于改进通用场景"
+
+[[product.training.point]]
+text_zh = "推理数据的『不训练』原句只在 official_blog"
+
+[[product.training.point]]
+text_zh = "合同层无条款，CSA §11.2 保留聚合数据用于研发。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "oci-genai-dh-no-store-io"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：默认不落盘"
+
+[[product.zdr.point]]
+text_zh = "营销页称『zero data retention endpoints』"
+
+[[product.zdr.point]]
+text_zh = "无合同层 ZDR 条款与开通流程。"
+
+[product.retention]
+days = 365
+object = "mixed"
+basis = "fixed_period"
+anchor = "oci-genai-dh-no-store-io"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：推理输入输出不落盘"
+
+[[product.retention.point]]
+text_zh = "微调数据作业结束即从微调集群删除"
+
+[[product.retention.point]]
+text_zh = "服务终止后 60 天取回期届满删除"
+
+[[product.retention.point]]
+text_zh = "安全日志在线至少 1 年（下限，对象为 Oracle 安全运营日志）"
+
+[[product.retention.point]]
+text_zh = "HDP 的 60 天备份下限已被 Pillar §2.1 取代（客户自行备份）。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "oci-dpa-6-1-stored-in-data-center-region"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：按订单/开通时选定 Region 存储"
+
+[[product.processing_region.point]]
+text_zh = "Oracle 可为支持全球访问"
+
+[[product.processing_region.point]]
+text_zh = "服务未覆盖所有 Region，跨 Region 调用存在。"
+
+[product.role]
+kind = "processor"
+anchor = "oci-dpa-2-1-controller-processor"
+
+[[product.role.point]]
+text_zh = "同顶层 role：DPA §2.1 受托处理者"
+
+[[product.role.point]]
+text_zh = "分包处理者名单需登录 My Oracle Support 查询。"
+
+[[product]]
+id = "api-xai-models"
+badge = "xAI Grok 模型"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/xai-models.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/data-handling.htm",
+  "https://blogs.oracle.com/ai-and-datascience/xai-grok-oracle",
+  "https://blogs.oracle.com/ai-and-datascience/oci-generative-ai-adds-x-ai-model",
+  "https://www.oracle.com/news/announcement/xais-grok-models-are-now-on-oracle-cloud-infrastructure-2025-06-17/",
+  "https://blogs.oracle.com/cloud-infrastructure/oci-gen-ai-service-in-us-classified-cloud",
+  "https://www.oracle.com/contracts/docs/paas_iaas_universal_credits_3940775.pdf",
+]
+
+[[product.training.point]]
+text_zh = "Oracle 侧文档只重复整服务口径（Cohere 博客以『As with other models on OCI Generative AI』覆盖该服务），但没有任何文档说明 **xAI 自身**是否会拿这些请求训练 Grok 模型。既然 Oracle 说模型托管在 xAI 平台，xAI 侧的训练条款就不在 Oracle 文档覆盖范围内，需按 xAI 自身政策单独核（见本台账 xai 条目）。按规则记 not_found，不反向解读。"
+
+[[product.training.point]]
+text = "Removed anchor: the clause cited here (\"xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints\") is a hosting/ZDR statement. It says nothing about training, so it is not a statement on this dimension; it remains the anchor for this tier's zdr and retention. Search scope is recorded in searched."
+text_zh = "已撤锚：原引句「xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints」是托管与零保留的表述，与训练无关，不构成本维度的表述；该句仍是本档 zdr 与 retention 的锚点。查阅范围见 searched。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "oci-news-xai-zdr-endpoints"
+
+[[product.zdr.point]]
+text_zh = "全 provider 里唯一被厂商**点名**的零保留承诺：『all data sent by Oracle to Grok models is processed on zero data retention endpoints, offering an extra layer of protection』（新闻稿 + xai-grok-oracle 博客 + 分类云博客，三处措辞一致）。未说明是否可关闭、是否默认、是否适用于所有 Region，也未写进任何合同文件，故 confidence=medium。"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "oci-blog-classified-xai-hosted-on-xai"
+
+[[product.retention.point]]
+text_zh = "Oracle 自述『data processed on zero data retention endpoints』（新闻稿与两篇博客三处一致），即 xAI 侧端点不留存"
+
+[[product.retention.point]]
+text_zh = "但 Oracle 未披露 xAI 侧的具体保留策略、提示缓存 TTL，也未在合同或文档站给出量化期限。OCI 侧仍适用顶层 retention（OCI 不存储推理输入输出）。confidence=medium：只有官方博客/新闻稿口径，无合同或文档条款。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "oci-blog-classified-xai-hosted-on-xai"
+
+[[product.processing_region.point]]
+text_zh = "Oracle 博客明说『xAI Grok models are hosted on the xAI platform』，即该档请求离开 OCI、在 xAI 平台处理"
+
+[[product.processing_region.point]]
+text_zh = "同段却写『all data sent to the OCI Generative AI service is … remaining within the customer's tenancy』，同一段落内部张力明显。另一篇博客补『In-region data processing, supporting data residency and regulatory requirements』，但未说明 in-region 指 OCI Region 还是 xAI 侧 Region。文档站（xai-models.htm）完全不提托管位置。故只能记『处理发生在 OCI 之外的 xAI 平台，Region 未披露』。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/xai-models.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/data-handling.htm",
+  "https://www.oracle.com/contracts/docs/data-processing-agreement-oracle-services-081425.pdf",
+  "https://blogs.oracle.com/ai-and-datascience/xai-grok-oracle",
+  "https://www.oracle.com/news/announcement/xais-grok-models-are-now-on-oracle-cloud-infrastructure-2025-06-17/",
+]
+
+[[product.role.point]]
+text_zh = "DPA §2.1 的 processor 定性是 Oracle 对『Personal Information』的承诺，但 xAI 模型档的实际处理者在 xAI 平台侧"
+
+[[product.role.point]]
+text_zh = "Oracle 未说明 xAI 是否以 subprocessor 身份承接（DPA §5.3 的公开分包名单需登录 My Oracle Support Doc ID 2121811.1，无法公开核实），也未说明该档由谁对客户承担处理者义务。data-handling 页反而写『不与 xAI 等第三方模型提供商共享 prompts/responses』。角色链在公开材料中不闭合，记 not_found。"
+
+[[product.role.point]]
+text = "Removed anchor: the cited clause answers whether OCI Generative AI \"share[s] prompts and responses … with third-party model providers\" — that is a data-sharing statement, not a statement of who is controller or processor for this tier. Search scope is recorded in searched."
+text_zh = "已撤锚：原引句回答的是「OCI Generative AI 是否与第三方模型提供商共享 prompts/responses」，属数据共享表述，不是对本档 controller / processor 归属的表述。查阅范围见 searched。"
+
+[[product]]
+id = "dedicated-ai-cluster"
+badge = "专属集群"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "oci-genai-dh-finetune-not-improve-general"
+
+[[product.training.point]]
+text_zh = "微调在专用集群上进行：训练数据由客户自持、作业结束即从微调集群删除、不用于改进通用场景（data-handling 页）。『不训练基础模型』的整服务口径同样适用（official_blog）。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "oci-genai-dh-no-store-io"
+
+[[product.zdr.point]]
+text_zh = "同 api 档：推理输入输出不落盘"
+
+[[product.zdr.point]]
+text_zh = "专用集群提高的是算力与网络隔离（ai-cluster 页『not shared with users in other tenancies』），不是额外的保留承诺"
+
+[[product.zdr.point]]
+text_zh = "无合同层 ZDR 条款。"
+
+[product.retention]
+days = 365
+object = "mixed"
+basis = "fixed_period"
+anchor = "oci-genai-dh-finetune-deleted-from-cluster"
+
+[[product.retention.point]]
+text_zh = "①微调训练数据：作业完成即从微调集群删除、不留存到作业之后"
+
+[[product.retention.point]]
+text_zh = "②自定义模型本身是客户 tenancy 内的资源（同页『The custom model is also a resource that's managed by the customer』）"
+
+[[product.retention.point]]
+text_zh = "③推理输入输出不落盘"
+
+[[product.retention.point]]
+text_zh = "④服务终止后 60 天取回期届满删除（HDP §6.1）"
+
+[[product.retention.point]]
+text_zh = "⑤安全日志在线至少 1 年（HDP §1.14）。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "oci-dpa-6-1-stored-in-data-center-region"
+
+[[product.processing_region.point]]
+text_zh = "集群创建在客户选定的 OCI Region 内（DPA §6.1 按开通时选定的 Cloud region 存储；HDP 限定在所选 Data Center Region 内复制）。Oracle 未单独承诺专用集群的数据不跨 Region 访问，DPA §6.2 的全球支持访问仍适用。"
+
+[product.role]
+kind = "processor"
+anchor = "oci-ai-cluster-dedicated-not-shared"
+
+[[product.role.point]]
+text_zh = "产品层：集群专用于客户模型、不与其他 tenancy 共享"
+
+[[product.role.point]]
+text_zh = "分类云博客亦写『OCI Generative AI service uses dedicated AI clusters only accessible to the customer in their tenancy』。协议层角色仍为 DPA §2.1 的 processor（集群隔离是技术措施，不改变协议角色）。"
+
+[[product]]
+id = "agentic-api"
+badge = "Responses API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "oci-genai-dh-finetune-not-improve-general"
+
+[[product.training.point]]
+text_zh = "Oracle 没有针对 Responses/Conversations/Projects 的专门训练条款"
+
+[[product.training.point]]
+text_zh = "data-handling 页的 FAQ 只覆盖经典推理与微调，Cohere 博客的『Data is not used to train foundation models』是整服务口径。按整服务口径沿用，但**本档没有逐字覆盖的训练条款**，confidence=low。注意长期记忆会把从对话中提取的信息持久化存储，其用途（是否可用于改进服务）未披露。"
+
+[product.zdr]
+mark = "no"
+anchor = "oci-responses-bg-temp-storage"
+searched = [
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/projects.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/create-project.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/responses-api.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/conversations-api.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/get-started-agents.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/home.htm",
+  "https://www.oracle.com/artificial-intelligence/enterprise-ai/",
+]
+
+[[product.zdr.point]]
+text = "Structured conclusion: the cited clause states affirmatively that response data is stored regardless of the store flag (\"This temporary storage is required even when the request sets `store` to `false`.\"), and the tier retains responses/conversations up to 30 days with no option to set retention to 0. The tier is therefore recorded as mark=no (terms state retention), not as undisclosed."
+text_zh = "结构化结论：原引句正面写明即使把 `store` 设为 `false` 仍必须临时存储，且本档 responses/conversations 最长保留 30 天、无把保留设为 0 的选项。据此记 mark=no（条款明示会留存），而不是「未披露」。"
+
+[[product.zdr.point]]
+text_zh = "本档**按设计保留内容**（responses/conversations 最长 30 天、长期记忆持久化、后台模式必须临时存储），Oracle 未披露任何把保留设为 0 的选项，也未把该档纳入『zero data retention endpoints』的表述范围（该表述出现在模型访问侧）。"
+
+[[product.zdr.point]]
+text_zh = "这不等于厂商拒绝提供，但按公开材料本档与零保留相斥。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "oci-create-project-max-720h"
+
+[[product.retention.point]]
+text_zh = "①responses 与 conversations 的保留时长在 project 内**分别配置**，超过后自动删除，**最大 720 小时（30 天）**（create-project 页）"
+
+[[product.retention.point]]
+text_zh = "②长期记忆启用时官方建议把两项保留都设为最大值 720 小时，说明记忆也受该配置约束"
+
+[[product.retention.point]]
+text_zh = "③删除 project 连带删除其下 responses/conversations/files/containers（projects 页）"
+
+[[product.retention.point]]
+text_zh = "④后台执行模式即使 `store=false` 也必须做临时响应存储，响应数据留在 OCI（responses-api 页）——本档存在**不可关闭的临时保留**。上限清晰（30 天），下限/默认值未披露。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "oci-responses-data-remains-in-oci"
+
+[[product.processing_region.point]]
+text_zh = "官方对照表写『Data retention: Data remains in OCI』（对比 OpenAI 的『Data is stored in OpenAI』）、端点模型为『Regional endpoints』"
+
+[[product.processing_region.point]]
+text_zh = "DPA §6.1 的按选定 Region 存储仍适用。Oracle 未披露 project 产物（files/vector stores/containers）是否严格留在开通 Region，也未说明长期记忆的存储位置。"
+
+[product.role]
+kind = "processor"
+anchor = "oci-dpa-2-1-controller-processor"
+
+[[product.role.point]]
+text_zh = "同 api 档：DPA §2.1 processor。本档另有客户侧自建知识源（Vector Stores/Connectors），客户对上传内容仍是 controller。"
+
+[[product]]
+id = "generative-ai-agents"
+badge = "Agents 服务"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "oci-agents-dh-no-train"
+
+[[product.training.point]]
+text_zh = "明文：『the OCI Generative AI Agents service doesn't use customer's knowledge base or user's chat data for model training』，且『Chat or knowledge base data isn't employed to enhance general use cases for the service』。这是本 provider 里训练维度证据最硬的一条（developer_data、逐字、对象明确）。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "oci-agents-dh-no-retain-beyond-session"
+
+[[product.zdr.point]]
+text_zh = "本档按设计即『会话结束不留存』，功能上等价于默认零保留（对象为聊天与检索上下文）"
+
+[[product.zdr.point]]
+text_zh = "但 Oracle 未把它称为 ZDR、也未给出可申请/可开关的机制，知识库本身的存储（客户显式创建的 Knowledge Base）不在此承诺范围内。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "oci-agents-dh-no-retain-beyond-session"
+
+[[product.retention.point]]
+text_zh = "明文：查询与检索上下文仅在用户会话期间保留、『this data isn't stored beyond the session』、『doesn't retain any chat data beyond the duration of the user's session』"
+
+[[product.retention.point]]
+text_zh = "托管知识库数据隔离存储、不跨客户混合。会话的边界（超时/断开后的处理）未进一步量化。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "oci-dpa-6-1-stored-in-data-center-region"
+
+[[product.processing_region.point]]
+text_zh = "该服务自己的 data-handling 页不提地域。只能沿用 DPA §6.1（按选定 Region 存储）与 regions 页的通用口径"
+
+[[product.processing_region.point]]
+text_zh = "regions 页的 Destination Region 表是为『调用 OCI Generative AI Service 的服务』列的，未逐项确认是否覆盖 Agents 服务。confidence=low。"
+
+[product.role]
+kind = "processor"
+anchor = "oci-dpa-2-1-controller-processor"
+
+[[product.role.point]]
+text_zh = "沿用 DPA §2.1 的 processor 定性"
+
+[[product.role.point]]
+text_zh = "该服务文档另有『托管知识库数据隔离存储、不跨客户混合』的隔离声明，属技术措施。"
+
+[[anchor]]
+id = "oci-dpa-2-1-controller-processor"
+source_id = "f95b359e0eda4913"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ Information and Description of Processing Activities 
+
+2.1 """
+exact = "You are a Controller and Oracle is a Processor for the Processing of Personal Information as part of the provision of the Services."
+suffix = " Each party is responsible for compliance with its respectiv"
+
+[[anchor]]
+id = "oci-dpa-6-1-stored-in-data-center-region"
+source_id = "f95b359e0eda4913"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+rnal 
+
+6. Cross-border Personal Information Transfers 
+
+6.1 """
+exact = "For Cloud Services, Personal Information will be stored in the data center region specified in Your order for such Services or, if applicable, the Cloud region that You have selected when activating the production instance of such Services."
+suffix = """
+ 
+
+6.2 Without prejudice to Section 6.1 above, Oracle may ac"""
+
+[[anchor]]
+id = "oci-dpa-6-2-global-access"
+source_id = "f95b359e0eda4913"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+uch Services. 
+
+6.2 Without prejudice to Section 6.1 above, """
+exact = "Oracle may access Personal Information globally as necessary to perform the Services, such as for support, incident management or data recovery purposes."
+suffix = """
+ 
+
+6.3 To the extent such global access involves a Transfer """
+
+[[anchor]]
+id = "oci-dpa-10-1-delete-on-termination"
+source_id = "f95b359e0eda4913"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+h. 
+
+10. Return and Deletion of Personal Information 
+
+10.1 """
+exact = "Upon termination of the Services, Oracle will promptly return, including by providing available data retrieval functionality, and subsequently delete any remaining copies of Personal Information on Oracle systems or Services environments, except as otherwise stated in the Services Agreement."
+suffix = """
+ 
+
+10.2 For Personal Information held on Your systems or env"""
+
+[[anchor]]
+id = "oci-dpa-5-1-subprocessor-authorization"
+source_id = "f95b359e0eda4913"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ 
+
+5. Oracle Affiliates and Third Party Subprocessors 
+
+5.1 """
+exact = "You provide Oracle general written authorization to engage Oracle Affiliates and Third Party"
+suffix = """
+ 
+
+Subprocessors as necessary to assist in the performance o"""
+
+[[anchor]]
+id = "oci-csa-5-2-dpa-incorporated"
+source_id = "2dbcb2861f0cb9f4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+.oracle.com/us/legal/privacy/overview/index.html ; and 
+
+b. """
+exact = "the applicable version of the Data Processing Agreement for Oracle Services (the “Data Processing Agreement”), unless stated otherwise in Your order."
+suffix = " The version of the Data Processing Agreement applicable to "
+
+[[anchor]]
+id = "oci-csa-9-5-delete-after-retrieval"
+source_id = "2dbcb2861f0cb9f4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "a retrieval period specified in the Service Specifications. "
+exact = "Following the retrieval period, and except as may be required by law, we will delete any of Your Content that remains in the Services."
+suffix = " Our data deletion practices are described in more detail in"
+
+[[anchor]]
+id = "oci-csa-11-1-monitoring-not-store-content"
+source_id = "2dbcb2861f0cb9f4"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ss illegal acts or violations of the Acceptable Use Policy. "
+exact = "Oracle monitoring tools do not collect or store any of Your Content residing in the Services, except as needed for such purposes."
+suffix = " Oracle does not monitor, and does not address issues with, "
+
+[[anchor]]
+id = "oci-csa-11-2-service-analyses-rd"
+source_id = "2dbcb2861f0cb9f4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "the performance, operation and use of the Services, and (b) "
+exact = "use data from the Services in aggregated form for security and operations management, to create statistical analyses, and for research and development purposes"
+suffix = " (above clauses (a) and (b) are collectively referred to as "
+
+[[anchor]]
+id = "oci-hdp-content-stored-in-dc-region"
+source_id = "08969734e24824e9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+xico. 
+
+With respect to Your ordered Oracle Cloud Services, """
+exact = "Your Content will be stored in the Data Center"
+suffix = """
+ 
+
+Region applicable to such Services. Oracle may replicate """
+
+[[anchor]]
+id = "oci-hdp-dc-migration-same-region"
+source_id = "08969734e24824e9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ice for such maintenance. 
+
+4.1.2  Data Center Migrations 
+
+"""
+exact = "Oracle may migrate Your Oracle Cloud Services deployed in data centers retained by Oracle between data centers in the same Data Center Region as deemed necessary by Oracle."
+suffix = " Oracle will provide a minimum of 30 days’ notice to You for"
+
+[[anchor]]
+id = "oci-hdp-backup-60-days"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " be stored at an alternate location for retention purposes. "
+exact = "A backup is typically retained online or offline for a period of at least 60 days after the date that the backup is made."
+suffix = " Oracle typically does not update, insert, delete or restore"
+
+[[anchor]]
+id = "oci-hdp-security-logs-1-year"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "and retained in accordance with Oracle's internal policies. "
+exact = "Security logs are retained online for a minimum of 1 year."
+suffix = " These logs are retained and used by Oracle for our internal"
+
+[[anchor]]
+id = "oci-hdp-security-logs-siem-native-format"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "activities feed into the security event management process. "
+exact = "Security logs are stored within the Security Information and Event Management system (or equivalent system) in a native, unaltered format and retained in accordance with Oracle's internal policies."
+suffix = " Security logs are retained online for a minimum of 1 year. "
+
+[[anchor]]
+id = "oci-hdp-retrieval-60-days"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "del, following the end of their associated Services Period, "
+exact = "Oracle will make available, via secure protocols and in a structured, machine-readable format, Your Content residing in the Oracle Cloud Services, or keep the service system accessible, for the purpose of data retrieval by You."
+suffix = " At the end of the Services Period Your right to use such Se"
+
+[[anchor]]
+id = "oci-hdp-free-trial-30-days"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ Specifications applicable to Your Oracle Cloud Services. 
+
+"""
+exact = "For free trials and pilots of Oracle Cloud Services, Oracle will make Your Content available for a period of 30 days following end of the trial or pilot."
+suffix = " During this retrieval period, Oracle’s Cloud Service Level "
+
+[[anchor]]
+id = "oci-hdp-delete-after-retrieval"
+source_id = "08969734e24824e9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ is still active prior to the end of the Services Period. 
+
+"""
+exact = "Following expiry of the retrieval period, Oracle will delete Your Content from the Oracle Cloud Services (unless otherwise required by applicable law)."
+suffix = """
+ 
+
+For Oracle Cloud at Customer Services, You must make avai"""
+
+[[anchor]]
+id = "oci-pillar-backup-responsibility-overrides-hdp"
+source_id = "e01bac38e3dd3a2b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ion 2.2 of the Oracle Cloud Hosting and Delivery Policies : "
+exact = "You are responsible for configuring and performing backup and restores of Your content."
+suffix = " Additionally, You are encouraged to develop a business cont"
+
+[[anchor]]
+id = "oci-pillar-free-tier-migration-cross-region"
+source_id = "e01bac38e3dd3a2b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+nt | September 2026 Page 6 of 150 
+
+and Delivery Policies : """
+exact = "Oracle may migrate Your Oracle Cloud Services deployed in data centers retained by Oracle between production data centers as deemed necessary by Oracle or in the case of disaster recovery."
+suffix = " Such migrations may be between data centers located in diff"
+
+[[anchor]]
+id = "oci-pillar-free-tier-migration-different-regions"
+source_id = "e01bac38e3dd3a2b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ed necessary by Oracle or in the case of disaster recovery. "
+exact = "Such migrations may be between data centers located in different Regions."
+suffix = " For data center migrations for purposes other than disaster"
+
+[[anchor]]
+id = "oci-genai-dh-input-sent-to-llm"
+source_id = "39ba8530e77c1c2b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "LLMs)?No, OCI Generative AI doesn't retain customer inputs. "
+exact = "A user's input on an inference call is sent to the LLM and a response is generated by the LLM that's returned to the user."
+suffix = " Both input and output are not stored inside OCI Generative "
+
+[[anchor]]
+id = "oci-genai-dh-no-store-io"
+source_id = "39ba8530e77c1c2b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "sponse is generated by the LLM that's returned to the user. "
+exact = "Both input and output are not stored inside OCI Generative AI."
+suffix = "Does OCI Generative AI share prompts and responses, fine-tun"
+
+[[anchor]]
+id = "oci-genai-dh-finetune-no-retain-beyond-job"
+source_id = "39ba8530e77c1c2b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "es this training data to train a custom model for customer. "
+exact = "OCI Generative AI doesn't retain this training data beyond the duration of this training job."
+suffix = " This training data is solely used for building a custom mod"
+
+[[anchor]]
+id = "oci-genai-dh-finetune-not-improve-general"
+source_id = "39ba8530e77c1c2b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "om model is also a resource that's managed by the customer. "
+exact = "This training data is not used to improve the general use cases for OCI Generative AI."
+suffix = """
+
+
+Does OCI Generative AI retain customer-provided prompts an"""
+
+[[anchor]]
+id = "oci-genai-dh-finetune-deleted-from-cluster"
+source_id = "39ba8530e77c1c2b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+crypted?
+The data is encrypted both at rest and in transit. """
+exact = "The training data is deleted from the fine-tuning cluster as soon as the training job is completed."
+suffix = """
+
+
+Training data for fine-tuning a model is always double enc"""
+
+[[anchor]]
+id = "oci-genai-dh-no-share-third-party"
+source_id = "39ba8530e77c1c2b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "th input and output are not stored inside OCI Generative AI."
+exact = "Does OCI Generative AI share prompts and responses, fine-tuning training data, or fine-tuned custom models with third-party model providers such as Cohere, Meta, xAI, or Google Vertex AI?No."
+suffix = """
+Is the training data encrypted?
+The data is encrypted both a"""
+
+[[anchor]]
+id = "oci-agents-dh-no-train"
+source_id = "b4db273d8108dbf4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+, responses (chats), or knowledge bases for model training?
+"""
+exact = "No, the OCI Generative AI Agents service doesn't use customer's knowledge base or user's chat data for model training."
+suffix = " Chat or knowledge base data isn't employed to enhance gener"
+
+[[anchor]]
+id = "oci-agents-dh-no-retain-beyond-session"
+source_id = "b4db273d8108dbf4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "sn't employed to enhance general use cases for the service. "
+exact = "Also, the service doesn't retain any chat data beyond the duration of the user's session."
+suffix = """
+
+
+Does the OCI Generative AI Agents service retain customer-"""
+
+[[anchor]]
+id = "oci-agents-dh-not-stored-beyond-session"
+source_id = "b4db273d8108dbf4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ith Large Language Models (LLMs) during the user's session. "
+exact = "However, this data isn't stored beyond the session."
+suffix = " Also, the service doesn't use customer chat data or knowled"
+
+[[anchor]]
+id = "oci-projects-set-retention-separately"
+source_id = "e55a6b5366708a9c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ct artifacts are kept before they’re automatically removed. "
+exact = "In OCI Generative AI projects, you set retention separately for responses and conversations."
+suffix = """
+
+
+*   **Response retention**: Controls how long generated re"""
+
+[[anchor]]
+id = "oci-projects-delete-project-deletes-artifacts"
+source_id = "e55a6b5366708a9c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ory compaction (short-term memory compaction) settings
+
+*   """
+exact = "Deleting a project deletes all associated artifacts (responses, conversations, files, and containers) created within that project."
+suffix = """
+
+*   API calls use the Project OCID.
+
+## Agent Memory🔗
+
+Agen"""
+
+[[anchor]]
+id = "oci-projects-ltm-persist"
+source_id = "e55a6b5366708a9c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+, enabling multi-turn interactions.
+
+### Long-Term Memory🔗
+
+"""
+exact = "Long-term memory provides persistent context across conversations. When enabled, the service extracts key information from conversations and stores it so it can be recalled in future interactions within the same project."
+suffix = """
+
+
+Long-term memory is useful for scenarios that require cont"""
+
+[[anchor]]
+id = "oci-create-project-auto-deletion"
+source_id = "ff0f0330abeb3396"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nfigure how long responses and conversations can be stored. "
+exact = "Response retention controls how long individual responses are preserved after generation before automatic deletion."
+suffix = " Conversation retention controls how long conversations will"
+
+[[anchor]]
+id = "oci-create-project-max-720h"
+source_id = "ff0f0330abeb3396"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " conversations will be stored after the most recent update. "
+exact = "The maximum retention duration is 720 hours (30 days)."
+suffix = """
+
+
+1.   Enter Response retention time in hours.
+2.   Enter th"""
+
+[[anchor]]
+id = "oci-responses-bg-temp-storage"
+source_id = "bf19140c8d2e96d7"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "ue processing the request and return its status and result. "
+exact = "This temporary storage is required even when the request sets `store` to `false`. Response data remains within OCI."
+suffix = """
+
+
+For the compatible request format and additional backgroun"""
+
+[[anchor]]
+id = "oci-responses-data-remains-in-oci"
+source_id = "bf19140c8d2e96d7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+e |
+| **Authentication** | OCI IAM or API keys | API keys |
+"""
+exact = "| **Data retention** | Data remains in OCI | Data is stored in OpenAI |"
+suffix = """
+
+| **Private networking** | Supports OCI VCN integration and"""
+
+[[anchor]]
+id = "oci-regions-destination-region"
+source_id = "bca3d4c7aea2a1c9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+m).
+
+## Services that Call into the Generative AI Service🔗
+
+"""
+exact = "Currently, the Oracle Cloud Infrastructure (OCI) Generative AI Service is not offered in every OCI commercial region."
+suffix = " See the column below titled “Destination Region:” for a lis"
+
+[[anchor]]
+id = "oci-regions-cross-region-call"
+source_id = "bca3d4c7aea2a1c9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "”) that they make calls into the OCI Generative AI Service. "
+exact = "For a given call into the OCI Generative AI Service, if the Calling Region and Destination Region are not the same, then a cross-region call will be made."
+suffix = """
+
+
+| Area | Calling Regions: OCI regions from which (cross-re"""
+
+[[anchor]]
+id = "oci-ai-cluster-dedicated-not-shared"
+source_id = "edc3e4bb73e5eb48"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "s, custom models, and imported models in OCI Generative AI. "
+exact = "The clusters are dedicated to your models and not shared with users in other tenancies."
+suffix = """
+
+
+If you have `manage` permissions for `generative-ai-family"""
+
+[[anchor]]
+id = "oci-privacy-scope-responsible"
+source_id = "daaa5c8980b23ceb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+.
+
+## 3. WHO IS RESPONSIBLE FOR YOUR PERSONAL INFORMATION?
+
+"""
+exact = "Oracle Corporation and its affiliated entities are responsible for processing your personal information described in this Privacy Policy."
+suffix = " See the list of [Oracle entities](https://www.oracle.com/co"
+
+[[anchor]]
+id = "oci-privacy-training-purpose"
+source_id = "daaa5c8980b23ceb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+n and performance of our sites and products and services**
+
+"""
+exact = "We may process personal information in order to analyze, develop, improve and optimize the use, function and performance of our sites and products and services, including for quality assurance and training purposes, as well as for marketing and sales campaigns."
+suffix = " This includes processing personal information to conduct su"
+
+[[anchor]]
+id = "oci-privacy-cloud-account-retention"
+source_id = "daaa5c8980b23ceb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s. Oracle retains records of that deletion for 90 days.
+*   """
+exact = "If you opened an Oracle Cloud account, your account information will be retained for as long as you maintain an active account."
+suffix = " After service termination, minimal account information will"
+
+[[anchor]]
+id = "oci-news-xai-zdr-endpoints"
+source_id = "10bbd7cf82b73edc"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "els are augmented with OCI’s enterprise-grade capabilities. "
+exact = "In addition, all data sent by Oracle to Grok models is processed on zero data retention endpoints, offering an extra layer of protection."
+suffix = """
+
+
+“By bringing xAI’s cutting-edge Grok models to our custome"""
+
+[[anchor]]
+id = "oci-blog-classified-xai-hosted-on-xai"
+source_id = "cb8354149042d855"
+topics = ["processing_region", "zdr"]
+
+[anchor.selector]
+prefix = "ecure and private, remaining within the customer’s tenancy. "
+exact = "xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints, offering an extra layer of protection."
+suffix = """
+
+
+**Imagine what’s possible**
+
+Oracle’s innovative cloud and"""
+
+[[anchor]]
+id = "oci-blog-grok41-in-region"
+source_id = "84c981bf92d578ce"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+points**, helping keep AI workloads logically separated
+*   """
+exact = "**In-region data processing**, supporting data residency and regulatory requirements"
+suffix = """
+
+*   **Native integration with OCI services** such as Object"""

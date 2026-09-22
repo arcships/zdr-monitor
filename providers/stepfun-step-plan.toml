@@ -1,0 +1,584 @@
+name = "阶跃星辰 Step Plan"
+name_en = "StepFun Step Plan"
+company = "stepfun"
+line = "stepfun-step-plan"
+site = "cn"
+entity = "上海阶跃星辰智能科技股份有限公司"
+plan_levels = ["individual"]
+endpoint = ""
+doc = "https://platform.stepfun.com/docs/zh/agreement/userservice"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/agreement/userprivacy"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "《StepFun 开放平台隐私政策》文档中心现行版，生效 2026-05-25，主体同上；适用于 StepFun 开放平台、AI Studio 平台，Step Plan 订阅档同属（用户协议 6.1 明示个人信息处理依本政策）。中国站版本；国际站（platform.stepfun.ai）为另一份英文隐私政策，不可混用。四.1/四.2 主语均为『您的个人信息』，对 API 输入输出等非个人信息数据未作同等的地域与期限声明。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/agreement/userservice"
+channel = "contract"
+tier = "core"
+note = "《StepFun 开放平台用户协议》文档中心现行版，生效 2026-05-25，主体上海阶跃星辰智能科技股份有限公司。中国站（platform.stepfun.com），覆盖开放平台/AI Studio 及本平台各项服务；Step Plan 付费协议明示本协议为其组成部分，故同样覆盖 Step Plan 订阅档（含旧版 Coding Plan 与 2026-06-18 起 Token Plan）。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create"
+channel = "developer_data"
+tier = "core"
+note = "Chat Completions API 参考（本轮经 URL+.md 纯文本直连通道抓取；另取 r.jina.ai 渲染产物交叉核对，两通道下锚点均命中。每日同步走 r.jina.ai）。作用：为 zdr 结论提供档位适用范围的可复核链接——请求地址处 Note 明示『Step Plan 场景请使用 POST https://api.stepfun.com/step_plan/v1/chat/completions』，即本档与普通 API 共用同一 Chat Completions 接口（仅路径前缀不同）；同页响应 usage 结构含 cached_tokens（『提示信息中命中缓存的 token 数量』，该串正文出现 2 次且上下文相同，无法唯一定位，故不单独作锚点），与《Prompt 缓存最佳实践》所述缓存机制属同一接口面。本页无任何数据留存或训练条款。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/guides/developer/prompt-cache"
+channel = "developer_data"
+tier = "core"
+note = "开发者文档《Prompt 缓存最佳实践》（本轮经 URL+.md 纯文本直连通道抓取，与 HTML 页同源）。界定 retention 的对象：对话数组（System Prompt/User Message/Assistant Message）、图片、视频会进入缓存系统；淘汰为 LRU，高峰期更易被逐出、低峰期生命周期更长，未量化期限、未提供关闭开关。用于说明 API 输入正文在『个人信息必要期间』之外另有缓存副本。 档位适用范围（本轮补充）：本页为通用开发者文档（guides/developer 下，无档位限定），缓存按模型自动启用，所列 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603 均属本档支持模型；Chat Completions API 参考页在请求地址 Note 中明示『Step Plan 场景请使用 POST https://api.stepfun.com/step_plan/v1/chat/completions』，即本档与普通 API 是同一接口的同一缓存面（仅路径前缀不同）。官方无 Step Plan 通道专属缓存表述，故 zdr 结论置信度记 medium。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/step-plan/paid-service-agreement"
+channel = "contract"
+tier = "core"
+note = "《StepPlan 付费服务协议》文档中心版，生效 2026-05-25，Step Plan 订阅档专属协议，覆盖订阅内容、计费与自动续费、使用规范、暂停终止。全文无数据条款：训练/留存/存储/零保留/处理地域/处理者角色关键词 0 命中，并把数据事项引回平台协议（『本协议是《StepFun平台用户协议》《StepFun平台隐私政策》的重要组成部分』）。结论：本档五个维度的权威条款在平台协议族，不在档位专属文件。"
+
+[[product]]
+id = "step-plan"
+badge = "Step Plan 国内站"
+category = "coding_plan"
+plan_level = "individual"
+label = "Step Plan 订阅档（中国站，platform.stepfun.com）：含旧版 Coding Plan（按请求次数）与 2026-06-18 起新版 Token Plan（Credit 月池），四档 Flash Mini/Plus/Pro/Max，个人开发者与小型团队为主，付费协议亦支持企业用户订阅；与按量 API 档（provider stepfun）及国际站订阅档（stepfun-ai-step-plan）分开记录"
+
+[product.training]
+mark = "no"
+anchor = "training-service-improvement"
+mode = "by_tier"
+
+[[product.training.point]]
+text_zh = "合同层（用户协议 6.5）授权平台『在为您提供服务期间或者为提供、诊断、改善、优化、升级本服务之目的使用、处理您使用本平台服务产生的相关数据』，5.3 就用户上传/发布内容取得含存储、使用、复制、修订、编辑在内的许可使用，目的含『提升大模型服务体验』"
+
+[[product.training.point]]
+text_zh = "协议全文未出现『模型训练』授权（唯一一处『训练』是 2.4 禁止用户用输出训练竞争模型），隐私政策全文『训练』0 命中，另有 一.10(1) 匿名化后可用于数据分析并商业化利用。档位专属产品页 FAQ 另有相反表述：『您的对话数据默认不会用于通用模型训练。仅在为定位和修复特定模型或服务缺陷所必需的情况下，我们才可能在严格访问控制下，使用有限数据进行问题分析与修复』——该句由客户端渲染、r.jina.ai 产物不可复核（见 sources 中 /step-plan 条）。综合：合同层（用户协议 6.5）的「改善、优化、升级本服务」授权未把模型训练排除在外，按口径记 mark=no（会训练）；FAQ 那句方向相反，按权威分层（contract > official_blog）不覆盖合同层结论，作为冲突证据并列保留。"
+
+[product.zdr]
+mark = "no"
+anchor = "retention-prompt-cache-content"
+searched = [
+  "https://platform.stepfun.com/docs/zh/agreement/userservice",
+  "https://platform.stepfun.com/docs/zh/agreement/userprivacy",
+  "https://platform.stepfun.com/docs/zh/step-plan/paid-service-agreement",
+  "https://platform.stepfun.com/docs/zh/agreement/management-rules-and-conventions",
+  "https://platform.stepfun.com/docs/zh/agreement/enterprise-credit-agreement",
+  "https://platform.stepfun.com/legal/user-agreement.html",
+  "https://platform.stepfun.com/legal/privacy-policy.html",
+  "https://platform.stepfun.com/legal/dpa.html",
+  "https://platform.stepfun.com/legal/data-processing.html",
+  "https://platform.stepfun.com/legal/terms.html",
+  "https://platform.stepfun.com/legal/service-agreement.html",
+  "https://platform.stepfun.com/docs/zh/agreement/dataprocess",
+  "https://platform.stepfun.com/docs/sitemap.xml",
+  "https://platform.stepfun.com/docs/llms.txt",
+  "https://platform.stepfun.com/docs/zh/faq/common-questions",
+  "https://platform.stepfun.com/docs/zh/step-plan/overview",
+  "https://platform.stepfun.com/docs/zh/step-plan/quick-start",
+  "https://platform.stepfun.com/docs/zh/step-plan/upgrade-notice",
+  "https://platform.stepfun.com/docs/zh/step-plan/integrations/reasoning-api",
+  "https://platform.stepfun.com/docs/zh/step-plan/integrations/claude-code",
+  "https://platform.stepfun.com/docs/zh/guides/developer/prompt-cache",
+  "https://platform.stepfun.com/step-plan",
+  "https://platform.stepfun.com/dpa",
+  "https://platform.stepfun.com/trust",
+  "https://platform.stepfun.com/security",
+  "https://platform.stepfun.com/compliance",
+  "https://platform.stepfun.com/enterprise",
+  "https://api.stepfun.com/dpa",
+  "https://www.stepfun.com/privacy",
+  "https://chat.stepfun.com/legal/privacy",
+  "https://chat.stepfun.com/legal/terms",
+]
+
+[[product.zdr.point]]
+text_zh = """
+结论：不支持零保留（本档无 ZDR 选项/开关/申请入口，且客户请求正文会被平台跨请求留存）。本轮按「读，不要匹」重审，逐条写成「这条说的是 X，所以 Y」：
+①【决定性】《Prompt 缓存最佳实践》（guides/developer 下的通用开发者文档，页内无档位限定）——「这条说的是：平台提供上下文缓存技术，把『每次请求过程中的输入』缓存起来，可缓存内容逐字包含『完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message』（图片、视频、工具调用信息及其结果同列），所以：客户提交的请求正文会进入平台缓存系统并被跨请求复用，零保留在平台侧不成立」。对象＝请求正文（System Prompt / User Message / Assistant Message、图片、视频、工具调用结果）。
+②同页「如果未命中系统的缓存，系统将会进行正常的推理并在处理完成后，将 Prompt 前缀进行缓存，以供下次请求使用」——「这条说的是：响应返回之后 Prompt 前缀仍被写入缓存，所以：留存不是『为完成单次请求的短暂缓存』，而是处理完成之后的留存」。
+③同页「当请求超过 256 个 Token 时，缓存会自动启用」——「这条说的是：缓存按请求长度自动开启、无客户侧 opt-in，所以：客户无法通过公开配置关掉这条留存路径」。
+④同页「缓存淘汰采用最近最少使用（LRU）策略…高峰期更容易被逐出；低峰期拥有更长的生命周期」——「这条说的是：生命周期由系统负载决定，全页没有任何 TTL 天数，所以：既推不出保留上限，也不能据此写 retention 期限」。
+⑤同页 FAQ「目前不提供手动清除缓存的能力。您可以通过修改 Prompt 来使请求不命中缓存」——「这条说的是：客户侧没有清除缓存的操作（唯一规避手段是改 Prompt），所以：客户无法删除已写入缓存的内容」。注意这句是**客户侧**能力（无清除接口/开关），不是『平台永不删除』——服务端仍有 LRU 淘汰，故不据此写成「永久保留」。
+⑥档位适用范围（上一轮只凭一句端点说明，本轮读完整页＋另两页交叉）：Chat Completions API 参考页 Note 逐字「Step Plan 场景请使用 POST https://api.stepfun.com/step_plan/v1/chat/completions」，同页另设「Step Plan 通道：DeepSeek 引擎字段差异」并写明 step-router-v1「字段约束与本文『请求参数』一致」"""
+
+[[product.zdr.point]]
+text_zh = "Messages API 页逐字「普通 API 与 Step Plan 使用不同地址。把 SDK 的 Base URL 从 https://api.stepfun.com 换成 https://api.stepfun.com/step_plan…即可切换到 Step Plan」——「这条说的是：Step Plan 与普通 API 是同一个 Chat Completions / Messages 接口、只换路径前缀（不是另一个端点），所以：该接口面的缓存机制同样适用于本档」。两条加证：缓存文档按模型声明支持范围，所列 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603 全部出现在 Step Plan 概述页的本档支持模型清单里"
+
+[[product.zdr.point]]
+text_zh = """
+Step Plan 推理模型接入页逐字「计费逻辑与开放平台一致，最终按开放平台实际计费金额折算为 Step Plan 总额度消耗」，而开放平台计费逻辑（定价与限速页）含『输入价格（缓存命中）/（缓存未命中）』两档——所以缓存随计费逻辑一并适用于本档。该页响应字段 prompt_tokens_details.cached_tokens（『提示信息中命中缓存的 token 数量』）在同页两处出现、上下文相同，无法唯一定位，故不单列锚点，仅作接口面同一性的旁证。档位覆盖仍是跨页推导，官方没有一句『本档启用缓存』，故 confidence=medium。
+⑦合同层佐证：用户协议 §5.3（锚点 zdr-content-license-includes-storage）——「这条说的是：对『您发布上传或传输的内容』，客户授予平台一项含『存储、使用、复制、修订、编辑』的许可使用（目的含『提升大模型服务体验』），所以：合同层不但没有『不留存』承诺，反而给了含存储的许可」。标的范围靠同协议回指确定：§2.1.3 定义「您或您的最终用户基于本服务输入的文字、图片、音频、视频等内容（输入内容）」，§4.3 用同一组动词描述最终用户提交内容（『上传、发布或者传输的内容』），§6.4「您使用本服务时，向我们传输的任何信息」——即 §5.3 的对象含客户经服务提交的内容（请求正文）。**但这是知识产权章的许可授予（平台『可以』做什么），不是平台实际留存行为的披露，也没有期限或删除义务**，故只作佐证、不作决定性依据（本轮已把该锚点 exact 换成自带对象的整句）。
+⑧删除侧（锚点 retention-termination-deletion-right）：用户协议 §3.6「这条说的是：平台『有权』在服务终止后或『我们与您另行约定的保留期限（如有）』届满后删除『您存储在我们服务中的数据等任何信息』，所以：这是删除权而非删除义务、期限写作『如有』，公开条款里没有请求级即时删除或 ZDR 承诺」。
+反向检索（读完整页，不靠关键词）：本档全部可抓文档——用户协议、隐私政策、StepPlan 付费服务协议、管理规则及公约、企业 Credit 协议、faq/common-questions、step-plan 概述/升级公告/快速开始/各工具接入页、Chat Completions 与 Messages API 参考、定价与限速——逐篇读过，**没有**「不存储」「处理完成后不保留」「不会留存」这类相反表述"""
+
+[[product.zdr.point]]
+text_zh = "隐私政策侧唯一的删除/匿名化承诺（§四.2『如果您注销账户、主动删除个人信息或超出必要的期限后，我们将对您的个人信息进行删除或匿名化处理』、§六.4 删除请求、§六.11 停运后删除）主语都是『您的个人信息』，触发点是注销/主动请求/超期，不是请求处理完成即删，也未涉及缓存副本。订阅产品页 FAQ 第 4 条那句『您的对话数据默认不会用于通用模型训练…』讲的是训练不是留存，且文本只存在于客户端 JS bundle、抓取产物不可复核，按『追不到原文的结论等于没有』不计入。穷尽性（五类入口）：内容授权条款＝用户协议 §5.3/§3.6"
+
+[[product.zdr.point]]
+text_zh = "API 数据处理章节＝文档站 sitemap 118 条 + llms.txt 无 data-usage/data-handling/security 页，Chat Completions 与 Messages 参考页无数据条款"
+
+[[product.zdr.point]]
+text_zh = "日志与缓存说明＝缓存页 + 隐私政策 §一.8"
+
+[[product.zdr.point]]
+text_zh = "DPA＝/docs/zh/agreement/dataprocess、/legal/dpa.html、/legal/data-processing.html、/dpa、api.stepfun.com/dpa 全 404"
+
+[[product.zdr.point]]
+text_zh = "FAQ＝faq/common-questions 无数据条款、产品页 FAQ 不可复核——均无零保留表述。对象提示：本条依据的是请求正文与内容许可，不是隐私政策『个人信息必要期间』那类账户资料套话。拿不准：(i) 缓存里保存的是正文原文还是其派生表示、保存在哪里——文档只说『进入到缓存系统当中』，未出现 KV/状态/存储位置字样"
+
+[[product.zdr.point]]
+text_zh = "(ii) 缓存 TTL 无数字（LRU、随负载浮动），故不能据缓存写 retention 期限"
+
+[[product.zdr.point]]
+text_zh = "(iii) 官方无一句 Step Plan 专属缓存/留存表述，档位覆盖靠接口同一性＋计费逻辑一致推导"
+
+[[product.zdr.point]]
+text_zh = "(iv) 定价页限速表明示不适用 Step Plan，缓存单价是否同口径折算进 Credit 未逐项列出。"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "retention-necessary-period"
+
+[[product.retention.point]]
+text_zh = "对象与期限分三层：①个人信息（含账号、输入信息与输出信息）——隐私政策 四.2『仅在为提供本平台相关服务之目的所必需的期间内保留您的个人信息』，注销/主动删除/超期后删除或匿名化，例外为法律法规留存要求与财务审计争议解决延长"
+
+[[product.retention.point]]
+text_zh = "未量化天数，属『下限/必要期间』而非上限。②API 输入正文——开发者文档《Prompt 缓存最佳实践》：对话数组（System/User/Assistant）、图片、视频进入缓存系统，按 LRU 淘汰，高峰期更易逐出、低峰期生命周期更长，无期限承诺、无关闭开关"
+
+[[product.retention.point]]
+text_zh = "该副本不受 四.2『个人信息』期限表述约束。③服务终止后——用户协议 3.6 平台『有权在服务终止后或在我们与您另行约定的保留期限（如有）届满后，删除上述信息』，为权利而非义务，且保留期限『如有』，未量化。日志类：隐私政策 一.8 收集设备与日志信息（IP、操作时间、服务日志等），期限适用 四.2 一般规则，无单独期限。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "region-storage-prc-personal-info"
+
+[[product.processing_region.point]]
+text_zh = "隐私政策 四.1：『我们依照法律法规的规定，将在境内运营过程中收集和产生的您的个人信息存储于中华人民共和国境内。目前，我们不会将上述信息传输至境外』。条款主语限定为『您的个人信息』，对 API 输入输出等非个人信息数据的存储地域未作同等声明，故置信度 medium。协议族内无多区域/处理地选项或跨境处理说明"
+
+[[product.processing_region.point]]
+text_zh = "用户协议 9 条约定适用中国大陆法律、争议提交公司住所地法院，可作境内运营的旁证但不构成处理地承诺。"
+
+[product.role]
+kind = "unknown"
+searched = [
+  "https://platform.stepfun.com/docs/zh/agreement/userservice",
+  "https://platform.stepfun.com/docs/zh/agreement/userprivacy",
+  "https://platform.stepfun.com/docs/zh/agreement/dataprocess",
+  "https://platform.stepfun.com/docs/zh/step-plan/paid-service-agreement",
+  "https://platform.stepfun.com/legal/user-agreement.html",
+  "https://platform.stepfun.com/legal/privacy-policy.html",
+  "https://platform.stepfun.com/legal/dpa.html",
+  "https://platform.stepfun.com/step-plan",
+  "https://platform.stepfun.com/trust",
+  "https://platform.stepfun.com/dpa",
+]
+
+[[product.role.point]]
+text_zh = "分层看：①对最终用户个人信息——用户协议 6.2『您作为最终用户个人信息的处理者应当履行个人信息处理者的相关法定义务』，即开发者/客户是处理者"
+
+[[product.role.point]]
+text_zh = "隐私政策 三.2 平台『可能委托授权合作伙伴处理您的个人信息』，平台自身以受托合作方身份出现。②对客户自身输入/输出数据——用户协议 5.3/6.5 取得含存储、使用、复制、修订、编辑的许可使用，且第 1 条自述『本公司仅作为中立的技术服务提供者』，5.4 约定平台运行过程中产生的数据由平台享有合法权利。协议未使用『受托处理者/processor』这一法定表述，也无 DPA 可据以确认角色划分，故 medium。旧记录把本档 role 记为 independent controller，本轮按上述分层收窄。"
+
+[[anchor]]
+id = "training-service-improvement"
+source_id = "8b3e79f1a1e40639"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+，包括告知最终用户如何行使知情、查阅、复制、更正、删除、补充、转移等可适用法律法规要求的各项权利。**
+
+1.   **"""
+exact = "您特此授权我们在为您提供服务期间或者为提供、诊断、改善、优化、升级本服务之目的使用、处理您使用本平台服务产生的相关数据（如涉及）"
+suffix = "，我们承诺采取相应的合理的安全、保密措施进行保护，如采取脱敏、匿名、假名、加密等技术措施。如遇到履行法定义务、社会公众利"
+
+[[anchor]]
+id = "training-content-license"
+source_id = "8b3e79f1a1e40639"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+内，输出的内容的知识产权及产生的其他财产权益（如有）归属于您或适用法律规定的权利人。**
+3.   您理解并且同意，**"""
+exact = "对于您发布上传或传输的内容，您授予我们一项免费且无需标注个人身份的、在法律允许范围内合理且最大程度的许可使用"
+suffix = """
+（包括但不限于存储、使用、复制、修订、编辑等）的权利，以为实现本协议目的、提升大模型服务体验进行使用。**
+4.   *"""
+
+[[anchor]]
+id = "training-competitor-ban-only-mention"
+source_id = "8b3e79f1a1e40639"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+层组件或参数；
+2.   使用任何自动化或编程方法从本平台中提取数据或输出，包括爬虫、抓取、收集或提取数据；
+3.   """
+exact = "未经授权，使用本服务和/或本服务的输出内容来研发与本平台相竞争的模型或服务，包括开发或训练任何人工智能或机器学习算法或模型等"
+suffix = """
+；
+4.   使用任何技术手段重现或复制本平台或相关服务；
+5.   删除、修改、遮掩或以其他任何方式替换本平台及相关服"""
+
+[[anchor]]
+id = "role-developer-processor"
+source_id = "8b3e79f1a1e40639"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+的个人信息。**
+2.   **您使用本服务向最终用户提供服务的过程中可能涉及到收集使用最终用户的个人信息，该等情况下，"""
+exact = "您作为最终用户个人信息的处理者应当履行个人信息处理者的相关法定义务"
+suffix = "。为了确保个人信息的保护，您应建立健全的个人信息保护相关制度，采取适当的措施，并按照所适用的法律法规的要求保护用户个人信"
+
+[[anchor]]
+id = "role-neutral-provider"
+source_id = "8b3e79f1a1e40639"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+活、学习等场合，提供用户日常所需的知识学习、信息检索、内容消费、人机互动、任务执行等服务。
+    2.   请您知悉，"""
+exact = "本公司仅作为中立的技术服务提供者"
+suffix = "，向您提供本平台上的各类产品和服务。**您的网站、应用、软件、平台等任何产品、服务及相关内容等，由您自行运营。除本协议另"
+
+[[anchor]]
+id = "retention-termination-deletion-right"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "终止提供服务，或出现本协议约定的服务终止情形的，对于您存储在我们服务中的数据等任何信息（如有），在法律法规允许的范围内，"
+exact = "我们有权在服务终止后或在我们与您另行约定的保留期限（如有）届满后，删除上述信息"
+suffix = """
+，请您自行提前保存、迁移相关数据信息。**
+
+## 4. 责任范围与免责声明
+
+1.   **我们仅在本协议中列明的责任"""
+
+[[anchor]]
+id = "retention-behavior-records-after-deactivation"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "注销账户请求，经我们审核同意，由我们注销该注册用户，用户即解除与我们的合作关系。但账户被收回或者注销后，我们仍有权：1）"
+exact = "保留相关行为记录，但涉及个人信息的除外"
+suffix = """
+（如有）；2）对用户在使用本平台过程中存在违法行为或违反本协议的行为，行使本协议所约定的权利。
+
+## 2. 您的权利与"""
+
+[[anchor]]
+id = "retention-unpaid-data-deletion"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "。届时，请您根据我们公布的收费信息或者依据我们之间签署的其他相关协议，支付相应的费用。**未按约定支付相应的服务费用的，"
+exact = "我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等"
+suffix = "，由此给您或您的最终用户造成任何损失的，由您自行承担。具体付款的账户信息和开票的信息，您可通过联系我们进行确认。无论您的"
+
+[[anchor]]
+id = "role-customer-warrants-consent"
+source_id = "8b3e79f1a1e40639"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+度，对最终用户通过指定软件以及使用本服务所发布的信息进行审查，并及时处理最终用户发布违规信息的事件。**
+4.   **"""
+exact = "您使用本服务时，向我们传输的任何信息，如涉及到个人信息和其他数据的，必须充分取得相关主体的明示同意和授权"
+suffix = "，并确保我们不会因为处理相关数据和个人信息遭受任何损失和投诉，否则相关纠纷和赔偿责任由您向第三方或国家主管机关承担责任（"
+
+[[anchor]]
+id = "zdr-content-license-includes-storage"
+source_id = "8b3e79f1a1e40639"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+内，输出的内容的知识产权及产生的其他财产权益（如有）归属于您或适用法律规定的权利人。**
+3.   您理解并且同意，**"""
+exact = "对于您发布上传或传输的内容，您授予我们一项免费且无需标注个人身份的、在法律允许范围内合理且最大程度的许可使用（包括但不限于存储、使用、复制、修订、编辑等）的权利，以为实现本协议目的、提升大模型服务体验进行使用。"
+suffix = """
+**
+4.   **除非法律另有规定或本协议另有约定，本平台运行过程中所产生的一切数据由我们享有合法权利，未经我们事先同"""
+
+[[anchor]]
+id = "region-storage-prc-personal-info"
+source_id = "7a07e3f7fdc0194d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+开或以其他方式处理您的个人信息的，无须征得您的同意。**
+
+## 四、我们如何存储个人信息
+
+**1. 存储地点****"""
+exact = "我们依照法律法规的规定，将在境内运营过程中收集和产生的您的个人信息存储于中华人民共和国境内"
+suffix = "。目前，我们不会将上述信息传输至境外，如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征"
+
+[[anchor]]
+id = "retention-necessary-period"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征求您的同意。****2. 存储期限****"
+exact = "我们仅在为提供本平台相关服务之目的所必需的期间内保留您的个人信息"
+suffix = "**，例如：手机号码：当您使用手机号码注册登录时，我们需要持续保留您的手机号码，以便于向您提供正常的服务、应对您可能的查"
+
+[[anchor]]
+id = "training-anonymized-commercial-use"
+source_id = "7a07e3f7fdc0194d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "开或者其他已经合法公开的个人信息；(6) 法律、行政法规规定的其他情形。**10. 您个人信息的其他用途****(1) "
+exact = "我们通过技术手段对您使用本平台相关服务产生的个人信息进行匿名化处理后，可能会使用已经匿名化处理的信息，进行数据分析并可能予以商业化的利用"
+suffix = "。****(2) 我们可能会对本平台的使用情况进行统计，并可能会与公众或第三方共享这些统计信息，以展示本平台的整体使用趋"
+
+[[anchor]]
+id = "retention-collect-input-output"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "析，以更好地理解您的需求，答复您的问题，生成相关内容，执行您的任务指令，以及便于您对历史对话记录进行管理，我们会收集**"
+exact = "您主动输入的信息（包括文字、语音、图片、视频、文本、录音、链接等多种形式）以及服务的输出信息"
+suffix = "、您的任务指令信息、您设置的模型及参数信息以及您提供的反馈信息**。我们会对上述信息进行分析、计算、搜索，以便于更好地理"
+
+[[anchor]]
+id = "role-entrusted-partners"
+source_id = "7a07e3f7fdc0194d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "无需取得您同意的情形除外）后对外提供您的个人信息，同时根据有关法律履行对外提供个人信息的其他义务。**2. 委托处理**"
+exact = "我们可能委托授权合作伙伴处理您的个人信息，以便授权合作伙伴代表我们为您提供某些服务或履行职能"
+suffix = "。我们仅会出于本隐私政策声明的合法、正当、必要、特定、明确的目的委托其处理您的信息，授权合作伙伴只能接触到其履行职责所需"
+
+[[anchor]]
+id = "retention-legal-retention-exception"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+果您注销账户、主动删除个人信息或超出必要的期限后，我们将对您的个人信息进行删除或匿名化处理，但以下情况除外：
+
+*   """
+exact = "遵从法律法规有关信息留存的要求"
+suffix = """
+。
+*   出于财务、审计、争议解决等目的需要合理延长期限的。
+
+## 五、我们如何保护个人信息的安全
+
+1. 我们非常"""
+
+[[anchor]]
+id = "retention-log-collection"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "靠的服务与信息是我们的核心目标。为了维护我们服务的正常运行，保护您或其他用户或公众的合法利益免受损失，您在使用本平台时，"
+exact = "我们会收集用户的设备信息与日志信息"
+suffix = "，包括：**您的硬件型号、操作系统版本号、设备标识符、IP地址、WLAN接入点（如SSID，BSSID）、基站、软件版本"
+
+[[anchor]]
+id = "retention-deletion-when-expired"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+提供的联系方式联系我们提出删除个人信息的请求：
+
+*   处理目的已实现、无法实现或者为实现处理目的不再必要；
+*   """
+exact = "停止提供产品或者服务，或者保存期限已届满"
+suffix = """
+；
+*   个人撤回同意；
+*   违反法律、行政法规或者违反约定处理个人信息；
+*   法律、行政法规规定的其他情形。"""
+
+[[anchor]]
+id = "retention-anonymize-after-necessary-period"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "号码注册登录时，我们需要持续保留您的手机号码，以便于向您提供正常的服务、应对您可能的查询和客诉并保障您的账号和系统安全。"
+exact = "如果您注销账户、主动删除个人信息或超出必要的期限后，我们将对您的个人信息进行删除或匿名化处理"
+suffix = """
+，但以下情况除外：
+
+*   遵从法律法规有关信息留存的要求。
+*   出于财务、审计、争议解决等目的需要合理延长期限的"""
+
+[[anchor]]
+id = "role-no-sharing-without-consent"
+source_id = "7a07e3f7fdc0194d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ie且由我们提供的服务或相应功能。
+
+## 三、我们如何共享、委托处理、转移、公开披露您的个人信息
+
+**1. 共享**"""
+exact = "一般情况下，我们不会向其他任何公司、组织和个人提供您的个人信息"
+suffix = "，若我们需要向第三方共享您的个人信息的，我们将向您告知接收方的名称或者姓名、联系方式、处理目的、处理方式和个人信息的种类"
+
+[[anchor]]
+id = "retention-account-deletion-15-workdays"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "主申请注销账号，您也可以通过本隐私政策中提供的联系方式与我们联系申请注销您的账号，我们将会在收到您的申请后及时进行处理，"
+exact = "并在15个工作日或法律法规要求的时限内回复您的请求"
+suffix = "。在您注销账号前，我们可能需要验证您的个人身份、安全状态、设备信息等。您知悉并理解，注销账号是不可逆的行为，当您注销账号"
+
+[[anchor]]
+id = "scope-data-terms-refer-back"
+source_id = "ceb5617e2f4259e8"
+topics = []
+
+[anchor.selector]
+prefix = "作；如您不具备前述授权，我们有权拒绝或终止向相关账户提供服务，由此产生的责任及损失由您及/或相关企业、机构自行承担。**"
+exact = "本协议是《StepFun平台用户协议》《StepFun平台隐私政策》的重要组成部分；如本协议与前述文件约定不一致，就订阅付费服务相关事项以本协议为准。"
+suffix = """
+
+
+## 1. 订阅内容与服务
+
+1.   我们向用户提供不同档位的订阅套餐，各套餐在功能范围、可用模型、使用限额、速率"""
+
+[[anchor]]
+id = "retention-termination-access-loss"
+source_id = "ceb5617e2f4259e8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+源调整；（5）法律法规、监管要求、司法或行政机关要求；（6）其他平台有合理理由认为需要采取措施的情形。
+
+1.   **"""
+exact = "服务暂停、中断或终止后，您可能无法继续访问相关功能、历史记录、配置、任务状态等"
+suffix = """
+，我们对此不承担责任，但法律另有规定的除外。**
+2.   **您可在平台指定页面取消订阅，取消订阅通常仅影响下一计费周"""
+
+[[anchor]]
+id = "retention-prompt-cache-lru"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "包含多 Example、多轮次对话、长上下文或背景信息的场景下，缓存命中率会更高，帮助开发者提升系统整体性能，优化成本。"
+exact = "缓存淘汰采用最近最少使用（LRU）策略，在系统请求高峰期，不使用的缓存会更容易被逐出；在系统请求低峰期，缓存则会拥有更长的生命周期。"
+suffix = """
+
+
+## 如何判断自己是否使用了 Prompt 缓存
+
+在调用 Chat API 进行补全时，如果 `response."""
+
+[[anchor]]
+id = "retention-prompt-cache-content"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+t 长度少于 256 个 Token 时，将不会命中缓存。具体可缓存的信息会包含如下内容：
+
+*   **对话信息**："""
+exact = "完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message"
+suffix = """
+。
+*   **图片信息**：用户消息中包含的图片信息也会进入缓存当中，但需要保证前后使用的是相同的图片。
+*   **"""
+
+[[anchor]]
+id = "retention-prompt-cache-auto-enabled"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+模型支持 Prompt 缓存，其他模型的支持情况请以对应模型文档和定价表为准。
+
+## Prompt 缓存的基础原理
+
+"""
+exact = "当请求超过 256 个 Token 时，缓存会自动启用。"
+suffix = """
+当你发起一次 API 请求时，会执行如下操作：
+
+1.   **缓存查询**：根据你的请求的 Prompt 的前缀，查询"""
+
+[[anchor]]
+id = "zdr-prompt-cache-store-after-processing"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+中**：如果命中系统的缓存，系统将会使用缓存，并加上本次请求中缓存不包含的内容，进行推理。
+
+3. **缓存未命中**："""
+exact = "如果未命中系统的缓存，系统将会进行正常的推理并在处理完成后，将 Prompt 前缀进行缓存，以供下次请求使用。"
+suffix = """
+
+
+在包含多 Example、多轮次对话、长上下文或背景信息的场景下，缓存命中率会更高，帮助开发者提升系统整体性能，优化"""
+
+[[anchor]]
+id = "zdr-prompt-cache-no-manual-clear"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+### 我是否可以手动清除 Prompt 缓存？
+
+"""
+exact = "目前不提供手动清除缓存的能力。"
+suffix = """
+
+
+### 我是否可以让我的请求始终命中缓存？
+
+"""
+
+[[anchor]]
+id = "zdr-step-plan-same-chat-completions-api"
+source_id = "99e52cc717a2eeef"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+`POST https://api.stepfun.com/v1/chat/completions`
+
+"""
+exact = "Step Plan 场景请使用 `POST https://api.stepfun.com/step_plan/v1/chat/completions`"
+suffix = """
+
+
+## 请求参数"""

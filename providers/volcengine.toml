@@ -1,0 +1,309 @@
+name = "火山引擎方舟"
+name_en = "Volcengine Ark"
+company_name = "火山引擎"
+line = "volcengine"
+site = "cn"
+entity = "北京火山引擎科技有限公司"
+endpoint = ""
+doc = "https://www.volcengine.com/docs/82379/1104498"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/82379/1928265"
+channel = "contract"
+tier = "core"
+note = "《火山引擎数据授权使用协议》(北京火山引擎科技有限公司与客户签约):订阅套餐条款 §1.3 明文将其并入个人版档(「数据授权协议内容为本服务的组成部分」);§1.1(5) 把授权对象定义为【Coding Plan / Agent Plan 个人版 订阅包月套餐】额度内的输入与生成内容,故本协议只服务个人版档,不适用于企业版档"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/ark/collaboration-reward-program?lang=zh"
+channel = "contract"
+tier = "core"
+note = "协作奖励计划规则(opt-in):经授权接入点的推理数据授权火山引擎用于机器学习与模型优化开发、传输存储等;按量 API 档 training 的『单独同意』例外"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/ark/create-context-cache-api?lang=zh"
+channel = "developer_data"
+tier = "core"
+note = "Context API 上下文缓存 TTL:默认 86400 秒、可配 3600-604800 秒(1 小时-7 天),闲置计时、每次使用重置(官方已标待下线);按量 API 档 retention 佐证"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh"
+channel = "contract"
+tier = "core"
+note = "火山引擎《产品和服务协议》(全产品通用主协议,发布 2024-06-14、生效 2024-06-21),经订阅套餐条款 §1.2 并入完整协议,对本 provider 两档均适用:§12.8 服务终止后客户数据保留十五(15)天、届满自动清除(含缓存与备份);§6.6 除提供服务所必须或经授权外不任意使用客户数据、并在提供服务后的合理期限内删除或匿名化;§1.3 中立的技术服务提供者;§6.8 数据委托处理协议仅在单独签署时适用"
+
+[[source]]
+url = "https://www.volcengine.com/docs/82379/1104498"
+channel = "contract"
+tier = "core"
+note = "火山方舟大模型服务平台专用条款(发布 2026-08-05,生效 2026-08-11),按量 API 档权威:§3.7.7 数据处理(默认不存储不使用 + 四类列明场景)、§3.7.11 缓存/日志等功能存储须经授权。同一文档另有别名 URL https://www.volcengine.com/docs/ark/volcengine-ark-platform-terms"
+
+[[source]]
+url = "https://www.volcengine.com/docs/82379/1958520"
+channel = "developer_data"
+tier = "core"
+note = "方舟文本生成(Responses)API 文档,按量 API 档 retention 数字权威:store 默认 3 天、expire_at 最长 7 天,存 input/output 不存思维链,store=false 可关闭"
+
+[[source]]
+url = "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh"
+channel = "contract"
+tier = "core"
+note = "火山方舟大模型订阅套餐服务专用条款:一份文档同时覆盖 Coding Plan / Agent Plan 的个人版(§1.3)与企业版(§1.4),§1.1 明确本服务「各分别包括个人版和企业版」;§1.2 把《火山引擎服务条款》《火山引擎隐私政策》《产品和服务协议》并入完整协议。两档数据处理条款完全相反(§1.4 不留存/不用于服务优化 vs §1.3 授权存储并使用输入输出),本条目全部档位结论的档位权威都在此文档"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+label = "火山方舟按量 API(国内站,方舟大模型服务平台)"
+
+[product.training]
+mark = "yes"
+anchor = "volcengine-api-training-zdr-default"
+mode = "default"
+
+[[product.training.point]]
+text = "§3.7.7 by default: \"without your separate consent, Volcengine will not store or use your data to train or optimize models\""
+text_zh = "§3.7.7 默认『未经单独同意不存储不使用』训练/优化"
+
+[[product.training.point]]
+text = "The separate-consent cases are the collaboration reward program (opt-in, through an authorized access point) and Doubao Model Service Agreement §4.1.1/4.1.2 (effective 2026-09-23)"
+text_zh = "单独同意情形=协作奖励计划(opt-in,经授权接入点)与(2026-09-23 起生效的)豆包模型服务协议 §4.1.1/4.1.2"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "volcengine-api-training-zdr-default"
+
+[[product.zdr.point]]
+text = "Not stored and not used by default, with storage confined to four listed scenarios (compliance review, troubleshooting, anomaly alerting, aggregate statistics); under §3.7.11 storage for features requires authorization, and \"without your authorization, Volcengine will not access or use your data\""
+text_zh = "默认不存储不使用,存储仅限四类列明场景(合规审查/排障/异常告警/聚合统计),§3.7.11 功能存储须经授权、未授权不访问"
+
+[[product.zdr.point]]
+text = "Functional zero retention is achievable (store=false, and the cache can be deleted). The \"zero data retention\" commitment in the white paper sits inside an image and cannot be machine-verified, so confidence=medium"
+text_zh = "功能性零保留可行(store=false、缓存可删)。白皮书『数据零留存』承诺正文在图片里不可机器复核,故 confidence=medium"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "volcengine-api-retention-responses-store"
+
+[[product.retention.point]]
+text = "Responses API store defaults to true → stored for 3 days by default, customizable via expire_at up to 7 days; input and output are stored, the chain of thought is not; store=false turns it off"
+text_zh = "Responses API store 默认 true→默认存 3 天、expire_at 最长 7 天,存 input/output 不存思维链,store=false 可关"
+
+[[product.retention.point]]
+text = "Context cache idle TTL 1 hour to 7 days (reset on each use)"
+text_zh = "Context 缓存闲置 TTL 1 小时-7 天(每次使用重置)"
+
+[[product.retention.point]]
+text = "15 days after service termination (Products and Services Agreement §12.8)"
+text_zh = "服务终止后 15 天(产品协议 §12.8)"
+
+[[product.retention.point]]
+text = "General terms §6.6: \"delete your customer data or anonymize it within a reasonable period after providing the service\""
+text_zh = "通用条款 §6.6『提供服务后的合理期限内删除或匿名化』"
+
+[[product.retention.point]]
+text = "For the troubleshooting scenario it is \"within a reasonable time\", with no fixed period"
+text_zh = "排障场景为『合理时间内』无固定期限"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://docs.volcengine.com/docs/ark/volcengine-ark-model-service-security-whitepaper?lang=zh",
+  "https://www.volcengine.com/docs/82379/2123283",
+  "https://developer.volcengine.com/resource/7584381573106303012",
+  "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy",
+  "https://www.volcengine.com/docs/82379/1104498",
+  "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh",
+  "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh",
+  "https://www.volcengine.com/docs/ark/modelark-faq?lang=zh",
+  "https://www.volcengine.com/docs/ark/volcengine-ark-confidential-computing-whitepaper?lang=zh",
+  "https://www.volcengine.com/product/ark",
+  "https://www.volcengine.com/docs/82379/2374452",
+]
+
+[[product.processing_region.point]]
+text = "Page 36 of the official security white paper (its existence is confirmable on the developer resources page; downloading the PDF requires being signed in), \"data related to the Ark platform is stored only in mainland China\", is a known disclosure, but the online doc page body is an image and r.jina.ai captures only the navigation shell, so it cannot be machine-verified"
+text_zh = "官方安全白皮书(developer 资源页可确认存在,PDF 下载需登录态)第 36 页『方舟平台相关数据仅存储于中国大陆』是已知披露,但线上文档页正文为图片、r.jina.ai 只抓到导航壳,不可机器复核"
+
+[[product.processing_region.point]]
+text = "The object of the privacy policy's in-China storage clause is only \"users' personal information\""
+text_zh = "隐私政策境内存储条款对象仅为『用户个人信息』"
+
+[[product.processing_region.point]]
+text = "The \"authorization to use this service only within mainland China\" in Special Terms §3.1 and Subscription Terms §2.2 is a use licence, not a storage location, and nothing is inferred from it"
+text_zh = "专用条款 §3.1/订阅条款 §2.2 的『仅在中国大陆地区使用本服务的授权』是使用许可不是存储地,不据此推定"
+
+[product.role]
+kind = "processor"
+anchor = "volcengine-api-role-delegated"
+
+[[product.role.point]]
+text = "Entrusted-processing wording: §3.7.7(2), in the troubleshooting scenario, \"processes your data on your mandate\", and aggregate statistics store and use no raw data"
+text_zh = "受托(委托)处理语义:§3.7.7(2) 排障场景『依据您的委托处理您的数据』、聚合统计不存储不使用任何原始数据"
+
+[[product.role.point]]
+text = "At the contract layer there is also Products and Services Agreement §1.3, \"Volcengine is a neutral technology service provider\", and §6.6, \"will not use customer data at will except as necessary to provide the service or as authorized\""
+text_zh = "合同层另有产品和服务协议 §1.3『中立的技术服务提供者』与 §6.6『除提供服务所必须或经授权外不会对客户数据任意使用』"
+
+[[product.role.point]]
+text = "There is no standard DPA; the role is carried by the terms of service"
+text_zh = "无标准 DPA,角色载体为服务条款"
+
+[[anchor]]
+id = "volcengine-api-training-zdr-default"
+source_id = "e58c4503a9accfe4"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+持，火山引擎不是《互联网信息服务深度合成管理规定》中的深度合成服务提供者、深度合成技术支持者。​
+
+*   3.7.7 """
+exact = "未经您的单独同意，火山引擎不会存储和使用您的数据来训练或优化模型"
+suffix = """
+。火山引擎仅在下述场景对您的数据进行相应处理：​
+
+*   （1）为履行法律法规合规要求，火山引擎有权采取技术手段对您使"""
+
+[[anchor]]
+id = "volcengine-api-role-delegated"
+source_id = "e58c4503a9accfe4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "同意，为了向您提供排障服务，火山引擎会在合理时间内存储您的数据，且仅在您申请排障或模型生成内容效果、产物查询等问题咨询时"
+exact = "依据您的委托处理您的数据"
+suffix = """
+。​
+
+*   （3） 为了防范模型异常调用等行为，给模型提供方和方舟平台造成安全合规风险，火山引擎会对触发模型异常告警"""
+
+[[anchor]]
+id = "volcengine-api-retention-responses-store"
+source_id = "b03be1c857a73ce8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+记录。​
+
+*   store: false（关闭存储）时，输入限制仅受模型上下文窗口/最大输入长度约束。​
+
+*   """
+exact = "存储时长：默认存储 3 天，可通过 expire_at 字段自定义设置，最长支持 7 天。"
+suffix = """
+​
+
+*   存储内容：存储 input 和 output 字段的信息，不存储思维链内容。​
+
+*   其他说明：sto"""
+
+[[anchor]]
+id = "volcengine-api-cache-storage-authorized"
+source_id = "e58c4503a9accfe4"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "行业标准的技术安全手段保护您的数据传输安全，您理解并同意，如因超出当前技术安全能力造成的您的数据安全风险，火山引擎免责。"
+exact = "未经您授权，火山引擎不会访问或使用您的数据"
+suffix = """
+。​
+
+*   3.7.12 您试（使）用方舟 Agent 服务时，您理解您通过方舟 Agent 查询和执行任务时，包括"""
+
+[[anchor]]
+id = "volcengine-api-context-cache-ttl"
+source_id = "18b724e3389bdbf9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+tl integer / null 默认值 86400​
+
+过期时长，单位为秒，设置范围：[3600, 604800]，"""
+exact = "即1小时到7天"
+suffix = """
+。​
+
+信息在创建后即开始计时，每次使用则重置为0。计时超过ttl，信息会被从缓存中删除。每次调用chat均根据ttl更"""
+
+[[anchor]]
+id = "volcengine-generic-termination-retention-15d"
+source_id = "a8fd9bb3ad21911b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "务订单项下全部或部分产品或（和）服务因何原因终止，您的火山引擎账号中的全部客户数据，及存储在火山引擎服务器中的客户内容，"
+exact = "火山引擎将为您保留十五（15）天"
+suffix = "（“**保留期限**”），相关产品和服务专用条款或服务规则承诺期限另有约定的，以其专用条款或服务规则约定为准。您须在保留"
+
+[[anchor]]
+id = "volcengine-generic-delete-reasonable-period"
+source_id = "a8fd9bb3ad21911b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "为了提供产品和服务所必须，或经您的授权（如在适用情形下为进行故障排除、检测）外，火山引擎不会对您的客户数据进行任意使用，"
+exact = "并在提供服务后的合理期限内删除您的客户数据或进行匿名化处理"
+suffix = """
+。  
+ 6.7在向您提供产品和服务、技术和网络支持过程中，火山引擎可能会收集或产生某些技术和运营数据，例如系统日志、账"""
+
+[[anchor]]
+id = "volcengine-api-training-optin-reward"
+source_id = "57bc89d663d1ca64"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "一项 非独家的、不可转让的、不可分许可的（但可分许可给火山引擎关联方以及为达成授权目的第三方外包服务商）、免费的 权利，"
+exact = "允许火山引擎为达成授权目的而 传输、存储、使用、复制、下载、修改或以其他方式处理协作奖励数据"
+suffix = """
+。​
+
+2.3 授权期限：本协议项下授权的起始日期为您 在订购页面勾选同意接受本协议之日。授权期限为 永久。如您在同意接"""
+
+[[anchor]]
+id = "volcengine-plan-device-info-deleted-after-expiry"
+source_id = "9fa678c2f42aae99"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "由此导致订阅服务停用或账号封禁，火山引擎免责。您理解并同意，为了防止本服务被滥用，您的客户端的系统和设备信息将会被记录。"
+exact = "我们不会对该信息进行任何其他目的使用，并会服务到期后删除"
+suffix = """
+。​
+
+2.12 您使用本服务，您需遵守对应模型服务协议和数据处理规则，包括火山引擎和其他三方模型服务商为您提供的商业模"""
+
+[[anchor]]
+id = "volcengine-personal-irrevocable"
+source_id = "b9b831bcebe7c295"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "）您授权火山引擎使用相关AI Coding/Agent数据，且（ii）相关AI Coding/Agent数据已被使用的，"
+exact = "则对该部分AI Coding/Agent数据的使用将在技术上无法撤回"
+suffix = """
+ 。​
+
+2.4 您特别承诺并保证，您已合法持有AI Coding/Agent数据，并已获得AI Coding/Agen"""
+
+[[anchor]]
+id = "volcengine-personal-priority-clause"
+source_id = "b9b831bcebe7c295"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+​
+
+5.3 如您与火山引擎就数据授权事宜另行签署相关协议或另有约定的，无论该等协议或约定发生在本协议签署之前或是之后，"""
+exact = "均应优先适用本协议内容"
+suffix = """
+ 。​
+
+​
+"""

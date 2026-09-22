@@ -1,0 +1,417 @@
+name = "PPIO 派欧算力云"
+name_en = "PPIO"
+line = "ppio"
+site = "cn"
+entity = "派欧云计算（上海）有限公司"
+endpoint = ""
+doc = "https://ppio.com/legal/model-terms-of-service"
+
+[[source]]
+url = "https://ppio.com/docs/model/llm-batch-api"
+channel = "developer_data"
+tier = "core"
+note = "模型 API 文档站的「批量推理」页（经 .md 直连通道抓取，页面 URL 不带 .md）。给出 API 档少见的量化保留期限：上传的批量输入 .jsonl 文件「将保留 15 天」；结果输出文件「在批量推理结束后 30 天删除」。仅覆盖 Batch API 这一子功能，不代表在线推理请求内容的保留期。"
+
+[[source]]
+url = "https://ppio.com/docs/model/llm-prompt-cache"
+channel = "developer_data"
+tier = "core"
+note = "模型 API 文档站的 Prompt Cache（推理缓存）页（经 .md 直连通道抓取，正文与页面一致）。本轮由 drop 升为 core：本页是 API 档 zdr 维度的依据——明示平台会缓存历史 Prompt、命中即直接返回缓存结果（对象是请求内容与缓存结果），并说明该能力「对应用透明」、调用方无需任何改造（即平台默认行为而非客户可选项）；全文未披露缓存条目的保留时长、清除规则，也未披露关闭方式或任何 ZDR 选项。它同时是「平台存在请求内容缓存机制」这一事实的出处。"
+
+[[source]]
+url = "https://ppio.com/legal/model-privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《PPIO 模型隐私政策》(版本生效日期 2026-07-28)，§1.1 适用范围明确包含「API 接口」，§2.3.2 点名「交互服务（如大模型 API 试用、内容生成）」，是 API 档保留与存储地域的主要来源。全文未出现「训练」字样；对输入内容只写「用于提供连续、一致的生成服务，保障服务质量」；§4.2 共享清单未列任何大模型技术支持商/模型原厂。§5.3.3 自认「可能无法立即从备份系统中删除相应的信息」（存在备份、删除有延迟），第二轮「读懂」复核后作为 zdr 维度的第二条依据。"
+
+[[source]]
+url = "https://ppio.com/legal/model-terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《PPIO 模型服务协议》(版本生效日期 2026-04-02，日期取自页面内嵌版本数据)，覆盖 API 档：第 1 条把「大模型 API 服务」明确列入「PPIO 服务」定义，并规定「若我们及关联公司向您提供的产品或服务内设有单独用户协议或类似法律文件，该等单独的文件优先适用」。§4.5 是训练维度的合同层依据；§3.4.3 为含存储功能服务的终止后保留条款；§5.2 把个人信息处理引向《PPIO 隐私政策》。全文未出现「训练」字样（用「优化模型和服务」表述），也未披露任何零保留/ZDR 选项。§3.5.1 定义了本协议内「内容」的范围（含「输入/回复/生成的文字」），是读懂 §4.5 授权标的的依据（第二轮「读懂」复核新增锚点）。"
+
+[[source]]
+url = "https://ppio.com/legal/personal-info-list"
+channel = "consumer_privacy"
+tier = "core"
+note = "《个人信息收集清单》(版本日期 2025-05-22)，以表格逐场景列出「我们的角色」。与 API 档直接相关的一行：使用网站下交互服务（含大模型 API 试用/内容生成）时收集用户输入信息，角色列写「个人信息处理者」；实时音视频 SDK 等场景写「个人信息处理受托方」。作为 role 维度的自认依据。"
+
+[[source]]
+url = "https://ppio.com/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《派欧云用户协议》(版本日期 2026-02-25，取自页面内嵌版本数据)，平台层合同，覆盖含大模型 API 在内的全部派欧云服务：§1.1 服务清单含「大模型API」，§1.3 自认「中立的技术服务提供者」，§3.4.3 含存储功能服务到期/终止后保留最多 7 个自然日，§3.5 大模型 API 服务试用功能专节，§6.4「未经您同意，我们不会接触或使用您的数据」，§8.6 声明大模型 API 由第三方技术支持商提供、派欧云仅提供中立平台及技术服务。与《模型服务协议》的关系：本协议 §1.2 规定服务规则以官网展示为准，模型服务协议自身第 1 条则规定「单独的文件优先适用」。§4.4.4 用指代式表述「您基于使用派欧云服务而存储或产生的部分或全部信息和数据」给出欠费处置权（第二轮「读懂」复核新增锚点，作 zdr 旁证）。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "ppio-model-tos-4-5-training-license"
+
+[[product.training.point]]
+text = "See top-level training. At the contract layer the default licence covers use \"in the course of optimizing models and services\" (§4.5), and coexists with the \"we will not access or use your data without your consent\" clauses in User Agreement §6.4 and PPIO Privacy Policy §2.4.5(2); the reading is that entering into the agreement constitutes that consent; no opt-out switch is documented; the licence is granted to \"us and our affiliates\" and does not cover the third-party technical support provider referred to in §8.6."
+text_zh = "见顶层 training。合同层默认授权用于「优化模型和服务」（§4.5），与《用户协议》§6.4、《PPIO 隐私政策》§2.4.5(2) 的「未经（明确）同意不使用/不训练」条款并存，读法为签署协议即构成该同意；无退出开关说明；授权对象为「我们及关联公司」，不含 §8.6 所称的第三方技术支持商。"
+
+[product.zdr]
+mark = "no"
+anchor = "ppio-prompt-cache-caches-historical-prompt"
+searched = [
+  "https://ppio.com/legal/model-terms-of-service",
+  "https://ppio.com/legal/terms-of-service",
+  "https://ppio.com/legal/model-privacy-policy",
+  "https://ppio.com/legal/dpa",
+  "https://ppio.com/docs/llms.txt",
+  "https://ppio.com/docs/model/FAQs",
+  "https://ppio.com/docs/model/llm-prompt-cache",
+  "https://ppio.com/docs/model/llm-batch-api",
+  "https://ppio.com/docs/model/llm-api-metrics",
+  "https://ppio.com/docs/support/faq",
+  "https://ppio.com/docs/support/audit-log",
+]
+
+[[product.zdr.point]]
+text = "Same as top-level zdr: zero retention is not supported (no); see the top level for the reasoning chain. All three grounds take the form \"this line says X, therefore Y\": (1) the Prompt Cache doc says X, \"when a request is completely identical to a historical prompt, the system returns the cached result directly\" — the object is request content (the historical prompt), therefore Y, the platform retains request content on the inference side, and \"transparent to the application\" shows this is not a customer-facing switch; the whole page gives no TTL, no purge rule and no way to turn it off"
+text_zh = "同顶层 zdr：不支持零保留（no），判断链见顶层。三条依据都是「这条说的是 X，所以 Y」：①Prompt Cache 文档说的是 X「当请求与历史 Prompt 完全一致时，系统会直接返回缓存结果」——对象是请求内容（历史 Prompt），所以 Y 平台在推理侧保留了请求内容，且「对应用透明」说明它不是客户开关，全篇无 TTL/清除规则/关闭方式"
+
+[[product.zdr.point]]
+text = "(2) Model Privacy Policy §5.3.3 says X, \"we may not be able to delete the corresponding information from our backup systems immediately\" — an admission that backups exist and that deletion is delayed, therefore Y, the \"no recoverable copy\" requirement of zero retention does not hold"
+text_zh = "②《模型隐私政策》§5.3.3 说的是 X「可能无法立即从备份系统中删除相应的信息」——自认存在备份且删除有延迟，所以 Y 零保留要求的「无副本可恢复」不成立"
+
+[[product.zdr.point]]
+text = "(3) the Batch Inference doc says X, \"the file will be retained for 15 days\" and \"the result output file will be deleted 30 days after batch inference finishes\" — therefore Y, on the batch tier request content is retained 15 days and output 30 days. For the contrary sentence see docs/model/FAQs (\"a stateless interface ... does not save the full conversation content of each request\"; that source has been judged drop and its anchor cleared): it says the console does not provide full conversation records (the qualifier is \"full\" and the context is \"how to view API call records\"), not \"the platform retains no request content\", which is not enough to overturn (1) and does not contradict (1) on the same proposition. The retention policy of the upstream technical support provider (User Agreement §8.6) is not disclosed; this conclusion covers only the PPIO hop."
+text_zh = "③《批量推理》文档说的是 X「该文件将保留 15 天」「结果输出文件将在批量推理结束后 30 天删除」——所以 Y 批量档请求内容保留 15 天、输出 30 天。反向句见 docs/model/FAQs（「无状态接口…不会保存每次请求的完整对话内容」，该源已判 drop、锚点清空）：它说的是控制台不提供完整对话记录（限定词「完整」、语境为「如何查看 API 调用记录」），不是「平台不保留任何请求内容」，不足以推翻①，也不与①构成同一命题的矛盾。上游技术支持商（《用户协议》§8.6）的保留策略未披露，本结论只覆盖 PPIO 这一跳。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "ppio-model-privacy-6-2-retention-purpose-bound"
+
+[[product.retention.point]]
+text = "See top-level retention: retained only for the period needed for the stated purposes / the shortest necessary period (not quantified), plus delayed deletion from backup systems"
+text_zh = "见顶层 retention：目的所需/最短必要期限（未量化）+ 备份延迟删除"
+
+[[product.retention.point]]
+text = "At most 7 calendar days after a service that includes a storage function expires or terminates"
+text_zh = "含存储功能服务终止后最多 7 个自然日"
+
+[[product.retention.point]]
+text = "Batch API input files 15 days, result output files 30 days."
+text_zh = "Batch API 输入文件 15 天、结果文件 30 天。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "ppio-model-privacy-6-6-storage-in-cn"
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region: at the clause layer, storage within China, with no cross-border transfer scenario"
+text_zh = "同顶层 processing_region：条款层境内存储、无出境场景"
+
+[[product.processing_region.point]]
+text = "The product documentation's \"global multi-region deployment / global heterogeneous GPU compute\" is wording about access and scheduling; recorded alongside."
+text_zh = "产品文档的「全球多区域部署/全球异构 GPU 算力」为接入与调度表述，并列记录。"
+
+[product.role]
+kind = "controller"
+anchor = "ppio-tos-8-6-llm-api-by-third-party-provider"
+
+[[product.role.point]]
+text = "Same as top-level role: PPIO identifies itself as a personal information handler and states that the LLM API product is provided by a third-party technical support provider and that PPIO is a neutral technology service provider; the upstream entity is not disclosed."
+text_zh = "同顶层 role：自认个人信息处理者 + 声明大模型 API 由第三方技术支持商提供、仅中立平台，上游主体未披露。"
+
+[[anchor]]
+id = "ppio-model-tos-4-5-training-license"
+source_id = "5bcaed08ed752521"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+自行判断处理，我们不承担相关损失；如内容包含我们的知识产权成分，相关权利仍归我们所有。**
+
+4.5 **您确认并同意，"""
+exact = "授予我们及关联公司一项全球范围、永久有效、免费的许可权，允许我们在优化模型和服务过程中使用您通过本服务上传、生成、发布或传播的所有信息内容"
+suffix = "，该许可包括直接使用权、可转让权及向第三方分许可的权利；同时授权我们及关联方将该等内容用于品牌市场营销、推广活动、学术研"
+
+[[anchor]]
+id = "ppio-model-tos-1-scope-includes-llm-api"
+source_id = "5bcaed08ed752521"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "网站（www.ppio.com）、PPIO 软件开发工具包（SDK）、API 接口、图片/视频生成服务、实时音视频服务、"
+exact = "大模型 API 服务及其他关联产品/服务"
+suffix = "（统称\"PPIO 服务\"）。但若我们及关联公司向您提供的产品或服务内设有单独用户协议或类似法律文件，该等单独的文件优先适"
+
+[[anchor]]
+id = "ppio-model-tos-3-4-3-storage-window"
+source_id = "5bcaed08ed752521"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+的，我们无需承担责任，但应提前3天通知您，您应予以配合；您不配合或无法取得联系导致的后果，由您自行承担。
+
+3.4.3 """
+exact = "含存储功能的服务到期或终止后"
+suffix = """
+，我们将按服务规则为您保留数据相应期限，您应承担保留期间的费用并完成数据迁移；保留期限届满后，数据将被删除。
+
+3.4."""
+
+[[anchor]]
+id = "ppio-model-tos-3-6-4-content-review"
+source_id = "5bcaed08ed752521"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+虚假请求、注册大量账号等非正常手段获取试用服务，我们有权对违规使用行为采取暂停服务、封禁账号等措施。**
+
+3.6.4 """
+exact = "我们有权对生成内容进行技术或人工审核"
+suffix = """
+，有权删除违规内容，但该审核不免除您的内容安全义务，账号下一切行为由您自行负责。
+
+3.6.5 为遵守深度合成及生成式 """
+
+[[anchor]]
+id = "ppio-model-tos-3-5-1-content-definition-includes-io"
+source_id = "5bcaed08ed752521"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+**3.5 内容规范**
+
+3.5.1 """
+exact = "您使用 PPIO 服务上传、复制、生成、存储、发布、传播的所有内容（包括账号头像、名称、输入/回复/生成的文字、语音、图片、视频等）"
+suffix = "，不得包含以下信息："
+
+[[anchor]]
+id = "ppio-tos-3-4-3-storage-7-days"
+source_id = "42116b5e61925e12"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "体服务含有存储功能的，在该服务到期或终止后，对于您存储在该服务中的数据等任何信息，我们将根据该服务的服务规则为您保留**"
+exact = "最多7个自然日"
+suffix = """
+**。您应承担保留期限内产生的费用（若有），并按时结清费用、完成全部数据的迁移。保留期限届满后，您的前述信息将被删除。
+"""
+
+[[anchor]]
+id = "ppio-tos-6-4-no-access-without-consent"
+source_id = "42116b5e61925e12"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+的删除、更改等处理，您应谨慎操作并承担因该等操作所产生的后果。
+
+6.4 除因您使用派欧云服务所需及法律法规另有规定外，"""
+exact = "未经您同意，我们不会接触或使用您的数据"
+suffix = """
+。
+
+6.5 您应根据自身需求自行对数据进行备份，我们仅依据相关法律法规要求或服务规则约定提供数据备份服务，我们仅在法定"""
+
+[[anchor]]
+id = "ppio-tos-8-6-llm-api-by-third-party-provider"
+source_id = "42116b5e61925e12"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+但未实际消耗的费用等）。若本条款与双方其他约定或派欧云服务规则冲突或不一致的，以本条约定为准。
+
+8.6 您理解并同意，"""
+exact = "大模型API产品由第三方技术支持商提供大模型API"
+suffix = "，派欧云对大模型API不作任何类型的担保，不论是明示的或暗示的，包括但不限于其真实性、适用性、非侵权性和安全性。并且，对"
+
+[[anchor]]
+id = "ppio-tos-1-3-neutral-tech-service-provider"
+source_id = "42116b5e61925e12"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+规则、说明、标准等（统称为“服务规则”），以派欧云官网或其他相关页面展示的内容或双方另行订立的书面协议为准。
+
+1.3 """
+exact = "我们是中立的技术服务提供者"
+suffix = """
+，依约向您提供各类技术产品和服务；您的网站、应用、软件、平台等任何产品、服务及相关内容等，由您自行运营并承担全部责任。
+"""
+
+[[anchor]]
+id = "ppio-tos-4-4-4-delete-data-generated-by-service"
+source_id = "42116b5e61925e12"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+而直接将预付费用和现金余额用于抵扣拖欠款项和违约金。
+
+4.4.4 """
+exact = "删除您基于使用派欧云服务而存储或产生的部分或全部信息和数据"
+suffix = """
+。
+
+4.5 您知悉并同意"""
+
+[[anchor]]
+id = "ppio-model-privacy-1-1-scope-includes-api"
+source_id = "5656d6b775d76e6c"
+topics = ["processing_region", "retention", "role"]
+
+[anchor.selector]
+prefix = "过网站（[www.ppio.com](http://www.ppio.com/)）、PPIO 软件开发工具包（SDK）、"
+exact = "API 接口、图片/视频生成服务、实时音视频服务及其他关联产品/服务"
+suffix = "（统称\"服务\"）向您提供的各项产品和服务。若我们及关联公司向您提供的产品或服务内设有单独隐私政策或类似法律文件，该等单独"
+
+[[anchor]]
+id = "ppio-model-privacy-2-3-2-interactive-service-api"
+source_id = "5656d6b775d76e6c"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+使用时长、日志信息及音频流、视频流信息，用于判断运行环境、保障服务正常运行、排查故障及实现网络下载功能。
+
+2.3.2 """
+exact = "交互服务（如大模型 API 试用、内容生成）"
+suffix = """
+：收集您自主输入的文本、语音、图片、音频、视频等内容，用于提供连续、一致的生成服务，保障服务质量。
+
+2.3.3 付费服"""
+
+[[anchor]]
+id = "ppio-model-privacy-6-2-retention-purpose-bound"
+source_id = "5656d6b775d76e6c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+私保护培训课程，加强员工对于保护用户信息重要性的认识。
+
+6.2 我们会采取合理可行的措施，尽力避免收集无关的用户信息。"""
+exact = "我们只会在达成本政策所述目的所需的期限内保留您的用户信息，除非受到法律的允许"
+suffix = """
+。超出上述用户信息保存期限后，我们会对您的个人信息进行删除或匿名化处理。
+
+6.3 尽管我们已经按照相关法律法规要求采取"""
+
+[[anchor]]
+id = "ppio-model-privacy-6-6-storage-in-cn"
+source_id = "5656d6b775d76e6c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+活动；停止运营的通知将以逐一送达或公告的形式通知用户；并对所持有的个人信息进行删除或匿名化处理等。
+
+6.6 存储地域："""
+exact = "原则上，我们在中华人民共和国境内开展业务过程中产生或收集的个人信息，将存储在中华人民共和国境内"
+suffix = "；除非为向您提供某项服务所必需，我们会在获得您单独同意，并采取其他法律法规要求的措施下，方会向境外传输您的个人信息。目前"
+
+[[anchor]]
+id = "ppio-model-privacy-5-3-3-backup-deletion-delay"
+source_id = "5656d6b775d76e6c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+同意；（7）法律、行政法规规定的其他情形。
+
+5.3.3 当您或我们协助您删除相关信息后，因为适用的法律和安全技术限制，"""
+exact = "我们可能无法立即从备份系统中删除相应的信息"
+suffix = """
+，我们将安全地存储您的个人信息并限制对其的任何进一步的处理，直到备份可以清除或实现匿名化。
+
+5.4 改变或撤回授权范围"""
+
+[[anchor]]
+id = "ppio-pilist-role-interactive-input-controller"
+source_id = "dda06b583a913975"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+信息。**-向您提供连续性、一致化的使用体验，保障服务质量（法律法规另有规定的除外）  
+-在您使用本网站下交互服务时，"""
+exact = "收集您进行交互过程中所输入的信息，以向您输出内容，以提供相对应的生成服务"
+suffix = """
+。用户主动提供 个人信息处理者
+当您使用本网站下的付费产品/服务 我们会收集：  
+- 您使用的第三方支付平台（如微信、"""
+
+[[anchor]]
+id = "ppio-batch-input-file-retention-15-days"
+source_id = "4949e1a6e984bc91"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "时能够正确引用它。使用文件 API 上传您的 .jsonl 文件，并将 purpose 设置为 `batch`。请注意，"
+exact = "该文件将保留 15 天"
+suffix = """
+。
+
+<Tip>
+  关于如何获取 API 密钥，请参见[管理 API 密钥](/docs/support/api-ke"""
+
+[[anchor]]
+id = "ppio-batch-output-file-deleted-after-30-days"
+source_id = "4949e1a6e984bc91"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+取结果
+
+批量推理完成后，您可以使用 Batch 对象中的 `output_file_id` 字段下载结果输出文件。
+
+"""
+exact = "结果输出文件将在批量推理结束后 30 天删除"
+suffix = """
+，请及时通过接口获取。
+
+代码示例
+
+**Python**
+
+```python theme={null}
+from o"""
+
+[[anchor]]
+id = "ppio-prompt-cache-caches-historical-prompt"
+source_id = "5666a92e480560df"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+Prompt Cache（推理缓存）是 PPIO 推理引擎提供的一项降本增效功能。
+
+"""
+exact = "当请求与历史 Prompt 完全一致时，系统会直接返回缓存结果"
+suffix = "，仅收取极少的缓存 token 费用——大幅降低成本并提升响应速度。"
+
+[[anchor]]
+id = "ppio-prompt-cache-transparent-by-default"
+source_id = "5666a92e480560df"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+QPS 场景下，Prompt Cache 能有效降低推理负载，提升整体系统服务能力。
+
+* **对应用透明**
+
+  """
+exact = "无需在您的业务系统中增加额外逻辑或进行系统改造"
+suffix = """
+。
+
+## 2. 支持的模型"""

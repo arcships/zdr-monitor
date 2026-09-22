@@ -1,0 +1,388 @@
+name = "硅基流动"
+name_en = "SiliconFlow"
+company = "siliconflow"
+line = "siliconflow-cn"
+site = "cn"
+entity = "北京硅基流动科技股份有限公司"
+endpoint = ""
+doc = "https://docs.siliconflow.cn/cn/legals/privacy-policy"
+
+[[source]]
+url = "https://docs.siliconflow.cn/cn/legals/personal-information-collection-list"
+channel = "consumer_privacy"
+tier = "core"
+note = "《个人信息收集清单》中文版（更新日期 2026 年 7 月 30 日）。表格式清单，9 行场景，无「我们的角色」列（与 PPIO 的个人信息收集清单不同，因此不能用作角色依据）。与 API 档相关的两行：第 4 行「大模型 API 调用与推理服务」收集 IP地址、模型名称、Token 消耗量、请求时间、请求状态码等日志信息；第 5 行「平台内容安全与风控」收集使用行为信息与「输入提示词（Prompt）和输出内容」。两行都只写收集目的，不写保留期限——这是 retention 维度「日志与审核副本期限未量化」的直接证据。"
+
+[[source]]
+url = "https://docs.siliconflow.cn/cn/legals/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《硅基流动隐私政策》中文版（更新日期 2026 年 7 月 30 日，正文首段自述适用主体「北京硅基流动科技股份有限公司…运营的 SiliconFlow平台（域名：siliconflow.cn）」）。这是国内站 siliconflow.cn 官网页脚「隐私协议」实际指向的页面，也是本条目的主权威来源。§一（四）「大模型 API 调用与推理服务」是训练/保留/零保留三维度的唯一出处：先收集 IP地址、模型名称、Token 消耗量、请求时间、请求状态码等日志信息，随后以【特别说明】限定「针对大模型API加速推理服务，我们仅作为底层算力与技术提供方」，再给出「仅在提供当次推理计算的必要且短暂的时间内进行处理／不会长期存储您的任何业务输入与输出数据／不会用于任何大模型的预训练、微调或其他商业用途／推理计算完成后相关业务数据将立即从我们的计算节点中销毁或不可恢复」。§一（五）平台内容安全与风控另承诺自动化安全审核「不会将其用于模型训练或其他商业目的」。§七给出存储地点（仅存储于中华人民共和国境内）与存储期限（满足产品/服务目的所必需且最短的期间）；§五（二）承认备份系统无法立即删除。全文无「零数据保留/ZDR/不落盘」字样，无 ZDR 开关或申请方式，无 DPA。"
+
+[[source]]
+url = "https://docs.siliconflow.cn/cn/legals/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《平台使用协议》中文版（页脚标注更新日期 2026 年 5 月 22 日；文档站页脚把它同时登记为「用户协议」）。合同层文件，覆盖全部平台服务（含大模型 API）。与数据有关的条款：§3.1 定义「交互数据」并把详细数据使用政策引向《隐私政策》；§3.2 平台有权删除违规交互数据或停止技术服务；§3.4/§3.5 两次称「本平台作为独立的技术支持者」；§3.6.1 免责声明中给出本档最强的角色与保留表述「本平台提供的技术服务只会严格执行您的指示处理您的交互数据…我们不会访问您的交互数据…只是作为交互数据的被动技术支持者或渠道…不会对您的交互数据进行任何非授权的使用或披露，同时亦不会进行任何存储」；§4.3(b)「用户使用数据不同于交互数据。交互数据不保存、不披露」；§8.1 只承诺遵守《个人信息保护法》与适用法律。全文无「受托处理者/个人信息处理者/DPA」定性条款，也未出现任何保留天数。"
+
+[[source]]
+url = "https://docs.siliconflow.cn/cn/userguide/guides/batch"
+channel = "developer_data"
+tier = "core"
+note = "文档站《批量推理》页（中文，路径 /cn/userguide/guides/batch，正文由 r.jina.ai 抓取）。这是 API 档唯一一处量化保留期限：结果文件「系统将保留结果文件 30 天…超过保存期限的文件将被自动删除，且无法恢复」，同页开头另写「批量处理结果文件的 URL 有效期为一个月」。只覆盖 Batch 子功能的结果文件；该页对上传的输入 .jsonl 文件的保留期没有说明。"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "sf-cn-privacy-api-no-long-term-store"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "同顶层：§一（四）不用于预训练、微调或其他商业用途"
+
+[[product.training.point]]
+text_zh = "§一（五）内容安全审核不用于训练。限定语「针对大模型API加速推理服务」的覆盖面含混，微调档另论。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "sf-cn-privacy-interaction-data-no-storage"
+
+[[product.zdr.point]]
+text_zh = "同顶层：默认承诺不留存业务输入输出，但不是可开通的 ZDR 选项，无开关/申请渠道/公开 DPA，且内容安全审核与请求日志为明文例外。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "sf-cn-privacy-api-no-long-term-store"
+
+[[product.retention.point]]
+text_zh = "同顶层：业务输入输出请求级销毁（限定措辞见上）"
+
+[[product.retention.point]]
+text_zh = "请求日志与内容安全审核副本期限未量化，回落到 §七「最短必要期间」"
+
+[[product.retention.point]]
+text_zh = "Batch 结果文件 30 天（上限，仅该子功能）"
+
+[[product.retention.point]]
+text_zh = "备份系统存在延迟删除。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "sf-cn-privacy-storage-location-cn"
+
+[[product.processing_region.point]]
+text_zh = "同顶层：个人信息仅存储于中国境内，跨境需单独同意"
+
+[[product.processing_region.point]]
+text_zh = "推理执行地与交互数据处理地未披露。"
+
+[product.role]
+kind = "processor"
+anchor = "sf-cn-privacy-interaction-data-neutral-provider"
+
+[[product.role.point]]
+text_zh = "同顶层：对 API 交互数据按客户指示处理（受托一侧，自认中立/被动技术支持者或渠道）"
+
+[[product.role.point]]
+text_zh = "对账户个人信息为独立控制方"
+
+[[product.role.point]]
+text_zh = "「独立的技术支持者」与「被动技术支持者」两套措辞并存"
+
+[[product.role.point]]
+text_zh = "无公开 DPA。"
+
+[[anchor]]
+id = "sf-cn-privacy-entity-cn-company"
+source_id = "f5a373b836257c8e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "iconflow.cn/docs/legals/terms-of-service)）使用 SiliconFlow 平台。"
+exact = "本《隐私政策》（以下简称“本政策”）适用于北京硅基流动科技股份有限公司（以下简称“硅基流动”或“我们”）运营的 SiliconFlow平台（域名：siliconflow.cn，以下统称“本平台”）的相关产品与服务"
+suffix = "。鉴于此，我们制定本《隐私政策》。本政策仅适用于我们所收集的个人信息。本平台可能包含第三方网站、应用程序提供的服务或链接"
+
+[[anchor]]
+id = "sf-cn-privacy-interaction-data-neutral-provider"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "频、图像、音频、评论、问题和其他内容、文件、数据和信息等均为您的业务和客户数据（“交互数据”），您完全拥有您的交互数据。"
+exact = "本平台作为中立的技术服务提供者，只会严格执行您的指示处理您的交互数据，我们及本平台只是作为交互数据的被动技术支持者或渠道"
+suffix = "，除非法律法规另有规定、依据特定产品规则另行约定或基于您的要求为您提供技术协助进行故障排除或解决技术问题。我们及本平台不"
+
+[[anchor]]
+id = "sf-cn-privacy-interaction-data-no-storage"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "术支持者或渠道，除非法律法规另有规定、依据特定产品规则另行约定或基于您的要求为您提供技术协助进行故障排除或解决技术问题。"
+exact = "我们及本平台不会对您的交互数据进行任何非授权的使用或披露，同时亦不会进行任何存储"
+suffix = """
+。
+
+您应对您的交互数据来源及内容负责，我们提示您谨慎判断数据来源及内容的合法性。您应保证有权授权本平台通过提供技术服务"""
+
+[[anchor]]
+id = "sf-cn-privacy-api-scope-accelerated-inference"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+障系统的安全与稳定性，我们需要收集您的 IP地址、调用的模型名称、Token消耗量、请求时间及请求状态码等日志信息。
+
+"""
+exact = "【特别说明】针对大模型API加速推理服务，我们仅作为底层算力与技术提供方"
+suffix = "。对于您通过API传输的业务数据（包括输入指令及生成的输出内容），我们仅在提供当次推理计算的必要且短暂的时间内进行处理。"
+
+[[anchor]]
+id = "sf-cn-privacy-api-no-long-term-store"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = "。对于您通过API传输的业务数据（包括输入指令及生成的输出内容），我们仅在提供当次推理计算的必要且短暂的时间内进行处理。"
+exact = "我们不会长期存储您的任何业务输入与输出数据；不会将您的业务数据用于任何大模型的预训练、微调或其他商业用途；推理计算完成后，相关业务数据将立即从我们的计算节点中销毁或不可恢复"
+suffix = "。同时，如您作为开发者或企业客户使用我们的API服务向最终用户提供服务，您应当确保您输入的数据来源合法，并已依法获取最终"
+
+[[anchor]]
+id = "sf-cn-privacy-api-log-collection"
+source_id = "f5a373b836257c8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "型API服务（包括但不限于文本生成、图像生成等）时，为了完成大模型推理计算、计费扣减、并发调度及保障系统的安全与稳定性，"
+exact = "我们需要收集您的 IP地址、调用的模型名称、Token消耗量、请求时间及请求状态码等日志信息"
+suffix = """
+。
+
+【特别说明】针对大模型API加速推理服务，我们仅作为底层算力与技术提供方。对于您通过API传输的业务数据（包括输入"""
+
+[[anchor]]
+id = "sf-cn-privacy-content-security-review"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "法》等相关法律法规规定的内容安全法定义务，我们会收集您的使用行为信息（包括API调用频率、并发量、异常请求日志）。同时，"
+exact = "我们会对您的输入提示词（Prompt）和输出内容进行自动化安全审核，以识别和拦截违法违规内容"
+suffix = """
+。请您知悉，该等审核仅用于履行法定合规义务，我们不会将其用于模型训练或其他商业目的。
+
+### [（六）基本业务功能六："""
+
+[[anchor]]
+id = "sf-cn-privacy-content-security-not-for-training"
+source_id = "f5a373b836257c8e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "求日志）。同时，我们会对您的输入提示词（Prompt）和输出内容进行自动化安全审核，以识别和拦截违法违规内容。请您知悉，"
+exact = "该等审核仅用于履行法定合规义务，我们不会将其用于模型训练或其他商业目的"
+suffix = """
+。
+
+### [（六）基本业务功能六：改善和优化服务及保障账户安全的个人信息收集使用规则](https://docs.s"""
+
+[[anchor]]
+id = "sf-cn-privacy-entrusted-processing"
+source_id = "f5a373b836257c8e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+vacy-policy#%E4%B8%80%E5%A7%94%E6%89%98%E5%A4%84%E7%90%86)
+
+"""
+exact = "对于委托处理用户信息的场景，我们会与受托合作方根据法律规定签署相关处理协议，并对其用户信息使用活动进行监督"
+suffix = """
+。
+
+### [（二）共享](https://docs.siliconflow.cn/cn/legals/privacy"""
+
+[[anchor]]
+id = "sf-cn-privacy-storage-location-cn"
+source_id = "f5a373b836257c8e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+的监护人）自行承担，本平台有权在发现后立即终止向您提供服务，并有权注销相关用户账户、删除相关数据，且不承担任何责任。
+
+"""
+exact = "存储地点：我们依照法律法规的规定，仅会将收集到的有关您的个人信息存储于中华人民共和国境内"
+suffix = """
+。
+
+如果确有必要进行个人信息的跨境传输，我们会单独向您明确告知（包括出境的目的、接收方、使用方式与范围、使用内容、安全"""
+
+[[anchor]]
+id = "sf-cn-privacy-cross-border-separate-consent"
+source_id = "f5a373b836257c8e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+据，且不承担任何责任。
+
+存储地点：我们依照法律法规的规定，仅会将收集到的有关您的个人信息存储于中华人民共和国境内。
+
+"""
+exact = "如果确有必要进行个人信息的跨境传输，我们会单独向您明确告知"
+suffix = "（包括出境的目的、接收方、使用方式与范围、使用内容、安全保障措施、安全风险等），并征得您的授权同意，我们会确保接收方有充"
+
+[[anchor]]
+id = "sf-cn-privacy-storage-period-minimum"
+source_id = "f5a373b836257c8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+们会确保接收方有充足的个人信息保护能力来保护您的个人信息，并确保您的个人信息得到在中华人民共和国境内足够同等的保护。
+
+"""
+exact = "存储期限：我们在为您提供满足产品/服务目的所必需且最短的期间内保留您的个人信息"
+suffix = "，例如：当您使用我们的用户注册/登录功能时，我们需要收集您的手机号码，且在您提供后并在您使用该功能期间，我们需要持续保存"
+
+[[anchor]]
+id = "sf-cn-privacy-backup-deletion-delay"
+source_id = "f5a373b836257c8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+个工作日内向您反馈结果（法律法规要求必须保留的数据除外）。
+
+当您或我们协助您删除相关信息后，因为适用的法律和安全技术，"""
+exact = "我们可能无法立即从备份系统中删除相应的信息，我们将安全地存储您的个人信息并将其进行进一步的处理和隔离，直到备份可以清除或实现匿名"
+suffix = """
+。
+
+### [（三）您有权改变您授权同意的范围或撤销您的授权同意](https://docs.siliconflow."""
+
+[[anchor]]
+id = "sf-cn-tos-independent-technical-supporter"
+source_id = "4a10c3bbd3b0281d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+包括未经本人同意的任何人的个人信息；不包括垃圾邮件、机器生成的内容或未经请求的信息及其他令人反感的内容。
+
+**3.4 """
+exact = "本平台作为独立的技术支持者对您利用本平台服务所产生的全部交互数据不享有任何知产产权"
+suffix = """
+。您利用本平台服务所产生的全部交互数据及义务和责任均由您承担，本平台不对由此造成的任何损失负责。**
+
+**3.5 本平"""
+
+[[anchor]]
+id = "sf-cn-tos-no-access-no-storage"
+source_id = "4a10c3bbd3b0281d"
+topics = ["retention", "role", "zdr"]
+
+[anchor.selector]
+prefix = "理您的交互数据，除非法律法规另有规定、依据特定产品规则另行约定或基于您的要求为您提供技术协助进行故障排除或解决技术问题，"
+exact = "我们不会访问您的交互数据，您理解并认同我们及本平台只是作为交互数据的被动技术支持者或渠道。我们及本平台不会对您的交互数据进行任何非授权的使用或披露，同时亦不会进行任何存储"
+suffix = """
+。**
+
+**3.6.2 请您理解并认同，我们将依据《人工智能生成合成内容标识办法》等相关法律法规要求，对人工智能生成合"""
+
+[[anchor]]
+id = "sf-cn-tos-interaction-data-not-saved"
+source_id = "4a10c3bbd3b0281d"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+任何部分，包括但不限于：
+
+*   （a）提供和维护平台服务；
+*   （b）改进我们的产品和服务或开发新的产品或服务（"""
+exact = "用户使用数据不同于交互数据。交互数据不保存、不披露"
+suffix = "，具体详见[《隐私政策》](https://docs.siliconflow.cn/docs/legals/privac"
+
+[[anchor]]
+id = "sf-cn-tos-delete-interaction-data"
+source_id = "4a10c3bbd3b0281d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+docs.siliconflow.cn/docs/legals/privacy-policy)。**
+
+**3.2** """
+exact = "如交互数据存在任何违反法律法规或本协议的情况，我们有权利删除或停止技术服务"
+suffix = """
+。
+
+**3.3** 关于您的交互数据，您确认、声明并保证：
+
+*   3.3.1 在我们要求时，您能提供交互数据中包含"""
+
+[[anchor]]
+id = "sf-cn-tos-personal-information-law"
+source_id = "4a10c3bbd3b0281d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "相关信息（**“用户信息”**），且为了确保您正常使用本平台的相关服务，我们可能对您提供的用户信息进行收集、整理、使用，"
+exact = "但我们将持续遵守《中华人民共和国个人信息保护法》及相关适用法律"
+suffix = """
+。
+
+**8.2** 数据安全。我们关心您个人信息的完整性和安全性，然而，我们不能保证未经授权的第三方永远无法破坏我们的"""
+
+[[anchor]]
+id = "sf-cn-pilist-api-log-fields"
+source_id = "e3ba0df4a30af277"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+用于完成交易及提供对账服务。 | 您主动提供，及我们主动收集的信息 |
+| 4 | 大模型 API 调用与推理服务 | """
+exact = "IP地址、调用的模型名称、Token消耗量、请求时间及请求状态码等日志信息"
+suffix = """
+ | 用于完成大模型推理计算、计费扣减、并发调度及保障系统的安全与稳定性。 | 我们主动收集的信息 |
+| 5 | 平台"""
+
+[[anchor]]
+id = "sf-cn-pilist-content-security-prompt-output"
+source_id = "e3ba0df4a30af277"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+推理计算、计费扣减、并发调度及保障系统的安全与稳定性。 | 我们主动收集的信息 |
+| 5 | 平台内容安全与风控 | """
+exact = "使用行为信息（包括API调用频率、并发量、异常请求日志）、输入提示词（Prompt）和输出内容"
+suffix = " | 基于保障平台算力资源不被滥用及履行生成式人工智能内容安全法定义务，进行自动化安全审核以识别和拦截违法违规内容。 |"
+
+[[anchor]]
+id = "sf-cn-batch-output-file-30-days"
+source_id = "f5b09b692e5cabd6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d：包含所有成功请求的输出结果文件。
+*   error_file_id：包含所有失败请求的错误信息文件。
+
+1.   """
+exact = "系统将保留结果文件 **30 天**。请务必在有效期内及时下载并备份相关数据。超过保存期限的文件将被自动删除，且无法恢复。"
+suffix = """
+
+
+### [2.7 获取所有批量推理列表](https://docs.siliconflow.cn/cn/usergu"""

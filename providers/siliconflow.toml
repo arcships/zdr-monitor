@@ -1,0 +1,360 @@
+name = "硅基流动"
+name_en = "SiliconFlow"
+company_name = "硅基流动"
+line = "siliconflow"
+site = "global"
+entity = "SILICONFLOW LABS PTE. LTD."
+endpoint = ""
+doc = "https://docs.siliconflow.com/en/legals/terms-of-service"
+
+[[source]]
+url = "https://docs.siliconflow.com/cn/legals/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "国际站《隐私政策》的中文版。**同一份政策的中英两版用了两个不同的实体名**：中文版写「SILICONFLOW TECHNOLOGY PTE.LTD.」，英文版写「SILICONFLOW LABS PTE. LTD.」——都是新加坡 PTE LTD，但名称不一致。本轮如实记录，不裁决哪个是法定名称，也不据此否定该政策的效力；这属于本家的一处文档不一致（见 notes）。其余条款（§3 互动数据、§7 保留）与英文版同义。"
+
+[[source]]
+url = "https://docs.siliconflow.com/en/legals/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Privacy Policy》（索引标注 Update Date: Sep. 09th, 2026）英文版，国际站隐私政策，主体同为 SILICONFLOW LABS PTE. LTD.，法律框架为新加坡 PDPA（§1.1「PDPA means the Personal Data Protection Act 2012 of Singapore」）。§3「Interaction Data」是 API 输入输出（业务/客户数据）的专节，§7 是保留期条款，§5.1 是共享与跨境传输条款，§8.1 是撤回同意/DPO 联系渠道。**全文无 train/training 字样**（对输入输出只有 §3 的「严格按您的指示处理」），**无保留期天数**，**无 ZDR 选项或申请方式**。注意 §2.2b「Service Improvement」的对象是 network log / 使用频率 / 崩溃数据等运行数据，不是 Interaction Data。"
+
+[[source]]
+url = "https://docs.siliconflow.com/en/legals/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Terms of Use》（docs 站索引标注 Update Date: Sep. 09th, 2026）英文版，国际站主合同，覆盖国际站全部产品档（未按档位分设数据条款）。签约主体 SILICONFLOW LABS PTE. LTD.（新加坡）；开篇即声明「The Services are not available for users located in the territory of mainland China and users in China may access our services through https://siliconflow.cn/」——**国际站与中国大陆站是两个法律实体、两套条款**。与数据处理直接相关的条款：§2.1 许可「for in Singapore」、§4.1 合规基准为新加坡法律、§7.4 Interaction Data 免责与用途限定、§13.2c 终止后删除、§5.11 访问/账户/交易数据可被记录并送交当局、§15.7f 可分包、§14.1 新加坡法管辖。全文**无 ZDR / zero data retention / 不存储 字样，无任何量化保留期（无 30 天、6 个月等天数），无「不用于训练」的明文**；唯一出现「training」的是 §3.4b，且是对**用户**的禁止（不得把服务提供的内容用于机器学习/AI 训练或开发）。§6.3a 提到可与客户另签「separate contract」，说明存在未公开的线下合同档。"
+
+[[product]]
+id = "api"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "intl-tos-7-4-purpose-limitation-only-providing-services"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "同顶层 training：合同层用途限定为「solely for the purpose of providing Services to you」，无训练明文、无「不用于预训练/微调」承诺（国内站才有那句）。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.siliconflow.com/en/legals/terms-of-service",
+  "https://docs.siliconflow.com/en/legals/privacy-policy",
+  "https://docs.siliconflow.com/cn/legals/terms-of-service",
+  "https://docs.siliconflow.com/cn/legals/privacy-policy",
+  "https://docs.siliconflow.com/llms.txt",
+  "https://siliconflow.com/trust",
+  "https://siliconflow.com/dpa",
+  "https://cloud.siliconflow.com/",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：两篇 legal 文档、文档索引、主站 legal 路由探测均无 ZDR 承诺/开关/申请方式"
+
+[[product.zdr.point]]
+text_zh = "无公开 DPA、无 trust center。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://docs.siliconflow.com/en/legals/terms-of-service",
+  "https://docs.siliconflow.com/en/legals/privacy-policy",
+  "https://docs.siliconflow.com/cn/legals/terms-of-service",
+  "https://docs.siliconflow.com/cn/legals/privacy-policy",
+  "https://docs.siliconflow.com/llms.txt",
+  "https://siliconflow.com/trust",
+  "https://siliconflow.com/dpa",
+  "https://cloud.siliconflow.com/",
+]
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：交互数据「无存储义务」（免责式）——§7.4 讲的是存储义务而非保留期限，不构成 retention 表述，故本维度不绑锚点"
+
+[[product.retention.point]]
+text_zh = "个人数据「按必需期间保留」"
+
+[[product.retention.point]]
+text_zh = "访问/账户/交易数据可被记录并送交当局（§5.11）"
+
+[[product.retention.point]]
+text_zh = "终止后删除为裁量式（§13.2c「may be deleted … at SiliconFlow's discretion」）。无任何量化期限。"
+
+[product.processing_region]
+codes = ["SG"]
+anchor = "intl-tos-2-1-license-singapore"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：许可与合规基准为新加坡，但 §5.1 允许向新加坡境外传输并由境外第三方处理"
+
+[[product.processing_region.point]]
+text_zh = "无存储地域条款。"
+
+[product.role]
+kind = "processor"
+anchor = "intl-tos-7-4-passive-technical-channel"
+
+[[product.role.point]]
+text_zh = "同顶层 role：对 Interaction Data 自认「passive technical supporters or channels」、严格按客户指示处理"
+
+[[product.role.point]]
+text_zh = "对账户与个人数据一侧仍是独立控制者。"
+
+[[anchor]]
+id = "intl-tos-scope-excludes-mainland-china"
+source_id = "f7b1614acc1bbdc7"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "latform (as defined below) and Services (as defined below). "
+exact = "The Services are not available for users located in the territory of mainland China and users in China may access our services through"
+suffix = " [https://siliconflow.cn](https://siliconflow.cn/). Please n"
+
+[[anchor]]
+id = "intl-tos-2-1-license-singapore"
+source_id = "f7b1614acc1bbdc7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ve, non-transferable, non-sublicensable, and non-assignable "
+exact = "license to access and use the Platform and Services for in Singapore"
+suffix = ".2.2 All Intellectual Property Rights available on and/or th"
+
+[[anchor]]
+id = "intl-tos-4-1-comply-with-singapore-laws"
+source_id = "f7b1614acc1bbdc7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ or other Governmental Authority).
+
+## 4. AVAILABILITY
+
+4.1 """
+exact = "SiliconFlow will use commercially reasonable efforts to make the Platform and Services available to you, and ensure that the Platform and Services will comply with Singapore Laws"
+suffix = ".4.2 Notwithstanding the foregoing, you acknowledge and agre"
+
+[[anchor]]
+id = "intl-tos-14-1-governing-law-singapore"
+source_id = "f7b1614acc1bbdc7"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+isions).
+
+## 14. GOVERNING LAW AND DISPUTE RESOLUTION
+
+14.1 """
+exact = "This Agreement shall be governed by and construed under the Laws of the Republic of Singapore."
+suffix = "14.2 Any dispute arising out of or in connection with or in "
+
+[[anchor]]
+id = "intl-tos-7-4-strict-instructions-no-access"
+source_id = "f7b1614acc1bbdc7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ubleshooting or resolving technical issues at your request, "
+exact = "our technical services will strictly execute your instructions for processing Interaction Data. We will not access your Interaction Data."
+suffix = " You acknowledge and agree that we and this platform act sol"
+
+[[anchor]]
+id = "intl-tos-7-4-passive-technical-channel"
+source_id = "f7b1614acc1bbdc7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Interaction Data. We will not access your Interaction Data. "
+exact = "You acknowledge and agree that we and this platform act solely as passive technical supporters or channels for Interaction Data."
+suffix = " We are under no obligation to store Interaction Data and wi"
+
+[[anchor]]
+id = "intl-tos-7-4-no-obligation-to-store"
+source_id = "f7b1614acc1bbdc7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "sive technical supporters or channels for Interaction Data. "
+exact = "We are under no obligation to store Interaction Data and will not use or disclose it without authorization."
+suffix = " Additionally, we will only use your Interaction Data in com"
+
+[[anchor]]
+id = "intl-tos-7-4-purpose-limitation-only-providing-services"
+source_id = "f7b1614acc1bbdc7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "not use or disclose it without authorization. Additionally, "
+exact = "we will only use your Interaction Data in compliance with applicable laws and solely for the purpose of providing Services to you"
+suffix = """
+.**
+
+## 8. INTERNET / USER DEVICE / THIRD PARTY SOFTWARE
+
+8."""
+
+[[anchor]]
+id = "intl-tos-13-2-c-deletion-at-discretion"
+source_id = "f7b1614acc1bbdc7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "sociated with or inside your Account (or any part thereof), "
+exact = "including your Interaction Data, may be deleted from SiliconFlow’s database at SiliconFlow’s discretion"
+suffix = ". You acknowledge and agree that SiliconFlow will not have a"
+
+[[anchor]]
+id = "intl-tos-5-11-access-data-recorded-to-authorities"
+source_id = "f7b1614acc1bbdc7"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "s by SiliconFlow.5.11 You hereby acknowledge and agree that "
+exact = "any or all data (including without limitation to user access data, user account data and transaction data) and communications with the Platform may be monitored, captured, recorded and transmitted to the authorities in compliance with the local legal requirements and without further notice"
+suffix = ".5.12 It is your responsibility to keep your User Devices an"
+
+[[anchor]]
+id = "intl-tos-3-4-b-user-barred-from-ml-training"
+source_id = "f7b1614acc1bbdc7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "r misrepresent your affiliation with any person or party;b. "
+exact = "use any content provided on or through this service (including any title information, keywords, or other metadata) for any machine learning and artificial intelligence training or development purposes"
+suffix = ", or for any technology intended to identify the identity of"
+
+[[anchor]]
+id = "intl-tos-15-7-f-delegate-subcontract"
+source_id = "f7b1614acc1bbdc7"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "tion by the assignee of such obligations and liabilities.f. "
+exact = "We shall be entitled, in our discretion, to delegate or subcontract the performance of any of our functions in connection with the Platform, Services and our performance of our obligations under this Agreement"
+suffix = ", and reserve the right to use any service provider, subcont"
+
+[[anchor]]
+id = "intl-privacy-3-interaction-data-definition"
+source_id = "f27a0bd5e54ef73f"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = ", third-party websites, software, applications or services, "
+exact = "shall all be your business and customer data (“Interaction Data”)."
+suffix = "**You understand and agree that you are responsible for stor"
+
+[[anchor]]
+id = "intl-privacy-3-no-obligation-to-store"
+source_id = "f27a0bd5e54ef73f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " by laws and regulations or as agreed in the service rules, "
+exact = "we have no obligation to store your Interaction Data, and we will not assume any responsibility for your data storage efforts or outcomes"
+suffix = ".In case the Interaction Data contains Personal Data, as a n"
+
+[[anchor]]
+id = "intl-privacy-3-neutral-provider-strict-instructions"
+source_id = "f27a0bd5e54ef73f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "tcomes.In case the Interaction Data contains Personal Data, "
+exact = "as a neutral technology service provider, we will only process your Interaction Data strictly in accordance with your instructions"
+suffix = ". You are required to fulfill the obligations associated wit"
+
+[[anchor]]
+id = "intl-privacy-7-retain-as-necessary"
+source_id = "f27a0bd5e54ef73f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+Service Providers.
+
+## 7. How We Retain Your Personal Data
+
+"""
+exact = "We may retain your Personal Data for as long as it is necessary to fulfil the purpose for which it was collected, or as required or permitted by applicable laws."
+suffix = "We will cease to retain your Personal Data or remove the mea"
+
+[[anchor]]
+id = "intl-privacy-7-cease-retention"
+source_id = "f27a0bd5e54ef73f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "s collected, or as required or permitted by applicable laws."
+exact = "We will cease to retain your Personal Data or remove the means by which the data can be associated with you, as soon as it is reasonable to assume that such retention no longer serves the purpose for which the Personal Data was collected, and is no longer necessary for legal or business purposes."
+suffix = """
+
+
+## 8. Your Rights and Options Regarding Your Personal Data"""
+
+[[anchor]]
+id = "intl-privacy-5-1-transfer-outside-singapore"
+source_id = "f27a0bd5e54ef73f"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "nowledge and agree that Personal Data provided to us by you "
+exact = "may be disclosed and/or transferred to the following third parties, and used or Processed by such third parties, whether within or outside Singapore"
+suffix = ", for the purposes set out above or otherwise permitted/ req"
+
+[[anchor]]
+id = "intl-privacy-2-2-b-service-improvement-logs"
+source_id = "f27a0bd5e54ef73f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "* To enhance our user experience and ensure usage security, "
+exact = "we may record network log information, as well as information on the frequency of using our platform and related services, crash data, usage scenarios, and related performance data. This information will be used to optimize the service experience and improve product quality."
+suffix = "c. **Troubleshooting.** We may collect user consultation rec"
+
+[[anchor]]
+id = "intl-privacy-8-1-withdraw-consent-dpo"
+source_id = "f27a0bd5e54ef73f"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+egarding Your Personal Data
+
+8.1. **Withdrawing consent**a. """
+exact = "You may withdraw your consent and request us to stop collecting, using, disclosing and/or Processing your Personal Data for any or all of the purposes listed above by submitting your request via email to our Data Protection Officer"
+suffix = " at the contact details provided above.b. Upon receipt of yo"
+
+[[anchor]]
+id = "intl-privacy-cn-entity-name-mismatch"
+source_id = "62d7a7ec5f1f287f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+onflow.com/cn/legals/privacy-policy
+
+Markdown Content:
+欢迎使用 """
+exact = "SILICONFLOW TECHNOLOGY PTE.LTD."
+suffix = " 的高价值生成式人工智能平台（” **SiliconFlow** “或”**我们**”）。我们非常重视保护用户（“**您"
+
+[[anchor]]
+id = "intl-privacy-cn-7-retain-as-necessary"
+source_id = "62d7a7ec5f1f287f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+人数据的收集、使用、披露和/或处理而可能遭受的任何责任、损失或损害承担责任。
+
+## 7. 我们如何保留您的个人数据
+
+"""
+exact = "我们可能会在为实现收集个人数据的目的所必需的期间内保留您的个人数据"
+suffix = "，或者根据适用法律的要求或允许进行保留。一旦我们合理认为保留个人数据不再服务于收集该个人数据的目的，并且不再出于法律或商"

@@ -1,0 +1,398 @@
+name = "MiniMax"
+company_name = "MiniMax"
+line = "minimax"
+site = "global"
+entity = "Nanonoble Pte Ltd."
+endpoint = ""
+doc = "https://platform.minimax.io/protocol/terms-of-service"
+
+[[source]]
+url = "https://platform.minimax.io/docs/api-reference/anthropic-api-compatible-cache"
+channel = "developer_data"
+tier = "core"
+note = "《Explicit Prompt Caching (Anthropic API)》API 文档（docs 站渲染通道抓取）。给出缓存条目的期限与缓存对象定义：「Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」，What Can Be Cached 明列 system / messages.content（user 与 assistant 两向）/ tools 的内容块。只支撑 zdr：文档未说明缓存在内存还是落盘、未说明缓存条目是原始正文还是中间状态（KV），也未提供删除或退出缓存的方式。"
+
+[[source]]
+url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
+channel = "developer_data"
+tier = "core"
+note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它是本档 retention 维度的**对象级**证据——显式提示缓存(Anthropic 兼容)『5-minute expiration, automatically renewed with continued use』,被动缓存『Expiration time automatically adjusted based on system load』。不单独承载维度权威,只补充「缓存对象保留多久」。抓取通道:r.jina.ai 渲染版(3602B);同页的 .md 直连版(10052B)含相同表格行。"
+
+[[source]]
+url = "https://platform.minimax.io/protocol/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "国际站《MiniMax API Privacy Policy》(updated/effective March 30, 2026,控制者 Nanonoble Pte. Ltd.)。不分档:未区分按量 API 与 Token Plan,正文把 'Services Input & Output' 一并纳入处理范围,故同时覆盖本档。retention / processing_region / role 三个维度的权威来源,并为 training 提供反向限定句与商业利用依据。channel 判为 consumer_privacy：该文是平台自有隐私政策正文；platform.minimax.io 不存在企业隐私 FAQ 页，本轮实测 /protocol/enterprise-privacy-policy、/enterprise、/trust、/security、/dpa 均 404。"
+
+[[source]]
+url = "https://platform.minimax.io/protocol/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "国际站《MiniMax Terms of Service》(Effective Date: March 30, 2026,提供方 Nanonoble Pte Ltd.,新加坡)。覆盖 platform.minimax.io 全部付费形态,本档(Token Plan 订阅)亦受其约束:付费协议 §1.1 明示 Paid Services 含 'Token Plan subscriptions'。本档训练维度与实体/角色维度的权威来源;亦提供 retention 的边界条款(§15 仅针对自购存储功能)与 processing_region 的服务区域线索(§8 'If you select the United States as the service region')。本轮以 r.jina.ai 重抓,md5 与上一轮缓存逐字节一致(004e66e8370f846f585b820e06881d14)。"
+
+[[product]]
+id = "api"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "training-input-output-develop-improve"
+
+[product.zdr]
+mark = "no"
+anchor = "minimax-zdr-prompt-cache-passive-automatic-default"
+searched = [
+  "https://platform.minimax.io/docs/api-reference/text-prompt-caching（zdr 主依据）",
+  "https://platform.minimax.io/docs/api-reference/anthropic-api-compatible-cache",
+  "https://platform.minimax.io/docs/api-reference/file-management-upload（上传文件 7 天保留，对象非 prompt 正文）",
+  "https://platform.minimax.io/docs/api-reference/responses-create（store 字段示例 false，非请求参数）",
+  "https://platform.minimax.io/protocol/privacy-policy",
+  "https://platform.minimax.io/protocol/terms-of-service",
+  "https://platform.minimax.io/protocol/paid-agreement",
+  "https://platform.minimax.io/protocol/cookie-policy",
+  "https://platform.minimax.io/sitemap.xml（9 页）",
+  "https://platform.minimax.io/docs/sitemap.xml（124 页，无 data/security/retention 页）",
+  "https://platform.minimax.io/docs/faq/about-apis、/docs/faq/about-account、/docs/faq/contact-us、/docs/faq/system-voice-id、/docs/token-plan/faq、/docs/guides/transparency（本轮逐页读毕，无请求内容保留表述）",
+  "https://platform.minimax.io/protocol/dpa、/dpa、/security、/trust、/compliance、/enterprise（全 404，2026-09-21 复测）",
+]
+
+[[product.zdr.point]]
+text = "The cited lines are \"Passive caching that automatically identifies repeated context content without changing API call methods\" plus \"Caching applies to API calls with 512 or more input tokens\", so the platform keeps request content in a server-side cache by default and the customer has no way to turn it off"
+text_zh = "这条说的是「Passive caching that automatically identifies repeated context content without changing API call methods」+「Caching applies to API calls with 512 or more input tokens」，所以平台默认就把请求内容留在服务端缓存里、客户无从关闭"
+
+[[product.zdr.point]]
+text = "A sibling document separately states \"Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.\" and what is cached is content blocks in system / messages.content / tools. There is no ZDR or DPA page anywhere on the site (9 paths re-tested, all 404), and the agreements contain no zero-retention clause whose object is request content. See dimensions.zdr."
+text_zh = "同族文档另写「Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」且缓存对象是 system / messages.content / tools 的内容块。全站无 ZDR/DPA 页（9 条路径复测 404），协议正文无以请求内容为标的的零保留条款。详见 dimensions.zdr。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-necessary-or-permitted"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "processing-region-us-data-center"
+
+[product.role]
+kind = "controller"
+anchor = "role-controller-nanonoble-eea"
+
+[[anchor]]
+id = "training-input-output-develop-improve"
+source_id = "e9c005d95aac81ab"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "our ownership rights in Client input and generated content. "
+exact = "We may use the input and generated content to provide, maintain, develop, and improve our Services, comply with applicable law, enforce our terms and policies, and keep our Services safe."
+suffix = """
+
+
+4.   For any third-party claims, lawsuits, or proceedings """
+
+[[anchor]]
+id = "training-confidentiality-improving-algorithms"
+source_id = "e9c005d95aac81ab"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+losing Party for the direct economic losses incurred.
+
+8.   """
+exact = "Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations."
+suffix = """
+
+
+**Export Controls and Sanctions**
+
+1.   **Your Status:** N"""
+
+[[anchor]]
+id = "role-client-data-access-process"
+source_id = "e9c005d95aac81ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+do not assume responsibility for restoring such data.
+
+4.   """
+exact = "We may access and process Client Data to (a) provide the MiniMax Open Platform Service to Client, (b) perform routine maintenance, troubleshooting, and technical support activities, and (c) comply with applicable laws and regulations."
+suffix = """
+
+
+5.   You are responsible for backing up your data accordin"""
+
+[[anchor]]
+id = "entity-nanonoble-service-provider"
+source_id = "e9c005d95aac81ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " your use of the MiniMax Open Platform Service (\"Service\"), "
+exact = "provided by Nanonoble Pte Ltd., the Service Provider"
+suffix = " (\"we\" or \"us\"\"). Please carefully review the entire content"
+
+[[anchor]]
+id = "entity-nanonoble-operates-website"
+source_id = "e9c005d95aac81ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+y regulations issued under HIPAA.
+
+**Contact Information**
+
+"""
+exact = "This website is operated by Nanonoble Pte. Ltd."
+suffix = """
+
+
+With a registered address at 152 Beach Road, #14-02 Gatewa"""
+
+[[anchor]]
+id = "retention-purchased-storage-feature-only"
+source_id = "e9c005d95aac81ab"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+r correct the violation without prior notice to you.
+
+15.   """
+exact = "If the specific service you purchased includes a storage function, upon expiration or termination of the service, we will retain any data or information you stored in the service for a specified period as outlined in the service rules."
+suffix = " You are responsible for any fees incurred during the retent"
+
+[[anchor]]
+id = "retention-necessary-or-permitted"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+l/privacy-policy)8. **How long we store your information**
+
+"""
+exact = """
+We may retain and use your personal data for as long as it is necessary or permitted by law or to fulfil the purpose for which it was collected.
+
+We determine the storage duration of Personal Information based on the following criteria:"""
+suffix = """
+
+
+1.   To provide you with our products and/or services and """
+
+[[anchor]]
+id = "retention-delete-after-expiry"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ns of laws and regulations regarding the storage duration.
+
+"""
+exact = "After the storage duration expires, we will delete your personal information or anonymize your Personal Information in accordance with the applicable laws."
+suffix = """
+
+
+[](https://platform.minimax.io/protocol/privacy-policy)9. """
+
+[[anchor]]
+id = "retention-singapore-cease"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+aw or to fulfil the purpose for which it was collected.
+
+b. """
+exact = "We will cease to retain your personal data as soon as it is reasonable that your personal data is no longer required."
+suffix = " We will take commercially reasonable steps to ensure that y"
+
+[[anchor]]
+id = "processing-region-us-data-center"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ **How your Personal Information is transferred globally**
+
+"""
+exact = "Your personal data described in this Policy are stored in the data center located in the United States and processed by us or third-party vendors in accordance with the requirements of relevant laws and regulations, including the GDPR."
+suffix = """
+
+
+You understand that your personal data will be transferred"""
+
+[[anchor]]
+id = "processing-region-eu-us-framework"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "“9. How Your Personal Information is Transferred Globally?. "
+exact = "We store your data cross-border in Cloud's US data center in a manner certified under the EU-US Privacy Framework."
+suffix = " We have retained relevant Cloud certification documents, GD"
+
+[[anchor]]
+id = "processing-region-singapore-tension"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+to you.
+
+3. Transfer of personal data outside Singapore
+
+a. """
+exact = "While we generally do not transfer your personal data to countries outside Singapore, if we need to transfer your personal data to our affiliates and/or third parties outside Singapore"
+suffix = ", please be assured that we will take reasonable steps to en"
+
+[[anchor]]
+id = "role-controller-nanonoble-eea"
+source_id = "e3308c047d43ffdb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ng Our legal bases for processing Your Personal Data.
+
+1.   """
+exact = "The controller of your Personal Data is: Nanonoble Pte. Ltd. (152 Beach Road, #14-02 Gateway East, Singapore)."
+suffix = """
+
+2.   The categories and purposes for which we process perso"""
+
+[[anchor]]
+id = "role-services-input-output-in-scope"
+source_id = "e3308c047d43ffdb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+purchases record, your rewards and features you select.
+*   """
+exact = "Services Input & Output: We process your Input (which may include text, voice, or other content) and Output and any other information you provide in connection with your use of the Service, including any Personal Information contained therein"
+suffix = """
+.
+
+**In some jurisdictions, certain types of Personal Inform"""
+
+[[anchor]]
+id = "training-no-profiling-only"
+source_id = "e3308c047d43ffdb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ to such information being available within the website.**
+
+"""
+exact = "Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers."
+suffix = """
+
+
+In addition to the above, when we plan to use your Persona"""
+
+[[anchor]]
+id = "training-commercial-utilization-rd"
+source_id = "e3308c047d43ffdb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ network data. Usage data.
+
+**(6) Commercial utilization**
+
+"""
+exact = "Legal basis: Legitimate interests, for the purpose of research and development."
+suffix = """
+
+
+**After collecting your Personal Information"""
+
+[[anchor]]
+id = "minimax-zdr-prompt-cache-passive-automatic-default"
+source_id = "2d4ef29441b12d09"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+latency and costs.
+
+## Features
+
+*   **Automatic Caching**: """
+exact = "Passive caching that automatically identifies repeated context content without changing API call methods"
+suffix = " (_In contrast, the caching mode that requires explicitly se"
+
+[[anchor]]
+id = "minimax-zdr-prompt-cache-passive-512-token-threshold"
+source_id = "2d4ef29441b12d09"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+t cache token usage information:**
+
+## Important Notes
+
+*   """
+exact = "Caching applies to API calls with 512 or more input tokens"
+suffix = """
+
+*   Caching uses prefix matching, constructed in the order """
+
+[[anchor]]
+id = "minimax-zdr-prompt-cache-passive-expiration-load-dependent"
+source_id = "2d4ef29441b12d09"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+time cache writes incur additional charges |
+| Expiration | """
+exact = "Expiration time automatically adjusted based on system load"
+suffix = " | 5-minute expiration, automatically renewed with continued"
+
+[[anchor]]
+id = "minimax-zdr-prompt-cache-content-lifetime-5min"
+source_id = "cca92e4c0d5ff9a8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ consistent instructions
+*   Long multi-turn conversations
+
+"""
+exact = "Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost."
+suffix = """
+
+
+* * *
+
+## [​](https://platform.minimax.io/docs/api-referen"""
+
+[[anchor]]
+id = "minimax-zdr-prompt-cache-what-can-be-cached"
+source_id = "cca92e4c0d5ff9a8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+System messages**: Content blocks in the `system` array
+*   """
+exact = "**Text messages**: Content blocks in the `messages.content` array, for both user and assistant turns"
+suffix = """
+
+*   **Tool use and tool results**: Tool_use and tool_result"""

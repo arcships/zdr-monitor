@@ -1,0 +1,523 @@
+name = "MiniMax Token Plan (minimax.io)"
+company = "minimax"
+line = "minimax-coding-plan"
+site = "global"
+entity = "Nanonoble Pte. Ltd."
+plan_levels = ["individual", "team"]
+endpoint = ""
+doc = "https://platform.minimax.io/protocol/terms-of-service"
+
+[[source]]
+url = "https://platform.minimax.io/docs/api-reference/file-management-upload"
+channel = "developer_data"
+tier = "core"
+note = "Files API 上传接口参考文档。保留它是因为它是本档 retention 的对象级证据:上传文件在平台侧的期限——video_understanding 的视频文件『retained for up to 7 days』,video_generation_input 材料『valid for 7 days (after expiry, generation returns file expired and you must re-upload)』。不单独承载维度权威。"
+
+[[source]]
+url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
+channel = "developer_data"
+tier = "core"
+note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它是本档 retention 维度的**对象级**证据——显式提示缓存(Anthropic 兼容)『5-minute expiration, automatically renewed with continued use』,被动缓存『Expiration time automatically adjusted based on system load』。不单独承载维度权威,只补充「缓存对象保留多久」。抓取通道:r.jina.ai 渲染版(3602B);同页的 .md 直连版(10052B)含相同表格行。"
+
+[[source]]
+url = "https://platform.minimax.io/protocol/paid-agreement"
+channel = "contract"
+tier = "core"
+note = "国际站《MINIMAX OPEN PLATFORM PAID SERVICES AGREEMENT》(Effective Date: August 19, 2026,由 Nanonoble Pte. Ltd. 提供)。这是本档(Token Plan 订阅)的**订阅档专用合同**:§1.1 把 'API Services, Token Plan subscriptions, Credits' 全部列为 Paid Services;§2.8 给出 Token Plan 定义;第 5 章为 Token Plan 专章。逐条读过:全篇只处理付款、权益、自动续费、取消、责任与争议解决,**没有任何训练/保留/零保留/处理地域条款**;唯一与数据相关的是 §8.3(c) 终止后『may, but is not required to, retain information associated with the relevant Paid Service』。故 authoritative_for 为空,但它是本档范围界定与保留边界的关键证据。该 URL 旧仓库完全遗漏。"
+
+[[source]]
+url = "https://platform.minimax.io/protocol/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "国际站《MiniMax API Privacy Policy》(updated/effective March 30, 2026,控制者 Nanonoble Pte. Ltd.)。不分档:未区分按量 API 与 Token Plan,正文把 'Services Input & Output' 一并纳入处理范围,故同时覆盖本档。retention / processing_region / role 三个维度的权威来源,并为 training 提供反向限定句与商业利用依据。channel 判为 consumer_privacy：该文是平台自有隐私政策正文；platform.minimax.io 不存在企业隐私 FAQ 页，本轮实测 /protocol/enterprise-privacy-policy、/enterprise、/trust、/security、/dpa 均 404。"
+
+[[source]]
+url = "https://platform.minimax.io/protocol/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "国际站《MiniMax Terms of Service》(Effective Date: March 30, 2026,提供方 Nanonoble Pte Ltd.,新加坡)。覆盖 platform.minimax.io 全部付费形态,本档(Token Plan 订阅)亦受其约束:付费协议 §1.1 明示 Paid Services 含 'Token Plan subscriptions'。本档训练维度与实体/角色维度的权威来源;亦提供 retention 的边界条款(§15 仅针对自购存储功能)与 processing_region 的服务区域线索(§8 'If you select the United States as the service region')。本轮以 r.jina.ai 重抓,md5 与上一轮缓存逐字节一致(004e66e8370f846f585b820e06881d14)。"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "Token Plan 个人版"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+anchor = "training-input-output-develop-improve"
+
+[[product.training.point]]
+text = "The individual Token Plan tiers (Plus / Max / Ultra, \"designed for individual, interactive developer use\" in the official docs) share one set of ToS + API Privacy Policy + Paid Services Agreement with the pay-as-you-go API and carry no tier-specific data clause → there is no \"not used for training\" commitment, and ToS IP §3 expressly allows input and generated content to be used to \"provide, maintain, develop, and improve our Services\"."
+text_zh = "Token Plan 个人档(Plus / Max / Ultra,官方文档『designed for individual, interactive developer use』)与按量 API 共用同一份 ToS + API Privacy Policy + 付费协议,无档位专属数据条款 → 无『不用于训练』承诺,且 ToS IP §3 明文允许将输入与生成内容用于 develop/improve。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://platform.minimax.io/protocol/terms-of-service",
+  "https://platform.minimax.io/protocol/privacy-policy",
+  "https://platform.minimax.io/protocol/paid-agreement",
+  "https://platform.minimax.io/protocol/cookie-policy",
+  "https://platform.minimax.io/protocol/user-agreement",
+  "https://platform.minimax.io/sitemap.xml(9 页)",
+  "https://platform.minimax.io/docs/sitemap.xml(124 页)",
+  "https://platform.minimax.io/docs/token-plan/faq、/docs/guides/pricing-token-plan、/docs/pricing/overview",
+  "本轮 404 实测清单见顶层 zdr.searched;WebSearch 两轮无官方 ZDR/DPA 页",
+]
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-necessary-or-permitted"
+
+[[product.retention.point]]
+text = "Same as top level: no quantified period (necessary / permitted by law / needed to fulfil the purpose for which it was collected), deleted or anonymized after the storage duration expires"
+text_zh = "同顶层:无量化期限(必要/法律允许/实现收集目的所需),到期删除或匿名化"
+
+[[product.retention.point]]
+text = "Object level: explicit prompt cache 5-minute expiration, uploaded files retained for up to 7 days"
+text_zh = "对象级:显式提示缓存 5 分钟、上传文件最长 7 天"
+
+[[product.retention.point]]
+text = "Paid Services Agreement §8.3(c): MiniMax may retain information after termination."
+text_zh = "付费协议 §8.3(c) 终止后可保留。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "processing-region-us-data-center"
+
+[[product.processing_region.point]]
+text = "Same as top level: personal data is stored in the data center located in the United States, and the EEA addendum says it is stored cross-border in Cloud's US data center in a manner certified under the EU-US Privacy Framework"
+text_zh = "同顶层:个人信息存放于美国数据中心,EEA 附则称 Cloud 美国数据中心并走 EU-US Privacy Framework"
+
+[[product.processing_region.point]]
+text = "See also the selectable service region clause in ToS §8."
+text_zh = "ToS §8 另见可选服务区域条款。"
+
+[product.role]
+kind = "controller"
+anchor = "role-controller-nanonoble-eea"
+
+[[product.role.point]]
+text = "Same as top level: MiniMax identifies itself as the controller of the user's personal data (Nanonoble Pte. Ltd.)"
+text_zh = "同顶层:对用户个人信息自认 controller(Nanonoble Pte. Ltd.)"
+
+[[product.role.point]]
+text = "The Client Data scenario does not state a processor role."
+text_zh = "Client Data 场景未明示 processor。"
+
+[[product]]
+id = "coding-plan-team"
+badge = "Token Plan 团队版"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "no"
+anchor = "training-input-output-develop-improve"
+
+[[product.training.point]]
+text = "Token Plan for Teams shares the same ToS / Privacy Policy / Paid Services Agreement as the individual tier (Paid Services Agreement §5.1, \"MiniMax may offer individual and Team plans\"), and the Teams documentation (pricing page / FAQ) carries no data clause at all → the conclusion is the same as for the individual tier. Note: Teams has been closed to new purchases since 2026-09-05 and applies to existing customers only."
+text_zh = "Token Plan for Teams 与个人档共用同一套 ToS/隐私政策/付费协议(付费协议 §5.1『MiniMax may offer individual and Team plans』),Teams 文档(定价页/FAQ)无任何数据条款 → 结论与个人档相同。注意:Teams 自 2026-09-05 起暂停新购,仅存量客户适用。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://platform.minimax.io/docs/guides/pricing-token-plan-team",
+  "https://platform.minimax.io/docs/token-plan/faq",
+  "https://platform.minimax.io/protocol/terms-of-service",
+  "https://platform.minimax.io/protocol/privacy-policy",
+  "https://platform.minimax.io/protocol/paid-agreement",
+  "https://platform.minimax.io/sitemap.xml",
+  "https://platform.minimax.io/docs/sitemap.xml",
+]
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-necessary-or-permitted"
+
+[[product.retention.point]]
+text = "Same as the individual tier: no quantified period"
+text_zh = "同个人档:无量化期限"
+
+[[product.retention.point]]
+text = "After termination MiniMax \"may, but is not required to, retain information associated with the relevant Paid Service\"."
+text_zh = "终止后 MiniMax 有权利无义务保留与付费服务相关的信息。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "processing-region-us-data-center"
+
+[[product.processing_region.point]]
+text = "Same as the individual tier: Privacy Policy §9, the data center located in the United States"
+text_zh = "同个人档:隐私政策 §9 美国数据中心"
+
+[[product.processing_region.point]]
+text = "The Teams documentation has no region clause."
+text_zh = "Teams 文档无地域条款。"
+
+[product.role]
+kind = "controller"
+anchor = "role-controller-nanonoble-eea"
+
+[[product.role.point]]
+text = "Same as the individual tier: the controller framing; the Teams documentation sets no additional contractual role."
+text_zh = "同个人档:controller 口径,Teams 文档未额外约定协议角色。"
+
+[[anchor]]
+id = "training-input-output-develop-improve"
+source_id = "e9c005d95aac81ab"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "our ownership rights in Client input and generated content. "
+exact = "We may use the input and generated content to provide, maintain, develop, and improve our Services, comply with applicable law, enforce our terms and policies, and keep our Services safe."
+suffix = """
+
+
+4.   For any third-party claims, lawsuits, or proceedings """
+
+[[anchor]]
+id = "training-confidentiality-improving-algorithms"
+source_id = "e9c005d95aac81ab"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+losing Party for the direct economic losses incurred.
+
+8.   """
+exact = "Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations."
+suffix = """
+
+
+**Export Controls and Sanctions**
+
+1.   **Your Status:** N"""
+
+[[anchor]]
+id = "role-client-data-access-process"
+source_id = "e9c005d95aac81ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+do not assume responsibility for restoring such data.
+
+4.   """
+exact = "We may access and process Client Data to (a) provide the MiniMax Open Platform Service to Client, (b) perform routine maintenance, troubleshooting, and technical support activities, and (c) comply with applicable laws and regulations."
+suffix = """
+
+
+5.   You are responsible for backing up your data accordin"""
+
+[[anchor]]
+id = "entity-nanonoble-service-provider"
+source_id = "e9c005d95aac81ab"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " your use of the MiniMax Open Platform Service (\"Service\"), "
+exact = "provided by Nanonoble Pte Ltd., the Service Provider"
+suffix = " (\"we\" or \"us\"\"). Please carefully review the entire content"
+
+[[anchor]]
+id = "region-us-service-region"
+source_id = "e9c005d95aac81ab"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+cumvents fees or otherwise evades usage restrictions.
+
+8.   """
+exact = "If you select the United States as the service region, you and any affiliates, employees, service providers, or any third parties under your control may not:"
+suffix = """
+
+
+(a) Process or store any content subject to the Internatio"""
+
+[[anchor]]
+id = "retention-storage-function-only"
+source_id = "e9c005d95aac81ab"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+r correct the violation without prior notice to you.
+
+15.   """
+exact = "If the specific service you purchased includes a storage function, upon expiration or termination of the service, we will retain any data or information you stored in the service for a specified period as outlined in the service rules."
+suffix = " You are responsible for any fees incurred during the retent"
+
+[[anchor]]
+id = "scope-service-rules-data-agreements"
+source_id = "e9c005d95aac81ab"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "chnical specifications, operational documentation, pricing, "
+exact = "privacy policy, data privacy and security agreements, service usage rules, and copyright policies"
+suffix = ", shall be governed by the effective content displayed on th"
+
+[[anchor]]
+id = "retention-necessary-or-permitted"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+l/privacy-policy)8. **How long we store your information**
+
+"""
+exact = """
+We may retain and use your personal data for as long as it is necessary or permitted by law or to fulfil the purpose for which it was collected.
+
+We determine the storage duration of Personal Information based on the following criteria:"""
+suffix = """
+
+
+1.   To provide you with our products and/or services and """
+
+[[anchor]]
+id = "retention-delete-after-expiry"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ns of laws and regulations regarding the storage duration.
+
+"""
+exact = "After the storage duration expires, we will delete your personal information or anonymize your Personal Information in accordance with the applicable laws."
+suffix = """
+
+
+[](https://platform.minimax.io/protocol/privacy-policy)9. """
+
+[[anchor]]
+id = "retention-singapore-cease"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+aw or to fulfil the purpose for which it was collected.
+
+b. """
+exact = "We will cease to retain your personal data as soon as it is reasonable that your personal data is no longer required."
+suffix = " We will take commercially reasonable steps to ensure that y"
+
+[[anchor]]
+id = "retention-eu-copies-kept"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+er and publicly disclose your Personal Information?”. 
+2.   """
+exact = "We will retain your personal data for as long as necessary to fulfill the purposes for which it was collected, as described in the section entitled"
+suffix = " “Chapter 7: Storage of your Personal Information”, or as re"
+
+[[anchor]]
+id = "processing-region-us-data-center"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ **How your Personal Information is transferred globally**
+
+"""
+exact = "Your personal data described in this Policy are stored in the data center located in the United States and processed by us or third-party vendors in accordance with the requirements of relevant laws and regulations, including the GDPR."
+suffix = """
+
+
+You understand that your personal data will be transferred"""
+
+[[anchor]]
+id = "processing-region-eu-us-framework"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "“9. How Your Personal Information is Transferred Globally?. "
+exact = "We store your data cross-border in Cloud's US data center in a manner certified under the EU-US Privacy Framework."
+suffix = " We have retained relevant Cloud certification documents, GD"
+
+[[anchor]]
+id = "processing-region-singapore-tension"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+to you.
+
+3. Transfer of personal data outside Singapore
+
+a. """
+exact = "While we generally do not transfer your personal data to countries outside Singapore, if we need to transfer your personal data to our affiliates and/or third parties outside Singapore"
+suffix = ", please be assured that we will take reasonable steps to en"
+
+[[anchor]]
+id = "role-controller-nanonoble-eea"
+source_id = "e3308c047d43ffdb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ng Our legal bases for processing Your Personal Data.
+
+1.   """
+exact = "The controller of your Personal Data is: Nanonoble Pte. Ltd. (152 Beach Road, #14-02 Gateway East, Singapore)."
+suffix = """
+
+2.   The categories and purposes for which we process perso"""
+
+[[anchor]]
+id = "role-services-input-output-in-scope"
+source_id = "e3308c047d43ffdb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+purchases record, your rewards and features you select.
+*   """
+exact = "Services Input & Output: We process your Input (which may include text, voice, or other content) and Output and any other information you provide in connection with your use of the Service, including any Personal Information contained therein"
+suffix = """
+.
+
+**In some jurisdictions, certain types of Personal Inform"""
+
+[[anchor]]
+id = "training-no-profiling-only"
+source_id = "e3308c047d43ffdb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ to such information being available within the website.**
+
+"""
+exact = "Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers."
+suffix = """
+
+
+In addition to the above, when we plan to use your Persona"""
+
+[[anchor]]
+id = "training-commercial-utilization-rd"
+source_id = "e3308c047d43ffdb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ network data. Usage data.
+
+**(6) Commercial utilization**
+
+"""
+exact = "Legal basis: Legitimate interests, for the purpose of research and development."
+suffix = """
+
+
+**After collecting your Personal Information, we may perfo"""
+
+[[anchor]]
+id = "scope-token-plan-subscription"
+source_id = "cac618dcb6eaa183"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+your acceptance of the updated Agreement.
+
+## 1. Scope
+
+1.1 """
+exact = "This Agreement applies to all Paid Services purchased or used through the international MiniMax Open Platform. Paid Services include API Services, Token Plan subscriptions, Credits, and any other paid offering identified on the applicable purchase page or service page."
+suffix = """
+
+
+1.2 Any additional terms, promotional rules, announcements"""
+
+[[anchor]]
+id = "scope-control-over-general-terms"
+source_id = "cac618dcb6eaa183"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = "her terms or rules that apply to a particular Paid Service. "
+exact = "If this Agreement conflicts with the General Terms with respect to a matter specifically addressed in this Agreement, this Agreement will control as to that matter."
+suffix = """
+
+
+Please review this Agreement carefully, including the prov"""
+
+[[anchor]]
+id = "scope-token-plan-definition"
+source_id = "cac618dcb6eaa183"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+lent and have no independent monetary or stored value.
+
+2.8 """
+exact = "Token Plan means a subscription-based Paid Service designed for supported developer, coding, agent, and other use cases."
+suffix = " A Token Plan may be used through products or workflows desi"
+
+[[anchor]]
+id = "scope-token-plan-partner-products"
+source_id = "cac618dcb6eaa183"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+ described on the relevant purchase page and service page.
+
+"""
+exact = "Certain Token Plan entitlements may be used with products operated by MiniMax, its affiliates, or its partners if the applicable service page expressly permits such use."
+suffix = " Any applicable scope or prerequisites will be specified on "
+
+[[anchor]]
+id = "retention-termination-may-retain"
+source_id = "cac618dcb6eaa183"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ed in this Agreement or required by applicable law; and (c) "
+exact = "MiniMax may, but is not required to, retain information associated with the relevant Paid Service, subject to applicable law and the Privacy Policy."
+suffix = """
+
+
+8.4 Following termination, MiniMax has no obligation to co"""
+
+[[anchor]]
+id = "retention-cache-expiration"
+source_id = "2d4ef29441b12d09"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " adjusted based on system load                            | "
+exact = "5-minute expiration, automatically renewed with continued use"
+suffix = """
+                                     |
+| Supported Models | """
+
+[[anchor]]
+id = "retention-uploaded-file-7-days"
+source_id = "4adc9c1d043a7783"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+us long-text-to-speech synthesis.
+4.   video_understanding: """
+exact = "Video file for multimodal understanding, referenced in chat requests as `mm_file://{file_id}` and retained for up to 7 days"
+suffix = """
+ (supports MP4, AVI, MOV, MKV formats).
+5.   video_generatio"""

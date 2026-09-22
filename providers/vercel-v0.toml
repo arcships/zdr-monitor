@@ -1,0 +1,243 @@
+name = "v0"
+name_en = "v0"
+company = "vercel"
+company_name = "Vercel"
+line = "v0"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "Vercel Inc."
+kind = "cloud"
+homepage = "https://v0.app/"
+endpoint = ""
+doc = "https://vercel.com/legal/ai-product-terms"
+
+[[source]]
+url = "https://vercel.com/legal/ai-product-terms"
+channel = "contract"
+tier = "core"
+note = "《Vercel AI Product Terms》(Last Updated 2026-03-17，Effective 2026-03-31)。§1.1 明确把 v0 纳入 AI Products and Services；§6.2 规定 Hobby/Pro 的 Customer Content 受 ToS §3 许可约束；v0 专属条款规定有资格档位的不训练承诺；§11.3、§12 分别支撑终止后数据处理与美国运营地结论。"
+
+[[source]]
+url = "https://vercel.com/legal/terms"
+channel = "contract"
+tier = "core"
+note = "《Vercel Terms of Service》(Last Updated June 1, 2026)。§3 按套餐区分 Model Training：Hobby 与 trial Pro 默认参与，付费 Pro 默认关闭并可 opt-in，用户可在 Team 设置退出或升级 Enterprise。"
+
+[[source]]
+url = "https://vercel.com/legal/dpa"
+channel = "contract"
+tier = "core"
+note = "《Data Processing Addendum》。适用于 Enterprise 与 Pro 客户；§4.1 定义 Vercel 为 Processor，§12.1 规定终止后删除，§13.1 说明主要处理设施位于美国并可能全球处理。"
+
+[[product]]
+id = "v0-free"
+badge = "v0 Free"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "vercel-tos-3-model-training-by-plan"
+
+[[product.training.point]]
+text_zh = "v0 由 AI Product Terms 明确纳入；v0 Free 使用 Vercel Hobby 账户，默认参与模型训练，可在 Team Settings → Data Preferences 退出。范围含代码、v0 prompts、build/deployment telemetry、build errors 与 aggregate traffic stats。非模型训练的服务改进对 Hobby/Pro 不可退出，因此按 training=no。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://vercel.com/legal/ai-product-terms", "https://vercel.com/legal/terms", "https://vercel.com/legal/dpa"]
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "vercel-aipt-11-3-termination-may-destroy"
+
+[[product.retention.point]]
+text_zh = "仅有终止时 Vercel 可销毁 Customer Content；项目代码、向量索引、缓存、prompt history 与遥测均无量化期限。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "vercel-aipt-12-controlled-operated-from-us"
+
+[product.role]
+kind = "controller"
+anchor = "vercel-aipt-6-2-hobby-pro-your-content-license"
+
+[[product]]
+id = "v0-premium"
+badge = "v0 Premium"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "vercel-tos-3-model-training-by-plan"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://vercel.com/legal/ai-product-terms", "https://vercel.com/legal/terms", "https://vercel.com/legal/dpa"]
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "vercel-aipt-11-3-termination-may-destroy"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "vercel-aipt-12-controlled-operated-from-us"
+
+[product.role]
+kind = "controller"
+anchor = "vercel-aipt-6-2-hobby-pro-your-content-license"
+
+[[product]]
+id = "v0-team"
+badge = "v0 Team"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "vercel-aipt-v0-no-training-entitled-plan"
+
+[[product.training.point]]
+text_zh = "例外是你自己同意：条款写的是 except with your consent——不点同意就不会拿 v0 Customer Content 去训练自有或第三方模型，也不会用于改进 AI 产品。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://vercel.com/legal/ai-product-terms", "https://vercel.com/legal/terms", "https://vercel.com/legal/dpa"]
+
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "vercel-dpa-12-1-delete-on-termination"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "vercel-dpa-13-1-primary-processing-in-us"
+
+[product.role]
+kind = "processor"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[product]]
+id = "v0-enterprise"
+badge = "v0 Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "vercel-aipt-v0-no-training-entitled-plan"
+
+[[product.training.point]]
+text_zh = "例外是你自己同意：条款写的是 except with your consent——不点同意就不会拿 v0 Customer Content 去训练自有或第三方模型，也不会用于改进 AI 产品。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://vercel.com/legal/ai-product-terms", "https://vercel.com/legal/terms", "https://vercel.com/legal/dpa"]
+
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "vercel-dpa-12-1-delete-on-termination"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "vercel-dpa-13-1-primary-processing-in-us"
+
+[product.role]
+kind = "processor"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[anchor]]
+id = "vercel-aipt-v0-no-training-entitled-plan"
+source_id = "4fedf854545826cd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "If you purchase an Enterprise subscription, or another subscription plan that is entitled to opt out of training, to v0, the following terms apply regardless of any conflicting terms in these AI Product Terms:"
+exact = "Vercel represents and warrants that it will not use v0 Customer Content to train its or its third-party AI providers' models or to improve the AI Products and Services, except with your consent."
+suffix = ""
+
+[[anchor]]
+id = "vercel-aipt-6-2-hobby-pro-your-content-license"
+source_id = "4fedf854545826cd"
+topics = ["training", "role"]
+
+[anchor.selector]
+prefix = "You grant Vercel a license to use Customer Content as necessary to provide the AI Products and Services, publish and display Customer Content within the AI Products and Services, to provide support for and improve the AI Products and Services, enforce Vercel's or its licensors' policies, prevent fraud, comply with applicable law, and maintain the safety and security of the AI Products and Services. "
+exact = "If you use the AI Products and Services under a Hobby or Pro plan, your Customer Content forms part of Your Content, as defined in Section 3 of the Terms of Service and is subject to the license granted to Vercel under Section 3."
+suffix = " Subject to your plan level and account settings, Your Content may be used by Vercel and shared with third parties in accordance with Section 3 of the Terms of Service."
+
+[[anchor]]
+id = "vercel-aipt-11-3-termination-may-destroy"
+source_id = "4fedf854545826cd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "3.   **Effect of Termination**. Sections 5, 6, 9, 11, 15, and any other provision that by its nature is intended to survive, will survive termination of these AI Product Terms. "
+exact = "On termination of these AI Product Terms, you and each of your Authorized Users must cease using the AI Products and Services and Vercel may destroy Customer Content, subject to applicable law."
+suffix = " Without limiting the foregoing, you may continue to use Output following termination as contemplated by these AI Product Terms."
+
+[[anchor]]
+id = "vercel-aipt-12-controlled-operated-from-us"
+source_id = "4fedf854545826cd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+## 12. Trade Controls
+
+"""
+exact = "The AI Products and Services are controlled and operated from the United States."
+suffix = " Vercel makes no representations that the AI Products and Services are appropriate for or available in other locations."
+
+[[anchor]]
+id = "vercel-tos-3-model-training-by-plan"
+source_id = "013fc4ddb3a94335"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+By submitting Your Content on or through the Services, you grant Vercel a worldwide, non-exclusive, royalty-free, fully paid, sublicensable and transferable license to use, copy, modify, adapt, reproduce, distribute, display, publish, store, perform, and create derivatives of Your Content to provide and improve the Services, develop new products and services, secure and protect the Services and third parties from fraud, abuse, malware, malicious files or content, viruses and the like.
+
+In addition, """
+exact = "if you are on a Hobby plan or trial Pro plan, you agree that we may use Your Content to train our artificial intelligence (\"**AI**\") and machine learning models, and we may share Your Content with third parties for the purpose of developing and improving their products, including training and improving their AI and machine learning models (collectively, \"**Model Training**\"). If you are on a paid Pro plan, Model Training is not enabled by default and you may opt in to Model Training."
+suffix = " You may opt-out of Model Training at any time by adjusting your Team account settings or by upgrading to an Enterprise plan."
+
+[[anchor]]
+id = "vercel-dpa-4-1-vercel-as-processor"
+source_id = "445b142dbefa7c7b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "1.   **Vercel as Processor.** "
+exact = "The parties acknowledge and agree that with regard to the Processing of Customer Data for Customers who are on Enterprise or Pro plans, Customer acts as a Controller (or Processor) and Vercel is a Processor."
+suffix = " Vercel will process Customer Data under and in accordance with Customer's instructions"
+
+[[anchor]]
+id = "vercel-dpa-12-1-delete-on-termination"
+source_id = "445b142dbefa7c7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "1.   Customers may delete or export Customer Data at any time while using the Services in a manner consistent with the functionality of the Service. "
+exact = "Termination or expiration of the Agreement serves as instruction for Vercel to delete all Customer Data within a commercially reasonable timeframe."
+suffix = """
+
+
+2.   Notwithstanding the foregoing,"""
+
+[[anchor]]
+id = "vercel-dpa-13-1-primary-processing-in-us"
+source_id = "445b142dbefa7c7b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "1.   **Processing in the United States.** "
+exact = "Customer acknowledges that, as of the Effective Date, Vercel's primary processing facilities are in the United States."
+suffix = " Notwithstanding the foregoing, Customer acknowledges that Vercel may in connection with the provision of Services, need to transfer and process Customer Data to and in the United States and anywhere else in the world where Vercel or its Subprocessors maintain data processing operations."

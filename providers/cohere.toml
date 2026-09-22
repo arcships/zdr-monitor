@@ -1,0 +1,270 @@
+name = "Cohere"
+line = "cohere"
+site = "global"
+entity = "Cohere Inc."
+endpoint = ""
+doc = "https://cohere.com/enterprise-data-commitments"
+
+[[source]]
+url = "https://cohere.com/enterprise-data-commitments"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "覆盖 Cohere SaaS Platform 的付费企业档(api 档的主来源),页脚 Last Update: December 5, 2025。开篇即限定:私有部署与第三方云 AI/ML 平台上 Cohere 不接收任何 prompts/generations;FAQ 首条把适用范围限定为「有信用卡在账的付费客户」,并明确试用 API key 的数据走 Terms of Use + Privacy Policy。训练开关、30 天保留、ZDR、DPA 四类条款都在本页。"
+
+[[source]]
+url = "https://cohere.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Cohere 隐私政策(个人数据口径)。第1节界定适用范围:不适用于企业协议下 Enterprise Users 的 Customer Data(输入输出,由企业协议 + DPA 管辖),也不适用于私有/第三方部署;第2.3节按 Trial User/Researcher 与 Enterprise User 分别说明训练相关处理;第4节给出 Platform 输入输出对 Enterprise Users 一般保留 30 天。"
+
+[[source]]
+url = "https://cohere.com/saas-agreement"
+channel = "contract"
+tier = "contradiction"
+note = "与 core 文档 https://cohere.com/enterprise-data-commitments 对 api 档(SaaS Platform 付费 API 客户)的 training(以及 retention)表述方向相反。本文件(Last updated: April 8, 2025)§3(a)(iii) 原句:『CUSTOMER GRANTS TO COHERE A NONEXCLUSIVE, WORLDWIDE, ROYALTY-FREE, IRREVOCABLE, SUBLICENSABLE, AND FULLY PAID-UP RIGHT TO ACCESS, COLLECT, USE, PROCESS, STORE, DISCLOSE AND TRANSMIT CUSTOMER DATA TO: … (III) IMPROVE AND ENHANCE THE SERVICES AND COHERE’S OTHER OFFERINGS AND BENCHMARK THE FOREGOING, INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THIRD PARTIES WHO MAY USE THE FINETUNING DATA AND API DATA TO PROVIDE SERVICES TO COHERE AND FOR OTHER PURPOSES PERMITTED UNDER THEIR TERMS AND CONDITIONS』,§13(4) 另称『Cohere will have no obligation to delete or otherwise render inaccessible any API Data or Finetuning Data submitted by Customer to Cohere in accordance with Section 3(a)(iii)』;core 文档原句:『You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.』『If you are opted out, prompts and generations will not be used to train Cohere models.』『We automatically delete logged prompts and generations after 30 days』。差异实质:合同层明确排除可撤销性(IRREVOCABLE)、允许把 API Data/Finetuning Data 交第三方按第三方条款使用、终止后对该许可项下数据无删除义务;政策层却让客户以为可随时退出、退出即不训练、记录 30 天删除。四种解释逐一排除——①范围:两份都覆盖 Cohere SaaS Platform 的付费 API 客户(本文件首段『the customer accessing, downloading, installing or otherwise using … the Cohere API SaaS Services』并以首次使用为生效点;EDC 首条 FAQ『Our Enterprise Data Commitments apply to enterprise data of our commercial, paying customers. For the SaaS Platform, this means customers who have a credit card on file in their account』),不是 API 与消费产品/网页对话之分,且 EDC 已把 trial API key 档明确划给 Terms of Use + Privacy Policy,两者重叠的只剩付费档;②档位:同为付费 API 档,非企业版/个人版或按量/订阅套餐之分;③站点:同一法律实体 Cohere Inc.(本文件首段『Cohere Inc. … 171 John Street, Suite 200, Toronto』)与同一官方域名 cohere.com,非国内站/国际站之分;④时效:两份均为现行且并非同一文档的新旧版本(本文件 Last updated: April 8, 2025;EDC Last Update: December 5, 2025),EDC 更新更晚但未声明取代或修改本协议,本文件 §14(j) 反而主张 entire agreement、§14(k) 允许 Cohere 单方修订(修订须更新 Last updated,现仍为 2025-04-08,即未被修订),故不能按『旧版被新版取代』处理。需厂商澄清:dashboard 的 opt-out 开关是否构成对 §3(a)(iii) 不可撤销许可的合同性限缩。"
+
+[[source]]
+url = "https://cohere.com/terms-of-use"
+channel = "contract"
+tier = "core"
+note = "Website Terms of Use。按 EDC 的界定,它连同 Privacy Policy 一起治理「用 trial API key 访问 SaaS Platform」的数据,即 api 档内的试用/自助子档;§4(a) 给 Cohere 使用 Customer Data(含 API Data、Finetuning Data)改进和增强 Cohere Solution 的许可,并可向第三方分享 Finetuning/API Data。原文此处有厂商笔误「OFFERINfGS」,锚点按原样保留。"
+
+[[source]]
+url = "https://trustcenter.cohere.com/"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Cohere Trust Center(secureframetrust 托管、官方域名,页内 FAQ)。可引条款集中在 FAQ 段:托管中心与处理地、DPA 是否可得与其承诺要点(SCC / Annex B 安全措施 / 政府调取通知)、TIA、子处理者、HIPAA 边界。页面主体是认证徽章与资源清单,classify() 命中行数在阈值下限(3 行),已人工确认 FAQ 段落含可定位的「主体×动作」条款,判 policy。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "training-optout-enterprise"
+
+[[product.training.point]]
+text = "The only training clause in the public material is an opt-out: \"You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.\" Prompts and generations are therefore used to train Cohere models unless the customer switches it off — recorded as mark=no with mode=opt_out, not as undisclosed."
+text_zh = "公开材料里唯一的训练条款是 opt-out：「You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.」即默认会用于训练 Cohere 模型、客户可随时在控制台关闭，故记 mark=no + mode=opt_out，不是「未披露」。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-definition"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "retention-30d-logged-prompts"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "region-gcp-us-central"
+
+[product.role]
+kind = "processor"
+anchor = "role-dpa-on-behalf"
+
+[[anchor]]
+id = "edc-scope-paying-customers"
+source_id = "2085dff5045de847"
+topics = ["retention", "role", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+   ##### What do our Enterprise Data Commitments apply to?
+
+"""
+exact = "Our Enterprise Data Commitments apply to enterprise data of our commercial, paying customers."
+suffix = " For the SaaS Platform, this means customers who have a cred"
+
+[[anchor]]
+id = "training-optout-enterprise"
+source_id = "2085dff5045de847"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+SaaS Platform.
+
+#### **Opt Out from Data Use in Training**
+
+"""
+exact = "You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time."
+suffix = """
+
+
+To verify and update your settings, select “Data Controls”"""
+
+[[anchor]]
+id = "training-trial-scope"
+source_id = "2085dff5045de847"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ms-of-use) and [Privacy Policy](https://cohere.com/privacy) "
+exact = "apply to data we receive from users using a trial API key to access our SaaS Platform."
+suffix = """
+    
+*   ##### I want to opt-out of prompts being used for t"""
+
+[[anchor]]
+id = "retention-30d-logged-prompts"
+source_id = "2085dff5045de847"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ handling and retention controls on the SaaS Platform:
+
+*   """
+exact = "We automatically delete logged prompts and generations after 30 days, unless we need it to comply with a legal requirement or customer contract"
+suffix = ", or unless your usage is flagged as potentially violating o"
+
+[[anchor]]
+id = "retention-training-data-separate"
+source_id = "2085dff5045de847"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ng our Usage Policy (e.g. abuse or misuse of our services). "
+exact = "Data you allow us to use for training purposes may be retained separately in accordance with our agreement with you."
+suffix = """
+
+*   We filter and strip common types of personal informatio"""
+
+[[anchor]]
+id = "zdr-definition"
+source_id = "2085dff5045de847"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+##### What is zero data retention and how do I request it?
+
+"""
+exact = "Zero data retention (ZDR) means we do not log any prompts or generations."
+suffix = " When ZDR is enabled, we cannot monitor for misuse/abuse of "
+
+[[anchor]]
+id = "zdr-enterprise-only-by-request"
+source_id = "2085dff5045de847"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "use/abuse of our services in the same way. Because of this, "
+exact = "we only allow ZDR for enterprise customers who can make additional commitments about their usage of the Cohere Services"
+suffix = ". ZDR does not affect usage data, which Cohere still receive"
+
+[[anchor]]
+id = "dpa-available-on-request"
+source_id = "2085dff5045de847"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ I see a copy of your Data Processing Addendum (DPA)?
+
+Yes, """
+exact = "we can provide our DPA to potential customers of the Cohere SaaS Platform for review"
+suffix = ". Please contact privacy@cohere.com for more details. No DPA"
+
+[[anchor]]
+id = "saas-training-improve-license"
+source_id = "06c21154c11d1b9b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "USAGE POLICY OR THAT COHERE POSTS ON THE WEBSITE; AND (III) "
+exact = "IMPROVE AND ENHANCE THE SERVICES AND COHERE’S OTHER OFFERINGS AND BENCHMARK THE FOREGOING"
+suffix = ", INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THI"
+
+[[anchor]]
+id = "saas-retention-termination-deletion"
+source_id = "06c21154c11d1b9b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "tely cease accessing or using the Cohere API SaaS Services. "
+exact = "Within 30 calendar days following termination, Cohere will, at Customer’s request, delete or otherwise render inaccessible any Customer Data"
+suffix = " that remains in the hardware or systems used by Cohere to p"
+
+[[anchor]]
+id = "tou-training-improve-license"
+source_id = "5997639344dc75b5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "OVIDE TO YOU OR ARE POSTED ON THE COHERE WEBSITE; AND (III) "
+exact = "IMPROVE AND ENHANCE THE COHERE SOLUTION AND OUR OTHER OFFERINfGS AND BENCHMARK THE FOREGOING"
+suffix = ", INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THI"
+
+[[anchor]]
+id = "role-processor-enduser"
+source_id = "4f7ce59a681f9f1d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+s Policy does not apply**:
+
+*   If you are an **End User**. """
+exact = "In this case we are usually the processor or service provider"
+suffix = " and we are generally not the responsible ‘decision maker’ i"
+
+[[anchor]]
+id = "role-customer-data-under-dpa"
+source_id = "4f7ce59a681f9f1d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Products by Enterprise Users under an enterprise agreement. "
+exact = "Cohere’s use of Customer Data is governed by the terms and conditions of the enterprise agreement"
+suffix = " and, where applicable, the Data Processing Addendum entered"
+
+[[anchor]]
+id = "retention-30d-enterprise-users"
+source_id = "4f7ce59a681f9f1d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "orm [here](https://cohere.com/enterprise-data-commitments). "
+exact = "Retention of inputs and outputs on the Platform is generally 30 days for Enterprise Users."
+suffix = " For Trial Users and Researchers, the Platform is not intend"
+
+[[anchor]]
+id = "training-trial-research-rnd"
+source_id = "4f7ce59a681f9f1d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "g of personal information. However, as a further safeguard, "
+exact = "Cohere takes steps to de-identify input and output data prior to any use for research and development purposes"
+suffix = ". If you need to include personal information in inputs to C"
+
+[[anchor]]
+id = "region-gcp-us-central"
+source_id = "259c19653a171084"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+here.com/cdn-cgi/l/email-protection) for more information.
+
+"""
+exact = "Our hosting centers are on Google Cloud Platform servers located in US-Central."
+suffix = " We do not use servers outside of the US; however, we can, i"
+
+[[anchor]]
+id = "role-dpa-on-behalf"
+source_id = "259c19653a171084"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ve prepared a multi-jurisdictional Data Processing Addendum "
+exact = "designed to give our customers contractual assurances regarding Cohere’s handling of customer data on their behalf"
+suffix = " in compliance with applicable privacy laws, including the G"

@@ -1,0 +1,362 @@
+name = "百度智能云千帆"
+name_en = "Baidu Qianfan"
+line = "baidu-qianfan"
+site = "cn"
+entity = "北京百度网讯科技有限公司"
+endpoint = ""
+doc = "https://cloud.baidu.com/doc/qianfan/s/Cmh4stmpy"
+
+[[source]]
+url = "https://cloud.baidu.com/doc/Agreements/s/yjwvy1x03"
+channel = "contract"
+tier = "core"
+note = "《百度智能云用户服务协议》(更新时间 2026-04-23)，平台级契约，千帆是其上展示的产品之一。承载 role(用户业务数据归属 + 除执行服务要求外不做未获授权使用披露) 与 processing_region(客户指定存储区域 + 不迁移 + 处理可能发生在数据中心区域及维护运营/支持/调查团队所在区域)，并补充 retention 生命周期(按指令删除、缓冲期届满删除含缓存与备份副本)。平台级而非千帆专属，故 processing_region 置信度记 medium。"
+
+[[source]]
+url = "https://cloud.baidu.com/doc/qianfan/s/Cmh4stmpy"
+channel = "contract"
+tier = "core"
+note = "《百度千帆大模型服务及Agent开发平台用户协议》(文档页标注 更新时间 2026-01-08)，千帆平台级协议，覆盖 api 档(千帆 ModelBuilder/AppBuilder 自营模型按量 API 调用、推理服务)。承载 training 权威结论(5.1(6))，并含 retention 的负向边界(§9 无存储义务)与范围边界(§12 第三方模型协议优先)。不含模型广场第三方模型(如 DeepSeek)的数据条款，不含 Token Plan/Coding Plan 订阅档独立条款。"
+
+[[source]]
+url = "https://cloud.baidu.com/doc/qianfan/s/emh4stmvj"
+channel = "contract"
+tier = "core"
+note = "《百度千帆大模型服务及Agent开发平台专项约定》(更新时间 2025-10-30)，千帆专属条款。2.16 明文「如其他协议内容与本服务的专项约定有冲突的，均以本服务的专项约定为准」，故对千帆 API 的输入输出内容，本页效力优先。承载 retention 权威结论(2.3)与 training 的窄口径佐证(2.4)。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "qf-training-5-1-6"
+
+[[product.training.point]]
+text_zh = "千帆自营模型 API(按量)：5.1(6) 不使用输入、模型输出、知识文档、数据集训练，数据集不与第三方共享。第三方模型/组件(模型广场)适用其自身协议(用户协议 §12)，不在本结论内。"
+
+[product.zdr]
+mark = "no"
+searched = [
+  "https://cloud.baidu.com/doc/qianfan/s/Cmh4stmpy",
+  "https://cloud.baidu.com/doc/qianfan/s/emh4stmvj",
+  "https://cloud.baidu.com/doc/Agreements/s/yjwvy1x03",
+  "https://cloud.baidu.com/doc/Agreements/s/Plr0fi68q",
+  "https://cloud.baidu.com/doc/qianfan/s/Umleypdhw",
+  "https://cloud.baidu.com/doc/qianfan/s/Umh4stn2y",
+  "https://cloud.baidu.com/doc/qianfan/s/Vmlf11e7i",
+  "https://cloud.baidu.com/doc/qianfan/s/umh4stn0t",
+  "https://cloud.baidu.com/doc/qianfan/s/zmh4sub5e",
+  "https://cloud.baidu.com/doc/qianfan/s/Bmh4suct2",
+  "https://cloud.baidu.com/doc/Whitepapers/s/9jwvxt4wt",
+  "https://cloud.baidu.com/trust/trust_home/privacy",
+]
+anchor = "qf-sp-2-3-storage-auth"
+
+[[product.zdr.point]]
+text_zh = "同顶层 dimensions.zdr：官方文件中无 ZDR/零保留条款或开通方式；条款层明示的是存储授权，故记 mark=no（明确否定）而非「未披露」"
+
+[[product.zdr.point]]
+text_zh = "协议授权存储 + 平台可审查输入输出 → 默认非零保留。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "qf-sp-2-3-storage-auth"
+
+[[product.retention.point]]
+text_zh = "专项约定 2.3 授权为实现服务目的存储输入内容，无期限"
+
+[[product.retention.point]]
+text_zh = "服务终止后缓冲期内继续存储、缓冲期届满删除含缓存与备份副本"
+
+[[product.retention.point]]
+text_zh = "含输入输出的推理日志需客户开通 BLS 投递、保留周期由客户配置。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "bce-region-designate-storage"
+
+[[product.processing_region.point]]
+text_zh = "存储区域由客户指定、未获同意不迁移(法定/委托/运维三类例外)"
+
+[[product.processing_region.point]]
+text_zh = "处理可能发生在数据中心区域及百度维护运营/支持/调查团队所在区域，未限定单一国家/地区。千帆 API 只有全局 endpoint，无地域化 endpoint 文档。"
+
+[product.role]
+kind = "processor"
+anchor = "bce-role-no-unauthorized-use"
+
+[[product.role.point]]
+text_zh = "processor：用户业务数据归用户完全拥有，平台除执行服务要求外不做未获授权使用及披露，按指令删除"
+
+[[product.role.point]]
+text_zh = "隐私政策 §8 自认中立技术服务提供者、严格执行客户委托与指示。"
+
+[[anchor]]
+id = "qf-training-5-1-6"
+source_id = "e0fd89481d7869eb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "知识文档、数据集，为您的用户数据，仅限您账号下在本服务中使用，除执行您的服务要求外，我们不进行任何未获授权的使用及披露。"
+exact = "为免疑义，我们不会使用您的输入和模型输出数据、上传的知识文档、数据集进行训练，也不会将您的数据集与任何第三方共享。"
+suffix = """
+**
+
+**（7）为便利您的模型、应用、Agent开发，我们可能不时在平台内提供数据集、prompt模板等资料，我们不对"""
+
+[[anchor]]
+id = "qf-retention-13-1-storage-auth"
+source_id = "e0fd89481d7869eb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "除非与您另有约定外，均不会因提供/上传/输入/发布行为而发生知识产权的转移。与此同时，您理解并同意我们为实现本服务目的，"
+exact = "对前述信息内容在法律允许的以及本协议声明范围内进行存储及使用。"
+suffix = """
+您确保我们基于您同意对前述信息内容的存储和使用不会侵犯任何第三方的合法权益。
+
+**13.2 为遵守国家法律法规要求并保"""
+
+[[anchor]]
+id = "qf-data-use-13-2-optimization"
+source_id = "e0fd89481d7869eb"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "家法律法规要求并保障服务质量，您已充分知悉并同意授权我们，在按照符合法律法规要求的方式对本服务相关数据进行处理的前提下，"
+exact = "将相关数据应用于服务性能优化、系统故障排查及风险控制管理等"
+suffix = """
+。若您拒绝此类数据处理方式，您可依据本协议约定的方式向我们反馈。**
+
+**13.3 为了更好地保护您的权利，您确认并同"""
+
+[[anchor]]
+id = "qf-no-store-obligation-9"
+source_id = "e0fd89481d7869eb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+已获合法授权（且含转授权）。在不违反法律法规的前提下，您的内容的知识产权归属于您或原始权利人所有。**
+
+您理解并同意，"""
+exact = "我们没有义务存储、维护或向您提供您的内容的副本。"
+suffix = """
+通过使用本服务，您的内容可能会丢失或无法恢复。您对您的任何内容负全部责任。
+
+您不得向本服务提供保密信息。您明确承认并同"""
+
+[[anchor]]
+id = "qf-no-confidentiality-9"
+source_id = "e0fd89481d7869eb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+的内容的副本。通过使用本服务，您的内容可能会丢失或无法恢复。您对您的任何内容负全部责任。
+
+您不得向本服务提供保密信息。"""
+exact = "您明确承认并同意，我们对您的任何内容没有任何保密义务。"
+suffix = """
+为了遵守法律法规、履行本协议、防止欺诈、修复安全或技术问题，我们可能会披露您的内容。
+
+**如果您输入或提交的内容包含个"""
+
+[[anchor]]
+id = "qf-third-party-prevails-12"
+source_id = "e0fd89481d7869eb"
+topics = ["retention", "role", "training"]
+
+[anchor.selector]
+prefix = "为您生成输出）。**您的最终用户（如有）数据将根据这些第三方协议的规定进行处理，而不是根据本协议及其他相关的协议和规则。"
+exact = "如果第三方协议与本协议和/或其他相关的协议和规则存在冲突，第三方协议将优先适用。"
+suffix = """
+**
+
+## 13.知识产权[](https://cloud.baidu.com/doc/qianfan/s/Cmh4s"""
+
+[[anchor]]
+id = "qf-sp-2-3-storage-auth"
+source_id = "66e0bfaf406c7ae4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "数据、文本、文件、资料、链接等全部信息内容，除非与您另有约定外，均不会因提供/上传/输入/发布行为而发生知识产权的转移。"
+exact = "与此同时，您理解并同意百度智能云为实现本服务目的，对前述信息内容在法律允许的范围内进行存储及使用。"
+suffix = """
+您确保百度智能云基于您同意对前述信息内容的存储和使用不会侵犯任何第三方的合法权益。
+
+2.4 您上传到平台的各类知识文档"""
+
+[[anchor]]
+id = "qf-sp-2-16-priority"
+source_id = "66e0bfaf406c7ae4"
+topics = ["retention", "role", "training"]
+
+[anchor.selector]
+prefix = """
+云正常服务产生影响的测试（例如：压力测试等），应事先通知我们并获取我们书面同意，否则我们有权随时终止服务。
+
+2.16 """
+exact = "如其他协议内容与本服务的专项约定有冲突的，均以本服务的专项约定为准。"
+suffix = """
+
+
+[](https://cloud.baidu.com/doc/qianfan/s/emh4stmvj)
+
+评价此篇文"""
+
+[[anchor]]
+id = "qf-sp-2-4-no-train-datasets"
+source_id = "66e0bfaf406c7ae4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "档、数据集，为您的用户数据，仅限您账号下在本服务中使用，除执行您的服务要求外，百度智能云不进行任何未获授权的使用及披露。"
+exact = "为免疑义，百度智能云不会使用您上传的知识文档、数据集进行训练，也不会将您的数据集与任何第三方共享。"
+suffix = """
+
+
+2.5 基于百度智能云的用户隐私保护政策，就您创建和发布的AI原生应用、Agent等产品，用户在使用中的输入和输出信"""
+
+[[anchor]]
+id = "qf-sp-2-8-review-input-output"
+source_id = "66e0bfaf406c7ae4"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+为承担全部责任。
+
+2.8 为履行法定合规要求，百度智能云有权采取技术手段或人工手段对您使用本服务的行为及信息进行审查，"""
+exact = "包括但不限于对输入和输出进行审查、建立风险过滤机制、建立违法内容特征库等。"
+suffix = "如果您（包括您应用/网站用户）有任何违反服务使用规范行为的，百度智能云有权采取警示、限制功能、暂停提供服务、删除违法违规"
+
+[[anchor]]
+id = "qf-sp-2-2-display-or-use"
+source_id = "66e0bfaf406c7ae4"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "、正当、必要的原则。您承诺，百度智能云基于您指令分析、处理前述信息内容以及生成新的信息内容不会侵犯任何第三方的合法权益。"
+exact = "在法律允许的范围内，百度智能云可对前述信息内容进行显示或使用"
+suffix = """
+，如上述内容违反了任何法律或平台协议或政策，百度智能云有权进行删除。
+
+2.3 您使用本服务过程中提供/上传/输入/发布"""
+
+[[anchor]]
+id = "bce-role-ownership"
+source_id = "8a54464ccdecc9aa"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "  1.   百度智能云理解并认可，您通过百度智能云提供的服务，加工、存储、上传、下载、分发以及通过其他方式处理的数据，"
+exact = "均为您的用户业务数据，您完全拥有您的用户业务数据。"
+suffix = """
+
+    2.   您应对您的用户业务数据的来源及内容负责，百度智能云提示您谨慎判断数据来源及内容的合法性。因您的用户业"""
+
+[[anchor]]
+id = "bce-role-no-unauthorized-use"
+source_id = "8a54464ccdecc9aa"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+合法性。因您的用户业务数据内容违反法律法规、部门规章或国家政策而造成的全部结果及责任均由您自行承担。
+    3.   """
+exact = "就用户业务数据，百度智能云除执行您的服务要求外，不进行任何未获授权的使用及披露"
+suffix = """
+；但以下情形除外：
+
+        1.   在国家有关机关依法查询或调阅用户业务数据时，百度智能云具有按照相关法律法"""
+
+[[anchor]]
+id = "bce-region-designate-storage"
+source_id = "8a54464ccdecc9aa"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+、隐匿，或为他人实施上述恶意行为提供工具或者服务，通过不正当标识手段损害他人合法权益。
+
+1.   数据合理处理约定
+
+"""
+exact = "您可以指定您的内容所存储的区域。"
+suffix = "未经您的同意，我们不会从您选择的区域中迁移您的内容，除非（a）必须迁移以遵守适用的法律法规或者政府机关的约束性命令；（b"
+
+[[anchor]]
+id = "bce-region-no-migration-without-consent"
+source_id = "8a54464ccdecc9aa"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+提供工具或者服务，通过不正当标识手段损害他人合法权益。
+
+1.   数据合理处理约定
+
+您可以指定您的内容所存储的区域。"""
+exact = "未经您的同意，我们不会从您选择的区域中迁移您的内容"
+suffix = "，除非（a）必须迁移以遵守适用的法律法规或者政府机关的约束性命令；（b）根据您的委托，您应确保您的委托已获得必要的政府许"
+
+[[anchor]]
+id = "bce-region-processing-areas"
+source_id = "8a54464ccdecc9aa"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "权利委托百度智能云传输相关内容至其他区域;（c）为了提供账单、管理、技术服务或者因调查安全事件或者调查违反本协议的行为。"
+exact = "我们可能会在您使用服务的数据中心区域处理一些数据，我们也可能会在我们维护运营、支持和调查系统及团队的区域处理这些数据。"
+suffix = """
+
+
+1.   非经相关主管机关许可，您及您授权使用百度智能云产品或服务主体不会通过百度智能云产品或服务向适用的出口管制及"""
+
+[[anchor]]
+id = "bce-region-datacenter-storage"
+source_id = "8a54464ccdecc9aa"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+因此被删除所引发的后果和责任，您理解并同意，百度智能云没有继续保留、导出或者返还用户业务数据的义务。
+    7.   """
+exact = "根据您与百度智能云协商一致，百度智能云在您选定的数据中心存储用户业务数据。"
+suffix = """
+百度智能云恪守对用户的安全承诺，根据适用的法律保护用户存储在百度智能云数据中心的数据。
+    8.   您基于本服务所"""
+
+[[anchor]]
+id = "bce-retention-user-delete-per-instruction"
+source_id = "8a54464ccdecc9aa"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+      2.   您和百度智能云另行协商一致。
+
+    4.   您可自行对您的用户业务数据进行删除、更改等操作。"""
+exact = "如您自行释放服务或删除数据的，百度智能云将删除您的在线数据，按照您的指令不再保留该等数据。"
+suffix = """
+就数据的删除、更改等操作，您应谨慎操作。
+    5.   当服务期届满、服务提前终止（包括但不限于双方协商一致提前终止"""
+
+[[anchor]]
+id = "bce-retention-buffer-delete"
+source_id = "8a54464ccdecc9aa"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "一定的缓冲期（以您所订购的服务适用的专有条款、产品文档、服务说明等所载明的时限为准）内继续存储您的用户业务数据（如有）。"
+exact = "缓冲期届满，百度智能云将删除所有用户业务数据，包括所有缓存或者备份的副本，不再保留您的任何用户业务数据"
+suffix = """
+
+    6.   用户业务数据一经删除，即不可恢复；您应自行承担数据因此被删除所引发的后果和责任，您理解并同意，百度智"""

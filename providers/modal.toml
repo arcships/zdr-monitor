@@ -1,0 +1,728 @@
+name = "Modal"
+line = "modal"
+site = "global"
+entity = "Modal Labs, Inc."
+endpoint = ""
+doc = "https://modal.com/docs/guide/security"
+
+[[source]]
+url = "https://modal.com/docs/guide/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "官方《Data residency on Modal》文档，processing_region 维度的主要事实来源：逐产品给出容器/路由区域是否可选（Endpoints Shared 两者都不可选、Dedicated/Functions/Sandboxes/Servers 可选）、日志与持久存储在美国、>2MiB 与异步 payload 在美国、快照在美国、区域锁定是严格的（「neither is ever moved elsewhere」）。第 43 行同时明确 Dedicated/Shared Endpoints 与 Servers 不存储请求与响应 payload（与 security 页的 zdr 条款互相印证）。"
+
+[[source]]
+url = "https://modal.com/docs/guide/security"
+channel = "developer_data"
+tier = "core"
+note = "官方安全与隐私文档（docs 站 guide，非合同）。覆盖整平台的三个维度：(a) Data privacy 节给出 Modal 对客户数据的访问/使用承诺（training 的第二层依据）；(b) Data retention 节以表格逐对象给出保留期（Functions 输入输出最多 7 天、Endpoints/Servers 请求响应不落盘、日志按套餐 1/30 天、元数据随账户存续、Volumes/Images 持久、快照 7/30 天、Dicts 7 天、Queues 默认 24h TTL）；(c) Modal Inference endpoints 节给出零数据保留的原文（zdr 的唯一权威依据）。这是旧记录唯一登记的候选 URL，其内容旧记录只用于 zdr。"
+
+[[source]]
+url = "https://modal.com/legal/terms"
+channel = "contract"
+tier = "core"
+note = "《Software as a Service Agreement》（Effective May 2026，Modal Labs, Inc.，Delaware），合同层最高权威，第 16 行明确「Customer consents to this Agreement by executing a Service Order or creating an account on the Service」——即自助注册的 Starter/Team 档与企业档同受本协议约束。Exhibit A 内嵌 DPA（与独立的 /legal/dpa 不是同一文本，见 notes）。本档为 training（§5.5.4）、processing_region（§1.9）、role（§1.8/§5.3/DPA §2.1/§2.3.1/SCC Module 2）、retention（§3.3/§5.4/DPA §9.1/Schedule 1/Schedule 2）的权威依据。§1.2 No-Fee Use 提示免费档可能另有「differing terms」，未找到公开的 No-Fee Use Limitations 文本。"
+
+[[product]]
+id = "platform"
+badge = "计算平台"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "modal-tos-5-5-4-no-training-without-consent"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "Same as top-level training: §5.5.4 bars training any AI model using Customer Data, except with Customer's prior written consent"
+text_zh = "同顶层 training：§5.5.4 禁止用 Customer Data 训练 AI 模型（除客户事先书面同意）"
+
+[[product.training.point]]
+text = "The Data privacy section of the security page separately commits that Modal will never access or use your source code, the inputs and outputs of your Modal Functions, or any data you store in Images or Volumes. A customer running their own training job on this tier is the customer's own act and does not change this conclusion."
+text_zh = "security 页 Data privacy 节另承诺不访问/不使用客户源代码、函数输入输出与 Images/Volumes 数据。客户在该档跑自己的训练任务是客户自己的行为，不改变本结论。"
+
+[product.zdr]
+mark = "no"
+anchor = "modal-security-retention-endpoint-payloads-not-stored"
+
+[[product.zdr.point]]
+text = "This tier is internally inconsistent and has to be read in parts: Function inputs and outputs are retained for up to 7 days (the security page table row \"Up to 7 days, then deleted\"), so there is no zero retention for Functions"
+text_zh = "本档内不一致，必须分开看：Functions 的输入输出有上限 7 天的留存（security 页表行「Up to 7 days, then deleted」），故对 Functions 无零保留"
+
+[[product.zdr.point]]
+text = "For Servers, request and response payloads are \"Not stored — proxied directly to your container\", sharing the zero-retention path with Endpoints. Logs and metadata are not included and are still retained for their own periods."
+text_zh = "Servers 的请求与响应 payload「Not stored — proxied directly to your container」，与 Endpoints 同享零保留路径。日志与元数据不在此列，仍按各自期限留存。"
+
+[product.retention]
+days = 7
+object = "input_output"
+basis = "fixed_period"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.retention.point]]
+text = "Retention on this tier (object → period): Function input and output content up to 7 days (a maximum TTL)"
+text_zh = "本档保留期（对象→期限）：函数输入输出正文 ≤7 天（上限）"
+
+[[product.retention.point]]
+text = "Request and response payloads for Servers are not written to disk"
+text_zh = "Servers 的请求响应 payload 不落盘"
+
+[[product.retention.point]]
+text = "App and container logs are plan-dependent: 1 day on Starter, 30 days on Team, configurable on Enterprise"
+text_zh = "应用/容器日志按套餐 1 天（Starter）/30 天（Team）/企业版可配置"
+
+[[product.retention.point]]
+text = "Metadata is stored for the lifetime of the account"
+text_zh = "元数据随账户存续"
+
+[[product.retention.point]]
+text = "Volumes and Images persist until the customer deletes them"
+text_zh = "Volumes/Images 持久直到客户删除"
+
+[[product.retention.point]]
+text = "Memory snapshots 7 days, filesystem and directory snapshots 30 days (configurable)"
+text_zh = "内存快照 7 天、文件系统与目录快照 30 天（可配置）"
+
+[[product.retention.point]]
+text = "Dict entries 7 days"
+text_zh = "Dicts 条目 7 天"
+
+[[product.retention.point]]
+text = "Queue partitions have a default TTL of 24h"
+text_zh = "Queues 分区默认 24h TTL"
+
+[[product.retention.point]]
+text = "Audit logs are per Enterprise contract. At the contract layer, ToS §5.4, Customer Data \"is expunged promptly following completion of processing\", and §3.3, the account is deleted within 60 days following the termination date."
+text_zh = "审计日志按企业合同。合同层 ToS §5.4「expunged promptly following completion of processing」、§3.3 账户终止后 60 天内删除。"
+
+[product.processing_region]
+codes = ["selected", "US"]
+anchor = "modal-tos-1-9-processing-locations"
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region: container and routing regions can be specified (region= / routing_region= for Functions, compute_region= for Servers), and region pinning is strict"
+text_zh = "同顶层 processing_region：容器与路由区域可指定（Functions 用 region=/routing_region=、Servers 用 compute_region=），区域锁定严格"
+
+[[product.processing_region.point]]
+text = "Durable storage and logs are fixed in the United States"
+text_zh = "持久存储与日志固定在美国"
+
+[[product.processing_region.point]]
+text = "Cross-border transfer is governed by DPA §11.1. Sandboxes have no routing-region concept (the data plane connects directly to the container, while lifecycle requests go through the us-east control plane)."
+text_zh = "跨境受 DPA §11.1 约束。Sandboxes 无路由区域概念（数据面直连容器，生命周期请求经 us-east 控制面）。"
+
+[product.role]
+kind = "processor"
+anchor = "modal-tos-dpa-2-3-1-service-provider"
+
+[[product.role.point]]
+text = "Same as top-level role: DPA §2.3.1 states that \"Modal shall act as a Service Provider to Customer\", SCC Modules 2/3 are entered into in the processor capacity, §2.1 sets the purpose limitation, and ToS §1.8 leaves all right, title and interest with the customer, granting Modal only a limited licence."
+text_zh = "同顶层 role：DPA §2.3.1 自认 Service Provider、SCC Module 2/3 以 processor 身份签署、§2.1 目的限制、ToS §1.8 客户保留所有权仅给有限许可。"
+
+[[product]]
+id = "endpoints-shared"
+badge = "共享端点"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "modal-tos-5-5-4-no-training-without-consent"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "Same as top-level training. §5.5.1 states that the Input and Output of AI Tools are Customer Data, so this tier's prompts and completions fall within the protection of §5.5.4, \"will not train any AI model using Customer Data\""
+text_zh = "同顶层 training。§5.5.1 明确 AI Tools 的 Input 与 Output 属 Customer Data，故本档的 prompt 与 completion 落入 §5.5.4「不得用于训练 AI 模型」的保护范围"
+
+[[product.training.point]]
+text = "§5.5.3 further states that subcontractors processing Customer Data in order to provide AI Tools are on the subprocessor list. No clause was found that allows Modal to use inference requests to train models."
+text_zh = "§5.5.3 另说明为提供 AI Tools 而处理 Customer Data 的分包商在 subprocessor 名单上。未发现任何条款允许 Modal 用推理请求训练模型。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "modal-security-inference-endpoints-zdr"
+
+[[product.zdr.point]]
+text = "The Modal Inference endpoints section of the security page: request and response payloads \"are never written to disk and pass through Modal’s infrastructure only as in-flight network traffic\", in effect by default with no application required. The scope is limited to payloads and excludes logs and metadata."
+text_zh = "security 页 Modal Inference endpoints 节：请求与响应 payload「never written to disk and pass through Modal's infrastructure only as in-flight network traffic」，默认生效、无需申请。范围限于 payload，不含日志与元数据。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
+
+[[product.retention.point]]
+text = "Request and response payloads are not stored (\"Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads\"). But logs and metadata for the same product are still retained: app and container logs 1 or 30 days depending on plan, metadata for the lifetime of the account"
+text_zh = "请求与响应 payload 不存储（「Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads」）。但同产品的日志与元数据仍留存：应用/容器日志按套餐 1/30 天、元数据随账户存续"
+
+[[product.retention.point]]
+text = "Audit logs are per Enterprise contract. Session affinity reuses the in-container KV prefix cache (endpoints docs), and the lifetime and purge rules of that cache are not disclosed — the unquantified item for retention on this tier."
+text_zh = "审计日志按企业合同。会话亲和会复用容器内 KV 前缀缓存（endpoints 文档），该缓存的生命周期与清除规则官方未披露——这是本档 retention 的未量化项。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "modal-data-residency-shared-endpoints-us-west"
+
+[[product.processing_region.point]]
+text = "The data-residency page: for Shared Endpoints, neither the container region nor the routing region is selectable"
+text_zh = "data-residency 页：Shared Endpoints 的容器区域与路由区域均不可选"
+
+[[product.processing_region.point]]
+text = "Footnote: \"Shared Endpoints route through us-west, and containers are distributed across Modal’s global compute pool\""
+text_zh = "脚注「Shared Endpoints route through us-west, and containers are distributed across Modal's global compute pool」"
+
+[[product.processing_region.point]]
+text = "The shared-endpoints page is to the same effect. So region pinning is not possible on this tier, and customers with hard data residency requirements must switch to Dedicated Endpoints."
+text_zh = "shared-endpoints 页同旨。即本档无法做区域锁定，对数据驻留有硬要求的客户须改用 Dedicated Endpoints。"
+
+[product.role]
+kind = "processor"
+anchor = "modal-tos-dpa-2-3-1-service-provider"
+
+[[product.role.point]]
+text = "Same as top-level role. The operator of this tier is Modal itself (Modal hosts the compute pool and Modal bills), with no \"third-party technical support provider\" style resale layer"
+text_zh = "同顶层 role。本档的运营主体是 Modal 自己（Modal 托管算力池、Modal 计费），不存在「第三方技术支持商」式的转售层"
+
+[[product.role.point]]
+text = "Whether requests are forwarded to the original model vendor is disclosed neither in the documentation nor in the subprocessor list (which holds only cloud hosting providers and logging/monitoring/data-warehouse vendors). This is the unverified item for role on this tier."
+text_zh = "请求是否转发给模型原厂，官方文档与 subprocessor 名单中均无披露（名单只有云托管商与日志/监控/数据仓库类）。这是本档 role 的未核项。"
+
+[[product]]
+id = "endpoints-dedicated"
+badge = "专属端点"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "modal-tos-5-5-4-no-training-without-consent"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "Same as top-level training."
+text_zh = "同顶层 training。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "modal-security-inference-endpoints-zdr"
+
+[[product.zdr.point]]
+text = "Same as endpoints-shared: zero retention on the payload path."
+text_zh = "同 endpoints-shared：payload 路径零保留。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
+
+[[product.retention.point]]
+text = "Same as endpoints-shared: payloads are not stored"
+text_zh = "同 endpoints-shared：payload 不存储"
+
+[[product.retention.point]]
+text = "Logs are plan-dependent and metadata lasts for the lifetime of the account. Customer-supplied weights and custom images live in Images and Volumes, which is durable storage (retained until the customer deletes them)."
+text_zh = "日志按套餐、元数据随账户存续。客户自带权重与自定义镜像存放在 Images/Volumes，属持久存储（客户删除前保留）。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "modal-tos-1-9-processing-locations"
+
+[[product.processing_region.point]]
+text = "The data-residency page table: for Endpoints (Dedicated), both container region and routing region are Yes"
+text_zh = "data-residency 页表格：Endpoints (Dedicated) 容器区域与路由区域均为 Yes"
+
+[[product.processing_region.point]]
+text = "Region pinning is strict. Durable storage and logs remain in the United States (same data-residency page)."
+text_zh = "区域锁定严格。持久存储与日志仍在美国（同 data-residency 页）。"
+
+[product.role]
+kind = "processor"
+anchor = "modal-tos-dpa-2-3-1-service-provider"
+
+[[product.role.point]]
+text = "Same as top-level role."
+text_zh = "同顶层 role。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "modal-tos-5-5-4-no-training-without-consent"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "Same as top-level training. The difference on the enterprise tier is that the §5.5.4 exception, \"Customer's prior written consent\", can be extended through a Service Order or a separate written authorization — that is, an arrangement of the form \"may be used for training with written consent\" is more likely to arise on the enterprise tier, but the public terms disclose no authorization that is on by default."
+text_zh = "同顶层 training。企业档的差异在 §5.5.4 的例外「Customer's prior written consent」可通过 Service Order 或单独书面授权扩展——即企业档更容易出现「经书面同意可用于训练」的约定，但公开条款未披露任何默认开启的授权。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "modal-security-inference-endpoints-zdr"
+
+[[product.zdr.point]]
+text = "Consistent with the self-serve tiers: the payload path for Endpoints and Servers is zero retention by default, and Functions have no zero retention. No separate ZDR commitment text was found for the enterprise tier."
+text_zh = "与自助档一致：Endpoints/Servers 的 payload 路径默认零保留，Functions 无零保留。未发现企业档另有独立的 ZDR 承诺文本。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "modal-security-retention-logs-plan-dependent"
+
+[[product.retention.point]]
+text = "On the enterprise tier, app and container log retention is \"configurable on Enterprise\" and audit logs are \"Per Enterprise contract\" — both sit in the contract and the public documentation gives no numbers, so this is recorded as unspecified. The periods for the other objects are the same as on the self-serve tiers (Function inputs and outputs up to 7 days, payloads not written to disk, metadata for the lifetime of the account). In the BAA scenario there are further exclusions: Volumes v1, Images (not including Filesystem and Directory Snapshots), Memory Snapshots and user code fall outside the BAA commitment."
+text_zh = "企业档的应用/容器日志保留期「configurable on Enterprise」，审计日志「Per Enterprise contract」——两项都落在合同里，公开文档不给数字，故记 unspecified。其余对象的期限与自助档相同（函数输入输出 ≤7 天、payload 不落盘、元数据随账户存续）。BAA 场景下另有排除项：Volumes v1、Images（不含 Filesystem/Directory Snapshots）、Memory Snapshots 与用户代码不在 BAA 承诺范围内。"
+
+[product.processing_region]
+codes = ["selected", "US"]
+anchor = "modal-tos-1-9-processing-locations"
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region. The enterprise tier can obtain more granular container region definitions (region-selection page: \"Need access to more granular region definitions? Contact sales@modal.com\"), but the public documentation gives no list."
+text_zh = "同顶层 processing_region。企业档可获得更细粒度的容器区域定义（region-selection 页「Need access to more granular region definitions? Contact sales@modal.com」），但公开文档未给清单。"
+
+[product.role]
+kind = "processor"
+anchor = "modal-tos-dpa-2-3-1-service-provider"
+
+[[product.role.point]]
+text = "Same as top-level role. The enterprise tier also has a BAA path (security page: Modal is the business associate where you are processing PHI on Modal, and the BAA is offered on Enterprise), consistent with the processor characterization."
+text_zh = "同顶层 role。企业档另有 BAA 路径（security 页：Modal 在 PHI 场景下自认 business associate，BAA 在企业版提供），与 processor 定性一致。"
+
+[[anchor]]
+id = "modal-security-data-privacy-never-access"
+source_id = "bca5146e672b61f3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+vacy[](https://modal.com/docs/guide/security#data-privacy)
+
+"""
+exact = """
+Modal will never access or use:
+
+*   your source code.
+*   the inputs (function arguments) or outputs (function return values) to your Modal Functions.
+*   any data you store in Modal, such as in Images or Volumes."""
+suffix = """
+
+
+App logs and metadata are stored on Modal. Modal will not """
+
+[[anchor]]
+id = "modal-security-app-logs-not-accessed-without-permission"
+source_id = "bca5146e672b61f3"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+any data you store in Modal, such as in Images or Volumes.
+
+"""
+exact = "App logs and metadata are stored on Modal. Modal will not access this data unless permission is granted by the user to help with troubleshooting."
+suffix = """
+
+
+### Data retention[](https://modal.com/docs/guide/security"""
+
+[[anchor]]
+id = "modal-security-retention-inputs-outputs-7d"
+source_id = "bca5146e672b61f3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ps://modal.com/docs/guide/webhooks), Scheduled Functions) | "
+exact = "Up to 7 days, then deleted"
+suffix = """
+ |
+| Request and response payloads | [Server](https://modal."""
+
+[[anchor]]
+id = "modal-security-retention-endpoint-payloads-not-stored"
+source_id = "bca5146e672b61f3"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+hooks), Scheduled Functions) | Up to 7 days, then deleted |
+"""
+exact = "| Request and response payloads | [Server](https://modal.com/docs/guide/servers) and [Auto Endpoints](https://modal.com/docs/guide/endpoints) | Not stored — proxied directly to your container |"
+suffix = """
+
+| App and container logs | [Functions](https://modal.com/do"""
+
+[[anchor]]
+id = "modal-security-retention-logs-plan-dependent"
+source_id = "bca5146e672b61f3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+points) | Not stored — proxied directly to your container |
+"""
+exact = "| App and container logs | [Functions](https://modal.com/docs/guide), [Sandboxes](https://modal.com/docs/guide/sandboxes) | Plan-dependent: 1 day on Starter, 30 days on Team, configurable on Enterprise"
+suffix = """
+ (see [pricing](https://modal.com/pricing)) |
+| Audit logs |"""
+
+[[anchor]]
+id = "modal-security-retention-metadata-account-lifetime"
+source_id = "bca5146e672b61f3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+eues) | Configurable per-partition TTL (default 24 hours) |
+"""
+exact = "| App, Function, and container metadata | All products | Stored for the lifetime of your account |"
+suffix = """
+
+
+#### Function inputs and outputs[](https://modal.com/docs/"""
+
+[[anchor]]
+id = "modal-security-retention-payload-max-ttl-7d"
+source_id = "bca5146e672b61f3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+modal.com/docs/guide/security#function-inputs-and-outputs)
+
+"""
+exact = "Function inputs and outputs are stored encrypted at rest. Small payloads (≤ 2 MiB) are stored inline in our metadata store; larger payloads are stored in object storage. Both are deleted within a maximum TTL of 7 days."
+suffix = """
+
+
+#### Modal Inference endpoints[](https://modal.com/docs/gu"""
+
+[[anchor]]
+id = "modal-security-inference-endpoints-zdr"
+source_id = "bca5146e672b61f3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+//modal.com/docs/guide/security#modal-inference-endpoints)
+
+"""
+exact = "Modal Inference endpoints are zero data retention: request and response payloads are never written to disk and pass through Modal’s infrastructure only as in-flight network traffic."
+suffix = " Inference endpoints terminate TLS at Modal’s edge proxy and"
+
+[[anchor]]
+id = "modal-security-hipaa-business-associate"
+source_id = "bca5146e672b61f3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "rds and other individually identifiable health information. "
+exact = "HIPAA guidelines apply to both covered entities and business associates—of which Modal is the latter if you are processing PHI on Modal."
+suffix = """
+
+
+Modal’s services can be used in a HIPAA compliant manner. """
+
+[[anchor]]
+id = "modal-tos-1-8-customer-owns-data-limited-license"
+source_id = "b702c00c0249cc5e"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+roduce, market, or distribute.
+
+    8.   **Customer Data**. """
+exact = "Customer shall retain all right, title and interest in and to the Customer Data, including all intellectual property rights therein. Customer hereby grants to Modal a limited license to use Customer Data as necessary to provide the Service to Customer."
+suffix = " For purposes of this Agreement, \"**Customer Data**\" shall m"
+
+[[anchor]]
+id = "modal-tos-1-9-processing-locations"
+source_id = "b702c00c0249cc5e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "-selection](https://modal.com/docs/guide/region-selection). "
+exact = "Modal will not process Customer Data on servers in other regions, except with Customer's prior written consent."
+suffix = """
+
+
+    10.   **Modal Client**. In their discretion, Customers"""
+
+[[anchor]]
+id = "modal-tos-1-11-service-metrics-carve-out"
+source_id = "b702c00c0249cc5e"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ervice Metrics**. Notwithstanding anything to the contrary, "
+exact = "Customer acknowledges and agrees that Modal may collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter. \"**Service Metrics**\" means data and information related to Customer's or its Users' use of the Services that is used by Modal in an aggregate and/or permanently anonymized manner such that it does not identify an individual or Customer, and for which Modal has implemented technical safeguards and business processes to prohibit reidentification of such data"
+suffix = """
+..
+
+2.   **FEES AND TAXES**
+
+    1.   **Fees**. Customer sha"""
+
+[[anchor]]
+id = "modal-tos-3-3-account-deleted-60-days"
+source_id = "b702c00c0249cc5e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "l all Fees set forth in the corresponding Service Order(s). "
+exact = "Customer's Service account will be deleted within 60 days following the termination date."
+suffix = """
+
+
+    4.   **Survival**.The following provisions will surviv"""
+
+[[anchor]]
+id = "modal-tos-5-3-no-personnel-access"
+source_id = "b702c00c0249cc5e"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+he Service Order.
+
+    3.   **Protection of Customer Data**."""
+exact = "Modal will maintain administrative, physical, and technical safeguards for protection of the security, confidentiality and integrity of Customer Data in accordance with its security documentation, which will be made available to Customer on request, and Modal's Data Processing Addendum attached as Exhibit A, which is incorporated herein by reference. Those safeguards will include, but will not be limited to, measures for preventing access, use, modification or disclosure of Customer Data by Modal personnel except: (a) to provide the Service and to prevent or address service or technical problems, or (b) as Customer expressly permits in writing."
+suffix = """
+
+
+    4.   **Deletion of Customer Data**.Customer Data proce"""
+
+[[anchor]]
+id = "modal-tos-5-4-deletion-expunged-promptly"
+source_id = "b702c00c0249cc5e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ or (b) as Customer expressly permits in writing.
+
+    4.   """
+exact = "**Deletion of Customer Data**.Customer Data processed by the Service is expunged promptly following completion of processing"
+suffix = ", as described at [https://modal.com/docs/guide/security#dat"
+
+[[anchor]]
+id = "modal-tos-5-5-4-no-training-without-consent"
+source_id = "b702c00c0249cc5e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+er described in the Data Processing Addendum.
+
+        4.   """
+exact = "Modal will not, except with Customer's prior written consent: (i) train any AI model using Customer Data, or (ii) export Customer Data into, or cause Customer Data to be ingested by, large language models."
+suffix = """
+
+
+        5.   Customer acknowledges and agrees that the use"""
+
+[[anchor]]
+id = "modal-tos-dpa-2-1-purpose-limitation"
+source_id = "b702c00c0249cc5e"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+g of Customer Personal Data**
+
+    1.   Purpose Limitation. """
+exact = "Modal will not Process Customer Personal Data for any purpose other than for the specific purposes set forth in this DPA, unless obligated to do otherwise by Applicable Privacy Law."
+suffix = " In such case, Modal will inform Customer of that legal requ"
+
+[[anchor]]
+id = "modal-tos-dpa-2-3-1-service-provider"
+source_id = "b702c00c0249cc5e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+meanings provided in US Data Protection Law):
+
+        1.   """
+exact = "Modal shall act as a Service Provider to Customer and shall collect, access, maintain, use, process, and transfer Customer Personal Data solely for the purpose of performing Modal's obligations under this Agreement for or on behalf of Customer and for no commercial purpose other than the performance of such obligations."
+suffix = """
+
+
+        2.   Modal shall not Sell or Share, disclose, rele"""
+
+[[anchor]]
+id = "modal-tos-dpa-9-1-deletion-or-return"
+source_id = "b702c00c0249cc5e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+sing and information available to, the Subprocessors.
+
+9.   """
+exact = """
+**Deletion or return of Customer Personal Data**
+
+    1.   Customer Data processed by the Service is expunged promptly following completion of processing, as described at [https://modal.com/docs/guide/security#data-privacy](https://modal.com/docs/guide/security#data-privacy). On termination of the Agreement, Modal will delete and procure the deletion of all copies of any other Customer Personal Data as described in the MSA."""
+suffix = """
+
+
+10.   **Audit rights**
+
+    1.   Customer may request an o"""
+
+[[anchor]]
+id = "modal-tos-dpa-11-1-no-transfer-outside-eea-uk"
+source_id = "b702c00c0249cc5e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+f any.
+
+11.   **Cross Border Transfers**
+
+    1.   Consent. """
+exact = "Modal may not transfer Personal Data to, or process such data in, a location outside of the European Economic Area or the UK without Customer's prior written consent"
+suffix = ", except in compliance with Section 10.2 below (in each case"
+
+[[anchor]]
+id = "modal-tos-dpa-scc-module-2-processor"
+source_id = "b702c00c0249cc5e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+s relevant Affiliates are established in the EEA.
+
+    2.   """
+exact = "Module 2: Transfer controller to processor, Clauses 1 to 6 and 8 to 18 apply where Modal Processes Personal Data as a Processor"
+suffix = ", Modal and its relevant Sub-Processor Affiliates are locate"
+
+[[anchor]]
+id = "modal-tos-dpa-schedule-1-retention-period-unquantified"
+source_id = "b702c00c0249cc5e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ata to provide the Service identified in the Agreement.
+
+_**"""
+exact = """
+The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period**_
+
+As described in the DPA"""
+suffix = """
+
+
+_**For transfers to (sub-) processors, also specify subjec"""
+
+[[anchor]]
+id = "modal-tos-dpa-schedule-2-limited-retention"
+source_id = "b702c00c0249cc5e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+loyment. |
+| Measures for ensuring limited data retention | """
+exact = "Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived."
+suffix = """
+ |
+| Measures for ensuring accountability | Modal employees """
+
+[[anchor]]
+id = "modal-data-residency-endpoints-servers-no-payload-storage"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region", "retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+on](https://modal.com/docs/guide/security#data-retention).
+
+"""
+exact = "Dedicated Endpoints, Shared Endpoints, and Servers do not [store request and response payloads"
+suffix = "](https://modal.com/docs/guide/security#modal-inference-endp"
+
+[[anchor]]
+id = "modal-data-residency-durable-storage-us"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+e/data-residency#data-at-rest-in-durable-storage-products)
+
+"""
+exact = "Durable storage for Images, Volumes, Dicts, Queues, and Secrets resides in object storage located in the United States."
+suffix = """
+
+
+For durable storage, such as Volumes, you can opt to bring"""
+
+[[anchor]]
+id = "modal-data-residency-logs-us"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+r strict residency requirements |
+| --- | --- | --- | --- |
+"""
+exact = "| Functions, Sandboxes, and Servers | Application logs (`stderr` and `stdout`) | United States |"
+suffix = " Ensure that production code is not writing sensitive custom"
+
+[[anchor]]
+id = "modal-data-residency-function-payloads-us"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+you select a routing region when creating your Functions. |
+"""
+exact = "| Functions | Payloads over 2 MiB, and spawned (asynchronous) call payloads of any size | United States |"
+suffix = " Reduce the size of Function I/O, or use Cloud bucket mounts"
+
+[[anchor]]
+id = "modal-data-residency-region-pinning-strict"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+al.com/docs/guide/data-residency#region-pinning-is-strict)
+
+"""
+exact = "Workloads pinned to a routing region route traffic only through that region, and workloads pinned to a container region run only on compute in that region; neither is ever moved elsewhere, even if the region runs out of capacity."
+suffix = """
+
+
+Pinning your containers to fewer regions gives you certain"""
+
+[[anchor]]
+id = "modal-data-residency-shared-endpoints-us-west"
+source_id = "c6f5fb7764cea667"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+s](https://modal.com/docs/guide/servers#request-routing) |
+
+"""
+exact = "* _Shared Endpoints route through `us-west`, and containers are distributed across Modal’s global compute pool._"
+suffix = """
+
+
+† _Sandboxes don’t use a routing region: data-plane reques"""

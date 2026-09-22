@@ -1,0 +1,818 @@
+name = "火山引擎 Coding Plan"
+name_en = "Volcengine Coding Plan"
+company = "volcengine"
+line = "volcengine-coding-plan"
+site = "cn"
+entity = "北京火山引擎科技有限公司"
+plan_levels = ["individual", "enterprise"]
+endpoint = ""
+doc = "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/82379/1928265"
+channel = "contract"
+tier = "core"
+note = "《火山引擎数据授权使用协议》(北京火山引擎科技有限公司与客户签约):订阅套餐条款 §1.3 明文将其并入个人版档(「数据授权协议内容为本服务的组成部分」);§1.1(5) 把授权对象定义为【Coding Plan / Agent Plan 个人版 订阅包月套餐】额度内的输入与生成内容,故本协议只服务个人版档,不适用于企业版档"
+
+[[source]]
+url = "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh"
+channel = "contract"
+tier = "core"
+note = "火山引擎《产品和服务协议》(全产品通用主协议,发布 2024-06-14、生效 2024-06-21),经订阅套餐条款 §1.2 并入完整协议,对本 provider 两档均适用:§12.8 服务终止后客户数据保留十五(15)天、届满自动清除(含缓存与备份);§6.6 除提供服务所必须或经授权外不任意使用客户数据、并在提供服务后的合理期限内删除或匿名化;§1.3 中立的技术服务提供者;§6.8 数据委托处理协议仅在单独签署时适用"
+
+[[source]]
+url = "https://www.volcengine.com/docs/ark/doubao-model-service-agreement"
+channel = "contract"
+tier = "core"
+note = "豆包大模型服务协议(模型服务层),订阅套餐条款 §2.12 要求「遵守对应模型服务协议和数据处理规则」:§4.1 除非单独同意不使用输入输出训练/重新训练/改进基础模型,单独同意情形 4.1.1=同意《数据授权使用协议》、4.1.2=参与协作奖励计划。注意本版本发布 2026-09-17、生效 2026-09-23,晚于核验日 2026-09-21,属待生效版本,只能作前瞻参考,不作当前权威"
+
+[[source]]
+url = "https://www.volcengine.com/docs/ark/moonshot-model-service-agreement?lang=zh"
+channel = "contract"
+tier = "core"
+note = "月之暗面模型服务协议(Kimi 系列;本 provider 套餐模型清单含 Kimi-K2.7-Code / K2.8-Preview / K3):多跳链第二跳。协议终止后「在匿名化处理您的用户信息的前提下,继续保存您留存于Moonshot平台的各类信息」;无输入输出训练用途与保留期承诺。经备案信息公示页索引发现"
+
+[[source]]
+url = "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh"
+channel = "contract"
+tier = "core"
+note = "火山方舟大模型订阅套餐服务专用条款:一份文档同时覆盖 Coding Plan / Agent Plan 的个人版(§1.3)与企业版(§1.4),§1.1 明确本服务「各分别包括个人版和企业版」;§1.2 把《火山引擎服务条款》《火山引擎隐私政策》《产品和服务协议》并入完整协议。两档数据处理条款完全相反(§1.4 不留存/不用于服务优化 vs §1.3 授权存储并使用输入输出),本条目全部档位结论的档位权威都在此文档"
+
+[[source]]
+url = "https://www.volcengine.com/docs/ark/zhipu-ai-model-service-agreement?lang=zh"
+channel = "contract"
+tier = "core"
+note = "智谱 AI 模型服务协议(北京智谱华章科技有限公司与客户直接签约,经火山方舟模型服务页面确认):本 provider 套餐模型清单含 GLM-5.3 / GLM-5.3-Flash,故本协议是多跳链的第二跳。全文无「输入输出是否用于训练/保留多久」的承诺;§1.8 反向要求客户遵守火山引擎的网站服务条款、隐私政策及方舟平台协议。经备案信息公示页索引发现"
+
+[[source]]
+url = "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy"
+channel = "consumer_privacy"
+tier = "core"
+note = "火山引擎隐私政策,经订阅套餐条款 §1.2 并入:§4.1 官网作为中立技术服务提供者、只会严格执行您的指示处理客户数据、非授权不访问——role 的通用层佐证;三.1「信息存储地点」条款的对象是「用户个人信息」且以选择中国大陆地区服务为前提,不足以支撑客户内容的 processing_region"
+
+[[product]]
+id = "coding-plan-enterprise"
+badge = "企业版"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "volcengine-cp-enterprise-no-optimization-use"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "§1.4 企业版(Coding Plan 企业版/Agent Plan 企业版):「本服务将不会收集和使用您的数据进行服务优化」——原文措辞是「不收集、不用于服务优化」,如实登记,不拔高成「不训练」。模型层经 §2.12 适用豆包模型服务协议 §4.1「除非单独同意不使用输入输出训练/重新训练/改进基础模型」"
+
+[[product.training.point]]
+text_zh = "企业版档不签署《数据授权使用协议》(该协议 §1.1(5) 的对象只写个人版套餐),默认不存在「单独同意」情形,模型层亦为不使用于训练。平台专用条款 §3.7.7 同向。套餐概览页另有「不记录用户请求与模型返回数据」佐证"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "volcengine-cp-enterprise-no-retention"
+
+[[product.zdr.point]]
+text_zh = "§1.4 条款级零留存:「您的数据(您与本服务交互的数据)将不会被本服务留存,请您自行存储和备份」——强于按量 API 档的「默认不存储 + 四类列明场景例外」,无需申请或额外配置,订购企业版即适用。范围限定:承诺主体是本服务(火山引擎订阅套餐服务)层,套餐模型清单含 GLM/Kimi/MiniMax/DeepSeek 等三方模型,链上三方模型提供方在套餐场景下的数据处理未见披露(见 notes 多跳段)"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "volcengine-cp-enterprise-no-retention"
+
+[[product.retention.point]]
+text_zh = "分对象登记:(1) 输入输出正文/交互数据——§1.4「您的数据(您与本服务交互的数据)将不会被本服务留存」,是不留存而非「留 N 天」,故本档无正文保留期数字"
+
+[[product.retention.point]]
+text_zh = "(2) 客户端系统与设备信息——§2.11 会被记录,「服务到期后删除」(本档唯一明示期限,对象是设备信息不是请求内容)"
+
+[[product.retention.point]]
+text_zh = "(3) 服务终止场景——经 §1.2 并入的《产品和服务协议》§12.8:账号内全部客户数据保留十五(15)天(「保留期限」),届满自动清除含缓存与备份"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh",
+  "https://docs.volcengine.com/docs/82379/1928265",
+  "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh",
+  "https://www.volcengine.com/docs/82379/1104498",
+  "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy",
+  "https://docs.volcengine.com/docs/82379/2276791",
+  "https://www.volcengine.com/docs/ark/doubao-model-service-agreement",
+]
+
+[[product.processing_region.point]]
+text_zh = "查了订阅套餐条款、数据授权协议、产品和服务协议、平台专用条款、隐私政策、企业版套餐概览、豆包模型服务协议,均无客户数据的存储地/处理地条款。订阅条款 §2.2「仅在中国大陆地区使用本服务的授权」是使用许可,不推定存储或推理地"
+
+[[product.processing_region.point]]
+text_zh = "隐私政策三.1 的存储地点条款对象是「用户个人信息」"
+
+[[product.processing_region.point]]
+text_zh = "企业版套餐概览的接入 Base URL 为 ark.cn-beijing.volces.com(cn-beijing 区域)属产品配置事实,不作地域承诺"
+
+[product.role]
+kind = "processor"
+anchor = "volcengine-cp-generic-neutral-provider"
+
+[[product.role.point]]
+text_zh = "订阅套餐条款本身无 controller/processor 角色条款"
+
+[[product.role.point]]
+text_zh = "经 §1.2 并入的《产品和服务协议》§1.3「火山引擎是中立的技术服务提供者」+ §6.6「除为了提供产品和服务所必须,或经您的授权外,火山引擎不会对您的客户数据进行任意使用,并在提供服务后的合理期限内删除或匿名化」,隐私政策 §4.1「严格执行您的指示处理客户数据」,服务条款 §2.6 委托/指示语义——构成限定目的、按指示处理的受托/处理方框架。同时 §6.8 表明「数据委托处理协议」只在单独签署时适用,即标准条款层未自称受托处理方,故 confidence=medium"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "个人版"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+anchor = "volcengine-cp-personal-training-authorized"
+mode = "opt_out"
+
+[[product.training.point]]
+text_zh = "§1.3 个人版(Coding Plan 个人版/Agent Plan 个人版):订购即「同意并授权我们和我们的关联公司存储并使用…输入以及模型输出的内容用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的」——默认授权用于训练/模型开发,与企业版 §1.4 相反。两个退出限制:只能靠停止使用服务终止授权"
+
+[[product.training.point]]
+text_zh = "终止不涵盖已授权内容。被引的《数据授权使用协议》§2.1/2.2/2.3 给出同一授权的范围与永久期限,且豆包模型服务协议 §4.1.1 把「同意《数据授权使用协议》」列为「除非单独同意」的单独同意情形——说明个人版授权与模型层条款不矛盾,是同一件事的两层"
+
+[product.zdr]
+mark = "no"
+anchor = "volcengine-cp-personal-termination-no-retroactive"
+
+[[product.zdr.point]]
+text_zh = "个人版不存在零保留:§1.3 已授权存储并使用输入输出,且「终止授权的范围不涵盖您已授权我们使用的相关内容和数据」"
+
+[[product.zdr.point]]
+text_zh = "授权协议 §2.3 期限永久、已使用数据技术上无法撤回——与「请求处理完成后不保留」语义不相容。本条结论不得与企业版 §1.4 混用(两档相反)"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "volcengine-cp-personal-authorization-permanent"
+
+[[product.retention.point]]
+text_zh = "分对象登记:(1) 输入输出内容——《数据授权使用协议》§2.3「授权期限为永久」,且一旦被使用「技术上无法撤回」"
+
+[[product.retention.point]]
+text_zh = "订阅条款 §1.3 只允许通过停止使用终止后续授权、不追溯已授权内容——本档对输入输出正文无删除期限承诺"
+
+[[product.retention.point]]
+text_zh = "(2) 客户端系统与设备信息——订阅条款 §2.11「服务到期后删除」(本档唯一明示期限)"
+
+[[product.retention.point]]
+text_zh = "(3) §2.5 另述数据在方舟平台严格加密、匿名化后处理,不改变留存结论"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh",
+  "https://docs.volcengine.com/docs/82379/1928265",
+  "https://www.volcengine.com/docs/82379/1928265",
+  "https://www.volcengine.com/docs/ark/coding-plan-personal-plan-overview",
+  "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh",
+  "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy",
+  "https://www.volcengine.com/docs/82379/1104498",
+  "https://www.volcengine.com/docs/ark/doubao-model-service-agreement",
+  "https://www.volcengine.com/docs/ark/zhipu-ai-model-service-agreement?lang=zh",
+  "https://www.volcengine.com/docs/ark/moonshot-model-service-agreement?lang=zh",
+]
+
+[[product.processing_region.point]]
+text_zh = "个人版套餐概览、订阅套餐条款、数据授权使用协议(docs/www 两址)、产品和服务协议、隐私政策、平台专用条款、豆包与三方模型服务协议均未披露输入输出内容的存储地/处理地。数据授权协议只要求客户自行保证数据来源与个人信息授权合规(§2.4/2.5),不构成地域承诺"
+
+[[product.processing_region.point]]
+text_zh = "个人版套餐概览的 Base URL 是 ark.cn-beijing.volces.com(cn-beijing),属产品配置事实,不作地域结论"
+
+[product.role]
+kind = "controller"
+anchor = "volcengine-cp-personal-authorization-purpose"
+
+[[product.role.point]]
+text_zh = "协议未使用 controller/processor 术语,但 §2.1 授权目的为火山引擎自身的机器学习与模型优化/开发/学术研究,§2.2 授权其为该目的传输、存储、使用、复制、修改数据并可分许可给关联方与第三方外包服务商,§2.4/2.5 由客户保证数据权利与个人信息授权,§5.3 数据授权事宜优先适用本协议(优先于「严格执行您的指示处理客户数据」的通用表述)——即就授权数据而言火山引擎是自主决定处理目的的一方,与按量 API 档「依据您的委托处理您的数据」相反。模型清单含三方模型时,链上还有智谱/月之暗面等与客户直接签约的第二跳"
+
+[[product]]
+id = "coding-plan-enterprise"
+badge = "Coding Plan 企业版"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "Coding Plan 企业版 / Agent Plan 企业版"
+
+[product.training]
+mark = "yes"
+anchor = "volcengine-enterprise-no-optimization-use"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "§1.4, enterprise edition (Coding Plan Enterprise / Agent Plan Enterprise): \"this service will not collect or use your data for service optimization\""
+text_zh = "§1.4 企业版(Coding Plan 企业版/Agent Plan 企业版):本服务不会收集和使用您的数据进行服务优化"
+
+[[product.training.point]]
+text = "The plan overview page adds \"does not record user requests or model response data\" (developer_data-level supporting evidence)"
+text_zh = "套餐概览页另有『不记录用户请求与模型返回数据』(developer_data 级佐证)"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "volcengine-enterprise-no-retention"
+
+[[product.zdr.point]]
+text = "§1.4 is a clause-level zero-retention commitment (data exchanged with this service is not retained), stronger than the pay-as-you-go API tier's \"not stored by default plus listed exceptions\""
+text_zh = "§1.4 条款级零留存承诺(与本服务交互的数据不被留存),强于按量 API 档的『默认不存储 + 列明场景例外』"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "volcengine-enterprise-no-retention"
+
+[[product.retention.point]]
+text = "§1.4: \"your data (the data you exchange with this service) will not be retained by this service\", and you must store and back it up yourself"
+text_zh = "§1.4 您的数据(与本服务交互的数据)不会被本服务留存,需自行存储备份"
+
+[[product.retention.point]]
+text = "§2.11: client system and device information is recorded and deleted after the service expires (the only expressly stated short-term recording item)"
+text_zh = "§2.11 客户端系统与设备信息会被记录,服务到期后删除(此为唯一明示的短期记录项)"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://docs.volcengine.com/docs/ark/volcengine-ark-model-service-security-whitepaper?lang=zh",
+  "https://www.volcengine.com/docs/82379/2123283",
+  "https://developer.volcengine.com/resource/7584381573106303012",
+  "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy",
+  "https://www.volcengine.com/docs/82379/1104498",
+  "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh",
+  "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh",
+  "https://www.volcengine.com/docs/ark/modelark-faq?lang=zh",
+  "https://www.volcengine.com/docs/ark/volcengine-ark-confidential-computing-whitepaper?lang=zh",
+  "https://www.volcengine.com/product/ark",
+  "https://www.volcengine.com/docs/82379/2374452",
+]
+
+[[product.processing_region.point]]
+text = "Neither the subscription plan terms nor the plan overview contains a storage- or processing-location clause"
+text_zh = "订阅套餐条款与套餐概览均无存储地/处理地条款"
+
+[[product.processing_region.point]]
+text = "The \"authorization to use this service only within mainland China\" in §2.2 is a use licence; no storage or inference location is inferred from it"
+text_zh = "§2.2『仅在中国大陆地区使用本服务的授权』是使用许可,不推定存储或推理地"
+
+[product.role]
+kind = "processor"
+anchor = "volcengine-generic-neutral-provider"
+
+[[product.role.point]]
+text = "The subscription plan terms themselves contain no controller/processor clause"
+text_zh = "订阅套餐条款本身无 controller/processor 条款"
+
+[[product.role.point]]
+text = "Its §1.2 incorporates the Products and Services Agreement into the complete agreement, and that agreement's §1.3, \"a neutral technology service provider\", plus §6.6, \"will not use customer data at will except as necessary to provide the service or as authorized by you, and will delete or anonymize it within a reasonable period after providing the service\", form an entrusted / limited-processing framework"
+text_zh = "其 §1.2 把《产品和服务协议》并入完整协议,该协议 §1.3『中立的技术服务提供者』+ §6.6『除提供服务所必须或经您授权外不会对客户数据任意使用,并在提供服务后的合理期限内删除或匿名化』构成受托/限定处理框架"
+
+[[product.role.point]]
+text = "Privacy Policy §4.1, \"processes customer data strictly on your instructions\", points the same way"
+text_zh = "隐私政策 §4.1『严格执行您的指示处理客户数据』同向"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "Coding Plan 个人版"
+category = "coding_plan"
+plan_level = "individual"
+label = "Coding Plan 个人版 / Agent Plan 个人版"
+
+[product.training]
+mark = "no"
+anchor = "volcengine-personal-training-authorized"
+mode = "opt_out"
+
+[[product.training.point]]
+text = "§1.3, personal edition (Coding Plan Personal / Agent Plan Personal): \"you agree and authorize us and our affiliates to store and use the content input when calling models and the content output by the models during your use of the personal edition of the LLM subscription plan service, for purposes such as developing machine learning and artificial intelligence related technologies and the optimization, development, use, academic research and publication of models\" — training is authorized by default, the opposite of §1.4 for the enterprise edition"
+text_zh = "§1.3 个人版(Coding Plan 个人版/Agent Plan 个人版):您同意并授权我们和关联公司存储并使用输入与输出内容,用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的——默认授权训练,与企业版 §1.4 相反"
+
+[[product.training.point]]
+text = "§1.3 further states that the data authorization agreement is a constituent part of this service"
+text_zh = "§1.3 另明确数据授权协议为本服务组成部分"
+
+[product.zdr]
+mark = "no"
+anchor = "volcengine-personal-termination-no-retroactive"
+
+[[product.zdr.point]]
+text = "Zero retention is not possible on the personal edition: §1.3 already authorizes storage and use for model optimization, and \"the scope of terminating the authorization does not cover the relevant content and data you have already authorized us to use\""
+text_zh = "个人版不存在零保留可能:§1.3 已授权存储并用于模型优化,且『终止授权的范围不涵盖您已授权我们使用的相关内容和数据』"
+
+[[product.zdr.point]]
+text = "§2.3: the authorization is perpetual and data already used cannot be withdrawn"
+text_zh = "§2.3 授权永久、已使用数据无法撤回"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "volcengine-personal-authorization-permanent"
+
+[[product.retention.point]]
+text = "Data Authorization and Use Agreement §2.3: the authorization period is perpetual; discontinuing the personal plan can only terminate further authorization, and data already authorized and used is technically impossible to withdraw — no deletion period is committed"
+text_zh = "数据授权使用协议 §2.3:授权期限为永久,停止使用个人版套餐只能终止后续授权,已授权并被使用的数据技术上无法撤回——无删除期限承诺"
+
+[[product.retention.point]]
+text = "Subscription plan terms §2.11 separately states that client system and device information is \"deleted after the service expires\" (this item only)"
+text_zh = "订阅套餐条款 §2.11 另述客户端系统与设备信息『服务到期后删除』(仅此一项)"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://docs.volcengine.com/docs/ark/volcengine-ark-model-service-security-whitepaper?lang=zh",
+  "https://www.volcengine.com/docs/82379/2123283",
+  "https://developer.volcengine.com/resource/7584381573106303012",
+  "https://www.volcengine.com/docs/Legalagreements/VolcanoEnginesPrivacyPolicy",
+  "https://www.volcengine.com/docs/82379/1104498",
+  "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh",
+  "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh",
+  "https://www.volcengine.com/docs/ark/modelark-faq?lang=zh",
+  "https://www.volcengine.com/docs/ark/volcengine-ark-confidential-computing-whitepaper?lang=zh",
+  "https://www.volcengine.com/product/ark",
+  "https://www.volcengine.com/docs/82379/2374452",
+]
+
+[[product.processing_region.point]]
+text = "The personal plan overview, the subscription plan terms and the Data Authorization and Use Agreement disclose no storage or processing location"
+text_zh = "个人版套餐概览、订阅套餐条款、数据授权使用协议均未披露存储地/处理地"
+
+[[product.processing_region.point]]
+text = "The Data Authorization and Use Agreement only requires the customer to warrant the lawfulness of the data source and of the personal information authorization (§2.4/2.5), which is not a regional commitment"
+text_zh = "数据授权使用协议仅要求客户自行保证数据来源与个人信息授权合规(§2.4/2.5),不构成地域承诺"
+
+[product.role]
+kind = "controller"
+anchor = "volcengine-personal-authorization-purpose"
+
+[[product.role.point]]
+text = "The agreement does not use the terms controller or processor, but the authorization purpose in §2.1/2.2 is Volcengine's own machine learning and model optimization and development (not processing on the customer's instructions), §2.4/2.5 leave the customer to warrant data rights and personal information authorization, and §5.3 gives this agreement priority on data authorization matters — that is, for the authorized data Volcengine is the party that determines the processing purpose itself, the opposite of the entrusted-processing framework in §3.7.7 of the pay-as-you-go API tier"
+text_zh = "协议未使用 controller/processor 术语,但 §2.1/2.2 的授权目的为火山引擎自身的机器学习与模型优化开发(非按客户指示处理),§2.4/2.5 由客户保证数据权利与个人信息授权,§5.3 数据授权事宜优先适用本协议——即火山引擎就授权数据为自主决定处理目的的一方,与按量 API 档 §3.7.7 的委托处理框架相反"
+
+[[anchor]]
+id = "volcengine-cp-enterprise-no-retention"
+source_id = "9fa678c2f42aae99"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+相关内容和数据。​
+
+1.4 如您使用本服务企业版，包括 Coding Plan 企业版与Agent Plan 企业版，"""
+exact = "您的数据（您与本服务交互的数据）将不会被本服务留存，请您自行存储和备份。本服务将不会收集和使用您的数据进行服务优化。"
+suffix = """
+本服务企业版支持在本服务提供的模型间的选择与切换的 Auto 功能，具体支持的模型及功能范围以服务页面展示为准。​
+
+1"""
+
+[[anchor]]
+id = "volcengine-cp-enterprise-no-optimization-use"
+source_id = "9fa678c2f42aae99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Plan 企业版与Agent Plan 企业版，您的数据（您与本服务交互的数据）将不会被本服务留存，请您自行存储和备份。"
+exact = "本服务将不会收集和使用您的数据进行服务优化。"
+suffix = """
+本服务企业版支持在本服务提供的模型间的选择与切换的 Auto 功能，具体支持的模型及功能范围以服务页面展示为准。​
+
+1"""
+
+[[anchor]]
+id = "volcengine-cp-personal-training-authorized"
+source_id = "9fa678c2f42aae99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "lcengine.com/docs/82379/1928265?lang=zh)》，数据授权协议内容为本服务的组成部分。"
+exact = "您同意并授权我们和我们的关联公司存储并使用您使用大模型订阅套餐个人版服务期间因调用模型而输入以及模型输出的内容用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的。"
+suffix = "若您希望终止对前述输入输出内容的授权，可通过停止使用Coding Plan个人版和/或Agent Plan个人版服务来终"
+
+[[anchor]]
+id = "volcengine-cp-personal-termination-no-retroactive"
+source_id = "9fa678c2f42aae99"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "终止对前述输入输出内容的授权，可通过停止使用Coding Plan个人版和/或Agent Plan个人版服务来终止授权，"
+exact = "但终止授权的范围不涵盖您已授权我们使用的相关内容和数据。"
+suffix = """
+​
+
+1.4 如您使用本服务企业版，包括 Coding Plan 企业版与Agent Plan 企业版，您的数据（您与本"""
+
+[[anchor]]
+id = "volcengine-cp-device-info-deleted-after-expiry"
+source_id = "9fa678c2f42aae99"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "您的行为将可能被识别为滥用/违规行为。由此导致订阅服务停用或账号封禁，火山引擎免责。您理解并同意，为了防止本服务被滥用，"
+exact = "您的客户端的系统和设备信息将会被记录。我们不会对该信息进行任何其他目的使用，并会服务到期后删除。"
+suffix = """
+​
+
+2.12 您使用本服务，您需遵守对应模型服务协议和数据处理规则，包括火山引擎和其他三方模型服务商为您提供的商业模型"""
+
+[[anchor]]
+id = "volcengine-cp-full-agreement-incorporation"
+source_id = "9fa678c2f42aae99"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "》](https://www.volcengine.com/docs/6256/68938)，（3）订购协议/服务订单，"
+exact = "（4）《服务等级协议》（如有）和（5）服务规则等所适用的其他协议共同构成您与火山引擎之间就订购或（和）使用本服务的完整协议。"
+suffix = """
+​
+
+1.3 如您使用本服务个人版，包括Coding Plan个人版和Agent Plan个人版，所适用的服务条款除本服"""
+
+[[anchor]]
+id = "volcengine-cp-model-rules-2-12"
+source_id = "9fa678c2f42aae99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+被滥用，您的客户端的系统和设备信息将会被记录。我们不会对该信息进行任何其他目的使用，并会服务到期后删除。​
+
+2.12 """
+exact = "您使用本服务，您需遵守对应模型服务协议和数据处理规则"
+suffix = "，包括火山引擎和其他三方模型服务商为您提供的商业模型和开源模型等。本服务不对模型生成内容的准确性，合规性及不侵权等提供任"
+
+[[anchor]]
+id = "volcengine-cp-personal-data-definition"
+source_id = "b9b831bcebe7c295"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+的安全互信方案，保障模型服务提供方的模型安全与模型使用者的信息安全。​
+
+(5) AI Coding/Agent数据 ："""
+exact = "您在 【Coding Plan / Agent Plan 个人版 订阅包月套餐】 额度内调用火山方舟指定模型服务期间因调用模型而输入和模型生成的内容"
+suffix = """
+，包括但不限于所有输入的文本、声音、图形、图片、图像、视频、软件或任何其他类似信息。​
+
+2.数据授权​
+
+2.1 授权"""
+
+[[anchor]]
+id = "volcengine-cp-personal-authorization-scope"
+source_id = "b9b831bcebe7c295"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "一项 非独家的、不可转让的、不可分许可的（但可分许可给火山引擎关联方以及为达成授权目的第三方外包服务商）、免费的 权利，"
+exact = "允许火山引擎为达成授权目的而 传输、存储、使用、复制、下载、修改或以其他方式处理AI Coding/Agent数据"
+suffix = """
+ 。​
+
+2.3 授权期限：本协议项下授权的起始日期为您 在订购页面勾选同意接受本协议之日 。授权期限为 永久 。如您在"""
+
+[[anchor]]
+id = "volcengine-cp-personal-authorization-purpose"
+source_id = "b9b831bcebe7c295"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+内容，包括但不限于所有输入的文本、声音、图形、图片、图像、视频、软件或任何其他类似信息。​
+
+2.数据授权​
+
+2.1 """
+exact = "授权目的：本规则项下的授权将用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的。"
+suffix = """
+​
+
+2.2 授权范围：您同意，您将授予火山引擎一项 非独家的、不可转让的、不可分许可的（但可分许可给火山引擎关联方以及"""
+
+[[anchor]]
+id = "volcengine-cp-personal-authorization-permanent"
+source_id = "b9b831bcebe7c295"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+oding/Agent数据 。​
+
+2.3 授权期限：本协议项下授权的起始日期为您 在订购页面勾选同意接受本协议之日 。"""
+exact = "授权期限为 永久"
+suffix = " 。如您在同意接受本协议后，（i）拟对该授权期限进行变更或调整，或（ii）如您希望停止对火山引擎授权新AI Coding"
+
+[[anchor]]
+id = "volcengine-cp-personal-irrevocable"
+source_id = "b9b831bcebe7c295"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "）您授权火山引擎使用相关AI Coding/Agent数据，且（ii）相关AI Coding/Agent数据已被使用的，"
+exact = "则对该部分AI Coding/Agent数据的使用将在技术上无法撤回"
+suffix = """
+ 。​
+
+2.4 您特别承诺并保证，您已合法持有AI Coding/Agent数据，并已获得AI Coding/Agen"""
+
+[[anchor]]
+id = "volcengine-cp-personal-encryption-anonymization"
+source_id = "b9b831bcebe7c295"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "本协议向火山引擎提供该等个人信息，并确保火山引擎有权在本协议第2.2及2.3条所述授权范围及授权期限内处理该等个人信息。"
+exact = "任何情况下，AI Coding/Agent数据将在火山方舟平台进行严格加密，并通过安全方案进行匿名化后进行处理"
+suffix = """
+ 。​
+
+2.6 保密数据：在任何情况下，您不应违反任何法律法规的规定或您与任何主体的约定，向火山引擎提供任何保密信息或"""
+
+[[anchor]]
+id = "volcengine-cp-personal-priority-clause"
+source_id = "b9b831bcebe7c295"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+使用火山方舟大模型服务平台时，与火山引擎发生任何争议的，争议解决方式以您与火山引擎之间签署的用户协议为准。​
+
+5.3 """
+exact = "如您与火山引擎就数据授权事宜另行签署相关协议或另有约定的，无论该等协议或约定发生在本协议签署之前或是之后，均应优先适用本协议内容"
+suffix = """
+ 。​
+
+​
+"""
+
+[[anchor]]
+id = "volcengine-cp-generic-termination-retention-15d"
+source_id = "a8fd9bb3ad21911b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "务订单项下全部或部分产品或（和）服务因何原因终止，您的火山引擎账号中的全部客户数据，及存储在火山引擎服务器中的客户内容，"
+exact = "火山引擎将为您保留十五（15）天"
+suffix = "（“**保留期限**”），相关产品和服务专用条款或服务规则承诺期限另有约定的，以其专用条款或服务规则约定为准。您须在保留"
+
+[[anchor]]
+id = "volcengine-cp-generic-termination-auto-purge"
+source_id = "a8fd9bb3ad21911b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "用条款或服务规则承诺期限另有约定的，以其专用条款或服务规则约定为准。您须在保留期限届满前完成全部数据的迁移、备份或删除。"
+exact = "保留期限届满后，火山引擎将自动清除该等数据，包括所有缓存或备份，不再保留您的任何客户数据和内容。"
+suffix = """
+  
+ 12.9符合下列情形之一的，本协议可被提前终止：  
+ （1）经双方协商一致提前终止的；  
+ （2）您严重违反"""
+
+[[anchor]]
+id = "volcengine-cp-generic-delete-reasonable-period"
+source_id = "a8fd9bb3ad21911b"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+先约定的范围内承担责任。  
+ 6.6除为了提供产品和服务所必须，或经您的授权（如在适用情形下为进行故障排除、检测）外，"""
+exact = "火山引擎不会对您的客户数据进行任意使用，并在提供服务后的合理期限内删除您的客户数据或进行匿名化处理"
+suffix = """
+。  
+ 6.7在向您提供产品和服务、技术和网络支持过程中，火山引擎可能会收集或产生某些技术和运营数据，例如系统日志、账"""
+
+[[anchor]]
+id = "volcengine-cp-generic-neutral-provider"
+source_id = "a8fd9bb3ad21911b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+则**”），以产品和服务专用条款、订购协议/服务订单、官网相关页面或（和）火山引擎另行提供的文件资料为准。  
+ 1.3"""
+exact = "火山引擎是中立的技术服务提供者，仅向您提供各类技术产品和服务。"
+suffix = "您的网站、客户端、应用、小程序及其他智能终端应用程序（“客户产品”）等所支持的任何产品、服务及相关内容，由您自行运营并承"
+
+[[anchor]]
+id = "volcengine-cp-generic-separate-dpa"
+source_id = "a8fd9bb3ad21911b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+、客服对话、留资信息等（“**运营数据**”），火山引擎可利用该等运营数据优化和改善火山引擎的产品和服务。  
+ 6.8"""
+exact = "如因特定产品和服务必须，您和火山引擎单独签署《个人信息和数据保护承诺函》或《数据委托处理协议》，有关数据保护约定以单独签署的内容约定为准。"
+suffix = """
+  
+ 7.**知识产权**  
+ 7.1“**知识产权**”指任何法域规定的知识产权、工业产权和其他无形权利，本协议项"""
+
+[[anchor]]
+id = "volcengine-cp-doubao-training-optin"
+source_id = "fc9e8661088bd0c7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+您应积极配合火山引擎追究其法律责任，如给火山引擎造成损失的，您应承担连带责任。​
+
+第四条 数据访问和使用​
+
+4.1 """
+exact = "除非您单独同意，本服务将不使用您提交给服务或使用服务输出的内容训练、重新训练或改进基础模型。您单独同意的情况包括："
+suffix = """
+​
+
+4.1.1 同意火山引擎的《数据授权使用协议》；或​
+
+4.1.2 参与火山引擎协作奖励计划，包括奖励资源包或不定"""
+
+[[anchor]]
+id = "volcengine-cp-doubao-data-authorization-consent"
+source_id = "fc9e8661088bd0c7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+除非您单独同意，本服务将不使用您提交给服务或使用服务输出的内容训练、重新训练或改进基础模型。您单独同意的情况包括：​
+
+"""
+exact = "4.1.1 同意火山引擎的《数据授权使用协议》；或"
+suffix = """
+​
+
+4.1.2 参与火山引擎协作奖励计划，包括奖励资源包或不定期为您提供的其他奖励或优惠活动等。​
+
+4.2 为履行法"""
+
+[[anchor]]
+id = "volcengine-cp-privacy-instruction-processing"
+source_id = "19e2e6ab717609db"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "**（“**处理**”）的数据，均为客户数据（“**客户数据**”），您完全拥有客户数据。官网作为中立的技术服务提供者，"
+exact = "我们只会严格执行您的指示处理客户数据，除非法律法规另有规定、依据特定产品规则另行约定或基于您的要求为您提供技术协助进行故障排除或解决技术问题，我们不会访问客户数据，亦不会对客户数据进行任何非授权的使用或披露。"
+suffix = """
+  
+ 4.2您应对客户数据来源及内容负责，我们提示您谨慎判断数据来源及内容的合法性。您应保证使用官网及服务对该等数据进"""
+
+[[anchor]]
+id = "volcengine-cp-zhipu-upstream-entity"
+source_id = "2402deccc57375cb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+model-service-agreement?lang=zh
+
+Markdown Content:
+模型服务协议​
+
+"""
+exact = "本协议是北京智谱华章科技有限公司（“ 智谱AI ”）与 您（“客户”） ，就您选择和使用智谱AI的模型服务在北京市海淀区签订的协议。"
+suffix = """
+​
+
+为更好保障您的权益，请您在同意或签署本协议之前务必审慎阅读，充分理解本协议的全部内容，特别是免除或限制责任的条款，"""
+
+[[anchor]]
+id = "volcengine-cp-zhipu-defers-to-volcengine"
+source_id = "2402deccc57375cb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+于不正确的使用造成不利影响，您应遵循智谱开放平台有关产品使用规则等智谱AI不时公布的规定以避免前述情形。​
+
+1.8. """
+exact = "除本合同约定外，您还应遵循火山引擎的网站服务条款、隐私政策及火山方舟大模型服务平台有关的协议、产品使用规则等约定的内容。"
+suffix = """
+​
+
+第二条 许可及限制​
+
+2.1. 许可范围​
+
+智谱AI授予您享有产品在中国范围内的非排他的、不可转让、不可分许可"""
+
+[[anchor]]
+id = "volcengine-cp-moonshot-post-termination-keep"
+source_id = "1f06d6eea9064c69"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+shot无义务向您或您指定的第三方披露您账户中的任何信息。 本协议终止后，Moonshot仍享有下列权利：​
+
+*   """
+exact = "在匿名化处理您的用户信息的前提下，继续保存您留存于Moonshot平台的各类信息"
+suffix = """
+；​
+
+*   对于您过往的违约行为，Moonshot仍可依据本协议向您追究违约责任。​
+
+关于生成内容的知识产权​
+
+"""
+
+[[anchor]]
+id = "volcengine-generic-neutral-provider"
+source_id = "a8fd9bb3ad21911b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+则**”），以产品和服务专用条款、订购协议/服务订单、官网相关页面或（和）火山引擎另行提供的文件资料为准。  
+ 1.3"""
+exact = "火山引擎是中立的技术服务提供者"
+suffix = "，仅向您提供各类技术产品和服务。您的网站、客户端、应用、小程序及其他智能终端应用程序（“客户产品”）等所支持的任何产品、"
+
+[[anchor]]
+id = "volcengine-enterprise-no-retention"
+source_id = "9fa678c2f42aae99"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+相关内容和数据。​
+
+1.4 如您使用本服务企业版，包括 Coding Plan 企业版与Agent Plan 企业版，"""
+exact = "您的数据（您与本服务交互的数据）将不会被本服务留存"
+suffix = "，请您自行存储和备份。本服务将不会收集和使用您的数据进行服务优化。本服务企业版支持在本服务提供的模型间的选择与切换的 A"
+
+[[anchor]]
+id = "volcengine-enterprise-no-optimization-use"
+source_id = "9fa678c2f42aae99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Plan 企业版与Agent Plan 企业版，您的数据（您与本服务交互的数据）将不会被本服务留存，请您自行存储和备份。"
+exact = "本服务将不会收集和使用您的数据进行服务优化"
+suffix = """
+。本服务企业版支持在本服务提供的模型间的选择与切换的 Auto 功能，具体支持的模型及功能范围以服务页面展示为准。​
+
+"""
+
+[[anchor]]
+id = "volcengine-personal-training-authorized"
+source_id = "9fa678c2f42aae99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "lcengine.com/docs/82379/1928265?lang=zh)》，数据授权协议内容为本服务的组成部分。"
+exact = "您同意并授权我们和我们的关联公司存储并使用您使用大模型订阅套餐个人版服务期间因调用模型而输入以及模型输出的内容用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的"
+suffix = "。若您希望终止对前述输入输出内容的授权，可通过停止使用Coding Plan个人版和/或Agent Plan个人版服务来"
+
+[[anchor]]
+id = "volcengine-personal-termination-no-retroactive"
+source_id = "9fa678c2f42aae99"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "止对前述输入输出内容的授权，可通过停止使用Coding Plan个人版和/或Agent Plan个人版服务来终止授权，但"
+exact = "终止授权的范围不涵盖您已授权我们使用的相关内容和数据"
+suffix = """
+。​
+
+1.4 如您使用本服务企业版，包括 Coding Plan 企业版与Agent Plan 企业版，您的数据（您与"""
+
+[[anchor]]
+id = "volcengine-personal-authorization-permanent"
+source_id = "b9b831bcebe7c295"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+oding/Agent数据 。​
+
+2.3 授权期限：本协议项下授权的起始日期为您 在订购页面勾选同意接受本协议之日 。"""
+exact = "授权期限为 永久"
+suffix = " 。如您在同意接受本协议后，（i）拟对该授权期限进行变更或调整，或（ii）如您希望停止对火山引擎授权新AI Coding"
+
+[[anchor]]
+id = "volcengine-personal-authorization-purpose"
+source_id = "b9b831bcebe7c295"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+型生成的内容，包括但不限于所有输入的文本、声音、图形、图片、图像、视频、软件或任何其他类似信息。​
+
+2.数据授权​
+
+"""
+exact = "2.1 授权目的：本规则项下的授权将用于开发机器学习、人工智能相关技术和模型的优化、开发、使用、学术理论研究及发表等目的"
+suffix = """
+。​
+
+2.2 授权范围：您同意，您将授予火山引擎一项 非独家的、不可转让的、不可分许可的（但可分许可给火山引擎关联方以"""

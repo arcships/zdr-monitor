@@ -1,0 +1,589 @@
+name = "Cursor"
+line = "cursor"
+site = "global"
+entity = "Anysphere, Inc."
+endpoint = ""
+doc = "https://cursor.com/data-use"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://cursor.com/data-use"
+channel = "developer_data"
+tier = "core"
+note = "Cursor 官方《Data Use & Privacy Overview》，按 Privacy Mode 开关说明训练、模型提供商 ZDR、滥用审查例外，以及临时文件缓存。"
+
+[[source]]
+url = "https://cursor.com/help/security-and-privacy/privacy"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Cursor 官方隐私帮助页，说明 Privacy Mode 对个人、Teams、Enterprise 的可用性、默认与强制设置，并明确 AI 请求会把 prompts 和 code context 发往模型提供商。"
+
+[[source]]
+url = "https://cursor.com/docs/enterprise/privacy-and-data-governance"
+channel = "developer_data"
+tier = "core"
+note = "Cursor 官方企业数据治理文档，覆盖 LLM 请求、Cloud Agents、非 ZDR 模型、Privacy Mode 强制、处理地域与企业数据驻留。"
+
+[[source]]
+url = "https://cursor.com/docs/cloud-agent/security"
+channel = "developer_data"
+tier = "core"
+note = "Cursor 官方 Cloud Agent 安全文档，逐对象披露仓库运行副本、VM 快照、对话与凭据的存储位置和保留期限。"
+
+[[source]]
+url = "https://cursor.com/docs/agent/tools/search"
+channel = "developer_data"
+tier = "core"
+note = "Cursor 官方搜索工具文档，说明 Instant Grep 索引在本机建立，Cursor 不上传路径或代码来建立搜索索引，也不为搜索存储代码库 embeddings。"
+
+[[source]]
+url = "https://cursor.com/docs/account/teams/analytics"
+channel = "developer_data"
+tier = "core"
+note = "Cursor 官方 Usage Analytics 文档，说明 Teams/Enterprise 分析数据及 Conversation Insights 默认开启和关闭控制。"
+
+[[source]]
+url = "https://cursor.com/terms/dpa"
+channel = "contract"
+tier = "core"
+note = "Cursor 官方 DPA，适用于 MSA 下商业客户，规定 Customer 为 controller、Anysphere 为 processor，并规定服务结束后应客户书面指示 30 日内删除或返还个人数据。"
+
+[[source]]
+url = "https://cursor.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Cursor 官方 Privacy Policy，适用于 Anysphere 作为 controller 的个人用户；披露输入输出训练例外、未量化保留、全球及美国处理。"
+
+[[source]]
+url = "https://cursor.com/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Cursor Terms of Service》(Last updated September 3, 2026)。消费档（Free/Pro）主合同：§1.3 Model Training 是全大写的不训练禁令——除用户明确同意外，Anysphere 不会用内容训练、也不允许第三方训练任何 AI 模型；§5.4 定义 Usage Data 并给出 Anysphere 对技术日志的处置权。是 training 维度的合同层来源，优先级高于开发者文档。"
+
+[[source]]
+url = "https://cursor.com/terms/msa"
+channel = "contract"
+tier = "core"
+note = "《Cursor Master Service Agreement》(Last updated August 13, 2026)。商业档（Teams/Enterprise）主协议：§3.3 Ownership of Customer Data; Model Training 含同一句大写禁令，主体从用户换成客户（除客户明确同意外）。是 Teams/Enterprise 档 training 维度的合同层来源。"
+
+[[source]]
+url = "https://cursor.com/blog/secure-codebase-indexing"
+channel = "official_blog"
+tier = "core"
+note = "官方 blog《Securely indexing large codebases》(Jan 27, 2026)。唯一描述服务端语义索引的官方文本：新代码库会 uploads every file，变更文件被切成 syntactic chunks 并转成 embeddings 存入服务端索引；同一团队内按 simhash 复用他人索引，并依赖 Merkle tree 内容证明控制可见范围。该索引的保留期限官方未公布。与 docs/agent/tools/search 描述的本地 Instant Grep 是两条并存的数据流，官方未澄清二者关系。"
+
+[[product]]
+id = "free-privacy-off"
+badge = "Free（Privacy Mode 关闭）"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "cursor-privacy-off-train"
+
+[[product.training.point]]
+text_zh = "Privacy Mode 关闭时，Cursor 明确可存储并使用代码库数据、prompt、编辑器操作、代码片段等来改进 AI 功能并训练自有模型；这不是“未披露”，而是明确否定不训练。"
+
+[product.zdr]
+mark = "no"
+anchor = "cursor-privacy-off-train"
+
+[[product.zdr.point]]
+text_zh = "Privacy Mode 关闭时，Cursor 和部分推理提供商可存储输入输出，因此不构成 ZDR；提供商存储仅称使用后删除，未给期限。"
+
+[product.retention]
+basis = "undisclosed"
+object = "input_output"
+searched = ["https://cursor.com/data-use", "https://cursor.com/privacy"]
+
+[[product.retention.point]]
+text_zh = "已查 Data Use 与 Privacy Policy。前者只说部分推理提供商的数据在使用后删除，后者只说按必要时间保留，均未量化代码、prompt、代码片段或输入输出期限。"
+
+[[product.retention.point]]
+text_zh = "遥测/数据分享：Privacy Mode 关闭即允许收集 editor actions、code snippets 等用于改进与训练；用户可用 Privacy Mode 关闭这类训练数据分享。Privacy Policy 仍披露 device/log/usage data 的自动收集，现行官方页未提供关闭全部运行遥测的开关。"
+
+[[product.retention.point]]
+text_zh = "代码索引：现行 Instant Grep 在本机建立和查询索引，不上传路径或代码来建索引，也不存代码库 embeddings；只有打开命中的文件时，内容才可能进入模型请求。"
+anchor = "cursor-search-local-no-embeddings"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "cursor-privacy-global-processing"
+
+[product.role]
+kind = "controller"
+anchor = "cursor-individual-dpa-not-apply"
+
+[[product]]
+id = "individual-privacy-off"
+badge = "Pro/个人版（Privacy Mode 关闭）"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+anchor = "cursor-privacy-off-train"
+
+[product.zdr]
+mark = "no"
+anchor = "cursor-privacy-off-train"
+
+[product.retention]
+basis = "undisclosed"
+object = "input_output"
+searched = ["https://cursor.com/data-use", "https://cursor.com/privacy"]
+
+[[product.retention.point]]
+text_zh = "同 Free 的 Privacy Mode 关闭姿态：代码与遥测类内容可被存储用于改进/训练；官方未给输入输出、代码片段或服务端缓存的量化期限。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "cursor-privacy-global-processing"
+
+[product.role]
+kind = "controller"
+anchor = "cursor-individual-dpa-not-apply"
+
+[[product]]
+id = "individual-privacy-mode"
+badge = "Free/Pro（Privacy Mode）"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "opt_out"
+anchor = "cursor-privacy-mode-no-training-zdr"
+
+[[product.training.point]]
+text_zh = "Privacy Mode 对 Free 和 Pro 均可开启；开启后 Cursor 与模型提供商不使用 Customer Data 训练。滥用检测触发的数据、用户明确反馈及明确同意训练是例外。"
+
+[[product.training.point]]
+text_zh = "合同层同向，且优先级高于开发者文档：消费档 ToS §1.3 以全大写写明，除用户明确同意外 Anysphere 不会用内容训练、也不允许第三方训练任何 AI 模型；关闭 Privacy Mode 正是那个「明确同意」的动作。官方从未说明 Free/Pro 档 Privacy Mode 的默认值，因此个人档的保护来自合同禁令加开关，而不是一个有文档依据的默认值。"
+anchor = "cursor-tos-model-training-ban"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "cursor-privacy-mode-no-training-zdr"
+
+[[product.zdr.point]]
+text_zh = "Cursor 称与所有提供商维持 ZDR 协议；但非 ZDR 模型须标记或管理员 opt-in，滥用分类器命中可按提供商政策留存，BYOK 也适用上游自己的政策。"
+
+[product.retention]
+basis = "none"
+object = "input_output"
+anchor = "cursor-temp-cache"
+
+[[product.retention.point]]
+text_zh = "常规模型请求按 ZDR；Cursor 仍会把文件内容加密临时缓存于服务器，密钥只在单次请求期间存在，官方仅承诺不永久保存而未给墙钟期限。滥用调查和非 ZDR 模型是例外。"
+
+[[product.retention.point]]
+text_zh = "Privacy Mode 能关闭代码、prompt、编辑动作和代码片段用于训练的数据分享，但官方未称它会关闭所有 device/log/usage telemetry。搜索索引与 embeddings 留在本机；服务端只会在模型请求中接收被打开的文件内容，并另有上述临时缓存。"
+anchor = "cursor-search-local-no-embeddings"
+
+[[product.retention.point]]
+text_zh = "代码库索引其实有两条并存的数据流，官方从未澄清二者关系：docs 的 Instant Grep 在本机建索引、不上传代码；官方 blog 描述的服务端语义索引则会在新代码库上 uploads every file，把变更文件切成 syntactic chunks 转成 embeddings 存入服务端索引，并可在同团队内复用他人的索引。该服务端索引的保留期限官方未公布。因此「不留存」这个结论只覆盖模型请求路径，不覆盖代码库索引——采购若在意整库上传，必须单独谈这一条。"
+anchor = "cursor-index-uploads-every-file"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "cursor-privacy-global-processing"
+
+[product.role]
+kind = "controller"
+anchor = "cursor-individual-dpa-not-apply"
+
+[[product]]
+id = "teams"
+badge = "Teams"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "cursor-teams-privacy-default"
+
+[[product.training.point]]
+text_zh = "合同层同向：商业档主协议 MSA §3.3 含与消费档同一句全大写禁令，主体是客户——除客户明确同意外，Anysphere 不会用客户数据或建议训练、也不允许第三方训练任何 AI 模型。Teams 的 Privacy Mode 默认开启且管理员可强制到成员无法关闭，是产品层对这一禁令的实现。"
+anchor = "cursor-msa-model-training-ban"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "cursor-privacy-mode-no-training-zdr"
+
+[product.retention]
+basis = "none"
+object = "input_output"
+anchor = "cursor-temp-cache"
+
+[[product.retention.point]]
+text_zh = "Teams 默认启用 Privacy Mode；普通 LLM 请求为 ZDR，但仍有单次请求期间的加密文件缓存、滥用调查与管理员批准非 ZDR 模型等例外。"
+
+[[product.retention.point]]
+text_zh = "Teams Usage Analytics 保存 AI 行数等 metadata，代码签名与 Conversation Insights 分类在设备端完成。官方未披露关闭全部 Usage Analytics 的控制；Privacy Mode 只明确约束代码/Customer Data 的训练与模型请求保留，不能扩大成“无遥测”。"
+anchor = "cursor-analytics-device-metadata"
+
+[[product.retention.point]]
+text_zh = "代码库索引是请求路径之外的另一条数据流：官方 blog 写明新代码库会 uploads every file 建服务端语义索引，变更文件切成 syntactic chunks 转成 embeddings，并可复用同团队成员的索引；该索引的保留期限未公布。本档的「不留存」只覆盖模型请求路径。"
+anchor = "cursor-index-chunks-to-embeddings"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cursor-dpa-third-country"
+
+[product.role]
+kind = "processor"
+anchor = "cursor-dpa-roles"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "cursor-enterprise-privacy-default"
+
+[[product.training.point]]
+text_zh = "合同层同向：MSA §3.3 的全大写禁令适用于商业档，除客户明确同意外不得用客户数据训练；企业数据治理文档另写明 Privacy Mode 对 Enterprise 团队默认开启，且非 ZDR 模型须管理员批准才能使用。"
+anchor = "cursor-msa-model-training-ban"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "cursor-privacy-mode-no-training-zdr"
+
+[product.retention]
+basis = "none"
+object = "input_output"
+anchor = "cursor-temp-cache"
+
+[[product.retention.point]]
+text_zh = "普通 LLM 请求按 Privacy Mode/ZDR；DPA 另规定服务终止后按客户书面指示在 30 日内删除或返还个人数据。非 ZDR 模型、滥用调查和功能性存储不在请求级 ZDR 内。"
+
+[product.processing_region]
+codes = ["US", "global", "selected"]
+anchor = "cursor-enterprise-us-residency"
+
+[[product.processing_region.point]]
+text_zh = "默认可跨第三国处理；Enterprise 可按团队申请 US-only，使支持范围内的推理、内容处理、Customer Data 存储和 Cloud Agents 留在美国。"
+
+[product.role]
+kind = "processor"
+anchor = "cursor-dpa-roles"
+
+[[product]]
+id = "cloud-agents-individual"
+badge = "Cloud Agents（Free/Pro）"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "opt_out"
+anchor = "cursor-cloud-agent-no-training"
+
+[[product.training.point]]
+text_zh = "不训练的前提是 Privacy Mode 开着——官方原句是「With Privacy Mode on, Cursor never trains…」，而不是「跑 Cloud Agent 就一律不训练」。Teams/Enterprise 默认开启、管理员还能强制，Free/Pro 的默认值官方从未公布，所以个人档得自己确认开关状态。"
+
+[[product.training.point]]
+text_zh = "关掉 Privacy Mode 就回到「Free/Pro（Privacy Mode 关闭）」那一行：代码库数据、prompt、编辑动作可被用于改进 AI 功能并训练自有模型。"
+anchor = "cursor-privacy-off-train"
+
+[product.zdr]
+mark = "no"
+anchor = "cursor-cloud-agent-retention"
+
+[[product.zdr.point]]
+text_zh = "托管 Agent 必须把整个仓库放进 Cursor 云 VM，并在后端保存对话状态、元数据与 artifacts，端到端不是零保留。"
+
+[product.retention]
+days = 90
+object = "repository_snapshot"
+basis = "fixed_period"
+anchor = "cursor-cloud-agent-retention"
+
+[[product.retention.point]]
+text_zh = "含克隆代码的 VM snapshot 按不活动滚动 90 日，每次启动或恢复都重置；对话状态默认无限期，可用 Delete Agent API 按需删除。个人档没有 Enterprise 那套对话保留策略。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cursor-cloud-agent-aws"
+
+[product.role]
+kind = "controller"
+anchor = "cursor-individual-dpa-not-apply"
+
+[[product]]
+id = "cloud-agents"
+badge = "托管 Cloud Agents（Teams）"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "cursor-cloud-agent-no-training"
+
+[[product.training.point]]
+text_zh = "官方这句话是有前提的：「With Privacy Mode on, Cursor never trains…」。之所以对 Teams 判默认不训练，是因为 Teams 的 Privacy Mode 默认对全体成员开启、管理员还能强制到成员关不掉——前提本身有文档兜底，不是 Cloud Agent 自带的属性。"
+anchor = "cursor-teams-privacy-default"
+
+[product.zdr]
+mark = "no"
+anchor = "cursor-cloud-agent-retention"
+
+[[product.zdr.point]]
+text_zh = "模型提供商多数走 ZDR，但托管 Agent 本身必须把完整仓库放入 Cursor 云 VM，并在 Cursor 后端保存对话状态、元数据与 artifacts，因此端到端不是零保留。"
+
+[product.retention]
+days = 90
+object = "repository_snapshot"
+basis = "fixed_period"
+anchor = "cursor-cloud-agent-retention"
+
+[[product.retention.point]]
+text_zh = "运行 workspace 在空闲后回收；含克隆代码的 VM snapshots 按不活动滚动 90 日，每次启动/恢复重置；对话状态默认无限期，可按需删除；凭据保留至用户删除。Enterprise 另可设置对话保留策略。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cursor-cloud-agent-aws"
+
+[[product.processing_region.point]]
+text_zh = "官方只披露 Cloud Agent VM 位于独立 AWS account，未对一般档位承诺具体国家；Enterprise US-only 数据驻留另见 Enterprise 档。"
+
+[product.role]
+kind = "processor"
+anchor = "cursor-dpa-roles"
+
+[[product]]
+id = "cloud-agents-enterprise"
+badge = "Enterprise Cloud Agents"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "cursor-cloud-agent-no-training"
+
+[[product.training.point]]
+text_zh = "同样以 Privacy Mode 开启为前提；Enterprise 团队默认开启，管理员可组织级强制，非 ZDR 模型还须管理员批准才能使用。"
+anchor = "cursor-enterprise-privacy-default"
+
+[product.zdr]
+mark = "no"
+anchor = "cursor-cloud-agent-retention"
+
+[product.retention]
+days = 90
+object = "repository_snapshot"
+basis = "fixed_period"
+anchor = "cursor-cloud-agent-retention"
+
+[[product.retention.point]]
+text_zh = "同托管 Cloud Agents：snapshot 最长滚动 90 日不活动；默认对话无限期。Enterprise 可用 retention policy 限制对话窗口，但 snapshot 不能按需删除。"
+
+[product.processing_region]
+codes = ["US", "global", "selected"]
+anchor = "cursor-enterprise-us-residency"
+
+[product.role]
+kind = "processor"
+anchor = "cursor-dpa-roles"
+
+[[anchor]]
+id = "cursor-privacy-off-train"
+source_id = "e5dbeeb8109239c5"
+topics = ["training", "retention", "zdr"]
+
+[anchor.selector]
+prefix = "If you choose to turn off “Privacy Mode”:"
+exact = "we may use and store codebase data, prompts, editor actions, code snippets, and other code data and actions to improve our AI features and train our models. Some of our inference providers may temporarily access and store model inputs and outputs to improve our inference performance; this data is deleted after use."
+suffix = "Other notes:"
+
+[[anchor]]
+id = "cursor-privacy-mode-no-training-zdr"
+source_id = "e5dbeeb8109239c5"
+topics = ["training", "zdr", "retention"]
+
+[anchor.selector]
+prefix = "If you enable “Privacy Mode” in Cursor’s settings:"
+exact = "Customer Data will not be used for training by Cursor. Cursor maintains zero data retention (ZDR) agreements with all providers, and AI model providers will not store or train on your data."
+suffix = "However, please note that subject to their policies, model providers (including Cursor) may run risk classifiers"
+
+[[anchor]]
+id = "cursor-temp-cache"
+source_id = "e5dbeeb8109239c5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "where we do our final prompt building."
+exact = "We temporarily cache file contents on our servers to reduce latency and network usage. The files are encrypted using unique client-generated keys, and these encryption keys only exist on our servers for the duration of a request. All cached file contents are temporary, never permanently stored, and never used as training data when privacy mode is enabled."
+suffix = ""
+
+[[anchor]]
+id = "cursor-teams-privacy-default"
+source_id = "9e865ad0451883f7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Toggle Privacy Mode on"
+exact = "For teams, Privacy Mode is enabled by default for all team members. Admins can enforce it organization-wide via [cursor.com/dashboard](https://cursor.com/dashboard) so members cannot disable it."
+suffix = "What data is sent to AI providers?"
+
+[[anchor]]
+id = "cursor-enterprise-privacy-default"
+source_id = "9e865ad0451883f7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "With Privacy Mode enabled, your code is never used for training."
+exact = "Privacy Mode is on by default for Enterprise teams. Teams and Enterprise admins can enforce it organization-wide so members cannot disable it."
+suffix = "Does Privacy Mode apply to Grok 4.5?"
+
+[[anchor]]
+id = "cursor-individual-dpa-not-apply"
+source_id = "9e865ad0451883f7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "processor commitments and sub-processor coverage."
+exact = "If you are on an individual plan, the DPA does not apply; your data handling follows the Privacy Policy."
+suffix = "Does Privacy Mode prevent xAI from training on my Grok Bot data?"
+
+[[anchor]]
+id = "cursor-privacy-global-processing"
+source_id = "9f05aa4e4aedbcb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "No sale or targeted advertising"
+exact = "Anysphere processes your personal data for the purposes described in this Privacy Policy on servers located in various jurisdictions, including in the United States."
+suffix = "While data protection laws vary by country, we apply the protections outlined in this policy"
+
+[[anchor]]
+id = "cursor-dpa-roles"
+source_id = "b2213aca9e734c7d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Roles of the Parties."
+exact = "The Parties acknowledge that for purposes of Privacy Laws, Customer is the “service recipient,” “controller,” “business,” or any similar term provided under Privacy Laws, and Vendor is the “service provider,” “processor,” “contractor,” or any similar term provided under Privacy Laws."
+suffix = "Details of Processing."
+
+[[anchor]]
+id = "cursor-dpa-third-country"
+source_id = "b2213aca9e734c7d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Data Transfers."
+exact = "To the extent Vendor processes Personal Data subject to EU/UK Privacy Laws in a Third Country, and it is acting as data importer, Vendor shall comply with the data importer’s obligations and Customer shall comply with the data exporter’s obligations set out in the Controller to Processor Clauses"
+suffix = "which are hereby incorporated into and form part of this DPA"
+
+[[anchor]]
+id = "cursor-cloud-agent-retention"
+source_id = "eaeb4ae92dc3bebb"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "A Cloud Agent touches four kinds of data. Each is stored in a different place and follows its own retention rule."
+exact = "VM snapshots | Point-in-time copies of the VM disk (including cloned code) used to start and resume without recloning | Snapshot and cache layer outside the active VM, encrypted | Rolling 90 days of inactivity; each start or resume extends it, then automatic deletion"
+suffix = "Conversation state | Prompts, model responses, tool calls, diff context"
+
+[[anchor]]
+id = "cursor-cloud-agent-no-training"
+source_id = "eaeb4ae92dc3bebb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Privacy and model data"
+exact = "Cloud Agents run in [Privacy Mode](https://cursor.com/privacy-overview). With Privacy Mode on, Cursor never trains on code accessed by Cloud Agents or on the prompts and responses their runs generate."
+suffix = "Most models also run under Cursor's zero-data-retention agreements"
+
+[[anchor]]
+id = "cursor-cloud-agent-aws"
+source_id = "eaeb4ae92dc3bebb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "MicroVM isolation. Runtime workspaces run on Firecracker-based microVM infrastructure."
+exact = "Cloud Agent VMs run in a separate AWS account from the rest of Cursor's production infrastructure, so the code-execution environment is walled off from Cursor's other services."
+suffix = "Encryption"
+
+[[anchor]]
+id = "cursor-search-local-no-embeddings"
+source_id = "d5f293ab445d1015"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Privacy and security"
+exact = "Instant Grep builds and queries its index on your machine. Cursor does not upload file paths or code to build a search index, and it does not store embeddings of your codebase for search."
+suffix = "When Agent opens a match, that file content can still be included in the model request."
+
+[[anchor]]
+id = "cursor-analytics-device-metadata"
+source_id = "08f208b8a58bc2e1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "All the AI detection is done on device, and never leaves the user's computer."
+exact = "We store the line counts as metadata and make them available via API or in the Analytics Dashboard."
+suffix = "Known Limitations:"
+
+[[anchor]]
+id = "cursor-enterprise-us-residency"
+source_id = "bef6bc0f45f77258"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "What stays in-region"
+exact = "When US-only data residency is enabled for a team, the following stay on US-based infrastructure: Inference on inputs and suggestions for supported models Data processing pipelines that handle your content Storage of your Customer Data Use of Cloud Agents, including inference, processing, and storage Tab, editing, and autocomplete"
+suffix = "Traveling users: If a user on a US-only team is abroad, their requests still route to US-only infrastructure."
+
+[[anchor]]
+id = "cursor-tos-model-training-ban"
+source_id = "28385b3bdb6b4832"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "nd to provide the Service to you. **1.3. Model Training.**"
+exact = "ANYSPHERE WILL NOT USE CONTENT TO TRAIN, OR ALLOW ANY THIRD PARTY TO TRAIN, ANY AI MODELS, UNLESS YOU’VE EXPLICITLY AGREED TO THE USE OF CONTENT FOR TRAINING."
+suffix = "You can find instructions in the Service for how to manage"
+
+[[anchor]]
+id = "cursor-msa-model-training-ban"
+source_id = "94ee07e31a7a4bbb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Customer grants Anysphere the limited rights that are necessary for Anysphere to deliver the Service."
+exact = "ANYSPHERE WILL NOT USE CUSTOMER DATA OR SUGGESTIONS TO TRAIN, OR ALLOW ANY THIRD PARTY TO TRAIN, ANY AI MODELS, UNLESS CUSTOMER EXPLICITLY AGREES TO SUCH USE."
+suffix = "Customer can find instructions in the Service for how to ma"
+
+[[anchor]]
+id = "cursor-index-uploads-every-file"
+source_id = "f0817fc72b1bf9a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "New users inside an organization don't need to go through that entire process though."
+exact = "The indexing pipeline above uploads every file when a codebase is new to Cursor."
+suffix = "When a new user joins, the client computes the Merkle tree"
+
+[[anchor]]
+id = "cursor-index-chunks-to-embeddings"
+source_id = "f0817fc72b1bf9a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "With the tree, Cursor walks only the branches where hashes differ."
+exact = "When a file changes, Cursor splits it into syntactic chunks. These chunks are converted into the embeddings that enable semantic search."
+suffix = "Creating embeddings is the expensive step, which is why Cursor does it asynchronously in the background."

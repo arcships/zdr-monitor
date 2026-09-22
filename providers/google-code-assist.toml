@@ -1,0 +1,191 @@
+name = "Gemini Code Assist"
+name_en = "Gemini Code Assist"
+company = "google"
+company_name = "Google"
+site = "global"
+line = "code-assist"
+entity = "Google LLC"
+doc = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
+plan_levels = ["team", "enterprise"]
+
+[[source]]
+url = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
+channel = "developer_data"
+tier = "core"
+note = "Gemini CLI 官方文档(google-gemini GitHub 组织 Pages 站)「Terms of Service and Privacy Notice」,逐档列明认证方式对应的条款与训练归属。对 api 档 Paid/Unpaid 的表述与 Additional Terms 一致,作辅助;其关于 Gemini Code Assist for individuals 的表述已随该档 2026-06-18 停服而过时,且其链接的 individuals 隐私声明 URL 已变为停用公告页。"
+
+[[source]]
+url = "https://policies.google.com/terms?hl=en-US"
+channel = "contract"
+tier = "core"
+note = "Google 消费者服务条款(合同相对方 Google LLC)。只用于消费档(code-assist-personal 停服前条款体系、antigravity-consumer)的 role;不适用于 Gemini Developer API(后者由 Google APIs ToS + Gemini API Additional Terms 管辖)。"
+
+[[product]]
+id = "code-assist-personal"
+badge = "Code Assist"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+searched = [
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notices",
+  "https://developers.google.com/gemini-code-assist/docs/overview",
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://web.archive.org/web/20260518094103/https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+  "https://developers.google.com/gemini-code-assist/docs/privacy-notice-individuals (HTTP 404)",
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notice-individuals (HTTP 404)",
+  "https://developers.google.com/gemini-code-assist/resources/tos-privacy (HTTP 404)",
+]
+mode = "opt_out"
+anchor = "training-gca-individuals-collected"
+
+[[product.training.point]]
+text_zh = "仍在线的官方 Gemini CLI 文档逐档写明:个人 Google 账号登录 Gemini Code Assist for individuals 时「prompts, answers, and related code are collected and may be used to improve Google's products, including for model training」,且其链接指向的 individuals 隐私声明 URL 现已变成停用公告页。旧记录据快照记的「默认收集并可用于训练 + 可 opt out」无法用现行原文复核。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+  "https://ai.google.dev/gemini-api/docs/zdr",
+  "https://ai.google.dev/gemini-api/terms",
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://policies.google.com/privacy?hl=en&gl=ie",
+]
+
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notices",
+  "https://developers.google.com/gemini-code-assist/docs/overview",
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://policies.google.com/privacy?hl=en&gl=ie",
+  "https://policies.google.com/privacy",
+  "https://web.archive.org/web/20260518094103/https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+]
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals",
+  "https://policies.google.com/privacy?hl=en&gl=ie",
+  "https://policies.google.com/privacy",
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://developers.google.com/gemini-code-assist/resources/privacy-notices",
+]
+
+[product.role]
+kind = "controller"
+anchor = "role-google-llc-service-provider"
+
+[[product.role.point]]
+text_zh = "停服前该档的 ToS 为消费者 Google Terms of Service(由仍在线的 Gemini CLI 官方文档逐档列明),合同相对方 Google LLC,数据控制者按所在地指定(EEA/瑞士=Google Ireland Limited,UK=Google LLC)。注意:档位已停服,此为停服前条款体系的现行 URL,不是该产品现行条款。"
+
+[[product]]
+id = "code-assist-standard"
+badge = "Code Assist Standard"
+category = "coding_plan"
+plan_level = "team"
+label = "Gemini Code Assist Standard 商业档；官方 Gemini CLI 文档将 Standard 与 Enterprise 合并适用同一数据口径，本行仅表示 Standard"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "training-gca-standard-enterprise"
+
+[[product.training.point]]
+text_zh = "官方文档对 Standard/Enterprise 合并说明：提示词、回答和相关代码不被收集，也不用于模型训练。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.role]
+kind = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[[product]]
+id = "code-assist-enterprise"
+badge = "Code Assist Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "Gemini Code Assist Enterprise 商业档；官方 Gemini CLI 文档将 Standard 与 Enterprise 合并适用同一数据口径，本行仅表示 Enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "training-gca-standard-enterprise"
+
+[[product.training.point]]
+text_zh = "官方文档对 Standard/Enterprise 合并说明：提示词、回答和相关代码不被收集，也不用于模型训练。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[product.role]
+kind = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[[anchor]]
+id = "role-google-llc-service-provider"
+source_id = "3d477953bfac2424"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+Terms
+
+Service provider"""
+exact = """
+Google [services](https://policies.google.com/terms?hl=en-US#footnote-services) are provided by, and you’re contracting with:
+
+Google LLC"""
+suffix = "organized under the laws of the State of Delaware, USA, and operating under the laws of the USA"
+
+[[anchor]]
+id = "training-gca-individuals-collected"
+source_id = "6e58103b5b10bd25"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "By default (if you have not opted out):"
+exact = "**Google account with Gemini Code Assist for individuals**: Yes. When you use your personal Google account, the [Gemini Code Assist Privacy Notice for individuals](https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals) applies"
+suffix = ". Under this notice, your **prompts, answers, and related code are collected** and may be used to improve Google’s products, including for model training."
+
+[[anchor]]
+id = "training-gca-standard-enterprise"
+source_id = "6e58103b5b10bd25"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "By default (if you have not opted out):"
+exact = "**Google account with Gemini Code Assist for Standard, or Enterprise**: No. For these accounts, your data is governed by the [Gemini Code Assist Privacy Notices](https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance#standard_and_enterprise_data_protection_and_privacy) terms, which treat your inputs as confidential. Your **prompts, answers, and related code are not collected** and are not used to train models."
+suffix = "**Gemini API key via the Gemini Developer API**"

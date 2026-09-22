@@ -1,0 +1,131 @@
+name = "Devin"
+company_name = "Cognition"
+line = "devin"
+site = "global"
+plan_levels = ["free", "team", "enterprise"]
+entity = "Cognition AI, Inc."
+homepage = "https://devin.ai/"
+doc = "https://docs.devin.ai/admin/security"
+
+[[source]]
+url = "https://docs.devin.ai/admin/security"
+channel = "enterprise_privacy_faq"
+tier = "core"
+
+[[source]]
+url = "https://docs.devin.ai/onboard-devin/index-repo"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://cognition.com/legal/data-processing-statement"
+channel = "contract"
+tier = "core"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+anchor = "devin-default-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "devin-relationship-retention"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[product.role]
+kind = "unknown"
+searched = ["https://docs.devin.ai/admin/security"]
+
+[[product]]
+id = "team"
+badge = "Team"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "devin-default-training"
+[[product.training.point]]
+text_zh = "默认可训练；Team 管理员可在 Data Controls 退出。退出后不训练，并为上游模型商启用 ZDR。"
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "devin-default-training"
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "devin-relationship-retention"
+[[product.retention.point]]
+text_zh = "一般数据保留至客户关系结束；Feedback 与 User Interaction Data 可按 Cognition 判断保留至所需期限。代码索引用于 DeepWiki/Ask Devin，但官方索引页未披露独立删除或缓存期限。"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[product.role]
+kind = "processor"
+anchor = "devin-processor"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "devin-enterprise-no-train"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "devin-relationship-retention"
+[product.processing_region]
+codes = ["selected"]
+anchor = "devin-processor"
+[[product.processing_region.point]]
+text_zh = "DPA 允许依客户指示进行跨境传输；专属部署可将数据留在客户 tenant，但公开 DPA 未列固定推理区域。"
+[product.role]
+kind = "processor"
+anchor = "devin-processor"
+
+[[anchor]]
+id = "devin-default-training"
+source_id = "3a442cc9dea8a53d"
+topics = ["training", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "By default, we may use your data for model training purposes to improve and enhance the Services. If you’re on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers."
+suffix = ""
+[[anchor]]
+id = "devin-enterprise-no-train"
+source_id = "3a442cc9dea8a53d"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "If you are an Enterprise customer, we will never train on your data without your express prior written consent."
+suffix = ""
+[[anchor]]
+id = "devin-relationship-retention"
+source_id = "3a442cc9dea8a53d"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Cognition only retains data processed through Devin for the duration of the relationship with a given Customer, unless otherwise specified by the Customers."
+suffix = ""
+[[anchor]]
+id = "devin-processor"
+source_id = "c7345437a9dd5fa6"
+topics = ["role", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Customer is the entity that determines the purposes and means for which Customer Data is processed (“Data Controller”), and Licensor processes Customer Data on the Data Controller’s behalf and in accordance with the Data Controller’s written instructions (“Data Processor”)."
+suffix = ""

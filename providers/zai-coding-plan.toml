@@ -1,0 +1,406 @@
+name = "Z.AI Coding Plan"
+name_en = "Z.AI Coding Plan"
+company = "zhipu-bigmodel"
+line = "zai-coding-plan"
+site = "global"
+entity = "JINGSHENG HENGXING TECHNOLOGY PTE.LTD"
+plan_levels = ["individual", "team"]
+endpoint = ""
+doc = "https://docs.z.ai/legal-agreement/terms-of-use"
+
+[[source]]
+url = "https://docs.z.ai/legal-agreement/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Z.AI 国际站 Privacy Policy（Last Update: September 29, 2025；控制者 JINGSHENG HENGXING TECHNOLOGY PTE.LTD，新加坡），同页末尾内嵌 Data Processing Addendum for API Services（DPA）。文档自身划了两条 scope：隐私政策本体『only applies to individual users and does not apply to content that we process on behalf of customers of our business offerings』→ 覆盖个人档（Lite/Pro/Max）：§1 公司为 controller、§7 保留期（input 随账户存续）、§8 处理地新加坡；DPA『governs the processing of the data provided by business and enterprises users（“Customers”）through API Services』→ 只覆盖企业/API 档：§1 客户为 controller、公司为 processor，§3(a) 新加坡，§4(b) 内容实时处理不存服务器，§4(c) 其他 Customer Data 终止后删除。同一 URL 覆盖两套档位口径，档位差异写入 scope_note 与 products[]。channel 判为 consumer_privacy：该 URL 是面向 individual users 的隐私政策本体，企业 DPA 只是同页内嵌章节。"
+
+[[source]]
+url = "https://docs.z.ai/legal-agreement/terms-of-use"
+channel = "contract"
+tier = "core"
+note = "Z.AI 国际站 Terms of Use（Last Update: April 14, 2026；签约主体 JINGSHENG HENGXING TECHNOLOGY PTE.LTD，新加坡；适用范围自述为『as a user of the Z.ai accessible via z.ai/model-api』）。本页同时内嵌 Additional Terms for API Services。本档（GLM Coding Plan）没有独立条款页，subscription-terms §4.1 要求订阅者遵守 Terms of Use，故 ToU 是本档的合同层。页内并存两套训练口径：§IV.3(a)『For individual users, we reserve the right to process any User Content to improve our existing Services and/or to develop new products and services』并授权把非个人数据的 User Content 用于开发改进 ML/AI 技术、可存储于境外；§IV.5 对 individual users 又授予『unconditional, irrevocable … perpetual, worldwide license』；而 §IV.7 与 Additional Terms §3(b) 的『不训练』只写给『enterprises and developers using API Services』，Additional Terms 并声明其对该类使用优先于 ToU。本档被 subscription-terms §4.3 定义为 Personal-Use Only 的自然人个人订阅，落哪一套无厂商明文。"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "国际站个人版"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+anchor = "tou-training-individual-reserve"
+
+[[product.training.point]]
+text_zh = "个人档（Lite/Pro/Max）没有『不训练』承诺。ToU §IV.3(a) 对 individual users 明文『we reserve the right to process any User Content to improve our existing Services and/or to develop new products and services』，并授权把非个人数据的 User Content 用于开发改进 ML/AI 技术"
+
+[[product.training.point]]
+text_zh = "§IV.5 再授予 unconditional/irrevocable/perpetual/worldwide 许可。§IV.7 与 Additional Terms §3(b) 的『We will not use End User Content to develop or improve Services』只写给『enterprises and developers using API Services』，而本档被 subscription-terms §4.3 定义为仅授权自然人的个人订阅。隐私政策 §3 的『train and improve our models』一行只把 Account/Communication/Log/Usage/Device/Cookies 列为处理对象，未列 User Content，与 ToU §IV.3(a) 的授权不一致——两文并存时合同层（ToU）优先，故按 ToU 判。ZCode（官方支持工具第一名）的隐私政策反其道：训练 opt-in 且默认关闭，说明 Z.AI 生态内不同产品口径不同，不能互推。"
+
+[product.zdr]
+mark = "no"
+anchor = "pp-retention-input-account"
+
+[[product.zdr.point]]
+text_zh = "个人档既无 ZDR 产品能力也无 ZDR 承诺：隐私政策 §7 明示 input 随账户保留，ToU §IV.3(a)(i) 明文授权『utilization and storage of User Content that does not constitute personal data』，§IV.5 还授予永久存储许可。厂商公开文档（含 llms.txt 全量索引、WebSearch 中英文）里不存在面向 Coding Plan 的零保留页面或申请入口。DPA §4(b) 的『不存服务器』只对 business/enterprises API Customers 成立，scope 不覆盖个人订阅。"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "pp-retention-input-account"
+
+[[product.retention.point]]
+text_zh = "对象=用户输入/User Content。隐私政策 §7：『when we process your personal data to provide you with the Services, we retain it as long as you have an account. This includes your account information, input.』——期限类型是『账户存续期』（非下限也非固定上限），账户删除或违约时另行处理（违约时仍按需保留）。§2.1 对 User Content 另有『processed in real-time』措辞，但那是处理方式，不回答留存，与 §7 不冲突。上下文/KV 缓存是另一对象：help/faq 明说缓存保留时长『has not yet been announced』，cache.md 只有『reasonable time limits』。企业/API 档口径完全不同（DPA §4(b) 内容不落盘、§4(c) 终止后删除），不可套到个人档。"
+
+[product.processing_region]
+codes = ["SG"]
+anchor = "pp-region-singapore"
+
+[[product.processing_region.point]]
+text_zh = "隐私政策 §8：『We generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』ToU §IV.3(a)(ii) 对 individual users 另行取得『processing and storage of such User Content in locations outside of the jurisdiction where you access or use the Services』的同意，即个人档存在跨境存储的合同授权（具体地点未列明）。企业/API 档同一结论，依据 DPA §3(a)。"
+
+[product.role]
+kind = "controller"
+anchor = "pp-controller"
+
+[[product.role.point]]
+text_zh = "隐私政策 §1：『JINGSHENG HENGXING TECHNOLOGY PTE.LTD is the controller and is responsible for the processing of your Personal Data』——个人档是控制者角色，不是受托处理方（与 API 档相反，DPA §1 下客户是 controller、公司是 processor）。购买页 z.ai/subscribe 页脚也只指向这份面向 individual users 的隐私政策。"
+
+[[product]]
+id = "coding-plan-team"
+badge = "国际站团队版"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+anchor = "tou-api-no-train"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "厂商唯一的 Team 档明文在 devpack/teamplan.md 的 Exclusive Capabilities：『Data is not used for model training by default: Code, prompts, conversations, and related content are excluded from model training by default』（该页是产品权益页，classify 判 not_policy，锚点 teamplan-no-training-by-default 已登记在该来源条目里，只作旁证）。合同层能挂的只有 Additional Terms §3(b)/ToU §IV.7（『For enterprises and developers using API Services, we will not use your User Content for developing or improving Services unless you explicitly agree to such use』）——Team 档购买方是企业且流量走 api.z.ai，但套餐是否构成 Additional Terms 意义上的 API Services，厂商无明文，故 confidence=low。反向证据：个人档 subscription-terms §4.3 是 Personal-Use Only，而 teamplan.md 把『不训练』列为 Team 档专属能力，说明个人档没有同等承诺。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "dpa-no-store-realtime"
+
+[[product.zdr.point]]
+text_zh = "同 retention 的 scope 推断：DPA §4(b)『The Company do not store any of the content the Customer or its End Users provide or generate while using our Services … is not saved on our servers』对 API 企业客户是默认行为而非申请制功能"
+
+[[product.zdr.point]]
+text_zh = "Z.AI 没有 ZDR 申请入口或 ZDR 文档页。Team 档是否自动继承该口径无厂商明文，confidence=medium。"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "dpa-no-store-realtime"
+
+[[product.retention.point]]
+text_zh = "推断依据：DPA 自限 scope 为『business and enterprises users（“Customers”）through API Services』，Team 档是面向企业的自助订阅且走 api.z.ai 端点，是 Z.AI 公开文档中唯一面向企业客户的数据处理附件"
+
+[[product.retention.point]]
+text_zh = "teamplan.md 也把『enterprise-grade data security』列为 Team 档卖点。DPA §4(b) 内容不存服务器、§4(c) 其他 Customer Data 临时存储并在协议终止后删除。若厂商不认 Team 档属于 DPA 的 Customer，则退回个人档口径（input 随账户存续），故 confidence=medium。"
+
+[product.processing_region]
+codes = ["SG"]
+anchor = "dpa-region-singapore"
+
+[[product.processing_region.point]]
+text_zh = "DPA §3(a)：『Company generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』与个人档隐私政策 §8 同结论"
+
+[[product.processing_region.point]]
+text_zh = "两档处理地一致，仅依据条款不同。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-role-processor"
+
+[[product.role.point]]
+text_zh = "DPA §1：『Customer is the person that determines the purposes and means … (a “Data Controller”), whereas Company processes Customer Data … on behalf of the Data Controller (as a “Data Processor”)』。该角色同样以『Team 档属于 DPA 的 Customer』为前提，故 confidence=medium"
+
+[[product.role.point]]
+text_zh = "个人档恰相反（隐私政策 §1 公司为 controller）。"
+
+[[anchor]]
+id = "tou-scope-api-additional"
+source_id = "e2783173cd2583ac"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "ternal organizational use, or for the benefit of end users. "
+exact = "If you are enterprises or developers using the API services (“API Services”) available on Z.ai, you are also subject to the Additional Terms for API Services (“Additional Terms”)."
+suffix = "**Please ensure that you carefully read and fully understand"
+
+[[anchor]]
+id = "tou-training-individual-reserve"
+source_id = "e2783173cd2583ac"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "nd acknowledge that:a) Service Improvement and Development. "
+exact = "For individual users, we reserve the right to process any User Content to improve our existing Services and/or to develop new products and services, including for our internal business operations and for the benefit of other customers."
+suffix = " You hereby explicitly authorize and consent to our: (i) uti"
+
+[[anchor]]
+id = "tou-training-individual-authorize-i"
+source_id = "e2783173cd2583ac"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "business operations and for the benefit of other customers. "
+exact = "You hereby explicitly authorize and consent to our: (i) utilization and storage of User Content that does not constitute personal data for the purpose of developing and improving our machine learning and artificial intelligence technologies"
+suffix = "; and (ii) processing and storage of such User Content in lo"
+
+[[anchor]]
+id = "tou-region-individual-outside-jurisdiction"
+source_id = "e2783173cd2583ac"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "hine learning and artificial intelligence technologies; and "
+exact = "(ii) processing and storage of such User Content in locations outside of the jurisdiction where you access or use the Services."
+suffix = "b) Data Collection and Usage. We may collect performance and"
+
+[[anchor]]
+id = "tou-training-individual-may-use"
+source_id = "e2783173cd2583ac"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+users or any Third Party.
+5.   **Our Use of User Content.** """
+exact = "For individual users, we may use User Content to provide, maintain, develop, and improve our Services, comply with laws, enforce our terms, and ensure Service safety."
+suffix = " Contact us with any concerns about our use of User Content."
+
+[[anchor]]
+id = "tou-training-individual-perpetual-license"
+source_id = "e2783173cd2583ac"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = "Contact us with any concerns about our use of User Content. "
+exact = "You grant us and our affiliates an unconditional, irrevocable, non-exclusive, royalty-free, fully transferable, sub-licensable, perpetual, worldwide license"
+suffix = " to access, use, host, modify, communicate, reproduce, adapt"
+
+[[anchor]]
+id = "tou-api-no-train"
+source_id = "e2783173cd2583ac"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "h applicable law, enforce our policies, and prevent abuse. ["
+exact = "We will not use End User Content to develop or improve Services, unless you explicitly agree to such use."
+suffix = "]c) You are responsible for all End User Content. You warran"
+
+[[anchor]]
+id = "tou-api-vii-no-train"
+source_id = "e2783173cd2583ac"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ghts cannot be waived, you agree not to assert them.
+7.   **"""
+exact = "For enterprises and developers using API Services, we will not use your User Content for developing or improving Services unless you explicitly agree to such use. Please refer to Additional Terms for further details."
+suffix = """
+**
+
+## V. IP Rights and Usage Terms
+
+1.   Each party retains"""
+
+[[anchor]]
+id = "tou-additional-terms-scope"
+source_id = "e2783173cd2583ac"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+riate action.
+
+* * *
+
+## Additional Terms for API Services
+
+"""
+exact = "The use of API services (**“API Services”**) by business and developers on Z.ai platform is also governed by these Additional Terms for API Services (**“Additional Terms”**)."
+suffix = " Terms that are not defined in these Additional Terms have t"
+
+[[anchor]]
+id = "tou-additional-terms-prevail"
+source_id = "e2783173cd2583ac"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "hese Additional Terms have the meanings given in the Terms. "
+exact = "For business and developers’ use of API Services, in case any inconsistency exists between the Terms and Additional Terms, the Additional Terms shall prevail."
+suffix = """
+
+
+### 1. Use API Services
+
+a) We grant you a non-exclusive r"""
+
+[[anchor]]
+id = "tou-additional-dpa"
+source_id = "e2783173cd2583ac"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+y detrimental to our interests.
+
+### 2. Data Protection
+
+a) """
+exact = "We will collect and process data you provide as set forth in the Data Processing Addendum for API Services."
+suffix = """
+
+
+### 3. End User Content
+
+a) You and End User might provide"""
+
+[[anchor]]
+id = "pp-scope-individual-only"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "role", "training", "zdr"]
+
+[anchor.selector]
+prefix = "r services on Z.ai (together referred to as the “Services”)."
+exact = "This Privacy Policy only applies to individual users and does not apply to content that we process on behalf of customers of our business offerings."
+suffix = " If you are enterprises or developers using the API Services"
+
+[[anchor]]
+id = "pp-user-content-definition"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+or inquiries and the contents of any messages you send.
+*   """
+exact = "**User Content.** This includes any text prompts, images, or other data you input."
+suffix = " This information is processed in real-time to provide you w"
+
+[[anchor]]
+id = "pp-purpose-train-models"
+source_id = "75c8212bfb23dbb5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " and Network Information Cookies and Similar Technologies | "
+exact = "Where necessary for our legitimate interests and those of third parties and broader society, including in developing, improving, or promoting our Services, such as when we train and improve our models."
+suffix = """
+ |
+| To communicate with you, including to send you informat"""
+
+[[anchor]]
+id = "pp-public-info-train"
+source_id = "75c8212bfb23dbb5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+aud, abuse, and other security threats to our Services.
+*   """
+exact = "**Public Information.** We may obtain publicly available information via the Internet sources in order to train our models and provide services."
+suffix = """
+
+
+## 3. How We Use Your Personal Data
+
+We use your informati"""
+
+[[anchor]]
+id = "pp-controller"
+source_id = "75c8212bfb23dbb5"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ANSON ROAD, #26-03, INTERNATIONAL PLAZA, SINGAPORE 0759903. "
+exact = "JINGSHENG HENGXING TECHNOLOGY PTE.LTD is the controller and is responsible for the processing of your Personal Data as described in this Privacy Policy."
+suffix = " If you have any questions about how we use your personal da"
+
+[[anchor]]
+id = "pp-retention-input-account"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "we use it, and any legal requirements, among other factors. "
+exact = "For instance, when we process your personal data to provide you with the Services, we retain it as long as you have an account. This includes your account information, input."
+suffix = " If you violate any of our terms, policies, or guidelines, w"
+
+[[anchor]]
+id = "pp-region-singapore"
+source_id = "75c8212bfb23dbb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "r a third party (as outlined in section 4) located overseas."
+exact = "We generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore."
+suffix = " As a result, your personal data is generally processed in S"
+
+[[anchor]]
+id = "dpa-scope-business-customers"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "role", "zdr"]
+
+[anchor.selector]
+prefix = """
+dback@z.ai).
+
+## Data Processing Addendum for API Services
+
+"""
+exact = "This Data Processing Addendum (“DPA”) governs the processing of the data provided by business and enterprises users (“Customers”) through API Services"
+suffix = " offered by JINGSHENG HENGXING TECHNOLOGY PTE.LTD, along wit"
+
+[[anchor]]
+id = "dpa-role-processor"
+source_id = "75c8212bfb23dbb5"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Data (as defined below) is processed (a “Data Controller”), "
+exact = "whereas Company processes Customer Data in accordance with the Data Controller’s instructions and on behalf of the Data Controller (as a “Data Processor”)"
+suffix = ". “Data Controller” and “Data Processor” also mean the equiv"
+
+[[anchor]]
+id = "dpa-region-singapore"
+source_id = "75c8212bfb23dbb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ agreed mechanisms.
+
+### 3. International Data Transfer
+
+a) """
+exact = "Company generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore."
+suffix = " As a result, Customer Data is generally processed in Singap"
+
+[[anchor]]
+id = "dpa-no-store-realtime"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " Customer’s behalf or until the termination of the Terms.b) "
+exact = "The Company do not store any of the content the Customer or its End Users provide or generate while using our Services. This includes any texts, or other data you input. This information is processed in real-time to provide the Customer and End Users with the API Service and is not saved on our servers."
+suffix = "c) For Customer Data other than those provided under Section"
+
+[[anchor]]
+id = "dpa-delete-after-termination"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ing the API Services or in compliance with applicable laws. "
+exact = "The Company will delete such data after the termination of the Terms unless otherwise required by applicable laws."
+suffix = """
+
+"""

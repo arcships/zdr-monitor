@@ -1,0 +1,483 @@
+name = "Cerebras"
+line = "cerebras"
+site = "global"
+entity = "Cerebras Systems Inc."
+endpoint = ""
+doc = "https://www.cerebras.ai/privacy-policy"
+
+[[source]]
+url = "https://d7umqicpi7263.cloudfront.net/eula/4rCqa7snChhObjYFAYH325D2kcqkCRpGXBZYsSMc3mg"
+channel = "contract"
+tier = "core"
+note = "《Cerebras Inference Terms and Conditions》——jina 抓回 PDF 的标题是「Cerebras Inference Terms and Conditions - AWS Marketplace (2025.10.23 Clean)」,即 Cerebras 为 AWS Marketplace 上架提交的 EULA 版本,托管在 AWS Marketplace 的 EULA CDN(同一 CloudFront 分发也托管 Confluent 的 Marketplace EULA)。是 Cerebras 自己的合同文本,但没有任何 cerebras.ai 路径指向它(www.cerebras.ai/inference-terms、/inference-terms-and-conditions 等均 404),因此权威性低于 cerebras.ai 域下的 ToS/DPA,本文件只用于三处:cerebras.ai/dpa 的明文出处(§11(h))、个人档 = independent controller 的前言、§3(c) 的 User Content 保留边界;role 的主证据仍取 DPA。"
+
+[[source]]
+url = "https://www.cerebras.ai/dpa"
+channel = "contract"
+tier = "core"
+note = "Cerebras Inference DPA(cerebras.ai/dpa 307 跳转到 cdn.sanity.io 上的「Inference DPA (2025.06.26 Final).pdf」,Rev. June 2025,9 页,官方 CMS 托管)。企业档(Order Form / Plan)的数据处理协议,role 维度的权威依据(§2.1 Cerebras = Processor / Sub-processor)。DPA 正文不含 ZDR、不含训练禁令明文、不含处理地承诺;子处理者清单只给 Trust Center 链接;Annex I 给出保留期与主管机关。该 URL 由《Inference Terms and Conditions》§11(h) 明文指定为现行地址。"
+
+[[source]]
+url = "https://www.cerebras.ai/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Cerebras Systems Inc. Privacy Policy(Effective August 27, 2024)。覆盖 Cerebras 自家网站与 training / inference / chatbot 三个在线 Service 档的默认数据处理承诺:§1(a) 与 §6 是「输入输出不保留」的原始出处,§6 另有日志删除口径,§9 是处理地,§10(a) 是自认 controller。开头明确「本政策不适用于我们以 processor / service provider 身份代客户与伙伴处理的数据」——那部分由 DPA 管,所以这份政策只对个人/自服务档是权威,企业 API 档的保留与角色要看 DPA。"
+
+[[source]]
+url = "https://www.cerebras.ai/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Cerebras Systems Inc. Terms of Use(Website Terms of Use,Effective August 27, 2024)。服务范围含 www.cerebras.net / cloud.cerebras.ai / inference.cerebras.ai / api.cerebras.ai,并把「training-as-a-service product and the inference-as-a-service product, each as accessed through the APIs」与 Site 上的 Chatbot 都列入 Service;同一段又明确「these Terms do not govern Cerebras's provision of hardware or software in connection with such hardware」(CS 系统/on-prem 不在覆盖内)。Data Usage and Privacy 节是 training 维度的合同层依据;末尾一句把个人信息处理引向 Privacy Policy 与 Data Processing Agreement。"
+
+[[product]]
+id = "api-enterprise"
+badge = "企业版"
+category = "api"
+label = "另有 CS 系统本地部署：机器在客户机房，厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "cerebras-tos-data-usage-no-training-license"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "Same as top-level training. The enterprise tier also has the purpose limitation in DPA §3.2.2 (no retaining, using, disclosing or otherwise processing Customer Personal Data for any purpose other than as necessary to provide the Services to Customer, as required by law, or on the customer's written instructions) and the use limitation in Inference Terms §3(c)"
+text_zh = "同顶层 training。企业档另有 DPA §3.2.2 的目的限制(只可为提供 Services、法律要求或客户书面指示处理),以及 Inference Terms §3(c) 的用途限定"
+
+[[product.training.point]]
+text = "But the enterprise contract text has no counterpart of the express ToS sentence \"does not grant Cerebras the right to use Service Content for the purpose of training or fine-tuning models\", so the conclusion is somewhat weaker."
+text_zh = "但企业档合同文本里没有 ToS 那句明文「不授予训练/微调权利」,结论强度略低。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.cerebras.ai/dpa",
+  "https://d7umqicpi7263.cloudfront.net/eula/4rCqa7snChhObjYFAYH325D2kcqkCRpGXBZYsSMc3mg",
+  "https://trust.cerebras.ai/",
+  "https://www.cerebras.ai/other-terms-and-policies",
+]
+
+[[product.zdr.point]]
+text = "Neither the DPA nor the Inference Terms contains a ZDR or zero-retention clause, and neither gives an application process or a switch"
+text_zh = "DPA 与 Inference Terms 全文都没有 ZDR / 零保留条款,也没有申请流程或开关"
+
+[[product.zdr.point]]
+text = "DPA §3.2.2 (\"will not retain, use, disclose, or otherwise Process such Customer Personal Data for any purpose other than as necessary to provide Services\") is a purpose limitation, not a statement on this dimension: it says nothing about whether zero retention is offered, so it is no longer bound to this entry."
+text_zh = "DPA §3.2.2（「不得为提供服务以外的目的保留、使用、披露或处理」）是目的限制条款，不构成对 zdr 维度的表述：它没有说是否提供零保留，故不再绑在本条。"
+
+[[product.zdr.point]]
+text = "The Trust Center document list contains no ZDR addendum. ZDR on the enterprise tier rests only on blog wording such as \"can enforce zero-data-retention policies per customer requirements\" (official_blog level, and in an on-prem-leaning context), which is not a contractual commitment."
+text_zh = "Trust Center 的文档列表里没有 ZDR 附件。企业档的 ZDR 只能靠「按客户要求可实施」这类博客表述(官方_blog 层级,且语境偏 on-prem),不构成合同承诺。"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "cerebras-dpa-annex1-retention-business-relationship"
+
+[[product.retention.point]]
+text = "The enterprise tier is governed by the DPA: Annex I, \"The personal data are retained so long as the parties continue to maintain a business relationship in connection with the Agreement.\""
+text_zh = "企业档以 DPA 为准:Annex I「The personal data are retained so long as the parties continue to maintain a business relationship in connection with the Agreement.」"
+
+[[product.retention.point]]
+text = "§3.2.2 allows retention and use only as necessary to provide the Services, as required by law, or on the customer's instructions"
+text_zh = "§3.2.2 只允许为提供服务、法律要求或客户指示而保留/使用"
+
+[[product.retention.point]]
+text = "§3.2.9: on expiry or termination of the Agreement, data is returned or destroyed at the customer's choice (except where required by law)"
+text_zh = "§3.2.9 协议到期或终止时按客户选择返还或销毁(法律要求除外)"
+
+[[product.retention.point]]
+text = "§3.2.7(i) supports deletion at the customer's request. This differs from the \"We do not retain inputs and outputs\" wording of Privacy Policy §6 on the self-serve tier, so the two rows are recorded side by side."
+text_zh = "§3.2.7(i) 支持按客户请求删除。与个人档隐私政策 §6「不保留输入输出」口径不同,两行并列。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "cerebras-dpa-annex1-subprocessor-list-trust-center"
+
+[[product.processing_region.point]]
+text = "DPA §7 provides only for SCCs covering EEA/Switzerland/UK transfers to third countries (Modules 1/2/3 plus the UK Addendum, governed in Ireland), Annex I names the Irish DPC as supervisory authority, and the subprocessor list points to the Trust Center — none of which commits to a specific processing location or a selectable region. Recorded alongside Privacy Policy §9 (the United States and other countries) and the press release (100% United States)."
+text_zh = "DPA §7 只约定 EEA/瑞士/英国→第三国的 SCC(Module 1/2/3 + UK Addendum,管辖地爱尔兰),Annex I 主管机关写 Irish DPC,子处理者清单指向 Trust Center——都没有承诺具体处理地或可选区域。与隐私政策 §9(美国 + 其他国家)、新闻稿(美国 100%)并列记录。"
+
+[product.role]
+kind = "processor"
+anchor = "cerebras-dpa-2-1-cerebras-processor"
+
+[[product.role.point]]
+text = "The enterprise row of top-level role: DPA §2.1 plus the importer role in Annex I = Processor / Sub-processor"
+text_zh = "同顶层 role 的企业档一行:DPA §2.1 + Annex I 的 importer 角色 = Processor / Sub-processor"
+
+[[product.role.point]]
+text = "Inference Terms §5(a) routes the handling of personal information to the DPA."
+text_zh = "Inference Terms §5(a) 把个人信息处理引向 DPA。"
+
+[[product]]
+id = "api-self-serve"
+badge = "自助版"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "cerebras-tos-data-usage-no-training-license"
+mode = "default"
+
+[[product.training.point]]
+text = "The self-serve tier accepts the Website ToS, where \"does not grant Cerebras the right to use Service Content for the purpose of training or fine-tuning models\" applies directly"
+text_zh = "自服务档接受的是 Website ToS,「does not grant Cerebras the right to use Service Content for the purpose of training or fine-tuning models」直接适用"
+
+[[product.training.point]]
+text = "Usage Data (which excludes User Content and Outputs) may still be used for product improvement."
+text_zh = "Usage Data(不含 User Content)仍可用于产品改进。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "cerebras-privacy-6-no-retention-inputs-outputs"
+
+[[product.zdr.point]]
+text = "Same as top-level zdr: nothing is retained at the content layer by default, but there is no ZDR programme that can be enabled"
+text_zh = "同顶层 zdr:内容层默认不保留,但没有可开通的 ZDR 方案"
+
+[[product.zdr.point]]
+text = "Logs and usage metadata are still retained and used."
+text_zh = "日志与用量元数据仍会保留/使用。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "cerebras-privacy-6-no-retention-inputs-outputs"
+
+[[product.retention.point]]
+text = "Points (1)(2)(3) of top-level retention: inputs and outputs are not retained, logs are deleted when they are no longer necessary to provide services, and the cache TTL is 5 minutes to 1 hour. The DPA does not apply to this tier."
+text_zh = "同顶层 retention 的 (1)(2)(3):输入输出不保留、日志不再需要时删除、缓存 TTL 5 分钟~1 小时。DPA 不适用本档。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "cerebras-privacy-9-us-and-other-countries"
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region. The self-serve tier has no DPA SCC mechanism, and the only statement of processing location is §9, \"your data may be stored and processed in the United States and other countries outside the United States\"."
+text_zh = "同顶层 processing_region。个人档没有 DPA 的 SCC 机制,处理地只有 §9 的「美国 + 其他国家」表述。"
+
+[product.role]
+kind = "controller"
+anchor = "cerebras-inference-terms-personal-capacity-independent-controller"
+
+[[product.role.point]]
+text = "Inference Terms preamble: when the Services are used in a personal capacity the DPA does not apply, and \"Cerebras will process your personal data as an independent controller in accordance with its Privacy Policy\""
+text_zh = "Inference Terms 前言:个人身份使用时 DPA 不适用,Cerebras 以 independent controller 身份依隐私政策处理"
+
+[[product.role.point]]
+text = "Privacy Policy §10(a) is to the same effect. Note that this anchor comes from the Inference Terms while self-serve sign-up may accept the Website ToS — the two texts do not overlap in how they state the role for the self-serve tier, which is the biggest uncertainty on this tier."
+text_zh = "隐私政策 §10(a) 同旨。注意本锚点来自 Inference Terms,而自服务注册接受的可能是 Website ToS——两份文本对「个人档」的角色表述不重叠,此为本档最大不确定性。"
+
+[[product]]
+id = "on-prem-cs"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://www.cerebras.ai/terms-of-service",
+  "https://d7umqicpi7263.cloudfront.net/eula/4rCqa7snChhObjYFAYH325D2kcqkCRpGXBZYsSMc3mg",
+  "https://www.cerebras.ai/eula",
+  "https://www.cerebras.ai/other-terms-and-policies",
+  "https://www.cerebras.ai/policies",
+]
+
+[[product.training.point]]
+text = "On-prem / CS systems and customer-owned clusters are not covered by the Website ToS (which expressly excludes hardware and the software that ships with it)"
+text_zh = "on-prem / CS 系统与客户自有集群不在 Website ToS 覆盖内(ToS 明文排除硬件及随硬件的软件)"
+
+[[product.training.point]]
+text = "What ships with the hardware is the Cerebras Software EULA (IP and confidentiality clauses only, no data processing clause) and the Terms of Sale. Cerebras publishes no training statement for this product line."
+text_zh = "随硬件的是 Cerebras Software EULA(仅 IP 与保密条款,无数据处理条款)与 Terms of Sale。官方没有就这条产品线公开训练口径。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.cerebras.ai/terms-of-service",
+  "https://www.cerebras.ai/eula",
+  "https://www.cerebras.ai/blog/cerebras-cs-3-vs-groq-lpu",
+  "https://trust.cerebras.ai/",
+]
+
+[[product.zdr.point]]
+text = "Only one sentence in the 2025-09-19 blog post, \"can enforce zero-data-retention policies per customer requirements\" (official_blog level, with no clause behind it)"
+text_zh = "只有 2025-09-19 博客一句「can enforce zero-data-retention policies per customer requirements」(官方_blog 层级,无条款支撑)"
+
+[[product.zdr.point]]
+text = "There is no contract-level ZDR clause and no product documentation for it."
+text_zh = "没有合同级 ZDR 条款或产品文档。"
+
+[product.retention]
+mark = "unknown"
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://www.cerebras.ai/terms-of-service",
+  "https://www.cerebras.ai/eula",
+  "https://www.cerebras.ai/other-terms-and-policies",
+]
+
+[[product.retention.point]]
+text = "Same as above: neither the EULA nor the Terms of Sale contains a retention clause"
+text_zh = "同上:EULA 与 Terms of Sale 都不含保留条款"
+
+[[product.retention.point]]
+text = "The hardware line has no published retention commitment."
+text_zh = "硬件线没有公开的保留承诺。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["selected"]
+searched = [
+  "https://www.cerebras.ai/terms-of-service",
+  "https://www.cerebras.ai/eula",
+  "https://www.cerebras.ai/blog/cerebras-cs-3-vs-groq-lpu",
+]
+
+[[product.processing_region.point]]
+text = "Deployed in the customer's own environment, with no processing-location clause disclosed"
+text_zh = "部署在客户自有环境,官方未披露任何处理地条款"
+
+[[product.processing_region.point]]
+text = "The blog offers only descriptive wording such as \"on-premises deployments as well as cloud regions in trusted geographies\"."
+text_zh = "博客只有「on-premises deployments as well as cloud regions in trusted geographies」这种描述性表述。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://www.cerebras.ai/terms-of-service",
+  "https://www.cerebras.ai/eula",
+  "https://www.cerebras.ai/other-terms-and-policies",
+]
+
+[[product.role.point]]
+text = "The hardware line has no published DPA or role clause (the EULA is a software licence and contains no data processing clause)"
+text_zh = "硬件线没有公开的 DPA 或角色条款(EULA 是软件许可,不含数据处理条款)"
+
+[[product.role.point]]
+text = "The Cerebras Inference DPA covers only the cloud Services."
+text_zh = "Cerebras Inference DPA 只覆盖云端 Services。"
+
+[[anchor]]
+id = "cerebras-privacy-1a-inputs-outputs-not-retained"
+source_id = "23895ce870513f5c"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = "our training, inference and chatbot Services, provided that "
+exact = "we do not retain inputs and outputs associated with our training, inference, and chatbot Services as described in Section 6"
+suffix = """
+; 
+*   Your communications with us, such as for support, tro"""
+
+[[anchor]]
+id = "cerebras-privacy-6-no-retention-inputs-outputs"
+source_id = "23895ce870513f5c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "l obligations, resolve disputes, or enforce our agreements. "
+exact = "We do not retain inputs and outputs associated with our training, inference and chatbot Services."
+suffix = " We delete logs associated with our training, inference and "
+
+[[anchor]]
+id = "cerebras-privacy-6-logs-deleted-when-no-longer-necessary"
+source_id = "23895ce870513f5c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "sociated with our training, inference and chatbot Services. "
+exact = "We delete logs associated with our training, inference and chatbot Services when they are no longer necessary to provide services to you"
+suffix = """
+
+
+**7. Your Rights and Choices**
+
+_Marketing_. You may opt o"""
+
+[[anchor]]
+id = "cerebras-privacy-9-us-and-other-countries"
+source_id = "23895ce870513f5c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "pt as otherwise agreed to in a separate agreement with you, "
+exact = "your data may be stored and processed in the United States and other countries outside the United States"
+suffix = ", which may have data protection laws that differ from the l"
+
+[[anchor]]
+id = "cerebras-privacy-10a-data-controller"
+source_id = "23895ce870513f5c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+Residents of the European Economic Area and United Kingdom
+
+"""
+exact = "Cerebras is considered the “data controller” of the Personal Data we handle under this Policy."
+suffix = " In other words, Cerebras is responsible for deciding how to"
+
+[[anchor]]
+id = "cerebras-privacy-scope-processor-carveout"
+source_id = "23895ce870513f5c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+our rights and choices with respect to your Personal Data.
+
+"""
+exact = "This Policy does not apply to Personal Data we process in our role as a data processor or service provider on behalf of our customers and partners."
+suffix = " Cerebras does not control how customers and partners use in"
+
+[[anchor]]
+id = "cerebras-tos-data-usage-no-training-license"
+source_id = "282ed29526863fcb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "y with applicable law and enforce these Terms. For clarity, "
+exact = "the foregoing does not grant Cerebras the right to use Service Content for the purpose of training or fine-tuning models"
+suffix = """
+.
+
+Usage Data. We may collect, or you may provide to us, dia"""
+
+[[anchor]]
+id = "cerebras-tos-scope-inference-api-and-chatbot"
+source_id = "282ed29526863fcb"
+topics = ["retention", "role", "training"]
+
+[anchor.selector]
+prefix = " (3) Cerebras’s online, mobile-enabled or digital services, "
+exact = "including our training-as-a-service product and the inference-as-a-service product, each as accessed through the APIs"
+suffix = ", and any related software and documentation, and including "
+
+[[anchor]]
+id = "cerebras-tos-usage-data-excludes-user-content"
+source_id = "282ed29526863fcb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " usage or related information (collectively, “Usage Data”). "
+exact = "Such Usage Data excludes User Content and Outputs."
+suffix = " All Usage Data is and will be owned solely and exclusively "
+
+[[anchor]]
+id = "cerebras-tos-privacy-dpa-applicable"
+source_id = "282ed29526863fcb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "e Site or the Service for the purpose of receiving services "
+exact = "will be handled in accordance with our Privacy Policy and Data Processing Agreement, as applicable"
+suffix = """
+.
+
+**Payment**. Certain aspects of the Service may be provid"""
+
+[[anchor]]
+id = "cerebras-dpa-2-1-cerebras-processor"
+source_id = "79ae3f14e8bd18c4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " applicable, Processor to its Third Party End Customers and "
+exact = "Cerebras acts as a Processor, or if applicable, Sub-processor to Customer"
+suffix = """
+. 
+
+3 Processing Obligations 3.1 Customer Obligations . Cust"""
+
+[[anchor]]
+id = "cerebras-dpa-3-2-2-purpose-limitation"
+source_id = "79ae3f14e8bd18c4"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = ".2 will not: (i) Sell or Share Customer Personal Data; (ii) "
+exact = "retain, use, disclose, or otherwise Process such Customer Personal Data for any purpose other than as necessary to provide Services to Customer"
+suffix = ", as required by Applicable Laws, as specified in the Agreem"
+
+[[anchor]]
+id = "cerebras-dpa-annex1-retention-business-relationship"
+source_id = "79ae3f14e8bd18c4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ not possible, the criteria used to determine that period 
+
+"""
+exact = "The personal data are retained so long as the parties continue to maintain a business relationship in connection with the Agreement."
+suffix = """
+ 
+
+For transfers to (sub-) processors, also specify subject """
+
+[[anchor]]
+id = "cerebras-dpa-annex1-subprocessor-list-trust-center"
+source_id = "79ae3f14e8bd18c4"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "matter, nature and duration of the processing listed above. "
+exact = "List of subprocessors shall be provided in the following webpage on the Cerebras Trust Center"
+suffix = """
+: 
+
+https://trust.cerebras.ai/?itemUid=e3fae2ca-94a9-416b-b5"""
+
+[[anchor]]
+id = "cerebras-inference-terms-personal-capacity-independent-controller"
+source_id = "3575a57081f780c7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ghts, data processing agreement, indemnities) do not apply. "
+exact = "Cerebras will process your personal data as an independent controller in accordance with its Privacy Policy."
+suffix = """
+ 
+
+These Inference Terms and Conditions (the “ Terms and Con"""
+
+[[anchor]]
+id = "cerebras-inference-terms-3-c-user-content-retention"
+source_id = "3575a57081f780c7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " Services and comply with applicable law (the “ Purpose ”). "
+exact = "We retain the User Content only to the extent necessary in connection with the Purpose"
+suffix = ", and we have the right to remove any User Content in our so"
+
+[[anchor]]
+id = "cerebras-inference-terms-11-h-dpa-url"
+source_id = "3575a57081f780c7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ees of the Receiving Party. h. “Data Processing Agreement ” "
+exact = "means the data processing agreement, a copy of which is currently set forth at https://cerebras.ai/dpa"
+suffix = ", as may be updated by us from time to time. i. “Documentati"
+
+[[anchor]]
+id = "cerebras-inference-terms-5-a-personal-info-per-dpa"
+source_id = "3575a57081f780c7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "d to the Services (including on behalf of your Named Users) "
+exact = "will be handled in accordance with the Data Processing Agreement"
+suffix = """
+. 6. TERM AND TERMINATION 
+
+a. Term . The Agreement is effec"""

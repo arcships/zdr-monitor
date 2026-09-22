@@ -1,0 +1,883 @@
+name = "Google"
+line = "google"
+site = "global"
+entity = "Google LLC"
+endpoint = ""
+doc = "https://ai.google.dev/gemini-api/terms"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/feedback-policies"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 文档站 Policies › Feedback information(AI Studio Inline Preference Voting,Last updated 2026-04-28)。api 档辅助:反馈路径会记录 prompts/responses 并用于 provide/improve/develop 产品与 ML 技术。verify.py 启发式判 not_policy(行数=2),人工复核为可用正文。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/logs-policy"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 文档站「Data logging and sharing」(Last updated 2026-09-04)。api 档付费服务的 opt-in 日志(AI Studio Logs & Datasets):默认 55 天可调 7/14/28/55,默认不用于产品改进,主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练。与滥用监控 55 天是两套。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/usage-policies"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 文档站 Policies › Abuse monitoring(Last updated 2026-06-09;导航旧标签 usage-policies)。api 档:给出滥用监控日志的具体期限 55 天并声明不用于训练(政策执行模型除外);页末明确适用于 Gemini API 与 AI Studio。verify.py 启发式把本页判为 not_policy(主体x动作行数=1,阈值漏判),人工复核为政策正文。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/zdr"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 官方 ZDR 专页(Last updated 2026-09-14),只覆盖 api 档付费服务;文末把保证式 ZDR/企业 DPA 指向 Vertex AI(现名 Gemini Enterprise Agent Platform),属 google-vertex 范围,本条只取「付费档须逐项规避才能达成零保留」的结论。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/terms"
+channel = "contract"
+tier = "core"
+note = "Gemini API Additional Terms of Service(Effective March 23, 2026 / Last updated 2026-04-28)。覆盖 api 档:Gemini Developer API 与 Google AI Studio;Paid=经有效 Cloud Billing 的 Cloud Project 或企业 Workspace 账号,Unpaid=AI Studio 直连与 API 免费额度;EEA/瑞士/UK 一律按 Paid 处理。Google Cloud/Vertex 由另一套条款管辖,不并入本条。"
+
+[[source]]
+url = "https://antigravity.google/terms"
+channel = "contract"
+tier = "core"
+note = "Google Antigravity Additional Terms of Service(消费者登录档,现行)。为 Gemini Code Assist 个人档的官方指定后继产品条款,单列为 antigravity-consumer 档,不冒充 code-assist-personal 档原文。"
+
+[[source]]
+url = "https://business.safety.google/services/"
+channel = "contract"
+tier = "core"
+note = "Google Data Protection Terms – Service Information(api 档 role 的清单依据):逐条列出受 Google DPA(processor)覆盖的服务,其中明确包含「Gemini API Paid Services」;Unpaid/免费档不在此列。"
+
+[[source]]
+url = "https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals"
+channel = "developer_data"
+tier = "core"
+note = "Gemini Code Assist 个人档停服公告(Last updated 2026-09-02):自 2026-06-18 起 IDE 扩展不再为 individuals / Google AI Pro / Google AI Ultra 层提供服务,Login with Google 不可用,官方指引迁移至 Antigravity 家族。非数据处理条款页,用作 code-assist-personal 档「已停服」状态的权威证据。"
+
+[[source]]
+url = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
+channel = "developer_data"
+tier = "core"
+note = "Gemini CLI 官方文档(google-gemini GitHub 组织 Pages 站)「Terms of Service and Privacy Notice」,逐档列明认证方式对应的条款与训练归属。对 api 档 Paid/Unpaid 的表述与 Additional Terms 一致,作辅助;其关于 Gemini Code Assist for individuals 的表述已随该档 2026-06-18 停服而过时,且其链接的 individuals 隐私声明 URL 已变为停用公告页。"
+
+[[source]]
+url = "https://policies.google.com/privacy?hl=en&gl=ie"
+channel = "consumer_privacy"
+tier = "core"
+note = "Google 消费者隐私政策(EEA/瑞士版,渲染出 Data controller 段)。仅作消费者层辅助:对 Gemini Developer API 不构成合同承诺;对已停服的 GCA 个人档/后继 Antigravity 档的 controller 指定与「服务器遍布全球」有辅助价值。"
+
+[[source]]
+url = "https://policies.google.com/terms?hl=en-US"
+channel = "contract"
+tier = "core"
+note = "Google 消费者服务条款(合同相对方 Google LLC)。只用于消费档(code-assist-personal 停服前条款体系、antigravity-consumer)的 role;不适用于 Gemini Developer API(后者由 Google APIs ToS + Gemini API Additional Terms 管辖)。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "training-paid-no-improve"
+
+[[product.training.point]]
+text_zh = "Paid Services(经绑定有效 Cloud Billing 的 Cloud Project 访问 API,或企业 Workspace 账号的 AI Studio)明确不用于改进产品"
+
+[[product.training.point]]
+text_zh = "Unpaid Services(AI Studio 直连、API 免费额度)明确用于 provide/improve/develop 产品与 ML 技术,且人工审阅者可读取/标注输入输出"
+
+[[product.training.point]]
+text_zh = "EEA/瑞士/UK 一律按 Paid 条款。付费档唯一例外=用户主动 opt-in 分享日志 dataset(docs/logs-policy),该路径按 Unpaid 条款可用于训练。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "zdr-requires-actions"
+
+[[product.zdr.point]]
+text_zh = "付费档可达成零保留但须逐项规避:Interactions API 显式 store=false、不配 SessionResumptionConfig、手动删 File API 文件、不用 cached_content、避开 Grounding(30 天且不可关闭)"
+
+[[product.zdr.point]]
+text_zh = "保证式 ZDR/企业 DPA 需改用 Vertex AI(Gemini Enterprise Agent Platform)。免费档不适用(训练排除仅覆盖 Paid Services)。"
+
+[product.retention]
+days = 55
+object = "logs"
+basis = "fixed_period"
+anchor = "retention-abuse-logs-55-days"
+
+[[product.retention.point]]
+text_zh = "滥用监控日志(prompts/上下文/输出)55 天"
+
+[[product.retention.point]]
+text_zh = "合同层只写 a limited period of time。付费档 opt-in 日志默认最长 55 天、可调 7/14/28/55(docs/logs-policy)"
+
+[[product.retention.point]]
+text_zh = "Grounding with Google Search/Maps 30 天且不可关闭(terms)"
+
+[[product.retention.point]]
+text_zh = "Live API 会话态最长 24h、File API 存至删除或过期、显式缓存按用户 ttl、调优内容随模型保留(docs/zdr)"
+
+[[product.retention.point]]
+text_zh = "隐式内存缓存 24h TTL。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "region-any-country"
+
+[[product.processing_region.point]]
+text_zh = "无驻留承诺:付费档滥用监控日志 may be stored transiently or cached in any country in which Google or its agents maintain facilities。/docs/available-regions 只讲服务可用国家,不是处理地域承诺。"
+
+[product.role]
+kind = "processor"
+anchor = "role-paid-processor-dpa"
+
+[[product.role.point]]
+text_zh = "Paid Services 为 processor:prompts/responses 按 Data Processing Addendum for Products Where Google is a Data Processor 处理,且 business.safety.google/services/ 的服务清单明列「Gemini API Paid Services」。Unpaid Services 不在该清单内(非 processor 角色)。其他数据(账号/计费/遥测)仍按 Controller-Controller DPA + Google Privacy Policy。"
+
+[[product]]
+id = "antigravity-consumer"
+badge = "Antigravity 消费端"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "training-interactions-improve"
+
+[[product.training.point]]
+text_zh = "消费者登录的 Antigravity 由 Google Antigravity Additional Terms + Google 通用条款 + Google 隐私政策管辖:明确「We use Interactions to evaluate, develop, and improve Google and Alphabet research, products, services and machine learning technologies」,且 Google 员工与承包商可访问/查看/使用 Interactions,用户可在设置中改变偏好以退出。"
+
+[product.zdr]
+mark = "no"
+anchor = "zdr-delete-interactions-option"
+
+[[product.zdr.point]]
+text_zh = "无零保留承诺;仅有「You will have the option to delete your Interactions」与邮件删除请求路径(自助删除,非合同级 ZDR)。未找到 Antigravity 的 ZDR 专页。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "retention-interactions-recorded"
+
+[[product.retention.point]]
+text_zh = "条款只写会记录并存储 user data / interaction data / metadata / feedback,未给任何具体期限"
+
+[[product.retention.point]]
+text_zh = "用户可自行删除 Interactions 或发邮件请求删除,「unless and until you request deletion」即默认持续保留。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://antigravity.google/terms",
+  "https://antigravity.google/privacy",
+  "https://policies.google.com/privacy?hl=en&gl=ie",
+  "https://policies.google.com/privacy",
+]
+
+[product.role]
+kind = "controller"
+anchor = "role-google-llc-service-provider"
+
+[[product.role.point]]
+text_zh = "消费者档:Antigravity 条款把 Google 通用条款列为上位条款,合同相对方 Google LLC"
+
+[[product.role.point]]
+text_zh = "隐私政策按所在地指定控制者(EEA/瑞士=Google Ireland Limited)。属消费者 controller 定位,非 processor。"
+
+[[anchor]]
+id = "training-paid-no-improve"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+erms has the meaning given
+here .
+How Google Uses Your Data
+"""
+exact = """
+When you use Paid Services, including, for example, the paid quota of the Gemini
+API, Google doesn't use your prompts (including associated system instructions,
+cached content, and files such as images, videos, or documents) or responses to
+improve our products"""
+suffix = """
+, and will process your prompts and responses in accordance
+"""
+
+[[anchor]]
+id = "role-paid-processor-dpa"
+source_id = "a56c52f541d6ad5f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+os, or documents) or responses to
+improve our products, and """
+exact = """
+will process your prompts and responses in accordance
+with the
+Data Processing Addendum for Products Where Google is a Data Processor"""
+suffix = """
+ .
+For Paid Services, Google logs prompts and responses for """
+
+[[anchor]]
+id = "region-any-country"
+source_id = "a56c52f541d6ad5f"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+Services, and any required legal or
+regulatory disclosures. """
+exact = """
+This data may be stored
+transiently or cached in any country in which Google or its agents maintain
+facilities"""
+suffix = """
+.
+Other data we collect while providing the Paid Services to"""
+
+[[anchor]]
+id = "zdr-requires-actions"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ periods of time in the following
+scenarios and conditions. """
+exact = """
+To achieve zero data retention, customers must take
+specific actions or avoid specific features within each of these areas"""
+suffix = """
+:
+Prompt logging for abuse monitoring : As outlined in the G"""
+
+[[anchor]]
+id = "retention-abuse-logs-55-days"
+source_id = "5e08212c4da8dea1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+l review by authorized Google
+personnel.
+How We Handle Data
+"""
+exact = """
+Google retains the following data for fifty-five
+(55) days for the purposes of detecting and preventing violations of the
+Prohibited Use Policy"""
+suffix = """
+ to maintain the safety and security of the Services, and
+an"""
+
+[[anchor]]
+id = "role-google-llc-service-provider"
+source_id = "3d477953bfac2424"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+Terms
+
+Service provider"""
+exact = """
+Google [services](https://policies.google.com/terms?hl=en-US#footnote-services) are provided by, and you’re contracting with:
+
+Google LLC"""
+suffix = "organized under the laws of the State of Delaware, USA, and operating under the laws of the USA"
+
+[[anchor]]
+id = "training-interactions-improve"
+source_id = "caee9d2256b1a97d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+onments to avoid any potential harm the AI Agent may cause.
+"""
+exact = "We use Interactions to evaluate, develop, and improve Google and Alphabet research, products, services and machine learning technologies"
+suffix = ". Interactions are collected and used in accordance with thi"
+
+[[anchor]]
+id = "retention-interactions-recorded"
+source_id = "caee9d2256b1a97d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+o not agree to all Agreement terms, do not use the Service.
+"""
+exact = "When you use the Service, we record and store your user data, interaction data pertaining to your usage of the Service, related metadata connected to the Service, and any feedback you provide"
+suffix = " (“Interactions”). Such data may be aggregated over multiple"
+
+[[anchor]]
+id = "zdr-delete-interactions-option"
+source_id = "caee9d2256b1a97d"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "d will be collected only when you have the Service running. "
+exact = "You will have the option to delete your Interactions"
+suffix = ". If you would like to request that your Interactions be del"
+
+[[anchor]]
+id = "scope-paid-definition-api"
+source_id = "a56c52f541d6ad5f"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+Cloud Billing account
+or is a Workspace enterprise account.
+"""
+exact = """
+Your access to Gemini API is a "Paid Service" only when accessing the API
+through a Cloud Project associated with an active billing account"""
+suffix = """
+.
+For Paid Services, "Google" as used in these
+Terms has the"""
+
+[[anchor]]
+id = "scope-unpaid-definition"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+f that content by anyone you
+share it with.
+Unpaid Services
+"""
+exact = """
+Any Services that are offered free
+of charge like direct interactions with Google AI Studio or unpaid quota in
+Gemini API are unpaid Services"""
+suffix = """
+ (the " Unpaid Services ").
+How Google Uses Your Data
+When y"""
+
+[[anchor]]
+id = "scope-no-consumer-use"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+cessed by
+individuals under the age of 18.
+Use Restrictions
+"""
+exact = """
+Use of Google AI Studio and Gemini API is for developers building with Google AI
+models for professional or business purposes, not for consumer use"""
+suffix = """
+.
+You may only access the Services (or make API Clients avai"""
+
+[[anchor]]
+id = "training-unpaid-improve"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+rvices (the " Unpaid Services ").
+How Google Uses Your Data
+"""
+exact = """
+When you use Unpaid Services, including, for example, Google AI Studio and the
+unpaid quota on Gemini API, Google uses the content you submit to the Services
+and any generated responses to provide, improve, and develop Google products and
+services and machine learning technologies"""
+suffix = """
+, including Google's enterprise
+features, products, and serv"""
+
+[[anchor]]
+id = "training-unpaid-human-review"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+roducts, and services, consistent with our
+Privacy Policy .
+"""
+exact = """
+To help with quality and improve our products, human reviewers may read,
+annotate, and process your API input and output"""
+suffix = """
+. Google takes steps to protect
+your privacy as part of this"""
+
+[[anchor]]
+id = "training-eea-ch-uk-paid-applies"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+pean Economic Area, Switzerland, or the United Kingdom, the
+"""
+exact = """
+terms under " How Google uses Your Data " in
+" Paid Services " apply to all Services"""
+suffix = """
+, including Google AI
+Studio and unpaid quota in the Gemini """
+
+[[anchor]]
+id = "training-tuning-content-retained"
+source_id = "a56c52f541d6ad5f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+pload to our model tuning feature
+for that express purpose. """
+exact = """
+Tuning content may be retained in connection with your
+tuned models for purposes of re-tuning when supported models change"""
+suffix = """
+. When you
+delete a tuned model, the related tuning content """
+
+[[anchor]]
+id = "retention-paid-limited-period"
+source_id = "a56c52f541d6ad5f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ng Addendum for Products Where Google is a Data Processor .
+"""
+exact = """
+For Paid Services, Google logs prompts and responses for a limited period of
+time, solely for detecting and preventing violations of the
+Prohibited Use Policy"""
+suffix = """
+
+to maintain the safety and security of the Services, and an"""
+
+[[anchor]]
+id = "retention-grounding-30-days"
+source_id = "a56c52f541d6ad5f"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ Paid Services "),
+when using Grounding with Google Search,
+"""
+exact = """
+Google will store prompts, contextual information that you may provide, and
+output for thirty (30) days"""
+suffix = """
+ for the purposes of creating Grounded Results and
+Search Su"""
+
+[[anchor]]
+id = "zdr-training-restriction-paid"
+source_id = "a5b5280b5b62735f"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+estriction
+As outlined in the Gemini API Terms of Service , """
+exact = """
+when you
+use Paid Services, Google does not use your prompts (including associated system
+instructions, cached content, and files such as images, videos, or documents) or
+responses to improve our products"""
+suffix = """
+. Paid Services are defined
+here .
+Customer data retention a"""
+
+[[anchor]]
+id = "zdr-guaranteed-needs-vertex"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ely for detecting
+violations of the Prohibited Use
+Policy . """
+exact = """
+If your
+workload requires guaranteed zero data retention or enterprise data
+processing agreements, use Vertex AI"""
+suffix = """
+. For details, see
+Gemini Enterprise Agent Platform and zero"""
+
+[[anchor]]
+id = "zdr-grounding-no-disable"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+or debugging and testing of systems
+that support grounding. """
+exact = """
+There is no way to disable the storage of this
+information if you use Grounding with Google Search"""
+suffix = """
+.
+Grounding with Google Maps : As outlined in the Gemini API"""
+
+[[anchor]]
+id = "zdr-interactions-store-false"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ active state of a
+conversation to enable multi-turn turns. """
+exact = """
+By default, the Interactions API
+enables state storage . To ensure a zero-data footprint, you must
+explicitly set the store parameter to false in your API requests to opt
+out of the default state retention"""
+suffix = """
+.
+Live API : This stateful API allows real-time reconnection"""
+
+[[anchor]]
+id = "zdr-live-session-24h"
+source_id = "a5b5280b5b62735f"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ data retention, do not configure
+SessionResumptionConfig . """
+exact = """
+If a session handle is generated, conversation
+state (including text, audio, and video) is retained for up to 24 hours"""
+suffix = """
+.
+File API Storage : The File API allows users to upload lar"""
+
+[[anchor]]
+id = "zdr-files-at-rest"
+source_id = "a5b5280b5b62735f"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+Storage : The File API allows users to upload large assets.
+"""
+exact = "Files are stored at-rest until deleted by the user or until they expire"
+suffix = """
+.
+Usage of the File API is independent of ZDR logging; users"""
+
+[[anchor]]
+id = "zdr-explicit-context-cache"
+source_id = "a5b5280b5b62735f"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+t
+itself is stored with a user-defined ttl or expire_time . """
+exact = """
+To achieve an
+absolute zero-data footprint, do not utilize the cached_content feature"""
+suffix = """
+.
+Implicit In-Memory Caching : By default, Gemini models cac"""
+
+[[anchor]]
+id = "zdr-implicit-cache-ok"
+source_id = "a5b5280b5b62735f"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+e data
+in-memory to reduce latency and cost for developers. """
+exact = """
+This data is strictly
+in RAM (not at-rest), isolated at the project level, and has a 24-hour TTL.
+This does not violate zero data retention"""
+suffix = """
+.
+What's next
+Learn about Gen AI Prohibited Use
+Policy .
+Rev"""
+
+[[anchor]]
+id = "training-abuse-logs-not-for-training"
+source_id = "5e08212c4da8dea1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ose of policy enforcement and preventing policy violations.
+"""
+exact = """
+It is not used to train or fine-tune any AI/ML models besides those used
+specifically for policy enforcement"""
+suffix = """
+.
+Working with You on Policy Compliance
+If your use of Gemin"""
+
+[[anchor]]
+id = "scope-gemini-api-and-ai-studio"
+source_id = "5e08212c4da8dea1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+re, we will also
+provide a link where you can appeal.
+Scope
+"""
+exact = "These policy guidelines apply to the use of the Gemini API and AI Studio"
+suffix = """
+.
+Send feedback
+Except as otherwise noted, the content of th"""
+
+[[anchor]]
+id = "retention-logs-default-55"
+source_id = "ae7b03cd1d30111a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ptions are dependent on your location.
+How we use your data
+"""
+exact = """
+Logs are retained for a default maximum period of 55 days. After this period,
+logs are automatically marked for deletion"""
+suffix = """
+. The storage retention window for a
+project can be updated """
+
+[[anchor]]
+id = "retention-logs-configurable"
+source_id = "ae7b03cd1d30111a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+er this period,
+logs are automatically marked for deletion. """
+exact = """
+The storage retention window for a
+project can be updated in AI Studio to automatically mark logs for deletion
+after 7, 14, 28, or 55 days"""
+suffix = """
+.
+Datasets can be created to retain logs of
+interest beyond """
+
+[[anchor]]
+id = "training-logs-default-not-improve"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "By default, because logging is only available for billing-enabled projects, "
+exact = "prompts and responses within logs are not used for product improvement or development, in accordance with our [Terms](https://developers.google.com/terms) on data use"
+suffix = "If you choose to share datasets of your logs with Google, those datasets will be used as real-world demonstration data"
+
+[[anchor]]
+id = "training-optin-dataset"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "mains and contexts AI systems and applications are used in. "
+exact = """
+This data may be
+used to improve model quality, and inform the training and evaluation of future
+models and services"""
+suffix = """
+. This data is processed in accordance with our data use
+ter"""
+
+[[anchor]]
+id = "training-optin-human-review"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ with our data use
+terms for Unpaid Services .
+Accordingly, """
+exact = """
+human reviewers may read, annotate, and process the API inputs and
+outputs you share"""
+suffix = ". Before data is used for model improvement, Google takes st"
+
+[[anchor]]
+id = "training-optin-unpaid-terms"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ the training and evaluation of future
+models and services. """
+exact = """
+This data is processed in accordance with our data use
+terms for Unpaid Services"""
+suffix = """
+ .
+Accordingly, human reviewers may read, annotate, and proc"""
+
+[[anchor]]
+id = "training-feedback-records"
+source_id = "85310dbc7a6ba1e6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+icipate in Inline Preference Voting:
+Prompts and Responses: """
+exact = "We record all prompts and responses, including any"
+suffix = """
+
+uploaded content, in the conversation you submitted feedbac"""
+
+[[anchor]]
+id = "role-gemini-api-paid-processor-service"
+source_id = "23274ac6a97f786e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+personal or household activities).
+Gemini API Paid Services
+"""
+exact = "Personal data processed by Gemini API Paid Services in submitted prompts and responses to those prompts"
+suffix = """
+.
+NotebookLM Plus for Workspace Accounts
+Personal data proce"""
+
+[[anchor]]
+id = "role-dpa-service-list"
+source_id = "23274ac6a97f786e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+-Controller Data Protection Terms.
+Data Processing Services
+"""
+exact = "The following Google services are subject to the Google Data Processing Addendum"
+suffix = ". These Google services may process the types of personal da"
+
+[[anchor]]
+id = "role-controller-by-location"
+source_id = "7852979af54a7d97"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "less otherwise stated in a service-specific privacy notice, "
+exact = "the data controller responsible for processing your information depends on where you are based"
+suffix = """
+:
+Google Ireland Limited for users of Google services based """
+
+[[anchor]]
+id = "region-servers-around-the-world"
+source_id = "7852979af54a7d97"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+our information in ways that comply with it.
+Data transfers
+"""
+exact = "We maintain servers around the world and your information may be processed on servers located outside of the country where you live"
+suffix = ". Data protection laws vary among countries, with some provi"
+
+[[anchor]]
+id = "training-paid-api-not-collected"
+source_id = "6e58103b5b10bd25"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+to improve Google’s products, including for model training.
+"""
+exact = "Paid services : No. When you use the Gemini API key via the Gemini Developer API with a paid service"
+suffix = ", the Gemini API Terms of Service - Paid Services terms appl"
+
+[[anchor]]
+id = "training-unpaid-api-collected"
+source_id = "6e58103b5b10bd25"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+depends on whether you are using an unpaid or paid service.
+"""
+exact = "Unpaid services : Yes. When you use the Gemini API key via the Gemini Developer API with an unpaid service"
+suffix = ", the Gemini API Terms of Service - Unpaid Services terms ap"
+
+[[anchor]]
+id = "gca-individuals-discontinued"
+source_id = "5f0d5a32322619d6"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+ions
+Save and categorize content based on your preferences.
+"""
+exact = """
+Starting June 18, 2026, Gemini Code Assist IDE extensions stopped
+serving requests for the Gemini Code Assist for individuals, Google AI
+Pro, and Google AI Ultra tiers"""
+suffix = """
+. This also applies to usage of Gemini
+CLI. As part of the d"""
+
+[[anchor]]
+id = "training-settings-optout"
+source_id = "caee9d2256b1a97d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " contractors may access, view, review and use Interactions. "
+exact = "If you don’t want your Interactions used in this way, navigate to settings to change your preference on how such data is used"
+suffix = """
+.
+You must not abuse, harm, interfere with, or disrupt the S"""
+
+[[anchor]]
+id = "scope-enterprise-carveout"
+source_id = "caee9d2256b1a97d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+Google Antigravity Additional
+Terms of Service"""
+exact = "If you are accessing the Service through [Gemini Enterprise (Google Cloud)](https://cloud.google.com/terms), [Gemini Enterprise for Business](https://cloud.google.com/terms/gemini-enterprise/business) or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise Agent Platform API Key"
+suffix = ", then you are subject to the terms of use accepted or signed by your administrator applicable to such service"

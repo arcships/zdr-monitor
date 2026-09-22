@@ -1,0 +1,56 @@
+name = "Cline"
+line = "cline"
+site = "global"
+plan_levels = ["individual"]
+entity = "Cline Bot Inc."
+endpoint = ""
+doc = "https://docs.cline.bot/enterprise-solutions/overview.md"
+
+[[source]]
+url = "https://docs.cline.bot/enterprise-solutions/overview.md"
+channel = "developer_data"
+tier = "core"
+note = "Cline Enterprise 官方架构页。适用于企业自带推理/自有环境部署；明确本地处理、不上传、不索引缓存、不训练。上游模型条款仍由客户所选 provider 决定。"
+
+[[source]]
+url = "https://docs.cline.bot/more-info/telemetry"
+channel = "developer_data"
+tier = "core"
+note = "扩展遥测页：用户可即时关闭；不含代码、路径、命令参数、对话、个人信息或密钥。企业另有可选 Prompt Storage，可备份会话到客户的 S3/R2，未披露统一期限。"
+
+[[source]]
+url = "https://cline.bot/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Cline Privacy Notice。区分 BYOK（内容直接给第三方、Cline 不收集）与 Cline 提供 API key（Cline 收集并转发）；明确上游隐私和训练条款仍适用。"
+
+[[product]]
+id = "cline-managed"
+badge = "Cline 托管推理"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "unknown"
+searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+[product.zdr]
+mark = "unknown"
+searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "cline-managed-collects"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+[product.role]
+kind = "controller"
+anchor = "cline-managed-collects"
+
+[[anchor]]
+id = "cline-managed-collects"
+source_id = "f81871f1482ce250"
+topics = ["retention", "role"]
+[anchor.selector]
+prefix = "we do not collect it. "
+exact = "However, if you use API keys provided by Cline rather than your own, we collect this information in order to facilitate your requests to third-party AI model providers on your behalf."
+suffix = "\n"

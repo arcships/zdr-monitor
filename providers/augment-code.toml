@@ -1,0 +1,135 @@
+name = "Augment Code"
+line = "augment-code"
+site = "global"
+plan_levels = ["free", "individual", "enterprise"]
+entity = "Augment Code, Inc."
+homepage = "https://www.augmentcode.com/"
+doc = "https://www.augmentcode.com/security"
+
+[[source]]
+url = "https://www.augmentcode.com/legal/community-terms-of-service"
+channel = "contract"
+tier = "core"
+
+[[source]]
+url = "https://www.augmentcode.com/legal/professional-terms-of-service"
+channel = "contract"
+tier = "core"
+
+[[source]]
+url = "https://www.augmentcode.com/legal/enterprise-terms-of-service"
+channel = "contract"
+tier = "core"
+
+[[source]]
+url = "https://docs.augmentcode.com/setup-augment/workspace-indexing"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://www.augmentcode.com/legal/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+
+[[product]]
+id = "community"
+badge = "Community"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+anchor = "augment-community-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.augmentcode.com/legal/community-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.retention]
+object = "code_index"
+basis = "undisclosed"
+anchor = "augment-cloud-index"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.augmentcode.com/legal/community-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.augmentcode.com/legal/community-terms-of-service"]
+
+[[product]]
+id = "professional"
+badge = "Professional"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "augment-professional-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.augmentcode.com/legal/professional-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.retention]
+object = "code_index"
+basis = "undisclosed"
+anchor = "augment-cloud-index"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.augmentcode.com/legal/professional-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.augmentcode.com/legal/professional-terms-of-service"]
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "augment-enterprise-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.retention]
+object = "code_index"
+basis = "undisclosed"
+anchor = "augment-cloud-index"
+[[product.retention.point]]
+text_zh = "工作区启用后代码自动上传到 Augment 云端并建立索引；可用 .gitignore/.augmentignore 排除。正式文档未披露索引、提示词或服务端缓存的量化期限。"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service"]
+
+[[anchor]]
+id = "augment-community-training"
+source_id = "d20c1d2c0665c704"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "However, as a condition of your access to the Solution, you grant us the right to use your Customer Code, Output, and Usage Data to train the artificial intelligence models used in connection with the Solution for product improvements and research purposes, including those of Company and our third-party model providers, including those of potential providers (\"Models\")"
+suffix = ""
+[[anchor]]
+id = "augment-professional-no-training"
+source_id = "af9774b78eeae00b"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Company will not train its Models, using the Customer Code or Output."
+suffix = ""
+[[anchor]]
+id = "augment-enterprise-no-training"
+source_id = "ab1dd877ff24e33a"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Company will not train its Models, using the Customer Code or Output."
+suffix = ""
+[[anchor]]
+id = "augment-cloud-index"
+source_id = "1c76d2d4b9cc60c7"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When you open a workspace with Augment enabled, your codebase will be automatically uploaded to Augment’s secure cloud."
+suffix = ""

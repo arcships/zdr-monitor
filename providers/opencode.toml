@@ -1,0 +1,175 @@
+name = "OpenCode"
+company = "opencode"
+company_name = "OpenCode"
+line = "zen"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "ANOMALY INNOVATIONS, INC."
+endpoint = ""
+doc = "https://opencode.ai/docs/enterprise/"
+
+[[source]]
+url = "https://opencode.ai/docs/enterprise/"
+channel = "developer_data"
+tier = "core"
+note = "OpenCode Enterprise 官方文档；本地/直连数据路径、企业集中配置、内部网关及可选分享功能。"
+
+[[source]]
+url = "https://opencode.ai/docs/share"
+channel = "developer_data"
+tier = "core"
+note = "分享默认是手动触发，可彻底关闭；已分享会话保留到用户 unshare。"
+
+[[source]]
+url = "https://opencode.ai/docs/zen"
+channel = "developer_data"
+tier = "core"
+note = "Zen 托管网关、美国处理地、上游零保留/不训练口径、30 天与训练例外、团队和 BYOK。"
+
+[[source]]
+url = "https://opencode.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "第三方模型由用户 API key 访问，内容受相应模型商数据保留条款约束。"
+
+[[product]]
+id = "zen-standard"
+badge = "Zen 标准模型"
+category = "coding_plan"
+plan_level = "individual"
+label = "OpenCode Zen 托管网关；如改用本地模型或自带 API key，请求可不经过 Zen，但数据姿态改由所选上游决定"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "opencode-zen-privacy"
+
+[[product.retention.point]]
+text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
+anchor = "opencode-zen-30-days"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "opencode-zen-privacy"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://opencode.ai/legal/privacy-policy", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/docs/zen"]
+
+[[product]]
+id = "zen-data-collecting-models"
+badge = "Zen 数据收集模型"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "opencode-zen-exceptions"
+
+[product.zdr]
+mark = "no"
+anchor = "opencode-zen-exceptions"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "opencode-zen-exceptions"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "opencode-zen-privacy"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://opencode.ai/legal/privacy-policy", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/docs/zen"]
+
+[[product]]
+id = "zen-team"
+badge = "Zen Teams"
+category = "coding_plan"
+plan_level = "team"
+label = "团队工作区使用 OpenCode Zen 托管模型的链路；不涵盖 BYOK、本地模型或直连其他提供商"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "opencode-zen-privacy"
+[product.processing_region]
+codes = ["US"]
+anchor = "opencode-zen-privacy"
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://opencode.ai/legal/privacy-policy", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/docs/zen", "https://opencode.ai/docs/enterprise/"]
+
+[[product]]
+id = "zen-enterprise"
+badge = "Zen Enterprise 托管链路"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "Enterprise 用户选择 OpenCode Zen 托管模型时的链路；不把 Enterprise 文档所述本地、内部网关或直连/BYOK 路径计作厂商托管"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "opencode-zen-privacy"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "opencode-zen-privacy"
+[product.processing_region]
+codes = ["US"]
+anchor = "opencode-zen-privacy"
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://opencode.ai/legal/privacy-policy", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/docs/zen", "https://opencode.ai/docs/enterprise/"]
+
+[[anchor]]
+id = "opencode-zen-privacy"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention", "processing_region"]
+[anchor.selector]
+prefix = "## [Privacy]"
+exact = "All our models are hosted in the US. Our providers follow a zero-retention policy and do not use your data for model training, with the following exceptions:"
+suffix = "\n\n*   Big Pickle"
+
+[[anchor]]
+id = "opencode-zen-30-days"
+source_id = "81c406603eb0c1a6"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "*   OpenAI APIs: Requests are retained for 30 days in accordance with [OpenAI’s Data Policies](https://platform.openai.com/docs/guides/your-data).\n*   Anthropic APIs: Requests are retained for 30 days in accordance with [Anthropic’s Data Policies](https://docs.anthropic.com/en/docs/claude-code/data-usage)."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-exceptions"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "*   Big Pickle: During its free period, collected data may be used to improve the model."
+suffix = "\n*   MiMo-V2.6-Flash Free"

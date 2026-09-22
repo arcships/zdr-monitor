@@ -1,0 +1,321 @@
+name = "Clarifai"
+line = "clarifai"
+site = "global"
+endpoint = ""
+doc = "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md"
+
+[[source]]
+url = "https://raw.githubusercontent.com/Clarifai/docs/main/docs/product-updates/upcoming-api-changes/secure-data-hosting.md"
+channel = "developer_data"
+tier = "core"
+note = "官方文档仓库的 Secure Data Hosting 公告页（2023-08-15 起随 9.7 版本生效）：用户输入托管在 Amazon S3，SDH 作为 S3 之上的 token 鉴权代理，新输入以私有文件写入 S3、仅经 SDH URL 可访问。未披露 S3 区域/处理地，也未给任何保留期限。"
+
+[[source]]
+url = "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md"
+channel = "developer_data"
+tier = "core"
+note = "Clarifai 官方文档仓库 Clarifai/docs 的 Data Privacy and Security 页源码（main 分支；仓库最后 push 2026-05-29，未归档）。原线上页 https://docs.clarifai.com/resources/privacy-security/ 现为 NXDOMAIN，本仓库是该页现存可公开复核的官方一手文本。覆盖 Clarifai SaaS 平台/API 档（Shared SaaS 与 Dedicated SaaS 共用同一平台条款），不覆盖客户自托管部署形态。全文为本家唯一的政策级文本：默认安全存储输入与预测、用户自行控制保留、除主动分享到 Community 外不用于训练。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "training-not-used-for-training"
+
+[[product.training.point]]
+text_zh = "同顶层 training：除主动分享到 Community 外，不使用客户私有数据训练自家或平台上其他模型"
+
+[[product.training.point]]
+text_zh = "聚合使用模式分析允许，明细日志需 opt-in。"
+
+[product.zdr]
+mark = "no"
+anchor = "retention-store-data-to-enable-portal"
+searched = [
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/static/llms.txt",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/product-updates/upcoming-api-changes/secure-data-hosting.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/overview.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/control/clarifai-organizations/security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/cloud-instances.md",
+  "https://docs.clarifai.com/resources/privacy-security/",
+  "https://docs.clarifai.com/",
+  "https://www.clarifai.com/privacy",
+  "https://www.clarifai.com/terms",
+  "https://www.clarifai.com/legal",
+  "https://www.clarifai.com/terms-of-service",
+  "https://www.clarifai.com/privacy-policy",
+  "https://www.clarifai.com/master-services-agreement",
+  "https://trust.clarifai.com/",
+  "https://status.clarifai.com/",
+  "https://api.clarifai.com/",
+  "https://github.com/Clarifai/clarifai-python",
+  "https://api.github.com/orgs/Clarifai/repos",
+  "https://web.archive.org/web/20260613023144/https://docs.clarifai.com/resources/privacy-security/",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr。条款明示默认存储输入（「we securely store the data you send to our platform」，保留由客户控制，但厂商侧不是零保留），故记 mark=no（明确否定）而非「未披露」。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "retention-secure-storage-by-default"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：输入与预测默认持久存储在平台（S3），保留期由客户控制，无量化期限"
+
+[[product.retention.point]]
+text_zh = "元数据日志用途已披露、期限未披露。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/static/llms.txt",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/product-updates/upcoming-api-changes/secure-data-hosting.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/overview.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/control/clarifai-organizations/security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/cloud-instances.md",
+  "https://docs.clarifai.com/resources/privacy-security/",
+  "https://docs.clarifai.com/",
+  "https://www.clarifai.com/privacy",
+  "https://www.clarifai.com/terms",
+  "https://www.clarifai.com/legal",
+  "https://www.clarifai.com/terms-of-service",
+  "https://www.clarifai.com/privacy-policy",
+  "https://www.clarifai.com/master-services-agreement",
+  "https://trust.clarifai.com/",
+  "https://status.clarifai.com/",
+  "https://api.clarifai.com/",
+  "https://github.com/Clarifai/clarifai-python",
+  "https://api.github.com/orgs/Clarifai/repos",
+  "https://web.archive.org/web/20260613023144/https://docs.clarifai.com/resources/privacy-security/",
+]
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：默认 SaaS 档处理地未披露"
+
+[[product.processing_region.point]]
+text_zh = "Dedicated SaaS 举例 AWS US-East 属产品文档线索。"
+
+[[product.processing_region.point]]
+text_zh = "「we use the Amazon S3 storage service to host user-provided inputs」只说明托管用的服务，未给区域，不构成对处理地维度的表述，故不再绑在本条；该 anchor 定义仍保留在本文件中（现无维度引用它）。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/static/llms.txt",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/product-updates/upcoming-api-changes/secure-data-hosting.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/overview.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/control/clarifai-organizations/security.md",
+  "https://raw.githubusercontent.com/Clarifai/docs/main/docs/compute/cloud-instances.md",
+  "https://docs.clarifai.com/resources/privacy-security/",
+  "https://docs.clarifai.com/",
+  "https://www.clarifai.com/privacy",
+  "https://www.clarifai.com/terms",
+  "https://www.clarifai.com/legal",
+  "https://www.clarifai.com/terms-of-service",
+  "https://www.clarifai.com/privacy-policy",
+  "https://www.clarifai.com/master-services-agreement",
+  "https://trust.clarifai.com/",
+  "https://status.clarifai.com/",
+  "https://api.clarifai.com/",
+  "https://github.com/Clarifai/clarifai-python",
+  "https://api.github.com/orgs/Clarifai/repos",
+  "https://web.archive.org/web/20260613023144/https://docs.clarifai.com/resources/privacy-security/",
+]
+
+[[product.role.point]]
+text_zh = "同顶层 role：服务条款与 DPA 均不可得。"
+
+[[anchor]]
+id = "training-not-used-for-training"
+source_id = "fe4df6588b57c8c8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+Clarifai Portal.
+
+- **Your Data is Not Used for Training:** """
+exact = "We do not use your private data to train our models or any other models on the platform unless you explicitly choose to share your inputs and annotations with the \"Community.\""
+suffix = """
+
+
+<!--
+- **Full Control Over Retention:** You can configure """
+
+[[anchor]]
+id = "training-aggregate-analytics-no-private-input"
+source_id = "fe4df6588b57c8c8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ of requests or compute usage.
+
+- **Platform Improvement:** """
+exact = "For our proprietary models, we may analyze usage patterns and performance in aggregate to enhance model accuracy and efficiency. This analysis does not use your private input data."
+suffix = " Any features that might involve more detailed logging will "
+
+[[anchor]]
+id = "ps-privacy-confidential-by-default"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "rivacy and security, backed by our SOC 2 Type 2 compliance. "
+exact = "Your data is always treated as private and confidential by default."
+suffix = """
+ 
+
+:::tip Trust Center
+
+Visit our [Trust Center](https://tru"""
+
+[[anchor]]
+id = "retention-secure-storage-by-default"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ how we handle your data:
+
+- **Secure Storage by Default:** """
+exact = "When you send inputs (such as images, text, or video) to your application, the data and its resulting predictions are stored securely. This allows you to review, search, and manage your data directly within the Clarifai Portal."
+suffix = """
+
+
+- **Your Data is Not Used for Training:** We do not use yo"""
+
+[[anchor]]
+id = "retention-store-data-to-enable-portal"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ere you can access your inputs and view prediction history. "
+exact = "To enable this, we securely store the data you send to our platform."
+suffix = """
+ 
+
+However, you remain in complete control of its retention."""
+
+[[anchor]]
+id = "retention-user-controls-retention"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+his, we securely store the data you send to our platform. 
+
+"""
+exact = "However, you remain in complete control of its retention."
+suffix = """
+
+
+Here’s how we handle your data:
+
+- **Secure Storage by Def"""
+
+[[anchor]]
+id = "retention-metadata-operational-logging"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s.
+
+We handle the metadata for:
+
+- **Operational Logging:** """
+exact = "We log metadata required for billing, platform monitoring, and providing the service, such as the number of requests or compute usage."
+suffix = """
+
+
+- **Platform Improvement:** For our proprietary models, we"""
+
+[[anchor]]
+id = "retention-non-sensitive-metadata-logging"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+t retained.
+-->
+
+## Metadata Usage and Analytics Practices
+
+"""
+exact = "To deliver and improve our service, we log non-sensitive metadata for operational purposes."
+suffix = """
+
+
+We handle the metadata for:
+
+- **Operational Logging:** We"""
+
+[[anchor]]
+id = "region-inputs-hosted-on-amazon-s3"
+source_id = "e8beeec87ba281bd"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+ow](#what-you-need-to-do)
+
+## What is Secure Data Hosting?
+
+"""
+exact = "At Clarifai, we use the Amazon S3 storage service to host user-provided inputs."
+suffix = " Additionally, we’ll be introducing Secure Data Hosting (SDH"
+
+[[anchor]]
+id = "region-sdh-proxy-over-s3"
+source_id = "e8beeec87ba281bd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+curity and access control to the data stored on Amazon S3.
+
+"""
+exact = "Secure Data Hosting simply works as a proxy over the Amazon S3 storage service."
+suffix = " It acts as an intermediary or middleman, allowing authorize"
+
+[[anchor]]
+id = "retention-inputs-in-clarifai-s3-bucket"
+source_id = "e8beeec87ba281bd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+t, such as a file of an image, to the Clarifai platform.
+2. """
+exact = "Clarifai hosts the file in a Clarifai Amazon S3 bucket."
+suffix = """
+ 
+3. If SDH is enabled for an account, the input hosted on t"""
+
+[[anchor]]
+id = "retention-new-inputs-private-s3-only"
+source_id = "e8beeec87ba281bd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ".7 release, all inputs will be accessible through SDH URLs. "
+exact = "The new inputs will be uploaded to S3 as private files, which can only be accessible via secure SDH URLs."
+suffix = " S3 URLs will not be accessible through the API anymore as t"

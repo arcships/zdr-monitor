@@ -1,0 +1,157 @@
+name = "DeepSeek 深度求索"
+name_en = "DeepSeek"
+line = "deepseek"
+site = "cn"
+entity = "杭州深度求索人工智能基础技术研究有限公司"
+endpoint = ""
+doc = "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html"
+
+[[source]]
+url = "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html"
+channel = "contract"
+tier = "core"
+note = "《DeepSeek 开放平台服务协议》(更新日期 2026-04-22 / 生效日期 2026-04-29)，本家唯一直接约束 API 的专门合同，覆盖 API 档。首部明文自认是《DeepSeek 用户协议》项下所指的「具体协议及其组成部分，特别适用于…使用本平台提供的应用程序编程接口（API）或其他开发者工具」的开发活动 → 用户协议条款对 API 档一并生效。全文(§1 服务内容、§3 服务管理、§4 输入与输出、§5 知识产权)无输入输出的训练/保留/处理地条款；§3.5 为角色条款，§5.5 把开发者自身个人信息的处理引向隐私政策。"
+
+[[source]]
+url = "https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html"
+channel = "contract"
+tier = "core"
+note = "《DeepSeek 用户协议》(更新日期 2025-09-05)，覆盖 API 档的合同层：§1.1 把「供第三方网站和应用程序使用软件开发工具包（SDK）、应用程序编程接口（API）」明确写入「本服务」定义，§4.3 是训练条款。经开放平台服务协议首部纳入条款后，§4.3 构成本家 API 档训练维度的合同层依据（该协议与开放平台协议冲突时以具体协议为准，而开放平台协议未另设训练条款，故无冲突）。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "deepseek-training-tos-4-3"
+
+[[product.training.point]]
+text_zh = "同顶层 dimensions.training：用户协议 §4.3 训练条款 + §1.1 把 API 纳入「本服务」定义，并经《开放平台服务协议》首部纳入条款对 API 档生效"
+
+[[product.training.point]]
+text_zh = "隐私政策与个人信息收集清单把训练用途只挂在「智能对话」场景，是降为 medium 的反向线索。"
+
+[product.zdr]
+mark = "no"
+anchor = "deepseek-zdr-tos-4-3-training-use-implies-retention"
+searched = [
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html",
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-privacy-policy.html",
+  "https://api-docs.deepseek.com/sitemap.xml",
+  "https://api-docs.deepseek.com/zh-cn/faq",
+  "https://platform.deepseek.com/terms",
+  "https://trust.deepseek.com/",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 dimensions.zdr：用户协议 §4.3 明示 API 档输入输出可能被用于模型训练与服务优化（对 API 生效路径见 training），故请求内容会被留存到训练时点，判「不支持零保留」"
+
+[[product.zdr.point]]
+text_zh = "佐证为《模型原理与训练方法说明》§二.2 与 kv_cache 的默认硬盘落盘（详见顶层 note）。官方无任何 ZDR 表述、开关或开通方式，第三方路由商的 ZDR 承诺已 rejected。"
+
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html",
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html",
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-privacy-policy.html",
+  "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+  "https://api-docs.deepseek.com/sitemap.xml",
+  "https://api-docs.deepseek.com/zh-cn/guides/kv_cache",
+  "https://api-docs.deepseek.com/zh-cn/guides/files_api",
+]
+
+[[product.retention.point]]
+text_zh = "同顶层 dimensions.retention：API 请求内容保留期无官方条款，相近材料（网络日志 6 个月、kv_cache 数小时至数天、Files API 文件有效期、国际站 input Personal Data 保留至账号存续）scope 或性质不符，不凑数。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["CN"]
+searched = [
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-privacy-policy.html",
+  "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html",
+  "https://api-docs.deepseek.com/sitemap.xml",
+]
+
+[[product.processing_region.point]]
+text_zh = "同顶层 dimensions.processing_region：境内存储句 scope 为个人信息，API 业务内容的处理地无披露。"
+
+[product.role]
+kind = "processor"
+anchor = "deepseek-role-3-5-entrusted-processing"
+
+[[product.role.point]]
+text_zh = "同顶层 dimensions.role：§3.5 受托处理链位 + §5.5 责任划分。"
+
+[[anchor]]
+id = "deepseek-role-3-5-entrusted-processing"
+source_id = "c94e97ec21af7c7a"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "数据（包括个人信息）等活动中的法律责任。**涉及个人信息的，您应在提供服务前向终端用户告知、披露您的个人信息处理规则，并"
+exact = "就收集、处理个人信息以及委托我们处理个人信息的行为，取得终端用户的同意或具有其他合法性基础"
+suffix = "。您应确保个人信息收集、处理符合个人信息保护的相关要求，满足合法、正当、必要的原则。针对终端用户针对个人信息提出的查阅、"
+
+[[anchor]]
+id = "deepseek-open-platform-incorporates-tos"
+source_id = "c94e97ec21af7c7a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "/cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html)"
+exact = "项下所指的具体协议及其组成部分，特别适用于"
+suffix = "**您作为个人或企业开发者（以下简称****“您”或****“开发者”）使用本平台提供的****应用程序编程接口（***"
+
+[[anchor]]
+id = "deepseek-tos-1-1-api-in-service-scope"
+source_id = "e3bfaa90c6529a58"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "我们的产品及服务包括我们以网页、应用程序（可能含不同版本）、小程序、供第三方网站和应用程序使用软件开发工具包（SDK）、"
+exact = "应用程序编程接口（API）以及随技术发展出现的创新形态方式向您提供的产品与服务"
+suffix = """
+，包括但不限于以生成式人工智能服务为核心功能以及其他功能的平台（以下称“DeepSeek”或“本服务”）。
+
+1.2 我"""
+
+[[anchor]]
+id = "deepseek-training-tos-4-3"
+source_id = "e3bfaa90c6529a58"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+馏）等。
+
+4.3 为向您提供连续、高质量的服务，**在经安全加密技术处理、严格去标识化且无法重新识别特定个人的前提下，"""
+exact = "我们可能会将服务所收集的输入及对应输出，用于模型训练和服务的优化"
+suffix = "。****在此前提下，您同意授予深度求索在全球范围内一项免费的、非排他的许可使用权，以使我们对前述内容进行处理。**如您"
+
+[[anchor]]
+id = "deepseek-zdr-tos-4-3-training-use-implies-retention"
+source_id = "e3bfaa90c6529a58"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "4.3 为向您提供连续、高质量的服务，**在经安全加密技术处理、严格去标识化且无法重新识别特定个人的前提下，"
+exact = "我们可能会将服务所收集的输入及对应输出，用于模型训练和服务的优化。****在此前提下，您同意授予深度求索在全球范围内一项免费的、非排他的许可使用权，以使我们对前述内容进行处理。"
+suffix = "**如您拒绝将您的数据用于模型训练，可以在产品内通过关闭“数据用于优化体验”来选择退出，关闭后您的输入和输出不会再用于我们的模型训练。"
+
+[[anchor]]
+id = "deepseek-zdr-tos-4-3-optout-only-covers-training"
+source_id = "e3bfaa90c6529a58"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "**如您拒绝将您的数据用于模型训练，可以在产品内通过关闭“数据用于优化体验”来选择退出，"
+exact = "关闭后您的输入和输出不会再用于我们的模型训练"
+suffix = ""

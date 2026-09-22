@@ -1,0 +1,217 @@
+name = "Amp"
+company = "sourcegraph-amp"
+company_name = "Amp"
+line = "sourcegraph-amp"
+site = "global"
+entity = "Amp Frontier Corporation"
+endpoint = ""
+doc = "https://ampcode.com/security"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://ampcode.com/security"
+channel = "developer_data"
+tier = "core"
+note = "Amp 当前安全页；覆盖训练开关、Enterprise 禁止训练、线程/Orb/audit 保留、MDR、BYOK 与不索引完整代码库。"
+[[source]]
+url = "https://ampcode.com/docs/enterprise/minimal-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "MDR 仅覆盖第三方模型推理，含安全/滥用/法律与最长 30 天例外；明确不控制 Amp thread 存储。"
+[[source]]
+url = "https://ampcode.com/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Amp 隐私政策；美国处理、账户生命周期与分析遥测。"
+[[source]]
+url = "https://ampcode.com/docs/pricing"
+channel = "developer_data"
+tier = "core"
+note = "Free/Team/Enterprise 档位依据。"
+
+[[product]]
+id = "free"
+badge = "Hobby（Free）"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "amp-training-optin"
+[[product.training.point]]
+text_zh = "训练是 opt-in：官方写的是「除非你显式打开训练，否则 Amp 和它的分包商都不用你的数据训练模型」，开关在 User Settings。"
+[[product.training.point]]
+text_zh = "例外是挂自己的 ChatGPT/Grok 订阅跑模型——那时走的是对方的消费级账号条款，Amp 的训练开关管不着，得去对方的 Data Controls 里单独关。"
+anchor = "amp-personal-subscription-terms"
+[product.zdr]
+mark = "no"
+anchor = "amp-mdr-not-zero"
+[product.retention]
+days = 30
+object = "input_output"
+basis = "until_termination"
+anchor = "amp-thread-delete-30d"
+[product.processing_region]
+codes = ["US"]
+anchor = "amp-us-processing"
+[product.role]
+kind = "controller"
+anchor = "amp-account-retention"
+
+[[product]]
+id = "individual"
+badge = "Individual"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "amp-training-optin"
+[[product.training.point]]
+text_zh = "和 Hobby 同一条规则：不打开训练开关就不训练。付费档买的是用量，不是另一套数据条款。"
+[product.zdr]
+mark = "no"
+anchor = "amp-mdr-not-zero"
+[product.retention]
+days = 30
+object = "input_output"
+basis = "until_termination"
+anchor = "amp-thread-delete-30d"
+[product.processing_region]
+codes = ["US"]
+anchor = "amp-us-processing"
+[product.role]
+kind = "controller"
+anchor = "amp-account-retention"
+
+[[product]]
+id = "team"
+badge = "Teams"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "amp-training-optin"
+[[product.training.point]]
+text_zh = "默认同样不训练，而且在 workspace 里要打开训练还得 Workspace Admin 批准——成员一个人点不动。"
+anchor = "amp-workspace-training"
+[product.zdr]
+mark = "no"
+anchor = "amp-mdr-not-zero"
+[product.retention]
+days = 30
+object = "input_output"
+basis = "until_termination"
+anchor = "amp-thread-delete-30d"
+[product.processing_region]
+codes = ["US"]
+anchor = "amp-us-processing"
+[product.role]
+kind = "controller"
+anchor = "amp-account-retention"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "amp-enterprise-never-train"
+[product.zdr]
+mark = "no"
+anchor = "amp-mdr-not-zero"
+[product.retention]
+days = 30
+object = "input_output"
+basis = "until_termination"
+anchor = "amp-thread-delete-30d"
+[product.processing_region]
+codes = ["US"]
+anchor = "amp-us-processing"
+[product.role]
+kind = "processor"
+anchor = "amp-enterprise-owns-threads"
+
+[[anchor]]
+id = "amp-training-optin"
+source_id = "bd8ae33ee1627160"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training."
+suffix = ""
+[[anchor]]
+id = "amp-personal-subscription-terms"
+source_id = "bd8ae33ee1627160"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "When Amp uses a personal ChatGPT or Grok subscription, the model provider’s consumer account terms and data controls apply. These controls are separate from Amp’s training setting, and Amp cannot change them for you."
+suffix = ""
+[[anchor]]
+id = "amp-workspace-training"
+source_id = "bd8ae33ee1627160"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "If you’re on an Amp workspace, turning training on requires the approval of the Workspace Admin."
+suffix = ""
+[[anchor]]
+id = "amp-enterprise-never-train"
+source_id = "bd8ae33ee1627160"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "On an [Amp Enterprise](https://ampcode.com/docs/pricing#enterprise) workspace plan (paid or trial) training can _never_ be enabled."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-not-zero"
+source_id = "f504aba9503d94e3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "It limits how long third-party model providers retain prompts and responses. It does not mean that no data is ever retained."
+suffix = ""
+[[anchor]]
+id = "amp-thread-delete-30d"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When a thread is explicitly deleted, all data for that thread is removed within 30 days of thread deletion."
+suffix = ""
+[[anchor]]
+id = "amp-us-processing"
+source_id = "4931216970fe2975"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "We store and process the information that we collect in the United States in accordance with this Privacy Policy, though our employees, contractors, and service providers may store and process data outside the United States."
+suffix = ""
+[[anchor]]
+id = "amp-account-retention"
+source_id = "4931216970fe2975"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Amp retains your information while your account is active."
+suffix = ""
+[[anchor]]
+id = "amp-enterprise-owns-threads"
+source_id = "bd8ae33ee1627160"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "are owned by the enterprise that owns the workspace, not the individual user who created the thread."
+suffix = ""
+[[anchor]]
+id = "amp-byok-provider-terms"
+source_id = "bd8ae33ee1627160"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Requests sent with your key are covered by the retention terms of your provider account."
+suffix = ""

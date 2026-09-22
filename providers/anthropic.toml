@@ -1,0 +1,417 @@
+name = "Anthropic"
+line = "anthropic"
+site = "global"
+entity = "Anthropic, PBC / Anthropic Ireland, Limited"
+endpoint = ""
+doc = "https://www.anthropic.com/legal/commercial-terms"
+
+[[source]]
+url = "https://code.claude.com/docs/en/data-usage"
+channel = "developer_data"
+tier = "core"
+note = "Claude Code 数据处理页:分消费档(Free/Pro/Max)与商业档(Team/Enterprise/API/第三方平台/Claude Gov)给训练与保留口径;含本地会话明文缓存 30 天、/feedback 5 年、会话质量调查 transcript 最多 6 个月。消费档条款不继承给 API 档。"
+
+[[source]]
+url = "https://code.claude.com/docs/en/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(Free/Pro/Max)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。"
+
+[[source]]
+url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+channel = "developer_data"
+tier = "contradiction"
+note = "与 core 文档 https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data(下称 7996866,api 档 retention 维度的依据)就同一档位(商业/API 档的默认保留)表述不一致。①本文件原句(『How Anthropic approaches data retention』承诺列表第 2 条):「Only what is technically necessary for the feature to work is retained. Conversation content (your prompts and Claude's outputs) is not retained by default; the exception is [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements), which require 30-day retention.」——默认档下 API 的 prompt/output 不保留;②7996866 原句(『Standard Retention Timeframe』):「For Anthropic API users, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except:」——默认档下 prompt/output 会落到后端、最迟 30 天删除。两句对象相同(API 档的输入输出)、问题相同(默认是否保留),答案相反。各自范围:本文件页首自述覆盖 Claude API(api.anthropic.com)、Claude Platform on AWS、Claude in Microsoft Foundry 且 Anthropic 为 data processor,并在『What ZDR does not cover』明列 Claude Free/Pro/Max 不在覆盖内;7996866 文首自述讲商业档(Claude for Work / Anthropic API),且本文件第 3 段把 7996866 指为「the commercial data retention policy」(即本文件自己承认标准保留口径以 7996866 为准)。四种解释逐条排除:①适用范围——两份都逐字指向 API 档(主语分别是「Anthropic API users」与 Claude API/Claude Platform on AWS/Foundry),不属「一份管 API、一份管消费产品」;消费档另有 10023548,本文件亦正面排除 Free/Pro/Max。②档位——同为商业/API 档;本文件对企业/Team 界面只作 ZDR 排除,未给出与 API 不同的保留期限,不存在企业版 vs 个人版之分。③站点——同为 Anthropic 官方域名(privacy.claude.com 与 platform.claude.com),同一法律实体,无国内站/国际站之分。④时效——均为现行版本:7996866 的原始 HTML 抓取标注「Updated over 2 months ago」(抓取日 2026-09-21,约 2026-07 更新),本文件为 platform.claude.com 现行页(页面数据时间戳 2026-09-21,正文引用 Fable 5.1 / Mythos 5.1 / Claude Managed Agents 等当期功能),不存在新版覆盖旧版。旁证(同方向,均官方):code.claude.com/docs/en/data-usage 在「Commercial users (Team, Enterprise, and API)」下列「Standard: 30-day retention period」并把 ZDR 列为额外选项,同页另写「Enable Zero Data Retention for no server-side persistence」(反推不启用 ZDR 时存在服务端持久化);privacy 8956058 称 ZDR 安排「distinct from Anthropic’s default approach to data retention」并链接 7996866。已考虑但未采纳的调和解释:本句位于「功能是否需要落盘」的承诺段落,可读作「功能层不落盘」而非「默认档整体不保留」;但该句自身的例外从句用的是保留口径(「Covered Models, which require 30-day retention」,与 7996866「for Covered Models, we require limited data retention and review」描述的是同一现象),且本页 ZDR 段落以「不启用 ZDR 时存在服务端存储」为前提(「Where a feature does not require storage … it may be eligible for ZDR」),故「功能层」读法无法消解字面冲突,只能靠厂商澄清。需厂商书面澄清:①默认(未开通 ZDR)档下 API 的 prompt/output 是否写入后端存储;②若写入,是否适用 7996866 的 30 天自动删除窗口;③「is not retained by default」的准确含义是功能层(功能不需要落盘)还是安排层(默认档整体不保留)。澄清前 api 档 retention 以 7996866 为 core,本页仅作矛盾的另一半证据保留全部锚点、每天抓;本页其余内容(ZDR/HIPAA 安排、功能资格表、processor 声明)未见与任何 core 文档冲突。"
+
+[[source]]
+url = "https://platform.claude.com/docs/en/manage-claude/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "Claude API 数据驻留:inference geo 默认 global、可选 us(4.6 起 1.1x 计费);workspace geo 目前仅 us 且创建后不可改。仅商业/API 档(Claude Console 配置),消费档与 Claude Code 消费档无驻留选项。"
+
+[[source]]
+url = "https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "商业档(Claude for Work / Anthropic API)标准保留政策,被开发者文档指定为 commercial data retention policy:API 输入输出后端 30 天内自动删除;违规内容最多 2 年、信任安全分类分数最多 7 年;Feedback 5 年。文首明确把 Free/Pro/Max(含这些账号下的 Claude Code)指向消费档文章。"
+
+[[source]]
+url = "https://privacy.claude.com/en/articles/8956058-i-have-a-zero-data-retention-agreement-with-anthropic-what-products-does-it-apply-to"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "ZDR 适用产品清单:仅合格 Anthropic APIs、使用商业组织 API key 的产品(含经 API 访问的 Claude Code)、Claude Code for Enterprise;按 organization 审批,仍保留 User Safety 分类结果。文首把 Free/Pro/Max 指向消费档合集,即消费档无 ZDR。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+channel = "contract"
+tier = "core"
+note = "商业档(API/Team/Enterprise)Commercial Terms of Service:禁止用 Customer Content 训练、DPA 并入条款、并明确『Services under these Terms are not for consumer use』,因此不能外推到 Free/Pro/Max。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/consumer-terms"
+channel = "contract"
+tier = "core"
+note = "消费档(Free/Pro/Max,含这些账号下的 Claude Code)服务条款:默认许可把 Materials 用于训练,可在账号设置退出;退出后 Feedback 与安全审查标记内容仍用于训练。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "商业档 DPA(经 Commercial Terms §C 并入):§B.1 客户为 controller、Anthropic 为 processor;§I.1 跨境用 SCC Module Two/Three。仅商业档,消费档不适用。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Anthropic 隐私政策(消费档个人数据):§9 按居住地指定控制者实体(EEA/UK/瑞士=Anthropic Ireland, Limited;其他=Anthropic PBC);§5 个人数据传输至美国服务器或 EEA/UK 以外国家。Claude Code 消费档经 data-usage 页被指向本政策。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "training-commercial"
+
+[[product.training.point]]
+text = "Commercial Terms §B: \"Anthropic may not train models on Customer Content from Services.\""
+text_zh = "Commercial Terms §B 禁止用 Customer Content 训练"
+
+[[product.training.point]]
+text = "Privacy Center article 7996868 for the commercial tier says the same (inputs and outputs are not used for training by default)."
+text_zh = "商业档隐私中心 7996868 同口径(默认不使用输入输出训练)。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-api-not-stored"
+
+[[product.zdr.point]]
+text = "Based on article 8956058 (dated June 9, 2026): qualified Claude API (Claude Platform) and Claude Code for Enterprise customers can have a ZDR arrangement after Anthropic approval, under which \"Anthropic does not store their inputs or outputs except where needed to comply with law or combat misuse or harm\"; User Safety classification results are still retained"
+text_zh = "依据为 8956058(文章日期 June 9, 2026):合格 Claude API(Claude Platform)与 Claude Code for Enterprise 客户经 Anthropic 审批后可有 ZDR 安排,Anthropic 不存储其输入输出(除遵守法律或反滥用/防伤害所需),仍保留 User Safety 分类结果"
+
+[[product.zdr.point]]
+text = "ZDR requests are approved organization by organization (\"ZDR is enabled per organization; each new organization requires ZDR to be enabled separately by your account team\"), and Claude Platform users can confirm it under Settings > Privacy Controls > Data retention period. The same article states expressly that these arrangements \"are distinct from Anthropic's default approach to data retention\" (= the 30-day rule in 7996866). For the feature-level scope (which endpoints are eligible, and that stateful features such as Batch, Files and code execution are not), see api-and-data-retention — that page was marked contradiction this round because its retention statement conflicts with 7996866, so it is no longer used as a basis for this dimension (the anchor is kept and fetched daily)."
+text_zh = "ZDR 请求按 organization 逐一审批,Claude Platform 用户可在 Settings > Privacy Controls > Data retention period 确认。该文并把 ZDR 安排与「Anthropic’s default approach to data retention」(=7996866 的 30 天口径)明确区分。功能级适用范围(哪些 endpoint 合格、Batch/Files/Code execution 等有状态功能不适用)见 api-and-data-retention——该页本轮因 retention 口径与 7996866 冲突已标 contradiction,故不再作为本维度的依据(锚点保留、每天抓)。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "retention-api-30d"
+
+[[product.retention.point]]
+text = "Standard retention on the commercial tier: \"we automatically delete inputs and outputs on our backend within 30 days of receipt or generation\" (exceptions: services where you control longer retention such as the Files API, a separate agreement with us such as a ZDR arrangement, what is needed to enforce the Usage Policy, and legal requirements; that exception list is lost in the r.jina.ai rendering, see notes)"
+text_zh = "商业档标准保留:API 输入输出在后端 30 天内自动删除(例外:你自控更长保留的服务如 Files API、你与我们另有约定如 ZDR 协议、执行 Usage Policy 所需、法律要求;该例外列表在 r.jina.ai 渲染中丢失,见 notes)"
+
+[[product.retention.point]]
+text = "Violative content up to 2 years, trust and safety classification scores up to 7 years"
+text_zh = "违规内容最多 2 年、信任安全分类分数最多 7 年"
+
+[[product.retention.point]]
+text = "Feedback 5 years. The developer documentation page api-and-data-retention separately states \"Conversation content (your prompts and Claude's outputs) is not retained by default\", which conflicts literally with this rule (same tier, same dimension, both current versions); that page was marked contradiction this round and is no longer used as a basis for this dimension"
+text_zh = "Feedback 5 年。开发者文档 api-and-data-retention 另有「Conversation content … is not retained by default」口径,与本口径字面冲突(同档位、同维度、均为现行版本),本轮已把该页标 contradiction,不再作为本维度依据"
+
+[[product.retention.point]]
+text = "See that source's contradiction_note for details."
+text_zh = "详见该源 contradiction_note。"
+
+[product.processing_region]
+codes = ["global", "US"]
+anchor = "region-inference-default-global"
+
+[[product.processing_region.point]]
+text = "Inference geo defaults to global, with us available as an option (billed at 1.1x)"
+text_zh = "inference geo 默认 global、可选 us(1.1x 计费)"
+
+[[product.processing_region.point]]
+text = "Workspace geo is us only and cannot be changed. DPA §I.1 separately provides the cross-border mechanism through SCC Module Two / Module Three."
+text_zh = "workspace geo 仅 us 且不可改。DPA §I.1 另有 SCC Module Two/Three 跨境机制。"
+
+[product.role]
+kind = "processor"
+anchor = "role-controller-processor"
+
+[[product.role.point]]
+text = "DPA §B.1: \"Customer is the controller and Anthropic is Customer's processor.\""
+text_zh = "DPA §B.1:Customer 是 controller、Anthropic 是 processor"
+
+[[product.role.point]]
+text = "The API documentation also states that Anthropic is the data processor."
+text_zh = "API 页亦声明 Anthropic 为 data processor。"
+
+[[anchor]]
+id = "training-commercial"
+source_id = "7dea3b226d0f0caf"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "r its right, title and interest (if any) in and to Outputs. "
+exact = "Anthropic may not train models on Customer Content from Services."
+suffix = " “**Inputs**” means submissions to the Services by Customer "
+
+[[anchor]]
+id = "role-controller-processor"
+source_id = "200243637a38e41f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+Customer Data
+
+B.1. With respect to Customer Personal Data, """
+exact = "Customer is the controller and Anthropic is Customer’s processor."
+suffix = " Each party will comply with its respective obligations unde"
+
+[[anchor]]
+id = "region-inference-default-global"
+source_id = "86972328a91132da"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+call.
+
+| Value | Description |
+| --- | --- |
+| `"global"` | """
+exact = "Default. Inference may run in any available geography for optimal performance and availability."
+suffix = """
+ |
+| `"us"` | Inference runs only in US-based infrastructure"""
+
+[[anchor]]
+id = "retention-api-30d"
+source_id = "6c31e6bc0ff3a496"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+
+
+## Standard Retention Timeframe
+
+For Anthropic API users, """
+exact = "we automatically delete inputs and outputs on our backend within 30 days of receipt or generation"
+suffix = """
+, except:
+
+If you use our other commercial products (e.g. Cl"""
+
+[[anchor]]
+id = "zdr-api-not-stored"
+source_id = "846f5cf1e7056895"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "subject to Anthropic’s approval, may have arrangements under which "
+exact = "Anthropic does not store their inputs or outputs except where needed to comply with law or combat misuse or harm"
+suffix = "Under these arrangements, Anthropic still retains User Safety"
+
+[[anchor]]
+id = "role-dpa-incorporation"
+source_id = "7dea3b226d0f0caf"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ together are “**Customer Content**”).
+
+## C. Data Privacy
+
+"""
+exact = "Data submitted through the Services will be processed in accordance with the"
+suffix = " [Anthropic Data Processing Addendum](https://www.anthropic."
+
+[[anchor]]
+id = "scope-not-for-consumer"
+source_id = "7dea3b226d0f0caf"
+topics = []
+
+[anchor.selector]
+prefix = "ty unless you have the legal authority to bind that entity. "
+exact = "Services under these Terms are not for consumer use."
+suffix = " Our consumer offerings (e.g., Claude.ai) are governed by ou"
+
+[[anchor]]
+id = "region-scc-modules"
+source_id = "200243637a38e41f"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " to the extent required by Applicable Data Protection Laws, "
+exact = "the terms of the SCCs Module Two (controller to processor) and/or Module Three (processor to processor)"
+suffix = ", as completed as described in Schedule 3 of this DPA, are h"
+
+[[anchor]]
+id = "zdr-not-stored"
+source_id = "6bc4022c8696d7c6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ed.
+
+## Zero data retention (ZDR)
+
+Under a ZDR arrangement, """
+exact = "Anthropic does not store customer prompts or responses at rest after the API response is returned."
+suffix = " To request ZDR for your organization, contact the [Anthropi"
+
+[[anchor]]
+id = "retention-api-default"
+source_id = "6bc4022c8696d7c6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " technically necessary for the feature to work is retained. "
+exact = "Conversation content (your prompts and Claude's outputs) is not retained by default"
+suffix = "; the exception is [Covered Models](https://platform.claude."
+
+[[anchor]]
+id = "zdr-per-org"
+source_id = "6bc4022c8696d7c6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "e [Anthropic sales team](https://claude.com/contact-sales). "
+exact = "ZDR is enabled per organization; each new organization requires ZDR to be enabled separately by your account team"
+suffix = ", and enablement does not automatically extend to other orga"
+
+[[anchor]]
+id = "zdr-consumer-excluded"
+source_id = "6bc4022c8696d7c6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+st until you delete them.
+*   **Claude consumer products:** """
+exact = "Claude Free, Pro, and Max plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code."
+suffix = """
+
+*   **Claude Teams and Claude Enterprise product interfaces"""
+
+[[anchor]]
+id = "role-api-processor"
+source_id = "6bc4022c8696d7c6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "com/docs/en/build-with-claude/claude-in-microsoft-foundry), "
+exact = "where Anthropic is the data processor"
+suffix = ". On Amazon Bedrock and Google Cloud's Agent Platform, the c"
+
+[[anchor]]
+id = "region-controls"
+source_id = "86972328a91132da"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ce runs and where data is stored with geographic controls.
+
+"""
+exact = "Data residency controls let you manage where your data is processed and stored."
+suffix = """
+ Two independent settings govern this:
+
+*   **Inference geo:"""
+
+[[anchor]]
+id = "region-workspace-us-only"
+source_id = "86972328a91132da"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "workspace and can't be changed afterward. Currently, `\"us\"` "
+exact = "is the only available workspace geo."
+suffix = """
+
+
+To set workspace geo, create a new workspace in the [Conso"""
+
+[[anchor]]
+id = "retention-violation-2y7y"
+source_id = "6c31e6bc0ff3a496"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ices-for-mythos-class-models).
+
+## Usage Policy Violations
+
+"""
+exact = "We retain inputs and outputs for up to 2 years and trust and safety classification scores for up to 7 years"
+suffix = " if your chat is flagged by our automated trust and safety s"
+
+[[anchor]]
+id = "zdr-api-products-scope"
+source_id = "846f5cf1e7056895"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Under these agreements, "
+exact = "the only products to which zero data retention applies are eligible Anthropic APIs"
+suffix = ", Anthropic products that use your Commercial organization API key (including Claude Code accessed via the API), and Claude Code for Enterprise plans"
+
+[[anchor]]
+id = "zdr-distinct-from-default-retention"
+source_id = "846f5cf1e7056895"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "[Usage Policy](https://anthropic.com/legal/aup). "
+exact = "These arrangements are distinct from Anthropic’s default approach to data retention"
+suffix = "(https://privacy.anthropic.com/en/articles/7996866-how-long-do-you-store-personal-data)."
+
+[[anchor]]
+id = "cc-consumer-training-on"
+source_id = "06b2864aaa7d8bc3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "allow your data to be used to improve future Claude models. "
+exact = "We will train new models using data from Free, Pro, and Max accounts when this setting is on"
+suffix = " (including when you use Claude Code from these accounts).**"
+
+[[anchor]]
+id = "cc-commercial-training"
+source_id = "06b2864aaa7d8bc3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "arty platforms, and Claude Gov) maintain existing policies: "
+exact = "Anthropic does not train generative models using code or prompts sent to Claude Code under commercial terms"
+suffix = ", unless the customer has chosen to provide their data to us"
+
+[[anchor]]
+id = "cc-retention-30d"
+source_id = "06b2864aaa7d8bc3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+od to support model development and safety improvements
+*   """
+exact = "Users who don’t allow data use for model improvement: 30-day retention period"
+suffix = """
+
+*   Privacy settings can be changed at any time at [claude."""
+
+[[anchor]]
+id = "zdr-cc-enterprise-only"
+source_id = "6ec9ee63f18ed3f3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+g scope, disabled features, and how to request enablement.
+
+"""
+exact = "Zero Data Retention (ZDR) for Claude Code is available to qualified accounts on Claude for Enterprise."
+suffix = " When ZDR is enabled, prompts and model responses generated "

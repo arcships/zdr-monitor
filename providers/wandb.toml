@@ -1,0 +1,1168 @@
+name = "CoreWeave"
+line = "wandb"
+site = "global"
+entity = "Weights and Biases, LLC"
+endpoint = ""
+doc = "https://wandb.ai/site/terms"
+
+[[source]]
+url = "https://docs.wandb.ai/inference/response-settings/prefix-caching"
+channel = "developer_data"
+tier = "core"
+note = "Serverless Inference 前缀缓存文档：默认情况下相同 prompt 前缀的请求会在共享基础设施上复用 KV cache，只有传 cache_salt 才隔离；文档未披露缓存条目的保留时长或清除规则。是 zdr 维度的反向证据（默认存在跨请求缓存复用）。经 .md 直连通道核对。"
+
+[[source]]
+url = "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated_regions"
+channel = "developer_data"
+tier = "core"
+note = "Dedicated Cloud 支持区域清单：AWS/GCP/Azure 各自列出的具体 region（含美国、加拿大、欧洲多区、东京/首尔/新加坡/悉尼/孟买）。是「专属云可选区域」的证据，不代表多租户 SaaS 可选区域。经 .md 直连通道核对。"
+
+[[source]]
+url = "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud"
+channel = "developer_data"
+tier = "core"
+note = "W&B Dedicated Cloud 部署文档：专属隔离基础设施、跨 AWS/GCP/Azure 多区域、删除后默认保留 7 天可恢复且可用 GORILLA_DATA_RETENTION_PERIOD 或 Helm env.dataRetentionPeriod 调整；HIPAA 需签 BAA。经 .md 直连通道核对。"
+
+[[source]]
+url = "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud"
+channel = "developer_data"
+tier = "core"
+note = "W&B Multi-tenant Cloud 部署文档（SaaS 档）：区域（W&B 自有 Google Cloud 账户、Google Cloud North America 区域）、Data retention policy（Runs and history / 非 artifact run 文件 / artifacts 删除后保留 7 天可恢复）、Free 与 Pro 计划共用共享存储与共享算力、Enterprise 可 BYOB。经 docs.wandb.ai 的 .md 直连通道核对。"
+
+[[source]]
+url = "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed"
+channel = "developer_data"
+tier = "core"
+note = "W&B Self-Managed（W&B Server，客户自有云或本地基础设施）文档：数据驻留、网络隔离与合规由客户自控，W&B 只通过 deploy.wandb.ai 下发 operator spec。经 .md 直连通道核对。"
+
+[[source]]
+url = "https://wandb.ai/site/ai-terms"
+channel = "contract"
+tier = "core"
+note = "W&B AI Terms（Last updated: August 4, 2026），只适用于 AI Features（定义含第三方或开源 AI 技术、AI 模型与平台）。明文规定与 MSA 冲突时以 AI Terms 为准，因此 AI Features 范围内的 Customer Data 授权与 Input/Output 定性以本文件为最高权威。正文为逐条段落（每行一整段），四步验证的自动行数启发式会低估，人工判定为合同正文。"
+
+[[source]]
+url = "https://wandb.ai/site/baa"
+channel = "contract"
+tier = "core"
+note = "W&B Business Associate Agreement（HIPAA）。适用范围明文限定为 (i) Models with Dedicated Cloud BYOB Deployment 与 (ii) Weave on Dedicated Cloud BYOB (GCP 和 AWS)，即只有专属云自带存储桶档才有 BAA；含「Business Associate generally cannot view Customer Data」与终止时 PHI 销毁或返还条款。"
+
+[[source]]
+url = "https://wandb.ai/site/dpa"
+channel = "contract"
+tier = "core"
+note = "W&B Data Processing Addendum（/site/wb-dpa 为同一文档的另一路径；DPA 正文写明它是 MSA 的一部分，MSA 页脚「DPA」也指向本页）。是 role 与 retention 的合同层权威：§6 角色（Customer=controller / Company=processor）、§8 子处理者（指向 Subprocessor Site）、§9 返还或删除、Schedule 2 Annex I 处理范围与保留期、Annex II 安全措施（每日备份、应请求 30 天内删除）、Schedule 4 CCPA 服务提供者条款。"
+
+[[source]]
+url = "https://wandb.ai/site/security/"
+channel = "trust_center"
+tier = "core"
+note = "W&B Security 页，含 DPA §8 所指向的 Subprocessors 表（同一内容另有 site.wandb.ai/security/ 与 security.wandb.ai 两个镜像，正文一致）。给出各子处理者所在地与用途，是 processing_region 与多跳链路的关键证据：AWS/Azure/GCP/ClickHouse 为「United States or as chosen by Customer」，Datadog/Hex 为美国，Anthropic 与 OpenAI 列为「Generative AI services」子处理者，Modal Labs 为 agent sandbox。本页无任何保留期或零保留条款。"
+
+[[source]]
+url = "https://wandb.ai/site/terms"
+channel = "contract"
+tier = "core"
+note = "W&B Master Service Agreement（页内 Last updated: August 4, 2026；/site/wb-terms 为同一文档的另一路径）。覆盖 W&B SaaS 全部部署档位：§2(a) Multi-Tenant Public Cloud / Dedicated Cloud、§2(b) Customer Managed Single-Tenant Cloud / On-Premise、§2(e) Free 与 Academic 客户数据可用于 testing and development、§4(a) Customer Data 使用授权、§4(d) BAA 仅限 Enterprise 且须写入 Order Form、§6(d) 终止后删除、§9(c) Input/Output 视为 Customer Data、§14(d) 文件优先级 Order Form > Agreement > DPA > BAA。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "ai-terms-customer-data-use-grant"
+
+[[product.training.point]]
+text = "API tier (Serverless Inference): the contract grants a product-improvement license and never excludes model training, so under the house rule (a \"service improvement / quality\" grant counts as training) this is mark=no. Item by item: AI Terms §4 \"Customer grants W&B the right to use Customer Data to (i) provide and support the W&B Assets (including the AI Features), (ii) develop new product offerings, and (iii) improve the W&B Assets (including the AI Features), subject to any Customer configured settings, if applicable.\""
+text_zh = "API 档（Serverless Inference）：合同层给的是「产品改进授权」，且全文没有把模型训练排除在外，按本仓口径（「改进服务/提高质量」类授权算训练）记 mark=no（会训练）。逐条依据：AI Terms §4「Customer grants W&B the right to use Customer Data to (i) provide and support the W&B Assets (including the AI Features), (ii) develop new product offerings, and (iii) improve the W&B Assets (including the AI Features), subject to any Customer configured settings, if applicable.」"
+
+[[product.training.point]]
+text = "The AI Terms expressly prevail over the MSA (\"In the event of a conflict between the AI Terms and the Agreement, the AI Terms will control\"). MSA §4(a) is a parallel platform-level grant (\"provide and improve the W&B Assets / develop new product offerings / providing and improving AI Features\"). Point of uncertainty about applicability: whether Serverless Inference falls within the \"AI Features\" as defined in the AI Terms (a definition covering \"third-party or open source artificial intelligence technologies\") is not stated by name in the public documentation"
+text_zh = "AI Terms 明文优先于 MSA（「In the event of a conflict between the AI Terms and the Agreement, the AI Terms will control」）。MSA §4(a) 是并行的平台层授权（「provide and improve the W&B Assets / develop new product offerings / providing and improving AI Features」）。适用性不确定处：Serverless Inference 是否属于 AI Terms 定义的「AI Features」（该定义覆盖「third-party or open source artificial intelligence technologies」），公开文档未明确点名"
+
+[[product.training.point]]
+text = "If it does not, only MSA §4(a) applies and the conclusion points the same way. One further hard fact: MSA §2(e) \"W&B may use Customer Data from free and academic customers for testing and development purposes\" — data from Free and Academic customers may additionally be used for testing and development, a clause the paid tiers do not have. Upstream hop: AI Terms §1 states that Third-Party AI is not a W&B Asset and that its conduct is not governed by W&B"
+text_zh = "若不属，则只有 MSA §4(a) 适用，结论方向相同。另一条硬事实：MSA §2(e)「W&B may use Customer Data from free and academic customers for testing and development purposes」——Free 与 Academic 档客户的数据可另用于 testing and development，付费档无此条。上游跳：AI Terms §1 声明 Third-Party AI 不是 W&B Assets、其行为不受 W&B 约束"
+
+[[product.training.point]]
+text = "The subprocessor table on the Security page lists Anthropic/OpenAI as \"Generative AI services\" subprocessors, but whether those subprocessors sit on the open-source model inference path of Serverless Inference is not explained in the public documentation (the product page says inference \"runs directly on CoreWeave infrastructure\")."
+text_zh = "Security 页子处理者表把 Anthropic/OpenAI 列为「Generative AI services」子处理者，但这些子处理者是否在 Serverless Inference 的开源模型推理链上，公开文档未说明（产品页称推理「runs directly on CoreWeave infrastructure」）。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.zdr.point]]
+text = "None of this vendor's documents (MSA, AI Terms, DPA including Schedules 1-4 and the security annex, BAA, the Security page and Subprocessors table, the current privacy policy, the pricing page, the legal-home index, Support Policy, SLA, the inference / hosting / weave pages on docs.wandb.ai, and the site-wide llms.txt index), nor the TOS / DPA / Privacy / Trust Center of CoreWeave in the same group, contains a zero data retention (ZDR) commitment, switch or application method. The closest wording is deletion on request: DPA Annex II \"deletes customer data within 30 days of a customer requesting deletion\", the return or deletion in DPA §9, and deletion after termination under MSA §6(d) — all deletion-triggered, not zero retention by default, and not a ZDR tier that can be enabled. The single hit from the automated scan, \"not retain, use or disclose any personal information...\" (DPA Schedule 4, CCPA), is the boilerplate service-provider purpose limitation, which syntactically even allows retention in order to perform the contract, and cannot serve as ZDR evidence (the old record identified this and this round's re-check keeps it). Observations pointing the other way (not equivalent to the vendor not offering ZDR): (1) the inference prefix cache reuses the KV cache across requests on shared infrastructure by default, with only cache_salt available to isolate it"
+text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全附录、BAA、Security 页与 Subprocessors 表、现行隐私政策、定价页、legal-home 索引、Support Policy、SLA、docs.wandb.ai 的 inference / hosting / weave 页、llms.txt 全站索引）以及同集团 CoreWeave 的 TOS / DPA / Privacy / Trust Center，均无零保留（ZDR）承诺、开关或申请方式。最接近的表述是「应请求删除」：DPA Annex II「deletes customer data within 30 days of a customer requesting deletion」、DPA §9 的返还或删除、MSA §6(d) 终止后删除——都是删除触发型，不是默认零保留，也不是可开通的 ZDR 档。自动扫描唯一命中的「not retain, use or disclose any personal information...」（DPA Schedule 4 CCPA）是服务提供者用途限制模板句，句法上甚至允许为履约而保留，不能当 ZDR 证据（旧记录已识别此点，本轮复核维持）。反向观察（不等于厂商不提供 ZDR）：(1) 推理前缀缓存默认在共享基础设施上跨请求复用 KV cache，仅 cache_salt 可隔离"
+
+[[product.zdr.point]]
+text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
+text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked."
+text_zh = "(3) MSA/AI Terms 授予 W&B 使用 Customer Data 改进产品与 AI Features 的宽泛权利。按规则记 not_found：公开文档未披露 ≠ 厂商不提供。未核项：trust.coreweave.com 门禁门户（需客户账号）未核。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.retention.point]]
+text = "Object and context have to be written separately; MSA §9(c) \"Input and Output are deemed to be Customer Data\" must not be read straight off as \"inference inputs and outputs are kept long term\". (1) Inference inputs and outputs (prompt/response): the vendor discloses no retention period and makes no \"deleted once processed\" commitment"
+text_zh = "对象与语境必须分开写，别把 MSA §9(c)「Input and Output are deemed to be Customer Data」直接读成「推理输入输出被长期保存」。(1) 推理输入输出（prompt/response）：官方未披露任何保留期，也没有「处理完即删」承诺"
+
+[[product.retention.point]]
+text = "All that can be cited is the classification — MSA §9(c) / AI Terms §2 treat Input and Output as Customer Data. (2) Personal Data (the part of Customer Data that is personal data): DPA Schedule 2 Annex I \"The period for which the personal data will be retained... For the term of the Agreement\", i.e. the life of the contract"
+text_zh = "能被引用的只有定性——MSA §9(c)/AI Terms §2 把 Input/Output 视为 Customer Data。(2) Personal Data（Customer Data 中构成个人数据的部分）：DPA Schedule 2 Annex I「The period for which the personal data will be retained... ‍For the term of the Agreement」，即合同存续期"
+
+[[product.retention.point]]
+text = "Deleted or returned on termination or on the customer's written request (DPA §9)"
+text_zh = "终止或应客户书面请求时删除或返还（DPA §9）"
+
+[[product.retention.point]]
+text = "DPA Annex II「Weights and Biases, LLC deletes customer data within 30 days of a customer requesting deletion」"
+
+[[product.retention.point]]
+text = "MSA §6(d) deletion after termination, \"W&B will initiate deletion within 30 days of receipt\". (3) Backups: DPA Annex II \"performs backups daily and retains them in accordance with a predefined schedule in the Backup Policy\" — the Backup Policy itself is not public, so backup retention cannot be quantified. (4) Platform objects (run data / artifacts / logs): kept for 7 days after deletion and recoverable within that window (the Multi-tenant Cloud and Dedicated Cloud documentation and the Artifacts documentation all say the same), adjustable on Dedicated Cloud through GORILLA_DATA_RETENTION_PERIOD"
+text_zh = "MSA §6(d) 终止后删除、「W&B will initiate deletion within 30 days of receipt」。(3) 备份：DPA Annex II「performs backups daily and retains them in accordance with a predefined schedule in the Backup Policy」——Backup Policy 本身不公开，故备份保留期无法量化。(4) 平台对象（run 数据 / artifacts / 日志）：删除后保留 7 天可恢复（Multi-tenant Cloud 与 Dedicated Cloud 文档、Artifacts 文档同口径），Dedicated Cloud 可用 GORILLA_DATA_RETENTION_PERIOD 调整"
+
+[[product.retention.point]]
+text = "That is a post-deletion recovery window, not a retention period for request content. (5) Weave side: the pricing FAQ defines ingested bytes as including LLM inputs and outputs and counts them towards long term storage, but gives no number of days. Conclusion type: no quantified uniform period (unspecified), deletion-triggered plus retention for the term of the contract."
+text_zh = "这是「删除后恢复窗口」，不是「请求内容保留期」。(5) Weave 侧：定价 FAQ 明确定义 ingested bytes 含 LLM inputs/outputs 且计入 long term storage，但未给天数。结论类型：无量化统一期限（unspecified），删除触发型 + 合同期保留。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "mtc-region-gcp-north-america"
+
+[[product.processing_region.point]]
+text = "Terms level: Multi-tenant Cloud (the platform Serverless Inference sits on) is deployed in W&B's own Google Cloud account, in Google Cloud North America regions"
+text_zh = "条款层：Multi-tenant Cloud（含 Serverless Inference 所在平台）部署在 W&B 自己的 Google Cloud 账户、Google Cloud 北美区域"
+
+[[product.processing_region.point]]
+text = "Artifact files are uploaded to a Google Cloud bucket"
+text_zh = "artifact 文件上传到 Google Cloud bucket"
+
+[[product.processing_region.point]]
+text = "Weave multi-tenant data sits in a shared ClickHouse Cloud cluster. The inference request itself has no separate regional disclosure: the docs say only that Inference is accessible from supported geographic locations (usage-limits §Geographic restrictions) and point to the geographic restrictions in the CoreWeave Terms of Use for detail — that section is in fact a statement about the availability of site content outside the United States, not a data residency rule or an eligibility list, so the pointer is broken (a documentation error on the same page). Subprocessor locations (Security page table): AWS/Azure/GCP/ClickHouse \"United States or as chosen by Customer\", Datadog/Hex United States, Anthropic/OpenAI \"United States and other countries where X operates\", Modal Labs the same. \"As chosen by Customer\" corresponds to the region choice on the dedicated cloud tier and is not an option on multi-tenant SaaS. By contrast: Dedicated Cloud supports multiple AWS/GCP/Azure regions (Europe and Asia-Pacific included)"
+text_zh = "Weave 多租户档数据存在共享 ClickHouse Cloud 集群。推理请求本身没有独立的区域披露：docs 只写 Inference 仅可从受支持地理位置访问（usage-limits §Geographic restrictions），并把细节指向 CoreWeave Terms of Use 的 geographic restrictions——该节实际是「网站内容在美国境外可访问性」声明，不是数据驻留或资格清单，这条指路是坏的（同页文档错误）。子处理者所在地（Security 页表）：AWS/Azure/GCP/ClickHouse「United States or as chosen by Customer」、Datadog/Hex 美国、Anthropic/OpenAI「United States and other countries where X operates」、Modal Labs 同。「as chosen by Customer」对应专属云档的区域可选，不是多租户 SaaS 的可选项。对照：Dedicated Cloud 支持 AWS/GCP/Azure 多区域（含欧洲与亚太）"
+
+[[product.processing_region.point]]
+text = "Self-Managed runs entirely in the customer's infrastructure. Unchecked: the siting of CoreWeave's own data centers (coreweave.com/trust claims the United States and Europe) is not a processing-location commitment for W&B SaaS and is recorded alongside only."
+text_zh = "Self-Managed 完全在客户基础设施。未核项：CoreWeave 自有数据中心选址（coreweave.com/trust 称美国与欧洲）不是 W&B SaaS 的处理地承诺，仅并列记录。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-6-customer-controller-company-processor"
+
+[[product.role.point]]
+text = "Verbatim contract clause (the one the old record lacked): DPA §6 \"Customer is the controller (or is acting on behalf of the controller) and Company is the processor\""
+text_zh = "合同层逐字条款（这是旧记录缺的）：DPA §6「Customer is the controller (or is acting on behalf of the controller) and Company is the processor」"
+
+[[product.role.point]]
+text = "DPA Schedule 2 Annex I「Role: Processor (or Subprocessor as the case may be)」"
+
+[[product.role.point]]
+text = "DPA §8(a): the customer authorizes W&B to appoint subprocessors, with the subprocessor list on the Subprocessor Site (= the subprocessor table at wandb.ai/site/security/). Supplementary side: (a) the current privacy policy (CoreWeave) designates itself controller for personal data outside the platform — \"CoreWeave is the controller of personal data collected directly through the Sites or outside of Customer Data\""
+text_zh = "DPA §8(a) 客户授权 W&B 指定子处理者，子处理者清单在 Subprocessor Site（= wandb.ai/site/security/ 的子处理者表）。补充面：(a) 现行隐私政策（CoreWeave）在平台外的个人数据上自认 controller——「CoreWeave is the controller of personal data collected directly through the Sites or outside of Customer Data」"
+
+[[product.role.point]]
+text = "For data the customer uploads, \"you are the controller ... and CoreWeave is the processor\". (b) In the BAA, W&B says of itself that \"Business Associate generally cannot view Customer Data\" (Dedicated Cloud BYOB tier only). (c) A support article acknowledges that W&B staff can access logged values with permission, and that isolation requires Self-Managed. Multi-hop: the Third-Party AI behind AI Features are subprocessors rather than W&B itself (Anthropic/OpenAI are listed as Generative AI services), their processing is governed by their own terms, and W&B's processor commitment does not automatically cover them."
+text_zh = "对客户上传的数据则「you are the controller ... and CoreWeave is the processor」。(b) BAA 里 W&B 自述「Business Associate generally cannot view Customer Data」（仅 Dedicated Cloud BYOB 档）。(c) 支持文章承认 W&B 员工经许可可访问 logged values，隔离需 Self-Managed。多跳：AI Features 的 Third-Party AI 是子处理者而非 W&B 自身（Anthropic/OpenAI 列为 Generative AI services），其处理受各自条款约束，W&B 的 processor 承诺不自动覆盖它们。"
+
+[[product]]
+id = "saas-multi-tenant"
+badge = "多租户付费版"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "ai-terms-customer-data-use-grant"
+
+[[product.training.point]]
+text = "Same source as the api tier (AI Terms §4 prevailing plus MSA §4(a) in parallel); the grant covers \"develop new product offerings\" and \"improve the W&B Assets\" and never excludes model training, so mark=no. The paid tiers (Pro/Enterprise) have no equivalent of MSA §2(e), under which data from free and academic customers may additionally be used for testing and development. The words \"train models\" appear nowhere, and there is no \"no training\" commitment."
+text_zh = "与 api 档同源（AI Terms §4 优先 + MSA §4(a) 并行）；该授权含「develop new product offerings」与「improve the W&B Assets」且未把模型训练排除在外，按口径记 mark=no（会训练）。付费档（Pro/Enterprise）没有 MSA §2(e) 那条「free and academic customers 的数据可另用于 testing and development」。全文无「训练模型」字样，也无「不训练」承诺。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.zdr.point]]
+text = "None of this vendor's documents (MSA, AI Terms, DPA including Schedules 1-4 and the security annex, BAA, the Security page and Subprocessors table, the current privacy policy, the pricing page, the legal-home index, Support Policy, SLA, the inference / hosting / weave pages on docs.wandb.ai, and the site-wide llms.txt index), nor the TOS / DPA / Privacy / Trust Center of CoreWeave in the same group, contains a zero data retention (ZDR) commitment, switch or application method. The closest wording is deletion on request: DPA Annex II \"deletes customer data within 30 days of a customer requesting deletion\", the return or deletion in DPA §9, and deletion after termination under MSA §6(d) — all deletion-triggered, not zero retention by default, and not a ZDR tier that can be enabled. The single hit from the automated scan, \"not retain, use or disclose any personal information...\" (DPA Schedule 4, CCPA), is the boilerplate service-provider purpose limitation, which syntactically even allows retention in order to perform the contract, and cannot serve as ZDR evidence (the old record identified this and this round's re-check keeps it). Observations pointing the other way (not equivalent to the vendor not offering ZDR): (1) the inference prefix cache reuses the KV cache across requests on shared infrastructure by default, with only cache_salt available to isolate it"
+text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全附录、BAA、Security 页与 Subprocessors 表、现行隐私政策、定价页、legal-home 索引、Support Policy、SLA、docs.wandb.ai 的 inference / hosting / weave 页、llms.txt 全站索引）以及同集团 CoreWeave 的 TOS / DPA / Privacy / Trust Center，均无零保留（ZDR）承诺、开关或申请方式。最接近的表述是「应请求删除」：DPA Annex II「deletes customer data within 30 days of a customer requesting deletion」、DPA §9 的返还或删除、MSA §6(d) 终止后删除——都是删除触发型，不是默认零保留，也不是可开通的 ZDR 档。自动扫描唯一命中的「not retain, use or disclose any personal information...」（DPA Schedule 4 CCPA）是服务提供者用途限制模板句，句法上甚至允许为履约而保留，不能当 ZDR 证据（旧记录已识别此点，本轮复核维持）。反向观察（不等于厂商不提供 ZDR）：(1) 推理前缀缓存默认在共享基础设施上跨请求复用 KV cache，仅 cache_salt 可隔离"
+
+[[product.zdr.point]]
+text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
+text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked."
+text_zh = "(3) MSA/AI Terms 授予 W&B 使用 Customer Data 改进产品与 AI Features 的宽泛权利。按规则记 not_found：公开文档未披露 ≠ 厂商不提供。未核项：trust.coreweave.com 门禁门户（需客户账号）未核。"
+
+[product.retention]
+days = 7
+object = "mixed"
+basis = "fixed_period"
+anchor = "mtc-retention-7-days-after-deletion"
+
+[[product.retention.point]]
+text = "Split by object: (a) Runs and history, non-artifact run files (media/config/log), artifacts and artifact references — kept for 7 days after deletion, recoverable within that window and purged afterwards (Multi-tenant Cloud documentation; the Artifacts documentation says the same). (b) Weave trace data (LLM inputs and outputs included) sits in a shared ClickHouse Cloud cluster and is expressly counted towards long term storage by the pricing FAQ, with no retention period in days; deletion goes through the Call delete API/UI. (c) Personal Data: DPA Annex I for the term of the contract + deletion within 30 days of a request (Annex II) + daily backups under the Backup Policy (not public). (d) Free/Pro data is entirely in shared storage; Enterprise can use BYOB (customer-controlled storage). There is no request-level commitment of the \"request content deleted after X days\" kind."
+text_zh = "对象拆开：(a) Runs and history、非 artifact run 文件（media/config/log）、artifacts 与 artifact references —— 删除后保留 7 天、期内可恢复，之后清除（Multi-tenant Cloud 文档；Artifacts 文档同口径）。(b) Weave 的 trace 数据（含 LLM inputs/outputs）存于共享 ClickHouse Cloud 集群，定价 FAQ 明确计入 long term storage，未给保留天数，删除需走 Call delete API/UI。(c) Personal Data：DPA Annex I 合同存续期 + 应请求 30 天内删除（Annex II）+ 每日备份按 Backup Policy（不公开）。(d) Free/Pro 档数据全部在共享存储，Enterprise 可 BYOB（自控存储）。没有「请求内容 X 天后删除」这类请求级承诺。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "mtc-region-gcp-north-america"
+
+[[product.processing_region.point]]
+text = "The multi-tenant SaaS is deployed in North America regions of W&B's own Google Cloud account"
+text_zh = "多租户 SaaS 部署在 W&B 自有 Google Cloud 账户的北美区域"
+
+[[product.processing_region.point]]
+text = "Free/Pro data lives only in shared storage and on shared compute"
+text_zh = "Free/Pro 档数据只在共享存储与共享算力"
+
+[[product.processing_region.point]]
+text = "Enterprise can use BYOB (the bucket location is chosen by the customer, but platform metadata and Weave stay on W&B's side)"
+text_zh = "Enterprise 可 BYOB（存储桶位置由客户选，但平台元数据与 Weave 仍在 W&B 侧）"
+
+[[product.processing_region.point]]
+text = "Weave on the multi-tenant tier sits in a shared ClickHouse Cloud cluster. Subprocessors may include Anthropic/OpenAI/Modal (located in the United States and the other countries where each operates). No data residency option is disclosed."
+text_zh = "Weave 多租户档在共享 ClickHouse Cloud 集群。子处理者可含 Anthropic/OpenAI/Modal（所在地为美国及各自运营的其他国家）。无数据驻留选项披露。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-6-customer-controller-company-processor"
+
+[[product.role.point]]
+text = "Same as the api tier: DPA §6 Customer = controller / Company = processor"
+text_zh = "同 api 档：DPA §6 Customer=controller / Company=processor"
+
+[[product.role.point]]
+text = "Annex I Role: Processor. The BYOB tier can also sign a BAA (applicable only to Dedicated Cloud BYOB)."
+text_zh = "Annex I Role: Processor。BYOB 档另有 BAA（Dedicated Cloud BYOB 才适用）。"
+
+[[product]]
+id = "saas-free-academic"
+badge = "免费学术版"
+category = "api"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "msa-2e-free-academic-testing-development"
+
+[[product.training.point]]
+text = "This is the vendor's only data-use clause that distinguishes tiers expressly: MSA §2(e) \"W&B may use Customer Data from free and academic customers for testing and development purposes.\" — Customer Data from Free and Academic customers may be used for testing and development, a grant the paid tiers do not have. The pricing page confirms that Academic is a free tier (free academic license) and that Free is \"For personal projects only. Corporate use is not allowed.\" Note the semantic boundary: the clause says testing and development, which is not the same as \"training models\""
+text_zh = "这是本家唯一一条按档位明确区分的数据用途条款：MSA §2(e)「W&B may use Customer Data from free and academic customers for testing and development purposes.」——Free 与 Academic 客户的 Customer Data 可被用于 testing and development，付费档无此授权。定价页确认 Academic 为免费档（free academic license）、Free 档「For personal projects only. Corporate use is not allowed.」。注意语义边界：条款写的是 testing and development，不等于「训练模型」"
+
+[[product.training.point]]
+text = "But it is an extra use grant written expressly into the contract, whereas the paid tiers have only the \"improve the products\" grant in §4(a) / the AI Terms. If a company runs production traffic on a free tier, this clause applies directly."
+text_zh = "但它是明确写在合同里的额外用途授权，而付费档只有 §4(a)/AI Terms 的「改进产品」授权。公司若用免费档跑生产流量，本条直接适用。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.zdr.point]]
+text = "None of this vendor's documents (MSA, AI Terms, DPA including Schedules 1-4 and the security annex, BAA, the Security page and Subprocessors table, the current privacy policy, the pricing page, the legal-home index, Support Policy, SLA, the inference / hosting / weave pages on docs.wandb.ai, and the site-wide llms.txt index), nor the TOS / DPA / Privacy / Trust Center of CoreWeave in the same group, contains a zero data retention (ZDR) commitment, switch or application method. The closest wording is deletion on request: DPA Annex II \"deletes customer data within 30 days of a customer requesting deletion\", the return or deletion in DPA §9, and deletion after termination under MSA §6(d) — all deletion-triggered, not zero retention by default, and not a ZDR tier that can be enabled. The single hit from the automated scan, \"not retain, use or disclose any personal information...\" (DPA Schedule 4, CCPA), is the boilerplate service-provider purpose limitation, which syntactically even allows retention in order to perform the contract, and cannot serve as ZDR evidence (the old record identified this and this round's re-check keeps it). Observations pointing the other way (not equivalent to the vendor not offering ZDR): (1) the inference prefix cache reuses the KV cache across requests on shared infrastructure by default, with only cache_salt available to isolate it"
+text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全附录、BAA、Security 页与 Subprocessors 表、现行隐私政策、定价页、legal-home 索引、Support Policy、SLA、docs.wandb.ai 的 inference / hosting / weave 页、llms.txt 全站索引）以及同集团 CoreWeave 的 TOS / DPA / Privacy / Trust Center，均无零保留（ZDR）承诺、开关或申请方式。最接近的表述是「应请求删除」：DPA Annex II「deletes customer data within 30 days of a customer requesting deletion」、DPA §9 的返还或删除、MSA §6(d) 终止后删除——都是删除触发型，不是默认零保留，也不是可开通的 ZDR 档。自动扫描唯一命中的「not retain, use or disclose any personal information...」（DPA Schedule 4 CCPA）是服务提供者用途限制模板句，句法上甚至允许为履约而保留，不能当 ZDR 证据（旧记录已识别此点，本轮复核维持）。反向观察（不等于厂商不提供 ZDR）：(1) 推理前缀缓存默认在共享基础设施上跨请求复用 KV cache，仅 cache_salt 可隔离"
+
+[[product.zdr.point]]
+text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
+text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked."
+text_zh = "(3) MSA/AI Terms 授予 W&B 使用 Customer Data 改进产品与 AI Features 的宽泛权利。按规则记 not_found：公开文档未披露 ≠ 厂商不提供。未核项：trust.coreweave.com 门禁门户（需客户账号）未核。"
+
+[product.retention]
+days = 7
+object = "mixed"
+basis = "fixed_period"
+anchor = "mtc-retention-7-days-after-deletion"
+
+[[product.retention.point]]
+text = "The same 7-day post-deletion recovery window and DPA retention clauses as the paid SaaS tier"
+text_zh = "与付费 SaaS 档相同的删除后 7 天恢复窗口与 DPA 保留条款"
+
+[[product.retention.point]]
+text = "The differences are quota and storage location: the Free tier has only shared storage, 5 GB/mo of storage and 1 GB/mo of Weave ingestion (pricing page), beyond which an upgrade or purchase is required. Note the other side: §2(e) permits free/academic data to be used for testing and development, which means such data is retained and used within the contractually permitted purposes, but the vendor gives no separate retention period for that use."
+text_zh = "差别在额度与存储位置：Free 档只有共享存储、5 GB/mo 存储与 1 GB/mo Weave 摄入（定价页），超过限额需升级或购买。反向注意：§2(e) 允许 free/academic 数据用于 testing and development，意味着这些数据在合同允许的用途下被留存与使用，但官方未给该用途下的独立保留期。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "mtc-free-pro-shared-storage"
+
+[[product.processing_region.point]]
+text = "Free tier data lives only in shared cloud storage and on shared compute (the documentation names Free/Pro expressly), with no region or bucket choice."
+text_zh = "Free 档数据只在共享云存储与共享算力上（文档明文点名 Free/Pro），无区域或存储桶选择。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-6-customer-controller-company-processor"
+
+[[product.role.point]]
+text = "The DPA does not distinguish by paid tier: Free/Academic customers are likewise Customer = controller / Company = processor. A BAA is available only on the Dedicated Cloud BYOB tier."
+text_zh = "DPA 不按付费档区分，Free/Academic 客户同样是 Customer=controller / Company=processor。BAA 仅 Dedicated Cloud BYOB 档可选。"
+
+[[product]]
+id = "dedicated-cloud"
+badge = "专属云"
+category = "api"
+label = "另有自管版（Self-managed，部署在客户自己的基础设施上）：厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "no"
+anchor = "ai-terms-customer-data-use-grant"
+
+[[product.training.point]]
+text = "The same set of contract clauses as the SaaS tiers (AI Terms §4 + MSA §4(a)), which grant use of Customer Data to develop and improve the offerings without excluding model training, so mark=no. Dedicated Cloud is an isolated deployment, but the text granting use of Customer Data does not distinguish deployment tiers"
+text_zh = "与 SaaS 档同一组合同条款（AI Terms §4 + MSA §4(a)）：授权使用 Customer Data 做产品开发与改进、未排除模型训练，按口径记 mark=no（会训练）。Dedicated Cloud 是隔离部署，但 Customer Data 的使用授权文本未按部署档位区分"
+
+[[product.training.point]]
+text = "With BYOB (bring your own bucket) the file content sits in the customer's own bucket and W&B stores only metadata (Artifacts documentation: a reference-type artifact \"only keeps track of the metadata associated with the files, not the files themselves\")."
+text_zh = "BYOB（自带存储桶）时文件内容存在客户自己的桶里，W&B 侧只存元数据（Artifacts 文档：引用型 artifact「only keeps track of the metadata associated with the files, not the files themselves」）。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.zdr.point]]
+text = "None of this vendor's documents (MSA, AI Terms, DPA including Schedules 1-4 and the security annex, BAA, the Security page and Subprocessors table, the current privacy policy, the pricing page, the legal-home index, Support Policy, SLA, the inference / hosting / weave pages on docs.wandb.ai, and the site-wide llms.txt index), nor the TOS / DPA / Privacy / Trust Center of CoreWeave in the same group, contains a zero data retention (ZDR) commitment, switch or application method. The closest wording is deletion on request: DPA Annex II \"deletes customer data within 30 days of a customer requesting deletion\", the return or deletion in DPA §9, and deletion after termination under MSA §6(d) — all deletion-triggered, not zero retention by default, and not a ZDR tier that can be enabled. The single hit from the automated scan, \"not retain, use or disclose any personal information...\" (DPA Schedule 4, CCPA), is the boilerplate service-provider purpose limitation, which syntactically even allows retention in order to perform the contract, and cannot serve as ZDR evidence (the old record identified this and this round's re-check keeps it). Observations pointing the other way (not equivalent to the vendor not offering ZDR): (1) the inference prefix cache reuses the KV cache across requests on shared infrastructure by default, with only cache_salt available to isolate it"
+text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全附录、BAA、Security 页与 Subprocessors 表、现行隐私政策、定价页、legal-home 索引、Support Policy、SLA、docs.wandb.ai 的 inference / hosting / weave 页、llms.txt 全站索引）以及同集团 CoreWeave 的 TOS / DPA / Privacy / Trust Center，均无零保留（ZDR）承诺、开关或申请方式。最接近的表述是「应请求删除」：DPA Annex II「deletes customer data within 30 days of a customer requesting deletion」、DPA §9 的返还或删除、MSA §6(d) 终止后删除——都是删除触发型，不是默认零保留，也不是可开通的 ZDR 档。自动扫描唯一命中的「not retain, use or disclose any personal information...」（DPA Schedule 4 CCPA）是服务提供者用途限制模板句，句法上甚至允许为履约而保留，不能当 ZDR 证据（旧记录已识别此点，本轮复核维持）。反向观察（不等于厂商不提供 ZDR）：(1) 推理前缀缓存默认在共享基础设施上跨请求复用 KV cache，仅 cache_salt 可隔离"
+
+[[product.zdr.point]]
+text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
+text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked. The dedicated cloud tier likewise discloses no zero-retention option"
+text_zh = "(3) MSA/AI Terms 授予 W&B 使用 Customer Data 改进产品与 AI Features 的宽泛权利。按规则记 not_found：公开文档未披露 ≠ 厂商不提供。未核项：trust.coreweave.com 门禁门户（需客户账号）未核。 专属云档同样未披露零保留选项"
+
+[[product.zdr.point]]
+text = "What is configurable is the post-deletion recovery window, not zero retention."
+text_zh = "可配置的是删除后恢复窗口，不是零保留。"
+
+[product.retention]
+days = 7
+object = "mixed"
+basis = "fixed_period"
+anchor = "dc-retention-7-days-after-deletion"
+
+[[product.retention.point]]
+text = "Express statement on the dedicated cloud tier: by default data is kept for 7 days after deletion (Runs and history / non-artifact run files / artifacts and references), and \"you can change the data retention period for your Dedicated Cloud instance\" (the environment variable GORILLA_DATA_RETENTION_PERIOD or Helm env.dataRetentionPeriod, in hours). This is the vendor's only official statement of a configurable retention period. PHI: under the BAA, PHI must be destroyed or returned on termination. Backups follow the Backup Policy (not public). Note: what is configurable is the post-deletion recovery window, not a retention period for request content."
+text_zh = "专属云档明文：默认删除后保留 7 天（Runs and history / 非 artifact run 文件 / artifacts 与 references），且「you can change the data retention period for your Dedicated Cloud instance」（环境变量 GORILLA_DATA_RETENTION_PERIOD 或 Helm env.dataRetentionPeriod，单位小时）。这是本家唯一一处「保留期可配置」的官方表述。PHI：BAA 档终止时 PHI 必须销毁或返还。备份按 Backup Policy（不公开）。注意：可配置的是删除后恢复窗口，不是「请求内容保留期」。"
+
+[product.processing_region]
+codes = ["US", "CA", "JP", "KR", "SG", "AU", "IN"]
+anchor = "dc-regions-supported-global-list"
+
+[[product.processing_region.point]]
+text = "Dedicated Cloud can be deployed as an isolated instance in W&B's own AWS/GCP/Azure accounts, with the region list given per cloud provider (15 AWS, 14 GCP, 9 Azure, Europe and Asia-Pacific included)"
+text_zh = "专属云可部署在 W&B 自有 AWS/GCP/Azure 账户的隔离实例中，区域清单按云厂商列出（AWS 15 个、GCP 14 个、Azure 9 个，含欧洲与亚太）"
+
+[[product.processing_region.point]]
+text = "Weave on the dedicated cloud tier keeps data in a separate ClickHouse cluster in the cloud and region the customer chose"
+text_zh = "Weave 专属云档的数据存在客户所选云与区域的独立 ClickHouse 集群"
+
+[[product.processing_region.point]]
+text = "IP allowlisting and private connectivity can also be configured. The documentation states expressly that this tier serves data residency requirements."
+text_zh = "可另配 IP allowlisting 与私有连接。文档明确该档用于满足 data residency 要求。"
+
+[product.role]
+kind = "processor"
+anchor = "baa-scope-dedicated-cloud-byob-only"
+
+[[product.role.point]]
+text = "The DPA-level role is the same as on the other tiers (Customer = controller / Company = processor). The dedicated cloud tier can additionally sign a BAA, and the BAA expressly covers only (i) Models with Dedicated Cloud BYOB Deployment and (ii) Weave on Dedicated Cloud BYOB (GCP and AWS)"
+text_zh = "DPA 层角色同其他档（Customer=controller / Company=processor）。专属云档额外可签 BAA，且 BAA 明文只覆盖 (i) Models with Dedicated Cloud BYOB Deployment 与 (ii) Weave on Dedicated Cloud BYOB (GCP 和 AWS)"
+
+[[product.role.point]]
+text = "In the BAA, W&B says of itself that \"Business Associate generally cannot view Customer Data\". The processing description in Annex I lists Multi-Tenant Cloud and Dedicated Cloud together as processing \"on a continuous basis\"."
+text_zh = "BAA 中 W&B 自述「Business Associate generally cannot view Customer Data」。Annex I 的处理描述把 Multi-Tenant Cloud 与 Dedicated Cloud 并列为「on a continuous basis」。"
+
+[[product]]
+id = "self-managed"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "msa-4a-customer-data-use-grant"
+mode = "by_tier"
+
+[[product.training.point]]
+text = "On the self-hosted tier W&B has no access to Customer Data inside the platform: the data sits in the customer's own infrastructure, and W&B touches it only during technical support with written consent (DPA Annex I). The MSA §4(a) grant to use Customer Data to improve the products is still in the contract, but its object is data \"transferred to W&B\""
+text_zh = "自建档里 W&B 拿不到平台内的 Customer Data：数据在客户自有基础设施，W&B 仅在技术支持时经书面同意接触（DPA Annex I）。MSA §4(a) 的「使用 Customer Data 改进产品」授权文本仍在合同里，但其对象是「transferred to W&B」的数据"
+
+[[product.training.point]]
+text = "and the self-hosted tier has no default path for transmitting platform data to W&B. Self-Managed also supports air-gapped deployment (the docs mention an air-gapped Kubernetes deployment path). The official documentation writes no separate \"no training\" commitment for the self-hosted tier — the answer on this dimension is that the data does not leave the customer's environment, not a vendor training commitment."
+text_zh = "自建档没有向 W&B 传输平台数据的默认路径。Self-Managed 也支持 air-gapped 部署（docs 提到 air-gapped Kubernetes 部署路径）。官方文档未就自建档单独写「不训练」承诺；合同层的 MSA §4(a) 授权（improve / develop new product offerings）并未把模型训练排除在外，按口径记 mark=no。事实层面的「数据不离开客户环境」是部署形态带来的隔离，不等于厂商的训练承诺，作为并列事实保留。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.zdr.point]]
+text = "None of this vendor's documents (MSA, AI Terms, DPA including Schedules 1-4 and the security annex, BAA, the Security page and Subprocessors table, the current privacy policy, the pricing page, the legal-home index, Support Policy, SLA, the inference / hosting / weave pages on docs.wandb.ai, and the site-wide llms.txt index), nor the TOS / DPA / Privacy / Trust Center of CoreWeave in the same group, contains a zero data retention (ZDR) commitment, switch or application method. The closest wording is deletion on request: DPA Annex II \"deletes customer data within 30 days of a customer requesting deletion\", the return or deletion in DPA §9, and deletion after termination under MSA §6(d) — all deletion-triggered, not zero retention by default, and not a ZDR tier that can be enabled. The single hit from the automated scan, \"not retain, use or disclose any personal information...\" (DPA Schedule 4, CCPA), is the boilerplate service-provider purpose limitation, which syntactically even allows retention in order to perform the contract, and cannot serve as ZDR evidence (the old record identified this and this round's re-check keeps it). Observations pointing the other way (not equivalent to the vendor not offering ZDR): (1) the inference prefix cache reuses the KV cache across requests on shared infrastructure by default, with only cache_salt available to isolate it"
+text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全附录、BAA、Security 页与 Subprocessors 表、现行隐私政策、定价页、legal-home 索引、Support Policy、SLA、docs.wandb.ai 的 inference / hosting / weave 页、llms.txt 全站索引）以及同集团 CoreWeave 的 TOS / DPA / Privacy / Trust Center，均无零保留（ZDR）承诺、开关或申请方式。最接近的表述是「应请求删除」：DPA Annex II「deletes customer data within 30 days of a customer requesting deletion」、DPA §9 的返还或删除、MSA §6(d) 终止后删除——都是删除触发型，不是默认零保留，也不是可开通的 ZDR 档。自动扫描唯一命中的「not retain, use or disclose any personal information...」（DPA Schedule 4 CCPA）是服务提供者用途限制模板句，句法上甚至允许为履约而保留，不能当 ZDR 证据（旧记录已识别此点，本轮复核维持）。反向观察（不等于厂商不提供 ZDR）：(1) 推理前缀缓存默认在共享基础设施上跨请求复用 KV cache，仅 cache_salt 可隔离"
+
+[[product.zdr.point]]
+text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
+text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked. Zero retention on the self-hosted tier is controlled by the customer, and the vendor has not written it up as a ZDR commitment or option."
+text_zh = "(3) MSA/AI Terms 授予 W&B 使用 Customer Data 改进产品与 AI Features 的宽泛权利。按规则记 not_found：公开文档未披露 ≠ 厂商不提供。未核项：trust.coreweave.com 门禁门户（需客户账号）未核。 自建档的零保留问题由客户自己控制，官方未把它写成 ZDR 承诺或选项。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://wandb.ai/site/terms",
+  "https://wandb.ai/site/ai-terms",
+  "https://wandb.ai/site/dpa",
+  "https://wandb.ai/site/wb-dpa",
+  "https://wandb.ai/site/baa",
+  "https://wandb.ai/site/security/",
+  "https://site.wandb.ai/security/",
+  "https://security.wandb.ai/",
+  "https://wandb.ai/site/privacy",
+  "https://wandb.ai/site/data/",
+  "https://wandb.ai/site/pricing",
+  "https://wandb.ai/site/legal-home",
+  "https://wandb.ai/site/website-terms-of-use",
+  "https://wandb.ai/site/support-policy",
+  "https://wandb.ai/site/service-level-agreement",
+  "https://wandb.ai/site/inference/",
+  "https://docs.wandb.ai/llms.txt",
+  "https://docs.wandb.ai/inference",
+  "https://docs.wandb.ai/inference/prerequisites",
+  "https://docs.wandb.ai/inference/usage-limits",
+  "https://docs.wandb.ai/inference/response-settings/prefix-caching",
+  "https://docs.wandb.ai/support/inference",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud",
+  "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed",
+  "https://docs.wandb.ai/weave/guides/platform",
+  "https://docs.wandb.ai/support/models/articles/can-wb-team-members-see-my-data",
+  "https://docs.coreweave.com/policies/terms-of-service/privacy-policy",
+  "https://docs.coreweave.com/policies/terms-of-service",
+  "https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement",
+  "https://www.coreweave.com/trust",
+]
+
+[[product.retention.point]]
+text = "DPA Schedule 2 Annex I is explicit about the self-hosted tier: \"only with processor's prior written consent and when controller transmits personal data to processor during the provision of technical Support\" — by default there is no continuous processing on this tier, only support scenarios. Pricing FAQ: \"In self-hosted mode, you're responsible for managing your data... you'll need to manage your data storage and backup.\" The 7-day post-deletion recovery window appears only in the Multi-tenant / Dedicated Cloud documentation and does not apply to the self-hosted tier. What W&B itself retains (license verification, pulling the spec from deploy.wandb.ai) is outside the retention disclosures in the public documentation."
+text_zh = "DPA Schedule 2 Annex I 对自建档写得很清楚：「only with processor’s prior written consent and when controller transmits personal data to processor during the provision of technical Support」——即自建档默认没有持续处理，只有支持场景。定价 FAQ：「In self-hosted mode, you’re responsible for managing your data... you’ll need to manage your data storage and backup.」删除后 7 天恢复窗口那条只写在 Multi-tenant / Dedicated Cloud 文档里，不适用于自建档。W&B 自身保留的部分（如 license 校验、deploy.wandb.ai 拉 spec）不在公开文档的保留期披露范围内。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "sm-run-in-infrastructure-you-control"
+
+[[product.processing_region.point]]
+text = "The documentation states expressly that the self-hosted tier runs in AWS/GCP/Azure accounts or on-premises infrastructure the customer controls, and can meet data residency, network isolation and compliance requirements"
+text_zh = "文档明文：自建档跑在客户控制的 AWS/GCP/Azure 账户或本地基础设施，可满足 data residency / 网络隔离 / 合规要求"
+
+[[product.processing_region.point]]
+text = "Air-gapped deployment is supported."
+text_zh = "支持 air-gapped。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-annex1-self-managed-support-only"
+
+[[product.role.point]]
+text = "The DPA role clauses do not distinguish deployment tiers (Customer = controller / Company = processor), but Annex I confines processing on the self-hosted tier to technical support scenarios."
+text_zh = "DPA 角色条款不按部署档位区分（Customer=controller / Company=processor），但 Annex I 把自建档的处理限定在技术支持场景。"
+
+[[anchor]]
+id = "msa-4a-customer-data-use-grant"
+source_id = "2c2464b72ce912d9"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " W&B Assets, Customer may transfer Customer Data to W&B and "
+exact = "Customer grants W&B the right to use Customer Data to (i) provide and improve the W&B Assets, (ii) develop new product offerings, and (iii) for the purposes of providing and improving AI Features."
+suffix = " Customer grants W&B a limited right to use Customer Data in"
+
+[[anchor]]
+id = "msa-2e-free-academic-testing-development"
+source_id = "2c2464b72ce912d9"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "e in its sole discretion, without prior notice to Customer. "
+exact = "W&B may use Customer Data from free and academic customers for testing and development purposes."
+suffix = """
+  
+  
+6.   _Beta Features_. Beta Features made available by """
+
+[[anchor]]
+id = "msa-9c-input-output-deemed-customer-data"
+source_id = "2c2464b72ce912d9"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "processing of the Input by, the AI Features and W&B Assets. "
+exact = "As between Customer and W&B, and to the extent permitted by applicable law, Input and Output are deemed to be Customer Data, excluding W&B Background IP."
+suffix = " “**W&B Background IP**” means W&B’s proprietary technology,"
+
+[[anchor]]
+id = "msa-6d-termination-deletion-30-days"
+source_id = "2c2464b72ce912d9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "quest to [support@wandb.com](mailto:support@wandb.com), and "
+exact = "W&B will initiate deletion within 30 days of receipt."
+suffix = """
+  
+5.   _Survival_. The following provisions will survive an"""
+
+[[anchor]]
+id = "msa-14d-order-of-precedence"
+source_id = "2c2464b72ce912d9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Agreement will be construed as if it had not been included. "
+exact = "To the extent there is an inconsistency between the terms of this Agreement, an Order Form, the DPA or the BAA, such documents and their terms will be controlled in the following order of precedence"
+suffix = ": (a) Order Form; (b) Agreement; (c) DPA; and (d) BAA (if ap"
+
+[[anchor]]
+id = "msa-2a-multi-tenant-and-dedicated-cloud-scope"
+source_id = "2c2464b72ce912d9"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "1.   _W&B Multi-Tenant Public Cloud & W&B Dedicated Cloud_. "
+exact = "For W&B Multi-Tenant Public Cloud and W&B Dedicated Cloud Deployments, Customer may access and use the Service in accordance with the Documentation for Customer’s internal business purposes during the Subscription Term"
+suffix = """
+, subject to this Agreement.  
+  
+2.   _Customer Managed Sin"""
+
+[[anchor]]
+id = "msa-2b-customer-managed-self-managed-scope"
+source_id = "2c2464b72ce912d9"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "Managed Single-Tenant Cloud & Customer Managed On-Premise_. "
+exact = "For Customer Managed Single-Tenant Cloud and Customer Managed On-Premise Deployments, W&B grants Customer a limited, non-exclusive, non-sublicensable, non-transferable (except as otherwise provided herein) license during the Subscription Term to download, install and use the Software in the Customer Environment"
+suffix = " in accordance with the Documentation for Customer’s interna"
+
+[[anchor]]
+id = "ai-terms-controls-over-msa"
+source_id = "59bcfe9002e604de"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "n the AI Terms have the meaning set forth in the Agreement. "
+exact = "In the event of a conflict between the AI Terms and the Agreement, the AI Terms will control, notwithstanding any terms to the contrary in the Agreement."
+suffix = """
+
+
+1.   **Third-Party AI Terms**. “**AI Features**” means fea"""
+
+[[anchor]]
+id = "ai-terms-customer-data-use-grant"
+source_id = "59bcfe9002e604de"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " In addition to any rights granted to W&B in the Agreement, "
+exact = "Customer grants W&B the right to use Customer Data to (i) provide and support the W&B Assets (including the AI Features), (ii) develop new product offerings, and (iii) improve the W&B Assets (including the AI Features), subject to any Customer configured settings, if applicable."
+suffix = """
+  
+  
+5.   **Ownership**. For avoidance of doubt, as between"""
+
+[[anchor]]
+id = "ai-terms-input-output-deemed-customer-data"
+source_id = "59bcfe9002e604de"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "processing of the Input by, the AI Features and W&B Assets. "
+exact = "As between Customer and W&B, and to the extent permitted by applicable law, Input and Output are deemed to be Customer Data, excluding W&B Background IP."
+suffix = " “**W&B Background IP**” means W&B’s proprietary technology,"
+
+[[anchor]]
+id = "dpa-6-customer-controller-company-processor"
+source_id = "0c177744efed3599"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " agree that, in connection with this DPA and the Agreement, "
+exact = "Customer is the controller (or is acting on behalf of the controller) and Company is the processor."
+suffix = """
+
+2.   _Personal Data Disclosures & Government Requests_. Com"""
+
+[[anchor]]
+id = "dpa-9-return-or-deletion-of-personal-data"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+e to Company.
+
+#### 9. Return or Deletion of Personal Data
+
+"""
+exact = "Upon written request by Customer, or upon termination or expiration of the Agreement, Company will delete or return Personal Data in accordance with the Agreement."
+suffix = " This requirement shall not apply to the extent Company is r"
+
+[[anchor]]
+id = "dpa-annex2-deletes-within-30-days-of-request"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+n (SSO) authentication, and in-product data protection.
+*   """
+exact = "Weights and Biases, LLC deletes customer data within 30 days of a customer requesting deletion."
+suffix = """
+
+
+**Continuous Innovation**
+
+*   Security team continuously """
+
+[[anchor]]
+id = "dpa-annex2-daily-backups-per-backup-policy"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d-party to conduct a risk assessment at least annually.
+*   """
+exact = "Weights and Biases, LLC performs backups daily and retains them in accordance with a predefined schedule in the Backup Policy."
+suffix = """
+
+
+**Infrastructure Security**
+
+*   Encryption
+    *   Weight"""
+
+[[anchor]]
+id = "dpa-annex1-role-processor"
+source_id = "0c177744efed3599"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+position and contact details: Legal team, Legal@wandb.com  
+"""
+exact = "Role: Processor (or Subprocessor as the case may be)"
+suffix = """
+  
+Activities relevant to the data transferred under these C"""
+
+[[anchor]]
+id = "dpa-annex1-retention-period-label"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+exercising of rights under the Agreement and/or the DPA.
+
+‍_"""
+exact = "The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period"
+suffix = """
+_
+
+‍For the term of the Agreement
+
+‍_For transfers to (sub-)"""
+
+[[anchor]]
+id = "dpa-annex1-mtc-dc-continuous-processing"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ data is transferred on a one-off or continuous  basis)._
+
+‍"""
+exact = "For processor’s “Multi-Tenant Cloud” and “W&B Dedicated Cloud” Software and Service offerings, on a continuous basis as determined by a controller as permitted under the Agreement."
+suffix = """
+
+
+For processor’s “Customer-Managed Single-Tenant Cloud” and"""
+
+[[anchor]]
+id = "dpa-annex1-self-managed-support-only"
+source_id = "0c177744efed3599"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+termined by a controller as permitted under the Agreement.
+
+"""
+exact = "For processor’s “Customer-Managed Single-Tenant Cloud” and “On-Premise” software offerings, only with processor’s prior written consent and when controller transmits personal data to processor during the provision of technical Support."
+suffix = """
+
+
+‍_Nature of the processing_
+
+For processor’s “Multi-Tenant"""
+
+[[anchor]]
+id = "dpa-8a-subprocessor-consent-and-site"
+source_id = "0c177744efed3599"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+. Subprocessors
+
+1.   _Consent to Subprocessor Engagement_. """
+exact = "Customer authorizes Company to appoint the following Subprocessors to Process Personal Data: (i) Company’s Affiliates; and (ii) the Subprocessors set forth under the “Subprocessors” tab on Company’s website"
+suffix = " at [https://site.wandb.ai/security/](https://wandb.ai/site/"
+
+[[anchor]]
+id = "dpa-schedule4-ccpa-service-provider"
+source_id = "0c177744efed3599"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ation, the Processing of which is governed by the CCPA.
+
+B. """
+exact = "It is the parties’ intent that with respect to any personal information, Company is a service provider."
+suffix = " Company shall not: (i) “sell” or “share” (as defined in the"
+
+[[anchor]]
+id = "baa-scope-dedicated-cloud-byob-only"
+source_id = "8d27701bd51cfef2"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "ees to only use and disclose PHI as authorized by this BAA. "
+exact = "This BAA applies only to the following: (i) Models with Dedicated Cloud BYOB Deployment and (ii) Weave on Dedicated Cloud BYOB (GCP and AWS), and is subject to any applicable configurations set forth in the Documentation."
+suffix = """
+
+
+#### 2. Privacy and Protected Health Information
+
+_a. Perm"""
+
+[[anchor]]
+id = "baa-business-associate-cannot-view-customer-data"
+source_id = "8d27701bd51cfef2"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "and in no case later than 30 calendar days after discovery. "
+exact = "Covered Entity acknowledges that Business Associate generally cannot view Customer Data, and that consequently, Business Associate cannot report the identity of any individual or the types of PHI that may have been affected by an impermissible use or disclosure, security incident or breach;"
+suffix = """
+
+
+iv. Provide Covered Entity with access to Covered Entity’s"""
+
+[[anchor]]
+id = "baa-termination-destroy-or-return-phi"
+source_id = "8d27701bd51cfef2"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+nation.
+
+d._Duties of Business Associate Upon Termination_. """
+exact = "Upon termination of this BAA and the Agreement, the PHI that Business Associate received from Covered Entity must be destroyed or returned to Covered Entity"
+suffix = "; provided, however, if returning or destroying PHI is not f"
+
+[[anchor]]
+id = "security-subprocessors-cloud-hosting-locations"
+source_id = "6872b99fd91f56dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ocation** | **Purpose of Processing** |
+| --- | --- | --- |
+"""
+exact = "| AWS | United States or as chosen by Customer | Cloud hosting provider |"
+suffix = """
+
+| Azure | United States or as chosen by Customer | Cloud ho"""
+
+[[anchor]]
+id = "security-subprocessors-ai-vendors"
+source_id = "6872b99fd91f56dd"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+m monitoring |
+| Hex | United States | Analytics platform |
+"""
+exact = "| Anthropic | United States and other countries where Anthropic operates | Generative AI services |"
+suffix = """
+
+| OpenAI | United States and other countries where OpenAI o"""
+
+[[anchor]]
+id = "security-iso-soc2-hipaa-certifications"
+source_id = "6872b99fd91f56dd"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ internal reviews and independent third-party assessments.
+
+"""
+exact = "We are certified under ISO/IEC 27001:2022, ISO/IEC 27017:2015, and ISO/IEC 27018:2019, and remain compliant with SOC 2 Type 2 and HIPAA standards."
+suffix = """
+
+
+Our platform also helps customers comply with NIST 800-53 """
+
+[[anchor]]
+id = "mtc-region-gcp-north-america"
+source_id = "d54fc93e9c611f52"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ whether it fits your organization's hosting requirements.
+
+"""
+exact = "W\\&B Multi-tenant Cloud is a fully managed platform deployed in W\\&B's Google Cloud account in [Google Cloud's North America regions"
+suffix = "](https://cloud.google.com/compute/docs/regions-zones). W\\&B"
+
+[[anchor]]
+id = "mtc-retention-7-days-after-deletion"
+source_id = "d54fc93e9c611f52"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+mentation_Guide), if applicable.
+
+## Data retention policy
+
+"""
+exact = "Multi-tenant Cloud retains the following items for 7 days after deletion:"
+suffix = """
+
+
+* Runs and history.
+* Non-artifact run files, such as medi"""
+
+[[anchor]]
+id = "mtc-free-pro-shared-storage"
+source_id = "d54fc93e9c611f52"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+-options/dedicated-cloud) instead.</Tip>
+
+## Data security
+
+"""
+exact = "For users on Free or Pro plans, W\\&B stores all data only in the shared cloud storage and processes it with shared cloud compute services"
+suffix = ". Depending on your pricing plan, you may be subject to stor"
+
+[[anchor]]
+id = "dc-retention-7-days-after-deletion"
+source_id = "63f079937e07025a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+hosting/server-upgrade-process).
+
+## Data retention policy
+
+"""
+exact = "By default, a Dedicated Cloud instance retains the following items for 7 days after deletion:"
+suffix = """
+
+
+* Runs and history
+* Non-artifact run files, such as media"""
+
+[[anchor]]
+id = "dc-retention-configurable"
+source_id = "63f079937e07025a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ort](mailto:support@wandb.ai) or your AISE for assistance.
+
+"""
+exact = "To meet your data retention requirements, you can change the data retention period for your Dedicated Cloud instance."
+suffix = " Depending on your use case, select the **Environment variab"
+
+[[anchor]]
+id = "dc-regions-multiple-global"
+source_id = "63f079937e07025a"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+d Cloud, and links to deeper documentation for each topic.
+
+"""
+exact = "W\\&B Dedicated Cloud is available in [multiple global regions for each cloud provider"
+suffix = """
+](./dedicated-cloud/regions).
+
+## Rate limits
+
+W\\&B applies """
+
+[[anchor]]
+id = "dc-regions-supported-global-list"
+source_id = "01a7188887a0cbbd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "s data residency, compliance, latency, and cost efficiency. "
+exact = "W\\&B supports many of the available global regions for Dedicated Cloud"
+suffix = ". The following sections list the supported regions for each"
+
+[[anchor]]
+id = "sm-run-in-infrastructure-you-control"
+source_id = "da4fd92f247abaa3"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+secure to use, with minimal configuration required.
+</Tip>
+
+"""
+exact = "W\\&B Self-Managed lets you run W\\&B Server in infrastructure you control, so you can meet internal policies for data residency, network isolation, and compliance"
+suffix = ". This overview is for IT, DevOps, and MLOps teams who plan,"
+
+[[anchor]]
+id = "inference-prefix-cache-default-shared-reuse"
+source_id = "ee46f9bdd1b89cc7"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+cations. The `cache_salt` parameter provides this control.
+
+"""
+exact = "By default, requests with identical prompt prefixes may reuse cache on shared infrastructure when the backend allows it."
+suffix = """
+
+
+To isolate cache reuse to a specific trust boundary, set t"""

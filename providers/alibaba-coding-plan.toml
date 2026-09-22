@@ -1,0 +1,666 @@
+name = "阿里云百炼 Coding Plan"
+name_en = "Alibaba Model Studio Coding Plan"
+company = "alibaba"
+line = "alibaba-coding-plan"
+site = "global"
+entity = "Alibaba Cloud (Europe) Limited / Alibaba (Netherlands) B.V. / Alibaba Cloud US LLC / Alibaba Cloud (Malaysia) Sdn. Bhd. / Alibaba Cloud (Singapore) Private Limited"
+plan_levels = ["individual"]
+endpoint = ""
+doc = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+
+[[source]]
+url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+channel = "contract"
+tier = "core"
+note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，发布 2026-08-31；签约主体 通义云启（杭州）信息技术有限公司，§1.1）。覆盖国内站百炼按量付费 API 档：§6.2 客户业务数据保护（§6.2.1 控制权、§6.2.3 指示+不为自身目的、§6.2.4 未获授权不使用+备份删除、§6.2.5 最短必要时间+未授权不训练、§6.2.7 缓冲期届满删除、§6.2.8 处理地、§6.2.9 三方模型通道）；§5.2 为 AI 订阅产品（Token Plan/Coding Plan）特别约定，属另两个 provider 档位，本档只作为例外条款引用。本协议是百炼相关协议清单中的首条，为国内站唯一合同级依据（国内站无独立 DPA）。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-membership-agreement"
+channel = "contract"
+tier = "core"
+note = "国际站 Membership Agreement（2026-09-10 更新）。4.1 除维护/提供服务或遵守法律所必需外不访问、不使用 Member Content；8.5(b) 协议终止后删除 Member Content（法律要求保留除外）；文末『DATA PROCESSING ADDENDUM TO ALIBABA CLOUD MEMBERSHIP AGREEMENT』段明确在数据保护法适用时，我方就 Member Content 中的个人数据以 processor 身份处理。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-product-terms-of-service-v-3-8-0"
+channel = "contract"
+tier = "core"
+note = "国际站《Alibaba Cloud International Website Product Terms of Service》v3.8.0（2026-08-28 更新）第 4.48 节 Alibaba Cloud Model Studio。1.2 条确立 Additional Agreement 优先规则；4.48.1(b) 处理角色=为你的目的、代表你；4.48.1(e) 默认不用于开发或改进 Model Studio 上的模型，除非你另行同意；4.48.1(f) 第三方模型服务适用第三方条款；4.48.1(viii) 处理地=Alibaba Cloud 及其关联方/分包商设施所在国。本轮直连全文（198114 字）复核：**全篇 Coding Plan / Token Plan 命中 0 次**，即国际站 Product Terms 没有订阅档专属数据条款。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/legal/latest/fe2cxg"
+channel = "contract"
+tier = "core"
+note = "国际站 Data Processing Addendum（/help/en/legal/latest/fe2cxg，Last Updated 2023-11-29；/help/zh/…/fe2cxg 为同文英文正文）。仅在 Data Protection Legislation（GDPR/UK GDPR 等）要求时适用。第 3 条：用户（controller 或 processor）委任 Alibaba Cloud 为其 processor，仅为向用户提供服务；4(a) 仅按书面指示处理；4(g) 终止后按用户选择删除或返还 Data（法律要求或备份归档除外）。role/retention 的合同级佐证。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/model-studio/privacy-notice"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "国际站英文『Security certifications and privacy』（合规资质与隐私说明，更新时间 2026-09-20）。两句话同页并存：①『will never use your data for model training』（无 Coding Plan 例外）②『In compliance with relevant laws and regulations, Alibaba Cloud Model Studio stores data generated from model and application calls.』后者是 zdr 维度的直接依据（与零保留直接冲突）。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/model-studio/regions"
+channel = "developer_data"
+tier = "core"
+note = "国际站百炼『Regions and endpoints』（2026-09-17 更新）。三层机制：地域决定接入点与数据存储位置；service deployment scope 决定**推理执行位置**（可选 Global，合规要求下选带地理边界的 scope）；用户静态数据始终留在所选地域。Coding Plan 专属端点 coding-intl.dashscope.aliyuncs.com 与 {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com 出现在 Coding Plan 页，控制台订阅页固定 ap-southeast-1。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/en/model-studio/what-is-model-studio"
+channel = "developer_data"
+tier = "contradiction"
+note = "与 core 文档《国际站中文产品简介》(https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio) 及《阿里云百炼服务协议》5.2.2(https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html) 在**同一档位（国际站 Coding Plan 个人版）× training** 上表述相反。本文件（英文页）同一问答答『Alibaba Cloud protects data privacy and will never use your data for model training.』，全页无 Token Plan 字样、无 Coding Plan 例外；中文同页同问答答『阿里云严格保护数据隐私，使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练』，并以『重要』段补明『Token Plan 个人版和 Coding Plan 的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化……《阿里云百炼服务协议》第 5.2 条』，该协议 5.2.2 逐字授权『存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化』。四种解释逐条排除：①范围——两份是**同一文档的两个语系**（同一 URL 路径 /help/{en,zh}/model-studio/what-is-model-studio），且英文页自身在计费段与 FAQ 段直链 Coding Plan 概述与控制台订阅页(modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan)，其覆盖范围包含 Coding Plan，不能读成「英文页只管按量 API、中文页管订阅档」；②档位——国际站 Coding Plan 只有个人版（无企业版/团队版），两份针对同一档；③站点——同一站点同一文档，非国内站/国际站之分；④时效——两份均为现行版本且更新日期相同（英文页 Last Updated: Sep 16, 2026；中文页 更新时间：2026-09-16；繁体页 2026-09-09，本轮直连原始 HTML 复核），排除「英文页是旧版未更新」。ja/id/pt-BR 三语系同为无例外口径（上一轮直连 HTML 复核 Token Plan 命中 0），说明不是单页笔误。需厂商澄清英文口径是否遗漏该例外。"
+
+[[source]]
+url = "https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio"
+channel = "developer_data"
+tier = "core"
+note = "国际站中文产品简介页（百炼「产品简介」，「常见问题」含数据训练问答）。本页是国际站自有文档中唯一把 Coding Plan 排除在「不训练」承诺之外并直链《阿里云百炼服务协议》第 5.2 条的页面：『使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练』+ 加粗「重要」提示 Coding Plan 例外。同时给出 Coding Plan 控制台入口 modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan（新加坡地域）。原始 HTML 复核（r2/wis-zh.html）确认例外段落存在于服务端渲染正文中。"
+
+[[product]]
+id = "api"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+label = "国际站百炼按量 API 档（同站同合同族；该档台账归 alibaba）"
+
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "pt-training-no-improve-unless-consent"
+
+[[product.training.point]]
+text_zh = "本 provider 自身没有按量 API 档（Coding Plan 专属 base URL 与 API Key 前缀 sk-sp- 之外调用按按量计费，归 alibaba 台账）。按统一 products[] 结构保留本行：国际站 Product Terms 4.48.1(e) 默认不用于 develop/improve，除非另行同意"
+
+[[product.training.point]]
+text_zh = "国际站产品简介（zh/en）与隐私说明页对按量付费 API 均承诺不使用数据训练"
+
+[[product.training.point]]
+text_zh = "Membership Agreement 4.1 亦限制为「维护或提供服务所必需」。本行不重复主张按量档归属。"
+
+[product.zdr]
+mark = "no"
+anchor = "pn-intl-en-zdr-stores-call-data"
+searched = [
+  "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html",
+  "https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/tc/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
+  "https://www.alibabacloud.com/help/zh/model-studio/privacy-notice",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-product-terms-of-service-v-3-8-0",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-membership-agreement",
+  "https://www.alibabacloud.com/help/en/legal/latest/fe2cxg",
+  "https://www.alibabacloud.com/help/en/model-studio/regions",
+  "https://www.alibabacloud.com/help/en/model-studio/related-agreements",
+  "https://www.alibabacloud.com/help/en/model-studio/coding-plan",
+  "https://www.alibabacloud.com/help/zh/model-studio/coding-plan",
+  "https://www.alibabacloud.com/help/en/model-studio/coding-plan-faq",
+  "https://www.alibabacloud.com/help/zh/model-studio/coding-plan-faq",
+  "https://help.aliyun.com/zh/model-studio/coding-plan",
+  "https://help.aliyun.com/zh/model-studio/privacy-notice",
+  "https://help.aliyun.com/zh/model-studio/faq-about-alibaba-cloud-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/kimi-k2-5",
+  "https://www.alibabacloud.com/help/en/model-studio/minimax-m2-5",
+  "https://www.alibabacloud.com/help/en/model-studio/glm-4-7",
+  "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20260808233654350/20260808233654350.html",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-privacy-policy",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-model-studio-model-inference-service-level-agreement",
+  "https://common-buy-intl.alibabacloud.com/coding-plan/",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：国际站英文隐私说明页明示存储模型与应用调用数据，未见任何零保留模式表述。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "ma-retention-delete-on-termination"
+
+[[product.retention.point]]
+text_zh = "国际站合同层无请求级量化期限：Membership Agreement 8.5(b) 终止后删除 Member Content（法律要求保留除外）"
+
+[[product.retention.point]]
+text_zh = "DPA 4(g) 终止后按选择删除或返还"
+
+[[product.retention.point]]
+text_zh = "国际站隐私政策 F 节按目的所需/法定期限保留。国际站英文隐私说明页另有『stores data generated from model and application calls』的存储声明（见 zdr）。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "pt-region-facilities-country"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region 的机制描述"
+
+[[product.processing_region.point]]
+text_zh = "合同层为 Alibaba Cloud 及其关联方/分包商设施所在国。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-role-processor-appointment"
+
+[[product.role.point]]
+text_zh = "按量 API 档没有 5.2.2 式的自身目的使用授权，role 为纯 processor（客户为 controller）。"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "Coding Plan 国际站"
+category = "coding_plan"
+plan_level = "individual"
+label = "国际站 Model Studio Coding Plan 订阅档（Lite 已停止新购/续费，现行 Pro；面向个人订阅，国际站无企业版/团队版 Coding Plan）"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "agr-training-codingplan-authorization"
+
+[[product.training.point]]
+text_zh = "本档结论：Coding Plan 的模型输入与模型输出被授权用于「服务改进与模型优化」（即训练/优化用途），value=yes。两层证据各自独立成立：(1) **国际站自有文档层**——国际站中文与繁体产品简介页在「我的数据安全吗？阿里云百炼会用我的数据进行训练吗？」问答下，把按量付费 API 与 Token Plan 团队版的不训练承诺与 Coding Plan 明确切开，写明『使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化』，并直链《阿里云百炼服务协议》第 5.2 条"
+
+[[product.training.point]]
+text_zh = "这一层不依赖该协议本身是否列入 related-agreements。(2) **合同层**——该协议 5.2.2 原文『您同意并授权我们和我们的关联公司存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化』，且终止授权不涵盖已授权数据（5.2.2 后半句）。国际站 Product Terms 4.48.1(e) 的默认『不用于 develop 或 improve』由 1.2 条的「Additional Agreement 优先」规则处理：若百炼协议构成 Additional Agreement，则 4.48.1(e) 让位于 5.2.2"
+
+[[product.training.point]]
+text_zh = "订阅 Coding Plan 即构成 4.48.1(e) 所称的『另行同意』。反向证据（不掩盖）：①国际站英文、日文、印尼文、葡文产品简介页均只有无例外的『never use your data for model training』，例外只存在于 zh 与 tc"
+
+[[product.training.point]]
+text_zh = "②国际站 Coding Plan 概述与 FAQ（中英文）都没有『数据使用授权』条目，该条目只在国内站页面"
+
+[[product.training.point]]
+text_zh = "③国际站 related-agreements 清单（2026-09-20 更新）不含百炼服务协议，而该协议第 12.1 条适用中国大陆法律、签约主体为通义云启（杭州）。故 confidence=medium：结论方向明确（该档输入输出被授权用于改进与优化），但「哪一份文件在国际站正式管辖该档」未被国际站协议清单确认，英文口径亦未确认。"
+
+[product.zdr]
+mark = "no"
+anchor = "pn-intl-en-zdr-stores-call-data"
+searched = [
+  "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html",
+  "https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/tc/model-studio/what-is-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
+  "https://www.alibabacloud.com/help/zh/model-studio/privacy-notice",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-product-terms-of-service-v-3-8-0",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-membership-agreement",
+  "https://www.alibabacloud.com/help/en/legal/latest/fe2cxg",
+  "https://www.alibabacloud.com/help/en/model-studio/regions",
+  "https://www.alibabacloud.com/help/en/model-studio/related-agreements",
+  "https://www.alibabacloud.com/help/en/model-studio/coding-plan",
+  "https://www.alibabacloud.com/help/zh/model-studio/coding-plan",
+  "https://www.alibabacloud.com/help/en/model-studio/coding-plan-faq",
+  "https://www.alibabacloud.com/help/zh/model-studio/coding-plan-faq",
+  "https://help.aliyun.com/zh/model-studio/coding-plan",
+  "https://help.aliyun.com/zh/model-studio/privacy-notice",
+  "https://help.aliyun.com/zh/model-studio/faq-about-alibaba-cloud-model-studio",
+  "https://www.alibabacloud.com/help/en/model-studio/kimi-k2-5",
+  "https://www.alibabacloud.com/help/en/model-studio/minimax-m2-5",
+  "https://www.alibabacloud.com/help/en/model-studio/glm-4-7",
+  "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20260808233654350/20260808233654350.html",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-privacy-policy",
+  "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-model-studio-model-inference-service-level-agreement",
+  "https://common-buy-intl.alibabacloud.com/coding-plan/",
+]
+
+[[product.zdr.point]]
+text_zh = "判定为「有依据的否定」，不是「未披露」：国际站英文隐私说明页明示『In compliance with relevant laws and regulations, Alibaba Cloud Model Studio stores data generated from model and application calls.』，本档另有 5.2.2 对输入输出的『存储并使用』授权，与「请求处理完成后不保留」直接冲突。公开文档中不存在任何零保留模式、开关、申请途径或 ZDR 档位表述（searched 逐条列出本轮实核的 URL：国际站 Product Terms / Membership Agreement / DPA / 隐私政策 / Model Inference SLA、国际站与国内站的 Coding Plan 概述与 FAQ、产品简介四个语系、模型页、第三方模型条款、购买页）。国内站同名页与 FAQ 有同义的存储声明（作为同厂同口径佐证）。注意两点保留：①国际站中文隐私说明页**没有**这句存储声明（中英同页不一致）"
+
+[[product.zdr.point]]
+text_zh = "②「厂商未提供 ZDR」与「厂商明文声明不提供 ZDR」不同，后者未出现，故 confidence=medium。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "agr-retention-shortest-necessary"
+
+[[product.retention.point]]
+text_zh = "对象与期限类型要分开写：①**输入输出正文（对话数据）**——协议 6.2.5『我们承诺仅在提供服务所必需的最短时间内保留您的对话数据』，是**上限式表述但未量化**（无天数）"
+
+[[product.retention.point]]
+text_zh = "本档另有 5.2.2 的『存储并使用』授权，授权不因停止使用而回溯（agr-training-termination-scope），即训练用副本的存续期未被 6.2.5 约束。②**客户业务数据整体**——服务期届满/提前终止/欠费时，6.2.7 在『一定的缓冲期（以专有条款、产品文档、服务说明所载明的时限为准）』内继续存储，缓冲期届满删除全部含缓存与备份副本"
+
+[[product.retention.point]]
+text_zh = "本档产品文档**未载明**该缓冲期天数，故期限类型为「下限不明的缓冲期 + 届满删除」。③**客户信息（注册类）**——6.1.5 达成目的所需期限内保留，超期删除，但承认备份可能无法立即删除。④国际站合同层——Membership Agreement 8.5(b) 终止后删除 Member Content（法律要求保留除外）"
+
+[[product.retention.point]]
+text_zh = "DPA 4(g) 终止后按用户选择删除或返还 Data（法律要求或备份归档除外）"
+
+[[product.retention.point]]
+text_zh = "国际站隐私政策 F 节按目的所需/法定期限保留、无必要即删除或匿名化。⑤未发现任何请求级量化保留期（如 0 天 / 7 天 / 30 天）的公开承诺"
+
+[[product.retention.point]]
+text_zh = "国际站与国内站均无。"
+
+[product.processing_region]
+codes = ["SG", "global"]
+anchor = "regions-deployment-scope-inference"
+
+[[product.processing_region.point]]
+text_zh = "分三层：①**合同层（国际站）**——Product Terms 4.48.1(viii)『the Member Content you provide to Alibaba Cloud will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service』，处理地即阿里云及其关联方/分包商设施所在国，不承诺驻留。②**产品文档层（国际站）**——地域决定接入点与数据存储位置，请求数据存储在所选地域，『Your static data always remains in the selected region』"
+
+[[product.processing_region.point]]
+text_zh = "但同页明确『Service deployment scope: Determines the inference execution location… Otherwise, select the Global scope for a larger inference resource pool』——即**存储地与推理执行地不是同一个变量**，选 Global scope 时推理可跨地域执行，这是本轮新增的关键限定（上一轮只记了「请求数据存储在所选地域」）。③**本档具体化**——Coding Plan 控制台订阅页固定 ap-southeast-1（国际站产品简介页链接 modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan），专属 base URL 为 coding-intl.dashscope.aliyuncs.com（工作区域端点 {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com），故判存储在新加坡。国内站协议 6.2.8 另有「在您选定的服务及模型服务所在国家或地区处理客户业务数据」的同旨表述（国内站协议，适用性同 training 的 caveat）。置信度 medium 的原因：结论由「产品文档接入点 + 地域机制 + 合同层表述」合成，且推理执行地本身可变。"
+
+[product.role]
+kind = "processor"
+anchor = "pt-role-on-your-behalf"
+
+[[product.role.point]]
+text_zh = "主判定 processor（受托处理方）：国际站 Product Terms 4.48.1(b)『Any processing of Member Content… is for your purposes and on your behalf』"
+
+[[product.role.point]]
+text_zh = "DPA 第 3 条『You (the controller or processor) appoint Alibaba Cloud as Your processor… solely for the purpose of providing the Alibaba Cloud Services to You』、4(a) 仅按书面指示处理"
+
+[[product.role.point]]
+text_zh = "Membership Agreement 文末 DPA 段『we process as a processor personal data contained in or generated in relation to your Member Content』"
+
+[[product.role.point]]
+text_zh = "国内站协议 6.2.3(1)『按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据』、6.2.1 客户对业务数据拥有完全控制权。例外（本档特有）：5.2.2 对 Coding Plan 输入输出另设『服务改进与模型优化』的存储使用授权，就这部分属于超出客户指示的自身目的使用，与 6.2.3(1)『不为其自身目的』存在文本张力，协议未设 5.2 优先条款，故 value 记为 processor_with_5.2.2_carveout。另有一层未决：档位支持的 GLM / Kimi / MiniMax 中，国际站第三方模型条款称 GLM 由 Hong Kong Xiangtai Ruifeng、KIMI 由 Moonshot AI PTE. LTD.『出售』（其 DPA 处理地为新加坡与美国），而模型页称推理服务供应商为 Alibaba Cloud Model Studio——公开文件无法确定第三方品牌模型的请求是否经上游模型商处理，见 notes。"
+
+[[anchor]]
+id = "agr-subscription-products-scope"
+source_id = "4b66d343a3815747"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+前通知您的情况下对广场内的模型及技术服务进行中止、关停或下架。
+
+5.2. 关于AI订阅产品的特别约定
+
+5.2.1. """
+exact = "您知晓并同意，Token Plan和Coding Plan等订阅产品一经购买不支持退订与退款。"
+suffix = "相关计费标准、可支持的模型列表等信息，以您使用服务时对应的产品页面展示为准。您应当仔细阅读并遵守Token Plan和C"
+
+[[anchor]]
+id = "agr-training-codingplan-authorization"
+source_id = "4b66d343a3815747"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+里云官网公告、站内信等方式调整自动续费功能（如有）和产品升级策略（包括但不限于变更、停止自动续费等）。
+
+5.2.2. """
+exact = "您同意并授权我们和我们的关联公司存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化。"
+suffix = "若您希望终止对前述输入输出内容的授权，可通过停止使用Token Plan个人版和/或Coding Plan服务来终止授权"
+
+[[anchor]]
+id = "agr-training-termination-scope"
+source_id = "4b66d343a3815747"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = " Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化。"
+exact = "若您希望终止对前述输入输出内容的授权，可通过停止使用Token Plan个人版和/或Coding Plan服务来终止授权，但终止授权的范围不涵盖您已授权我们使用的相关内容和数据。"
+suffix = """
+
+
+5.2.3. 为了方便您的使用和管理，TokenPlan团队版提供SSO的登录方式，身份认证应当由注册了对应阿里云账"""
+
+[[anchor]]
+id = "agr-retention-shortest-necessary"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+任何进一步的处理，直到备份可以删除。客户业务数据一经删除，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，"""
+exact = "我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"
+suffix = """
+我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算"""
+
+[[anchor]]
+id = "agr-training-no-unauthorized"
+source_id = "4b66d343a3815747"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"""
+exact = "我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。"
+suffix = """
+
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算力资源紧张时，在符合法律法规要求的情况下自动为您调度更匹配的"""
+
+[[anchor]]
+id = "agr-retention-buffer-delete"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "一定的缓冲期（以您所订购的服务适用的专有条款、产品文档、服务说明等所载明的时限为准）内继续存储您的客户业务数据（如有），"
+exact = "缓冲期届满我们将删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据"
+suffix = """
+。
+
+6.2.8 根据您与阿里云协商一致，阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据。阿里"""
+
+[[anchor]]
+id = "agr-region-chosen-country-or-region"
+source_id = "4b66d343a3815747"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据。
+
+6.2.8 根据您与阿里云协商一致，"""
+exact = "阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据"
+suffix = "。阿里云恪守对客户的安全承诺，根据适用的法律法规保护客户业务数据。如您基于自身业务目的需要选择在中华人民共和国境外的阿里"
+
+[[anchor]]
+id = "agr-role-instructions-not-own-purpose"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+体的充分授权。
+
+6.2.3. 您知悉并同意，我们或我们委托授权合作伙伴将仅按照如下方式处理您的客户业务数据：
+
+（1）"""
+exact = "按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据"
+suffix = """
+；
+
+（2）为落实现行法律法规要求（如内容安全过滤），或按照主管部门指示处理客户业务数据。
+
+6.2.4. 您使用本服务"""
+
+[[anchor]]
+id = "agr-role-customer-full-control"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "您通过我们提供的服务，上传、存储、加工、下载、分发以及通过其他方式处理的数据，均为您的业务数据（简称“客户业务数据”），"
+exact = "您对此拥有完全的控制权。"
+suffix = """
+
+
+6.2.2. 您应确保本服务下的客户业务数据均真实地、全面地来自于其自身所合法拥有的数据资源，您拥有相关数据的相关合"""
+
+[[anchor]]
+id = "agr-third-party-model-api-scope"
+source_id = "4b66d343a3815747"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+务，包括但不限于获取必要的授权同意、完成必要的信息披露、完成数据出境申报、与境外数据接收方签署协议等。
+
+6.2.9. """
+exact = "如您选择本协议第5.3.条约定的三方模型API服务，您的客户业务数据的处理（包括但不限于：存储、删除、内容安全过滤等）以及部署模式（服务接入地和推理地等）以您和三方模型API服务商在相关服务协议中的约定为准。"
+suffix = """
+
+
+七、知识产权
+
+7.1. 您和我们在本协议签订前享有的知识产权，仍归各方所有；除非另有约定，并不会因为双方签订或者履"""
+
+[[anchor]]
+id = "wms-zh-training-codingplan-exception"
+source_id = "a9e8c78845a90255"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ivacy-notice)。
+
+**重要**
+
+**Token Plan 个人版**和 **Coding Plan** """
+exact = "的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化"
+suffix = "；Token Plan 个人版不包含团队版的\"不使用数据训练模型\"承诺。具体条款请参见[Token Plan 概述](h"
+
+[[anchor]]
+id = "wms-zh-training-baseline-scope"
+source_id = "a9e8c78845a90255"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+-qwen)
+
+## 常见问题
+
+Q：我的数据安全吗？阿里云百炼会用我的数据进行训练吗？
+
+A：阿里云严格保护数据隐私，"""
+exact = "使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练"
+suffix = "。构建应用或训练模型时传输的所有数据均经过加密处理。详情请参见[合规资质与隐私说明](https://www.aliba"
+
+[[anchor]]
+id = "wms-en-training-baseline-no-exception"
+source_id = "ae3759bb82edf763"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ll Alibaba Cloud Model Studio use my data for training?
+
+A: """
+exact = "Alibaba Cloud protects data privacy and will never use your data for model training."
+suffix = " All data transmitted when building applications or training"
+
+[[anchor]]
+id = "pn-intl-en-zdr-stores-call-data"
+source_id = "1157b4deb83906be"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ is encrypted with AES-256 (Advanced Encryption Standard).
+
+"""
+exact = "In compliance with relevant laws and regulations, Alibaba Cloud Model Studio stores data generated from model and application calls."
+suffix = " For more information, see the terms regarding data processi"
+
+[[anchor]]
+id = "pn-intl-en-training-never-train"
+source_id = "1157b4deb83906be"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+nter/compliance-repository?_p_lc=1)
+
+## Privacy protection
+
+"""
+exact = "Alibaba Cloud strictly protects your data privacy and will never use your data for model training."
+suffix = " All data transmitted during application building and model "
+
+[[anchor]]
+id = "pt-role-on-your-behalf"
+source_id = "6b6a50f606f7d65b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "**”). Input and Output are also included in Member Content. "
+exact = "Any processing of Member Content (including personal data therein) submitted through Model Studio by Alibaba Cloud is for your purposes and on your behalf."
+suffix = " You remain responsible for complying with applicable data p"
+
+[[anchor]]
+id = "pt-training-no-improve-unless-consent"
+source_id = "6b6a50f606f7d65b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ng from you and your end users’ use of the Input or Output. "
+exact = "Alibaba Cloud will not use your Member Content to develop or improve the models on Model Studio, unless you separately provide your consent."
+suffix = """
+
+
+f) certain aspects of Model Studio may include data, model"""
+
+[[anchor]]
+id = "pt-region-facilities-country"
+source_id = "6b6a50f606f7d65b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+suffer in connection with your use of Model Studio;
+
+(viii) """
+exact = "the Member Content you provide to Alibaba Cloud will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service"
+suffix = ". This may be a jurisdiction different from your location, a"
+
+[[anchor]]
+id = "pt-additional-agreement-precedence"
+source_id = "6b6a50f606f7d65b"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ices offered by Alibaba Cloud (“**Additional Agreements**”)."
+exact = "If there is any conflict or inconsistency between these Product Terms and any Additional Agreement,the Additional Agreement shall take precedence over the Product Terms only in relation to the portion of the Products governed by the conflicting Additional Agreements."
+suffix = """
+
+
+1.3 Please do not purchase and/or use the Products if you """
+
+[[anchor]]
+id = "pt-third-party-terms"
+source_id = "6b6a50f606f7d65b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "rvice provided by a third party (“**Third-party Service**”) "
+exact = "listed on Model Studio, you should review, accept and abide by the applicable third-party service or licensing terms, policies and/or agreements"
+suffix = " (“**Third-party Terms**”) prior to your use of such Third-p"
+
+[[anchor]]
+id = "ma-training-use-limited-to-service"
+source_id = "dac04cd917015852"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "1 You retain any rights you may have in any Member Content. "
+exact = "We will not access or use your Member Content except as necessary to maintain or provide the Services or as necessary to comply with applicable laws or regulations."
+suffix = " This Membership Agreement does not grant either party any r"
+
+[[anchor]]
+id = "ma-retention-delete-on-termination"
+source_id = "dac04cd917015852"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e access to any Member Content you have provided to us, and "
+exact = "we will delete such Member Content at our sole discretion unless retention is required under applicable law"
+suffix = """
+;
+
+c) the licence granted by you to us to use your Member Co"""
+
+[[anchor]]
+id = "ma-dpa-processor"
+source_id = "dac04cd917015852"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " only to the extent that, in providing any Services to you, "
+exact = "we process as a processor personal data contained in or generated in relation to your Member Content"
+suffix = """
+.
+
+The Addendum forms part of the Membership Agreement above"""
+
+[[anchor]]
+id = "dpa-role-processor-appointment"
+source_id = "a894605b4b338cb6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ription of processing**
+
+For the purposes of this Addendum, """
+exact = "You (the controller or processor) appoint Alibaba Cloud as Your processor to process the Data, for the duration of the Agreement, solely for the purpose of providing the Alibaba Cloud Services to You"
+suffix = """
+ (the **“Permitted Purpose”**).
+
+**4. Data processing**
+
+In """
+
+[[anchor]]
+id = "dpa-only-on-documented-instructions"
+source_id = "a894605b4b338cb6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+is in Alibaba Cloud’s possession or under its control:
+
+(a) """
+exact = "only process the Data on Your documented instructions unless required otherwise by applicable law;"
+suffix = """
+
+
+(b) ensure that all personnel authorised by Alibaba Cloud """
+
+[[anchor]]
+id = "dpa-delete-or-return-on-termination"
+source_id = "a894605b4b338cb6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+n to undertake for Your use of Alibaba Cloud Services;
+
+(g) """
+exact = "at Your choice, delete or return all Data in Alibaba Cloud’s possession or control following the termination of the Agreement."
+suffix = " This requirement shall not apply to the extent that Alibaba"
+
+[[anchor]]
+id = "regions-request-data-stored-in-region"
+source_id = "37925467448c9361"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+int.
+
+A complete model invocation flow is as follows:
+
+1.   """
+exact = "Your application sends a request to the selected **region** through the endpoint. Request data is stored in that region"
+suffix = """
+.
+2.   The region forwards the request to inference nodes wi"""
+
+[[anchor]]
+id = "regions-deployment-scope-inference"
+source_id = "37925467448c9361"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ location**. Choose a nearby region to reduce latency.
+
+*   """
+exact = "Service deployment scope: Determines the **inference execution location**. If you have data compliance requirements, select a scope with specific geographic boundaries. Otherwise, select the Global scope for a larger inference resource pool"
+suffix = """
+.
+*   Endpoint: Affects **concurrency limits, timeouts, and """
+
+[[anchor]]
+id = "regions-static-data-in-region"
+source_id = "37925467448c9361"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " region for storage and then sent back to your application. "
+exact = "Your static data always remains in the selected region."
+suffix = """
+
+
+![Image 1: image](https://help-static-aliyun-doc.aliyuncs."""

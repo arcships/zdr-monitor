@@ -1,0 +1,527 @@
+name = "百川智能"
+name_en = "Baichuan AI"
+line = "baichuan-ai"
+site = "cn"
+entity = "百川智能科技有限公司"
+endpoint = ""
+doc = "https://platform.baichuan-ai.com/article/privacy-agreement"
+
+[[source]]
+url = "https://platform.baichuan-ai.com/article/privacy-agreement"
+channel = "consumer_privacy"
+tier = "core"
+note = "《隐私政策》(发布时间/生效时间均为 2023-09-25，页内自带「历史版本」入口)，平台侧文档，标题只写「隐私政策」，但 §引言把本平台定义为「为访问者和开发者…提供的通过API方式调用的生成类人工智能技术服务」、§特别说明把适用对象写为「访问、注册、登录本平台并使用本服务的访问者和开发者及其最终用户」、§11 关键词定义把「百川大模型开放平台」定义为「用户可通过API调用的生成类人工智能类技术付费服务」——三处一致表明本政策覆盖开放平台 API 档，是本档 training/retention/processing_region/role 四维的主要来源。§1.1.3 是 API 交互输入的使用目的条款；§1.2.2 记录「设备调用我们API的调用记录日志」的收集；§1.4 是匿名化后研究/统计的模板段（与主站消费档政策逐字相同，含「会写」括号与「提高会服务的智能性」笔误）；§5 给出境内存储与「最短必要时间」两条；§4.2 承认备份延迟删除；§3.1 声明「目前，百川不存在向第三方共享您的个人信息的情况」。全文「训练」「train」0 命中；无 ZDR/零保留字样；无 DPA 或受托处理者自述。"
+
+[[source]]
+url = "https://www.baichuan-ai.com/article/privacy-agreement"
+channel = "consumer_privacy"
+tier = "core"
+note = "《百川隐私政策》(发布时间/生效时间 2023-08-31)，主站消费档(百川大模型/百小应)政策。与平台档政策的关系：两份是同一模板的两个版本，§1.4 那段匿名化研究/统计的文字逐字相同；但差异对判定很关键——本档 §1.1.2/§1.1.3 写的是「您与百川进行交互」(单人)，平台档写的是「您与您的最终用户」(开发者+终端用户)；本档 §1.1.3「问答历史」有「为履行网络信息安全义务，我们会在法律规定的时间内保留您的问答历史及对话主题」的留存条款，平台档没有；本档 §5 多一句「在本政策下所收集及处理的个人信息不存在出境的情况」，平台档没有。因此两份不可互相引用。本档用于给 products[consumer_app] 行定结论，并作为「§1.4 的『会写』括号是跨档复制的模板噪声」的对照证据。"
+
+[[source]]
+url = "https://www.baichuan-ai.com/article/user-agreement"
+channel = "contract"
+tier = "core"
+note = "《百川用户协议》(发布时间/生效时间 2025-09-28，主站现行版)，本档的合同层来源。之所以把它算进 API 档：平台文档站的每一页页脚都把「用户协议」指向本 URL（见 sources 中 https://platform.baichuan-ai.com/docs-v2/api 的 anchor baichuan-docs-footer-governing-documents），平台自站的《使用、分享与传播指引》也把《用户协议》链到本 URL。要点：§四.5 是唯一出现「训练」字样的授权条款，但对象限定为「您…公开发布、传播、分享」的内容（第(4)项「使用该内容训练模型和改进相关服务的权利」），API 请求正文不属于公开发布，故该条不直接覆盖 API 档；§六.1 另有一条覆盖「您在使用本产品过程中产生的所有数据、信息或内容」的全球免费可转许可，措辞是「任何形式地使用」，未点名训练；§五.1 自称「作为中立的网络服务提供者」（针对搜索链接）；§四.10 保留按监管机关要求查询个人信息与限制账户的义务；§十二.4 把使用地限为中国大陆。全文无「不用于训练」承诺、无 ZDR、无 DPA。注意本协议 §四.1 仍写「仅限于以非商业性目的使用本产品」，与开放平台 API 的商业使用场景相冲突——即百川没有一个为 API 档定制的合同文本。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "baichuan-platform-privacy-1-1-3-input-improve"
+
+[[product.training.point]]
+text = "Same as the top-level training entry. Key points: §1.1.3 states expressly that input from API interactions is used to \"improve Baichuan's response speed and quality\""
+text_zh = "同顶层 training。要点：§1.1.3 明示 API 交互输入会被用于「提高百川的响应速度和质量」"
+
+[[product.training.point]]
+text = "§1.4 permits anonymized information to be used to improve algorithmic models (the parenthetical example is the consumer-side \"Huixie\" writing feature)"
+text_zh = "§1.4 允许匿名化后用于改进算法模型（括号举例是消费端「会写」）"
+
+[[product.training.point]]
+text = "The only grant at contract level containing the word \"training\" (www User Agreement §4.5(4)) is triggered by \"publicly publishing, disseminating or sharing\" content and does not cover API request content"
+text_zh = "合同层唯一含「训练」的授权（www 用户协议 §四.5(4)）以「公开发布、传播、分享」为触发条件，不覆盖 API 请求正文"
+
+[[product.training.point]]
+text = "The \"use in any form\" in §6.1 is a broad catch-all. There is no training authorization as such, but there is no prohibition either — and §1.1.3 does state that API input is used to improve response speed and quality, which under the house rule (\"used to improve service/quality\" counts as training unless model training is expressly excluded) is recorded as mark=no"
+text_zh = "§六.1 的「任何形式地使用」是宽泛兜底。没有点名「训练」的授权，也没有禁止训练的表述——但 §1.1.3 明示输入会被用于提高响应速度和质量，按判定口径（未排除模型训练就不能替厂商排除）记 mark=no"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://platform.baichuan-ai.com/article/privacy-agreement",
+  "https://platform.baichuan-ai.com/article/user-agreement",
+  "https://platform.baichuan-ai.com/article/secure-agreement",
+  "https://platform.baichuan-ai.com/article/share-agreement",
+  "https://platform.baichuan-ai.com/article/consume-agreement",
+  "https://platform.baichuan-ai.com/docs",
+  "https://platform.baichuan-ai.com/docs-v2/api",
+  "https://platform.baichuan-ai.com/docs-v2/knowledgeBase",
+  "https://platform.baichuan-ai.com/docs-v2/file",
+]
+
+[[product.zdr.point]]
+text = "Same as the top-level zdr entry. None of the platform's terms pages or its documentation site contains a zero-retention commitment, switch or application method"
+text_zh = "同顶层 zdr。平台侧全部条款页与文档站均无零保留承诺、开关或申请方式"
+
+[[product.zdr.point]]
+text = "Observations to the contrary: §1.1.2 states expressly that API call logs are collected, which is the clause that bears on retention. The improvement clause §1.1.3 is not a statement about this dimension (it says inputs are used to improve the service, not how long anything is kept), so it is no longer bound here — see the training entry for that clause"
+text_zh = "反向观察：§1.2.2 明示收集 API 调用日志——这才是与留存相关的条款。§1.1.3 的服务改进条款不构成对 zdr 维度的表述（它说输入被用于改进服务，不涉及留存多久），故不再绑在本条，该引文见 training 条目"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "baichuan-platform-privacy-5-shortest-necessary"
+
+[[product.retention.point]]
+text = "Same as the top-level retention entry. Object and context: (1) input and output content — \"the shortest time necessary to achieve the purpose you authorized\", not quantified"
+text_zh = "同顶层 retention。对象与语境：①输入输出正文——「实现您授权使用的目的所必需的最短时间」，无量化"
+
+[[product.retention.point]]
+text = "(2) API call log records — collected expressly under §1.2.2 (for statistical analysis of call volumes), with no period disclosed"
+text_zh = "②API 调用记录日志——§1.2.2 明示收集（用于调用数量统计分析），期限未披露"
+
+[[product.retention.point]]
+text = "(3) Deleted or anonymized once a deletion request is acted on, with delayed deletion from backups (§4.2)"
+text_zh = "③删除请求响应后删除或匿名化，备份延迟删除（§4.2）"
+
+[[product.retention.point]]
+text = "(4) Deleted or anonymized promptly after account cancellation (§4.4)"
+text_zh = "④注销后及时删除或匿名化（§4.4）"
+
+[[product.retention.point]]
+text = "(5) Deleted or anonymized if operations cease (§5)."
+text_zh = "⑤停止运营时删除或匿名化（§5）。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "baichuan-platform-privacy-5-storage-in-cn"
+
+[[product.processing_region.point]]
+text = "Same as the top-level processing_region entry. Terms level: \"personal information\" is stored within China; no cross-border clause; no subprocessor list; the endpoint api.baichuan-ai.com and the ICP filing entity are both domestic."
+text_zh = "同顶层 processing_region。条款层：境内存储「个人信息」；无出境条款；无子处理者清单；端点 api.baichuan-ai.com 与备案主体均为境内。"
+
+[product.role]
+kind = "controller"
+anchor = "baichuan-platform-privacy-scope-subjects"
+
+[[product.role.point]]
+text = "Same as the top-level role entry. Baichuan collects in its own name (Special Notice section + §1.1.3) and requires developers to tell their end users that \"personal information will be shared with Baichuan\""
+text_zh = "同顶层 role。以自己名义直接收集（§特别说明 + §1.1.3），要求开发者向最终用户告知「个人信息会共享至百川」"
+
+[[product.role.point]]
+text = "No DPA and no self-designation as an entrusted party"
+text_zh = "无 DPA、无受托自述"
+
+[[product.role.point]]
+text = "The \"neutral platform\" wording appears only in a liability-disclaimer context."
+text_zh = "「中立平台」表述只出现在免责语境。"
+
+[[product]]
+id = "consumer_app"
+badge = "消费端"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "baichuan-tos-4-5-4-training-license"
+
+[[product.training.point]]
+text = "Conclusion for the consumer tier: there is an explicit training license for content that is \"publicly published, disseminated or shared\", while ordinary conversation input is covered only by service-improvement wording. Basis: Baichuan User Agreement (2025-09-28) §4.5: \"your act of publicly publishing, disseminating or sharing content in any form — images, text, audio, digital works, livestreams, video and so on — through this product represents that you have the right to grant, and agree to grant, the Company a worldwide, free … (4) right to use that content to train models and improve the related services…\" — the licensed object is publicly published content, and the license is obtained through conduct (\"the act represents the grant\") rather than per-instance consent"
+text_zh = "消费档结论：对「公开发布、传播、分享」的内容有明确的训练授权，对普通对话输入只有服务改进口径。依据：《百川用户协议》(2025-09-28) §四.5「您使用本产品将图片、文字、音频、数字作品、直播或视频等各种形式的内容…公开发布、传播、分享的行为代表了您有权许可且同意许可本公司在全世界范围内，免费…（4）使用该内容训练模型和改进相关服务的权利…」——授权对象是公开发布的内容，且以「行为代表许可」的方式取得，非逐次同意"
+
+[[product.training.point]]
+text = "§6.1 separately grants a worldwide, free, sublicensable license covering \"all data, information or content generated in the course of your use of this product\", worded as \"use in any form\". On the conversation-input side: main-site privacy policy §1.1.2 \"your text conversation information will also be used to improve Baichuan's response speed and quality\", and §1.4 uses anonymized information for academic research or statistical analysis in order to \"continuously improve the algorithmic models\". Evidence to the contrary: User Agreement §5.5 only prohibits users from using Baichuan data to train \"other\" AI products"
+text_zh = "§六.1 另授予覆盖「您在使用本产品过程中产生的所有数据、信息或内容」的全球免费可转许可，措辞「任何形式地使用」。对话输入侧：主站隐私政策 §1.1.2「您的文本对话信息还会被用来提高百川的响应速度和质量」，§1.4 匿名化后用于学术研究/统计分析以「不断改进算法模型」。反向证据：用户协议 §五.5 只禁止用户用百川数据训练「其他」AI 产品"
+
+[[product.training.point]]
+text = "There is no \"not used for training\" commitment and no description of an opt-out switch. Uncertainty: whether \"improving response speed and quality\" amounts to training has not been clarified by the vendor."
+text_zh = "无「不用于训练」承诺、无退出开关说明。不确定性：「提高响应速度和质量」是否等同训练，厂商未澄清。"
+
+[product.zdr]
+mark = "no"
+anchor = "baichuan-consumer-privacy-1-1-3-qa-history-retention"
+searched = [
+  "https://www.baichuan-ai.com/article/privacy-agreement",
+  "https://www.baichuan-ai.com/article/user-agreement",
+  "https://www.baichuan-ai.com/",
+]
+
+[[product.zdr.point]]
+text = "The consumer tier has no ZDR wording and no application path; what the terms do state is retention (see below), hence mark=no rather than undisclosed"
+text_zh = "消费档无 ZDR 术语、也无申请入口；条款明示的是留存（见下条），故记 mark=no 而非「未披露」"
+
+[[product.zdr.point]]
+text = "The retention of Q&A history in main-site privacy policy §1.1.3 and the service-improvement use in §1.1.2 are incompatible with \"zero retention\". The main site has no sitemap.xml (404), so exhaustive enumeration through a site map is not possible and the searched list is limited to the documents actually fetched this round."
+text_zh = "主站隐私政策 §1.1.3 的问答历史留存与 §1.1.2 的服务改进使用与「零保留」相斥。主站无 sitemap.xml（404），无法用站点地图做穷尽枚举，故 searched 列表以本轮实际抓取到的文档为限。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "baichuan-consumer-privacy-1-1-3-qa-history-retention"
+
+[[product.retention.point]]
+text = "Consumer-tier retention has to be split by object: (1) Q&A history (input text conversation information and conversation topics) — main-site privacy policy §1.1.3: \"in order to perform network information security obligations, we will retain your Q&A history and conversation topics for the period prescribed by law\", which is a **floor**-type statement (retained as long as the law requires) and cannot be read backwards as \"deleted when the period ends\""
+text_zh = "消费档 retention 要分对象：(1) 问答历史（输入文本对话信息与对话主题）——主站隐私政策 §1.1.3「为履行网络信息安全义务，我们会在法律规定的时间内保留您的问答历史及对话主题」，这是**下限**型口径（法律要求留多久就留多久），不能反推「到期即删除」"
+
+[[product.retention.point]]
+text = "The same sentence also says \"you can find and manage the Q&A history that has not yet been deleted\", showing that history is retained by default and managed by the user. (2) Personal information overall — §5: \"unless laws and regulations require otherwise, we will store your personal information only for the shortest time necessary to achieve the purpose you authorized\". (3) Deleted or anonymized once a deletion request is acted on, with delayed deletion from backups (§4.2)"
+text_zh = "同一句还写「您可以查找并管理尚未删除的问答历史」，说明历史默认留存、由用户自行管理。(2) 个人信息总体——§5「除非法律法规另有要求，我们对您的个人信息的存储时间将限于实现您授权使用的目的所必需的最短时间」。(3) 删除请求响应后删除或匿名化，备份延迟删除（§4.2）"
+
+[[product.retention.point]]
+text = "Deleted or anonymized promptly after account cancellation (§4.4)"
+text_zh = "注销后及时删除或匿名化（§4.4）"
+
+[[product.retention.point]]
+text = "Deleted or anonymized if operations cease (§5). No quantified number of days anywhere. Note that the platform-tier policy has no Q&A history retention sentence; the two are not interchangeable."
+text_zh = "停止运营时删除或匿名化（§5）。无任何量化天数。注意平台档政策没有问答历史留存句，两份不可互换。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "baichuan-consumer-privacy-5-no-cross-border"
+
+[[product.processing_region.point]]
+text = "Main-site privacy policy §5: \"we store personal information collected and generated in operations within China inside China. The personal information collected and processed under this policy is not transferred outside the territory.\" — one sentence more than the platform tier (\"not transferred outside the territory\"). Supporting: User Agreement §12.4 limits use to mainland China. The subject is still \"personal information\"; where the compute sits is not disclosed."
+text_zh = "主站隐私政策 §5「我们会将在中国境内运营所收集和产生的个人信息存储在中国境内。在本政策下所收集及处理的个人信息不存在出境的情况。」——比平台档多一句「不存在出境的情况」。辅助：用户协议 §十二.4 使用地限中国大陆。对象仍是「个人信息」，未披露算力所在地。"
+
+[product.role]
+kind = "controller"
+anchor = "baichuan-consumer-privacy-5-no-cross-border"
+
+[[product.role.point]]
+text = "On the consumer tier Baichuan provides the service directly to individual users and collects their personal information for its own purposes (§1.1.1 account, §1.1.2 human-machine conversation, §1.2.1 logs), which makes it an independent controller. The User Agreement §5.1 description of itself as \"a neutral network service provider\" only disclaims liability for third-party content behind search links and is not a PIPL role self-designation. No DPA and no entrusted-processing scenario. Confidence low: this tier has no role clause of any kind, the classification is inferred from the processing structure, and this row is not the provider's main tier."
+text_zh = "消费档由百川直接向个人用户提供服务并收集其个人信息用于自身目的（§1.1.1 账户、§1.1.2 人机交互对话、§1.2.1 日志），属独立控制者。用户协议 §五.1 自称「作为中立的网络服务提供者」仅针对搜索链接的第三方内容免责，不是 PIPL 角色自认。无 DPA、无受托场景。置信度 low：本档无任何角色自认条款，纯属按处理结构推定，且本行不是本 provider 的主档。"
+
+[[anchor]]
+id = "baichuan-platform-privacy-scope-api-service"
+source_id = "c430ca74f024695c"
+topics = ["processing_region", "retention", "role", "training"]
+
+[anchor.selector]
+prefix = "）是由北京百川智能科技有限公司（注册及联系地址为：北京市海淀区清华园街道赛尔大厦B座17层，以下简称“我们”或“百川”）"
+exact = "为访问者和开发者（以下简称“您”）提供的通过API方式调用的生成类人工智能技术服务（以下简称“本服务”）"
+suffix = "。我们根据《中华人民共和国网络安全法》《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》《GB/T35273-"
+
+[[anchor]]
+id = "baichuan-platform-privacy-scope-subjects"
+source_id = "c430ca74f024695c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+集、使用和存储您的个人信息。在将您的信息用于本政策未涵盖的用途时，我们会事先征求您的同意。**
+
+**特别说明：**
+
+"""
+exact = "本政策适用对象为访问、注册、登录本平台并使用本服务的访问者和开发者及其最终用户。"
+suffix = """
+
+
+如您将本平台提供的服务集成到自行开发的产品与/或服务中并向最终用户提供，或以任何其他形式使用本服务并向最终用户提供您"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-1-1-3-input-improve"
+source_id = "c430ca74f024695c"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "我们将收集您与您的最终用户，与百川进行交互过程中所输入的文本对话信息，并使用这些信息向您与您的最终用户提供生成内容。**"
+exact = "您与您的最终用户的文本对话信息还会被用来提高百川的响应速度和质量。"
+suffix = """
+**
+
+在对话过程中，您与您的最终用户可以对百川所输出的内容进行反馈评价。我们将收集反馈信息，包括您与您的最终用户主动提"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-1-4-anonymized-research"
+source_id = "c430ca74f024695c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+个人信息处理说明**
+
+根据适用的法律法规，我们可能会对您的个人信息进行技术处理，使得根据该信息无法精确识别到用户个人，"""
+exact = "并对技术处理后的信息进行匿名化的学术研究或统计分析（包括使用您在使用会写功能时输入的对话信息）"
+suffix = "，以便不断改进算法模型的识别和响应的速度和质量、提高会服务的智能性和对您输入内容的理解能力，但我们不会根据您输入的对话内"
+
+[[anchor]]
+id = "baichuan-platform-privacy-1-2-2-api-call-logs"
+source_id = "c430ca74f024695c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+崩溃问题、防止被其他恶意仿冒程序实施界面劫持攻击，同时以便为您提供对应的下载、安装或升级服务。
+
+在您使用本服务过程中，"""
+exact = "我们会收集您的设备调用我们API的调用记录日志，以用于调用数量的统计分析。"
+suffix = """
+
+
+**1.3 我们从第三方获取的您的个人信息**
+
+我们可能会在您的同意范围内从第三方（我们的合作方）处收集并使用您的"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-5-storage-in-cn"
+source_id = "c430ca74f024695c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+或其他个人、组织的合法权益受到严重损害的；**
+
+**(8)涉及商业秘密的。**
+
+## 5. 如何存储您的个人信息
+
+"""
+exact = "我们会将在中国境内运营所收集和产生的个人信息存储在中国境内。"
+suffix = """
+
+
+我们承诺，除非法律法规另有要求，我们对您的个人信息的存储时间将限于实现您授权使用的目的所必需的最短时间。
+
+**如我"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-5-shortest-necessary"
+source_id = "c430ca74f024695c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+如何存储您的个人信息
+
+我们会将在中国境内运营所收集和产生的个人信息存储在中国境内。
+
+我们承诺，除非法律法规另有要求，"""
+exact = "我们对您的个人信息的存储时间将限于实现您授权使用的目的所必需的最短时间。"
+suffix = """
+
+
+**如我们因业务需求或其他原因出现停止运营的情况，除非法律法规或规范性文件另有规定，我们将会向您告知此类情况，同时删"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-4-2-backup-delayed-deletion"
+source_id = "c430ca74f024695c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+在此同意，一旦删除请求被响应，您的个人信息将被删除或匿名化处理，**除非法律法规或规范性文件另有规定。
+
+**请您知悉，"""
+exact = "我们可能不会将响应的信息立即从备份系统中删除，但会在备份系统更新时进行删除。"
+suffix = """
+**
+
+**4.3更改您授权同意的范围**
+
+当您更改您的同意范围后，我们将不再收集和使用您相应的个人信息，除非您重新授"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-3-1-no-third-party-sharing"
+source_id = "c430ca74f024695c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+情形下的共享：我们可能会根据法律法规规定、诉讼争议解决需要，或按行政、司法机关依法提出的要求，对外共享您的个人信息。
+
+"""
+exact = "目前，百川不存在向第三方共享您的个人信息的情况。"
+suffix = """
+
+
+**3.2 转让**
+
+**原则上，我们不会将您的个人信息控制权向第三方转让，但以下情形除外：**
+
+(1)事先获得"""
+
+[[anchor]]
+id = "baichuan-platform-privacy-11-definition-open-platform"
+source_id = "c430ca74f024695c"
+topics = ["processing_region", "retention", "training"]
+
+[anchor.selector]
+prefix = """
+余条款将继续执行。
+
+本政策的标题仅为方便阅读而设计，不影响本政策任何条款的含义或解释。
+
+## 11. 关键词定义
+
+"""
+exact = "百川大模型开放平台：指由北京百川智能科技有限公司或其关联公司开发的用户可通过API调用的生成类人工智能类技术付费服务。"
+suffix = """
+
+
+关联公司：指北京百川智能科技有限公司合并报表范围内的下属公司或其他关联企业，且该公司/企业现在或将来与北京百川智能科"""
+
+[[anchor]]
+id = "baichuan-tos-4-5-4-training-license"
+source_id = "af145b85f5680a6c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（2）将内容的全部或部分编入其他任何形式的作品、媒体、技术中的权利；（3）对您的上传、发布信息进行商业开发的权利；（4）"
+exact = "使用该内容训练模型和改进相关服务的权利"
+suffix = "；以及（5）通过有线或无线网络向用户的计算机终端、移动通讯终端（包括但不限于便携式通讯设备如手机和智能平板电脑等）等提供"
+
+[[anchor]]
+id = "baichuan-tos-6-1-broad-license-any-use"
+source_id = "af145b85f5680a6c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "同意，您授予本公司一项全球范围内、免费、非独家、可多层次再许可的权利，并且您完全理解同意并遵守本协议第九条第3项的约定。"
+exact = "您同意本公司有权自行或许可第三方对上述数据、信息或内容进行任何形式地使用。"
+suffix = "您确认本公司有权自行或委托第三方对您享有知识产权的数据、信息或内容进行维权，维权形式包括但不限于：监测侵权行为、发送维权"
+
+[[anchor]]
+id = "baichuan-tos-5-1-neutral-network-service-provider"
+source_id = "af145b85f5680a6c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+的方式修改本平台基于人工智能生成合成内容所添加的显示标识或隐式标识。
+
+## 五、网络服务提供规范
+
+1、您理解并同意，"""
+exact = "作为中立的网络服务提供者"
+suffix = "，本平台根据您输入的关键字自动生成可跳转至第三方网页的链接，该部分链接依托于平台搜索功能并经人工智能算法根据关联程度进行"
+
+[[anchor]]
+id = "baichuan-tos-4-10-regulator-access"
+source_id = "af145b85f5680a6c"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "充分了解并同意，如果我们收到国家监管机关（包括但不限于公安机关、检察机关、法院、海关、税务机关、安全部门等）的相关要求，"
+exact = "我们有义务按照该等监管机关的要求对您的个人信息进行查询及对您的账户进行限制性操作"
+suffix = """
+，您应当配合相关操作。
+
+11、特别提示，您不得利用人工智能生成合成技术去制作、发布、传播虚假信息。根据《人工智能生成合"""
+
+[[anchor]]
+id = "baichuan-tos-5-5-no-training-other-models"
+source_id = "af145b85f5680a6c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+失和纠纷由您完全承担。
+
+5、您理解并同意，您不得通过反向工程来发现本产品使用的人工智能模型、算法或系统的任何底层组件，"""
+exact = "不得通过使用本产品或来自本产品的数据直接或间接创建、训练或改进其他人工智能产品或服务"
+suffix = """
+。除非得到明确允许，否则您不得使用网络抓取、网络搜寻或网络数据提取方法从本产品中提取数据。
+
+6、您理解并同意，您不得利"""
+
+[[anchor]]
+id = "baichuan-tos-12-4-china-mainland-only"
+source_id = "af145b85f5680a6c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+且有约束力。本协议项下之保证条款、保密条款、权利声明条款、法律适用及争议解决条款等内容，不因本协议的终止而失效。
+
+4、"""
+exact = "本产品仅限于在中国大陆地区使用，如您擅自在中国大陆以外（特别是欧盟）地区使用，公司不承担因此而产生的任何责任。"
+suffix = """
+
+
+5、本协议自用户同意勾选或网上签署并成功注册成为本平台用户之日起生效，除非本公司终止本协议或者用户丧失本平台用户资格"""
+
+[[anchor]]
+id = "baichuan-consumer-privacy-5-no-cross-border"
+source_id = "a868e5cbd24eb2a5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+及商业秘密的。**
+
+### 5. 如何存储您的个人信息
+
+我们会将在中国境内运营所收集和产生的个人信息存储在中国境内。"""
+exact = "在本政策下所收集及处理的个人信息不存在出境的情况。"
+suffix = """
+
+
+我们承诺，除非法律法规另有要求，我们对您的个人信息的存储时间将限于实现您授权使用的目的所必需的最短时间。
+
+**如我"""
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-1-3-qa-history-retention"
+source_id = "a868e5cbd24eb2a5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "量，我们会收集您的问答历史，包括您输入的文本对话信息以及基于上述信息形成的对话主题。您可以查找并管理尚未删除的问答历史。"
+exact = "为履行网络信息安全义务，我们会在法律规定的时间内保留您的问答历史及对话主题。"
+suffix = """
+
+
+  
+
+##### 1.1.4 其他用途
+
+（1）我们通过技术手段对个人信息进行匿名化处理后，匿名化处理的信息将无法"""
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-1-2-input-improve"
+source_id = "a868e5cbd24eb2a5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "用百川的服务时，我们将收集您与百川进行交互过程中所输入的文本对话信息，使用这些信息向您输出内容，以提供人机交互服务。**"
+exact = "您的文本对话信息还会被用来提高百川的响应速度和质量。"
+suffix = """
+**
+
+在对话过程中，您可以对百川所输出的内容进行反馈评价。我们将收集您的反馈信息，包括您主动提交的内容，以便不断改进百"""
+
+[[anchor]]
+id = "baichuan-consumer-privacy-5-shortest-necessary"
+source_id = "a868e5cbd24eb2a5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+集和产生的个人信息存储在中国境内。在本政策下所收集及处理的个人信息不存在出境的情况。
+
+我们承诺，除非法律法规另有要求，"""
+exact = "我们对您的个人信息的存储时间将限于实现您授权使用的目的所必需的最短时间。"
+suffix = """
+
+
+**如我们因业务需求或其他原因出现停止运营的情况，除非法律法规或规范性文件另有规定，我们将会向您告知此类情况，同时删"""
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-4-anonymized-research"
+source_id = "a868e5cbd24eb2a5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+4 个人信息处理说明
+
+根据适用的法律法规，我们可能会对您的个人信息进行技术处理，使得根据该信息无法精确识别到用户个人，"""
+exact = "并对技术处理后的信息进行匿名化的学术研究或统计分析（包括使用您在使用会写功能时输入的对话信息）"
+suffix = "，以便不断改进算法模型的识别和响应的速度和质量、提高会服务的智能性和对您输入内容的理解能力，但我们不会根据您输入的对话内"

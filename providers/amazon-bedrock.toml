@@ -1,0 +1,525 @@
+name = "Amazon Web Services"
+line = "amazon-bedrock"
+site = "global"
+entity = "Amazon Web Services, Inc."
+endpoint = ""
+doc = "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html"
+
+[[source]]
+url = "https://aws.amazon.com/bedrock/faqs/"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Amazon Bedrock 产品 FAQ 的 Security / Customization 段。覆盖 api 档的训练用途与处理区域产品级问答;旧引文 'With Amazon Bedrock, your content is not used to improve the base models...' 现行页面出现 2 次(产品特性段与安全合规段),不唯一,故 training 改用同页唯一问答句。"
+
+[[source]]
+url = "https://aws.amazon.com/service-terms/"
+channel = "contract"
+tier = "core"
+note = "AWS Service Terms 全文。§1.14 数据保护(并入 AWS DPA 与 SCC)、§50.1 Amazon Bedrock 属『AI Services』、§50.3 服务改进清单(不含 Bedrock)、§50.12 Bedrock 专项(§50.12.1 第三方模型为 Third-Party Content、§50.12.2 滥用检测保留 30 天、§50.12.4 定制模型不被模型商/AWS 访问)。合同层覆盖 api 档。"
+
+[[source]]
+url = "https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf"
+channel = "contract"
+tier = "core"
+note = "AWS Data Processing Addendum 正文(Service Terms §1.14.1 并入)。适用所有以 AWS Services 处理 Customer Data 的场景,Bedrock 属 §50.1 定义的 AI Services 故适用;非 Bedrock 专属条款。覆盖 api 档的协议角色与客户选定处理 Region。本轮新收录的 URL。"
+
+[[source]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/abuse-detection.html"
+channel = "developer_data"
+tier = "core"
+note = "Amazon Bedrock 用户指南「Abuse detection」页。覆盖 api 档的滥用检测保留例外(ZOA+ZDR 数据安全模型、逐模型 30 天保留、CSAM 存储与审查、cross-region 保留数据落目标 Region)。cookie 横幅含 'try again later',本轮 classify 已改为先判政策正文,人工复核确认正文为真实政策文本且三条旧引文全部命中。"
+
+[[source]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html"
+channel = "developer_data"
+tier = "core"
+note = "Amazon Bedrock 用户指南「Data retention」页。覆盖 api 档(Bedrock 托管推理,含 bedrock-runtime 与 bedrock-mantle 端点、Messages/Chat Completions/Responses API)的保留模式与 ZDR 配置机制;不含 Bedrock Marketplace 第三方 endpoint,也不含 Claude Platform on AWS。本轮新发现的 URL(旧仓库与上一轮均未收录)。"
+
+[[source]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/geographic-cross-region-inference.html"
+channel = "developer_data"
+tier = "core"
+note = "Bedrock 用户指南「Geographic cross-Region inference」页。记录 processing_region 的例外之一:地理 inference profile 只在同一 geography(US/EU/APAC)内处理,数据默认仅存于源 Region,滥用检测保留的数据存于目标 Region。上一轮抓取遇 429 未覆盖,本轮重试成功。"
+
+[[source]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/global-cross-region-inference.html"
+channel = "developer_data"
+tier = "core"
+note = "Bedrock 用户指南「Global cross-Region inference」页。记录 global profile 可路由到全球任意受支持商业 Region,官方提示有数据驻留/合规要求的组织需自行评估。"
+
+[[product]]
+id = "api"
+badge = "Bedrock"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "training-bedrock-not-in-service-improvement-list-50-3"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "zdr-default-no-store"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "zdr-default-no-store"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "processing-region-stored-at-rest-in-region"
+
+[product.role]
+kind = "processor"
+anchor = "role-aws-processor-1-1"
+
+[[anchor]]
+id = "zdr-mode-none"
+source_id = "45084a6538d274c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ggle:
+
+| **Mode** | **Behavior** |
+| --- | --- |
+| `none` | """
+exact = "Zero data retention. No request or response data is written to durable storage by AWS or shared with the model provider."
+suffix = " On the Responses API, `store` defaults to `false` and `stor"
+
+[[anchor]]
+id = "retention-default-mode-aws-may-retain"
+source_id = "45084a6538d274c1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nds on the model — consult the model's terms for specifics. "
+exact = "AWS may retain the data for safety and abuse-prevention purposes. The model provider does not receive it."
+suffix = " On the Responses API, `store` defaults to `true` and may be"
+
+[[anchor]]
+id = "retention-no-change-before-claude-fable-5"
+source_id = "45084a6538d274c1"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ou always control your retention policy.
+
+###### Important
+
+"""
+exact = "There is no data retention change to Claude models released before Claude Fable 5."
+suffix = " We are committed to ensuring you are in full control over w"
+
+[[anchor]]
+id = "retention-per-region-no-propagation"
+source_id = "45084a6538d274c1"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = " across the Messages, Chat Completions, and Responses APIs. "
+exact = "The setting is per-Region: it governs every request in the Region where you set it and does not propagate to other Regions."
+suffix = " A Region you have not configured remains at `inherit` and f"
+
+[[anchor]]
+id = "zdr-block-model-requiring-retention"
+source_id = "45084a6538d274c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "gured for zero data retention (`data_retention_mode: none`) "
+exact = "and you invoke a model that requires retention, Amazon Bedrock will block the request and return an error"
+suffix = """
+ — you always control your retention policy.
+
+###### Importa"""
+
+[[anchor]]
+id = "zdr-eligibility-per-account-model"
+source_id = "45084a6538d274c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "s, contact your AWS account manager to discuss eligibility. "
+exact = "ZDR access is evaluated on a per-account, per-model basis in coordination with the model provider."
+suffix = """
+
+
+Accounts approved for ZDR on a specific model will see `"n"""
+
+[[anchor]]
+id = "retention-aws-review-30d"
+source_id = "45084a6538d274c1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ws_review` (currently Claude Fable 5 and Claude Fable 5.1): "
+exact = "user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access."
+suffix = """
+ Your content is not shared with the model provider.
+
+For th"""
+
+[[anchor]]
+id = "retention-cri-destination-region"
+source_id = "45084a6538d274c1"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+store=true`), consult the model's documentation and terms.
+
+"""
+exact = "If cross-region inference is enabled for these models, retained inputs and outputs are stored in destination Regions (that is, the Region where your inference request is processed)."
+suffix = """
+
+
+See [Anthropic Terms of Service](https://aws.amazon.com/le"""
+
+[[anchor]]
+id = "zoa-zero-operator-access"
+source_id = "4db2307f55ee261d"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+-party model providers', terms of service or use policies.
+
+"""
+exact = "Amazon Bedrock uses a zero operator access (ZOA) data security model. This means no operators of the service can access model input or output."
+suffix = " Also, Amazon Bedrock uses a zero data retention (ZDR) data "
+
+[[anchor]]
+id = "zdr-default-no-store"
+source_id = "4db2307f55ee261d"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "tors of the service can access model input or output. Also, "
+exact = "Amazon Bedrock uses a zero data retention (ZDR) data security model. This means that by default, Amazon Bedrock does not store model inputs or outputs."
+suffix = """
+
+
+However, for specific abuse detection purposes related to """
+
+[[anchor]]
+id = "retention-openai-classifier-30d"
+source_id = "4db2307f55ee261d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "aybreak Red: GPT-5.6 Cyber, and Daybreak Blue: GPT-5.6 Sol, "
+exact = "classifier-flagged traffic will be retained for up to 30 days for automated offline abuse detection."
+suffix = " Eligible customers may request full ZDR through their AWS a"
+
+[[anchor]]
+id = "retention-claude-fable-all-traffic-30d"
+source_id = "4db2307f55ee261d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s may request full ZDR through their AWS account team.
+
+*   """
+exact = "For Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic will be retained for up to 30 days for automated offline abuse detection."
+suffix = " Classifier-flagged traffic will be subject to potential hum"
+
+[[anchor]]
+id = "zdr-frontier-safeguards-until-2026-12-31"
+source_id = "4db2307f55ee261d"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ubject to potential human review performed by AWS.
+
+    *   """
+exact = "Customers that are eligible for the Enterprise Frontier Safeguards program will receive ZDR through December 31, 2026."
+suffix = " After ZDR ends, all traffic will be retained for up to 30 d"
+
+[[anchor]]
+id = "retention-stored-by-aws-not-shared"
+source_id = "4db2307f55ee261d"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+ bucket for storage for automated offline abuse detection.
+
+"""
+exact = "Retained inputs and outputs are stored and processed by AWS and are not shared with third-party model providers."
+suffix = " If cross-region inference is enabled for these models, reta"
+
+[[anchor]]
+id = "retention-cri-destination-region"
+source_id = "4db2307f55ee261d"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "by AWS and are not shared with third-party model providers. "
+exact = "If cross-region inference is enabled for these models, retained inputs and outputs are stored in destination regions (i.e., the region where your inference request is processed)."
+suffix = """
+
+
+You are responsible for the content you (and your end user"""
+
+[[anchor]]
+id = "retention-csam-store-and-review"
+source_id = "4db2307f55ee261d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "`ValidationException` (HTTP 400) error in the API response. "
+exact = "Amazon Bedrock may store and review the flagged input or output exclusively to determine if it is CSAM"
+suffix = " and may also file a report with the National Center for Mis"
+
+[[anchor]]
+id = "training-no-train-nova-titan-third-party"
+source_id = "55b427c01c4d6e5a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+train Amazon Nova, Amazon Titan or any third-party models?
+
+"""
+exact = "No, AWS and the third-party model providers will not use any inputs to or outputs from Amazon Bedrock to train Amazon Nova, Amazon Titan, or any third-party models."
+suffix = """
+
+
+## SDK
+
+[Open all](https://aws.amazon.com/bedrock/faqs/)
+
+"""
+
+[[anchor]]
+id = "training-inputs-outputs-not-shared-with-model-providers"
+source_id = "55b427c01c4d6e5a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+outputs made available to third-party model providers?
+
+No. """
+exact = "Users' inputs and model outputs are not shared with any model providers."
+suffix = """
+
+
+### What security and compliance standards does Amazon Bed"""
+
+[[anchor]]
+id = "processing-region-stored-at-rest-in-region"
+source_id = "55b427c01c4d6e5a"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ed outside the AWS Region where I am using Amazon Bedrock?
+
+"""
+exact = "Any customer content processed by Amazon Bedrock is encrypted and stored at rest in the AWS Region where you are using Amazon Bedrock."
+suffix = """
+
+
+### Are user inputs and model outputs made available to th"""
+
+[[anchor]]
+id = "processing-region-customized-fm-remain-in-region"
+source_id = "55b427c01c4d6e5a"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " information used to supplement a prompt, and FM responses. "
+exact = "Customized FMs remain in the Region where the API call is processed."
+suffix = """
+
+
+### How does Amazon Bedrock ensure my data used in fine-tu"""
+
+[[anchor]]
+id = "role-dpa-incorporation-1-14-1"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+es with the PGSSI-S.
+
+**1.14. Data Protection**
+
+**1.14.1** """
+exact = "These Service Terms incorporate the [AWS Data Processing Addendum](https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf) (“DPA”), when you use AWS Services to process Customer Data (as defined in the DPA)."
+suffix = """
+
+
+**1.14.2**These Service Terms incorporate the [AWS Supplem"""
+
+[[anchor]]
+id = "role-scc-controller-to-processor-1-14-3"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "personal data subject to GDPR (together a “Data Transfer”). "
+exact = "When you are a controller (as defined in the GDPR), the Controller-to-Processor Clauses will apply to a Data Transfer."
+suffix = " When you are a processor (as defined in the GDPR), the Proc"
+
+[[anchor]]
+id = "role-bedrock-is-ai-service-50-1"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ine Learning and Artificial Intelligence Services
+
+**50.1.**"""
+exact = "“AI Services” means, collectively,Amazon Bedrock,"
+suffix = " Amazon CodeGuru Profiler, Amazon CodeGuru Reviewer, Amazon "
+
+[[anchor]]
+id = "retention-abuse-detection-30d-50-12-2"
+source_id = "e50c57a33d690ba0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ide/abuse-detection.html),as part of providing the Service, "
+exact = "Amazon Bedrock stores Service inputs and outputs for up to 30 days (unless otherwise required by law) solely to detect activity that violates our, or third-party model providers’, terms of service or use policies"
+suffix = ". If we detect a potential violation, you agree and instruct"
+
+[[anchor]]
+id = "training-bedrock-not-in-service-improvement-list-50-3"
+source_id = "e50c57a33d690ba0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "side of the AWS region where you are using such AI Service. "
+exact = "This Section does not apply to Amazon Comprehend Medical, Amazon Transcribe Medical, AWS HealthScribe, Amazon Comprehend Detect PII or any AI Service that is not listed in the first sentence of this Section 50.3."
+suffix = " You may instruct AWS not to use and store AI Content proces"
+
+[[anchor]]
+id = "training-custom-model-no-provider-access-50-12-4"
+source_id = "e50c57a33d690ba0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ing). You will have exclusive use of your customized model. "
+exact = "Third-party model providers cannot access your customized model. We will not access or use your customized model except as necessary to maintain or provide the Amazon Bedrock Service"
+suffix = ", or as necessary to comply with the law or a binding order "
+
+[[anchor]]
+id = "role-third-party-models-are-third-party-content-50-12-1"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+* The following terms apply to Amazon Bedrock:
+
+**50.12.1.**"""
+exact = "Third-party models are available to you on Amazon Bedrock as “Third-Party Content”."
+suffix = " By using a third-party model, you agree to the applicable t"
+
+[[anchor]]
+id = "role-aws-processor-1-1"
+source_id = "719b5d829e25644e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "es when Customer Data is processed by AWS. In this context, "
+exact = "AWS will act as processor to Customer, who can act either as controller or processor of Customer Data."
+suffix = """
+ 
+
+1.2 Customer Controls. Customer can use the Service Contr"""
+
+[[anchor]]
+id = "role-scc-controller-to-processor-12-2-1"
+source_id = "719b5d829e25644e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+, to any Third Country (each a “ Data Transfer ”). 
+
+12.2.1 """
+exact = "When Customer is acting as a controller, the Controller-to-Processor Clauses will apply to a Data Transfer."
+suffix = """
+ 
+
+12.2.2 When Customer is acting as a processor, the Proces"""
+
+[[anchor]]
+id = "processing-region-customer-chooses-region-12-1"
+source_id = "719b5d829e25644e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+a “Region ”), including Regions in the EEA. Once Customer 
+
+"""
+exact = "has made its choice, AWS will not transfer Customer Data from Customer’s selected"
+suffix = """
+ 
+
+Region(s) except as necessary to provide the Services ini"""
+
+[[anchor]]
+id = "retention-return-or-delete-90d-14"
+source_id = "719b5d829e25644e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Date, subject to the terms and conditions of the Agreement, "
+exact = "AWS will return or delete Customer Data when Customer uses the Service Controls to request such return or deletion."
+suffix = " No later than the end of this 90-day period, Customer will "
+
+[[anchor]]
+id = "cri-geography-stays-within-geography"
+source_id = "fae2196874a72356"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+g information about Geographic cross-Region inference:
+
+*   """
+exact = "Cross-Region inference requests to an inference profile tied to a geography (such as US, EU, and APAC) stay within that geography."
+suffix = " Your data remains in the AWS Regions where it originally re"
+
+[[anchor]]
+id = "cri-abuse-detection-data-in-destination-region"
+source_id = "fae2196874a72356"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "utside of your source Region during cross-Region inference. "
+exact = "To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region."
+suffix = " See [Amazon Bedrock abuse detection](https://docs.aws.amazo"
+
+[[anchor]]
+id = "cri-global-may-process-in-other-regions"
+source_id = "ea2dc204eddde79d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+  }
+    ]
+}
+```
+
+### Disable global cross-Region inference
+
+"""
+exact = "Organizations with data residency or compliance requirements should assess whether Global cross-Region inference fits their compliance framework, since requests may be processed in other supported AWS commercial Regions."
+suffix = " To explicitly disable Global cross-Region inference, implem"

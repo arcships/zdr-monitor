@@ -1,0 +1,175 @@
+name = "Codebuff"
+line = "codebuff"
+site = "global"
+plan_levels = ["free", "individual"]
+entity = "Freebuff, Inc."
+endpoint = ""
+doc = "https://www.codebuff.com/privacy-policy"
+
+[[source]]
+url = "https://www.codebuff.com/"
+channel = "developer_data"
+tier = "core"
+note = "Codebuff 官方主页，明确是终端 AI 编码助手并在本地快速索引整个代码库。"
+
+[[source]]
+url = "https://www.codebuff.com/docs/advanced/how-does-it-work"
+channel = "developer_data"
+tier = "core"
+note = "Tree-sitter 本地建立 code map；相关代码与上下文发送至 Freebuff 和模型商。"
+
+[[source]]
+url = "https://www.codebuff.com/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Freebuff, Inc. 明确同时运营 Codebuff 和 Freebuff CLI；覆盖训练、遥测、保留和地域。"
+
+[[source]]
+url = "https://www.codebuff.com/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Codebuff 与 Freebuff 产品统一合同及内容处理许可。"
+
+[[product]]
+id = "managed"
+badge = "托管 CLI"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "codebuff-training-default"
+
+[[product.training.point]]
+text_zh = "只有明确标注“May use data for AI training”的模型/功能例外；使用该例外时训练结论反转。连接 Freebuff Cloud 仓库还允许有限 Codebase Evaluation，但该行为本身不授权训练。"
+anchor = "codebuff-training-default"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service", "https://www.codebuff.com/docs/advanced/how-does-it-work", "https://www.codebuff.com/pricing", "https://freebuff.com/enterprise"]
+
+[product.retention]
+object = "input_output_code"
+basis = "undisclosed"
+anchor = "codebuff-retention"
+
+[[product.retention.point]]
+text_zh = "输入、代码、文件、agent traces 与项目数据可被收集；只给按目的合理必要的泛化期限。账号删除请求完成后，不再仅为 Codebase Evaluation 保留 raw source code/agent traces，但断开 GitHub 或 Delete project 本身不会删除已收集数据。"
+anchor = "codebuff-retention"
+
+[[product.retention.point]]
+text_zh = "Tree-sitter 在本地建立 code map，但官方未披露该本地索引/缓存的清理期限。"
+anchor = "codebuff-local-map"
+
+[[product.retention.point]]
+text_zh = "产品默认会向 analytics/observability 服务商发送有界的使用、性能和诊断事件；官方政策及 CLI 文档未披露全局关闭开关或遥测保留期限。"
+anchor = "codebuff-telemetry"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "codebuff-region"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service", "https://freebuff.com/enterprise"]
+
+[[product.role.point]]
+text_zh = "政策未使用 controller/processor 法律角色术语；页面展示按 controller 口径处理，但企业 DPA/processor 身份未公开，采购前需另行确认。"
+
+[[product]]
+id = "training-labeled"
+badge = "标注可训练模型"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "codebuff-training-exception"
+[product.zdr]
+mark = "no"
+anchor = "codebuff-training-exception"
+[product.retention]
+object = "input_output_code"
+basis = "undisclosed"
+anchor = "codebuff-training-exception"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "codebuff-region"
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service"]
+
+[[anchor]]
+id = "codebuff-official-cli"
+source_id = "44fc255b008100ab"
+topics = ["role"]
+[anchor.selector]
+prefix = "Title: "
+exact = "Codebuff – AI Coding Assistant for Your Terminal"
+suffix = ""
+
+[[anchor]]
+id = "codebuff-local-map"
+source_id = "c0b92764afa33392"
+topics = ["retention"]
+[anchor.selector]
+prefix = "## [The Pipeline]"
+exact = "1.   Tree-sitter scans your repo and builds a code map"
+suffix = ""
+
+[[anchor]]
+id = "codebuff-data-path"
+source_id = "c0b92764afa33392"
+topics = ["retention", "processing_region", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Edits and commands run locally. Relevant prompts, code, files, and repository context are sent to Freebuff and model providers."
+suffix = " See the"
+
+[[anchor]]
+id = "codebuff-training-default"
+source_id = "56524e038896a2bf"
+topics = ["training"]
+[anchor.selector]
+prefix = "## AI Training\n\n"
+exact = "We do not use Prompt and Project Data to train our or third-party AI models unless, before you use the applicable model or feature, we clearly state that the data may be used for AI training."
+suffix = " A label or notice"
+
+[[anchor]]
+id = "codebuff-training-exception"
+source_id = "56524e038896a2bf"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "A label or notice such as May use data for AI training means that Prompt and Project Data submitted through that model or feature may be retained and used by Company or the applicable third-party provider for AI training, development, evaluation, testing, fine-tuning, quality improvement, safety research, and related model or product improvement."
+suffix = " A general notice"
+
+[[anchor]]
+id = "codebuff-retention"
+source_id = "56524e038896a2bf"
+topics = ["retention"]
+[anchor.selector]
+prefix = "## Retention\n\n"
+exact = "We retain information for as long as reasonably necessary for the purposes described in this Privacy Policy, including providing, maintaining, developing, improving, evaluating, securing, and supporting Service; advertising; enforcing our Terms; complying with law; and resolving disputes."
+suffix = ""
+
+[[anchor]]
+id = "codebuff-region"
+source_id = "56524e038896a2bf"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "We are based in the United States, and we and our providers may process information in the United States and other countries."
+suffix = " Where required"
+
+[[anchor]]
+id = "codebuff-telemetry"
+source_id = "56524e038896a2bf"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Our products also send bounded usage, performance, and diagnostic events to analytics and observability providers."
+suffix = ""

@@ -1,0 +1,677 @@
+name = "IBM"
+line = "watsonx"
+site = "global"
+entity = "International Business Machines Corporation / IBM Cloud International B.V."
+endpoint = ""
+doc = "https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-security.html?context=wx"
+
+[[source]]
+url = "https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-security.html?context=wx"
+channel = "developer_data"
+tier = "core"
+note = "API 档（watsonx.ai as a Service，IBM Cloud 托管）官方文档「Security and privacy for foundation models」。同一主题另有 software 档版本（www.ibm.com/docs/en/watsonx/w-and-w/2.3.x），两版正文有实质差异，见对应来源。旧记录曾判定本 URL 已失效并弃用；本轮实测带 ?context=wx 可正常抓取（不带该参数则是 CP4DaaS 登录壳，见 not_policy 项）。"
+
+[[source]]
+url = "https://www.ibm.com/docs/en/watsonx/saas?topic=cloud-security-policies-responsibilities-in"
+channel = "developer_data"
+tier = "core"
+note = "API 档「Security policies and responsibilities in IBM Cloud」（Last Updated 2026-05-22）：服务侧 PII（含备份）30 天清除、DPA/DPA Exhibit 适用声明、训练日志文件对 IBM 与其他用户可见、控制者删除义务。"
+
+[[source]]
+url = "https://www.ibm.com/docs/en/watsonx/w-and-w/2.3.x?topic=watsonx-security-foundation-models"
+channel = "developer_data"
+tier = "core"
+note = "software 档（IBM watsonx.ai software 2.2/2.3/2.4，客户自管理）同一页文档，Last Updated 2026-05-07。与 SaaS 版差异：本页写「hosted on your private, on-premises cluster」，且 prompt session asset 一句没有「retained for 30 days」。旧记录把它当作 API 档唯一来源，属档位混用。旧记录的三条引文在本页现版仍逐字命中（verify.py check：quotes_found 3 / quotes_lost 0），所以这条来源本身没坏，坏的是档位归属与「谁说了算」。"
+
+[[source]]
+url = "https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=850D9360405711E5B2E4A36A7B0C4479"
+channel = "contract"
+tier = "core"
+note = "合同层：IBM watsonx.ai Runtime as a Service 的 Data Processing and Protection Data Sheet（即 DPA Exhibit，由 watsonx.ai Runtime 服务描述 §2 指定；IBM Terms 侧同一文档 docid 0495e768da4848f1d179a00aa3bc260d，版本 07/2026-03-02 生效）。要点：Content 在服务到期/终止后 30 天删除；8 个 IBM 处理地（AU/CA/DE/IN/JP/PL/UK/US）与各自处理活动；第三方子处理方 CloudFlare(US)。本页是 IBM 官方 SPCR 的 HTML 渲染（watsonx 文档 Learn more 里直接链接的就是它），r.jina.ai 可抓取。"
+
+[[source]]
+url = "https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=DCDEDC1A3B3840CA8D2E82FF64849F52"
+channel = "contract"
+tier = "core"
+note = "合同层：IBM watsonx.ai as a Service Multicloud（AWS 托管档）的 Data Sheet / DPA Exhibit（docid a74c502e0ff1dbbf9ed80283c7fdc780，v03/2026-08-26 生效）。30 天终止后删除；第三方子处理方含 AWS-India、Amazon (AWS)、Red Hat、Salesforce、Segment 等。"
+
+[[source]]
+url = "https://www.ibm.com/support/customer/csol/terms/?id=i126-6883"
+channel = "contract"
+tier = "core"
+note = "合同层：IBM Cloud Additional Service Description「IBM watsonx.ai Runtime as a Service」v28，2026-08-04 生效。§5.1(a) AI Technology Terms 是本家 training 维度最直接的合同条款（默认不训练，除客户主动反馈外）。§1.2.1 说明 foundation models 含 IBM 自研与第三方（Non-IBM Product，另受第三方许可约束）。IBM Terms 站的文档以 JS 查看器 + PDF 交付（直连 PDF 端点为 /support/customer/csol/terms/api/download/<docid>，需先访问站内页面取得会话 cookie），r.jina.ai 抓不到正文（实测返回 188B 的 missing session JSON），policy-sync 会把它记为抓取失败而非政策变更。锚点逐字取自 IBM 自己交付的 PDF 文本（本机 pypdf 抽取，句内换行按 PDF 排版保留）。本轮复核把其余取正文路径逐一试过，均不通：查看器加 ?cc=us&lc=en 或 ?ref=<docid>-<ver>-<date>-zz-<lang> 永久引用只渲染站点框架（r.jina.ai 分别 10866B / 7473B，无正文）；/api/getdocumentbyid/、/api/download/、/search/documentdetailsByReference/、/details/getDocumentDetails/ 一律 TERMS001 missing session——会话 cookie 只在站内页面 GET 时下发，r.jina.ai 无法复用。同时确认 r.jina.ai 能把 PDF 抽成 text/plain 正文（实测 IBM 的 DPA Exhibit PDF 返回 6260B 可读文本），所以本家一旦出现免会话的官方静态 PDF/HTML 交付即可直接换源；本轮未找到，URL 维持不变，锚点状态保持上一次的值。另需注意：站点框架的正文非空，classify 会判成 fetched 并把框架存成版本，此时锚点会被误报为 gone（documents/ 里 2026-09-22T03:12 的三个版本就是框架，不是条款正文）；真正拦住误报的是 health/ 里的 render_error，抓取层对「非空但无正文」目前没有判据。"
+
+[[source]]
+url = "https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548"
+channel = "contract"
+tier = "core"
+note = "合同层：country-specific IBM Client Relationship Agreement（CRA）v13，2026-08-17 生效，是当前多数 IBM Cloud 账户的基础协议（与 Product Attachment for Cloud Services Z126-6560 搭配）。§4 Content and Data Protection：IBM 及其关联方/承包方仅可为提供 Products 而访问使用存储处理 Content；DPA 代表客户处理；不归档但可能留在备份文件。watsonx.ai Multicloud 服务描述直接把本协议列为适用协议。IBM Terms 站的文档以 JS 查看器 + PDF 交付（直连 PDF 端点为 /support/customer/csol/terms/api/download/<docid>，需先访问站内页面取得会话 cookie），r.jina.ai 抓不到正文（实测返回 188B 的 missing session JSON），policy-sync 会把它记为抓取失败而非政策变更。锚点逐字取自 IBM 自己交付的 PDF 文本（本机 pypdf 抽取，句内换行按 PDF 排版保留）。本轮复核把其余取正文路径逐一试过，均不通：查看器加 ?cc=us&lc=en 或 ?ref=<docid>-<ver>-<date>-zz-<lang> 永久引用只渲染站点框架（r.jina.ai 分别 10866B / 7473B，无正文）；/api/getdocumentbyid/、/api/download/、/search/documentdetailsByReference/、/details/getDocumentDetails/ 一律 TERMS001 missing session——会话 cookie 只在站内页面 GET 时下发，r.jina.ai 无法复用。同时确认 r.jina.ai 能把 PDF 抽成 text/plain 正文（实测 IBM 的 DPA Exhibit PDF 返回 6260B 可读文本），所以本家一旦出现免会话的官方静态 PDF/HTML 交付即可直接换源；本轮未找到，URL 维持不变，锚点状态保持上一次的值。另需注意：站点框架的正文非空，classify 会判成 fetched 并把框架存成版本，此时锚点会被误报为 gone（documents/ 里 2026-09-22T03:12 的三个版本就是框架，不是条款正文）；真正拦住误报的是 health/ 里的 render_error，抓取层对「非空但无正文」目前没有判据。"
+
+[[source]]
+url = "https://www.ibm.com/support/customer/csol/terms/?id=Z126-7870"
+channel = "contract"
+tier = "core"
+note = "合同层：IBM Data Processing Addendum（DPA）v07，2026-03-02 生效，5 页。§1.1「Client appoints IBM as Processor to Process Client Personal Data.」是 role 维度最直接的依据；§1.3 规定按客户书面指示处理；定义节定义 Subprocessor。canonical 短链 http://ibm.com/dpa 302 到本 URL。IBM Terms 站的文档以 JS 查看器 + PDF 交付（直连 PDF 端点为 /support/customer/csol/terms/api/download/<docid>，需先访问站内页面取得会话 cookie），r.jina.ai 抓不到正文（实测返回 188B 的 missing session JSON），policy-sync 会把它记为抓取失败而非政策变更。锚点逐字取自 IBM 自己交付的 PDF 文本（本机 pypdf 抽取，句内换行按 PDF 排版保留）。本轮复核把其余取正文路径逐一试过，均不通：查看器加 ?cc=us&lc=en 或 ?ref=<docid>-<ver>-<date>-zz-<lang> 永久引用只渲染站点框架（r.jina.ai 分别 10866B / 7473B，无正文）；/api/getdocumentbyid/、/api/download/、/search/documentdetailsByReference/、/details/getDocumentDetails/ 一律 TERMS001 missing session——会话 cookie 只在站内页面 GET 时下发，r.jina.ai 无法复用。同时确认 r.jina.ai 能把 PDF 抽成 text/plain 正文（实测 IBM 的 DPA Exhibit PDF 返回 6260B 可读文本），所以本家一旦出现免会话的官方静态 PDF/HTML 交付即可直接换源；本轮未找到，URL 维持不变，锚点状态保持上一次的值。另需注意：站点框架的正文非空，classify 会判成 fetched 并把框架存成版本，此时锚点会被误报为 gone（documents/ 里 2026-09-22T03:12 的三个版本就是框架，不是条款正文）；真正拦住误报的是 health/ 里的 render_error，抓取层对「非空但无正文」目前没有判据。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+label = "另有 watsonx.ai software 自管版（客户自建 OpenShift）：厂商不接触数据，"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sd-runtime-no-train-unless-voluntary-feedback"
+
+[[product.training.point]]
+text_zh = "API 档（SaaS）合同层结论：默认不用于训练，唯一开口是客户主动提交反馈。①服务描述 §5.1(a)：「Unless separately authorized by Client through a voluntary feedback submission, IBM will not use the Client Content or model Outputs to train the foundation models or embedding models.」（Multicloud 档 i127-9067 §5.1(a) 同文）。同节把「所有模型输入（含推理/提示、微调/提示调优内容）」界定为 Client Content，输出所有权归客户。②基础合同层：CRA §4a「such parties will access, use, provide, store, and otherwise process Content solely for the purpose of providing the Products」，CSA §2b 同旨。③文档层：SaaS 文档「IBM does not use the content that you upload to watsonx or the output that is generated by a foundation model to further train or improve any IBM-developed models.」需并列的例外与边界：(a) 自愿反馈提交（voluntary feedback submission）可授权使用，CSA 另写「IBM may use for any purpose」"
+
+[[product.training.point]]
+text_zh = "(b) 文档层那句只说 IBM 自研模型（IBM-developed models），第三方模型（Non-IBM Product，如 Mistral 商用模型）另有许可条款，服务描述 §6.1 对 Mistral 微调模型另设「Unless separately authorized by Client, neither IBM nor Mistral will leverage, use…」"
+
+[[product.training.point]]
+text_zh = "(c) Technology Preview 不适用该 Data Sheet 与输出赔偿"
+
+[[product.training.point]]
+text_zh = "(d) 预览类服务另有「voluntary feedback… which IBM may use for any purpose」。未见任何按账户/按项目的训练开关或退出机制——开口只有主动反馈这一条路径。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "saas-fm-prompt-not-stored-unless-saved"
+searched = [
+  "https://www.ibm.com/support/customer/csol/terms/?id=Z126-7870",
+  "https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548",
+  "https://www.ibm.com/support/customer/csol/terms/?id=Z126-6304_IBMCIBV",
+  "https://www.ibm.com/support/customer/csol/terms/?id=i126-6605",
+  "https://www.ibm.com/support/customer/csol/terms/?id=i126-6883",
+  "https://www.ibm.com/support/customer/csol/terms/?id=i127-9067",
+  "https://www.ibm.com/support/customer/csol/terms/?id=Z126-7745",
+  "https://www.ibm.com/support/customer/csol/terms/?id=Z126-8005",
+  "https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=850D9360405711E5B2E4A36A7B0C4479",
+  "https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-security.html?context=wx",
+  "https://www.ibm.com/docs/en/watsonx/saas?topic=cloud-security-policies-responsibilities-in",
+  "https://www.ibm.com/docs/en/watsonx/w-and-w/2.3.x?topic=watsonx-security-foundation-models",
+  "https://cloud.ibm.com/docs/overview?topic=overview-terms",
+  "https://www.ibm.com/privacy",
+  "WebSearch：IBM watsonx \"zero data retention\" / \"ZDR\"（官方站点无命中，仅第三方对比站提及别家厂商的 ZDR）",
+]
+
+[[product.zdr.point]]
+text_zh = "API 档：官方文档声明 API 提交的提示与输出默认不被 IBM 记录、不存储（除非用户主动保存），即默认行为上等同零保留"
+
+[[product.zdr.point]]
+text_zh = "但全套 IBM 材料里没有 ZDR 这个术语，也没有可申请的 ZDR 计划、开关或合同条款——它不是一项可签约的承诺。证据：SaaS 文档「Nothing that you add to the prompt editor or submit to a model from the Prompt Lab or by using the API is logged by IBM」「Text that you add to or submit in the Prompt Lab or API is not stored unless you save it.」"
+
+[[product.zdr.point]]
+text_zh = "反面对照：服务侧 PII 仍可能存在于服务数据源与备份中最多 30 天（见 retention ④⑤），计量数据按账户统计，CSA/CRA/DPA/Data Sheet 里没有任何「请求处理完成即不保留」的合同条款。按规则记「文档层默认不落盘、无 ZDR 机制」，不等于厂商承诺了可申请的 ZDR。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "ds-runtime-duration-of-processing-30-days"
+
+[[product.retention.point]]
+text_zh = "API 档结论：在线推理的请求内容默认不落盘（文档层声明），服务侧数据以「服务终止后 30 天」为删除窗口，备份无量化期限。分对象记：①输入输出正文（在线推理）：文档声明「Nothing that you add to the prompt editor or submit to a model from the Prompt Lab or by using the API is logged by IBM」「Text that you add to or submit in the Prompt Lab or API is not stored unless you save it.」——属默认不记录/不存储，非合同量化期限。②用户主动保存的资产：SaaS 文档给 prompt session asset「retained for 30 days」（上限式、文档层），prompt template/notebook asset「retained until they are deleted or changed by you」（客户控制，无期限）。③服务终止后 Content：Data Sheet（DPA Exhibit）§3「The duration of Processing Content within this Cloud Service is 30 days after termination or expiration of the Cloud Service.」+ §5「IBM hereby certifies that all Client Personal Data are deleted at the end of the retention period specified in section 3」——这是合同层、可执行的删除窗口（Runtime/Studio/Multicloud 三份 Data Sheet 同值 30 天）。④服务侧 PII（账户/凭据/资产元数据）：文档层「personally identifiable information and data is removed completely from all data sources, including backups, after 30 days」。⑤备份：CRA §4e / CSA §2f「IBM does not archive Content; however, some Content may remain in backup files until expiration of such files as governed by IBM's backup retention practices」——备份保留期未量化，是唯一的开口。⑥计量数据：文档另声明按账户度量模型用量（billing/infrastructure planning/model lifecycle management），与内容保留是两件事。未发现任何请求级（0 天）的合同保留期承诺。"
+
+[product.processing_region]
+codes = ["AU", "CA", "DE", "GB", "IN", "JP", "PL", "US"]
+anchor = "ds-runtime-processing-locations-may-limit"
+
+[[product.processing_region.point]]
+text_zh = "API 档结论：托管在 IBM Cloud 或 AWS，处理地随所选区域，且合同允许按请求收窄。①合同层（Data Sheet / DPA Exhibit §6）：Runtime 与 Studio 的处理地为 Australia/Canada/Germany/India/Japan/Poland/United Kingdom/United States，各列明处理活动（Hosting/Backup/Customer Support/Monitoring/Operations/Development）"
+
+[[product.processing_region.point]]
+text_zh = "「IBM may be able to limit Processing of Content to a subset of these locations, upon request」——即可申请收窄，但非默认。②产品层：SaaS 文档「The foundation models are hosted in IBM Cloud or AWS; your prompts are not sent to third-party platforms.」「Foundation models that you interact with through watsonx are hosted in IBM Cloud.」③区域可用性：IBM Cloud 六区（Dallas/Frankfurt/London/Tokyo/Sydney/Toronto）+ AWS 两区（Mumbai/N. Virginia）。④Multicloud 档 Data Sheet 列第三方子处理方含 AWS-India、Amazon (AWS)、Red Hat、Salesforce、Segment。⑤EU Supported Cloud（IBM Cloud 基础 SD §2.1）另给欧盟支持下的访问限制：必要访问限于 EU 常驻人员。注意 self-managed 档不是这个结论（见 products[software-self-managed]）。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-client-appoints-ibm-as-processor"
+
+[[product.role.point]]
+text_zh = "API 档结论：IBM 是处理者（Processor），客户是控制者或其上游处理者。逐字条款：①DPA §1.1「Client is either (a) a Controller of Client Personal Data; or (b) a Processor acting on behalf of other Controllers… Client appoints IBM as Processor to Process Client Personal Data.」§1.3 按客户书面指示处理"
+
+[[product.role.point]]
+text_zh = "定义节「Subprocessor means any other Processor IBM engages to Process Client Personal Data.」②IBM Cloud 基础服务描述 §2：「The DPA and the applicable Data Processing and Protection Data Sheets (referred to as Data Sheets or DPA Exhibits) apply to IBM's processing of personal data on behalf of the Client.」③CRA §4d / CSA §2e 同句"
+
+[[product.role.point]]
+text_zh = "watsonx.ai as a Service Multicloud 服务描述 §2「…in the links below applies to IBM's processing of personal data on behalf of Client.」并给出该档 Data Sheet 的链接（Runtime 服务描述 §2 只写「The following Data Sheet(s) apply to this service:」+ 链接，不含 on behalf 措辞，故 role 的逐字依据取自 DPA 与 CRA/CSA/IBM Cloud 基础 SD）。④Data Sheet 自身声明「This Data Sheet is also considered as the DPA Exhibit…」且「When the DPA is applicable, these IBM affiliates are considered Subprocessors and any changes to these Subprocessors are subject to the DPA.」⑤适用哪份基础协议按账户类型分（IBM Cloud 条款页）：Free/Lite 账户与多数国家的美元 PayGo 信用卡账户走 CSA（Z126-6304_IBMCIBV）"
+
+[[product.role.point]]
+text_zh = "其余走 CRA（Z126-6548）+ Product Attachment for Cloud Services（Z126-6560）。两份协议在 Content and Data Protection 一节同旨。边界：IBM 官网通用隐私声明里的「控制者」是 IBM 处理自己网站/账户信息时的身份，与本维度无关，不能拿来顶替"
+
+[[product.role.point]]
+text_zh = "DPA 只在 GDPR 适用时并入（文档层表述为「if and to the extent… GDPR applies」），但 IBM Cloud 条款页与各 SD 均以「on behalf of Client」作为常态表述。"
+
+[[product]]
+id = "software-self-managed"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "sw-fm-training-not-used-ibm-models"
+
+[[product.training.point]]
+text_zh = "自管理档：同一句「IBM does not use the content that you upload to watsonx or the output that is generated by a foundation model to further train or improve any IBM-developed models.」仍适用，且该档另有更强的前提「IBM cannot access your prompts or tuned models.」——客户自持环境，IBM 在架构上拿不到内容"
+
+[[product.training.point]]
+text_zh = "模型调优用的训练数据作为 data asset 存在客户项目 bucket。边界：软件许可本身仍受 CRA/Product Attachment for Programs 约束，Content 处理由客户环境决定"
+
+[[product.training.point]]
+text_zh = "未逐字核到软件许可合同层针对「训练」的条款。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_deployment"
+anchor = "sw-fm-hosted-on-premises-cluster"
+
+[[product.zdr.point]]
+text_zh = "自管理档：基础模型跑在客户自有的 on-premises 集群（或客户自选环境），数据不发给任何第三方或开源平台，IBM 无法访问提示与调优后的模型——从 IBM 侧看不存在保留问题，但这不等于产品提供了 ZDR 选项，而是部署形态决定的。未发现 IBM 针对该档的 ZDR 术语或条款。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "sw-fm-session-asset-500-no-window"
+
+[[product.retention.point]]
+text_zh = "自管理档：API/Prompt Lab 提交内容同样声明「not logged by IBM」「not stored unless you save it」"
+
+[[product.retention.point]]
+text_zh = "保存的资产存在客户自己的项目存储桶，「retained until they are deleted or changed by you」"
+
+[[product.retention.point]]
+text_zh = "prompt session asset 最多保存 500 条提交的提示，但**该档文档没有 SaaS 版那句「retained for 30 days」**——同一页两档的保留期表述不一致，这是档位差异的实证（SaaS 版有 30 天窗口，软件版无）。服务终止后 30 天删除的 Data Sheet 条款属于 IBM Cloud 托管服务，自管理档不适用。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "sw-fm-hosted-on-premises-cluster"
+
+[[product.processing_region.point]]
+text_zh = "自管理档：文档写「hosted on your private, on-premises cluster. Your data is not sent to any third-party or open source platforms.」处理地由客户环境决定，IBM 不承诺也不限制。与 SaaS 档的 8 个 IBM 处理地是两个不同结论，不能混用。"
+
+[product.role]
+kind = "unknown"
+anchor = "sw-fm-hosted-on-premises-cluster"
+
+[[product.role.point]]
+text_zh = "自管理档：基础模型与调优后的模型跑在客户自有集群，客户自行运维，推理链路上不存在 IBM 处理客户内容这一环，故 role 维度在推理链路上不适用"
+
+[[product.role.point]]
+text_zh = "软件许可合同（CRA / Product Attachment for Programs）中 IBM 的角色是软件许可方，不是内容处理者。confidence=low 的理由：本档文档里最像 role 依据的那句「IBM cannot access your prompts or tuned models」在 SaaS 档同一页也有，并不构成区分两档的条款"
+
+[[product.role.point]]
+text_zh = "真正区分两档的是部署形态（on-premises cluster vs IBM Cloud/AWS）。若客户把数据交给 IBM 支持，则回到支持条款与 DPA"
+
+[[product.role.point]]
+text_zh = "本轮未核支持场景的 DPA 适用性。"
+
+[[anchor]]
+id = "saas-fm-training-not-used-ibm-models"
+source_id = "b67d3e7c5c1d4938"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+del output
+
+Content that you upload into watsonx is yours.
+
+"""
+exact = "IBM does not use the content that you upload to watsonx or the output that is generated by a foundation model to further train or improve any IBM-developed models."
+suffix = """
+
+
+IBM does not claim to have any ownership rights to any fou"""
+
+[[anchor]]
+id = "saas-fm-api-submissions-not-logged"
+source_id = "b67d3e7c5c1d4938"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+te.html?context=wx)
+
+## Logging and text in the Prompt Lab
+
+"""
+exact = "Nothing that you add to the prompt editor or submit to a model from the Prompt Lab or by using the API is logged by IBM."
+suffix = " Messages that are generated by foundation models and return"
+
+[[anchor]]
+id = "saas-fm-prompt-not-stored-unless-saved"
+source_id = "b67d3e7c5c1d4938"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " No | • IBM does not use your work to improve IBM models. • "
+exact = "Text that you add to or submit in the Prompt Lab or API is not stored unless you save it."
+suffix = " • IBM does not monitor or log foundation model input. • If "
+
+[[anchor]]
+id = "saas-fm-session-asset-retained-30-days"
+source_id = "b67d3e7c5c1d4938"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nd model output. After you create the prompt session asset, "
+exact = "prompt information for up to 500 submitted prompts is stored in the project storage bucket where it is retained for 30 days"
+suffix = """
+.
+
+*   **Notebook asset**: Your prompt, model, prompt engine"""
+
+[[anchor]]
+id = "saas-fm-foundation-models-hosted-ibm-cloud-or-aws"
+source_id = "b67d3e7c5c1d4938"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "cable | No | • Prompt remains encrypted while in transit. • "
+exact = "The foundation models are hosted in IBM Cloud or AWS; your prompts are not sent to third-party platforms."
+suffix = """
+ |
+| Foundation model output | Yes | No | • IBM does not mon"""
+
+[[anchor]]
+id = "saas-fm-usage-measured-by-account"
+source_id = "b67d3e7c5c1d4938"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ciated asset from your project or by deleting the project.
+
+"""
+exact = "IBM does measure foundation model usage by account for the purposes of billing, infrastructure planning, and model lifecycle management."
+suffix = """
+
+
+## Privacy of text in Prompt Lab during a session
+
+Text th"""
+
+[[anchor]]
+id = "saas-fm-interact-through-watsonx-hosted-ibm-cloud"
+source_id = "b67d3e7c5c1d4938"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+torage bucket. |
+
+## Foundation model privacy and security
+
+"""
+exact = "Foundation models that you interact with through watsonx are hosted in IBM Cloud."
+suffix = " Your data is not sent to any third-party or open source pla"
+
+[[anchor]]
+id = "sw-fm-training-not-used-ibm-models"
+source_id = "39d2996070d87ff8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+lipboard")
+
+Content that you upload into watsonx is yours.
+
+"""
+exact = "IBM does not use the content that you upload to watsonx or the output that is generated by a foundation model to further train or improve any IBM-developed models."
+suffix = """
+
+
+IBM does not claim to have any ownership rights to any fou"""
+
+[[anchor]]
+id = "sw-fm-api-submissions-not-logged"
+source_id = "39d2996070d87ff8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ls#logging-and-text-in-the-prompt-lab "Copy to clipboard")
+
+"""
+exact = "Nothing that you add to the prompt editor or submit to a model from the Prompt Lab or by using the API is logged by IBM."
+suffix = " Messages that are generated by foundation models and return"
+
+[[anchor]]
+id = "sw-fm-session-asset-500-no-window"
+source_id = "39d2996070d87ff8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nd model output. After you create the prompt session asset, "
+exact = "prompt information for up to 500 submitted prompts is stored in the project storage bucket."
+suffix = """
+
+
+*   **Notebook asset**: Your prompt, model, prompt enginee"""
+
+[[anchor]]
+id = "sw-fm-hosted-on-premises-cluster"
+source_id = "39d2996070d87ff8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+foundation-model-privacy-and-security "Copy to clipboard")
+
+"""
+exact = "Foundation models that you interact with through watsonx or tune in Tuning Studio are hosted on your private, on-premises cluster."
+suffix = " Your data is not sent to any third-party or open source pla"
+
+[[anchor]]
+id = "sw-fm-prompt-text-not-saved"
+source_id = "39d2996070d87ff8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+you choose. The submitted message is encrypted in transit.
+
+"""
+exact = "Your prompt text is not saved unless you choose to save your work."
+suffix = " Unsaved prompt text is kept in the web page until the sessi"
+
+[[anchor]]
+id = "sw-fm-ibm-cannot-access-prompts"
+source_id = "39d2996070d87ff8"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "me way that all your work on watsonx is secure and private. "
+exact = "IBM cannot access your prompts or tuned models."
+suffix = """
+
+
+The following table summarizes the privacy and security of"""
+
+[[anchor]]
+id = "saas-sec-pii-removed-incl-backups-30-days"
+source_id = "b3b9c53a8f27b92c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ts or deployments.
+
+For the IBM watsonx.ai Runtime service, """
+exact = "personally identifiable information and data is removed completely from all data sources, including backups, after 30 days"
+suffix = """
+.
+
+## Learn more[](https://www.ibm.com/docs/en/watsonx/saas?"""
+
+[[anchor]]
+id = "saas-sec-dpa-and-dpa-exhibits-apply"
+source_id = "b3b9c53a8f27b92c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "](https://www.ibm.com/links?url=http%3A%2F%2Fibm.com%2Fdpa) "
+exact = "(DPA) and DPA Exhibits apply and are referenced in as part of the Agreement, if and to the extent the European General Data Protection Regulation (EU/2016/679) (GDPR) applies to personal data contained in Content."
+suffix = " The applicable Data Sheets for this IBM Cloud Service will "
+
+[[anchor]]
+id = "saas-sec-training-logfiles-accessible-to-ibm"
+source_id = "b3b9c53a8f27b92c"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "ss includes the ability to write to the training log files. "
+exact = "Personal data must not be written to these training log files as they are accessible to other users within Client’s Enterprise as well as to IBM as necessary to support the Cloud Service."
+suffix = """
+
+
+Please pay close attention to data privacy principals when"""
+
+[[anchor]]
+id = "saas-sec-controller-erasure-right"
+source_id = "b3b9c53a8f27b92c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "stored as part of using the IBM watsonx.ai Runtime service, "
+exact = "has the right to obtain from the controller the erasure of that data without undue delay"
+suffix = ". The controller has the obligation to erase personal data w"
+
+[[anchor]]
+id = "saas-sec-data-sheets-serve-as-dpa-exhibits"
+source_id = "b3b9c53a8f27b92c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "/679) (GDPR) applies to personal data contained in Content. "
+exact = "The applicable Data Sheets for this IBM Cloud Service will serve as the DPA Exhibits."
+suffix = " If the DPA applies, IBM's obligation to provide notice of c"
+
+[[anchor]]
+id = "ds-runtime-duration-of-processing-30-days"
+source_id = "cdeef54d0de00208"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ecords, mental health status) 3. Duration of Processing * • "
+exact = "The duration of Processing Content within this Cloud Service is 30 days after termination or expiration of the Cloud Service."
+suffix = " 4. Technical and Organizational Measures The technical and "
+
+[[anchor]]
+id = "ds-runtime-deleted-at-end-of-retention-period"
+source_id = "cdeef54d0de00208"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " stores Client Personal Data, as part of the cloud service, "
+exact = "IBM hereby certifies that all Client Personal Data are deleted at the end of the retention period specified in section 3"
+suffix = ". 6. IBM Processing Locations Content is Processed at the fo"
+
+[[anchor]]
+id = "ds-runtime-processing-locations-may-limit"
+source_id = "cdeef54d0de00208"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " period specified in section 3. 6. IBM Processing Locations "
+exact = "Content is Processed at the following locations. Depending on the Cloud Service, IBM may be able to limit Processing of Content to a subset of these locations, upon request."
+suffix = " See the Service Description ([https://www.ibm.com/support/c"
+
+[[anchor]]
+id = "ds-runtime-is-dpa-exhibit"
+source_id = "cdeef54d0de00208"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ion details for the specific Cloud Service(s) listed above. "
+exact = "This Data Sheet is also considered as the DPA Exhibit and specifies the DPA at"
+suffix = " [www.ibm.com/dpa](https://ibm.com/dpa) for the identified C"
+
+[[anchor]]
+id = "ds-runtime-ibm-affiliates-are-subprocessors"
+source_id = "cdeef54d0de00208"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ud/subprocessors](https://www.ibm.com/cloud/subprocessors). "
+exact = "When the DPA is applicable, these IBM affiliates are considered Subprocessors and any changes to these Subprocessors are subject to the DPA."
+suffix = " IBM will notify Client of any intended addition or replacem"
+
+[[anchor]]
+id = "ds-multicloud-duration-of-processing-30-days"
+source_id = "af9a866de3f59d69"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ecords, mental health status) 3. Duration of Processing * • "
+exact = "The duration of Processing Content within this Cloud Service is 30 days after termination or expiration of the Cloud Service."
+suffix = " 4. Technical and Organizational Measures The technical and "
+
+[[anchor]]
+id = "ds-multicloud-aws-india-subprocessor"
+source_id = "af9a866de3f59d69"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "adquarters | 'Processing Activities | | --- | --- | --- | | "
+exact = "AWS - India | India | Hosting - Storage, backup, or other computing resources"
+suffix = " Monitoring - Applications, networks, systems, or infrastruc"
+
+[[anchor]]
+id = "ds-multicloud-third-party-subprocessors"
+source_id = "af9a866de3f59d69"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ".ibm.com/cloud/subprocessors). 7. Third-Party Subprocessors "
+exact = "Content is Processed by the following third-party Subprocessors below."
+suffix = " All the data types listed in Section 2 above may be Process"
+
+[[anchor]]
+id = "ds-multicloud-salesforce-subprocessor"
+source_id = "af9a866de3f59d69"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "t Hosting - Storage, backup, or other computing resources | "
+exact = "| Salesforce | United States | Customer Support - Help desk or other technical support services"
+suffix = " Hosting - Storage, backup, or other computing resources | |"
+
+[[anchor]]
+id = "dpa-client-appoints-ibm-as-processor"
+source_id = "30f78d90874abe55"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ng of Client Personal Data by IBM as Client’s subprocessor. "
+exact = """
+Client appoints IBM as Processor to 
+Process Client Personal Data"""
+suffix = ". If there are other Controllers, Client will identify and i"
+
+[[anchor]]
+id = "dpa-process-per-documented-instructions"
+source_id = "30f78d90874abe55"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ovision of the Service as described 
+in the Agreement. 
+1.3 """
+exact = """
+IBM will Process Client Personal Data to provide and secure the Service according to Client’s documented 
+instructions"""
+suffix = " or as otherwise set out in the Agreement. The scope of Clie"
+
+[[anchor]]
+id = "cra-dpa-on-behalf-of-client"
+source_id = "1f8852264e473974"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "a Processing Addendum (DPA) is found at http://ibm.com/dpa. "
+exact = """
+The DPA and applicable DPA Exhibit(s) apply 
+to IBM's processing of personal data on behalf of the Client"""
+suffix = """
+.  
+e. IBM will return or remove Content from IBM computing """
+
+[[anchor]]
+id = "cra-content-solely-for-providing-products"
+source_id = "1f8852264e473974"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "nd permissions to IBM, its affiliates, and contractors, and "
+exact = """
+such parties will access, 
+use, provide, store, and otherwise process Content solely for the purpose of providing the Products"""
+suffix = """
+. Use of the 
+Products will not affect Client's ownership or"""
+
+[[anchor]]
+id = "cra-does-not-archive-backup-files"
+source_id = "1f8852264e473974"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+request (such as delivering 
+Content in a specific format). """
+exact = """
+IBM does not archive Content; however, some Content may remain in backup files until 
+expiration of such files as governed by IBM's backup retention practices"""
+suffix = """
+. 
+5. Confidentiality 
+Confidential information will only be"""
+
+[[anchor]]
+id = "cra-dsp-applies-to-standard-products"
+source_id = "1f8852264e473974"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+tems prior to providing or allowing access to Content.  
+b. """
+exact = """
+IBM Data Security and Privacy Principles (DSP), at http://ibm.com/terms/?id=z126-7745, apply for generally available 
+standard Products as identified in a TD"""
+suffix = ". At IBM's discretion, IBM may change the DSP from time to t"
+
+[[anchor]]
+id = "sd-runtime-no-train-unless-voluntary-feedback"
+source_id = "ce9366b63a6d4410"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+IBM does not claim to have ownership rights to the Output. 
+"""
+exact = """
+Unless separately authorized by Client through a voluntary feedback submission, IBM will not use 
+the Client Content or model Outputs to train the foundation models or embedding models"""
+suffix = """
+.  The 
+Cloud Service may not be used to undertake any activ"""
+
+[[anchor]]
+id = "sd-runtime-client-inputs-are-client-content"
+source_id = "ce9366b63a6d4410"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+of the training, optimization and performance of a 
+model. 
+"""
+exact = """
+All Client inputs to a model, including by inferencing or prompting the model, and any content 
+provided by the Client for further training of a model, including fine-tuning or prompt-tuning, are 
+Client Content"""
+suffix = ". Except as set forth in (c) (Output Indemnity) below, Clien"
+
+[[anchor]]
+id = "sd-runtime-data-sheet-applies-to-service"
+source_id = "ce9366b63a6d4410"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "luding Client responsibilities, around use of this service. "
+exact = """
+The following Data Sheet(s) apply to this 
+service"""
+suffix = """
+: 
+https://www.ibm.com/terms/?id=850D9360405711E5B2E4A36A7B0"""

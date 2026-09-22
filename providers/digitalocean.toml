@@ -1,0 +1,936 @@
+name = "DigitalOcean"
+line = "digitalocean"
+site = "global"
+entity = "DigitalOcean, LLC"
+endpoint = ""
+doc = "https://docs.digitalocean.com/products/inference/details/data-privacy/"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/droplets/details/gpu-availability/index.html.md"
+channel = "developer_data"
+tier = "core"
+note = "GPU Droplets / Bare Metal GPU 的机房可用性(客户自选机房)。GPU Droplets 档 processing_region 的权威来源。本条目正文取自 docs.digitalocean.com 官方 markdown 端点(URL 末尾 index.html.md),非 r.jina.ai 渲染:该页的可用性表格由图标渲染,jina 抓回的 markdown 单元格为空。"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/gpu-droplets/index.html.md"
+channel = "developer_data"
+tier = "core"
+note = "GPU Droplets 产品页:boot disk 持久、scratch disk 非持久;含 1-Click Models(客户自管档)。本条目正文取自 docs.digitalocean.com 官方 markdown 端点(URL 末尾 index.html.md),非 r.jina.ai 渲染:该页的可用性表格由图标渲染,jina 抓回的 markdown 单元格为空。"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/inference/details/availability/index.html.md"
+channel = "developer_data"
+tier = "core"
+note = "Inference 区域可用性表(Dedicated Inference / BYOM / Agent Platform 逐机房勾选)。本条目正文取自 docs.digitalocean.com 官方 markdown 端点(URL 末尾 index.html.md),非 r.jina.ai 渲染:该页的可用性表格由图标渲染,jina 抓回的 markdown 单元格为空。"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/inference/details/data-privacy/"
+channel = "developer_data"
+tier = "core"
+note = "DigitalOcean Inference(原 Gradient AI Platform)AI 数据隐私页,正文标注 Last verified 1 Sep 2026;覆盖 Serverless/Dedicated Inference、Batch Inferencing、Model Synthesis Tool、Files API 与 Agent 场景。API 档(含 DO 托管模型与第三方模型透传)的训练/保留/零保留权威来源。"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/inference/how-to/create-manage-agent-knowledge-bases/index.html.md"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform 知识库文档:数据源即刻向量化并存入 Managed OpenSearch;destroy 知识库时数据源与索引不可逆永久删除;索引任务日志只保留最近 15 条。Agent Platform 档 retention 的权威来源。本条目正文取自 docs.digitalocean.com 官方 markdown 端点(URL 末尾 index.html.md),非 r.jina.ai 渲染:该页的可用性表格由图标渲染,jina 抓回的 markdown 单元格为空。"
+
+[[source]]
+url = "https://docs.digitalocean.com/products/inference/how-to/use-prompt-caching/index.html.md"
+channel = "developer_data"
+tier = "core"
+note = "Serverless Inference 前缀/KV 缓存文档:OpenAI 模型 `prompt_cache_retention` 取 in_memory 或 24h;Anthropic 模型 `cache_control.ttl` 取 5m(默认)或 1h;缓存按账户隔离。这是「不存输入输出」的实质例外,retention 维度必读。本条目正文取自 docs.digitalocean.com 官方 markdown 端点(URL 末尾 index.html.md),非 r.jina.ai 渲染:该页的可用性表格由图标渲染,jina 抓回的 markdown 单元格为空。"
+
+[[source]]
+url = "https://www.digitalocean.com/legal/data-processing-agreement"
+channel = "contract"
+tier = "core"
+note = "现行 DPA(页面列出 October 2025 / January 2026 为历史版本)。§7 DigitalOcean 作为 Processor/Subprocessor/Service Provider 的义务;Schedule 1 逐场景列明双方地位;Schedule 2/3 保留期与 SCC 模块。role 维度权威来源,同时提供保留期与删除时限。"
+
+[[source]]
+url = "https://www.digitalocean.com/legal/terms-of-service-agreement"
+channel = "contract"
+tier = "core"
+note = "主服务协议(TOS)。§4.1 Services Content 定义与处理;§4.6 不承诺备份;终止条款(账户关闭时删除 Services Content);§8.5 Beta 服务内容可能被删除。GPU Droplets 等客户自管档的合同层依据。"
+
+[[source]]
+url = "https://www.digitalocean.com/legal/tos-service-specific-terms"
+channel = "contract"
+tier = "core"
+note = "服务专用条款(Service Terms),TOS §4.2 下的合同文本。§1.3.5/§1.3.6 通用条款;§2 Gradient AI Platform 与 Playground;§4 AI Model Terms(第三方模型、Service Models、AI Safeguards);§5 Batch Inferencing;§7 Evaluations。合同层保留权(§4.5.2)与不训练承诺(§7.2.2,仅 Evaluations)的权威来源。"
+
+[[source]]
+url = "https://www.digitalocean.com/trust/subprocessors"
+channel = "contract"
+tier = "core"
+note = "子处理者清单(DPA Schedule 3 §1 明确并入)。页首 NOTE 给出处理地规则:客户所选区域(若可选)/服务商所在地/终端用户所在地。AI 相关的子处理者条目写「LLM Models … AI services … Various, based on supplier」。processing_region 维度的权威来源。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "do-hosted-no-training"
+mode = "default"
+
+[[product.training.point]]
+text = "DigitalOcean-hosted models: \"DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.\" and \"Customer data submitted to the model is never sent back to the original model creator, so the creator cannot use it for training.\" At the contract layer there is only a narrow no-training commitment (Service Terms §7.2.2 covers Evaluation Datasets and Evaluation Outputs only), with no clause covering all inference content — recorded as such."
+text_zh = "DO 自托管模型:「DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.」且「Customer data submitted to the model is never sent back to the original model creator」。合同层只有窄口径不训练承诺(Service Terms §7.2.2 仅覆盖 Evaluation Datasets/Outputs),无覆盖全部推理内容的合同条款 —— 已如实标注。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "do-infra-no-store-inputs-outputs"
+
+[[product.zdr.point]]
+text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch and Files exceptions. It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
+text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files 例外。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+
+[[product.zdr.point]]
+text = "The earlier record of zdr=available/default is downgraded accordingly."
+text_zh = "旧记录 zdr=available/default 的口径据此下调。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "do-batch-output-29-30d"
+
+[[product.retention.point]]
+text = "Object × period: (1) default — \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" (an architectural statement)"
+text_zh = "对象×期限:①默认——DO 自有基础设施不存输入输出(架构性表述)"
+
+[[product.retention.point]]
+text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are isolated per customer account"
+text_zh = "②前缀/KV 缓存——OpenAI 模型 24h 或内存内,Anthropic 模型 5m(默认)/1h,缓存按账户隔离"
+
+[[product.retention.point]]
+text = "(3) Batch — output and error result files 29-30 days from job completion (the how-to says up to 30 days), prompts and request content \"Not stored for training or any purpose beyond the current batch job\", policy-violating content kept as evidence for up to 1 year"
+text_zh = "③Batch——输出与错误文件 29-30 天(how-to 写 up to 30 days),prompts/请求内容仅为当前批次任务不存储,违规内容证据最多 1 年"
+
+[[product.retention.point]]
+text = "(4) Files API (/v1/files) — retained statefully across requests until an explicit, authenticated DELETE request is executed"
+text_zh = "④Files API(/v1/files)——跨请求持久保存至显式 DELETE"
+
+[[product.retention.point]]
+text = "(5) Claude Fable 5/5.1 — access requires a mandatory 30-day data retention of prompts and completions"
+text_zh = "⑤Claude Fable 5/5.1——强制 30 天保留 prompts/completions"
+
+[[product.retention.point]]
+text = "(6) contract layer — Service Terms §4.5.2 permits retaining relevant content and associated metadata as reasonably necessary to investigate violations"
+text_zh = "⑥合同层——Service Terms §4.5.2 允许为违规调查保留相关内容与元数据"
+
+[[product.retention.point]]
+text = "DPA §7.6: all Personal Data is deleted no later than 30 days following the date of de-activation."
+text_zh = "DPA §7.6 账户停用后 30 天内删除 Personal Data。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "do-processing-location"
+
+[[product.processing_region.point]]
+text = "The rule: \"The processing location is the customer’s selected region (when available as an option), the service provider’s location listed below and/or the location of the customer’s end users\". The AI-related subprocessor row reads \"LLM Models ... AI services ... Various, based on supplier\". Serverless Inference does not appear in the regional availability table and its specific processing location is not disclosed"
+text_zh = "规则:「The processing location is the customer's selected region (when available as an option), the service provider's location listed below and/or the location of the customer's end users」。AI 相关子处理者写「LLM Models … AI services … Various, based on supplier」。Serverless Inference 不在区域可用性表内,其具体处理地未披露"
+
+[[product.processing_region.point]]
+text = "Dedicated Inference/BYOM is limited to NYC2/TOR1/ATL1/RIC1. SCC governing law: the member state where the EU customer is located, or the Netherlands (DPA Schedule 2/3)."
+text_zh = "Dedicated Inference/BYOM 仅 NYC2/TOR1/ATL1/RIC1。SCC 管辖:欧盟客户所在成员国/荷兰(DPA Schedule 2/3)。"
+
+[product.role]
+kind = "processor"
+anchor = "do-dpa-schedule1-do-is-processor"
+
+[[product.role.point]]
+text = "DPA §7.1: \"DigitalOcean will have the obligations set forth in this Section 7 if it Processes Personal Data in its capacity as Customer’s Processor or Service Provider\", and they do not apply when it acts as a Controller, Business or Third party"
+text_zh = "DPA §7.1:仅当 DO 以 Customer's Processor/Service Provider 身份处理 Personal Data 时才承担 §7 义务,作为 Controller/Business/Third party 时不适用"
+
+[[product.role.point]]
+text = "Schedule 1 lists the scenarios one by one: \"Customer stores end-user data on DigitalOcean Services. → DigitalOcean is a Processor. Customer is a Controller or processor to a controller.\" §7.2.1 processes Personal Data only in accordance with the customer's instructions. Note: DigitalOcean is itself a Controller for account, billing and telemetry data (the first three rows of Schedule 1), so the role cannot be recorded as processor across the board."
+text_zh = "Schedule 1 逐场景列明「Customer stores end-user data on DigitalOcean Services. → DigitalOcean is a Processor. Customer is a Controller or processor to a controller.」§7.2.1 仅按客户指示处理。注意:DO 对账户/账单/遥测数据自身是 Controller(Schedule 1 前三行),不能一律记成 processor。"
+
+[[product]]
+id = "agent-platform"
+badge = "Agent 平台"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "do-hosted-no-training"
+mode = "default"
+
+[[product.training.point]]
+text = "The same AI data privacy page covers the agent scenario (including \"We do not store agent input or output when using third-party model providers.\"), and the no-training statement applies equally"
+text_zh = "同一份 AI 数据隐私页覆盖 agent 场景(含「We do not store agent input or output when using third-party model providers.」),不训练表述同样适用"
+
+[[product.training.point]]
+text = "There is no separate contract-layer no-training clause on the knowledge base or agent side."
+text_zh = "知识库/agent 侧无单独的合同层不训练条款。"
+
+[product.zdr]
+mark = "unknown"
+
+[[product.zdr.point]]
+text = "DigitalOcean expressly excludes only the Files API from ZDR eligibility and takes no position on whether ZDR applies to the knowledge base or to agent session storage. The knowledge base is cross-request persistent storage (the same shape as the Files API), but the vendor makes no corresponding statement, so this is recorded with low confidence and marked undisclosed rather than concluded on the vendor's behalf."
+text_zh = "DO 只明确排除 Files API 的 ZDR 资格,对知识库/agent 会话存储是否适用 ZDR 未表态。知识库属跨请求持久化存储(与 Files API 同类形态),但厂商未作对应声明,故记低置信并标注未披露,不代替厂商下结论。"
+
+[[product.zdr.point]]
+text = "The clause previously bound here (\"We do not store agent input or output when using third-party model providers.\") covers only third-party-model-provider agent traffic, while this product's knowledge base is cross-request persistent storage that the vendor leaves unaddressed (and whose shape matches the Files API it does exclude from ZDR), so the clause is not a statement covering this tier and is no longer bound. The clause itself is still cited in this product's training points, whose verdict carries a different anchor."
+text_zh = "原先绑在本条的引文（「We do not store agent input or output when using third-party model providers.」）只覆盖走第三方模型 provider 的 agent 流量，而本产品的知识库属跨请求持久化存储、厂商未表态（其形态与厂商已排除 ZDR 资格的 Files API 同类），不构成覆盖本档的表述，故不再绑在本条；该引文在本档 training 条目的 point 里仍被引用（那条的 anchor 是另一个）。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "do-kb-destroy-irreversible"
+
+[[product.retention.point]]
+text = "Knowledge base: data sources are immediately indexed into vector embeddings and stored persistently in the customer's own Managed OpenSearch database until an explicit destroy, when all of it is \"irreversibly and permanently deleted\""
+text_zh = "知识库:数据源即刻向量化并持久存入客户自己的 Managed OpenSearch 数据库,直至显式 destroy(「irreversibly and permanently deleted」)"
+
+[[product.retention.point]]
+text = "Only the 15 most recent indexing job logs are kept"
+text_zh = "索引任务日志只留最近 15 条"
+
+[[product.retention.point]]
+text = "Agent conversation context is read by the agent from browser storage (data privacy page). The retention period for agent run logs and traces is not disclosed — nothing is inferred in reverse."
+text_zh = "agent 对话上下文由 agent 从浏览器存储读取(数据隐私页)。agent 运行日志与 traces 的保留期限未披露 —— 不反推。"
+
+[product.processing_region]
+codes = ["US", "CA"]
+anchor = "do-availability-agent-platform-regions"
+
+[[product.processing_region.point]]
+text = "Regional availability table: Agent Platform is limited to TOR1 (Toronto), ATL1 (Atlanta) and RIC1 (Richmond)"
+text_zh = "区域可用性表:Agent Platform 仅 TOR1(多伦多)、ATL1(亚特兰大)、RIC1(里士满)"
+
+[[product.processing_region.point]]
+text = "Dedicated Inference/BYOM additionally includes NYC2."
+text_zh = "Dedicated Inference/BYOM 另含 NYC2。"
+
+[product.role]
+kind = "processor"
+anchor = "do-dpa-schedule1-do-is-processor"
+
+[[product.role.point]]
+text = "Same as the API tier: when the customer stores end-user data, DigitalOcean is a Processor (DPA Schedule 1)."
+text_zh = "同 API 档:客户存 end-user 数据时 DO 为 Processor(DPA Schedule 1)。"
+
+[[product]]
+id = "gpu-droplets"
+badge = "GPU 云"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+
+[[product.training.point]]
+text = "GPU Droplets, Bare Metal and 1-Click Models are customer-managed infrastructure, and no model training takes place on the DigitalOcean side"
+text_zh = "GPU Droplets/Bare Metal/1-Click Models 是客户自管基础设施,不存在 DO 侧模型训练行为"
+
+[[product.training.point]]
+text = "DigitalOcean writes no dedicated AI training clause for this tier — that is undisclosed, and must not be read in reverse as a commitment."
+text_zh = "DO 未就该档作专门的 AI 训练条款 —— 属未披露,不得反向解读为承诺。"
+
+[[product.training.point]]
+text = "The TOS §4.1 clause previously bound here (\"we will store, host, or otherwise process … information that you provide\") defines what DigitalOcean may do with Services Content, not what it does with model training, so it is not a statement on this dimension and is no longer bound."
+text_zh = "原先绑在本条的 TOS §4.1 引文（「we will store, host, or otherwise process … information that you provide」）界定的是 DO 对 Services Content 的处置范围，不涉及模型训练，不构成对本维度的表述，故不再绑在本条。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.digitalocean.com/products/gpu-droplets/index.html.md",
+  "https://docs.digitalocean.com/products/droplets/details/gpu-availability/index.html.md",
+  "https://www.digitalocean.com/legal/terms-of-service-agreement",
+  "https://www.digitalocean.com/legal/data-processing-agreement",
+  "https://www.digitalocean.com/legal/third-party-ai-models",
+]
+
+[[product.zdr.point]]
+text = "DigitalOcean's ZDR wording appears only in the Inference product documentation (in the Files API exclusion context). On the customer-managed GPU tier there is no retention on the DigitalOcean side, but the vendor does not use the ZDR term and gives no ZDR commitment — this is undisclosed, not a vendor commitment to the contrary."
+text_zh = "DO 的 ZDR 相关表述仅出现在 Inference 产品文档(Files API 排除语境)。客户自管 GPU 档不存在 DO 侧留存,但厂商未使用 ZDR 术语、未提供 ZDR 承诺 —— 官方未披露,不是厂商承诺相反。"
+
+[[product.zdr.point]]
+text = "The clause previously bound here (\"They also come with two different kinds of storage: a boot disk for persistent data and a scratch disk for non-persistent data.\") describes the disks attached to a customer-managed GPU Droplet, not a zero-retention option from DigitalOcean, so it is not a statement on this dimension and is no longer bound."
+text_zh = "原先绑在本条的引文（「They also come with two different kinds of storage: a boot disk for persistent data and a scratch disk for non-persistent data.」）说的是客户自管 GPU Droplet 自带的磁盘类型，不是 DO 提供的零保留选项，不构成对本维度的表述，故不再绑在本条。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "do-gpu-droplet-disks"
+
+[[product.retention.point]]
+text = "Content retention is controlled by the customer: a GPU Droplet comes with a boot disk for persistent data and a scratch disk for non-persistent data"
+text_zh = "内容保留由客户控制:GPU Droplet 自带 boot disk(持久)与 scratch disk(非持久)"
+
+[[product.retention.point]]
+text = "At the contract layer DigitalOcean \"does not promise to retain any preservations or backups of your Services Content\" (TOS §4.6), and Personal Data is deleted no later than 30 days following de-activation (DPA §7.6)."
+text_zh = "合同层 DO 不承诺保留任何备份或留存(TOS §4.6),账户停用后 30 天内删除 Personal Data(DPA §7.6)。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "do-gpu-availability-by-datacenter"
+
+[[product.processing_region.point]]
+text = "GPU Droplets and Bare Metal GPUs are offered by datacenter and the customer selects the datacenter (for example ATL1/AMS3/NYC2/TOR1/RIC1/MEM1)"
+text_zh = "GPU Droplets/Bare Metal GPU 按机房提供,客户自选机房(如 ATL1/AMS3/NYC2/TOR1/RIC1/MEM1 等)"
+
+[[product.processing_region.point]]
+text = "See the platform regional table for the datacenter list."
+text_zh = "机房清单见平台区域表。"
+
+[product.role]
+kind = "processor"
+anchor = "do-dpa-schedule1-do-is-processor"
+
+[[product.role.point]]
+text = "Same as the API tier: when the customer stores end-user data on its GPU Droplet, DigitalOcean is a Processor (DPA Schedule 1)"
+text_zh = "同 API 档:客户在其 GPU Droplet 上存 end-user 数据时 DO 为 Processor(DPA Schedule 1)"
+
+[[product.role.point]]
+text = "For a customer-self-hosted model, control over the data rests with the customer."
+text_zh = "客户自托管模型的数据控制权在客户。"
+
+[[anchor]]
+id = "do-infra-no-store-inputs-outputs"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+d run inference using serverless or dedicated deployments.
+
+"""
+exact = "We do not store inputs or outputs on DigitalOcean infrastructure for any models."
+suffix = """
+
+
+For more information about DigitalOcean’s security practic"""
+
+[[anchor]]
+id = "do-hosted-no-training"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "that provider’s data retention and training policies apply. "
+exact = "DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning."
+suffix = """
+
+
+For custom interfaces and applications you have developed """
+
+[[anchor]]
+id = "do-creator-cannot-train"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ the browser storage as necessary to retrieve the context.
+
+"""
+exact = "Customer data submitted to the model is never sent back to the original model creator, so the creator cannot use it for training."
+suffix = " This is different from using a model through its creator’s "
+
+[[anchor]]
+id = "do-third-party-no-store-agent-io"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+oducts/inference/details/data-privacy/#third-party-models)
+
+"""
+exact = "We do not store agent input or output when using third-party model providers."
+suffix = """
+
+
+*   **OpenAI models**: When using OpenAI models on Digital"""
+
+[[anchor]]
+id = "do-openai-zdr-passthrough"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "els**: When using OpenAI models on DigitalOcean Inference, ["
+exact = "OpenAI’s zero data retention policy"
+suffix = "](https://developers.openai.com/api/docs/guides/your-data/) "
+
+[[anchor]]
+id = "do-anthropic-zero-retention"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "**: When using Anthropic models on DigitalOcean Inference, ["
+exact = "Anthropic applies a Zero Retention Policy"
+suffix = "](https://www.anthropic.com/legal/privacy/) and deletes prom"
+
+[[anchor]]
+id = "do-fable-mandatory-30d"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ement violations.
+
+For Claude Fable 5.1 and Claude Fable 5, """
+exact = "access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews"
+suffix = ". You do not need to configure workspace routing. DigitalOce"
+
+[[anchor]]
+id = "do-files-api-not-zdr"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "d via the API. Because of this persistent storage behavior, "
+exact = "the Files API pipeline does not qualify for Zero Data Retention (ZDR) frameworks and is not HIPAA-compliant"
+suffix = """
+.
+
+Data sent to other third-party model providers is handled"""
+
+[[anchor]]
+id = "do-files-api-stateful-until-delete"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "oss multiple API requests and are not automatically purged. "
+exact = "They are retained statefully on the upstream infrastructure until an explicit, authenticated `DELETE` request is executed via the API."
+suffix = " Because of this persistent storage behavior, the Files API "
+
+[[anchor]]
+id = "do-third-party-upstream-policies"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+ata Retention (ZDR) frameworks and is not HIPAA-compliant.
+
+"""
+exact = "Data sent to other third-party model providers is handled according to the applicable provider’s policies."
+suffix = """
+
+
+## Model Synthesis Tool [](https://docs.digitalocean.com/p"""
+
+[[anchor]]
+id = "do-batch-passthrough-no-retain"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+roducts/inference/details/data-privacy/#batch-inferencing)
+
+"""
+exact = "We are a pass-through for OpenAI and Anthropic models and do not retain your batch inputs or outputs."
+suffix = " [OpenAI](https://developers.openai.com/api/docs/guides/your"
+
+[[anchor]]
+id = "do-batch-output-29-30d"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+storage policies apply.
+
+| Data | Retention |
+| --- | --- |
+"""
+exact = "| Output and error result files | 29-30 days from job completion |"
+suffix = """
+
+| Prompts and request content | Not stored for training or """
+
+[[anchor]]
+id = "do-batch-prompts-not-stored-training"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+t and error result files | 29-30 days from job completion |
+"""
+exact = "| Prompts and request content | Not stored for training or any purpose beyond the current batch job |"
+suffix = """
+
+| Policy-violating content (evidence) | Retained for up to """
+
+[[anchor]]
+id = "do-batch-violation-1y"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ for training or any purpose beyond the current batch job |
+"""
+exact = "| Policy-violating content (evidence) | Retained for up to 1 year for law enforcement compliance; never accessible to end users |"
+suffix = """
+
+
+After the retention window, all input and output artifacts"""
+
+[[anchor]]
+id = "do-batch-purge-after-window"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+aw enforcement compliance; never accessible to end users |
+
+"""
+exact = "After the retention window, all input and output artifacts are permanently purged and cannot be recovered."
+suffix = """
+ Download your results before the expiration window closes.
+"""
+
+[[anchor]]
+id = "do-agent-context-browser-storage"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "parts of the conversation as additional context for output, "
+exact = "the agent accesses the browser storage as necessary to retrieve the context"
+suffix = """
+.
+
+Customer data submitted to the model is never sent back t"""
+
+[[anchor]]
+id = "do-model-synthesis-not-stored"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ucts/inference/details/data-privacy/#model-synthesis-tool)
+
+"""
+exact = "Model synthesis tool requests are not stored by DigitalOcean."
+suffix = " Retention follows the same policies as the underlying model"
+
+[[anchor]]
+id = "do-hosted-models-run-on-do-infra"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "n.com/products/inference/details/models/#foundation-models) "
+exact = "run entirely within DigitalOcean’s infrastructure"
+suffix = ". Input is stored in the local browser and sent to the model"
+
+[[anchor]]
+id = "do-eval-no-training-commitment"
+source_id = "a7c5321da63a84f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ in accordance with the TOS.
+
+7.2.2 No Training Commitment. """
+exact = "DigitalOcean will not use your Evaluation Datasets or Evaluation Outputs to train, fine-tune, or improve any DigitalOcean hosted model, including the Judge Model."
+suffix = """
+
+
+7.2.3 Telemetry and Performance. To maintain and improve t"""
+
+[[anchor]]
+id = "do-finetune-exclusive-use"
+source_id = "a7c5321da63a84f6"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "odel. You will have exclusive use of your customized model. "
+exact = "We will not access or use your customized model except as necessary to maintain or provide the Gradient AI Platform Service and the Playground feature, or as necessary to comply with law or a binding order of a governmental body."
+suffix = """
+
+
+2.3 Attribution. For information about the Gradient AI Pla"""
+
+[[anchor]]
+id = "do-monitor-inputs-outputs"
+source_id = "a7c5321da63a84f6"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+parency mechanisms as required under applicable law.
+
+4.5.2 """
+exact = "We may, using automated and manual processes, monitor, scan, and analyze inputs and outputs to detect, prevent, or investigate violations of applicable law, this Agreement, or security risks"
+suffix = ", and to maintain the integrity and safety of the Services. "
+
+[[anchor]]
+id = "do-retain-relevant-content"
+source_id = "a7c5321da63a84f6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ", and to maintain the integrity and safety of the Services. "
+exact = "We may retain relevant content and associated metadata to the extent reasonably necessary for such purposes, subject to its confidentiality and security obligations."
+suffix = " Where we reasonably substantiate a violation based on corro"
+
+[[anchor]]
+id = "do-share-usage-info-not-content"
+source_id = "a7c5321da63a84f6"
+topics = ["role", "zdr"]
+
+[anchor.selector]
+prefix = "ing and Exploited Children or other authority. In addition, "
+exact = "we may share information, that does not include your Services Content, about your use of a Third-Party AI Model on the Gradient AI Platform Service with the provider of that Third-Party AI Model"
+suffix = """
+.
+
+2.2 The Gradient AI Platform Service and Playground featu"""
+
+[[anchor]]
+id = "do-batch-upstream-retention-settings"
+source_id = "a7c5321da63a84f6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "Party AI Models including OpenAI and Anthropic text models. "
+exact = "Your output is subject to the Third Party AI Model provider’s data retention settings (which may involve extended time periods and purposes in accordance with the applicable third party provider terms), which is not performed, controlled or managed by us."
+suffix = " We do not retain backups of batch files in the Batch Infere"
+
+[[anchor]]
+id = "do-output-is-services-content"
+source_id = "a7c5321da63a84f6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "at enable you to use prompts or inputs to generate outputs. "
+exact = "The output you generate is considered your Services Content."
+suffix = " Due to the nature of machine learning, output may not be un"
+
+[[anchor]]
+id = "do-customer-privacy-responsibility"
+source_id = "a7c5321da63a84f6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "or other identifiable individuals in your use of a Service, "
+exact = "you are responsible for providing legally adequate privacy notices and obtaining necessary consents for processing, storage, use, and transfer of such data"
+suffix = ", including providing any required notices and obtaining any"
+
+[[anchor]]
+id = "do-third-party-models-own-terms"
+source_id = "a7c5321da63a84f6"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+te with the Service platform (“Third Party AI Model”).
+
+4.2 """
+exact = "Third Party AI Models are deemed Third Party Services and are subject to the following terms"
+suffix = " (unless you have other terms in place with the Third-Party "
+
+[[anchor]]
+id = "do-dpa-processor-obligations-scope"
+source_id = "cc31017c21499e2d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+s-as-a-processor-subprocessor-or-service-provider)
+
+**7.1** """
+exact = "DigitalOcean will have the obligations set forth in this Section 7 if it Processes Personal Data in its capacity as Customer’s Processor or Service Provider"
+suffix = "; for clarity, these obligations do not apply to DigitalOcea"
+
+[[anchor]]
+id = "do-dpa-schedule1-do-is-processor"
+source_id = "cc31017c21499e2d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ and third party accounts. | None | Continuous | Module 1 |
+"""
+exact = "| Customer stores end-user data on DigitalOcean Services. | DigitalOcean is a Processor. Customer is a Controller or processor to a controller. |"
+suffix = " As determined by Customer. | As determined by Customer. | A"
+
+[[anchor]]
+id = "do-dpa-process-only-on-instructions"
+source_id = "cc31017c21499e2d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+s, or Third party.
+
+**7.2** Scope of Processing.
+
+**7.2.1** """
+exact = "DigitalOcean will Process Personal Data only in accordance with Customer’s instructions"
+suffix = ", which instructions comprise: (i) to provide Services to Cu"
+
+[[anchor]]
+id = "do-dpa-processor-retention-duration"
+source_id = "cc31017c21499e2d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+locean.com/trust/subprocessors).
+
+**2. Retention Periods**
+
+"""
+exact = "DigitalOcean retains Personal Data it collects or receives from Customer as a Processor for the duration of the Agreement and consistent with its obligations in this DPA."
+suffix = """
+
+
+**3. Information for International Transfers**
+
+3.1. For t"""
+
+[[anchor]]
+id = "do-dpa-delete-within-30d"
+source_id = "cc31017c21499e2d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "support/). Upon deactivation of Customer’s Service account, "
+exact = "DigitalOcean will delete all Personal Data no later than 30 days following the date of de-activation"
+suffix = ", provided Customer does not undertake any action to interru"
+
+[[anchor]]
+id = "do-dpa-controller-retention"
+source_id = "cc31017c21499e2d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+or-international-data-transfers)
+
+**1. Retention Periods**
+
+"""
+exact = "DigitalOcean retains Personal Data it collects as a Controller for as long as DigitalOcean has a business purpose for it or for the longest time allowable by applicable law."
+suffix = """
+
+
+**2. Information for International Transfers**
+
+2.1. For t"""
+
+[[anchor]]
+id = "do-tos-store-host-process-content"
+source_id = "f334601e8d4695fd"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+of-service-agreement#4-services-content-service-terms)
+
+4.1 """
+exact = "As part of our Services, we will store, host, or otherwise process source code, files, software, processes, interfaces, data, text, settings, media, or other information that you provide to or through the Services"
+suffix = " (your “Services Content” also referred to as “Customer Data"
+
+[[anchor]]
+id = "do-tos-no-backup-promise"
+source_id = "f334601e8d4695fd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ized access and routine archiving of your Services Content. "
+exact = "DigitalOcean does not promise to retain any preservations or backups of your Services Content."
+suffix = " You are solely responsible for the integrity, preservation,"
+
+[[anchor]]
+id = "do-tos-delete-on-termination"
+source_id = "f334601e8d4695fd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ervices Content available upon closure of your Account, and "
+exact = "will delete Services Content upon termination in accordance with its standard Account closure practices"
+suffix = ". You are responsible for downloading or otherwise exporting"
+
+[[anchor]]
+id = "do-processing-location"
+source_id = "fc5abbd79b341964"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ocean.com/trust/subprocessors#service-subprocessors)
+
+NOTE: """
+exact = "The processing location is the customer’s selected region (when available as an option), the service provider’s location listed below and/or the location of the customer’s end users in accordance with use of the service"
+suffix = """
+
+
+| **DigitalOcean or Affiliate Service** | **Subprocessor**"""
+
+[[anchor]]
+id = "do-llm-subprocessors-various"
+source_id = "fc5abbd79b341964"
+topics = ["processing_region", "zdr"]
+
+[anchor.selector]
+prefix = """
+) |
+|  | Google (GCP) | DBaaS related services | USA (CA) |
+"""
+exact = "|  | LLM Models (refer to DigitalOcean Cloud Console for optional LLM service add-ons available) | AI services | Various, based on supplier |"
+suffix = """
+
+|  | MongoDB | DBaaS related services | USA (NY) |
+|  | Ora"""
+
+[[anchor]]
+id = "do-availability-dedicated-regions"
+source_id = "ec9803d357b952c9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+--|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+"""
+exact = "| Dedicated Inference | | ✓ | | | | | | | | ✓ | | | ✓ | ✓ | | |"
+suffix = """
+
+| Bring Your Own Models (BYOM) | | ✓ | | | | | | | | ✓ | | """
+
+[[anchor]]
+id = "do-availability-agent-platform-regions"
+source_id = "ec9803d357b952c9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+Own Models (BYOM) | | ✓ | | | | | | | | ✓ | | | ✓ | ✓ | | |
+"""
+exact = "| Agent Platform | | | | | | | | | | ✓ | | | ✓ | ✓ | | |"
+suffix = """
+
+
+Learn more on the [regional availability page](https://doc"""
+
+[[anchor]]
+id = "do-prompt-cache-retention-24h"
+source_id = "043233a73e648203"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s response, though this is best-effort and not guaranteed.
+
+"""
+exact = "To use prompt caching, specify the `prompt_cache_retention` parameter as either `in_memory` or `24h`."
+suffix = " The following request body example shows how to use the `pr"
+
+[[anchor]]
+id = "do-prompt-cache-ttl-5m-1h"
+source_id = "043233a73e648203"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "with `type: ephemeral` and `ttl` in your JSON request body. "
+exact = "The `ttl` value can be `5m` (default) or `1h`."
+suffix = " The following request body examples show how to use the `ca"
+
+[[anchor]]
+id = "do-cache-isolated-per-account"
+source_id = "043233a73e648203"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+t need to set `cache_control` or `prompt_cache_retention`.
+
+"""
+exact = "Caches are isolated per customer account."
+suffix = " The platform derives cache entries from a per-account key, "
+
+[[anchor]]
+id = "do-kb-indexed-and-stored"
+source_id = "a506c3f5c568e983"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ide more accurate, current, and domain-specific responses.
+
+"""
+exact = "When you create a knowledge base, your data is immediately indexed by converting the content into vector embeddings using an embeddings model."
+suffix = " These embeddings capture the meaning of your content and ar"
+
+[[anchor]]
+id = "do-kb-destroy-irreversible"
+source_id = "a506c3f5c568e983"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+rces.
+
+## Destroy a Knowledge Base Using the Control Panel
+
+"""
+exact = "When you destroy a knowledge base, all of its data sources and indexed data is irreversibly and permanently deleted."
+suffix = " Any [DigitalOcean AI agents](https://docs.digitalocean.com/"
+
+[[anchor]]
+id = "do-gpu-droplet-disks"
+source_id = "24b4e10d6f492bac"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+
+GPU Droplets have GPUs in a single or 8 GPU configuration. """
+exact = "They also come with two different kinds of storage: a boot disk for persistent data and a scratch disk for non-persistent data."
+suffix = " [Learn more about GPU Droplet plans and features](https://d"
+
+[[anchor]]
+id = "do-gpu-availability-by-datacenter"
+source_id = "5c5d45d7c8dd4dce"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+dalone or as part of a larger, cloud-based infrastructure.
+
+"""
+exact = "DigitalOcean GPU Droplets, Spot GPU Droplets, and Bare Metal GPUs are available by GPU model and datacenter as listed below."
+suffix = " For pricing, see [GPU Droplet pricing](https://docs.digital"
+
+[[anchor]]
+id = "do-gpu-4-datacenters"
+source_id = "5c5d45d7c8dd4dce"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+duct-comparison/index.html.md).
+
+## On-Demand GPU Droplets
+
+"""
+exact = "DigitalOcean offers AMD Instinct MI300X, NVIDIA H100, NVIDIA H200, NVIDIA L40S, NVIDIA RTX 4000 Ada, and NVIDIA RTX 6000 Ada GPU Droplets across 4 datacenters."
+suffix = """
+
+
+### AMD Instinct MI300X
+
+AMD Instinct MI300X GPU Droplets """

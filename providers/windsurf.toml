@@ -1,0 +1,338 @@
+name = "Devin Desktop"
+name_en = "Devin Desktop (formerly Windsurf / Codeium)"
+company = "devin"
+line = "windsurf"
+site = "global"
+entity = "Cognition AI, Inc. / Exafunction, Inc. (pending assignment)"
+endpoint = ""
+doc = "https://cognition.com/legal/platform-terms-of-service"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://cognition.com/legal/platform-terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Cognition Platform Terms（2026-06-30）。现行自助档合同，覆盖 Free、个人付费和 Teams；§14 明确原 Exafunction 的 Windsurf 用户在许可尚未转让时合同主体仍为 Exafunction, Inc.。旧 Codeium/Windsurf 条款不用于当前结论。"
+
+[[source]]
+url = "https://cognition.com/legal/enterprise-terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Cognition MSA（2026-06-08），仅适用于订单列明的 Enterprise 服务；企业训练结论以本合同为主。"
+
+[[source]]
+url = "https://cognition.com/legal/data-processing-statement"
+channel = "contract"
+tier = "core"
+note = "Cognition DPA（2026-07-23），覆盖其 enterprise or software services：Customer Data 上客户为 controller、Cognition 为 processor；Account Data 例外由 Cognition 独立控制。含终止后 30 日删除及子处理者地点。"
+
+[[source]]
+url = "https://cognition.com/legal/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Cognition Privacy Policy（2026-03-09），正文明确 Services 包括 Devin 与 Windsurf。用于全球处理地点及个人数据的一般保留口径。"
+
+[[source]]
+url = "https://docs.windsurf.com/windsurf/accounts/usage.md"
+channel = "developer_data"
+tier = "core"
+note = "现行产品文档已将 Windsurf 更名为 Devin Desktop；列出 Free、Pro、Max、Teams、Enterprise。本文据此拆成免费、个人付费、团队、企业四档。"
+
+[[source]]
+url = "https://docs.windsurf.com/context-awareness/windsurf-overview.md"
+channel = "developer_data"
+tier = "core"
+note = "代码上下文说明：整个本地代码库会被索引；Pro 提高索引限制；Teams/Enterprise 还可索引远程仓库。"
+
+[[source]]
+url = "https://docs.windsurf.com/context-awareness/remote-indexing.md"
+channel = "developer_data"
+tier = "core"
+note = "远程索引说明：服务端单租户索引；Store Snippets 未勾选时生成 embeddings 后删除代码和片段，但 embeddings 持续保存，未披露期限。"
+
+[[source]]
+url = "https://docs.devin.ai/desktop/troubleshooting/plugins-common-issues"
+channel = "developer_data"
+tier = "core"
+note = "现行 Devin Desktop/Windsurf 插件排障页，明确 code snippet telemetry 可在账户设置退出；没有声明默认关闭，故按默认收集、可关闭记录。"
+
+[[source]]
+url = "https://docs.windsurf.com/windsurf/agent-command-center.md"
+channel = "developer_data"
+tier = "core"
+note = "Agent Command Center 说明，可统一管理本地和云端 agent；云 agent 不是仅本地处理路径。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "default"
+anchor = "windsurf-platform-training-default"
+
+[[product.training.point]]
+text_zh = "现行平台条款允许 Cognition 将 Customer Data 用于模型训练及服务改进；免费档没有条款提供的 Opt-Out，故 training=no。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://cognition.com/legal/platform-terms-of-service", "https://cognition.com/legal/privacy-policy", "https://cognition.com/legal/data-processing-statement"]
+
+[[product.zdr.point]]
+text_zh = "只查到付费档退出训练后对模型提供商启用 ZDR；免费档没有 ZDR/Privacy Mode 开关承诺。"
+
+[product.retention]
+mark = "unknown"
+searched = ["https://cognition.com/legal/platform-terms-of-service", "https://cognition.com/legal/privacy-policy", "https://docs.windsurf.com/context-awareness/windsurf-overview.md"]
+
+[[product.retention.point]]
+text_zh = "请求输入输出没有量化期限。隐私政策只按提供服务、法律义务、安全等目的所需保留。整个本地代码库会建立索引，但官方未披露本地索引期限。"
+
+[product.processing_region]
+codes = ["global", "US"]
+anchor = "windsurf-privacy-global-processing"
+
+[product.role]
+kind = "processor"
+anchor = "windsurf-dpa-processor-role"
+
+[[product.role.point]]
+text_zh = "平台条款 §4.2 将个人数据处理纳入 Cognition DPA；Customer Data 上用户/客户是 controller、Cognition 是 processor。账户管理、安全与合规所需 Account Data 则由 Cognition 独立控制。"
+
+[[product]]
+id = "individual-paid"
+badge = "个人付费版（Pro / Max）"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "windsurf-platform-paid-optout"
+
+[[product.training.point]]
+text_zh = "默认可用于训练和服务改进；付费档可退出，退出后 Customer Data 不再用于其他目的（包括训练语言模型）。“服务改进”未排除训练，因此默认姿态仍为 training=no。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "windsurf-platform-paid-optout"
+
+[[product.zdr.point]]
+text_zh = "付费用户执行同一个 Opt-Out 后，条款承诺对模型提供商启用 ZDR。ZDR 定义为 Customer Data 不落盘/不持久保留，并在生成输出后删除；但安全、AUP 与法律流程例外可保留。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "windsurf-platform-zdr-definition"
+
+[[product.retention.point]]
+text_zh = "仅在用户退出训练并启用 ZDR 后为不持久保存、输出生成后删除；默认状态的输入输出期限未披露。prompt cache 是否存在及期限也未见现行官方披露。"
+
+[product.processing_region]
+codes = ["global", "US"]
+anchor = "windsurf-privacy-global-processing"
+
+[product.role]
+kind = "processor"
+anchor = "windsurf-dpa-processor-role"
+
+[[product]]
+id = "teams"
+badge = "Teams"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "windsurf-platform-paid-optout"
+
+[[product.training.point]]
+text_zh = "现行平台条款不再沿用旧 Codeium 文档的“团队默认不训练”姿态：默认允许训练/改进；只有 Teams 管理员可执行 Opt-Out。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "windsurf-platform-paid-optout"
+
+[[product.zdr.point]]
+text_zh = "由 Teams 管理员退出后，对模型提供商启用 ZDR；安全、AUP 和法律流程除外。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "windsurf-platform-zdr-definition"
+
+[[product.retention.point]]
+text_zh = "管理员退出后的请求路径不持久保存并在输出生成后删除；默认路径期限未披露。"
+
+[[product.retention.point]]
+text_zh = "远程索引由服务端单租户执行；Store Snippets 未勾选时 embeddings 完成后删除代码/片段，只持久保存不可反推原代码的 embeddings。embeddings 的删除期限未披露。"
+anchor = "windsurf-remote-index-retention"
+
+[product.processing_region]
+codes = ["global", "US"]
+anchor = "windsurf-privacy-global-processing"
+
+[product.role]
+kind = "processor"
+anchor = "windsurf-dpa-processor-role"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "windsurf-enterprise-no-training"
+
+[[product.training.point]]
+text_zh = "Enterprise MSA 禁止 Cognition 或第三方在未经客户事先书面同意时以 Customer Data 训练任何 AI 模型。Usage Data 可用于内部分析与一般性能/功能改进，但其合同定义排除 Customer Data、客户机密和可识别用户的信息。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://cognition.com/legal/enterprise-terms-of-service", "https://cognition.com/legal/data-processing-statement", "https://cognition.com/legal/platform-terms-of-service"]
+
+[[product.zdr.point]]
+text_zh = "现行 Enterprise MSA 和 DPA 没有企业默认 ZDR 承诺；旧 Codeium security 页的默认 ZDR 口径已重定向为 Cognition/Devin 页面，未作为现行证据。订单可能另有约定。"
+
+[product.retention]
+days = 30
+object = "customer_data"
+basis = "until_termination"
+anchor = "windsurf-dpa-delete-30d"
+
+[[product.retention.point]]
+text_zh = "DPA 口径为协议期内处理，终止后各子处理者须在 30 天内删除 Customer Data；法律/监管保留例外须隔离保护并在义务结束后尽快删除。这不是请求级 30 天上限。"
+
+[[product.retention.point]]
+text_zh = "远程索引在 Store Snippets 关闭时完成 embeddings 后删除代码和片段，但 embeddings 自身持久保存且未披露期限；开启 Store Snippets 的代码片段期限也未披露。"
+anchor = "windsurf-remote-index-retention"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "windsurf-dpa-subprocessor-locations"
+
+[[product.processing_region.point]]
+text_zh = "DPA 子处理者表将核心处理、日志和索引主要列在美国，并列印度支持工作流；隐私政策还声明可在全球（包括 EU、UK、US）传输、存储和处理。未见当前公开合同提供区域选择承诺。"
+
+[product.role]
+kind = "processor"
+anchor = "windsurf-dpa-processor-role"
+
+[[product.role.point]]
+text_zh = "Customer Data 上客户为 controller、Cognition 为 processor；Account Data 的账户管理、安全和法遵用途由 Cognition 独立 controller。"
+
+[[anchor]]
+id = "windsurf-platform-training-default"
+source_id = "24ab41c0cbc2deee"
+topics = ["training"]
+[anchor.selector]
+prefix = "3.3 Data Usage and Rights: 3.3.1 Use of Customer Data: "
+exact = "Cognition may use Customer Data for model training purposes and to improve and enhance the Services."
+suffix = " If you subscribe to a paid Service Tier, you may opt out of this use"
+
+[[anchor]]
+id = "windsurf-platform-paid-optout"
+source_id = "24ab41c0cbc2deee"
+topics = ["training", "zdr"]
+[anchor.selector]
+prefix = "Cognition may use Customer Data for model training purposes and to improve and enhance the Services. "
+exact = "If you subscribe to a paid Service Tier, you may opt out of this use (“Opt-Out”). Following an Opt-Out election: (A) Customer Data will not be used for any other purpose, including training language models; and (B) Zero Data Retention will be enabled with our model providers. For the Teams Service Tier, only an administrator may exercise the Opt-Out."
+suffix = " 3.3.2 Usage Data: Cognition reserves the right to collect"
+
+[[anchor]]
+id = "windsurf-platform-zdr-definition"
+source_id = "24ab41c0cbc2deee"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = "Usage Data will not be linkable to you, and will not include any confidential information. "
+exact = "1.8 Zero Data Retention (ZDR):means Customer Data is (i) not saved to disk or otherwise persistently retained, and (ii) deleted upon generation of the relevant Output."
+suffix = " 2. Access and use"
+
+[[anchor]]
+id = "windsurf-enterprise-no-training"
+source_id = "501461ed6c248ca5"
+topics = ["training"]
+[anchor.selector]
+prefix = "3.3 Use of Customer Data:"
+exact = "Licensor will not use, or permit any third party to use, any Customer Data to train any artificial intelligence model without Customer's express prior written consent."
+suffix = " For clarity, Licensor may utilize Usage Data for internal analytics"
+
+[[anchor]]
+id = "windsurf-dpa-processor-role"
+source_id = "c7345437a9dd5fa6"
+topics = ["role"]
+[anchor.selector]
+prefix = "2. Relationship and Roles of the Parties a. Licensor as a Processor "
+exact = "Customer is the entity that determines the purposes and means for which Customer Data is processed (“Data Controller”), and Licensor processes Customer Data on the Data Controller’s behalf and in accordance with the Data Controller’s written instructions (“Data Processor”)."
+suffix = " The terms “Data Controller” and “Data Processor” shall have the same meaning"
+
+[[anchor]]
+id = "windsurf-dpa-delete-30d"
+source_id = "c7345437a9dd5fa6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "until the termination of the Agreement, and all Customer Data has been returned or deleted in accordance with this DPA. "
+exact = "Upon termination of this DPA, Licensor will direct each Subprocessor to delete Customer Data within thirty (30) days of the termination, unless prohibited by law."
+suffix = " To the extent Licensor is required to retain any Customer Data"
+
+[[anchor]]
+id = "windsurf-dpa-subprocessor-locations"
+source_id = "c7345437a9dd5fa6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Appendix C List of Subprocessors Entity Purpose Location "
+exact = "Microsoft Azure core processing United States AWS core processing, profile data, logs, and indices United States Google Cloud core processing, profile data, logs, and indices United States"
+suffix = " Auth0 profile data United States"
+
+[[anchor]]
+id = "windsurf-privacy-global-processing"
+source_id = "2259fa08d86037b8"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "7. International transfers To facilitate our operations, "
+exact = "Cognition, our third-party partners, and service providers may transfer, store, and process your personal information throughout the world, including the EU, UK and the US."
+suffix = " If you reside in the EEA, Switzerland, or the United Kingdom"
+
+[[anchor]]
+id = "windsurf-plan-tiers"
+source_id = "1cb3f2eb29dfd2da"
+topics = ["role"]
+[anchor.selector]
+prefix = "Plans and Usage Understand Devin Desktop pricing plans, usage tracking, and how to upgrade from Free to Pro, Teams, or Enterprise. "
+exact = "Devin is available as Free, Pro, Max, Teams, and Enterprise plans."
+suffix = " Plans vary in the models available, usage limits, and additional features"
+
+[[anchor]]
+id = "windsurf-remote-index-retention"
+source_id = "45c6079d7c02bb2f"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Security Guarantees "
+exact = "We clone the repository in order to create the index, but once we finish creating embeddings for the codebase we delete all the code and code snippets assuming that the Store Snippets setting is unchecked. We don’t persist anything other than the embeddings themselves, from which you cannot derive the original code."
+suffix = " Furthermore, all indexing and embedding is performed on a single-tenant instance"
+
+[[anchor]]
+id = "windsurf-telemetry-optout"
+source_id = "41f1357e5b8adfd5"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = "How do I disable code snippet telemetry? "
+exact = "you can opt out of code snippet telemetry by going to your"
+suffix = " For more information, please visit our Terms of Service."
+
+[[anchor]]
+id = "windsurf-local-cloud-agents"
+source_id = "49f98adcda1bbd9f"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Agent Command Center "
+exact = "Manage all of your Devin Desktop agents — local and cloud — from a single Kanban-style view inside Devin Desktop."
+suffix = " The Agent Command Center is a new surface inside Devin Desktop 2.0"

@@ -1,0 +1,206 @@
+name = "Kiro"
+company = "amazon-bedrock"
+line = "kiro"
+site = "global"
+entity = "Amazon Web Services, Inc."
+plan_levels = ["free", "individual", "enterprise"]
+endpoint = ""
+doc = "https://kiro.dev/docs/privacy-and-security/data-protection/"
+
+[[source]]
+url = "https://kiro.dev/docs/privacy-and-security/data-protection/"
+channel = "developer_data"
+tier = "core"
+note = "IDE/CLI 产品专属数据页：Free、个人付费、企业的训练、存储、地域、遥测默认值和 Bedrock 滥用检测期限。"
+[[source]]
+url = "https://kiro.dev/docs/web/data-protection"
+channel = "developer_data"
+tier = "core"
+note = "Kiro Web 同口径页面，正式 baseline 可用；用于交叉核验各档。"
+[[source]]
+url = "https://kiro.dev/docs/models"
+channel = "developer_data"
+tier = "core"
+note = "官方仅列 Kiro 托管模型，明确由 Amazon Bedrock 跨区推理；未提供 BYOK、自定义端点或本地模型配置。"
+[[source]]
+url = "https://aws.amazon.com/service-terms/"
+channel = "contract"
+tier = "core"
+note = "§50.3 明确点名 Kiro Free/individual 的改进授权，§50.14 为 Kiro 专条，§1.14 为 AWS DPA 适用链；不把 AWS 通用条款直接当产品专属结论。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "kiro-individual-training"
+[product.zdr]
+mark = "no"
+anchor = "kiro-free-60"
+[product.retention]
+days = 60
+object = "input_output"
+basis = "fixed_period"
+anchor = "kiro-free-60"
+[[product.retention.point]]
+text_zh = "Free 输入为额外滥用检测最多保留 60 天；OpenAI GPT 被分类器标记的流量最长 30 天，Claude Fable 5.1 Preview 全量最长 30 天。代码索引/缓存期限未披露。"
+[product.processing_region]
+codes = ["US"]
+anchor = "kiro-individual-region"
+[product.role]
+mark = "unknown"
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://aws.amazon.com/service-terms/"]
+
+[[product]]
+id = "individual"
+badge = "个人付费版"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "kiro-individual-training"
+[[product.training.point]]
+text_zh = "社交登录或 Builder ID 的付费用户仍属 individual；默认收集内容和遥测，可分别关闭。服务改进明确包括 model training。"
+[product.zdr]
+mark = "no"
+anchor = "kiro-individual-region"
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models"]
+[[product.retention.point]]
+text_zh = "未披露一般输入输出、代码索引或缓存期限；模型滥用检测例外为 GPT 标记流量最长 30 天、Fable 5.1 Preview 全量最长 30 天。"
+[product.processing_region]
+codes = ["US"]
+anchor = "kiro-individual-region"
+[product.role]
+mark = "unknown"
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://aws.amazon.com/service-terms/"]
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "kiro-enterprise-no-improvement"
+[product.zdr]
+mark = "no"
+anchor = "kiro-enterprise-storage"
+[[product.zdr.point]]
+text_zh = "不用于服务改进不等于零保留：profile Region 可存 prompts/responses；管理员启用 prompt logging/activity reports 时写入客户 S3；模型滥用检测仍可保留。"
+[product.retention]
+mark = "unknown"
+object = "mixed"
+basis = "undisclosed"
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models"]
+[[product.retention.point]]
+text_zh = "一般内容及客户 S3 日志期限由文档/客户配置未披露；GPT 标记流量与 Fable 5.1 Preview 流量最长 30 天。代码索引/缓存期限未披露。"
+[product.processing_region]
+codes = ["selected", "global"]
+anchor = "kiro-enterprise-storage"
+[[product.processing_region.point]]
+text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，experimental 可在全球商业 AWS Regions 推理。"
+[product.role]
+kind = "processor"
+anchor = "aws-dpa-chain"
+[[product.role.point]]
+text_zh = "适用链：Kiro 被 AWS Service Terms §50.1 明列为 AI Service，§1.14 在 AWS Services 处理 Customer Data 时纳入 AWS DPA/SCC；仅据此判企业 AWS 账户链。"
+
+[[product]]
+id = "managed-models"
+badge = "托管模型链路"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "kiro-enterprise-no-improvement"
+[product.zdr]
+mark = "no"
+anchor = "kiro-model-abuse"
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "kiro-model-abuse"
+[product.processing_region]
+codes = ["selected", "global"]
+anchor = "kiro-bedrock"
+[product.role]
+kind = "subprocessor"
+anchor = "kiro-bedrock"
+[[product.role.point]]
+text_zh = "官方链路只有 Kiro→Amazon Bedrock 托管模型。未发现 BYOK、自定义 OpenAI-compatible endpoint 或本地模型能力；因此没有可单列的 BYOK/本地数据链，不能把本机 agent 执行误写成本地推理。"
+
+[[anchor]]
+id = "kiro-individual-training"
+source_id = "1b5e1c583b858fd5"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "We may use certain content from Kiro Free Tier and Kiro individual subscribers for service improvement."
+suffix = " Users that have a paid Kiro subscription"
+[[anchor]]
+id = "kiro-enterprise-no-improvement"
+source_id = "1b5e1c583b858fd5"
+topics = ["training"]
+[anchor.selector]
+prefix = "for de-bugging, or for model training.\n\n"
+exact = "We do not use content from [Kiro enterprise users](https://kiro.dev/docs/enterprise/concepts/#kiro-enterprise-user) for service improvement."
+suffix = "\n\nBy default"
+[[anchor]]
+id = "kiro-free-60"
+source_id = "1b5e1c583b858fd5"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = "Accordingly, for Free Tier users "
+exact = "we may store your inputs for up to 60 days (unless otherwise required by law) for the purposes of detecting activity that violates the Agreement and improving our ability to detect this activity."
+suffix = " We will not use such inputs"
+[[anchor]]
+id = "kiro-individual-region"
+source_id = "1b5e1c583b858fd5"
+topics = ["processing_region", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "If you are a Kiro Free Tier user or a Kiro individual subscriber, your content, such as prompts and responses, will be stored in the US East (N. Virginia) Region."
+suffix = "\n\nIf you are a Kiro enterprise user"
+[[anchor]]
+id = "kiro-enterprise-storage"
+source_id = "1b5e1c583b858fd5"
+topics = ["processing_region", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "If you are a [Kiro enterprise user](https://kiro.dev/docs/enterprise/concepts/#kiro-enterprise-user), your content, such as prompts and responses, may be stored in the region where your profile is configured in order to provide and maintain the service (for example: prompt logging, daily activity report), but it will not be used for service improvement."
+suffix = "\n\nWith cross-region inferencing"
+[[anchor]]
+id = "kiro-model-abuse"
+source_id = "1b5e1c583b858fd5"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "For OpenAI GPT models, classifier-flagged traffic will be retained for up to 30 days (unless otherwise required by law) for automated offline abuse detection."
+suffix = "\n*   For Anthropic Claude Fable"
+[[anchor]]
+id = "kiro-bedrock"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region", "role"]
+[anchor.selector]
+prefix = "## Inference endpoint regions\n\n"
+exact = "Kiro is powered by Amazon Bedrock, which uses cross-region inference to distribute requests across the Regions within a geography."
+suffix = " Your request can be processed"
+[[anchor]]
+id = "aws-dpa-chain"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "These Service Terms incorporate the [AWS Data Processing Addendum](https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf) (“DPA”), when you use AWS Services to process Customer Data (as defined in the DPA)."
+suffix = ""

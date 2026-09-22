@@ -1,0 +1,74 @@
+name: 抓取
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency: fetch
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+
+      # 抓取失败会让这步非零退出——CI 红是有意的,别加 continue-on-error。
+      # 但已经抓到的照样要提交,所以失败也继续往下走。
+      - id: fetch
+        run: bun run fetch
+        continue-on-error: true
+
+      # 校验只读正式快照，不联网，也不解析政策语义。
+      - run: bun run verify:anchors
+      - run: bun run issues:open
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # 抓取只写不可变快照、版本指针和异常健康状态。
+      - name: 检查改动范围
+        run: |
+          while IFS= read -r line; do
+            p="${line:3}"
+            case "$p" in
+              documents/*|health/*) ;;
+              *) echo "抓取不应修改 $p" >&2; exit 1 ;;
+            esac
+          done < <(git status --porcelain)
+
+      # 运行报告不进 git，由 Actions 保留。
+      - uses: actions/upload-artifact@v4
+        with:
+          name: policy-monitor-report
+          path: |
+            .sync/fetch.json
+            .sync/verify-anchors.json
+          retention-days: 7
+
+      - name: 提交
+        run: |
+          set -euo pipefail
+          [ -z "$(git status --porcelain)" ] && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          paths=(documents)
+          if [ -d health ] || git ls-files -- 'health/**' | grep -q .; then
+            paths+=(health)
+          fi
+          git add -A -- "${paths[@]}"
+          git commit -m "抓取 $(date -u +%Y-%m-%d)"
+          git push
+
+      # 抓取有失败时整个 job 判失败——锚点校验和开 issue 已经跑过,
+      # 红色只是让人看见「今天有来源没拿到」。
+      - name: 抓取失败则判定 job 失败
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "抓取有失败,详见 .sync/fetch.md" >&2
+          exit 1

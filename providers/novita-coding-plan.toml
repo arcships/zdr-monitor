@@ -1,0 +1,155 @@
+name = "Novita Coding Plan"
+name_en = "Novita Coding Plan"
+company = "novita-ai"
+company_name = "Novita AI"
+line = "coding-plan"
+site = "global"
+plan_levels = ["individual"]
+doc = "https://novita.ai/legal/privacy-policy"
+
+[[source]]
+url = "https://novita.ai/legal/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Novita AI Privacy Policy》(Effective date 2026-05-13，Last updated 2026-05-13)。开头即声明「This Privacy Policy does not apply to content that we process on behalf of customers while providing services」——即 API 输入输出正文不适用本政策，而适用客户协议；本政策自身覆盖账户信息、交易记录、通讯信息、网站技术信息。是唯一给出分类保留期限的官方文档（账户 +7 年 / 交易 7 年 / 通讯 3 年 / 技术信息 2 年），也是唯一明示「Personal Information 不用于模型训练」的隐私层文档，并给出跨境传输（含美国）表述。"
+
+[[source]]
+url = "https://novita.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-08-05)，合同层最高权威，覆盖全部 Marketplace Offerings：§1 把「AI-powered cloud services, including: AI inference APIs (text generation, image generation, speech, video, and multimodal models), storage, and related software products」定义为 Marketplace Offerings，即 Model API、GPU 实例、Agent Sandbox 共用同一份 TOS；§6 提到 Model 可能来自 Model Provider，但未披露数据是否流向该主体；§10 是训练/保留/ZDR 的唯一合同层条款（§10.2 标题即 Zero Data Retention）；§20 适用法为 Delaware。全文没有量化保留期限，也没有任何 DPA/ZDR 申请表入口。"
+
+[[source]]
+url = "https://trust.novita.ai/faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层，与 TOS §10.2 在方向上一致。"
+
+[[product]]
+id = "coding-plan"
+badge = "Coding Plan"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "novita-tos-10-2-no-training"
+
+[[product.training.point]]
+text = "There is no tier-specific clause; the default no-training commitment of TOS §10.2 and FAQ item 1 carries over. Confidence is medium rather than high: no sentence in the public documentation binds that commitment expressly to the Coding Plan tier, so applicability is derived from \"the TOS covers all Marketplace Offerings\"."
+text_zh = "无档位专用条款，沿用 TOS §10.2 与 FAQ 第 1 条的默认不训练承诺。置信度 medium 而非 high：公开文档没有一句话把该承诺明示绑定到 Coding Plan 这一档，属按「TOS 覆盖全部 Marketplace Offerings」推出的适用关系。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.zdr.point]]
+text = "FAQ item 3 describes ZDR as the \"default for all endpoints, including serverless API calls\""
+text_zh = "FAQ 第 3 条把 ZDR 说成「default for all endpoints, including serverless API calls」"
+
+[[product.zdr.point]]
+text = "The Coding Plan runs on the same API, but the documentation does not name this tier, hence medium."
+text_zh = "Coding Plan 走同一套 API，但文档未点名该档，故 medium。"
+
+[product.retention]
+days = 180
+object = "mixed"
+basis = "fixed_period"
+anchor = "novita-tos-10-2-zero-data-retention"
+
+[[product.retention.point]]
+text = "As above, with no tier-specific period"
+text_zh = "同上，无档位专用期限"
+
+[[product.retention.point]]
+text = "Content is not retained, technical metadata is kept for 6 months, and account data follows the per-category periods in the Privacy Policy."
+text_zh = "正文不留存、技术元数据 6 个月、账户数据按 PP 分类期限。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "novita-privacy-international-transfers"
+
+[[product.processing_region.point]]
+text = "No tier-specific wording; only the Privacy Policy's cross-border disclosure carries over; low confidence."
+text_zh = "无档位专用表述，仅沿用 PP 的跨境披露；低置信度。"
+
+[product.role]
+kind = "processor"
+anchor = "novita-privacy-scope-customer-content"
+
+[[product.role.point]]
+text = "No tier-specific wording; the Privacy Policy's \"process on behalf of customers\" positioning carries over."
+text_zh = "无档位专用表述；沿用 PP 的「代表客户处理」定位。"
+
+[[anchor]]
+id = "novita-tos-10-2-no-training"
+source_id = "67323c4abe43949b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+oviding the Service to you.
+
+**10.2. Zero Data Retention.** """
+exact = "By Default, Novita AI will not use your Content to train our own models or to improve the Services."
+suffix = " We will not retain any Content for longer than is necessary"
+
+[[anchor]]
+id = "novita-tos-10-2-zero-data-retention"
+source_id = "67323c4abe43949b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "or longer than is necessary to provide the Services to you. "
+exact = "We have adopted a \"Zero Data Retention\" policy, which means that we will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you."
+suffix = " Notwithstanding the foregoing, you agree that we have the r"
+
+[[anchor]]
+id = "novita-privacy-scope-customer-content"
+source_id = "65b322371ba5a6a6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ou use our website and services (collectively, \"Services\"). "
+exact = "This Privacy Policy does not apply to content that we process on behalf of customers while providing services. Our use of that data is governed by our customer agreements covering access to and use of those offerings."
+suffix = """
+
+
+## Personal Information We Collect
+
+We collect information"""
+
+[[anchor]]
+id = "novita-privacy-international-transfers"
+source_id = "65b322371ba5a6a6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+with this Privacy Policy.
+
+## International Data Transfers
+
+"""
+exact = "We may transfer Personal Information to countries outside your country or region, including the United States."
+suffix = " Where required by applicable law, we use appropriate safegu"
+
+[[anchor]]
+id = "novita-trustfaq-retention-by-category"
+source_id = "e41cd9e2fea73eae"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+What data do you collect, and for how long is it retained?
+
+"""
+exact = "We collect the following categories of data: • API inputs & outputs: Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law. Zero Data Retention is the default for all endpoints, including serverless API calls. • Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing. • Account & authentication data: Retained for the duration of the account plus any statutory retention periods, for the purposes of service delivery and legal compliance. Our no-retention commitment applies to the substantive content of your API inputs and outputs across all endpoints, including serverless API calls. Technical metadata for operational purposes (e.g., request timestamps, error codes, usage metrics) is handled as described in our Privacy Policy and applicable Data Processing Agreement. You may request deletion of your account data by contacting support@novita.ai."
+suffix = """
+
+
+https://trust.novita.ai/faq?s=5s1pb55bl2k8rtitswvg7s
+
+Do y"""

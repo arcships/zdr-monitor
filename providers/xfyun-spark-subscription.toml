@@ -1,0 +1,120 @@
+name = "讯飞星火订阅套餐"
+name_en = "iFlytek Spark Subscription"
+company = "xfyun-spark"
+company_name = "科大讯飞星火"
+line = "subscription"
+site = "cn"
+entity = "科大讯飞股份有限公司"
+plan_levels = ["individual"]
+doc = "https://www.xfyun.cn/doc/policy/privacy.html"
+
+[[source]]
+url = "https://www.xfyun.cn/doc/policy/privacy.html"
+channel = "consumer_privacy"
+tier = "core"
+note = "《讯飞开放平台隐私政策》，页面标注更新日期 2022 年 10 月 9 日、生效日期 2022 年 10 月 9 日（是本家五份数据类文档里最旧的一份）。同时覆盖两类主体：「访问、注册、登录及使用讯飞开放平台产品与/或服务的访问者和开发者」（§二.1）与「使用调用了讯飞开放平台人工智能API/SDK产品与/或服务的最终用户」（§二.2）。是本家 retention 与 processing_region 的主要条款来源，也是 training 匿名化训练句的来源之一。§二.1.a 系统日志含「产品服务使用记录、搜索查询内容、访问的页面地址、登录IP」；§二.2.b 调用日志「用于调用数量的统计分析」——证明服务端存在日志，但都未写期限。§三(3) 匿名化训练句此处写「语音信息」，与星火专项政策写「信息」不同。§四.1「委托处理」是讯飞作为委托方向外委托第三方（不是讯飞作为受托方）。§五.3/§六.2 给出目的绑定保留与《网络安全法》网络日志≥6 个月、《电子商务法》交易信息≥3 年的下限引用。§六.1 与 §九 给出境内存储与跨境例外。全文无保留天数、无零保留/ZDR、无面向 API 客户的「不用于训练」承诺。"
+
+[[source]]
+url = "https://www.xfyun.cn/doc/spark/MaaS/user_instructions.html"
+channel = "contract"
+tier = "core"
+note = "讯飞星辰 MaaS 平台《用户使用须知》，自述是对《讯飞开放平台用户服务协议》及相关协议的「有效补充」，并写明「如您是企业或开发者用户，您还需遵守《讯飞开放平台大语言模型接口服务协议》」——即星辰 MaaS 托管模型、Coding Plan、Token Plan 的数据条款实际落在这里加上接口服务协议。§三「数据处理须知」是内容层优化授权条款，与接口协议 §4.3 同构但去掉了「本协议下」的限定、退出渠道改为通用反馈。§二.3 自认「我们并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者…仅对在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服务」。全文无保留期限、无 ZDR、无训练字样。"
+
+[[product]]
+id = "subscription-coding-token-plan"
+badge = "订阅套餐"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "xfyun-maas-3-data-processing-optimization"
+
+[[product.training.point]]
+text_zh = "订阅档内容层依据是《用户使用须知》§三：「您知悉并授权，为了提升您使用本服务的用户体验，在经安全加密技术处理、去标识化或匿名化处理的前提下，我们可能会将本服务所收集的输入内容及对应输出内容，用于本服务的优化。如您拒绝提供前述授权，您可以向我们反馈您的意见或建议」——与接口协议 §4.3 同构，退出渠道改为通用反馈。多跳不确定性：文档自述整合 GLM/Kimi/MiniMax/DeepSeek/Qwen 等第三方模型，未披露是否转发至原厂及其角色。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.xfyun.cn/doc/spark/CodingPlan.html",
+  "https://www.xfyun.cn/doc/spark/TokenPlan.html",
+  "https://www.xfyun.cn/doc/spark/MaaS/user_instructions.html",
+]
+
+[[product.zdr.point]]
+text_zh = "订阅档文档全文无零保留/不落盘表述，也无申请入口。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://www.xfyun.cn/doc/spark/CodingPlan.html",
+  "https://www.xfyun.cn/doc/spark/TokenPlan.html",
+  "https://www.xfyun.cn/doc/spark/MaaS/user_instructions.html",
+]
+
+[[product.retention.point]]
+text_zh = "订阅档文档与 MaaS 须知都没有保留期限条款，只能沿用平台层《讯飞开放平台隐私政策》§五.3/§六.2 的目的绑定保留与法定下限。置信度 low：无法确认订阅档是否另有控制台内的保留规则。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "xfyun-privacy-6-1-storage-in-cn"
+
+[[product.processing_region.point]]
+text_zh = "订阅档文档未单独写处理地，沿用平台层境内存储承诺"
+
+[[product.processing_region.point]]
+text_zh = "Base URL 的 cn-huabei-1 域名与境内部署一致，但这是命名线索而非条款依据，故置信度 medium。"
+
+[product.role]
+kind = "controller"
+anchor = "xfyun-maas-2-3-infra-provider-disclaimer"
+
+[[product.role.point]]
+text_zh = "订阅档下讯飞自认「并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者」，只对「在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服务」"
+
+[[product.role.point]]
+text_zh = "内容层仍受 §三 优化授权约束（控制者一侧）。上游第三方模型原厂的角色与政策未披露，多跳链路末端未核。"
+
+[[anchor]]
+id = "xfyun-privacy-6-1-storage-in-cn"
+source_id = "d91128c5d97d6f08"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+个人信息
+
+本产品与/或服务仅面向中国大陆地区（仅为本政策之目的，不包含香港特别行政区、澳门特别行政区和台湾地区）提供。"""
+exact = "原则上，我们在中华人民共和国境内收集产生的个人信息，存储在中华人民共和国境内，不会进行跨境传输。"
+suffix = """
+
+
+### [#](https://www.xfyun.cn/doc/policy/privacy.html#_1-%E"""
+
+[[anchor]]
+id = "xfyun-maas-3-data-processing-optimization"
+source_id = "c7374e024200215c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+0%E6%8D%AE%E5%A4%84%E7%90%86%E9%A1%BB%E7%9F%A5) 三、数据处理须知
+
+**"""
+exact = "您知悉并授权，为了提升您使用本服务的用户体验，在经安全加密技术处理、去标识化或匿名化处理的前提下，我们可能会将本服务所收集的输入内容及对应输出内容，用于本服务的优化。"
+suffix = "如您拒绝提供前述授权，您可以向我们反馈您的意见或建议，我们将在充分尊重您的意见基础上采取有效措施以保护您的合法权益。**"
+
+[[anchor]]
+id = "xfyun-maas-2-3-infra-provider-disclaimer"
+source_id = "c7374e024200215c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+三方主张索赔）的，则我们有权在遭受损失范围内向您追偿。**
+
+**3.免责声明。根据现行法律法规，在大模型托管服务项下，"""
+exact = "我们并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者"
+suffix = "。您知悉并理解，我们作为算力基础设施服务提供方，仅对在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服"

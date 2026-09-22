@@ -1,0 +1,848 @@
+name = "Fireworks AI"
+line = "fireworks-ai"
+site = "global"
+entity = "Fireworks.ai, Inc."
+endpoint = ""
+doc = "https://fireworks.ai/terms-of-service"
+
+[[source]]
+url = "https://docs.fireworks.ai/accounts/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；列出 residency 开启后被拒的功能（训练、FireRouter、BYOC）。既是处理地维度的主要来源，也是 FireRouter/BYOC 多跳与自管档的官方披露点。"
+
+[[source]]
+url = "https://docs.fireworks.ai/deployments/regions"
+channel = "developer_data"
+tier = "core"
+note = "《Regions》页：默认多区域（GLOBAL/US/EUROPE/APAC），并列出全部可用的单区域（含 AP_TOKYO、EU_FRANKFURT、EU_ICELAND、US_* 等）与 BYOC 入口。处理地维度里「默认不限定单一国家」的依据。"
+
+[[source]]
+url = "https://docs.fireworks.ai/ecosystem/firerouter/overview"
+channel = "developer_data"
+tier = "core"
+note = "《FireRouter》产品文档：托管路由服务，默认在 Fireworks 开源模型与闭源模型之间选路，pass-through 默认目标是 Claude Opus 5（Anthropic），用客户自己的 provider key 计费。这是本家唯一把请求实际转给第三方的功能，构成多跳链路，因此单列 products 行。"
+
+[[source]]
+url = "https://docs.fireworks.ai/guides/prompt-caching"
+channel = "developer_data"
+tier = "core"
+note = "《Prompt caching》功能文档。给出 KV 缓存/prompt 缓存的存活时长区间（数分钟到数小时，内存中），是 retention 维度上唯一披露缓存保留时长的官方来源；§Data privacy 说明 serverless 每账号独立缓存、dedicated 默认共享缓存。"
+
+[[source]]
+url = "https://docs.fireworks.ai/guides/security_compliance/data_handling"
+channel = "developer_data"
+tier = "core"
+note = "文档站 Security & Compliance 下的《Zero Data Retention》页（页面标题即 Zero Data Retention），覆盖推理档的默认保留策略与 Response API 例外。旧记录唯一一条候选，本轮四步验证通过（HTTP 200 / 12820B / 有主体×动作条款 / 可定位原句）。"
+
+[[source]]
+url = "https://docs.fireworks.ai/guides/security_compliance/secure_training"
+channel = "developer_data"
+tier = "core"
+note = "文档站《Secure Training》页：按 Managed Training / Managed Training+BYOB / Training API 三种训练形态分别给出「数据放在哪、Fireworks 保留什么、怎么删」，是训练档 retention 与 training 维度的权威。明确写出推理档 ZDR 与训练档保留的边界。"
+
+[[source]]
+url = "https://fireworks.ai/dpa"
+channel = "contract"
+tier = "core"
+note = "《Data Processing Addendum (v3.2)》，jina 抓回的是 22 页 PDF/DOCX 渲染（页面 URL 为 fireworks.ai/dpa，由 ToS §2.4 并入）。这是 role / retention / training / processing_region 的合同层权威：§3 角色、§4.3(f) 禁止训练、§4.5 请求生命周期保留、§11 终止后删除、Schedule 2「limited data retention」、Schedule 4 授权子处理者及其处理地。适用对象是「business customer」签署的 Agreement（含自服务条款）。"
+
+[[source]]
+url = "https://fireworks.ai/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Fireworks.ai, Inc. 的通用服务条款（正文含 §3 Content、§3.6 Zero Data Retention、§10.1 Privacy）。覆盖平台全部付费/免费服务档：serverless 推理、专用部署、训练与微调、Response API、agent 功能。§3.1 定义 Input/Output/Content，§2.4 把 www.fireworks.ai/dpa 并入本条款，§3.6 是 zdr / training / retention 三个维度的合同层最高权威，§10.1 是处理地维度的合同层依据。本文件未出现 controller/processor 字样，角色维度以 DPA 为准。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-tos-3-6-no-training"
+
+[[product.training.point]]
+text_zh = "同顶层 training：ToS §3.6 + DPA §4.3(f) 无条件禁止用 Content/Covered Data 训练自有或共享模型"
+
+[[product.training.point]]
+text_zh = "隐私政策与文档层另带「without your explicit opt-in」限定。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：默认开启、无需申请"
+
+[[product.zdr.point]]
+text_zh = "例外为 Response API、prompt caching、training/fine-tuning/agent 功能"
+
+[[product.zdr.point]]
+text_zh = "文档层限定「for any open models」。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention。本档内部还要再分：默认推理请求正文不落盘"
+
+[[product.retention.point]]
+text_zh = "prompt cache 内存保留数分钟~数小时"
+
+[[product.retention.point]]
+text_zh = "Response API store=True 默认 30 天"
+
+[[product.retention.point]]
+text_zh = "Batch API 上传的数据集保留期未披露。"
+
+[product.processing_region]
+codes = ["global", "selected"]
+anchor = "fireworks-dataresidency-restricts-region"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：默认 None（多区域，可跨 GLOBAL/US/EUROPE/APAC），可账号级锁 US，EU-only 需联系销售"
+
+[[product.processing_region.point]]
+text_zh = "residency 只约束推理且不搬迁已有部署。"
+
+[product.role]
+kind = "processor"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "同顶层 role：DPA §3(a) processor/service provider"
+
+[[product.role.point]]
+text_zh = "Administration Data 与 Usage Data 走 §3(b) controller。"
+
+[[product]]
+id = "dedicated_deployment"
+badge = "专属部署"
+category = "api"
+label = "另有自管版（Self-managed，部署在客户自己的环境里）：厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-tos-3-6-no-training"
+
+[[product.training.point]]
+text_zh = "同 api：ToS §3.6 / DPA §4.3(f)。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.zdr.point]]
+text_zh = "同 api：ToS §3.6 覆盖整个 Service 的 inference，未对 serverless/dedicated 作区分。"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "fireworks-promptcaching-cache-lifetime"
+
+[[product.retention.point]]
+text_zh = "请求正文同 api（不落盘）。本档特有面：dedicated 默认共享单一 prompt cache，缓存内容在内存中留存数分钟到数小时（prompt_caching 页），页面同时承认这带来「a minor risk of a timing attack」，需用 x-prompt-cache-isolation-key 才能完全隔离。置信度 medium，因为该页只描述缓存行为，未针对 dedicated 单独声明保留承诺。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "fireworks-regions-multi-region-default"
+
+[[product.processing_region.point]]
+text_zh = "默认多区域，可用 --region 固定到单区域（US_IOWA_1、EU_FRANKFURT_1 等）"
+
+[[product.processing_region.point]]
+text_zh = "新账号只有 GLOBAL 配额，其他 placement 需授予"
+
+[[product.processing_region.point]]
+text_zh = "开启 data residency 后每个专用部署必须落在该区域，区域外的已有部署不会被搬迁但请求会被拒。"
+
+[product.role]
+kind = "processor"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "同 api：DPA §3(a)。data_security 页补充「Dedicated workloads run in logically isolated environments」。"
+
+[[product]]
+id = "training"
+badge = "训练微调"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "fireworks-dpa-4-3-f-no-training"
+
+[[product.training.point]]
+text_zh = "训练档的「不训练」含义与推理档不同：DPA §4.3(f) 禁止「using Covered Data to train, fine-tune, or otherwise improve any shared or foundational model」，docs《Secure Training》「your training data is never used to train Fireworks-owned or shared models」——即客户数据只用于训练客户自己的模型，不会进入 Fireworks 自有/共享模型。注意这是合同禁令，不是「数据不留存」。"
+
+[product.zdr]
+mark = "no"
+anchor = "fireworks-tos-3-6-inference-scope"
+
+[[product.zdr.point]]
+text_zh = "ToS §3.6 明文排除：「our Zero Data Retention commitment applies to your use of the Service for inference. It does not apply to any feature of the Service that, by design, requires the retention or further processing of data beyond the time needed to generate and deliver Output — including…any training, fine-tuning, or agent features.」即训练档没有零保留承诺，只有上面那套「客户自控 + 30 天产物」的保留规则。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "fireworks-securetraining-job-artifacts-30-days"
+
+[[product.retention.point]]
+text_zh = "对象分明：数据集——Managed Training 上传到 Fireworks 管理的 GCS，客户可在作业完成后立即删除"
+
+[[product.retention.point]]
+text_zh = "BYOB 则留在客户自己的桶里、Fireworks 就地读取不留副本"
+
+[[product.retention.point]]
+text_zh = "Training API 根本不上传数据集，trainer 只收到瞬时 tokenized Datum 批次。产物——Job chunks/artifacts（中间 checkpoint）与 Traces/logs（请求响应元数据）均保留 30 天后删除，可提前请求删除。RFT 的 rollout 数据集可应请求删除。删除入口：控制台/API 删数据集，checkpoint/trace/rollout 需联系 account team。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "fireworks-dataresidency-restricts-region"
+
+[[product.processing_region.point]]
+text_zh = "data_residency 页 Limitations：「**Training.** Fine-tuning and training jobs are blocked. Support is coming soon.」即开启数据驻留的账号不能跑训练"
+
+[[product.processing_region.point]]
+text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure_training 页），DPA Schedule 4 的 GCP 处理地为 United States。"
+
+[product.role]
+kind = "processor"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "DPA §3(a) 的 processor 角色覆盖 Agreement 下的全部 Processing（未按训练/推理切分）"
+
+[[product.role.point]]
+text_zh = "但训练档的客户自控组件（reward model、rollout server、客户自有 bucket、客户 KMS 密钥）在 DPA 中没有单独的角色约定，置信度因此降到 medium。"
+
+[[product]]
+id = "gateway"
+badge = "网关路由"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://docs.fireworks.ai/ecosystem/firerouter/overview",
+  "https://docs.fireworks.ai/ecosystem/firerouter/authentication",
+  "https://docs.fireworks.ai/accounts/data-residency",
+  "https://fireworks.ai/dpa",
+]
+
+[[product.training.point]]
+text_zh = "FireRouter 文档只描述路由、计费与鉴权，没有就「pass-through 到第三方后数据如何被使用」作任何承诺"
+
+[[product.training.point]]
+text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束 Anthropic/OpenAI。多跳判定：本跳（Fireworks 侧）无明确承诺，上游跳（Anthropic/OpenAI）的条款不在本台账本家范围内，因此按「任一跳明确为否则全链为否」+ 保守假设处理，不在本家记 training 的正面结论。"
+
+[[product.training.point]]
+text_zh = "原先绑在本条的引文（「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，不涉及训练，不构成对 training 维度的表述，故不再绑在本条；该引文仍绑在本档 zdr 条目。"
+
+[product.zdr]
+mark = "no"
+anchor = "fireworks-dataresidency-firerouter-third-party"
+
+[[product.zdr.point]]
+text_zh = "data_residency 页在 Limitations 里明写「FireRouter can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」，同时该页说明开启 data residency 的账号无法使用 FireRouter（请求返回 403）。即 Fireworks 自己承认无法对本档的第三方跳作区域/处理约束"
+
+[[product.zdr.point]]
+text_zh = "零保留同样不能由 Fireworks 单方面保证。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "fireworks-firerouter-third-party-provider-key"
+
+[[product.retention.point]]
+text_zh = "FireRouter 只披露了凭据侧的一条保留规则：「Provider keys sent on individual requests are not persisted by FireRouter.」（逐请求携带的 provider key 不落库；若由 Fireworks 侧开通 workspace BYOK，则凭据存在客户 workspace 里、由服务端注入）。对请求/响应正文在 pass-through 路径上的保留期没有任何披露。Fireworks 侧的 ZDR（ToS §3.6）只承诺 inference，而 pass-through 的执行方是第三方，故不能把 Fireworks 的 ZDR 结论直接套到本档。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "fireworks-firerouter-pass-through-anthropic"
+
+[[product.processing_region.point]]
+text_zh = "pass-through 路径由客户自己的 provider key 直连上游（默认 Anthropic），处理地由上游决定"
+
+[[product.processing_region.point]]
+text_zh = "Fireworks 声明无法约束（data_residency 页）。Redirect 路径仍走 Fireworks 开源模型，此时适用 api 档结论。"
+
+[product.role]
+kind = "unknown"
+anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
+
+[[product.role.point]]
+text_zh = "两条口径需要并列：(a) firerouter_overview 页把第三方描述为「provider」，用客户自己的 key 计费，读起来像客户与上游的直接关系"
+
+[[product.role.point]]
+text_zh = "(b) DPA Schedule 4 却把「Anthropic / United States / AI services」列为 Fireworks 的授权子处理者，读起来像 Fireworks 以 processor 身份再委托。两处都是官方文件，本轮不选边、不调和，如实并列，并把「FireRouter pass-through 时 Fireworks 是 conduit 还是 processor」标为需要人工澄清的问题。"
+
+[[product]]
+id = "self_managed"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "fireworks-dpa-4-3-f-no-training"
+
+[[product.training.point]]
+text_zh = "沿用 DPA §4.3(f) 的合同禁令。置信度 medium：BYOC 的算力在客户账号内，DPA 的「Company shall not」在物理上更难被验证，文档未就此单独说明。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.fireworks.ai/ecosystem/integrations/byoc/overview",
+  "https://docs.fireworks.ai/accounts/data-residency",
+  "https://fireworks.ai/dpa",
+]
+
+[[product.zdr.point]]
+text_zh = "BYOC 概览页本轮未单独抓取（只从 data_residency 页与 deployments/regions 页确认了入口与「Fireworks 无法约束运行地」这一句）。官方未见针对 BYOC 的零保留承诺，且 BYOC 被明文排除在 data residency 之外。不写成「未披露」以外的任何结论。"
+
+[[product.zdr.point]]
+text_zh = "原先绑在本条的引文（「deployments run in your own cloud account, so Fireworks cannot enforce where they run.」）只说明 Fireworks 对运行地无约束力，没有说是否提供零保留，不构成对 zdr 维度的表述，故不再绑在本条（该引文仍见 processing_region 条目）。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "fireworks-dataresidency-byoc-not-enforceable"
+
+[[product.retention.point]]
+text_zh = "data_residency 页明写「BYOC deployments run in your own cloud account, so Fireworks cannot enforce where they run.」。同理，BYOC 上的数据保留由客户自己的云环境决定，Fireworks 未作保留承诺"
+
+[[product.retention.point]]
+text_zh = "文档没有给出 BYOC 专属的保留条款。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "fireworks-dataresidency-byoc-not-enforceable"
+
+[[product.processing_region.point]]
+text_zh = "处理地由客户自己的云账号决定，Fireworks 明示无法约束。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://fireworks.ai/dpa", "https://docs.fireworks.ai/accounts/data-residency"]
+
+[[product.role.point]]
+text_zh = "DPA 未就 BYOC 单独约定角色"
+
+[[product.role.point]]
+text_zh = "文档也未声明 BYOC 场景下 Fireworks 是 processor 还是仅提供软件。如实记未找到，不套用 api 档的 processor 结论。"
+
+[[product.role.point]]
+text_zh = "原先绑在本条的引文（「deployments run in your own cloud account, so Fireworks cannot enforce where they run.」）只讲运行地，没有约定协议角色，不构成对 role 维度的表述，故不再绑在本条。"
+
+[[anchor]]
+id = "fireworks-tos-3-6-zdr-policy"
+source_id = "f3cd723579d811c6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "for longer than is necessary to provide the Service to you. "
+exact = "We have adopted a “Zero Data Retention” policy, which means that we will not, unless otherwise required by Applicable Law (or to provide the Service or support to you): (i) log your Content for human review; or (ii) retain your Content, beyond the time it takes to generate Output and deliver that Output to you."
+suffix = " Notwithstanding the foregoing, you agree that we have the r"
+
+[[anchor]]
+id = "fireworks-tos-3-6-no-training"
+source_id = "f3cd723579d811c6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ of such Content going forward. 
+
+3.6. Zero Data Retention. """
+exact = "We will not use your Content to train our own models or to improve the Service."
+suffix = " We will not retain any Content for longer than is necessary"
+
+[[anchor]]
+id = "fireworks-tos-3-6-inference-scope"
+source_id = "f3cd723579d811c6"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = "fety screening tools on the Content as we deem appropriate. "
+exact = "For clarity, our Zero Data Retention commitment applies to your use of the Service for inference. It does not apply to any feature of the Service that, by design, requires the retention or further processing of data beyond the time needed to generate and deliver Output — including, among other things, the Response API and any training, fine-tuning, or agent features."
+suffix = """
+ 
+
+3.7 Output Disclaimer. YOU ACKNOWLEDGE AND AGREE AS FOLLO"""
+
+[[anchor]]
+id = "fireworks-dpa-3-a-processor"
+source_id = "809a8c0c397358d0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+e and agree that: 
+
+(a)  save as set out in paragraph 3(b), """
+exact = "Company acts as a processor or service provider in the performance of its obligations under the Agreement and this DPA and Customer acts as a controller or business"
+suffix = """
+; and 
+
+(b)  for the purposes of the GDPR, Company acts as a"""
+
+[[anchor]]
+id = "fireworks-dpa-4-3-f-no-training"
+source_id = "809a8c0c397358d0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ects from its own interaction with the Data Subject. 
+
+(f)  """
+exact = "using Covered Data to train, fine-tune, or otherwise improve any shared or foundational model."
+suffix = """
+ 
+
+4.4  Company will: 
+
+(a)  provide Customer with reasonabl"""
+
+[[anchor]]
+id = "fireworks-dpa-sched4-anthropic-subprocessor"
+source_id = "809a8c0c397358d0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+vider 
+
+CoreWeave  United States  Infrastructure provider 
+
+"""
+exact = "Anthropic  United States  AI services"
+suffix = """
+ 
+
+22
+"""
+
+[[anchor]]
+id = "fireworks-securetraining-job-artifacts-30-days"
+source_id = "31646488cd8888c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+est |
+| Job chunks / artifacts | Intermediate checkpoints | """
+exact = "Retained for 30 days, then deleted; deletable earlier on request. Kept so jobs can be retrieved or restarted"
+suffix = """
+ |
+| Traces / logs | Request/response metadata | Retained fo"""
+
+[[anchor]]
+id = "fireworks-promptcaching-cache-lifetime"
+source_id = "85d41bd6d89e8bd0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ".The entire prompt is stored in the cache for future reuse. "
+exact = "Cached prompts usually stay in the cache for at least several minutes. Depending on the model, load level, and deployment configuration, it can be up to several hours."
+suffix = " The oldest prompts are evicted from the cache first.Prompt "
+
+[[anchor]]
+id = "fireworks-dataresidency-restricts-region"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+inference for your Enterprise account to a selected region
+
+"""
+exact = "Data residency restricts inference on your account to a single region."
+suffix = " Once a region is set, every request must use that region’s "
+
+[[anchor]]
+id = "fireworks-dataresidency-firerouter-third-party"
+source_id = "5b91be97039b3320"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "r](https://docs.fireworks.ai/ecosystem/firerouter/overview) "
+exact = "can pass a request through to a third-party provider, which Fireworks cannot constrain to a region."
+suffix = """
+
+*   **BYOC.**[BYOC](https://docs.fireworks.ai/ecosystem/int"""
+
+[[anchor]]
+id = "fireworks-dataresidency-byoc-not-enforceable"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "s://docs.fireworks.ai/ecosystem/integrations/byoc/overview) "
+exact = "deployments run in your own cloud account, so Fireworks cannot enforce where they run."
+suffix = """
+
+
+*   [US-only Serverless](https://docs.fireworks.ai/serverl"""
+
+[[anchor]]
+id = "fireworks-regions-multi-region-default"
+source_id = "bf167f4b52731879"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+** regions, and **quotas**.
+
+## Multi-region (recommended)
+
+"""
+exact = "By default, deployments are multi-region: Fireworks can move and spread them across regions as needed."
+suffix = " Multi-regions (**GLOBAL**, **US**, **EUROPE**, **APAC**) ar"
+
+[[anchor]]
+id = "fireworks-firerouter-pass-through-anthropic"
+source_id = "71f0c175ad418ee9"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+ open model (by default GLM 5.3) | Your Fireworks API key |
+"""
+exact = "| **Pass-through** | More likely when the closed-source model’s predicted success justifies its cost | A closed-source model (by default Claude Opus 5) | Your provider API key (Anthropic) |"
+suffix = """
+
+
+FireRouter uses a bring-your-own-key (BYOK) model:
+
+*   Yo"""
+
+[[anchor]]
+id = "fireworks-firerouter-third-party-provider-key"
+source_id = "71f0c175ad418ee9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+s to FireRouter and pays for calls to Fireworks models.
+*   """
+exact = "A third-party **provider API key** pays for calls to that provider’s models."
+suffix = """
+
+
+Provider keys sent on individual requests are not persiste"""
+
+[[anchor]]
+id = "fireworks-tos-10-1-us-processing"
+source_id = "f3cd723579d811c6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ta as set forth in our Privacy Notice and the DPA, and that "
+exact = "your personal information may be transferred to, and/or processed in, the United States"
+suffix = """
+. 
+
+10.2. Security. We care about the integrity and security"""
+
+[[anchor]]
+id = "fireworks-dpa-3-b-controller-admin-usage"
+source_id = "809a8c0c397358d0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+A and Customer acts as a controller or business; and 
+
+(b)  """
+exact = "for the purposes of the GDPR, Company acts as a controller with respect to the Processing of Administration Data and Usage Data for the Controller Purposes."
+suffix = """
+ 
+
+4.  DETAILS OF DATA PROCESSING 
+
+4.1  The details of the """
+
+[[anchor]]
+id = "fireworks-dpa-4-5-request-lifecycle"
+source_id = "809a8c0c397358d0"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+is DPA and the Agreement. 
+
+4.5  Except as described below, """
+exact = "Company shall not retain Customer's prompt inputs or model outputs beyond the lifecycle of the applicable request."
+suffix = " The foregoing obligation applies when Customer uses the Ser"
+
+[[anchor]]
+id = "fireworks-dpa-4-5-feature-exceptions"
+source_id = "809a8c0c397358d0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ". Notwithstanding the foregoing, Customer acknowledges that "
+exact = "certain Service features require transient or persistent data handling, including: (a) use of the Response API unless configured with store=false; and (b) use of prompt caching."
+suffix = " When Customer enables such features, input and output data "
+
+[[anchor]]
+id = "fireworks-dpa-11-2-b-post-termination-delete"
+source_id = "809a8c0c397358d0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+allowing Customer to download such Covered Data; and 
+
+(b)  """
+exact = "on expiry of the Retention Period, delete all copies of Covered Data Processed by Company or any Authorised Sub-processors"
+suffix = ", other than any Administration Data and Usage Data Processe"
+
+[[anchor]]
+id = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
+source_id = "809a8c0c397358d0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ in accordance with Applicable Data 
+
+> 14
+
+Protection Law. """
+exact = "All Personal Data is deleted from the Services following service termination."
+suffix = """
+ 
+
+Measures for ensuring accountability 
+
+Company has adopte"""
+
+[[anchor]]
+id = "fireworks-dpa-sched2-aws-gcp-oracle-datacenters"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ecurity of locations at which personal data are processed 
+
+"""
+exact = "All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud."
+suffix = """
+ https://aws.amazon.com/compliance/data-center/controls/ 
+
+M"""
+
+[[anchor]]
+id = "fireworks-dpa-sched4-aws-us-japan"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+
+Sub-processor  Processing Location(s)  Service / Purpose 
+
+"""
+exact = "Amazon Web Services  United States, Japan  Cloud infrastructure and service provider"
+suffix = """
+ 
+
+Google Cloud Platform  United States  Cloud infrastructur"""
+
+[[anchor]]
+id = "fireworks-dpa-sched4-oracle-multi"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ United States  Cloud infrastructure and service provider 
+
+"""
+exact = "Oracle Cloud Infrastructure  United States, Japan, United Kingdom, Germany"
+suffix = """
+ 
+
+Cloud infrastructure and service provider 
+
+Cloudflare  C"""
+
+[[anchor]]
+id = "fireworks-dpa-sched4-cloudflare-global"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+gdom, Germany 
+
+Cloud infrastructure and service provider 
+
+"""
+exact = "Cloudflare  Closest data center to End User (global)"
+suffix = """
+ 
+
+Content delivery network provider 
+
+Vercel  United States"""
+
+[[anchor]]
+id = "fireworks-datahandling-volatile-memory"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ls, without explicit user opt-in.
+    *   More technically: """
+exact = "prompt and generation data exist only in volatile memory for the duration of the request"
+suffix = ". If [prompt caching](https://docs.fireworks.ai/guides/promp"
+
+[[anchor]]
+id = "fireworks-datahandling-no-persistent-log"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ches) can be stored in volatile memory for several minutes. "
+exact = "In either case, prompt and generation data are not logged into any persistent storage."
+suffix = """
+
+
+*   Fireworks logs metadata (e.g. number of tokens in a re"""
+
+[[anchor]]
+id = "fireworks-datahandling-metadata-logs"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ation data are not logged into any persistent storage.
+
+*   """
+exact = "Fireworks logs metadata (e.g. number of tokens in a request) as required to deliver the service."
+suffix = """
+
+*   Users can explicitly opt-in to log prompt and generatio"""
+
+[[anchor]]
+id = "fireworks-datahandling-optin-logging"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+okens in a request) as required to deliver the service.
+*   """
+exact = "Users can explicitly opt-in to log prompt and generation data for certain advanced features (e.g. FireOptimizer)."
+suffix = """
+
+
+## [​](https://docs.fireworks.ai/guides/security_complianc"""
+
+[[anchor]]
+id = "fireworks-datahandling-response-api-30-days"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+rsation data from being retained.
+*   **Retention period**: """
+exact = "All stored conversation data is automatically deleted after 30 days."
+suffix = """
+
+*   **Immediate deletion**: You can immediately delete stor"""
+
+[[anchor]]
+id = "fireworks-datahandling-response-api-store-default"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+#response-api-data-retention)
+
+Response API data retention
+
+"""
+exact = "For the Response API specifically, Fireworks retains conversation data with the following policy when the API request has `store=True` (the default)"
+suffix = """
+:
+*   **What is stored**: Conversation messages include the """
+
+[[anchor]]
+id = "fireworks-securetraining-never-used-for-shared-models"
+source_id = "31646488cd8888c8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "trol. Across every training surface, one principle holds: **"
+exact = "your training data is never used to train Fireworks-owned or shared models"
+suffix = "**.This page covers training. Inference follows [Zero Data R"
+
+[[anchor]]
+id = "fireworks-securetraining-inference-zdr"
+source_id = "31646488cd8888c8"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+duction), where no dataset is stored at all.
+
+## Inference
+
+"""
+exact = "Inference at Fireworks follows Zero Data Retention by default: prompts and generations exist only in volatile memory for the duration of the request and are never written to persistent storage or used to train any model."
+suffix = " For full details, including the Response API storage except"
+
+[[anchor]]
+id = "fireworks-securetraining-traces-30-days"
+source_id = "31646488cd8888c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+er on request. Kept so jobs can be retrieved or restarted |
+"""
+exact = "| Traces / logs | Request/response metadata | Retained for 30 days, then deleted; deletable earlier on request |"
+suffix = """
+
+
+### Training API
+
+The [Training API](https://docs.firework"""
+
+[[anchor]]
+id = "fireworks-securetraining-training-api-transient"
+source_id = "31646488cd8888c8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " every `forward_backward` call. Those tokens are your data; "
+exact = "they are processed transiently for the gradient step and are not retained as a dataset"
+suffix = """
+.
+
+What Fireworks does retain is minimal and deletable on re"""

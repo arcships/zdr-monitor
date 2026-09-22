@@ -1,0 +1,273 @@
+name = "Claude Code"
+name_en = "Claude Code"
+company = "anthropic"
+company_name = "Anthropic"
+site = "global"
+line = "claude-code"
+entity = "Anthropic, PBC"
+doc = "https://code.claude.com/docs/en/data-usage"
+plan_levels = ["individual", "team", "enterprise"]
+
+[[source]]
+url = "https://code.claude.com/docs/en/data-usage"
+channel = "developer_data"
+tier = "core"
+note = "Claude Code 数据处理页:分消费档(Free/Pro/Max)与商业档(Team/Enterprise/API/第三方平台/Claude Gov)给训练与保留口径;含本地会话明文缓存 30 天、/feedback 5 年、会话质量调查 transcript 最多 6 个月。消费档条款不继承给 API 档。"
+
+[[source]]
+url = "https://code.claude.com/docs/en/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(Free/Pro/Max)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/consumer-terms"
+channel = "contract"
+tier = "core"
+note = "消费档(Free/Pro/Max,含这些账号下的 Claude Code)服务条款:默认许可把 Materials 用于训练,可在账号设置退出;退出后 Feedback 与安全审查标记内容仍用于训练。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Anthropic 隐私政策(消费档个人数据):§9 按居住地指定控制者实体(EEA/UK/瑞士=Anthropic Ireland, Limited;其他=Anthropic PBC);§5 个人数据传输至美国服务器或 EEA/UK 以外国家。Claude Code 消费档经 data-usage 页被指向本政策。"
+
+[[product]]
+id = "claude-code"
+badge = "Claude Code 订阅"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "training-consumer-optout"
+
+[[product.training.point]]
+text = "Consumer tiers use an opt-in setting: \"We will train new models using data from Free, Pro, and Max accounts when this setting is on\" (including Claude Code used under those accounts)"
+text_zh = "消费档为 opt-in 开关:开启时用 Free/Pro/Max 账号(含这些账号下的 Claude Code)数据训练新模型"
+
+[[product.training.point]]
+text = "The Consumer Terms grant the license by default with the ability to opt out; after opting out, Feedback and safety-flagged content are still used for training."
+text_zh = "Consumer Terms 为默认许可+可退出,退出后 Feedback 与安全标记内容仍用于训练。"
+
+[product.zdr]
+mark = "no"
+anchor = "zdr-cc-personal-not-covered"
+
+[[product.zdr.point]]
+text = "No ZDR on consumer tiers: \"Zero Data Retention (ZDR) for Claude Code is available to qualified accounts on Claude for Enterprise.\""
+text_zh = "消费档无 ZDR:仅 Claude for Enterprise 合格账号"
+
+[[product.zdr.point]]
+text = "Sessions signed in with a personal account (Free/Pro/Max) are expressly out of scope: \"If a developer signs in to Claude Code with a personal account or with an API key from a different organization, those sessions are not covered.\""
+text_zh = "个人账号(Free/Pro/Max)登录的会话明确不在覆盖范围"
+
+[[product.zdr.point]]
+text = "The API article likewise excludes \"Claude Free, Pro, and Max plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code.\""
+text_zh = "API 页亦正面排除 Free/Pro/Max 及其账号下的 Claude Code。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "cc-retention-5y"
+
+[[product.retention.point]]
+text = "Two tracks: \"Users who allow data use for model improvement: 5-year retention period\""
+text_zh = "双轨:允许改进=5 年"
+
+[[product.retention.point]]
+text = "\"Users who don't allow data use for model improvement: 30-day retention period\". Exceptions: inputs and outputs from violative conversations up to 2 years, classification scores 7 years, Feedback 5 years"
+text_zh = "不允许=30 天。例外:违规会话输入输出最多 2 年、分类分数 7 年、Feedback 5 年"
+
+[[product.retention.point]]
+text = "Deleted conversations are removed from the backend within 30 days"
+text_zh = "删除对话后端 30 天内删除"
+
+[[product.retention.point]]
+text = "Local session transcripts are cached in plaintext for 30 days by default (adjustable via cleanupPeriodDays)."
+text_zh = "本地会话明文缓存默认 30 天(cleanupPeriodDays 可调)。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "region-consumer-transfer-us"
+
+[[product.processing_region.point]]
+text = "No residency option on consumer tiers: \"your personal data is transferred to our servers in the US\" or to countries outside the EEA/UK. That sentence is generic consumer-product wording (the consumer tier of Claude Code is routed to the Consumer Terms + Privacy Policy by the data-usage page), not a Claude Code specific clause, hence confidence=medium."
+text_zh = "消费档无驻留选项:个人数据传输至美国服务器或 EEA/UK 以外国家。该句是消费产品通用表述(Claude Code 消费档经 data-usage 页指向 Consumer Terms + Privacy Policy),不是 Claude Code 专属条款,故 confidence=medium。"
+
+[product.role]
+kind = "controller"
+anchor = "role-consumer-controller"
+
+[[product.role.point]]
+text = "On consumer tiers Anthropic is the controller (§9 designates Anthropic Ireland, Limited or Anthropic PBC according to the user's place of residence)"
+text_zh = "消费档 Anthropic 为 controller(§9 按居住地指定 Anthropic Ireland / Anthropic PBC)"
+
+[[product.role.point]]
+text = "Article 10023555 states that the Privacy Policy does not apply where Anthropic acts as processor for commercial customers, confirming from the other side that the consumer tier is controller. No formal agreement-level controller/processor definition appears at the consumer_privacy level, hence medium."
+text_zh = "10023555 说明 Privacy Policy 不适用于 Anthropic 作为 processor 的商业客户场景,反向确认消费档为 controller。consumer_privacy 层未出现 controller/processor 的正式协议定义,故 medium。"
+
+[[product]]
+id = "claude-code-team"
+badge = "Claude Code Team"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cc-commercial-no-training"
+[[product.training.point]]
+text_zh = "商业档默认不使用代码或提示训练生成模型；仅客户主动选择向 Anthropic 提供数据用于模型改进时例外。"
+
+[product.zdr]
+mark = "no"
+anchor = "cc-zdr-enterprise-only"
+[[product.zdr.point]]
+text_zh = "Claude Code ZDR 仅向合格 Claude for Enterprise 账号提供，Team 不在覆盖范围。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "cc-commercial-retention-30d"
+[[product.retention.point]]
+text_zh = "Team、Enterprise 与 API 商业用户标准保留期为 30 天；主动提交的 /feedback、/bug、/share 反馈另保留 5 年。"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://code.claude.com/docs/en/data-usage", "https://code.claude.com/docs/en/zero-data-retention"]
+[[product.processing_region.point]]
+text_zh = "现有 Claude Code 商业档 data usage 与 ZDR 文档未披露 Team 的处理国家或区域。"
+
+[product.role]
+mark = "unknown"
+searched = ["https://code.claude.com/docs/en/data-usage", "https://code.claude.com/docs/en/zero-data-retention"]
+[[product.role.point]]
+text_zh = "现有 Claude Code 商业档文档未正式界定 Team 场景下 Anthropic 的 controller/processor 角色。"
+
+[[product]]
+id = "claude-code-enterprise"
+badge = "Claude Code Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cc-commercial-no-training"
+[[product.training.point]]
+text_zh = "商业档默认不使用代码或提示训练生成模型；仅客户主动选择向 Anthropic 提供数据用于模型改进时例外。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "cc-zdr-enterprise-only"
+[[product.zdr.point]]
+text_zh = "ZDR 仅适用于合格 Enterprise 账号，不包含在标准 Enterprise 套餐中，须由账号团队确认资格并按组织启用。启用后提示与响应实时处理、响应返回后不存储，但法律与反滥用例外仍适用。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "cc-commercial-retention-30d"
+[[product.retention.point]]
+text_zh = "标准 Enterprise 的保留期为 30 天；合格且另行启用 ZDR 的组织可降为零保留，法律与反滥用例外除外。"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://code.claude.com/docs/en/data-usage", "https://code.claude.com/docs/en/zero-data-retention"]
+[[product.processing_region.point]]
+text_zh = "现有 Claude Code 商业档 data usage 与 ZDR 文档未披露 Enterprise 的处理国家或区域。"
+
+[product.role]
+mark = "unknown"
+searched = ["https://code.claude.com/docs/en/data-usage", "https://code.claude.com/docs/en/zero-data-retention"]
+[[product.role.point]]
+text_zh = "现有 Claude Code 商业档文档未正式界定 Enterprise 场景下 Anthropic 的 controller/processor 角色。"
+
+[[anchor]]
+id = "cc-retention-5y"
+source_id = "06b2864aaa7d8bc3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+erences.**Consumer users (Free, Pro, and Max plans)**:
+
+*   """
+exact = "Users who allow data use for model improvement: 5-year retention period to support model development and safety improvements"
+suffix = """
+
+*   Users who don’t allow data use for model improvement: 3"""
+
+[[anchor]]
+id = "cc-commercial-no-training"
+source_id = "06b2864aaa7d8bc3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Commercial users : (Team and Enterprise plans, API, 3rd-party platforms, and Claude Gov) maintain existing policies: "
+exact = "Anthropic does not train generative models using code or prompts sent to Claude Code under commercial terms, unless the customer has chosen to provide their data to us for model improvement"
+suffix = " (for example, the Developer Partner Program )."
+
+[[anchor]]
+id = "cc-commercial-retention-30d"
+source_id = "06b2864aaa7d8bc3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Commercial users (Team, Enterprise, and API) :"
+exact = "Standard: 30-day retention period"
+suffix = "Zero data retention : available to qualified accounts for Claude Code on Claude for Enterprise."
+
+[[anchor]]
+id = "cc-zdr-enterprise-only"
+source_id = "6ec9ee63f18ed3f3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Zero Data Retention (ZDR) for Claude Code is available to qualified accounts on Claude for Enterprise."
+suffix = " When ZDR is enabled, prompts and model responses generated during Claude Code sessions are processed in real time and not stored by Anthropic after the response is returned"
+
+[[anchor]]
+id = "zdr-cc-personal-not-covered"
+source_id = "6ec9ee63f18ed3f3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "requests that authenticate into a ZDR-enabled organization. "
+exact = "If a developer signs in to Claude Code with a personal account or with an API key from a different organization, those sessions are not covered."
+suffix = " To require that developers’ claude.ai logins belong to your"
+
+[[anchor]]
+id = "training-consumer-optout"
+source_id = "8ac8edab81d7940b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ve the Services and to develop other products and services, "
+exact = "including training our models, unless you opt out of training through your account settings"
+suffix = ". Even if you opt out, we will use Materials for model train"
+
+[[anchor]]
+id = "role-consumer-controller"
+source_id = "47b9092320387f1c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "omic Area (EEA), UK or Switzerland (the “European Region”), "
+exact = "the data controller responsible for your personal data is Anthropic Ireland, Limited"
+suffix = ". If you live outside the European Region, the data controll"
+
+[[anchor]]
+id = "region-consumer-transfer-us"
+source_id = "47b9092320387f1c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "opic is a global company, and when you access our Services, "
+exact = "your personal data is transferred to our servers in the US"
+suffix = ", or to other countries outside the European Economic Area ("

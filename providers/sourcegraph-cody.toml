@@ -1,0 +1,123 @@
+name = "Sourcegraph Cody"
+company = "sourcegraph-cody"
+company_name = "Sourcegraph"
+line = "sourcegraph-cody"
+site = "global"
+entity = "Sourcegraph, Inc."
+endpoint = ""
+doc = "https://sourcegraph.com/terms/ai-terms"
+plan_levels = ["enterprise"]
+
+[[source]]
+url = "https://sourcegraph.com/terms/ai-terms"
+channel = "contract"
+tier = "core"
+note = "现行 URL 的 AI Terms 适用范围很窄：仅 2024-02-15 前协议或 Order Form 明确纳入者；企业档结论不得外推到个人档。"
+[[source]]
+url = "https://sourcegraph.com/docs/cody"
+channel = "developer_data"
+tier = "core"
+note = "Cody 当前产品页及个人 Sourcegraph.com 数据口径。"
+[[source]]
+url = "https://sourcegraph.com/docs/cody/core-concepts/context"
+channel = "developer_data"
+tier = "core"
+note = "本地/远端代码上下文与 Search API 检索；未披露索引缓存期限。"
+
+[[product]]
+id = "individual"
+badge = "个人/Free"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "yes"
+anchor = "cody-individual-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://sourcegraph.com/docs/cody", "https://sourcegraph.com/terms/ai-terms"]
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "cody-individual-collects"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://sourcegraph.com/docs/cody", "https://sourcegraph.com/terms/privacy"]
+[product.role]
+kind = "controller"
+anchor = "cody-individual-collects"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "合同明确纳入 AI Terms 的 Cody Enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cody-enterprise-no-train"
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "cody-partner-zero-retention"
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "cody-sourcegraph-may-store"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://sourcegraph.com/terms/ai-terms", "https://sourcegraph.com/terms/privacy"]
+[product.role]
+kind = "processor"
+anchor = "cody-content-service-only"
+[[product.retention.point]]
+text_zh = "ZDR 只约束 Partner LLM；同一句明确不限制 Sourcegraph 为功能持久化输入输出，且没有给期限。"
+
+[[anchor]]
+id = "cody-individual-no-training"
+source_id = "a74a72658c3c36f4"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "For individuals using Cody via Sourcegraph.com, Sourcegraph may use your prompts and responses to enhance the user experience, but Sourcegraph does not use any of your data to train models."
+suffix = ""
+[[anchor]]
+id = "cody-individual-collects"
+source_id = "a74a72658c3c36f4"
+topics = ["retention", "role"]
+[anchor.selector]
+prefix = ""
+exact = "When you use Cody, Sourcegraph collects your prompts and responses to provide the service."
+suffix = ""
+[[anchor]]
+id = "cody-enterprise-no-train"
+source_id = "b2f63378e6932616"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph and Sourcegraph Partner LLMs do not use your Code to train models."
+suffix = ""
+[[anchor]]
+id = "cody-partner-zero-retention"
+source_id = "b2f63378e6932616"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph Partner LLMs will **not** retain any Input, Output, or Candidate Context beyond the time it takes to generate the Output (**\"Zero Retention\"**), except that Partner LLMs may temporarily retain Inputs and Outputs solely for the purpose of detecting and preventing abuse or serious harm, and will not use such data for model training or any other purpose, provided that you access AI Tools through Sourcegraph's Partner LLMs."
+suffix = ""
+[[anchor]]
+id = "cody-sourcegraph-may-store"
+source_id = "b2f63378e6932616"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "This Zero Retention obligation does not restrict Sourcegraph from storing or persisting Inputs or Outputs to enable the functionality of the AI Tools."
+suffix = ""
+[[anchor]]
+id = "cody-content-service-only"
+source_id = "b2f63378e6932616"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph collects the following **Customer Content** solely to provide the Service and not for product improvement purposes:"
+suffix = ""

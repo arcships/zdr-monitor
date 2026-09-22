@@ -1,0 +1,397 @@
+name = "阶跃星辰"
+name_en = "StepFun"
+company = "stepfun"
+line = "stepfun-ai"
+site = "global"
+entity = "STEPFUN TECHNOLOGY (HK) LIMITED"
+endpoint = ""
+doc = "https://platform.stepfun.ai/docs/en/agreement/userservice"
+
+[[source]]
+url = "https://platform.stepfun.ai/docs/en/agreement/dataprocess"
+channel = "contract"
+tier = "core"
+note = "Data Processing Agreement（生效 2025-11-28），由 ToS §4.2 并入条款体系，适用于 Customer Data（经服务提交的全部数据，含 Customer Personal Data）。§2 定性协议角色（Customer=controller，StepFun=processor）并禁止业务目的外的 retain/use/disclose；§7 终止后 30 天内返还/删除及三类例外；Schedule 1 Part B 的 Storage limitation 仅指向「适用法下的法定保留要求」；§8 + Schedule 2 载 EU SCC Module 2/3 与 UK/Swiss 附录。本档（Step Plan 订阅）的付费协议并入平台 ToS，故 DPA 同样适用。role 与 retention 的 contract 级来源。"
+
+[[source]]
+url = "https://platform.stepfun.ai/docs/en/agreement/userprivacy"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "User Privacy（平台隐私政策，生效 2026-08-07，主体 STEPFUN TECHNOLOGY (HK) LIMITED）。§1.3 专门覆盖商业客户经 API 提交的数据（StepFun 为 processor），并载明「参与 Startup Program / early access 项目并共享 API 数据」时 StepFun 就该数据自任 controller 的例外；§5 服务器所在地与跨境机制；§7 个人信息保留期限（IP 3 年、手机号持续保留、注销或到期即删除/匿名化）。channel 取 enterprise_privacy_faq，与同源条目 stepfun-ai 保持一致。"
+
+[[source]]
+url = "https://platform.stepfun.ai/docs/en/agreement/userservice"
+channel = "contract"
+tier = "core"
+note = "StepFun Open Platform 服务条款（Terms of Service，生效 2026-08-07，主体 STEPFUN TECHNOLOGY (HK) LIMITED）。本档付费协议（SPARKLING AI PTE. LTD.）把平台 ToS 与隐私政策并入自身，故本 ToS 是本档的 contract 级训练条款来源。§1.4 定义 Early Access（Startup Program / Builder Program / 其他合作项目），§4.1(ii) 第二段的训练/微调明示授权以参与上述项目为前提，§4.4「AI Training in Certain Programs」同向；§4.1(ii) 第一段则是未提训练、但含 store/exploit/for any purpose 的宽泛许可；§8.1 免责声明另有一句未限定项目的「MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING」。§4.2 把 DPA 并入条款体系（role/retention 的 contract 来源入口）。"
+
+[[source]]
+url = "https://platform.stepfun.ai/docs/en/guides/developer/prompt-cache"
+channel = "developer_data"
+tier = "core"
+note = "国际站开发者文档《Prompt cache best practices》——本轮新发现的页:它不在文档站 llms.txt 索引(74 页)也不在 /docs/sitemap.xml(75 页)里,只能从模型页/定价页的正文链接进入,故上一轮「74 页全量 0 命中」的枚举漏掉了它。抓取通道:r.jina.ai 渲染版 4429B 与官方 markdown 直连 /docs/en/guides/developer/prompt-cache.md(5033B)正文一致,锚点句逐字相同。内容是产品行为层证据(上下文缓存保存完整对话数组),不是政策文本,故 classify 的政策检测返回 not_policy,但页面为官方正文、verbatim 抓取,判 ok。适用性(本轮补充):本页属平台 API 文档档,缓存对 step-5-preview / step-3.7-flash / step-3.5-flash / step-3.5-flash-2603 生效,请求超过 256 token 自动开启且无开关(There is no separate paid cache feature to enable);Step Plan 订阅档是否同样适用,官方文档未说明。"
+
+[[product]]
+id = "api"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "training-license-for-avoidance"
+
+[[product.training.point]]
+text_zh = "ToS §4.1(ii) 与 §1.4 的明示训练授权以参与 StepFun Startup Program / Early Access 等项目为前提(§4.4 亦称 in certain programs)"
+
+[[product.training.point]]
+text_zh = "§8.1 免责声明另载明服务「MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING」,未限定项目。隐私政策 §1.3 同向:特定项目下 API 的 Prompts/Outputs/API call logs 可被保留并用于训练、微调,此时 StepFun 自认 controller"
+
+[product.zdr]
+mark = "no"
+searched = [
+  "https://platform.stepfun.ai/docs/llms-full.txt",
+  "https://platform.stepfun.ai/docs/llms.txt",
+  "https://platform.stepfun.ai/docs/en/agreement/userservice",
+  "https://platform.stepfun.ai/docs/en/agreement/userprivacy",
+  "https://platform.stepfun.ai/docs/en/agreement/dataprocess",
+  "https://platform.stepfun.ai/docs/en/guides/developer/prompt-cache",
+  "https://platform.stepfun.ai/docs/en/faq/common-questions.md",
+  "https://platform.stepfun.ai/docs/sitemap.xml",
+]
+anchor = "zdr-usage-data-store-license"
+
+[[product.zdr.point]]
+text_zh = "不支持零保留:ToS §4.1(ii) 明文授权「store … all Output, Prompts and associated API call logs」,§4.1(iii) 可随时访问/审查 Content"
+
+[[product.zdr.point]]
+text_zh = "开发者文档《Prompt cache best practices》写默认开启的上下文缓存保存「the full array, including system prompt, user messages, and assistant messages」且不支持用户手动清缓存"
+
+[[product.zdr.point]]
+text_zh = "DPA 的 Customer Data 定义覆盖经服务提交的数据,删除只发生在协议终止后 30 天内。全部官方材料无 ZDR 表述、开关或申请渠道。【本轮重审(读,不要匹)逐条一句话依据】§4.1(ii)——用户授予 StepFun 对 all Output, Prompts and associated API call logs(段内定义为 Usage Data)的永久不可撤销许可、明文含 store/access,且不以参与任何项目为条件,所以合同层没有「处理完即不保留」的约束"
+
+[[product.zdr.point]]
+text_zh = "§4.1(iii)——厂商保留随时访问/审查/编辑/删除 your Content(§4 定义含 Prompts/Outputs)的权利,预设 Content 在响应后仍可被访问(旁证)"
+
+[[product.zdr.point]]
+text_zh = "prompt-cache——each request's input is cached、可缓存内容为完整对话数组(system prompt+用户消息+助手消息)、超过 256 token 自动开启,所以请求正文进入服务端缓存,且 Manual cache clearing is not supported 即用户无清除途径(适用模型 step-5-preview / step-3.7-flash / step-3.5-flash / step-3.5-flash-2603)"
+
+[[product.zdr.point]]
+text_zh = "DPA——Customer Data=all data or other information submitted through the Services,删除义务只在协议终止/到期后 30 天内触发,无请求级删除。反向检索:三份协议 + 74 页文档 + /legal 页均无「不存储 / 处理完删除」表述"
+
+[[product.zdr.point]]
+text_zh = "API 无 store 参数"
+
+[[product.zdr.point]]
+text_zh = "无 opt-out 或隐私设置页。维持 medium:厂商从未就 ZDR 表态,结论由多处合成,且缓存页未说明保存原文还是 KV 派生状态、未给 TTL。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "retention-30-days"
+
+[[product.retention.point]]
+text_zh = "DPA §7:协议终止/到期后 30 天内应要求返还或删除全部 Customer Data(法律要求、争议解决、反滥用除外)"
+
+[[product.retention.point]]
+text_zh = "§2 另禁止将 Customer Personal Data 用于业务目的之外的保留。隐私政策 §7 为通用最小化原则(电话号码持续保留、IP 3 年、注销即删除或匿名化)"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "processing-region-us"
+
+[[product.processing_region.point]]
+text = "§5「Our servers are located in the United States.」"
+
+[[product.processing_region.point]]
+text_zh = "跨境传输依 SCC 或合规数据传输协议。DPA §8 亦以 SCC Module 2/3 + UK/Swiss 附录为转移机制"
+
+[product.role]
+kind = "processor"
+anchor = "role-controller-processor"
+
+[[product.role.point]]
+text_zh = "DPA §2「Customer is the controller and StepFun is the processor」,且 StepFun 仅按 Customer 书面指示处理"
+
+[[product.role.point]]
+text_zh = "隐私政策 §1.3 为同一关系,并载明例外——商业客户参与特定项目共享 API 数据时,StepFun 就该数据自认 controller"
+
+[[anchor]]
+id = "usage-data-license"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ". When you use the Services in accordance with these Terms, "
+exact = "you grant us, to the fullest extent permitted under the applicable law, a nonexclusive, worldwide, royalty-free, fully paid up, transferable, sublicensable, perpetual, irrevocable license to copy, display, upload, perform, distribute, transmit, make available, store, access, modify, exploit, commercialize and otherwise use all Output, Prompts and associated API call logs"
+suffix = " (“Usage Data”) elicited by you for any purpose in any form,"
+
+[[anchor]]
+id = "training-startup-program-license"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "’ ability to elicit Output, and (ii) promoting the Services."
+exact = "If you choose to participate in our StepFun Startup Program or other early access program-based project and access our internal models, the license granted above specifically includes our right to collect, retain, process, and use Usage Data submitted through or generated by the API for the purposes of:"
+suffix = " (a) providing, maintaining, developing, and improving the S"
+
+[[anchor]]
+id = "training-license-for-avoidance"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "’ ability to elicit Output; and (c) promoting the Services. "
+exact = "For the avoidance of doubt, the license granted herein specifically includes the right to use Usage Data for training, fine-tuning, and otherwise improving StepFun’s artificial intelligence models and systems."
+suffix = "(iii) While we’re not required to do so, we may access, revi"
+
+[[anchor]]
+id = "training-early-access"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "be fully tested and may contain errors or inaccuracies; (b) "
+exact = "Usage Data (as defined in Section 4.1(ii)) generated through Early Access Services may be used extensively for model evaluation, issue analysis, and model training or fine-tuning"
+suffix = "; and (c) you will provide feedback and cooperate with StepF"
+
+[[anchor]]
+id = "training-improved-through-usage-data"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " THAT THE SERVICES, INCLUDING ANY OUTPUT GENERATED THEREBY, "
+exact = "ARE CONTINUOUSLY EVOLVING AND MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING"
+suffix = ". AS A RESULT, THE PERFORMANCE, BEHAVIOR, AND OUTPUT OF THE "
+
+[[anchor]]
+id = "training-certain-programs"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+n your Prompts.**
+
+### 4.4 AI Training in Certain Programs
+
+"""
+exact = "You acknowledge that, in certain programs, including where expressly described in the applicable program terms or notifications, StepFun may use Usage Data, including personal data contained in Prompts and Outputs, to train, fine-tune, and improve its artificial intelligence models and systems."
+suffix = " You are encouraged to review StepFun’s [Privacy Policy](htt"
+
+[[anchor]]
+id = "role-customer-dpa-applies"
+source_id = "ff094c620e9155c1"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ustomer in relation to the Customer’s own users or clients. "
+exact = "In such cases, the Customer remains responsible for complying with all applicable data protection and privacy obligations."
+suffix = " The processing of such data will be governed by the [Data P"
+
+[[anchor]]
+id = "zdr-usage-data-store-license"
+source_id = "ff094c620e9155c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "u grant us, to the fullest extent permitted under the applicable law, "
+exact = "a nonexclusive, worldwide, royalty-free, fully paid up, transferable, sublicensable, perpetual, irrevocable license to copy, display, upload, perform, distribute, transmit, make available, store, access, modify, exploit, commercialize and otherwise use all Output, Prompts and associated API call logs"
+suffix = " (“Usage Data”) elicited by you for any purpose in any form, medium or"
+
+[[anchor]]
+id = "zdr-content-access-review-anytime"
+source_id = "ff094c620e9155c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "ficial intelligence models and systems.(iii) While we’re not required to do so, "
+exact = "we may access, review, screen, edit, modify and delete your Content at any time and for any reason"
+suffix = ", including providing and developing the Services or if we think the Content vio"
+
+[[anchor]]
+id = "role-controller-processor"
+source_id = "285b3dbfffce5c6d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ired by applicable law.
+
+## 2. Processing of Customer Data
+
+"""
+exact = "With respect to Customer Personal Data, Customer is the controller and StepFun is the processor."
+suffix = " Each party will comply with its respective obligations unde"
+
+[[anchor]]
+id = "process-only-instructions"
+source_id = "285b3dbfffce5c6d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "connection with the Services and the Customer Personal Data."
+exact = "Unless required by law, StepFun will process Customer Personal Data only to provide or maintain the Services and in compliance with Customer’s documented instructions"
+suffix = ", including those set out in the Agreement and this DPA.With"
+
+[[anchor]]
+id = "retention-30-days"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+tigate possible adverse effects
+
+## 7. Deletion and Return
+
+"""
+exact = "Within 30 days of termination or expiration of the Agreement, StepFun will:"
+suffix = """
+
+
+1.   if requested by Customer within that period, return a"""
+
+[[anchor]]
+id = "deletion-all-copies"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+service functionality allowing Customer to do the same
+2.   """
+exact = "delete all copies of Customer Data, including Customer Personal Data, processed by StepFun or any subprocessors, except to the extent:"
+suffix = """
+
+    *   applicable law or regulatory requirements require s"""
+
+[[anchor]]
+id = "retention-scope-limit"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+onal Data as defined by applicable data protection laws
+*   """
+exact = "retain, use, or disclose Customer Personal Data outside the direct business relationship and for any purpose other than the business purposes specified in Schedule 1 Part B and the Agreement, except as otherwise permitted by law"
+suffix = """
+
+*   except as otherwise permitted by law, combine Customer """
+
+[[anchor]]
+id = "zdr-customer-data-definition"
+source_id = "285b3dbfffce5c6d"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+nership or control of more than 50% of voting interests.
+*   **Customer Data**: """
+exact = "all data or other information submitted through the Services by or for Customer or a Customer Affiliate"
+suffix = """
+.
+*   **Data Subject Request**: a request from a data subject to exercise person"""
+
+[[anchor]]
+id = "zdr-cache-full-conversation-array"
+source_id = "271e43688229ba1e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ the cache.The following content can be cached:
+
+*   **Conversation messages**: """
+exact = "the full array, including system prompt, user messages, and assistant messages"
+suffix = """
+.
+*   **Images**: images within user messages, as long as the same images are re"""
+
+[[anchor]]
+id = "zdr-cache-not-user-clearable"
+source_id = "271e43688229ba1e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+epfun.ai/docs/en/guides/pricing/details).
+
+### Can I clear the cache manually?
+
+"""
+exact = "Manual cache clearing is not supported."
+suffix = """
+ Modify the prompt if you need to avoid cache hits.
+
+### Can I force every reque"""
+
+[[anchor]]
+id = "processing-region-us"
+source_id = "164a5044e0cb7b7d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+on.
+
+## 5. HOW WILL WE TRANSFER YOUR DATA AROUND THE WORLD
+
+"""
+exact = "Our servers are located in the United States."
+suffix = " Meanwhile, due to the international nature of our business,"
+
+[[anchor]]
+id = "transfer-scc"
+source_id = "164a5044e0cb7b7d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " of personal information, when required by applicable laws, "
+exact = "we will provide an adequate level of protection for your personal information using various means, including implementing Standard Contractual Clauses or data transfer agreements that comply with applicable laws"
+suffix = " between our affiliates and third parties or any other lawfu"
+
+[[anchor]]
+id = "role-processor"
+source_id = "164a5044e0cb7b7d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+cessed by Us as a Data Processor When Providing Services
+
+**"""
+exact = "When we act as a data processor and process personal data on behalf of our commercial customers using our Services"
+suffix = " — for example, when the End Users’ employer has provisioned"
+
+[[anchor]]
+id = "retention-not-longer"
+source_id = "164a5044e0cb7b7d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+latform.
+
+## 7. HOW DO WE RETAIN YOUR PERSONAL INFORMATION
+
+"""
+exact = "We adhere to retention policies for the personal information we collect to ensure that it is not retained longer than necessary for the intended purpose, for example:"
+suffix = """
+
+
+*   Phone Number: When you use your phone number to regist"""
+
+[[anchor]]
+id = "training-controller-certain-programs"
+source_id = "164a5044e0cb7b7d"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "ther information submitted through or generated by the API. "
+exact = "We may use and retain such data to evaluate and improve our models, products, and services, including for issue analysis, training, and fine-tuning where permitted by applicable law and program terms."
+suffix = " For these purposes, we act as a controller of such data.By "

@@ -1,0 +1,129 @@
+name = "Meta Muse Code"
+name_en = "Meta Muse Code"
+company = "meta"
+company_name = "Meta"
+site = "global"
+line = "muse-code"
+entity = "Meta Platforms, Inc. / Meta Platforms Ireland Limited"
+doc = "https://dev.meta.ai/legal/terms-of-service"
+plan_levels = ["individual"]
+
+[[source]]
+url = "https://dev.meta.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[source]]
+url = "https://www.meta.com/legal/meta-for-work/subprocessor-list/"
+channel = "contract"
+tier = "core"
+note = "由 Model API ToS §5.1 逐字引用（“as may be updated by Meta from time to time”）的子处理者清单，覆盖 api 档与订阅档（§3.2 明确订阅档的访问与使用同样受 ToS 管辖）。清单冠名 Meta Horizon Managed Solutions、Effective November 13, 2023，只披露子处理者的处理地点，不含推理发生地或数据驻留承诺。来源换址：旧 URL https://forwork.meta.com/legal/mfw-subprocessor-list/ 现 301 → 本 URL（forwork.meta.com/legal/mfw-subprocessor-list/ → www.meta.com/legal/meta-for-work/subprocessor-list → …/subprocessor-list/），旧 URL 经 r.jina.ai 取回时会带 “Warning: Target URL returned error 400: Bad Request” 一行而被抓取层判 target_http_400 丢弃；改用重定向终点后正文逐字相同且无该告警行。清单正文仍由 www.meta.com 官方站提供，无 PDF/镜像替代。"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "Muse Code 个人订阅"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "training-standard-5-1"
+
+[[product.training.point]]
+text_zh = "订阅档走哪一套数据条款，取决于你选了哪个模型：§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』订阅默认给的是 Standard 模型，对应 §5.1——不拿 Standard Services 的 Content 训练 Meta 模型。"
+anchor = "coding-harness-model-determines-use-13-4"
+
+[[product.training.point]]
+text_zh = "反过来也要看清：选到 Discounted（Contributor）模型就落到 §6.1，Meta 明确可以拿 Content 去训练、开发、评估和改进自己的模型。订阅帮助页只写『Access to the latest Muse models』，没枚举订阅能选哪些模型，也没说订阅用户能不能选 Discounted 档——这一层没核清。"
+anchor = "training-discounted-6-1"
+
+[product.zdr]
+mark = "unknown"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-4-4"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "region-processing-location-table"
+
+[product.role]
+kind = "processor"
+anchor = "subscription-coding-harness-3-2"
+
+[[anchor]]
+id = "retention-4-4"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s) applicable to such Third-Party Features.
+
+4.4 Retention. """
+exact = "Meta will retain your Content and Usage Data as needed:"
+suffix = " (i) to provide the Services under these Terms; (ii) to the "
+
+[[anchor]]
+id = "subscription-coding-harness-3-2"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+
+3.2 Subscriptions and Keys. Notwithstanding the foregoing, """
+exact = "Meta may offer a subscription that provides access to the Services through an artificial intelligence coding harness"
+suffix = " (a \"**Coding Harness Subscription**\"). Your purchase of a C"
+
+[[anchor]]
+id = "training-standard-5-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "e MGPT) to you in relation to your use of the Services, and "
+exact = "will not use Content from Standard Services to train Meta Models"
+suffix = ". You agree to comply with the MGPT when Meta acts as your S"
+
+[[anchor]]
+id = "training-discounted-6-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "](https://www.facebook.com/privacy/policy/). You agree that "
+exact = "Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services"
+suffix = ". Before using Content from Discounted Services to train art"
+
+[[anchor]]
+id = "coding-harness-model-determines-use-13-4"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ased on the Models you select, including Discounted Models. "
+exact = "The Models you select determine how Meta may use your Content, as described in Sections 5 and 6."
+suffix = " Any use of the Services that is not covered by a Coding Har"
+
+[[anchor]]
+id = "region-processing-location-table"
+source_id = "0bea1de936dbe452"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+rastructure
+
+| Entity | Processing Location |
+| --- | --- |
+"""
+exact = "| Andale, Inc. | United States |"
+suffix = """
+
+| Cassin Networks Aps | Denmark |
+| Greater Kudu LLC | Unit"""

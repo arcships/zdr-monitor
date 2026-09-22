@@ -1,0 +1,286 @@
+name = "MiniMax 国内站"
+name_en = "MiniMax China"
+company = "minimax"
+line = "minimax-cn"
+site = "cn"
+entity = "上海稀宇科技有限公司"
+endpoint = ""
+doc = "https://platform.minimax.cn/protocol/user-agreement"
+
+[[source]]
+url = "https://platform.minimax.cn/docs/api-reference/file-management-upload"
+channel = "developer_data"
+tier = "core"
+note = "开放平台文档中心 Files API『文件上传』页。订阅 Key 与按量 API Key 共用同一 API 端点，Token Plan 覆盖『文件管理』能力（付费协议 5.1），故本页量化期限适用于本档。唯一给出量化保留期限的官方页面：video_understanding 视频文件『最长保存时间为 7 天』、video_generation_input『有效期 7 天（过期后发起生成返回 file expired，需重新上传）』。对象是上传的媒体文件，不是对话输入输出正文。"
+
+[[source]]
+url = "https://platform.minimax.cn/protocol/privacy-policy"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "《MiniMax开放平台隐私政策》（中国站，运营方上海稀宇科技有限公司），官方索引页描述为『适用于企业 API 服务的隐私政策』，覆盖开放平台注册用户与API/订阅调用场景（角色表含『调用API』行）。三(二)『您个人信息的保存』给出保留口径（最短必要 + 超期删除/匿名化 + 终止服务后删除/匿名化）与境内存储；角色表标注调用 API=个人信息处理者、企业 SDK 接入=个人信息处理受托方；对话过滤条款主语是『个人信息』而非请求内容本体，不构成零保留承诺。"
+
+[[source]]
+url = "https://platform.minimax.cn/protocol/user-agreement"
+channel = "contract"
+tier = "core"
+note = "《MiniMax开放平台用户协议》（中国站，1.1 主体上海稀宇科技有限公司），覆盖开放平台全部产品与服务——本档订阅 Key（sk-cp）通过 API 端点调用时适用。官方索引页把『开放平台条款』入口指定为 platform.minimaxi.com/protocol/user-agreement（302 到本页）。5.4『提升算法服务』目的与 6.3『输入及对应输出』去标识化后用于服务优化，是 API 侧 training 证据；5.1/5.2 客户须自行取得终端用户授权（role）；3.13 含存储功能服务的保留与届满删除；3.16 境内使用要求。全文无『训练』字样，也无零保留承诺。"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "minimax-cn-training-input-output-optimization"
+
+[[product.training.point]]
+text = "Same as the top-level entry: the word \"training\" never appears; only §6.3's post-de-identification \"service optimization\" purpose and §5.4's \"improving algorithmic services\" purpose grant, and the last sentence of §5.4 contradicts itself"
+text_zh = "同顶层：无「训练」字样，仅 6.3 的去标识化后「服务优化」用途与 5.4 的「提升算法服务」目的授权，且 5.4 末句自相矛盾"
+
+[[product.training.point]]
+text = "Not presumed to be equivalent to a training authorization"
+text_zh = "不推定等于训练授权"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://platform.minimax.cn/protocol/user-agreement",
+  "https://platform.minimax.cn/protocol/privacy-policy",
+  "https://platform.minimax.cn/protocol/paid-agreement",
+  "https://platform.minimax.cn/sitemap.xml",
+  "https://platform.minimax.cn/docs/llms.txt",
+]
+
+[[product.zdr.point]]
+text = "No zero-retention / no-storage wording, no ZDR option and no enterprise zero-retention switch"
+text_zh = "无零保留/不留存表述，无 ZDR 选项或企业零保留开关"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "minimax-cn-retention-shortest-period"
+
+[[product.retention.point]]
+text = "Shortest necessary retention (personal information only) + Files API uploads kept at most 7 days + a right but no obligation to retain after termination of paid services"
+text_zh = "最短必要保留（限个人信息）+ Files API 上传文件最长 7 天 + 付费服务终止后有权利无义务保留"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "minimax-cn-region-cn-storage"
+
+[[product.processing_region.point]]
+text = "Personal information collected within mainland China is stored within mainland China"
+text_zh = "境内收集的个人信息存储在境内"
+
+[[product.processing_region.point]]
+text = "No storage-location commitment covering API content as a whole"
+text_zh = "未对 API 内容整体作存储地承诺"
+
+[product.role]
+kind = "controller"
+anchor = "minimax-cn-role-api-personal-info-handler"
+
+[[product.role.point]]
+text = "Declares itself a personal information handler for direct platform API calls"
+text_zh = "平台直连 API 场景自认个人信息处理者"
+
+[[product.role.point]]
+text = "Acts as an entrusted party (processor) for SDK integration"
+text_zh = "SDK 接入场景为受托方"
+
+[[anchor]]
+id = "minimax-cn-training-input-output-optimization"
+source_id = "8d82777b36723765"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "律法规所规定的要求以及提供本协议约定的服务，您知悉并授权，在经安全加密技术处理、去标识化且无法重新识别特定个人的前提下，"
+exact = "我们可能会将服务所收集的输入及对应输出，用于本协议下服务的优化以及统计分析、问题排查、安全风控等目的。"
+suffix = """
+
+
+6.4 对于针对用户提起的，声称用户或其终端用户使用MiniMax开放平台服务的行为侵犯或盗用了任何第三方的知识产权"""
+
+[[anchor]]
+id = "minimax-cn-training-service-and-algorithm-purpose"
+source_id = "8d82777b36723765"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+为准），就数据的删除、更改等处理，您应谨慎操作并承担因该等操作所产生的后果，我们不对该等数据承担恢复的责任。
+
+5.4 """
+exact = "我们将为提供MiniMax开放平台服务和提升算法服务之目的，按照本协议的规定访问和处理客户数据。"
+suffix = "您特此授予我们访问、复制和使用客户数据以提供本协议项下服务的非排他的、可再授权的许可。在向您提供产品和服务、技术和网络支"
+
+[[anchor]]
+id = "minimax-cn-training-no-access-without-consent"
+source_id = "8d82777b36723765"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "”），我们可利用该等运营数据优化和改善我们的产品和服务。除因甲方使用MiniMax开放平台服务所需及法律法规另有规定外，"
+exact = "未经甲方同意，乙方不会接触或使用甲方数据。"
+suffix = """
+
+
+5.5 用户应根据自身需求自行对数据进行备份，我们仅依据相关法律法规要求或服务规则约定提供数据备份服务，我们仅在法定"""
+
+[[anchor]]
+id = "minimax-cn-retention-storage-service-expiry"
+source_id = "8d82777b36723765"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "们将根据该服务的服务规则为用户保留相应期限。用户应承担保留期限内产生的费用（若有），并按时结清费用、完成全部数据的迁移。"
+exact = "保留期限届满后，用户的前述信息将被删除。"
+suffix = """
+
+
+3.14 如果我们对服务进行任何变更且该等变更将实质性减少MiniMax开放平台服务的功能，我们将采取合理商业努力，"""
+
+[[anchor]]
+id = "minimax-cn-region-cn-use-required"
+source_id = "8d82777b36723765"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+息、站内信等方式中的一种或多种予以公布；前述调整一经公布即生效（另有说明除外），而无需再另行获得您的同意。
+
+3.16 """
+exact = "用户应当在中国境内（为本协议之目的，不含香港、澳门、中国台湾地区）使用服务"
+suffix = """
+并遵守中国及其所适用的相关法律法规、政策等的规定和要求。
+
+3.17 深度合成的相关规定。我们提供的服务基于深度合成技术"""
+
+[[anchor]]
+id = "minimax-cn-retention-shortest-period"
+source_id = "159e3544b4fdfc62"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+将在中华人民共和国境内收集的**个人信息存储在中华人民共和国境内**。
+
+2、我们承诺为了保证您的权益，一般情况下，**"""
+exact = "我们仅为实现目的所必需的最短时间保留您的个人信息"
+suffix = """
+，**除非按照法律法规的规定，在以下情况发生时，我们将有权更改您个人信息的存储期限。
+
+·为遵守适用的法律法规等有关规定"""
+
+[[anchor]]
+id = "minimax-cn-retention-delete-after-expiry"
+source_id = "159e3544b4fdfc62"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+护社会公共利益，为保护我们的客户、我们或我们的关联公司、其他用户或雇员的人身财产安全或其他合法权益所合理必需的用途。
+
+"""
+exact = "当您的个人信息超出我们所保存的期限后，我们会对您的个人信息进行删除或匿名化处理。"
+suffix = """
+
+
+3、如果我们终止服务或运营，我们会至少提前三十天通知您，并在终止服务或运营后对您的个人信息进行删除或匿名化处理。
+
+"""
+
+[[anchor]]
+id = "minimax-cn-region-cn-storage"
+source_id = "159e3544b4fdfc62"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+码发生泄漏，您应该立即通过下文第十条约定的联系方式联络我们，以便我们采取相应措施。**
+
+（二）您个人信息的保存
+
+1、"""
+exact = "我们将在中华人民共和国境内收集的**个人信息存储在中华人民共和国境内"
+suffix = """
+**。
+
+2、我们承诺为了保证您的权益，一般情况下，**我们仅为实现目的所必需的最短时间保留您的个人信息，**除非按照法"""
+
+[[anchor]]
+id = "minimax-cn-role-api-personal-info-handler"
+source_id = "159e3544b4fdfc62"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+新信息和相关的促销活动
+*   向有关部门提供相应的审核信息
+*   提供账单、完成服务的费用结算信息 个人信息处理者
+"""
+exact = "调用API*   该次提交的处理数据"
+suffix = """
+
+*   该次提交的鉴权信息
+*   Group id
+*   Api key*   用于后台计算，生成返回数据
+*  """
+
+[[anchor]]
+id = "minimax-cn-role-sdk-processor"
+source_id = "159e3544b4fdfc62"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+up id
+*   Api key*   用于后台计算，生成返回数据
+*   在问题反馈中调取，用于解决相应的用户问题 """
+exact = "个人信息处理受托方"
+suffix = """
+
+
+**除上述为实现功能必须提供的个人信息外，我们不会主动要求您提供您的其他个人信息，请注意在对话交互过程中不要透露其他"""
+
+[[anchor]]
+id = "minimax-cn-zdr-personal-info-filter-excluded"
+source_id = "159e3544b4fdfc62"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+的对外输出内容上，因为**您在与我们对话交互的过程发出的对话将会发送至我们的云服务器进行计算处理。
+
+**请您放心的是，"""
+exact = "我们不会将您的对话和您注册、申请开放平台时的个人信息进行绑定或建立任何关联"
+suffix = """
+，同时我们也会提升我们服务的过滤机制，对可能是您的个人信息，尤其是个人敏感信息的对话内容进行过滤、删除并不予保存。**
+"""
+
+[[anchor]]
+id = "minimax-cn-retention-file-7days"
+source_id = "c1dbee722ab37818"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "erstanding: 多模态理解使用的视频文件，在对话请求中以 `mm_file://{file_id}` 形式引用，"
+exact = "最长保存时间为 7 天"
+suffix = """
+（支持 MP4、AVI、MOV、MKV 格式）
+5.   video_generation_input: 视频生成的输入"""
+
+[[anchor]]
+id = "minimax-cn-retention-file-expiry-7days"
+source_id = "c1dbee722ab37818"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " 参考音频），在生成请求 content 的 `url` 字段以 `mm_file://{file_id}` 形式引用，"
+exact = "有效期 7 天（过期后发起生成返回 file expired，需重新上传）"
+suffix = """
+；上传即校验规格，不合格返回 400 且不留存，heic/heif 宽高由服务端解析、无需客户端转码。
+
+`video_"""

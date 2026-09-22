@@ -1,0 +1,323 @@
+name = "Codex"
+name_en = "Codex"
+company = "openai"
+company_name = "OpenAI"
+line = "codex"
+site = "global"
+entity = "OpenAI OpCo, LLC / OpenAI Ireland Limited"
+kind = "model_vendor"
+homepage = "https://openai.com/codex/"
+endpoint = ""
+doc = "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Codex 档位与数据链路权威页:覆盖 CLI、IDE 扩展、Codex web/cloud；明确本地工作流在设备上运行、云任务在 OpenAI 托管环境运行，并分别说明个人档与 Business/Enterprise/Edu 的训练姿态及企业留存/驻留控制。"
+
+[[source]]
+url = "https://developers.openai.com/codex/pricing"
+channel = "developer_data"
+tier = "core"
+note = "Codex 现行官方价格与功能矩阵:确认 Free/Go/Plus/Pro/Business/Edu/Enterprise 均包含 Codex，并区分 ChatGPT 登录路径与 API Key 路径；API Key 不含云端功能。"
+
+[[source]]
+url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Services for businesses」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。本轮重抓(7004B,仅页脚差异)确认正文未变。对 API 档无权威性"
+
+[[source]]
+url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Data Controls FAQ(Updated 5 days ago)。现行正文含专节「How do I turn off training for Codex tasks?」,Codex 训练开关与全环境独立设置都还在;另含临时会话 30 天删除。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
+
+[[source]]
+url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性"
+
+[[source]]
+url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Data Usage for Consumer Services FAQ(Updated last month),自述覆盖「OpenAI’s non-API consumer services like ChatGPT」。本轮新发现(经 5722486 的相关文章链接)。含消费档训练默认、清空历史 30 天删除、以及「内容存储在美国和世界各地」——消费档 processing_region 的直接文本来源"
+
+[[source]]
+url = "https://openai.com/policies/data-processing-addendum/"
+channel = "contract"
+tier = "core"
+note = "API/企业档合同层角色条款。Effective 2026-01-01,补充并并入 OpenAI Services Agreement(business-terms §5.3 引用)。候选列表里没有,本轮重抓确认在线(19079B)后作为 role 权威。注意 openai.com 直连 403,且本机 r.jina.ai 被 Clash fake-ip 劫持需 --resolve 绕过"
+
+[[source]]
+url = "https://openai.com/policies/row-privacy-policy/"
+channel = "consumer_privacy"
+tier = "core"
+note = "消费档隐私政策(Rest of World)。覆盖消费档 role(§11 Data controller:EEA/瑞士=OpenAI Ireland Limited,其他=OpenAI OpCo, LLC)与 processing_region(服务器位于多法域含美国)。正文明确「does not apply to content that we process on behalf of customers of our business offerings, such as our API」,因此不能当 API 档证据"
+
+[[product]]
+id = "codex-free"
+badge = "Codex Free"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "openai-consumer-training-may-train"
+
+[[product.training.point]]
+text_zh = "ChatGPT 个人账号的数据控制适用于 Codex；默认可能用于训练，可关闭 Improve the model for everyone。Codex 全环境另有独立开关。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "https://developers.openai.com/codex/pricing", "https://help.openai.com/en/articles/7730893-data-controls-faq", "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"]
+
+[[product.zdr.point]]
+text_zh = "未找到 Codex Free 的 ZDR 承诺；API 的申请制 ZDR 不适用于 ChatGPT 登录路径。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "openai-consumer-retention-chats"
+
+[[product.retention.point]]
+text_zh = "Codex 沿用 ChatGPT 数据控制；常规/归档对话保存至用户删除，删除后通常 30 天内永久删除。官方未单独披露本地仓库索引、云端环境或服务端缓存的固定期限。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-consumer-region-storage"
+
+[[product.processing_region.point]]
+text_zh = "ChatGPT 个人档内容存储于美国及世界各地；未提供 Codex Free 区域驻留。"
+
+[product.role]
+kind = "controller"
+anchor = "openai-consumer-role-controller-row"
+
+[[product.role.point]]
+text_zh = "个人 ChatGPT 登录路径由 OpenAI 作为 controller；本地工作流在设备运行，云任务在 OpenAI 托管环境运行。"
+
+[[product]]
+id = "codex-personal"
+badge = "Codex Plus / Pro"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "openai-codex-personal-training"
+
+[[product.training.point]]
+text_zh = "Plus/Pro 的 Codex 对话默认可能用于改进模型，除非在 ChatGPT Data Controls 关闭训练；该控制覆盖 CLI、IDE 与云任务内容。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "https://developers.openai.com/codex/pricing", "https://help.openai.com/en/articles/7730893-data-controls-faq", "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"]
+
+[[product.zdr.point]]
+text_zh = "未找到 Plus/Pro Codex 的 ZDR 承诺。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "openai-consumer-retention-chats"
+
+[[product.retention.point]]
+text_zh = "常规/归档对话保存至用户删除，删除后通常 30 天内永久删除；未单独披露代码索引、云端环境或服务端缓存期限。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-consumer-region-storage"
+
+[product.role]
+kind = "controller"
+anchor = "openai-consumer-role-controller-row"
+
+[[product]]
+id = "codex-business"
+badge = "Codex Business"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "openai-codex-business-no-training"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "https://developers.openai.com/codex/pricing", "https://openai.com/enterprise-privacy/", "https://developers.openai.com/api/docs/guides/your-data"]
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "openai-consumer-retention-chats"
+
+[[product.retention.point]]
+text_zh = "工作区留存策略可移除对话，但现行 Codex 页面未披露 Business 默认期限，也未量化代码索引、云端环境或服务端缓存期限。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-consumer-region-storage"
+
+[[product.processing_region.point]]
+text_zh = "未见 Business Codex 区域驻留承诺；Enterprise/Edu 才列有 retention and residency controls。"
+
+[product.role]
+kind = "processor"
+anchor = "openai-api-role-dpa-processor"
+
+[[product]]
+id = "codex-enterprise"
+badge = "Codex Enterprise / Edu"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "openai-codex-business-no-training"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "https://developers.openai.com/codex/pricing", "https://openai.com/enterprise-privacy/", "https://developers.openai.com/api/docs/guides/your-data"]
+
+[[product.zdr.point]]
+text_zh = "价格矩阵仅声明企业留存与驻留控制；API 组织的 ZDR 不能外推为 ChatGPT Enterprise 的 Codex 云任务 ZDR。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "openai-codex-enterprise-controls"
+
+[[product.retention.point]]
+text_zh = "Enterprise/Edu 提供留存控制，但该矩阵未给固定期限；代码索引、云端环境及服务端缓存期限未披露。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-codex-enterprise-controls"
+
+[[product.processing_region.point]]
+text_zh = "Enterprise/Edu 提供驻留控制，但支持区域与各 Codex 数据对象适用范围需以客户配置/协议为准。"
+
+[product.role]
+kind = "processor"
+anchor = "openai-api-role-dpa-processor"
+
+[[anchor]]
+id = "openai-consumer-training-may-train"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+).
+
+## Services for individuals, such as ChatGPT and Codex
+
+"""
+exact = "When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models"
+suffix = """
+.
+
+To opt out of model training, you can turn off “Improve t"""
+
+[[anchor]]
+id = "openai-codex-personal-training"
+source_id = "5f85c478f0bca1e1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+### Pro and Plus
+
+"""
+exact = "Conversations may be used to improve models unless you turn off training in ChatGPT data controls"
+suffix = ". For more information, see [how your data is used to impro"
+
+[[anchor]]
+id = "openai-codex-business-no-training"
+source_id = "5f85c478f0bca1e1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+### Business, Enterprise, and Edu
+
+By default, """
+exact = "OpenAI does not use any inputs or outputs from our products for business users, including ChatGPT Business, ChatGPT Enterprise, and the API, to improve our models"
+suffix = ". However, API organization owners can choose to opt-in to "
+
+[[anchor]]
+id = "openai-codex-enterprise-controls"
+source_id = "b9e1269152d223c1"
+topics = ["retention", "processing_region"]
+
+[anchor.selector]
+prefix = """
+| [SCIM, EKM, and domain verification](https://developers.openai.com/codex/enterprise/admin-setup#enterprise-grade-security-and-privacy) | — | — | — |  | — |
+| """
+exact = "[Enterprise retention and residency controls](https://developers.openai.com/codex/enterprise/admin-setup#enterprise-grade-security-and-privacy)"
+suffix = " | — | — | — |  | — |\n| [No training on API or busin"
+
+[[anchor]]
+id = "openai-consumer-retention-chats"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+emporary chats follow different retention rules.
+
+## Chats
+
+"""
+exact = "Regular and archived chats remain saved to your account until you delete them"
+suffix = " or an applicable workspace retention policy removes them."
+
+[[anchor]]
+id = "openai-consumer-region-storage"
+source_id = "e4f259dc140404cb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+cy/) for more information.
+
+## Where is my content stored?
+
+"""
+exact = "Content is stored on OpenAI systems and our trusted service providers’ systems in the US and around the world"
+suffix = ". We may also send select portions of content to trusted ser"
+
+[[anchor]]
+id = "openai-api-role-dpa-processor"
+source_id = "f22729d5797dc763"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "nt, OpenAI may Process Customer Data on behalf of Customer. "
+exact = "OpenAI acts as a Data Processor on the Customer’s behalf"
+suffix = """
+, and this DPA governs such Processing.
+
+*   1.2 Details of """
+
+[[anchor]]
+id = "openai-consumer-role-controller-row"
+source_id = "a8188f08c1fe45bb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+cessing of your Personal Data as described in this policy.
+
+"""
+exact = "If you live anywhere else, OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States, is the controller"
+suffix = " and is responsible for the processing of your Personal Data"

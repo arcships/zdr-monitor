@@ -1,0 +1,120 @@
+name = "Llama Muse Code"
+name_en = "Llama Muse Code"
+company = "llama"
+company_name = "Llama"
+site = "global"
+line = "muse-code"
+entity = "Meta Platforms, Inc. / Meta Platforms Ireland Limited"
+doc = "https://dev.meta.ai/legal/terms-of-service"
+plan_levels = ["individual"]
+
+[[source]]
+url = "https://dev.meta.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[product]]
+id = "muse-code-subscription"
+badge = "Muse Code 订阅"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+anchor = "llama-tos-13-4-subscription-model-determines"
+mode = "by_tier"
+
+[[product.training.point]]
+text = "§13.4, \"The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.\" — which tier a subscription falls under depends on the model selected: choose a Standard model (muse-spark-1.2 by default) → not used for training"
+text_zh = "§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』——订阅档走哪一档取决于所选模型：选 Standard 模型(默认 muse-spark-1.2)→ 不用于训练"
+
+[[product.training.point]]
+text = "Choose a Contributor model → may be used for training. §13.4 also states that a subscription gives no discount for selecting Discounted Models, which implies a Discounted Model can also be selected under a subscription"
+text_zh = "选 Contributor 模型 → 可用于训练。§13.4 同时说明订阅不因选择 Discounted 模型而给折扣，暗示订阅下也可能选中 Discounted 模型"
+
+[[product.training.point]]
+text = "The Muse Code docs likewise mention the Standard and Contributor tiers. Uncertainty: the subscription help page says only \"Access to the latest Muse models\", does not enumerate which models a subscription can select, and does not state whether subscribers can select the Contributor tier — this point is unverified, so confidence is medium."
+text_zh = "Muse Code 文档亦提到 Standard 与 Contributor 两档。不确定性：订阅帮助页只写『Access to the latest Muse models』，没有枚举订阅可选哪些模型，也未说明订阅用户能否选 Contributor 档——此点未核清，故置信度 medium。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/help/subscriptions/what-is-a-muse-code-subscription",
+  "https://dev.meta.ai/docs/muse-code.md",
+  "https://dev.meta.ai/docs/muse-code/interactive.md",
+]
+
+[[product.zdr.point]]
+text = "The ZDR help page says only that it is for qualified Meta Model API accounts and that \"support may vary by model\", without stating whether Muse Code subscription credentials can enable ZDR. The subscription uses the same API credentials, but Meta has taken no position, so this is recorded as not_found."
+text_zh = "ZDR 帮助页只说面向 qualified Meta Model API accounts、且『support may vary by model』，未说明 Muse Code 订阅凭据能否启用 ZDR。订阅用的是同一 API 凭据，但官方未表态，记 not_found。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "llama-tos-4-4-retention-purposes"
+
+[[product.retention.point]]
+text = "Consistent with the underlying tiers (§4.4, retained as needed, no quantified period). One open item to note: every Muse Code run writes an append-only session event log (model calls, tool calls and their results, approval decisions), kept by default and disabled with --no-session-log"
+text_zh = "与底层档位一致(§4.4 按需保留、无量化期限)。另需注意一个未定项：Muse Code 每次运行都会写 append-only 会话事件日志(含模型调用、工具调用与结果、审批决定)，默认保留，--no-session-log 可关闭"
+
+[[product.retention.point]]
+text = "The docs do not say whether that log lives in the local workspace or on the server, so it is not counted in the retention conclusion."
+text_zh = "文档没有说明该日志存在本地工作区还是服务端，故未计入 retention 结论。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/geographic-use-policy",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal",
+  "https://dev.meta.ai/help/policies-and-privacy/data-handling",
+  "https://dev.meta.ai/help/accounts-and-login/supported-countries",
+  "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
+  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.facebook.com/privacy/policy/",
+  "https://dev.meta.ai/docs/muse-code.md",
+  "https://dev.meta.ai/llms.txt",
+  "https://dev.meta.ai/sitemap.xml",
+]
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region."
+text_zh = "同顶层 processing_region。"
+
+[product.role]
+kind = "processor"
+anchor = "llama-tos-13-4-subscription-model-determines"
+
+[[product.role.point]]
+text = "The subscription tier produces no separate role clause of its own: depending on the model selected it falls under §5 (processor) or §6 (no processor statement)."
+text_zh = "订阅档本身不产生独立的角色条款：随所选模型落到 §5(processor)或 §6(无 processor 声明)。"
+
+[[anchor]]
+id = "llama-tos-4-4-retention-purposes"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s) applicable to such Third-Party Features.
+
+4.4 Retention. """
+exact = "Meta will retain your Content and Usage Data as needed:"
+suffix = " (i) to provide the Services under these Terms; (ii) to the "
+
+[[anchor]]
+id = "llama-tos-13-4-subscription-model-determines"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ased on the Models you select, including Discounted Models. "
+exact = "The Models you select determine how Meta may use your Content, as described in Sections 5 and 6."
+suffix = " Any use of the Services that is not covered by a Coding Har"

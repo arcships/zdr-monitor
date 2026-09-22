@@ -1,0 +1,163 @@
+name = "NVIDIA"
+line = "nvidia"
+site = "global"
+entity = "NVIDIA Corporation"
+endpoint = ""
+doc = "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf"
+
+[[source]]
+url = "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf"
+channel = "contract"
+tier = "core"
+note = "NVIDIA API Trial Terms of Service（文末版本标注 v. September 19, 2025；HTTP 头 last-modified: Fri, 18 Sep 2026 14:20:12 GMT，214700 字节 PDF）——build.nvidia.com / NVIDIA API Catalog（integrate.api.nvidia.com）唯一公开的 NVIDIA 自有 API 条款，覆盖 API 试用档（免费 Credits 档）。本轮独立通读 9 页正文：§1.1 定义 API Catalog / User Content / Generated Content；§1.2「limited trial purposes only ... without use ... in production」；§1.4 生产使用须另购 Subscription（NVIDIA 或第三方 Service Provider），且「Subscription 的条款管辖你的生产使用」→ 生产/订阅档无公开 NVIDIA 条款。管辖关系由 build.nvidia.com 页面的 License and Governing Terms 段确认（见下条）。四步验证通过：非空、无 Something went wrong / Try again 壳、含大量「主体×动作」条款句（classify=policy，12 行）、旧引文 3 条归一化全部命中。全文检索：无 controller/processor 字样、无 data residency / 处理地披露、无 ZDR 术语或开通机制。"
+
+[[product]]
+id = "api"
+badge = "试用 API"
+category = "api"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "training-3.3-iv-collect-improve-ai-models"
+
+[product.zdr]
+mark = "no"
+anchor = "retention-2.4-ft-30-90d-security-logging"
+
+[[product.zdr.point]]
+text_zh = "2.3 的默认确实是会话结束即不留存，但 2.4 把微调数据和安全日志排除在外（30 至 90 天），所以端到端不是零保留。"
+anchor = "retention-2.3-session-default"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "retention-2.3-session-default"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf",
+  "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/",
+  "https://www.nvidia.com/en-us/agreements/data-processing-addendum/nvidia-cloud-services-data-processing-addendum/",
+  "https://developer.nvidia.com/legal/terms",
+  "https://build.nvidia.com/",
+  "https://build.nvidia.com/faq",
+  "https://docs.api.nvidia.com/nim/reference/llm-apis",
+  "https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/",
+  "https://www.nvidia.com/en-us/agreements/trustworthy-ai/terms/",
+]
+
+[product.role]
+kind = "controller"
+anchor = "role-2.2-content-license-during-session"
+
+[[anchor]]
+id = "training-3.3-iv-collect-improve-ai-models"
+source_id = "fad8b9f47627bf99"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+case subject to your consent, where required by law. 
+
+3.3  """
+exact = "NVIDIA will collect the following data, without identifying specific users, to operate and improve the API Services and other products and services: (i) session metrics (e.g., the amount of processing power consumed, type of request made); (ii) error logs and execution logs relating to your session (e.g., whether your request was executed successfully); (iii) your feedback and ranking of specific API Services; and (iv) User Content and Generated Content to improve NVIDIA products and services, including AI models."
+suffix = " Your  use of the API Services will be logged for security, "
+
+[[anchor]]
+id = "retention-2.3-session-default"
+source_id = "fad8b9f47627bf99"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+nt or expressly disclosed to you for an API Service. 
+
+2.3  """
+exact = "Except as stated below in Section 2.4 or unless expressly disclosed to you for an API Service, NVIDIA will not store or use User Content or Generated Content at the end of each API Service session."
+suffix = """
+ 
+
+2.4 For certain API Services, such as the Fine Tuning API"""
+
+[[anchor]]
+id = "retention-2.4-ft-30-90d-security-logging"
+source_id = "fad8b9f47627bf99"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ervice or as expressly disclosed in the NVIDIA API Catalog, "
+exact = "unless you purchase a Subscription from the appropriate Service Provider, NVIDIA will store User Content for thirty (30) days from first upload of User Content, and the Generated Content of the Fine Tuning Service for ninety (90) days from when it is first made available to you, except that NVIDIA may log and store User Content and Generated Content to monitor for security or to prevent fraud or abuse"
+suffix = """
+ as stated in Section 3.3. 
+
+2.5 You acknowledge that NVIDIA"""
+
+[[anchor]]
+id = "role-2.2-content-license-during-session"
+source_id = "fad8b9f47627bf99"
+topics = ["role", "zdr"]
+
+[anchor.selector]
+prefix = "Content or Generated Content on or through the API Service, "
+exact = "you grant NVIDIA, its affiliates and their service providers a worldwide license with respect to User Content and Generated Content, to use, host, store, reproduce, modify, create derivative works"
+suffix = " (such as those resulting from translations, adaptations or "
+
+[[anchor]]
+id = "role-2.7-monitor-scan-review"
+source_id = "fad8b9f47627bf99"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ted Content that do not conform to these limitations. 
+
+2.7 """
+exact = "You agree that NVIDIA may, but is not obligated to, block, monitor, scan or review communications or User Content or Generated Content transmitted through the API Service"
+suffix = " and that NVIDIA will not be responsible for the content of "
+
+[[anchor]]
+id = "scope-1.2-trial-only-not-production"
+source_id = "fad8b9f47627bf99"
+topics = []
+
+[anchor.selector]
+prefix = """
+nt, NVIDIA will provide you access to the API Service for 
+
+"""
+exact = "limited trial purposes only and without use of the API Service or Generated Content in production"
+suffix = ". After the API Service concludes, NVIDIA will be under no o"
+
+[[anchor]]
+id = "scope-1.4-subscription-governs-production"
+source_id = "fad8b9f47627bf99"
+topics = []
+
+[anchor.selector]
+prefix = "nternal testing and evaluation purposes, not in production. "
+exact = "The terms and conditions of your Subscription will govern your production use of the API Service."
+suffix = """
+ 2
+
+2. User Content and Generated Content. 
+
+2.1 You are sol"""
+
+[[anchor]]
+id = "version-september-19-2025"
+source_id = "fad8b9f47627bf99"
+topics = []
+
+[anchor.selector]
+prefix = """
+ed terms, you must terminate your use of the API Service. 
+
+"""
+exact = "v. September 19, 2025"
+suffix = """
+
+"""

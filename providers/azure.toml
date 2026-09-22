@@ -1,0 +1,236 @@
+name = "Microsoft Azure"
+line = "azure"
+site = "global"
+endpoint = ""
+doc = "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy"
+
+[[source]]
+url = "https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/deployment-types"
+channel = "developer_data"
+tier = "core"
+note = "部署类型文档(Standard / Global / DataZone / Regional Provisioned / Batch / Developer),覆盖档位 api。逐类给出推理处理位置与静态存储位置,是 processing_region 的细化佐证;处理位置权威源仍为 data-privacy 页。"
+
+[[source]]
+url = "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/abuse-monitoring"
+channel = "developer_data"
+tier = "core"
+note = "滥用监测机制细节页(覆盖档位 api)。给出:自动审核所用模型不存储提示与补全、也不用于训练;获批 modified abuse monitoring 后人工审核不再进行;并给出申请资格线索(需满足 Limited Access 附加条件,部分高级模型条件更严)。支撑 retention / zdr 的机制细节,主结论仍绑 data-privacy 页。本轮重抓与缓存逐字一致。"
+
+[[source]]
+url = "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy"
+channel = "developer_data"
+tier = "core"
+note = "档位 api(Azure OpenAI / Foundry Models sold by Azure)的权威文档《Data, privacy, and security for Foundry Models sold by Azure in Microsoft Foundry》。逐字定义范围:「A 'model sold by Azure' is an AI model designated and deployed as such in Foundry, and includes Azure OpenAI models.」覆盖 Standard / Global / DataZone / Provisioned / Batch / Developer 部署类型。**与 azure.json 的同一份文档**:本 pid 的历史候选(seed source_id fbb65b16dcfbd62d)就是这篇;两个 pid 共用同一权威,本文件据实登记并只在范围说明上分工(azure.json 覆盖 Azure 平台档,本文件另加 Foundry Tools 非模型服务与 Foundry 合作伙伴模型两档)。不覆盖 Foundry 中的 Marketplace 第三方模型,不覆盖 Azure China(21Vianet)。本轮用 r.jina.ai 重抓(--resolve 绕过本机 fake-ip),与缓存逐字一致(仅多一行 Published Time 头)。"
+
+[[source]]
+url = "https://learn.microsoft.com/en-us/compliance/regulatory/gdpr-dpia-azure"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "本轮新发现并验证通过。微软官方《DPIA Azure for the GDPR》,Azure 专属的数据保护影响评估指引(企业在线服务层)。明确写出『As specified by the Product Terms and Products and Services Data Protection Addendum (DPA), Microsoft, as a data processor, processes Customer Data to provide Customer the Online Services in accordance with Customer's documented instructions.』并给出订阅终止后 90 天受限功能账户保留、以及静态数据可放在指定地理区域的说明。是 role 维度的权威源(Azure 范围比通用 GDPR FAQ 更贴),同时佐证 retention 与 processing_region。"
+
+[[source]]
+url = "https://www.microsoft.com/licensing/terms/product/PrivacyandSecurityTerms/all"
+channel = "contract"
+tier = "core"
+note = "合同层(覆盖档位 api,但为产品级通用条款,非 Azure OpenAI 提示词专属):产品条款中的 Privacy and Security Terms。确认 DPA 管辖 Customer Data / Personal Data 的处理与安全且冲突时 DPA 优先;Azure Core Services 由客户配置部署 Geo 时静态 Customer Data 存于该 Geo;另有一条与有状态资源保留相关的条款——服务配置/自定义模型若 90 天无调用、未修改且客户未登录,可被视为订阅已过期(进而适用 DPA 的保留与删除口径)。作为 role / retention / processing_region 的合同层佐证,未单独充当某一维度的权威源(DPA 正文本身不可抓)。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "training-no-foundation-model-training"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-modified-abuse-monitoring"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "training-retention-stateless-no-retrain"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "region-global-datazone-at-rest"
+
+[product.role]
+kind = "processor"
+anchor = "role-microsoft-processor-azure"
+
+[[anchor]]
+id = "training-no-foundation-model-training"
+source_id = "82c97913adafd62d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+dels sold by Azure to improve their models or services.
+*   """
+exact = "are NOT used to train any generative AI foundation models without your permission or instruction."
+suffix = """
+
+*   Customer Data, Prompts, and Completions are NOT used to"""
+
+[[anchor]]
+id = "training-retention-stateless-no-retrain"
+source_id = "82c97913adafd62d"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+cessing when using a Global or DataZone deployment type.
+
+**"""
+exact = "The models are stateless: no prompts or completions are stored in the model."
+suffix = " Additionally, prompts and completions are not used to train"
+
+[[anchor]]
+id = "retention-abuse-monitoring-store"
+source_id = "82c97913adafd62d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "the system or used to train the AI models or other systems. "
+exact = "The abuse monitoring data store where prompts and completions are stored for human review is logically separated by customer resource"
+suffix = " (each request includes the resource ID of the customer's Fo"
+
+[[anchor]]
+id = "zdr-modified-abuse-monitoring"
+source_id = "82c97913adafd62d"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "en-us/azure/ai-foundry/openai/concepts/abuse-monitoring))), "
+exact = "the data storage and human review process described above is not performed."
+suffix = " However, automated review may still be conducted, leveragin"
+
+[[anchor]]
+id = "region-processing-in-customer-geography"
+source_id = "82c97913adafd62d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "unless you are using a Global or DataZone deployment type), "
+exact = "but may be processed between regions within the geography for operational purposes (including performance and capacity management)."
+suffix = " See below for information about location of processing when"
+
+[[anchor]]
+id = "region-global-datazone-at-rest"
+source_id = "82c97913adafd62d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "rocessed in that or any other European Union Member Nation. "
+exact = "For both Global and DataZone deployment types, any data stored at rest, such as uploaded data, and including the abuse monitoring data store created for Global and DataZone deployments, is stored in the customer-designated geography."
+suffix = " Only the location of processing is affected when a customer"
+
+[[anchor]]
+id = "contract-dpa-governs-processing"
+source_id = "d63c05d5c10f9d6e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "nsing/terms/product/Glossary/all) (defined in the Glossary) "
+exact = "sets forth the parties obligations with respect to the processing and security of"
+suffix = " [Customer Data](https://www.microsoft.com/licensing/terms/p"
+
+[[anchor]]
+id = "contract-azure-core-services-geo"
+source_id = "d63c05d5c10f9d6e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "rastructure/products-by-region/table), or a successor site. "
+exact = "If Customer configures a particular service to be deployed within a Geo then, for that service, Microsoft will store Customer Data at rest within the specified Geo."
+suffix = " Certain services may not enable Customer to configure deplo"
+
+[[anchor]]
+id = "contract-inactive-config-custom-model-90d"
+source_id = "d63c05d5c10f9d6e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "m Models** For the purposes of data retention and deletion, "
+exact = "a Services configuration or custom model that has been inactive may at Microsoft's discretion be treated as an Online Service for which the Customer's subscription has expired."
+suffix = " A configuration or custom model is inactive if for 90 days "
+
+[[anchor]]
+id = "role-microsoft-processor-azure"
+source_id = "56102d627610a228"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "rosoft-Products-and-Services-Data-Protection-Addendum-DPA), "
+exact = "Microsoft, as a data processor, processes Customer Data to provide Customer the Online Services in accordance with Customer's documented instructions."
+suffix = " As detailed in the standard [Product Terms](https://www.mic"
+
+[[anchor]]
+id = "retention-azure-90d-limited-function-account"
+source_id = "56102d627610a228"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ss and extract Customer Data stored in each Online Service. "
+exact = "Except for free trials and LinkedIn services, Microsoft retains Customer Data stored in the Online Service in a limited function account for 90 days after expiration or termination of Customer's subscription so that Customer may extract the data."
+suffix = " After the 90-day retention period ends, Microsoft disables "
+
+[[anchor]]
+id = "am-automated-review-no-store"
+source_id = "45ac46104fcb8553"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "nfirm the system’s analysis and inform actioning decisions; "
+exact = "prompts and completions that undergo such review are not stored by the abuse monitoring system or used to train the AI model or other systems."
+suffix = """
+
+    *   In some cases, when automated review doesn't meet a"""
+
+[[anchor]]
+id = "am-human-review-off-when-modified"
+source_id = "45ac46104fcb8553"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "rosoft employees are located in the European Economic Area. "
+exact = "This human review abuse monitoring process won't take place if the customer has been approved for modified abuse monitoring."
+suffix = """
+
+
+*   **Notification and Action**: When a threshold of abusi"""
+
+[[anchor]]
+id = "deployment-region-standard"
+source_id = "9b916d70d6426b23"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+specified data zone (US, EU, or Asia Pacific (APAC)).
+*   **"""
+exact = "Standard and Regional Provisioned** types: Prompts and responses are processed within the customer-specified Azure geography and might be processed between regions within that geography for operational purposes"
+suffix = """
+.
+
+[Learn more about data residency](https://azure.microsoft"""
+
+[[anchor]]
+id = "deployment-at-rest-geography"
+source_id = "9b916d70d6426b23"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+s/models-deploy-deployment-type.png#lightbox)
+
+Important
+
+**"""
+exact = "Data residency for all deployment types"
+suffix = "**: Data stored at rest remains in the designated Azure geog"

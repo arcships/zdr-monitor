@@ -1,0 +1,291 @@
+name = "Gemini CLI"
+company = "google"
+company_name = "Google"
+line = "gemini-cli"
+site = "global"
+entity = "Google LLC"
+kind = "model_vendor"
+homepage = "https://github.com/google-gemini/gemini-cli"
+doc = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
+plan_levels = ["free", "individual", "enterprise"]
+
+[[source]]
+url = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
+channel = "developer_data"
+tier = "core"
+note = "Gemini CLI 官方文档「Terms of Service and Privacy Notice」，逐档列明认证方式对应的条款与训练归属。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/terms"
+channel = "contract"
+tier = "core"
+note = "Gemini API Additional Terms of Service；覆盖 Gemini CLI 使用 Gemini API key 时的 Paid 与 Unpaid 档。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/zdr"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 官方 ZDR 专页；用于 Gemini CLI 付费 API key 档的零保留结论。"
+
+[[source]]
+url = "https://ai.google.dev/gemini-api/docs/usage-policies"
+channel = "developer_data"
+tier = "core"
+note = "Gemini API 官方滥用监控政策；用于 Gemini CLI API key 档的 55 天滥用监控日志期限。"
+
+[[source]]
+url = "https://policies.google.com/terms?hl=en-US"
+channel = "contract"
+tier = "core"
+note = "Google 消费者服务条款；用于 Gemini CLI 个人 Google 登录与免费 API key 档的合同角色。"
+
+[[source]]
+url = "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"
+channel = "consumer_privacy"
+tier = "core"
+note = "Gemini Code Assist individuals 隐私声明 URL；Gemini CLI 个人 Google 登录档查阅范围。"
+
+[[source]]
+url = "https://policies.google.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Google 通用隐私政策；Gemini CLI 个人 Google 登录档处理地域查阅范围。"
+
+[[source]]
+url = "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Gemini Code Assist Standard/Enterprise 安全、隐私与合规说明；企业档查阅范围。"
+
+[[product]]
+id = "gemini-cli-personal-google"
+badge = "Gemini CLI 个人 Google 登录"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "training-gca-individuals-collected"
+[product.zdr]
+mark = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"]
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"]
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://policies.google.com/privacy"]
+[product.role]
+kind = "controller"
+anchor = "role-google-llc-service-provider"
+
+[[product]]
+id = "gemini-cli-api-key-unpaid"
+badge = "Gemini CLI API Key 免费额度"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+anchor = "training-unpaid-improve"
+[product.zdr]
+mark = "no"
+searched = ["https://ai.google.dev/gemini-api/docs/zdr", "https://ai.google.dev/gemini-api/terms", "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+[product.retention]
+days = 55
+object = "input_output"
+basis = "fixed_period"
+anchor = "retention-abuse-logs-55-days"
+[product.processing_region]
+codes = ["global"]
+anchor = "region-any-country"
+[product.role]
+kind = "controller"
+anchor = "role-google-llc-service-provider"
+
+[[product]]
+id = "gemini-cli-api-key-paid"
+badge = "Gemini CLI API Key 付费"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "training-paid-no-improve"
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "zdr-requires-actions"
+[product.retention]
+days = 55
+object = "mixed"
+basis = "fixed_period"
+anchor = "retention-abuse-logs-55-days"
+[product.processing_region]
+codes = ["global"]
+anchor = "region-any-country"
+[product.role]
+kind = "processor"
+anchor = "role-paid-processor-dpa"
+
+[[product]]
+id = "gemini-cli-code-assist-enterprise"
+badge = "Gemini CLI Code Assist Standard/Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "gemini-cli-enterprise-no-collection"
+[product.zdr]
+mark = "unknown"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
+[product.role]
+kind = "processor"
+anchor = "gemini-cli-enterprise-no-collection"
+
+[[anchor]]
+id = "training-unpaid-improve"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+[anchor.selector]
+prefix = """
+rvices (the " Unpaid Services ").
+How Google Uses Your Data
+"""
+exact = """
+When you use Unpaid Services, including, for example, Google AI Studio and the
+unpaid quota on Gemini API, Google uses the content you submit to the Services
+and any generated responses to provide, improve, and develop Google products and
+services and machine learning technologies"""
+suffix = """
+, including Google's enterprise
+features, products, and serv"""
+
+[[anchor]]
+id = "training-paid-no-improve"
+source_id = "a56c52f541d6ad5f"
+topics = ["training"]
+[anchor.selector]
+prefix = """
+erms has the meaning given
+here .
+How Google Uses Your Data
+"""
+exact = """
+When you use Paid Services, including, for example, the paid quota of the Gemini
+API, Google doesn't use your prompts (including associated system instructions,
+cached content, and files such as images, videos, or documents) or responses to
+improve our products"""
+suffix = """
+, and will process your prompts and responses in accordance
+"""
+
+[[anchor]]
+id = "zdr-requires-actions"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr"]
+[anchor.selector]
+prefix = """
+ periods of time in the following
+scenarios and conditions. """
+exact = """
+To achieve zero data retention, customers must take
+specific actions or avoid specific features within each of these areas"""
+suffix = """
+:
+Prompt logging for abuse monitoring : As outlined in the G"""
+
+[[anchor]]
+id = "retention-abuse-logs-55-days"
+source_id = "5e08212c4da8dea1"
+topics = ["retention"]
+[anchor.selector]
+prefix = """
+l review by authorized Google
+personnel.
+How We Handle Data
+"""
+exact = """
+Google retains the following data for fifty-five
+(55) days for the purposes of detecting and preventing violations of the
+Prohibited Use Policy"""
+suffix = """
+ to maintain the safety and security of the Services, and
+an"""
+
+[[anchor]]
+id = "region-any-country"
+source_id = "a56c52f541d6ad5f"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = """
+Services, and any required legal or
+regulatory disclosures. """
+exact = """
+This data may be stored
+transiently or cached in any country in which Google or its agents maintain
+facilities"""
+suffix = """
+.
+Other data we collect while providing the Paid Services to"""
+
+[[anchor]]
+id = "role-paid-processor-dpa"
+source_id = "a56c52f541d6ad5f"
+topics = ["role"]
+[anchor.selector]
+prefix = """
+os, or documents) or responses to
+improve our products, and """
+exact = """
+will process your prompts and responses in accordance
+with the
+Data Processing Addendum for Products Where Google is a Data Processor"""
+suffix = """
+ .
+For Paid Services, Google logs prompts and responses for """
+
+[[anchor]]
+id = "role-google-llc-service-provider"
+source_id = "3d477953bfac2424"
+topics = ["role"]
+[anchor.selector]
+prefix = """
+Terms
+
+Service provider"""
+exact = """
+Google [services](https://policies.google.com/terms?hl=en-US#footnote-services) are provided by, and you’re contracting with:
+
+Google LLC"""
+suffix = "organized under the laws of the State of Delaware, USA, and operating under the laws of the USA"
+
+[[anchor]]
+id = "training-gca-individuals-collected"
+source_id = "6e58103b5b10bd25"
+topics = ["training"]
+[anchor.selector]
+prefix = "By default (if you have not opted out):"
+exact = "**Google account with Gemini Code Assist for individuals**: Yes. When you use your personal Google account, the [Gemini Code Assist Privacy Notice for individuals](https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals) applies"
+suffix = ". Under this notice, your **prompts, answers, and related code are collected** and may be used to improve Google’s products, including for model training."
+
+[[anchor]]
+id = "gemini-cli-enterprise-no-collection"
+source_id = "6e58103b5b10bd25"
+topics = ["training", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Your prompts, answers, and related code are not collected and are not used to train models."
+suffix = ""

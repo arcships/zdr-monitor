@@ -1,0 +1,177 @@
+name = "Ollama Cloud"
+line = "ollama-cloud"
+site = "global"
+entity = "Ollama Inc."
+company = "ollama"
+company_name = "Ollama"
+kind = "model_vendor"
+homepage = "https://ollama.com/cloud"
+doc = "https://ollama.com/privacy"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://ollama.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "云端内容瞬时处理、不超出完成请求所需时间保存，并披露 Ollama 的控制者角色。"
+
+[[source]]
+url = "https://ollama.com/pricing"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Cloud Free/Pro/Max/Team/Enterprise 共同隐私口径、地域及 NVIDIA Cloud Provider 要求。"
+
+[[source]]
+url = "https://ollama.com/terms"
+channel = "contract"
+tier = "core"
+note = "输入输出不用于训练的合同承诺。"
+
+[[product]]
+id = "cloud"
+badge = "Ollama Cloud"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ollama-no-training-contract"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ollama-cloud-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "ollama-cloud-transient"
+[product.processing_region]
+codes = ["US", "EU", "SG"]
+anchor = "ollama-cloud-region"
+[product.role]
+kind = "controller"
+anchor = "ollama-controller"
+
+[[product.retention.point]]
+text_zh = "prompt/response 不记录，瞬时处理；输入缓存价目存在，但官方未披露缓存期限。账号、账单、支持和 usage metadata 另按账户存续/法律或运营需要保留。"
+anchor = "ollama-cloud-transient"
+
+[[product]]
+id = "cloud-free"
+badge = "Cloud Free"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ollama-no-training-contract"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ollama-cloud-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "ollama-cloud-transient"
+[product.processing_region]
+codes = ["US", "EU", "SG"]
+anchor = "ollama-cloud-region"
+[product.role]
+kind = "controller"
+anchor = "ollama-controller"
+
+[[product]]
+id = "cloud-team"
+badge = "Cloud Team"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ollama-no-training-contract"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ollama-cloud-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "ollama-cloud-transient"
+[product.processing_region]
+codes = ["US", "EU", "SG"]
+anchor = "ollama-cloud-region"
+[product.role]
+kind = "controller"
+anchor = "ollama-controller"
+
+[[product]]
+id = "cloud-enterprise"
+badge = "Cloud Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ollama-no-training-contract"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ollama-cloud-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "ollama-cloud-transient"
+[product.processing_region]
+codes = ["US", "EU", "SG"]
+anchor = "ollama-cloud-region"
+[product.role]
+kind = "controller"
+anchor = "ollama-controller"
+
+[[anchor]]
+id = "ollama-cloud-transient"
+source_id = "462957d19833fdaa"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request."
+suffix = " We implement technical measures"
+
+[[anchor]]
+id = "ollama-no-training-contract"
+source_id = "fd2d3064f7e4d2b1"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "**We do not use your inputs or outputs to train AI models.**"
+suffix = ""
+
+[[anchor]]
+id = "ollama-cloud-zdr"
+source_id = "df15d1f61a5712e6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place."
+suffix = ""
+
+[[anchor]]
+id = "ollama-cloud-region"
+source_id = "df15d1f61a5712e6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity."
+suffix = ""
+
+[[anchor]]
+id = "ollama-controller"
+source_id = "462957d19833fdaa"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Ollama Inc. is the data controller of this Privacy Policy."
+suffix = " If you have questions"

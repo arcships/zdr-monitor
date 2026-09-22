@@ -1,0 +1,634 @@
+name = "Baseten"
+line = "baseten"
+site = "global"
+entity = "Baseten Labs, Inc."
+endpoint = ""
+doc = "https://www.baseten.co/terms-and-conditions/"
+
+[[source]]
+url = "https://docs.baseten.co/deployment/regional-deployments"
+channel = "developer_data"
+tier = "core"
+note = "文档站《Regional deployments》页，覆盖 Dedicated Inference 的 GPU 模型部署（GPU instance types；chains 与 training jobs 不能选区域）。给出「Available regions」表（us = United States、eu = European Union）与默认 Global 的规则，是 processing_region 的主要依据。"
+
+[[source]]
+url = "https://docs.baseten.co/hosting-options/self-hosted"
+channel = "developer_data"
+tier = "core"
+note = "文档站《Self-hosted》页，覆盖 self-hosted / hybrid 部署档。给出该档的保留与处理地表述（同步推理输入输出不存；payload 不出客户环境；但 model code 与 container image 会经 Baseten control plane，metrics 与 billing 数据会回传）。"
+
+[[source]]
+url = "https://www.baseten.co/dpa/"
+channel = "contract"
+tier = "core"
+note = "《Baseten Data Processing Addendum》（页内 Last Updated: September 15, 2026），仅适用于「Baseten 代表客户处理 Customer Personal Data」的情形（即个人数据），由 Terms §12.10 自动适用、无需另行签署。§3.1 是 role 的权威依据（Baseten = Processor）；§9 No Training；§10 Data Retention（引 Security Practices 的 ZDR 姿态）；§9 Return and Deletion 给出 Post-Term Period 30 天。Annex A 明确 Baseten Labs, Inc.（560 Davis St., Suite 250, San Francisco）为 Processor。"
+
+[[source]]
+url = "https://www.baseten.co/security-practices/"
+channel = "contract"
+tier = "core"
+note = "《Baseten Security Practices》，页内标注 Last Updated: September 15, 2026，§首段自述「incorporated into the Baseten Terms and Conditions」，Terms §2.5 与 §12.9 亦将其纳入协议并优先于正文——因此与合同同级，不是营销页。这是 zdr 与 retention 的权威来源：CUSTOMER CONTENT PROCESSING AND DATA RETENTION 一节按产品线分列 Model APIs / Dedicated Inference / Asynchronous Inference / Customer Model Weights，另给出审计日志留存、终止后 30 天取回期、备份残余、部署形态与区域约束。"
+
+[[source]]
+url = "https://www.baseten.co/terms-and-conditions/"
+channel = "contract"
+tier = "core"
+note = "Baseten Labs, Inc. 主服务协议《Terms and Conditions》（Legal Hub 标 Last updated September 15, 2026；正文无生效日，日期取自 Legal Hub）。覆盖全部产品档位（§“Services” 定义为 Baseten 推理平台，含 deployment/optimization/orchestration/monitoring/training 与基础设施服务），对 Customer Models（客户自部署模型）与 Third-Party Products（Model Labs 模型）一并适用。§6.3 是 training 的合同层权威；§2.1 是 role 的自认条款；§2.5 是 ZDR 的合同层定义（把 Security Practices 的 ZDR 姿态转成合同义务）；§7.4 是终止后取回/删除；§6.4/§6.6 是「平台改进」的边界。§12.9 明确 Security Practices、DPA、SLA 均属协议组成部分并优先于正文。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "baseten-tos-6-3-no-training"
+
+[[product.training.point]]
+text = "Same as the top level: Terms §6.3 covers Customer Content, \"including Customer Models, Model Outputs, or inference logs\""
+text_zh = "同顶层：Terms §6.3 覆盖 Customer Content（含 Customer Models、Model Outputs、inference logs）"
+
+[[product.training.point]]
+text = "The \"Model APIs\" entry in the Security Practices states in the same paragraph that a ZDR posture applies to all Customer Content. For the third-party model tier there is also SML §6/§9.B: customer content (prompts and request-level logs included) is not forwarded to Model Lab."
+text_zh = "Security Practices「Model APIs」条目同段即声明对 all Customer Content 持 ZDR。第三方模型档另有 SML §6/§9.B：不向 Model Lab 转发客户内容（含 prompt 与请求级日志）。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "baseten-security-practices-model-apis-zdr"
+
+[[product.zdr.point]]
+text = "This product is named in the Security Practices as operating under a ZDR posture, and ZDR is the default configuration (no application required)."
+text_zh = "该产品被 Security Practices 点名为 ZDR 姿态，且 ZDR 是默认配置（无需申请）。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "baseten-security-practices-model-apis-zdr"
+
+[[product.retention.point]]
+text = "Security Practices「Model APIs」：Baseten will not store, retain, or otherwise make a persistent copy of model inputs or outputs during a customer's use of the Model APIs"
+
+[[product.retention.point]]
+text = "The same section defines ZDR as (a) not logging, recording or saving Customer Content, and (b) not saving Customer Content to persistent storage (hard disk, SSD, cloud storage, database) after real-time processing. The async exception is the same as at top level (72 hours)."
+text_zh = "同节把 ZDR 定义为 (a) 不 log/record/store 客户内容、(b) 不在实时处理之后把客户内容保存到持久存储（硬盘、SSD、云存储、数据库）。异步档例外同顶层（72 小时）。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "baseten-docs-regional-deployments-global-default"
+
+[[product.processing_region.point]]
+text = "The public documentation does not say which region Model APIs (platform-hosted models) run in: the available-regions table on the regional deployments page covers only customer-deployed models (GPU instances) and states expressly that region selection applies to model deployments"
+text_zh = "公开文档未说明 Model APIs（平台托管模型）运行在哪个区域：regional deployments 页的可用区域表只针对客户自部署模型（GPU 实例），且明说区域选择适用于 model deployments"
+
+[[product.processing_region.point]]
+text = "There is no corresponding region-selection documentation for Model APIs. Inferring from the default Global rule would overreach, so this is recorded as undisclosed rather than as a commitment."
+text_zh = "Model APIs 没有对应的区域选择说明。按默认 Global 规则推断会越界，故记未披露而非承诺。"
+
+[product.role]
+kind = "processor"
+anchor = "baseten-dpa-3-1-processor"
+
+[[product.role.point]]
+text = "Same as the top level. On the third-party model tier, Model Lab is not a sub-processor of the customer and Baseten does not forward customer content (SML §6)."
+text_zh = "同顶层。第三方模型档下 Model Lab 不是客户 sub-processor，Baseten 不转发客户内容（SML §6）。"
+
+[[product]]
+id = "dedicated"
+badge = "专属部署"
+category = "api"
+label = "另有自托管版（Baseten Self-hosted，部署在客户自己的云账号里）：厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "baseten-tos-6-3-no-training"
+
+[[product.training.point]]
+text = "Same as the top level. The definition of Customer Model expressly includes associated weights, checkpoints, adapters and configurations, so weights are within the scope of §6.3 as well."
+text_zh = "同顶层。Customer Model 定义明确包含 associated weights、checkpoints、adapters、configurations，故权重也在 §6.3 覆盖范围内。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "baseten-security-practices-dedicated-inference-zdr"
+
+[[product.zdr.point]]
+text = "This product is named as operating under a ZDR posture"
+text_zh = "该产品被点名持 ZDR 姿态"
+
+[[product.zdr.point]]
+text = "ZDR is the default configuration."
+text_zh = "ZDR 是默认配置。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "baseten-security-practices-dedicated-inference-zdr"
+
+[[product.retention.point]]
+text = "Security Practices \"Dedicated Inference\": a Zero Data Retention posture for Customer Model inputs and outputs, with no persistent copy made"
+text_zh = "Security Practices「Dedicated Inference」：对 Customer Model 输入输出持 ZDR、不做持久副本"
+
+[[product.retention.point]]
+text = "\"Dedicated Inference (non-input/output data)\": for thirty (30) days after the end of the subscription term the customer may retrieve remaining Customer Content (such as Customer Models), which is deleted once that period ends"
+text_zh = "「Dedicated Inference (non-input/output data)」：订阅期结束后 30 天内可取回剩余 Customer Content（如 Customer Models），期满即删除"
+
+[[product.retention.point]]
+text = "\"Customer Model Weights\": weights are loaded dynamically into GPU memory and are not persisted to storage by default; where weight caching is enabled, cached weights can be permanently deleted on request"
+text_zh = "「Customer Model Weights」：权重动态载入 GPU 内存、默认不持久化，开启 weight caching 后可要求永久删除"
+
+[[product.retention.point]]
+text = "The KV cache lives only in GPU memory and is not written to disk (docs/observability/security)."
+text_zh = "KV cache 只在 GPU 内存、不落盘（docs/observability/security）。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "baseten-docs-regional-deployments-available-regions"
+
+[[product.processing_region.point]]
+text = "This is the only product whose region can be chosen: a regional deployment supports `us` / `eu`, and with no selection it is Global (any region with available compute)"
+text_zh = "本档是唯一可自选区域的产品：regional deployment 支持 `us`/`eu`，不选则 Global（可在任何有算力的区域）"
+
+[[product.processing_region.point]]
+text = "An organization compliance policy can restrict placement further and cannot be overridden"
+text_zh = "组织合规策略可进一步限制且不可被覆盖"
+
+[[product.processing_region.point]]
+text = "There are also regional environments configured on Baseten's side that confine the models and Chains of an entire environment to a specified region."
+text_zh = "另有 Baseten 侧配置的 regional environments 把整个 environment 的模型与 Chain 限制在指定区域。"
+
+[product.role]
+kind = "processor"
+anchor = "baseten-dpa-3-1-processor"
+
+[[product.role.point]]
+text = "Same as the top level. Baseten only provides the infrastructure layer that runs the customer's inference workloads (Security Practices \"Infrastructure-Only Processing\")."
+text_zh = "同顶层。Baseten 只提供基础设施层运行客户推理负载（Security Practices「Infrastructure-Only Processing」）。"
+
+[[product]]
+id = "training"
+badge = "训练微调"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "baseten-security-practices-infra-only-no-training"
+
+[[product.training.point]]
+text = "\"Training\" on this tier means the customer training or fine-tuning their own model"
+text_zh = "本档「训练」是客户对自己模型做训练/微调"
+
+[[product.training.point]]
+text = "On Baseten's side, Terms §6.3 / DPA §9 still bar the use of Customer Content to train Baseten's own models. docs/loops/train-on-your-data and docs/training/your-own-data are how-to guides (classified not_policy) and cannot support or rebut this dimension."
+text_zh = "Baseten 侧仍受 Terms §6.3 / DPA §9 约束不得用 Customer Content 训练自己的模型。docs/loops/train-on-your-data 与 docs/training/your-own-data 是使用教程（判 not_policy），不能用来支撑或反驳本维度。"
+
+[product.zdr]
+mark = "no"
+anchor = "baseten-security-practices-post-term-30-days"
+
+[[product.zdr.point]]
+text = "The ZDR posture is worded as \"across all inference products\", whereas training data and checkpoints are storage-type data (kept until 30 days after the end of the subscription term) and fall outside zero retention of inference inputs and outputs. Request-level ZDR therefore does not apply to this tier; only the 30-day post-term retrieval window and the deletion commitment do."
+text_zh = "ZDR 姿态的表述是「across all inference products」，而训练数据与 checkpoint 属存储型数据（保留到订阅期结束后 30 天），不在推理输入输出的零保留范围内。即本档不适用请求级 ZDR，只有终止后 30 天取回期与删除承诺。"
+anchor = "baseten-security-practices-zdr-products"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "baseten-security-practices-post-term-30-days"
+
+[[product.retention.point]]
+text = "Security Practices \"DATA RETENTION FOR OTHER PRODUCTS / Training\": \"For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession.\" — the object is Customer Content (training data and checkpoints included)"
+text_zh = "Security Practices「DATA RETENTION FOR OTHER PRODUCTS / Training」：For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession. —— 对象是 Customer Content（含训练数据与 checkpoint）"
+
+[[product.retention.point]]
+text = "Residual backup copies are separately covered by a \"limited period\" (not quantified)."
+text_zh = "备份残余另有「有限期间」（未量化）。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "baseten-docs-regional-deployments-global-default"
+
+[[product.processing_region.point]]
+text = "docs/deployment/regional-deployments states expressly that regional selection applies only to model deployments — \"Chains and training jobs can't select a region\" — so training jobs have no region selection and no default region is disclosed; recorded as undisclosed (and not to be read in reverse as a commitment to any region)."
+text_zh = "docs/deployment/regional-deployments 明说 regional selection 只适用于 model deployments，「Chains and training jobs can't select a region」——训练作业没有区域选择能力，也未披露默认区域，故记未披露（不得反向解读为承诺在某一区域）。"
+
+[product.role]
+kind = "processor"
+anchor = "baseten-dpa-3-1-processor"
+
+[[product.role.point]]
+text = "Same as the top level."
+text_zh = "同顶层。"
+
+[[product]]
+id = "self_hosted"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "baseten-security-practices-infra-only-no-training"
+
+[[product.training.point]]
+text = "The same contractual provisions as at top level (Terms §6.3 / DPA §9 / Security Practices \"Infrastructure-Only Processing\") apply to this tier."
+text_zh = "同顶层合同（Terms §6.3 / DPA §9 / Security Practices「Infrastructure-Only Processing」）对本档同样适用。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_deployment"
+anchor = "baseten-docs-self-hosted-payload-retention"
+
+[[product.zdr.point]]
+text = "On this tier \"no retention\" is guaranteed by the architecture (payloads never leave the customer's environment), not by a commitment alone"
+text_zh = "本档的「不保留」由架构保证（payload 不出客户环境）而非仅靠承诺"
+
+[[product.zdr.point]]
+text = "The ZDR posture in the Security Practices, being \"across all inference products\", covers this tier too."
+text_zh = "Security Practices 的 ZDR 姿态对 all inference products 同样覆盖本档。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "baseten-docs-self-hosted-payload-retention"
+
+[[product.retention.point]]
+text = "docs/hosting-options/self-hosted「Payload retention」：Baseten doesn't store synchronous inference inputs or outputs"
+
+[[product.retention.point]]
+text = "Async inputs queue inside the customer's own infrastructure until the request is executed (the queue ceiling is the 72-hour parameter in the async documentation). Note that some platform data still passes through Baseten on this tier: model code and container images travel through the control plane, metrics and billing data are sent back, and logs and metrics stay in the customer's cluster but are queried remotely by Baseten — the page gives no retention period for that platform data, so duration_kind is recorded as unspecified."
+text_zh = "异步输入在客户自己的基础设施内排队直到请求执行（排队上限见 async 文档的 72 小时参数）。注意本档部分平台数据仍会经过 Baseten：model code 与 container image 经 control plane，metrics 与 billing 数据回传，logs 与 metrics 留在客户集群但 Baseten 远程查询——该页未给出这些平台数据的保留期限，故 duration_kind 记 unspecified。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "baseten-docs-self-hosted-never-leave"
+
+[[product.processing_region.point]]
+text = "Inference payloads never leave your environment"
+
+[[product.processing_region.point]]
+text = "The workload plane runs in the customer's VPC, deployed in a single provider region (AWS/GCP/OCI, with several workload planes possible across regions and clouds). Security Practices \"Deployment Options\" says the same: \"No Customer Content leaves the customer's environment.\" The processing location is therefore chosen by the customer and not designated by Baseten."
+text_zh = "workload plane 在客户 VPC、按单一 provider region 部署（AWS/GCP/OCI，可跨区域跨云部署多个 workload plane）。Security Practices「Deployment Options」同旨：No Customer Content leaves the customer's environment。即处理地由客户选择，Baseten 不指定。"
+
+[product.role]
+kind = "processor"
+anchor = "baseten-dpa-3-1-processor"
+
+[[product.role.point]]
+text = "Same as the top level: the DPA role for personal data remains Processor. On this tier Baseten touches inference payloads even less (the workload plane sits on the customer's side), but the control plane still processes some platform data, so the role determination is unchanged."
+text_zh = "同顶层：DPA 对个人数据的角色仍为 Processor。本档中 Baseten 对推理 payload 实际接触更少（workload plane 在客户侧），但控制面仍处理部分平台数据，故角色判定不变。"
+
+[[anchor]]
+id = "baseten-tos-6-3-no-training"
+source_id = "318b903b7257ac8e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ing by Customer.
+
+**6.3. No Training on Customer Content.** """
+exact = "Baseten will not use Customer Content, including Customer Models, Model Outputs, or inference logs, to train, fine-tune, or otherwise develop machine learning or artificial intelligence models."
+suffix = """
+
+
+**6.4. Telemetry and Platform Learnings.** Baseten may col"""
+
+[[anchor]]
+id = "baseten-tos-2-1-role-platform-provider"
+source_id = "318b903b7257ac8e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "e, or outputs of any Customer Model or Third-Party Product. "
+exact = "The Parties intend that Baseten's activities under this Agreement are limited to those of an infrastructure and platform services provider and do not constitute the activities of a developer, provider, or deployer of AI systems as those roles are defined under applicable AI laws and regulations."
+suffix = " Baseten does not certify, warrant, or assume responsibility"
+
+[[anchor]]
+id = "baseten-tos-2-5-zdr-posture"
+source_id = "318b903b7257ac8e"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " incorporated by reference and shall apply (the \"**DPA**\"). "
+exact = "Where the Services or a product are designated as operating under a 'Zero Data Retention' posture in the Security Practices, Baseten will not log, record, or save Customer Content contained in inference inputs or outputs to persistent storage after real-time processing, subject to the limited exceptions described in the Security Practices."
+suffix = " For the avoidance of doubt, when Customer Content is in Cus"
+
+[[anchor]]
+id = "baseten-tos-7-4-portability-30-days"
+source_id = "318b903b7257ac8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d prior to termination.
+
+**7.4. Portability and Deletion.** """
+exact = "During the Term and for a period of thirty (30) days thereafter, Customer may export Customer Content via the Services."
+suffix = " Following the Term, Baseten shall have no obligation to mai"
+
+[[anchor]]
+id = "baseten-tos-6-4-usage-information-limit"
+source_id = "318b903b7257ac8e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "al Customer's Confidential Information or Customer Content. "
+exact = "In no event will Baseten collect or use Usage Information for the purpose of reproducing Customer's model weights or training datasets or developing products that replicate Customer-specific deployments."
+suffix = """
+
+
+**6.5. Feedback.** If Customer or any Authorized User prov"""
+
+[[anchor]]
+id = "baseten-security-practices-zdr-products"
+source_id = "27db51c160a382cc"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ement of any algorithms.
+
+**Zero Data Retention Products.** """
+exact = "Baseten adheres to a Zero Data Retention (\"**ZDR**\") posture across all inference products. Unless a customer, acting through an authorized representative, requests otherwise in writing, ZDR is the default configuration for the customer's use of the inference products; Baseten does not log Customer Content contained in inference inputs or outputs for human review; and Baseten will not retain Customer Content contained in inference inputs or outputs at rest without the customer's prior written consent."
+suffix = " Any consented retention will be limited to the minimum nece"
+
+[[anchor]]
+id = "baseten-security-practices-model-apis-zdr"
+source_id = "27db51c160a382cc"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+-specific details are set forth below.
+
+*   **Model APIs.** """
+exact = "Baseten's Model APIs product adheres to a Zero Data Retention posture for all Customer Content. Baseten will not store, retain, or otherwise make a persistent copy of model inputs or outputs during a customer's use of the Model APIs."
+suffix = " \"Zero Data Retention\" means that Baseten shall not (a) log,"
+
+[[anchor]]
+id = "baseten-security-practices-dedicated-inference-zdr"
+source_id = "27db51c160a382cc"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+he provision of the Services.
+
+*   **Dedicated Inference.** """
+exact = "Baseten's Dedicated Inference product adheres to a Zero Data Retention posture for Customer Model inputs and outputs."
+suffix = " Baseten will not store, retain, or otherwise make a persist"
+
+[[anchor]]
+id = "baseten-security-practices-async-72h"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " duration of the request as described in the Documentation. "
+exact = "These model input requests can stay in queue for up to 72 hours before being processed and then deleted."
+suffix = """
+ Asynchronous Inference does not store the Model Outputs.
+
+*"""
+
+[[anchor]]
+id = "baseten-security-practices-weights-not-persisted"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+t store the Model Outputs.
+
+*   **Customer Model Weights.** """
+exact = "Customer Model weights are loaded dynamically into GPU memory and are not persisted to storage by default. Customers may enable weight caching via supported configurations; cached weights can be permanently deleted on request."
+suffix = """
+
+
+**ZDR Configuration Changes.** Customers may request chang"""
+
+[[anchor]]
+id = "baseten-security-practices-audit-logs-4-years"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "uding device type, IP addresses, and abnormality detection. "
+exact = "Security-relevant logs are stored for up to 4 years, protected from unauthorized access, and cannot be deleted or modified, even by an administrator."
+suffix = """
+
+
+**Host Management.** Baseten enforces security requirement"""
+
+[[anchor]]
+id = "baseten-security-practices-infra-only-no-training"
+source_id = "27db51c160a382cc"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ustomer inference workloads in secure, isolated containers. "
+exact = "Baseten does not use Customer Content for model training, fine-tuning, or improvement of any algorithms."
+suffix = """
+
+
+**Zero Data Retention Products.** Baseten adheres to a Zer"""
+
+[[anchor]]
+id = "baseten-security-practices-multicloud-region-locking"
+source_id = "27db51c160a382cc"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " Google Cloud Platform, and others) for its infrastructure. "
+exact = "Baseten's multi-cloud capacity management architecture distributes workloads across cloud providers and multiple regions globally, enabling cross-provider redundancy, GPU failover, and region-locking for customers with data residency or compliance requirements."
+suffix = """
+
+
+**Deployment Options.** Baseten offers three deployment co"""
+
+[[anchor]]
+id = "baseten-security-practices-self-hosted-no-leave"
+source_id = "27db51c160a382cc"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+t with autoscaling across cloud providers and regions.
+
+*   """
+exact = "**Self-Hosted:** Full access to the Baseten inference stack within the customer's own cloud environment. No Customer Content leaves the customer's environment."
+suffix = """
+
+
+*   **Hybrid:** Combines self-hosted control with elastic """
+
+[[anchor]]
+id = "baseten-security-practices-post-term-30-days"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+t.
+
+## **DATA RETENTION FOR OTHER PRODUCTS**
+
+**Training.** """
+exact = "For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content."
+suffix = " After such thirty (30) day period, Baseten will promptly de"
+
+[[anchor]]
+id = "baseten-security-practices-backup-residual"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ill promptly delete all Customer Content in its possession. "
+exact = "Residual copies of Customer Content may remain in backups for a limited period until they are overwritten or purged in accordance with Baseten's regular backup retention and lifecycle processes."
+suffix = """
+
+
+## **INCIDENT MANAGEMENT**
+
+Baseten has an established and"""
+
+[[anchor]]
+id = "baseten-security-practices-subprocessor-notice-15-days"
+source_id = "27db51c160a382cc"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "asures, in accordance with applicable data protection laws. "
+exact = "Customers will be notified at least fifteen (15) days prior to engagement of any new Subprocessor, as described in Baseten's DPA."
+suffix = """
+
+
+Questions about these Security Practices? Contact security"""
+
+[[anchor]]
+id = "baseten-dpa-3-1-processor"
+source_id = "a79e5e21d428fa5c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ivacy Laws.
+
+1.   **Roles of the Parties**
+
+2.   **Roles**. """
+exact = "The Parties acknowledge and agree that with regard to the Processing of Customer Personal Data: (a) Baseten acts as a Processor; (b) Customer acts as a Controller, or as a Processor on behalf of its own controllers; and (c) Baseten will engage Sub-Processors pursuant to Section 7."
+suffix = """
+
+
+3.   **Customer's Role.** Customer shall, in its use of th"""
+
+[[anchor]]
+id = "baseten-dpa-9-no-training"
+source_id = "a79e5e21d428fa5c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+n Annex A (Data Processing Details).
+
+9.   **No Training.** """
+exact = "Consistent with the Agreement, Baseten will not use Customer Personal Data to train, fine-tune, or otherwise develop machine learning or artificial intelligence models."
+suffix = """
+
+
+10.   **Data Retention.** Where the Services are provided """
+
+[[anchor]]
+id = "baseten-dpa-10-data-retention-zdr"
+source_id = "a79e5e21d428fa5c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "urity Practices https://www.baseten.co/security-practices), "
+exact = "Baseten shall not log, record, or save Customer Personal Data contained in model inputs or outputs to persistent storage after real-time processing, subject to the product-specific practices and limited exceptions described in the Security Practices."
+suffix = " Baseten may retain Usage Information (as defined in the Agr"
+
+[[anchor]]
+id = "baseten-dpa-9-return-deletion-30-days"
+source_id = "a79e5e21d428fa5c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "tomer may retrieve Customer Personal Data via the Services. "
+exact = "On written request during the Post-Term Period, Baseten shall within thirty (30) days either (a) return a complete copy by secure transfer, or (b) delete all Customer Personal Data."
+suffix = " If Customer does not instruct Baseten during the Post-Term "
+
+[[anchor]]
+id = "baseten-docs-regional-deployments-available-regions"
+source_id = "0c2169b1046691f6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ following regions are available for regional deployments.
+
+"""
+exact = """
+| Region slug | Location |
+| --- | --- |
+| `us` | United States |
+| `eu` | European Union |"""
+suffix = """
+
+
+## Deploy to a region
+
+Select a region with the Baseten CL"""
+
+[[anchor]]
+id = "baseten-docs-regional-deployments-global-default"
+source_id = "0c2169b1046691f6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+y region in Baseten’s global infrastructure | **Global** |
+
+"""
+exact = "**Global** is the default when neither a deployment region nor a compliance policy limits placement. Baseten can place replicas in any region where the requested compute is available."
+suffix = """
+
+
+## Regional deployment constraints
+
+Keep the following in """
+
+[[anchor]]
+id = "baseten-docs-self-hosted-payload-retention"
+source_id = "d1d3fec1e3c0e472"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s and outputs stay entirely within your infrastructure.
+*   """
+exact = "**Payload retention**: Baseten doesn’t store synchronous inference inputs or outputs."
+suffix = " Async inference inputs queue inside your infrastructure unt"
+
+[[anchor]]
+id = "baseten-docs-self-hosted-never-leave"
+source_id = "d1d3fec1e3c0e472"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ security groups, and provider-native networking controls.
+
+"""
+exact = "Inference payloads never leave your environment."
+suffix = " Some platform data does. Model builds run in the Baseten co"

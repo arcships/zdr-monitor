@@ -1,0 +1,171 @@
+# zdr — LLM 供应商数据处理政策台账
+
+> 83 家 LLM 供应商、307 个档位的数据处理政策，逐条追到官方原文。
+> 有官方明确表述的结论会绑定逐字引文；“未公开”类结论可能没有可引用的句子。
+> 已绑定的原文每天重抓比对，发生变化会报出来。
+> Data-handling policies of 83 LLM vendors across 307 plan tiers, every verdict
+> traced to official sources, with verbatim quotes wherever the source makes an explicit statement.
+
+## 这份数据回答什么 / What it answers
+
+五个维度，问法固定：
+
+- `training` 是否承诺不用于训练？（拿去「改进服务质量」也算训练）
+- `zdr` 能否做到零数据保留？
+- `retention` 推理输入输出保留多久
+- `processing_region` 在哪处理
+- `role` 合同角色（受托处理 / 独立控制者 / 次级受托 / 未约定）
+
+只有 `training` 和 `zdr` 是 yes/no/unknown 判断题，且 `yes` 都是对用户有利。
+另外三个维度分别读 `basis`、`codes`、`kind`，不要因为没有 `mark` 就判成缺数据。
+
+档位（`plan_level`）分 free / individual / team / enterprise / any，
+品类（`category`）分 api / coding_plan / web / self_host。
+同一家厂商的个人档和企业档常常条款相反，所以档位是一等公民。公司聚合只用于导航，
+不能把多个档位折成一个“这家厂商”的结论。
+
+## 机器读的出口 / Machine-readable endpoints
+
+- 全量：https://arcships.github.io/zdr-monitor/api.json
+  照 models.dev 的约定，顶层就是对象、键是厂商 id，不套 envelope：
+  `api["cursor"].plans["cursor/teams"].training.quote` 直取到引文原文。
+  厂商层有 name / kind / homepage / doc / lines / sources / changes / plans；
+  档位层有 tier / site / entity / category / plan_level 与五个维度，
+  每个维度含 mark、mode、summary、quote、source、points。
+- 只要表格：https://arcships.github.io/zdr-monitor/_catalog.json
+  每行是一个档位（不是一家厂商），含五维结论与极简标签。
+- 单家详情：https://arcships.github.io/zdr-monitor/p/<company>.json
+- 已确认的政策变化：https://arcships.github.io/zdr-monitor/_changes.json
+- 生成时间与抓取健康度：https://arcships.github.io/zdr-monitor/_meta.json
+
+一次性问答不要先下载 1.9MB 的全量文件。推荐先读 `_catalog.json`，从 `rows[]`
+筛到档位，再用该行的 `company` 请求 `p/<company>.json`。`provider_id` 是产品线 ID，
+`company` 才是聚合详情页 ID；不要按 `name` 猜归属。若直接请求产品线 ID，响应可能只是
+`{"alias":"<company>"}`，需要再请求目标。现有按公司分片已经是小入口，不另设 CSV：
+CSV 无法无损表达多条引文、来源和五维嵌套结构。
+
+## JSON 最小结构 / Minimal schema
+
+`_catalog.json`：
+
+- `generated_at`：本次生成时间；数字会变化，以文件内容为准。
+- `dimensions`：固定的五个维度。
+- `rows[]`：一项就是一个档位。`id` 是档位唯一 ID；`provider_id` 是产品线；
+  `company` 是聚合公司；`category`、`plan_level` 是筛选字段；`cells` 是五维机器判定。
+- `monitoring`：`sources` 来源总数、`with_snapshot` 已有快照数、`failing` 当前抓取异常数。
+
+结构化值：
+
+- `retention.basis`：`fixed_period` 固定期限（结合 `days`）/ `none` 不留存 /
+  `until_termination` 留至服务终止 / `as_needed` 按需 / `undisclosed` 未公布。
+- `processing_region.codes`：通常是国家或地区码，也可能是 `global` 或 `selected`；
+  空数组表示未披露，不代表本地处理。
+- `role.kind`：`processor` 受托处理 / `controller` 独立控制者 /
+  `subprocessor` 次级受托 / `unknown` 未约定。
+
+`api.json` 顶层按厂商 id 直取，档位在 `plans` 里也按 id 直取，五个维度直接挂在档位上：
+
+```jsonc
+{
+  "cursor": {
+    "id": "cursor", "name": "Cursor", "kind": null,
+    "homepage": "https://cursor.com/", "doc": "https://cursor.com/data-use",
+    "lines": [{ "id": "cursor", "line": "Cursor", "site": "global", "entity": "Anysphere, Inc." }],
+    "plans": {
+      "cursor/teams": {
+        "id": "cursor/teams", "line": "Cursor", "tier": "Teams",
+        "site": "global", "entity": "Anysphere, Inc.",
+        "category": "coding_plan", "plan_level": "team",
+        "training": {
+          "mark": "yes", "mode": "default", "terse": "默认",
+          "summary": "是，默认不训练",
+          "quote": "For teams, Privacy Mode is enabled by default for all team members…",
+          "source": { "url": "https://…", "channel": "enterprise_privacy_faq" },
+          "points": [{ "text_zh": "…", "quote": "…", "source": { "url": "…", "channel": "…" } }]
+        },
+        "zdr": {}, "retention": {}, "processing_region": {}, "role": {}
+      }
+    },
+    "sources": [{ "id": "…", "url": "https://…", "channel": "developer_data",
+                  "line": "Cursor", "current_version": "…", "observed_at": "…" }],
+    "changes": []
+  }
+}
+```
+
+维度里的 `searched` 只在 `mark` 为 `unknown` 时出现，列的是为这个维度查过哪些页面——
+「查过没找到」这句话靠它才能验证。
+
+`p/<company>.json` 是站点详情页吃的那一份，形状不同：档位在 `tiers[]` 数组里，
+结论和解释分成 `cells` 与 `evidence` 两块：
+
+```jsonc
+{
+  "id": "codebuff",
+  "name": "Codebuff",
+  "lines": [{ "id": "codebuff", "line": "Codebuff", "site": "global", "entity": "Freebuff, Inc." }],
+  "tiers": [{
+    "id": "codebuff/managed",
+    "line_id": "codebuff",
+    "tier": "托管 CLI",
+    "site": "global",
+    "entity": "Freebuff, Inc.",
+    "cells": {
+      "training": { "mark": "yes", "mode": "default", "terse": "默认" },
+      "zdr": { "mark": "unknown", "terse": "未公开" },
+      "retention": { "basis": "undisclosed", "terse": "未公布" },
+      "processing_region": { "codes": ["US", "global"], "terse": "美国 / 全球" },
+      "role": { "kind": "unknown", "terse": "未约定角色" }
+    },
+    "evidence": {
+      "training": {
+        "summary": "是，默认不训练",
+        "points": [{
+          "text": "策展说明",
+          "quote": "厂商原文",
+          "source": { "url": "https://...", "channel": "consumer_privacy" }
+        }]
+      }
+    }
+  }],
+  "sources": [{
+    "source_id": "...", "line_id": "codebuff", "url": "https://...",
+    "channel": "consumer_privacy", "current_version": "...",
+    "version_observed_at": "...", "version_origin": "fetch", "failure": null
+  }],
+  "changes": []
+}
+```
+
+上例只展示结构，省略了双语字段和其余维度的 evidence。`cells` 是结构化结论，适合筛选；
+`evidence` 是解释和原文，适合回答“为什么”。`evidence.<dimension>.quote/source` 是维度级
+主引文；`points[]` 可各自带不同的 `quote/source`。可选字段缺席时不要自行补值或反推结论。
+`sources[]` 是公司下所有受监控文档，不代表每份都支撑当前档位；应以 evidence 中实际绑定的
+source 为准。`changes[]` 只含 agent 已确认的政策变化，不把抓取 diff 直接当政策变化。
+变化记录的 `direction` 为 `weakened` / `strengthened` / `clarified`，并用 `dimensions`、
+`from_version`、`to_version`、`observed_at` 和双语 summary 描述影响。
+
+## 怎么读这些结论 / How to read a verdict
+
+- `mark` 只按当前维度的列名解释。`training` 的问题是「是否不用于训练？」：
+  `yes` = 不训练，`no` = 会训练，`unknown` = 未找到不训练承诺。绝不能把它按
+  「是否用于训练？」反向读取。`zdr` 中 `yes` = 可以零保留，`no` = 不可以。
+- `unknown` 不是“没查”，而是查过官方文档仍未找到对应表述。源台账要求用 `searched`
+  记录查过的页面，这个字段已经导出：`api.json` 里挂在维度上，`p/<company>.json` 里
+  挂在 `evidence.<dimension>.searched`。看不到它不等于未核查，但看得到它就能逐条验。
+- `mode` 必须和 `mark`、维度一起读，不能单独当结论：`default` 默认如此 /
+  `by_contract` 靠商业合同 / `by_tier` 靠该档产品条款 / `opt_out` 可退出 /
+  `opt_in` 需授权或开通 / `by_agreement` 需向厂商申请 / `by_deployment` 由部署形态决定、
+  不是厂商承诺 / `not_disclosed` 未公开承诺或方案。例如 training 的
+  `{mark:"no", mode:"opt_out"}` 是“当前会训练，但可退出”，不是“不训练”。
+- 引文是原始语言，不翻译——翻译过的句子没法拿去跟厂商对质。
+
+## 边界 / Scope
+
+只收厂商实际处理数据的档位。自带 key（BYOK）和纯本地运行不收：数据不经过这家
+厂商，就没有这家厂商的政策可追。客户自己部署的那一档（`self_host`）收，因为
+适用的往往是另一份合同。
+
+## 源码 / Source
+
+https://github.com/arcships/zdr-monitor

@@ -1,0 +1,270 @@
+name = "月之暗面 Kimi"
+name_en = "Moonshot AI"
+company_name = "月之暗面 Kimi"
+line = "moonshotai"
+site = "global"
+entity = "Moonshot AI PTE. LTD."
+endpoint = ""
+doc = "https://platform.kimi.ai/docs/agreement/modeluse"
+
+[[source]]
+url = "https://platform.kimi.ai/docs/agreement/modeluse"
+channel = "contract"
+tier = "core"
+note = "Kimi 开放平台《Terms of Service》(platform.kimi.ai,Last Updated: July 30th, 2026;主体 Moonshot AI PTE. LTD.)。第 2 节写「Customer Content may be used for the foregoing purposes」,需限制训练/改进的客户须另洽企业安排——说明「默认可用内容训练」是该集团合同的常态表述;本档不适用,收录作反向佐证,authoritative_for 为空。"
+
+[[source]]
+url = "https://platform.kimi.ai/docs/agreement/userprivacy"
+channel = "developer_data"
+tier = "core"
+note = "Kimi 开放平台《Privacy Policy》(platform.kimi.ai 文档站,Last Update: April 30, 2025)。主体 MOONSHOT AI PTE. LTD.(新加坡),服务器位于新加坡,账号/输入/支付信息在账号存续期间保留,违规信息保留至违规解决。这是与本档 NOVASCENT 不同的另一个新加坡主体、另一条产品线,故 authoritative_for 为空,仅用于证明「开放平台的 Singapore 处理地披露不能套到本档」。"
+
+[[source]]
+url = "https://platform.kimi.ai/docs/guide/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含图片/视频直传、安全日志与计费记录等运营数据、第三方模型与插件;内容安全审核对全部流量照常生效。本档(Kimi Code 订阅)不适用,收录作档位对照,authoritative_for 为空。"
+
+[[source]]
+url = "https://www.kimi.ai/help/kimi-api/api-data-security"
+channel = "developer_data"
+tier = "contradiction"
+note = "与 https://platform.kimi.ai/docs/agreement/modeluse（core，本条目 training 权威来源）就同一档位（api：Kimi 国际开放平台，本条目唯一档位，按量计费 + 企业方案）的 training 维度表述不一致。本文件原句：「No. User data submitted through the API (including input content and model output) is not used to train or improve Kimi's models. Your data is used solely to fulfill the current API request and is not persistently stored for training purposes.」，另有表格行「Not Used for Training / API data is not used for model training」；core 合同原句：「We may use Content to provide, maintain, develop, support, and improve the Services, comply with applicable law, enforce our terms and policies, and keep the Services safe and secure.」＋「Customer who requires restrictions on the use of Customer Content for training or improving Moonshot AI models may contact Moonshot AI to discuss available enterprise arrangements or separate written agreements. Unless otherwise expressly agreed in writing, Customer Content may be used for the foregoing purposes.」（后者把 training or improving Moonshot AI models 明列为可能的用途，并称限制需企业安排或书面协议，即默认不设限）。各自范围：本文件是 www.kimi.ai 帮助中心「Kimi API」分类下的《Data processing & security》FAQ——同分类 api-overview 页给出 Platform URL = platform.kimi.ai，并写明开放平台 uses pay-as-you-go billing with no subscription plan，与 Kimi Membership / Kimi Code 明确区分，本页文件删除示例为 DELETE https://api.moonshot.ai/v1/files/{file_id}；正文主语逐字是 User data submitted through the API (including input content and model output) 与 API data，指向国际开放平台 API。core 是同一平台（platform.kimi.ai）的《Kimi OpenPlatform Terms of Service》，签约主体 Moonshot AI PTE. LTD.（新加坡），首段声明该 ToS 与 Kimi OpenPlatform Privacy Policy、Order Form 共同构成 Agreement。四种解释的排除依据：（1）适用范围——ToS §4 首句即给出定义：「You and End Users may submit prompts, texts, audios or other content or materials (input) to the Services and the Services generate corresponding content as a response (output). Both input and output are collectively referred to as content.」，即 Content 逐字包含 API 提交的输入与模型输出，与 FAQ 的 input content and model output 是同一数据对象，故「ToS 的 Content 不含 API 请求数据」这条化解不成立；FAQ 第二条锚点（retention 主题，is not persistently stored for training purposes）自带 for training purposes 限定，不否认账户存续期的一般保留，与 retention 权威来源（隐私政策 §6 retained while your account is active）不构成矛盾，保留该锚点仅作同一份文档的另一半证据。（2）档位——本家只有 api 一档（帮助中心 api-overview 明示开放平台无订阅套餐，订阅档归 kimi-code-plan-global 等条目）；FAQ 的否认句无任何档位限定（同页只把 higher security requirements 指向销售团队，企业内容另有 Kimi Business 分类），ToS §4 的许可句与限制句同样不限档位，且「限制需企业安排或书面协议」意味着按量档默认也不设限，故档位不解释差异。（3）站点——两份文档的标的是同一产品：FAQ 所在帮助中心的 kimi-api 分类即开放平台文档（Platform URL = platform.kimi.ai、文件接口 api.moonshot.ai/v1），ToS 就是该平台的协议，同属国际线（Moonshot AI PTE. LTD.）；国内线对应页为 www.kimi.com/help/kimi-api/api-data-security 与 platform.moonshot.cn（本条目已登记 rejected，另立 moonshotai-cn 条目），不构成国内站/国际站之分。注：同一英文 FAQ 文本另有 www.kimi.com/en 镜像（本条目别名，drop），说明按域名判实体不可靠；但两份文档同指国际开放平台 API 这一点由正文自证。（4）时效——本文件无生效/更新日期（帮助中心页与直连 HTML 快照均无日期行），故不作日期比对，改以「无版本取代证据」排除旧版解释：本页 2026-09-21 抓取有效（HTTP 200、2060B，两条锚点逐字命中），仍在帮助中心在列（分类页索引到该页），文件删除指引与现行文件接口一致；同一不训练表述在现行文档站 ZDR 页（platform.kimi.ai/docs/guide/zero-data-retention：By default, the Kimi Open Platform does not use enterprise customer data to train models.）上仍然存在（该页限企业客户子档，不能解释本页无限定的否认句，仅证差异非单一过期页）；而较新的合同文本（ToS Last Updated: July 30th, 2026）保留了上述许可条款，未采纳 FAQ 口径。需要厂商书面澄清：按量（非企业方案）API 下，API 输入输出是否默认用于训练/改进模型？帮助中心 FAQ 的 not used to train or improve Kimi's models 是无条件承诺（即合同 §4 的许可在实践中不对 API 内容行使），还是仅面向企业客户？若为前者，应把该承诺写入 ToS/隐私政策或修改 §4；若为后者，应在 FAQ 上明确档位限定。"
+
+[[product]]
+id = "api"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "training-content-use"
+mode = "opt_out"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-enterprise-request"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-delete-after-termination"
+
+[product.processing_region]
+codes = ["SG"]
+anchor = "region-singapore"
+
+[product.role]
+kind = "controller"
+anchor = "role-self-use-license"
+
+[[anchor]]
+id = "training-content-use"
+source_id = "d9802fc46b1c00dd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "it is possible that there may be similarities in the output."
+exact = "We may use Content to provide, maintain, develop, support, and improve the Services"
+suffix = ", comply with applicable law, enforce our terms and policies"
+
+[[anchor]]
+id = "training-restriction-enterprise"
+source_id = "d9802fc46b1c00dd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " terms and policies, and keep the Services safe and secure. "
+exact = "Customer who requires restrictions on the use of Customer Content for training or improving Moonshot AI models may contact Moonshot AI to discuss available enterprise arrangements or separate written agreements."
+suffix = " Unless otherwise expressly agreed in writing, Customer Cont"
+
+[[anchor]]
+id = "role-self-use-license"
+source_id = "d9802fc46b1c00dd"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ble enterprise arrangements or separate written agreements. "
+exact = "Unless otherwise expressly agreed in writing, Customer Content may be used for the foregoing purposes."
+suffix = "Given the uncertainty and probabilistic nature of machine le"
+
+[[anchor]]
+id = "role-content-confidential"
+source_id = "d9802fc46b1c00dd"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ntial under the circumstances (“Confidential Information”). "
+exact = "Customer Content shall be deemed Customer’s Confidential Information."
+suffix = "**Protection of Confidential Information.** The Recipient sh"
+
+[[anchor]]
+id = "retention-delete-after-termination"
+source_id = "d9802fc46b1c00dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nd or discontinue the Services based on specific situations."
+exact = "After your service is terminated, we will delete your content and data in accordance with the requirements of applicable laws and regulations."
+suffix = """
+
+
+## 12.Governing Law and Dispute Resolution
+
+YOU AND US AGR"""
+
+[[anchor]]
+id = "retention-cancellation-by-customer"
+source_id = "d9802fc46b1c00dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ation or Discontinuation of the Services
+
+**Cancellation.** """
+exact = "Customer may terminate the Services at any time by deleting your account."
+suffix = "You may apply to delete your account by contacting us via ou"
+
+[[anchor]]
+id = "region-governing-law-singapore"
+source_id = "d9802fc46b1c00dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ination, enforcement, and dispute resolution of these terms "
+exact = "shall all be governed by the laws of Singapore"
+suffix = ".In the event of any dispute arising out of these terms, bot"
+
+[[anchor]]
+id = "region-singapore"
+source_id = "39da5a3555051ba4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "tored on servers located outside your country of residence. "
+exact = "We store the information we collect in secure servers located in Singapore."
+suffix = "When cross-border transfers are necessary, we will implement"
+
+[[anchor]]
+id = "region-eea-singapore"
+source_id = "39da5a3555051ba4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+nd secure. |
+
+**Data storage** It is important to note that """
+exact = "our servers are situated in Singapore. Consequently, when you utilize our services, your personal data may be processed and stored on our servers located in Singapore."
+suffix = " This could involve either a direct submission of your perso"
+
+[[anchor]]
+id = "retention-account-active"
+source_id = "39da5a3555051ba4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "h as information type, sensitivity, and legal requirements. "
+exact = "For example, account, input, and payment information are retained while your account is active."
+suffix = " Violation-related information is retained until the violati"
+
+[[anchor]]
+id = "retention-as-long-as-necessary"
+source_id = "39da5a3555051ba4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+untable for their legal responsibilities.
+
+## 6. Retention
+
+"""
+exact = "We store your information as long as necessary to provide the services, fulfill the purposes outlined in this policy and other legitimate business purposes"
+suffix = " (such as service improvement, resolving disputes, safety or"
+
+[[anchor]]
+id = "training-privacy-improve"
+source_id = "39da5a3555051ba4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "g various features.**To Improve and Develop Our Services:** "
+exact = "We analyze how you use the services to identify areas for improvement, develop new features, and enhance the overall user experience. This includes training and refining our underlying technology, such as machine learning models and algorithms."
+suffix = "**To Communicate with You:** We may contact you to inform yo"
+
+[[anchor]]
+id = "role-provided-and-controlled-by"
+source_id = "39da5a3555051ba4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ril 30, 2025**Welcome to Kimi OpenPlatform!Our services are "
+exact = "provided and controlled by MOONSHOT AI PTE. LTD."
+suffix = " (“we”or”Moonshot AI”) in Singapore through web pages.(“the "
+
+[[anchor]]
+id = "zdr-delete-on-response"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "vailable to enterprise customers on the Kimi Open Platform. "
+exact = "When ZDR is enabled, your request content is processed only while the response is being generated and is deleted as soon as the response is returned."
+suffix = " We do not retain this content, except where required by app"
+
+[[anchor]]
+id = "zdr-enterprise-request"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+including terminating ZDR service.
+
+## Who can enable ZDR?
+
+"""
+exact = "ZDR is available on request to enterprise customers."
+suffix = " If your business handles sensitive data or operates in an i"
+
+[[anchor]]
+id = "zdr-enterprise-no-training"
+source_id = "3bbe87200150e9bf"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+*: Enterprise customer data is not used to train models.
+
+> """
+exact = "By default, the Kimi Open Platform does not use enterprise customer data to train models."
+suffix = " ZDR further extends this protection by eliminating content "
+
+[[anchor]]
+id = "training-helpcenter-no-training"
+source_id = "0bfc51f1d8c0aba0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ugh the API (including input content and model output) is **"
+exact = "not used to train or improve Kimi"
+suffix = "'s models**. Your data is used solely to fulfill the current"
+
+[[anchor]]
+id = "retention-helpcenter-not-persistent"
+source_id = "0bfc51f1d8c0aba0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " data is used solely to fulfill the current API request and "
+exact = "is not persistently stored for training purposes"
+suffix = """
+.
+
+## How is private data security ensured?
+
+Kimi API employ"""

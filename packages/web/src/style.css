@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * 视觉语言照 models.dev：
+ *   极简灰阶 + 一个强调色、等宽字承担数据、虚线下划线、
+ *   表头小字号大写字母、行高固定、整页不滚动由表格内部滚
+ * 是照它的规律重写，不是 fork 它的代码。字体用公司规范的 Inter，不跟它。
+ */
+:root {
+  /* 公司品牌绿，取自 cortex-matrix-web 的 --primary。models.dev 用的是暖橙，
+     这里只借它的视觉规律，颜色跟自家设计规范。 */
+  --brand: oklch(0.55 0.15 148);
+  --bg: #fff;
+  --bg-alpha: rgba(255, 255, 255, 0.84);
+  --surface: #f5f5f5;
+  --line: #ddd;
+  --fg: #333;
+  --fg-2: #666;
+  --fg-3: #999;
+  --fg-invert: #fff;
+  --ok: #17803d;
+  --bad: #c0392b;
+  --header-h: 56px;
+}
+.dark {
+  /* 深色底上要提亮，不然绿会糊进背景 */
+  --brand: oklch(0.80 0.17 148);
+  --bg: #1e1e1e;
+  --bg-alpha: rgba(30, 30, 30, 0.84);
+  --surface: #111;
+  --line: #333;
+  --fg: #fff;
+  --fg-2: #aaa;
+  --fg-3: #666;
+  --fg-invert: #333;
+  --ok: #4ade80;
+  --bad: #f87171;
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg2: var(--fg-2);
+  --color-fg3: var(--fg-3);
+  --color-invert: var(--fg-invert);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  /* Inter + JetBrains Mono，和公司 cortex-matrix-web 的设计规范一致。
+     中文回落系统字体——引中文 webfont 要几 MB，不值。 */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* 整页不滚动，滚动交给内部容器——这是 models.dev 那种「像应用不像文档」的来源。
+     #app 也要给高度：它夹在 body 和 flex 容器之间，不给就撑不起来，
+     里面的 h-full / flex-1 全部失效，页面变成滚不动。 */
+  html, body, #app { height: 100%; overflow: hidden; }
+  body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  input, button, select { font-family: inherit; }
+
+  /* 虚线下划线：链接不抢视线，但一眼看得出可点 */
+  a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--fg-3);
+    text-underline-offset: 0.1875rem;
+  }
+  a:hover { text-decoration-color: var(--fg); }
+
+  .nav-link {
+    text-decoration: none;
+  }
+  .nav-link.router-link-exact-active {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--brand);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35rem;
+  }
+}
+
+/* ── 表格 ────────────────────────────────── */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8125rem;
+  width: 100%;
+}
+th, td {
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  height: 44px;
+  vertical-align: middle;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-top: 1px solid var(--line);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--fg-2);
+  background: var(--bg-alpha);
+  backdrop-filter: blur(6px);
+}
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { color: var(--fg); }
+/* 前两列是主信息，其余降一级——让视线先落在供应商和判定上 */
+tbody td { color: var(--fg-3); }
+tbody td:first-child, tbody td:nth-child(2), tbody td:nth-child(3) { color: var(--fg); }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--surface); }
+
+/* 厂商 logo。models.dev 是 SSG，把 svg 内联进 HTML 并把 fill/stroke 改写成
+   currentColor；我们是 SPA，184KB svg 不能塞进首屏，所以用 mask 取同样的效果：
+   svg 只当形状，颜色永远跟着当前文字色走，深浅色主题都不用换图。 */
+.logo {
+  display: inline-block;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+
+/* 判定记号。✓ 表示对用户有利 */
+.mk { font-weight: 600; font-size: 0.9375rem; line-height: 1; }
+.mk.y { color: var(--ok); }
+.mk.n { color: var(--bad); }
+.mk.u { color: var(--fg-3); }
+
+/* 原文摘录是这个台账的地基：结论不能只给 URL，要给到具体哪一句。
+   竖线只是「这是引文」的标记，用中性灰——品牌色在这里会被读成一种评价，
+   而原文本身不表态，表态的是它下面那句解说。 */
+.quote {
+  border-left: 2px solid var(--line);
+  background: var(--surface);
+  padding: 0.75rem 3rem 0.75rem 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}

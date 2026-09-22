@@ -1,0 +1,141 @@
+name = "Factory Droid"
+line = "factory-droid"
+site = "global"
+plan_levels = ["individual", "team", "enterprise"]
+entity = "The San Francisco AI Factory Inc."
+endpoint = ""
+doc = "https://docs.factory.ai/enterprise/privacy-and-data-flows.md"
+
+[[source]]
+url = "https://docs.factory.ai/enterprise/privacy-and-data-flows.md"
+channel = "developer_data"
+tier = "core"
+note = "Droid 云托管、混合与全隔离部署的数据流；覆盖代码不远端索引、模型直连、遥测默认值、日志与驻留。"
+
+[[source]]
+url = "https://docs.factory.ai/model-independence/byok.md"
+channel = "developer_data"
+tier = "core"
+note = "BYOK、自托管及本地模型配置；API key 只留本地，并披露 prompt cache 取决于上游实现。"
+
+[[source]]
+url = "https://factory.ai/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Factory 通用隐私政策；改善服务、美国处理与控制者口径。"
+
+[[source]]
+url = "https://docs.factory.ai/pricing/individuals.md"
+channel = "developer_data"
+tier = "core"
+note = "个人 Pro/Plus/Max 档位依据。"
+
+[[source]]
+url = "https://docs.factory.ai/pricing/organizations.md"
+channel = "developer_data"
+tier = "core"
+note = "Teams/Business/Enterprise 档位依据。"
+
+[[product]]
+id = "individual-hosted"
+badge = "个人托管模型"
+category = "coding_plan"
+plan_level = "individual"
+label = "Pro / Plus / Max，Factory 管理或云模型"
+[product.training]
+mark = "no"
+anchor = "factory-improve-services"
+[[product.training.point]]
+text_zh = "通用隐私政策允许为改善服务处理数据，未明确排除模型训练，按口径 training=no。"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://factory.ai/privacy-policy", "https://docs.factory.ai/pricing/individuals.md"]
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "factory-cloud-logs-retention"
+[product.processing_region]
+codes = ["US"]
+anchor = "factory-us-processing"
+[product.role]
+kind = "controller"
+anchor = "factory-privacy-entity"
+
+[[product]]
+id = "teams-business-hosted"
+badge = "团队/商业版"
+category = "coding_plan"
+plan_level = "team"
+label = "Teams / Business，托管链路"
+[product.training]
+mark = "no"
+anchor = "factory-improve-services"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://docs.factory.ai/pricing/organizations.md"]
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "factory-cloud-logs-retention"
+[product.processing_region]
+codes = ["US"]
+anchor = "factory-us-processing"
+[product.role]
+kind = "controller"
+anchor = "factory-privacy-entity"
+
+[[product]]
+id = "enterprise-hosted"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "Enterprise，托管链路；隔离部署或 BYOK 的数据路径需按实际配置另行判断"
+[product.training]
+mark = "no"
+anchor = "factory-improve-services"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://docs.factory.ai/pricing/organizations.md"]
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "factory-cloud-logs-retention"
+[product.processing_region]
+codes = ["US"]
+anchor = "factory-us-processing"
+[product.role]
+kind = "controller"
+anchor = "factory-privacy-entity"
+
+[[anchor]]
+id = "factory-improve-services"
+source_id = "dfc578c3d8065452"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law."
+suffix = ""
+[[anchor]]
+id = "factory-us-processing"
+source_id = "dfc578c3d8065452"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "We process all data in the United States and in any data processing facilities operated by the third parties identified below."
+suffix = ""
+[[anchor]]
+id = "factory-privacy-entity"
+source_id = "dfc578c3d8065452"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "This privacy notice for The San Francisco AI Factory Inc. (doing business as Factory) (\"Factory,\" \"we,\" \"us,\" or \"our\"), describes how and why we might collect, store, use, and/or share (\"process\") your information when you use our services (\"Services\")"
+suffix = ""
+[[anchor]]
+id = "factory-cloud-logs-retention"
+source_id = "6d98e2d21b368abb"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Retention and residency for these logs are documented in the <a href=\"https://trust.factory.ai\">Trust Center</a> and can be tuned per customer engagement."
+suffix = ""

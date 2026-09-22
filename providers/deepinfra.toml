@@ -1,0 +1,514 @@
+name = "DeepInfra"
+line = "deepinfra"
+site = "global"
+entity = "Deep Infra Inc."
+endpoint = ""
+doc = "https://deepinfra.com/terms"
+
+[[source]]
+url = "https://deepinfra.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《DeepInfra Privacy Policy》(Last modified: August 15th 2026)，主体 DeepInfra, Inc.，适用范围含 Website 与 APIs。是 processing_region 的权威来源（唯一写明「specifically in the United States」的官方文件）；§Data submitted to and returned by our inference Service 是 training/retention 的并列来源；§Disclosure 的「shared with the relevant API endpoints」是 Google/Anthropic 多跳链路的第二处官方依据；§Data Retention 给出账号 PII 的 30 天期限。该政策本身被合同 §5(a) 以引用方式纳入，但合同同时声明 ZDR 条款优先于它。"
+
+[[source]]
+url = "https://deepinfra.com/terms"
+channel = "contract"
+tier = "core"
+note = "《DeepInfra Terms of Service》(Last modified: August 17th, 2026)，签约主体 Deep Infra Inc.（Delaware）。形式上是 Order Form 制企业合同（§1「Provider has no obligation to provide any Services until a Service Order is executed」），但开头写明「By executing a Service Order that references these Terms, or by accessing or using the Services, Customer agrees to these Terms」，故自助注册使用 API 同样受约束——本台账按 contract 通道、覆盖 API 档全部档位。§7(b) 是 training 与 zdr 的权威条款（含术语「Zero Data Retention」）；§5(a) 是优先性声明（ZDR 优先于隐私政策及任何网页/文档）；§5(a)/§5(b)/§6(a) 是 role 的依据；§7(b)(i) 是 retention 的支持工单例外；§18 是第三方模型子集的依据。全文无 DPA 正文、无 controller/processor 字样、无处理地条款。"
+
+[[source]]
+url = "https://docs.deepinfra.com/account/data-privacy"
+channel = "developer_data"
+tier = "core"
+note = "文档站《Data Privacy》页，标题即「How DeepInfra handles your data during inference — what's stored, what's not」，是 retention 维度的权威来源，也是全站唯一点名 Google / Anthropic 上游存储与训练政策例外、批量推理落盘、图片生成输出存储、以及「保留记录一小部分请求的权利」的地方。隐私政策 §Data submitted... 直接以链接指向本页。该页的四项例外在合同 §7(b) 的例外清单中都没有对应文字，构成本家最大的冲突面。同时抓了 .md 直连通道（https://docs.deepinfra.com/account/data-privacy.md），正文与渲染版一致（仅「deleted from memory.The same applies」等处空格差异），锚点以渲染版为准。"
+
+[[source]]
+url = "https://docs.deepinfra.com/gpu-instances/overview.md"
+channel = "developer_data"
+tier = "core"
+note = "文档站《GPU Instances》总览页（专属部署档里 GPU 实例租用这一半）。本轮为补 private-models-and-gpu-instances 档的 retention 维度而抓取：全页唯一与数据处置有关的一句是容器销毁即永久丢失全部容器数据，没有任何请求级保留期、训练或区域表述。"
+
+[[source]]
+url = "https://docs.deepinfra.com/private-models/overview.md"
+channel = "developer_data"
+tier = "core"
+note = "文档站《Deploy Private Models》总览页（专属部署档里私有模型部署这一半）。全页唯一与数据处置有关的一句是隔离性表述——数据留在专属基础设施、不与其他用户共享，讲的是隔离而不是期限；没有保留期限、训练政策或区域说明，这是本档 training / zdr 记 not_found 的文档层依据之一。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "deepinfra-tos-7b-no-training"
+
+[[product.training.point]]
+text_zh = "同顶层 training：合同 §7(b) 不用于训练，例外为「as necessary to provide the Services (e.g., fine-tuning a model for Customer's use)」"
+
+[[product.training.point]]
+text_zh = "docs /account/data-privacy 与隐私政策同旨。无退出/申请机制说明。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "deepinfra-tos-7b-zdr-commitment"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：合同 §7(b) 的「Zero Data Retention」为默认承诺，§5(a) 声明其优先于隐私政策及任何网页/文档"
+
+[[product.zdr.point]]
+text_zh = "例外 (i)(ii)(iii)"
+
+[[product.zdr.point]]
+text_zh = "与 docs 页的四项例外冲突，两条并列。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "deepinfra-docs-dataprivacy-input-not-stored-on-disk"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：在线推理输入输出不落盘、完成即从内存删除"
+
+[[product.retention.point]]
+text_zh = "例外为图片生成输出（短期）、批量推理（可落盘加密，短期后删除）、日志（保留记录一小部分请求的权利）、Google/Anthropic 上游存储"
+
+[[product.retention.point]]
+text_zh = "量化的只有显式 prompt 缓存窗口 5 分钟/1 小时与账号删除后 PII 30 天。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "deepinfra-privacy-processing-in-united-states"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：隐私政策「specifically in the United States」；基础设施子处理方为 AWS / GCP；无区域选择。"
+
+[product.role]
+kind = "processor"
+anchor = "deepinfra-tos-5a-processes-on-behalf-of-customer"
+
+[[product.role.point]]
+text_zh = "同顶层 role：合同 §5(a)「on behalf of Customer」+ §5(b) 客户合法性基础义务 + §6(a) 子处理方受托，构成 processor 定位"
+
+[[product.role.point]]
+text_zh = "隐私政策部分对象为自身网站/账号数据，属独立控制方，两层对象不同。"
+
+[[product]]
+id = "api-third-party-hosted-models"
+badge = "第三方模型"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "deepinfra-docs-dataprivacy-no-training-except-google-anthropic"
+
+[[product.training.point]]
+text_zh = "docs /account/data-privacy §No training：「We do not use data you submit to our APIs for training models, except when using Google or Anthropic models, where the receiving company's training policy applies」——本档正是被该例外点名的子集，DeepInfra 侧的不训练承诺不覆盖它，训练政策由上游决定。按判定口径（未排除模型训练就不能替厂商排除）记 mark=no。合同 §7(b) 的「不用于训练」未点名此例外，两条并列。置信度 medium：DeepInfra 侧只说「适用上游政策」，未说明上游具体条款。"
+
+[product.zdr]
+mark = "unknown"
+
+[[product.zdr.point]]
+text_zh = "未披露该子集能否实现端到端零保留。合同 §7(b) 称 ZDR「applies to all Customer Data」且未点名上游例外，§18 则称第三方内容「governed exclusively by the applicable third-party license, terms of use, and privacy policies」但未指名 Google / Anthropic，也未把它们列为子处理方（docs /account/subprocessors 同样未列）。因此「DeepInfra 的 ZDR 承诺是否覆盖上游这一跳」在公开文件中无答案。置信度 low。"
+
+[[product.zdr.point]]
+text_zh = "§18 那句「第三方内容受第三方许可、使用条款与隐私政策专属管辖」是风险与准据法分配条款，没有说上游这一跳能否零保留，不构成对 zdr 维度的表述，故不再绑在本条；该 anchor 定义仍保留在本文件中（现无维度引用它）。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "deepinfra-docs-dataprivacy-google-stores-output"
+
+[[product.retention.point]]
+text_zh = "docs /account/data-privacy 明示「If you opt to use a Google model, Google will store the output as outlined in their Privacy Notice」「If you opt to use an Anthropic model, Anthropic will store the output as outlined in their Trust Center」——输出由上游存储，期限适用上游政策。合同 §7(b) 的 ZDR 文本没有这一例外，且 §5(a) 称 ZDR 优先于「any other Provider policy, webpage, or documentation」，两条并列。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "deepinfra-docs-dataprivacy-anthropic-stores-output"
+
+[[product.processing_region.point]]
+text_zh = "该子集的请求被「transferred to those endpoints to fulfill the request」（docs §No sharing），但 DeepInfra 未披露上游端点的处理地"
+
+[[product.processing_region.point]]
+text_zh = "隐私政策的「specifically in the United States」是否覆盖上游一跳未说明。置信度 low。"
+
+[product.role]
+kind = "unknown"
+anchor = "deepinfra-privacy-shared-with-relevant-api-endpoints"
+
+[[product.role.point]]
+text_zh = "隐私政策只说数据「will be shared with the relevant API endpoints, as specified at the time of use」，合同 §18 说受第三方条款约束。上游是 DeepInfra 的子处理方还是独立控制方、主体是谁，均未披露。置信度 low。"
+
+[[product]]
+id = "private-models-and-gpu-instances"
+badge = "专属部署"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://deepinfra.com/terms",
+  "https://deepinfra.com/privacy",
+  "https://docs.deepinfra.com/account/data-privacy",
+  "https://docs.deepinfra.com/llms.txt",
+]
+
+[[product.training.point]]
+text_zh = "该档是否适用合同 §7(b) 的「不用于训练」承诺未披露：条款文义以「Provider-run models」为界，客户自管模型是否在内无解"
+
+[[product.training.point]]
+text_zh = "docs 站无该档的独立数据处理页（llms.txt 的 private-models / gpu-instances 两节均为功能与部署文档）。按规则记 not_found：官方未就该档表态，不得反向解读为厂商承诺相反。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://deepinfra.com/terms",
+  "https://docs.deepinfra.com/account/data-privacy",
+  "https://docs.deepinfra.com/llms.txt",
+  "https://deepinfra.com/dpa",
+]
+
+[[product.zdr.point]]
+text_zh = "该档能否适用合同 §7(b) 的 Zero Data Retention 承诺未披露，理由同上（Customer Data 的定义边界）。/dpa 404，无公开 DPA 可查该档的角色与保留约定。记 not_found，不等于厂商不提供。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "deepinfra-docs-gpu-instances-container-data-lost-on-terminate"
+
+[[product.retention.point]]
+text_zh = "结论：本档没有请求级的量化保留期，官方只给出一条容器级的事实。(a) GPU 实例租用这一半：docs /gpu-instances/overview「All container data is permanently lost when terminated. Save your work before stopping.」——对象是客户自己写进容器的数据（经 SSH 上传的权重、数据集、训练产物、容器内日志），语境是默认，期限类型是事件触发：容器存续期间数据一直留在 DeepInfra 的机器上，销毁时永久丢失，何时销毁由客户决定，官方不另设期限。(b) 私有模型部署这一半：docs /private-models/overview 全页只有一句隔离性表述「data stays on dedicated infrastructure, not shared with other users」，讲的是不与其他租户共享，不是期限"
+
+[[product.retention.point]]
+text_zh = "该页没有任何保留期表述。(c) 合同层为什么补不上：§7(b) 的「not retain, store, or log ... beyond the period strictly necessary」与 Zero Data Retention 承诺，对象都是 Customer Data，而 §7(b) 把 Customer Data 定义为「data, content, materials, or requests into the Provider-run models as part of the Services」——客户自管模型与自租 GPU 上的数据是否属「Provider-run models」在公开条款中无解，与本档 training / zdr 两维记 not_found 同因。(d) 推理请求正文：docs /account/data-privacy 的「不落盘、推理完成即从内存删除」以「the data you submit to our APIs」为限定语，本档私有部署自带的 OpenAI 兼容端点是否算在内，官方未表态。(e) 本轮查过 https://deepinfra.com/terms、https://deepinfra.com/privacy、https://docs.deepinfra.com/account/data-privacy、https://docs.deepinfra.com/llms.txt、https://docs.deepinfra.com/gpu-instances/overview.md、https://docs.deepinfra.com/private-models/overview.md，未找到任何针对本档的天数、区间或日志保留窗口。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "deepinfra-privacy-processing-in-united-states"
+
+[[product.processing_region.point]]
+text_zh = "结论：美国，未披露任何可选区域。(a) 依据与 api 档同源，适用性靠公司级口径承接：隐私政策「Your data may be transferred, stored, and processed outside of your jurisdiction, specifically in the United States」——该句写在 Deep Infra Inc.（Delaware）的公司级隐私政策里，对象是「your data」，没有按产品档位设限"
+
+[[product.processing_region.point]]
+text_zh = "合同 §5(a) 又把数据处理整体指向这份隐私政策（「such processing is governed by Provider's privacy policy ... incorporated by reference」），故本档落在其中。(b) 本档自身文档没有区域信息：/gpu-instances/overview 与 /private-models/overview 全页不出现 region / location / data center 字样"
+
+[[product.processing_region.point]]
+text_zh = "创建容器的接口请求体只有 name、gpu_config、container_image、cloud_init_user_data 四个字段，没有区域参数——即文档层既未披露具体机房，也未提供区域选择能力。(c) 反向的口子：合同 §6(b) 允许 Provider 随时「substitute, reconfigure, upgrade, maintain, replace, relocate, or use alternate Provider-controlled infrastructure」，未限定地域。(d) 不确定性（本条为承接推断，非本档单独表态）：官方没有针对专属部署 / GPU 租用的区域声明，这里是「公司级隐私政策未排除本档」的读法"
+
+[[product.processing_region.point]]
+text_zh = "deepinfra.com/dpa 为 404，无公开 DPA 可核对数据所在地条款。"
+
+[product.role]
+kind = "processor"
+anchor = "deepinfra-tos-5a-processes-on-behalf-of-customer"
+
+[[product.role.point]]
+text_zh = "结论：受托处理方（processor），但比 api 档弱一档。(a) 依据：合同 §5(a)「To the extent Provider processes personal data or other data or sensitive information on behalf of Customer in providing the Services, such processing is governed by Provider's privacy policy ...」——限定语是「the Services」，而 §1 把 Services 定义为「the services described as the responsibility of Provider (the \"Services\") in each Service Order」，即由订单界定、并不限于按量 API：专属部署与 GPU 租用一经下单即落入其中。这与 §7(b) 不同——后者的对象 Customer Data 被收窄到「requests into the Provider-run models」，所以 training / zdr 两维在本档记 not_found，而角色维度不受那条收窄影响，这是本档五维结论不一致的原因。(b) 佐证：§4(a)「Provider shall use commercially reasonable efforts to maintain the network, power, and physical environment for the servers provided as part of the Services」——本档的服务器仍由 DeepInfra 运维，不是客户自有机房，客户买到的是专属算力而非自建设施"
+
+[[product.role.point]]
+text_zh = "§5(b) 要求客户自备提供数据的「rights, consents, notices, and lawful bases」，是控制方侧义务，与 processor 定位配套。(c) 不确定性：合同全文不出现 processor / controller 字样，未引用 GDPR Art.28，也未附 SCC"
+
+[[product.role.point]]
+text_zh = "deepinfra.com/dpa 为 404，没有公开 DPA 可核对本档的角色条款与子处理方安排。(d) 边界：GPU 实例租用档客户对容器内环境有 root / SSH 控制权，客户在容器里自行处理第三方个人数据时的角色分层（客户是否成为该场景下的控制方），公开条款未作区分。"
+
+[[anchor]]
+id = "deepinfra-tos-7b-zdr-commitment"
+source_id = "07d09ce3d7911532"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "he Services (e.g., fine-tuning a model for Customer's use). "
+exact = "Provider will not retain, store, or log any Customer Data submitted to or generated by the Services beyond the period strictly necessary to process and return the applicable request, after which such Customer Data is deleted from Provider's systems in the ordinary course of operations (\"**Zero Data Retention**\")"
+suffix = ". The foregoing does not apply to: (i) Customer Data that Pr"
+
+[[anchor]]
+id = "deepinfra-tos-7b-no-training"
+source_id = "07d09ce3d7911532"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ". Provider does not acquire ownership of any Customer Data. "
+exact = "Provider will not sell Customer Data, and will not use Customer Data to train, fine-tune, or otherwise improve any model, except as necessary to provide the Services (e.g., fine-tuning a model for Customer's use)"
+suffix = ". Provider will not retain, store, or log any Customer Data "
+
+[[anchor]]
+id = "deepinfra-tos-5a-zdr-controls-over-other-policies"
+source_id = "07d09ce3d7911532"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "ly as to its subject matter. Notwithstanding the foregoing, "
+exact = "the Zero Data Retention commitment in Section 7(b) controls over the Privacy Policy and any other Provider policy, webpage, or documentation"
+suffix = ", and an executed DPA supplements, and does not narrow, that"
+
+[[anchor]]
+id = "deepinfra-tos-5a-processes-on-behalf-of-customer"
+source_id = "07d09ce3d7911532"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+a Processing**
+
+**(a) Data Processing and Privacy Policy.** """
+exact = "To the extent Provider processes personal data or other data or sensitive information on behalf of Customer in providing the Services, such processing is governed by Provider's privacy policy"
+suffix = " at [https://deepinfra.com/privacy](https://deepinfra.com/pr"
+
+[[anchor]]
+id = "deepinfra-tos-5b-customer-provides-lawful-basis"
+source_id = "07d09ce3d7911532"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "omer Data Compliance Obligations.** As between the Parties, "
+exact = "Customer represents and warrants that it has and will maintain all rights, consents, notices, and lawful bases necessary to provide the data (including personal data) to Provider and to authorize Provider's processing of it in connection with the Services"
+suffix = ", and is solely responsible for all individuals accessing an"
+
+[[anchor]]
+id = "deepinfra-tos-7b-support-retention-30-days"
+source_id = "07d09ce3d7911532"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ro Data Retention**\"). The foregoing does not apply to: (i) "
+exact = "Customer Data that Provider retains at Customer's written request, or with Customer's prior written authorization, to diagnose or resolve a support or Service issue, which Provider will delete within thirty (30) days after the issue is resolved"
+suffix = "; (ii) non-content operational metadata, such as request cou"
+
+[[anchor]]
+id = "deepinfra-tos-18-third-party-content-governed-by-their-terms"
+source_id = "07d09ce3d7911532"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "d, or remove access to any Third-Party Content at any time. "
+exact = "Customer's use of Third-Party Content is at Customer's own risk and is governed exclusively by the applicable third-party license, terms of use, and privacy policies, including, for open-source models, their applicable open-source license terms"
+suffix = ". By accessing or using Third-Party Content, Customer agrees"
+
+[[anchor]]
+id = "deepinfra-privacy-inference-data-no-store-sell-train"
+source_id = "42906d64c9c162fb"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "outputs it generates may contain your Personal Information. "
+exact = "We will not store, sell, or train using this data unless we have your explicit consent"
+suffix = """
+.
+
+We have created this Docs article containing further info"""
+
+[[anchor]]
+id = "deepinfra-privacy-account-deletion-30-days"
+source_id = "42906d64c9c162fb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ounting requirements), or as otherwise communicated to you. "
+exact = "After an account is deleted, your personal information is removed after 30 days, as specified in our terms"
+suffix = """
+.
+
+### **Data Security**
+
+Our security measures comply with """
+
+[[anchor]]
+id = "deepinfra-privacy-processing-in-united-states"
+source_id = "42906d64c9c162fb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " We do not use automated decision-making such as profiling. "
+exact = "Your data may be transferred, stored, and processed outside of your jurisdiction, specifically in the United States"
+suffix = """
+.
+
+### **How We Use Your Information**
+
+We use information t"""
+
+[[anchor]]
+id = "deepinfra-privacy-shared-with-relevant-api-endpoints"
+source_id = "42906d64c9c162fb"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+the fulfillment of the service and do not store this data.
+
+"""
+exact = "Personal Information and data you provide when using certain models through our API will be shared with the relevant API endpoints, as specified at the time of use"
+suffix = """
+.
+
+We may also disclose your personal information:
+
+*   To c"""
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-input-not-stored-on-disk"
+source_id = "18f12f8ea42656ad"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+low)
+
+## Data privacy
+
+When using DeepInfra inference APIs, """
+exact = "we do not store the data you submit to our APIs on disk. We only hold it in memory during the inference process. Once inference is complete, the data is deleted from memory"
+suffix = ".The same applies to outputs — once sent back to you, they a"
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-no-training-except-google-anthropic"
+source_id = "18f12f8ea42656ad"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+and memory after a short retention period.
+
+## No training
+
+"""
+exact = "We do not use data you submit to our APIs for training models, except when using Google or Anthropic models, where the receiving company’s training policy applies"
+suffix = """
+.
+
+## No sharing
+
+We do not share data you submit to our API"""
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-bulk-inference-disk-storage"
+source_id = "18f12f8ea42656ad"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "rence APIs (submitting multiple requests in a single call), "
+exact = "we may need to store data for a longer period, potentially on disk in encrypted form. Once inference is complete and results are returned to you, the data is deleted from disk and memory after a short retention period"
+suffix = """
+.
+
+## No training
+
+We do not use data you submit to our APIs"""
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-logs-metadata-debug-exception"
+source_id = "18f12f8ea42656ad"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+r data to those endpoints to fulfill the request.
+
+## Logs
+
+"""
+exact = "We generally do not log the content of your requests. We log metadata useful for debugging: request ID, cost, sampling parameters. We reserve the right to log a small portion of requests when necessary for debugging or security purposes"
+suffix = ".When using the Google model, Google logs prompts and respon"
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-image-outputs-stored"
+source_id = "18f12f8ea42656ad"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ts — once sent back to you, they are deleted.**Exception:** "
+exact = "Outputs of image generation models are stored for a short period of time to allow easy access (e.g., for the model demo page)"
+suffix = """
+.
+
+### Google models
+
+If you opt to use a Google model, Goog"""
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-google-stores-output"
+source_id = "18f12f8ea42656ad"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+access (e.g., for the model demo page).
+
+### Google models
+
+"""
+exact = "If you opt to use a Google model, Google will store the output as outlined in their [Privacy Notice](https://cloud.google.com/terms/cloud-privacy-notice)"
+suffix = """
+.
+
+### Anthropic models
+
+If you opt to use an Anthropic mode"""
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-anthropic-stores-output"
+source_id = "18f12f8ea42656ad"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+gle.com/terms/cloud-privacy-notice).
+
+### Anthropic models
+
+"""
+exact = "If you opt to use an Anthropic model, Anthropic will store the output as outlined in their [Trust Center](https://trust.anthropic.com/)"
+suffix = """
+.
+
+## Bulk inference APIs
+
+When using our bulk inference API"""
+
+[[anchor]]
+id = "deepinfra-docs-gpu-instances-container-data-lost-on-terminate"
+source_id = "8586eb2e21f4c93b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+2. Click **Terminate**
+3. Type `confirm` and click **Terminate**
+
+<Warning>
+  """
+exact = "All container data is permanently lost when terminated. Save your work before stopping."
+suffix = """
+
+</Warning>
+
+## HTTP API
+
+### Create a container
+
+```bash theme={null}
+curl -X POST"""
+
+[[anchor]]
+id = "deepinfra-docs-private-models-data-stays-on-dedicated-infra"
+source_id = "dd191b2f25ab7643"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+your weights, your endpoint, your isolation.
+
+## Why run private models?
+
+* **Compliance** — """
+exact = "data stays on dedicated infrastructure, not shared with other users"
+suffix = """
+
+* **Custom weights** — deploy fine-tuned or trained-from-scratch models
+* **Predictable latency**"""

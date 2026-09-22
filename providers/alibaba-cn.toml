@@ -1,0 +1,481 @@
+name = "阿里云百炼"
+name_en = "Alibaba Model Studio"
+company = "alibaba"
+line = "alibaba-cn"
+site = "cn"
+entity = "通义云启（杭州）信息技术有限公司"
+endpoint = ""
+doc = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/confidential-maas-best-practice"
+channel = "developer_data"
+tier = "core"
+note = "百炼国内站《机密推理（Confidential MaaS）最佳实践》。为 zdr 维度的适用范围与开通条件作证：定向邀请、需签署特别规则、当前仅华北 2（北京）、平台不留存明文提示词/输出/密钥。不覆盖默认按量 API。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/privacy-notice"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "百炼国内站《合规资质与隐私说明》（更新时间 2026-08-25，安全合规目录下）。平台级口径：绝不会将数据用于模型训练 + 依法存储模型与应用调用数据。对 training/retention 是佐证（channel 低于 contract），权威取服务协议 §6.2.5；本页不区分档位，不能支撑订阅档例外。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/regions"
+channel = "developer_data"
+tier = "core"
+note = "百炼国内站《选择地域、服务部署范围和接入域名》（更新 2026-09-17）。平台级机制：地域决定接入点与数据存储位置；服务部署范围决定推理执行位置（可选全球池）；请求数据与推理结果存于所选地域。processing_region 的落地细节佐证，合同级依据仍为服务协议 §6.2.8。"
+
+[[source]]
+url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+channel = "contract"
+tier = "core"
+note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，发布 2026-08-31；签约主体 通义云启（杭州）信息技术有限公司，§1.1）。覆盖国内站百炼按量付费 API 档：§6.2 客户业务数据保护（§6.2.1 控制权、§6.2.3 指示+不为自身目的、§6.2.4 未获授权不使用+备份删除、§6.2.5 最短必要时间+未授权不训练、§6.2.7 缓冲期届满删除、§6.2.8 处理地、§6.2.9 三方模型通道）；§5.2 为 AI 订阅产品（Token Plan/Coding Plan）特别约定，属另两个 provider 档位，本档只作为例外条款引用。本协议是百炼相关协议清单中的首条，为国内站唯一合同级依据（国内站无独立 DPA）。"
+
+[[source]]
+url = "https://terms.alicdn.com/legal-agreement/terms/common_product_agreement/20260529140548196/20260529140548196.html"
+channel = "contract"
+tier = "core"
+note = "《阿里云百炼机密推理服务特别规则》（发布 2026-07-17，生效 2026-07-24）。仅覆盖阿里云百炼机密推理服务（CMaaS，TEE 硬件机密计算，定向邀请开通、需单独签署、当前仅华北 2（北京）），不覆盖按量付费 API 默认路径。本档 zdr 维度的唯一条款级依据，须与默认 API 档区分。"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+label = "阿里云百炼国内站按量付费 API（Model Studio，签约主体 通义云启（杭州）信息技术有限公司）"
+
+[product.training]
+mark = "yes"
+anchor = "training-api-no-train-without-authorization"
+mode = "by_tier"
+
+[[product.training.point]]
+text_zh = "§6.2.5 后半句「我们不会在未获您授权的情况下使用您的对话数据训练我们的模型」，配合 §6.2.4「除执行您的服务要求外，我们不会进行任何未获授权的使用及披露」。适用范围由产品简介 FAQ 限定为「按量付费 API 和 Token Plan 团队版」"
+
+[[product.training.point]]
+text_zh = "Token Plan 个人版/Coding Plan 反过来授权存储并使用输入输出做服务改进与模型优化（§5.2.2），属另两个 provider 档位，本档不适用。隐私说明另有平台级「绝不会将您的数据用于模型训练」。"
+
+[product.zdr]
+mark = "no"
+anchor = "zdr-cmas-no-plaintext-recorded"
+
+[[product.zdr.point]]
+text_zh = "默认按量付费 API 档没有零保留选项：隐私说明与常见问题都写「阿里云百炼将存储模型与应用调用时产生的数据」，协议只承诺「最短必要时间」，全文无任何 ZDR/不落盘/不留存开关"
+
+[[product.zdr.point]]
+text_zh = "搜索官网与帮助中心也未找到按量 API 的零保留承诺。唯一条款级的零明文路径是独立产品「阿里云百炼机密推理服务（CMaaS）」：其《特别规则》第 2 条「为您提供本服务的过程中，我们不会记录明文提示词和模型输出内容以及对应的加密密钥」，第 3 条密钥与内容由客户掌握"
+
+[[product.zdr.point]]
+text_zh = "但该档为定向邀请开通、需单独签署特别规则、当前仅华北 2（北京）地域，不覆盖默认按量 API。故 zdr 记 medium：有零保留路径，但绑定在一个邀请制子产品上，不能等同于本档默认能力。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-api-min-necessary"
+
+[[product.retention.point]]
+text_zh = "对象与语境分层：①输入输出正文——§6.2.5「仅在提供服务所必需的最短时间内保留您的对话数据」，无量化天数，也无「N 天后删除」"
+
+[[product.retention.point]]
+text_zh = "同时平台明确会存储调用数据（隐私说明/FAQ「将存储模型与应用调用时产生的数据」，法规要求）。②删除路径——§6.2.7/§3.2.11 服务期届满、提前终止或欠费后「一定的缓冲期」内继续存储，缓冲期届满删除所有客户业务数据含所有缓存或备份副本"
+
+[[product.retention.point]]
+text_zh = "缓冲期时长「以专有条款、产品文档、服务说明所载明的时限为准」，本档产品文档未载明具体天数"
+
+[[product.retention.point]]
+text_zh = "§6.2.4 承认备份可能无法立即删除。③访问/审计日志——平台侧审计日志默认存储且不含 Prompt/Response，控制台查询窗口默认 7 天、最长 30 天（是查询窗口不是删除期限）"
+
+[[product.retention.point]]
+text_zh = "含完整 Prompt/Response 的推理日志默认关闭，需手动开启并投递到客户自有 SLS。④内容安全过滤记录——触发 AI 安全护栏的文本内容留在护栏控制台检测结果中，期限未披露。⑤控制台体验中心历史对话最多展示 100 条、不设时间限制，是 UI 展示对象，与 API 数据保留不是同一对象。⑥本档文档中未出现《网络安全法》式的「网络日志不少于六个月」下限条款。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "processing-region-api-selected-region"
+
+[[product.processing_region.point]]
+text_zh = "§6.2.8：根据协商一致，阿里云在「您选定的阿里云百炼服务及模型服务所在国家或地区」处理客户业务数据"
+
+[[product.processing_region.point]]
+text_zh = "选择境外处理可能构成数据出境，客户作为完全控制方自负出境合规义务。地域文档给出落地机制：地域决定接入点和数据存储位置，请求数据存于该地域、推理结果回到接入地域存储、用户静态数据始终存于所选地域"
+
+[[product.processing_region.point]]
+text_zh = "但「服务部署范围」决定推理执行位置，可选特定地理边界（欧盟/日本/中国香港/美国）或全球池——即存储地=所选地域，推理计算可能落在该范围之外，有合规需求必须选特定边界。境内可选华北 2（北京），境外另有新加坡、法兰克福、东京、中国香港、美国（弗吉尼亚）。平台级同向：隐私权政策 §4.1.3「在您选定的数据中心存储用户业务数据」。注意 §6.2.9：走云市场三方模型 API 时部署模式（服务接入地、推理地）随三方协议。"
+
+[product.role]
+kind = "processor"
+anchor = "role-api-documented-instructions"
+
+[[product.role.point]]
+text_zh = "processor 语义：§6.2.3「我们或我们委托授权合作伙伴将仅按照如下方式处理您的客户业务数据：(1) 按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据；(2) 为落实现行法律法规要求（如内容安全过滤），或按照主管部门指示处理」。配套：§6.2.1 客户对业务数据「拥有完全的控制权」"
+
+[[product.role.point]]
+text_zh = "§6.2.4 未获授权不使用不披露"
+
+[[product.role.point]]
+text_zh = "平台级《阿里云产品服务协议》§9.2.2「除执行您的服务要求外，不进行任何未获授权的使用及披露」、《法律声明及隐私权政策》§4.1.1 与信任中心隐私承诺「只会严格执行您的指示处理您的业务数据」。confidence=medium 的原因：协议未出现「受托方/数据处理者」字样，也未签标准 DPA（国内站协议清单无 DPA 条目）"
+
+[[product.role.point]]
+text_zh = "另 §6.2.3(2) 的法规过滤目的与 §5.2.2 的订阅档授权是两处例外，本档只涉前者。"
+
+[[anchor]]
+id = "training-api-no-train-without-authorization"
+source_id = "4b66d343a3815747"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"""
+exact = "我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。"
+suffix = """
+
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算力资源紧张时，在符合法律法规要求的情况下自动为您调度更匹配的"""
+
+[[anchor]]
+id = "retention-api-min-necessary"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+任何进一步的处理，直到备份可以删除。客户业务数据一经删除，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，"""
+exact = "我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"
+suffix = """
+我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算"""
+
+[[anchor]]
+id = "retention-api-buffer-delete"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "一定的缓冲期（以您所订购的服务适用的专有条款、产品文档、服务说明等所载明的时限为准）内继续存储您的客户业务数据（如有），"
+exact = "缓冲期届满我们将删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据。"
+suffix = """
+
+
+6.2.8 根据您与阿里云协商一致，阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据。阿里云"""
+
+[[anchor]]
+id = "retention-api-backup-not-immediate"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "业务数据进行删除、更改等操作，我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改等操作。​但请理解，"
+exact = "因为适用的法律和安全技术限制，我们可能无法立即从备份系统中删除相应的信息，如存在此类情况"
+suffix = """
+，我们将安全地存储您的个人信息并限制对其的任何进一步的处理，直到备份可以删除。客户业务数据一经删除，即不可恢复。​​
+
+"""
+
+[[anchor]]
+id = "processing-region-api-selected-region"
+source_id = "4b66d343a3815747"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据。
+
+6.2.8 根据您与阿里云协商一致，"""
+exact = "阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据"
+suffix = "。阿里云恪守对客户的安全承诺，根据适用的法律法规保护客户业务数据。如您基于自身业务目的需要选择在中华人民共和国境外的阿里"
+
+[[anchor]]
+id = "processing-region-api-cross-border"
+source_id = "4b66d343a3815747"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "的法律法规保护客户业务数据。如您基于自身业务目的需要选择在中华人民共和国境外的阿里云百炼服务及模型服务处理客户业务数据，"
+exact = "可能会导致您的客户业务数据出境"
+suffix = "。您作为客户业务数据的完全控制方应履行相应的数据出境合规义务，包括但不限于获取必要的授权同意、完成必要的信息披露、完成数"
+
+[[anchor]]
+id = "role-api-documented-instructions"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+体的充分授权。
+
+6.2.3. 您知悉并同意，我们或我们委托授权合作伙伴将仅按照如下方式处理您的客户业务数据：
+
+（1）"""
+exact = "按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据"
+suffix = """
+；
+
+（2）为落实现行法律法规要求（如内容安全过滤），或按照主管部门指示处理客户业务数据。
+
+6.2.4. 您使用本服务"""
+
+[[anchor]]
+id = "role-api-no-unauthorized-use"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+法规要求（如内容安全过滤），或按照主管部门指示处理客户业务数据。
+
+6.2.4. 您使用本服务输入和产生的客户业务数据，"""
+exact = "除执行您的服务要求外，我们不会进行任何未获授权的使用及披露"
+suffix = "。您可自行对您的客户业务数据进行删除、更改等操作，我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改"
+
+[[anchor]]
+id = "role-api-customer-full-control"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "您通过我们提供的服务，上传、存储、加工、下载、分发以及通过其他方式处理的数据，均为您的业务数据（简称“客户业务数据”），"
+exact = "您对此拥有完全的控制权"
+suffix = """
+。
+
+6.2.2. 您应确保本服务下的客户业务数据均真实地、全面地来自于其自身所合法拥有的数据资源，您拥有相关数据的相关"""
+
+[[anchor]]
+id = "role-api-delegated-partners"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+法规要求，并已就其个人信息的收集、使用行为和委托我们处理的行为，征得信息主体的充分授权。
+
+6.2.3. 您知悉并同意，"""
+exact = "我们或我们委托授权合作伙伴将仅按照如下方式处理您的客户业务数据"
+suffix = """
+：
+
+（1）按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据；
+
+（2）为落实现行法律"""
+
+[[anchor]]
+id = "role-api-third-party-channel"
+source_id = "4b66d343a3815747"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+露、完成数据出境申报、与境外数据接收方签署协议等。
+
+6.2.9. 如您选择本协议第5.3.条约定的三方模型API服务，"""
+exact = "您的客户业务数据的处理（包括但不限于：存储、删除、内容安全过滤等）以及部署模式（服务接入地和推理地等）以您和三方模型API服务商在相关服务协议中的约定为准"
+suffix = """
+。
+
+七、知识产权
+
+7.1. 您和我们在本协议签订前享有的知识产权，仍归各方所有；除非另有约定，并不会因为双方签订或者"""
+
+[[anchor]]
+id = "training-subscription-tiers-exception-5-2-2"
+source_id = "4b66d343a3815747"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+里云官网公告、站内信等方式调整自动续费功能（如有）和产品升级策略（包括但不限于变更、停止自动续费等）。
+
+5.2.2. """
+exact = "您同意并授权我们和我们的关联公司存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化"
+suffix = "。若您希望终止对前述输入输出内容的授权，可通过停止使用Token Plan个人版和/或Coding Plan服务来终止授"
+
+[[anchor]]
+id = "contract-rules-equal-effect"
+source_id = "4b66d343a3815747"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+第三方提供的模型或技术服务，您使用这些模型或技术服务的权利义务在您和第三方之间的协议中约定。
+
+1.2. 协议范围
+
+本"""
+exact = "协议内容包括协议正文以及所有我们已经发布的或将来可能发布的关于阿里云百炼的各类业务规则"
+suffix = "（包括 但不限于[《阿里云百炼体验功能特别说明》](https://terms.alicdn.com/legal-agr"
+
+[[anchor]]
+id = "training-platform-never-train"
+source_id = "3afa6334fa1d972e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+4248323.J_oxCbIPYwH8En90P61GCp_.1.6df649f1sVpkA8)
+
+## 隐私保护
+
+"""
+exact = "阿里云严格保护数据隐私，绝不会将您的数据用于模型训练。"
+suffix = "同时，您在构建应用或训练大模型过程中传输的数据都会经过 AES-256（Advanced Encryption Stan"
+
+[[anchor]]
+id = "retention-platform-stores-call-data"
+source_id = "3afa6334fa1d972e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+会经过 AES-256（Advanced Encryption Standard，高级加密标准）加密，确保数据安全。
+
+"""
+exact = "根据相关法律法规要求，阿里云百炼将存储模型与应用调用时产生的数据。"
+suffix = "详情请参见[《阿里云百炼服务协议》](https://terms.alicdn.com/legal-agreement/"
+
+[[anchor]]
+id = "processing-region-region-determines-storage"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+om/my_favorites.html)
+
+调用百炼前先选择 地域 、 服务部署范围、接入域名：
+
+## 地域概述
+
+"""
+exact = "地域决定**接入点和数据存储位置**，就近选择可降低延迟。"
+suffix = """
+
+
+*   服务部署范围：决定**推理执行位置**，有数据合规需求选择特定地理边界的部署范围，无合规需求选择全球部署范围"""
+
+[[anchor]]
+id = "processing-region-deployment-scope-inference"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+、 服务部署范围、接入域名：
+
+## 地域概述
+
+地域决定**接入点和数据存储位置**，就近选择可降低延迟。
+
+*   """
+exact = "服务部署范围：决定**推理执行位置**，有数据合规需求选择特定地理边界的部署范围，无合规需求选择全球部署范围（推理资源池更大）"
+suffix = """
+；
+*   接入域名：影响**并发上限、超时等服务保障**，各地域具有独立的接入域名。
+
+一次完整的模型调用流程如下：
+"""
+
+[[anchor]]
+id = "processing-region-request-data-in-region"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+接入域名：影响**并发上限、超时等服务保障**，各地域具有独立的接入域名。
+
+一次完整的模型调用流程如下：
+
+1.   """
+exact = "应用经接入域名将请求发送到所选**地域**，请求数据存于该地域"
+suffix = """
+；
+2.   接入地域将请求转发至**服务部署范围**内的推理节点完成计算（传输全程加密）；
+3.   推理结果回到接入"""
+
+[[anchor]]
+id = "processing-region-result-stored-in-region"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+求数据存于该地域；
+2.   接入地域将请求转发至**服务部署范围**内的推理节点完成计算（传输全程加密）；
+3.   """
+exact = "推理结果回到接入地域存储，再响应给应用（用户静态数据始终存于所选地域）。"
+suffix = """
+
+
+![Image 3: image](https://help-static-aliyun-doc.aliyuncs."""
+
+[[anchor]]
+id = "zdr-cmas-no-plaintext-recorded"
+source_id = "fd8286dea78c7b9c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+保证支持阿里云百炼平台上展示的所有模型，本服务支持的具体模型版本以产品页面展示为准。
+
+2.
+
+为您提供本服务的过程中，"""
+exact = "我们不会记录明文 提示词和模型输出内容以及对应的加密密钥"
+suffix = """
+。您应当按照法律法规规定留存您的应用和服务相关的日志记录，包括但不限于用户使用您的应用和服务生成或者编辑的信息内容。
+
+"""
+
+[[anchor]]
+id = "zdr-cmas-keys-held-by-customer"
+source_id = "fd8286dea78c7b9c"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+按照法律法规规定留存您的应用和服务相关的日志记录，包括但不限于用户使用您的应用和服务生成或者编辑的信息内容。
+
+3.
+
+"""
+exact = "阿里云CMaaS服务的提示词、模型输出内容以及对应的加密密钥由您掌握。"
+suffix = "您确认会建设安全机制，防控安全合规风险并承担相应法律责任，同时保证我们免于遭受因您的违约或违法 行为而导致的任何损失。因"
+
+[[anchor]]
+id = "zdr-cmas-invite-only"
+source_id = "7d74099c04299aa0"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ 1,000,000
+```
+
+## 4 开通与使用前提
+
+开通机密推理需满足定向邀请、地域支持与合规签署三项前提。
+
+"""
+exact = "机密推理为定向邀请使用，需联系阿里云商务申请开通。"
+suffix = """
+
+
+当前支持华北 2（北京）地域。
+
+部署前须签署[《阿里云百炼机密推理服务特别规则》](https://terms.a"""
+
+[[anchor]]
+id = "zdr-cmas-no-plaintext-kept"
+source_id = "7d74099c04299aa0"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "**纵深安全防护**：从芯片级硬件隔离、端到端加密传输到客户端可验证的远程证明，构建覆盖硬件、传输与软件的多层防护体系。"
+exact = "平台不留存明文提示词、模型输出与加密密钥，密钥与内容由用户掌握"
+suffix = """
+。
+*   **低侵入式接入**：兼容现有调用方式，业务代码无需重构，仅需替换调用入口与客户端 SDK，机密与非机密路径"""

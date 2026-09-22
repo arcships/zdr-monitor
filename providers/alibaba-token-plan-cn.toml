@@ -1,0 +1,531 @@
+name = "阿里云百炼 Token Plan"
+name_en = "Alibaba Model Studio Token Plan"
+company = "alibaba"
+line = "alibaba-token-plan-cn"
+site = "cn"
+entity = "通义云启（杭州）信息技术有限公司"
+plan_levels = ["individual", "team"]
+endpoint = ""
+doc = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/deepseek-v4-pro"
+channel = "developer_data"
+tier = "core"
+note = "百炼模型页 deepseek-v4-pro(国内站,更新时间 2026-09-20)。「推理服务供应商」栏:该模型推理服务供应商为阿里云百炼。用于证明 Token Plan 档位内的第三方品牌模型由百炼自运营推理,故适用协议 6.2.3/6.2.4 而非 6.2.9 的三方约定。替代旧记录里抓取失败的 /en/ 同页。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/glm-5-3"
+channel = "developer_data"
+tier = "core"
+note = "百炼模型页 glm-5.3(国内站,更新时间 2026-09-15)。同上,推理服务供应商为阿里云百炼。上一轮只有 /en/ 页,本轮新发现国内站 /zh/ 页并改以它为锚点来源。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/model-telemetry"
+channel = "developer_data"
+tier = "core"
+note = "百炼「监控告警」(国内站,平台级文档,未点名 Token Plan)。区分保留对象:审计日志默认开启、存平台侧、不含 Prompt/Response;推理日志默认关闭、需手动开启、开启后含完整 Prompt/Response 且写入用户自有 SLS 日志库。上一轮未收录,本轮新发现,作 retention 的对象区分旁证。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/regions"
+channel = "developer_data"
+tier = "core"
+note = "百炼国内站《选择地域、服务部署范围和接入域名》（更新 2026-09-17）。平台级机制：地域决定接入点与数据存储位置；服务部署范围决定推理执行位置（可选全球池）；请求数据与推理结果存于所选地域。processing_region 的落地细节佐证，合同级依据仍为服务协议 §6.2.8。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/token-plan-overview"
+channel = "developer_data"
+tier = "core"
+note = "百炼「Token Plan 概述」(国内站,更新时间 2026-09-18)。个人版/团队版两档并列:团队版「承诺不使用数据训练模型」;说明栏「Token Plan 目前仅支持华北 2（北京）地域」。覆盖两个档位;个人版在该页无任何不训练表述。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/token-plan-personal-overview"
+channel = "developer_data"
+tier = "core"
+note = "百炼「Token Plan 个人版 概述」(国内站,更新时间 2026-09-18)。「订阅前须知」第 2 条把个人版的数据使用授权写成产品侧明文并回指协议第 5.2 条;说明栏载明个人版仅支持华北 2（北京）地域。只覆盖个人版档位。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/token-plan-team-overview"
+channel = "developer_data"
+tier = "core"
+note = "百炼「Token Plan 团队版 概述」(国内站,更新时间 2026-09-16)。核心特性与「订阅前须知」两处独立写明团队版不使用对话数据训练模型;说明栏载明团队版仅支持华北 2（北京）地域。只覆盖团队版档位。上一轮未收录此页。"
+
+[[source]]
+url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
+channel = "contract"
+tier = "core"
+note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，发布 2026-08-31；签约主体 通义云启（杭州）信息技术有限公司，§1.1）。覆盖国内站百炼按量付费 API 档：§6.2 客户业务数据保护（§6.2.1 控制权、§6.2.3 指示+不为自身目的、§6.2.4 未获授权不使用+备份删除、§6.2.5 最短必要时间+未授权不训练、§6.2.7 缓冲期届满删除、§6.2.8 处理地、§6.2.9 三方模型通道）；§5.2 为 AI 订阅产品（Token Plan/Coding Plan）特别约定，属另两个 provider 档位，本档只作为例外条款引用。本协议是百炼相关协议清单中的首条，为国内站唯一合同级依据（国内站无独立 DPA）。"
+
+[[product]]
+id = "token-plan-personal"
+badge = "国内站个人版"
+category = "coding_plan"
+plan_level = "individual"
+label = "Token Plan 个人版(Lite/Essential/Standard/Pro)"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "training-personal-authorization-5.2.2"
+
+[product.zdr]
+mark = "no"
+anchor = "training-personal-authorization-5.2.2"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-min-time-conversation-6.2.5"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "processing-region-personal-cn-beijing"
+
+[product.role]
+kind = "processor"
+anchor = "role-processor-6.2.3"
+
+[[product]]
+id = "token-plan-team"
+badge = "国内站团队版"
+category = "coding_plan"
+plan_level = "team"
+label = "Token Plan 团队版(标准/高级/尊享座席)"
+
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "training-no-train-without-authorization-6.2.5"
+
+[product.zdr]
+mark = "no"
+anchor = "retention-buffer-delete-6.2.7"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-min-time-conversation-6.2.5"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "processing-region-team-cn-beijing"
+
+[product.role]
+kind = "processor"
+anchor = "role-processor-6.2.3"
+
+[[anchor]]
+id = "training-personal-authorization-5.2.2"
+source_id = "4b66d343a3815747"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+里云官网公告、站内信等方式调整自动续费功能（如有）和产品升级策略（包括但不限于变更、停止自动续费等）。
+
+5.2.2. """
+exact = "您同意并授权我们和我们的关联公司存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化。若您希望终止对前述输入输出内容的授权，可通过停止使用Token Plan个人版和/或Coding Plan服务来终止授权，但终止授权的范围不涵盖您已授权我们使用的相关内容和数据。"
+suffix = """
+
+
+5.2.3. 为了方便您的使用和管理，TokenPlan团队版提供SSO的登录方式，身份认证应当由注册了对应阿里云账"""
+
+[[anchor]]
+id = "training-team-excluded-5.2.2"
+source_id = "4b66d343a3815747"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+（如有）和产品升级策略（包括但不限于变更、停止自动续费等）。
+
+5.2.2. 您同意并授权我们和我们的关联公司存储并使用"""
+exact = "您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间"
+suffix = "因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化。若您希望终止对前述输入输出内容的授权，可通过停止使用T"
+
+[[anchor]]
+id = "training-no-train-without-authorization-6.2.5"
+source_id = "4b66d343a3815747"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"""
+exact = "我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。"
+suffix = """
+
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算力资源紧张时，在符合法律法规要求的情况下自动为您调度更匹配的"""
+
+[[anchor]]
+id = "retention-min-time-conversation-6.2.5"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+任何进一步的处理，直到备份可以删除。客户业务数据一经删除，即不可恢复。​​
+
+6.2.5. 在遵循相关法律法规的基础上，"""
+exact = "我们承诺仅在提供服务所必需的最短时间内保留您的对话数据。"
+suffix = """
+我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。
+
+6.2.6.为提升您的服务使用体验，您同意我们可能会在算"""
+
+[[anchor]]
+id = "retention-customer-info-6.1.5"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+培训课程，加强员工对于保护客户信息重要性的认识。
+
+6.1.5. 我们会采取合理可行的措施，尽力避免收集无关的客户信息。"""
+exact = "我们只会在达成本协议所述目的所需的期限内保留您的客户信息，除非受到法律的允许。"
+suffix = "超出上述客户信息保存期限后，我们会对您的个人信息进行删除处理。请您理解，因为适用的法律和安全技术限制，我们可能无法立即从"
+
+[[anchor]]
+id = "retention-buffer-delete-6.2.7"
+source_id = "4b66d343a3815747"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "一定的缓冲期（以您所订购的服务适用的专有条款、产品文档、服务说明等所载明的时限为准）内继续存储您的客户业务数据（如有），"
+exact = "缓冲期届满我们将删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据。"
+suffix = """
+
+
+6.2.8 根据您与阿里云协商一致，阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据。阿里云"""
+
+[[anchor]]
+id = "retention-no-unauthorized-use-6.2.4"
+source_id = "4b66d343a3815747"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+处理相关数据；
+
+（2）为落实现行法律法规要求（如内容安全过滤），或按照主管部门指示处理客户业务数据。
+
+6.2.4. """
+exact = "您使用本服务输入和产生的客户业务数据，除执行您的服务要求外，我们不会进行任何未获授权的使用及披露。"
+suffix = "您可自行对您的客户业务数据进行删除、更改等操作，我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改等"
+
+[[anchor]]
+id = "processing-region-selected-country-6.2.8"
+source_id = "4b66d343a3815747"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+删除所有客户业务数据，包括所有缓存或者备份的副本，不再保留您的任何客户业务数据。
+
+6.2.8 根据您与阿里云协商一致，"""
+exact = "阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据。"
+suffix = "阿里云恪守对客户的安全承诺，根据适用的法律法规保护客户业务数据。如您基于自身业务目的需要选择在中华人民共和国境外的阿里云"
+
+[[anchor]]
+id = "role-processor-6.2.3"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+体的充分授权。
+
+6.2.3. 您知悉并同意，我们或我们委托授权合作伙伴将仅按照如下方式处理您的客户业务数据：
+
+（1）"""
+exact = "按照本协议及您可能不时做出的任何进一步有文件记录的指示且不为其自身目的处理相关数据"
+suffix = """
+；
+
+（2）为落实现行法律法规要求（如内容安全过滤），或按照主管部门指示处理客户业务数据。
+
+6.2.4. 您使用本服务"""
+
+[[anchor]]
+id = "role-third-party-models-6.2.9"
+source_id = "4b66d343a3815747"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+务，包括但不限于获取必要的授权同意、完成必要的信息披露、完成数据出境申报、与境外数据接收方签署协议等。
+
+6.2.9. """
+exact = "如您选择本协议第5.3.条约定的三方模型API服务，您的客户业务数据的处理（包括但不限于：存储、删除、内容安全过滤等）以及部署模式（服务接入地和推理地等）以您和三方模型API服务商在相关服务协议中的约定为准。"
+suffix = """
+
+
+七、知识产权
+
+7.1. 您和我们在本协议签订前享有的知识产权，仍归各方所有；除非另有约定，并不会因为双方签订或者履"""
+
+[[anchor]]
+id = "training-personal-data-authorization-personal-overview"
+source_id = "6cea5570b3383fbe"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+允许范围之外的调用将被视为违规或滥用，可能会导致订阅被暂停或 API Key 被封禁。
+2.   **数据使用授权**："""
+exact = "使用 Token Plan 个人版期间，模型输入以及模型生成的内容将用于服务改进与模型优化。"
+suffix = "停止使用 Token Plan 个人版服务可终止后续数据授权，但终止授权的范围不涵盖已授权使用的数据。详细条款请参见[阿"
+
+[[anchor]]
+id = "training-personal-revocation-scope"
+source_id = "6cea5570b3383fbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "   **数据使用授权**：使用 Token Plan 个人版期间，模型输入以及模型生成的内容将用于服务改进与模型优化。"
+exact = "停止使用 Token Plan 个人版服务可终止后续数据授权，但终止授权的范围不涵盖已授权使用的数据。"
+suffix = "详细条款请参见[阿里云百炼服务协议](https://terms.alicdn.com/legal-agreement/"
+
+[[anchor]]
+id = "processing-region-personal-cn-beijing"
+source_id = "6cea5570b3383fbe"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+具，Standard 与 Pro 套餐附赠 Harness 权益，适配主流 AI 编程和智能体工具。
+
+**说明**
+
+"""
+exact = "Token Plan 个人版目前仅支持**华北 2（北京）**地域"
+suffix = """
+。
+
+## 核心特性
+
+*   **Credits 统一计量**：通过 Credits 统一抵扣模型调用及[模型内置工具"""
+
+[[anchor]]
+id = "training-team-commitment-overview"
+source_id = "7fade8d3c7325e63"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+edits 限额，档位越高额度越大。
+*   **团队版**：面向团队和企业，提供标准座席、高级座席、尊享座席三个档位，"""
+exact = "支持多席位管理、用量分析，承诺不使用数据训练模型。"
+suffix = """
+
+
+## 个人版
+
+**Lite 套餐****Essential 套餐****Standard 套餐****Pro 套餐"""
+
+[[anchor]]
+id = "processing-region-tokenplan-cn-beijing"
+source_id = "7fade8d3c7325e63"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+智能体工具。Token Plan 提供个人版和团队版两个版本，满足从个人开发者到企业团队的不同需求。
+
+**说明**
+
+"""
+exact = "Token Plan 目前仅支持**华北 2（北京）**地域"
+suffix = "，请在[百炼控制台](https://bailian.console.aliyun.com/cn-beijing/sub"
+
+[[anchor]]
+id = "training-team-no-train-team-overview"
+source_id = "dee7f0e38224d6f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+管理后台，支持席位分配与回收、成员用量分析等团队管理能力。
+*   **预算可控**：支持按月订阅，预算可控。
+*   """
+exact = "**数据安全**：承诺不使用对话数据进行模型训练，满足企业级数据隐私要求。"
+suffix = """
+
+*   **平稳运行**：多租户隔离架构，调用高峰期间不排队。
+
+Token Plan 团队版提供套餐 Base UR"""
+
+[[anchor]]
+id = "training-team-no-train-team-notice"
+source_id = "dee7f0e38224d6f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+程和智能体工具中交互式使用，不可用于自动化脚本或应用后端。违规使用可能导致订阅暂停或 API Key 封禁。
+2.   """
+exact = "**数据安全**：Token Plan 团队版不会使用对话数据训练模型。"
+suffix = """
+
+3.   **账号规范**：API Key 仅限已分配席位的成员本人使用，不可共享或公开泄露。
+4.   **服务地域"""
+
+[[anchor]]
+id = "processing-region-team-cn-beijing"
+source_id = "dee7f0e38224d6f8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+与实时语音对话模型，兼容主流 AI 编程与智能体工具，提供团队管理后台、数据安全保障，调用平稳运行。
+
+**说明**
+
+"""
+exact = "Token Plan 团队版目前仅支持**华北 2（北京）**地域。"
+suffix = """
+
+
+## 核心特性
+
+Token Plan 团队版整合千问和三方模型，支持文本生成、图像生成、视频生成、语音识别与实时语"""
+
+[[anchor]]
+id = "processing-region-definition-regions"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+om/my_favorites.html)
+
+调用百炼前先选择 地域 、 服务部署范围、接入域名：
+
+## 地域概述
+
+"""
+exact = "地域决定**接入点和数据存储位置**，就近选择可降低延迟。"
+suffix = """
+
+
+*   服务部署范围：决定**推理执行位置**，有数据合规需求选择特定地理边界的部署范围，无合规需求选择全球部署范围"""
+
+[[anchor]]
+id = "processing-region-inference-result-storage-regions"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+求数据存于该地域；
+2.   接入地域将请求转发至**服务部署范围**内的推理节点完成计算（传输全程加密）；
+3.   """
+exact = "推理结果回到接入地域存储，再响应给应用（用户静态数据始终存于所选地域）。"
+suffix = """
+
+
+![Image 3: image](https://help-static-aliyun-doc.aliyuncs."""
+
+[[anchor]]
+id = "retention-audit-log-default-platform-side"
+source_id = "b340c5aef286d905"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+表中的**查看详情**打开告警详情侧边面板；详情侧边面板的状态仅有**已恢复**与**告警中**两种。
+
+## 日志
+
+"""
+exact = "百炼平台默认记录审计日志（存储在平台侧，无需配置），记录每次模型调用的请求信息但不包含 Prompt/Response。"
+suffix = "推理日志记录完整的 Prompt/Response 与中间步骤，需手动开启，并依赖日志投递将日志写入自有的日志服务（SL"
+
+[[anchor]]
+id = "retention-inference-log-optin-full-prompt"
+source_id = "b340c5aef286d905"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "百炼平台默认记录审计日志（存储在平台侧，无需配置），记录每次模型调用的请求信息但不包含 Prompt/Response。"
+exact = "推理日志记录完整的 Prompt/Response 与中间步骤，需手动开启，并依赖日志投递将日志写入自有的日志服务（SLS）日志库"
+suffix = "（日志投递见[数据投递](https://help.aliyun.com/zh/model-studio/model-t"
+
+[[anchor]]
+id = "retention-telemetry-platform-side-default"
+source_id = "b340c5aef286d905"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+
+推理日志记录完整 Prompt/Response，适合复现异常请求、调试模型输出与排查偶发问题。
+
+## 数据投递
+
+"""
+exact = "百炼平台默认在平台侧存储监控指标与审计日志，无需投递即可在控制台查看。"
+suffix = "如需将监控指标或日志投递到自有云产品（用于长期留存或对接自有运维系统，会产生云产品费用），开启对应的数据投递：监控数据投"
+
+[[anchor]]
+id = "role-deepseek-v4-pro-inference-provider"
+source_id = "c0a36f064aa99ec9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+、复杂推理、专业代码与长文本深度解析能力，适配高阶科研、复杂办公、深度智能代理等高难度场景。
+
+## 推理服务供应商
+
+"""
+exact = "`deepseek-v4-pro`模型的推理服务供应商为阿里云百炼。"
+suffix = """
+
+
+## 模型能力
+
+华北2（北京）
+
+新加坡
+
+德国（法兰克福）
+
+美国（弗吉尼亚）
+
+日本（东京）
+
+| 能力项 |"""
+
+[[anchor]]
+id = "role-glm-5-3-inference-provider-zh"
+source_id = "fd25d11462665840"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+erGym 创当前最佳。支持 1M 上下文、128K 输出与三档深度思考，胜任长程复杂任务。
+
+## 推理服务供应商
+
+"""
+exact = "`glm-5.3`模型的推理服务供应商为阿里云百炼。"
+suffix = """
+
+
+## 模型能力
+
+华北2（北京）
+
+新加坡
+
+德国（法兰克福）
+
+美国（弗吉尼亚）
+
+日本（东京）
+
+| 能力项 |"""

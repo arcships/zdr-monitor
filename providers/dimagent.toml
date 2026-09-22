@@ -1,0 +1,234 @@
+name = "DimAgent"
+name_en = "DimAgent"
+company = "dimagent"
+company_name = "DimAgent"
+line = "dimagent"
+site = "cn"
+entity = "上海法至科技有限公司"
+kind = "aggregator"
+homepage = "https://dimagent.cn/"
+endpoint = ""
+doc = "https://dimagent.cn/privacy"
+plan_levels = ["any"]
+
+[[source]]
+url = "https://dimagent.cn/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《DimAgent 隐私政策》（2026-08-06 生效）。第七节「关于数据训练的特别说明」按模型来源分成两类，两类的训练与上传结论相反：法至自托管模型在境内自有基础设施处理、不外发、不训练、对话记录只存本地；法至采购的第三方 API 模型则由上游按自己的条款决定是否训练。第五节给存储地点（境内、目前不跨境）与存储期限。第四节列委托处理方。"
+
+[[source]]
+url = "https://dimagent.cn/terms"
+channel = "contract"
+tier = "core"
+note = "《DimAgent 用户协议》（2026-08-06 生效）。§1 定义输入内容/输出内容/Dim 账号/BYOK/BYOA/积分，以及企业用户与个人用户；§7.2「数据训练」与隐私政策第七节同向：法至自身不拿输入输出训练模型，第三方 API 模型由上游条款决定。"
+
+[[product]]
+id = "self-hosted-models"
+badge = "法至自营模型"
+category = "coding_plan"
+plan_level = "any"
+label = "模型是法至自己部署运行的第三方开源模型，机器在自建 IDC 或 UCloud 云服务环境（官方文档称这一档为「法至自托管模型」，此处改称自营，以免和本台账「自托管＝客户自己跑」那一类混淆）。BYOK 自配模型那条链路按收录范围不收——输入内容由本地设备直接发给你选的模型方，不经过法至服务器"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "dim-privacy-7-1-no-own-training"
+
+[[product.training.point]]
+text_zh = "自托管模型这一档另有一句更强的：输入内容在法至控制的境内基础设施中处理，不发送至外部第三方，也不用于训练——即不存在「上游可能拿去训练」的问题。"
+anchor = "dim-privacy-self-hosted-no-external"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "dim-privacy-self-hosted-local-only"
+
+[[product.zdr.point]]
+text_zh = "公开文本承诺的是对话记录不上传、只留在你的设备上。要注意它承诺的边界：这一档的模型跑在法至自己的 IDC 与 UCloud 上，推理请求必然进入法至的基础设施，而「推理请求本身不落盘」这句公开文本没有单独写。判 ✓ 依据的是「不上传对话记录」这条明文，不是更强的那个意思。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "dim-privacy-self-hosted-local-only"
+
+[[product.retention.point]]
+text_zh = "「不留存」说的是对话记录不上传法至服务器这一条。账号、订单、日志这类个人信息另按第五节「最短必要期限」保留，并受《网络安全法》网络日志不少于 6 个月的法定要求约束；这与推理内容是两件事。"
+anchor = "dim-privacy-retention-minimum-necessary"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "dim-privacy-storage-in-china"
+
+[product.role]
+kind = "controller"
+anchor = "dim-privacy-handler-self"
+
+[[product.role.point]]
+text_zh = "隐私政策通篇以「我们会如何收集、使用、存储、共享您的个人信息」的口吻写，是《个人信息保护法》下个人信息处理者的位置，不是受你委托、按你指示处理的受托方。两份公开文档里没有任何一处把法至定为受托方。"
+
+[[product.role.point]]
+text_zh = "政策里点名的委托处理方是基础设施层面的：UCloud 云服务与自建 IDC，按原话「仅提供基础设施服务，不接触用户输入输出内容」。这和法至对你是什么角色是两件事。"
+anchor = "dim-privacy-entrusted-processors"
+
+[[product.role.point]]
+text_zh = "用户协议区分了企业用户与个人用户，但没有配套的数据处理协议把企业场景下的受托关系写下来；企业客户要按受托处理签，得另行约定。"
+
+[[product]]
+id = "third-party-api-models"
+badge = "第三方 API 模型"
+category = "coding_plan"
+plan_level = "any"
+label = "法至采购、在产品界面里可选的第三方模型。接入哪几家官方说明会随业务调整，以产品界面展示为准"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署约定：不得将输入输出用于模型训练或服务优化，默认对所有用户生效。该约定尚未写进公开的隐私政策或用户协议，因此这一条目前无法追到官方原文——本台账对其他厂商的同类情况一律判「未公开」，这里按厂商声明记录，待政策文本更新后重抓改绑。"
+
+[[product.training.point]]
+text_zh = "公开文本现在的兜底表述与上述声明方向相反，原样列在这里：服务商「可能会根据其自身的隐私政策和服务条款」把输入内容用于训练或服务优化。两者不一致时，以哪一条为准要由法至自己澄清。"
+anchor = "dim-privacy-third-party-may-train"
+
+[[product.training.point]]
+text_zh = "法至自身不拿输入输出训练模型这一条是有公开依据的（§7.1），与上游那一跳是两件事。"
+anchor = "dim-privacy-7-1-no-own-training"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+
+[[product.zdr.point]]
+text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署零数据保留约定，默认生效、无需另行开通。同样尚未写进公开文本，暂按厂商声明记录。"
+
+[[product.zdr.point]]
+text_zh = "法至自己这一侧有公开依据：对话记录只保存在你的本地设备，不上传至法至服务器。"
+anchor = "dim-privacy-third-party-local-record"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+
+[[product.retention.point]]
+text_zh = "法至侧不保存对话记录（公开依据）；上游侧按前述零保留约定不留存（厂商声明，公开文本未写）。"
+anchor = "dim-privacy-third-party-local-record"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = [
+  "https://dimagent.cn/privacy",
+  "https://dimagent.cn/terms",
+]
+
+[[product.processing_region.point]]
+text_zh = "法至自己收集产生的个人信息存于中国境内且目前不跨境；但第三方 API 服务商在哪处理，取决于接入了谁，公开文本未列清单。"
+anchor = "dim-privacy-storage-in-china"
+
+[product.role]
+kind = "controller"
+anchor = "dim-privacy-handler-self"
+
+[[product.role.point]]
+text_zh = "同自托管档：法至是个人信息处理者，不是受托方。选第三方 API 模型时，内容出境后的那一跳由对应服务商按自己的条款处理。"
+
+[[anchor]]
+id = "dim-privacy-7-1-no-own-training"
+source_id = "a8f4593b6eddc0a0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "题，我们可能需要收集您的**账号信息、问题描述、证明材料及沟通记录**。\n\n### 7. 关于数据训练的特别说明\n\n**"
+exact = "7.1 法至不会将您的输入内容和输出内容用于法至自身的模型训练。"
+suffix = "**\n\n**7.2** 本服务使用的模型来源分为两类，数据处理方式不同：\n\n*   **法至自托管模型**：在法至控制的"
+
+[[anchor]]
+id = "dim-privacy-self-hosted-no-external"
+source_id = "a8f4593b6eddc0a0"
+topics = ["training", "processing_region"]
+
+[anchor.selector]
+prefix = "生成相应的输出内容或执行操作。\n\n**关于您输入内容的处理方式，根据您使用的模型来源不同而有所区别：**\n\n*   **"
+exact = "法至自托管模型**：由法至在自建 IDC 或 UCloud 云服务环境中部署第三方开源模型，您的输入内容在法至控制的境内基础设施中处理，**不发送至外部第三方，亦不用于训练。**"
+suffix = " 对话记录仅保存在您的本地设备，不上传至法至服务器。\n\n*   **法至采购的第三方 API 模型**：您的输入内容将发"
+
+[[anchor]]
+id = "dim-privacy-self-hosted-local-only"
+source_id = "a8f4593b6eddc0a0"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "云服务环境中部署第三方开源模型，您的输入内容在法至控制的境内基础设施中处理，**不发送至外部第三方，亦不用于训练。** "
+exact = "对话记录仅保存在您的本地设备，不上传至法至服务器。"
+suffix = "\n\n*   **法至采购的第三方 API 模型**：您的输入内容将发送至相应的第三方 API 服务商进行处理，输出内容由"
+
+[[anchor]]
+id = "dim-privacy-third-party-may-train"
+source_id = "a8f4593b6eddc0a0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "*法至采购的第三方 API 模型**：您的输入内容将发送至相应的第三方 API 服务商进行处理，输出内容由模型返回。**"
+exact = "该等服务商可能会根据其自身的隐私政策和服务条款，将您的输入内容用于模型训练或服务优化。"
+suffix = "** 我们将在产品界面中向您展示当前可用模型的来源信息。对话记录仅保存在您的本地设备，不上传至法至服务器。\n\n*   *"
+
+[[anchor]]
+id = "dim-privacy-third-party-local-record"
+source_id = "a8f4593b6eddc0a0"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "理，输出内容由模型返回。**该等服务商可能会根据其自身的隐私政策和服务条款，将您的输入内容用于模型训练或服务优化。** "
+exact = "我们将在产品界面中向您展示当前可用模型的来源信息。对话记录仅保存在您的本地设备，不上传至法至服务器。"
+suffix = "\n\n*   **使用 BYOK 自定义模型**：您的模型 API Key 仅保存在您的本地设备。**您的输入内容由您的本"
+
+[[anchor]]
+id = "dim-privacy-storage-in-china"
+source_id = "a8f4593b6eddc0a0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "信息；\n\n*   法律、行政法规规定的其他情形。\n\n## 五、我们如何存储您的个人信息\n\n### 1. 存储地点\n\n**"
+exact = "我们在中国境内运营中收集和产生的您的个人信息存储于中国境内。"
+suffix = "** 目前我们不会将您的信息跨境传输或存储。如未来因业务发展需要跨境传输，我们将依法向您告知信息出境的目的、接收方、处理"
+
+[[anchor]]
+id = "dim-privacy-retention-minimum-necessary"
+source_id = "a8f4593b6eddc0a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "与处理规则适用您与该模型服务方之间的约定，请您自行评估并承担相应的跨境风险（如适用）。\n\n### 2. 存储期限\n\n**"
+exact = "我们仅在为实现服务目的所必需的最短必要期限内保留您的个人信息。"
+suffix = "** 超出必要期限后，我们将对您的个人信息进行删除或匿名化处理，但以下情况除外：\n\n*   遵从法律法规有关信息留存的要"
+
+[[anchor]]
+id = "dim-privacy-entrusted-processors"
+source_id = "a8f4593b6eddc0a0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "准的安全措施，并定期进行安全评估。具体安全措施可联系我们查阅。\n\n**我们使用的主要委托处理方包括：**\n\n*   **"
+exact = "UCloud 云服务**：用于提供数据存储和计算基础设施（法至自托管模型部署于其上）。委托范围：仅提供基础设施服务，不接触用户输入输出内容。"
+suffix = "\n\n*   **自建 IDC**：用于部分数据存储和处理。\n\n**关于第三方模型 API 服务商的特别说明：** 本服务"
+
+[[anchor]]
+id = "dim-terms-7-2-3-choose-self-hosted"
+source_id = "f84adb2947649f29"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "面中向您展示当前可用的模型及其来源信息。**建议您在使用前查看产品界面中的模型来源说明，并仔细阅读相应服务商的隐私政策。"
+exact = "如您不同意第三方服务商的数据处理方式，请优先选择法至自托管模型，或通过 BYOK 方式选择您信任的模型服务。"
+suffix = "**\n\n**7.2.4** 当您通过 BYOK 方式配置第三方模型 API Key 时，您的输入内容将直接从您的本地设备"
+
+[[anchor]]
+id = "dim-privacy-handler-self"
+source_id = "a8f4593b6eddc0a0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "佳实践，采取相应的安全保护措施，保护您的个人信息安全。\n\n本《DimAgent 隐私政策》（以下简称\"**本政策**\"）"
+exact = "旨在向您说明：在您使用 DimAgent 产品和服务的过程中，我们会如何收集、使用、存储、共享、转让、公开披露和保护您的个人信息，以及您可以如何管理您的个人信息。"
+suffix = "\n\n**请您在使用本服务前，仔细阅读并充分理解本政策，特别是以加粗形式标识的条款。如您不同意本政策的任何内容，请立即停止"

@@ -1,0 +1,928 @@
+name = "Nebius"
+line = "nebius"
+site = "global"
+entity = "Nebius B.V. / Nebius Israel Ltd. / Nebius Inc."
+endpoint = ""
+doc = "https://docs.nebius.com/legal/dpa"
+
+[[source]]
+url = "https://docs.nebius.com/legal/agreement"
+channel = "contract"
+tier = "core"
+note = "《Nebius Services Agreement》(Publication 2026-09-15 / Effective 2026-09-28)，平台总协议。§11.2 把 Nebius 定为受托处理者(processor)并引入 DPA，§11.3 保留其作为控制者的自有目的处理，LINKED DOCUMENTS 一节列出 Token Factory Supplemental Terms 与三份按客户注册地分流的 DPA(非 US/IL、IL、US)。role 维度的合同层依据。"
+
+[[source]]
+url = "https://docs.nebius.com/legal/dpa"
+channel = "contract"
+tier = "core"
+note = "《Nebius Data Processing Agreement》(Publication/Effective 2026-09-15)，随 Nebius Services Agreement 一并纳入(Agreement §11.2 引为 incorporated by reference)。一份 DPA 同时覆盖 Nebius AI Cloud(Annex 1A)与 Nebius Token Factory(Annex 1B)，Annex 3 的共通基线另附 Token Factory 限定条款。这是本家唯一同时给出「不训练」「ZDR 不保留」「处理地」三层合同语言的文档，因此是 training/retention/zdr/processing_region/role 五个维度的主依据。"
+
+[[source]]
+url = "https://docs.nebius.com/legal/specific-terms/ai-features"
+channel = "contract"
+tier = "core"
+note = "《Nebius AI Features Terms》(Publication 2026-09-15 / Effective 2026-09-28)，覆盖 Nebius 平台内的 AI 功能(如 Echo AI Assistant)，§5.1 承诺不用于训练 Nebius Models，§5.3 给会话历史 6 个月删除。**适用范围必须写清：Token Factory Supplemental Terms 首段明确「any Nebius AI Features Terms shall not apply to the Token Factory Service」，所以本文件对 Token Factory 档不适用**，只用于 products[] 里的 AI Features 档与「同一家不同产品线政策不同」的对照。"
+
+[[source]]
+url = "https://docs.nebius.com/legal/terms-of-use"
+channel = "contract"
+tier = "core"
+note = "《Terms of Use of the Nebius Platform》(AI Cloud 平台使用条款)。§2.7.3「Service Data Use」授权 Nebius 以统计、聚合、不可识别形式收集处理 Service Data 用于平台测试/开发/改进，是 AI Cloud 档(非 Token Factory)在 training 方向上的对照条款。"
+
+[[source]]
+url = "https://docs.nebius.com/legal/token-factory"
+channel = "contract"
+tier = "core"
+note = "《Nebius Token Factory Supplemental Terms》(Effective 2026-09-15)，经 Agreement 的 LINKED DOCUMENTS 一节纳入，是 2026-09-28 起新法律框架下 Token Factory 的服务专用条款(Service-Specific Terms)。§5.1 明文授权用 Input/Output 训练 speculative-decoding 用的 smaller Models，与 DPA Annex 3 的「不训练」表述冲突，两条并列保留。首段明确「AI Features Terms 不适用于 Token Factory」。"
+
+[[source]]
+url = "https://docs.tokenfactory.nebius.com/data-lab/data-processing"
+channel = "developer_data"
+tier = "core"
+note = "Token Factory 文档站《Data Lab → Data Processing》页，明确 Data Lab(推理日志、数据集、批量输出、微调产物)全部只在 EU-North1(芬兰)处理，且「Nebius Token Factory acts as a Data Processor under the terms of our DPA」。processing_region 与 role 的产品层依据。"
+
+[[source]]
+url = "https://docs.tokenfactory.nebius.com/legal/legal-quick-guide"
+channel = "developer_data"
+tier = "core"
+note = "《Legal Quick Guide》(Token Factory 文档站 /legal/ 下的官方说明页，页面未标 publication/effective 日期)，是唯一把 ZDR 开关、公开端点无区域承诺、speculative decoding 保留物存芬兰这三件事写成完整叙述的官方页面。第 1 节自述「this guide is a summary for your convenience. It does not amend or replace our Terms of Service, DPA or Privacy Policy; in case of any inconsistency, those documents prevail」，故按 channel 记 developer_data(低于 contract)，ZDR 与处理地的合同层依据以 DPA 为准、本页作展开说明。"
+
+[[source]]
+url = "https://docs.tokenfactory.nebius.com/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "旧记录唯一候选的 URL，仍存活(HTTP 200，正文完整)，但已转为过渡文档：页面顶部 HTML 里有 IMPORTANT NOTICE——「These Terms of Service apply exclusively to Nebius Token Factory customers who have an active reserve as of September 15, 2026... If you are not a customer with an active reserve... as of September 28, 2026, your use of the Service is governed by the updated Terms of Service available at https://docs.nebius.com/legal/agreement」。该通知**未被 r.jina.ai 渲染进快照**，因此只能写进 scope_note，不能作为锚点。§7 是 training/zdr 的历史条款来源(2026-08-20 生效)。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "tf-suppl-5-1-train-speculative-decoding"
+mode = "opt_out"
+
+[[product.training.point]]
+text_zh = "默认模式下合同文本明文授权「train smaller Models used for Speculative Decoding」(Supplemental Terms §5.1(b)，旧 TOS §7 同旨)，且该 draft 模型归 Nebius 所有(§3.2)"
+
+[[product.training.point]]
+text_zh = "但 DPA Annex 3 与 Quick Guide 说 Token Factory 不 train/fine-tune/improve 任何模型。两条官方文本冲突，并列保留，不取平均"
+
+[[product.training.point]]
+text_zh = "实务读法：默认模式下 I/O 会被用于训练 Nebius 自有的 draft 模型，用于服务客户请求，不用于训练通用模型。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "qg-4-1-zdr-meaning"
+
+[[product.zdr.point]]
+text_zh = "组织级自助开关，覆盖组织下所有项目与端点"
+
+[[product.zdr.point]]
+text_zh = "开启后请求与响应正文不保留、不用于训练与 speculative decoding"
+
+[[product.zdr.point]]
+text_zh = "仅覆盖 supported chat-completion 内容，metadata/observability 不覆盖。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "dpa-annex3-tf-default-speculative-only"
+
+[[product.retention.point]]
+text_zh = "I/O 可保留但只能用于 speculative decoding，期限未披露；metadata/observability 不受 ZDR 覆盖；删除不清备份。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "qg-5-1-public-endpoint-no-region"
+
+[[product.processing_region.point]]
+text_zh = "公开端点 Region 字段显示 Global，处理地动态决定、可随时变化"
+
+[[product.processing_region.point]]
+text_zh = "未开 ZDR 时保留物存芬兰(EU)。"
+
+[product.role]
+kind = "processor"
+anchor = "qg-3-2-token-factory-processor"
+
+[[product.role.point]]
+text_zh = "客户提交的 prompt/数据集与输出，Nebius 自认 DPA 下的 Data Processor"
+
+[[product.role.point]]
+text_zh = "账号与计费信息为 controller。"
+
+[[product]]
+id = "api-dedicated-endpoints"
+badge = "专属端点"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "dpa-annex3-tf-no-training"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "DPA Annex 3 的不训练承诺按产品写的是「Nebius Token Factory」，未按端点类型再分"
+
+[[product.training.point]]
+text_zh = "Supplemental Terms §5.1 的 speculative-decoding 训练授权同样未按端点类型区分，故默认模式下两条冲突同样适用于 dedicated endpoint。不确定性：官方未就 dedicated endpoint 单独表态。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+searched = [
+  "https://docs.nebius.com/legal/dpa",
+  "https://docs.tokenfactory.nebius.com/legal/legal-quick-guide",
+  "https://docs.nebius.com/legal/token-factory",
+  "https://docs.nebius.com/legal/hipaa",
+  "https://docs.tokenfactory.nebius.com/ai-models-inference/dedicated-endpoints/overview",
+  "https://docs.tokenfactory.nebius.com/ai-models-inference/dedicated-endpoints/faq",
+]
+anchor = "dpa-annex3-tf-zdr-no-retention"
+
+[[product.zdr.point]]
+text = "ZDR is a self-serve organization-level switch: Quick Guide §4.1 \"ZDR applies at the organization level and covers all projects and endpoints within your organization\", and §10 recommends \"enabling Zero Data Retention and using a dedicated endpoint in your preferred region\" — dedicated endpoints fall inside ZDR's scope."
+text_zh = "ZDR 是组织级自助开关：Quick Guide §4.1「ZDR applies at the organization level and covers all projects and endpoints within your organization」，§10 又建议「enabling Zero Data Retention and using a dedicated endpoint in your preferred region」——dedicated endpoint 在 ZDR 覆盖范围内，故本档与 Token Factory 按量档同记 mark=yes + mode=opt_in。"
+
+[[product.zdr.point]]
+text = "Scope limit from DPA Annex 3: ZDR covers \"supported chat-completion request and response content\"; request metadata and observability data are not covered. Whether non-chat-completion payloads (e.g. embeddings) are covered is not disclosed."
+text_zh = "DPA Annex 3 的范围限定：ZDR 只覆盖「supported chat-completion request and response content」，request metadata 与 observability 数据不在覆盖内；非 chat-completion 负载（如 embeddings）是否在覆盖内未披露。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "dpa-7-return-deletion-on-termination"
+
+[[product.retention.point]]
+text_zh = "服务终止/到期时由客户选择删除或返还(DPA §7)"
+
+[[product.retention.point]]
+text_zh = "运行期内的请求内容保留规则官方未按端点类型说明。不确定性较高。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "dpa-6-1-dedicated-endpoint-region"
+
+[[product.processing_region.point]]
+text_zh = "DPA §6.1 对 dedicated endpoint 承诺在客户选定 region 内处理 Customer Content"
+
+[[product.processing_region.point]]
+text_zh = "Quick Guide §5.2 称其为 contractual commitment，不做多区路由/自动溢出。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-2-1-roles-processor"
+
+[[product.role.point]]
+text_zh = "同 Token Factory 整体：DPA 下为 processor。"
+
+[[product]]
+id = "post-training-data-lab"
+badge = "微调与数据集"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "dpa-annex3-tf-no-training"
+mode = "opt_in"
+
+[[product.training.point]]
+text_zh = "DPA Annex 3 的例外句「except as directed by the Customer to perform a Customer-requested fine-tuning or post-training operation」——客户主动发起微调/蒸馏时，Nebius 使用客户数据集是被允许的"
+
+[[product.training.point]]
+text_zh = "Supplemental Terms §2.10 亦规定 fine-tuned/distilled 模型只对创建者可见，但 Nebius 有权为提供该服务使用客户数据集。Fine-tuned/Distilled 模型可被 Nebius 提前 3 天通知后删除。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.tokenfactory.nebius.com/data-lab/data-processing",
+  "https://docs.tokenfactory.nebius.com/data-lab/datasets",
+  "https://docs.tokenfactory.nebius.com/data-lab/chat-completions",
+  "https://docs.nebius.com/legal/dpa",
+]
+[[product.zdr.point]]
+text = "Removed anchor: DPA Annex 3 defines ZDR's object as \"supported chat-completion request and response content\" — a Token Factory inference scope. It does not state anything about zero retention for fine-tuning datasets, artefacts or batch outputs, so it is not a statement on this tier's zdr. Search scope is recorded in searched."
+text_zh = "已撤锚：DPA Annex 3 把 ZDR 的对象定义为「supported chat-completion request and response content」，是 Token Factory 推理侧的范围；它没有对微调数据集/产物/批量输出是否可零保留作出任何表述，故不构成本档 zdr 的表述。查阅范围见 searched。"
+
+[[product.zdr.point]]
+text_zh = "ZDR 的覆盖对象在 DPA Annex 3 被写成「supported chat-completion request and response content」，微调数据集/产物/批量输出不在其中"
+
+[[product.zdr.point]]
+text_zh = "官方没有说这些数据可享零保留，故记 not_found(未披露)，不外推。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "datalab-processing-location-eu-north1"
+
+[[product.retention.point]]
+text_zh = "官方只写数据集/批量输出/微调产物统一存 EU，未给保留期限"
+
+[[product.retention.point]]
+text_zh = "推理日志是否可导入取决于请求发生时的 ZDR 设置(Data Lab chat-completions 页：ZDR 开启期间的日志不存储、不可导入)。"
+
+[product.processing_region]
+codes = ["EU", "FI"]
+anchor = "datalab-processing-location-eu-north1"
+
+[[product.processing_region.point]]
+text = "「All Data Lab processing activities, including handling of logs, datasets, batch outputs, and training data, are performed exclusively in the EU-North1 (Finland) data center」"
+
+[[product.processing_region.point]]
+text_zh = "Quick Guide §5.3 补充：EU 客户在 EU 处理、US 客户在 US 处理，但所有数据统一存 EU，微调不提供区域选择。"
+
+[product.role]
+kind = "processor"
+anchor = "datalab-acts-as-processor"
+
+[[product.role.point]]
+text_zh = "Data Lab 页明文「Nebius Token Factory acts as a Data Processor under the terms of our DPA」。"
+
+[[product]]
+id = "ai-cloud"
+badge = "GPU 云"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "ai-cloud-tou-2-7-3-service-data-use"
+
+[[product.training.point]]
+text_zh = "平台使用条款 §2.7.3 授权 Nebius 以「statistical, aggregated and non-identifiable form」处理 Service Data 用于平台测试、开发与改进，且 Nebius 独占该 Service Data 的权利。对象是 Service Data(访问/使用/测试/评估平台产生的数据)，不是客户内容本身"
+
+[[product.training.point]]
+text_zh = "客户内容的训练结论在 AI Cloud 侧没有专门条款，故 confidence=medium。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.nebius.com/legal/dpa",
+  "https://docs.nebius.com/legal/terms-of-use",
+  "https://docs.nebius.com/legal/specific-terms/compute",
+  "https://docs.nebius.com/legal/specific-terms/serverless-ai",
+  "https://docs.nebius.com/security/encryption",
+  "https://nebius.com/trust-center",
+]
+[[product.zdr.point]]
+text = "Removed anchor: the DPA clause cited here is expressly limited to \"Nebius Token Factory\" (\"Zero Data Retention is configured at the Nebius Token Factory organization level\"), so it is not a statement about ZDR on AI Cloud. Search scope is recorded in searched."
+text_zh = "已撤锚：原引条款自我限定在「Nebius Token Factory」（「Zero Data Retention is configured at the Nebius Token Factory organization level」），不构成对 AI Cloud 档 zdr 的表述。查阅范围见 searched。"
+
+[[product.zdr.point]]
+text_zh = "ZDR 在全部官方文档中只被定义为 Token Factory 的隐私配置(DPA Annex 3 的 Token Factory 限定段、HIPAA 指南 §2 定义)。AI Cloud 侧没有任何零保留承诺或开关"
+
+[[product.zdr.point]]
+text_zh = "DPA Annex 3 的共通基线里出现过「configuring Zero Data Retention and other available security or privacy features」一句，但紧随其后的产品限定把它限定在 Token Factory。按规则记 not_found(未披露)，不写成「不提供」。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "dpa-annex3-retention-necessary-only"
+
+[[product.retention.point]]
+text_zh = "DPA Annex 3 对 AI Cloud 写「Nebius applies documented retention schedules, and Customers can delete Customer-controlled resources」，但「documented retention schedules」的具体期限未在公开文档中给出"
+
+[[product.retention.point]]
+text_zh = "终止后按 DPA §7 删除或返还。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "dpa-6-1-tf-processing-location"
+
+[[product.processing_region.point]]
+text_zh = "DPA §6.1 首句针对 AI Cloud：「Customer Content is hosted and processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List」"
+
+[[product.processing_region.point]]
+text_zh = "即区域可选，但运维/支持可能有限跨境。锚点取自同一条 §6.1 的 Token Factory 句(该句所在段落即 §6.1)。"
+
+[product.role]
+kind = "processor"
+anchor = "agreement-11-2-nebius-processor"
+
+[[product.role.point]]
+text_zh = "Agreement §11.2 + DPA Annex 1A.1(Nebius B.V. = Processor)，客户内容侧为 processor"
+
+[[product.role.point]]
+text_zh = "账号计费侧为 controller(§11.3)。"
+
+[[product]]
+id = "ai-features"
+badge = "助手功能"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "ai-features-5-1-no-train-nebius-models"
+mode = "default"
+
+[[product.training.point]]
+text = "§5.1「Nebius will not use Customer Content to train Nebius Models」"
+
+[[product.training.point]]
+text_zh = "同条另允许「may process Customer Content to improve the AI Features, provided that any such data is processed in a form that does not contain any Personal Data or confidential information」——注意这是改进 AI Features 的有限许可，措辞与 Token Factory 档不同。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.nebius.com/legal/specific-terms/ai-features",
+  "https://docs.nebius.com/legal/dpa",
+  "https://nebius.com/trust-center",
+]
+[[product.zdr.point]]
+text = "Removed anchor: the DPA clause cited here is expressly limited to \"Nebius Token Factory\", so it is not a statement about ZDR on AI Features (which the Token Factory Supplemental Terms separately exclude from AI Features Terms). Search scope is recorded in searched."
+text_zh = "已撤锚：原引条款自我限定在「Nebius Token Factory」，不构成对 AI Features 档 zdr 的表述（Token Factory Supplemental Terms 首段另明确 AI Features Terms 不适用于 Token Factory）。查阅范围见 searched。"
+
+[[product.zdr.point]]
+text_zh = "AI Features Terms 全文无 ZDR/零保留表述"
+
+[[product.zdr.point]]
+text_zh = "ZDR 在本家只针对 Token Factory 定义。"
+
+[product.retention]
+days = 180
+object = "input_output"
+basis = "fixed_period"
+anchor = "ai-features-5-3-chat-history-six-months"
+
+[[product.retention.point]]
+text_zh = "§5.3：某些 AI Features(含 Echo AI Assistant)会存储 Customer Content 以提供会话历史，「Unless deleted earlier by the User, a conversation is deleted six months after the last message in that conversation」，用户可随时删除会话。这是本家唯一量化的内容保留期，但对象是 AI Features 的会话历史，不是 Token Factory 的 API 请求内容。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://docs.nebius.com/legal/specific-terms/ai-features",
+  "https://docs.nebius.com/legal/dpa",
+]
+[[product.processing_region.point]]
+text = "Removed anchor: the cited DPA §6.1 clause is expressly about \"Nebius Token Factory\" (\"For Nebius Token Factory, the processing location depends on the model, endpoint type and processing location used\"), so it is not a statement about AI Features' processing location. Search scope is recorded in searched."
+text_zh = "已撤锚：原引 DPA §6.1 明确只写「For Nebius Token Factory, the processing location depends on the model, endpoint type and processing location used」，不构成对 AI Features 处理地的表述。查阅范围见 searched。"
+
+[[product.processing_region.point]]
+text_zh = "AI Features Terms 未写处理地"
+
+[[product.processing_region.point]]
+text_zh = "DPA 的地域条款只按 AI Cloud 与 Token Factory 两条产品线分列，未覆盖 AI Features。"
+
+[product.role]
+kind = "processor"
+anchor = "agreement-11-2-nebius-processor"
+
+[[product.role.point]]
+text_zh = "按 Agreement §11.2 的一般规则为 processor"
+
+[[product.role.point]]
+text_zh = "AI Features Terms 本身未单独声明角色。confidence=medium。"
+
+[[product]]
+id = "legacy-reserve-tos"
+badge = "旧版条款"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "tf-tos-7-training-speculative-decoding"
+mode = "opt_out"
+
+[[product.training.point]]
+text_zh = "§7 明文「the Company collects and processes both Input and Output data for the purpose of training smaller Models used exclusively for Speculative Decoding」"
+
+[[product.training.point]]
+text_zh = "§12a/§13a 另规定客户的 Adapter/模型/数据集的使用限制。这是旧记录引用的原句，逐字核对一致。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "tf-tos-7-opt-out"
+
+[[product.zdr.point]]
+text_zh = "§7 提供 opt-out：可不存储 I/O 用于提供服务、且不用于 speculative decoding"
+
+[[product.zdr.point]]
+text_zh = "通道是 onboarding form 的 opt-out 机制或 tokenfactory-support@nebius.com。这是新框架下 ZDR 开关的前身，旧记录引用无误。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "tf-tos-7-license-to-store-inputs-outputs"
+
+[[product.retention.point]]
+text_zh = "§7 授权 host/cache/store/copy/modify I/O 以提供服务，并保留随时删除的绝对裁量权，未给期限。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = ["https://docs.tokenfactory.nebius.com/legal/terms-of-service"]
+
+[[product.processing_region.point]]
+text_zh = "该 TOS 全文无处理地条款(仅 §19 管辖法)。旧记录 processing_region 缺失的原因就在这里——它只看了一份不含地域条款的文档。"
+
+[product.role]
+kind = "processor"
+anchor = "tf-tos-8-b-data-processor"
+
+[[product.role.point]]
+text_zh = "§8b：Nebius 代表客户、按客户指示处理个人信息时适用 DPA(processor)"
+
+[[product.role.point]]
+text_zh = "§8a 账号注册登录信息为 controller。"
+
+[[anchor]]
+id = "dpa-annex3-tf-no-training"
+source_id = "a03dd15c9182af7b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "data-minimization principles to its own relevant processes. "
+exact = "Nebius Token Factory does not use Customer Content to train, fine-tune or improve models for Nebius or any third party, except as directed by the Customer to perform a Customer-requested fine-tuning or post-training operation"
+suffix = ". The Customer determines the content of its workloads, inpu"
+
+[[anchor]]
+id = "dpa-annex3-tf-zdr-no-retention"
+source_id = "a03dd15c9182af7b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "nt technology and risk.Nebius Token Factory qualifications: "
+exact = "When Zero Data Retention is enabled, Nebius Token Factory does not retain supported chat-completion request and response content after each request is processed, as described in the Documentation"
+suffix = ". Unless Zero Data Retention is enabled, inputs and outputs "
+
+[[anchor]]
+id = "dpa-annex3-tf-default-speculative-only"
+source_id = "a03dd15c9182af7b"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ch request is processed, as described in the Documentation. "
+exact = "Unless Zero Data Retention is enabled, inputs and outputs may be retained and used solely for the documented speculative-decoding purpose and not for model training or improvement"
+suffix = ". Customers can delete supported resources through available"
+
+[[anchor]]
+id = "dpa-annex3-zdr-metadata-and-backups"
+source_id = "a03dd15c9182af7b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "e handled through Nebius’s operational deletion procedures. "
+exact = "Zero Data Retention is configured at the Nebius Token Factory organization level for the supported inference content described above; request metadata and observability data are retained and are not covered by Zero Data Retention"
+suffix = ". Supported deletions remove applicable data from active sto"
+
+[[anchor]]
+id = "dpa-annex3-backups-not-purged"
+source_id = "a03dd15c9182af7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ta are retained and are not covered by Zero Data Retention. "
+exact = "Supported deletions remove applicable data from active storage but do not individually purge existing backup copies"
+suffix = ". Service-specific retention and deletion behavior for other"
+
+[[anchor]]
+id = "dpa-annex3-retention-necessary-only"
+source_id = "a03dd15c9182af7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " for their accuracy, relevance, lawfulness and minimization."
+exact = "Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations"
+suffix = ". For Nebius AI Cloud, Nebius applies documented retention s"
+
+[[anchor]]
+id = "dpa-6-1-tf-processing-location"
+source_id = "a03dd15c9182af7b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " Services as described in the applicable Sub-processor List."
+exact = "For Nebius Token Factory, the processing location depends on the model, endpoint type and processing location used"
+suffix = ". For public model endpoints, the applicable processing loca"
+
+[[anchor]]
+id = "dpa-6-1-public-endpoint-location"
+source_id = "a03dd15c9182af7b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "s on the model, endpoint type and processing location used. "
+exact = "For public model endpoints, the applicable processing location is specified in the API or displayed in the Token Factory interface"
+suffix = ". For dedicated endpoints, Customer Content is processed in "
+
+[[anchor]]
+id = "dpa-6-1-dedicated-endpoint-region"
+source_id = "a03dd15c9182af7b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ied in the API or displayed in the Token Factory interface. "
+exact = "For dedicated endpoints, Customer Content is processed in the region selected by Customer"
+suffix = ", subject to any limited Processing outside that region nece"
+
+[[anchor]]
+id = "dpa-2-1-roles-processor"
+source_id = "a03dd15c9182af7b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ of Personal Data
+
+2.1. **Scope and Roles of the Parties.** """
+exact = "This DPA applies when Customer Personal Data is processed by Nebius as a processor in its provision of the Services to Customer"
+suffix = ". Customer will act as either a controller or processor, as "
+
+[[anchor]]
+id = "dpa-annex1b-role-processor"
+source_id = "a03dd15c9182af7b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ature and date** | As set out in the Terms of Service |
+| **"""
+exact = "Role (Controller / Processor)** | Processor"
+suffix = """
+ |
+
+#### ANNEX 1B.2 - DESCRIPTION OF THE PROCESSING / TRANSF"""
+
+[[anchor]]
+id = "dpa-7-return-deletion-on-termination"
+source_id = "a03dd15c9182af7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+n of Customer Personal Data Processed on Customer’s Behalf
+
+"""
+exact = "Upon termination or expiration of the applicable Services, Nebius will, at Customer’s choice and subject to the functionality of the applicable Services, delete or return Customer Personal Data processed by Nebius on the Customer’s behalf"
+suffix = ".For clarity, this Section applies only to Customer Personal"
+
+[[anchor]]
+id = "tf-suppl-5-1-train-speculative-decoding"
+source_id = "b37ba176a0af9091"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "the Token Factory Service. Subject to the terms of the DPA, "
+exact = "Nebius may access, use, host, cache, store, copy, modify, and otherwise process Input and Output to (a) provide, maintain, monitor, protect, and support the Services, Token Factory Service or (b) train smaller Models used for Speculative Decoding"
+suffix = ". These rights and licenses are royalty free, transferable, "
+
+[[anchor]]
+id = "tf-suppl-3-2-nebius-owns-draft-models"
+source_id = "b37ba176a0af9091"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "its other intellectual property rights under the Agreement, "
+exact = "Nebius retains ownership of any smaller Models for Speculative Decoding created by or for Nebius"
+suffix = """
+.
+
+## 4. Restrictions
+
+In addition to the other restrictions"""
+
+[[anchor]]
+id = "tf-suppl-5-4-opt-out"
+source_id = "b37ba176a0af9091"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = " time, for any reason, and without notice.**5.4. Opt Out.** "
+exact = "If Customer prefers that Nebius (i) does not store Customer’s Inputs and Outputs for the purposes of providing the Services, or (ii) does not collect and process them for Speculative Decoding, Customer may opt out at any time"
+suffix = ". Customer can indicate such preference through the opt-out "
+
+[[anchor]]
+id = "tf-suppl-5-3-delete-at-any-time"
+source_id = "b37ba176a0af9091"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**5.3. Deletion of Data.** Subject to the terms of the DPA, "
+exact = "Nebius reserves the right, and has absolute discretion, to remove, screen, or delete any Inputs or Outputs at any time, for any reason, and without notice"
+suffix = ".**5.4. Opt Out.** If Customer prefers that Nebius (i) does "
+
+[[anchor]]
+id = "tf-suppl-2-7-third-party-model-eula"
+source_id = "b37ba176a0af9091"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "iated access rights when no longer required.**2.7. EULAs.** "
+exact = "Models we provide may be subject to their own EULA, and it is Customer’s responsibility to comply with those EULAs available in Models’ cards"
+suffix = ", which are hereby incorporated by reference into these Toke"
+
+[[anchor]]
+id = "ai-features-scope-not-token-factory"
+source_id = "b37ba176a0af9091"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "onsidered part of the Services. For the avoidance of doubt, "
+exact = "any Nebius AI Features Terms shall not apply to the Token Factory Service unless expressly stated otherwise by Nebius in writing in an applicable Order Form or Service-Specific Terms"
+suffix = """
+.
+
+## 1. Definitions
+
+“Adapter” means an object that is desi"""
+
+[[anchor]]
+id = "agreement-11-2-nebius-processor"
+source_id = "fd20c58a72d5436e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "shall comply with all Applicable Data Protection Laws.11.2. "
+exact = "To the extent Nebius Processes Personal Data on behalf of the Customer in connection with the Services, Nebius acts as a processor and such Processing is governed by the applicable Data Processing Agreement"
+suffix = " (“DPA”), which is incorporated herein by reference. The Cus"
+
+[[anchor]]
+id = "agreement-11-3-nebius-controller"
+source_id = "fd20c58a72d5436e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " fines or penalties to the extent legally permissible.11.3. "
+exact = "Nebius acts as a controller with respect to Personal Data that it processes for its own purposes in connection with the Services, including for account administration, billing, service communications and customer support administration"
+suffix = ", in accordance with Applicable Data Protection Laws and [Ne"
+
+[[anchor]]
+id = "agreement-linked-docs-token-factory"
+source_id = "fd20c58a72d5436e"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "al/terms-of-use](https://docs.nebius.com/legal/terms-of-use)"
+exact = "Nebius Token Factory Supplemental Terms are set forth here"
+suffix = ": [https://docs.nebius.com/legal/token-factory](https://docs"
+
+[[anchor]]
+id = "tf-tos-7-training-speculative-decoding"
+source_id = "e8f3528cf9f61230"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "nd Outputs at any time, for any reason, and without notice. "
+exact = "As part of providing the Service, the Company collects and processes both Input and Output data for the purpose of training smaller Models used exclusively for Speculative Decoding"
+suffix = ". If you prefer that we (i) do not store Your Inputs and Out"
+
+[[anchor]]
+id = "tf-tos-7-opt-out"
+source_id = "e8f3528cf9f61230"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "g smaller Models used exclusively for Speculative Decoding. "
+exact = "If you prefer that we (i) do not store Your Inputs and Outputs for the purposes of providing the Service and (ii) do not collect and process them for Speculative Decoding, You may opt out at any time"
+suffix = ". You can indicate your preference through the opt-out mecha"
+
+[[anchor]]
+id = "tf-tos-7-license-to-store-inputs-outputs"
+source_id = "e8f3528cf9f61230"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+the Customer to the Company.
+
+## 7. DATA USAGE AND STORAGE
+
+"""
+exact = "By using the Service, You grant Us a license to access, use, host, cache, store, copy , and modify Inputs and Outputs for the purposes of providing the Service"
+suffix = ". These rights and licenses are royalty free, transferable, "
+
+[[anchor]]
+id = "tf-tos-8-b-data-processor"
+source_id = "e8f3528cf9f61230"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ation set out in the Privacy Policy. **b. Data Processor.** "
+exact = "When Company processes Personal Data on Your behalf and under Your instructions, the terms of the Data Processing Agreement available at"
+suffix = " [https://docs.tokenfactory.nebius.com/legal/dpa](https://do"
+
+[[anchor]]
+id = "tf-tos-11-a-third-party-models"
+source_id = "e8f3528cf9f61230"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+ely with their respective providers.
+
+## 11. MODELS
+
+**a.** """
+exact = "The Service provides Customers with the ability to interface with Models which have been developed and made available by third parties"
+suffix = ". We make no commitments in relation to these Models and exc"
+
+[[anchor]]
+id = "qg-4-1-zdr-meaning"
+source_id = "10197544f81f6714"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+responsibility as the account owner.
+*   **What it means:** """
+exact = "with ZDR enabled, your inputs (prompts) and outputs (responses) are not stored on our systems after each request is processed – no retained copy exists beyond ephemeral in-flight processing"
+suffix = """
+.
+*   **No training, no Speculative Decoding:** with ZDR ena"""
+
+[[anchor]]
+id = "qg-4-1-zdr-how-to-enable"
+source_id = "10197544f81f6714"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ whether ours or a third party’s.
+*   **How to enable it:** """
+exact = "activate Zero Data Retention on your account profile page"
+suffix = """
+.
+*   **Written confirmation:** if you need written confirma"""
+
+[[anchor]]
+id = "qg-4-1-zdr-scope-org-level"
+source_id = "10197544f81f6714"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ro Data Retention in your account settings.
+
+*   **Scope:** """
+exact = "ZDR applies at the organization level and covers all projects and endpoints within your organization"
+suffix = ". Enabling or disabling ZDR is your responsibility as the ac"
+
+[[anchor]]
+id = "qg-4-1-zdr-no-training"
+source_id = "10197544f81f6714"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+t processing.
+*   **No training, no Speculative Decoding:** """
+exact = "with ZDR enabled, your data is not used for Speculative Decoding and is not used to train, fine-tune or improve any model – whether ours or a third party’s"
+suffix = """
+.
+*   **How to enable it:** activate Zero Data Retention on """
+
+[[anchor]]
+id = "qg-4-2-no-training-either-mode"
+source_id = "10197544f81f6714"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " the Speculative Decoding technique described in Section 3. "
+exact = "Your content is not used to train any models in either mode"
+suffix = ".**4.3. Return & Deletion at End of Contract**When you stop "
+
+[[anchor]]
+id = "qg-5-1-public-endpoint-no-region"
+source_id = "10197544f81f6714"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+s Processed
+
+**5.1. Public endpoints: No Region Commitment**"""
+exact = "For public model endpoints, the Region field shows **Global**. The processing location is decided dynamically, is not tied to any single data center, and can change at any time without prior notice"
+suffix = ". If your integration relies on a region-specific `base_url`"
+
+[[anchor]]
+id = "qg-5-1-retained-io-stored-finland"
+source_id = "10197544f81f6714"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "* real-time processing and subsequent storage are distinct. "
+exact = "If you have not enabled Zero Data Retention (see Section 4), the inputs and outputs retained for Speculative Decoding are stored in Finland (EU), regardless of where real-time processing takes place"
+suffix = ". With ZDR enabled, no inputs or outputs are retained.**5.2."
+
+[[anchor]]
+id = "qg-5-2-dedicated-endpoint-region-commitment"
+source_id = "10197544f81f6714"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "dpoints, which offer no region guarantee (see Section 5.1), "
+exact = "for dedicated endpoints the data-center region is fixed as part of the endpoint configuration – and it is a contractual commitment"
+suffix = ": under Section 6.1 of our DPA, we process your personal dat"
+
+[[anchor]]
+id = "qg-5-3-finetuning-stored-eu"
+source_id = "10197544f81f6714"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ance and governance:
+
+*   **Data storage (global policy):** """
+exact = "regardless of customer origin (EU, US, or other regions), all fine-tuning datasets, artifacts, and model outputs are stored exclusively in EU data centers"
+suffix = """
+.
+*   **Processing for EU customers:** fine-tuning jobs subm"""
+
+[[anchor]]
+id = "qg-3-2-token-factory-processor"
+source_id = "10197544f81f6714"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "r authentication, billing and communication with you.**3.2. "
+exact = "Data Processor:** for the content you submit to our model inference and fine-tuning endpoints via the API or web interface (prompts, datasets, etc.) and the output you receive, we act as the Data Processor under our DPA"
+suffix = ". You are the Data Controller and remain in full control of "
+
+[[anchor]]
+id = "qg-4-3-delete-or-return-at-choice"
+source_id = "10197544f81f6714"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "op using the service, you decide what happens to your data: "
+exact = "upon termination or expiration of the services, we will delete or return Customer Personal Data at your choice, unless retention of certain data is required by applicable law"
+suffix = """
+ (DPA, Section 7).
+
+## 5. Data Location: Where Your Data Is """
+
+[[anchor]]
+id = "ai-features-5-1-no-train-nebius-models"
+source_id = "4a968018bb537ce1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " not contain any Personal Data or confidential information. "
+exact = "Nebius will not use Customer Content to train Nebius Models"
+suffix = ". Nebius may collect usage data and technical logs relating "
+
+[[anchor]]
+id = "ai-features-5-3-chat-history-six-months"
+source_id = "4a968018bb537ce1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "o provide conversation history and operate the AI Features. "
+exact = "Unless deleted earlier by the User, a conversation is deleted six months after the last message in that conversation"
+suffix = ". Users may delete a conversation at any time through the fu"
+
+[[anchor]]
+id = "ai-cloud-tou-2-7-3-service-data-use"
+source_id = "a97d0bc6668de2f9"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "**Service Data**”). User is hereby notified and agrees that "
+exact = "Nebius may collect and process Service Data on a statistical, aggregated and non-identifiable form, for the purposes of Platform’s testing, development and improvement, controls, and operations"
+suffix = ". Solely for such purposes Nebius may process, retain, and r"
+
+[[anchor]]
+id = "datalab-processing-location-eu-north1"
+source_id = "8b321c003887f470"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+actory.nebius.com/legal/dpa).
+
+### **Processing Location**
+
+"""
+exact = "All Data Lab processing activities, including handling of logs, datasets, batch outputs, and training data, are performed exclusively in the EU-North1 (Finland) data center"
+suffix = """
+.
+
+### **Future Changes**
+
+If hosting locations change, we c"""
+
+[[anchor]]
+id = "datalab-acts-as-processor"
+source_id = "8b321c003887f470"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+tasets
+*   Batch inference outputs
+*   Fine-tuning results
+
+"""
+exact = "Nebius Token Factory acts as a **Data Processor** under the terms of our"
+suffix = " [Data Processing Agreement (DPA)](https://docs.tokenfactory"

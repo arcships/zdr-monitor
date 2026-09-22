@@ -1,0 +1,288 @@
+name = "Google Cloud"
+company_name = "Google Cloud"
+line = "google-vertex"
+site = "global"
+entity = "Google LLC"
+endpoint = ""
+doc = "https://cloud.google.com/terms/service-terms"
+
+[[source]]
+url = "https://cloud.google.com/terms/data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "Google Cloud Data Processing Addendum（合同层）。§4.1 角色：Google 为 processor、客户为 controller/processor。适用于客户在 Agent Platform 上交给 Google 处理的 Customer Personal Data。覆盖 api 档。"
+
+[[source]]
+url = "https://cloud.google.com/terms/service-terms"
+channel = "contract"
+tier = "core"
+note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-09-21）。§18 Training Restriction、§16 AI/ML Data Location、§20.h Handling of Prompts and Generated Output。Google 文档说明 partner model 请求仍发往 Agent Platform 端点、Claude 属 Agent Platform 上的托管模型，故 Google 与客户的这份合同覆盖 Vertex 上的 Claude 常规流量。"
+
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform「客户数据保留与达成零数据保留」官方清单（canonical；旧 Vertex AI data-governance URL 301 到此）。范围用 MaaS 口径，逐项列出达成 ZDR 所需动作（不开启 request-response logging、Interactions API store=false、滥用监控豁免、不用 Sandbox API 等），并声明部分 Advanced AI 特性可能无法达成 ZDR。覆盖 api 档。"
+
+[[product]]
+id = "api"
+badge = "Vertex AI"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "training-restriction-s18"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-must-take-actions"
+
+[product.retention]
+days = 90
+object = "mixed"
+basis = "fixed_period"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "processing-region-data-location-s1b"
+
+[product.role]
+kind = "processor"
+anchor = "role-4-1-roles-of-parties"
+
+[[anchor]]
+id = "training-restriction-s18"
+source_id = "0bf19b892a084958"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "riction** (formerly Section 17 (Training Restriction))**.** "
+exact = "Google will not use Customer Data to train or fine-tune any AI/ML models without Customer's prior permission or instruction."
+suffix = """
+
+
+19. **Separate Offerings****and Customer Models** (formerl"""
+
+[[anchor]]
+id = "retention-handling-prompts-s20h"
+source_id = "0bf19b892a084958"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+reement.
+
+h. _Handling of Prompts and Generated Output_ _._ """
+exact = "Absent Customer’s prior permission or instruction, Google will not store outside Customer’s Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output."
+suffix = """
+
+
+i. _Additional Google Indemnification Obligations_.
+
+(i)_G"""
+
+[[anchor]]
+id = "processing-region-aiml-data-location-s16"
+source_id = "0bf19b892a084958"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "/data-residency) to (a) store Customer Data at rest and (b) "
+exact = "perform machine learning processing of Customer Data by the Service, in each case in a specific Multi-Region, and Google will perform (a) and (b) only in that Multi-Region."
+suffix = " For clarity, Customer Data does not include resource identi"
+
+[[anchor]]
+id = "processing-region-data-location-s1b"
+source_id = "0bf19b892a084958"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "r Multi-Region as detailed in the Cloud Locations Page, and "
+exact = "Google will store Customer Data for that Service at rest only within the selected Region or Multi-Region."
+suffix = " Google may replicate that Customer Data within any other Re"
+
+[[anchor]]
+id = "role-4-1-roles-of-parties"
+source_id = "2109a76273ace44c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+m.
+
+**4. Roles; Legal Compliance**
+
+4.1 _Roles of Parties._ """
+exact = "Google is a processor and Customer is a controller or processor, as applicable, of Customer Personal Data."
+suffix = """
+
+
+4.2 _Processing Summary._ The subject matter and details o"""
+
+[[anchor]]
+id = "retention-deletion-6-1-180d"
+source_id = "2109a76273ace44c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "a manner consistent with the functionality of the Services. "
+exact = "If Customer uses the Services to delete any Customer Data during the Term and that Customer Data cannot be recovered by Customer, this use will constitute an Instruction to Google to delete the relevant Customer Data from Google’s systems. Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days"
+suffix = ", unless European Law requires storage, where European Data "
+
+[[anchor]]
+id = "retention-deletion-6-2-term-end"
+source_id = "2109a76273ace44c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "sting copies) from Google’s systems at the end of the Term. "
+exact = "After a recovery period of up to 30 days from that date, Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days"
+suffix = ", unless European Law requires storage, where European Data "
+
+[[anchor]]
+id = "processing-region-cdpa-10-1"
+source_id = "2109a76273ace44c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ts under Appendix 3 (Specific Privacy Laws), if applicable, "
+exact = "Customer Data may be processed in any country where Google or its Subprocessors maintain facilities."
+suffix = """
+
+
+10.2 _Data Center Information_. The locations of Google da"""
+
+[[anchor]]
+id = "zdr-must-take-actions"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = " periods of time in the following scenarios and conditions. "
+exact = "To achieve zero data retention, customers must take specific actions within each of these areas"
+suffix = """
+:
+
+*   **Prompt logging for abuse monitoring for Google mode"""
+
+[[anchor]]
+id = "zdr-abuse-monitoring-exception"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "/terms) are subject to prompt logging for abuse monitoring. "
+exact = "If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring."
+suffix = " See [Abuse monitoring](https://docs.cloud.google.com/gemini"
+
+[[anchor]]
+id = "zdr-advanced-ai-may-not-be-possible"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "http://cloud.google.com/terms/advanced-ai-safety-addendum). "
+exact = "Zero data retention may not be possible when using some Advanced AI features."
+suffix = " Please contact your account team for clarification. See [Ab"
+
+[[anchor]]
+id = "zdr-interactions-store-false"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = " a value for `store`, it defaults to `true` for all models. "
+exact = "To achieve zero data retention, explicitly set `store = false` in your API requests."
+suffix = """
+
+
+This applies to all managed models on Gemini Enterprise Ag"""
+
+[[anchor]]
+id = "retention-in-memory-cache-24h"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "data) in-memory to reduce latency and accelerate responses. "
+exact = "This data is stored only in-memory (not at-rest), is isolated at the project level, and has a 24-hour TTL."
+suffix = " Cached data is used only for improving service performance "
+
+[[anchor]]
+id = "retention-grounding-search-3d"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nformation that Customer may provide along with the prompts "
+exact = "that are not associated with any Customer or its End Users for up to three (3) days"
+suffix = ", this stored information may be used for debugging of syste"
+
+[[anchor]]
+id = "retention-grounding-maps-30d"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "mpts and contextual information that customers may provide, "
+exact = "and generated output for thirty (30) days for the purposes of creating grounded results"
+suffix = ", and this stored information may only be used for reliabili"
+
+[[anchor]]
+id = "retention-request-response-logging-off-by-default"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+unding with Google Maps.
+
+*   **Request-response logging**: """
+exact = "This feature is disabled by default. It can be enabled using a configuration setting on a per-model, per-project basis."
+suffix = " Enabling this logging causes certain requests and responses"
+
+[[anchor]]
+id = "retention-live-session-resumption-24h"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "uding text, video, and audio prompt data and model outputs, "
+exact = "for up to 24 hours. To achieve zero data retention, do not enable this feature."
+suffix = " For more information about this feature, including how to e"
+
+[[anchor]]
+id = "retention-codemender-7d"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " snippets, diffs, configuration, and analysis checkpoints — "
+exact = "is stored encrypted for up to seven (7) days from session creation"
+suffix = ". When a session reaches a terminal state, source code and r"
+
+[[anchor]]
+id = "training-restated-in-product-doc"
+source_id = "89852246e77a9205"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "cific Terms](https://cloud.google.com/terms/service-terms), "
+exact = "Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction. This applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models."
+suffix = """
+
+
+## Customer data retention and achieving zero data retenti"""
+
+[[anchor]]
+id = "role-cdpa-reference-applicability"
+source_id = "89852246e77a9205"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " that Google Cloud uses in the development of its products. "
+exact = "More details about how Google processes data can also be found in Google's [Cloud Data Processing Addendum]"
+suffix = "(https://cloud.google.com/terms/data-processing-addendum) (C"

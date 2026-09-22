@@ -1,0 +1,172 @@
+name = "Lovable"
+line = "lovable"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "Lovable Labs Sweden AB"
+endpoint = ""
+doc = "https://lovable.dev/privacy"
+
+[[source]]
+url = "https://lovable.dev/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "现行 Privacy Policy。Free/Pro 默认可训练且可免费 opt-out；Business/Enterprise 排除。项目随服务运行保留，日志按需；处理含美国。Cookie Preferences 只能停止未来 session recording，并非运营 telemetry 总开关。"
+[[source]]
+url = "https://docs.lovable.dev/features/business/data-opt-out"
+channel = "developer_data"
+tier = "core"
+note = "官方按档说明：Free/Pro 的 prompts、附件、代码、项目文件、输出与 usage data 可用于训练；Business/Enterprise 默认排除。"
+[[source]]
+url = "https://lovable.dev/data-processing-agreement"
+channel = "contract"
+tier = "core"
+note = "Business/Enterprise 自动适用 DPA；明确 processor、禁止 Customer Personal Data 训练、终止后的 30 天指示窗口。Annex 涵盖 storage/compilation/scanning/indexing，但不量化向量索引或缓存期限。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "lovable-training-content-optout"
+[product.zdr]
+mark = "unknown"
+searched = ["https://lovable.dev/privacy", "https://docs.lovable.dev/features/business/data-opt-out", "https://lovable.dev/data-processing-agreement"]
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "lovable-logs-as-needed"
+[product.processing_region]
+codes = ["SE", "US", "global"]
+anchor = "lovable-region-sweden-us"
+[product.role]
+kind = "controller"
+anchor = "lovable-controller"
+
+[[product]]
+id = "pro"
+badge = "Pro"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "lovable-training-content-optout"
+[product.zdr]
+mark = "unknown"
+searched = ["https://lovable.dev/privacy", "https://docs.lovable.dev/features/business/data-opt-out", "https://lovable.dev/data-processing-agreement"]
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "lovable-logs-as-needed"
+[product.processing_region]
+codes = ["SE", "US", "global"]
+anchor = "lovable-region-sweden-us"
+[product.role]
+kind = "controller"
+anchor = "lovable-controller"
+
+[[product]]
+id = "business"
+badge = "Business"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "lovable-dpa-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://lovable.dev/privacy", "https://docs.lovable.dev/features/business/data-opt-out", "https://lovable.dev/data-processing-agreement"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "lovable-dpa-delete-30d"
+[product.processing_region]
+codes = ["SE", "US", "global"]
+anchor = "lovable-region-sweden-us"
+[product.role]
+kind = "processor"
+anchor = "lovable-dpa-processor"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "lovable-dpa-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://lovable.dev/privacy", "https://docs.lovable.dev/features/business/data-opt-out", "https://lovable.dev/data-processing-agreement"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "lovable-dpa-delete-30d"
+[product.processing_region]
+codes = ["SE", "US", "global"]
+anchor = "lovable-region-sweden-us"
+[product.role]
+kind = "processor"
+anchor = "lovable-dpa-processor"
+
+[[anchor]]
+id = "lovable-training-content-optout"
+source_id = "f7c0e7c1ff82f9de"
+topics = ["training"]
+[anchor.selector]
+prefix = "**What we use.** "
+exact = "We use Customer Content and Usage Data — which may include Personal Data — to train, develop, fine-tune, and improve our AI models and AI-powered features, including models we operate within the Services and models we may make available to customers through Lovable products such as the AI Gateway."
+suffix = " Trained members of our team may review this content"
+[[anchor]]
+id = "lovable-dpa-no-training"
+source_id = "3ad4e9e2dbacc3f6"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Lovable shall not use any Customer Personal Data for the purpose of training, retraining, fine-tuning, or otherwise developing any Artificial Intelligence (AI) or Machine Learning (ML) models."
+suffix = ""
+[[anchor]]
+id = "lovable-logs-as-needed"
+source_id = "f7c0e7c1ff82f9de"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "**Operational and security logs** — kept for as long as needed to run and secure the Services, and longer where we are investigating an incident."
+suffix = ""
+[[anchor]]
+id = "lovable-dpa-delete-30d"
+source_id = "3ad4e9e2dbacc3f6"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Within thirty (30) calendar days after the termination of the Agreement the Customer may instruct Lovable, in writing, to return or delete all Customer Personal Data then in Lovable's possession or control, unless Applicable Data Protection Laws require storage of the Customer Personal Data."
+suffix = ""
+[[anchor]]
+id = "lovable-region-sweden-us"
+source_id = "f7c0e7c1ff82f9de"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Our main establishment is in Stockholm, Sweden and Integritetsskyddsmyndigheten (IMY), the Swedish Authority for Privacy Protection, is our lead supervisory authority. We and our service providers process Personal Data in a number of countries, including the United States."
+suffix = ""
+[[anchor]]
+id = "lovable-controller"
+source_id = "f7c0e7c1ff82f9de"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Lovable Labs Sweden AB is the entity responsible for the Personal Data processed under this Policy (the \"data controller\" where that term applies)."
+suffix = ""
+[[anchor]]
+id = "lovable-dpa-processor"
+source_id = "3ad4e9e2dbacc3f6"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "For UK Personal Data, the Customer acts as a Controller and Lovable acts as a Processor as defined under the UK GDPR."
+suffix = ""

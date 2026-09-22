@@ -1,0 +1,962 @@
+name = "Databricks"
+line = "databricks"
+site = "global"
+entity = "Databricks, Inc."
+endpoint = ""
+doc = "https://www.databricks.com/legal/service-specific-terms"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/databricks-ai/databricks-ai-trust"
+channel = "developer_data"
+tier = "core"
+note = "Databricks AI assistive features trust and safety 页。范围明确限「these features」（Genie Code、AI-generated comments、AI/BI dashboards 等助手功能）：Databricks 不用其数据训练对第三方开放的生成式基础模型；上游模型伙伴对这些功能不保留数据（含滥用监控），使用伙伴的零保留端点。此页不覆盖 Foundation Model APIs 的按 token 推理，不得外推。"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/getting-started/high-level-architecture"
+channel = "developer_data"
+tier = "core"
+note = "平台架构文档：control plane 在 Databricks 账户（不是客户云账户），serverless compute plane 在 Databricks 账户，classic compute plane 在客户自己的 AWS 账户。用于区分「客户自家云账户里跑的服务」与「Databricks 托管的按 token 计费服务」两档，并说明托管/处理责任分层。"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/compliance"
+channel = "developer_data"
+tier = "core"
+note = "Foundation Model APIs compliance and security 页。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须开启跨 Geo 处理。另有 US-only / EU+US 模型的区域清单（Anthropic、OpenAI、Google 模型）。"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/machine-learning/model-serving/"
+channel = "developer_data"
+tier = "core"
+note = "Model Serving 官方文档（2026-09-11 版）。本家 retention/zdr 最实质的文档层来源：Data retention 节给出容器构建日志 ≤30 天、指标 ≤14 天、FM APIs 输入输出为防滥用可临时处理存储最多 30 天且与工作区同区域；Partner model provider data retention 节说明伙伴 provider 可能为安全目的保留，并分别列出 OpenAI（gpt-5.5 及以后，分类器判定违规的 coding/routing 客户内容）与 Anthropic（Fable 5 及以后 Mythos 类，全部客户）的保留例外；Security 节写明 paid accounts 下 Model Serving 不使用输入输出训练任何模型或改进任何 Databricks 服务；并确认 FM APIs 属 Designated Service。"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/resources/databricks-geos"
+channel = "developer_data"
+tier = "core"
+note = "Databricks Geos: Data residency 文档。默认客户内容仅在工作区所在 Geo 处理（某些 Designated Services 例外）；跨 Geo 处理需账户管理员显式开启；Designated Services（含 AI 负载）由 Databricks 代表客户管理。processing_region 的权威来源。"
+
+[[source]]
+url = "https://docs.databricks.com/aws/en/resources/designated-services"
+channel = "developer_data"
+tier = "core"
+note = "Designated Services 文档，含 Pay-per-token / Provisioned throughput Foundation Model APIs 在各 Geo 的可用性表。关键句：开启跨 Geo 处理后「your data is not stored outside of your workspace's Geo regardless of this setting」——处理地与存储地要分开看。"
+
+[[source]]
+url = "https://www.databricks.com/legal/databricks-free-edition"
+channel = "contract"
+tier = "core"
+note = "Databricks Free Edition Terms（免费档专用条款，与付费档结论相反）。§3.1 限个人/学术/非营利用途；§4 为免费提供采用多租户与有限数据安全保护，且「Databricks personnel have access to your account and any data used with or exposed to the Free Edition Services…no expectation of privacy」；§6 客户授予永久、不可撤销、全球许可，明确可用于「train and improve AI models」；§9.2 明确不担保 data location、data retention、data security。适用 Databricks, Inc. 与个人用户之间的直接协议。"
+
+[[source]]
+url = "https://www.databricks.com/legal/databricks-subprocessors"
+channel = "contract"
+tier = "core"
+note = "Subprocessors 清单（DPA §4.1 引用）。Anthropic, PBC 与 OpenAI, L.L.C. 被列为「AI-backed services」子处理者，处理地写 Customer Selected；脚注﹢说明 Designated Services 按客户所选区域以 Geo 为单位处理。这是「伙伴模型 provider 在链路上是 Databricks 的子处理者」的条款级依据。"
+
+[[source]]
+url = "https://www.databricks.com/legal/dpa"
+channel = "contract"
+tier = "core"
+note = "Databricks DPA v3（2023-07-21）全文，由 /legal/dpa 直接渲染（含 Annex A/B 与 SCC 模块）。本家 role 与合同层 retention 的权威来源：§2.1 角色（Databricks 为 processor）、Annex 1(A) data importer 角色 Processor、§2.3 仅按客户指示处理、§9.1 服务不含备份灾备、§9.3 终止后 30 天内删除、§10.1 CCPA 目的限制、Annex 1(B) 保留期=协议期。注意适用范围只到 Customer Personal Data（Customer Content 中的个人信息），不是全部输入输出。同一文档另有同文 URL：https://www.databricks.com/legal/data-protection-addendum 与 https://www.databricks.com/sites/default/files/2026-01/DPA.pdf（GDPR FAQ 指向后者为现行版，内容仍为 v3 2023-07-21）。"
+
+[[source]]
+url = "https://www.databricks.com/legal/security-addendum"
+channel = "contract"
+tier = "core"
+note = "Platform Services Security Addendum（DPA §1.9 定义并纳入合同）。给出两处量化保留条款：§Monitoring & Logging / Audit Logs and System Tables「Databricks stores audit logs and system tables for at least one year」（审计日志与系统表，下限）；Deletion 节「Customer Content contained within a Customer Workspace is permanently deleted within thirty (30) days following cancellation of the Workspace」（客户内容，workspace 取消触发，上限）。对象与触发条件不同，不能混为一条保留期。"
+
+[[source]]
+url = "https://www.databricks.com/legal/service-specific-terms"
+channel = "contract"
+tier = "core"
+note = "Service Specific Terms（页尾 Last Updated July 14, 2026），Databricks 全服务的 GenAI 通用条款，覆盖包括 Foundation Model APIs 在内的 Databricks Services。§1 定义 GenAI Model / Input / Output；§4(a) 客户定制模型 Databricks 不得访问使用；§4(b) Inputs 与 Outputs 属 Customer Content，所有权归客户；§5(b) 为服务开发改进保留收集使用权（条件：仅为客户利益或不识别客户）；§5(c) 禁止用 Customer Content/Inputs/Outputs 训练 Databricks 提供给第三方使用的 GenAI 模型。全文无保留期、无 ZDR 条款。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+label = "Databricks 跑在客户自有云账号里的那部分"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-training-no-third-party-models"
+
+[[product.training.point]]
+text_zh = "见顶层 training：§5(c) 禁止用 Customer Content/Inputs/Outputs 训练 Databricks 提供给第三方使用的 GenAI 模型"
+
+[[product.training.point]]
+text_zh = "§5(b) 保留「服务开发与改进」用途（仅为客户利益或不识别客户）"
+
+[[product.training.point]]
+text_zh = "docs 另称 paid accounts 下 Model Serving 不使用输入输出训练任何模型或改进服务。"
+
+[product.zdr]
+mark = "no"
+anchor = "serving-fmapi-abuse-retention"
+
+[[product.zdr.point]]
+text_zh = "见顶层 zdr：docs 明文保留 → 无默认零保留"
+
+[[product.zdr.point]]
+text_zh = "无 ZDR 开关或申请渠道"
+
+[[product.zdr.point]]
+text_zh = "博客/answers 站的 ZDR 表述为营销级，重查后判非矛盾（时效不同：均早于现行 docs 版本 2026-09-11），已判 drop。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "serving-fmapi-abuse-retention"
+
+[[product.retention.point]]
+text_zh = "见顶层 retention：FM APIs 输入输出防滥用保留 ≤30 天（同工作区区域）"
+
+[[product.retention.point]]
+text_zh = "容器日志 ≤30 天、指标 ≤14 天"
+
+[[product.retention.point]]
+text_zh = "Customer Personal Data 协议期 + 终止后 30 天删除"
+
+[[product.retention.point]]
+text_zh = "审计日志/系统表 ≥1 年（下限）。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "geos-same-geo-processing"
+
+[[product.processing_region.point]]
+text_zh = "见顶层 processing_region：默认工作区 Geo 内处理、数据不存出 Geo"
+
+[[product.processing_region.point]]
+text_zh = "跨 Geo 需显式开启"
+
+[[product.processing_region.point]]
+text_zh = "FM APIs 可能在来源 region/云之外处理。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-role-processor"
+
+[[product.role.point]]
+text_zh = "见顶层 role：DPA §2.1 + Annex 1(A) 明确 processor"
+
+[[product.role.point]]
+text_zh = "伙伴 provider 作为 AI-backed services 子处理者。"
+
+[[product]]
+id = "api-partner-models"
+badge = "伙伴模型"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-training-no-third-party-models"
+
+[[product.training.point]]
+text_zh = "只核到 Databricks 这一跳：SST §5(c) 覆盖「GenAI Models that Databricks makes available for use by third parties」，伙伴模型属于该范围"
+
+[[product.training.point]]
+text_zh = "answers 站亦称不用客户数据训练「Databricks-managed or third-party foundation models」。上游 provider 自身是否拿请求内容训练，须看其各自政策（本台账 openai / anthropic / google 等条目），本轮未在 Databricks 文档中找到对上游训练行为的承诺 → 全链训练结论不成立，只记 Databricks 一跳为禁止。"
+
+[product.zdr]
+mark = "no"
+anchor = "serving-partner-provider-retention"
+
+[[product.zdr.point]]
+text_zh = "伙伴 provider 明文可保留（安全目的）→ 该档零保留不成立。官方博客称 Kimi K3 有「comprehensive ZDR coverage」、answers 站称「providers do not retain prompts or responses」，但同一 docs 页的伙伴保留条款与之表述不一致，重查后判非矛盾（时效不同：两份营销表述 2026-08-06 / 2026-08-27 均早于现行 docs 版本 2026-09-11，属旧版，已判 drop）"
+
+[[product.zdr.point]]
+text_zh = "且 docs 是 developer_data 级、营销页是 official_blog 级，按优先级取 docs。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "serving-partner-provider-retention"
+
+[[product.retention.point]]
+text_zh = "Databricks 侧：FM APIs 输入输出防滥用保留 ≤30 天（同区域）。伙伴侧明文：「Partner model providers may retain data for safety purposes. This retention relies on automated scanning prior to any limited human review.」具体：OpenAI 对 gpt-5.5 / gpt-5.5-pro 及后续模型，可保留分类器判定违反其使用政策的 coding/routing 客户内容（其余不受影响，但「For all other customers, you may be subject to additional retention upon advance notice.」）"
+
+[[product.retention.point]]
+text_zh = "Anthropic 对 Fable 5 及后续 Mythos 类模型，全部客户均受安全保留约束（指向 Anthropic 自身保留实践页）。按多跳规则：任一跳更弱则全链更弱，故本档保留期不得按「30 天」陈述。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "fmapi-compliance-outside-region"
+
+[[product.processing_region.point]]
+text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Sonnet 5、Claude Opus 4.1、BGE Large）、EU+US（多数 GPT 与 Claude）、以及需跨 Geo 才能访问的情形"
+
+[[product.processing_region.point]]
+text_zh = "非 US/EU 工作区须开启跨 Geo 处理。Kimi K3 初期 US hosting。存储仍在工作区 Geo 内（designated-services 页），处理地可能跨 Geo。"
+
+[product.role]
+kind = "processor"
+anchor = "subproc-anthropic-ai-backed"
+
+[[product.role.point]]
+text_zh = "Databricks 对客户仍是 processor（DPA），Anthropic 与 OpenAI 在子处理者清单中被列为「AI-backed services」子处理者 → 上游在链路里是 Databricks 的子处理者。但同批模型另有单独模型条款（acceptable-use-models 页：「subject to separate model terms, in addition to your underlying agreement with Databricks」），客户对这些模型的使用受 provider 使用政策约束，故 role 记 processor + 分层条款并列。"
+
+[[product]]
+id = "ai-assistive-features"
+badge = "助手功能"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "aitrust-training-no-third-party-models"
+
+[[product.training.point]]
+text_zh = "「Databricks does not use data, prompts, or responses submitted to or output from these features to train generative foundation models that Databricks makes available for use by third parties.」与 SST §5(c) 同向"
+
+[[product.training.point]]
+text_zh = "同页另称只用提供服务所必需的数据、传输与静态加密。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "aitrust-partner-zdr-endpoints"
+
+[[product.zdr.point]]
+text_zh = "「Our partner-powered AI assistive features use zero data retention endpoints from our model partners.」——这是链路上游（伙伴）端点零保留，不是 Databricks 对客户请求的零保留承诺"
+
+[[product.zdr.point]]
+text_zh = "范围限 AI assistive features，不得外推到 FM APIs（旧记录已识别这一点，本轮确认其范围限定文字）。"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "aitrust-partners-no-retain"
+
+[[product.retention.point]]
+text_zh = "「Our model partners do not retain data you submit through these features, even for abuse monitoring.」——只承诺上游伙伴不保留，未给出 Databricks 自身对本档请求的量化保留期（FM APIs 的 30 天条款不在本页范围内）。故本档 retention 只能写「上游伙伴不保留」，Databricks 侧未量化。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "ds-not-stored-outside-geo"
+
+[[product.processing_region.point]]
+text_zh = "本档同属 Designated Services，按 Geo 处理"
+
+[[product.processing_region.point]]
+text_zh = "designated-services 页给出各国/区域的「Processed in …」明细，并明确美/欧工作区分别使用美国/欧洲的模型（无论是否开启跨 Geo）。数据不存出 workspace Geo。"
+
+[product.role]
+kind = "processor"
+anchor = "geos-designated-managed-by-databricks"
+
+[[product.role.point]]
+text_zh = "「Designated Services are always managed by Databricks on the customer's behalf.」+ DPA 的 processor 定位"
+
+[[product.role.point]]
+text_zh = "上游伙伴以子处理者身份出现（subprocessors 页列 Anthropic/OpenAI 为 AI-backed services）。本档无独立的角色条款，故 medium。"
+
+[[product]]
+id = "free-edition"
+badge = "免费层"
+category = "api"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "opt_in"
+anchor = "freeedition-license-includes-train-ai-models"
+
+[[product.training.point]]
+text_zh = "§6「You grant Databricks a royalty-free, perpetual, irrevocable, and worldwide license that covers any use (including relicensing and redistribution) of Your Content…This license allows us to do things such as operate and improve the Free Edition Services and other services, develop new technologies and services, train and improve AI models, market our products and services, and customize the services for you.」——永久、不可撤销、含训练与改进 AI 模型，与付费档 §5(c) 的禁止相反。"
+
+[product.zdr]
+mark = "no"
+anchor = "freeedition-no-expectation-of-privacy"
+
+[[product.zdr.point]]
+text_zh = "§4「Databricks personnel have access to your account and any data used with or exposed to the Free Edition Services. Therefore, you should have no expectation of privacy regarding Your Content」+ 多租户环境与有限数据安全保护 → 零保留、零访问在条款层面明确不成立。"
+
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "freeedition-warranty-disclaim-retention-location"
+
+[[product.retention.point]]
+text_zh = "§9.2 明确不担保「data location, data retention, or data security」"
+
+[[product.retention.point]]
+text_zh = "§8 Databricks 可随时删除 Your Content"
+
+[[product.retention.point]]
+text_zh = "§7 账户终止可能导致内容销毁。即本档不提供任何保留期或删除时限承诺（与付费档 DPA/Security Addendum 的 30 天删除条款相反）。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "freeedition-warranty-disclaim-retention-location"
+
+[[product.processing_region.point]]
+text_zh = "§9.2 不担保 data location"
+
+[[product.processing_region.point]]
+text_zh = "§5 保留「moving how and where data associated with the Free Edition Services is stored and processed」的权利。即本档无处理地承诺。"
+
+[product.role]
+kind = "controller"
+anchor = "freeedition-no-expectation-of-privacy"
+
+[[product.role.point]]
+text_zh = "§1 与个人用户直接签约（you as an individual）"
+
+[[product.role.point]]
+text_zh = "§4 Databricks 人员可访问账户与数据、无隐私期待、多租户有限保护"
+
+[[product.role.point]]
+text_zh = "§6 内容许可是 Databricks 为自己业务目的使用（运营改进、开发新技术、训练 AI、市场推广）。条款结构更接近控制者自用而非受托处理，故记独立控制者一侧"
+
+[[product.role.point]]
+text_zh = "DPA/processor 定位不适用于本档（DPA 以 Databricks Services 的客户订阅为前提）。"
+
+[[product]]
+id = "customer-cloud"
+badge = "客户自有云"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://www.databricks.com/legal/service-specific-terms",
+  "https://www.databricks.com/legal/dpa",
+  "https://www.databricks.com/legal/security-addendum",
+  "https://docs.databricks.com/aws/en/getting-started/high-level-architecture",
+  "https://docs.databricks.com/aws/en/machine-learning/model-serving/",
+  "https://docs.databricks.com/aws/en/machine-learning/foundation-models/external-models/",
+]
+
+[[product.training.point]]
+text_zh = "本档没有针对「客户在自己云账户内跑算力 / 自带 key 调外部模型」的独立训练条款。SST §5(c) 的禁止对象是「Databricks 提供给第三方使用的 GenAI 模型」，不覆盖客户自训模型"
+
+[[product.training.point]]
+text_zh = "model-serving 页的「paid accounts 不使用输入输出训练」表述针对 Model Serving 服务本身。故记 not_found（官方未就这一档表态），不得反向解读为「可用于训练」，也不得把 API 档的禁止条款直接搬过来当本档结论。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.databricks.com/legal/service-specific-terms",
+  "https://www.databricks.com/legal/dpa",
+  "https://www.databricks.com/legal/security-addendum",
+  "https://docs.databricks.com/aws/en/resources/databricks-geos",
+  "https://docs.databricks.com/aws/en/getting-started/high-level-architecture",
+  "https://docs.databricks.com/aws/en/machine-learning/foundation-models/external-models/",
+  "https://www.databricks.com/legal/databricks-free-edition",
+]
+
+[[product.zdr.point]]
+text_zh = "公开文档中没有针对「客户云账户内算力 + BYOK 外部模型」这一档的零保留承诺或开关说明。反向也不成立：Databricks 控制面仍持有账户与元数据（架构文档：control plane 在 Databricks 账户），且 BYOK 请求经 Databricks 转发。按规则记 not_found（拿不到证据 ≠ 厂商不提供），不得把 FM APIs 档的 30 天保留条款外推到本档。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "secadd-workspace-cancel-30d"
+
+[[product.retention.point]]
+text_zh = "客户内容由客户在其云账户/Unity Catalog 内控制，Databricks 提供删除能力（Security Addendum「The Platform Services provide Customer with functionality that permit Customer to delete Customer Content under Databricks' control」）"
+
+[[product.retention.point]]
+text_zh = "workspace 取消后「Customer Content contained within a Customer Workspace is permanently deleted within thirty (30) days following cancellation of the Workspace」"
+
+[[product.retention.point]]
+text_zh = "DPA Annex 1(B) 对 Customer Personal Data 的保留期是协议期 + 终止后处理期间，§9.3 客户书面请求后 30 天内删除。DPA §9.1 明确服务不含备份与灾备，备份是客户自己的义务。BYOK 外部模型那一跳的保留由上游 provider 决定，Databricks 文档未承诺。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "arch-classic-compute-plane-aws-account"
+
+[[product.processing_region.point]]
+text_zh = "「In the classic compute plane, Databricks compute resources run in your AWS account.」workspace 存储桶也在客户账户"
+
+[[product.processing_region.point]]
+text_zh = "控制面在 Databricks 账户（「The control plane is located in the Databricks account, not your cloud account.」）。serverless 与 Designated Services 走 Databricks 账户并按 Geo 处理，属另一档。BYOK 外部模型的推理发生在 provider 侧，处理地由 provider 与客户配置决定。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-role-processor"
+
+[[product.role.point]]
+text_zh = "DPA 对 Databricks Services 统一以 Databricks 为 processor，本档不例外"
+
+[[product.role.point]]
+text_zh = "但算力与存储在客户云账户内，实际数据控制分层（客户账户 + Databricks 控制面）。BYOK 档里 Databricks 只做凭据保管与路由（external-models 页：「External models are third-party models hosted outside of Databricks」），对上游 provider 而言客户通常是直接签约方。故置信度 medium：合同角色清晰，链路责任分层需人工按实际配置判断。"
+
+[[anchor]]
+id = "sst-training-no-third-party-models"
+source_id = "142b039b93a887f3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+e Customer Confidential Information to third parties.  
+(c) """
+exact = "Databricks shall not use Customer Content, Inputs, or Outputs to train, re-train, or fine-tune GenAI Models that Databricks makes available for use by third parties"
+suffix = """
+.
+
+Last Updated July 14, 2026.
+"""
+
+[[anchor]]
+id = "sst-training-improve-allowed"
+source_id = "142b039b93a887f3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "o any restrictions expressly included in the Documentation, "
+exact = "Databricks may collect and use Inputs and Outputs to develop, improve, operate, and support the Databricks Services only to the extent that such use"
+suffix = " (i) is solely for the benefit of Customer or (ii) does not "
+
+[[anchor]]
+id = "sst-customized-models-no-access"
+source_id = "142b039b93a887f3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Customer will have exclusive use of such customized models. "
+exact = "Databricks will not access or use such customized models except as necessary to provide the Databricks Services to Customer or as required by applicable law"
+suffix = """
+.  
+(b) **Inputs and Outputs are Customer Content**. Inputs """
+
+[[anchor]]
+id = "sst-inputs-outputs-are-customer-content"
+source_id = "142b039b93a887f3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ble law.  
+(b) **Inputs and Outputs are Customer Content**. """
+exact = "Inputs and Outputs are Customer Content. As between Customer and Databricks, Customer retains all ownership or license rights in Inputs and Outputs"
+suffix = """
+.
+
+**5. Databricks AI Commitments.**
+
+(a) Databricks will co"""
+
+[[anchor]]
+id = "dpa-role-processor"
+source_id = "1ea3c8611d1474e1"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+G OF PERSONAL DATA 
+
+2.1.  Scope and Roles of the Parties . """
+exact = "This DPA applies when Customer Personal Data is processed by Databricks as a processor in its provision of the Databricks Services to Customer, who will act as either a controller or processor, as applicable, of Customer Personal Data"
+suffix = """
+. 
+
+2.2.  Customer Processing . Customer agrees that (i) it """
+
+[[anchor]]
+id = "dpa-importer-role-processor"
+source_id = "1ea3c8611d1474e1"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+B below. 
+
+Signature and date : See front end of the DPA. 
+
+"""
+exact = "Role (Controller/Processor): Processor"
+suffix = """
+ 
+
+ANNEX 1(B): DESCRIPTION OF THE PROCESSING / TRANSFER 
+
+Ca"""
+
+[[anchor]]
+id = "dpa-retention-term-of-agreement"
+source_id = "1ea3c8611d1474e1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+”). 
+
+Period for which the personal data will be retained:  """
+exact = "Databricks will retain Customer Personal Data for the term of the Agreement and any period after the termination of expiry of the Agreement during which Databricks processes Customer Personal Data in accordance with the Agreement"
+suffix = """
+. 
+
+ANNEX 1(C): COMPETENT SUPERVISORY AUTHORITY 
+
+Competent """
+
+[[anchor]]
+id = "dpa-deletion-30-days-request"
+source_id = "1ea3c8611d1474e1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ols to send an instruction to delete. 
+
+9.3.  Termination . """
+exact = "Upon termination or expiration of the Agreement and following Customer’s written request, Databricks will delete or assist Customer in deleting any Customer Personal Data within its possession or control within thirty (30) days following such request"
+suffix = """
+. 
+
+10.  CCPA COMPLIANCE 
+
+Databricks DPA v3 (2023-07-21)  P"""
+
+[[anchor]]
+id = "dpa-no-backup-dr"
+source_id = "1ea3c8611d1474e1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+rred). 
+
+9.  BACKUP, DELETION & RETURN 
+
+9.1.  No Backups . """
+exact = "The Databricks Services do not include backup services or disaster recovery for Customer Personal Data"
+suffix = ". Databricks does provide functionality within the Databrick"
+
+[[anchor]]
+id = "dpa-ccpa-no-other-purpose"
+source_id = "1ea3c8611d1474e1"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+ COMPLIANCE 
+
+Databricks DPA v3 (2023-07-21)  Page 3 10.1.  """
+exact = "Databricks shall not process, retain, use, or disclose Customer Personal Data for any purpose other than for the purposes set out in the Agreement, DPA and as permitted under the CCPA"
+suffix = ". Databricks shall not sell or share information as those te"
+
+[[anchor]]
+id = "secadd-audit-logs-one-year"
+source_id = "ef9b896b7a1d56c0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ tables from tampering.
+                4.   **Retention.** """
+exact = "Databricks stores audit logs and system tables for at least one year"
+suffix = """
+.
+                5.   **Export.** Databricks highly discour"""
+
+[[anchor]]
+id = "secadd-workspace-cancel-30d"
+source_id = "ef9b896b7a1d56c0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+abricks’ control.
+    2.   **Upon Workspace Cancellation.** """
+exact = "Customer Content contained within a Customer Workspace is permanently deleted within thirty (30) days following cancellation of the Workspace"
+suffix = """
+.
+
+11.   **MosaicML Security Standards.**  
+Notwithstanding """
+
+[[anchor]]
+id = "secadd-customer-delete-controls"
+source_id = "ef9b896b7a1d56c0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ccount).
+
+10.   **Data Deletion.**
+    1.   **During Use.** """
+exact = "The Platform Services provide Customer with functionality that permit Customer to delete Customer Content under Databricks’ control"
+suffix = """
+.
+    2.   **Upon Workspace Cancellation.** Customer Content"""
+
+[[anchor]]
+id = "subproc-anthropic-ai-backed"
+source_id = "13556d1255c949f1"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+orate/security-practices/corporate/supply-chain/suppliers/)
+"""
+exact = "Anthropic, PBC AI-backed services United States Customer Selected"
+suffix = "[Anthropic Resources](https://trust.anthropic.com/subprocess"
+
+[[anchor]]
+id = "subproc-definition"
+source_id = "13556d1255c949f1"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "n with providing the Platform Services or Support Services. "
+exact = "A subprocessor is a Databricks affiliate (“Databricks Affiliate'') or a third-party engaged by Databricks, Inc. or a Databricks Affiliate to process personal data on behalf of Databricks’ customers"
+suffix = ". Capitalized terms used herein have the same meaning as def"
+
+[[anchor]]
+id = "subproc-designated-geo-basis"
+source_id = "13556d1255c949f1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+d/or the locations listed in the Subprocessor resources.
+
+﹢ """
+exact = "Designated Services are processed on a Geo basis consistent with the customer’s selected region"
+suffix = ". _See Documentation for_[_AWS_](https://docs.databricks.com"
+
+[[anchor]]
+id = "freeedition-content-license-train-ai"
+source_id = "dfa8fd10b70ba880"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ".   **You grant Databricks a license to use Your Content.** "
+exact = "You grant Databricks a royalty-free, perpetual, irrevocable, and worldwide license that covers any use (including relicensing and redistribution) of Your Content or any data, information, or code associated with your use of Free Edition Services"
+suffix = ". This license allows us to do things such as operate and im"
+
+[[anchor]]
+id = "freeedition-license-includes-train-ai-models"
+source_id = "dfa8fd10b70ba880"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " or code associated with your use of Free Edition Services. "
+exact = "This license allows us to do things such as operate and improve the Free Edition Services and other services, develop new technologies and services, train and improve AI models, market our products and services, and customize the services for you"
+suffix = ". If you choose to give us feedback, such as suggestions to "
+
+[[anchor]]
+id = "freeedition-no-expectation-of-privacy"
+source_id = "dfa8fd10b70ba880"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "onment with limited data security protections. In addition, "
+exact = "Databricks personnel have access to your account and any data used with or exposed to the Free Edition Services. Therefore, you should have no expectation of privacy regarding Your Content"
+suffix = ", and you must limit Your Content to only that data and othe"
+
+[[anchor]]
+id = "freeedition-multitenant-limited-protections"
+source_id = "dfa8fd10b70ba880"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "of the Free Edition Services including, among other things, "
+exact = "the use of a multi-tenant environment with limited data security protections"
+suffix = ". In addition, Databricks personnel have access to your acco"
+
+[[anchor]]
+id = "freeedition-warranty-disclaim-retention-location"
+source_id = "dfa8fd10b70ba880"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = " without warranties of any kind, either express or implied, "
+exact = "including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, non-interruption, accuracy, data location, data retention, or data security"
+suffix = ". We cannot and do not guarantee that any defects, errors, o"
+
+[[anchor]]
+id = "serving-training-paid-accounts"
+source_id = "bfbf9112e39762dd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ypts all data at rest (AES-256) and in transit (TLS 1.2+).
+
+"""
+exact = "For all paid accounts, Model Serving does not use user inputs submitted to the service or outputs from the service to train any models or improve any Databricks services"
+suffix = """
+.
+
+Foundation Model APIs is a [Databricks Designated Service"""
+
+[[anchor]]
+id = "serving-retention-build-logs-metrics"
+source_id = "bfbf9112e39762dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+l-serving/#data-retention "Direct link to Data retention")
+
+"""
+exact = "For all Model Serving workloads, Databricks retains container build logs for up to thirty (30) days and metrics data for up to fourteen (14) days"
+suffix = """
+.
+
+For Databricks Foundation Model APIs, as part of providin"""
+
+[[anchor]]
+id = "serving-fmapi-abuse-retention"
+source_id = "bfbf9112e39762dd"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+y (30) days and metrics data for up to fourteen (14) days.
+
+"""
+exact = "For Databricks Foundation Model APIs, as part of providing the service, Databricks may temporarily process and store inputs and outputs for the purposes of preventing, detecting, and mitigating abuse or harmful uses"
+suffix = ". Your inputs and outputs are isolated from those of other c"
+
+[[anchor]]
+id = "serving-fmapi-30d-same-region"
+source_id = "bfbf9112e39762dd"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "reventing, detecting, and mitigating abuse or harmful uses. "
+exact = "Your inputs and outputs are isolated from those of other customers, stored in the same region as your workspace for up to thirty (30) days, and only accessible for detecting and responding to security or abuse concerns"
+suffix = """
+.
+
+#### Partner model provider data retention[​](https://doc"""
+
+[[anchor]]
+id = "serving-partner-provider-retention"
+source_id = "bfbf9112e39762dd"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+on "Direct link to Partner model provider data retention")
+
+"""
+exact = "Partner model providers may retain data for safety purposes. This retention relies on automated scanning prior to any limited human review"
+suffix = """
+.
+
+##### OpenAI data retention[​](https://docs.databricks.co"""
+
+[[anchor]]
+id = "serving-openai-safety-retention"
+source_id = "bfbf9112e39762dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "-retention), for `gpt-5.5`, `gpt-5.5-pro`and future models, "
+exact = "OpenAI may retain certain coding and routing customers' customer content that OpenAI's classifiers detect as potentially violating"
+suffix = " OpenAI's [usage policies](https://openai.com/policies/usage"
+
+[[anchor]]
+id = "serving-anthropic-safety-retention"
+source_id = "bfbf9112e39762dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+-data-retention "Direct link to Anthropic data retention")
+
+"""
+exact = "For Anthropic's Fable 5 and future Mythos-class models, all customers are subject to data retention for safety purposes"
+suffix = ", as described in Anthropic's [data retention practices](htt"
+
+[[anchor]]
+id = "serving-fmapi-designated-service"
+source_id = "bfbf9112e39762dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "/docs.databricks.com/aws/en/resources/designated-services), "
+exact = "meaning it adheres to data residency boundaries as implemented by"
+suffix = " [Databricks Geos](https://docs.databricks.com/aws/en/resour"
+
+[[anchor]]
+id = "geos-same-geo-processing"
+source_id = "1f7f8b1c3c2104fe"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+are always managed by Databricks on the customer's behalf.
+
+"""
+exact = "Customer content is only processed in the same Geo as your workspace, except for certain Designated Services"
+suffix = ". If a Designated Service is not available in your workspace"
+
+[[anchor]]
+id = "geos-designated-managed-by-databricks"
+source_id = "1f7f8b1c3c2104fe"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "wer AI workloads, are available on a Databricks Geos basis. "
+exact = "Designated Services are always managed by Databricks on the customer's behalf"
+suffix = """
+.
+
+Customer content is only processed in the same Geo as you"""
+
+[[anchor]]
+id = "geos-cross-geo-opt-in"
+source_id = "1f7f8b1c3c2104fe"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+o-processing "Direct link to enable-cross-geo-processing")
+
+"""
+exact = "Account admins can enable cross-Geo processing that allows data for Designated Services to be processed outside of their workspace Geo"
+suffix = ". If a designated service is not available in your workspace"
+
+[[anchor]]
+id = "ds-not-stored-outside-geo"
+source_id = "3b748e7c00d3f4b1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " Designated Service can process your content in other Geos. "
+exact = "Importantly, your data is not stored outside of your workspace's Geo regardless of this setting"
+suffix = """
+.
+
+## [](https://docs.databricks.com/aws/en/resources/design"""
+
+[[anchor]]
+id = "ds-content-processed-in-that-geo"
+source_id = "3b748e7c00d3f4b1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ata residency when processing customer content.
+
+important
+
+"""
+exact = "If a Designated Service is available in your workspace's Geo, then your content is processed in that Geo"
+suffix = ". Some Designated Services are not natively available in all"
+
+[[anchor]]
+id = "fmapi-compliance-outside-region"
+source_id = "1a56438448bd9279"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ur workspace region and the specific model being used:
+
+*   """
+exact = "As part of providing the Foundation Model APIs, Databricks might process your data outside of the region and cloud provider where your data originated"
+suffix = """
+.
+*   If your workspace is in a Model Serving region but not"""
+
+[[anchor]]
+id = "arch-control-plane-not-your-cloud"
+source_id = "6c602b1376ceabcb"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "ervices that Databricks manages in your Databricks account. "
+exact = "The control plane is located in the Databricks account, not your cloud account"
+suffix = """
+. The web application is in the control plane.
+
+*   The **co"""
+
+[[anchor]]
+id = "arch-classic-compute-plane-aws-account"
+source_id = "6c602b1376ceabcb"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+ssic-compute-plane "Direct link to Classic compute plane")
+
+"""
+exact = "In the classic compute plane, Databricks compute resources run in your AWS account"
+suffix = ". New compute resources are created within each workspace's "
+
+[[anchor]]
+id = "arch-serverless-in-databricks-account"
+source_id = "6c602b1376ceabcb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+lanes depending on the compute that you are using.
+
+    *   """
+exact = "For serverless compute, the serverless compute resources run in a _serverless compute plane_ in your Databricks account"
+suffix = """
+.
+    *   For classic Databricks compute, the compute resour"""
+
+[[anchor]]
+id = "aitrust-training-no-third-party-models"
+source_id = "f33723555bf920ad"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+protected.
+
+*   **Your data remains confidential.**
+    *   """
+exact = "Databricks does not use data, prompts, or responses submitted to or output from these features to train generative foundation models that Databricks makes available for use by third parties"
+suffix = """
+.
+    *   Our model partners do not retain data you submit t"""
+
+[[anchor]]
+id = "aitrust-partners-no-retain"
+source_id = "f33723555bf920ad"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+atabricks makes available for use by third parties.
+    *   """
+exact = "Our model partners do not retain data you submit through these features, even for abuse monitoring"
+suffix = ". Our partner-powered AI assistive features use zero data re"
+
+[[anchor]]
+id = "aitrust-partner-zdr-endpoints"
+source_id = "f33723555bf920ad"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "u submit through these features, even for abuse monitoring. "
+exact = "Our partner-powered AI assistive features use zero data retention endpoints from our model partners"
+suffix = """
+.
+
+*   **Protection from harmful output.** When using Azure """
+
+[[anchor]]
+id = "aitrust-residency-designated"
+source_id = "f33723555bf920ad"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+crypted.
+*   **Databricks offers data residency controls.** """
+exact = "Databricks AI assistive features are Designated Services and comply with data residency boundaries"
+suffix = ". For more details, see [Databricks Geos: Data residency](ht"

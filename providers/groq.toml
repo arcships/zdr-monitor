@@ -1,0 +1,490 @@
+name = "Groq"
+line = "groq"
+site = "global"
+entity = "Groq LLC / Groq UK Limited / Groq Limited / Groq Public Sector, LLC"
+endpoint = ""
+doc = "https://console.groq.com/docs/legal/services-agreement"
+
+[[source]]
+url = "https://console.groq.com/docs/legal/customer-data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "《Groq Customer Data Processing Addendum》（Services Agreement 的 URL Terms，§17.11 规定其效力高于协议本体）。覆盖全部 Cloud Services 的 Personal Data 处理：§2.1 角色（Groq 为 Processor / sub-Processor）、§7 子处理者、§8 国际传输、§10 终止后销毁、ANNEX I 传输描述、ANNEX II 安全措施。是 role 与 processing_region 的合同层权威，也是终止后保留期的权威。"
+
+[[source]]
+url = "https://console.groq.com/docs/legal/services-agreement"
+channel = "contract"
+tier = "core"
+note = "《Groq Services Agreement》(页面标注 Last Modified: June 22, 2026)。§1 开头写明它 governs「GroqChat, Groq Playground, GroqCloud, and any other service provided by Groq for developers, businesses, or enterprise organizations」，同句又写「Cloud Services and the AI Model Services under this Agreement are not for consumer use」。覆盖 GroqCloud 按量 API 档（inference/batch/fine-tuning/LoRA）与企业档（Order Form/离线协议/地区条款）；§17.11 定冲突时的效力顺序 DPA > BAA > AUP > 本协议 > Order Form > AI Model Terms；§17.15 含沙特地区条款，把 §4.2 整段改写。这是 training / zdr / retention / role 四个维度的合同层权威。"
+
+[[source]]
+url = "https://console.groq.com/docs/your-data"
+channel = "developer_data"
+tier = "core"
+note = "《Your Data in GroqCloud》官方文档（Account and Console 目录下）。覆盖 GroqCloud 全部产品面：默认不保留推理请求、需要保留才能工作的功能（Batch / Fine-tuning）、可靠性与滥用监控日志、ZDR 开关、数据所在地（GCP 美国 bucket）。是 retention / zdr / processing_region 的产品行为层权威（合同之外最具体的官方表述）。页面 .md 直连通道（/docs/your-data.md）内容与 jina 抓回正文一致，仅标题层级被 jina 丢掉。"
+
+[[source]]
+url = "https://groq.com/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Privacy Policy》(effective November 12, 2025)，groq.com 消费/网站侧隐私政策。适用于网站、社区、账号、计费、客服、营销等场景（Groq 在这些场景自认 data controller），并明确排除 Cloud Services 的 Customer Data（GroqCloud / GroqChat / API），后者按 data processor 处理并适用 Services Agreement + DPA。因此它对 API 档不是权威，只作为 role 维度的对照证据。全文的 Data Retention 节只写「period necessary to fulfill the purposes」，无量化期限。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "groq-sa-4-2-no-training"
+
+[[product.training.point]]
+text_zh = "见顶层 training。GroqCloud 按量 API（含 inference / batch / fine-tuning / LoRA）适用 Services Agreement §4.2：默认不得用 Inputs/Outputs 训练或微调，除非客户明确授权或指示"
+
+[[product.training.point]]
+text_zh = "§8.2 进一步限定客户提供的训练数据仅用于向该客户提供服务。例外与地区变体（§17.15 沙特改写版不再提训练）见顶层 note。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "groq-yourdata-zdr-all-customers"
+
+[[product.zdr.point]]
+text_zh = "见顶层 zdr。开关在 console.groq.com/settings/data-controls，组织管理员可全局或按功能开启"
+
+[[product.zdr.point]]
+text_zh = "开启后 Batch / Fine-tuning 等依赖保留的功能被禁用"
+
+[[product.zdr.point]]
+text_zh = "合同 §4.2 用「Eligible Customers」表述，与文档「All customers」冲突，两条并列。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "groq-yourdata-default-no-retention-for-inference"
+
+[[product.retention.point]]
+text_zh = "见顶层 retention。本档对象：推理输入输出正文（默认不保留）／可靠性滥用日志（≤30 天，可 opt-out）／Batch 文件（30 天）／微调数据（至客户删除）／Prompt Cache（易失内存，2 小时未使用过期）／反馈中的对话片段（≤3 年）／终止后删除（30 天，DPA 路径最长 180 天）。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "groq-yourdata-data-location-us-gcp"
+
+[[product.processing_region.point]]
+text_zh = "见顶层 processing_region。"
+
+[product.role]
+kind = "processor"
+anchor = "groq-dpa-2-1-customer-controller-groq-processor"
+
+[[product.role.point]]
+text_zh = "见顶层 role。API 档的签约主体按客户所在地为 Groq LLC / Groq UK Limited / Groq Limited / Groq Public Sector, LLC。"
+
+[[product]]
+id = "consumer"
+badge = "消费端"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "groq-sa-4-2-no-training"
+
+[[product.training.point]]
+text_zh = "推定为与 API 档同一套条款，但依据是文档内部冲突的同一句话：Services Agreement §1 既写该协议 governs「GroqChat, Groq Playground, GroqCloud…」，又写「Cloud Services and the AI Model Services under this Agreement are not for consumer use」。GroqChat / Playground 没有独立的消费条款或消费隐私政策，《Privacy Policy》反而把 GroqChat 列入按 data processor 处理的 Cloud Services。故本行记 low：条款文本适用，但「消费档」这一档位本身未被官方单列。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://console.groq.com/docs/your-data",
+  "https://console.groq.com/docs/legal/services-agreement",
+  "https://console.groq.com/docs/legal/customer-data-processing-addendum",
+  "https://groq.com/privacy-policy",
+  "https://groq.com/legal",
+  "https://groq.com/terms-of-use",
+  "https://groq.com/chat-terms",
+  "https://console.groq.com/docs/legal",
+  "https://trust.groq.com/faq",
+]
+
+[[product.zdr.point]]
+text_zh = "ZDR 开关在 console 的 Data Controls，面向组织/API 客户"
+
+[[product.zdr.point]]
+text_zh = "未找到任何把 ZDR 或零保留承诺适用于 GroqChat 消费档的官方表述，也未找到 GroqChat 独立条款页（groq.com/chat-terms 404）。按未披露记录。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "groq-yourdata-default-no-retention-for-inference"
+
+[[product.retention.point]]
+text_zh = "《Your Data in GroqCloud》标题即「Your Data in GroqCloud」，未声明覆盖 chat.groq.com"
+
+[[product.retention.point]]
+text_zh = "GroqChat 无独立保留期披露。Privacy Policy 的 Data Retention 节只写「period necessary to fulfill the purposes」，且该政策明确不适用于 Customer Data。即：消费档没有可锚定的保留期承诺，属未披露，不据此推断厂商会长期保留。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "groq-yourdata-data-location-us-gcp"
+
+[[product.processing_region.point]]
+text_zh = "唯一可依据的是《Your Data in GroqCloud》的美国 GCP bucket 表述，但该页未声明覆盖 GroqChat"
+
+[[product.processing_region.point]]
+text_zh = "消费档无独立处理地披露。"
+
+[product.role]
+kind = "processor"
+anchor = "groq-privacy-controller-vs-processor-scope"
+
+[[product.role.point]]
+text_zh = "《Privacy Policy》把 GroqChat 明确列入「we process as a data processor on behalf of customers」的 Cloud Services 名单，同时 Groq 对网站/营销/账号/客服数据自认 data controller。两者并存，按场景区分。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+label = "另有 GroqRack 本地部署：机器在客户机房，厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "groq-sa-4-2-no-training"
+
+[[product.training.point]]
+text_zh = "合同层同 API 档（§4.2）。企业/离线档的不确定性：§17.10 规定「If you signed an offline variant of this Agreement… your offline terms govern」（契约框架说明页同旨），离线变体文本未公开，故企业档可能存在未公开的另行约定"
+
+[[product.training.point]]
+text_zh = "地区条款 §17.15 对沙特 billing address 有改写。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "groq-sa-4-2-zdr-eligible-customers"
+
+[[product.zdr.point]]
+text_zh = "合同写「Eligible Customers may enable」，且未定义 Eligible 门槛"
+
+[[product.zdr.point]]
+text_zh = "文档写「All customers」。企业档若走离线协议，ZDR 条款是否适用取决于离线文本（未公开）。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "groq-sa-11-5-delete-within-30-days"
+
+[[product.retention.point]]
+text_zh = "企业档额外可依据的是终止后删除：§11.5 在 30 天内删除 Customer Data"
+
+[[product.retention.point]]
+text_zh = "若走 DPA §10 的客户请求路径，最长 180 天（含备份例外）。请求级保留期与 API 档同源（默认不保留 + 30 天滥用日志），但离线协议可能另有约定，未公开、未核。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "groq-dpa-8-1-us-and-other-countries"
+
+[[product.processing_region.point]]
+text_zh = "DPA §8.1 与 SCC 机制面向企业客户"
+
+[[product.processing_region.point]]
+text_zh = "文档层的「美国 GCP bucket」表述未按档位区分。未找到任何企业档专属的区域选择/驻留选项。"
+
+[product.role]
+kind = "processor"
+anchor = "groq-dpa-2-1-customer-controller-groq-processor"
+
+[[product.role.point]]
+text_zh = "DPA 直接约束企业客户场景：客户为 controller/processor，Groq 为 processor/sub-processor"
+
+[[product.role.point]]
+text_zh = "PHI 走 BAA"
+
+[[product.role.point]]
+text_zh = "子处理者一般授权（§7.1）。"
+
+[[product]]
+id = "on_prem"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://groq.com/groqrack",
+  "https://groq.com/on-prem",
+  "https://groq.com/enterprise-access",
+  "https://groq.com/legal",
+  "https://console.groq.com/docs/legal",
+  "https://groq.com/platform",
+]
+
+[[product.training.point]]
+text_zh = "官网没有 on-prem（GroqRack）数据处理政策：/groqrack 是营销页（无主体×动作条款），/on-prem 404，企业接入只有联系表单。官方未就自有部署档披露训练用途，属未披露。注意这是「查了官方页面没有」，不是抓取失败。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://groq.com/groqrack",
+  "https://groq.com/on-prem",
+  "https://console.groq.com/docs/your-data",
+]
+
+[[product.zdr.point]]
+text_zh = "ZDR 开关是 console 组织级设置，未找到任何针对自有部署的零保留表述。"
+
+[product.retention]
+mark = "unknown"
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://groq.com/groqrack",
+  "https://groq.com/on-prem",
+  "https://console.groq.com/docs/legal",
+  "https://console.groq.com/docs/your-data",
+]
+
+[[product.retention.point]]
+text_zh = "同上：on-prem 档无保留期披露。《Your Data in GroqCloud》通篇以 GroqCloud 为对象，未声明是否覆盖自有部署。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://groq.com/groqrack", "https://groq.com/on-prem", "https://groq.com/platform"]
+
+[[product.processing_region.point]]
+text_zh = "自有部署的处理地显然由客户机房决定，但官方没有任何条款文字说明该档的数据处理地；不据常识代填。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://groq.com/groqrack",
+  "https://groq.com/on-prem",
+  "https://console.groq.com/docs/legal",
+  "https://console.groq.com/docs/legal/customer-data-processing-addendum",
+]
+
+[[product.role.point]]
+text_zh = "DPA §2.1 的 processor 角色是为 Cloud Services 设定的"
+
+[[product.role.point]]
+text_zh = "自有部署档是否同样适用、或客户自行成为 controller，官方未表态。"
+
+[[anchor]]
+id = "groq-sa-4-2-no-training"
+source_id = "96fba76a7d9bd214"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "h the [AUP](https://console.groq.com/docs/legal/ai-policy). "
+exact = "For clarity, Groq is not permitted to use Inputs or Outputs for training or fine-tuning any AI Model Services or other models, unless explicitly granted permission or instructed by Customer."
+suffix = """
+
+
+  
+
+4.3 _AI Model Services Disclaimer_. Customer acknowled"""
+
+[[anchor]]
+id = "groq-sa-4-2-no-retain-except-necessary"
+source_id = "96fba76a7d9bd214"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " accuracy and appropriateness of Output for their use case. "
+exact = "Groq does not access, use, store, or retain Inputs or Outputs except as necessary to provide the Cloud Services, in accordance with the Customer's permission or instruction, comply with applicable law, ensure the reliable operation of the Cloud Services, or confirm Customer’s compliance with the [AUP](https://console.groq.com/docs/legal/ai-policy)."
+suffix = " Eligible Customers may enable Groq's [zero data retention s"
+
+[[anchor]]
+id = "groq-sa-4-2-zdr-eligible-customers"
+source_id = "96fba76a7d9bd214"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "h the [AUP](https://console.groq.com/docs/legal/ai-policy). "
+exact = "Eligible Customers may enable Groq's [zero data retention setting](https://console.groq.com/settings/data-controls) in the Console to prevent access by Groq to Inputs and Outputs for the purposes of ensuring reliable operation of the Cloud Services or compliance with the [AUP](https://console.groq.com/docs/legal/ai-policy)."
+suffix = " For clarity, Groq is not permitted to use Inputs or Outputs"
+
+[[anchor]]
+id = "groq-sa-3-4-protection-of-customer-data"
+source_id = "96fba76a7d9bd214"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ by this Agreement.
+
+  
+
+3.4 _Protection of Customer Data_. """
+exact = "Groq will only access, use, and otherwise process any Personal Data contained in the Customer Data in accordance with the [DPA](https://console.groq.com/docs/legal/customer-data-processing-addendum) and any PHI contained in the Customer Data in accordance with the [BAA](https://console.groq.com/docs/legal/customer-business-associate-addendum)."
+suffix = " Groq has implemented and will maintain technical, organizat"
+
+[[anchor]]
+id = "groq-sa-11-5-delete-within-30-days"
+source_id = "96fba76a7d9bd214"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Customer supplied AI Model Service, if applicable); and (b) "
+exact = "Groq will delete any Customer Data, Customer Training Data, and Customer supplied AI Model Service, as applicable, in its systems within 30 days, unless otherwise described in this Agreement or the Order Form or if Groq is required to retain any such information under applicable law."
+suffix = " All Fees owed by Customer to Groq under this Agreement or O"
+
+[[anchor]]
+id = "groq-sa-17-15-ksa-amended-4-2"
+source_id = "96fba76a7d9bd214"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+awful orders, without liability for resulting damages.
+
+  
+
+"""
+exact = "Groq’s rights to Inputs and Outputs in Section 4.2 (Inputs and Outputs) are amended as follows: “Groq does not access, use, store, or retain Inputs or Outputs unless necessary to provide the Cloud Services or comply with applicable law.”"
+suffix = ""
+
+[[anchor]]
+id = "groq-dpa-2-1-customer-controller-groq-processor"
+source_id = "16a557a7175863fd"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+rocessing-addendum#2-scope-and-purposes-of-processing)
+
+2.1 """
+exact = "Depending on the applicable Data Protection Laws, Customer is a Controller or Processor and Groq is a Processor or sub-Processor with respect to Groq's Processing of Personal Data to provide the Cloud Services under the Agreement."
+suffix = " This DPA applies to Groq's Processing of Personal Data on C"
+
+[[anchor]]
+id = "groq-dpa-8-1-us-and-other-countries"
+source_id = "16a557a7175863fd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ta-processing-addendum#8-international-data-transfers)
+
+8.1 """
+exact = "Groq may transfer and Process Personal Data to and in the United States and other countries where Groq or its Subprocessors maintain Processing operations."
+suffix = " Where Groq engages in an onward transfer of Personal Data, "
+
+[[anchor]]
+id = "groq-dpa-10-deletion-max-180-days"
+source_id = "16a557a7175863fd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "to termination or at termination of the Services Agreement, "
+exact = "Customer may request Groq to promptly delete all Personal Data in its possession or control as soon as reasonably practicable and within a maximum period of 180 days"
+suffix = ", except that this requirement will not apply to the extent "
+
+[[anchor]]
+id = "groq-dpa-annex1-retention-purpose-bound"
+source_id = "16a557a7175863fd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ot possible, the criteria used to determine that period:**
+
+"""
+exact = "The data will be retained for the time period needed to accomplish the purposes of Processing, unless otherwise required by applicable law."
+suffix = """
+
+
+  
+
+**For transfers to (sub-) processors, also specify sub"""
+
+[[anchor]]
+id = "groq-yourdata-default-no-retention-for-inference"
+source_id = "6296981297f71ed4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+er Data (retained only in limited circumstances)**
+
+    *   """
+exact = "**By default, Groq does not retain customer data for inference requests.**"
+suffix = """
+
+    *   Customer data (inputs, outputs, and related state) """
+
+[[anchor]]
+id = "groq-yourdata-abuse-logs-30-days"
+source_id = "6296981297f71ed4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+stigating suspected abuse (e.g. rate-limit circumvention).
+
+"""
+exact = "These logs are retained for up to **30 days**, unless legally required to retain longer."
+suffix = " You may opt out of this storage in [Data Controls settings]"
+
+[[anchor]]
+id = "groq-yourdata-batch-io-30-days"
+source_id = "6296981297f71ed4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+rtain API features require data retention to function:
+
+*   """
+exact = "**Batch Processing (`/openai/v1/batches`)**: Input and output files retained for 30 days unless deleted earlier by the customer."
+suffix = """
+
+*   **Fine-tuning (`/openai/v1/fine_tunings`)**: Model weig"""
+
+[[anchor]]
+id = "groq-yourdata-zdr-all-customers"
+source_id = "6296981297f71ed4"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+plication state | Until deleted | Yes (feature disabled) |
+
+"""
+exact = "All customers may enable Zero Data Retention (ZDR) in [Data Controls settings](https://console.groq.com/settings/data-controls). When ZDR is enabled, Groq will not retain customer data for system reliability and abuse monitoring."
+suffix = " As noted above, this also means that features that rely on "
+
+[[anchor]]
+id = "groq-yourdata-data-location-us-gcp"
+source_id = "6296981297f71ed4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ettings](https://console.groq.com/settings/data-controls).
+
+"""
+exact = "All customer data is retained in Google Cloud Platform (GCP) buckets located in the United States."
+suffix = " Groq maintains strict access controls and security standard"
+
+[[anchor]]
+id = "groq-privacy-controller-vs-processor-scope"
+source_id = "81bd451d0a32c142"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+lable to you regarding our processing of your information.
+
+"""
+exact = "This Policy does **not** apply to the information that we process as a “**data processor**” on behalf of customers (“**Customer Data**”) of our business offerings such as GroqCloud, GroqChat, and our Application Programming Interfaces (collectively, “**Cloud Services**”)."
+suffix = " Our processing of Customer Data in connection with a custom"

@@ -1,0 +1,873 @@
+name = "Snowflake"
+line = "snowflake-cortex"
+site = "global"
+entity = "Snowflake Inc."
+endpoint = ""
+doc = "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/"
+
+[[source]]
+url = "https://docs.snowflake.com/en/user-guide/snowflake-cortex/ai-observability"
+channel = "developer_data"
+tier = "core"
+note = "Cortex AI Observability 文档。列出会写入 SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS 的内容：Cortex Agents 自动记录会话线程、轮次与执行跨度；Cortex Analyst 把请求与响应遥测写入单独的 CORTEX_ANALYST_REQUESTS_RAW 表；Cortex Search 在开启 REQUEST_LOGGING 时每请求写一行；CoCo 每次提示写 span。是「会话内容与请求内容在账户内落表」的官方依据，也是 retention 的对象区分依据。"
+
+[[source]]
+url = "https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql"
+channel = "developer_data"
+tier = "core"
+note = "Cortex AI Functions（含 LLM functions）文档（docs llms.txt 里 /aisql 与 /llm-functions 渲染同一页，标题均为「Snowflake Cortex AI Functions (including LLM functions)」）。两句关键：「All the LLMs that Snowflake provides access to via our Snowflake AI Features are deployed within the Snowflake Service perimeter」；页末 Legal notices 表把 AI Functions 的 Input 归为 **Usage Data**、Output 归为 **Customer Data**，并区分 GA（Covered AI Features）与 Preview（Preview AI Features）。"
+
+[[source]]
+url = "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-threads"
+channel = "developer_data"
+tier = "core"
+note = "Cortex Agents Threads（会话线程）使用文档。可证 Threads 的消息是**持久化**的（「the persisted user message ID」「the persisted assistant message ID」），并且长会话会被压缩成 compaction 摘要消息存储。文档本身未写保留时长（时长只在官方 blog 里出现），故 retention 时长以 blog 为线索、以 DPA 为合同层依据。"
+
+[[source]]
+url = "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference"
+channel = "developer_data"
+tier = "core"
+note = "Cortex 跨区推理官方文档。给出 processing_region 的完整操作口径：客户数据只存在账户所在区域；跨区推理时「推理载荷（输入提示与输出响应）在处理期间 transiently 传输到处理区域，客户数据不在处理区域持久化」；四种路由选项（ANY_REGION / 云限定 / 区域限定 / DISABLED）；2026-03-09 后新商业区域组织默认 ANY_REGION，其他商业账户继承同云地理值；跨 CSP 走公网 mTLS。是「处理区不落盘」这一 retention 关键事实的官方出处。"
+
+[[source]]
+url = "https://www.snowflake.com/en/blog/engineering/cross-region-ai-inference-data-sovereignty/"
+channel = "official_blog"
+tier = "core"
+note = "官方工程博客《Cross-Region AI Inference, Data Residency and Sovereignty》(2026-07-10)。按权威规则只算 official_blog（最低层），**不能单独支撑结论**，但它是三件事的唯一公开出处：(1)「Customer inputs, outputs and logs are stored encrypted at rest」（账户侧落盘）；(2) Cortex Threads「configurable retention (default 180 days, reducible via account parameter)」；(3) frontier 模型（Claude on AWS Bedrock / GPT on Azure OpenAI / Gemini on GCP）跑在 CSP 托管端点、经同一代理流程。旧记录把 retention 结论挂在本页，本轮降为补充证据。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/"
+channel = "contract"
+tier = "core"
+note = "《Snowflake Data Processing Addendum》(Last Updated 2026-01-11)，主协议附属的数据处理附录。§3.1 是 role 维度的权威（processor / CCPA service provider，并单独处理 Usage Data 的控制者例外）；§3.5(e) 是 retention 的合同层权威（保留期由客户通过服务使用与配置决定，终止后删除）；§7.1 是 processing_region 的合同层权威（Hosting Region，例外为「为提供所购 Offering 所合理必需」或法律强制）。无 ZDR 条款。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/addenda/security-addendum/"
+channel = "contract"
+tier = "core"
+note = "《Snowflake Security Addendum》，经 ToS §3 与 DPA §5.1 纳入。§7.2 给出少见的量化下限：「与安全事件相关的日志至少保留一年」；§8 规定删除：§8.1 客户自助删除、§8.2 协议终止（含取回期）后 Snowflake 及时删除剩余 Customer Data。作为 retention 的量化与删除触发条款来源。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/compliance/snowflake-ai-trust-and-safety/"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "《Snowflake AI Trust and Safety》(Last Updated 2026-01-01)，官方合规 FAQ 页，明确其覆盖「Snowflake AI Features」并逐一点名 Cortex AI Functions、Copilot、Cortex Fine-tuning、Cortex Search、Cortex Analyst、Cortex Agents、Snowflake Intelligence。给出「不用于训练对外提供的模型」「不向其他客户开放」「留在 Snowflake Security Boundary」三条承诺，并单独回答客户自带模型（如 Snowpark Container Services）的处理方式。是 training 与 BYO 档的官方说明来源；FAQ 层级低于 AI Terms，不作合同层权威。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/"
+channel = "contract"
+tier = "core"
+note = "《Snowflake AI Terms》(Last Updated 2025-12-20)，Optional Offering 专用条款，§1.1 起即「amend and form part of the Customer Agreement」，§1.4 与主协议冲突时以 AI Terms 为准。覆盖所有 Generally Available 的 Covered AI Features（§6.4 指文档中列明的 GA「Snowflake AI Features」，含 Cortex AI Functions、Cortex Agents、Cortex Analyst、Cortex Search、Cortex Fine-tuning、Copilot、Snowflake Intelligence）。§3.2 是训练维度的合同层权威；§3.1 给出聚合匿名化改进例外；§5.2 明确 Preview AI Features 不在 AI Terms 范围内。全文无保留期限、无 ZDR、无处理地域条款。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/preview-terms-of-service/"
+channel = "contract"
+tier = "core"
+note = "《Preview Terms of Service》(Last Updated 2020-11-24)，与 AI Terms §5.2 配套，覆盖 Preview AI Features。三处关键：Preview「are excluded from Snowflake's security, compliance and privacy commitments」；Snowflake「may use information about Customer's use and evaluation of Previews for Snowflake's product improvement and development」；「Customers shall not use Previews to process personal data」。这是与 GA 档方向相反的独立档位。"
+
+[[source]]
+url = "https://www.snowflake.com/en/legal/terms-of-service/"
+channel = "contract"
+tier = "core"
+note = "《Snowflake Terms of Service》（Customer Agreement 层）。§2.1 客户数据授权仅限「为提供 Snowflake Offerings 所必需」；§4.2 允许 Snowflake 收集并使用 Usage Data 来 develop/improve/support/operate 产品与服务；定义章给出 Usage Data 的定义（含 query logs and metadata）。§7.3 终止后 30 个日历日的取回期，之后 Snowflake「promptly delete」。是 training 维度「产品改进用途」与 retention 终止后删除的关键对照来源。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+label = "客户自带模型那条链路"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "ai-terms-3-2-no-train-models-for-others"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "见顶层 training：AI Terms §3.2 合同层禁止拿 Customer Data / Usage Data（含 Inputs/Outputs）训练「对外提供给其他方的模型」"
+
+[[product.training.point]]
+text_zh = "§3.1 允许用聚合匿名化的 AI Data 改进产品，ToS §4.2 允许用 Usage Data 做产品开发改进，docs 又把 AI Functions 的 Input 归为 Usage Data，三条须并列。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-rest-api",
+  "https://docs.snowflake.com/en/sql-reference/parameters",
+  "https://trust.snowflake.com/",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：合同层与 docs 站均无 ZDR 选项/承诺/申请方式"
+
+[[product.zdr.point]]
+text_zh = "唯一 ZDR 字样在 Cortex Agents web search 的 Brave 上游（见 cortex-agents 档）。原绑的跨区文档「处理区域不落盘」讲的是区域级传输行为，既不构成零保留方案、也不构成「明示留存」，故本维度不绑锚点，按 searched 记未披露。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "dpa-3-5-e-retention-period-set-by-customer"
+
+[[product.retention.point]]
+text_zh = "见顶层 retention：合同层保留期由客户配置决定（DPA §3.5(e)），终止后 30 天取回期（ToS §7.3）后及时删除（Security Addendum §8.2）"
+
+[[product.retention.point]]
+text_zh = "跨区推理载荷在处理区域不落盘（docs）"
+
+[[product.retention.point]]
+text_zh = "账户侧 inputs/outputs/logs 加密落盘（blog）"
+
+[[product.retention.point]]
+text_zh = "无任何请求级通用期限。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "dpa-7-1-hosting-region-no-outside-processing"
+
+[[product.processing_region.point]]
+text_zh = "见顶层 processing_region：DPA §7.1 只托管在客户选定 Hosting Region、不在区外处理（例外为提供所购 Offering 所必需或法律要求）"
+
+[[product.processing_region.point]]
+text_zh = "实际路由由 CORTEX_ENABLED_CROSS_REGION 控制，新组织 2026-03-09 后默认 ANY_REGION。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-3-1-snowflake-only-data-processor"
+
+[[product.role.point]]
+text_zh = "见顶层 role：DPA §3.1 自认 processor/子处理方（CCPA service provider），Usage Data 构成个人信息时 Snowflake 自认控制者"
+
+[[product.role.point]]
+text_zh = "账户/账单侧控制者身份来自隐私政策，属另一层。"
+
+[[product]]
+id = "cortex-agents"
+badge = "Cortex Agents"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "ai-terms-3-2-no-train-models-for-others"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "与 api 档同：Cortex Agents / Analyst / Search / CoWork 均属 AI Trust and Safety 页点名的 Snowflake AI Features，受 AI Terms §3.2 覆盖（含 Inputs 与 Outputs），无档位差异证据。"
+
+[product.zdr]
+mark = "no"
+searched = [
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-manage",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-threads",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/ai-observability",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/",
+]
+anchor = "obs-agent-threads-logged-into-event-table"
+
+[[product.zdr.point]]
+text_zh = "本档没有任何「会话/提示/输出可零保留」的选项或承诺"
+
+[[product.zdr.point]]
+text_zh = "反而有三条相反方向的公开事实：会话线程持久化、会话与轮次自动写入观测事件表、web search 查询与结果离开 Snowflake 边界。唯一出现的 ZDR 是对上游子处理方 Brave 的局部承诺——docs 原文「Snowflake has enabled zero data retention (ZDR) with Brave: Brave does not store the search query text, the results returned, or any metadata associated with the request, for any length of time.」——它只说明 Brave 侧不存，且同一段先讲「the query and the results leave Snowflake and traverse the public internet」，不能推成 Cortex Agents 本身可零保留。按规则记 not_found。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-manage",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-threads",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/ai-observability",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/",
+]
+
+[[product.retention.point]]
+text_zh = "本档比 api 档多两类落盘对象：(1) 会话线程本身持久化——Threads 文档称消息是「persisted」的（user 与 assistant 消息都有持久化 id），长会话还会写入 compaction 摘要"
+
+[[product.retention.point]]
+text_zh = "官方 blog 称 Threads「configurable retention (default 180 days, reducible via account parameter)」，但**该天数只有 blog 一处，docs 未写**，故置信度 medium，天数按线索记录而不作为权威期限。(2) 观测数据——Cortex Agents 经 Agent API 或 CoWork 部署时会自动把会话线程、轮次与执行跨度写入 SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS"
+
+[[product.retention.point]]
+text_zh = "Cortex Analyst 的请求与响应遥测写入 SNOWFLAKE.LOCAL.CORTEX_ANALYST_REQUESTS_RAW"
+
+[[product.retention.point]]
+text_zh = "Cortex Search 开启 REQUEST_LOGGING 后每请求一行。这些表内数据不可修改，删除需 SNOWFLAKE.AI_OBSERVABILITY_ADMIN 应用角色。合同层的保留期与删除规则同 api 档（DPA §3.5(e)、ToS §7.3、Security Addendum §8.2）。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "dpa-7-1-hosting-region-no-outside-processing"
+
+[[product.processing_region.point]]
+text_zh = "与 api 档同受 DPA §7.1 与 CORTEX_ENABLED_CROSS_REGION 约束（docs 称 Cortex Agents 支持跨区推理，且 Cortex Agents 页面同标 PRC 不可用）。本档额外有一个**出 Snowflake 边界**的工具例外：Cortex Agents 的 web search 使用 Brave Web Search API，「Note that the query and the results leave Snowflake and traverse the public internet.」——这是本台账里 Cortex 唯一明示数据离开 Snowflake 边界的路径，必须单独记"
+
+[[product.processing_region.point]]
+text_zh = "官方对该跳只给了 Brave 侧的 ZDR，未给该跳的处理地域承诺。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-3-1-snowflake-only-data-processor"
+
+[[product.role.point]]
+text_zh = "主体角色同 api 档（processor，Usage Data 例外为控制者）。本档的不确定性在**上游跳**：web search 的 Brave 未被列入子处理方页，官方只说明它不存查询与结果，未说明 Snowflake 与 Brave 之间的角色安排"
+
+[[product.role.point]]
+text_zh = "AI Terms §5.1 规定 Pass-Through Terms 不改变 Snowflake 在 AI Terms 下的义务，但 Brave 不在 Pass-Through Terms 名单内。故对「agent 工具链上的第三方」角色，公开文本无答案。"
+
+[[product]]
+id = "preview-ai-features"
+badge = "预览功能"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "preview-may-use-info-for-product-improvement"
+
+[[product.training.point]]
+text_zh = "Preview 档结论：**Snowflake 保留把客户对 Preview 的使用与评估信息用于自身产品改进与开发的权利**，且 Preview 被排除在隐私承诺之外。逐字条款：Preview Terms「Snowflake may use information about Customer's use and evaluation of Previews for Snowflake's product improvement and development.」"
+
+[[product.training.point]]
+text_zh = "AI Terms §5.2 明确 Preview AI Features 在 AI Terms 范围之外（「Customer's use of any Preview AI Features is outside the scope of these AI Terms and is subject to the separate Preview Terms」），因此 AI Terms §3.2 的不训练承诺**不覆盖 Preview**"
+
+[[product.training.point]]
+text_zh = "docs 侧 aisql 页 Legal notices 表也区分「Generally available functions are Covered AI Features. Preview functions are Preview AI Features.」。注意：Preview Terms 说的是「use and evaluation of Previews」的信息用于产品改进，并未逐字写「用输入输出去训练模型」，故记为 permitted（用途授权方向）而非「训练授权」，不要过度解读。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/preview-terms-of-service/",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llms.txt",
+]
+
+[[product.zdr.point]]
+text_zh = "Preview Terms 全文无保留期、无 ZDR、无删除条款，且把 Preview 排除在隐私承诺之外"
+
+[[product.zdr.point]]
+text_zh = "docs 站未见任何 Preview 专属保留说明。按规则记 not_found。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+searched = [
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/preview-terms-of-service/",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llms.txt",
+]
+
+[[product.retention.point]]
+text_zh = "Preview 档结论：**无任何保留期或删除承诺**——Preview Terms「Previews are excluded from Snowflake's security, compliance and privacy commitments.」，并且客户被要求不得用 Preview 处理个人信息或受合规/法律要求约束的数据（「Customers shall not use Previews to process personal data or other data that is subject to any compliance or legal requirements.」）。故 DPA §3.5(e)、Security Addendum §8.2 等客户数据保留与删除条款在 Preview 上不被承诺适用（合同层面被排除）。置信度 medium：排除条款明确，但未逐字说「不适用 DPA」。"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = [
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/preview-terms-of-service/",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference",
+  "https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql-regional-availability",
+]
+
+[[product.processing_region.point]]
+text_zh = "Preview Terms 未就处理地域作任何承诺（只把 Preview 排除在安全/合规/隐私承诺之外）"
+
+[[product.processing_region.point]]
+text_zh = "docs 侧只有「Preview 功能需开启跨区推理」这类可用性说明（如 gemini-3.1-pro「requires cross-region inference」），属功能可用性而非地域承诺。故记 not_found。"
+
+[product.role]
+kind = "unknown"
+searched = [
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/preview-terms-of-service/",
+  "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+]
+
+[[product.role.point]]
+text_zh = "Preview 档结论：**DPA 的 processor 认定在 Preview 上不被承诺适用**——Preview Terms 把 Preview 排除在「security, compliance and privacy commitments」之外，而 DPA 正是隐私承诺的载体"
+
+[[product.role.point]]
+text_zh = "同时客户被禁止用 Preview 处理个人信息，等于把数据保护法下的角色问题排除在合同设计之外。故不沿用 api 档的 processor 结论，记为 unclear，需人工判断该档是否应作为独立条目跟踪。"
+
+[[product]]
+id = "byo-model"
+badge = "自带模型"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://www.snowflake.com/en/legal/compliance/snowflake-ai-trust-and-safety/",
+  "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/ai-features/ai-terms/",
+  "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/overview",
+]
+
+[[product.training.point]]
+text_zh = "BYO 档结论：AI Features 的「不用于训练对外提供的模型」承诺**不适用于客户自带模型**——官方 FAQ「Any models (including third-party models) that you bring into your Service account (for example, using Snowpark Container Services) in accordance with the Documentation are treated as Customer Data and are not considered part of the Service.」模型本身被当作 Customer Data，适用客户数据的一般权利义务（ToS §2.1 的有限处理授权、DPA §3.1 的 processor 角色），而不是 AI Terms 的 AI Features 条款。Snowflake 是否可能读到这些模型的内容，取决于客户数据侧的通用条款与支持访问政策，不是本档的 AI 专属承诺。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://www.snowflake.com/en/legal/compliance/snowflake-ai-trust-and-safety/",
+  "https://www.snowflake.com/en/legal/addenda/data-processing-addendum/",
+  "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/overview",
+]
+
+[[product.zdr.point]]
+text_zh = "官方未就 BYO 档披露任何 ZDR 选项"
+
+[[product.zdr.point]]
+text_zh = "该档被界定为 Customer Data，因此「能否零保留」在公开文本里没有答案（客户数据侧的保留由客户配置决定，但这不等于零保留承诺）。按规则记 not_found。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "dpa-3-5-e-retention-period-set-by-customer"
+
+[[product.retention.point]]
+text_zh = "BYO 档结论：按**客户数据**的通用保留规则处理（DPA §3.5(e) 保留期由客户配置决定；ToS §7.3 终止后 30 天取回期；Security Addendum §8.2 之后及时删除），不适用 Cortex AI Features 的任何专门说明（跨区推理载荷不落盘、Threads 保留等都不适用于该档）。客户在 Snowpark Container Services 里自己控制的存储与日志，保留期由客户自己的实现决定。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "dpa-7-1-hosting-region-no-outside-processing"
+
+[[product.processing_region.point]]
+text_zh = "BYO 档结论：按 Customer Data 适用 DPA §7.1 的 Hosting Region 承诺（只在客户选定区域托管，区外处理的例外为提供所购 Offering 所必需或法律要求）。注意 Snowpark Container Services 本身的跨区部署/复制能力不在本次核实的公开条款范围内，未核。"
+
+[product.role]
+kind = "processor"
+anchor = "aits-byo-models-are-customer-data"
+
+[[product.role.point]]
+text_zh = "BYO 档结论：Snowflake 对客户自带的模型（作为 Customer Data）仍是受托处理方（DPA §3.1 processor），客户是该模型的控制者"
+
+[[product.role.point]]
+text_zh = "同时官方明确该模型「not considered part of the Service」，即 Snowflake 不对模型本身承担 AI Features 的专门承诺。与 api 档的差别在于：模型不是 Snowflake 提供的，Snowflake 对其运行方式、输入输出保留行为不作 AI 专属承诺。"
+
+[[anchor]]
+id = "ai-terms-3-2-no-train-models-for-others"
+source_id = "3f17d36627469cc5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ata solely for the benefit of Customer.
+
+3.2. Additionally, """
+exact = "Snowflake will not use Customer Data or Usage Data (in each case, including any Inputs or Outputs) to train, re-train or fine-tune any Model that Snowflake makes available for use by other parties."
+suffix = """
+
+
+3.3. Snowflake will make Model Customizations available so"""
+
+[[anchor]]
+id = "ai-terms-3-1-aggregated-anonymized-improvement"
+source_id = "3f17d36627469cc5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "s confidentiality obligations under the Customer Agreement, "
+exact = "Snowflake will only use AI Data that has been aggregated and anonymized, such that neither Customer nor its Users can be identified, to develop or improve Snowflake’s products and services."
+suffix = " Snowflake may otherwise use AI Data solely for the benefit "
+
+[[anchor]]
+id = "ai-terms-6-2-ai-data-definition"
+source_id = "3f17d36627469cc5"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+eptable use policy, made available on the Website.
+
+6.2. “**"""
+exact = "AI Data**” means any Inputs or Outputs that are not Customer Data"
+suffix = """
+.
+
+6.3. “**AI Terms**” means these Snowflake AI Terms locate"""
+
+[[anchor]]
+id = "ai-terms-5-2-preview-ai-outside-ai-terms"
+source_id = "3f17d36627469cc5"
+topics = ["retention", "role", "training"]
+
+[anchor.selector]
+prefix = "hall materially diminish Snowflake’s obligations hereunder. "
+exact = "Customer’s use of any Preview AI Features is outside the scope of these AI Terms"
+suffix = " and is subject to the separate Preview Terms, the Acceptabl"
+
+[[anchor]]
+id = "ai-terms-1-4-ai-terms-control-conflicts"
+source_id = "3f17d36627469cc5"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+rms, the Acceptable Use Policy and the Documentation.
+
+1.4. """
+exact = "In the event of any conflict between these AI Terms and the Customer Agreement, these AI Terms will control with respect to the subject matter herein."
+suffix = " Capitalized terms used but not defined herein shall have th"
+
+[[anchor]]
+id = "dpa-3-1-snowflake-only-data-processor"
+source_id = "8a0029588ee349c3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ". Role of the Parties.** As between Snowflake and Customer, "
+exact = "Snowflake shall Process Customer Personal Data only as a Data Processor (or sub-processor) acting on behalf of Customer and, with respect to CCPA, as a “service provider” as defined therein"
+suffix = ", in each case regardless of whether Customer acts as a Data"
+
+[[anchor]]
+id = "dpa-3-1-usage-data-controller-exception"
+source_id = "8a0029588ee349c3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "arty Controller**”) with respect to Customer Personal Data. "
+exact = "To the extent any Usage Data (as defined in the Agreement) is considered Personal Data under applicable Data Protection Laws, Snowflake is the Data Controller of such data"
+suffix = " and shall Process such data in accordance with the Agreemen"
+
+[[anchor]]
+id = "dpa-3-5-e-retention-period-set-by-customer"
+source_id = "8a0029588ee349c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+nce with the Agreement and this DPA.
+
+(e) Retention Period. """
+exact = "The period for which Customer Personal Data will be retained and the criteria used to determine that period is determined by Customer during the term of the Agreement via Customer’s use and configuration of the Service."
+suffix = " Upon termination or expiration of the Agreement, Customer m"
+
+[[anchor]]
+id = "dpa-7-1-hosting-region-no-outside-processing"
+source_id = "8a0029588ee349c3"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " same Account, a different Account, or a separate Service). "
+exact = "Once Customer has selected a Hosting Region, Snowflake will not Process Customer Personal Data from outside the Hosting Region except as reasonably necessary to provide the Snowflake Offerings procured by Customer, or as necessary to comply with the law or binding order of a governmental body."
+suffix = """
+
+
+**7.2. Transfer Mechanisms.**
+
+**7.2.1.****Transfer Mechan"""
+
+[[anchor]]
+id = "dpa-2-scope-processor-only"
+source_id = "8a0029588ee349c3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ Personal Data.
+
+**2. Scope and Applicability of this DPA.**"""
+exact = "This DPA applies where and only to the extent that Snowflake Processes Customer Personal Data on behalf of Customer as Data Processor in the course of providing the Snowflake Offerings."
+suffix = """
+
+
+**3. Roles and Scope of Processing.**
+
+**3.1. Role of the """
+
+[[anchor]]
+id = "tos-usage-data-definition-query-logs-metadata"
+source_id = "a282a58732acfe31"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+n”**is defined in Section 13.13 (U.S. Government Terms).
+
+**"""
+exact = "“Usage Data”**means usage and operations data in connection with the Customer’s use of the Service, including query logs and metadata"
+suffix = """
+ (e.g., object definitions and properties).
+
+**“User”**means"""
+
+[[anchor]]
+id = "tos-2-1-right-to-process-customer-data"
+source_id = "a282a58732acfe31"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "ion of the Service. Subject to the terms of this Agreement, "
+exact = "Customer hereby grants to Snowflake and its Authorized Snowflake Affiliates a non-exclusive, worldwide, royalty-free right to process the Customer Data solely to the extent necessary to provide the Snowflake Offerings to Customer"
+suffix = ", to prevent or address service or technical problems therei"
+
+[[anchor]]
+id = "tos-4-2-usage-data-develop-improve"
+source_id = "a282a58732acfe31"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Notwithstanding anything to the contrary in this Agreement, "
+exact = "Snowflake may collect and use Usage Data to develop, improve, support, and operate its products and services."
+suffix = " Snowflake may not share any Usage Data that includes Custom"
+
+[[anchor]]
+id = "tos-7-3-retrieval-right-30-days"
+source_id = "a282a58732acfe31"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Customer Data Retrieval.**Upon written notice to Snowflake, "
+exact = "Customer will have up to thirty (30) calendar days from termination or expiration of this Agreement to access the Service solely to the extent necessary to retrieve Customer Data"
+suffix = " (**“Retrieval Right”**). If Customer exercises its Retrieva"
+
+[[anchor]]
+id = "sec-7-2-incident-logs-preserved-one-year"
+source_id = "08d748084799f022"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "o contain, investigate, and mitigate any Security Incident. "
+exact = "Any logs determined by Snowflake to be relevant to a Security Incident, shall be preserved for at least one year."
+suffix = """
+
+
+**7.3. Communication and Cooperation.** Snowflake shall pr"""
+
+[[anchor]]
+id = "sec-8-2-prompt-delete-on-termination"
+source_id = "08d748084799f022"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "mination “**retrieval period**” set forth in the Agreement, "
+exact = "Snowflake shall promptly delete any remaining Customer Data."
+suffix = """
+
+
+**9. Customer Rights & Shared Security Responsibilities**
+"""
+
+[[anchor]]
+id = "preview-may-use-info-for-product-improvement"
+source_id = "905e137bb618f030"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " also may choose not to make a Preview generally available. "
+exact = "Snowflake may use information about Customer’s use and evaluation of Previews for Snowflake’s product improvement and development."
+suffix = " Customer acknowledges that use of Previews may be subject t"
+
+[[anchor]]
+id = "preview-excluded-from-privacy-commitments"
+source_id = "905e137bb618f030"
+topics = ["retention", "role", "training"]
+
+[anchor.selector]
+prefix = "ded from Snowflake’s support and service level obligations. "
+exact = "Previews are excluded from Snowflake’s security, compliance and privacy commitments."
+suffix = " Customers shall not use Previews to process personal data o"
+
+[[anchor]]
+id = "aits-inputs-outputs-not-used-to-train"
+source_id = "aa000c112f88941d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+nd Outputs):
+
+*   are NOT available to other customers.
+*   """
+exact = "are NOT used to train, re-train, or fine-tune Models made available for use by other customers."
+suffix = """
+
+*   remain within the Snowflake Security Boundary.
+
+## FREQ"""
+
+[[anchor]]
+id = "aits-faq-no-training-on-usage-or-customer-data"
+source_id = "aa000c112f88941d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ers.
+
+**Is my data used as training data for the Models?**
+
+"""
+exact = "No, we do not use your Usage Data or Customer Data (in each case, including any Inputs or Outputs of Snowflake AI Features) to train any Model to be made available for use by other customers."
+suffix = " Fine-tuned Models built using your data can only be used by"
+
+[[anchor]]
+id = "aits-byo-models-are-customer-data"
+source_id = "aa000c112f88941d"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+ the Snowflake AI Features, how does Snowflake treat it?**
+
+"""
+exact = "Any models (including third-party models) that you bring into your Service account (for example, using Snowpark Container Services) in accordance with the Documentation are treated as Customer Data and are not considered part of the Service."
+suffix = " As Customer Data, these models will be subject to the right"
+
+[[anchor]]
+id = "aits-data-remains-within-security-boundary"
+source_id = "aa000c112f88941d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+lake Security Boundary when using Snowflake AI Features?**
+
+"""
+exact = "No, your data remains within the Snowflake Security Boundary."
+suffix = """
+
+
+**How does Snowflake ensure that my Customer Data remains """
+
+[[anchor]]
+id = "cri-customer-data-stored-only-in-account-region"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+ests to available capacity within the bounds that you set.
+
+"""
+exact = "Your customer data remains stored only in the region where your account is located."
+suffix = " During cross-region inference, the inference payload—the in"
+
+[[anchor]]
+id = "cri-payload-transmitted-transiently-not-persisted"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "ns stored only in the region where your account is located. "
+exact = "During cross-region inference, the inference payload—the input prompt you send and the output response you receive—is transmitted transiently to the processing region for the duration of processing. Your customer data is not persisted in the processing region."
+suffix = """
+
+
+[](https://docs.snowflake.com/en/user-guide/snowflake-cort"""
+
+[[anchor]]
+id = "cri-no-customer-data-stored-at-processing-region"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+y authenticated connections between Snowflake endpoints.
+
+**"""
+exact = "No customer data is stored at the processing region."
+suffix = "** The processing region handles the request and returns the"
+
+[[anchor]]
+id = "cri-disabled-restricts-to-home-region"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+owflake-cortex/cross-region-inference#account-region-only)
+
+"""
+exact = "To restrict inference processing to your account’s home region, set the parameter to `DISABLED`."
+suffix = " This provides the strictest data residency posture but limi"
+
+[[anchor]]
+id = "cri-default-any-region-new-orgs-2026-03-09"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+
+"""
+exact = "For new accounts created in new organizations within commercial regions after March 9, 2026, `ANY_REGION` is the default."
+suffix = " For other accounts, see [Default routing](https://docs.snow"
+
+[[anchor]]
+id = "cri-cross-cloud-traverses-public-internet-mtls"
+source_id = "28ded1339b9460d8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+erses the public internet.
+*   **Across cloud providers** — """
+exact = "Data traverses the public internet using Mutual Transport Layer Security (mTLS), providing encrypted, mutually authenticated connections between Snowflake endpoints."
+suffix = """
+
+
+**No customer data is stored at the processing region.** T"""
+
+[[anchor]]
+id = "aisql-llms-deployed-within-service-perimeter"
+source_id = "2019f23ce3243c86"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+tent
+*   Parsing documents for analytics and RAG pipelines
+
+"""
+exact = "All the LLMs that Snowflake provides access to via our Snowflake AI Features are deployed within the Snowflake Service perimeter."
+suffix = """
+
+
+## Available functions[¶](https://docs.snowflake.com/en/us"""
+
+[[anchor]]
+id = "aisql-ga-covered-ai-vs-preview-ai"
+source_id = "2019f23ce3243c86"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+nation |
+| --- | --- | --- |
+| Usage Data | Customer Data | """
+exact = "Generally available functions are Covered AI Features. Preview functions are Preview AI Features."
+suffix = " [[1]](https://docs.snowflake.com/en/user-guide/snowflake-co"
+
+[[anchor]]
+id = "threads-messages-are-persisted"
+source_id = "a614797a8dc1eb41"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+orrespond to the following in the conversation:
+
+*   `123`: """
+exact = "the persisted user message ID"
+suffix = """
+
+*   `456`: the persisted assistant message ID
+
+Together, th"""
+
+[[anchor]]
+id = "obs-agent-threads-logged-into-event-table"
+source_id = "52483d905648e58c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ortex/ai-observability#snowflake-cowork-and-cortex-agents)
+
+"""
+exact = "Cortex Agents deployed through the Agent API or Snowflake CoWork log conversation threads, turns, and execution spans automatically into `SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS`."
+suffix = " Use the **Observability** tab or [Monitor Cortex Agent requ"
+
+[[anchor]]
+id = "obs-analyst-raw-request-response-table"
+source_id = "52483d905648e58c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+er-guide/snowflake-cortex/ai-observability#cortex-analyst)
+
+"""
+exact = "Cortex Analyst stores **direct** Analyst request and response telemetry in `SNOWFLAKE.LOCAL.CORTEX_ANALYST_REQUESTS_RAW`, not in the shared AI observability event table."
+suffix = " When a **Cortex Agent** invokes Analyst as a tool (includin"
+
+[[anchor]]
+id = "blog-inputs-outputs-logs-encrypted-at-rest"
+source_id = "3deb557a4f8d7bd7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ion uses **TLS within the Snowflake internal network**.
+*   """
+exact = """
+There is no direct access to the inference network from outside of the Snowflake network.
+*   Customer inputs, outputs and logs are stored encrypted at rest."""
+suffix = """
+
+*   User identity and security are mapped end-to-end across"""
+
+[[anchor]]
+id = "blog-no-persistence-caching-in-inference-region"
+source_id = "3deb557a4f8d7bd7"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+tity and security are mapped end-to-end across regions.
+*   """
+exact = "Customer inputs, outputs and logs are stored encrypted at rest and with no persistence caching in the inference region."
+suffix = """
+
+
+![Image 3](https://www.snowflake.com/adobe/dynamicmedia/de"""
+
+[[anchor]]
+id = "blog-threads-default-180-days-retention"
+source_id = "3deb557a4f8d7bd7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "d with a customer-managed key with Tri-Secret Secure (TSS). "
+exact = "Support with configurable retention (default 180 days, reducible via account parameter)."
+suffix = """
+_
+
+## Part 6: Customer controls
+
+### Here is a practical, fi"""
+
+[[anchor]]
+id = "blog-frontier-models-run-on-csp-endpoints"
+source_id = "3deb557a4f8d7bd7"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+3 — Frontier model access (state-of-the-art models (STOM))
+
+"""
+exact = "For closed models — Claude (Anthropic on AWS Bedrock), GPT (Azure OpenAI) and Gemini (GCP) — the architecture uses the same proxy flow, terminating at the CSP-hosted frontier model endpoint instead of a Snowflake GPU cluster."
+suffix = """
+
+
+![Image 4](https://www.snowflake.com/adobe/dynamicmedia/de"""
+
+[[anchor]]
+id = "blog-ai-data-restricted-to-limited-personnel"
+source_id = "3deb557a4f8d7bd7"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ts of a SQL query suggestion generated by Cortex Analyst. | "
+exact = "Restricted to limited Snowflake personnel who have a legitimate business reason to access."
+suffix = " AI Data is not used to train, retrain or fine-tune any mode"
+
+[[anchor]]
+id = "blog-ai-outputs-encrypted-with-customer-key-hierarchy"
+source_id = "3deb557a4f8d7bd7"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+account are protected by your full encryption stack:**
+
+*   """
+exact = "Encrypted at rest using an encryption key hierarchy — the same keys that protect your tables, files and structured data."
+suffix = """
+
+*   Governed by your RBAC policies — only authorized users """

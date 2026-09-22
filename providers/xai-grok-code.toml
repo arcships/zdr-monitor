@@ -1,0 +1,162 @@
+name = "Grok Build"
+company = "xai"
+company_name = "xAI"
+line = "grok-build"
+site = "global"
+entity = "SpaceXAI LLC"
+kind = "model_vendor"
+homepage = "https://x.ai/build"
+endpoint = ""
+doc = "https://docs.x.ai/developers/faq/security.md"
+plan_levels = ["free", "individual"]
+
+[[source]]
+url = "https://docs.x.ai/developers/faq/security.md"
+channel = "developer_data"
+tier = "core"
+note = "Grok Build CLI 双链路与隐私设置权威页:API-key/ZDR 路径不留 trace/code；非 ZDR 可单独关闭代码留存；首次提示是否允许留存以改进产品和模型。另明确 grok.com Build 会跨会话保留且受 Improve the model 开关控制。"
+
+[[source]]
+url = "https://docs.x.ai/build/overview.md"
+channel = "developer_data"
+tier = "core"
+note = "Grok Build 产品与认证路径:交互式 TUI/headless/ACP；默认浏览器登录，也支持 XAI_API_KEY。用于确认 SuperGrok 登录路径与 BYOK API 路径不可混为同一数据姿态。"
+
+[[source]]
+url = "https://x.ai/news/grok-build-cli"
+channel = "official_blog"
+tier = "supporting"
+note = "Grok Build 官方发布页:确认它是终端编码 agent，面向 SuperGrok 与 X Premium Plus 订阅者；Grok Code Fast 是模型/别名而非独立订阅档位。"
+
+[[source]]
+url = "https://x.ai/build"
+channel = "developer_data"
+tier = "core"
+note = "Grok Build 当前产品页:确认编码 agent 可免费试用，并指向 SuperGrok 升级；用于区分 Free 与个人订阅 plan_level。"
+
+[[source]]
+url = "https://x.ai/legal/faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Grok.com/SuperGrok 消费档权威 FAQ:训练 opt-out、Private Chat、删除后 30 天、常规历史保留及消费档适用范围。Grok Build 的订阅登录路径受消费档姿态约束。"
+
+[[source]]
+url = "https://x.ai/legal/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "SpaceXAI 消费隐私政策:覆盖服务改进/训练、保留、全球处理与 controller 身份；适用于 SuperGrok 订阅登录路径，不覆盖 API-key 企业路径。"
+
+[[product]]
+id = "supergrok"
+badge = "SuperGrok"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "grok-build-retain-improve"
+
+[[product.training.point]]
+text_zh = "SuperGrok 账号登录的 Grok Build CLI 会显示是否允许保留数据以改进产品和模型的选择，并可之后修改；未排除模型训练，因此按 training=no。Grok.com Build 在 Improve the model 开启时也可能用于产品与模型改进。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
+
+[[product.zdr.point]]
+text_zh = "订阅账号登录路径未承诺 ZDR。文档中的 ZDR 是 API team 级能力；如改用 XAI_API_KEY，则属于 xAI API 档，而非 SuperGrok 订阅链路。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "grok-build-code-retention-toggle"
+
+[[product.retention.point]]
+text_zh = "非 ZDR 的 CLI 可在 /privacy 或 /settings 关闭代码数据留存，但官方未披露开关默认值及关闭前/开启时的期限。Grok.com Build 为跨会话功能保留 chats/build sessions，且当前不可用 Private Chat；代码索引与服务端缓存期限同样未披露。"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "xai-consumer-us-company"
+
+[[product.processing_region.point]]
+text_zh = "消费订阅路径只披露 SpaceXAI 是美国公司，未承诺处理区域或数据驻留；API 的 US endpoint 保证不可外推。"
+
+[product.role]
+kind = "controller"
+anchor = "xai-consumer-us-company"
+
+[[product.role.point]]
+text_zh = "消费 FAQ 将 SuperGrok/Grok.com 定义为面向个人用户的服务，由 SpaceXAI LLC 提供；未见将 SpaceXAI 定义为受托 processor 的条款，按消费端 controller 记录。"
+
+[[product]]
+id = "free"
+badge = "Free"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "grok-build-retain-improve"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "grok-build-code-retention-toggle"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "xai-consumer-us-company"
+
+[product.role]
+kind = "controller"
+anchor = "xai-consumer-us-company"
+
+[[anchor]]
+id = "grok-build-code-retention-toggle"
+source_id = "565f7c372b670a68"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+## Grok Build CLI
+
+If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained.
+
+"""
+exact = "When using the Grok Build CLI without ZDR, privacy settings are available as a slash command (`/privacy`) and in settings (`/settings`). You can disable code data retention with these settings, even if ZDR is not enabled."
+suffix = """
+
+On using the Grok Build CLI, you will also see a screen"""
+
+[[anchor]]
+id = "grok-build-retain-improve"
+source_id = "565f7c372b670a68"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " code data retention with these settings, even if ZDR is not enabled.\n\n"
+exact = "On using the Grok Build CLI, you will also see a screen to allow us to retain data to improve the product and model. We will also provide a setting to change your choice."
+suffix = """
+
+## Grok.com Build mode
+
+If you are using the Build mode"""
+
+[[anchor]]
+id = "xai-consumer-us-company"
+source_id = "ec263a891d8292eb"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+## [**Who is SpaceXAI?**](https://x.ai/legal/faq#who-is-spacexai)
+
+"""
+exact = "SpaceXAI LLC (\"**SpaceXAI**\") is a United States-based company"
+suffix = " working on building artificial intelligence tools to accel"

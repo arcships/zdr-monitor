@@ -1,0 +1,596 @@
+name = "Poe"
+line = "poe"
+site = "global"
+entity = "Quora, Inc."
+endpoint = ""
+doc = "https://poe.com/tos"
+
+[[source]]
+url = "https://help.poe.com/hc/en-us/articles/19944206309524-Poe-FAQs"
+channel = "consumer_privacy"
+tier = "core"
+note = "Poe Help Center「Poe FAQs」（Zendesk，jina 渲染正常，26254B，无 Something went wrong 壳）。本行是 zdr 维度的依据来源：Poe 唯一量化「请求内容本身留多久」的官方页面——temporary chat 被官方定义为最私密模式（不保存到历史、不可保存/分享、不进 Memory、仅官方 bot 可用），而该模式仍明文写「Temporary chat messages are permanently deleted within 24 hours of creation. Files you upload to a temporary chat are retained for up to 15 days for safety review before being permanently deleted. In limited cases, we may keep content longer to meet our legal and safety obligations.」——保留主体是 Poe 自己（安全审核是平台自身目的，不是上游），对象是 temporary chat 的消息与上传文件（即请求正文），期限为上限且自带「法律与安全义务可延长」开口。同一页的 chat history / delete 条目只讲产品功能层的对话历史，不构成通用保留期，故 retention 维度的权威仍是 Privacy Center，本页只作功能级补充。"
+
+[[source]]
+url = "https://poe.com/api_terms"
+channel = "contract"
+tier = "core"
+note = "Poe API Terms（Last updated: October 3, 2023）。适用范围须看清楚：开篇即写「your use of the Poe APIs (“Earnings Program”)」，正文 §4b 讲 Bot Query API、§5 讲「user data you receive through the APIs」，Poe ToS §4.2 说明该协议适用于「connect Your Bots to Poe using our APIs」——即**把自建 bot 接入 Poe 的开发者档**，不是第三方把 api.poe.com 当模型网关调用的档位。§4c 的「We will not (i) use any content provided by Your Bot to train a large language model」主语对象是「Your Bot 提供的内容」，不能读成 Poe 对 API 调用方输入的训练承诺。§5 给出 role 自认：开发者与 Poe 为独立数据控制者。"
+
+[[source]]
+url = "https://poe.com/pages/privacy-center"
+channel = "consumer_privacy"
+tier = "core"
+note = "Poe Privacy Center（Last updated: Apr 30, 2026），官方隐私说明页（非合同、非隐私政策本体，权威性低于 ToS/Privacy Policy，但对「上游模型厂商会不会训练/留多久」是 Poe 唯一正面表态的地方，且被 Poe Privacy Policy 明文指向）。给出 privacy shield 三态：full shield = 上游不用于训练；half shield = 可能用于训练。retention 维度明文把期限推给上游（「Each provider sets their own retention schedule」）。zdr 维度：本页是 api 档的依据来源（Poe 把保留责任推给上游、上游各自排期保留），并以「Your chats … are deleted from Poe’s systems」记录对话在 Poe 侧留存至用户删除。"
+
+[[source]]
+url = "https://poe.com/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Poe Privacy Policy（Last updated: Apr 30, 2026），覆盖 Poe 平台全部档位，并明文补充（supplement）并以引用方式并入 Quora Privacy Policy。本家 training 维度的关键冲突面就在这份文档：「AI model providers … to provide and generally improve their services」与 Privacy Center 的「do not train on your chats」方向相反。同时给出 role 的自认（Quora, Inc. is the data controller）。/pages/privacy 是同一份（jina 抓回 6450B，仅 URL Source 行不同）。"
+
+[[source]]
+url = "https://poe.com/tos"
+channel = "contract"
+tier = "core"
+note = "Poe Terms of Service（页面标注 Last updated: Mar 19, 2026），Quora, Inc. 与用户之间的平台级合同，覆盖 Poe 全部档位（网页/App 消费档与 api.poe.com 网关档共用；Poe API key 绑定 Poe 用户账号、消耗同一份订阅积分）。§4.5 是 Poe 自身对「Your Content」的使用授权（含「generally improve the Poe services」与永久、可转让许可）；§4.5 第一条 bullet 明文「Providing your chats … to third-party AI Models to generate responses」确立多跳链路；§5 明文终止后既有数据仍可继续使用。文档内以 /pages/tos 为同一份（jina 抓回 14466B，仅 URL Source 行不同），本行只记 /tos。"
+
+[[source]]
+url = "https://www.quora.com/about/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Quora Privacy Policy，被 Poe Privacy Policy 明文「incorporated by reference」并入，因此是 Poe 数据处理条款的组成部分。本家唯一给出处理地与保留期限文字的文档：How We Transfer Your Information（总部在美国、全球运营与服务商）、Retention（关系存续期间 + 关系结束后为审计/法定义务/诉讼目的再留一段时间）。另含 Quora 内容的 LLM 训练 opt-out（针对 Quora 上的 answers/posts/comments，不是 Poe 对话）。"
+
+[[product]]
+id = "consumer"
+badge = "消费端"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "poe-privacy-center-official-bots-no-training"
+
+[[product.training.point]]
+text_zh = "本档按 bot/app 级 privacy shield 分三态，**不能混成一行结论**：(1) full shield（官方 bot 与使用 OpenAI/Anthropic/Google/Meta 模型的 prompt bot）——Poe 承诺不训练，且「cannot access your chats for anything other than to produce the requested LLM response」"
+
+[[product.training.point]]
+text_zh = "(2) half shield（第三方开发者 bot/app，或你授予了新权限的 bot）——「Your interactions with the bot or app may be used for training purposes.」+「Third-party developer bots and apps can use your chats to train their AI models」"
+
+[[product.training.point]]
+text_zh = "(3) 与 Privacy Policy 的冲突：Privacy Policy 说上游模型厂商「may receive details about your interactions … to provide and generally improve their services」，没有把用途限制在「产出本次回复」，与 full shield 的措辞冲突。另注：Poe ToS §4.5 给 Poe 自身一项永久、可转让的内容使用许可，用途含「generally improve the Poe services」。页面上按保守假设记 ✗（不能因为存在 full shield 承诺就整档记 ✓，因为 half shield 是明确允许训练的）。"
+
+[product.zdr]
+mark = "no"
+anchor = "poe-faq-temporary-chat-retention"
+
+[[product.zdr.point]]
+text_zh = "消费档没有零保留方案或开关。读懂的依据：①官方最私密的 temporary chat 仍保留请求正文——消息 24 小时内永久删除、上传文件最多 15 天做安全审核，且「In limited cases, we may keep content longer to meet our legal and safety obligations.」"
+
+[[product.zdr.point]]
+text_zh = "标的正是该功能的请求内容，保留主体是 Poe 自己（安全审核是平台自身目的）。②普通对话保存在 Poe 系统内、以用户删除为触发条件（Privacy Center「Your chats and personal data associated with your account are deleted from Poe's systems」），Memory 还会用你发出的消息生成长期摘要，故 Poe 侧无自动到期删除、无期限承诺。③ToS §4.1 把「你发的问题/prompt」和「你收到的回复」都定义为 Your Content，§4.5 就此给出永久、可转让、终止后仍可继续使用的使用许可，§5 明确「Any Data collected prior to termination may continue to be used」——合同层没有「用完即删」的承诺。④上游那一跳由各 provider 自定保留期（Poe 自己举例 OpenAI / Anthropic 30 天），Poe 只剥离账号身份、不承诺不转发。privacy shield 的 full shield 只承诺「不用于训练」，是 training 维度的承诺，不构成保留承诺。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "poe-privacy-center-retention-by-provider"
+
+[[product.retention.point]]
+text_zh = "普通对话：Poe 不承诺期限，明文推给上游（Privacy Center）"
+
+[[product.retention.point]]
+text_zh = "用户删除时从 Poe 系统删除（触发式）。temporary chat 功能：消息 24 小时内永久删除、上传文件最多 15 天（安全审核），但有「法律与安全义务可延长」开口。对象分别是「对话消息正文」「上传文件」「账号个人信息」，不能互相外推。"
+
+[product.processing_region]
+codes = ["US", "GLOBAL"]
+anchor = "quora-privacy-transfer-us-and-worldwide"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：总部美国、全球服务商可能访问"
+
+[[product.processing_region.point]]
+text_zh = "无区域选择。对话内容另会转发给上游模型厂商（ToS §4.5），上游处理地未披露。"
+
+[product.role]
+kind = "controller"
+anchor = "poe-privacy-quora-inc-controller"
+
+[[product.role.point]]
+text_zh = "Poe/Quora 自认 data controller"
+
+[[product.role.point]]
+text_zh = "共享给上游前做聚合或去标识。上游厂商的角色未定性。"
+
+[[product]]
+id = "api"
+badge = "API 网关"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "poe-privacy-model-providers-improve-services"
+
+[[product.training.point]]
+text_zh = "API 档**没有任何专门针对 API 输入的训练承诺**，只能套平台级条款，且平台级条款本身冲突：(a) 适用的是 Poe Privacy Policy——上游模型厂商「may receive details about your interactions with bots and apps on Poe … to provide and generally improve their services」"
+
+[[product.training.point]]
+text_zh = "(b) Privacy Center 的「do not train on your chats」承诺对象是「Official Poe bots and user-created prompt bots」，是消费档的 bot/app 概念，API 档没有 privacy shield 机制，该承诺是否延伸到直接调模型的 API 调用**无官方文字支持**"
+
+[[product.training.point]]
+text_zh = "(c) Poe ToS §4.5 给 Poe 自身一项永久可转让许可，用途含「generally improve the Poe services」。另有明确为「是」的一跳：Poe API 的路由目标包括社区 bot（`poe.com/api/models` 价目表列 xAI / Moonshot AI / Google 等上游），而第三方开发者 bot 是允许拿对话训练自己模型的（Privacy Center half shield）。按多跳规则：任一跳明确为否则全链为否——但本链上游各跳的态度逐厂商不同，Poe 未披露路由到哪一跳、也未披露上游角色，因此本档只能记 conflicting，**按保守假设页面记 ✗**。"
+
+[product.zdr]
+mark = "no"
+anchor = "poe-privacy-center-retention-by-provider"
+
+[[product.zdr.point]]
+text_zh = "API 档没有任何零保留方案、开关或申请入口。读懂的依据：①Poe 没有 API 专用数据条款——/api/terms 是真 404（Poe 的 API 条款只有 /api_terms，而那份的标的是「把自建 bot 接入 Poe」的开发者档，不是本档）"
+
+[[product.zdr.point]]
+text_zh = "poe.com/dpa 等路径只抓到 OneTrust cookie 外壳、未取得正文，**这是我方抓取失败，不能据此断言不存在**（上一轮写作「/dpa 404」，已修正）。②poe.com/api 自称「a single, unified gateway」"
+
+[[product.zdr.point]]
+text_zh = "creator 文档站四页（external-applications、external-application-guide、api-reference/overview、FAQ）通读无保留期 / 日志 / prompt 缓存条款，请求字段表把 `store`、`metadata` 标为 Ignored——调用方无法用 OpenAI 标准字段表达存储意图。③Poe 把保留责任推给上游：「Each provider sets their own retention schedule (e.g. OpenAI and Anthropic retain your chats for 30 days). Please reach out to the AI model provider directly to learn more.」——标的「your chats」就是已转发给上游的请求内容，即 Poe 不承诺请求级不保留，上游按各自排期保留。④ToS §4.1/§4.5/§5 这一层合同许可覆盖请求输入输出、永久且终止后仍可用，同样没有「用完即删」。按多跳口径（任一跳明确为否则全链为否），本档不构成零保留。**适用范围提示**：未据此推断 API 请求正文在 Poe 侧的具体天数（未披露）"
+
+[[product.zdr.point]]
+text_zh = "Responses API 的 `previous_response_id`（无需重发历史即可续接）意味着 Poe 侧保存了上一轮请求/回复状态——这是从功能描述推出的旁证，未立锚点。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "poe-privacy-center-retention-by-provider"
+
+[[product.retention.point]]
+text_zh = "API 档无任何保留期披露。可用的只有 Privacy Center 那句「Each provider sets their own retention schedule (e.g. OpenAI and Anthropic retain your chats for 30 days). Please reach out to the AI model provider directly to learn more.」——该句在消费档语境下写成，但表达的立场（Poe 不承诺、找上游要）对 API 档同样成立。对象与语境均未区分：Poe 未说明 API 请求正文、响应、日志分别留多久，也未披露是否有请求内容缓存。期限类型 unspecified。"
+
+[product.processing_region]
+codes = ["US", "GLOBAL"]
+anchor = "quora-privacy-transfer-us-and-worldwide"
+
+[[product.processing_region.point]]
+text_zh = "API 档无区域参数、无区域文档、无数据驻留选项。只能引平台级条款：总部美国、服务商与运营遍布全球。多跳上，Poe ToS §4.5 明文把 chat/prompt 转给第三方 AI Models 生成回复，上游处理地由其自身政策决定"
+
+[[product.processing_region.point]]
+text_zh = "Poe 未披露上游清单与节点分布。置信度 low。"
+
+[product.role]
+kind = "controller"
+anchor = "poe-privacy-quora-inc-controller"
+
+[[product.role.point]]
+text_zh = "对 API 调用方（企业客户）而言，Poe/Quora 自认 data controller（Privacy Policy 明文），并且自认只是平台、把请求转给第三方 AI Models"
+
+[[product.role.point]]
+text_zh = "**未与客户建立 processor 关系，也无 DPA 可签**。上游那一跳的角色完全未披露。若公司要把 Poe API 用于处理他人个人数据，公开条款下没有 processor 定性可依赖。"
+
+[[product]]
+id = "creator"
+badge = "创作者平台"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "poe-api-terms-4c-no-training-on-bot-content"
+mode = "by_contract"
+
+[[product.training.point]]
+text_zh = "Poe 对开发者的明确承诺（本家唯一一处明确「不会用于训练」的合同条款）：API Terms §4c「We will not (i) use any content provided by Your Bot to train a large language model, or (ii) provide any content provided by Your Bot to a third-party service unless we have a contractual agreement in place with such service restricting their use of such content.」"
+
+[[product.training.point]]
+text_zh = "Creator FAQ 第 2 问复述并指向 §4.c。适用范围要写清：对象是「content provided by Your Bot」（bot 的响应/内容），不含 Poe 用户与 bot 的对话输入"
+
+[[product.training.point]]
+text_zh = "承诺方是 Poe，不含上游模型厂商。因此本条**不能**用来支撑 API 网关档或消费档的 training 结论。"
+
+[product.zdr]
+mark = "no"
+anchor = "poe-privacy-developer-bots-train-on-chats"
+
+[[product.zdr.point]]
+text_zh = "开发者档链路里，用户对话会被交给 bot 开发者并可由其保存：Poe Privacy Policy 逐字写「Developers that create bots and apps on Poe using APIs may view and store your chats on their servers to train their models.」——标的 = 用户对话正文，动作 = store，主体 = 开发者（本档的接收跳）。API Terms 没有保留期或零保留条款：§4c 的限制句标的写作「any content provided by Your Bot」（creator FAQ 第 2 问复述为「the responses from your bot」），即**开发者 bot 的输出**，不是用户请求正文——它是不训练 / 不无合同约束转第三方的使用限制，不是保留承诺"
+
+[[product.zdr.point]]
+text_zh = "§5 只要求开发者在用户或 Poe 要求时删除用户个人数据，反推默认可以持有。故本档不构成零保留。锚点取自 Privacy Policy 的开发者句（该句写在消费档语境），此处按「同一数据流的接收跳」引用，未外推具体天数。"
+
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://poe.com/api_terms",
+  "https://poe.com/pages/earnings-tos",
+  "https://creator.poe.com/docs/resources/frequently-asked-questions",
+  "https://creator.poe.com/docs/external-applications/external-application-guide",
+]
+
+[[product.retention.point]]
+text_zh = "API Terms 与 Monetization Terms 全文无保留期限条款（§8 终止条款只说开发者须停止使用 API、bot 不再可访问，未说数据删除）"
+
+[[product.retention.point]]
+text_zh = "Creator FAQ 亦无。官方未披露，不得反推。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://poe.com/api_terms",
+  "https://creator.poe.com/docs/resources/frequently-asked-questions",
+]
+
+[[product.processing_region.point]]
+text_zh = "API Terms 全文未提处理地、服务器位置或区域"
+
+[[product.processing_region.point]]
+text_zh = "Creator FAQ 未提。官方未披露。"
+
+[product.role]
+kind = "controller"
+anchor = "poe-api-terms-5-independent-data-controllers"
+
+[[product.role.point]]
+text_zh = "API Terms §5 末句「You and Poe will operate as independent data controllers.」——开发者与 Poe 之间是各自独立的控制者关系，不是 processor/controller 委托关系。注意这是开发者档，不适用于把 Poe 当模型网关的第三方。"
+
+[[anchor]]
+id = "poe-tos-4-1-your-content-definition"
+source_id = "3db4b105154e1ae8"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "t, or share bot conversations within Poe or outside of Poe. "
+exact = "All material that you upload, publish, or display within Poe, and any results that you receive in response to your prompts (or other inputs) from bots or apps accessible via Poe (“Bot-Generated Content”), will collectively be considered “Your Content.”"
+suffix = """
+
+
+Other users may ask questions and receive responses from b"""
+
+[[anchor]]
+id = "poe-tos-4-5-perpetual-license"
+source_id = "3db4b105154e1ae8"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+o detect and prevent fraud, security, or technical issues.
+
+"""
+exact = "By using Poe, you grant us a worldwide, non-exclusive, royalty-free, transferable, and perpetual license to use Your Content and Your Bots as stated above."
+suffix = """
+
+
+## 5. Termination
+
+You may cease your use of Poe at any ti"""
+
+[[anchor]]
+id = "poe-tos-4-5-chats-to-third-party-models"
+source_id = "3db4b105154e1ae8"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+ur Bots or Apps to provide and improve Poe, including:
+
+*   """
+exact = "Providing your chats, including your questions and prompts, to third-party AI Models to generate responses"
+suffix = """
+
+*   Displaying Your Content to others if you interact with """
+
+[[anchor]]
+id = "poe-tos-4-5-improve-poe-services"
+source_id = "3db4b105154e1ae8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ting your shared content or Your Bots or Apps to others
+*   """
+exact = "Understanding your use of Poe to generally improve the Poe services"
+suffix = """
+
+
+We may also need to use or disclose Your Content to comply"""
+
+[[anchor]]
+id = "poe-tos-5-data-survives-termination"
+source_id = "3db4b105154e1ae8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "imers and Limitation of Liability) and Section 8 (General). "
+exact = "Any Data collected prior to termination may continue to be used in accordance with these Terms."
+suffix = """
+
+
+## 6. Privacy
+
+For more information about Poe’s privacy pr"""
+
+[[anchor]]
+id = "poe-tos-1-third-party-ai-models"
+source_id = "3db4b105154e1ae8"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+S OF SERVICE.
+
+## 1. A platform for open exploration (Poe)
+
+"""
+exact = "Poe is a platform that enables you to explore and interact with various bots powered by third-party Artificial Intelligence Models"
+suffix = ", including Large Language Models (“LLMs”) (collectively, “A"
+
+[[anchor]]
+id = "poe-privacy-model-providers-improve-services"
+source_id = "750322c113274659"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ our platform.
+
+**Interactions with bots and apps on Poe.** """
+exact = "Our third party AI model providers and third party developers may receive details about your interactions with bots and apps on Poe (including the contents of your chats and photos or documents you upload) to provide and generally improve their services"
+suffix = ", which they may process in their legitimate business intere"
+
+[[anchor]]
+id = "poe-privacy-developer-bots-train-on-chats"
+source_id = "750322c113274659"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ifiable information to help them distinguish between users. "
+exact = "Developers that create bots and apps on Poe using APIs may view and store your chats on their servers to train their models."
+suffix = " We may use your interactions on Poe to provide you a person"
+
+[[anchor]]
+id = "poe-privacy-quora-inc-controller"
+source_id = "750322c113274659"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ora.com/about/privacy), which is incorporated by reference. "
+exact = "Quora, Inc. is the data controller of your personal information and is responsible for providing you with this Privacy Policy."
+suffix = """
+
+
+## Information we collect, how it is used, & the legal bas"""
+
+[[anchor]]
+id = "poe-privacy-files-shared-with-providers"
+source_id = "750322c113274659"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+ending other bots or apps to explore or topics to discuss.
+
+"""
+exact = "Keep in mind, any information and files you provide to the bots and apps on Poe will be shared with AI model providers and developers powering them."
+suffix = " Please exercise caution and avoid sharing sensitive persona"
+
+[[anchor]]
+id = "poe-privacy-center-official-bots-no-training"
+source_id = "a99e2b3bafa7785a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+shield icon to find out what type of bot or app it is.
+
+*   """
+exact = "Official Poe bots and user-created prompt bots using Open AI, Anthropic, Google, and Meta’s AI models do not train on your chats and cannot access your chats for anything other than to produce the requested LLM response"
+suffix = """
+
+*   Third-party developer bots and apps can use your chats """
+
+[[anchor]]
+id = "poe-privacy-center-developer-bots-train"
+source_id = "a99e2b3bafa7785a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ything other than to produce the requested LLM response
+*   """
+exact = "Third-party developer bots and apps can use your chats to train their AI models"
+suffix = " – even then, they don’t have access to the personal data as"
+
+[[anchor]]
+id = "poe-privacy-center-full-shield-not-used-for-training"
+source_id = "a99e2b3bafa7785a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+es that run inside Poe’s sandboxed environment by default.
+
+"""
+exact = "Your interactions with the bot or app will not be used by AI model providers for training purposes."
+suffix = """
+
+
+![Image 3: Half shaded privacy shield icon](https://poe.co"""
+
+[[anchor]]
+id = "poe-privacy-center-retention-by-provider"
+source_id = "a99e2b3bafa7785a"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ng do your AI model provider partners retain my chats for?
+
+"""
+exact = "Each provider sets their own retention schedule (e.g. OpenAI and Anthropic retain your chats for 30 days). Please reach out to the AI model provider directly to learn more."
+suffix = """
+
+"""
+
+[[anchor]]
+id = "poe-privacy-center-deleted-from-poe-systems"
+source_id = "a99e2b3bafa7785a"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+I delete my chats? How about when I delete my Poe account?
+
+"""
+exact = "Your chats and personal data associated with your account are deleted from Poe’s systems and will not be used for any other purpose."
+suffix = " If you use Poe’s memory feature, data you delete from a cha"
+
+[[anchor]]
+id = "poe-privacy-center-anonymized-before-sharing"
+source_id = "a99e2b3bafa7785a"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+rs who created those bots or apps may be able to see them.
+
+"""
+exact = "Your interactions with bots and apps are aggregated or anonymized before they are shared with AI model providers or developers"
+suffix = ", unless you interact with other users in group chats, in wh"
+
+[[anchor]]
+id = "poe-api-terms-4c-no-training-on-bot-content"
+source_id = "fcbbd78d85ab1f39"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+o detect and prevent fraud, security, or technical issues.
+
+"""
+exact = "We will not (i) use any content provided by Your Bot to train a large language model, or (ii) provide any content provided by Your Bot to a third-party service unless we have a contractual agreement in place with such service restricting their use of such content."
+suffix = """
+
+
+By using the Poe APIs, you grant us a worldwide, non-exclu"""
+
+[[anchor]]
+id = "poe-api-terms-4c-third-party-services"
+source_id = "fcbbd78d85ab1f39"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+hin Poe
+*   Marketing and promoting Your Bots to others
+*   """
+exact = "Providing any content provided by Your Bots to third party services that help to run Poe, provided we have a reasonable need to provide such content to a third party service."
+suffix = """
+
+*   Displaying Your Content and Your Bots to others if you """
+
+[[anchor]]
+id = "poe-api-terms-5-independent-data-controllers"
+source_id = "fcbbd78d85ab1f39"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ate steps to mitigate, and (e) not sell user personal data. "
+exact = "You and Poe will operate as independent data controllers."
+suffix = """
+
+
+**6. Right to Review**
+
+We reserve the right to review You"""
+
+[[anchor]]
+id = "quora-privacy-retention-relationship"
+source_id = "19e1e93a2d10829d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+zed access, use, disclosure, destruction, and altercation.
+
+"""
+exact = "Retention. We keep your personal information for as long as we have a relationship with you. Once our relationship with you has come to an end, we will retain your personal information for a period of time that enables us to maintain business records for audit purposes, comply with record retention requirements under the law, and defend or bring any existing or potential legal claims."
+suffix = """
+
+
+How We Transfer Your Information
+
+Quora Inc. is headquarte"""
+
+[[anchor]]
+id = "quora-privacy-transfer-us-and-worldwide"
+source_id = "19e1e93a2d10829d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ potential legal claims.
+
+How We Transfer Your Information
+
+"""
+exact = "Quora Inc. is headquartered in the United States, and has operations, entities, and service providers in the United States and throughout the world."
+suffix = " As such, we and our service providers may transfer your per"
+
+[[anchor]]
+id = "quora-privacy-key-service-providers"
+source_id = "19e1e93a2d10829d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "rvice providers who assist us in providing the Ad Services. "
+exact = "Key service providers we use include Amazon Web Services, Stripe, Zendesk, and Google."
+suffix = """
+
+
+Quora Affiliates. The information collected about you may """
+
+[[anchor]]
+id = "quora-privacy-opt-out-llm-training"
+source_id = "19e1e93a2d10829d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+count at any time by logging in.
+
+Opt out of Training LLMs. """
+exact = "You can opt out of having your content on Quora (i.e. your answers, posts, and comments) used for Large Language Model (LLM) training purposes via your privacy settings."
+suffix = """
+
+
+Opt out of Targeted Advertising. Depending on your locatio"""
+
+[[anchor]]
+id = "quora-privacy-quora-inc-controller"
+source_id = "19e1e93a2d10829d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " Service](https://www.quora.com/about/tos \"www.quora.com\"). "
+exact = "Quora Inc. is the data controller of your personal information and is responsible for providing you with this Privacy Policy."
+suffix = """
+
+
+Overview
+
+![Image 1](https://qph.cf2.quoracdn.net/main-qim"""
+
+[[anchor]]
+id = "poe-faq-temporary-chat-retention"
+source_id = "1e6a6d4dc9d2224c"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+s appear on your Activity page (labeled "Temporary chat").
+
+"""
+exact = "Temporary chat messages are permanently deleted within 24 hours of creation. Files you upload to a temporary chat are retained for up to 15 days for safety review before being permanently deleted. In limited cases, we may keep content longer to meet our legal and safety obligations."
+suffix = """
+
+
+## [What languages do you support?](https://help.poe.com/h"""

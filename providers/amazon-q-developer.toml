@@ -1,0 +1,151 @@
+name = "Amazon Q Developer"
+company = "amazon-bedrock"
+line = "amazon-q-developer"
+site = "global"
+entity = "Amazon Web Services, Inc."
+endpoint = ""
+doc = "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-protection.html"
+plan_levels = ["free", "enterprise"]
+
+[[source]]
+url = "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-tiers.md"
+channel = "developer_data"
+tier = "core"
+note = "Free / Pro 档位定义；本轮正式抓取持续 429，health 保留，未据此建立锚点。"
+[[source]]
+url = "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html"
+channel = "developer_data"
+tier = "core"
+note = "产品专属训练口径：Free 可用于服务改进/模型训练并可退出；Pro 不用于服务改进。"
+[[source]]
+url = "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md"
+channel = "developer_data"
+tier = "core"
+note = "产品专属存储与处理地域；未披露输入输出、代码索引或缓存的删除期限。"
+[[source]]
+url = "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md"
+channel = "developer_data"
+tier = "core"
+note = "IDE/CLI 客户端遥测退出步骤；Pro 不收集 content，但客户端遥测需按环境关闭。"
+[[source]]
+url = "https://aws.amazon.com/service-terms/"
+channel = "contract"
+tier = "core"
+note = "§50.13 明确只适用于 Amazon Q Developer Free；§1.14 在 AWS Services 处理 Customer Data 时纳入 AWS DPA。仅以这条明确产品→通用合同链解释角色，不把 AWS 通用条款直接当产品专属结论。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "q-free-training"
+[[product.training.point]]
+text_zh = "默认可将问题、响应及生成代码用于服务改进，包括模型训练；可通过 Organizations AI services opt-out policy 或 IDE 设置退出。"
+[product.zdr]
+mark = "no"
+anchor = "q-storage"
+[[product.zdr.point]]
+text_zh = "产品明确会存储问题、响应、控制台元数据和代码，未见零保留选项。"
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md"]
+[[product.retention.point]]
+text_zh = "确认会存储内容，但未披露输入输出、代码索引或缓存的删除期限。"
+[product.processing_region]
+codes = ["US"]
+anchor = "q-free-region"
+[[product.processing_region.point]]
+text_zh = "除诊断控制台错误在 us-west-2 外，其余 Free 数据存于 us-east-1；推理可在同一 geography 内跨区。"
+[product.role]
+mark = "unknown"
+searched = ["https://aws.amazon.com/service-terms/", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-protection.html"]
+[[product.role.point]]
+text_zh = "AWS Service Terms §1.14 的 DPA 链仅在 AWS Services 处理 Customer Data 时适用；Free/Builder ID 产品文档未明确 controller/processor，故不外推。"
+
+[[product]]
+id = "pro"
+badge = "Pro"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "q-pro-no-improvement"
+[[product.training.point]]
+text_zh = "产品专属文档明确 Pro 内容不用于 service improvement；按本仓库口径构成不训练承诺。"
+[product.zdr]
+mark = "no"
+anchor = "q-storage"
+[[product.zdr.point]]
+text_zh = "Pro 仍会存储内容；未见 ZDR 模式。"
+[product.retention]
+mark = "unknown"
+object = "input_output"
+basis = "undisclosed"
+searched = ["https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md"]
+[[product.retention.point]]
+text_zh = "未披露输入输出、代码索引或缓存的删除期限。"
+[product.processing_region]
+codes = ["selected", "US"]
+anchor = "q-pro-region"
+[[product.processing_region.point]]
+text_zh = "IAM Identity Center workforce 用户的列举功能存于 profile Region；其他功能可在美国存储处理，跨区推理可在 geography 内发生。"
+[product.role]
+kind = "processor"
+anchor = "aws-dpa-chain"
+[[product.role.point]]
+text_zh = "适用链：Amazon Q 是 AWS Service Terms §50 的 AI Service；§1.14 在 AWS Services 处理 Customer Data 时纳入 AWS DPA 及 controller-to-processor / processor-to-processor SCC。仅据此判企业 AWS 账户链路，不适用于 Free/Builder ID。"
+
+[[anchor]]
+id = "q-free-training"
+source_id = "6b0593a8dcc4437c"
+topics = ["training"]
+[anchor.selector]
+prefix = "Amazon Q Developer Free tier content used for service improvement\n\n"
+exact = "We may use certain content from Amazon Q Developer Free tier for service improvement. Amazon Q may use this content, for example, to provide better responses to common questions, fix Amazon Q operational issues, for de-bugging, or for model training."
+suffix = "\n\nContent that AWS may use for service improvement includes"
+[[anchor]]
+id = "q-pro-no-improvement"
+source_id = "6b0593a8dcc4437c"
+topics = ["training"]
+[anchor.selector]
+prefix = "responses and code that Amazon Q generates.\n\n"
+exact = "We do not use content from Amazon Q Developer Pro or Amazon Q Business for service improvement."
+suffix = "\n\n###### Note"
+[[anchor]]
+id = "q-storage"
+source_id = "c90c453f75ac8291"
+topics = ["zdr"]
+[anchor.selector]
+prefix = "# Data storage in Amazon Q Developer\n\n"
+exact = "Amazon Q stores your questions, its responses, and additional context, such as console metadata and code, to generate responses to your questions and requests."
+suffix = " For information about how data is encrypted"
+[[anchor]]
+id = "q-free-region"
+source_id = "c90c453f75ac8291"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "For other Amazon Q features and integrations, and when using the Amazon Q Developer Free tier, "
+exact = "your content is stored in a Region in the US. Data processed during diagnosing console error sessions is stored in the US West (Oregon) Region. All other data is stored in the US East (N. Virginia) Region."
+suffix = " Note the following features"
+[[anchor]]
+id = "q-pro-region"
+source_id = "c90c453f75ac8291"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "If you're an IAM Identity Center workforce user, at the Amazon Q Developer Pro tier, "
+exact = "your content is stored in the AWS Region where your Amazon Q Developer profile was created only for the following features:"
+suffix = "\n\n+ Amazon Q chat"
+[[anchor]]
+id = "aws-dpa-chain"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "These Service Terms incorporate the [AWS Data Processing Addendum](https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf) (“DPA”), when you use AWS Services to process Customer Data (as defined in the DPA)."
+suffix = ""

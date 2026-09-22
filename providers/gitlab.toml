@@ -1,0 +1,822 @@
+name = "GitLab Duo"
+line = "gitlab"
+site = "global"
+entity = "GitLab Inc."
+endpoint = ""
+doc = "https://docs.gitlab.com/user/gitlab_duo/data_usage/"
+plan_levels = ["free", "team", "enterprise"]
+
+[[source]]
+url = "https://about.gitlab.com/ai-transparency-center/"
+channel = "official_blog"
+tier = "contradiction"
+note = "与 https://docs.gitlab.com/user/gitlab_duo/data_usage/（core，training 维度的来源）就同一档位、同一问题（GitLab Duo 的输入输出是否被用于训练模型）的 training 表述不一致。本页 FAQ「Will my data be used to train models?」答句为「GitLab does not currently train its own models. No inputs to or outputs from GitLab Duo features are currently used to train any GitLab models.」（两处均带时间限定 currently，即只承诺「目前」不训练）；core 文档 §Model training 为绝对表述「GitLab does not train generative AI models.」并紧接「All GitLab AI model sub-processors are restricted from using model input and output to train models.」。各自范围：本页是 about.gitlab.com/ai-transparency-center/（GitLab Inc.，官方博客/FAQ 层），答句主语逐字为「GitLab Duo features」与「GitLab models」，覆盖 GitLab Duo 各档；core 是 docs.gitlab.com/user/gitlab_duo/data_usage/（同一实体 GitLab Inc.），其 scope_note 记明覆盖 Duo 全部 AI-native 功能、SaaS 与 self-managed 均适用。四种解释的排除依据：（1）适用范围——两份都逐字指向 GitLab Duo 的输入输出与 GitLab 自家模型，不存在「一份管 API、一份管消费产品」的分野，FAQ 与 core 文档回答的是同一个问题，故本页不是「另一个范围」的 core；（2）档位——两份都不按档位切分：core 文档覆盖 SaaS 与 self-managed（含 Dedicated）用 GitLab 管理模型的全部档，FAQ 答句亦不限定档位（同页只把 Duo AI Terms 与 Testing Agreement 列为适用文件），故不是企业版 vs 个人版式的档位差；（3）站点——about.gitlab.com 与 docs.gitlab.com 同属 GitLab Inc.，notes 已记 GitLab 只有单一国际站、无国内/国际法律实体之分，故不适用站点解释；（4）时效——两份都是现行版本：本轮 2026-09-21 抓取两份 verdict 均为 ok，锚点原句在现行正文中逐字命中（notes 记 35 个锚点全部通过），未见任一页被新版取代或下线的证据；record 里两份文档都没有页面级 Last modified 日期可引（本文件只有抓取日期 2026-09-21），故本项不依据日期比对、而依据「无版本取代证据」排除——FAQ 的 currently 是承诺强度的时间限定语，不是过期版本的残留。需要厂商书面澄清：FAQ 的「does not currently train」是否表示 GitLab 保留将来改变训练做法的权利，以及 core 文档「GitLab does not train generative AI models.」的绝对承诺是否同样受该时间限定；两者并存时无法判断哪一个才是 GitLab 当前的正式承诺（本页虽属权威性最低的官方博客层，但仍是 GitLab 官方表述且直接回答同一问题）。"
+
+[[source]]
+url = "https://docs.gitlab.com/administration/gitlab_duo_self_hosted/"
+channel = "developer_data"
+tier = "core"
+note = "GitLab 文档站的 Self-hosted models 页（administration/gitlab_duo_self_hosted/），覆盖GitLab Duo Self-Hosted / Duo Agent Platform Self-Hosted 这一档（客户自建 AI Gateway 与模型）。给出与 SaaS 完全相反的链路事实：只向 GitLab 发计费元数据，prompt/代码/响应不出客户网络。本页是 self-managed 自托管档 retention 与 processing_region 的依据，不能用于 SaaS 档。"
+
+[[source]]
+url = "https://docs.gitlab.com/administration/gitlab_duo/gateway/"
+channel = "developer_data"
+tier = "core"
+note = "GitLab 文档站的 AI Gateway 页（administration/gitlab_duo/gateway/）。AI Gateway 是 GitLab.com、self-managed 与 Dedicated 共用的模型路由服务，本页是 processing_region 的权威依据：§Region support、§Automatic data routing、§Data sovereignty、§Deployment regions。明确否认数据驻留能力，并说明模型实际位置由第三方模型厂商决定。"
+
+[[source]]
+url = "https://docs.gitlab.com/user/gitlab_duo/data_usage/"
+channel = "developer_data"
+tier = "core"
+note = "GitLab Duo 官方文档的 data usage 页（旧记录唯一候选，canonical 与 URL 一致）。覆盖 GitLab Duo 全部 AI-native 功能（含 Code Suggestions / Duo Chat / Agent Platform），SaaS 与 self-managed 均适用（页内未按档位切分，但 Privacy Statement 明文数据在 SaaS 与 self-managed 都会被收集）。本页是 training / retention / zdr 三个维度的权威依据：§Model training、§Data retention（Model sub-processors / GitLab 两小节）、§Prompt caching、§GitLab Model Context Protocol server。全文未出现任何保留天数，也未给出 ZDR 申请入口。"
+
+[[source]]
+url = "https://handbook.gitlab.com/handbook/legal/ai-functionality-terms/"
+channel = "contract"
+tier = "core"
+note = "《GitLab Duo AI Terms》(Additional Terms)，版本 GDAIT_11.13.25 v5，最后修改 2025-11-13；原名 AI Functionality Terms，是 about.gitlab.com/terms/ 表中「Use of any AI Functionality」指向的现行 AI 专用合同。覆盖 GitLab Duo（含 Agent Platform）全部 AI 功能与 GitLab Models；§2.1 把它与 Subscription Agreement、DPA 并列为适用文件，§7 规定与 Agreement 冲突时以本条款为准。本文件不含保留期与训练条款（训练只在 §3.3 限制客户反向训练竞争模型），是 role 维度的合同层依据。注意 handbook 页面经 jina 抓回的正文前 130 行是手册导航，条款正文从第 134 行开始。"
+
+[[source]]
+url = "https://handbook.gitlab.com/handbook/legal/testing-agreement/"
+channel = "contract"
+tier = "core"
+note = "《GitLab Testing Agreement》（about.gitlab.com/terms/ 表中「Use of any experimental or beta feature」指向的合同）。覆盖 beta / experimental AI 功能这一独立档位：§2.3 规定 GitLab 基于履行本协议处理客户个人数据、子处理商以子处理商页为准；§2.6 规定 Input/Output 构成 Customer Content。全篇不含保留期，也不含「不用于训练」承诺（既无承诺也无相反授权），故只作档位界定与 role 的旁证，不作任何维度的权威。"
+
+[[product]]
+id = "saas_gitlab_com"
+badge = "SaaS 版"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gl-duo-data-usage-training-gitlab"
+
+[[product.training.point]]
+text = "Conclusion: there is an express commitment not to use data for training (not_permitted). Both hops are covered at the contract/documentation layer: (1) GitLab itself — the data_usage page §Model training reads \"GitLab does not train generative AI models.\""
+text_zh = "结论：有明确承诺，不用于训练（not_permitted）。合同/文档层两跳都覆盖：①GitLab 自己 —— data_usage 页 §Model training 原句「GitLab does not train generative AI models.」"
+
+[[product.training.point]]
+text = "(2) the upstream model subprocessor hop — the same section: \"All GitLab AI model sub-processors are restricted from using model input and output to train models. These sub-processors are under data protection agreements with GitLab that prohibit the use of customer content for their own purposes, except to perform their independent legal obligations.\" Scope: the opening sentence of that page covers all AI-native GitLab Duo features"
+text_zh = "②上游模型子处理商那一跳 —— 同节「All GitLab AI model sub-processors are restricted from using model input and output to train models. These sub-processors are under data protection agreements with GitLab that prohibit the use of customer content for their own purposes, except to perform their independent legal obligations.」适用范围：该页首句覆盖 GitLab Duo 全部 AI-native 功能"
+
+[[product.training.point]]
+text = "The same section of the Privacy Statement states expressly \"This data may be collected in both the SaaS and Self-managed products where AI-features are enabled\", so it applies to SaaS and to self-managed (including Dedicated) wherever GitLab-managed models are used"
+text_zh = "Privacy Statement 同节明文「This data may be collected in both the SaaS and Self-managed products where AI-features are enabled」，故 SaaS / self-managed（含 Dedicated）用 GitLab 管理模型的场景都适用"
+
+[[product.training.point]]
+text = "Self-managed with bring-your-own models (Customer Models) falls outside GitLab's commitment. The conflicting side (no side taken; recorded alongside): (a) the AI section of the Privacy Statement uses conditional wording, \"However, we will not use your AI-inputs to train any language models without your instruction or prior consent\", and the same paragraph also says GitLab will \"collect AI prompts and output to debug and troubleshoot the services\" and collects \"de-identified prompts ... for the purposes of identifying and developing product improvements\" — i.e. \"not trained on by default\" rather than \"never trained on\", and the debugging collection of prompts and output is a separate purpose"
+text_zh = "self-managed 自带模型（Customer Models）不在 GitLab 承诺范围内。冲突面（不选边，并列保留）：(a) Privacy Statement AI 节用的是条件式表述「However, we will not use your AI-inputs to train any language models without your instruction or prior consent」，同段还写明 GitLab 会「collect AI prompts and output to debug and troubleshoot the services」并收集「de-identified prompts ... for the purposes of identifying and developing product improvements」——即「默认不训练」而非「绝对不训练」，且 prompt/output 的调试收集是独立用途"
+
+[[product.training.point]]
+text = "(b) the AI Transparency Center's wording carries a time qualifier, \"GitLab does not currently train its own models. No inputs to or outputs from GitLab Duo features are currently used to train any GitLab models.\" (official blog layer, the lowest authority)"
+text_zh = "(b) AI Transparency Center 的措辞带时间保留「GitLab does not currently train its own models. No inputs to or outputs from GitLab Duo features are currently used to train any GitLab models.」（官方博客层，权威性最低）"
+
+[[product.training.point]]
+text = "(c) Subscription Agreement §8.4 reserves over Customer Content \"a limited license to GitLab necessary for GitLab's provision of the Software and its development and improvement\" — whether \"development and improvement\" includes model training is not defined in the public terms. Uncertainty: GitLab does not disclose the retention period for de-identified prompts or the safeguards against re-identification"
+text_zh = "(c) Subscription Agreement §8.4 对 Customer Content 保留「a limited license to GitLab necessary for GitLab's provision of the Software and its development and improvement」——「development and improvement」是否包含模型训练，公开条款未定义。不确定性：GitLab 未披露 de-identified prompts 的保存期与再识别防护"
+
+[[product.training.point]]
+text = "Nor does it state the no-training commitment separately for beta/experimental features (the Testing Agreement contains no training clause at all — neither a commitment nor an authorization to the contrary)."
+text_zh = "也未把「不训练」承诺按 beta/experimental 功能单列（《Testing Agreement》通篇不含训练条款，既无承诺也无相反授权）。"
+
+[product.zdr]
+mark = "no"
+anchor = "gl-duo-data-usage-retention-prompt-cache"
+
+[[product.zdr.point]]
+text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
+anchor = "gl-duo-data-usage-zdr-fireworks"
+
+[[product.zdr.point]]
+text = "Conclusion: not zero retention across the whole chain (partial). The public material contains one express ZDR statement only, covering a single hop: \"For GitLab Duo requests, GitLab has a zero data retention policy with Fireworks AI. Fireworks AI discards model input and output data immediately after the output is provided and does not store input and output data for abuse monitoring.\" The exceptions that immediately follow it: (1) \"The exception to this policy is when prompt caching is turned on for GitLab Duo Code Suggestions and GitLab Duo Agentic Chat. For OpenAI models, you cannot turn off prompt caching.\""
+text_zh = "结论：不是全链零保留（partial）。公开材料只有一条 ZDR 明文，且只覆盖一个跳：「For GitLab Duo requests, GitLab has a zero data retention policy with Fireworks AI. Fireworks AI discards model input and output data immediately after the output is provided and does not store input and output data for abuse monitoring.」该句紧接的例外：①「The exception to this policy is when prompt caching is turned on for GitLab Duo Code Suggestions and GitLab Duo Agentic Chat. For OpenAI models, you cannot turn off prompt caching.」"
+
+[[product.zdr.point]]
+text = "(2) \"Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.\" — these models expressly do have vendor-side retention, so that hop is not zero retention. On the GitLab side there are two further retentions decoupled from ZDR: \"On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.\" and \"Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.\" Under the multi-hop rule \"a clear no on any hop makes the whole chain a no\": the Fireworks tier can be called zero retention, while the Anthropic/OpenAI tier (including when hosted on Bedrock or the Gemini Enterprise Agent Platform) is not"
+text_zh = "②「Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.」——这些模型在 vendor 侧明确有保留，即该跳不是零保留。GitLab 侧另有两条与 ZDR 脱钩的保留：「On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.」与「Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.」按多跳规则「任一跳明确为否，则全链为否」：Fireworks 档可称零保留，Anthropic/OpenAI（含 Bedrock / Gemini Enterprise Agent Platform 托管）档不是零保留"
+
+[[product.zdr.point]]
+text = "And the public material offers no unified ZDR switch or application path (on the contrary, retaining inputs and outputs is what requires the customer's written consent through a support ticket). Uncertainty: GitLab does not disclose how to tell, per model or per feature, whether the current configuration falls within ZDR coverage, and provides no verifiable ZDR attestation document."
+text_zh = "且公开材料没有统一的 ZDR 开关或申请入口（保留输入输出反而是「客户经 support ticket 书面同意」才发生）。不确定性：GitLab 未披露如何按模型/功能判断当前配置是否处于 ZDR 覆盖范围，也未提供可核验的 ZDR 声明文件。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gl-duo-data-usage-retention-no-other"
+
+[[product.retention.point]]
+text = "Conclusion: there is no uniform period"
+text_zh = "结论：没有统一期限"
+
+[[product.retention.point]]
+text = "All that can be given is the one upper-bound commitment that GitLab does not retain inputs and outputs by default; every other object is unquantified (duration_kind=unspecified). By object: (1) [input and output content · GitLab side · default] \"GitLab does not otherwise retain input and output data unless customers provide consent through a GitLab Support ticket\" — not retained by default, and retention requires customer consent through a support ticket"
+text_zh = "能给的只有「GitLab 侧默认不保留输入输出」这一条上限型承诺，其余对象均未量化（duration_kind=unspecified）。分对象：①【输入输出正文 · GitLab 侧 · 默认】「GitLab does not otherwise retain input and output data unless customers provide consent through a [GitLab Support ticket](...)」——默认不保留，保留需客户经 support ticket 同意"
+
+[[product.retention.point]]
+text = "(2) [chat / workflow history] \"GitLab Duo Chat and GitLab Duo Agent Platform retain chat and workflow history to help you return quickly to previously discussed topics. You can delete chats in the GitLab Duo Chat interface.\" (3) [GitLab.com anti-abuse exception] \"On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.\" — no period given, and only on GitLab.com"
+text_zh = "②【chat / workflow history】「GitLab Duo Chat and GitLab Duo Agent Platform retain chat and workflow history to help you return quickly to previously discussed topics. You can delete chats in the GitLab Duo Chat interface.」③【GitLab.com 反滥用例外】「On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.」——未给期限，且仅 GitLab.com"
+
+[[product.retention.point]]
+text = "(4) [trace data] \"When you enable expanded logging for GitLab Duo Agent Platform, GitLab retains trace data. Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.\" — no period given, and expressly decoupled from the subprocessors' ZDR policy"
+text_zh = "④【trace data】「When you enable expanded logging for GitLab Duo Agent Platform, GitLab retains trace data. Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.」——未给期限，且明文与子处理商 ZDR 政策脱钩"
+
+[[product.retention.point]]
+text = "(5) [once usage data collection is turned on] \"Full prompt and response text from interactions with GitLab Duo.\" and similar is recorded, for \"service improvement and debugging, and not for training AI models\" only, with no period given"
+text_zh = "⑤【usage data collection 打开后】「Full prompt and response text from interactions with GitLab Duo.」等被记录，用途限「service improvement and debugging, and not for training AI models」，未给期限"
+
+[[product.retention.point]]
+text = "(6) [KV / prompt cache] \"When you turn on prompt caching, the model vendor temporarily stores prompt data in memory. The cached data is never logged to any persistent storage.\" — on by default and can be turned off, except for OpenAI models, where it cannot"
+text_zh = "⑥【KV/提示缓存】「When you turn on prompt caching, the model vendor temporarily stores prompt data in memory. The cached data is never logged to any persistent storage.」——默认开启、可关，OpenAI 模型不可关"
+
+[[product.retention.point]]
+text = "(7) [the model subprocessor hop] Fireworks AI discards the data immediately after the output is provided"
+text_zh = "⑦【模型子处理商那一跳】Fireworks AI 输出返回后立即丢弃"
+
+[[product.retention.point]]
+text = "\"Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.\" — GitLab does not quantify how long that \"limited\" is; it only points to a footnote on the model_selection page"
+text_zh = "「Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.」——GitLab 未量化该「limited」是多久，只指向 model_selection 页脚注"
+
+[[product.retention.point]]
+text = "(8) [personal information generally] Privacy Statement §Data Retention, \"GitLab will only retain your Personal Data for as long as your account is active or as needed to perform our contractual obligations, provide you the Services, comply with legal obligations, resolve disputes, preserve legal rights, or enforce our agreements.\" — unquantified. Period type: not one clause here gives a retention period in days or months, so it is recorded as unspecified"
+text_zh = "⑧【通用个人信息】Privacy Statement §Data Retention「GitLab will only retain your Personal Data for as long as your account is active or as needed to perform our contractual obligations, provide you the Services, comply with legal obligations, resolve disputes, preserve legal rights, or enforce our agreements.」——未量化。期限类型：本家没有任何一条给出具体天数/月数的保留期，故记 unspecified"
+
+[[product.retention.point]]
+text = "(1) is of the upper-bound type (zero by default) but carries the four exceptions (2)(3)(4)(5), so it cannot be read in reverse as \"no input or output is retained at all\". The self-managed + self-hosted model tier has an independent fact of its own: only billing metadata is sent to GitLab, and \"Prompts, code inputs, and model responses do not leave your network.\""
+text_zh = "①是上限型（默认 0）但带②③④⑤四条例外，不能反推「所有输入输出都不留」。self-managed + 自托管模型档另有一条独立事实：只向 GitLab 发送计费元数据，「Prompts, code inputs, and model responses do not leave your network.」"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "gl-ai-gateway-not-residency"
+
+[[product.processing_region.point]]
+text = "Conclusion: primarily the United States, deployed across multiple regions, with data residency expressly not promised (us_primary_no_residency_guarantee). (1) Routing: \"Because GitLab.com is single-homed in `us-east1`, requests to the AI Gateway are routed to `us-east4` in almost all cases.\""
+text_zh = "结论：以美国为主、多区域部署但明确不承诺数据驻留（us_primary_no_residency_guarantee）。①路由：「Because GitLab.com is single-homed in `us-east1`, requests to the AI Gateway are routed to `us-east4` in almost all cases.」"
+
+[[product.processing_region.point]]
+text = "(2) AI Gateway deployment regions: North America (`us-east4`), Europe (`europe-west2`/`europe-west3`/`europe-west9`) and Asia Pacific (`asia-northeast1`/`asia-northeast3`)"
+text_zh = "②AI Gateway 部署区域：North America（`us-east4`）、Europe（`europe-west2`/`europe-west3`/`europe-west9`）、Asia Pacific（`asia-northeast1`/`asia-northeast3`）"
+
+[[product.processing_region.point]]
+text = "(3) No residency: \"The multi-region AI Gateway deployment does not enforce strict data sovereignty. Requests are not guaranteed to go to or remain in a particular region. This service is not a data residency solution.\" and \"You cannot directly trace your AI requests to specific regions.\""
+text_zh = "③不驻留：「The multi-region AI Gateway deployment does not enforce strict data sovereignty. Requests are not guaranteed to go to or remain in a particular region. This service is not a data residency solution.」且「You cannot directly trace your AI requests to specific regions.」"
+
+[[product.processing_region.point]]
+text = "(4) The model hop: \"The exact location of the LLM models used by the AI Gateway is determined by third-party model providers. The models are not guaranteed to reside in the same geographical regions as the AI Gateway deployments. Data might flow to other regions where the model provider operates.\""
+text_zh = "④模型那一跳：「The exact location of the LLM models used by the AI Gateway is determined by third-party model providers. The models are not guaranteed to reside in the same geographical regions as the AI Gateway deployments. Data might flow to other regions where the model provider operates.」"
+
+[[product.processing_region.point]]
+text = "(5) Privacy Statement layer: \"Our Services are hosted in the United States and information we collect will be stored and processed on our servers in the United States.\" (6) Subprocessor location table: Anthropic, PBC = United States"
+text_zh = "⑤Privacy Statement 层：「Our Services are hosted in the United States and information we collect will be stored and processed on our servers in the United States.」⑥子处理商位置表：Anthropic, PBC = United States"
+
+[[product.processing_region.point]]
+text = "OpenAI, LLC = United States"
+
+[[product.processing_region.point]]
+text = "Google LLC = United States"
+
+[[product.processing_region.point]]
+text = "Fireworks.ai, Inc. = United States and European Union. The opposing side, recorded alongside (not a covering clause, but it has to be on the same page): the hosting location of a GitLab Dedicated instance is chosen by the customer — the Subscription Agreement appendix, \"Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers\""
+text_zh = "Fireworks.ai, Inc. = United States and European Union。并列的相反面向（不算覆盖条款，但必须同页记录）：GitLab Dedicated 的实例托管地是客户可选的——Subscription Agreement 附录「Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers」"
+
+[[product.processing_region.point]]
+text = "For self-managed/Dedicated using GitLab-managed models, the AI Gateway region is decided by GitLab (\"GitLab manages region selection. You cannot choose the deployment region of the AI Gateway.\"), so the choice of Dedicated hosting location does not imply the Duo inference location. Self-managed with self-hosted models is a different matter: requests never leave the customer's network"
+text_zh = "self-managed/Dedicated 用 GitLab 管理模型时 AI Gateway 区域由 GitLab 决定（「GitLab manages region selection. You cannot choose the deployment region of the AI Gateway.」），所以 Dedicated 的托管地选择不推出 Duo 推理地。self-managed + 自托管模型档是另一回事：请求不出客户网络"
+
+[[product.processing_region.point]]
+text = "The Gov tier can only run self-hosted, with the AI Gateway installed in AWS GovCloud (US-West). Uncertainty: GitLab does not disclose the actual processing location of an individual request and the customer cannot trace it; only GitLab Support can look it up in the logs (Cloudflare headers plus the instance UUID)."
+text_zh = "Gov 档只能走 self-hosted，AI Gateway 装在 AWS GovCloud (US-West)。不确定性：GitLab 不披露单次请求的实际处理地，客户也无法自行追踪，只能靠 GitLab Support 查日志（Cloudflare 头 + 实例 UUID）。"
+
+[product.role]
+kind = "processor"
+anchor = "gl-duo-ai-terms-2-3-role-controller"
+
+[[product.role.point]]
+text = "Conclusion: on the enterprise/paid tiers GitLab positions itself as processor (the customer is controller)"
+text_zh = "结论：企业/付费档 GitLab 自认 processor（客户为 controller）"
+
+[[product.role.point]]
+text = "On the free/self-serve tiers GitLab appears as controller (processor_for_enterprise_customer_controller_for_self_serve). Contract layer: (1) GitLab Duo AI Terms §2.3, \"To the extent Customer's use of AI Functionality powered by GitLab Models involves the processing of Personal Data, Customer's obligations as a Controller under the DPA will apply. Any sub-processors used to provide AI Functionality powered by GitLab Models will be listed at https://about.gitlab.com/privacy/subprocessors/ and all notifications of updates to that list will be done in accordance with Section 14 of the DPA.\" — it places the DPA's controller obligations on the customer, which puts GitLab in the processor position"
+text_zh = "免费/自助档 GitLab 以 controller 身份出现（processor_for_enterprise_customer_controller_for_self_serve）。合同层：①《GitLab Duo AI Terms》§2.3「To the extent Customer's use of AI Functionality powered by GitLab Models involves the processing of Personal Data, Customer's obligations as a Controller under the DPA will apply. Any sub-processors used to provide AI Functionality powered by GitLab Models will be listed at https://about.gitlab.com/privacy/subprocessors/ and all notifications of updates to that list will be done in accordance with Section 14 of the DPA.」——把 DPA 的 controller 义务加在客户身上，即 GitLab 站 processor 位"
+
+[[product.role.point]]
+text = "§2.1 also states that \"these Terms, along with the Agreement and the DPA, govern Customer's access to and use of AI Functionality and GitLab Models\". (2) Subscription Agreement §14.2, \"If this Agreement is entered into on behalf of an Enterprise, the terms of the data processing addendum at ... (“DPA”) are hereby incorporated by reference and shall apply to the extent Customer Content includes Personal Data\""
+text_zh = "§2.1 同时明确「these Terms, along with the Agreement and the DPA, govern Customer's access to and use of AI Functionality and GitLab Models」。②《Subscription Agreement》§14.2「If this Agreement is entered into on behalf of an Enterprise, the terms of the data processing addendum at ... (“DPA”) are hereby incorporated by reference and shall apply to the extent Customer Content includes Personal Data」"
+
+[[product.role.point]]
+text = "§14.4 also carries a PIPL cross-border clause requiring the customer, as \"personal information processor\", to give notice and obtain separate consent itself. (3) The subprocessor page opens with \"When acting as a processor for Customer, Gitlab may engage the following entities to carry out specific processing activities\". (4) The Privacy Statement, \"For Enterprise Users or accounts that are members of a paid namespace, the enterprise that provisioned your account or invited you to its paid namespace is the Controller of your data. GitLab is a Processor in this scenario\" — the same paragraph also confirms that in free/self-serve scenarios GitLab is itself the controller (the privacy statement is written throughout in a controller's voice: we collect / we use). (5) Bring-your-own models (Customer Models) and third-party products are excluded from GitLab's commitments and liability by AI Terms §1.3/§1.9/§2.2, and the role relationship on that hop is set between the customer and its own model vendor. Uncertainty: the body of the DPA (the handbook page only links to an external document, and the PDF text was not obtained this round) could not be checked clause by clause"
+text_zh = "§14.4 另有 PIPL 出境条款，要求客户作为「personal information processor」自行完成告知与单独同意。③子处理商页开头「When acting as a processor for Customer, Gitlab may engage the following entities to carry out specific processing activities」。④《Privacy Statement》「For Enterprise Users or accounts that are members of a paid namespace, the enterprise that provisioned your account or invited you to its paid namespace is the Controller of your data. GitLab is a Processor in this scenario」——同一段也确认免费/自助场景下 GitLab 自任 controller（隐私声明通篇以 controller 口吻写 we collect / we use）。⑤自带模型（Customer Models）与第三方产品被 AI Terms §1.3/§1.9/§2.2 排除在 GitLab 承诺与责任之外，那一跳的角色关系由客户与其模型供应商自定。不确定性：DPA 正文（handbook 页只给外部文档链接，本轮未取到 PDF 正文）未能逐条核对"
+
+[[product.role.point]]
+text = "The Dedicated tier states no role of its own; under Subscription Agreement §14.2 it is presumed to follow the enterprise tier."
+text_zh = "Dedicated 档未单独表述角色，按 Subscription Agreement §14.2 推定同企业档。"
+
+[[product]]
+id = "saas_gitlab_com_trial"
+badge = "SaaS 试用"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gl-duo-data-usage-training-gitlab"
+
+[[product.training.point]]
+text = "Same as the saas_gitlab_com row: the trial tier sets no training clause of its own, and the data_usage page §Model training is the only basis."
+text_zh = "同 saas_gitlab_com 行：试用档未另立训练条款，data_usage 页 §Model training 为唯一依据。"
+
+[product.zdr]
+mark = "no"
+anchor = "gl-duo-data-usage-retention-prompt-cache"
+
+[[product.zdr.point]]
+text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
+anchor = "gl-duo-data-usage-zdr-fireworks"
+
+[[product.zdr.point]]
+text = "Same as the saas_gitlab_com row"
+text_zh = "同 saas_gitlab_com 行"
+
+[[product.zdr.point]]
+text = "The trial tier has no ZDR arrangement of its own."
+text_zh = "试用档没有单独的 ZDR 安排。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gl-duo-data-usage-retention-no-other"
+
+[[product.retention.point]]
+text = "Same as the saas_gitlab_com row"
+text_zh = "同 saas_gitlab_com 行"
+
+[[product.retention.point]]
+text = "The trial tier has no retention clause of its own."
+text_zh = "试用档没有单独的保留期条款。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "gl-ai-gateway-not-residency"
+
+[[product.processing_region.point]]
+text = "Conclusion: primarily the United States, deployed across multiple regions, with data residency expressly not promised (us_primary_no_residency_guarantee). (1) Routing: \"Because GitLab.com is single-homed in `us-east1`, requests to the AI Gateway are routed to `us-east4` in almost all cases.\""
+text_zh = "结论：以美国为主、多区域部署但明确不承诺数据驻留（us_primary_no_residency_guarantee）。①路由：「Because GitLab.com is single-homed in `us-east1`, requests to the AI Gateway are routed to `us-east4` in almost all cases.」"
+
+[[product.processing_region.point]]
+text = "(2) AI Gateway deployment regions: North America (`us-east4`), Europe (`europe-west2`/`europe-west3`/`europe-west9`) and Asia Pacific (`asia-northeast1`/`asia-northeast3`)"
+text_zh = "②AI Gateway 部署区域：North America（`us-east4`）、Europe（`europe-west2`/`europe-west3`/`europe-west9`）、Asia Pacific（`asia-northeast1`/`asia-northeast3`）"
+
+[[product.processing_region.point]]
+text = "(3) No residency: \"The multi-region AI Gateway deployment does not enforce strict data sovereignty. Requests are not guaranteed to go to or remain in a particular region. This service is not a data residency solution.\" and \"You cannot directly trace your AI requests to specific regions.\""
+text_zh = "③不驻留：「The multi-region AI Gateway deployment does not enforce strict data sovereignty. Requests are not guaranteed to go to or remain in a particular region. This service is not a data residency solution.」且「You cannot directly trace your AI requests to specific regions.」"
+
+[[product.processing_region.point]]
+text = "(4) The model hop: \"The exact location of the LLM models used by the AI Gateway is determined by third-party model providers. The models are not guaranteed to reside in the same geographical regions as the AI Gateway deployments. Data might flow to other regions where the model provider operates.\""
+text_zh = "④模型那一跳：「The exact location of the LLM models used by the AI Gateway is determined by third-party model providers. The models are not guaranteed to reside in the same geographical regions as the AI Gateway deployments. Data might flow to other regions where the model provider operates.」"
+
+[[product.processing_region.point]]
+text = "(5) Privacy Statement layer: \"Our Services are hosted in the United States and information we collect will be stored and processed on our servers in the United States.\" (6) Subprocessor location table: Anthropic, PBC = United States"
+text_zh = "⑤Privacy Statement 层：「Our Services are hosted in the United States and information we collect will be stored and processed on our servers in the United States.」⑥子处理商位置表：Anthropic, PBC = United States"
+
+[[product.processing_region.point]]
+text = "OpenAI, LLC = United States"
+
+[[product.processing_region.point]]
+text = "Google LLC = United States"
+
+[[product.processing_region.point]]
+text = "Fireworks.ai, Inc. = United States and European Union. The opposing side, recorded alongside (not a covering clause, but it has to be on the same page): the hosting location of a GitLab Dedicated instance is chosen by the customer — the Subscription Agreement appendix, \"Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers\""
+text_zh = "Fireworks.ai, Inc. = United States and European Union。并列的相反面向（不算覆盖条款，但必须同页记录）：GitLab Dedicated 的实例托管地是客户可选的——Subscription Agreement 附录「Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers」"
+
+[[product.processing_region.point]]
+text = "For self-managed/Dedicated using GitLab-managed models, the AI Gateway region is decided by GitLab (\"GitLab manages region selection. You cannot choose the deployment region of the AI Gateway.\"), so the choice of Dedicated hosting location does not imply the Duo inference location. Self-managed with self-hosted models is a different matter: requests never leave the customer's network"
+text_zh = "self-managed/Dedicated 用 GitLab 管理模型时 AI Gateway 区域由 GitLab 决定（「GitLab manages region selection. You cannot choose the deployment region of the AI Gateway.」），所以 Dedicated 的托管地选择不推出 Duo 推理地。self-managed + 自托管模型档是另一回事：请求不出客户网络"
+
+[[product.processing_region.point]]
+text = "The Gov tier can only run self-hosted, with the AI Gateway installed in AWS GovCloud (US-West). Uncertainty: GitLab does not disclose the actual processing location of an individual request and the customer cannot trace it; only GitLab Support can look it up in the logs (Cloudflare headers plus the instance UUID)."
+text_zh = "Gov 档只能走 self-hosted，AI Gateway 装在 AWS GovCloud (US-West)。不确定性：GitLab 不披露单次请求的实际处理地，客户也无法自行追踪，只能靠 GitLab Support 查日志（Cloudflare 头 + 实例 UUID）。"
+
+[product.role]
+kind = "processor"
+anchor = "gl-duo-ai-terms-2-3-role-controller"
+
+[[product.role.point]]
+text = "Trial accounts usually sit under a Free or Premium namespace: for Enterprise Users the Privacy Statement makes the enterprise the controller and GitLab the processor"
+text_zh = "试用档通常挂在 Free/Premium 命名空间下：Enterprise 用户按 Privacy Statement 由企业为 controller、GitLab 为 processor"
+
+[[product.role.point]]
+text = "For self-serve and free accounts GitLab is itself the controller. The contract-layer basis is the same as the saas_gitlab_com row."
+text_zh = "自助/免费账号则 GitLab 自任 controller。合同层依据同 saas_gitlab_com 行。"
+
+[[product]]
+id = "self_managed_dedicated_gitlab_managed_models"
+badge = "自托管官方模型"
+category = "api"
+label = "注意区分：自托管实例+自选模型那条链路厂商不接触数据，"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gl-duo-data-usage-training-gitlab"
+
+[[product.training.point]]
+text = "The same clause as the SaaS tier (the data_usage page covers both SaaS and self-managed); see also the self-managed configuration page, \"This data is used exclusively for service improvement and debugging, and not for training AI models.\" (the usage data collection scenario)."
+text_zh = "与 SaaS 档同一条款（data_usage 页覆盖 SaaS 与 self-managed），另见 self-managed 配置页「This data is used exclusively for service improvement and debugging, and not for training AI models.」（usage data collection 场景）。"
+
+[product.zdr]
+mark = "no"
+anchor = "gl-duo-data-usage-retention-prompt-cache"
+
+[[product.zdr.point]]
+text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
+anchor = "gl-duo-data-usage-zdr-fireworks"
+
+[[product.zdr.point]]
+text = "Conclusion: not zero retention across the whole chain (partial). The public material contains one express ZDR statement only, covering a single hop: \"For GitLab Duo requests, GitLab has a zero data retention policy with Fireworks AI. Fireworks AI discards model input and output data immediately after the output is provided and does not store input and output data for abuse monitoring.\" The exceptions that immediately follow it: (1) \"The exception to this policy is when prompt caching is turned on for GitLab Duo Code Suggestions and GitLab Duo Agentic Chat. For OpenAI models, you cannot turn off prompt caching.\""
+text_zh = "结论：不是全链零保留（partial）。公开材料只有一条 ZDR 明文，且只覆盖一个跳：「For GitLab Duo requests, GitLab has a zero data retention policy with Fireworks AI. Fireworks AI discards model input and output data immediately after the output is provided and does not store input and output data for abuse monitoring.」该句紧接的例外：①「The exception to this policy is when prompt caching is turned on for GitLab Duo Code Suggestions and GitLab Duo Agentic Chat. For OpenAI models, you cannot turn off prompt caching.」"
+
+[[product.zdr.point]]
+text = "(2) \"Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.\" — these models expressly do have vendor-side retention, so that hop is not zero retention. On the GitLab side there are two further retentions decoupled from ZDR: \"On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.\" and \"Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.\" Under the multi-hop rule \"a clear no on any hop makes the whole chain a no\": the Fireworks tier can be called zero retention, while the Anthropic/OpenAI tier (including when hosted on Bedrock or the Gemini Enterprise Agent Platform) is not"
+text_zh = "②「Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention.」——这些模型在 vendor 侧明确有保留，即该跳不是零保留。GitLab 侧另有两条与 ZDR 脱钩的保留：「On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes.」与「Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.」按多跳规则「任一跳明确为否，则全链为否」：Fireworks 档可称零保留，Anthropic/OpenAI（含 Bedrock / Gemini Enterprise Agent Platform 托管）档不是零保留"
+
+[[product.zdr.point]]
+text = "And the public material offers no unified ZDR switch or application path (on the contrary, retaining inputs and outputs is what requires the customer's written consent through a support ticket). Uncertainty: GitLab does not disclose how to tell, per model or per feature, whether the current configuration falls within ZDR coverage, and provides no verifiable ZDR attestation document."
+text_zh = "且公开材料没有统一的 ZDR 开关或申请入口（保留输入输出反而是「客户经 support ticket 书面同意」才发生）。不确定性：GitLab 未披露如何按模型/功能判断当前配置是否处于 ZDR 覆盖范围，也未提供可核验的 ZDR 声明文件。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gl-duo-data-usage-retention-no-other"
+
+[[product.retention.point]]
+text = "Same as the SaaS tier: inputs and outputs not retained by default (except with customer consent), plus chat/workflow history and expanded logging trace data, both unquantified"
+text_zh = "与 SaaS 档同：默认不保留输入输出（客户同意除外）+ chat/workflow history + expanded logging trace data 未量化"
+
+[[product.retention.point]]
+text = "The \"On GitLab.com ... anti-abuse\" clause does not apply to this tier."
+text_zh = "「On GitLab.com ... anti-abuse」一条不适用本档。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "gl-ai-gateway-not-residency"
+
+[[product.processing_region.point]]
+text = "The key difference on this tier: the AI Gateway deployment region is chosen by GitLab and cannot be chosen by the customer, and \"This service is not a data residency solution.\""
+text_zh = "本档的关键差异：AI Gateway 部署区域由 GitLab 选、客户不能选，且「This service is not a data residency solution.」"
+
+[[product.processing_region.point]]
+text = "All a Dedicated customer can choose is the instance hosting location (Subscription Agreement appendix, \"Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers\"), which is not a residency guarantee for the Duo inference location."
+text_zh = "Dedicated 客户能选的只是实例托管地（Subscription Agreement 附录「Customer may choose its primary and secondary Hosting Locations for its GitLab Dedicated servers」），不构成 Duo 推理地的驻留保证。"
+
+[product.role]
+kind = "processor"
+anchor = "gl-duo-ai-terms-2-3-role-controller"
+
+[[product.role.point]]
+text = "Conclusion: on the enterprise/paid tiers GitLab positions itself as processor (the customer is controller)"
+text_zh = "结论：企业/付费档 GitLab 自认 processor（客户为 controller）"
+
+[[product.role.point]]
+text = "On the free/self-serve tiers GitLab appears as controller (processor_for_enterprise_customer_controller_for_self_serve). Contract layer: (1) GitLab Duo AI Terms §2.3, \"To the extent Customer's use of AI Functionality powered by GitLab Models involves the processing of Personal Data, Customer's obligations as a Controller under the DPA will apply. Any sub-processors used to provide AI Functionality powered by GitLab Models will be listed at https://about.gitlab.com/privacy/subprocessors/ and all notifications of updates to that list will be done in accordance with Section 14 of the DPA.\" — it places the DPA's controller obligations on the customer, which puts GitLab in the processor position"
+text_zh = "免费/自助档 GitLab 以 controller 身份出现（processor_for_enterprise_customer_controller_for_self_serve）。合同层：①《GitLab Duo AI Terms》§2.3「To the extent Customer's use of AI Functionality powered by GitLab Models involves the processing of Personal Data, Customer's obligations as a Controller under the DPA will apply. Any sub-processors used to provide AI Functionality powered by GitLab Models will be listed at https://about.gitlab.com/privacy/subprocessors/ and all notifications of updates to that list will be done in accordance with Section 14 of the DPA.」——把 DPA 的 controller 义务加在客户身上，即 GitLab 站 processor 位"
+
+[[product.role.point]]
+text = "§2.1 also states that \"these Terms, along with the Agreement and the DPA, govern Customer's access to and use of AI Functionality and GitLab Models\". (2) Subscription Agreement §14.2, \"If this Agreement is entered into on behalf of an Enterprise, the terms of the data processing addendum at ... (“DPA”) are hereby incorporated by reference and shall apply to the extent Customer Content includes Personal Data\""
+text_zh = "§2.1 同时明确「these Terms, along with the Agreement and the DPA, govern Customer's access to and use of AI Functionality and GitLab Models」。②《Subscription Agreement》§14.2「If this Agreement is entered into on behalf of an Enterprise, the terms of the data processing addendum at ... (“DPA”) are hereby incorporated by reference and shall apply to the extent Customer Content includes Personal Data」"
+
+[[product.role.point]]
+text = "§14.4 also carries a PIPL cross-border clause requiring the customer, as \"personal information processor\", to give notice and obtain separate consent itself. (3) The subprocessor page opens with \"When acting as a processor for Customer, Gitlab may engage the following entities to carry out specific processing activities\". (4) The Privacy Statement, \"For Enterprise Users or accounts that are members of a paid namespace, the enterprise that provisioned your account or invited you to its paid namespace is the Controller of your data. GitLab is a Processor in this scenario\" — the same paragraph also confirms that in free/self-serve scenarios GitLab is itself the controller (the privacy statement is written throughout in a controller's voice: we collect / we use). (5) Bring-your-own models (Customer Models) and third-party products are excluded from GitLab's commitments and liability by AI Terms §1.3/§1.9/§2.2, and the role relationship on that hop is set between the customer and its own model vendor. Uncertainty: the body of the DPA (the handbook page only links to an external document, and the PDF text was not obtained this round) could not be checked clause by clause"
+text_zh = "§14.4 另有 PIPL 出境条款，要求客户作为「personal information processor」自行完成告知与单独同意。③子处理商页开头「When acting as a processor for Customer, Gitlab may engage the following entities to carry out specific processing activities」。④《Privacy Statement》「For Enterprise Users or accounts that are members of a paid namespace, the enterprise that provisioned your account or invited you to its paid namespace is the Controller of your data. GitLab is a Processor in this scenario」——同一段也确认免费/自助场景下 GitLab 自任 controller（隐私声明通篇以 controller 口吻写 we collect / we use）。⑤自带模型（Customer Models）与第三方产品被 AI Terms §1.3/§1.9/§2.2 排除在 GitLab 承诺与责任之外，那一跳的角色关系由客户与其模型供应商自定。不确定性：DPA 正文（handbook 页只给外部文档链接，本轮未取到 PDF 正文）未能逐条核对"
+
+[[product.role.point]]
+text = "The Dedicated tier states no role of its own; under Subscription Agreement §14.2 it is presumed to follow the enterprise tier."
+text_zh = "Dedicated 档未单独表述角色，按 Subscription Agreement §14.2 推定同企业档。"
+
+[[product]]
+id = "saas_gitlab_com_enterprise"
+badge = "SaaS 企业版"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gl-duo-data-usage-training-gitlab"
+[[product.training.point]]
+text_zh = "与付费 SaaS 档相同：GitLab 不训练生成式 AI 模型，模型子处理商亦受协议限制不得用输入输出训练。"
+[product.zdr]
+mark = "no"
+anchor = "gl-duo-data-usage-retention-prompt-cache"
+
+[[product.zdr.point]]
+text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
+anchor = "gl-duo-data-usage-zdr-fireworks"
+[[product.zdr.point]]
+text_zh = "与付费 SaaS 档相同：Fireworks AI 一跳有 ZDR，但 prompt caching、部分 Anthropic/OpenAI 模型及 GitLab 侧历史/日志保留使全链不构成 ZDR。"
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gl-duo-data-usage-retention-no-other"
+[[product.retention.point]]
+text_zh = "GitLab 默认不保留输入输出，客户同意、聊天/工作流历史、扩展日志、缓存及供应商有限保留除外；所有例外期限均未量化。"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "gl-ai-gateway-not-residency"
+[[product.processing_region.point]]
+text_zh = "以美国为主并跨多区域；AI Gateway 不保证请求留在特定区域，明确不是数据驻留方案。"
+[product.role]
+kind = "processor"
+anchor = "gl-duo-ai-terms-2-3-role-controller"
+[[product.role.point]]
+text_zh = "企业/付费 namespace 中客户企业是 controller，GitLab 是 processor，模型商为其 subprocessors。"
+
+[[product]]
+id = "beta_experimental_features"
+badge = "Beta 功能"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://handbook.gitlab.com/handbook/legal/testing-agreement/",
+  "https://docs.gitlab.com/user/gitlab_duo/data_usage/",
+]
+
+[[product.training.point]]
+text = "The Testing Agreement contains no training clause anywhere (neither a \"not used for training\" commitment nor an authorization to the contrary)"
+text_zh = "《Testing Agreement》全篇不含训练条款（既无「不用于训练」承诺，也无相反授权）"
+
+[[product.training.point]]
+text = "Whether the Duo-level commitment covers beta/experimental features is not stated in the public material. No favourable presumption is made, and no contrary one either."
+text_zh = "Duo 层承诺是否覆盖 beta/experimental 功能在公开材料中未明确。不作有利推定，也不作相反推定。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://handbook.gitlab.com/handbook/legal/testing-agreement/",
+  "https://docs.gitlab.com/user/gitlab_duo/data_usage/",
+  "https://about.gitlab.com/privacy/",
+  "https://about.gitlab.com/ai-transparency-center/",
+]
+
+[[product.zdr.point]]
+text = "The beta/experimental tier has no ZDR arrangement of its own"
+text_zh = "beta/experimental 档没有单独的 ZDR 安排"
+
+[[product.zdr.point]]
+text = "Whether the Duo-level Fireworks ZDR covers beta features is not stated in the public material."
+text_zh = "Duo 层的 Fireworks ZDR 是否覆盖 beta 功能在公开材料中未说明。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "gl-testing-agreement-2-3-personal-data"
+
+[[product.retention.point]]
+text = "The Testing Agreement sets no retention period and says only that Input and Output constitute Customer Content"
+text_zh = "《Testing Agreement》未规定保留期，只说 Input/Output 构成 Customer Content"
+
+[[product.retention.point]]
+text = "There is no separate clause for data retention on beta features."
+text_zh = "beta 功能的数据保留没有单独条款。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "gl-ai-gateway-not-residency"
+
+[[product.processing_region.point]]
+text = "Beta features also go through the AI Gateway, so the processing-location clauses are the same as the SaaS tier"
+text_zh = "beta 功能同样经 AI Gateway，处理地条款同 SaaS 档"
+
+[[product.processing_region.point]]
+text = "The Testing Agreement does not address processing location."
+text_zh = "《Testing Agreement》不涉及处理地。"
+
+[product.role]
+kind = "processor"
+anchor = "gl-testing-agreement-2-3-personal-data"
+
+[[product.role.point]]
+text = "Testing Agreement §2.3: \"GitLab will process Customer’s Personal Data on the basis of performing this Agreement with Customer. Any sub-processors used to provide a Testing Feature will be listed at https://about.gitlab.com/privacy/subprocessors/\" — i.e. GitLab processes in the capacity of a party performing the agreement, and subprocessors are disclosed on the subprocessor page"
+text_zh = "《Testing Agreement》§2.3：「GitLab will process Customer's Personal Data on the basis of performing this Agreement with Customer. Any sub-processors used to provide a Testing Feature will be listed at https://about.gitlab.com/privacy/subprocessors/」，即 GitLab 以履约方身份处理、子处理商按子处理商页披露"
+
+[[product.role.point]]
+text = "That agreement does not use the word processor explicitly the way the DPA does."
+text_zh = "该协议未像 DPA 那样显式写 processor 字样。"
+
+[[product]]
+id = "self_managed_self_hosted_models"
+badge = "自托管自选模型"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_deployment"
+anchor = "gl-self-hosted-no-leave-network"
+
+[[product.training.point]]
+text = "There is no GitLab training clause to cite on this tier: whether training happens depends on the configuration and terms of the model the customer builds or chooses. The only certain fact about the path is \"Prompts, code inputs, and model responses do not leave your network.\" (Self-hosted page), i.e. GitLab never receives the content to train on"
+text_zh = "本档没有 GitLab 的训练条款可引：训练与否取决于客户自建/自选模型的配置与条款。可确定的只有链路事实「Prompts, code inputs, and model responses do not leave your network.」（Self-hosted 页），即 GitLab 拿不到内容做训练"
+
+[[product.training.point]]
+text = "GitLab itself still states \"GitLab does not train generative AI models.\" (data_usage page)."
+text_zh = "GitLab 自身仍声明「GitLab does not train generative AI models.」（data_usage 页）。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_deployment"
+anchor = "gl-self-hosted-keep-data-in-env"
+
+[[product.zdr.point]]
+text = "Zero retention of content on this tier is architectural (the data never leaves the customer's environment), not a vendor ZDR commitment"
+text_zh = "本档的内容零保留是架构性的（数据不离开客户环境），不是厂商的 ZDR 承诺"
+
+[[product.zdr.point]]
+text = "\"Use a self-hosted AI Gateway to keep all request and response data in your own environment\" — retention and deletion are controlled by the customer."
+text_zh = "「Use a self-hosted AI Gateway to keep all request and response data in your own environment」——保留与删除由客户自己控制。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gl-self-hosted-no-leave-network"
+
+[[product.retention.point]]
+text = "Object = prompts, code inputs and model responses: they do not leave the customer's network (so no GitLab-side retention period applies)"
+text_zh = "对象=prompt/代码/模型响应：不出客户网络（故 GitLab 侧保留期不适用）"
+
+[[product.retention.point]]
+text = "Object = billing metadata (Instance ID, User ID, Call count, Timestamp): sent to GitLab, with no retention period given. Also: the same documentation page states, for the self-managed MCP server scenario, that \"GitLab does not transmit, store, retain, or process any data when the GitLab MCP server is used.\" (data_usage page), corroborating evidence on the same tier."
+text_zh = "对象=计费元数据（Instance ID、User ID、Call count、Timestamp）：发给 GitLab，未给保留期。另：同一文档页对 self-managed 的 MCP server 场景写明「GitLab does not transmit, store, retain, or process any data when the GitLab MCP server is used.」（data_usage 页），属同一档位的旁证。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "gl-self-hosted-no-leave-network"
+
+[[product.processing_region.point]]
+text = "Processing location = the customer's own environment"
+text_zh = "处理地=客户自建环境"
+
+[[product.processing_region.point]]
+text = "The Gov tier expressly requires installation in AWS GovCloud (US-West) (gov_dedicated page). Only billing metadata flows to GitLab."
+text_zh = "Gov 档明确要求装在 AWS GovCloud (US-West)（gov_dedicated 页）。仅计费元数据流向 GitLab。"
+
+[product.role]
+kind = "unknown"
+anchor = "gl-duo-ai-terms-1-5-gitlab-models"
+
+[[product.role.point]]
+text = "The models on this tier are not GitLab Models (§1.5 defines those as models hosted by GitLab or by a third party listed as a GitLab sub-processor) but Customer Models (§1.3)"
+text_zh = "本档的模型不是 GitLab Models（§1.5 定义：由 GitLab 或 GitLab 子处理商托管的才是），而是 Customer Models（§1.3）"
+
+[[product.role.point]]
+text = "§2.2 expressly excludes GitLab's indemnity for functionality powered by Customer Models, so GitLab does not take a processor role on that hop."
+text_zh = "§2.2 明文排除 GitLab 对 Customer Models 驱动功能的赔偿责任，故 GitLab 不就该跳承担 processor 角色。"
+
+[[anchor]]
+id = "gl-duo-data-usage-training-gitlab"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+om/user/gitlab_duo/data_usage/#model-training "Permalink")
+
+"""
+exact = "GitLab does not train generative AI models."
+suffix = """
+
+
+All GitLab AI model sub-processors are restricted from usi"""
+
+[[anchor]]
+id = "gl-duo-data-usage-training-subprocessors"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ "Permalink")
+
+GitLab does not train generative AI models.
+
+"""
+exact = "All GitLab AI model sub-processors are restricted from using model input and output to train models."
+suffix = " These sub-processors are under data protection agreements w"
+
+[[anchor]]
+id = "gl-duo-data-usage-retention-no-other"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " retains chat and workflow history for anti-abuse purposes. "
+exact = "GitLab does not otherwise retain input and output data unless customers provide consent through a"
+suffix = " [GitLab Support ticket](https://about.gitlab.com/support/po"
+
+[[anchor]]
+id = "gl-duo-data-usage-retention-com-abuse"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ics. You can delete chats in the GitLab Duo Chat interface. "
+exact = "On GitLab.com, GitLab retains chat and workflow history for anti-abuse purposes."
+suffix = " GitLab does not otherwise retain input and output data unle"
+
+[[anchor]]
+id = "gl-duo-data-usage-zdr-fireworks"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+model-sub-processors "Permalink")
+
+For GitLab Duo requests, """
+exact = "GitLab has a zero data retention policy with Fireworks AI."
+suffix = " Fireworks AI discards model input and output data immediate"
+
+[[anchor]]
+id = "gl-duo-data-usage-retention-vendor-limited"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+at. For OpenAI models, you cannot turn off prompt caching.
+
+"""
+exact = "Certain Anthropic and OpenAI models, including when hosted on Amazon Bedrock and Gemini Enterprise Agent Platform, are subject to limited vendor-side data retention."
+suffix = " For more information about these models, see [supported AI "
+
+[[anchor]]
+id = "gl-duo-data-usage-retention-expanded-logging"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+Support ticket](https://about.gitlab.com/support/portal/).
+
+"""
+exact = "When you enable expanded logging for GitLab Duo Agent Platform, GitLab retains trace data."
+suffix = " Logging information related to AI features is separate from"
+
+[[anchor]]
+id = "gl-duo-data-usage-retention-prompt-cache"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " avoiding the reprocessing of cached prompt and input data. "
+exact = "When you turn on prompt caching, the model vendor temporarily stores prompt data in memory."
+suffix = """
+ The cached data is never logged to any persistent storage.
+"""
+
+[[anchor]]
+id = "gl-duo-data-usage-mcp-self-managed-no-transmit"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+tocol/mcp_server/) usage in GitLab Self-Managed instances.
+
+"""
+exact = "GitLab does not transmit, store, retain, or process any data when the GitLab MCP server is used."
+suffix = " All communication occurs directly between the MCP client an"
+
+[[anchor]]
+id = "gl-duo-ai-terms-2-3-role-controller"
+source_id = "d8cd8d4db639a27b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " by GitLab Models involves the processing of Personal Data, "
+exact = "Customer’s obligations as a Controller under the DPA will apply."
+suffix = " Any sub-processors used to provide AI Functionality powered"
+
+[[anchor]]
+id = "gl-duo-ai-terms-1-5-gitlab-models"
+source_id = "d8cd8d4db639a27b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+cessing addendum between the parties.
+
+1.5. “GitLab Models” """
+exact = "means AI models powering AI Functionality which are hosted by GitLab, or by a third party listed as a GitLab sub-processor as listed on the Website."
+suffix = """
+
+
+1.6. “Input” means (i) input provided by Customer to AI Fu"""
+
+[[anchor]]
+id = "gl-ai-gateway-us-east"
+source_id = "7ccf1268cd0445b2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+instance location instead of the user’s instance location.
+
+"""
+exact = "Because GitLab.com is single-homed in `us-east1`, requests to the AI Gateway are routed to `us-east4` in almost all cases."
+suffix = " The routing might not always result in the absolute nearest"
+
+[[anchor]]
+id = "gl-ai-gateway-not-residency"
+source_id = "7ccf1268cd0445b2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ not guaranteed to go to or remain in a particular region.
+
+"""
+exact = "This service is not a data residency solution."
+suffix = """
+
+
+### Deployment regions[](https://docs.gitlab.com/administr"""
+
+[[anchor]]
+id = "gl-ai-gateway-no-strict-sovereignty"
+source_id = "7ccf1268cd0445b2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+stration/gitlab_duo/gateway/#data-sovereignty "Permalink")
+
+"""
+exact = "The multi-region AI Gateway deployment does not enforce strict data sovereignty."
+suffix = " Requests are not guaranteed to go to or remain in a particu"
+
+[[anchor]]
+id = "gl-ai-gateway-model-region-vendor"
+source_id = "7ccf1268cd0445b2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+assist/-/blob/main/.runway/runway.yml?ref_type=heads#L12).
+
+"""
+exact = "The exact location of the LLM models used by the AI Gateway is determined by third-party model providers."
+suffix = " The models are not guaranteed to reside in the same geograp"
+
+[[anchor]]
+id = "gl-self-hosted-keep-data-in-env"
+source_id = "41e541146aef8a61"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "re to use GitLab Duo features with the LLMs of your choice. "
+exact = "Use a self-hosted AI Gateway to keep all request and response data in your own environment"
+suffix = ", avoid external API calls, and manage the full lifecycle of"
+
+[[anchor]]
+id = "gl-self-hosted-no-leave-network"
+source_id = "41e541146aef8a61"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = """
+ HTTP/2
+
+Only billing metadata is sent to these components. """
+exact = "Prompts, code inputs, and model responses do not leave your network."
+suffix = " For more information about the type of data that is transmi"
+
+[[anchor]]
+id = "gl-ai-transparency-no-train-own-models"
+source_id = "1920628001b63268"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ess-to-the-models)
+
+ Will my data be used to train models?
+
+"""
+exact = "GitLab does not currently train its own models."
+suffix = " No inputs to or outputs from GitLab Duo features are curren"
+
+[[anchor]]
+id = "gl-testing-agreement-2-3-personal-data"
+source_id = "178735370da6594b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "s whose Personal Data is processed under a Testing Feature. "
+exact = "GitLab will process Customer’s Personal Data on the basis of performing this Agreement with Customer."
+suffix = " Any sub-processors used to provide a Testing Feature will b"

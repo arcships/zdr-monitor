@@ -1,0 +1,877 @@
+name = "腾讯云 TokenHub"
+name_en = "Tencent TokenHub"
+company = "tencent-hunyuan"
+line = "tencent-tokenhub"
+entity = "腾讯云计算（北京）有限责任公司"
+endpoint = ""
+doc = "https://cloud.tencent.com/document/product/301/129852"
+
+[[source]]
+url = "https://cloud.tencent.com/document/product/301/129852"
+channel = "contract"
+tier = "core"
+note = "《大模型服务平台 TokenHub 服务条款》中国站『政策与规范』正式版,自 2026-09-14 起生效,主体腾讯云计算（北京）有限责任公司。Coding Plan 是 TokenHub 下的订阅套餐(1823/130092 自述『腾讯云 Coding Plan，是为 AI Coding 场景推出的专属订阅套餐』),故本条款适用于本档。§2.11 委托处理、§2.13 处理地点、§2.14 保留期限为本档 retention/processing_region/role 主证据;§2.17 的『不用于开发、训练、微调或改进』与档位专属隐私政策 §1.1.2 相反,作冲突证据保留;前言『就特定功能事项以相应特定规则中更具体的约定为准』是 training 取档位专属文件的依据。2026-09-21 重抓与 2 小时前缓存逐字节一致"
+
+[[source]]
+url = "https://cloud.tencent.com/document/product/301/136530"
+channel = "contract"
+tier = "core"
+note = "《第三方部署模型服务特别说明》(2026-09-14)，《TokenHub 服务条款》不可分割的组成部分，中国站。§3.5 规定第三方部署模型对输入/输出内容的处理、存储、留存、是否用于训练适用外部服务商政策，与 TokenHub「不使用用户数据训练」等平台规则冲突时以第三方协议为准；同条明确「在智能路由模式下，我们不会将您的数据发送至第三方部署模型」。Token Plan 套餐概览 130060/企业版专业套餐 130659 明示套餐内 DeepSeek-V4 系列为原厂直供，故本说明直接约束本档部分模型。"
+
+[[source]]
+url = "https://intl.cloud.tencent.com/document/product/301/17347"
+channel = "contract"
+tier = "core"
+note = "国际站《数据处理与安全协议》（DPSA 母协议，英文）。78953 模块被纳入本协议（模块冲突时以模块为准）。§4 直接写明 Organisation=Controller、Tencent=Processor；§5.1 在客户所选 Service Region 内处理、§5.2 跨境需事先同意；§6.1 目的限定与保留（未另行指示时按 §9 各功能模块的保留策略）。覆盖 TokenHub 国际站。"
+
+[[source]]
+url = "https://intl.cloud.tencent.com/zh/document/product/1300/78953"
+channel = "contract"
+tier = "core"
+note = "腾讯云国际站《数据处理和安全协议》(DPSA)模块中文版(最后更新 2026-09-11)。第 1 节明文限定适用功能特性为「腾讯大模型服务平台 TokenHub 和 Token Plan 企业版」；§5 给出 ZDR 条件(选新加坡/法兰克福/硅谷作为资源地域并激活 ZDR 则不存储客户内容与服务生成内容)与未激活时 30 天上限。只覆盖国际站 Token Plan 企业版；中国站文档体系(301 目录、1823 相关协议清单、privacy.qq.com 三份隐私政策、129852、136530)未见对应模块或任何 ZDR 条款。"
+
+[[source]]
+url = "https://privacy.qq.com/document/preview/91d5fd3c98ce4468ae462ac59233bba2"
+channel = "consumer_privacy"
+tier = "core"
+note = "《TokenHub 隐私政策》（主体：腾讯云计算（北京）有限责任公司；更新/生效日期 2026-03-25）。这是中国站云侧 TokenHub 产品隐私政策的**官方发布地址**（由 TokenHub 文档站常见问题 1823/130104 与相关协议清单 1823/130105 直接链出；文档站条目 1823/130108 是只写着「详细信息，请参见…」的占位页，正文仍指向本地址），不是第三方镜像。覆盖 TokenHub 全档；§1.1.3 明确 API 调用输入信息会被收集用于安全审计，§2.1 最短必要期限保留，§2.2 境内存储、暂不向境外提供。不覆盖混元 App / 腾讯元宝等消费侧产品。**推断轮 2026-09-21 由 drop 升为 core**：§1.1.3 是 zdr 结论中唯一点名「请求内容（调用 API 时的输入信息）」的官方原句，承载锚点 th-privacy-api-input-1-1-3，故按「依据落在 drop 源上则改回 core」的规则升档"
+
+[[source]]
+url = "https://www.tencentcloud.com/zh/document/product/301/17345"
+channel = "consumer_privacy"
+tier = "core"
+note = "国际站《隐私政策》中文版。明确区分角色：账户等管理信息腾讯是控制方，用户在使用服务时存储的内容（客户内容）腾讯是处理方、客户是控制方；并给出管理信息的量化保留期（日志数据 3 个月、账户删除后 30 日内删除等）。用于国际站 role/retention 的次级佐证。"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+site = "cn"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "tokenhub-cn-training-no-train"
+
+[[product.training.point]]
+text_zh = "中国站服务条款 §2.17：腾讯云不会将输入内容用于开发/训练/微调/改进腾讯云自身的算法、模型或服务，无开关、无退出机制、无企业版前提。范围限定写在同条后半句——该承诺只及腾讯云自身可控的数据处理活动"
+
+[[product.training.point]]
+text_zh = "用户手动选择第三方部署模型时数据交外部服务商，训练用途以第三方协议为准（§1.9/§2.17 后半句 + 136530 §3.5），见 products[api-third-party-deployed-model]。反向限定：智能路由模式与备用切换都不会把数据发给第三方部署模型（§1.11、§6.4）。产品文档佐证：FAQ 130104 答「不会…更不会用于训练」。"
+
+[product.zdr]
+mark = "no"
+searched = [
+  "https://cloud.tencent.com/document/product/301/129852",
+  "https://cloud.tencent.com/document/product/301/136530",
+  "https://privacy.qq.com/document/preview/91d5fd3c98ce4468ae462ac59233bba2",
+  "https://cloud.tencent.com/document/product/1823/130104",
+  "https://cloud.tencent.com/document/product/301/11470",
+]
+
+[[product.zdr.point]]
+text_zh = "中国站未披露：129852 全文 0 次出现「ZDR/零数据保留」，TokenHub 隐私政策、FAQ、腾讯云隐私保护声明亦无零保留承诺——查了这几处，厂商没表态，不等于厂商拒绝。中国站不可得 ZDR 的直接依据只有「没有该功能文本」这一条。国际站另有条件式 ZDR（见 products[api-intl] 与 source 78953）"
+
+[[product.zdr.point]]
+text_zh = "第三方部署模型层即便腾讯侧零保留，上游第三方仍可能留存（136530 §3.5）。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "tokenhub-cn-retention-necessary"
+
+[[product.retention.point]]
+text_zh = "中国站无量化期限，只有原则条款：§2.14 对象=您的数据（输入内容等），腾讯云仅在「为提供本服务之目的所必需的期间」保留，期限结束后停止不必要使用或返还/删除"
+
+[[product.retention.point]]
+text_zh = "法规不允许删除时降级为仅存储与留存记录。例外与下限（对象各不同，不可合并）：§2.8 内容审核可「保存必要记录」（无期限）"
+
+[[product.retention.point]]
+text_zh = "§2.9 生成合成内容标识相关日志「依法留存…不少于六个月」——这是下限，推不出六个月后删除正文"
+
+[[product.retention.point]]
+text_zh = "隐私政策 §2.1 个人信息「为实现目的所必需的最短时间」。第三方部署模型场景的留存适用第三方协议（§2.14 末句）。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "tokenhub-cn-region-cn-intl"
+
+[[product.processing_region.point]]
+text_zh = "§2.13：中国站服务的数据处理地点一般为中华人民共和国境内"
+
+[[product.processing_region.point]]
+text_zh = "国际站为新加坡或届时展示的其他地点"
+
+[[product.processing_region.point]]
+text_zh = "腾讯云就特定版本/地域另有说明的以该说明为准。隐私政策 §2.2 进一步承诺境内收集的个人信息存储于境内、暂无向境外提供场景（通用《腾讯云隐私保护声明》§6.2 同句，但同节后段披露账号信息 uin/appid 为鉴权/境外资源查询会传给境外关联公司，引用需带上下文）。例外：第三方部署模型的实际处理地点由第三方协议或其服务部署决定（§2.13 末句）。"
+
+[product.role]
+kind = "processor"
+anchor = "tokenhub-cn-role-processor"
+
+[[product.role.point]]
+text_zh = "§2.11：腾讯云基于用户的委托、指令和需求、以向用户提供本服务为目的处理输入内容，处理活动「不能超出您的指示范围」，用户有权监督"
+
+[[product.role.point]]
+text_zh = "指示违法时腾讯云可拒绝/暂停执行。即受托处理者（processor），用户为决定处理目的的委托方（§2.7 要求用户保证输入内容的合法基础与个人信息知情同意）。国际站同向且更直白：DPSA §4「Organisation is the Controller and Tencent is the Processor」。第三方部署模型层腾讯只就平台层负责、不构成模型本身的运营者或控制者（136530 §1.3）。"
+
+[[product]]
+id = "api-intl"
+badge = "国际站 API"
+category = "api"
+plan_level = "any"
+site = "global"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "tokenhub-intl-purposes-no-training"
+
+[[product.training.point]]
+text_zh = "国际站无「不用于训练」的正面承诺句。可核的是反向证据：DPSA 模块 §3 把处理目的穷举为「提供我们的功能特性」「故障排除」两项，无训练/改进目的"
+
+[[product.training.point]]
+text_zh = "母协议 §6.1a 要求腾讯仅按客户书面指示、为履行服务的限定目的处理。国际站 ToS §11.1 把数据处理全部交给 ToS/隐私政策/DPSA，三者均无训练条款。属「未授予训练目的」而非「明确承诺不训练」，故 confidence=medium。中国站另有 §2.17 的正面承诺。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "tokenhub-intl-zdr-active"
+
+[[product.zdr.point]]
+text_zh = "条件式功能，两个条件同时满足才不存储：①资源地域选新加坡、法兰克福或硅谷"
+
+[[product.zdr.point]]
+text_zh = "②激活零数据保留（ZDR）功能。英文版同句（we will not store such information）。模块适用范围是「腾讯大模型服务平台 TokenHub 和 Token Plan 企业版」，TokenHub 本身未被限定为企业版（不要记成「仅企业版可得」）"
+
+[[product.zdr.point]]
+text_zh = "但只约束腾讯侧存储——用户手动选第三方部署模型时，上游第三方仍可能留存（136530 §3.5），有效 ZDR 取链路最弱一跳。"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "tokenhub-intl-retention-30d-default"
+
+[[product.retention.point]]
+text_zh = "对象=客户内容与服务生成内容：未激活 ZDR 时「通常会在您提交与该功能特性相关的任务请求后，将信息保留最多 30 天」（上限）"
+
+[[product.retention.point]]
+text_zh = "激活 ZDR 且选新加坡/法兰克福/硅谷则不存储。另有两层：模块 §5 首段的原则条款（必要期限内保留，实际期限取决于配置的保留期设置）"
+
+[[product.retention.point]]
+text_zh = "以及管理信息（账号/日志等，非 API 内容）在国际站隐私政策里有各自期限（日志数据自收集起 3 个月、账户删除后 30 日内删除）。别把 30 天当成所有数据类别的上限。"
+
+[product.processing_region]
+codes = ["SG", "DE", "US"]
+anchor = "tencent-intl-dpsa-service-region"
+
+[[product.processing_region.point]]
+text_zh = "DPSA §5.1：客户选了 Service Region 的，腾讯在该地域内处理个人数据"
+
+[[product.processing_region.point]]
+text_zh = "§5.2 例外——因运营/监管等原因可能移出所选地域，但视为「重大变更」需事先取得客户同意或授权（法律禁止通知的除外）"
+
+[[product.processing_region.point]]
+text_zh = "§5.3 可指定关联方/分包处理方在该地域处理。模块 §5 侧另有「新加坡/法兰克福/硅谷」作为 ZDR 可用的资源地域选项。国际站通用 ToS §(c) 同向：User Data 存储在所选地域。实体按注册地分（EEA/英国/瑞士=Tencent Cloud Europe B.V.；北美=Tencent Cloud LLC 等）。"
+
+[product.role]
+kind = "processor"
+anchor = "tencent-intl-dpsa-role"
+
+[[product.role.point]]
+text_zh = "DPSA §4 一句到底：「Organisation is the Controller and Tencent is the Processor」。§6.1a 目的限定与按指示处理"
+
+[[product.role.point]]
+text_zh = "模块 §6「我们将仅根据您的指示收集、处理、存储或以其他方式访问此功能最终用户生成的内容」"
+
+[[product.role.point]]
+text_zh = "国际站隐私政策亦区分——内容（用户上传/存储的数据）腾讯是处理方、客户是控制方，而账户等管理信息腾讯是控制方。"
+
+[[product]]
+id = "api-third-party-deployed-model"
+badge = "第三方模型"
+category = "api"
+plan_level = "any"
+site = "cn"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://cloud.tencent.com/document/product/301/129852",
+  "https://cloud.tencent.com/document/product/301/136530",
+  "https://cloud.tencent.com/document/product/1823/130060",
+  "https://cloud.tencent.com/document/product/1823/130659",
+]
+
+[[product.training.point]]
+text_zh = "结论就是「不由腾讯云承诺」：§3.5 第三方部署模型的输入内容（提示词、上下文、文件等）与输出内容的处理、存储、留存及是否用于模型训练，适用外部模型服务商的隐私政策和数据处理条款（该句只明示腾讯侧让位给第三方，第二跳是否训练在腾讯文本中无表态，故本维度不绑锚点、按 searched 记未披露）"
+
+[[product.training.point]]
+text_zh = "且明示「如第三方模型服务协议与 TokenHub 关于『不使用用户数据训练』等平台规则、条款约定不一致的，以第三方模型服务协议为准」——即 §2.17 的不训练承诺在该层明确让位。§3.2 提示第三方协议可能对模型训练等作特别规定"
+
+[[product.training.point]]
+text_zh = "§3.1 要求用户使用前自行查阅同意。唯一对腾讯侧的硬约束：智能路由模式下不会把数据发给第三方部署模型（§3.5 末句、129852 §1.11/§6.4），且备用切换不会切到第三方部署模型。按多跳规则，该层结论取决于第二跳（附件指名 DeepSeek 原厂直供协议），本轮不在本条目替第二跳下结论。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://cloud.tencent.com/document/product/301/129852",
+  "https://cloud.tencent.com/document/product/301/136530",
+  "https://intl.cloud.tencent.com/zh/document/product/1300/78953",
+]
+
+[[product.zdr.point]]
+text_zh = "腾讯侧不提供该层的零保留承诺：§3.4 只说腾讯在其可控范围内采取合理数据安全措施，§3.5 把存储/留存交给第三方政策。即使用户在国际站激活 ZDR，也只约束腾讯侧"
+
+[[product.zdr.point]]
+text_zh = "第二跳是否零保留取决于该外部服务商。有效 ZDR = 链路各跳的最小值，本条目只能记「腾讯侧条件式 ZDR 不覆盖该层」。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://cloud.tencent.com/document/product/301/129852",
+  "https://cloud.tencent.com/document/product/301/136530",
+  "https://intl.cloud.tencent.com/zh/document/product/1300/78953",
+]
+
+[[product.retention.point]]
+text_zh = "同一条：留存/存储适用外部模型服务商的隐私政策和数据处理条款，腾讯云不作量化承诺"
+
+[[product.retention.point]]
+text_zh = "129852 §2.14 末句同向（第三方部署模型场景的留存、删除、返还、匿名化规则可能适用第三方协议）。腾讯侧仍负责传输与路由，并「在其可控制范围内采取合理的数据安全措施」（§3.4）。附件模型清单只写 SLA 不适用、以第三方条款为准，未给期限。"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = [
+  "https://cloud.tencent.com/document/product/301/129852",
+  "https://cloud.tencent.com/document/product/301/136530",
+  "https://intl.cloud.tencent.com/zh/document/product/1300/78953",
+]
+
+[[product.processing_region.point]]
+text_zh = "§3.4：腾讯可基于用户请求与所选使用模式，把输入内容及相关使用信息提交给相应外部模型服务商或其授权处理方"
+
+[[product.processing_region.point]]
+text_zh = "129852 §2.13 末句进一步说明第三方部署模型的实际处理地点、处理方式、保存期限和跨境传输安排可能由第三方协议、服务规则或其实际服务部署决定。腾讯云承诺通过合理方式提示（§1.7 第三方服务商/协议链接/数据处理提示）。故该层处理地不由腾讯侧条款确定。"
+
+[product.role]
+kind = "processor"
+anchor = "tokenhub-tp-not-model-developer"
+
+[[product.role.point]]
+text_zh = "§1.3：用户使用第三方部署模型即与外部模型服务商直接建立服务关系"
+
+[[product.role.point]]
+text_zh = "TokenHub 作为 MaaS 平台「不构成第三方部署模型本身的研发者、训练者、运营者或控制者」，只就直接提供且可控制的平台层服务（平台接入、身份鉴权、路由转发、计量计费、数据传输、安全管理、技术支持）按主服务协议负责。§1.1 同向（模型输出由外部服务商直接生成、负责）。用户与腾讯在平台层仍是委托关系（129852 §2.11），但内容处理责任在第二跳。"
+
+[[anchor]]
+id = "tokenhub-cn-training-no-train"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+所需、本服务条款另有约定之外，未经您同意，腾讯云不会对您的业务数据进行任何未获授权的访问、使用和披露。
+
+**2.17 """
+exact = "腾讯云不会将您在使用本服务过程中的输入内容用于开发、训练、微调或改进腾讯云自身的算法、模型或服务。"
+suffix = "为免疑义，前述承诺是腾讯云就其自身可控制的数据处理活动作出的承诺，不代表或替代任何外部模型服务商或其他第三方就其自身数据"
+
+[[anchor]]
+id = "tokenhub-cn-training-thirdparty"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "部模型服务商或其他第三方就其自身数据处理活动作出的承诺，第三方部署模型可能涉及外部模型服务商或其他第三方的数据处理活动。"
+exact = "第三方是否会将相关数据用于训练、优化、改进、评测或其他目的，应以第三方协议、服务规则、数据处理规则、模型清单或腾讯云届时页面提示为准。"
+suffix = """
+**
+
+2.18 您理解并同意，腾讯云在合理必要范围内为以下目的处理相关数据或其衍生信息：
+
+（1）履行法律法规、监管要"""
+
+[[anchor]]
+id = "tokenhub-cn-selfhosted-no-train-scope"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "*2.17 腾讯云不会将您在使用本服务过程中的输入内容用于开发、训练、微调或改进腾讯云自身的算法、模型或服务。为免疑义，"
+exact = "前述承诺是腾讯云就其自身可控制的数据处理活动作出的承诺，不代表或替代任何外部模型服务商或其他第三方就其自身数据处理活动作出的承诺，第三方部署模型可能涉及外部模型服务商或其他第三方的数据处理活动。"
+suffix = "第三方是否会将相关数据用于训练、优化、改进、评测或其他目的，应以第三方协议、服务规则、数据处理规则、模型清单或腾讯云届时"
+
+[[anchor]]
+id = "tokenhub-cn-retention-necessary"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+向您进行提示。
+
+2.14 除法律法规、监管要求、第三方协议、产品规则、您与腾讯云另行约定或为提供本服务所必需的情形外，"""
+exact = "腾讯云将仅在为提供本服务之目的所必需的期间内保留您的数据。腾讯云将在数据处理期限结束后停止不必要的数据使用行为，或者根据您的合法有效指示将相关数据返还给您或删除。"
+suffix = "如果法律法规不允许腾讯云删除此类数据，或删除此类数据从技术上难以实现，腾讯云将停止除存储、留存记录、履行法定义务和采取必"
+
+[[anchor]]
+id = "tokenhub-cn-retention-thirdparty"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "除此类数据，或删除此类数据从技术上难以实现，腾讯云将停止除存储、留存记录、履行法定义务和采取必要安全保护措施之外的处理。"
+exact = "第三方部署模型场景下对数据的留存、删除、返还、匿名化或其他处理规则，可能适用相应第三方协议或规则。"
+suffix = """
+
+
+2.15 腾讯云将建立健全全流程数据安全管理制度，组织开展数据安全教育培训，采取相应的技术措施和其他必要措施来保障数"""
+
+[[anchor]]
+id = "tokenhub-cn-audit-necessary-records"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "内容进行审核，如您的输入内容或输出内容出现含有违反法律法规、监管要求、本服务条款、第三方协议或腾讯云认为不适宜的内容的，"
+exact = "腾讯云有权对此予以拦截、屏蔽、删除、停止生成、停止传输、限制使用、暂停服务、保存必要记录、向有关主管部门报告或采取其他合理措施。"
+suffix = "请您知悉，腾讯云不保证审核结果的完全准确性，亦不对其做任何保证，无论腾讯云是否采取了审核措施，以及无论审核结论如何，均不"
+
+[[anchor]]
+id = "tokenhub-cn-label-logs-six-months"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "网信息服务深度合成管理规定》《人工智能生成合成内容标识办法》及相关国家标准的要求，对生成合成内容添加显式标识和隐式标识。"
+exact = "腾讯云将依法留存提供对象信息等相关日志不少于六个月。"
+suffix = "您在使用、传播该类生成合成内容时，应遵守法律规定，不得用于违法违规用途，避免造成混淆、误认。如果您未恰当、合理地履行对生"
+
+[[anchor]]
+id = "tokenhub-cn-region-cn-intl"
+source_id = "28c216027c015021"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "或监管机构另有规定外，**腾讯云在本服务项下由腾讯云自身进行的数据处理地点，以您所使用的服务版本及所选择的服务地域为准："
+exact = "中国站服务的数据处理地点一般为中华人民共和国境内；国际站服务的数据处理地点为新加坡或根据您所选择的站点、腾讯云官网、控制台、产品文档届时展示的其他地点。"
+suffix = "如腾讯云就特定服务版本或地域另有说明，以该说明为准**。您理解并同意，在第三方部署模型场景下，相关第三方对数据的实际处理"
+
+[[anchor]]
+id = "tokenhub-cn-region-thirdparty"
+source_id = "28c216027c015021"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "、腾讯云官网、控制台、产品文档届时展示的其他地点。如腾讯云就特定服务版本或地域另有说明，以该说明为准**。您理解并同意，"
+exact = "在第三方部署模型场景下，相关第三方对数据的实际处理地点、处理方式、保存期限和跨境传输安排可能由该第三方协议、服务规则或其实际服务部署决定。"
+suffix = """
+腾讯云将通过合理方式向您进行提示。
+
+2.14 除法律法规、监管要求、第三方协议、产品规则、您与腾讯云另行约定或为提供本"""
+
+[[anchor]]
+id = "tokenhub-cn-role-processor"
+source_id = "28c216027c015021"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+传输等操作前，您应当遵照相关地区适用的法律法规进行充分、必要的评估、审批，确保符合相关规定。
+
+2.11 您理解并同意："""
+exact = "为实现本服务目的，腾讯云基于您的委托、指令和需求并以向您提供本服务为目的处理您的输入内容，其中可能涉及您或其他人的个人信息。腾讯云在本服务项下的数据处理活动不能超出您的指示范围，您有权对腾讯云的数据处理行为进行监督。"
+suffix = "腾讯云认为您的指示违反适用的数据保护相关法律法规（包括但不限于《中华人民共和国民法典》《中华人民共和国个人信息保护法》《"
+
+[[anchor]]
+id = "tokenhub-cn-model-tiers-thirdparty"
+source_id = "28c216027c015021"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+服务条款及腾讯云服务规则外，可能同时受第三方许可条款、模型使用规则、开源许可证或其他权利限制约束。**
+第三方部署模型 """
+exact = "由外部模型服务商直接提供计算服务、推理能力和模型输出，通过TokenHub向您提供使用入口或接入能力的人工智能模型。"
+suffix = "目前包括 DeepSeek 系列模型：DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pr"
+
+[[anchor]]
+id = "tokenhub-cn-smart-route"
+source_id = "28c216027c015021"
+topics = ["processing_region", "training"]
+
+[anchor.selector]
+prefix = "您的特定场景下的最优模型或达到特定结果。您启用智能路由模式，即视为您同意您的输入内容可由可用模型池内的任一适用模型处理。"
+exact = "为免疑义，在智能路由模式下，我们不会将您的数据发送至第三方部署模型。"
+suffix = """
+**
+
+## 2. 使用规则与数据处理要求
+
+2.1 您使用本服务应遵守所适用的法律法规。您应按规定取得有关部门的备案、"""
+
+[[anchor]]
+id = "tokenhub-cn-failover-no-thirdparty"
+source_id = "28c216027c015021"
+topics = ["processing_region", "training"]
+
+[anchor.selector]
+prefix = "换可能导致第三方服务商、数据处理方式、输出效果、计费规则或服务等级发生重大变化，腾讯云将尽可能通过合理方式进行提示。**"
+exact = "为免疑义，腾讯云不会因备用切换，将您的数据发送至第三方部署模型处理。"
+suffix = """
+**
+
+6.5 **发生下列情形时，腾讯云可根据风险和违约程度中止或终止全部或部分服务且在法律允许的情况下无需承担对应的"""
+
+[[anchor]]
+id = "tokenhub-cn-thirdparty-transmission"
+source_id = "28c216027c015021"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+内容、调用参数、调用时间、模型名称、模型版本、账号信息、资源用量、错误信息、日志信息、网络信息及其他必要数据。
+
+（2）"""
+exact = "在第三方部署模型场景下，为完成您的使用请求，您的输入内容、上下文、文件、参数、输出内容、调用信息或其他必要数据可能被提交、传输、披露或提供给相应第三方，由该第三方根据其协议、服务规则、隐私政策、数据处理规则或与腾讯云之间的相关安排进行处理。"
+suffix = "腾讯云将根据本服务条款、产品规则和腾讯云可控制范围内的技术措施，对相关数据传输和调用进行必要管理，但第三方在其系统、模型"
+
+[[anchor]]
+id = "tokenhub-cn-manual-selection-mode"
+source_id = "28c216027c015021"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+条款、《腾讯云服务协议》及腾讯云公布的相关规则。
+
+1.10 目前本服务提供手动选择模式和智能路由模式两种模型使用模式。"""
+exact = "手动选择模式是指您在 TokenHub 提供的模型库中自行选择特定模型，并以该模型处理您的输入内容的使用模式。"
+suffix = "**在手动选择模式下，您应自行判断所选模型是否适合您的具体使用目的、业务场景、合规要求、数据安全要求及终端用户使用场景。"
+
+[[anchor]]
+id = "tokenhub-tp-model-definition"
+source_id = "8b276c971a256b15"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+束。如您不同意本说明或相应第三方部署模型服务规则，请勿使用该第三方部署模型。**
+
+## 1. 服务关系
+
+**1.1 """
+exact = "第三方部署模型，指由外部模型服务商直接提供计算服务、推理能力和模型输出，通过 TokenHub 向您提供使用入口或接入能力的人工智能模型。"
+suffix = "**该等模型并非由我们研发、训练或部署控制，其模型输出由相应的外部模型服务商直接生成、负责。**第三方部署模型的范围，以"
+
+[[anchor]]
+id = "tokenhub-tp-selfdeployed-excluded"
+source_id = "8b276c971a256b15"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+enHub 正式发布并向您展示的模型清单、控制台、产品文档或模型服务说明页面所载信息为准。**
+
+1.2 **为免疑义，"""
+exact = "主服务协议定义的“腾讯云自部署模型”（即由外部模型服务商开发、训练、开源或授权，但由腾讯云在腾讯云侧部署和运维的模型）不适用本说明。"
+suffix = """
+**
+
+1.3 您使用第三方部署模型时，即与相应外部模型服务商直接建立服务关系，我们仅就直接提供的平台接入、身份鉴权、路"""
+
+[[anchor]]
+id = "tokenhub-tp-not-model-developer"
+source_id = "8b276c971a256b15"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "仅就直接提供的平台接入、身份鉴权、路由转发、计量计费、数据传输、安全管理和技术支持等事项，依主服务协议承担相应责任。**"
+exact = "TokenHub 作为模型即服务（Model as a Service，MaaS）平台，不构成第三方部署模型本身的研发者、训练者、运营者或控制者，不就该等模型向您承担责任，仅就其直接提供且可控制的平台层服务，按照主服务协议及明确承诺承担相应责任"
+suffix = """
+**。
+
+## 2. 责任限制
+
+**2.1 我们就 TokenHub 自有平台服务作出的服务等级协议（SLA）及服务承"""
+
+[[anchor]]
+id = "tokenhub-tp-thirdparty-governs"
+source_id = "8b276c971a256b15"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+据安全措施，并通过我们的隐私政策说明主要数据类别、处理目的、处理地点和授权处理方情况。**
+
+**3.5 您理解并同意，"""
+exact = "第三方部署模型对您输入内容（例如提示词、上下文、文件等）、输出内容的处理、存储、留存及是否用于模型训练等，适用外部模型服务商的隐私政策和数据处理条款。如第三方模型服务协议与 TokenHub 关于“不使用用户数据训练”等平台规则、条款约定不一致的，以第三方模型服务协议为准。"
+suffix = "您应自行评估外部模型服务商的数据处理规则是否符合您的需求，并承担由此产生的风险。为免疑义，在智能路由模式下，我们不会将您"
+
+[[anchor]]
+id = "tokenhub-tp-data-submission"
+source_id = "8b276c971a256b15"
+topics = ["processing_region", "training"]
+
+[anchor.selector]
+prefix = """
+务协议的修改、放弃、限制或代为承诺。如第三方模型服务协议链接失效，我们将在获悉后及时更新。**
+
+3.4 您理解并同意，"""
+exact = "我们可基于您的使用请求及您选择或配置的使用模式，将您的输入内容及相关使用信息提交至相应外部模型服务商或其授权处理方，以便实现您的使用目的。**您使用第三方部署模型，即视为您授权我们为实现该使用目的而进行必要的数据处理，例如传输、路由等。腾讯云将在其可控制范围内采取合理的数据安全措施，并通过我们的隐私政策说明主要数据类别、处理目的、处理地点和授权处理方情况。"
+suffix = """
+**
+
+**3.5 您理解并同意，第三方部署模型对您输入内容（例如提示词、上下文、文件等）、输出内容的处理、存储、留存及"""
+
+[[anchor]]
+id = "tokenhub-tp-smart-route-no-thirdparty"
+source_id = "8b276c971a256b15"
+topics = ["processing_region", "training"]
+
+[anchor.selector]
+prefix = "约定不一致的，以第三方模型服务协议为准。您应自行评估外部模型服务商的数据处理规则是否符合您的需求，并承担由此产生的风险。"
+exact = "为免疑义，在智能路由模式下，我们不会将您的数据发送至第三方部署模型。"
+suffix = """
+**
+
+3.6 为确认您符合第三方模型服务协议、监管要求或平台安全风控要求，外部模型服务商或我们可能要求您提供必要的说明"""
+
+[[anchor]]
+id = "tokenhub-tp-user-must-read-thirdparty-rules"
+source_id = "8b276c971a256b15"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+
+
+## 3. 第三方模型服务协议与数据处理
+
+**3.1 您应合法、合规地使用第三方部署模型。在使用第三方部署模型前，"""
+exact = "您应查阅、理解并同意第三方部署模型服务规则、隐私政策及数据处理规则。我们将在控制台、模型清单或模型服务说明页面等渠道提供协议链接，供您查阅。"
+suffix = """
+您购买或使用第三方部署模型，即表示您已阅读并同意遵守相应协议。**
+
+**3.2 第三方模型服务协议可能对使用目的、使用"""
+
+[[anchor]]
+id = "tokenhub-tp-model-list-deepseek"
+source_id = "8b276c971a256b15"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+****接入方式 / 模型来源****第三方模型服务协议链接****SLA 适用说明****备注 / 特别提示**
+1 """
+exact = "DeepSeek-V4-Flash 0731 正式版 第三方部署 杭州深度求索人工智能基础技术研究有限公司 原厂直供 https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html TokenHub SLA 不适用；以第三方条款为准"
+suffix = """
+ 暂无
+2 DeepSeek-V4-Pro 0813 正式版 第三方部署 杭州深度求索人工智能基础技术研究有限公司 原厂"""
+
+[[anchor]]
+id = "tokenhub-privacy-retention-minimal"
+source_id = "3d92a8c32b5da595"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+式另行向您说明信息收集的内容、范围和目的，以征得您的同意。
+
+## 2. 信息的存储
+
+2.1 信息存储的方式和期限
+
+"""
+exact = "一般情况下，我们仅在为实现目的所必需的最短时间内保留您的个人信息"
+suffix = """
+，但下列情况除外：
+
+·为遵守适用的法律法规等有关规定；
+
+·为遵守法院判决、裁定或其他法律程序的规定；
+
+·为遵守相关"""
+
+[[anchor]]
+id = "tokenhub-privacy-cn-region"
+source_id = "3d92a8c32b5da595"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+、公告等形式通知您，并在合理的期限内删除或匿名化处理您的个人信息，法律法规另有规定的除外。
+
+2.2 信息存储的地域
+
+"""
+exact = "我们会按照法律法规规定，将中华人民共和国境内收集的用户个人信息存储于中华人民共和国境内。"
+suffix = """
+目前我们暂时不存在向境外提供您的个人信息的场景。
+
+## 3. 信息安全
+
+3.1 安全保护措施
+
+我们为您的信息提供相"""
+
+[[anchor]]
+id = "tokenhub-privacy-api-input-audit"
+source_id = "3d92a8c32b5da595"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+图片、视频、按键操作，具体以您输入的为准），用于向您提供 模型、Agent 效果 体验服务。
+
+1.1.3 模型使用
+
+"""
+exact = "当您通过 API使用模型服务时，我们会收集您在调用 API时的输入信息（包括文字、图片、视频、按键操作，具体以您输入的为准）用于安全审计功能。"
+suffix = """
+
+
+1.2 信息使用规则
+
+我们会在本隐私政策所涵盖的用途内使用收集的信息。如我们使用您的个人信息，超出了与收集时所声称"""
+
+[[anchor]]
+id = "tokenhub-intl-module-scope"
+source_id = "c92e1238810e7eb4"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+理和安全协议
+
+下载
+
+聚焦模式
+
+字号
+
+最后更新时间：2026-09-11 18:02:20
+
+## 1. 背景
+
+"""
+exact = "本数据处理与安全协议模块（**“模块”**）适用于您使用以下功能特性的情形：腾讯大模型服务平台 TokenHub 和 Token Plan 企业版（统称为 **“功能特性”**）。"
+suffix = "本模块已纳入 [数据处理与安全协议](https://intl.cloud.tencent.com/document/p"
+
+[[anchor]]
+id = "tokenhub-intl-zdr-active"
+source_id = "c92e1238810e7eb4"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+有所不同，具体取决于您与我们互动的情境、您的配置设置（例如，您为功能特性设置的保留期限）以及您对功能特性的使用情况。
+
+"""
+exact = "对于客户内容和服务生成内容，如果您选择新加坡、法兰克福或硅谷作为资源地域并激活零数据保留（ZDR）功能，则我们不会存储此类信息。"
+suffix = """
+如果您未激活 ZDR 功能，我们通常会在您提交与该功能特性相关的任务请求后，将信息保留最多 30 天。
+
+若您对上述内容"""
+
+[[anchor]]
+id = "tokenhub-intl-retention-30d-default"
+source_id = "c92e1238810e7eb4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "内容和服务生成内容，如果您选择新加坡、法兰克福或硅谷作为资源地域并激活零数据保留（ZDR）功能，则我们不会存储此类信息。"
+exact = "如果您未激活 ZDR 功能，我们通常会在您提交与该功能特性相关的任务请求后，将信息保留最多 30 天。"
+suffix = """
+
+
+若您对上述内容有任何疑问或需要获取更多信息（包括需要关于我们存储数据主体个人数据时长的进一步或更具体说明），请参阅我"""
+
+[[anchor]]
+id = "tokenhub-intl-retention-necessary-period"
+source_id = "c92e1238810e7eb4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+能与质量，检测和识别错误、程序缺陷或故障，分析原因并排查相关问题。
+
+## 4. 分包处理方
+
+## 5. 数据保留
+
+"""
+exact = "我们将在实现本模块所述目的之必要期限内，依据适用法律的要求或授权，保留第 2 节所述的个人数据"
+suffix = "，以解决争议并执行我们的条款与条件、其他适用的服务条款及我们的政策。不同数据类别的实际保留期限可能有所不同，具体取决于您"
+
+[[anchor]]
+id = "tokenhub-intl-purposes-no-training"
+source_id = "c92e1238810e7eb4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+象存储；
+
+访问管理；
+
+音频/文本内容安全。
+
+## 3. 处理目的
+
+我们处理第 2 节所述数据类别的目的如下：
+
+"""
+exact = "**提供我们的功能特性。** 我们使用客户内容和服务生成内容等数据来运营并向您或您的最终用户提供功能特性。"
+suffix = """
+
+
+**故障排除。** 我们使用包括客户内容和服务生成内容在内的数据来监控功能特性的性能与质量，检测和识别错误、程序缺陷"""
+
+[[anchor]]
+id = "tokenhub-intl-purposes-troubleshooting"
+source_id = "c92e1238810e7eb4"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+如下：
+
+**提供我们的功能特性。** 我们使用客户内容和服务生成内容等数据来运营并向您或您的最终用户提供功能特性。
+
+"""
+exact = "**故障排除。** 我们使用包括客户内容和服务生成内容在内的数据来监控功能特性的性能与质量，检测和识别错误、程序缺陷或故障，分析原因并排查相关问题。"
+suffix = """
+
+
+## 4. 分包处理方
+
+## 5. 数据保留
+
+我们将在实现本模块所述目的之必要期限内，依据适用法律的要求或授权，"""
+
+[[anchor]]
+id = "tokenhub-intl-role-instructions-only"
+source_id = "c92e1238810e7eb4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+条款》、《Google Play 最佳实践》和《Google Play 开发者资源》，该等文件均可能不时修订或替换。
+
+"""
+exact = "请注意，我们将仅根据您的指示收集、处理、存储或以其他方式访问此功能最终用户生成的内容"
+suffix = "（下称 **“用户生成内容”**）。您声明、保证并承诺：(i) 您对最终用户使用功能特性及用户生成内容（包括遵守与用户生"
+
+[[anchor]]
+id = "tencent-intl-dpsa-role"
+source_id = "9ae84b19c7a95b6d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+nection with the Services.
+
+## 4. Controller and Processor
+
+"""
+exact = "Tencent and Organisation agree that Organisation is the Controller and Tencent is the Processor in respect of Personal Data Processed under this DPSA."
+suffix = """
+
+
+## 5. Service Regions
+
+**5.1**Subject to clause 5.2, where"""
+
+[[anchor]]
+id = "tencent-intl-dpsa-service-region"
+source_id = "9ae84b19c7a95b6d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+a Processed under this DPSA.
+
+## 5. Service Regions
+
+**5.1**"""
+exact = "Subject to clause 5.2, where Organisation has selected a Service Region for the Services, Tencent will Process Personal Data in that Service Region."
+suffix = """
+
+
+**5.2**Organisation acknowledges and agrees that Tencent, """
+
+[[anchor]]
+id = "tencent-intl-dpsa-retention-per-module"
+source_id = "9ae84b19c7a95b6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ", unless it is prohibited from doing so by Applicable Laws. "
+exact = "In the absence of such request from Organisation, Tencent will retain Personal Data in accordance with the retention policy stipulated in the Feature-specific Modules at Section 9;"
+suffix = """
+
+
+c. promptly notify the Organisation, upon becoming aware, """
+
+[[anchor]]
+id = "tencent-intl-dpsa-purpose-limitation"
+source_id = "9ae84b19c7a95b6d"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+ Personal Data on behalf of Organisation, Tencent will:
+
+a. """
+exact = "Process the Personal Data only for the limited and specified purpose of performing the Services, in accordance with the Organisation’s written instructions (which shall include the terms of this DPSA and any instructions provided via the Organisation’s administrative console), and the Tencent Security Policy,"
+suffix = " and notify Organisation promptly if it is unable to comply "
+
+[[anchor]]
+id = "tokenhub-intl-privacy-role-content"
+source_id = "109f41d4b45cc3dc"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "们提供访问权限。对于您为设立账户而向我们提供的信息以及我们在管理您的服务时收集和生成的信息，我们将作为此类信息的控制方。"
+exact = "对于您在使用服务时存储的信息（例如，您上传并存储在我们服务器上的内容），我们将作为此类信息的处理方。"
+suffix = "欲知更多信息，请参阅下文[我们收集和处理的个人信息类型](https://www.tencentcloud.com/do"
+
+[[anchor]]
+id = "tokenhub-intl-privacy-role-controller"
+source_id = "109f41d4b45cc3dc"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "信息。例如您的姓名和联系方式。如果您是账户管理员，您可以通过在服务控制台中添加其他人的电子邮件地址来向他们提供访问权限。"
+exact = "对于您为设立账户而向我们提供的信息以及我们在管理您的服务时收集和生成的信息，我们将作为此类信息的控制方。"
+suffix = "对于您在使用服务时存储的信息（例如，您上传并存储在我们服务器上的内容），我们将作为此类信息的处理方。欲知更多信息，请参阅"
+
+[[anchor]]
+id = "tokenhub-intl-privacy-content-controller"
+source_id = "109f41d4b45cc3dc"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "](https://www.tencentcloud.com/document/product/301/17347)中。"
+exact = "您是内容的数据控制方，且您的用户或第三方提出的有关内容的数据处理过程的问题应该首先向您提出。在任何时候，我们都是您的服务提供商并代表您处理数据。"
+suffix = """
+您随时都可以提取内容。
+
+如果您位于欧洲经济区或瑞士，则根据《一般数据保护条例》，您个人信息的数据控制方为 Tencen"""
+
+[[anchor]]
+id = "tokenhub-intl-privacy-logs-3-months"
+source_id = "109f41d4b45cc3dc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "问或经第三方网站跳转）技术数据（日志数据除外）将在账户存续期间予以保留。相关信息将于账户删除之日起三十（30）日内删除。"
+exact = "日志数据（含事件相关数据）将自收集之日起保存三个月。"
+suffix = """
+
+**信用卡信息**：支付ID（除用于获取由支付处理方提供的支付ID外，我们不会存储您的其他信用卡信息，包括卡号、姓名、"""

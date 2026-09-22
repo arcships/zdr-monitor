@@ -1,0 +1,596 @@
+name = "智谱 Coding Plan"
+name_en = "Zhipu Coding Plan"
+company = "zhipu-bigmodel"
+line = "zhipuai-coding-plan"
+site = "cn"
+entity = "北京智谱华章科技股份有限公司"
+plan_levels = ["individual", "team"]
+endpoint = ""
+doc = "https://docs.bigmodel.cn/cn/terms/user-agreement"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/cancellation-agreement"
+channel = "contract"
+tier = "core"
+note = "《注销协议》(生效 2025-05-06):账号注销后账户内个人信息/内容/数据删除或匿名化;支撑 retention 的账号生命周期一端"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《大模型开放平台隐私政策》(主体北京智谱华章科技股份有限公司),适用 bigmodel.cn 平台及 API 相关个人信息。五(一) 存储地点、五(二) 存储期限、二(七)4 匿名化训练、定义章「数据处理者」。channel 由旧记录的 enterprise_privacy_faq 改标 consumer_privacy:该页是平台通用隐私政策,不是企业隐私 FAQ"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/service-agreement"
+channel = "contract"
+tier = "core"
+note = "《服务协议》(充值/余额/计费,主体北京智谱华章科技股份有限公司);第四章「账户和数据安全」4.4/4.5/4.6 为数据处理条款。该站另有并行的 /cn/terms/recharge-agreement《充值协议》,全文无数据处理条款,故数据条款只认本页"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/subscription-agreement"
+channel = "contract"
+tier = "core"
+note = "《订阅及自动续费协议》(生效 2026-07-06,主体北京智谱华章科技股份有限公司),适用智谱平台全部订阅类服务。这是 Coding Plan 个人档的订阅侧合同:六.1 把《用户协议》《服务协议》纳入,三.3「个人使用限制」明确 Coding Plan 订阅「仅授权与该账号绑定的自然人个人使用」,四「使用场景限制」点名 GLM Coding Plan。通篇无数据保留/训练/零保留条款,仅用于划档位与证明个人档受平台通用条款约束"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/subscription-agreement-team"
+channel = "contract"
+tier = "core"
+note = "《GLM Coding Plan 团队套餐购买协议》(生效 2026-07-06,主体北京智谱华章科技股份有限公司)。仅覆盖团队套餐(团队标准版/高级版),不适用于个人 Lite/Pro/Max。二.2 权益列「数据默认不用于模型训练」;七.1.a 到期停服后账户信息/配置数据/应用元数据保留、七.1.b 180 个自然日宽限期届满删除全部用户业务数据;九「网络和数据安全」为原则性表述(用户对存放数据负全责)。全文无处理地/跨境/零保留条款"
+
+[[source]]
+url = "https://docs.bigmodel.cn/cn/terms/user-agreement"
+channel = "contract"
+tier = "core"
+note = "《大模型开放平台用户协议》(最新版本生效日期 2026-09-04,主体北京智谱华章科技股份有限公司)。覆盖国内站 bigmodel.cn 开放平台与按量 API 通用服务;不含国际站 docs.z.ai(新加坡实体)与 GLM Coding Plan 订阅档专用条款。三.10(1) 受托角色、三.10(3) 数据删除与缓冲期、四.10 匿名化训练授权、十.2 产品优化授权、十.3 非个人信息永久许可均在此文"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+label = "国内站 BigModel 开放平台按量 API 档(同主体、同条款族;该档台账归 zhipu-bigmodel)"
+
+[product.training]
+mark = "no"
+anchor = "cpp-ua-training-anonymized"
+
+[[product.training.point]]
+text_zh = "本 provider(订阅档)自身没有按量 API 档"
+
+[[product.training.point]]
+text_zh = "按统一 products[] 结构保留 api 行,内容与 zhipu-bigmodel 同源同结论(同一法律主体、同一份《用户协议》《隐私政策》《服务协议》)。按量档同样无「不用于训练」承诺:四.10 匿名化训练授权、十.2 产品优化授权、十.3 永久免费许可。此行只用于说明订阅档与按量档共用平台通用条款,不重复主张按量档的档位归属"
+
+[product.zdr]
+mark = "no"
+anchor = "cpp-ua-retention-buffer-delete"
+searched = [
+  "https://docs.bigmodel.cn/cn/terms/user-agreement",
+  "https://docs.bigmodel.cn/cn/terms/privacy-policy",
+  "https://docs.bigmodel.cn/cn/terms/service-agreement",
+  "https://docs.bigmodel.cn/llms.txt",
+  "https://docs.bigmodel.cn/sitemap.xml",
+  "https://open.bigmodel.cn/trust",
+]
+
+[[product.zdr.point]]
+text_zh = "国内站无 ZDR 表述(同个人档,详尽 searched 见顶层 dimensions.zdr)"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "cpp-ua-retention-buffer-delete"
+
+[[product.retention.point]]
+text_zh = "同个人档:无量化请求级期限,只有「缓冲期届满删除含缓存与备份副本」「最小必要范围存储」「最短必要期限」三层定性表述。按量档另有 Batch 任务文件 30 天规则(见 zhipu-bigmodel 记录),不属本行范围"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "cpp-pp-region-cn-only"
+
+[[product.processing_region.point]]
+text_zh = "同个人档:隐私政策五(一)境内存储、不跨境,对象为个人信息"
+
+[product.role]
+kind = "processor"
+anchor = "cpp-ua-role-no-unauthorized-use"
+
+[[product.role.point]]
+text_zh = "同个人档:三.10(1)/4.5 的服务提供者语义"
+
+[[product]]
+id = "coding-plan-personal"
+badge = "国内站个人版"
+category = "coding_plan"
+plan_level = "individual"
+label = "GLM Coding Plan 个人档(Lite/Pro/Max)"
+
+[product.training]
+mark = "no"
+anchor = "cpp-ua-training-anonymized"
+
+[[product.training.point]]
+text_zh = "个人档无「不用于训练」承诺,且经《订阅及自动续费协议》六.1 明文纳入《用户协议》:四.10 授权匿名化数据用于「机器学习或模型算法训练」且无需另行同意"
+
+[[product.training.point]]
+text_zh = "十.2 允许用使用过程中产生的数据优化产品服务"
+
+[[product.training.point]]
+text_zh = "十.3 对非个人信息内容授予永久免费许可(含存储、派生作品、再许可第三方)"
+
+[[product.training.point]]
+text_zh = "隐私政策二(七)4 复述。个人档产品文档(faq/overview/usage-notes/quick-start/notice)零命中数据条款,订阅协议本身也无相反承诺"
+
+[product.zdr]
+mark = "no"
+anchor = "cpp-ua-retention-buffer-delete"
+searched = [
+  "https://docs.bigmodel.cn/cn/terms/user-agreement",
+  "https://docs.bigmodel.cn/cn/terms/privacy-policy",
+  "https://docs.bigmodel.cn/cn/terms/service-agreement",
+  "https://docs.bigmodel.cn/cn/terms/subscription-agreement",
+  "https://docs.bigmodel.cn/cn/terms/subscription-agreement-team",
+  "https://docs.bigmodel.cn/cn/terms/cancellation-agreement",
+  "https://docs.bigmodel.cn/cn/terms/recharge-agreement",
+  "https://docs.bigmodel.cn/cn/terms/principle",
+  "https://docs.bigmodel.cn/cn/terms/security-risk-notice",
+  "https://docs.bigmodel.cn/cn/terms/model-commercial-use",
+  "https://docs.bigmodel.cn/cn/terms/entity-change-agreement",
+  "https://docs.bigmodel.cn/cn/coding-plan/overview",
+  "https://docs.bigmodel.cn/cn/coding-plan/faq",
+  "https://docs.bigmodel.cn/cn/coding-plan/usage-notes",
+  "https://docs.bigmodel.cn/cn/coding-plan/quick-start",
+  "https://docs.bigmodel.cn/cn/coding-plan/notice/usage-revision",
+  "https://docs.bigmodel.cn/llms.txt",
+  "https://docs.bigmodel.cn/sitemap.xml",
+  "https://www.bigmodel.cn/glm-coding",
+  "https://www.bigmodel.cn/privacy",
+  "https://open.bigmodel.cn/trust",
+  "https://open.bigmodel.cn/api/coding/paas/v4",
+]
+
+[[product.zdr.point]]
+text_zh = "个人档无零保留承诺,无申请入口"
+
+[[product.zdr.point]]
+text_zh = "订阅协议通篇只有计费/续费/退款/使用限制(六.1 纳入用户协议,但用户协议也无 ZDR 表述)"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "cpp-ua-retention-buffer-delete"
+
+[[product.retention.point]]
+text_zh = "个人档无专属保留期条款,适用平台通用表述:三.10(3) 缓冲期后删除全部相关数据含缓存与备份、服务协议 4.6 最小必要存储、隐私政策五(二) 最短必要期限、注销协议注销后删除或匿名化。缓冲期天数未公开。团队档的 180 天宽限期条款不适用于个人档"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "cpp-pp-region-cn-only"
+
+[[product.processing_region.point]]
+text_zh = "个人档无专属处理地条款"
+
+[[product.processing_region.point]]
+text_zh = "适用平台隐私政策五(一)境内存储、不跨境。对象是个人信息,未披露推理发生地"
+
+[product.role]
+kind = "processor"
+anchor = "cpp-ua-role-no-unauthorized-use"
+
+[[product.role.point]]
+text_zh = "个人档经订阅协议六.1 受《用户协议》《服务协议》约束:三.10(1)/4.5 服务提供者语义 + 隐私政策「数据处理者」自称"
+
+[[product.role.point]]
+text_zh = "但四.10/十.2/十.3 的自用授权使角色不完全等同于纯受托方,故 medium"
+
+[[product]]
+id = "coding-plan-team"
+badge = "国内站团队版"
+category = "coding_plan"
+plan_level = "team"
+label = "GLM Coding Plan 团队档(团队标准版/高级版)"
+
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "cpt-team-training-no-train"
+
+[[product.training.point]]
+text_zh = "团队档有书面「不训练」承诺,且被写成团队套餐专属权益:《团队套餐购买协议》二.2 套餐内容列「数据默认不用于模型训练」"
+
+[[product.training.point]]
+text_zh = "团队版权益页进一步复述为「提交的代码、提示词、对话内容等不会用于模型训练,保护企业核心研发资产」(developer_data 级佐证)"
+
+[[product.training.point]]
+text_zh = "营销页把「数据默认不用于模型训练」放在团队/企业特性区(official_blog 级佐证)。口径限制:①措辞是「默认」,条款未给出例外机制或退出方式"
+
+[[product.training.point]]
+text_zh = "②它是二.2「套餐包含内容(以报价单/订单页为准)」的列举项,不是独立成条的禁止性条款"
+
+[[product.training.point]]
+text_zh = "③团队协议六.1 同时要求遵守平台用户协议/隐私政策,而用户协议四.10 有匿名化训练授权——两文并存时以团队专属条款为准(同文档更具体的档位约定),但该张力需在台账中保留"
+
+[product.zdr]
+mark = "no"
+anchor = "cpt-team-retention-grace-180d"
+searched = [
+  "https://docs.bigmodel.cn/cn/terms/subscription-agreement-team",
+  "https://docs.bigmodel.cn/cn/terms/user-agreement",
+  "https://docs.bigmodel.cn/cn/terms/privacy-policy",
+  "https://docs.bigmodel.cn/cn/terms/service-agreement",
+  "https://docs.bigmodel.cn/cn/coding-plan/team",
+  "https://www.bigmodel.cn/glm-coding",
+  "https://www.bigmodel.cn/glm-coding/team",
+  "https://docs.bigmodel.cn/llms.txt",
+  "https://docs.bigmodel.cn/sitemap.xml",
+]
+
+[[product.zdr.point]]
+text_zh = "团队协议全文无「不留存/不存储请求内容」表述:二.2 的不训练承诺只覆盖训练用途,不覆盖存储"
+
+[[product.zdr.point]]
+text_zh = "七.1 只规定终止后 180 天删除窗口。团队档同样没有 ZDR 承诺或申请入口"
+
+[product.retention]
+days = 180
+object = "mixed"
+basis = "fixed_period"
+anchor = "cpt-team-retention-grace-180d"
+
+[[product.retention.point]]
+text_zh = "团队档唯一的量化期限出现在终止场景:七.1.a 服务到期未续费时账户信息、配置数据和应用元数据被保留"
+
+[[product.retention.point]]
+text_zh = "七.1.b 宽限期 180 个自然日届满后删除「服务期间产生的所有用户业务数据(包括但不限于对话历史、Fine-tuning 模型、应用配置等)」且不可恢复。这是「到期/终止后的保留窗口」,不是请求内容保留期"
+
+[[product.retention.point]]
+text_zh = "请求级仍无天数,适用平台通用表述(用户协议三.10(3) 缓冲期、隐私政策五(二) 最短必要期限)"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "cpp-pp-region-cn-only"
+
+[[product.processing_region.point]]
+text_zh = "团队协议全文无处理地/跨境条款,团队版权益页只写「企业级数据安全」"
+
+[[product.processing_region.point]]
+text_zh = "处理地沿用平台隐私政策五(一)境内存储、不跨境(对象为个人信息)。团队档不给高于 medium 的置信度"
+
+[product.role]
+kind = "processor"
+anchor = "cpp-ua-role-no-unauthorized-use"
+
+[[product.role.point]]
+text_zh = "团队协议没有 controller/processor 定性,九「网络和数据安全」把责任放在客户侧(九.2「您对自己存放在智谱平台上的数据…负全部责任」),属责任分配而非角色定性"
+
+[[product.role.point]]
+text_zh = "受托语义仍来自平台通用条款(用户协议三.10(1)、服务协议 4.5)。故团队档 role 记 medium 且以通用条款为源"
+
+[[anchor]]
+id = "cpp-ua-training-anonymized"
+source_id = "beee352cc2569b01"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+除法律明确规定外，您因依该广告信息进行的交易或前述广告所涉及的商品或服务而遭受的损失或损害，智谱不承担责任。
+3.   """
+exact = "根据适用的法律，若我们对您的内容采取技术措施和其他必要措施进行处理，使得数据接收方无法重新识别特定个人且不能复原，或我们可能会对收集的信息进行匿名化的研究、统计分析和预测，用于改善大模型开放平台的内容和布局，为商业决策提供产品或服务支撑，以及改进我们的产品和服务（包括使用匿名数据进行机器学习或模型算法训练），按照相关法律法规规定，此类数据已不属于个人信息范畴，因此此类处理后的数据的使用无需另行征得您的同意。"
+suffix = """
+
+
+## 五、服务协议的终止
+
+1.   您有权通过以下任一方式终止本协议：  
+① 您注销您的账户的；  
+② 变更事"""
+
+[[anchor]]
+id = "cpp-ua-training-usage-improve"
+source_id = "beee352cc2569b01"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+模型开放平台上公布的隐私权政策收集、存储、使用、披露和保护您的个人信息，具体请见《大模型开放平台隐私政策》。
+2.   """
+exact = "为了改善我们向您提供的产品和服务的质量，我们可能利用您使用大模型平台或平台内模型过程中产生的数据，定位、维护和优化我们的产品和服务，但是您与智谱另有约定的除外。"
+suffix = """
+
+3.   对于您提供、发布及在使用大模型开放平台服务中形成的除个人信息外的文字、图片、视频、音频等非个人信息，均不会因"""
+
+[[anchor]]
+id = "cpp-ua-training-perpetual-license"
+source_id = "beee352cc2569b01"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "、音频等非个人信息，均不会因上传、发布等行为发生知识产权、肖像权等权利的转移。除非我们另行说明，**在法律允许的范围内，"
+exact = "您免费授予智谱及其关联公司非排他的、无地域限制的、永久的、免费的许可使用"
+suffix = "（包括存储、使用、复制、修订、编辑、发布、展示、翻译、分发上述信息或制作派生作品，以已知或日后开发的形式、媒体或技术将上"
+
+[[anchor]]
+id = "cpp-ua-retention-buffer-delete"
+source_id = "beee352cc2569b01"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+   如因您对导出数据的不当使用导致大模型开放平台遭受任何损失，您应当承担全部赔偿责任。
+
+(3) 数据删除与终止  
+"""
+exact = "您可自行对您的用户上传数据进行删除、更改等操作。当您自行删除数据、服务期限届满或服务提前终止时，大模型开放平台将在一定缓冲期内（以相关产品文档所载明的时限为准）继续存储您的用户上传数据，缓冲期届满后，大模型开放平台将删除所有相关数据，包括所有缓存或备份副本。"
+suffix = "数据一经删除即不可恢复，您应自行承担因数据删除所引发的后果和责任。您理解并同意，大模型开放平台没有继续保留、导出或返还已"
+
+[[anchor]]
+id = "cpp-ua-scope-platform-services"
+source_id = "beee352cc2569b01"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+止、终止对您提供部分或全部大模型开放平台服务，大模型开放平台对此不承担任何责任。**
+
+## 三、您的权利和义务
+
+1."""
+exact = "您有权根据本协议的约定享受大模型开放平台提供的以下服务：通过互联网提供的自然语言处理、开放平台服务、API 调用等服务"
+suffix = "，以及智谱不时开发新型服务类型。大模型开放平台有权依据业务需要随时增加或减少服务的内容，您确认并接受未来服务被调整的可能"
+
+[[anchor]]
+id = "cpp-ua-role-no-unauthorized-use"
+source_id = "beee352cc2569b01"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+、隐私权、姓名权等；
+*   如包含个人信息，必须是依据《个人信息保护法》及所适用的法律法规合法取得授权的个人信息。
+
+"""
+exact = "就用户上传数据，大模型开放平台除执行您的服务要求外，不会进行任何未获授权的使用及披露"
+suffix = """
+；除非：
+
+*   在国家有关机关依法查询或调阅用户上传数据时，大模型开放平台有义务按照相关法律法规或政策文件要求提供配"""
+
+[[anchor]]
+id = "cpp-pp-region-cn-only"
+source_id = "55daa5e833844d63"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "收集和产生的个人信息存储在中国境内。目前，我们委托基础云服务商存储您的个人信息，采用公有云服务作为底层资源支持。****"
+exact = "目前我们不会跨境传输或存储您的个人信息"
+suffix = "**，将来如需跨境传输或存储的，除法律规定无需告知的情形外，我们会向您告知信息出境的目的、接收方的名称或者姓名、联系方式"
+
+[[anchor]]
+id = "cpp-pp-retention-min-necessary"
+source_id = "55daa5e833844d63"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "息的种类、您向境外接收方行使权利的方式和程序、安全保障措施和安全风险，并事先征得您的同意。**（二）存储期限****1、"
+exact = "我们只会在达成本政策所述目的所需的最短必要期限内保留您的个人信息"
+suffix = "，除非法律法规另有强制的留存时间要求**。2、我们判断个人信息的存储期限主要参考以下标准并以其中较长者为准：（1）完成、"
+
+[[anchor]]
+id = "cpp-pp-training-anonymized"
+source_id = "55daa5e833844d63"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "名化的研究、统计分析和预测，用于改善大模型开放平台的内容和布局，为商业决策提供产品或服务支撑，以及改进我们的产品和服务（"
+exact = "包括使用匿名数据进行机器学习或模型算法训练"
+suffix = "），**按照相关法律法规规定，此类数据已不属于个人信息范畴，因此此类处理后数据的使用无需另行征得您的同意。**5、如我们"
+
+[[anchor]]
+id = "cpp-pp-processor-label"
+source_id = "55daa5e833844d63"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "/)**大模型开放平台服务提供者**：指大模型开放平台的互联网信息及软件技术服务提供者北京智谱华章科技股份有限公司。**"
+exact = "大模型开放平台数据处理者"
+suffix = "**：指北京智谱华章科技股份有限公司。**用户**：指大模型开放平台产品的使用人，在本政策中被称为“**您**”或“**"
+
+[[anchor]]
+id = "cpp-sa-role-no-unauthorized-use"
+source_id = "e403ebec3d062484"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "方式处理的数据，均为您的数据，您完全拥有您的数据，但同时，您应保证您的数据符合相关法律法规的规定和本协议的约定。4.5 "
+exact = "就您的数据，除为您提供服务所必需外，智谱不会进行任何未获授权的使用及披露"
+suffix = "；但以下情形除外：（1）在国家有关机关依法查询或调阅用户业务数据时，智谱具有按照相关法律法规或政策文件要求提供配合，并向"
+
+[[anchor]]
+id = "cpp-sa-retention-min-necessary"
+source_id = "e403ebec3d062484"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "文件要求提供配合，并向第三方或者行政、司法等机构披露的义务；（2）您和智谱另行协商一致；（3）法律法规另有规定。4.6 "
+exact = "智谱仅在为您提供服务和满足合规要求所需的最小必要范围内存储您的数据"
+suffix = """
+，且会进行必要的匿名化和加密处理。
+
+## 五、充值方式
+
+5.1 您可通过支付宝、银行汇款等途径将费用充值到您在大模型"""
+
+[[anchor]]
+id = "cpp-sub-scope-coding-plan"
+source_id = "8c7dc110a99b3b4c"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+tool/others)中使用；如通过非官方工具或未授权方式使用，平台有权对相关权益进行限制、暂停或封禁处理。
+*   """
+exact = "您不得将 GLM Coding Plan 的调用额度用于上述工具以外的通用 API 接入或其他场景"
+suffix = """
+，包括但不限于在自建应用、机器人、网站、SaaS 产品或其他系统中直接调用相关模型接口，除非您与智谱另行签署书面协议。
+"""
+
+[[anchor]]
+id = "cpp-sub-incorporates-ua"
+source_id = "8c7dc110a99b3b4c"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+能生成合成的内容进行标识。您不得将订阅服务用于任何违法违规用途，不得用于从事任何有损公序良俗、他人权益的行为。
+*   """
+exact = "您应遵守智谱平台的使用规则、用户协议、服务协议及其他相关协议。"
+suffix = """
+
+*   违反本协议可能导致服务中止或终止，且已支付费用不予退还。
+
+1.   **使用场景限制**
+
+*   您理解并"""
+
+[[anchor]]
+id = "cpp-sub-personal-single-account"
+source_id = "8c7dc110a99b3b4c"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+用 GLM Coding Plan 为第三方提供付费或免费的模型能力服务。
+
+1.   **个人使用限制**
+
+*   """
+exact = "GLM Coding Plan 订阅以单一账号为单位，仅授权与该账号绑定的自然人个人使用。"
+suffix = """
+
+*   您不得以共享账号、出租、出借、转让、转授权或其他任何方式，使他人（包括但不限于您的同事、朋友、客户或任何组织）"""
+
+[[anchor]]
+id = "cpt-team-training-no-train"
+source_id = "ce127c89fc4f6160"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+队用量与研发效能看板
+    *   支持超额按量付费及预算控制
+    *   集中式账单与发票管理
+    *   """
+exact = "数据默认不用于模型训练"
+suffix = """
+
+    *   优先体验最新旗舰模型及功能
+    *   高峰期专属资源优先保障
+
+3.   团队版套餐面向安全性与"""
+
+[[anchor]]
+id = "cpt-team-retention-grace-180d"
+source_id = "ce127c89fc4f6160"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "无法调用 API、访问专属资源及使用套餐内功能，但您的账户信息、配置数据和应用元数据将被保留。b. **数据删除期**："
+exact = "若您在宽限期（180 个自然日）内仍未续费，宽限期届满后，智谱有权终止提供服务，并删除您在服务期间产生的所有用户业务数据（包括但不限于对话历史、Fine-tuning 模型、应用配置等），且**不可恢复**。请您务必提前备份重要数据，由此造成的任何损失智谱均不承担责任。"
+suffix = """
+
+2.   **协议终止情形**。发生下列情形之一的，本协议提前终止：a. 双方协商一致书面同意提前终止的；b. 您严重"""
+
+[[anchor]]
+id = "cpt-team-retention-account-kept"
+source_id = "ce127c89fc4f6160"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+证费、律师费、诉讼费等）。
+
+## 七、服务中止与终止
+
+1.   **到期停服**。服务到期后，若您未及时续费：a. """
+exact = "您将无法调用 API、访问专属资源及使用套餐内功能，但您的账户信息、配置数据和应用元数据将被保留。"
+suffix = "b. **数据删除期**：若您在宽限期（180 个自然日）内仍未续费，宽限期届满后，智谱有权终止提供服务，并删除您在服务"
+
+[[anchor]]
+id = "cpt-team-role-customer-data"
+source_id = "ce127c89fc4f6160"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+根据自身业务需求，对输入及生成的数据进行安全评估和备份，并确保您对输入的内容享有所有权或合法的授权、使用权。
+2.   """
+exact = "您对自己存放在智谱平台上的数据（包括输入提示词、上传的文件、Fine-tuning 数据集等）负全部责任，应确保数据来源合法，处理行为合法，且已获得必要的授权。"
+suffix = """
+
+
+## 十、知识产权
+
+1.   智谱拥有 GLM 系列模型、API、管理平台、网站标识、技术文档等平台内容的全部知识"""
+
+[[anchor]]
+id = "cpt-team-scope-service"
+source_id = "ce127c89fc4f6160"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+解并接受本协议的全部内容，并与智谱达成一致。本协议自您完成签约动作之日起成立。
+
+## 二、订阅内容与服务
+
+1.   """
+exact = "本协议适用于您通过智谱平台（包括网站或其他渠道）购买并使用的 GLM Coding Plan 团队套餐服务。订阅服务的内容、功能、使用规则及期限以订阅时的页面展示及双方签署的订单为准。GLM Coding Plan 团队套餐是智谱专为团队和开发者打造的一站式 AI 编程解决方案，整合了 GLM 系列大模型的代码生成能力，旨在帮助开发者高效完成代码编写、调试、优化及开发全流程任务。"
+suffix = """
+
+2.   GLM Coding Plan 团队套餐包含的具体内容以双方签署的报价单或订单页面为准，可能包括：
+    """
+
+[[anchor]]
+id = "cpt-team-incorporates-platform-terms"
+source_id = "ce127c89fc4f6160"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = "）》等相关法律法规和国家标准的要求。您不得将订阅服务用于任何违法违规用途，不得用于从事任何有损公序良俗、他人权益的行为。"
+exact = "同时，您还应遵循智谱平台的用户协议、隐私政策等平台条款及协议、通知、规则等。"
+suffix = """
+如您违反本协议，可能导致服务中止或终止，且已支付费用不予退还。
+2.   **使用限制**（1）使用场景限制
+    *"""
+
+[[anchor]]
+id = "cpt-team-agreement-party"
+source_id = "ce127c89fc4f6160"
+topics = ["scope"]
+
+[anchor.selector]
+prefix = """
+对协议有任何疑问，可以通过下文“联系我们”条款中的联系方式与我们沟通咨询。
+
+## 一、签约主体及协议范围
+
+1.   """
+exact = "本协议项下服务提供方为**北京智谱华章科技股份有限公司**"
+suffix = "（简称“智谱”或“我们”）。本协议由用户（以下简称“您”）与智谱就使用智谱开放平台（简称“智谱平台”、“智谱开放平台”或"
+
+[[anchor]]
+id = "cpp-cancel-retention-delete"
+source_id = "9a0351ec480fd2c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+知您具体原因（如：存在未解决事项）。若审核通过，我们将在 7 个工作日内完成注销。
+
+**三、数据删除**
+
+1.   """
+exact = "注销后，您的账户内个人信息、内容及数据将被删除或匿名化处理"
+suffix = """
+。若因技术限制无法立即完成（如：备份系统数据清除需要更长时间），我们将立即停止除存储和必要安全保护之外的所有处理行为。
+"""

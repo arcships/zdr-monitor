@@ -1,0 +1,157 @@
+name = "Bolt.new"
+line = "bolt"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "StackBlitz, Inc."
+endpoint = ""
+doc = "https://stackblitz.com/privacy-policy"
+
+[[source]]
+url = "https://stackblitz.com/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Bolt/StackBlitz Privacy Policy。明确 AI Input/Output、代码、项目文件及 interaction data 的训练/数据集许可默认值与免费 opt-out；EEA/UK/CH 排除；活跃账户保留与关户 30 天删除；跨境至美国。未披露向量索引、prompt cache 的独立期限，也未提供运营遥测总开关。"
+
+[[source]]
+url = "https://stackblitz.com/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "StackBlitz Terms of Service。定义 Bolt Model Development Content 并规定训练许可；Bolt Forge 另有以内容使用为条件的特殊模式。"
+
+[[source]]
+url = "https://bolt.new/platform/security"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Bolt 官方安全页，明确受 MSA/DPA 管辖的 Team 与 Enterprise 客户不参与模型训练和数据共享。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "bolt-training-default-opt-out"
+[[product.training.point]]
+text_zh = "默认可将 prompts、outputs、代码、项目文件、错误/fix traces、tool invocations 与 edit histories 用于训练/微调/评测并制作许可数据集；可免费退出，最长 15 天实施且不追溯已训练模型或已交付数据集。EEA/UK/CH 账户默认排除。Bolt Forge 启用时另受其内容使用条件约束。"
+[product.zdr]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "bolt-retention-active-account-30d"
+[[product.retention.point]]
+text_zh = "账户及项目内容在账户活跃期间保留；主动关户后不超过 30 天删除或匿名化，但备份、法律与安全例外未量化。向量索引与 prompt/cache 未单列期限。"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "bolt-region-us-global"
+[product.role]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+
+[[product]]
+id = "pro"
+badge = "Pro"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "bolt-training-default-opt-out"
+[product.zdr]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "bolt-retention-active-account-30d"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "bolt-region-us-global"
+[product.role]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+
+[[product]]
+id = "team"
+badge = "Teams"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "bolt-team-enterprise-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "bolt-retention-active-account-30d"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "bolt-region-us-global"
+[product.role]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "bolt-team-enterprise-no-training"
+[product.zdr]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "bolt-retention-active-account-30d"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "bolt-region-us-global"
+[product.role]
+mark = "unknown"
+searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+
+[[anchor]]
+id = "bolt-training-default-opt-out"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "AI Model Development. "
+exact = "Unless you opt out and subject to the regional and consent rules below, we may use Bolt Model Development Content that is eligible under “Prospective Application” below to train, fine-tune, evaluate, benchmark, and improve artificial-intelligence models developed by or for StackBlitz."
+suffix = " This processing is separate from the operational and safety uses described above"
+
+[[anchor]]
+id = "bolt-team-enterprise-no-training"
+source_id = "c96be6c911fd4453"
+topics = ["training"]
+[anchor.selector]
+prefix = "How Bolt uses your data, including for improving and training AI models, is described in our Privacy Policy. "
+exact = "Enterprise and Team customers under an MSA or DPA are excluded from model training and data sharing."
+suffix = ""
+
+[[anchor]]
+id = "bolt-retention-active-account-30d"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Active Accounts**.** "
+exact = "Personal information and user content associated with an account are retained while the account remains active."
+suffix = " Voluntary Account Closure**.**"
+
+[[anchor]]
+id = "bolt-region-us-global"
+source_id = "4b9a66c9075791b6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "StackBlitz, Inc. is headquartered in the United States, and personal information may be transferred to, processed, and stored in countries outside of your jurisdiction, including the United States."
+suffix = ""

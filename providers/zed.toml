@@ -1,0 +1,109 @@
+name = "Zed"
+company = "zed"
+company_name = "Zed"
+line = "hosted"
+site = "global"
+plan_levels = ["individual", "team"]
+entity = "Zed Industries, Inc."
+homepage = "https://zed.dev/"
+doc = "https://zed.dev/docs/ai/privacy-and-security"
+
+[[source]]
+url = "https://zed.dev/docs/ai/privacy-and-security"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://zed.dev/docs/telemetry"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://zed.dev/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+
+[[product]]
+id = "hosted"
+badge = "Zed 托管模型"
+category = "coding_plan"
+plan_level = "individual"
+label = "Zed 托管模型；也可改用本地模型或自带 key 绕过 Zed 托管推理，此时数据姿态由所选端点决定"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "zed-hosted-zdr"
+
+[[product.training.point]]
+text_zh = "例外有两条：少数被模型厂商指定为「安全留存」的模型（如 Anthropic 的 Covered Models）不走零保留；以及你自己点了反馈或主动打开训练数据收集时，Zed 才会留 AI 数据。"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "zed-hosted-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "zed-does-not-retain"
+[[product.retention.point]]
+text_zh = "Zed 默认不留提示词/代码上下文；托管模型商也为 ZDR。例外：供应商指定的安全保留模型（如 Anthropic Covered Models）至少保留 30 天，Zed 无法关闭。"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://zed.dev/docs/ai/privacy-and-security", "https://zed.dev/privacy-policy"]
+[product.role]
+kind = "controller"
+anchor = "zed-role"
+[[product.role.point]]
+text_zh = "个人档隐私数据由 Zed 作为 controller；Business 客户范围内可转为 processor。遥测：编辑器本地遥测默认自动收集但可在设置关闭；使用托管服务时服务端遥测仍收集，且不包含源码。"
+
+[[product]]
+id = "business-hosted"
+badge = "Zed Business"
+category = "coding_plan"
+plan_level = "team"
+label = "Business 组织档使用 Zed 托管模型；自带 key 或外部 agent 的数据姿态由所选端点决定"
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "zed-hosted-zdr"
+
+[[product.training.point]]
+text_zh = "例外有两条：少数被模型厂商指定为「安全留存」的模型（如 Anthropic 的 Covered Models）不走零保留；以及你自己点了反馈或主动打开训练数据收集时，Zed 才会留 AI 数据。"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "zed-hosted-zdr"
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "zed-does-not-retain"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://zed.dev/docs/ai/privacy-and-security", "https://zed.dev/privacy-policy"]
+[product.role]
+kind = "processor"
+anchor = "zed-role"
+
+[[anchor]]
+id = "zed-hosted-zdr"
+source_id = "37e0765a7fa5d203"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Zed has no-training commitments from model providers, and provider agreements require zero data retention for inference requests except for [provider-designated models with safety retention](https://zed.dev/docs/ai/privacy-and-security#provider-safety-retention), such as Anthropic’s Covered Models."
+suffix = ""
+[[anchor]]
+id = "zed-does-not-retain"
+source_id = "37e0765a7fa5d203"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Zed does not retain your prompts or code context by default."
+suffix = ""
+[[anchor]]
+id = "zed-role"
+source_id = "cb201e9aff88ba66"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "When data is used as outlined in this Privacy Policy, Zed is the data controller and responsible for the processing of your personal data. When Zed processes personal data on behalf of Zed Business customers as a data processor, the terms of our Data Processing Agreement apply."
+suffix = ""

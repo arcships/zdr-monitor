@@ -1,0 +1,141 @@
+name = "Qoder"
+line = "qoder"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "BRIGHT ZENITH PRIVATE LIMITED"
+endpoint = ""
+doc = "https://qoder.com/privacy-policy"
+
+[[source]]
+url = "https://qoder.com/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "国际站现行隐私政策；覆盖所有档位的 User Content、改善服务、BYOK、期限与处理地。团队/企业文档本轮正式抓取遭 429，记录在 health，不以失败冒充未披露。"
+
+[[product]]
+id = "free"
+badge = "免费版"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+anchor = "qoder-improvement-five-years"
+[product.zdr]
+mark = "unknown"
+searched = ["https://qoder.com/privacy-policy", "https://qoder.com/terms-of-service"]
+[product.retention]
+days = 1825
+object = "input_output"
+basis = "fixed_period"
+anchor = "qoder-improvement-five-years"
+[product.processing_region]
+codes = ["US", "SG", "JP"]
+anchor = "qoder-regions"
+[product.role]
+kind = "controller"
+anchor = "qoder-entity"
+
+[[product]]
+id = "individual"
+badge = "个人付费版"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "qoder-share-improve-optout"
+[product.zdr]
+mark = "unknown"
+searched = ["https://qoder.com/privacy-policy", "https://qoder.com/terms-of-service"]
+[product.retention]
+days = 1825
+object = "input_output"
+basis = "fixed_period"
+anchor = "qoder-improvement-five-years"
+[product.processing_region]
+codes = ["US", "SG", "JP"]
+anchor = "qoder-regions"
+[product.role]
+kind = "controller"
+anchor = "qoder-entity"
+
+[[product]]
+id = "teams"
+badge = "Teams"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "qoder-share-improve-optout"
+[product.zdr]
+mark = "unknown"
+searched = ["https://qoder.com/privacy-policy", "https://docs.qoder.com/account/teams/get-started"]
+[product.retention]
+days = 1825
+object = "input_output"
+basis = "fixed_period"
+anchor = "qoder-improvement-five-years"
+[product.processing_region]
+codes = ["US", "SG", "JP"]
+anchor = "qoder-regions"
+[product.role]
+kind = "controller"
+anchor = "qoder-entity"
+
+[[product]]
+id = "enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "qoder-share-improve-optout"
+[product.zdr]
+mark = "unknown"
+searched = ["https://qoder.com/privacy-policy", "https://docs.qoder.com/account/teams/get-started"]
+[product.retention]
+days = 1825
+object = "input_output"
+basis = "fixed_period"
+anchor = "qoder-improvement-five-years"
+[product.processing_region]
+codes = ["US", "SG", "JP"]
+anchor = "qoder-regions"
+[product.role]
+kind = "controller"
+anchor = "qoder-entity"
+
+[[anchor]]
+id = "qoder-improvement-five-years"
+source_id = "4b0a0b67f09ae412"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection"
+suffix = ""
+[[anchor]]
+id = "qoder-share-improve-optout"
+source_id = "4b0a0b67f09ae412"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Depending on your plan, you may opt out of such use at any time by disabling the “Share & Improve” setting, which will prevent your User Content from being used for the purposes described above."
+suffix = ""
+[[anchor]]
+id = "qoder-regions"
+source_id = "4b0a0b67f09ae412"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "We process and store the information we collect in secure servers located in the United States, Singapore and Japan."
+suffix = ""
+[[anchor]]
+id = "qoder-entity"
+source_id = "4b0a0b67f09ae412"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data."
+suffix = ""

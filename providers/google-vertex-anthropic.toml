@@ -1,0 +1,447 @@
+name = "Google Cloud"
+company = "google-vertex"
+line = "google-vertex-anthropic"
+site = "global"
+entity = "Google LLC"
+endpoint = ""
+doc = "https://cloud.google.com/terms/service-terms"
+
+[[source]]
+url = "https://cloud.google.com/terms/data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "Google Cloud Data Processing Addendum（合同层）。§4.1 角色：Google 为 processor、客户为 controller/processor。适用于客户在 Agent Platform 上交给 Google 处理的 Customer Personal Data。覆盖 api 档。"
+
+[[source]]
+url = "https://cloud.google.com/terms/service-terms"
+channel = "contract"
+tier = "core"
+note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-09-21）。§18 Training Restriction、§16 AI/ML Data Location、§20.h Handling of Prompts and Generated Output。Google 文档说明 partner model 请求仍发往 Agent Platform 端点、Claude 属 Agent Platform 上的托管模型，故 Google 与客户的这份合同覆盖 Vertex 上的 Claude 常规流量。"
+
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform 滥用监控页（Last updated 2026-09-18）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（可申请豁免）、Advanced AI 模型 prompt+response 强制 30 天且可能无法 opt-out；含 Anthropic 专属段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。覆盖 api 档（Vertex/Agent Platform 上的 Claude）。"
+
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/fable-5"
+channel = "developer_data"
+tier = "core"
+note = "Claude Fable 5 模型页。明确 Fable 5 在 Advanced AI Safety Addendum 范围内、prompt 与 response 最多存储 30 天；并写明须按 Anthropic Service Specific Terms §F 开启与 Anthropic 的 prompt-response 共享。覆盖 api 档中的 Fable 5 子集。"
+
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform 数据驻留文档。at-rest 数据留在客户选定位置（与调用端点无关）；ML 处理位置由端点决定（jurisdictional multi-region / locational / global）。含 partner model 支持表（Claude 逐型号 × US/EU multi-region、Belgium/Netherlands/Singapore/Taiwan），表中支持标记以图标呈现。覆盖 api 档。"
+
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform「客户数据保留与达成零数据保留」官方清单（canonical；旧 Vertex AI data-governance URL 301 到此）。范围用 MaaS 口径，逐项列出达成 ZDR 所需动作（不开启 request-response logging、Interactions API store=false、滥用监控豁免、不用 Sandbox API 等），并声明部分 Advanced AI 特性可能无法达成 ZDR。覆盖 api 档。"
+
+[[source]]
+url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+channel = "developer_data"
+tier = "contradiction"
+note = "与 core 文档 https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data(下称 7996866,api 档 retention 维度的依据)就同一档位(商业/API 档的默认保留)表述不一致。①本文件原句(『How Anthropic approaches data retention』承诺列表第 2 条):「Only what is technically necessary for the feature to work is retained. Conversation content (your prompts and Claude's outputs) is not retained by default; the exception is [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements), which require 30-day retention.」——默认档下 API 的 prompt/output 不保留;②7996866 原句(『Standard Retention Timeframe』):「For Anthropic API users, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except:」——默认档下 prompt/output 会落到后端、最迟 30 天删除。两句对象相同(API 档的输入输出)、问题相同(默认是否保留),答案相反。各自范围:本文件页首自述覆盖 Claude API(api.anthropic.com)、Claude Platform on AWS、Claude in Microsoft Foundry 且 Anthropic 为 data processor,并在『What ZDR does not cover』明列 Claude Free/Pro/Max 不在覆盖内;7996866 文首自述讲商业档(Claude for Work / Anthropic API),且本文件第 3 段把 7996866 指为「the commercial data retention policy」(即本文件自己承认标准保留口径以 7996866 为准)。四种解释逐条排除:①适用范围——两份都逐字指向 API 档(主语分别是「Anthropic API users」与 Claude API/Claude Platform on AWS/Foundry),不属「一份管 API、一份管消费产品」;消费档另有 10023548,本文件亦正面排除 Free/Pro/Max。②档位——同为商业/API 档;本文件对企业/Team 界面只作 ZDR 排除,未给出与 API 不同的保留期限,不存在企业版 vs 个人版之分。③站点——同为 Anthropic 官方域名(privacy.claude.com 与 platform.claude.com),同一法律实体,无国内站/国际站之分。④时效——均为现行版本:7996866 的原始 HTML 抓取标注「Updated over 2 months ago」(抓取日 2026-09-21,约 2026-07 更新),本文件为 platform.claude.com 现行页(页面数据时间戳 2026-09-21,正文引用 Fable 5.1 / Mythos 5.1 / Claude Managed Agents 等当期功能),不存在新版覆盖旧版。旁证(同方向,均官方):code.claude.com/docs/en/data-usage 在「Commercial users (Team, Enterprise, and API)」下列「Standard: 30-day retention period」并把 ZDR 列为额外选项,同页另写「Enable Zero Data Retention for no server-side persistence」(反推不启用 ZDR 时存在服务端持久化);privacy 8956058 称 ZDR 安排「distinct from Anthropic’s default approach to data retention」并链接 7996866。已考虑但未采纳的调和解释:本句位于「功能是否需要落盘」的承诺段落,可读作「功能层不落盘」而非「默认档整体不保留」;但该句自身的例外从句用的是保留口径(「Covered Models, which require 30-day retention」,与 7996866「for Covered Models, we require limited data retention and review」描述的是同一现象),且本页 ZDR 段落以「不启用 ZDR 时存在服务端存储」为前提(「Where a feature does not require storage … it may be eligible for ZDR」),故「功能层」读法无法消解字面冲突,只能靠厂商澄清。需厂商书面澄清:①默认(未开通 ZDR)档下 API 的 prompt/output 是否写入后端存储;②若写入,是否适用 7996866 的 30 天自动删除窗口;③「is not retained by default」的准确含义是功能层(功能不需要落盘)还是安排层(默认档整体不保留)。澄清前 api 档 retention 以 7996866 为 core,本页仅作矛盾的另一半证据保留全部锚点、每天抓;本页其余内容(ZDR/HIPAA 安排、功能资格表、processor 声明)未见与任何 core 文档冲突。"
+
+[[source]]
+url = "https://support.claude.com/en/articles/15425695"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Anthropic 帮助中心「Covered Models」政策页。Covered Models 列表（Claude Mythos 5.1、Fable 5.1、Mythos 5、Fable 5；Fable 5/5.1 在 Google Cloud Agent Platform 可用）；默认至少 30 天保留；可访问 Covered Models 的工作区/企业组织/第三方平台不提供 ZDR；政策随模型适用于所有平台；另说明 Enterprise Frontier Safeguards（2026 秋起分阶段）与 Fable 5/5.1 的限时 ZDR 过渡安排。覆盖 api 档中的 Covered Models 子集。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+channel = "contract"
+tier = "core"
+note = "商业档(API/Team/Enterprise)Commercial Terms of Service:禁止用 Customer Content 训练、DPA 并入条款、并明确『Services under these Terms are not for consumer use』,因此不能外推到 Free/Pro/Max。"
+
+[[source]]
+url = "https://www.anthropic.com/legal/service-specific-terms"
+channel = "contract"
+tier = "core"
+note = "Anthropic Service Specific Terms（合同层）。§D.2：Vertex 属 Cloud Platforms（Hosted Service），Anthropic 提供的技术默认不让 Anthropic 接触客户实例内的 Inputs/Outputs；§F：Covered Models 下 Anthropic 可保留并做安全审查，明确优先于 ZDR 等修改后的保留承诺，经云平台的数据按 Anthropic DPA 处理。覆盖 api 档中 Anthropic 层叠加部分。"
+
+[[product]]
+id = "api"
+badge = "Vertex Claude"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-18-training-restriction"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-actions-required"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "abuse-advai-30d"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "dr-doc-at-rest-stays"
+
+[product.role]
+kind = "processor"
+anchor = "cdpa-4-1-google-processor"
+
+[[anchor]]
+id = "sst-18-training-restriction"
+source_id = "0bf19b892a084958"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "riction** (formerly Section 17 (Training Restriction))**.** "
+exact = "Google will not use Customer Data to train or fine-tune any AI/ML models without Customer's prior permission or instruction."
+suffix = """
+
+
+19. **Separate Offerings****and Customer Models** (formerl"""
+
+[[anchor]]
+id = "sst-16-ai-ml-data-location"
+source_id = "0bf19b892a084958"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "a-residency](https://cloud.google.com/terms/data-residency) "
+exact = "to (a) store Customer Data at rest and (b) perform machine learning processing of Customer Data by the Service, in each case in a specific Multi-Region, and Google will perform (a) and (b) only in that Multi-Region."
+suffix = " For clarity, Customer Data does not include resource identi"
+
+[[anchor]]
+id = "sst-20h-prompts-not-stored"
+source_id = "0bf19b892a084958"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "put_ _._ Absent Customer’s prior permission or instruction, "
+exact = "Google will not store outside Customer’s Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output"
+suffix = """
+.
+
+i. _Additional Google Indemnification Obligations_.
+
+(i)_"""
+
+[[anchor]]
+id = "abuse-advai-30d"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ted as "Advanced AI".
+
+*   **Prompt and response logging**: """
+exact = "All prompts and responses will be logged and securely stored for up to 30 days for the sole purpose of monitoring for abuse."
+suffix = " This data won't be used to train or fine-tune any AI/ML mod"
+
+[[anchor]]
+id = "abuse-claude-fable-mythos-30d"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d to ensure adherence to these terms.
+
+#### Data retention
+
+"""
+exact = "For Anthropic Claude Fable 5 on Google Cloud and Mythos 5, prompts and responses are retained for up to 30 days."
+suffix = " To use Claude Fable 5 on Google Cloud and Mythos 5, as requ"
+
+[[anchor]]
+id = "abuse-standard-prompt-log-90d"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " data won't be used to train or fine-tune any AI/ML models. "
+exact = "This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project"
+suffix = " and adheres to Google Cloud assurances, such as Data Reside"
+
+[[anchor]]
+id = "abuse-advanced-ai-scope-claude"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d features designated as "Advanced AI", including:
+
+    *   """
+exact = "Claude Mythos (all versions)"
+suffix = """
+
+    *   Claude Fable (all versions)
+    *   Claude Opus >=4"""
+
+[[anchor]]
+id = "abuse-zdr-may-not-be-possible"
+source_id = "72542f8ee80026c3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ude/cyber-verification-program).
+
+*   **Customer opt-out**: """
+exact = "Zero data retention may not be possible when using some Advanced AI features."
+suffix = " Please contact your account team for clarification. See the"
+
+[[anchor]]
+id = "abuse-anthropic-terms-govern"
+source_id = "72542f8ee80026c3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+tform is subject to partner-specific terms.
+
+### Anthropic
+
+"""
+exact = "Use of Anthropic models on Gemini Enterprise Agent Platform is governed by Anthropic's"
+suffix = " [Commercial Terms of Service](https://www.anthropic.com/leg"
+
+[[anchor]]
+id = "zdr-maas-limited-retention-scenarios"
+source_id = "89852246e77a9205"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ Customer data retention and achieving zero data retention
+
+"""
+exact = "Customer data is retained in Gemini Enterprise Agent Platform for Models as a Service (MaaS) for limited periods of time in the following scenarios and conditions."
+suffix = " To achieve zero data retention, customers must take specifi"
+
+[[anchor]]
+id = "zdr-actions-required"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = " periods of time in the following scenarios and conditions. "
+exact = "To achieve zero data retention, customers must take specific actions within each of these areas:"
+suffix = """
+
+
+*   **Prompt logging for abuse monitoring for Google model"""
+
+[[anchor]]
+id = "zdr-training-all-managed-models"
+source_id = "89852246e77a9205"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "cific Terms](https://cloud.google.com/terms/service-terms), "
+exact = "Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction."
+suffix = " This applies to all managed models on Gemini Enterprise Age"
+
+[[anchor]]
+id = "zdr-advanced-ai-caveat"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "http://cloud.google.com/terms/advanced-ai-safety-addendum). "
+exact = "Zero data retention may not be possible when using some Advanced AI features."
+suffix = " Please contact your account team for clarification. See [Ab"
+
+[[anchor]]
+id = "cdpa-4-1-google-processor"
+source_id = "2109a76273ace44c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+m.
+
+**4. Roles; Legal Compliance**
+
+4.1 _Roles of Parties._ """
+exact = "Google is a processor and Customer is a controller or processor, as applicable, of Customer Personal Data."
+suffix = """
+
+
+4.2 _Processing Summary._ The subject matter and details o"""
+
+[[anchor]]
+id = "dr-doc-at-rest-stays"
+source_id = "72e6fe02c66dc87c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+s  Save and categorize content based on your preferences.
+
+ """
+exact = "Data stored at rest in the customer selected location remains at rest in that"
+suffix = " [location](https://cloud.google.com/about/locations), indep"
+
+[[anchor]]
+id = "dr-doc-ml-processing-by-endpoint"
+source_id = "72e6fe02c66dc87c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ning) or applies the model to the data for model inference. "
+exact = "The geographic location of this processing is determined by your choice of endpoint"
+suffix = """
+:
+
+*   **Jurisdictional multi-region endpoints**: When you u"""
+
+[[anchor]]
+id = "dr-doc-partner-model-table"
+source_id = "72e6fe02c66dc87c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+bedding-002`) |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+### """
+exact = "Google Cloud partner model support"
+suffix = """
+
+
+| Model | US multi-region | EU multi-region | Belgium (eur"""
+
+[[anchor]]
+id = "fable5-advanced-ai-30d"
+source_id = "703369df97c30dd8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "ttps://cloud.google.com/terms/advanced-ai-safety-addendum). "
+exact = "All prompts and responses are stored for up to 30 days for the sole purpose of monitoring for potential abuse of relevant terms of service"
+suffix = ". See [Responsible AI](https://docs.cloud.google.com/gemini-"
+
+[[anchor]]
+id = "fable5-required-anthropic-sharing"
+source_id = "703369df97c30dd8"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "s](https://www.anthropic.com/legal/service-specific-terms), "
+exact = "enable prompt-response sharing with Anthropic for each model location"
+suffix = ". See [Request-Response Logging and Sharing](https://docs.cl"
+
+[[anchor]]
+id = "anth-doc-cloud-provider-is-processor"
+source_id = "6bc4022c8696d7c6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " Microsoft Foundry , where Anthropic is the data processor. "
+exact = "On Amazon Bedrock and Google Cloud's Agent Platform, the cloud provider is the data processor"
+suffix = "; refer to those platforms' data retention and compliance do"
+
+[[anchor]]
+id = "anth-doc-covered-models-30d-anywhere"
+source_id = "6bc4022c8696d7c6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ion or workspace must have data retention enabled."
+}
+}
+
+
+
+"""
+exact = "The 30-day data retention requirement applies wherever Covered Models are offered."
+suffix = " On the Claude API (including Claude Platform on AWS), Anthr"
+
+[[anchor]]
+id = "anth-doc-not-retained-by-default"
+source_id = "6bc4022c8696d7c6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " technically necessary for the feature to work is retained. "
+exact = "Conversation content (your prompts and Claude's outputs) is not retained by default"
+suffix = "; the exception is Covered Models , which require 30-day ret"
+
+[[anchor]]
+id = "anth-sst-d-no-access-on-vertex"
+source_id = "74318b3bbc385d03"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "LC and affiliates (“Google”). Subject to Section F.2 below, "
+exact = "the technology provided by Anthropic to enable access to the Hosted Services does not give Anthropic access to any Customer instance within the applicable Cloud Platforms, including the Inputs or Outputs they contain."
+suffix = """
+
+3.   **Fees.**Customer must pay all applicable fees and tax"""
+
+[[anchor]]
+id = "anth-sst-f-covered-models-supersedes-zdr"
+source_id = "74318b3bbc385d03"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+pplemental terms to the Agreement, including the DPA:
+
+1.   """
+exact = "Customer agrees that Anthropic may retain and perform safety reviews on Inputs, Outputs, and other data regarding Customer’s use of the Covered Models"
+suffix = ". For clarity, this supersedes any modified retention commit"
+
+[[anchor]]
+id = "anth-ct-no-training-on-customer-content"
+source_id = "7dea3b226d0f0caf"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "r its right, title and interest (if any) in and to Outputs. "
+exact = "Anthropic may not train models on Customer Content from Services."
+suffix = " “**Inputs**” means submissions to the Services by Customer "
+
+[[anchor]]
+id = "cm-30d-minimum-retention"
+source_id = "ffa01af450891d92"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+latform, and Microsoft Foundry).
+
+### Data retention
+
+*   **"""
+exact = "30-day minimum retention by default."
+suffix = "** Prompts and model completions are retained for at least 3"
+
+[[anchor]]
+id = "cm-policies-follow-model-all-platforms"
+source_id = "ffa01af450891d92"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+endum.  
+
+### Availability and access
+
+*   **All surfaces.**"""
+exact = "These policies follow the model. They apply wherever Covered Models are offered, including third-party cloud platforms."
+suffix = """
+ 
+*   **Eligibility.**Some Covered Models (such as Claude My"""

@@ -1,0 +1,311 @@
+name = "阶跃星辰"
+name_en = "StepFun"
+company_name = "阶跃星辰"
+line = "stepfun"
+site = "cn"
+entity = "上海阶跃星辰智能科技股份有限公司"
+endpoint = ""
+doc = "https://platform.stepfun.com/docs/zh/agreement/userservice"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/agreement/userprivacy"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "《StepFun 开放平台隐私政策》文档中心现行版，生效 2026-05-25，主体同上；适用于 StepFun 开放平台、AI Studio 平台，Step Plan 订阅档同属（用户协议 6.1 明示个人信息处理依本政策）。中国站版本；国际站（platform.stepfun.ai）为另一份英文隐私政策，不可混用。四.1/四.2 主语均为『您的个人信息』，对 API 输入输出等非个人信息数据未作同等的地域与期限声明。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/agreement/userservice"
+channel = "contract"
+tier = "core"
+note = "《StepFun 开放平台用户协议》文档中心现行版，生效 2026-05-25，主体上海阶跃星辰智能科技股份有限公司。中国站（platform.stepfun.com），覆盖开放平台/AI Studio 及本平台各项服务；Step Plan 付费协议明示本协议为其组成部分，故同样覆盖 Step Plan 订阅档（含旧版 Coding Plan 与 2026-06-18 起 Token Plan）。"
+
+[[source]]
+url = "https://platform.stepfun.com/docs/zh/guides/developer/prompt-cache"
+channel = "developer_data"
+tier = "core"
+note = "开发者文档《Prompt 缓存最佳实践》（本轮经 URL+.md 纯文本直连通道抓取，与 HTML 页同源）。界定 retention 的对象：对话数组（System Prompt/User Message/Assistant Message）、图片、视频会进入缓存系统；淘汰为 LRU，高峰期更易被逐出、低峰期生命周期更长，未量化期限、未提供关闭开关。用于说明 API 输入正文在『个人信息必要期间』之外另有缓存副本。 档位适用范围（本轮补充）：本页为通用开发者文档（guides/developer 下，无档位限定），缓存按模型自动启用，所列 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603 均属本档支持模型；Chat Completions API 参考页在请求地址 Note 中明示『Step Plan 场景请使用 POST https://api.stepfun.com/step_plan/v1/chat/completions』，即本档与普通 API 是同一接口的同一缓存面（仅路径前缀不同）。官方无 Step Plan 通道专属缓存表述，故 zdr 结论置信度记 medium。"
+
+[[product]]
+id = "api"
+badge = "国内站 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "stepfun-training-content-license"
+
+[[product.training.point]]
+text_zh = "无「不用于训练」承诺；§5.3 的「提升大模型服务体验」属用途授权且未排除模型训练，按口径记 mark=no（会训练）"
+
+[[product.training.point]]
+text_zh = "§5.3 内容许可（提升大模型服务体验）+ §5.4 运行数据权属归厂商 + §一.10(1) 匿名化商业化利用。"
+
+[product.zdr]
+mark = "no"
+anchor = "stepfun-prompt-cache-request-input-cached"
+searched = [
+  "https://platform.stepfun.com/docs/zh/guides/developer/prompt-cache",
+  "https://platform.stepfun.com/docs/zh/guides/developer/multiple-round",
+  "https://platform.stepfun.com/docs/zh/guides/developer/prompt",
+  "https://platform.stepfun.com/docs/zh/api-reference/files/create",
+  "https://platform.stepfun.com/docs/zh/guides/developer/retrieval",
+  "https://platform.stepfun.com/docs/zh/api-reference/vector-stores/create",
+  "https://platform.stepfun.com/docs/sitemap.xml（118 页全量）",
+  "https://platform.stepfun.com/docs/llms.txt",
+  "https://platform.stepfun.com/docs/zh/agreement/userservice",
+  "https://platform.stepfun.com/docs/zh/agreement/userprivacy",
+  "https://platform.stepfun.com/dpa",
+  "https://platform.stepfun.com/trust",
+  "https://platform.stepfun.com/security",
+  "https://platform.stepfun.com/docs/zh/agreement/dataprocess",
+  "https://www.stepfun.com/privacy",
+  "https://www.stepfun.com/terms",
+]
+
+[[product.zdr.point]]
+text_zh = "不支持零保留（value=no，复核轮重写判断链）：①决定性＝官方 API 文档《Prompt 缓存最佳实践》——平台缓存「每次请求过程中的输入」，「完整的对话数组…System Prompt、User Message 以及 Assistant Message」进入缓存系统（图片、视频、工具调用及其结果同列）"
+
+[[product.zdr.point]]
+text_zh = "请求 >256 Token 自动启用、LRU 淘汰、生命周期随系统高低峰浮动、「目前不提供手动清除缓存的能力」，唯一规避手段是改 Prompt，全页无 TTL、无豁免、无开关 → 客户无法把请求正文做成零保留"
+
+[[product.zdr.point]]
+text_zh = "②佐证＝用户协议 §5.3 内容许可（标的是用户发布/上传/传输的内容，按 §2.1.3 含 API 请求正文、不含输出；性质是许可条款而非平台实际存储的披露）"
+
+[[product.zdr.point]]
+text_zh = "③删除侧＝隐私政策 §四.2 必要期间保留＋§六.4 删除权、用户协议 §3.6 服务终止后/约定保留期届满后的删除权 → 无请求级删除，零保留不是默认档。排除项：隐私政策 §一.4（API 密钥与调用时间，元数据）、§一.8（设备与日志字段清单无正文字段）、§一.2 的 AI Studio 素材句（作用域仅 AI Studio，但同节首句已覆盖「模型和API能力」）。已核对页面无 ZDR 档位/开关/申请入口。"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "stepfun-retention-necessary-period"
+
+[[product.retention.point]]
+text_zh = "个人信息按提供服务必需期间保留，注销/超期后删除或匿名化"
+
+[[product.retention.point]]
+text_zh = "无固定天数，API 内容靠 §一.2 纳入个人信息范围。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "stepfun-region-storage-in-china"
+
+[[product.processing_region.point]]
+text_zh = "个人信息存储于中华人民共和国境内，目前不跨境传输"
+
+[[product.processing_region.point]]
+text_zh = "未披露推理处理地域。"
+
+[product.role]
+kind = "controller"
+anchor = "stepfun-role-self-use-authorization"
+
+[[product.role.point]]
+text_zh = "§6.5 自用授权 + §5.4 数据权属 + 隐私政策以自身为个人信息处理者 → independent controller"
+
+[[product.role.point]]
+text_zh = "客户对最终用户个人信息另负处理者义务（§6.2）。"
+
+[[anchor]]
+id = "stepfun-zdr-termination-deletion-period"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "若我们按照适用法律规定终止提供服务，或出现本协议约定的服务终止情形的，"
+exact = "对于您存储在我们服务中的数据等任何信息（如有），在法律法规允许的范围内，我们有权在服务终止后或在我们与您另行约定的保留期限（如有）届满后，删除上述信息"
+suffix = "，请您自行提前保存、迁移相关数据信息。"
+
+[[anchor]]
+id = "stepfun-training-content-license"
+source_id = "8b3e79f1a1e40639"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "免费且无需标注个人身份的、在法律允许范围内合理且最大程度的许可使用（包括但不限于存储、使用、复制、修订、编辑等）的权利，"
+exact = "以为实现本协议目的、提升大模型服务体验进行使用"
+suffix = """
+。**
+
+4. **除非法律另有规定或本协议另有约定，本平台运行过程中所产生的一切数据由我们享有合法权利，未经我们事先同"""
+
+[[anchor]]
+id = "stepfun-platform-data-rights"
+source_id = "8b3e79f1a1e40639"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+订、编辑等）的权利，以为实现本协议目的、提升大模型服务体验进行使用。**
+
+4. **除非法律另有规定或本协议另有约定，"""
+exact = "本平台运行过程中所产生的一切数据由我们享有合法权利"
+suffix = """
+，未经我们事先同意，任何人不得为本协议约定之外的目的获取、使用前述数据，亦不得以任何形式将前述数据提供给他人。**
+
+5"""
+
+[[anchor]]
+id = "stepfun-role-self-use-authorization"
+source_id = "8b3e79f1a1e40639"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+机制，包括告知最终用户如何行使知情、查阅、复制、更正、删除、补充、转移等可适用法律法规要求的各项权利。**
+
+1. **"""
+exact = "您特此授权我们在为您提供服务期间或者为提供、诊断、改善、优化、升级本服务之目的使用、处理您使用本平台服务产生的相关数据"
+suffix = "（如涉及），我们承诺采取相应的合理的安全、保密措施进行保护，如采取脱敏、匿名、假名、加密等技术措施。如遇到履行法定义务、"
+
+[[anchor]]
+id = "stepfun-zdr-content-license-includes-storage"
+source_id = "8b3e79f1a1e40639"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+输出的内容的知识产权及产生的其他财产权益（如有）归属于您或适用法律规定的权利人。**
+
+3. 您理解并且同意，**"""
+exact = "对于您发布上传或传输的内容，您授予我们一项免费且无需标注个人身份的、在法律允许范围内合理且最大程度的许可使用（包括但不限于存储、使用、复制、修订、编辑等）的权利"
+suffix = "，以为实现本协议目的、提升大模型服务体验进行使用。"
+
+[[anchor]]
+id = "stepfun-zdr-log-fields-exclude-content"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "为了维护我们服务的正常运行，保护您或其他用户或公众的合法利益免受损失，您在使用本平台时，我们会收集用户的设备信息与日志信息，包括：**"
+exact = "您的硬件型号、操作系统版本号、设备标识符、IP地址、WLAN接入点（如SSID，BSSID）、基站、软件版本号、网络接入方式、类型、状态、网络质量数据、网络源地址和目标地址、网络源端口、操作时间和操作类型、使用、服务日志、搜索/分享/收藏记录、设备传感器数据（如加速度传感器）、总体使用情况、性能数据"
+suffix = "**。"
+
+[[anchor]]
+id = "stepfun-region-storage-in-china"
+source_id = "7a07e3f7fdc0194d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+息的，无须征得您的同意。**
+
+## 四、我们如何存储个人信息
+
+**1. 存储地点**
+
+**我们依照法律法规的规定，"""
+exact = "将在境内运营过程中收集和产生的您的个人信息存储于中华人民共和国境内"
+suffix = "。目前，我们不会将上述信息传输至境外，如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征"
+
+[[anchor]]
+id = "stepfun-retention-necessary-period"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征求您的同意。**
+
+**2. 存储期限**
+
+**"""
+exact = "我们仅在为提供本平台相关服务之目的所必需的期间内保留您的个人信息"
+suffix = "**，例如：手机号码：当您使用手机号码注册登录时，我们需要持续保留您的手机号码，以便于向您提供正常的服务、应对您可能的查"
+
+[[anchor]]
+id = "stepfun-collect-input-output-as-pi"
+source_id = "7a07e3f7fdc0194d"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "析，以更好地理解您的需求，答复您的问题，生成相关内容，执行您的任务指令，以及便于您对历史对话记录进行管理，我们会收集**"
+exact = "您主动输入的信息"
+suffix = "（包括文字、语音、图片、视频、文本、录音、链接等多种形式）以及服务的输出信息、您的任务指令信息、您设置的模型及参数信息以"
+
+[[anchor]]
+id = "stepfun-api-usage-records"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+个性化推送。
+
+**4. 管理服务使用情况**
+
+为了帮助您管理使用本平台提供的相应服务的情况，我们会记录并向您展示**"""
+exact = "您在StepFun开放平台项下的API接口密钥信息以及创建时间、最近调用时间"
+suffix = "**；**您在本平台的服务订阅、使用记录**。前述信息为帮助您管理服务相关使用情况的必要信息，如您拒绝我们收集相应信息的"
+
+[[anchor]]
+id = "stepfun-ai-studio-material-record"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "有相关性及更高精准度的信息内容、更准确地执行您的任务指令。在您使用 AI Studio服务时，我们还会记录并向您展示**"
+exact = "您上传和模型生成的素材内容"
+suffix = """
+**（如图片、文档、表格、音频、网页），以便您可以查阅、管理及复用过往上传和生成的内容。
+
+前述信息是为向您提供智能对话"""
+
+[[anchor]]
+id = "stepfun-anonymized-commercial-use"
+source_id = "7a07e3f7fdc0194d"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+经合法公开的个人信息；
+
+(6) 法律、行政法规规定的其他情形。
+
+**10. 您个人信息的其他用途**
+
+**(1) """
+exact = "我们通过技术手段对您使用本平台相关服务产生的个人信息进行匿名化处理后"
+suffix = """
+，可能会使用已经匿名化处理的信息，进行数据分析并可能予以商业化的利用。**
+
+**(2) 我们可能会对本平台的使用情况进"""
+
+[[anchor]]
+id = "stepfun-prompt-cache-request-input-cached"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "，而随着对话轮次增加，整个对话过程中的重复内容也会逐渐增多。阶跃星辰为开发者提供了上下文缓存技术，"
+exact = "将每次请求过程中的输入进行缓存"
+suffix = "，当开发者重复请求时，将会自动命中缓存，帮助开发者提升推理速度（在特定场景，推理首字速度最大可提升90%），降低推理成本。"
+
+[[anchor]]
+id = "stepfun-prompt-cache-conversation-array-stored"
+source_id = "57440802de2d7378"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+具体可缓存的信息会包含如下内容：
+
+* **对话信息**："""
+exact = "完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message"
+suffix = """
+。
+
+* **图片信息**：用户消息中包含的图片信息也会进入缓存当中"""
+
+[[anchor]]
+id = "stepfun-prompt-cache-no-manual-purge"
+source_id = "57440802de2d7378"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+### 我是否可以手动清除 Prompt 缓存？
+
+"""
+exact = "目前不提供手动清除缓存的能力"
+suffix = "。您可以通过修改 Prompt 来使请求不命中缓存；"

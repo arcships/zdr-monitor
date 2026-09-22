@@ -1,0 +1,144 @@
+name = "JetBrains AI"
+line = "jetbrains-ai"
+site = "global"
+entity = "JetBrains s.r.o."
+homepage = "https://www.jetbrains.com/ai/"
+doc = "https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html"
+plan_levels = ["free", "individual", "enterprise"]
+
+[[source]]
+url = "https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/"
+channel = "contract"
+tier = "core"
+note = "《JetBrains AI Service Terms》。§c 是训练口径的权威条款：明确承诺不拿 Inputs/Data/Outputs/Suggestions 训练任何语言模型；§i 另外单独允许用匿名化行为数据做产品改进——两者是两件事，别混。"
+
+[[source]]
+url = "https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"
+channel = "developer_data"
+tier = "core"
+
+[[source]]
+url = "https://www.jetbrains.com/legal/docs/privacy/privacy/"
+channel = "consumer_privacy"
+tier = "core"
+
+[[product]]
+id = "hosted"
+badge = "JetBrains AI 云模型"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "jb-tos-no-train-c"
+
+[[product.training.point]]
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+anchor = "jb-detailed-data-opt-in"
+[[product.training.point]]
+text_zh = "完整提示词、回复和代码片段仅在明确选择加入后收集；默认关闭。加入后可用于产品改进和训练，保留 1 年。匿名遥测、运营元数据和事件数据不含源码/提示词且不训练生成模型。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.retention]
+object = "local_request_log"
+basis = "fixed_period"
+anchor = "jb-session-log"
+[[product.retention.point]]
+text_zh = "IDE 本地请求日志仅保留当前 AI Assistant 会话；官方页未给云端请求正文或服务端缓存期限。"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+
+[[product]]
+id = "hosted-free"
+badge = "JetBrains AI Free"
+category = "coding_plan"
+plan_level = "free"
+label = "JetBrains 托管 AI Free 计划；现有官方数据处理页未按 AI 订阅档拆分，故复用同一服务口径（不等同于 Community IDE 许可证）"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "jb-tos-no-train-c"
+
+[[product.training.point]]
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+anchor = "jb-detailed-data-opt-in"
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.retention]
+object = "local_request_log"
+basis = "fixed_period"
+anchor = "jb-session-log"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+
+[[product]]
+id = "hosted-enterprise"
+badge = "JetBrains AI Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "JetBrains 托管 AI 企业档；官方数据处理页未按 AI 订阅档拆分，组织许可仅在公司管理员允许后才可明确同意收集详细代码数据"
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "jb-tos-no-train-c"
+
+[[product.training.point]]
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+anchor = "jb-detailed-data-opt-in"
+[product.zdr]
+mark = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.retention]
+object = "local_request_log"
+basis = "fixed_period"
+anchor = "jb-session-log"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+[product.role]
+kind = "unknown"
+searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+
+[[anchor]]
+id = "jb-tos-no-train-c"
+source_id = "dd4d219598ea29e7"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Suggestions for the training of AI models\n\n"
+exact = "We undertake that We will not use Your Inputs, Data, Outputs, and Suggestions to train any language models that generate code, text, or another type of data from which Your Inputs, Data, Outputs, or Suggestions could be extracted, unless You expressly agree to it."
+suffix = "\n\n### d) Confidentiality"
+
+[[anchor]]
+id = "jb-detailed-data-opt-in"
+source_id = "d4f07d156b832916"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "In addition, JetBrains IDE builds with the AI Assistant plugin perform an opt-in collection of detailed data about AI feature usage, including the full communication between you and the LLM (both text and code fragments)."
+suffix = ""
+[[anchor]]
+id = "jb-session-log"
+source_id = "d4f07d156b832916"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Logs are stored during the current AI Assistant session."
+suffix = ""

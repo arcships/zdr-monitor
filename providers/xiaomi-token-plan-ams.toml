@@ -1,0 +1,394 @@
+name = "小米 Token Plan"
+name_en = "Xiaomi Token Plan"
+company = "xiaomi"
+line = "xiaomi-token-plan-ams"
+site = "ams"
+entity = "Xiaomi Technology Netherlands B.V., Xiaomi Technologies Singapore Pte. Ltd. and its affiliates"
+plan_levels = ["individual"]
+endpoint = ""
+doc = "https://mimo.mi.com/docs/en-US/quick-start/terms/user-agreement"
+
+[[source]]
+url = "https://mimo.mi.com/docs/en-US/quick-start/terms/user-agreement"
+channel = "contract"
+tier = "core"
+note = "《Xiaomi MiMo Service Agreement》英文版（正文自述 updated on July 7, 2026），覆盖中国大陆以外区域的国际站服务，含 API 与 Token Plan 订阅档：§1.1 明确「This Agreement applies to your use of the services outside the territory of the People's Republic of China (PRC)」且运营主体为 Xiaomi Technologies Singapore Pte. Ltd.；§3.13 明文点名 Token Plan（内容仅为不退款/不取消/小米可调整活动规则，不涉数据用途）；第 4 节 Data Protection Terms 是专门面向中国大陆以外区域的委托处理附录（4.1 定义与角色、4.2 目的与使用、4.3 权利义务、4.4 Data Storage、4.5 Security Measures）。本档最重要的两条：§4.1「Xiaomi acts as a Processor…you are the Data Controller」与 §4.4「When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore」。全文无内容使用授权条款（唯一 train 命中是 §4.5 的人员培训），无零保留/ZDR 表述，无量化保留期。"
+
+[[source]]
+url = "https://mimo.mi.com/docs/en-US/terms/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Xiaomi MiMo Privacy Policy》英文版（正文自述 updated on June 25, 2026），即服务协议第 4 节所称的「Xiaomi MiMo Privacy Policy」，主体为 Xiaomi Technology Netherlands B.V. + Xiaomi Technologies Singapore Pte. Ltd.，面向中国大陆以外区域。§3.1 覆盖「the API services or the Xiaomi MiMo Code」（含 prepaid API services）；§10 按居住地分档写明存储地与控制者：EEA/UK/CH 居民的数据存储在荷兰数据中心、可传输至新加坡；非 EEA 居民的数据存储在新加坡数据中心、可传输至荷兰。本档是 ams 条目最具体、且与「欧洲」直接相关的英文政策文本。全文无量化保留期、无 ZDR/零保留、无 DPA 附件。"
+
+[[source]]
+url = "https://privacy.mi.com/XiaomiMiMoPlatformos/zh_CN/"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Xiaomi MiMo 平台隐私条款》中文版（2026-06-25 更新），主体同为 Xiaomi Technology Netherlands B.V. + Xiaomi Technologies Singapore Pte. Ltd.，是海外档的官方中文文本；实测与文档站中文隐私政策 https://mimo.mi.com/docs/zh-CN/terms/privacy-policy 正文逐字相同（去掉 URL 头后 diff=0），同一文档两个 URL。§3.1「小米不会将您提供的内容用于模型训练或任何其他目的。」；§10 荷兰/新加坡数据中心与 EEA 控制者安排（但未按居住地写明「存储于荷兰数据中心」，比英文版弱）；§12 原则上不用于自动化决策。"
+
+[[product]]
+id = "token-plan-europe-cluster"
+badge = "欧洲集群"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "mimo-en-3-1-no-training"
+
+[[product.training.point]]
+text = "Same as top-level training: on the overseas tier, \"Xiaomi will not use the content you provide for model training or any other purposes\", unconditionally (§3.1)"
+text_zh = "同顶层 training：海外档无条件不用于训练（§3.1）"
+
+[[product.training.point]]
+text = "The only purpose-widening opening is the non-personally identifiable information in §3.3 (once aggregated, it may be used to improve the service)."
+text_zh = "唯一用途扩张口子是 §3.3 的非个人身份识别信息（聚合后可用于改进服务）。"
+
+[product.zdr]
+mark = "no"
+anchor = "mimo-en-8-backup-deletion-delay"
+searched = [
+  "https://mimo.mi.com/docs/en-US/quick-start/terms/user-agreement",
+  "https://mimo.mi.com/docs/zh-CN/quick-start/terms/user-agreement",
+  "https://mimo.mi.com/docs/en-US/terms/privacy-policy",
+  "https://mimo.mi.com/docs/zh-CN/terms/privacy-policy",
+  "https://mimo.mi.com/docs/en-US/tokenplan/Token%20Plan/subscription",
+  "https://mimo.mi.com/docs/en-US/price/token-plan",
+  "https://mimo.mi.com/docs/en-US/quick-start/faq/token-plan",
+  "https://mimo.mi.com/docs/en-US/quick-start/terms/transparency",
+  "https://mimo.mi.com/docs/en-US/quick-start/terms/security",
+  "https://mimo.mi.com/docs/en-US/quick-start/terms/privacy",
+  "https://mimo.mi.com/docs/en-US/quick-start/terms/compliance",
+  "https://privacy.mi.com/XiaomiMiMoPlatformos/zh_CN/",
+  "https://privacy.mi.com/XiaomiMiMoPlatformos/dpa/",
+]
+
+[[product.zdr.point]]
+text = "Same as top-level zdr: the official documentation carries no zero-retention commitment and no way to apply for one, and the overseas site publishes no DPA"
+text_zh = "同顶层 zdr：官方文档无零保留承诺或申请方式，海外站无公开 DPA"
+
+[[product.zdr.point]]
+text = "\"Not found\" must not be written up as \"the vendor does not offer it\"."
+text_zh = "不得把「查不到」写成「厂商不提供」。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "mimo-en-6-retention-purpose"
+
+[[product.retention.point]]
+text = "Same as top-level retention: retained \"for the period necessary for the purposes described in this Privacy Policy\" (not quantified), plus cessation of processing or permanent deletion \"within a reasonable period\" after service termination or a user request (Service Agreement §4.4), plus delayed deletion from the backup system"
+text_zh = "同顶层 retention：目的所需期限（未量化）+ 服务终止/用户请求后「合理期限」内删除（服务协议 §4.4）+ 备份延迟删除"
+
+[[product.retention.point]]
+text = "KV cache and access logs are not disclosed"
+text_zh = "KV 缓存、访问日志未披露"
+
+[[product.retention.point]]
+text = "No request-level retention period is committed."
+text_zh = "无请求级期限承诺。"
+
+[product.processing_region]
+codes = ["NL", "SG"]
+anchor = "mimo-en-10-eea-stored-in-nl"
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region: data of EEA/UK/Switzerland residents is stored in data centres located in the Netherlands, and data of non-EEA residents in Singapore"
+text_zh = "同顶层 processing_region：EEA/UK/CH 居民数据存储于荷兰数据中心、非 EEA 居民存储于新加坡"
+
+[[product.processing_region.point]]
+text = "At the contract layer: \"When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore.\""
+text_zh = "合同层承诺「中国大陆以外 → 欧洲和新加坡服务器」"
+
+[[product.processing_region.point]]
+text = "No official statement binds the cluster endpoint (ams) to a storage location."
+text_zh = "集群 endpoint（ams）与存储地之间没有官方明示的绑定关系。"
+
+[product.role]
+kind = "processor"
+anchor = "mimo-sa-4-1-processor-controller"
+
+[[product.role.point]]
+text = "Same as top-level role: at the contract layer the structure is an entrusted one, \"Xiaomi acts as a Processor in data processing activities, and you are the Data Controller\" (Service Agreement §4.1), while the privacy policy identifies Xiaomi as controller in the EEA consumer context; both layers are recorded side by side."
+text_zh = "同顶层 role：合同层为 processor/controller 委托结构（服务协议 §4.1），隐私政策在 EEA 消费者语境下自认 controller，两层并列。"
+
+[[anchor]]
+id = "mimo-sa-4-1-processor-controller"
+source_id = "d7fbf905ffbbafa9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "| Data Breach | a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of, or access to the Personal Data. |"
+exact = "Xiaomi acts as a Processor in data processing activities, and you are the Data Controller."
+suffix = " The data you upload, store, process, download, distribute, or otherwise handle through our services constitutes your business data, over which you retain full control."
+
+[[anchor]]
+id = "mimo-sa-4-4-storage-europe-singapore"
+source_id = "d7fbf905ffbbafa9"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "Upon service expiration, completion of the agreed purpose, or at your request, unless prohibited by laws that Xiaomi must comply with, Xiaomi will cease processing or permanently delete the personal information within a reasonable period."
+exact = "When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore."
+suffix = ""
+
+[[anchor]]
+id = "mimo-sa-4-4-deletion-on-expiry"
+source_id = "d7fbf905ffbbafa9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**4.4 Data Storage**"
+exact = "Xiaomi will cease processing or permanently delete the personal information within a reasonable period."
+suffix = " When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore."
+
+[[anchor]]
+id = "mimo-sa-1-1-data-storage-region"
+source_id = "d7fbf905ffbbafa9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Xiaomi will conduct data processing in compliance with the requirements of applicable laws and regulations."
+exact = "If you wish to select data storage regions or restrict the provision of services in certain regions, you may contact us via the Platform."
+suffix = " You acknowledge and agree that, selecting data storage regions shall be subject to compliance with relevant legal requirements and may incur additional service fees."
+
+[[anchor]]
+id = "mimo-sa-1-1-outside-prc"
+source_id = "d7fbf905ffbbafa9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "may incur additional service fees."
+exact = "This Agreement applies to your use of the services outside the territory of the People's Republic of China (PRC)."
+suffix = " If you access the services within the territory of the PRC, you acknowledge and agree that both parties shall be governed by the relevant service terms applicable to in-PRC services"
+
+[[anchor]]
+id = "mimo-sa-3-13-token-plan-covered"
+source_id = "d7fbf905ffbbafa9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**3.13 "
+exact = "When using the Token Plan , you should carefully read the product description and usage restrictions on the subscription page."
+suffix = " You acknowledge and agree that Token Plan services are non-refundable and non-cancellable upon purchase."
+
+[[anchor]]
+id = "mimo-sa-3-1-neutral-tech-provider"
+source_id = "d7fbf905ffbbafa9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "3.1 "
+exact = "Xiaomi MiMo is only a neutral technical service provider"
+suffix = ", providing you with various technical products and services in accordance with the agreement, and you shall abide by the relevant provisions of this Agreement when using the services of this Open Platform"
+
+[[anchor]]
+id = "mimo-en-3-1-no-training"
+source_id = "c7c4069c38055b9b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "and safeguarding your account by detecting abnormal login activities."
+exact = "Xiaomi will not use the content you provide for model training or any other purposes."
+suffix = " When you use prepaid API services, we will collect your top-up information and transaction records."
+
+[[anchor]]
+id = "mimo-en-3-1-entrusted-processing"
+source_id = "c7c4069c38055b9b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "You are not allowed to upload any audio content that is illegal, non-compliant, or infringes upon the rights of others."
+exact = "You authorize Xiaomi MiMo to process the information you upload on an entrusted basis to provide the service"
+suffix = ", and Xiaomi MiMo does not need to obtain any additional authorization from any other party."
+
+[[anchor]]
+id = "mimo-en-3-1-collect-content-ip"
+source_id = "c7c4069c38055b9b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**Xiaomi MiMo Services** . If you use the API services or the Xiaomi MiMo Code,"
+exact = "we need to collect the content (such as text, images, videos and audio materials) submitted by you, so as to analyze and execute relevant instructions based on the model you select and generate corresponding output content"
+suffix = ". In addition, we will collect your IP address to enhance service security"
+
+[[anchor]]
+id = "mimo-en-6-retention-purpose"
+source_id = "c7c4069c38055b9b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "As a general rule,"
+exact = "we retain personal information for the period necessary for the purposes described in this Privacy Policy, or as required by applicable law"
+suffix = ". We will cease to retain and delete or anonymize personal information once the purpose of collection is fulfilled, or after we confirm your request for erasure"
+
+[[anchor]]
+id = "mimo-en-8-backup-deletion-delay"
+source_id = "c7c4069c38055b9b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Please note that"
+exact = "we may not be able to immediately remove the information from the backup system"
+suffix = " due to applicable law (for instance, when necessary to preserve your personal information for potential claims which may arise out of or in relation to the processing of such personal information) and/or security technology limitations."
+
+[[anchor]]
+id = "mimo-en-3-3-nonpersonal"
+source_id = "c7c4069c38055b9b"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "Such information is called non-personally identifiable information and"
+exact = "we may collect, use, transfer, disclose and otherwise process such non-personally identifiable information"
+suffix = ". Such information may include statistical data generated when you use a specific service, such as interaction records like daily usage events"
+
+[[anchor]]
+id = "mimo-en-4-google-search"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "Online Search."
+exact = "In order to provide you online search, we will provide your query and IP address to Google"
+suffix = " ."
+
+[[anchor]]
+id = "mimo-en-10-regional-hosting-nl-sg"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Xiaomi processes and backs up personal information through a global operating and control infrastructure."
+exact = "Xiaomi uses regional data hosting infrastructure located in the Netherlands and Singapore."
+suffix = " The Xiaomi entity that controls your personal information may differ depending on your place of residence."
+
+[[anchor]]
+id = "mimo-en-10-eea-controller-nl-bv"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "If you reside in the EEA, UK, or Switzerland,"
+exact = "Xiaomi Technology Netherlands B.V. will act as the data controller for the processing activities for which it will determine the purposes and essential means."
+suffix = " The personal information we collect and generate in operations will be stored in data centres located in the Netherlands."
+
+[[anchor]]
+id = "mimo-en-10-eea-stored-in-nl"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "will act as the data controller for the processing activities for which it will determine the purposes and essential means."
+exact = "The personal information we collect and generate in operations will be stored in data centres located in the Netherlands."
+suffix = " We may transfer your personal information to Singapore to support the services described in the Privacy Policy."
+
+[[anchor]]
+id = "mimo-en-10-transfer-to-sg"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "will be stored in data centres located in the Netherlands."
+exact = "We may transfer your personal information to Singapore to support the services described in the Privacy Policy."
+suffix = " When we transfer personal information from the EEA/UK/CH to countries outside the EEA/UK/CH, we rely on relevant legal mechanisms"
+
+[[anchor]]
+id = "mimo-en-10-outside-eea-controller-sg"
+source_id = "c7c4069c38055b9b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "If you reside outside the EEA, UK, or Switzerland, Xiaomi Technologies Singapore Pte. Ltd. will act as the data controller"
+suffix = " for the processing activities for which it will determine the purposes and essential means. The personal information we collect and generate in operations will be stored in data centre located in Singapore."
+
+[[anchor]]
+id = "mimo-os-3-1-no-training"
+source_id = "72f3015146d9e620"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "如果您使用应用程序接口服务，我们将收集您的 IP 地址 and您提交的内容（文本、音频、视频、图片），以根据您选择的模型分析相关指令并生成返回的内容。"
+exact = "小米不会将您提供的内容用于模型训练或任何其他目的"
+suffix = "。当您使用预付费应用程序接口服务时，我们将收集您的充值信息和交易记录。"
+
+[[anchor]]
+id = "mimo-os-3-1-entrusted-processing"
+source_id = "72f3015146d9e620"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "您不得上传任何违法、违规或侵犯他人权益的音频内容。"
+exact = "您授权 Xiaomi MiMo 受托处理您上传的信息以提供该服务"
+suffix = "，且 Xiaomi MiMo 无需从任何其他方获得任何额外的授权。"
+
+[[anchor]]
+id = "mimo-os-3-1-collect-content-ip"
+source_id = "72f3015146d9e620"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如果您使用应用程序接口服务，"
+exact = "我们将收集您的 IP 地址 and您提交的内容（文本、音频、视频、图片）"
+suffix = "，以根据您选择的模型分析相关指令并生成返回的内容。"
+
+[[anchor]]
+id = "mimo-os-6-retention-purpose"
+source_id = "72f3015146d9e620"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "作为一般规则，"
+exact = "我们在本隐私条款所述之目的所需的期限内保留您的个人信息，或按照适用法律的要求保留"
+suffix = "。一旦收集个人信息的目的得以实现，或在我们确认您的删除请求后"
+
+[[anchor]]
+id = "mimo-os-3-3-nonpersonal"
+source_id = "72f3015146d9e620"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "此类信息被称为非个人身份识别信息，"
+exact = "我们可能会收集、使用、传输、披露和以其他方式处理此类非个人身份识别信息"
+suffix = "。此类信息可能包括您使用特定服务时生成的统计数据"
+
+[[anchor]]
+id = "mimo-os-4-google-search"
+source_id = "72f3015146d9e620"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "在线搜索。"
+exact = "为了向您提供在线搜索服务，我们将向谷歌提供您的查询内容和 IP 地址"
+suffix = "。"
+
+[[anchor]]
+id = "mimo-os-10-global-infra"
+source_id = "72f3015146d9e620"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "小米通过全球运营和控制基础设施处理并备份个人信息"
+suffix = "。目前，小米在荷兰和新加坡设有数据中心。"
+
+[[anchor]]
+id = "mimo-os-10-nl-sg-datacenters"
+source_id = "72f3015146d9e620"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "小米通过全球运营和控制基础设施处理并备份个人信息。"
+exact = "目前，小米在荷兰和新加坡设有数据中心"
+suffix = "。为实现本隐私条款所述之目的，您的信息可能会根据适用法律传输到这些数据中心。"
+
+[[anchor]]
+id = "mimo-os-10-eea-controller"
+source_id = "72f3015146d9e620"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "如果您在欧洲经济区（EEA）、英国或瑞士（CH）使用我们的服务，"
+exact = "Xiaomi Technology Netherlands B.V. 将担任数据控制者"
+suffix = "，而 Xiaomi Technologies Singapore Pte. Ltd. 将负责处理您的部分个人信息。"

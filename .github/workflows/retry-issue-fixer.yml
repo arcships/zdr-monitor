@@ -1,0 +1,46 @@
+name: 重试停滞的 DimCode 任务
+
+on:
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: read
+
+concurrency:
+  group: retry-dim-issues
+  cancel-in-progress: false
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 重新派发没有 PR 的旧任务
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cutoff="$(date -u -d '1 hour ago' +%s)"
+          count=0
+          while IFS=$'\t' read -r number created title; do
+            [ -n "$number" ] || continue
+            created_epoch="$(date -u -d "$created" +%s)"
+            [ "$created_epoch" -le "$cutoff" ] || continue
+            case "$title" in
+              "[document-changed]"*|"[anchor-lost]"*|"[unreachable]"*) ;;
+              *) continue ;;
+            esac
+            if [ "$(gh pr list --repo "$REPO" --state all --head "dim/issue-$number" --json number --jq length)" -gt 0 ]; then
+              continue
+            fi
+            gh api --method POST "repos/$REPO/dispatches" \
+              -f event_type=policy-review -F "client_payload[issue_number]=$number"
+            count=$((count + 1))
+            [ "$count" -ge 3 ] && break
+          done < <(gh issue list --repo "$REPO" --state open --label automation --label dim:ready \
+            --limit 1000 --json number,createdAt,title --jq '.[] | [.number, .createdAt, .title] | @tsv')
+          echo "重新派发 $count 条"

@@ -1,0 +1,475 @@
+name = "OpenAI"
+line = "openai"
+site = "global"
+entity = "OpenAI OpCo, LLC / OpenAI Ireland Ltd."
+endpoint = ""
+doc = "https://developers.openai.com/api/docs/guides/your-data"
+
+[[source]]
+url = "https://developers.openai.com/api/docs/guides/your-data"
+channel = "developer_data"
+tier = "core"
+note = "API 档(developers 文档,Published 2026-09-20)。本轮重抓正文与缓存逐字一致(29587B),覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。不覆盖 ChatGPT/Codex 消费档"
+
+[[source]]
+url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Services for businesses」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。本轮重抓(7004B,仅页脚差异)确认正文未变。对 API 档无权威性"
+
+[[source]]
+url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Data Usage for Consumer Services FAQ(Updated last month),自述覆盖「OpenAI’s non-API consumer services like ChatGPT」。本轮新发现(经 5722486 的相关文章链接)。含消费档训练默认、清空历史 30 天删除、以及「内容存储在美国和世界各地」——消费档 processing_region 的直接文本来源"
+
+[[source]]
+url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Data Controls FAQ(Updated 5 days ago)。现行正文含专节「How do I turn off training for Codex tasks?」,Codex 训练开关与全环境独立设置都还在;另含临时会话 30 天删除。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
+
+[[source]]
+url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性"
+
+[[source]]
+url = "https://openai.com/policies/data-processing-addendum/"
+channel = "contract"
+tier = "core"
+note = "API/企业档合同层角色条款。Effective 2026-01-01,补充并并入 OpenAI Services Agreement(business-terms §5.3 引用)。候选列表里没有,本轮重抓确认在线(19079B)后作为 role 权威。注意 openai.com 直连 403,且本机 r.jina.ai 被 Clash fake-ip 劫持需 --resolve 绕过"
+
+[[source]]
+url = "https://openai.com/policies/row-privacy-policy/"
+channel = "consumer_privacy"
+tier = "core"
+note = "消费档隐私政策(Rest of World)。覆盖消费档 role(§11 Data controller:EEA/瑞士=OpenAI Ireland Limited,其他=OpenAI OpCo, LLC)与 processing_region(服务器位于多法域含美国)。正文明确「does not apply to content that we process on behalf of customers of our business offerings, such as our API」,因此不能当 API 档证据"
+
+[[source]]
+url = "https://openai.com/policies/row-terms-of-use/"
+channel = "contract"
+tier = "core"
+note = "消费档 Terms of Use 的 Rest-of-World 版本(Effective 2026-01-01),与 /policies/terms-of-use/ 正文逐字一致(仅 URL Source 行不同)。覆盖 ChatGPT/Codex 消费订阅:缔约方 OpenAI OpCo, LLC + 训练 opt-out 条款。EEA/瑞士/英国另适用 /policies/eu-terms-of-use/"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "openai-api-training-not-used"
+mode = "default"
+
+[[product.training.point]]
+text = "By default \"data sent to the OpenAI API is not used to train or improve OpenAI models\", unless you explicitly opt in to share data"
+text_zh = "默认不用于训练或改进模型,除非显式 opt-in 共享数据"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "openai-api-zdr-approval"
+
+[[product.zdr.point]]
+text = "By application: these controls are subject to prior approval by OpenAI and acceptance of additional requirements, are available at organization or project level, and do not apply to some endpoints"
+text_zh = "申请制(事先批准+附加要求),组织级/项目级可选,部分端点不适用"
+
+[product.retention]
+days = 30
+object = "logs"
+basis = "fixed_period"
+anchor = "openai-api-retention-abuse-30d"
+
+[[product.retention.point]]
+text = "Abuse monitoring logs are retained for up to 30 days by default"
+text_zh = "滥用监测日志默认最多 30 天"
+
+[[product.retention.point]]
+text = "Application state follows separate per-endpoint rules such as 30 days, 48 hours and 24 hours"
+text_zh = "应用状态按端点另有 30 天/48 小时/24 小时等规则"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-api-region-storage"
+
+[[product.processing_region.point]]
+text = "No residency by default; project-level regional storage can be configured, in which case customer content for that project is stored at rest in the selected region and in some regions inference is performed in the selected region as well; regions outside the US require additional approval"
+text_zh = "默认无驻留;可配置项目级区域存储,部分区域支持就地推理;非美国区域需额外审批"
+
+[product.role]
+kind = "processor"
+anchor = "openai-api-role-dpa-processor"
+
+[[product.role.point]]
+text = "DPA §1.1: \"OpenAI acts as a Data Processor on the Customer’s behalf\""
+text_zh = "DPA §1.1:OpenAI 为 Data Processor"
+
+[[product]]
+id = "consumer"
+badge = "消费端"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "openai-consumer-training-may-train"
+mode = "opt_out"
+
+[[product.training.point]]
+text = "May be used for training by default (opt-out structure): \"When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models\""
+text_zh = "默认可用于训练(opt-out 结构):个人服务(ChatGPT 与 Codex)可能用你的内容训练模型"
+
+[[product.training.point]]
+text = "To opt out, turn off \"Improve the model for everyone\" in ChatGPT under Settings → Data Controls, or choose \"Do not train on my content\" in the privacy portal; either one is enough, and it applies to both ChatGPT conversations and Codex tasks"
+text_zh = "退出方式为 ChatGPT Settings → Data Controls 关掉「Improve the model for everyone」或在隐私门户选「Do not train on my content」,任一即可,对 ChatGPT 对话与 Codex 任务同时生效"
+
+[[product.training.point]]
+text = "Codex has separate controls for allowing training on full environments, managed in Codex Settings, and changing the ChatGPT-side setting does not affect them. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
+text_zh = "Codex 全环境(full environments)训练是独立开关,在 Codex Settings 里,改 ChatGPT 侧设置不影响它。退出后仅对新内容生效,不回溯。即使退出,主动点赞/点踩所关联的整段对话仍可能被用于训练"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance",
+  "https://help.openai.com/en/articles/7730893-data-controls-faq",
+  "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained",
+  "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq",
+  "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan",
+  "https://openai.com/policies/row-terms-of-use/",
+  "https://openai.com/policies/terms-of-use/",
+  "https://openai.com/policies/row-privacy-policy/",
+  "https://openai.com/policies/privacy-policy/",
+  "https://openai.com/enterprise-privacy/",
+  "https://openai.com/index/offering-zero-data-retention-for-frontier-models/",
+  "https://developers.openai.com/api/docs/guides/your-data",
+]
+
+[[product.zdr.point]]
+text = "Removed anchor: the cited clause (\"Currently, these controls are subject to prior approval by OpenAI and acceptance of additional requirements\") describes how the API-side ZDR/MAM controls are obtained. It is a statement about the API tier, not about the consumer tier, so it is not a statement on this verdict's dimension and has been unbound; it remains the anchor for the API tier's zdr. Search scope is recorded in searched."
+text_zh = "已撤锚：原引句「Currently, these controls are subject to prior approval by OpenAI and acceptance of additional requirements」说的是 API 侧 ZDR/MAM 控制项的取得方式，是对 API 档的表述，不构成对消费档 zdr 的表述，故撤锚；该句仍是 API 档 zdr 的锚点。查阅范围见 searched。"
+
+[[product.zdr.point]]
+text = "No ZDR commitment exists for the consumer tier, and the official texts confine ZDR to the API enterprise side: the ZDR blog post opens with \"Zero Data Retention gives eligible API customers a clear promise\", your-data defines ZDR/MAM as API organization- and project-level controls subject to prior approval by OpenAI, and neither the consumer help center nor the Terms of Use and Privacy Policy contains any zero-retention statement addressed to individual subscriptions. This is \"the vendor provides no commitment for this tier\", not \"no evidence could be obtained\""
+text_zh = "消费档不存在 ZDR 承诺,且官方文本把 ZDR 限定在 API 企业侧:ZDR 博客开篇即「Zero Data Retention gives eligible API customers a clear promise」,your-data 把 ZDR/MAM 定义为需 OpenAI 事先批准的 API 组织级/项目级控制项,消费档帮助中心与 ToU/隐私政策全文均无面向个人订阅的零保留表述。属于「厂商未提供该档位承诺」,非「拿不到证据」"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "openai-consumer-retention-chats"
+
+[[product.retention.point]]
+text = "No fixed cap: regular and archived chats remain saved to the account until the user deletes them (or until a workspace retention policy applies)"
+text_zh = "无固定上限:常规/归档对话保存至用户删除(或工作区留存策略生效)"
+
+[[product.retention.point]]
+text = "Once deleted, OpenAI schedules the content for permanent deletion from its systems within 30 days, except where it has been de-identified and disassociated from the account, or where security or legal obligations require keeping it longer. Temporary Chats are deleted from OpenAI's systems after 30 days (for safety purposes) and are not used for training"
+text_zh = "删除后 OpenAI 在 30 天内从系统永久删除,例外是已去标识化并脱离账号,或安全/法律需要更久。临时对话最多保留 30 天(安全目的)且不用于训练"
+
+[[product.retention.point]]
+text = "GPT knowledge files are kept until the GPT is deleted and project files until the project or the file is deleted; once deleted they are likewise permanently deleted within 30 days"
+text_zh = "GPT 知识文件保留至 GPT 删除,project 文件保留至项目/文件删除,删除后同样 30 天内永久删除"
+
+[product.processing_region]
+codes = ["GLOBAL"]
+anchor = "openai-consumer-region-storage"
+
+[[product.processing_region.point]]
+text = "The consumer tier carries no regional residency commitment; data is processed and stored across multiple jurisdictions and expressly includes the US: \"Content is stored on OpenAI systems and our trusted service providers’ systems in the US and around the world\""
+text_zh = "消费档无区域驻留承诺,数据在多法域处理/存储且明确包含美国:「Content is stored on OpenAI systems and our trusted service providers’ systems in the US and around the world」"
+
+[[product.processing_region.point]]
+text = "The Privacy Policy says the same (servers located in various jurisdictions, including US facilities and the locations of affiliates, partners and service providers), and cross-border transfers are made only under lawful transfer mechanisms. The determination rests on the wording of the terms, not on the place of incorporation. confidence=medium because this is a help center FAQ rather than a contractual clause"
+text_zh = "隐私政策同口径(服务器位于多法域,含美国设施及关联方/合作伙伴/供应商所在地),跨境仅在合法传输机制下进行。判定基于条款表述,非注册地。confidence=medium 是因为这是帮助中心 FAQ 而非合同条款"
+
+[product.role]
+kind = "controller"
+anchor = "openai-consumer-role-controller-row"
+
+[[product.role.point]]
+text = "On the consumer tier OpenAI is the data controller: Privacy Policy §11 designates it by place of residence (EEA/Switzerland = OpenAI Ireland Limited; anywhere else = OpenAI OpCo, LLC), and the contracting party is OpenAI OpCo, LLC (Terms of Use). This is the opposite of the processor role on the API tier, and is recorded faithfully per tier"
+text_zh = "消费档 OpenAI 为数据控制者:隐私政策 §11 按居住地指定(EEA/瑞士=OpenAI Ireland Limited;其他=OpenAI OpCo, LLC),缔约主体为 OpenAI OpCo, LLC(ToU)。与 API 档的 processor 角色相反,分档如实记录"
+
+[[anchor]]
+id = "openai-api-training-not-used"
+source_id = "2aca780af5aa59ce"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+n control it.
+
+Your data is your data. As of March 1, 2023, """
+exact = "data sent to the OpenAI API is not used to train or improve OpenAI models"
+suffix = """
+ (unless you explicitly opt in to share data with us).
+
+When"""
+
+[[anchor]]
+id = "openai-api-retention-abuse-30d"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "t customer content, such as classifier outputs. By default, "
+exact = "abuse monitoring logs are generated for all API feature usage and retained for up to 30 days"
+suffix = ", unless longer retention is required by law, or is reasonab"
+
+[[anchor]]
+id = "openai-api-zdr-approval"
+source_id = "2aca780af5aa59ce"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "/docs/guides/your-data#modified-abuse-monitoring) controls. "
+exact = "Currently, these controls are subject to prior approval by OpenAI and acceptance of additional requirements"
+suffix = ". Approved customers may select between Modified Abuse Monit"
+
+[[anchor]]
+id = "openai-api-region-storage"
+source_id = "2aca780af5aa59ce"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "he supported endpoints, models, and snapshots listed below, "
+exact = "your customer content (as defined in your services agreement) for that project will be stored at rest in the selected region"
+suffix = " to the extent the endpoint requires data persistence to fun"
+
+[[anchor]]
+id = "openai-api-region-processing"
+source_id = "2aca780af5aa59ce"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "orts regional processing, as specifically identified below, "
+exact = "the services will perform inference for your Customer Content in the selected region as well"
+suffix = """
+.
+
+Data residency does not apply to system data, which may b"""
+
+[[anchor]]
+id = "openai-api-role-dpa-processor"
+source_id = "f22729d5797dc763"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "nt, OpenAI may Process Customer Data on behalf of Customer. "
+exact = "OpenAI acts as a Data Processor on the Customer’s behalf"
+suffix = """
+, and this DPA governs such Processing.
+
+*   1.2 Details of """
+
+[[anchor]]
+id = "openai-api-role-dpa-scope"
+source_id = "f22729d5797dc763"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+o this Agreement.
+
+## 1. Details.
+
+*   1.1 Scope and Roles. """
+exact = "As part of providing the Services to the Customer under the Agreement, OpenAI may Process Customer Data on behalf of Customer"
+suffix = ". OpenAI acts as a Data Processor on the Customer’s behalf, "
+
+[[anchor]]
+id = "openai-consumer-training-may-train"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+).
+
+## Services for individuals, such as ChatGPT and Codex
+
+"""
+exact = "When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models"
+suffix = """
+.
+
+To opt out of model training, you can turn off “Improve t"""
+
+[[anchor]]
+id = "openai-consumer-training-optout"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+PT and Codex, we may use your content to train our models.
+
+"""
+exact = "To opt out of model training, you can turn off “Improve the model for everyone” in ChatGPT under Settings"
+suffix = " → Data Controls, or select “Do not train on my content” in "
+
+[[anchor]]
+id = "openai-consumer-codex-fullenv-setting"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+se or create memories, or be used to train our models.  
+  
+"""
+exact = "Codex has separate controls for allowing training on full environments, which you can manage in the"
+suffix = " [Codex Settings](https://chatgpt.com/codex/settings/general"
+
+[[anchor]]
+id = "openai-consumer-codex-optout-applies"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+odex tasks?**
+
+If you use Codex on a personal ChatGPT plan, """
+exact = "the “Improve the model for everyone” setting also applies to your Codex tasks"
+suffix = ". Turn it off in ChatGPT under Settings → Data Controls, or "
+
+[[anchor]]
+id = "openai-consumer-temp-chat-30d"
+source_id = "c5bdc32bca931e70"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+which device you’re using.
+
+## What about Temporary Chats?
+
+"""
+exact = "Temporary Chats are deleted from our systems after 30 days"
+suffix = """
+. These chats:
+
+*   Aren’t used to train our models
+
+*   May"""
+
+[[anchor]]
+id = "openai-consumer-retention-chats"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+emporary chats follow different retention rules.
+
+## Chats
+
+"""
+exact = "Regular and archived chats remain saved to your account until you delete them"
+suffix = """
+ or an applicable workspace retention policy removes them.
+
+"""
+
+[[anchor]]
+id = "openai-consumer-retention-delete-30d"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ChatGPT removes it from your account view immediately.
+
+*   """
+exact = "OpenAI schedules it for permanent deletion from its systems within 30 days"
+suffix = ", unless the chat was already de-identified and disassociate"
+
+[[anchor]]
+id = "openai-consumer-region-storage"
+source_id = "e4f259dc140404cb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+cy/) for more information.
+
+## Where is my content stored?
+
+"""
+exact = "Content is stored on OpenAI systems and our trusted service providers’ systems in the US and around the world"
+suffix = ". We may also send select portions of content to trusted ser"
+
+[[anchor]]
+id = "openai-consumer-training-may-use"
+source_id = "e4f259dc140404cb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+# Does OpenAI use my content to improve model performance?
+
+"""
+exact = "We may use content submitted to ChatGPT and our other services for individuals to improve model performance"
+suffix = ". For example, depending on a user’s settings, we may use th"
+
+[[anchor]]
+id = "openai-consumer-retention-cleared-30d"
+source_id = "e4f259dc140404cb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "rom your chat history or clear all of your history at once. "
+exact = "Cleared chats are deleted from our systems within 30 days"
+suffix = ", unless they have previously been de-identified and disasso"
+
+[[anchor]]
+id = "openai-consumer-tou-optout"
+source_id = "e15662ab40ef8601"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+/articles/9737562)for how we handle your Content.
+
+Opt out. """
+exact = "If you do not want us to use your Content to train our models, you can opt out by following the instructions in"
+suffix = " [this article⁠](https://openai.com/policies/how-your-data-i"
+
+[[anchor]]
+id = "openai-consumer-tou-party"
+source_id = "e15662ab40ef8601"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "tware applications and websites (all together, “Services”). "
+exact = "These Terms form an agreement between you and OpenAI OpCo, LLC, a Delaware company"
+suffix = ", and they include our [Service Terms⁠⁠](https://openai.com/"
+
+[[anchor]]
+id = "openai-consumer-role-controller-row"
+source_id = "a8188f08c1fe45bb"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+cessing of your Personal Data as described in this policy.
+
+"""
+exact = "If you live anywhere else, OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States, is the controller"
+suffix = " and is responsible for the processing of your Personal Data"
+
+[[anchor]]
+id = "openai-consumer-region-various"
+source_id = "a8188f08c1fe45bb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+842364-how-chatgpt-and-our-language-models-are-developed).
+
+"""
+exact = "OpenAI processes your Personal Data for the purposes described in this policy on servers located in various jurisdictions"
+suffix = ", including processing and storing your Personal Data in our"

@@ -1,0 +1,512 @@
+name = "Hugging Face"
+line = "huggingface"
+site = "global"
+entity = "Hugging Face, Inc."
+endpoint = ""
+doc = "https://huggingface.co/terms-of-service"
+
+[[source]]
+url = "https://raw.githubusercontent.com/huggingface/hub-docs/main/docs/hub/security.md"
+channel = "developer_data"
+tier = "core"
+note = "Hub 安全文档,role 维度依据:HF 自认 GDPR compliant,并写明 DPA / BAA 只能通过 Enterprise Plan 取得。适用于全站(含 Hub 与各档),但只讲「能不能签 DPA」,不讲推理内容的具体处理。**抓取通道**:r.jina.ai 对 huggingface.co 整域匿名封禁(40305 abuse,与页面无关),改绑该页面的官方源文件——HF 官方仓库 huggingface/hub-docs 的同名 Markdown(与渲染页逐字一致)。"
+
+[[source]]
+url = "https://raw.githubusercontent.com/huggingface/hub-docs/main/docs/hub/storage-regions.md"
+channel = "developer_data"
+tier = "core"
+note = "Storage Regions 文档,处理地维度的补充依据:非 Team/Enterprise 用户仓库恒在美国;Team/Enterprise 可选 US / EU(APAC、GCC 标注 coming soon),EU 区域覆盖 datasets / models / buckets / inference endpoints。讲的是「仓库与推理端点的存储地」,不是请求路由路径上的处理地。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁,改绑 HF 官方仓库 huggingface/hub-docs 的同名 Markdown。"
+
+[[source]]
+url = "https://raw.githubusercontent.com/huggingface/hf-endpoints-documentation/main/docs/source/guides/security.md"
+channel = "developer_data"
+tier = "core"
+note = "Inference Endpoints(HF 自有托管专用实例档)的安全页,与 Inference Providers 是**不同档位、不同承诺**:不存储「payloads or tokens」、日志存 30 天、GDPR DPA 需 Enterprise Hub 订阅。此页不适用于 Inference Providers 路由档,反之亦然。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁,改绑 HF 官方仓库 huggingface/hf-endpoints-documentation 的同名 Markdown。"
+
+[[source]]
+url = "https://raw.githubusercontent.com/huggingface/hf-endpoints-documentation/main/docs/source/support/faq.md"
+channel = "developer_data"
+tier = "core"
+note = "Inference Endpoints FAQ,处理地维度的权威依据:明确列出可部署区域(AWS us-east-1 / eu-west-1、Azure eastus、GCP us-east4),并说明 Inference Providers 与 Inference Endpoints 的区别。只覆盖 Inference Endpoints 档。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁,改绑 HF 官方仓库 huggingface/hf-endpoints-documentation 的同名 Markdown。"
+
+[[source]]
+url = "https://huggingface.co/docs/inference-providers/security"
+channel = "developer_data"
+tier = "core"
+note = "Inference Providers(路由聚合档)的官方安全与合规页,是 training / retention / zdr 三条在 HF 自身这一跳的权威依据。两句话限定范围:①「Hugging Face does not store any user data for training purposes」;②「We do not store the request body or response when routing requests through Hugging Face」——注意后半句的限定语「when routing requests through Hugging Face」,即只覆盖经 HF 路由的请求,不覆盖上游 provider 收到之后的处理;③日志「up to 30 days」。页面明确把上游的数据处理推给各 provider 自己的政策,且不给链接。"
+
+[[source]]
+url = "https://huggingface.co/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Hugging Face 隐私政策(生效日 2023-03-28,页面自述「Effective Date: March 28, 2023」)。平台级隐私政策,覆盖全部 Services。§4.B Data retention(目的所需期限)、§6 LOCATION OF PROCESSING(公司及服务器在美国、可能在美国以外处理)、§10 第三方服务商清单(含地点列)。**注意**:此政策不区分推理请求内容与账号信息,也没有任何请求级保留期限,故 retention 维度的主依据仍是 docs 的 security 页;此页是处理地与 role 的依据。"
+
+[[source]]
+url = "https://hf.co/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Hugging Face 全站用户协议(General Terms,页面无版本日期;定义节把 Inference Providers 明确列为「Services」之一)。平台层合同:§Your Account 的注销删除 90 天上限、§Intellectual Property 的「aggregate / anonymize / learn from 使用数据以改进服务」、§Subcontracting 的分包责任、§Your Content 的内容许可。覆盖 Hub + Inference Providers + Inference Endpoints 全部档位;但条款本身不区分推理请求内容与其他内容,故只作为合同层的通用依据,推理档的具体承诺以 docs 的 security 页为准。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁(40305 abuse),改绑 HF 官方短域 hf.co 的同一页面(逐字一致,锚点原样命中);若该域日后同样被封,需另寻官方来源。"
+
+[[product]]
+id = "api"
+badge = "路由聚合"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "huggingface-ip-security-no-training"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "同顶层 training。补充链路读法:本档结论**只覆盖 HF 路由这一跳**。上游各跳已核实到的事实(仅作跳级证据,详见 notes 与各来源):Groq 协议 §4.2 明文禁止用 Inputs/Outputs 训练"
+
+[[product.training.point]]
+text_zh = "Together、Fireworks、DeepInfra、Cerebras、Novita、Featherless 各自有不用输入输出训练或默认不落盘的官方表述"
+
+[[product.training.point]]
+text_zh = "Replicate、Baseten、fal.ai 的隐私政策**未见**该承诺(记为未披露,不得反向解读为会训练)。因为路由默认是 :fastest 自动选 provider(也可 :cheapest/:preferred 或显式指定),同一条链路在不同配置下会落到不同上游,所以「HF 这一跳为是 + 上游某跳未披露」时,按判定口径**全链为否**(保守假设)。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "huggingface-ip-security-no-body-retention"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr:路由层默认不存 payload,但无名为 ZDR 的方案/开关"
+
+[[product.zdr.point]]
+text_zh = "上游各自可申请(如 Groq 的 zero data retention setting、Together 的 ZDR 设置),不自动证明能在同一配置下同时开通。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "huggingface-ip-security-logs-30d"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention。对象:推理输入输出正文(不存)/ 调试日志(上限 30 天)/ HF 账号内容(注销后 90 天内尽力删除,法务与备份例外)。上游保留期不在本档承诺内。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "huggingface-privacy-servers-us"
+
+[[product.processing_region.point]]
+text_zh = "本档的处理地是**未充分披露**的一项:HF 未说明路由请求在哪个区域被处理,也未披露任一上游 provider 的处理地。只有隐私政策 §6 的平台级表述(美国为主、可能其他国家)。低置信度。"
+
+[product.role]
+kind = "controller"
+anchor = "huggingface-hub-security-dpa-baa"
+
+[[product.role.point]]
+text_zh = "「Routed by Hugging Face」模式下 HF 是签约与收款方(计费文档原文「Your request routes through HF to the provider」/「Pay-as-you-go on your HF account」),「Custom Provider Key」模式下「Billed directly by the provider」,用户与上游直接建立计费关系。HF 在路由页声明外部 provider 自负其安全责任"
+
+[[product.role.point]]
+text_zh = "DPA/BAA 只在 Enterprise 档提供且文本不公开。"
+
+[[product]]
+id = "dedicated_endpoints"
+badge = "专属部署"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "huggingface-ie-security-no-customer-data"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "原句「Hugging Face does not store any customer data in terms of payloads or tokens that are passed to the Inference Endpoint.」——连 payload 与 token 都不存,故本档不存在用请求内容训练 HF 模型的事实基础"
+
+[[product.training.point]]
+text_zh = "但条款是「不存储」表述,没有「不训练」的直陈,故置信度 medium。本档由 HF 自有基础设施承载,不存在上游 provider 跳。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "huggingface-ie-security-gdpr-dpa"
+
+[[product.zdr.point]]
+text_zh = "本档默认不存 payload/token,且可经 Enterprise Hub 订阅取得 GDPR DPA(原句)。仍无名为 ZDR 的方案或开关"
+
+[[product.zdr.point]]
+text_zh = "DPA 文本不公开。"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "huggingface-ie-security-logs-30d"
+
+[[product.retention.point]]
+text_zh = "对象:payload 与 token(不存)/ 日志(「We are storing logs for 30 days.」,固定 30 天表述,按上限记)。语境:默认。本档不涉及第三方上游。"
+
+[product.processing_region]
+codes = ["US", "IE", "selected"]
+anchor = "huggingface-ie-faq-regions"
+
+[[product.processing_region.point]]
+text_zh = "FAQ 原文列出四个区域"
+
+[[product.processing_region.point]]
+text_zh = "另 /docs/hub/storage-regions 称 Team/Enterprise 的 EU 区域覆盖 inference endpoints。部署地可选,是 HF 各档里处理地披露最清楚的一档。"
+
+[product.role]
+kind = "processor"
+anchor = "huggingface-ie-security-gdpr-dpa"
+
+[[product.role.point]]
+text_zh = "本档是 HF 自有托管基础设施(FAQ:「Inference Endpoints is a service for you to deploy your models on managed infrastructure.」),无第三方上游跳"
+
+[[product.role.point]]
+text_zh = "GDPR DPA 经 Enterprise Hub 订阅提供,即按合同作为受托处理者。DPA 文本不公开。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "no"
+searched = [
+  "https://huggingface.co/docs/hub/enterprise",
+  "https://huggingface.co/enterprise",
+  "https://huggingface.co/pricing",
+  "https://huggingface.co/docs/hub/security",
+  "https://huggingface.co/docs/hub/storage-regions",
+  "https://huggingface.co/terms-of-service",
+  "https://huggingface.co/privacy",
+]
+anchor = "huggingface-tos-learn-from-usage"
+
+[[product.training.point]]
+text_zh = "结论：本档（Team & Enterprise Hub 订阅）没有「不用你的内容训练」的承诺，公开文本只给出方向相反的两条，故记 not_found。(a) 已核范围：/docs/hub/enterprise（订阅功能与配额对照表）、/enterprise、/pricing、/docs/hub/security、/docs/hub/storage-regions 五页全文均无训练相关表述——这正是本档与两个推理档的差别：推理档各有一页明写不存不训（/docs/inference-providers/security、/docs/inference-endpoints/guides/security），Hub 订阅档没有对应页面。(b) 回落到通用条款后，方向反而在保留权利的一侧：《用户协议》§Intellectual Property「In addition and subject to our Privacy Policy, we may aggregate, anonymize, or otherwise learn from data relating to your use of the Services, and use the foregoing to improve those Services.」——对象是「使用数据」而非仓库内容，但确实是一条「可从中学习以改进服务」的授权。(c) 另一侧的限制：同协议 §Your Content 先写「You own the Content you create! We will not sell your Content, nor will we use it in any other way as permitted under these Terms.」，授出的许可限于「to provide Services and as otherwise permitted under these Terms and our Privacy Policy」——内容的使用被限定在提供服务的范围内，但全文没有把「不用于训练」写成明文承诺，也没有开关或退出机制。(d) 为什么不套用推理档结论：那两条承诺各自带限定语（「when routing requests through Hugging Face」「passed to the Inference Endpoint」），对象是推理请求正文"
+
+[[product.training.point]]
+text_zh = "本档的对象是 Hub 上的仓库、数据集与模型。(e) 记 not_found 不等于 HF 会拿企业版仓库内容训练：Enterprise 可签的 DPA/BAA 文本不公开（/docs/hub/security 只写可按 Enterprise Plan 提供），其中是否另有「不训练」约定无法核对。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://huggingface.co/enterprise",
+  "https://huggingface.co/pricing",
+  "https://huggingface.co/docs/hub/enterprise",
+  "https://huggingface.co/docs/hub/enterprise-hub",
+  "https://huggingface.co/docs/hub/security",
+  "https://huggingface.co/docs/hub/storage-regions",
+  "https://huggingface.co/docs/inference-endpoints/guides/security",
+  "https://huggingface.co/privacy",
+  "https://huggingface.co/terms-of-service",
+]
+
+[[product.zdr.point]]
+text_zh = "Enterprise 档的公开页面只承诺「可提供 GDPR DPA / BAA」与「存储区域可选」,**没有**任何零保留(ZDR)承诺、开关或申请方式的表述。按规则记 not_found:公开材料未披露 ≠ 厂商不提供,不得反向解读。"
+
+[product.retention]
+days = 90
+object = "mixed"
+basis = "fixed_period"
+anchor = "huggingface-tos-delete-90-days"
+
+[[product.retention.point]]
+text_zh = "结论：本档没有请求级保留期，唯一量化的数字是注销之后的删除上限。对象与语境分三层：(1) **账号信息与自有仓库内容**——《用户协议》§Your Account「Upon cancellation of your Account, we will use commercially reasonable efforts to delete your information and Content of your own Repositories, whether public or private, within 90 days.」：对象含私有仓库内容，语境是注销之后，期限类型是上限，且以「commercially reasonable efforts」为限，不是硬承诺。(2) **例外**——同节紧接「We also reserve the right to retain your information for legal or regulatory compliance, pursuant to standard archiving, recovery, and back-up processes and practices」：法务合规与备份留存不受 90 天约束。(3) **订阅存续期间**——《隐私政策》§4.B「We retain your Information for as long as necessary to deliver the Services, to comply with any applicable legal requirements, to maintain security and prevent incidents and, in general, to pursue our legitimate interests.」：未量化的「目的必需」口径"
+
+[[product.retention.point]]
+text_zh = "Hub 本身就是托管产品，内容在订阅期内持续保留是产品前提。边界：不要把推理档的「正文不存、日志 30 天」搬到本行——那两条的限定语分别是「when routing requests through Hugging Face」与「passed to the Inference Endpoint」，对象是推理请求正文，本档的对象是仓库与账号数据。不确定性：Enterprise 可签的 DPA 文本不公开，其中是否约定更短的删除期限或审计权无法核对"
+
+[[product.retention.point]]
+text_zh = "本档也没有任何缓存或日志的单独保留窗口说明。"
+
+[product.processing_region]
+codes = ["US", "EU", "selected"]
+anchor = "huggingface-storage-regions-eu"
+
+[[product.processing_region.point]]
+text_zh = "原句「For EU companies, you can use the Hub for ML development in a GDPR-compliant manner, with datasets, models, buckets and inference endpoints all stored in EU data centers.」"
+
+[[product.processing_region.point]]
+text_zh = "APAC 与 GCC(KSA)标注 coming soon。"
+
+[product.role]
+kind = "processor"
+anchor = "huggingface-hub-security-dpa-baa"
+
+[[product.role.point]]
+text_zh = "「Hugging Face can also offer Business Associate Addendums or GDPR data processing agreements through an [Enterprise Plan]」——DPA/BAA 按合同提供"
+
+[[product.role.point]]
+text_zh = "文本不公开,无法核对具体条款(保留期、子处理者、审计权)。"
+
+[[anchor]]
+id = "huggingface-tos-delete-90-days"
+source_id = "610b42c56433bf2b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ cause, and at our own discretion, with or without notice.
+
+"""
+exact = "Upon cancellation of your Account, we will use commercially **reasonable efforts to delete** your information and Content of your own Repositories, whether public or private, within 90 days."
+suffix = " We will **not delete the Content that you contributed** to "
+
+[[anchor]]
+id = "huggingface-tos-retain-for-legal"
+source_id = "610b42c56433bf2b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ Users' Repositories, or copies made by us or other Users.
+
+"""
+exact = "We also reserve the **right to retain****your information** for legal or regulatory compliance, pursuant to standard archiving, recovery, and back-up processes and practices, and pursuant to our Privacy Policy."
+suffix = """
+
+
+For **certain Services**, the Service Term and causes for """
+
+[[anchor]]
+id = "huggingface-tos-learn-from-usage"
+source_id = "610b42c56433bf2b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "usively own. In addition and subject to our Privacy Policy, "
+exact = "we may **aggregate**, anonymize, or otherwise learn from data relating to your use of the Services, and use the foregoing to improve those Services."
+suffix = """
+
+
+**DMCA Policy**. We comply with the Digital Millennium Cop"""
+
+[[anchor]]
+id = "huggingface-tos-content-license-to-provide-services"
+source_id = "610b42c56433bf2b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ on our Website, you must be aware that:
+
+1.   You hereby **"""
+exact = "grant us** a worldwide, royalty-free and non-exclusive license to use, display, publish, reproduce, distribute, and make derivative works of such Content **to provide Services**"
+suffix = " and as otherwise permitted under these Terms and our Privac"
+
+[[anchor]]
+id = "huggingface-tos-subcontractors"
+source_id = "610b42c56433bf2b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "cretion, and without notifying you. Nothing to worry, since "
+exact = "we will bear the **same degree of responsibility** for acts and omissions of the subcontractors acting on our behalf in the performance of their obligations under these Terms as they would bear if such acts and omissions were performed by us directly."
+suffix = """
+
+
+**Changes in law or regulation**. If there is any change i"""
+
+[[anchor]]
+id = "huggingface-ip-security-no-training"
+source_id = "01b51d8428278c80"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+viders/security#data-securityprivacy)Data Security/Privacy
+
+"""
+exact = "Hugging Face does not store any user data for training purposes."
+suffix = " We do not store the request body or response when routing r"
+
+[[anchor]]
+id = "huggingface-ip-security-no-body-retention"
+source_id = "01b51d8428278c80"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "ng Face does not store any user data for training purposes. "
+exact = "We do not store the request body or response when routing requests through Hugging Face."
+suffix = " Logs are kept for debugging purposes for up to 30 days, but"
+
+[[anchor]]
+id = "huggingface-ip-security-logs-30d"
+source_id = "01b51d8428278c80"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ody or response when routing requests through Hugging Face. "
+exact = "Logs are kept for debugging purposes for up to 30 days, but no user data or tokens are stored."
+suffix = """
+
+
+For more information on how your data is handled, please r"""
+
+[[anchor]]
+id = "huggingface-ip-security-upstream-policies"
+source_id = "01b51d8428278c80"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "cs/hub/security](https://huggingface.co/docs/hub/security). "
+exact = "External providers are responsible for their own security measures, so please refer to their respective security policies for more details."
+suffix = """
+
+
+![Image 4](https://huggingface.co/datasets/huggingface/doc"""
+
+[[anchor]]
+id = "huggingface-ie-security-no-customer-data"
+source_id = "a1c3d5faa29a1db5"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """we have in place.
+
+## Data Security & Privacy
+
+"""
+exact = "Hugging Face does not store any customer data in terms of payloads or tokens that are passed to the Inference Endpoint."
+suffix = " We are storing logs for 30 days. Every Inference Endpoints "
+
+[[anchor]]
+id = "huggingface-ie-security-logs-30d"
+source_id = "a1c3d5faa29a1db5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "yloads or tokens that are passed to the Inference Endpoint. "
+exact = "We are storing logs for 30 days."
+suffix = " Every Inference Endpoints uses TLS/SSL to encrypt the data "
+
+[[anchor]]
+id = "huggingface-ie-security-gdpr-dpa"
+source_id = "a1c3d5faa29a1db5"
+topics = ["role", "zdr"]
+
+[anchor.selector]
+prefix = """
+a private connection, without exposing it to the internet.
+
+"""
+exact = "Hugging Face also offers GDPR data processing agreement through an Enterprise Hub subscription."
+suffix = " For more information or to subscribe to Enterprise Hub, ple"
+
+[[anchor]]
+id = "huggingface-ie-faq-regions"
+source_id = "0da86b64f7e129c4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """# FAQs
+
+## General questions
+
+### In which regions can I deploy an Inference Endpoints?
+
+"""
+exact = "Inference Endpoints are currently available on AWS in us-east-1 (N. Virginia) & eu-west-1 (Ireland), on Azure in eastus (Virginia), and on GCP in us-east4 (Virginia)."
+suffix = " If you need to deploy in a different region, please let us "
+
+[[anchor]]
+id = "huggingface-hub-security-dpa-baa"
+source_id = "c46e8a609d8b10ea"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Team & Enterprise Support](https://huggingface.co/support). "
+exact = "Hugging Face can also offer Business Associate Addendums or GDPR data processing agreements through an [Enterprise Plan](https://huggingface.co/pricing)."
+suffix = """
+
+
+Hugging Face is also [SOC2 Type 2 certified](https://us.ai"""
+
+[[anchor]]
+id = "huggingface-storage-regions-default-us"
+source_id = "213ff83f6d6198eb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ization’s models, datasets, Spaces, and buckets are stored. "
+exact = "For non-Team or Enterprise users, repositories are always stored in the US."
+suffix = """
+
+
+This offers two key benefits:
+
+*   Regulatory and legal co"""
+
+[[anchor]]
+id = "huggingface-storage-regions-eu"
+source_id = "213ff83f6d6198eb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+industries often require data storage in specific regions.
+
+"""
+exact = "For EU companies, you can use the Hub for ML development in a GDPR-compliant manner, with datasets, models, buckets and inference endpoints all stored in EU data centers."
+suffix = """
+
+## Performance
+
+Storing models and datasets closer to your team and infrastructure s"""
+
+[[anchor]]
+id = "huggingface-privacy-retention-necessary"
+source_id = "c5f9ad9bef65fab8"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+huggingface.co/privacy#b-data-retention) B. Data retention
+
+"""
+exact = "We retain your Information for as long as necessary to deliver the Services, to comply with any applicable legal requirements, to maintain security and prevent incidents and, in general, to pursue our legitimate interests."
+suffix = """
+
+
+You may decide to cancel your account and your content at """
+
+[[anchor]]
+id = "huggingface-privacy-servers-us"
+source_id = "c5f9ad9bef65fab8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ta-transfers) 6. LOCATION OF PROCESSING AND DATA TRANSFERS
+
+"""
+exact = "The Company and its servers are located in the United States."
+suffix = """
+
+
+Personal Information collected by the Services may be stor"""
+
+[[anchor]]
+id = "huggingface-privacy-worldwide-transfer"
+source_id = "c5f9ad9bef65fab8"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ Company and its servers are located in the United States.
+
+"""
+exact = "Personal Information collected by the Services may be stored and processed in the United States or any other country in which the Company or its affiliates, subsidiaries or agents maintain facilities."
+suffix = " By using the Services, you consent to any such transfer of "
+
+[[anchor]]
+id = "huggingface-privacy-subprocessors"
+source_id = "c5f9ad9bef65fab8"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+rvice-providers) 10. LIST OF THIRD-PARTY SERVICE PROVIDERS
+
+"""
+exact = "We may share your information with Third-Party Service Providers, and when we do, we ensure that they access your information in compliance with applicable data protection laws."
+suffix = " The following list respects the format `Subprocessor | Desc"

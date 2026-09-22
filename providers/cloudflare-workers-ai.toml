@@ -1,0 +1,913 @@
+name = "Cloudflare"
+company_name = "Cloudflare"
+line = "cloudflare-workers-ai"
+site = "global"
+entity = "Cloudflare, Inc."
+endpoint = ""
+doc = "https://www.cloudflare.com/service-specific-terms-developer-platform/"
+
+[[source]]
+url = "https://developers.cloudflare.com/ai/models/index.md"
+channel = "developer_data"
+tier = "core"
+note = "Cloudflare 统一 AI 模型目录（226 个模型）：65 个 Cloudflare-hosted（即 Workers AI 目录）+ 161 个 Third-party（经 AI Gateway 接入的外部 provider），其中 90 个带「Zero data retention」标签——但 65 个 Cloudflare-hosted 模型无一带该标签（逐条解析 226 条目录项后统计）。用于说明 ZDR 标签的适用范围，不构成对 Workers AI 的承诺。**取正文方式**：原用页面 HTML URL /ai/models/，r.jina.ai 只返回模型卡片列表，漏掉「We found 226 models」计数句与筛选器文本，锚点随之落空；改用该页自带的官方『View as Markdown』静态源 index.md（逐字含计数句与全部目录项，实测两次抓取一致）。"
+
+[[source]]
+url = "https://developers.cloudflare.com/data-localization/"
+channel = "developer_data"
+tier = "core"
+note = "Data Localization Suite 文档（Enterprise-only 付费附加项）：控制加密密钥存储地、流量元数据/日志边界、HTTPS 解密与处理地。文档未提及 Workers AI 或 AI 推理。"
+
+[[source]]
+url = "https://developers.cloudflare.com/workers-ai/platform/data-usage/"
+channel = "developer_data"
+tier = "core"
+note = "Workers AI 官方 Data usage 文档（页面标注 Last updated Apr 21, 2026），覆盖 Workers AI 托管推理档；定义 Customer Content（含输入、输出、embeddings、训练数据），给出是否训练、是否向其他客户开放、何时会存储。全页无 ZDR / 零保留字样。"
+
+[[source]]
+url = "https://www.cloudflare.com/cloudflare-customer-dpa/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Customer DPA(页面显示 2026-04-03,v6.4 系列)。合同层角色与保留准则:Cloudflare 自认 Processor、Annex 保留期准则、终止后删除/返还、跨境处理预期、CCPA 目的限制。role 维度权威。适用于 AI Gateway(DPA 覆盖主协议下的 Services)。"
+
+[[source]]
+url = "https://www.cloudflare.com/enterpriseterms/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Enterprise Subscription Terms of Service(Last Updated September 12, 2025)。企业档主协议:§5.2 未约定代客户存储的 Customer Data 可在捕获后 72 小时起随时删除(反过来说明被文档约定代存的内容不适用该下限)、§5.4 Network Data、§6.2 审计日志与账户数据的保留。企业档与自助档的关键差异来源。"
+
+[[source]]
+url = "https://www.cloudflare.com/legal/data-act-addendum/"
+channel = "contract"
+tier = "core"
+note = "EU Data Act Addendum（面向欧盟客户；/legal/terms/ 描述为「regional compliance addendum for customers located in the European Union」）。§10.1 终止后保留 Customer's Data 30 个日历日供取回/擦除、§10.2 期满擦除 Exportable Data；服务附录按产品列出 Exportable Data，其中 Workers AI 一行只列「LoRA adapters uploaded by Customers」与可用审计日志；脚注 [2] 给出默认日志保留 7 天。**抓取通道注意**：Exhibit 1 是一张超宽表格，r.jina.ai 对该页的 markdown 转换稳定止于 §13，Exhibit 1 整段丢失（实测 2026-09-22：带尾斜杠 14291B、无尾斜杠 14290B、/en-gb/ 14309B、/zh-cn/ 14309B，四次均无 Exhibit 1；而页面 HTML 435KB 中该表逐字存在）。因此引用 Exhibit 1 的两条锚点（daa-workers-ai-exportable-data、daa-enduser-logs-7-days-default）会周期性落空——那是抓取通道问题，不是条款消失，不得据此改结论。§1–§13 正文不受影响。"
+
+[[source]]
+url = "https://www.cloudflare.com/service-specific-terms-developer-platform/"
+channel = "contract"
+tier = "core"
+note = "Service-Specific Terms → Developer Platform（页面标注 Last updated June 02, 2026），含独立小节「Cloudflare Workers AI; AI Gateway」。该页开头声明「supplement the applicable master agreement(s) located at https://www.cloudflare.com/legal/terms/」，即同时补充自服务档与 ESA 档；本家 training 维度的合同层权威。同一小节既写「Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools」，又写「does not reference or use any Customer Content except as needed to provide and improve the Services」；另明文规定 AI Gateway 上跑在第三方基础设施的第三方产品不适用 Cloudflare DPA。**抓取通道注意**：r.jina.ai 对 www.cloudflare.com 的本页抓取不稳定——缓存里存的是广告追踪像素壳（Title: https://match.adsrvr.org/track/cmf/...、正文「A 1x1 image, likely be a tacker probe」）。实测 2026-09-22 四种 URL 形式各两次：带尾斜杠两次均返回壳、无尾斜杠与 /zh-cn/ 各首次返回完整正文（30294B/30431B）后次即被同一坏缓存覆盖、/en-gb/ 两次均壳。页面 HTML（435KB）本身逐字完整，故这是 r.jina.ai 侧问题，不是条款消失；不得据此改结论。抓取层已能识别该壳（classify → render_error），坏 baseline 是闸门上线前写入的。"
+
+[[source]]
+url = "https://www.cloudflare.com/terms/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Self-Serve Subscription Agreement(Last Updated September 12, 2025)。自助订阅档主协议,AI Gateway 免费/付费档即在此档:§2.5.1 客户内容许可范围限于『necessary to provide the Services』、§2.5.3 对客户内容的修改/扫描权、§2.5.5 Network Data 与网络流量(含日志)检查权、§3 第三方产品由第三方条款管辖。training/role 的合同层来源。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-dp-no-training-generative-ai"
+
+[[product.training.point]]
+text = "Contract level (strongest): the \"Cloudflare Workers AI; AI Gateway\" subsection of the Developer Platform Service-Specific Terms says \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" — a consent-gated statement (it can be agreed otherwise), not an absolute prohibition. The docs point the same way in different words: \"would not do so unless we received your explicit consent\" (explicit consent required, and covering (2) improve any Cloudflare or third-party services as well)"
+text_zh = "合同层（最强）：Developer Platform Service-Specific Terms 的「Cloudflare Workers AI; AI Gateway」小节写「Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.」——同意门控式表述（可另行约定），不是绝对禁止。docs 侧同旨但措辞不同：「would not do so unless we received your explicit consent」（需明示同意，且同时覆盖 (2) improve any Cloudflare or third-party services）"
+
+[[product.training.point]]
+text = "The Trust Hub puts it as \"without customer consent\". Clauses in tension are recorded alongside and not reconciled: (a) the same subsection's \"Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services\" — \"improve the Services\" is literally inconsistent with the docs' \"not used to improve any Cloudflare or third-party services\""
+text_zh = "Trust Hub 用「without customer consent」。反向张力条款并列记录（不调和）：(a) 同一小节的「Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services」——「improve the Services」与 docs 的「不用于改进 Cloudflare 或第三方服务」在字面上不一致"
+
+[[product.training.point]]
+text = "(b) Self-Serve §2.5.5 and ESA §5.4 allow Network Data (data derived from server, network and traffic data, not customer content) to be used for \"developing and improving its Services\", while ESA §5.3 states that no rights in Customer Data are transferred"
+text_zh = "(b) Self-Serve §2.5.5 与 ESA §5.4 允许把 Network Data（由服务端/网络/流量数据衍生的数据，非客户内容）用于 developing and improving its Services，ESA §5.3 同时声明 Customer Data 的权利不发生转移"
+
+[[product.training.point]]
+text = "(c) DPA §3.3 commits, for Personal Data within CCPA scope, not to retain, use or disclose it for purposes other than those set out in the DPA and the Main Agreement. Circumstantial support: the responsible-ai page says \"we do not use our customers' content to train any LLMs\" and \"Cloudflare neither trains its own LLMs nor provides its customers with access to GPUs for training their own models\". Note also that the docs count \"training data\" as Customer Content, so training data uploaded by customers is protected by the same clause."
+text_zh = "(c) DPA §3.3 对 CCPA 范围内的 Personal Data 承诺不为 DPA 与主协议之外的目的 retain/use/disclose。旁证：responsible-ai 页「we do not use our customers' content to train any LLMs」「Cloudflare neither trains its own LLMs nor provides its customers with access to GPUs for training their own models」。另注：docs 把「训练数据（training data）」也列为 Customer Content，故客户上传的训练数据同样受该条保护。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://developers.cloudflare.com/workers-ai/platform/data-usage/",
+  "https://developers.cloudflare.com/workers-ai/",
+  "https://developers.cloudflare.com/workers-ai/models/",
+  "https://developers.cloudflare.com/workers-ai/models/flux/",
+  "https://developers.cloudflare.com/workers-ai/platform/limits/",
+  "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+  "https://developers.cloudflare.com/workers-ai/platform/glossary/",
+  "https://developers.cloudflare.com/workers-ai/features/prompt-caching/",
+  "https://developers.cloudflare.com/workers-ai/features/batch-api/",
+  "https://developers.cloudflare.com/workers-ai/features/fine-tunes/loras/",
+  "https://developers.cloudflare.com/workers-ai/platform/event-subscriptions/",
+  "https://developers.cloudflare.com/workers-ai/platform/errors/",
+  "https://developers.cloudflare.com/workers-ai/changelog/",
+  "https://developers.cloudflare.com/workers-ai/configuration/open-ai-compatibility/",
+  "https://developers.cloudflare.com/workers-ai/features/batch-api/rest-api/",
+  "https://developers.cloudflare.com/workers-ai/features/fine-tunes/",
+  "https://developers.cloudflare.com/workers-ai/features/function-calling/",
+  "https://developers.cloudflare.com/workers-ai/features/markdown-conversion/",
+  "https://developers.cloudflare.com/workers-ai/features/prompting/",
+  "https://developers.cloudflare.com/workers-ai/features/reject-if-busy/",
+  "https://developers.cloudflare.com/workers-ai/guides/tutorials/",
+  "https://developers.cloudflare.com/workers-ai/llms.txt",
+  "https://developers.cloudflare.com/ai/models/",
+  "https://developers.cloudflare.com/ai/",
+  "https://developers.cloudflare.com/ai-gateway/features/unified-billing/",
+  "https://developers.cloudflare.com/ai-gateway/observability/logging/",
+  "https://www.cloudflare.com/service-specific-terms-developer-platform/",
+  "https://www.cloudflare.com/cloudflare-customer-dpa/",
+  "https://www.cloudflare.com/terms/",
+  "https://www.cloudflare.com/enterpriseterms/",
+  "https://www.cloudflare.com/privacypolicy/",
+  "https://www.cloudflare.com/trust-hub/responsible-ai/",
+  "https://www.cloudflare.com/legal/data-act-addendum/",
+  "https://www.cloudflare.com/security-exhibit/",
+  "https://www.cloudflare.com/products/workers-ai/",
+]
+
+[[product.zdr.point]]
+text = "The vendor discloses no zero-retention / ZDR option, switch or application method for Workers AI hosted inference — this is \"undisclosed\", not \"a commitment to the contrary\", and must not be read in reverse as not being offered. Scope checked: every page enumerated in the Workers AI documentation site's llms.txt (overview, data-usage, models, limits, pricing, glossary, event-subscriptions, changelog, errors, configuration/*, features/* including prompt-caching, batch-api, fine-tunes, function-calling, json-mode, markdown-conversion, prompting and reject-if-busy, and guides/*, 25 pages in all) was checked page by page, with no ZDR / zero data retention wording found"
+text_zh = "官方未披露 Workers AI 托管推理的零保留 / ZDR 选项、开关或申请方式——这是「未披露」，不是「承诺相反」，不得反向解读为不提供。已核范围：Workers AI 文档站 llms.txt 枚举的全部页面（overview、data-usage、models、limits、pricing、glossary、event-subscriptions、changelog、errors、configuration/*、features/*（含 prompt-caching、batch-api、fine-tunes、function-calling、json-mode、markdown-conversion、prompting、reject-if-busy）、guides/*，共 25 页）逐页核过，无 ZDR / zero data retention / 零保留字样"
+
+[[product.zdr.point]]
+text = "Of the 226 entries in the unified model catalog, all 90 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
+text_zh = "统一模型目录 226 条里带「Zero data retention」标签的 90 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
+
+[[product.zdr.point]]
+text = "Also \"ZDR does not control AI Gateway logging\": logging has to be switched off separately. Observations pointing the other way (not equivalent to a ZDR commitment): data-usage's \"may be stored ... if you specifically use a storage service\" and the prompt caching description of cached input tensors indicate that the default inference path does not write content to disk, but those are descriptions of conditions and uses."
+text_zh = "另「ZDR does not control AI Gateway logging」，日志要单独关。反向观察（不等于 ZDR 承诺）：data-usage 的「may be stored ... if you specifically use a storage service」与 prompt caching 的输入张量缓存说明，说明默认推理路径不落盘正文，但那是条件/用途描述。"
+
+[[product.zdr.point]]
+text = "The catalog entry previously bound here is a third-party model's tag (\"Alibaba's HappyHorse 1.0 … - Third-party - Zero data retention\"), i.e. it describes another provider's posture, not Workers AI's, so it is not a statement on this dimension and is no longer bound to this entry. It stays as contrast material in the point above."
+text_zh = "原先绑在本条的引文是统一目录里某个第三方模型的标签（「… - Third-party - Zero data retention」），说的是别的 provider 的立场，不构成对 Workers AI 本维度的表述，故不再绑在本条；它作为对照材料仍保留在上一条里。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "dpa-retention-annex1"
+
+[[product.retention.point]]
+text = "Conclusion: there is no request-level (input/output) retention commitment and the vendor gives no uniform period, hence duration_kind=unspecified. Recorded item by item (with object and context): (1) docs: Customer Content \"may be stored by Cloudflare if you specifically use a storage service (e.g., R2, KV, DO, Vectorize)\" — the condition is that the customer uses a storage service, not a retention period on the inference path"
+text_zh = "结论：不存在请求级（输入/输出）保留期承诺，官方也未给出统一期限，故 duration_kind=unspecified。逐条并列（含对象与语境）：(1) docs：Customer Content「may be stored by Cloudflare if you specifically use a storage service (e.g., R2, KV, DO, Vectorize)」——条件是客户自己用存储服务，不是推理路径的保留期"
+
+[[product.retention.point]]
+text = "(2) Prompt caching: on by default for some models, storing the input tensors computed in the prefill stage, with no duration or eviction rule disclosed (object = a derived cache of the input tensors)"
+text_zh = "(2) Prompt caching：默认对部分模型开启，会存储 prefill 阶段计算的输入张量，未披露时长或清除规则（对象=输入张量的派生缓存）"
+
+[[product.retention.point]]
+text = "(3) The retention-period field of DPA Annex 1: \"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\" (object = Personal Data, context = within the DPA's scope)"
+text_zh = "(3) DPA Annex 1 的保留期栏：「Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...」（对象=Personal Data，语境=DPA 适用范围内）"
+
+[[product.retention.point]]
+text = "DPA §3.1(i): deletion or return at the customer's choice after termination"
+text_zh = "DPA §3.1(i) 终止后按客户选择删除或返还"
+
+[[product.retention.point]]
+text = "(4) ESA §5.2: except for content \"Cloudflare has agreed to store on behalf of Customer\", Cloudflare \"may delete Customer Data at any time after seventy-two (72) hours from the time such Customer Data is captured by Cloudflare\" — that is a right to delete (floor-type wording) and \"must be deleted after 72 hours\" cannot be inferred from it"
+text_zh = "(4) ESA §5.2：除「Cloudflare has agreed to store on behalf of Customer」的内容外，Cloudflare 可在 Customer Data 被捕获 72 小时后随时删除——这是删除权利（下限式表述），不能反推「72 小时后必删」"
+
+[[product.retention.point]]
+text = "(5) ESA §11.5: for up to 72 hours after termination Cloudflare will still use reasonable efforts to make Customer Logs available"
+text_zh = "(5) ESA §11.5：终止后最多 72 小时内仍尽力提供 Customer Logs"
+
+[[product.retention.point]]
+text = "ESA §6.2: account information and audit logs may be retained as business and compliance needs require"
+text_zh = "ESA §6.2：账户信息与审计日志可按业务与合规需要 retain"
+
+[[product.retention.point]]
+text = "(6) EU Data Act Addendum (EU customers) §10.1: after termination the Customer's Data is kept for 30 calendar days for retrieval or erasure, and §10.2: Exportable Data is erased once that period ends"
+text_zh = "(6) EU Data Act Addendum（欧盟客户）§10.1 终止后保留 Customer's Data 30 个日历日供取回或擦除、§10.2 期满擦除 Exportable Data"
+
+[[product.retention.point]]
+text = "The addendum limits Workers AI's Exportable Data to \"LoRA adapters uploaded by Customers\" plus the available audit logs (inference inputs and outputs are not included)"
+text_zh = "附录把 Workers AI 的 Exportable Data 限定为「LoRA adapters uploaded by Customers」+ 可用审计日志（未含推理输入输出）"
+
+[[product.retention.point]]
+text = "Footnote [2]: \"By default, Cloudflare stores any end user activity logs for seven days\", together with the statement that it \"does not store ... for every product\" — the object is end-user activity logs, not request content"
+text_zh = "脚注 [2]「By default, Cloudflare stores any end user activity logs for seven days」，并声明「does not store ... for every product」——对象是终端用户活动日志，非请求正文"
+
+[[product.retention.point]]
+text = "(7) Privacy policy §11 gives only retention criteria (consumer_privacy, not authoritative for this tier). What can therefore be said about retention is: request content is not persisted by default (it is stored only where a storage product is used), and log-type data has a 7-day default (not applying to every product) and a 30-day retrieval window (EU Data Act tier only) — clauses split by object and context, none of which gives a general number of days for input and output content."
+text_zh = "(7) 隐私政策 §11 只给保留标准（consumer_privacy，非本档权威）。因此 retention 的可用表述是：默认不持久存储请求正文（仅在使用存储类产品时才会存储），日志类数据有 7 天默认（不适用于每个产品）与 30 日取回期（仅欧盟 Data Act 档）等分对象、分语境的条款，但没有任何一条给出输入输出正文的通用保留天数。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://developers.cloudflare.com/workers-ai/",
+  "https://developers.cloudflare.com/workers-ai/platform/data-usage/",
+  "https://developers.cloudflare.com/workers-ai/platform/limits/",
+  "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+  "https://developers.cloudflare.com/data-localization/",
+  "https://developers.cloudflare.com/data-localization/regional-services/",
+  "https://developers.cloudflare.com/ai/",
+  "https://developers.cloudflare.com/ai/models/",
+  "https://www.cloudflare.com/cloudflare-customer-dpa/",
+  "https://www.cloudflare.com/terms/",
+  "https://www.cloudflare.com/enterpriseterms/",
+  "https://www.cloudflare.com/privacypolicy/",
+  "https://www.cloudflare.com/trust-hub/gdpr/",
+  "https://www.cloudflare.com/trust-hub/responsible-ai/",
+  "https://www.cloudflare.com/legal/data-act-addendum/",
+  "https://www.cloudflare.com/service-specific-terms-other-terms/",
+  "https://www.cloudflare.com/products/workers-ai/",
+]
+
+[[product.processing_region.point]]
+text = "The vendor discloses no processing location for Workers AI inference, and there is no switch for choosing an inference region. Four kinds of circumstantial evidence were checked and judged one by one, none of them sufficient to support a conclusion: (1) the documentation and product pages say only that it runs on \"Cloudflare's global network\", and the product page adds \"No cold starts or region complexity\""
+text_zh = "官方未披露 Workers AI 推理的处理地，也没有按区域选择推理位置的开关。查过并逐条判定后仍不足以支撑结论的四类旁证：(1) 文档与产品页只说跑在「Cloudflare's global network」，产品页还写「No cold starts or region complexity」"
+
+[[product.processing_region.point]]
+text = "(2) Privacy policy §7 \"We primarily store your information in the United States and the European Economic Area\" — consumer_privacy level, its object being information Cloudflare collects itself, and under the task rules it cannot serve as primary evidence for Workers AI"
+text_zh = "(2) 隐私政策 §7「We primarily store your information in the United States and the European Economic Area」——consumer_privacy 层、对象是 Cloudflare 自行收集的个人信息，按任务要求不能当 Workers AI 的主证据"
+
+[[product.processing_region.point]]
+text = "(3) DPA §6/§7 only lay down lawful cross-border transfer mechanisms (EU SCCs / UK Addendum / EU-U.S. DPF / Global CBPR-PRP) and designate no processing location, their implicit premise being that Personal Data may be transferred to the United States and other countries where Cloudflare operates"
+text_zh = "(3) DPA §6/§7 只规定跨境转移的合法机制（EU SCCs / UK Addendum / EU-U.S. DPF / Global CBPR-PRP），不指定处理地，其隐含前提是 Personal Data 可能被转移到美国等 Cloudflare 有运营的国家"
+
+[[product.processing_region.point]]
+text = "(4) The Data Localization Suite / Regional Services are paid enterprise add-ons that control where keys are stored, the boundary for traffic metadata and logs, and where HTTPS decryption is performed"
+text_zh = "(4) Data Localization Suite / Regional Services 是企业付费附加项，控制密钥存储地、流量元数据/日志边界与 HTTPS 解密处理地"
+
+[[product.processing_region.point]]
+text = "The Regional Services list of in-region services includes \"Running Cloudflare Workers scripts\" but does not list Workers AI inference (the list is worded \"among others\", so it cannot be concluded from this that DLS does not cover AI inference). Also: services in China are operated by JD Cloud (SST Other Terms), which has nothing to do with Workers AI. Recorded as not_found under the rules: the absence of public evidence is not the absence of a vendor commitment."
+text_zh = "Regional Services 的区域内服务清单列出「Running Cloudflare Workers scripts」，但未列 Workers AI 推理（清单措辞为 among others，不能据此断定 DLS 不覆盖 AI 推理）。另：中国区服务由 JD Cloud 运营（SST Other Terms），与 Workers AI 无关。结论按规则记 not_found：拿不到公开证据 ≠ 厂商没有处理地承诺。"
+
+[[product.processing_region.point]]
+text = "The DLS clauses previously bound here (\"Enterprise-only paid add-on\" / \"…enable customers to choose the location where Cloudflare inspects and stores data\") state a purchasable location-control product but do not say that Workers AI inference is covered by it, so they are not statements about this tier's processing location and are no longer bound. They remain as circumstantial evidence in item (4) above."
+text_zh = "原先绑在本条的两句 DLS 引文（「Enterprise-only paid add-on」／「…enable customers to choose the location where Cloudflare inspects and stores data」）只说明有一个可购买的定位控制产品，未说明覆盖 Workers AI 推理，不构成对本档处理地的表述，故不再绑在本条；它们作为旁证仍保留在上面第 (4) 条里。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-processor-role"
+
+[[product.role.point]]
+text = "The contract makes Cloudflare the processor. DPA §2.3: \"the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)\""
+text_zh = "合同层明确为受托处理方（processor）。DPA §2.3：「the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)」"
+
+[[product.role.point]]
+text = "The DPA opens by limiting itself to cases \"where Cloudflare processes Personal Data as a Processor ... on behalf of Customer to provide the Services\", and the definition of Services in §1.1(o) includes \"any software, software development kits and application programming interfaces (APIs)\", which covers Workers AI. Self-Serve §6.1 and ESA §5.3 say the same (the latter: \"To the extent that Cloudflare processes Customer Data ... that includes Personal Data, Cloudflare will handle such Personal Data in compliance with the DPA\"). The privacy policy reinforces it: Cloudflare designates itself data controller only for information it collects itself, and immediately afterwards designates itself data processor for \"content provided by Customers and End Users through the Services that transits, or in some cases, is stored on, the Cloudflare network\". Two layers of exception are recorded alongside: (a) the Service-Specific Terms classify \"machine learning models made available by Cloudflare\" as Third-Party Products, so the licence and use terms run between the customer and the model licensor, with Cloudflare neither controlling nor indemnifying"
+text_zh = "DPA 开篇限定其适用于「where Cloudflare processes Personal Data as a Processor ... on behalf of Customer to provide the Services」，而 §1.1(o) 的 Services 定义含「any software, software development kits and application programming interfaces (APIs)」，覆盖 Workers AI。Self-Serve §6.1 与 ESA §5.3 同旨（后者：To the extent that Cloudflare processes Customer Data ... that includes Personal Data, Cloudflare will handle such Personal Data in compliance with the DPA）。隐私政策补强：Cloudflare 只对自行收集的信息自认 data controller，紧接着自认对「content provided by Customers and End Users through the Services that transits, or in some cases, is stored on, the Cloudflare network」为 data processor。同时并列记录两层例外：(a) Service-Specific Terms 把「machine learning models made available by Cloudflare」定性为 Third-Party Products，许可与使用条款发生在客户与模型许可方之间，Cloudflare 不控制、不赔偿"
+
+[[product.role.point]]
+text = "(b) The same page states plainly that for third-party products running on third-party infrastructure through AI Gateway \"the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply\", and that this is treated as the customer instructing Cloudflare to send Customer Data to them — that third-party model hop is not covered by the DPA (it belongs to the cloudflare-ai-gateway entry). For the Workers AI hosted models (65 of them, including those marked Partner) no clause about handing data to the model's originator was found, so this tier is recorded as processor"
+text_zh = "(b) 同一页明文：AI Gateway 上跑在第三方基础设施的第三方产品，「the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply」，且视为客户指示 Cloudflare 向其发送 Customer Data——第三方模型那一跳不受 DPA 保护（属 cloudflare-ai-gateway 条目范围）。对 Workers AI 托管模型（65 个，含标 Partner 者）未发现「数据转交模型原厂」的条款，故本档判 processor"
+
+[[product.role.point]]
+text = "\"Models are Third-Party Products\" affects licensing and the allocation of liability; it does not change Cloudflare's position as data processor."
+text_zh = "「models 是 Third-Party Products」影响的是许可与责任划分，不改变 Cloudflare 作为数据处理受托方的地位。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-dp-no-training-generative-ai"
+
+[[product.training.point]]
+text = "Contract level (strongest): the \"Cloudflare Workers AI; AI Gateway\" subsection of the Developer Platform Service-Specific Terms says \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" — a consent-gated statement (it can be agreed otherwise), not an absolute prohibition. The docs point the same way in different words: \"would not do so unless we received your explicit consent\" (explicit consent required, and covering (2) improve any Cloudflare or third-party services as well)"
+text_zh = "合同层（最强）：Developer Platform Service-Specific Terms 的「Cloudflare Workers AI; AI Gateway」小节写「Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.」——同意门控式表述（可另行约定），不是绝对禁止。docs 侧同旨但措辞不同：「would not do so unless we received your explicit consent」（需明示同意，且同时覆盖 (2) improve any Cloudflare or third-party services）"
+
+[[product.training.point]]
+text = "The Trust Hub puts it as \"without customer consent\". Clauses in tension are recorded alongside and not reconciled: (a) the same subsection's \"Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services\" — \"improve the Services\" is literally inconsistent with the docs' \"not used to improve any Cloudflare or third-party services\""
+text_zh = "Trust Hub 用「without customer consent」。反向张力条款并列记录（不调和）：(a) 同一小节的「Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services」——「improve the Services」与 docs 的「不用于改进 Cloudflare 或第三方服务」在字面上不一致"
+
+[[product.training.point]]
+text = "(b) Self-Serve §2.5.5 and ESA §5.4 allow Network Data (data derived from server, network and traffic data, not customer content) to be used for \"developing and improving its Services\", while ESA §5.3 states that no rights in Customer Data are transferred"
+text_zh = "(b) Self-Serve §2.5.5 与 ESA §5.4 允许把 Network Data（由服务端/网络/流量数据衍生的数据，非客户内容）用于 developing and improving its Services，ESA §5.3 同时声明 Customer Data 的权利不发生转移"
+
+[[product.training.point]]
+text = "(c) DPA §3.3 commits, for Personal Data within CCPA scope, not to retain, use or disclose it for purposes other than those set out in the DPA and the Main Agreement. Circumstantial support: the responsible-ai page says \"we do not use our customers' content to train any LLMs\" and \"Cloudflare neither trains its own LLMs nor provides its customers with access to GPUs for training their own models\". Note also that the docs count \"training data\" as Customer Content, so training data uploaded by customers is protected by the same clause."
+text_zh = "(c) DPA §3.3 对 CCPA 范围内的 Personal Data 承诺不为 DPA 与主协议之外的目的 retain/use/disclose。旁证：responsible-ai 页「we do not use our customers' content to train any LLMs」「Cloudflare neither trains its own LLMs nor provides its customers with access to GPUs for training their own models」。另注：docs 把「训练数据（training data）」也列为 Customer Content，故客户上传的训练数据同样受该条保护。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://developers.cloudflare.com/workers-ai/platform/data-usage/",
+  "https://developers.cloudflare.com/workers-ai/",
+  "https://developers.cloudflare.com/workers-ai/models/",
+  "https://developers.cloudflare.com/workers-ai/models/flux/",
+  "https://developers.cloudflare.com/workers-ai/platform/limits/",
+  "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+  "https://developers.cloudflare.com/workers-ai/platform/glossary/",
+  "https://developers.cloudflare.com/workers-ai/features/prompt-caching/",
+  "https://developers.cloudflare.com/workers-ai/features/batch-api/",
+  "https://developers.cloudflare.com/workers-ai/features/fine-tunes/loras/",
+  "https://developers.cloudflare.com/workers-ai/platform/event-subscriptions/",
+  "https://developers.cloudflare.com/workers-ai/platform/errors/",
+  "https://developers.cloudflare.com/workers-ai/changelog/",
+  "https://developers.cloudflare.com/workers-ai/configuration/open-ai-compatibility/",
+  "https://developers.cloudflare.com/workers-ai/features/batch-api/rest-api/",
+  "https://developers.cloudflare.com/workers-ai/features/fine-tunes/",
+  "https://developers.cloudflare.com/workers-ai/features/function-calling/",
+  "https://developers.cloudflare.com/workers-ai/features/markdown-conversion/",
+  "https://developers.cloudflare.com/workers-ai/features/prompting/",
+  "https://developers.cloudflare.com/workers-ai/features/reject-if-busy/",
+  "https://developers.cloudflare.com/workers-ai/guides/tutorials/",
+  "https://developers.cloudflare.com/workers-ai/llms.txt",
+  "https://developers.cloudflare.com/ai/models/",
+  "https://developers.cloudflare.com/ai/",
+  "https://developers.cloudflare.com/ai-gateway/features/unified-billing/",
+  "https://developers.cloudflare.com/ai-gateway/observability/logging/",
+  "https://www.cloudflare.com/service-specific-terms-developer-platform/",
+  "https://www.cloudflare.com/cloudflare-customer-dpa/",
+  "https://www.cloudflare.com/terms/",
+  "https://www.cloudflare.com/enterpriseterms/",
+  "https://www.cloudflare.com/privacypolicy/",
+  "https://www.cloudflare.com/trust-hub/responsible-ai/",
+  "https://www.cloudflare.com/legal/data-act-addendum/",
+  "https://www.cloudflare.com/security-exhibit/",
+  "https://www.cloudflare.com/products/workers-ai/",
+]
+
+[[product.zdr.point]]
+text = "The vendor discloses no zero-retention / ZDR option, switch or application method for Workers AI hosted inference — this is \"undisclosed\", not \"a commitment to the contrary\", and must not be read in reverse as not being offered. Scope checked: every page enumerated in the Workers AI documentation site's llms.txt (overview, data-usage, models, limits, pricing, glossary, event-subscriptions, changelog, errors, configuration/*, features/* including prompt-caching, batch-api, fine-tunes, function-calling, json-mode, markdown-conversion, prompting and reject-if-busy, and guides/*, 25 pages in all) was checked page by page, with no ZDR / zero data retention wording found"
+text_zh = "官方未披露 Workers AI 托管推理的零保留 / ZDR 选项、开关或申请方式——这是「未披露」，不是「承诺相反」，不得反向解读为不提供。已核范围：Workers AI 文档站 llms.txt 枚举的全部页面（overview、data-usage、models、limits、pricing、glossary、event-subscriptions、changelog、errors、configuration/*、features/*（含 prompt-caching、batch-api、fine-tunes、function-calling、json-mode、markdown-conversion、prompting、reject-if-busy）、guides/*，共 25 页）逐页核过，无 ZDR / zero data retention / 零保留字样"
+
+[[product.zdr.point]]
+text = "Of the 226 entries in the unified model catalog, all 90 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
+text_zh = "统一模型目录 226 条里带「Zero data retention」标签的 90 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
+
+[[product.zdr.point]]
+text = "Also \"ZDR does not control AI Gateway logging\": logging has to be switched off separately. Observations pointing the other way (not equivalent to a ZDR commitment): data-usage's \"may be stored ... if you specifically use a storage service\" and the prompt caching description of cached input tensors indicate that the default inference path does not write content to disk, but those are descriptions of conditions and uses."
+text_zh = "另「ZDR does not control AI Gateway logging」，日志要单独关。反向观察（不等于 ZDR 承诺）：data-usage 的「may be stored ... if you specifically use a storage service」与 prompt caching 的输入张量缓存说明，说明默认推理路径不落盘正文，但那是条件/用途描述。"
+
+[[product.zdr.point]]
+text = "The catalog entry previously bound here is a third-party model's tag (\"Alibaba's HappyHorse 1.0 … - Third-party - Zero data retention\"), i.e. it describes another provider's posture, not Workers AI's, so it is not a statement on this dimension and is no longer bound to this entry. It stays as contrast material in the point above."
+text_zh = "原先绑在本条的引文是统一目录里某个第三方模型的标签（「… - Third-party - Zero data retention」），说的是别的 provider 的立场，不构成对 Workers AI 本维度的表述，故不再绑在本条；它作为对照材料仍保留在上一条里。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "ent-terms-72h-delete-right"
+
+[[product.retention.point]]
+text = "The clauses that differ between the enterprise tier (ESA) and the self-serve tier are all in the ESA: §5.2 \"Except for Customer Account Information and Customer Content that Cloudflare has agreed to store on behalf of Customer as set forth in the Documentation, Customer is solely responsible for keeping and maintaining its own copies of Customer Data. Cloudflare is not obligated to Customer to maintain any copies thereof, and may delete Customer Data at any time after seventy-two (72) hours from the time such Customer Data is captured by Cloudflare\" — apart from content it has agreed to store on the customer's behalf, Cloudflare promises no retention of Customer Data and gains a right to delete after 72 hours (a right to delete, from which \"must be deleted after 72 hours\" cannot be inferred)"
+text_zh = "企业档（ESA）与自服务档的差异条款都在 ESA 里：§5.2「Except for Customer Account Information and Customer Content that Cloudflare has agreed to store on behalf of Customer as set forth in the Documentation, Customer is solely responsible for keeping and maintaining its own copies of Customer Data. Cloudflare is not obligated to Customer to maintain any copies thereof, and may delete Customer Data at any time after seventy-two (72) hours from the time such Customer Data is captured by Cloudflare」——除另行约定代存的内容外，Cloudflare 不承诺保留 Customer Data，且 72 小时后取得删除权（是删除权利，不能反推「72 小时后必删」）"
+
+[[product.retention.point]]
+text = "§11.5: for up to 72 hours after termination Cloudflare will still use reasonable efforts to make Customer Logs available"
+text_zh = "§11.5 终止后最多 72 小时内仍尽力提供 Customer Logs"
+
+[[product.retention.point]]
+text = "§6.2: account information and audit logs may be retained as business and compliance needs require"
+text_zh = "§6.2 账户信息与审计日志可按业务与合规需要 retain"
+
+[[product.retention.point]]
+text = "§5.3 provides that no rights in Customer Data are transferred, and that where it contains Personal Data the same DPA applies (so the DPA Annex 1 retention wording is identical on both tiers). EU customers are additionally covered by EU Data Act Addendum §10.1/§10.2: after termination the Customer's Data is kept for 30 calendar days for retrieval or erasure, after which Exportable Data is erased"
+text_zh = "§5.3 明定 Customer Data 的权利不发生转移，且含 Personal Data 时适用同一份 DPA（故 DPA Annex 1 的保留期表述两档一致）。欧盟客户另受 EU Data Act Addendum §10.1/§10.2 约束：终止后保留 Customer's Data 30 个日历日供取回或擦除，随后擦除 Exportable Data"
+
+[[product.retention.point]]
+text = "That addendum limits Workers AI's Exportable Data to \"LoRA adapters uploaded by Customers\" plus the available audit logs, and footnote [2] separately gives a 7-day default for end-user activity logs. The conclusion matches the self-serve tier: not one clause gives a general number of days for input and output content (duration_kind=unspecified)."
+text_zh = "该附录把 Workers AI 的 Exportable Data 限定为「LoRA adapters uploaded by Customers」+ 可用审计日志，脚注 [2] 另给默认 7 天的终端用户活动日志。结论与自服务档一致：没有任何一条给出输入输出正文的通用保留天数（duration_kind=unspecified）。"
+
+[product.processing_region]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://developers.cloudflare.com/workers-ai/",
+  "https://developers.cloudflare.com/workers-ai/platform/data-usage/",
+  "https://developers.cloudflare.com/workers-ai/platform/limits/",
+  "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+  "https://developers.cloudflare.com/data-localization/",
+  "https://developers.cloudflare.com/data-localization/regional-services/",
+  "https://developers.cloudflare.com/ai/",
+  "https://developers.cloudflare.com/ai/models/",
+  "https://www.cloudflare.com/cloudflare-customer-dpa/",
+  "https://www.cloudflare.com/terms/",
+  "https://www.cloudflare.com/enterpriseterms/",
+  "https://www.cloudflare.com/privacypolicy/",
+  "https://www.cloudflare.com/trust-hub/gdpr/",
+  "https://www.cloudflare.com/trust-hub/responsible-ai/",
+  "https://www.cloudflare.com/legal/data-act-addendum/",
+  "https://www.cloudflare.com/service-specific-terms-other-terms/",
+  "https://www.cloudflare.com/products/workers-ai/",
+]
+
+[[product.processing_region.point]]
+text = "The vendor discloses no processing location for Workers AI inference, and there is no switch for choosing an inference region. Four kinds of circumstantial evidence were checked and judged one by one, none of them sufficient to support a conclusion: (1) the documentation and product pages say only that it runs on \"Cloudflare's global network\", and the product page adds \"No cold starts or region complexity\""
+text_zh = "官方未披露 Workers AI 推理的处理地，也没有按区域选择推理位置的开关。查过并逐条判定后仍不足以支撑结论的四类旁证：(1) 文档与产品页只说跑在「Cloudflare's global network」，产品页还写「No cold starts or region complexity」"
+
+[[product.processing_region.point]]
+text = "(2) Privacy policy §7 \"We primarily store your information in the United States and the European Economic Area\" — consumer_privacy level, its object being information Cloudflare collects itself, and under the task rules it cannot serve as primary evidence for Workers AI"
+text_zh = "(2) 隐私政策 §7「We primarily store your information in the United States and the European Economic Area」——consumer_privacy 层、对象是 Cloudflare 自行收集的个人信息，按任务要求不能当 Workers AI 的主证据"
+
+[[product.processing_region.point]]
+text = "(3) DPA §6/§7 only lay down lawful cross-border transfer mechanisms (EU SCCs / UK Addendum / EU-U.S. DPF / Global CBPR-PRP) and designate no processing location, their implicit premise being that Personal Data may be transferred to the United States and other countries where Cloudflare operates"
+text_zh = "(3) DPA §6/§7 只规定跨境转移的合法机制（EU SCCs / UK Addendum / EU-U.S. DPF / Global CBPR-PRP），不指定处理地，其隐含前提是 Personal Data 可能被转移到美国等 Cloudflare 有运营的国家"
+
+[[product.processing_region.point]]
+text = "(4) The Data Localization Suite / Regional Services are paid enterprise add-ons that control where keys are stored, the boundary for traffic metadata and logs, and where HTTPS decryption is performed"
+text_zh = "(4) Data Localization Suite / Regional Services 是企业付费附加项，控制密钥存储地、流量元数据/日志边界与 HTTPS 解密处理地"
+
+[[product.processing_region.point]]
+text = "The Regional Services list of in-region services includes \"Running Cloudflare Workers scripts\" but does not list Workers AI inference (the list is worded \"among others\", so it cannot be concluded from this that DLS does not cover AI inference). Also: services in China are operated by JD Cloud (SST Other Terms), which has nothing to do with Workers AI. Recorded as not_found under the rules: the absence of public evidence is not the absence of a vendor commitment."
+text_zh = "Regional Services 的区域内服务清单列出「Running Cloudflare Workers scripts」，但未列 Workers AI 推理（清单措辞为 among others，不能据此断定 DLS 不覆盖 AI 推理）。另：中国区服务由 JD Cloud 运营（SST Other Terms），与 Workers AI 无关。结论按规则记 not_found：拿不到公开证据 ≠ 厂商没有处理地承诺。"
+
+[[product.processing_region.point]]
+text = "The DLS clauses previously bound here (\"Enterprise-only paid add-on\" / \"…enable customers to choose the location where Cloudflare inspects and stores data\") state a purchasable location-control product but do not say that Workers AI inference is covered by it, so they are not statements about this tier's processing location and are no longer bound. They remain as circumstantial evidence in item (4) above."
+text_zh = "原先绑在本条的两句 DLS 引文（「Enterprise-only paid add-on」／「…enable customers to choose the location where Cloudflare inspects and stores data」）只说明有一个可购买的定位控制产品，未说明覆盖 Workers AI 推理，不构成对本档处理地的表述，故不再绑在本条；它们作为旁证仍保留在上面第 (4) 条里。"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-processor-role"
+
+[[product.role.point]]
+text = "The contract makes Cloudflare the processor. DPA §2.3: \"the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)\""
+text_zh = "合同层明确为受托处理方（processor）。DPA §2.3：「the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)」"
+
+[[product.role.point]]
+text = "The DPA opens by limiting itself to cases \"where Cloudflare processes Personal Data as a Processor ... on behalf of Customer to provide the Services\", and the definition of Services in §1.1(o) includes \"any software, software development kits and application programming interfaces (APIs)\", which covers Workers AI. Self-Serve §6.1 and ESA §5.3 say the same (the latter: \"To the extent that Cloudflare processes Customer Data ... that includes Personal Data, Cloudflare will handle such Personal Data in compliance with the DPA\"). The privacy policy reinforces it: Cloudflare designates itself data controller only for information it collects itself, and immediately afterwards designates itself data processor for \"content provided by Customers and End Users through the Services that transits, or in some cases, is stored on, the Cloudflare network\". Two layers of exception are recorded alongside: (a) the Service-Specific Terms classify \"machine learning models made available by Cloudflare\" as Third-Party Products, so the licence and use terms run between the customer and the model licensor, with Cloudflare neither controlling nor indemnifying"
+text_zh = "DPA 开篇限定其适用于「where Cloudflare processes Personal Data as a Processor ... on behalf of Customer to provide the Services」，而 §1.1(o) 的 Services 定义含「any software, software development kits and application programming interfaces (APIs)」，覆盖 Workers AI。Self-Serve §6.1 与 ESA §5.3 同旨（后者：To the extent that Cloudflare processes Customer Data ... that includes Personal Data, Cloudflare will handle such Personal Data in compliance with the DPA）。隐私政策补强：Cloudflare 只对自行收集的信息自认 data controller，紧接着自认对「content provided by Customers and End Users through the Services that transits, or in some cases, is stored on, the Cloudflare network」为 data processor。同时并列记录两层例外：(a) Service-Specific Terms 把「machine learning models made available by Cloudflare」定性为 Third-Party Products，许可与使用条款发生在客户与模型许可方之间，Cloudflare 不控制、不赔偿"
+
+[[product.role.point]]
+text = "(b) The same page states plainly that for third-party products running on third-party infrastructure through AI Gateway \"the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply\", and that this is treated as the customer instructing Cloudflare to send Customer Data to them — that third-party model hop is not covered by the DPA (it belongs to the cloudflare-ai-gateway entry). For the Workers AI hosted models (65 of them, including those marked Partner) no clause about handing data to the model's originator was found, so this tier is recorded as processor"
+text_zh = "(b) 同一页明文：AI Gateway 上跑在第三方基础设施的第三方产品，「the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply」，且视为客户指示 Cloudflare 向其发送 Customer Data——第三方模型那一跳不受 DPA 保护（属 cloudflare-ai-gateway 条目范围）。对 Workers AI 托管模型（65 个，含标 Partner 者）未发现「数据转交模型原厂」的条款，故本档判 processor"
+
+[[product.role.point]]
+text = "\"Models are Third-Party Products\" affects licensing and the allocation of liability; it does not change Cloudflare's position as data processor."
+text_zh = "「models 是 Third-Party Products」影响的是许可与责任划分，不改变 Cloudflare 作为数据处理受托方的地位。"
+
+[[anchor]]
+id = "sst-dp-no-training-generative-ai"
+source_id = "c2e8b762df089842"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "etary rights in Inputs and Outputs to or from the Services."
+exact = "Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools."
+suffix = "Certain uses of Workers AI may enable the Services to take"
+
+[[anchor]]
+id = "sst-dp-provide-and-improve"
+source_id = "c2e8b762df089842"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "eloper documentation and any applicable third-party terms."
+exact = "Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services"
+suffix = "and affirms that you retain intellectual property rights in"
+
+[[anchor]]
+id = "sst-dp-provide-only"
+source_id = "c2e8b762df089842"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "eloper documentation and any applicable third-party terms."
+exact = "Cloudflare does not reference or use any Customer Content except as needed to provide the Services"
+suffix = "and affirms that you retain intellectual property rights in"
+
+[[anchor]]
+id = "sst-dp-inputs-outputs-customer-content"
+source_id = "c2e8b762df089842"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "eceived from the Services based on your Input (“ Outputs ”)"
+exact = "constitute Customer Content. For clarity, you retain all applicable intellectual property or other proprietary rights in Inputs and Outputs to or from the Services."
+suffix = "Unless otherwise agreed, Cloudflare does not use any Custom"
+
+[[anchor]]
+id = "sst-dp-models-are-third-party-products"
+source_id = "c2e8b762df089842"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "necessary to perform such Actions or produce such Outputs."
+exact = "Machine learning models made available by Cloudflare in connection with the Services constitute Third-Party Products"
+suffix = "(as defined in the Subscription Terms), and your use thereo"
+
+[[anchor]]
+id = "sst-dp-aig-dpa-not-apply"
+source_id = "c2e8b762df089842"
+topics = ["role", "zdr"]
+
+[anchor.selector]
+prefix = "y Product provider in order to provide the Service and (ii)"
+exact = "understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway"
+suffix = ". Please refer to each Third-Party Product providers’ releva"
+
+[[anchor]]
+id = "sst-dp-30-days-uploaded-content"
+source_id = "c2e8b762df089842"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+e constitutes technical abuse.
+
+Subject to Section 8 above,"""
+exact = "you may be permitted to access the Customer Content you uploaded to the Developer Platform for up to thirty (30) days following the expiration or termination of your trial or subscription"
+suffix = ". You understand that Cloudflare has no obligation to retain"
+
+[[anchor]]
+id = "wai-data-usage-training-consent"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+tomer Content available to any other Cloudflare customer.
+-"""
+exact = "Cloudflare does not use your Customer Content to (1) train any AI models made available on Workers AI or (2) improve any Cloudflare or third-party services, and would not do so unless we received your explicit consent."
+suffix = "- Your Customer Content for Workers AI may be stored by Clo"
+
+[[anchor]]
+id = "wai-data-usage-customer-content-definition"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "eview the license terms applicable to each model (if any)."
+exact = "Your inputs (e.g., text prompts, image submissions, audio files, etc.), outputs (e.g., generated text/images, translations, etc.), embeddings, and training data constitute Customer Content."
+suffix = """
+For Workers AI:
+
+- You own, and are responsible for, all o"""
+
+[[anchor]]
+id = "wai-data-usage-storage-only-with-storage-service"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+would not do so unless we received your explicit consent.
+-"""
+exact = "Your Customer Content for Workers AI may be stored by Cloudflare if you specifically use a storage service (e.g., R2, KV, DO, Vectorize, etc.) in conjunction with Workers AI."
+suffix = """
+Was this helpful?
+
+YesNo
+
+## On this page
+
+[!["""
+
+[[anchor]]
+id = "wai-data-usage-models-are-third-party-services"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ates nor trains the AI models made available on Workers AI."
+exact = "The models constitute Third-Party Services and may be subject to open source or other license terms that apply between you and the model provider."
+suffix = "Be sure to review the license terms applicable to each mode"
+
+[[anchor]]
+id = "wai-data-usage-subject-to-agreements"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "/agent-setup/)"
+exact = "Cloudflare processes certain customer data in order to provide the Workers AI service, subject to our"
+suffix = "[Privacy Policy ↗"
+
+[[anchor]]
+id = "wai-data-usage-no-other-customer"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+n, and are responsible for, all of your Customer Content.
+-"""
+exact = "Cloudflare does not make your Customer Content available to any other Cloudflare customer."
+suffix = "- Cloudflare does not use your Customer Content to (1) trai"
+
+[[anchor]]
+id = "wai-data-usage-cloudflare-neither-creates-nor-trains"
+source_id = "b49b3f93c8ebcfd3"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "/) (as applicable)."
+exact = "Cloudflare neither creates nor trains the AI models made available on Workers AI."
+suffix = "The models constitute Third-Party Services and may be subje"
+
+[[anchor]]
+id = "dpa-applies-as-processor"
+source_id = "8663956e47a09928"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+mer, please do not accept this DPA.
+
+DATA PROCESSING TERMS"""
+exact = "This DPA applies where Cloudflare processes Personal Data as a Processor (or sub-Processor as applicable) on behalf of Customer to provide the Services"
+suffix = "and such Personal Data is subject to Applicable Data Protec"
+
+[[anchor]]
+id = "dpa-processor-role"
+source_id = "8663956e47a09928"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "g the Personal Data, the parties acknowledge and agree that"
+exact = "the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)."
+suffix = "2.4 If Customer is a Processor, Customer warrants to Cloud"
+
+[[anchor]]
+id = "dpa-services-definition"
+source_id = "8663956e47a09928"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+under the Applicable Data Protection Laws.
+
+o) “ Services ”"""
+exact = "shall refer to all of the cloud-based solutions offered, marketed or sold by Cloudflare or its authorized partners"
+suffix = "that are designed to increase the performance, security and"
+
+[[anchor]]
+id = "dpa-customer-content"
+source_id = "8663956e47a09928"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "d or other online interface during the Term by Cloudflare."
+exact = "Any Personal Data processed in Customer Content, the extent of which is determined and controlled by the Customer in its sole discretion."
+suffix = "“Customer Content” means any files, software, scripts, mult"
+
+[[anchor]]
+id = "dpa-retention-annex1"
+source_id = "8663956e47a09928"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "not possible, the criteria used to determine that period:"
+exact = "Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary for the purposes of either party performing its obligations under the Main Agreement"
+suffix = """
+(to the extent applicable).
+
+For transfers to (sub-) Proces"""
+
+[[anchor]]
+id = "dpa-delete-or-return"
+source_id = "8663956e47a09928"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "than to the extent required to comply with applicable law,"
+exact = "following termination or expiry of the Main Agreement or completion of the Service, at the choice of Customer, delete or return all Personal Data"
+suffix = "(including copies thereof) processed pursuant to this DPA;"
+
+[[anchor]]
+id = "dpa-ccpa-no-other-purpose"
+source_id = "8663956e47a09928"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "are makes the following additional commitments to Customer:"
+exact = "Cloudflare will not retain, use, or disclose that Personal Data for any purposes other than the purposes set out in the Main Agreement and this DPA"
+suffix = "and as permitted under the CCPA, including under any “sale”"
+
+[[anchor]]
+id = "dpa-subprocessors"
+source_id = "8663956e47a09928"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "members of the Cloudflare Group as sub-Processors, and (b)"
+exact = "to Cloudflare and other members of the Cloudflare Group to appoint third party data center operators, and business, engineering and customer support providers as sub-Processors"
+suffix = """
+to support the performance of the Service.
+
+4.4 Cloudflare"""
+
+[[anchor]]
+id = "dpa-dpf-transfer"
+source_id = "8663956e47a09928"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+en Customer and Cloudflare.
+
+6.4 Customer acknowledges that"""
+exact = "Cloudflare complies with the Data Privacy Framework and that transfers of Customer Data to Cloudflare made under the Data Privacy Framework shall not be a Restricted Transfer"
+suffix = ". Cloudflare will notify Customer if its Data Privacy Framew"
+
+[[anchor]]
+id = "ss-terms-processor"
+source_id = "176b2e1b6fe21490"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "r Privacy Act (“ CCPA ”) (collectively, “ Personal Data ”),"
+exact = "then Cloudflare is a data processor or sub-processor, as applicable, and Cloudflare will handle such Personal Data in compliance with Cloudflare’s Data Processing Addendum"
+suffix = "(“ Data Processing Addendum ”), which is hereby incorporate"
+
+[[anchor]]
+id = "ss-terms-content-license-purpose-limited"
+source_id = "176b2e1b6fe21490"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ided to Cloudflare. Subject to the terms of this Agreement,"
+exact = "you hereby grant us a non-exclusive, fully sublicensable, worldwide, royalty-free right to collect, use, copy, store, transmit, modify and create derivative works of Customer Content, in each case to the extent necessary to provide the Services."
+suffix = """
+2.5.2
+
+You must obtain all necessary rights, releases and"""
+
+[[anchor]]
+id = "ss-terms-network-data-improve"
+source_id = "176b2e1b6fe21490"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "the course of providing the Service (“ Network Data ”), and"
+exact = "shall have the right to use Network Data for purposes of providing, maintaining, developing, and improving its Services"
+suffix = ". Cloudflare may monitor and inspect the traffic on the Clou"
+
+[[anchor]]
+id = "ss-terms-monitor-traffic"
+source_id = "176b2e1b6fe21490"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "iding, maintaining, developing, and improving its Services."
+exact = "Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services"
+suffix = "or protect the security or integrity of Cloudflare’s networ"
+
+[[anchor]]
+id = "ent-terms-72h-delete-right"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "t obligated to Customer to maintain any copies thereof, and"
+exact = "may delete Customer Data at any time after seventy-two (72) hours from the time such Customer Data is captured by Cloudflare"
+suffix = ", except for any Customer Account Information included there"
+
+[[anchor]]
+id = "ent-terms-no-title-in-customer-data"
+source_id = "c4fb147e26f92119"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "equires Customer Data to pass through Cloudflare’s network."
+exact = "The Agreement does not transfer or convey to Cloudflare or any third party any right, title or interest in and to the Customer Data"
+suffix = ", or any associated Intellectual Property Rights, except for"
+
+[[anchor]]
+id = "ent-terms-dpa-applies-to-customer-data"
+source_id = "c4fb147e26f92119"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "s, revocable in accordance with the terms of the Agreement."
+exact = "To the extent that Cloudflare processes Customer Data on behalf of Customer that includes Personal Data, Cloudflare will handle such Personal Data in compliance with the DPA."
+suffix = "5.4. Network Data . Cloudflare retains all right, title, a"
+
+[[anchor]]
+id = "ent-terms-logs-72h-after-termination"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+deleted or returned.
+
+11.5. Access to Logs On Termination."""
+exact = "For up to seventy-two (72) hours following expiration or termination of Customer’s access to the Service, Cloudflare will use reasonable efforts to continue to make available to Customer the Customer Logs."
+suffix = "Other than as set forth in this Section 11.5 , upon termina"
+
+[[anchor]]
+id = "ent-terms-account-data-retain"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+operty Rights in Cloudflare Technology.
+
+6.2. Account Data."""
+exact = "Cloudflare may use and retain information Customer provides upon subscribing to Services, audit logs generated while using the Services, and Customer account settings for business purposes"
+suffix = "related to the Agreement, and to the extent necessary to me"
+
+[[anchor]]
+id = "ent-terms-network-data"
+source_id = "c4fb147e26f92119"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+sonal Data in compliance with the DPA.
+
+5.4. Network Data ."""
+exact = "Cloudflare retains all right, title, and interest in the Network Data, and shall have the right to use Network Data for purposes of providing, maintaining, developing, and improving its Services."
+suffix = "Cloudflare may monitor and inspect the traffic on the Cloud"
+
+[[anchor]]
+id = "daa-30-day-retrieval-period"
+source_id = "e8fc72304d4c0359"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+or written approval.
+
+10. Data Retrieval and Erasure
+
+10.1."""
+exact = "Cloudflare shall retain Customer’s Data for a period of 30 (thirty) calendar days after termination of the Transitional Period for retrieval or erasure by Customer"
+suffix = """
+(“ Retrieval Period ”).
+
+10.2. At the end of the Retrieval"""
+
+[[anchor]]
+id = "daa-erase-after-retrieval"
+source_id = "e8fc72304d4c0359"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "according to Cloudflare’s standard data deletion practices,"
+exact = "Cloudflare shall erase all Exportable Data and Digital Assets except as required by applicable law."
+suffix = "10.3. Customer shall continue to pay all charges in accord"
+
+[[anchor]]
+id = "daa-workers-ai-exportable-data"
+source_id = "e8fc72304d4c0359"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+rs/ ; https://developers.cloudflare.com/api/ .
+
+Workers AI"""
+exact = "LoRA adapters uploaded by Customers. Any available audit logs reflecting administrative user activities or logs of end user interactions with Customer’s Internet properties and Cloudflare’s services."
+suffix = "For information about this service’s data structure and fo"
+
+[[anchor]]
+id = "daa-enduser-logs-7-days-default"
+source_id = "e8fc72304d4c0359"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+e or more third parties’ intellectual property rights.
+
+[2]"""
+exact = "By default, Cloudflare stores any end user activity logs for seven days."
+suffix = "Cloudflare does not store administrative user audit logs an"
+
+[[anchor]]
+id = "ai-models-unified-zdr-tag-example"
+source_id = "7c889b56a9202057"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+)<h3>hh1-i2v</h3>
+
+AlibabaImage-to-Video"""
+exact = "Alibaba's HappyHorse 1.0 image-to-video model. Animates a reference image with an optional text prompt. Supports 720P and 1080P output with durations from 3 to 15 seconds. - Third-party - Zero data retention"
+suffix = ""
+
+[[anchor]]
+id = "ai-models-unified-count-226"
+source_id = "7c889b56a9202057"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+etup/)
+
+Task TypesCapabilitiesProvidersAuthorsNewest first"""
+exact = "We found 226 models"
+suffix = """
+Clear filters
+
+## Compare models
+
+Compare up to three models"""
+
+[[anchor]]
+id = "dls-choose-location"
+source_id = "dddfb10de4eaddf6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+/agent-setup/)
+
+Enterprise-only paid add-on"""
+exact = "The Data Localization Suite (DLS) is a collection of tools that enable customers to choose the location where Cloudflare inspects and stores data"
+suffix = ", while maintaining the security and performance benefits of"
+
+[[anchor]]
+id = "dls-enterprise-only-addon"
+source_id = "dddfb10de4eaddf6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "/agent-setup/)"
+exact = "Enterprise-only paid add-on"
+suffix = "The Data Localization Suite (DLS) is a collection of tools"

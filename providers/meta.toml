@@ -1,0 +1,323 @@
+name = "Meta"
+line = "meta"
+site = "global"
+entity = "Meta Platforms, Inc. / Meta Platforms Ireland Limited"
+endpoint = ""
+doc = "https://dev.meta.ai/legal/terms-of-service"
+
+[[source]]
+url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Discounted 档，只说『ZDR support may vary by model』。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/commitments"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Meta Model API Data Commitments（法律中心四份文档之一）。按档位写明训练政策：Standard Services 不用 Content 训练；Discounted Services 可用 Content（含 Inputs/Outputs）训练、开发、评估、改进（训练前做去关联处理，评估/安全/质量/政策审查不去关联）；Customer Data 一律不用于训练。含 Data Retention 小节（保留方式以 Terms 与 Privacy Policy 为准，用户可在账户内查看与删除）。作 api 档 training/retention 的同级佐证。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/geographic-use-policy"
+channel = "contract"
+tier = "core"
+note = "Meta Model API Model Designation and Geographic Use Policy，Last updated: September 18, 2026，是 ToS 的组成部分。§1 指定 Standard Models（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）与 Discounted Models（Muse Spark 1.2/1.3 Contributor）；§3 Restricted Territories 含中国大陆及香港、澳门特别行政区。这是服务访问地域限制，不是处理地/存储地/推理地披露，故 authoritative_for 为空，仅用于界定模型档位与访问范围。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[source]]
+url = "https://www.meta.com/legal/meta-for-work/subprocessor-list/"
+channel = "contract"
+tier = "core"
+note = "由 Model API ToS §5.1 逐字引用（“as may be updated by Meta from time to time”）的子处理者清单，覆盖 api 档与订阅档（§3.2 明确订阅档的访问与使用同样受 ToS 管辖）。清单冠名 Meta Horizon Managed Solutions、Effective November 13, 2023，只披露子处理者的处理地点，不含推理发生地或数据驻留承诺。来源换址：旧 URL https://forwork.meta.com/legal/mfw-subprocessor-list/ 现 301 → 本 URL（forwork.meta.com/legal/mfw-subprocessor-list/ → www.meta.com/legal/meta-for-work/subprocessor-list → …/subprocessor-list/），旧 URL 经 r.jina.ai 取回时会带 “Warning: Target URL returned error 400: Bad Request” 一行而被抓取层判 target_http_400 丢弃；改用重定向终点后正文逐字相同且无该告警行。清单正文仍由 www.meta.com 官方站提供，无 PDF/镜像替代。"
+
+[[source]]
+url = "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms"
+channel = "contract"
+tier = "core"
+note = "Meta Global Processor Terms（MGPT），由 Model API ToS §2 逐字纳入的 Additional Terms，也是 §5.1 判断角色身份的定义来源。§1.1 把 Meta 的适用身份写为 “in its capacity as Processor or Service Provider”；§2.1 规定按公司指示处理、30 天内未收到书面通知即按 Meta 数据保留政策删除既有副本；定义节把 Meta 关联公司/子处理者/第三方统称 Subprocessor。作 role/retention 的定义性佐证（对 Standard Services 有效）。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "training-standard-5-1"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "zdr-available"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-4-4"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "region-processing-location-table"
+
+[product.role]
+kind = "processor"
+anchor = "role-processor-5-1"
+
+[[anchor]]
+id = "retention-4-4"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s) applicable to such Third-Party Features.
+
+4.4 Retention. """
+exact = "Meta will retain your Content and Usage Data as needed:"
+suffix = " (i) to provide the Services under these Terms; (ii) to the "
+
+[[anchor]]
+id = "training-standard-5-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "e MGPT) to you in relation to your use of the Services, and "
+exact = "will not use Content from Standard Services to train Meta Models"
+suffix = ". You agree to comply with the MGPT when Meta acts as your S"
+
+[[anchor]]
+id = "role-processor-5-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Meta will process applicable data as described in the MGPT. "
+exact = "Meta will collect, use, process, and share such data as a"
+suffix = " “**Service Provider**” or “**Processor**” (each as defined "
+
+[[anchor]]
+id = "zdr-available"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+
+## Does Model API support Zero Data Retention (ZDR)?
+
+Yes. """
+exact = "Zero Data Retention (ZDR) is available for qualified Meta Model API accounts."
+suffix = " When ZDR is enabled, your prompts and the model's responses"
+
+[[anchor]]
+id = "region-processing-location-table"
+source_id = "0bea1de936dbe452"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+rastructure
+
+| Entity | Processing Location |
+| --- | --- |
+"""
+exact = "| Andale, Inc. | United States |"
+suffix = """
+
+| Cassin Networks Aps | Denmark |
+| Greater Kudu LLC | Unit"""
+
+[[anchor]]
+id = "training-discounted-6-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "](https://www.facebook.com/privacy/policy/). You agree that "
+exact = "Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services"
+suffix = ". Before using Content from Discounted Services to train art"
+
+[[anchor]]
+id = "subprocessor-authorization-5-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " MGPT when Meta acts as your Service Provider or Processor. "
+exact = "You authorize Meta to engage subprocessors included in the list located"
+suffix = " [here](https://forwork.meta.com/legal/mfw-subprocessor-list"
+
+[[anchor]]
+id = "training-standard-no-train"
+source_id = "a52b310c1de187bb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ on the type of Services you use.**
+
+**Standard Services:** """
+exact = "Meta does not use your Content from Standard Services to train Meta Models."
+suffix = " Meta may process Content as necessary to detect, prevent, a"
+
+[[anchor]]
+id = "retention-data-retention-section"
+source_id = "a52b310c1de187bb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+unt for the purposes described above.
+
+**Data Retention.**
+
+"""
+exact = "Meta will retain your Content as described in the Terms and Privacy Policy."
+suffix = " You can view and delete your Content through your Account. "
+
+[[anchor]]
+id = "zdr-not-standard-org-level"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+n is required to comply with the law or to address misuse.
+
+"""
+exact = "ZDR isn't part of standard usage and can't be turned on from the web UI."
+suffix = " It's enabled at the organization level and requires separat"
+
+[[anchor]]
+id = "zdr-scope-direct-calls-only"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ with a key from a different organization, aren't covered.
+
+"""
+exact = "ZDR applies only to calls made directly to Meta Model API."
+suffix = " Calls routed through third-party platforms follow that plat"
+
+[[anchor]]
+id = "zdr-abuse-2y"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " request is flagged for an Acceptable Use Policy violation, "
+exact = "Meta may retain the associated inputs and outputs for up to 2 years"
+suffix = " for abuse detection, integrity and content-safety enforceme"
+
+[[anchor]]
+id = "region-list-title-effective-date"
+source_id = "0bea1de936dbe452"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+anaged Solutions List of Sub-Processors and Subcontractors
+
+"""
+exact = "Effective November 13, 2023"
+suffix = """
+
+
+Data Center Infrastructure
+
+| Entity | Processing Location"""
+
+[[anchor]]
+id = "region-meta-affiliates-table"
+source_id = "0bea1de936dbe452"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+lands B.V. | Netherlands |
+| Meta Poland Sp. zoo | Poland |
+"""
+exact = "| Meta Singapore Pte. Ltd. | Singapore |"
+suffix = """
+
+| Meta Spain SL | Spain |
+| Meta UK Limited | United Kingdo"""
+
+[[anchor]]
+id = "role-processor-or-service-provider"
+source_id = "236e2f64b01de3db"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+
+1.   Applicability.
+
+1.1. General Terms. Company and Meta ("""
+exact = "in its capacity as Processor or Service Provider"
+suffix = ") shall comply with these General Terms to the extent Meta P"
+
+[[anchor]]
+id = "role-process-on-instruction"
+source_id = "236e2f64b01de3db"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ Meta as a "Service Provider" or "Processor": 
+        1.   """
+exact = "Meta shall Process Applicable Personal Data for and at the direction of Company"
+suffix = " and for the purposes specified in the Applicable Terms (inc"
+
+[[anchor]]
+id = "retention-delete-after-30d"
+source_id = "236e2f64b01de3db"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ot provide such notification within the thirty (30) period, "
+exact = "Meta shall delete existing copies of Applicable Personal Data in its possession in accordance with its data retention policies"
+suffix = ", except as required by Applicable Law or permitted by Compa"
+
+[[anchor]]
+id = "model-designation-discounted"
+source_id = "1dfdfc073bb93de1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ Voice Transcribe
+*   Segment Anything Model 3.1 (SAM 3.1)
+
+"""
+exact = "Discounted Models (use constitutes"
+suffix = """
+ “Discounted Services”):
+
+*   Muse Spark 1.2 Contributor
+*  """
+
+[[anchor]]
+id = "access-restricted-territories"
+source_id = "1dfdfc073bb93de1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+e by updating this Policy.
+
+**3. Restricted Territories.**
+
+"""
+exact = "You may not access the Services from"
+suffix = ", and you may not make Integrated Products available to or k"

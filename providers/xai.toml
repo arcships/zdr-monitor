@@ -1,0 +1,156 @@
+name = "xAI"
+line = "xai"
+site = "global"
+entity = "SpaceXAI LLC"
+endpoint = ""
+doc = "https://x.ai/legal/terms-of-service-enterprise"
+
+[[source]]
+url = "https://docs.x.ai/developers/advanced-api-usage/regions"
+channel = "developer_data"
+tier = "core"
+note = "覆盖档位:api(处理地维度权威)。Grok API 官方 Regional Endpoints 文档(Published 2026-09-14):全局端点 api.x.ai 不保证处理地;us.api.x.ai/v1 才对请求处理、推理、审核、以及 SpaceXAI 保留的请求元数据/输入/输出给出美国境内保证,并列明 Files、Collections、服务端工具与网络链路不在保证内;文末确认 ZDR 是团队级设置、对两个端点均生效。"
+
+[[source]]
+url = "https://x.ai/legal/data-processing-addendum"
+channel = "contract"
+tier = "core"
+note = "覆盖档位:api(业务/企业 API 档的受托处理与跨境传输)。SpaceXAI DPA,经 Enterprise Terms §11.1 自动并入;§2.1 无条件声明 SpaceXAI 为 processor、客户为 controller/processor(不要求先提交个人数据),§8.1 说明可向欧洲以外(含美国)传输与处理个人数据。消费档不适用。"
+
+[[source]]
+url = "https://x.ai/legal/terms-of-service-enterprise"
+channel = "contract"
+tier = "core"
+note = "覆盖档位:api(Grok API / SpaceXAI 业务服务)。SpaceXAI Terms of Service — Enterprise,页面自述『These terms are for enterprise (business) users of the SpaceXAI API and related SpaceXAI Services (including Grok)』,生效方式为 Order Form 或在线购买确认;§3.4(a) 明确保留期可由客户经 self-service tools 选择,故 Console 自助购买/自助配置的 API 团队同样受本文件约束(启用 ZDR 的官方流程也要求接受 Enterprise Terms)。§3.1 不训练、§3.4 默认 30 天删除与 ZDR 行为、§11.1 角色均在此文件。消费档(grok.com)另见 Terms of Service — Consumer,不适用本文件。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "tos-3-1-no-train"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "tos-3-4-zdr-transient-1h"
+
+[product.retention]
+days = 30
+object = "mixed"
+basis = "fixed_period"
+anchor = "tos-3-4-retention-30d"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "regions-us-guarantee-scope"
+
+[product.role]
+kind = "processor"
+anchor = "dpa-2-1-roles"
+
+[[anchor]]
+id = "tos-3-1-no-train"
+source_id = "8a3a1abc61a42e2e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "g from or relating to any Output or Customer’s use thereof. "
+exact = "SpaceXAI will not use any User Content to train any foundation models, large language models, or other artificial intelligence systems or to develop any new products, services, or features"
+suffix = ", subject to disclosures to Customer and Customer-controlled"
+
+[[anchor]]
+id = "tos-3-4-retention-30d"
+source_id = "8a3a1abc61a42e2e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+reof.
+
+    4.   **Deletion and Retention of User Content**. """
+exact = "All User Content will be automatically and permanently deleted no later than 30 days after the end of the interaction or session in which it was submitted"
+suffix = " unless a different retention period is: (a) explicitly agre"
+
+[[anchor]]
+id = "tos-3-4-zdr-transient-1h"
+source_id = "8a3a1abc61a42e2e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "ification no longer applies. Notwithstanding the foregoing, "
+exact = "when and to the extent Customer elects to use ZDR, User Content will exist in SpaceXAI systems only transiently and solely to the extent required to generate and return the real-time response"
+suffix = "; SpaceXAI will delete all such User Content, including any "
+
+[[anchor]]
+id = "tos-11-2-zdr-no-retain"
+source_id = "8a3a1abc61a42e2e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Enabled API. Customer further acknowledges and agrees that, "
+exact = "when using SpaceXAI’s ZDR-Enabled API, SpaceXAI will not retain any User Content (including Personal Data) after processing is complete"
+suffix = ". This includes any User Content that may be needed to respo"
+
+[[anchor]]
+id = "tos-11-1-processor"
+source_id = "8a3a1abc61a42e2e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "al information” (as defined under applicable privacy laws), "
+exact = "SpaceXAI will process such data as a processor on Customer’s behalf"
+suffix = ", and SpaceXAI’s Data Processing Addendum located at [https:"
+
+[[anchor]]
+id = "dpa-2-1-roles"
+source_id = "b868f7653c35302d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "under the Agreement. The parties acknowledge and agree that "
+exact = "SpaceXAI is a processor and you are a controller or processor of Personal Data, as applicable, under Applicable Data Protection Laws"
+suffix = """
+.
+
+    2.   **Details of Processing.** The subject matter, d"""
+
+[[anchor]]
+id = "dpa-8-1-transfers"
+source_id = "b868f7653c35302d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ernational Data Transfers.** You acknowledge and agree that "
+exact = "SpaceXAI may transfer and process Personal Data outside Europe as necessary to provide the Service, including the United States and other countries where SpaceXAI and its Subprocessors maintain data processing operations"
+suffix = ". We shall take all such measures as are necessary to ensure"
+
+[[anchor]]
+id = "regions-global-not-guaranteed"
+source_id = "983be7893acf3dd4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "tps://api.x.ai`](https://api.x.ai/) is the global endpoint. "
+exact = "SpaceXAI may route requests between regions for capacity or reliability, so the processing location is not guaranteed."
+suffix = """
+
+
+If you need API request handling and model inference to ha"""
+
+[[anchor]]
+id = "regions-us-guarantee-scope"
+source_id = "983be7893acf3dd4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+
+*   Safety moderation of the request and the response.
+*   """
+exact = "Storage of the request metadata, prompt inputs, and model outputs that SpaceXAI retains."
+suffix = " The [Security FAQ](https://docs.x.ai/developers/faq/securit"

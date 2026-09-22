@@ -1,0 +1,695 @@
+name = "Friendli"
+line = "friendli"
+site = "global"
+entity = "FriendliAI Corp."
+endpoint = ""
+doc = "https://friendli.ai/terms-of-service"
+
+[[source]]
+url = "https://friendli.ai/docs/guides/suite/enterprise-plan"
+channel = "developer_data"
+tier = "core"
+note = "企业档说明页。给出企业档是「contract-based framework」，可合同启用的能力含 Custom region deployments、VPC deployments、On-prem deployment options 与 Custom commercial terms——即处理地/部署形态在企业档是按合同谈的，公开条款不含具体承诺。仅用于 products[] 的 enterprise 行，不作为 processing_region 顶层的权威。"
+
+[[source]]
+url = "https://friendli.ai/dpa"
+channel = "contract"
+tier = "core"
+note = "《Data Processing Agreement》(Last Modified: September 21, 2026)，由 ToS Exhibit 1 §1.7 并入合同，并在其 §15 规定与主协议冲突时以 DPA 为准。覆盖全部 Friendli Services（含 Model APIs 与 Dedicated Endpoints）。role 维度的权威：§2 双角色（Processor/Sub-Processor + 自有业务数据的 independent Controller）；retention 维度的权威：§11 服务终止后 90 天内删除 Personal Data、备份归档不超过备份日起 90 天，以及 Schedule 3 (Annex I) B.7 的保留期定义；processing_region 的旁证：§5 为 EEA/UK 出境预设 EU SCCs Module 2/3 与 UK Addendum。Schedule 5 把 sub-processors 列表指向 friendli.ai/subprocessors；Schedule 4 把技术与组织措施指向 trust.friendli.ai/controls；Schedule 6 是韩国 PIPA 第 26 条下的受托处理附录。注意：DPA 未写明具体签约实体（只说 the applicable FriendliAI entity）。"
+
+[[source]]
+url = "https://friendli.ai/privacypolicy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Privacy Policy》(Effective Date: Sep 11, 2025)，消费者/访客口径的隐私政策，覆盖 Site 与 Services。本档用途：retention 维度给出唯一的量化口径（§8 AI inference information: 组织与项目删除后最多 1 天；韩国居民 Annex 1 的法定保留期表）；§3 把「对推理服务器的请求与模型响应」列入向 Clients 收集的个人信息，是把 §8 保留期连到输入输出的关键一环；processing_region 维度的主要条款来源是 §11（服务器位于美国）。全篇未出现「train」，也没有任何零保留承诺；§5 的「For Improvement of Our Site or Services」只写 maintain/improve/analyze our Site or Services，未提模型训练。韩文版不存在：/ko/privacypolicy 307 跳回本页。"
+
+[[source]]
+url = "https://friendli.ai/product/bring-your-own-gpu-byog"
+channel = "official_blog"
+tier = "core"
+note = "BYOG 产品页（营销页，最低权威档）。含数据句「Your data, credentials, and inference stack never leave your cloud environment.」与「data residency」。只适用于 BYOG/自管部署这一档：推理栈跑在客户自有云 GPU 上，请求内容不进入 FriendliAI 的托管环境。不能用于 Model APIs / Dedicated Endpoints 档的处理地结论。"
+
+[[source]]
+url = "https://friendli.ai/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Friendli Terms of Service》(页面标 Last Updated: September 21, 2026)，FriendliAI Corp. 与 Customer 之间的主合同，覆盖 Friendli Suite 全部服务。本档关键位置：§10(e) Usage Data（日志/元数据可作任何业务用途，但不含 Customer Materials）、§15(a)(ii)(5) 终止后按 standard data retention policies 删除 Customer Materials；Exhibit 1（Service Specific Terms）§1 只适用于 Friendli Endpoints Services，而定义 §1(t) 明确 Friendli Endpoints Services = Friendli Serverless Endpoints Service（网页上称 Model API）+ Friendli Dedicated Endpoint Service —— 即 ZDR 与训练许可条款对 serverless 与 dedicated 两档同文适用，两档在数据条款上不分离（差异只在 §1.2 的 SLA）。Exhibit 1 §1.1 是训练与 ZDR 两个维度的合同层权威：(a) 提供服务所必需的许可、(b) 开源/公开的客户 checkpoint、(c) provided free of charge 的服务、(d) 排除 Customer Inputs/Outputs 的推理技术改进许可；紧随其后的 Zero Data Retention (ZDR) 段。Exhibit 1 §1.7 把 DPA 并入合同，§1.8(x) 把 friendli.ai/providers 上展示的第三方服务条款纳入合同。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "friendli-tos-ex1-1-1-d-excludes-inputs-outputs"
+
+[[product.training.point]]
+text = "Same as the top-level training entry: Exhibit 1 §1.1(d) excludes Inputs and Outputs from the license to improve inference technology, and §10(a) limits use to \"only … to provide the Friendli Services\""
+text_zh = "同顶层 training：Exhibit 1 §1.1(d) 把 Inputs/Outputs 排除在推理技术改进许可外，§10(a) 限定「only … to provide the Friendli Services」"
+
+[[product.training.point]]
+text = "The documentation page says unconditionally that they are \"never used for training\". Exception: services provided free of charge (§1.1(c)), see the trial row."
+text_zh = "文档页无条件写「never used for training」。例外：免费提供的服务（§1.1(c)）另见 trial 行。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "friendli-tos-ex1-1-1-zdr"
+
+[[product.zdr.point]]
+text = "Same as the top-level zdr entry: zero retention by default, widened only on opt-in"
+text_zh = "同顶层 zdr：默认零保留，opt-in 才扩大"
+
+[[product.zdr.point]]
+text = "The exceptions are the free services under §1.1(c) and Third-Party Inference Providers"
+text_zh = "例外为 §1.1(c) 免费服务与第三方推理提供方"
+
+[[product.zdr.point]]
+text = "https://friendli.ai/providers marks Zero Data Retention model by model."
+text_zh = "https://friendli.ai/providers 逐模型标 Zero Data Retention。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "friendli-dpa-11-delete-within-90-days"
+
+[[product.retention.point]]
+text = "Same as the top-level retention entry: request content is kept only for the duration strictly necessary to process the request (the ToS ZDR clause)"
+text_zh = "同顶层 retention：请求正文仅处理所需时长（ToS ZDR）"
+
+[[product.retention.point]]
+text = "AI inference information is \"retained for up to one (1) day after the organizations and projects had been deleted\" (Privacy §8)"
+text_zh = "AI inference information 组织/项目删除后最多 1 天（Privacy §8）"
+
+[[product.retention.point]]
+text = "After the contract ends, Personal Data is deleted within 90 days, and backup archives no later than 90 days after the date the data was backed up (DPA §11)"
+text_zh = "合同终止后 Personal Data 90 天内删除、备份不超过备份日 +90 天（DPA §11）"
+
+[[product.retention.point]]
+text = "Usage Data has no period (ToS §10(e))."
+text_zh = "Usage Data 无期限（ToS §10(e)）。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "friendli-privacy-11-us-servers"
+
+[[product.processing_region.point]]
+text = "Same as the top-level processing_region entry: US servers at terms level plus an all-US sub-processor list"
+text_zh = "同顶层 processing_region：条款层美国服务器 + sub-processors 全美"
+
+[[product.processing_region.point]]
+text = "Not one sentence states directly which country the inference compute sits in."
+text_zh = "无任何一句直接说明推理算力的国家。"
+
+[product.role]
+kind = "processor"
+anchor = "friendli-dpa-2-processor-role"
+
+[[product.role.point]]
+text = "Same as the top-level role entry: Processor / Sub-Processor for customer data, plus independent Controller for its own business data."
+text_zh = "同顶层 role：客户数据的 Processor/Sub-Processor + 自有业务数据的 independent Controller。"
+
+[[product]]
+id = "dedicated"
+badge = "专属部署"
+category = "api"
+label = "另有 Friendli Container 自管版：容器跑在客户自己的环境里，厂商不接触数据，"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "friendli-tos-ex1-1-1-d-excludes-inputs-outputs"
+
+[[product.training.point]]
+text = "The same clauses as the api tier (Exhibit 1 §1.1 covers both tiers)"
+text_zh = "与 api 档同条款（Exhibit 1 §1.1 覆盖两档）"
+
+[[product.training.point]]
+text = "docs/guides/data-handling names Friendli Dedicated Endpoints as well."
+text_zh = "docs/guides/data-handling 亦同时点名 Friendli Dedicated Endpoints。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "friendli-tos-ex1-1-1-zdr"
+
+[[product.zdr.point]]
+text = "The same clauses as the api tier (the ZDR paragraph sits in Exhibit 1 §1.1 and is identical for both tiers). The old record, and the common assumption, treat dedicated as the stricter tier, but this vendor's public terms do not write the two tiers separately."
+text_zh = "与 api 档同条款（ZDR 段属 Exhibit 1 §1.1，两档同文）。旧记录/常见误解是把 dedicated 当更严的一档，本家公开条款并未把两档分开写。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "friendli-dpa-11-delete-within-90-days"
+
+[[product.retention.point]]
+text = "The same clauses as the api tier. The Dedicated tier is given no stricter or looser retention commitment."
+text_zh = "与 api 档同条款。Dedicated 档未另给更严或更松的保留承诺。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "friendli-enterprise-custom-region-deployments"
+
+[[product.processing_region.point]]
+text = "The processing location for the Dedicated tier is not separately declared in the public terms"
+text_zh = "Dedicated 档的处理地在公开条款中未单独声明"
+
+[[product.processing_region.point]]
+text = "The enterprise documentation says Custom region deployments / VPC / on-prem can be enabled by contract (low authority: a capability list rather than a commitment), and the product page claims only geo-distributed multi-cloud. Recorded as by_contract, without carrying over the top-level US."
+text_zh = "企业档文档称可合同启用 Custom region deployments / VPC / on-prem（权威性低，属能力清单而非承诺），产品页只称 geo-distributed multi-cloud。故记 by_contract，不套用顶层 US。"
+
+[product.role]
+kind = "processor"
+anchor = "friendli-dpa-2-processor-role"
+
+[[product.role.point]]
+text = "Same as the top-level role entry."
+text_zh = "同顶层 role。"
+
+[[product]]
+id = "trial"
+badge = "免费层"
+category = "api"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "friendli-tos-ex1-1-1-c-free-services-training"
+
+[[product.training.point]]
+text = "Exhibit 1 §1.1(c): for services provided free of charge, the Customer Materials the customer submits may be used for \"improving, developing, enhancing, and providing FriendliAI's and its Affiliates' products and services\". This stands head-on against the unconditional \"never used for training\" in docs/guides/data-handling, and under the rules both are kept side by side: the documentation page does not distinguish free from paid, while the tier-specific exception in the ToS has higher authority."
+text_zh = "Exhibit 1 §1.1(c)：对免费提供的服务，客户提交的 Customer Materials 可用于「improving, developing, enhancing, and providing FriendliAI’s and its Affiliates’ products and services」。与 docs/guides/data-handling 的无条件「never used for training」正面对立，按规则两条并列保留：文档页未区分免费/付费，ToS 的分档例外效力更高。"
+
+[product.zdr]
+mark = "no"
+anchor = "friendli-tos-ex1-1-1-c-free-services-training"
+
+[[product.zdr.point]]
+text_zh = "ZDR 条款的第一句就以 §1.1(c) 为例外：免费提供的服务里提交的材料可被用于改进和开发产品，免费档不享受默认零保留。"
+anchor = "friendli-tos-ex1-1-1-zdr"
+
+[[product.zdr.point]]
+text = "The first sentence of the ZDR paragraph carves out §1.1(c) — the free tier does not get zero retention by default. This is the \"express denial\" kind: there is a clause behind it, so it is not \"undisclosed\"."
+text_zh = "ZDR 段第一句即以 §1.1(c) 为例外——免费档不享受默认零保留。这是「明确否定」类：有条款依据，不是「未披露」。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "friendli-tos-ex1-1-1-c-free-services-training"
+
+[[product.retention.point]]
+text = "The free tier is excluded from the ZDR paragraph (an express exception), and the public documents give no retention period for it"
+text_zh = "免费档不适用 ZDR 段（明文例外），公开文件未给免费档的保留期限"
+
+[[product.retention.point]]
+text = "Only §6(c) states that Trial/Beta services are provided \"AS IS\" and carry no commitments."
+text_zh = "仅 §6(c) 声明 Trial/Beta 服务「AS IS」且不含任何承诺。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://friendli.ai/terms-of-service",
+  "https://friendli.ai/privacypolicy",
+  "https://friendli.ai/docs/guides/data-handling",
+]
+
+[[product.processing_region.point]]
+text = "The processing locations of the free and paid tiers are not disclosed separately, and the vendor makes no separate statement of processing region for the free service."
+text_zh = "免费档与付费档的处理地未分别披露，官方未就免费服务单独声明处理区域。"
+
+[product.role]
+kind = "processor"
+anchor = "friendli-dpa-2-processor-role"
+
+[[product.role.point]]
+text = "The DPA applies to all Services"
+text_zh = "DPA 适用于全部 Services"
+
+[[product.role.point]]
+text = "But the free tier is authorized under §1.1(c) for improving the vendor's own products, which is substantively closer to controller self-use; the public documents make no separate role statement about it."
+text_zh = "但免费档被 §1.1(c) 授权用于自家产品改进，实质上更接近控制者自用，公开文件未就此另作角色声明。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "friendli-tos-ex1-1-1-d-excludes-inputs-outputs"
+
+[[product.training.point]]
+text = "The only public terms are the general ToS, and the same Exhibit 1 §1.1(d) exclusion that governs the api / dedicated / self-managed tiers applies here: Customer Inputs and Outputs are excluded from the licence to improve, develop and enhance the inference technology."
+text_zh = "公开条款只有通用 ToS，而 api / dedicated / self-managed 三档所依据的 Exhibit 1 §1.1(d) 同一条排除同样适用：Customer Inputs/Outputs 被排除在「改进、开发、增强推理技术」的许可之外。"
+
+[[product.training.point]]
+text = "The enterprise tier may sign a separate Customer Agreement that takes precedence; that document is not public, so it cannot be reflected here. The recorded conclusion rests on the public ToS only."
+text_zh = "企业档可能另签 Customer Agreement 并优先适用，该文件不公开、无法据以判断。本条结论只依据公开 ToS。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "friendli-tos-ex1-1-1-zdr"
+
+[[product.zdr.point]]
+text = "The default zero retention in the general ToS applies to the enterprise tier as well, unless a Customer Agreement provides otherwise (not public)."
+text_zh = "通用 ToS 的默认零保留对企业档同样适用，除非 Customer Agreement 另有约定（未公开）。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "friendli-dpa-11-delete-within-90-days"
+
+[[product.retention.point]]
+text = "The DPA is the default text"
+text_zh = "DPA 是默认文本"
+
+[[product.retention.point]]
+text = "The enterprise tier may agree otherwise (DPA §15 allows written amendment), and no enterprise-specific retention period is public."
+text_zh = "企业档可另行约定（DPA §15 允许书面修改），公开层面无企业专属保留期。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "friendli-enterprise-custom-region-deployments"
+
+[[product.processing_region.point]]
+text = "The enterprise tier can select a region / VPC / on-prem by contract; the list of specific regions is not public."
+text_zh = "企业档可按合同选区域/VPC/on-prem，具体区域清单未公开。"
+
+[product.role]
+kind = "processor"
+anchor = "friendli-dpa-2-processor-role"
+
+[[product.role.point]]
+text = "The Processor / Sub-Processor position in DPA §2 applies to all Services, the enterprise tier included"
+text_zh = "DPA §2 的 Processor/Sub-Processor 定位对全部 Services 适用，含企业档"
+
+[[product.role.point]]
+text = "But the enterprise tier may sign additional documents such as a BAA (clause 8 of ToS §8 mentions HIPAA/BAA)."
+text_zh = "但企业档可能另签含 BAA 等附加文件（ToS §8 第 8 条提到 HIPAA/BAA）。"
+
+[[product]]
+id = "self_managed"
+badge = "自托管"
+category = "self_host"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "friendli-tos-ex1-1-1-d-excludes-inputs-outputs"
+
+[[product.training.point]]
+text = "On the self-managed tier, Customer Inputs are not submitted to FriendliAI's inference service and so do not fall within the license in §1.1"
+text_zh = "自管档的 Customer Inputs 不提交给 FriendliAI 的推理服务，故不落入 §1.1 的许可范围"
+
+[[product.training.point]]
+text = "But Exhibit 1 §2.3 requires the customer to supply \"input values\" and \"specific input examples\" for support and bug fixes; those are provided voluntarily by the customer, and the terms take no position on whether such samples may be used for training."
+text_zh = "但 Exhibit 1 §2.3 要求客户为支持与 bug fix 主动提供「input values」「specific input examples」，属客户自愿提供，条款未就这些样本的训练用途表态。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_deployment"
+anchor = "friendli-byog-data-stays-in-customer-cloud"
+
+[[product.zdr.point]]
+text = "On the self-managed tier zero retention is an architectural result (data never leaves the customer's cloud), not a contractual commitment"
+text_zh = "零保留在自管档是架构结果（数据不出客户云），不是条款承诺"
+
+[[product.zdr.point]]
+text = "The wording comes from a marketing page and has low authority. Note that §2.4 requires the Container to stay connected to the Metering Server, so metering metadata still leaves the environment."
+text_zh = "营销页措辞，权威性低。注意 §2.4 要求 Container 常连 Metering Server，计量元数据仍会外发。"
+
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "friendli-byog-data-stays-in-customer-cloud"
+
+[[product.retention.point]]
+text = "Data stays in the customer's own cloud and the retention period is controlled by the customer"
+text_zh = "数据留在客户自己的云，保留期由客户控制"
+
+[[product.retention.point]]
+text = "On FriendliAI's side the only data received is the support samples the customer volunteers under Exhibit 1 §2.3, and the public terms give no retention period for them."
+text_zh = "FriendliAI 侧只按 Exhibit 1 §2.3 收到客户主动提供的支持样本，公开条款未写其保留期。"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "friendli-byog-data-stays-in-customer-cloud"
+
+[[product.processing_region.point]]
+text = "Processing location = the customer's own cloud environment (the page says this can be used to meet data residency requirements)."
+text_zh = "处理地 = 客户自有云环境（页称可用于满足 data residency 要求）。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://friendli.ai/product/bring-your-own-gpu-byog",
+  "https://friendli.ai/terms-of-service",
+]
+
+[[product.role.point]]
+text = "The public documents make no separate controller/processor statement for the BYOG / Container tier"
+text_zh = "公开文件未就 BYOG/Container 档单独声明 controller/processor 角色"
+
+[[product.role.point]]
+text = "The DPA applies to the \"Services\" as a whole, but on the self-managed tier FriendliAI does not carry the customer's inference content."
+text_zh = "DPA 适用于「Services」整体，但自管档下 FriendliAI 不承载客户推理内容。"
+
+[[anchor]]
+id = "friendli-tos-ex1-1-1-zdr"
+source_id = "e206087e1c69eba2"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "ove, and notwithstanding anything to the contrary herein, **"
+exact = "FriendliAI will not store, log, or otherwise persist any Customer Inputs or Customer Outputs beyond the duration strictly necessary to process the applicable API request and return a response"
+suffix = "**, unless Customer opts-in to broader retention and use of "
+
+[[anchor]]
+id = "friendli-tos-ex1-1-1-zdr-third-party-inference-providers"
+source_id = "e206087e1c69eba2"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "utputs through the Product Management Console. For clarity, "
+exact = "FriendliAI does not control, restrict the use of, or influence the retention of Customer Materials (including Customer Inputs and Customer Outputs) accessed or generated by Third-Party Inference Providers"
+suffix = ", and it is Customer’s responsibility to review the Third-Pa"
+
+[[anchor]]
+id = "friendli-tos-ex1-1-1-c-free-services-training"
+source_id = "e206087e1c69eba2"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+FriendliAI’s and its Affiliates’ products and services;
+
+c. """
+exact = "any Customer Materials submitted to or for Friendli Services that are provided free of charge for the purpose of improving, developing, enhancing, and providing FriendliAI’s and its Affiliates’ products and services"
+suffix = """
+; and
+
+d. any Customer Materials (excluding Customer Inputs,"""
+
+[[anchor]]
+id = "friendli-tos-ex1-1-1-d-excludes-inputs-outputs"
+source_id = "e206087e1c69eba2"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ndliAI’s and its Affiliates’ products and services; and
+
+d. """
+exact = "any Customer Materials (excluding Customer Inputs, Customer Outputs, and proprietary Customer-Provided Model Checkpoints) to improve, develop, enhance, and provide FriendliAI’s and its Affiliates’ inference technology"
+suffix = """
+.
+
+**Zero Data Retention (ZDR).** Except to engage in the ac"""
+
+[[anchor]]
+id = "friendli-tos-10-e-usage-data-any-purpose"
+source_id = "e206087e1c69eba2"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ notice files, or in the Documentation.
+
+e. **Usage Data**. """
+exact = "FriendliAI and its Affiliates collect or generate Usage Data based on Customer’s and all Teams’ use of the Friendli Services and reserve the right to use and disclose it for any purposes related to its products or business"
+suffix = ". The Customer agrees to the foregoing information collectio"
+
+[[anchor]]
+id = "friendli-tos-15-a-5-termination-deletion"
+source_id = "e206087e1c69eba2"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "mination in accordance with Section 9 (Fees & Payment); (5) "
+exact = "FriendliAI may delete all Customer Materials to which it has access in accordance with FriendliAI’s standard data retention policies"
+suffix = "; and (6) the following Sections will survive: 1, 2, 3, 5(a)"
+
+[[anchor]]
+id = "friendli-tos-ex1-1-7-dpa-incorporated"
+source_id = "e206087e1c69eba2"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+able.
+
+**1.7.**_Data Security & Data Privacy_. The parties’ """
+exact = "agreement with respect to their respective data protection and data security obligations is set forth in the Data Processing Agreement, which is incorporated by reference into and made a part of these Terms."
+suffix = """
+
+
+**1.8.**_Third-Party Services & Infrastructure Vendors_.
+
+"""
+
+[[anchor]]
+id = "friendli-tos-ex1-1-8-providers-third-party-service-terms"
+source_id = "e206087e1c69eba2"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "vern the Third-Party Services (including but not limited to "
+exact = "terms presented for the applicable Third-Party Service at [friendli.ai/providers](https://friendli.ai/providers) or through the applicable product descriptions"
+suffix = " or products page for Third-Party Services) (“**Third-Party "
+
+[[anchor]]
+id = "friendli-dpa-2-processor-role"
+source_id = "194114116ce64951"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " Personal Data is Processed by FriendliAI. In this context, "
+exact = "FriendliAI will act as Processor or Sub-Processor to Customer, who can act either as Controller or Processor (on behalf of Customer’s customers or end users) of Personal Data."
+suffix = " As between Customer and FriendliAI, Customer shall be solel"
+
+[[anchor]]
+id = "friendli-dpa-2-independent-controller"
+source_id = "194114116ce64951"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+DPA.
+
+Notwithstanding anything in this DPA to the contrary, """
+exact = "FriendliAI acts as an independent Controller with respect to Personal Data that it collects or generates for its own business purposes, including (i) contact details and payment details, (ii) account, authentication, and login data, and (iii) device, connection, and service-usage data"
+suffix = " (such as IP address, user agent, request timestamps, and ac"
+
+[[anchor]]
+id = "friendli-dpa-11-delete-within-90-days"
+source_id = "194114116ce64951"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "a from the Service before any termination of the Agreement. "
+exact = "Customer instructs FriendliAI, after the end of the provision of the Services, to delete all Personal Data in FriendliAI’s possession or control, and FriendliAI shall delete such Personal Data within 90 days or shorter as required by applicable Data Protection Laws"
+suffix = ", including, without limitation, when a Data Subject exercis"
+
+[[anchor]]
+id = "friendli-dpa-11-backup-90-days"
+source_id = "194114116ce64951"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "pplicable law to retain all or some of the Personal Data or "
+exact = "to Personal Data FriendliAI has archived on backup systems, which data FriendliAI shall securely isolate and protect from further processing except to the extent required by such law, until such time as the relevant backup archive is destroyed in accordance with FriendliAI’s standard backup destruction policies, which shall not exceed 90 days after the date such data was backed up."
+suffix = """
+
+
+## 12. Audit Rights
+
+To the extent that Audit Rights are s"""
+
+[[anchor]]
+id = "friendli-dpa-sched3-b7-retention-period"
+source_id = "194114116ce64951"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+sion of services to FriendliAI.
+
+**7. Retention Period**
+
+**"""
+exact = "The shortest duration between (i) any deletion of the Personal Data from Customer’s account with FriendliAI, and (ii) the end of the contractual relationship between Customer and FriendliAI, subject to Section 3 of the DPA."
+suffix = """
+**
+
+**8. Duration of Processing**
+
+The Processing performed """
+
+[[anchor]]
+id = "friendli-dpa-5-eea-transfer-sccs"
+source_id = "194114116ce64951"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " Level of Protection applies, the Parties hereby agree that "
+exact = "the EU SCCs (Controller-to-Processor – Module 2) will apply to the transfer of such Personal Data, as construed by reference to **Schedule 1** hereto."
+suffix = " FriendliAI may terminate the EU SCCs by giving Customer 30 "
+
+[[anchor]]
+id = "friendli-dpa-sched6-korean-pipa-delegation"
+source_id = "194114116ce64951"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ing**”) in the course of performing the Delegated Services, "
+exact = "FriendliAI shall not engage in any such activities for any purpose other than to provide the Delegated Services to the Customer and its end-users, which shall include services such as data processing and other limited related services at the direction of the Customer."
+suffix = """
+
+
+### Customer’s Obligations
+
+3. The Customer agrees and war"""
+
+[[anchor]]
+id = "friendli-dpa-sched5-subprocessors-pointer"
+source_id = "194114116ce64951"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = """
+ Schedule 5 - Sub-Processors  
+(also Annex III to EU SCCs)
+
+"""
+exact = "FriendliAI has appointed, and Customer authorizes, the Sub-Processors located at [https://friendli.ai/subprocessors](https://friendli.ai/subprocessors). This list may change from time to time, and the effective date of such change will be posted on the referenced site."
+suffix = """
+
+
+* * *
+
+## Schedule 6 – Korean Addendum for  
+Delegation of"""
+
+[[anchor]]
+id = "friendli-privacy-3-inference-requests-are-personal-info"
+source_id = "e878bfaf29ba6c94"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "tokens for access to third party services or cloud storage, "
+exact = "requests made to inference servers and responses generated by AI models"
+suffix = """
+; and
+*   Other information that could reasonably be used to"""
+
+[[anchor]]
+id = "friendli-privacy-8-ai-inference-1-day"
+source_id = "e878bfaf29ba6c94"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+after withdrawal from regular and/or social membership.
+*   """
+exact = "**AI inference information**: retained for up to one (1) day after the organizations and projects had been deleted."
+suffix = """
+
+
+We utilize the following criteria to determine the length """
+
+[[anchor]]
+id = "friendli-privacy-11-us-servers"
+source_id = "e878bfaf29ba6c94"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " are visiting the Site from a location outside of the U.S., "
+exact = "your connection will be through and to servers located in the U.S. All information you receive from the Site will be created on servers located in the U.S., and all information you provide will be maintained on web servers and systems located within the U.S."
+suffix = " The data protection laws in the United States may differ fr"
+
+[[anchor]]
+id = "friendli-privacy-annex1-overseas-consignment-aws-us"
+source_id = "e878bfaf29ba6c94"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+tion and Processing |
+| --- | --- | --- | --- | --- | --- |
+"""
+exact = "| Amazon Web Services, Inc. ([aws-korea-privacy@amazon.com](mailto:aws-korea-privacy@amazon.com)) | U.S. | Transferred through server | Any personal data processed | Data management |"
+suffix = " Until member’s membership withdrawal; or until the consignm"
+
+[[anchor]]
+id = "friendli-privacy-annex1-kr-payment-records-5y"
+source_id = "e878bfaf29ba6c94"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+’s complaints or settlement of disputes | Three (3) years |
+"""
+exact = "| Records related to payment for and provision of services | Five (5) years |"
+suffix = """
+
+
+### 2. Consignment of Personal Data Processing
+
+The follow"""
+
+[[anchor]]
+id = "friendli-privacy-5-improvement-purpose"
+source_id = "e878bfaf29ba6c94"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ay process certain Personal Information, including to:
+
+*   """
+exact = "maintain, improve, and analyze our Site or Services"
+suffix = """
+; and
+*   detect, prevent, or investigate suspicious activit"""
+
+[[anchor]]
+id = "friendli-enterprise-custom-region-deployments"
+source_id = "af4ff4528bd7d0f7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "access to high-demand GPU types • Reserved GPU capacity | • "
+exact = "Custom region deployments • VPC deployments • On-prem deployment options"
+suffix = " | • Dedicated support channels • Named Customer Success own"
+
+[[anchor]]
+id = "friendli-byog-data-stays-in-customer-cloud"
+source_id = "11780936358e7835"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ce stack in your cloud.
+
+### Your data stays in your cloud
+
+"""
+exact = "Your data, credentials, and inference stack never leave your cloud environment."
+suffix = """
+
+
+Benefits
+
+## Get more from your existing GPUs
+
+Maximize th"""

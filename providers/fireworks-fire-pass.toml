@@ -1,0 +1,156 @@
+name = "Fireworks Fire Pass"
+name_en = "Fireworks Fire Pass"
+company = "fireworks-ai"
+company_name = "Fireworks AI"
+line = "fire-pass"
+site = "global"
+entity = "Fireworks.ai, Inc."
+doc = "https://docs.fireworks.ai/accounts/data-residency"
+plan_levels = ["individual"]
+
+[[source]]
+url = "https://docs.fireworks.ai/accounts/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；列出 residency 开启后被拒的功能（训练、FireRouter、BYOC）。既是处理地维度的主要来源，也是 FireRouter/BYOC 多跳与自管档的官方披露点。"
+
+[[source]]
+url = "https://docs.fireworks.ai/guides/security_compliance/data_handling"
+channel = "developer_data"
+tier = "core"
+note = "文档站 Security & Compliance 下的《Zero Data Retention》页（页面标题即 Zero Data Retention），覆盖推理档的默认保留策略与 Response API 例外。旧记录唯一一条候选，本轮四步验证通过（HTTP 200 / 12820B / 有主体×动作条款 / 可定位原句）。"
+
+[[source]]
+url = "https://fireworks.ai/dpa"
+channel = "contract"
+tier = "core"
+note = "《Data Processing Addendum (v3.2)》，jina 抓回的是 22 页 PDF/DOCX 渲染（页面 URL 为 fireworks.ai/dpa，由 ToS §2.4 并入）。这是 role / retention / training / processing_region 的合同层权威：§3 角色、§4.3(f) 禁止训练、§4.5 请求生命周期保留、§11 终止后删除、Schedule 2「limited data retention」、Schedule 4 授权子处理者及其处理地。适用对象是「business customer」签署的 Agreement（含自服务条款）。"
+
+[[source]]
+url = "https://fireworks.ai/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Fireworks.ai, Inc. 的通用服务条款（正文含 §3 Content、§3.6 Zero Data Retention、§10.1 Privacy）。覆盖平台全部付费/免费服务档：serverless 推理、专用部署、训练与微调、Response API、agent 功能。§3.1 定义 Input/Output/Content，§2.4 把 www.fireworks.ai/dpa 并入本条款，§3.6 是 zdr / training / retention 三个维度的合同层最高权威，§10.1 是处理地维度的合同层依据。本文件未出现 controller/processor 字样，角色维度以 DPA 为准。"
+
+[[product]]
+id = "subscription"
+badge = "Fire Pass 订阅"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-tos-3-6-no-training"
+
+[[product.training.point]]
+text_zh = "无独立条款，沿用 ToS §3.6 的无条件「不训练自有模型」承诺。置信度 medium：Fire Pass 页面自称「an experimental product. Features, availability, and pricing are subject to change.」，且明确只对 open weight models 生效，而文档层的不记录承诺本来就限定在 open models 上，两者恰好重合。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "fireworks-datahandling-open-models-scope"
+
+[[product.zdr.point]]
+text_zh = "无独立条款。本档只允许 open weight 模型（Fire Pass 页「A NEW dedicated Fire Pass key that only works for open weight models」），恰好落在文档层「for any open models」的措辞范围内。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "fireworks-datahandling-zdr-default"
+
+[[product.retention.point]]
+text_zh = "无独立条款，沿用推理档 ZDR（data_handling 页 + ToS §3.6）"
+
+[[product.retention.point]]
+text_zh = "例外同样适用（Response API / prompt caching）。Fire Pass 页面未提任何保留规则。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "fireworks-dataresidency-none-default"
+
+[[product.processing_region.point]]
+text_zh = "无独立条款，沿用账号级设置（默认 None = 多区域）。Fire Pass 页面未提区域"
+
+[[product.processing_region.point]]
+text_zh = "residency 是账号级开关，理论上同样适用于本档，但文档未明示。"
+
+[product.role]
+kind = "processor"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "DPA 的适用对象是「business customer」，而 Fire Pass 的定位是个人 agentic coding（面向消费者式使用）。个人用户是否被视为 DPA 意义上的 Customer、还是落回隐私政策（隐私政策自称不是合同），官方没有说明，置信度低。需人工澄清。"
+
+[[anchor]]
+id = "fireworks-tos-3-6-no-training"
+source_id = "f3cd723579d811c6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ of such Content going forward. 
+
+3.6. Zero Data Retention. """
+exact = "We will not use your Content to train our own models or to improve the Service."
+suffix = " We will not retain any Content for longer than is necessary"
+
+[[anchor]]
+id = "fireworks-dpa-3-a-processor"
+source_id = "809a8c0c397358d0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+e and agree that: 
+
+(a)  save as set out in paragraph 3(b), """
+exact = "Company acts as a processor or service provider in the performance of its obligations under the Agreement and this DPA and Customer acts as a controller or business"
+suffix = """
+; and 
+
+(b)  for the purposes of the GDPR, Company acts as a"""
+
+[[anchor]]
+id = "fireworks-datahandling-zdr-default"
+source_id = "9e4b92eacd199a46"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ce/data_handling#zero-data-retention)
+
+Zero data retention
+
+"""
+exact = "Fireworks has Zero Data Retention by default."
+suffix = """
+ Specifically, this means
+*   Fireworks does not log or stor"""
+
+[[anchor]]
+id = "fireworks-datahandling-open-models-scope"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+ero Data Retention by default. Specifically, this means
+*   """
+exact = "Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in."
+suffix = """
+
+    *   More technically: prompt and generation data exist """
+
+[[anchor]]
+id = "fireworks-dataresidency-none-default"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ents/regions), or a single US region such as `US_IOWA_1` |
+
+"""
+exact = "**None** is the default."
+suffix = " For a region that is not listed, contact [sales](https://fi"

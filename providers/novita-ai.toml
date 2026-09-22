@@ -1,0 +1,506 @@
+name = "Novita AI"
+line = "novita-ai"
+site = "global"
+endpoint = ""
+doc = "https://novita.ai/legal/terms-of-service"
+
+[[source]]
+url = "https://novita.ai/docs/guides/gpu-instance-faq.md"
+channel = "developer_data"
+tier = "core"
+note = "GPU 实例 FAQ（.md 直连通道，jina 正文）。给出本家除 Batch 之外另一处量化保留期限：「Data from stopped instances is retained for 7 days... After 7 days, data is automatically and permanently deleted with no recovery option.」并建议高持久需求用 Network Volume（其数据独立于实例生命周期）。仅覆盖 GPU 实例产品线，与 API 档的 ZDR 表述是两回事。"
+
+[[source]]
+url = "https://novita.ai/legal/privacy-policy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《Novita AI Privacy Policy》(Effective date 2026-05-13，Last updated 2026-05-13)。开头即声明「This Privacy Policy does not apply to content that we process on behalf of customers while providing services」——即 API 输入输出正文不适用本政策，而适用客户协议；本政策自身覆盖账户信息、交易记录、通讯信息、网站技术信息。是唯一给出分类保留期限的官方文档（账户 +7 年 / 交易 7 年 / 通讯 3 年 / 技术信息 2 年），也是唯一明示「Personal Information 不用于模型训练」的隐私层文档，并给出跨境传输（含美国）表述。"
+
+[[source]]
+url = "https://novita.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-08-05)，合同层最高权威，覆盖全部 Marketplace Offerings：§1 把「AI-powered cloud services, including: AI inference APIs (text generation, image generation, speech, video, and multimodal models), storage, and related software products」定义为 Marketplace Offerings，即 Model API、GPU 实例、Agent Sandbox 共用同一份 TOS；§6 提到 Model 可能来自 Model Provider，但未披露数据是否流向该主体；§10 是训练/保留/ZDR 的唯一合同层条款（§10.2 标题即 Zero Data Retention）；§20 适用法为 Delaware。全文没有量化保留期限，也没有任何 DPA/ZDR 申请表入口。"
+
+[[source]]
+url = "https://trust.novita.ai/faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层，与 TOS §10.2 在方向上一致。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "novita-tos-10-2-no-training"
+
+[[product.training.point]]
+text = "See top-level training. Contract §10.2, \"By Default, Novita AI will not use your Content to train our own models or to improve the Services.\", plus FAQ item 1, \"No. By default, we do not use any data submitted through our API — including prompts, inputs, outputs, or conversation histories — to train or improve our models.\" No opt-in tier permitting training is disclosed"
+text_zh = "见顶层 training。合同 §10.2「By Default, Novita AI will not use your Content to train our own models or to improve the Services.」+ FAQ 第 1 条「No... to train or improve our models」。未披露任何允许训练的可选档"
+
+[[product.training.point]]
+text = "It does not cover the upstream model provider's training policy for that provider's own models."
+text_zh = "未覆盖上游 model provider 对自有模型的训练政策。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "novita-tos-10-2-zero-data-retention"
+
+[[product.zdr.point]]
+text = "See top-level zdr. The definition in TOS §10.2 plus FAQ item 3, \"Zero Data Retention is the default for all endpoints, including serverless API calls.\" — no application required"
+text_zh = "见顶层 zdr。TOS §10.2 定义 + FAQ 第 3 条「Zero Data Retention is the default for all endpoints, including serverless API calls.」，无需申请"
+
+[[product.zdr.point]]
+text = "The exceptions and the open-ended \"as necessary to provide the Services or technical support\" clause are left undefined."
+text_zh = "例外与「as necessary to provide the Services or technical support」开口条款未界定。"
+
+[product.retention]
+days = 180
+object = "mixed"
+basis = "fixed_period"
+anchor = "novita-tos-10-2-zero-data-retention"
+
+[[product.retention.point]]
+text = "See top-level retention. API input and output content is not retained beyond the time required to generate and deliver Output (exceptions: where required by applicable law, as necessary to provide the Services or technical support, and automated safety screening)"
+text_zh = "见顶层 retention。API 输入输出正文不为交付之外保留（例外：法律要求/为提供服务或技术支持所必需/自动安全筛查）"
+
+[[product.retention.point]]
+text = "Technical metadata retained for 6 months (FAQ item 3)"
+text_zh = "技术元数据 6 个月（FAQ 第 3 条）"
+
+[[product.retention.point]]
+text = "Batch inputs deleted after 15 days, results after 30 days"
+text_zh = "Batch 输入 15 天、结果 30 天删除"
+
+[[product.retention.point]]
+text = "The Prompt Cache retention period is not disclosed."
+text_zh = "Prompt Cache 缓存保留期未披露。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "novita-privacy-international-transfers"
+
+[[product.processing_region.point]]
+text = "See top-level processing_region. The Privacy Policy expressly states \"We may transfer Personal Information to countries outside your country or region, including the United States.\""
+text_zh = "见顶层 processing_region。PP 明示可传输至美国等境外"
+
+[[product.processing_region.point]]
+text = "FAQ item 6 says the service is \"Hosted on AWS data centers\" (no region given)"
+text_zh = "FAQ 第 6 条称托管在 AWS 数据中心（未给区域）"
+
+[[product.processing_region.point]]
+text = "FAQ item 8 gives the cross-border mechanism as SCC Module 2 plus the UK IDTA. There is no data residency commitment and no region selection option."
+text_zh = "FAQ 第 8 条跨境机制为 SCC Module 2 + UK IDTA。无数据驻留承诺或区域选择项。"
+
+[product.role]
+kind = "processor"
+anchor = "novita-privacy-scope-customer-content"
+
+[[product.role.point]]
+text = "See top-level role. Customer content that \"we process on behalf of customers\" is governed by the customer agreements"
+text_zh = "见顶层 role。客户内容「we process on behalf of customers」由客户协议约束"
+
+[[product.role.point]]
+text = "The enterprise tier offers a GDPR Article 28 DPA and SCC Module 2. But the subprocessor list includes an unnamed \"Model provider\" that processes API inputs and outputs, and the upstream entity is not disclosed."
+text_zh = "企业档提供 GDPR Art.28 DPA 与 SCC Module 2。但子处理者中存在未具名「Model provider」，处理 API 输入输出，上游主体未披露。"
+
+[[product]]
+id = "gpu-cloud"
+badge = "GPU 云"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "novita-tos-10-2-no-training"
+
+[[product.training.point]]
+text = "TOS §10.2 takes Content (user inputs and outputs) as its object and makes no separate provision for files inside an instance"
+text_zh = "TOS §10.2 以 Content（用户输入与输出）为对象，未对实例内文件另作规定"
+
+[[product.training.point]]
+text = "There is no evidence that the vendor uses instance data for training and no tier-specific commitment, so it is recorded as no training under the general contract clause, with medium confidence."
+text_zh = "无证据显示厂商会用实例数据训练，也无档位专用承诺，按合同层通用条款记为不训练，置信度 medium。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://trust.novita.ai/faq",
+  "https://trust.novita.ai/controls",
+  "https://novita.ai/legal/terms-of-service",
+  "https://novita.ai/legal/privacy-policy",
+  "https://novita.ai/docs/guides/faq.md",
+  "https://novita.ai/docs/guides/gpu-instance-faq.md",
+  "https://trust.novita.ai/subprocessors",
+]
+
+[[product.zdr.point]]
+text = "The object of the zero-retention commitment in the Trust Center FAQ and TOS §10.2 is \"API inputs and outputs\" / \"Content\", and the stated scope is API endpoints"
+text_zh = "Trust Center FAQ 与 TOS §10.2 的零保留承诺对象是「API inputs and outputs / Content」，明示范围是 API endpoint"
+
+[[product.zdr.point]]
+text = "There is no zero-retention or no-persistence statement for GPU instance disks, network volumes, images or Serverless GPU endpoint content. Recorded as not_found per the rules: the vendor discloses nothing for this product line, and **this must not be read in reverse as the vendor retaining data**."
+text_zh = "GPU 实例磁盘、网络卷、镜像、Serverless GPU 端点内容均无零保留或不落盘的表述。按规则记 not_found：官方未就该产品线披露，**不得反向解读为厂商会留存**。"
+
+[product.retention]
+days = 7
+object = "mixed"
+basis = "fixed_period"
+anchor = "novita-gpufaq-instance-data-7-days"
+
+[[product.retention.point]]
+text = "The object is instance-local data: \"Data from stopped instances is retained for 7 days\", with storage fees of $0.005/GB/day during that period, after which \"data is automatically and permanently deleted with no recovery option\""
+text_zh = "对象是实例本地数据：停止的实例数据保留 7 天（期间按 $0.005/GB/day 计存储费），7 天后自动永久删除、不可恢复"
+
+[[product.retention.point]]
+text = "Network volume data is independent of the instance lifecycle (it survives instance deletion); container disk data is kept only when an image is saved, and volume disk data is not kept with the image. The vendor gives no deletion period for network volumes — that is customer-managed storage."
+text_zh = "网络卷数据独立于实例生命周期（实例删除后仍在），容器盘数据仅在保存镜像时保留、卷盘不随镜像保留。厂商未对网络卷给出删除期限——那是客户自管存储。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "novita-trustfaq-infra-aws"
+
+[[product.processing_region.point]]
+text = "Only broad wording such as \"Hosted on AWS data centers\" (and in the source it sits inside a security Q&A); no region selection and no residency commitment; low confidence."
+text_zh = "只有「Hosted on AWS data centers」这类笼统表述（且原文置于安全问答中），无区域选择、无驻留承诺；低置信度。"
+
+[product.role]
+kind = "processor"
+anchor = "novita-privacy-scope-customer-content"
+
+[[product.role.point]]
+text = "There is no role clause specific to this product line"
+text_zh = "无该产品线的专用角色条款"
+
+[[product.role.point]]
+text = "The Privacy Policy's \"process on behalf of customers\" positioning and the TOS's service-provider positioning can be applied by analogy, but the documentation does not name GPU Cloud; low confidence."
+text_zh = "PP 的「代表客户处理」定位与 TOS 的服务提供者定位可类推，但文档未点名 GPU 云，低置信度。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "novita-trustfaq-no-training-on-api-data"
+
+[[product.training.point]]
+text = "FAQ item 1 states that the commitment is \"contractually binding under our Terms of Service\", and the enterprise tier has a DPA that can reinforce it"
+text_zh = "FAQ 第 1 条明确该承诺「contractually binding under our Terms of Service」，企业档另有 DPA 可加固"
+
+[[product.training.point]]
+text = "But the enterprise custom terms themselves are not public, so whether they contain exceptions cannot be checked."
+text_zh = "但企业自定义条款本身不公开，无法核对是否含例外。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.zdr.point]]
+text = "Zero retention is the default; the enterprise tier additionally has a DPA/SCC and written confirmation (FAQ item 1) as contractual reinforcement, but the DPA template is not public."
+text_zh = "默认即为零保留；企业档另有 DPA/SCC 与书面确认（FAQ 第 1 条）可作合同加固，但 DPA 模板不公开。"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.retention.point]]
+text = "FAQ item 3 gives the default wording (content not retained, technical metadata 6 months) and says technical metadata is handled \"as described in our Privacy Policy and applicable Data Processing Agreement\""
+text_zh = "FAQ 第 3 条给出默认口径（正文不留存、技术元数据 6 个月），并称技术元数据的处理「as described in our Privacy Policy and applicable Data Processing Agreement」"
+
+[[product.retention.point]]
+text = "The specific periods for the enterprise tier are set by the DPA, which the public documentation does not carry."
+text_zh = "企业档的具体期限按 DPA 约定，公开文档未载。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "novita-trustfaq-cross-border-scc"
+
+[[product.processing_region.point]]
+text = "FAQ item 8 offers SCC Module 2 and the UK IDTA/Addendum, showing that the cross-border path can be put into contract"
+text_zh = "FAQ 第 8 条提供 SCC Module 2 与 UK IDTA/Addendum，说明跨境路径可合同化"
+
+[[product.processing_region.point]]
+text = "No specific region is disclosed and there is no residency option."
+text_zh = "未披露具体区域，也无驻留选项。"
+
+[product.role]
+kind = "processor"
+anchor = "novita-trustfaq-dpa-art28-processor"
+
+[[product.role.point]]
+text = "FAQ item 9, \"We offer a DPA for enterprise customers. Our DPA covers the required elements under GDPR Article 28, including: ... Controller's obligations and processor's obligations ...\", together with item 8's SCC Module 2 (Controller-to-Processor) — at the agreement layer the enterprise tier is expressly a processor."
+text_zh = "FAQ 第 9 条「We offer a DPA for enterprise customers. Our DPA covers the required elements under GDPR Article 28, including: ... Controller's obligations and processor's obligations ...」，第 8 条 SCC Module 2 Controller-to-Processor——企业档在协议层明确为 processor。"
+
+[[anchor]]
+id = "novita-tos-10-2-no-training"
+source_id = "67323c4abe43949b"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+oviding the Service to you.
+
+**10.2. Zero Data Retention.** """
+exact = "By Default, Novita AI will not use your Content to train our own models or to improve the Services."
+suffix = " We will not retain any Content for longer than is necessary"
+
+[[anchor]]
+id = "novita-tos-10-2-zero-data-retention"
+source_id = "67323c4abe43949b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "or longer than is necessary to provide the Services to you. "
+exact = "We have adopted a \"Zero Data Retention\" policy, which means that we will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you."
+suffix = " Notwithstanding the foregoing, you agree that we have the r"
+
+[[anchor]]
+id = "novita-privacy-scope-customer-content"
+source_id = "65b322371ba5a6a6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ou use our website and services (collectively, \"Services\"). "
+exact = "This Privacy Policy does not apply to content that we process on behalf of customers while providing services. Our use of that data is governed by our customer agreements covering access to and use of those offerings."
+suffix = """
+
+
+## Personal Information We Collect
+
+We collect information"""
+
+[[anchor]]
+id = "novita-privacy-international-transfers"
+source_id = "65b322371ba5a6a6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+with this Privacy Policy.
+
+## International Data Transfers
+
+"""
+exact = "We may transfer Personal Information to countries outside your country or region, including the United States."
+suffix = " Where required by applicable law, we use appropriate safegu"
+
+[[anchor]]
+id = "novita-trustfaq-no-training-on-api-data"
+source_id = "e41cd9e2fea73eae"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+Do you use my API inputs and outputs to train your models?
+
+"""
+exact = "No. By default, we do not use any data submitted through our API — including prompts, inputs, outputs, or conversation histories — to train or improve our models. This commitment is contractually binding under our Terms of Service, and is further documented in our Privacy Policy. For EU/EEA users, this practice aligns with GDPR Article 5(1)(e) (storage limitation principle). Upon request, we can provide written confirmation that no User Content is retained post-processing or used for model training purposes."
+suffix = """
+
+
+https://trust.novita.ai/faq?s=eq19uwaxkzrfpvjp4o13z
+
+Who o"""
+
+[[anchor]]
+id = "novita-trustfaq-retention-by-category"
+source_id = "e41cd9e2fea73eae"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+What data do you collect, and for how long is it retained?
+
+"""
+exact = "We collect the following categories of data: • API inputs & outputs: Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law. Zero Data Retention is the default for all endpoints, including serverless API calls. • Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing. • Account & authentication data: Retained for the duration of the account plus any statutory retention periods, for the purposes of service delivery and legal compliance. Our no-retention commitment applies to the substantive content of your API inputs and outputs across all endpoints, including serverless API calls. Technical metadata for operational purposes (e.g., request timestamps, error codes, usage metrics) is handled as described in our Privacy Policy and applicable Data Processing Agreement. You may request deletion of your account data by contacting support@novita.ai."
+suffix = """
+
+
+https://trust.novita.ai/faq?s=5s1pb55bl2k8rtitswvg7s
+
+Do y"""
+
+[[anchor]]
+id = "novita-trustfaq-infra-aws"
+source_id = "e41cd9e2fea73eae"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "s; privileged access requires multi-factor authentication • "
+exact = "Infrastructure: Hosted on AWS data centers with enterprise-grade physical and network security"
+suffix = " Our security team maintains 24/7/365 on-call coverage to re"
+
+[[anchor]]
+id = "novita-trustfaq-cross-border-scc"
+source_id = "e41cd9e2fea73eae"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "For transfers involving EU/EEA data subjects, we rely on: • "
+exact = "Standard Contractual Clauses (SCCs) — European Commission Decision 2021/914 (Module 2: Controller-to-Processor), as appropriate to your deployment model"
+suffix = " For transfers involving UK data subjects (following Brexit)"
+
+[[anchor]]
+id = "novita-trustfaq-dpa-art28-processor"
+source_id = "e41cd9e2fea73eae"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+slv71u5ra
+
+Do you offer a Data Processing Agreement (DPA)?
+
+"""
+exact = "Yes. We offer a DPA for enterprise customers. Our DPA covers the required elements under GDPR Article 28, including: • Subject matter, duration, nature, and purpose of processing • Types of personal data and categories of data subjects • Controller's obligations and processor's obligations • Sub-processor authorization requirements • Data subject rights mechanisms • Audit and inspection rights"
+suffix = " A copy of our standard DPA template is available upon reque"
+
+[[anchor]]
+id = "novita-gpufaq-instance-data-7-days"
+source_id = "b3ae2715f4de955f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+e.
+
+### How long is data retained after an instance stops?
+
+"""
+exact = "Data from stopped instances is retained for **7 days**, during which storage fees of **\\$0.005/GB/day** apply. After 7 days, data is automatically and permanently deleted with no recovery option."
+suffix = """
+
+
+<Warning>
+  We recommend using [Network Volume](/guides/gp"""
+
+[[anchor]]
+id = "novita-tos-1-scope-ai-inference-apis"
+source_id = "67323c4abe43949b"
+topics = ["retention", "role", "training", "zdr"]
+
+[anchor.selector]
+prefix = "cts, and/or services: AI-powered cloud services, including: "
+exact = "AI inference APIs (text generation, image generation, speech, video, and multimodal models)"
+suffix = ", storage, and related software products (the \"Marketplace O"
+
+[[anchor]]
+id = "novita-tos-10-2-safety-screening"
+source_id = "67323c4abe43949b"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = " deliver that Output to you. Notwithstanding the foregoing, "
+exact = "you agree that we have the right to apply automated safety screening tools to your Content as we deem appropriate, and that such screening does not constitute retention of your Content for any other purpose."
+suffix = """
+
+
+**10.3. AI Output Disclaimer**
+
+THE SERVICES USE ARTIFICIA"""
+
+[[anchor]]
+id = "novita-tos-10-1-license-limited-to-service"
+source_id = "67323c4abe43949b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+hat you may hold in the Input.
+
+**10.1. Grant of License.** """
+exact = "By making Input available to the Service, you grant Novita AI a worldwide, royalty-free, and non-exclusive license to reproduce, view, and use the Input for the purpose of providing the Service to you (including, without limitation, to generate Output)"
+suffix = ". Furthermore, by generating Output, you grant Novita AI a w"
+
+[[anchor]]
+id = "novita-tos-25-user-data-maintained"
+source_id = "67323c4abe43949b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+demnification upon becoming aware of it.
+
+## 25. USER DATA
+
+"""
+exact = "We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings, as well as data relating to your use of the Marketplace Offerings."
+suffix = " Although we perform regular routine backups of data, you ar"
+
+[[anchor]]
+id = "novita-privacy-no-model-training"
+source_id = "65b322371ba5a6a6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ and aptitudes | YES |
+
+## How We Use Personal Information
+
+"""
+exact = "The Personal Information will not be used for model training"
+suffix = """
+. Its primary purposes are as follows:
+
+*   To provide, admi"""
+
+[[anchor]]
+id = "novita-privacy-retention-general"
+source_id = "65b322371ba5a6a6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+n the Service, or third party websites.
+
+## Data Retention
+
+"""
+exact = "We retain your Personal Information for only as long as we need in order to provide our Service to you, or for other legitimate business purposes such as resolving disputes, safety and security reasons, or complying with our legal obligations."
+suffix = " How long we retain Personal Information will depend on a nu"
+
+[[anchor]]
+id = "novita-privacy-retention-specific-periods"
+source_id = "65b322371ba5a6a6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+y legal requirements.
+
+**Specific Retention Periods:**
+
+*   """
+exact = """
+Account Information: Retained for as long as your account is active plus 7 years for legal and tax purposes
+*   Transaction History: Retained for 7 years for accounting and tax compliance
+*   Communication Information: Retained for 3 years from last communication
+*   Technical Information: Retained for 2 years for security and analytics purposes"""
+suffix = """
+
+
+We may also anonymize or de-identify your Personal Informa"""
+
+[[anchor]]
+id = "novita-trustfaq-subprocessor-model-provider"
+source_id = "e41cd9e2fea73eae"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ng. Data processed: aggregated/anonymized usage metadata. • "
+exact = "Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests."
+suffix = " • Payment provider (e.g., Stripe): Provides billing and pay"

@@ -1,0 +1,872 @@
+name = "GitHub Copilot"
+line = "github-copilot"
+site = "global"
+entity = "GitHub, Inc."
+endpoint = ""
+doc = "https://github.com/customer-terms/github-generative-ai-services-terms"
+plan_levels = ["free", "individual", "team", "enterprise"]
+
+[[source]]
+url = "https://copilot.github.trust.page/faq"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "GitHub Copilot Trust Center FAQ(页面标题「github.com Trust Center」，站点为 GitHub 官方 trust.page 域，导航含 Overview/Resources/FAQ/Updates/Media)。主体是面向 Copilot Business / Enterprise 客户的问答，同时含个人订阅档的专门段落(如「In addition,for Individual subscribers only:GitHub may use Copilot interaction data…」)。本家唯一给出量化保留期限的官方页：IDE 路径输入输出默认不留存、其他访问路径默认最多 28 天、User Engagement Data 两年、Copilot Vision 图片 48 小时(被标记 30 天)、Coding Agent 会话日志随账户存续。也是 role(「GitHub acts primarily as a data processor」)与上游模型商(Anthropic/Google 不训练不留存)的官方依据。注意该页「Does GitHub use Copilot Individual data to train AI models?」一条的答案文本被渲染成商业档答案(与个人档段落自相矛盾)，属页面自身缺陷，见 notes。"
+
+[[source]]
+url = "https://docs.github.com/en/copilot/reference/ai-models/model-hosting"
+channel = "developer_data"
+tier = "core"
+note = "GitHub Docs 参考页《Hosting of models for GitHub Copilot》。逐模型族说明由谁托管、数据流向谁、ZDR 覆盖与例外，是本家 zdr 与 processing_region 的主来源，也是「个人档 vs 商业档」分档表述最直接的官方页(同一段里先写「GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models」，紧接着写个人订阅档「GitHub may use Copilot interaction data…to train and improve AI models」，并给出退出开关的文档入口)。覆盖 OpenAI / Anthropic / Google / xAI / Microsoft(MAI) / 开源权重(Kimi) 六类托管，含 Azure、AWS、GCP、xAI、Fireworks AI 等上游。"
+
+[[source]]
+url = "https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-github"
+channel = "developer_data"
+tier = "core"
+note = "GitHub Docs 使用页《Asking GitHub Copilot questions in GitHub》。§Conversation history and retention 给出 github.com 上 Copilot Chat 对话历史的量化保留：最多保留 100 个最近对话，单条对话内的消息保留 28 天后永久删除。对象是「对话历史/Chat 消息」，不是推理请求正文的保留期，不能当作请求级保留承诺。"
+
+[[source]]
+url = "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《GitHub Terms of Service》(含 Section J: AI Features, Training, and Your Data)。覆盖个人许可档(Copilot Free / Pro / Pro+ / Max 及未签 GCA/volume licensing 的使用者)：§J.1 明确「The training and data-use provisions in Section J.3 apply only to individual licenses」；§J.3 是个人档训练维度的合同层依据(默认授权训练 + 账户设置可退出 + 退出仅向将来生效)；§J.3 第三段明确该许可不允许把 Input/Output 交给第三方模型商做其自身训练；正文 E.2(Private Repositories §2 Confidentiality of Private Repositories，私有仓库内容作为 Input 时的训练使用)与账户注销后 90 天删除亦在本文件内。"
+
+[[source]]
+url = "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+channel = "consumer_privacy"
+tier = "core"
+note = "《GitHub General Privacy Statement》(页内 Effective date: April 27, 2026)，GitHub 作为 Data Controller 处理个人数据的平台级隐私声明，适用于所有显示该声明的服务(含 GitHub Copilot)。对个人账户，它是处理地与角色的主要依据；对组织提供的账户，声明自身写明组织成为 Data Controller、GitHub 以 Data Processor 身份行事并受 DPA 约束(§End User Notice: Organization-Provided GitHub Accounts)。它是 2026-04 隐私声明更新的本体之一，含「training models」的产品改进目的条款。"
+
+[[source]]
+url = "https://github.com/customer-terms/github-data-protection-agreement"
+channel = "contract"
+tier = "core"
+note = "《GitHub Data Protection Agreement》(DPA)，GitHub Customer Agreement 的模块之一，覆盖 GitHub 以 Processor 身份处理 Customer Personal Data 的全部云服务(含 Copilot Business / Enterprise)。§3.A 划定角色(客户是 Controller、GitHub 是 Processor，例外见 3.A.i/ii 与 §3.C 的独立控制者目的)；§7 数据转移与位置(美国及 GitHub/子处理者运营的任何国家，含无充分性认定的第三国，靠 SCCs)；§8 保留与删除(服务结束后删除或返还)；§9 子处理者。DPA 本身不写 Copilot 请求级保留期，量化期限在产品文档与 Trust Center FAQ。"
+
+[[source]]
+url = "https://github.com/customer-terms/github-generative-ai-services-terms"
+channel = "contract"
+tier = "core"
+note = "《GitHub Generative AI Services Terms》(版本 March 2026，取代 2026-03-05 之前生效的 Product Specific Terms)。适用对象由 §1 划定：§1.A 适用于「直接从 GitHub、按 volume licensing agreement 购买的 Generative AI Services」(即 Copilot Business / Enterprise)；§1.B 明确「If you do not purchase GitHub under a volume licensing agreement, this document does not apply to you」，个人客户改由 GitHub Terms of Service(含 Terms for Additional Products and Features)管辖；§1.C 规定经 Microsoft 购买者改由 Microsoft Product Terms 管辖。§3 是商业档训练维度的合同层依据，§6 是保留维度的合同层条款(把量化期限下放到产品文档)。这是本家权威性最高的来源。"
+
+[[product]]
+id = "consumer"
+badge = "个人版"
+category = "coding_plan"
+plan_level = "individual"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "ghcopilot-tos-j3-license-to-train"
+
+[[product.training.point]]
+text_zh = "默认 permitted。§J.3 给 GitHub 及关联方「collect and use your Inputs and Outputs to develop, train and improve artificial intelligence and machine learning models」，退出条件为「(a) you opt out through your account settings, or (b) your use of the Service is governed by a GitHub Customer Agreement or volume licensing agreement」"
+
+[[product.training.point]]
+text_zh = "退出只向将来生效。开关实体在 manage-policies 页：「Allow GitHub to use my data for AI model training」设为 Disabled，生效日 2026-04-24(model-hosting 页与 Trust Center FAQ 同旨，前者还写明个人档数据可用于「prompts (inputs), suggestions (outputs), and code snippets」)。未覆盖范围：§J.3 末段说明退出权不适用于 D.4-D.8 的一般内容许可，公开仓库内容不在其中"
+
+[[product.training.point]]
+text_zh = "私有仓库内容一旦作为 AI Feature 的 Input 提交，E.2 允许用于开发、训练与改进服务。上游一跳另有约束：§J.3「This license does not, however, permit GitHub or its Affiliates to share your Inputs or Outputs with third-party AI model providers for their own independent model training purposes.」"
+
+[product.zdr]
+mark = "unknown"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr：ZDR 由 GitHub 与上游托管方的协议决定(OpenAI / Anthropic GA 功能 / xAI / Kimi 托管方)，不是个人账户可开关的选项"
+
+[[product.zdr.point]]
+text_zh = "官方未按档位区分这些协议的适用性，也未说明个人档可申请 ZDR。例外：启用 Claude Fable 5 / Fable 5.1 时 Anthropic 默认保留数据，限时 ZDR 豁免只面向通过审批并配置的企业。"
+
+[product.retention]
+days = 28
+object = "input_output"
+basis = "fixed_period"
+anchor = "ghcopilot-ask-questions-chat-history-28-days"
+
+[[product.retention.point]]
+text_zh = "可量化的只有对话历史对象：github.com 上 Copilot Chat 最多保留 100 个最近对话，单条对话内消息保留 28 天后永久删除(上限)。请求正文(输入输出)的保留期在个人档没有任何官方量化承诺：平台级口径是《GitHub General Privacy Statement》「retain your Personal Data as long as your account is active…」+「We employ brief retention terms by design.」(未量化)，账户注销后 90 天内删除仓库内容(ToS，仍可能留在加密备份)。对照：同一家商业档有明确量化(IDE 路径默认不留存 / 其他路径最多 28 天)，个人档没有对应条款，不能把商业档的 28 天外推到个人档。"
+
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "ghcopilot-privacy-processing-locations"
+
+[[product.processing_region.point]]
+text_zh = "个人账户无区域选择权，处理地是「本地区域 + 美国 + 其他运营地」，EU/UK/CH 出境靠 SCCs。数据驻留(Data Residency)是 GitHub Enterprise Cloud 的能力，个人档不适用。"
+
+[product.role]
+kind = "controller"
+anchor = "ghcopilot-privacy-data-controller-limited"
+
+[[product.role.point]]
+text_zh = "个人账户：GitHub 以 Data Controller 身份处理(声明开篇)，仅在 DPA 约定的特定处理活动上自认控制者范围有限。若个人账户访问的是组织提供的账号/仓库，角色翻转：组织是 Data Controller，GitHub 是 Data Processor。上游模型商是 GitHub 的子处理者，个人客户与其无合同关系。"
+
+[[product]]
+id = "free"
+badge = "Copilot Free"
+category = "coding_plan"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+mode = "opt_out"
+anchor = "ghcopilot-tos-j3-license-to-train"
+[[product.training.point]]
+text_zh = "Free 属个人许可档：默认授权 GitHub 使用输入输出训练和改进模型，可在账户设置退出；退出仅向将来生效。"
+[product.zdr]
+mark = "unknown"
+searched = ["https://docs.github.com/en/copilot/reference/ai-models/model-hosting", "https://copilot.github.trust.page/faq"]
+[[product.zdr.point]]
+text_zh = "官方未说明 Copilot Free 可申请或保证 ZDR；上游协议与例外按模型而异。"
+[product.retention]
+days = 28
+object = "input_output"
+basis = "fixed_period"
+anchor = "ghcopilot-ask-questions-chat-history-28-days"
+[[product.retention.point]]
+text_zh = "个人档仅有 github.com Copilot Chat 对话消息 28 天的量化口径；请求正文没有个人档统一期限。"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "ghcopilot-privacy-processing-locations"
+[[product.processing_region.point]]
+text_zh = "个人账户无区域选择权，处理可发生在本地区域、美国及 GitHub 运营地。"
+[product.role]
+kind = "controller"
+anchor = "ghcopilot-privacy-data-controller-limited"
+[[product.role.point]]
+text_zh = "个人 Free 账户由 GitHub 作为 controller；组织提供账户场景除外。"
+
+[[product]]
+id = "business"
+badge = "Copilot Business"
+category = "coding_plan"
+plan_level = "team"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ghcopilot-genai-terms-3-no-training"
+[[product.training.point]]
+text_zh = "Business 商业档默认不使用输入输出训练生成式 AI 模型，除非客户给出书面指示。"
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
+[[product.zdr.point]]
+text_zh = "与 Enterprise 相同：多数上游模型族有 ZDR 协议，但 Fable 5/5.1、preview 与部分模型配置存在保留例外，不能视为所有配置无条件零保留。"
+[product.retention]
+days = 28
+object = "input_output"
+basis = "fixed_period"
+anchor = "ghcopilot-trust-biz-ide-inputs-outputs-not-retained"
+[[product.retention.point]]
+text_zh = "IDE Chat/补全/CLI 输入输出默认不保留；其他访问路径最多 28 天，另有安全、反馈等例外。"
+[product.processing_region]
+codes = ["US", "global", "selected"]
+anchor = "ghcopilot-dpa-7-transfers-location"
+[[product.processing_region.point]]
+text_zh = "DPA 允许向美国及 GitHub/子处理者运营国家传输；特定地域存储仅在已选 data residency 时适用。"
+[product.role]
+kind = "processor"
+anchor = "ghcopilot-dpa-3a-roles"
+[[product.role.point]]
+text_zh = "商业客户是 controller，GitHub 是 processor；客户本身为 processor 时 GitHub 为 subprocessor。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "coding_plan"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ghcopilot-genai-terms-3-no-training"
+
+[[product.training.point]]
+text_zh = "§3「GitHub will not use Inputs or Outputs to train generative AI models, unless you have given us documented instructions to do so.」——默认 not_permitted，例外仅限客户书面指示。旁证一致：Trust Center FAQ「GitHub does not use Copilot Business or Enterprise customer data to train AI models. Business and Enterprise customers' data is covered by GitHub's Data Protection Agreement, which prohibits such use without customer authorization.」"
+
+[[product.training.point]]
+text_zh = "model-hosting 页与 manage-policies 页同旨"
+
+[[product.training.point]]
+text_zh = "Trust Center 另称「GitHub does not retain Copilot Business or Copilot Enterprise customers' code or queries for training purposes, even when those customers use preview features and language models under the pre-release terms.」。上游一跳：Trust Center FAQ「No, GitHub Copilot's third-party model providers, such as Anthropic (except for the Fable model, see below) and Google, do not train models using customer data, nor do they retain customer code from interactions with the service.」，model-hosting 页逐家给出 AWS/Anthropic/GCP/OpenAI 的不训练承诺。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
+
+[[product.zdr.point]]
+text_zh = "OpenAI / Anthropic GA 功能 / xAI / Kimi 托管方四类有 ZDR 协议"
+
+[[product.zdr.point]]
+text_zh = "Claude Fable 5 / Fable 5.1 默认由 Anthropic 保留数据(安全分类器)，企业可在 2026 年底前申请限时豁免走 ZDR 端点，需资格审批且管理员显式启用，之后需 Enterprise Frontier Safeguards"
+
+[[product.zdr.point]]
+text_zh = "Anthropic beta/public preview 功能不在 ZDR 覆盖内"
+
+[[product.zdr.point]]
+text_zh = "Gemini/GCP 只给「不训练 + 不受滥用监控的 prompt logging」承诺，未声明 ZDR 已开通。多跳结论：默认配置下多数模型族可满足 ZDR，但启用 Fable 5/5.1 的配置下 Anthropic 一跳明确保留，全链不构成 ZDR。"
+
+[product.retention]
+days = 28
+object = "input_output"
+basis = "fixed_period"
+anchor = "ghcopilot-trust-biz-ide-inputs-outputs-not-retained"
+
+[[product.retention.point]]
+text_zh = "按访问路径分裂：IDE 的 Chat / Code Completions / Copilot CLI——输入输出默认不留存，例外为调查已确认的 AUP/ToS 违反或保护服务安全，且须「targeted, time-limited」并遵守 DPA"
+
+[[product.retention.point]]
+text_zh = "其他访问与使用——输入输出默认最多 28 天。其他对象：User Engagement Data 两年"
+
+[[product.retention.point]]
+text_zh = "Feedback Data 按目的所需"
+
+[[product.retention.point]]
+text_zh = "Copilot Coding Agent 会话日志随账户存续"
+
+[[product.retention.point]]
+text_zh = "Copilot Vision 图片 48 小时内从活动系统删除(被标记者 30 天内)。合同层：GenAI Terms §6 只说明「某些 Generative AI Services 会为提供服务而保留输入输出…保留细节见各服务产品文档」，不写期限"
+
+[[product.retention.point]]
+text_zh = "DPA §8 规定服务结束后删除或返还。冲突机制：prompt caching 为降延迟而存在，缓存保留期未披露。"
+
+[product.processing_region]
+codes = ["US", "global", "selected"]
+anchor = "ghcopilot-dpa-7-transfers-location"
+
+[[product.processing_region.point]]
+text_zh = "DPA §7 让客户同意把 Customer Personal Data 转移到美国或 GitHub/子处理者运营的任何国家，并规定选了特定地域存储则按指示存储"
+
+[[product.processing_region.point]]
+text_zh = "Trust Center FAQ 补充「On GitHub.com, data may be processed anywhere in the world」，即未开通 data residency 时处理地不锁定。推理地由上游托管方决定(OpenAI+Azure / AWS+Anthropic PBC+GCP / xAI / Azure AI Foundry / Fireworks AI)，逐模型见 model-hosting 页。"
+
+[product.role]
+kind = "processor"
+anchor = "ghcopilot-dpa-3a-roles"
+
+[[product.role.point]]
+text_zh = "DPA §3.A：客户是 Controller，GitHub 是 Processor"
+
+[[product.role.point]]
+text_zh = "客户本身是 Processor 时 GitHub 为 Subprocessor"
+
+[[product.role.point]]
+text_zh = "§3.C 另列 GitHub 以独立控制者身份处理的穷尽目的清单(计费与账户管理、汇总报表、合规、滥用检测与防欺诈、内部聚合报表等)。Trust Center FAQ 同旨。上游模型商是 GitHub 的 Subprocessor，客户与其无直接合同(Trust Center FAQ 明确「The model-providers' terms do not flow down to our customers」)。"
+
+[[product]]
+id = "upstream"
+badge = "上游模型"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
+
+[[product.training.point]]
+text_zh = "GitHub 声明「GitHub has provider agreements in place to ensure data is not used for training.」，并逐家引用上游自己的承诺：AWS Bedrock「doesn't store or log your prompts and completions…doesn't use your prompts and completions to train any AWS models」"
+
+[[product.training.point]]
+text_zh = "Anthropic 走 ZDR 协议"
+
+[[product.training.point]]
+text = "Google Cloud「Google commits to not training on GitHub data as part of their service terms」"
+
+[[product.training.point]]
+text_zh = "xAI 的 ZDR API policy 含「Used for model training」在 not 列表内"
+
+[[product.training.point]]
+text_zh = "Moonshot 系「prompts and completions are not sent to Moonshot AI」。这些是 GitHub 转述的上游承诺(锚点落在 GitHub 的转述句上)，不是我们直查上游原文得到的结论，故置信度 medium。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "ghcopilot-model-hosting-xai-zdr"
+
+[[product.zdr.point]]
+text_zh = "逐家：OpenAI 有 ZDR 协议"
+
+[[product.zdr.point]]
+text_zh = "Anthropic GA 功能有 ZDR 协议(Fable 5/5.1 与 beta/preview 功能除外)"
+
+[[product.zdr.point]]
+text_zh = "xAI 按 ZDR API policy 运营"
+
+[[product.zdr.point]]
+text_zh = "Kimi 两家托管方(Azure AI Foundry、Fireworks AI)有 ZDR 协议"
+
+[[product.zdr.point]]
+text_zh = "Google Cloud 未声明 ZDR 已开通(只承诺不训练、不受滥用日志)。每跳各自可申请 ZDR，但不自动证明能在同一配置下同时开通——本页未给「一个开关同时覆盖所有模型族」的表述。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
+
+[[product.retention.point]]
+text_zh = "分裂的一跳：xAI 承诺不落盘、只在内存中存留处理所需最短时间、响应返回后立即删除(明确的上游零保留)"
+
+[[product.retention.point]]
+text_zh = "Anthropic 在 GA 功能上走 ZDR 协议，但 Claude Fable 5 / Fable 5.1 默认保留 prompts 与 outputs 用于安全分类器"
+
+[[product.retention.point]]
+text_zh = "OpenAI、GCP/Gemini、AWS Bedrock 的保留期以各自文档为准(GitHub 页只给链接与「不存储/不记录」的转述)"
+
+[[product.retention.point]]
+text_zh = "prompt caching 会在上游留下缓存条目，保留期未在 GitHub 文档披露。按「任一跳明确为否，则全链为否」，启用 Fable 5/5.1 时全链保留状态为「明确保留」。"
+
+[product.processing_region]
+codes = ["unknown"]
+anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
+
+[[product.processing_region.point]]
+text_zh = "页面只披露托管方(OpenAI/Azure、AWS、Anthropic PBC、GCP、xAI、Fireworks AI)，未披露任何具体区域或国家，因此只能记到「云厂商 + 美国为主的推断」。具体国家未披露即不猜。"
+
+[product.role]
+kind = "subprocessor"
+anchor = "ghcopilot-trust-subprocessors"
+
+[[product.role.point]]
+text_zh = "Trust Center FAQ：「Yes. GitHub shares data with third parties acting as our subprocessors (as defined in the GDPR) to support operations.」并要求子处理者签订不低于 DPA 保护水平的书面协议、列出清单页"
+
+[[product.role.point]]
+text_zh = "同时明确模型商条款不向下传导给客户、由 GitHub 对其合规负责。注意：这只在客户与 GitHub 有 DPA 关系时成立(商业档)"
+
+[[product.role.point]]
+text_zh = "个人档不适用 DPA。"
+
+[[anchor]]
+id = "ghcopilot-genai-terms-3-no-training"
+source_id = "89e37dd0ab9429aa"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ve in your Inputs.
+
+**3. Use of Data for Model Training.**
+
+"""
+exact = "GitHub will not use Inputs or Outputs to train generative AI models, unless you have given us documented instructions to do so."
+suffix = """
+
+
+**4. Defense of Third Party Claims.**
+
+If your Agreement p"""
+
+[[anchor]]
+id = "ghcopilot-genai-terms-6-retention-in-product-docs"
+source_id = "89e37dd0ab9429aa"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ng application or agent or its use.
+
+**6. Data Handling.**
+
+"""
+exact = "Some Generative AI Services retain Inputs and Outputs to provide the service, such as maintaining functionality in stateless environments outside the code editor."
+suffix = " Details on data retention are provided in the product docum"
+
+[[anchor]]
+id = "ghcopilot-genai-terms-1b-personal-customers-excluded"
+source_id = "89e37dd0ab9429aa"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+r a volume licensing agreement.
+
+**B. Personal Customers.** """
+exact = "If you do not purchase GitHub under a volume licensing agreement, this document does not apply to you."
+suffix = " Your use of GitHub is instead governed by the GitHub Terms "
+
+[[anchor]]
+id = "ghcopilot-dpa-3a-roles"
+source_id = "526e64bea50864b0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+*3. Processing Roles and Responsibilities.**
+
+**A. Roles.** """
+exact = "You are the Controller of Customer Personal Data, and we are the Processor of that data, unless:"
+suffix = """
+
+
+i. You are the Processor of the Customer Personal Data. In"""
+
+[[anchor]]
+id = "ghcopilot-dpa-8-retention-deletion"
+source_id = "526e64bea50864b0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+l apply to such transfers.
+
+**8. Retention and Deletion.**
+
+"""
+exact = "Following the completion of the Services, to the extent that GitHub is a Processor and unless prohibited by law, GitHub will delete or return all the Customer Personal Data to You, whichever you elect, and delete existing copies in accordance with our retention and deletion policy."
+suffix = """
+
+
+**9. Subprocessors.**
+
+**A.** GitHub may hire Subprocessor"""
+
+[[anchor]]
+id = "ghcopilot-dpa-7-transfers-location"
+source_id = "526e64bea50864b0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+d to an Online Service.
+
+**7. Data Transfers and Location.**"""
+exact = "You appoint GitHub to transfer Customer Personal Data to the United States or any other country in which GitHub or its Subprocessors operate, and to store and process Customer Personal Data to provide the Online Services, subject to the safeguards below and described elsewhere in this DPA."
+suffix = """
+
+
+**A.** GitHub may transfer and process Customer Personal D"""
+
+[[anchor]]
+id = "ghcopilot-tos-j3-license-to-train"
+source_id = "bbe0468b35184e3c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "our Inputs to generate Outputs and provide the AI Features. "
+exact = "You also grant GitHub and its Affiliates a license to collect and use your Inputs and Outputs to develop, train and improve artificial intelligence and machine learning models and technologies including those that power AI Features, unless (a) you opt out through your account settings, or (b) your use of the Service is governed by a GitHub Customer Agreement or volume licensing agreement."
+suffix = " If you opt out, GitHub will not collect or use your Inputs "
+
+[[anchor]]
+id = "ghcopilot-tos-j1-individual-licenses-only"
+source_id = "bbe0468b35184e3c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ic feature has additional terms that expressly modify them. "
+exact = "The training and data-use provisions in Section J.3 apply only to individual licenses."
+suffix = " If your use of the Service is governed by a GitHub Customer"
+
+[[anchor]]
+id = "ghcopilot-tos-j3-no-third-party-training"
+source_id = "bbe0468b35184e3c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " with their applicable privacy and contractual obligations. "
+exact = "This license does not, however, permit GitHub or its Affiliates to share your Inputs or Outputs with third-party AI model providers for their own independent model training purposes."
+suffix = """
+
+
+The license in this Section J.3 is in addition to, and doe"""
+
+[[anchor]]
+id = "ghcopilot-tos-private-repo-input-training"
+source_id = "bbe0468b35184e3c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ervice, we will provide an explanation of those rights.
+*   """
+exact = "If you provide your private repository content as Input to AI Features, we may use that Input to provide, develop, train, and improve the Service, including AI Features."
+suffix = " Your ability to opt out under [Section J.3](https://docs.gi"
+
+[[anchor]]
+id = "ghcopilot-tos-retention-90-days-after-termination"
+source_id = "bbe0468b35184e3c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "and enforce our agreements, but barring legal requirements, "
+exact = "we will delete your full profile and the Content of your repositories within 90 days of cancellation or termination (though some information may remain in encrypted backups)"
+suffix = ". This information cannot be recovered once your Account is "
+
+[[anchor]]
+id = "ghcopilot-trust-biz-ide-inputs-outputs-not-retained"
+source_id = "e19b41c0f34eae13"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "r Copilot Business and Enterprise Customers are as follows: "
+exact = "**Access through IDE for Chat, Code Completions, and Copilot CLI:** - Inputs and Outputs: Not retained by default."
+suffix = " GitHub may retain input and output data for a limited perio"
+
+[[anchor]]
+id = "ghcopilot-trust-other-access-28-days"
+source_id = "e19b41c0f34eae13"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "lot/reference/copilot-cli-reference/cli-command-reference). "
+exact = "**Other GitHub Copilot access and use:** - Inputs and Outputs: Retained for up to 28 days by default."
+suffix = " GitHub may retain input and output data beyond this period,"
+
+[[anchor]]
+id = "ghcopilot-trust-engagement-data-2-years"
+source_id = "e19b41c0f34eae13"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "n is targeted, time-limited, and conducted in accordance with GitHub's Data Protection Agreement. > "
+exact = "- User Engagement Data: Kept for two years."
+suffix = " > - Feedback Data: Stored for as long as needed for its intended purpose. > - Note: Certain Copilot"
+
+[[anchor]]
+id = "ghcopilot-trust-role-processor"
+source_id = "e19b41c0f34eae13"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+erprise data (controller or processor)?
+
+**Data Processor** """
+exact = "GitHub acts primarily as a data processor in providing the Copilot Business and Enterprise services."
+suffix = " In that capacity, GitHub uses personal data on behalf of ou"
+
+[[anchor]]
+id = "ghcopilot-trust-biz-no-training"
+source_id = "e19b41c0f34eae13"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+se Copilot Business or Enterprise data to train AI models?
+
+"""
+exact = "GitHub does not use Copilot Business or Enterprise customer data to train AI models."
+suffix = " Business and Enterprise customers' data is covered by GitHu"
+
+[[anchor]]
+id = "ghcopilot-trust-third-party-no-train-no-retain"
+source_id = "e19b41c0f34eae13"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = """
+), train models on customer data or retain customer code? 
+
+"""
+exact = "No, GitHub Copilot’s third-party model providers, such as Anthropic (except for the Fable model, see below) and Google, do not train models using customer data, nor do they retain customer code from interactions with the service."
+suffix = " GitHub maintains contracts with all of its subprocessors th"
+
+[[anchor]]
+id = "ghcopilot-trust-data-residency"
+source_id = "e19b41c0f34eae13"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "e task runs and is retained for the duration of the task. - "
+exact = "For GitHub Enterprise Cloud with data residency, data processed by the agent remains in-region. On GitHub.com, data may be processed anywhere in the world."
+suffix = """
+
+
+https://copilot.github.trust.page/faq?s=lvd1dmc8qq4z6bvsuz"""
+
+[[anchor]]
+id = "ghcopilot-trust-individual-may-train"
+source_id = "e19b41c0f34eae13"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ubscribers. **In addition,for Individual subscribers only**:"
+exact = "GitHub may use Copilot interaction data—including prompts(inputs),suggestions(outputs), and code snippets generated during Copilot sessions—to train and improve AI models."
+suffix = " This training helps improve code suggestions for all Copilo"
+
+[[anchor]]
+id = "ghcopilot-trust-subprocessors"
+source_id = "e19b41c0f34eae13"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ajb7ha
+
+Does GitHub Copilot use third-party subprocessors?
+
+"""
+exact = "Yes. GitHub shares data with third parties acting as our subprocessors (as defined in the GDPR) to support operations."
+suffix = " Any subprocessors to which GitHub transfers personal data w"
+
+[[anchor]]
+id = "ghcopilot-trust-copilot-vision-48h"
+source_id = "e19b41c0f34eae13"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "s submitted to Copilot Vision for content-safety screening. "
+exact = "Unless flagged for further review, we delete images from active processing systems within 48 hours of submission."
+suffix = " Authorized personnel may review images flagged as containin"
+
+[[anchor]]
+id = "ghcopilot-privacy-training-models"
+source_id = "8d3eecad53323724"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+nd security needs.
+*   Product Development and Improvement: """
+exact = "We use Personal Data to develop and improve our products, services, and technologies, including artificial intelligence and machine learning technologies. This includes improving features, developing new offerings, enhancing safety and security capabilities, and training models."
+suffix = " We apply appropriate technical safeguards, including aggreg"
+
+[[anchor]]
+id = "ghcopilot-privacy-retention-account-active"
+source_id = "8d3eecad53323724"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "d physical security controls to protect your Personal Data. "
+exact = "We’ll retain your Personal Data as long as your account is active and as needed to fulfill contractual obligations, comply with legal requirements, resolve disputes, and enforce agreements."
+suffix = " The retention duration depends on the purpose of data colle"
+
+[[anchor]]
+id = "ghcopilot-privacy-processing-locations"
+source_id = "8d3eecad53323724"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ub-general-privacy-statement#international-data-transfers)
+
+"""
+exact = "GitHub stores and processes Personal Data in a variety of locations, including your local region, the United States, and other countries where GitHub, its affiliates, subsidiaries, or subprocessors have operations."
+suffix = " We transfer Personal Data from the European Union, the Unit"
+
+[[anchor]]
+id = "ghcopilot-privacy-data-processor-org-accounts"
+source_id = "8d3eecad53323724"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "GitHub remains dedicated to preserving your privacy rights. "
+exact = "In such circumstances, GitHub functions as a Data Processor, adhering to the Data Controller's instructions regarding your Personal Data's processing."
+suffix = " A Data Protection Agreement governs the relationship betwee"
+
+[[anchor]]
+id = "ghcopilot-privacy-data-controller-limited"
+source_id = "8d3eecad53323724"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "s where your organization grants access to GitHub products, "
+exact = "GitHub acts as the Data Controller solely for specific processing activities."
+suffix = " These activities are clearly defined in a contractual agree"
+
+[[anchor]]
+id = "ghcopilot-privacy-brief-retention"
+source_id = "8d3eecad53323724"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "pplies), and instruct our service providers to do the same. "
+exact = "We employ brief retention terms by design."
+suffix = """
+
+*   Right to a Timely Response: You are allowed to make two"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-biz-no-training"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+-party Microsoft model hosted on Azure in GitHub's tenant.
+
+"""
+exact = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models."
+suffix = " For individual subscribers—Copilot Free, Copilot Pro, Copil"
+
+[[anchor]]
+id = "ghcopilot-model-hosting-individual-may-train"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+hosted on Azure in GitHub's tenant.
+
+GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models. For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—"""
+exact = "GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models"
+suffix = ", in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. Individual subscribers can opt out of ha"
+
+[[anchor]]
+id = "ghcopilot-model-hosting-individual-optout"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " sessions to train and improve AI models, in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. "
+exact = "Individual subscribers can opt out of having their data used for AI model training."
+suffix = """
+ To manage this setting, see [Managing GitHub Copilot policies as an individual subscriber](https://docs.github.com/en/copilot/how-tos/manage-your-account/manage-policies#model-training-and-improvements).
+
+MAI-Code-1.1-F"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-openai-zdr"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+a processing follows OpenAI's enterprise privacy comments.
+
+"""
+exact = "GitHub maintains a [zero data retention agreement](https://platform.openai.com/docs/guides/your-data) with OpenAI."
+suffix = """
+
+
+All input requests and output responses processed by GitHu"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-anthropic-zdr-except-fable"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "or must still enable each model before users can access it. "
+exact = "Other Claude models, except for Claude Fable 5 and Claude Fable 5.1, continue to operate under ZDR."
+suffix = """
+
+
+Customers who enable a Fable model with ZDR agree to use t"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-anthropic-fable-retains"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+de Opus 5
+*   Claude Fable 5
+*   Claude Fable 5.1
+
+Warning
+
+"""
+exact = "When Claude Fable 5 or Claude Fable 5.1 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use."
+suffix = """
+
+
+Customers can request to use Claude Fable 5 or Claude Fabl"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-xai-zdr"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+
+*   Grok 4.5
+*   Grok 4.6
+
+These models are hosted on xAI. """
+exact = "xAI operates these models in GitHub Copilot under a zero data retention API policy."
+suffix = " This means xAI commits that user content (both inputs sent "
+
+[[anchor]]
+id = "ghcopilot-model-hosting-anthropic-hosting-locations"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ make the model endpoints or outputs available externally.
+
+"""
+exact = "These models are hosted by Amazon Web Services, Anthropic PBC, and Google Cloud Platform."
+suffix = " GitHub has provider agreements in place to ensure data is n"
+
+[[anchor]]
+id = "ghcopilot-model-hosting-openai-hosting"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+5.6 Luna
+*   GPT-5.6 Sol
+*   GPT-5.6 Terra
+*   GPT-6 Astra
+
+"""
+exact = "These models are hosted by OpenAI and GitHub's Azure infrastructure."
+suffix = """
+
+
+OpenAI makes the [following data commitment](https://opena"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-mai-azure-tenant"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+sting#microsoft-models)
+
+Used for:
+
+*   MAI-Code-1.1-Flash
+
+"""
+exact = "MAI-Code-1.1-Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant."
+suffix = """
+
+
+GitHub does not use Copilot Business or Copilot Enterprise"""
+
+[[anchor]]
+id = "ghcopilot-model-hosting-prompt-caching"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+onally not subject to prompt logging for abuse monitoring.
+
+"""
+exact = "To provide better service quality and reduce latency, GitHub uses [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)."
+suffix = " You can read more about prompt caching on [Anthropic PBC](h"
+
+[[anchor]]
+id = "ghcopilot-model-hosting-gcp-no-abuse-logging"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "d.google.com/vertex-ai/generative-ai/docs/data-governance). "
+exact = "GitHub is additionally not subject to prompt logging for abuse monitoring."
+suffix = """
+
+
+To provide better service quality and reduce latency, GitH"""
+
+[[anchor]]
+id = "ghcopilot-ask-questions-chat-history-28-days"
+source_id = "dd1e8aa30cdfc806"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ot-questions-in-github#conversation-history-and-retention)
+
+"""
+exact = "Copilot Chat stores up to 100 of your most recent conversations. Messages within each conversation are kept for 28 days before being permanently deleted."
+suffix = " Once a conversation has no messages left, it's automaticall"

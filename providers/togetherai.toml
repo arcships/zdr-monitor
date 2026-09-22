@@ -1,0 +1,667 @@
+name = "Together AI"
+line = "togetherai"
+site = "global"
+entity = "Together Computer, Inc."
+endpoint = ""
+doc = "https://docs.together.ai/docs/zero-data-retention"
+
+[[source]]
+url = "https://docs.together.ai/docs/privacy-and-security"
+channel = "developer_data"
+tier = "core"
+note = "Together 文档站「Privacy and security」页。覆盖 API 档的数据处理全景：默认存储、训练 opt-in 三个组织级开关的默认值、账号级 vs 组织级设置的适用范围、passthrough 第三方上游、企业数据驻留与私有网络、以及「第三方作者模型托管在 Together 自有基础设施、作者无访问权」。本页是 retention 与 processing_region 的主要依据，也是多跳链路的关键披露。"
+
+[[source]]
+url = "https://docs.together.ai/docs/zero-data-retention"
+channel = "developer_data"
+tier = "core"
+note = "Together 文档站「Zero data retention」页（页面分类 ADMINISTRATION，无版本号）。覆盖 serverless 推理 API 档：组织级 ZDR 开关、默认存储行为、ZDR 的覆盖范围与不覆盖对象（上传的微调/batch 文件、请求元数据）、passthrough 模型的上游跳、以及 EU/VPC 部署。本页是 zdr 维度的主要依据，也是 training/retention 的开发文档层依据。注意本页对 ZDR 是否覆盖 dedicated endpoints 未作任何说明。"
+
+[[source]]
+url = "https://www.together.ai/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Together Computer, Inc.《Privacy Policy》（页面标注 Updated December 17, 2025），§1 适用范围明确含「programmatic APIs and web interfaces that host, use, fine-tune, and train large AI models」。覆盖全部档位，是 Together 自己的文档页所称「the authoritative legal statement of Together's data practices」。§2.4 保留期、§2.5 处理地、§2.6 ZDR、§2.7 逐产品收集/删除表。全文未出现 controller / processor 字样。"
+
+[[source]]
+url = "https://www.together.ai/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "Together Computer, Inc.《Terms of Service》（页面标注 Updated May 19, 2026），合同层，覆盖全部 API 与 Professional Support：§3.2 是 ZDR 的合同层定义（比文档页多一句「beyond the time required to process the specific request or transaction」），§7.2 对客户内容只给「solely as necessary to provide the Services」的有限许可（全文无训练授权条款），§1.4 保留监控权，§2.4 第三方模型条款。全文未出现 controller / processor 或受托处理方字样。"
+
+[[product]]
+id = "api_serverless"
+badge = "Serverless"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "togetherai-zdr-doc-training-optin"
+
+[[product.training.point]]
+text_zh = "默认不训练，训练是独立的组织级 opt-in 且默认关闭（ZDR 页 Training 条 + privacy-and-security 页开关默认值）。注意 opt-in 的对象是「models released by Together AI and partners」"
+
+[[product.training.point]]
+text_zh = "passthrough 模型走上游 provider 政策，见 zdr 与 retention 的 passthrough 锚点。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "togetherai-zdr-doc-org-level-zdr"
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr。自助开关、默认关闭、覆盖请求内容不覆盖元数据与上传文件"
+
+[[product.zdr.point]]
+text_zh = "开启后 passthrough 模型自动关闭"
+
+[[product.zdr.point]]
+text_zh = "不追溯已处理数据。"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "togetherai-privsec-default-storage"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：默认存储 prompt/output 且无期限、用户可随时删除"
+
+[[product.retention.point]]
+text_zh = "开 ZDR 后不落盘（仅经易失内存与临时缓存）"
+
+[[product.retention.point]]
+text_zh = "batch 上传的输入文件保留到用户主动删除"
+
+[[product.retention.point]]
+text_zh = "请求元数据保留期未披露。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "togetherai-privsec-serverless-no-region"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：serverless 不提供区域选择，EU 需改用 dedicated endpoint 或 VPC 部署"
+
+[[product.processing_region.point]]
+text_zh = "唯一被点名的处理地是第三方作者模型（DeepSeek 等）所在的北美数据中心。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://www.together.ai/terms-of-service",
+  "https://www.together.ai/privacy",
+  "https://docs.together.ai/docs/zero-data-retention",
+  "https://docs.together.ai/docs/privacy-and-security",
+  "https://trust.together.ai",
+]
+
+[[product.role.point]]
+text_zh = "同顶层 role：无角色声明，DPA 在 Vanta Trust Center 内不可抓取。ToS §7.2 的有限许可（access/host/use/copy solely as necessary to provide the Services）讲的是授权范围而非协议角色，故本维度不绑锚点。"
+
+[[product]]
+id = "api_dedicated"
+badge = "专属部署"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "togetherai-zdr-doc-training-optin"
+
+[[product.training.point]]
+text_zh = "docs 的「Together does not train on your data without your explicit consent, whether or not ZDR is enabled.」写在 ZDR 页的 Default behavior 节，语境是组织级隐私设置，未把 dedicated endpoints 排除在外"
+
+[[product.training.point]]
+text_zh = "但 dedicated 档的公开文档没有独立的数据使用条款，故 confidence 降为 medium。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://docs.together.ai/docs/zero-data-retention",
+  "https://docs.together.ai/docs/dedicated-endpoints/overview",
+  "https://www.together.ai/privacy",
+]
+
+[[product.zdr.point]]
+text_zh = "ZDR 页把「dedicated endpoints + VPC」列为满足 data-residency / 合规要求的另一条路径（与 ZDR 开关并列，而非同一机制），未说明二者能否叠加、也未说明 dedicated 部署是否默认不保留请求内容。故 dedicated 档的 ZDR 状态在公开文档里无法判定。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+searched = [
+  "https://docs.together.ai/docs/zero-data-retention",
+  "https://docs.together.ai/docs/dedicated-endpoints/overview",
+  "https://www.together.ai/privacy",
+]
+
+[[product.retention.point]]
+text_zh = "公开文档未就 dedicated endpoints 单独说明输入输出的保留期或是否落盘。ZDR 页的覆盖范围句写的是「Together’s inference services」，措辞可能涵盖 dedicated，但无任何 dedicated 专属条款可引。此处只列已核事实，不推测。"
+
+[product.processing_region]
+codes = ["EU"]
+anchor = "togetherai-privsec-serverless-no-region"
+
+[[product.processing_region.point]]
+text_zh = "本档是 processing_region 唯一有正向披露的档位：EU regions 通过 private networking / VPC-based deployments 与 dedicated endpoints 提供。但具体可选区域清单、以及 EU 部署下子处理方是否也在 EU，文档未列。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://www.together.ai/terms-of-service",
+  "https://docs.together.ai/docs/dedicated-endpoints/overview",
+  "https://trust.together.ai",
+]
+
+[[product.role.point]]
+text_zh = "dedicated 档通常伴随企业合同/order form（《ToS》多处提到 order form 与 addendum），角色大概率在 DPA 里约定，但该 DPA 不可公开取得，故仍记 not_found。"
+
+[[product]]
+id = "fine_tuning"
+badge = "微调"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "togetherai-zdr-doc-uploaded-files"
+
+[[product.training.point]]
+text_zh = "公开文档没有说 Together 会用客户上传的微调数据去训练自家的基础模型"
+
+[[product.training.point]]
+text_zh = "训练 opt-in 开关的对象是「your organization’s data」用于「models released by Together AI and partners」，语义上覆盖客户上传的数据。即：默认不用于训练，opt-in 后可用于训练 Together 及合作方发布的模型。此处 confidence 记 medium，因为「上传的微调数据在 opt-in 后的具体用途边界」没有专门条款。"
+
+[product.zdr]
+mark = "no"
+anchor = "togetherai-zdr-doc-uploaded-files"
+
+[[product.zdr.point]]
+text_zh = "ZDR 明确只覆盖请求内容，显式上传的微调/batch 文件被单独列为「Together still retains」的对象，故本档拿不到零保留：上传即持久化，直到客户自己删除。"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "togetherai-zdr-doc-uploaded-files"
+
+[[product.retention.point]]
+text_zh = "对象＝客户显式上传的训练数据文件（以及 batch API 输入文件）。ZDR 页 What Together retains with ZDR enabled 节：「Files you upload for fine-tuning or the batch API are stored so your jobs can run, and remain stored until you delete them through the API, CLI, or web console.」即即使启用 ZDR 也不删这些文件，保留期无上限、由客户主动删除（《Privacy Policy》§2.7 表 Fine-tuning 两行的删除入口为 CLI 或 Playground 的 Jobs tab）。产出的微调模型（Models created）同理。没有任何自动过期期限。"
+
+[product.processing_region]
+codes = ["unknown"]
+searched = [
+  "https://docs.together.ai/docs/zero-data-retention",
+  "https://docs.together.ai/docs/privacy-and-security",
+  "https://docs.together.ai/docs/fine-tuning/overview",
+  "https://www.together.ai/fine-tuning",
+  "https://www.together.ai/custom-training",
+]
+
+[[product.processing_region.point]]
+text_zh = "微调档未披露训练数据的处理/存储地域。相关 API 中的 region 概念（/compute/regions、placement profiles）属于 GPU 算力调度，不是数据处理地承诺，不作为依据。"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = [
+  "https://www.together.ai/terms-of-service",
+  "https://www.together.ai/privacy",
+  "https://docs.together.ai/docs/zero-data-retention",
+]
+
+[[product.role.point]]
+text_zh = "同顶层 role：无角色声明。微调档的定制合同（custom training / custom model builds）在《Privacy Policy》§2.7 表中单列，但公开文件未给角色定性。"
+
+[[anchor]]
+id = "togetherai-zdr-doc-org-level-zdr"
+source_id = "bf810626889572be"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "pports zero data retention (ZDR) at the organization level. "
+exact = "With ZDR enabled, the prompts you send and the outputs models return are not stored by Together, and are not used for any secondary purpose."
+suffix = """
+
+
+## Enable ZDR
+
+ZDR is not enabled by default. To enable it"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-not-default"
+source_id = "bf810626889572be"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+and are not used for any secondary purpose.
+
+## Enable ZDR
+
+"""
+exact = "ZDR is not enabled by default. To enable it:"
+suffix = """
+
+
+1.   Open the **Privacy** section of [Organization Setting"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-zdr-scope"
+source_id = "bf810626889572be"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+dled under that provider’s own policy.
+
+## What ZDR covers
+
+"""
+exact = "With ZDR enabled, the content you submit to Together’s inference services, including text, images, and prompts, and any outputs returned to you are not stored, retained, or used for model training, product improvements, or any secondary purpose, except as needed to provide the service to you."
+suffix = " Request content may pass through volatile memory and tempor"
+
+[[anchor]]
+id = "togetherai-zdr-doc-volatile-memory"
+source_id = "bf810626889572be"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "ry purpose, except as needed to provide the service to you. "
+exact = "Request content may pass through volatile memory and temporary caches while your request is served, but it is not persisted to non-volatile storage."
+suffix = """
+
+
+## What Together retains with ZDR enabled
+
+ZDR applies to """
+
+[[anchor]]
+id = "togetherai-zdr-doc-default-storage"
+source_id = "bf810626889572be"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+organization setting is what applies.
+
+## Default behavior
+
+"""
+exact = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
+suffix = " This data will never be shared with third parties, and you "
+
+[[anchor]]
+id = "togetherai-zdr-doc-training-optin"
+source_id = "bf810626889572be"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "training models is a separate opt-in and is off by default. "
+exact = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+suffix = """
+
+*   **Passthrough models:** Models that forward requests to"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-passthrough-upstream"
+source_id = "bf810626889572be"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+ whether or not ZDR is enabled.
+*   **Passthrough models:** """
+exact = "Models that forward requests to a third-party provider are allowed by default. Data sent to them is handled under that provider’s own policy."
+suffix = """
+
+
+## What ZDR covers
+
+With ZDR enabled, the content you subm"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-uploaded-files"
+source_id = "bf810626889572be"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+w.together.ai/privacy).
+*   **Data you explicitly upload:** """
+exact = "Files you upload for [fine-tuning](https://docs.together.ai/docs/fine-tuning/quickstart) or the [batch API](https://docs.together.ai/docs/inference/batch/overview) are stored so your jobs can run, and remain stored until you [delete them](https://docs.together.ai/reference/delete-files-id) through the API, CLI, or web console."
+suffix = """
+
+
+## Enterprise deployments
+
+For data-residency, regulatory,"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-request-metadata"
+source_id = "bf810626889572be"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ta it needs to run your account:
+
+*   **Request metadata:** """
+exact = "Usage records such as token counts, model IDs, and timestamps, used for billing and the usage dashboard. Metadata does not include prompt or output content."
+suffix = """
+
+*   **Account data:** Profile, organization, and billing in"""
+
+[[anchor]]
+id = "togetherai-zdr-doc-eu-dedicated"
+source_id = "bf810626889572be"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+h the API, CLI, or web console.
+
+## Enterprise deployments
+
+"""
+exact = "For data-residency, regulatory, or compliance requirements, Together supports private networking and VPC-based deployments, including in EU regions, on [dedicated endpoints](https://docs.together.ai/docs/dedicated-endpoints/overview)."
+suffix = " [Contact us](https://www.together.ai/contact) to discuss th"
+
+[[anchor]]
+id = "togetherai-privsec-default-storage"
+source_id = "a8bf24d0415e4675"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+residency and private networking.
+
+## What Together stores
+
+"""
+exact = "By default, Together stores the prompts you send and the responses models return, and may use them for product improvements. This data is not shared with third parties, and you can delete it at any time."
+suffix = " Organization admins can turn storage off in privacy setting"
+
+[[anchor]]
+id = "togetherai-privsec-training-optin-off"
+source_id = "a8bf24d0415e4675"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+ enable it, and what Together retains.
+
+## Training opt-in
+
+"""
+exact = "Data sharing for training other models is **opt-in and not enabled by default**."
+suffix = " Check or change this setting in the **Privacy** section of "
+
+[[anchor]]
+id = "togetherai-privsec-org-toggle-training"
+source_id = "a8bf24d0415e4675"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+passthrough models because they require prompt storage.
+*   """
+exact = "**Allow organization’s data for training**: off by default. Opt in to using your organization’s data for training models released by Together AI and partners."
+suffix = """
+
+*   **Allow passthrough models**: on by default. Allows mod"""
+
+[[anchor]]
+id = "togetherai-privsec-passthrough-upstream"
+source_id = "a8bf24d0415e4675"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+ your personal profile.
+
+## Passthrough third-party models
+
+"""
+exact = "Some models are offered as **passthrough**, meaning that Together forwards your prompts and responses directly to the upstream provider, and data is handled under that provider’s own data policy."
+suffix = " Passthrough is controlled by a separate organization-level "
+
+[[anchor]]
+id = "togetherai-privsec-serverless-no-region"
+source_id = "a8bf24d0415e4675"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "working and VPC-based deployments, including in EU regions. "
+exact = "Serverless endpoints do not offer region selection; use a [dedicated endpoint](https://docs.together.ai/docs/dedicated-endpoints/overview) or [contact us](https://www.together.ai/contact) to discuss the right setup for your workload."
+suffix = " For the full legal picture, see the [privacy policy](https:"
+
+[[anchor]]
+id = "togetherai-privsec-north-america-dc"
+source_id = "a8bf24d0415e4675"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "or has no access to your requests or API calls.For example, "
+exact = "DeepSeek models are hosted in Together’s secure North America data centers."
+suffix = " DeepSeek itself receives no user requests or API traffic fr"
+
+[[anchor]]
+id = "togetherai-privsec-thirdparty-author-no-access"
+source_id = "a8bf24d0415e4675"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = """
+her than a support ticket.
+
+## Third-party model providers
+
+"""
+exact = "Models published by third-party authors (DeepSeek, Qwen, Mistral, etc.) and hosted on Together run on Together’s own infrastructure. They do not call out to the model author. The model author has no access to your requests or API calls."
+suffix = "For example, DeepSeek models are hosted in Together’s secure"
+
+[[anchor]]
+id = "togetherai-privsec-limited-tier"
+source_id = "a8bf24d0415e4675"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+rompts and responses to third-party providers (see below).
+
+"""
+exact = "If your organization is on the Limited tier, add a payment method before updating these settings."
+suffix = """
+
+
+## Account vs. organization settings
+
+You may see a privac"""
+
+[[anchor]]
+id = "togetherai-privacy-1-no-training-without-optin"
+source_id = "169be6f72ddcd775"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ion you provide, only confirmation that payment was made. **"
+exact = "We do not use any data collected from you to train our models without your explicit opt-in and consent."
+suffix = " You may revoke that consent at any time and request deletio"
+
+[[anchor]]
+id = "togetherai-privacy-2-2-no-training-without-optin"
+source_id = "169be6f72ddcd775"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+lect to send to the Company
+
+2.2 Use of Your Personal Data
+
+"""
+exact = "Data that we collect, including your Personal Data, will not be used to train the Company’s models without your explicit opt-in and consent."
+suffix = " The Company may use Personal Data for the following purpose"
+
+[[anchor]]
+id = "togetherai-privacy-2-4-retention-necessary"
+source_id = "169be6f72ddcd775"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+st legal liability
+
+## 2.4 Retention of Your Personal Data
+
+"""
+exact = "The Company will retain your Personal Data only for as long as is necessary for the purposes set out in this Policy."
+suffix = " We will retain and use your Personal Data to the extent nec"
+
+[[anchor]]
+id = "togetherai-privacy-2-4-usage-data-shorter"
+source_id = "169be6f72ddcd775"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "will also retain Usage Data for internal analysis purposes. "
+exact = "Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of the Services, or we are legally obligated to retain this data for longer time periods."
+suffix = """
+
+
+## 2.5 Transfer of Your Personal Data
+
+Your information, i"""
+
+[[anchor]]
+id = "togetherai-privacy-2-5-processing-locations"
+source_id = "169be6f72ddcd775"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+onger time periods.
+
+## 2.5 Transfer of Your Personal Data
+
+"""
+exact = "Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located."
+suffix = " This means that this information may be transferred to, and"
+
+[[anchor]]
+id = "togetherai-privacy-2-6-zdr"
+source_id = "169be6f72ddcd775"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "g Zero Data Retention (“ZDR”) for your use of the Services. "
+exact = "Under ZDR, the content you submit, including texts, images, or prompts and any outputs provided to you by the Services are not stored, retained, or used for model training, product improvements, or any secondary purposes except as needed to provide the Services to you."
+suffix = """
+
+
+ZDR applies only from the moment you enable it and does no"""
+
+[[anchor]]
+id = "togetherai-privacy-2-6-zdr-not-retroactive"
+source_id = "169be6f72ddcd775"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ purposes except as needed to provide the Services to you.
+
+"""
+exact = "ZDR applies only from the moment you enable it and does not affect any data processed prior."
+suffix = " This means we cannot later access, retrieve, correct, expor"
+
+[[anchor]]
+id = "togetherai-privacy-2-7-summary-table-finetuning"
+source_id = "169be6f72ddcd775"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+| User History in Playgrounds | Delete option in settings |
+"""
+exact = "| Fine-tuning | Training data files | CLI or Jobs tab in Playground | Delete option in settings |"
+suffix = """
+
+| Fine-tuning | Models created | CLI or Jobs tab in Playgro"""
+
+[[anchor]]
+id = "togetherai-tos-3-2-zdr"
+source_id = "0d328e2e1fe96347"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "g Zero Data Retention (“ZDR”) for your use of the Services. "
+exact = "Under ZDR, your data and outputs are not stored, retained, or used for model training, product improvements, or any other purpose beyond the time required to process the specific request or transaction."
+suffix = " ZDR applies only from the moment you enable it and does not"
+
+[[anchor]]
+id = "togetherai-tos-7-2-limited-license"
+source_id = "0d328e2e1fe96347"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "nership of any Company IP or in any underlying technologies."
+exact = "You grant Company a limited license to access, host, use, copy, and otherwise operate Your Content and Output solely as necessary to provide the Services."
+suffix = """
+
+3.   All Third-Party Models remain the intellectual propert"""
+
+[[anchor]]
+id = "togetherai-tos-1-3-security-program"
+source_id = "0d328e2e1fe96347"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+otherwise agreed between the parties in an order form.
+3.   """
+exact = "The Company will maintain a security program in accordance with industry standards that is designed to (i) ensure the security and integrity of Your Content"
+suffix = "; (ii) protect against threats or hazards to the security or"
+
+[[anchor]]
+id = "togetherai-tos-1-4-monitor-use"
+source_id = "0d328e2e1fe96347"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+and (iii) prevent unauthorized access to Your Content.
+4.   """
+exact = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services."
+suffix = """
+
+
+## 2. Your Responsibilities
+
+1.   By accessing the Website"""
+
+[[anchor]]
+id = "togetherai-tos-2-4-third-party-models"
+source_id = "0d328e2e1fe96347"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ to connect to, access, or otherwise use the Services.
+4.   """
+exact = "The Company may grant you infrastructure on which you access, modify, or otherwise use models trained by third parties and/or with third-party data (collectively, “Third-Party Models”)."
+suffix = " Such models may come with their own terms and conditions. I"
+
+[[anchor]]
+id = "togetherai-tos-7-4-usage-data-excludes-content"
+source_id = "0d328e2e1fe96347"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "g to your access to and use of the Services (“Usage Data”). "
+exact = "Usage Data may include information such as system logs, performance metrics, model-usage statistics, metadata, and other operational information but excludes Your Content or any personal information."
+suffix = " We may use the Usage Data for purposes including improving,"

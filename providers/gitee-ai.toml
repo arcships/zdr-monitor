@@ -1,0 +1,739 @@
+name = "Gitee AI 模力方舟"
+name_en = "Gitee AI"
+line = "gitee-ai"
+entity = "深圳奥思研工智能科技有限公司"
+endpoint = ""
+doc = "https://ai.gitee.com/docs/appendix/terms"
+
+[[source]]
+url = "https://ai.gitee.com/docs/appendix/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "《模力方舟隐私政策》（jina 报 Published Time 2026-09-18），主体同上（深圳奥思研工）。它被服务条款 §10 以「我们将根据我们的隐私政策提供服务」并入协议，且自称「本政策是《模力方舟服务条款》的一部分」。但文本对象是「个人信息」：§1.1 主动提供的信息只列举昵称/手机号/邮箱/用户名/密码/图片，§1.2 只列举日志信息、位置信息、通讯录、第三方分享信息、Cookie，**没有把 API 推理的输入/输出正文单独列为收集对象**——这是与 moark.ai 国际站隐私政策最明显的差别（国际站明列 Prompts/Inputs/Outputs）。§4.1 境内存储；§4.2/§4.4 目的必需/最短必要保留；§4.3 允许关联公司与子公司存储处理；§8 第三方服务提供商名单只有百度统计、神策数据、SendCloud、云片、支付宝/微信支付，**未列任何模型原厂、推理算力供应商或云厂商**。全文无 ZDR、无「出境/跨境传输」条款、无个人信息处理者/受托处理者定性、无请求级保留天数。"
+
+[[source]]
+url = "https://ai.gitee.com/docs/appendix/terms"
+channel = "contract"
+tier = "core"
+note = "《模力方舟服务条款》（jina 报 Published Time 2026-09-18），签约主体「深圳奥思研工智能科技有限公司」（§0.1），范围覆盖模力方舟平台全部服务：模型/数据集/应用的存储库托管、模型引擎、无服务器推理引擎、以及模型广场的按量推理 API（§0.13 给「推理应用程序编程接口（API）」下定义，§2.1(7) 给「无服务器推理引擎」下定义）。本档=按量 API 档，全文没有订阅套餐/Coding Plan 的专用条款，也没有企业版专用条款（§17.8 只预留了「订单/工作范围/补充条款」的优先位，这些文件未公开）。关键位置：§7.1「我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容」、§7.2 训练例外句、§0.17「内容」定义（含「生成的」材料）、§3.1 用户对内容负责、§3.7/§3.10/§16.3 内容保留与删除、§8.8 日志与计量数据权益归平台、§17.7/§17.8 完整协议与冲突优先顺序。全文出现「训练」19 次，其中 §5.9/§5.11/§5.16/§6.3/§6.4/§6.10 全部是要求**用户**（作为数据集/应用提供者）履行合规义务，只有 §7.2 是平台对**自己**的约束。全文无「零数据保留/ZDR/不落盘/请求处理完成后不保留」，无请求级保留期，也没有国内站常见的「相关网络日志不少于六个月」下限表述。本条款不覆盖 PocketClaw 硬件（另有附录《PocketClaw 用户协议与隐私政策》），也不覆盖国际站 moark.ai。"
+
+[[source]]
+url = "https://ai.gitee.com/docs/appendix/terms-privacy"
+channel = "contract"
+tier = "core"
+note = "《PocketClaw 用户协议与隐私政策》（页内版本生效日期：二〇二六年〇四月〇一日；落款深圳奥思研工智能科技有限公司）。覆盖档位是**PocketClaw 硬件+软件产品**，不是 API 档；但 §四.2「云端交互与 AI 算力 → 官方服务（模力方舟）」是本家目前唯一一处对模力方舟 MaaS 的实体性承诺：「该等数据仅用于实时推理，除非获得您的显式授权或法律法规要求，我们不会对您的对话内容进行持久化存储，亦不会将其用于模型训练」。读法边界：①承诺对象是「本公司提供的模力方舟算力服务」，触发场景是 PocketClaw 经官方服务调用 MaaS；②直接用 API Key 调 ai.gitee.com 的用户并未签署本协议，本协议 §五.1 反而把「模力方舟服务条款」指向 moark.com/docs/appendix/terms；③同节对第三方大模型 API（通义千问、DeepSeek 等）写「我们不会中转或留存该等数据」——这是 PocketClaw 作为接入方不留存，不是第三方不留存。因此本条是 zdr 维度最接近的书面证据，但不能当作按量 API 档的 ZDR 承诺。"
+
+[[source]]
+url = "https://moark.ai/docs/appendix/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "**国际站** MoArk 隐私政策，主体是 Moark, Inc.（与国内站深圳奥思研工是不同法律实体、不同文本）。它明列收集对象包含「your text inputs, prompts, uploaded files, feedback … chat history …（Prompts/Inputs）」以及据此生成的 Outputs，另写「We may collect publicly available data from internet sources to train our models」。全文**没有**保留期限章节、没有对用户输入不用于训练的承诺、没有 ZDR。本条目（gitee-ai）不采用它作为结论依据；列出是为了说明国内站/国际站政策不同源，国际站应另建 provider 条目。"
+
+[[source]]
+url = "https://moark.ai/docs/appendix/terms"
+channel = "contract"
+tier = "core"
+note = "**国际站** MoArk 服务条款，主体「Moark Inc., a Delaware corporation」（Delaware 公司），服务范围含 programmatic APIs 与 host/use/fine tune/train 大模型，另有条款说明第三方模型自带条款、冲突时模型条款优先。与国内站《模力方舟服务条款》（深圳奥思研工、受中国法律管辖）是两套独立文本，不得混用。"
+
+[[product]]
+id = "serverless-api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+site = "cn"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gitee-ai-terms-7-2-no-training-input"
+
+[[product.training.point]]
+text_zh = "同顶层 training：§7.2 的例外句以「未经您的允许」为前提，属条件式否定"
+
+[[product.training.point]]
+text_zh = "「默认不用于模型迭代训练」那句来自 PocketClaw 的 AI 安全声明，只能作旁证。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://ai.gitee.com/docs/appendix/terms",
+  "https://ai.gitee.com/docs/appendix/privacy",
+  "https://ai.gitee.com/docs/appendix/terms-privacy",
+  "https://ai.gitee.com/docs/appendix/ai-safety",
+  "https://ai.gitee.com/docs/FAQ",
+  "https://ai.gitee.com/docs/appendix/dpa",
+  "https://ai.gitee.com/trust",
+  "https://ai.gitee.com/docs/sitemap.xml",
+]
+
+[[product.zdr.point]]
+text_zh = "同顶层 zdr。按量 API 档无 ZDR 承诺、开关或申请方式"
+
+[[product.zdr.point]]
+text_zh = "唯一的不落盘承诺在 PocketClaw 协议里，属另一档位。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "gitee-ai-terms-3-10-90-day-retention"
+
+[[product.retention.point]]
+text_zh = "同顶层 retention：API 请求正文保留期未披露"
+
+[[product.retention.point]]
+text_zh = "90 天/90 天两条只约束用户存储的存储库内容，个人信息按最短必要（未量化），日志无天数，提示词缓存与异步任务产物的保留期文档未写。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "gitee-ai-privacy-4-1-storage-in-cn"
+
+[[product.processing_region.point]]
+text_zh = "同顶层 processing_region：个人信息境内存储，无出境条款"
+
+[[product.processing_region.point]]
+text_zh = "国际站 moark.ai 属另一实体。"
+
+[product.role]
+kind = "controller"
+anchor = "gitee-ai-terms-17-8-conflict-order"
+
+[[product.role.point]]
+text_zh = "同顶层 role：自述中立平台，保留内容访问/删除权与日志权益，无 processor 定性、无公开 DPA。"
+
+[[product]]
+id = "model-hosting"
+badge = "模型托管"
+category = "api"
+plan_level = "any"
+site = "cn"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "gitee-ai-terms-7-1-no-other-use"
+
+[[product.training.point]]
+text_zh = "同一份服务条款：§7.1「我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容」+ §7.2 训练例外句，同样以「未经您的允许」为前提。本档另有大量把合规义务压给用户的条款（§4.1/§4.2 模型备案、§5.9 违法信息不得作训练语料、§6.10 应用采集使用者输入作训练语料须事前约定并给关闭选项）。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://ai.gitee.com/docs/appendix/terms",
+  "https://ai.gitee.com/docs/appendix/privacy",
+  "https://ai.gitee.com/docs/appendix/dpa",
+  "https://ai.gitee.com/docs/products/models/repositories",
+]
+
+[[product.zdr.point]]
+text_zh = "本档托管的是用户自己的模型与数据集（持久化存储是产品功能），不存在请求级零保留概念"
+
+[[product.zdr.point]]
+text_zh = "条款也未提供任何 ZDR 选项。"
+
+[product.retention]
+days = 90
+object = "mixed"
+basis = "fixed_period"
+anchor = "gitee-ai-terms-3-10-90-day-retention"
+
+[[product.retention.point]]
+text_zh = "本档 retention 的对象是**用户存储的内容**，是五维度里唯一有量化天数的一档：§3.10 服务期限届满或终止后 90 天保留期（或另行约定期限），期满有权删除"
+
+[[product.retention.point]]
+text_zh = "§16.3 注销账号后「尽商业上的合理努力在 90 天内删除您自己的存储库」，但不删除他人制作的副本"
+
+[[product.retention.point]]
+text_zh = "§3.7 用户主动释放服务或删除内容即清除"
+
+[[product.retention.point]]
+text_zh = "§3.10 末尾同时保留「根据档案管理、恢复和备份流程、业界惯例以及隐私政策…留存您的内容和信息以符合法律法规要求的权利」。注意 90 天是**清理窗口/上限型表述**，不是「内容一定保留 90 天」。"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "gitee-ai-privacy-4-1-storage-in-cn"
+
+[[product.processing_region.point]]
+text_zh = "同顶层：条款层只承诺个人信息境内存储"
+
+[[product.processing_region.point]]
+text_zh = "「模型专属部署」独享算力的实际机房地域条款未披露。"
+
+[product.role]
+kind = "controller"
+anchor = "gitee-ai-terms-7-4-private-repo-access"
+
+[[product.role.point]]
+text_zh = "§7.4 私有存储库保密义务同时保留「根据隐私政策中规定的条款访问或共享您的私人信息」的权利"
+
+[[product.role.point]]
+text_zh = "§4.1/§4.2 要求用户自行完成模型备案并自担使用责任——平台把自己定位为算力与存储的提供方，不承诺按用户指示处理。"
+
+[[product]]
+id = "pocketclaw"
+badge = "PocketClaw"
+category = "web"
+plan_level = "any"
+site = "cn"
+
+[product.training]
+mark = "yes"
+mode = "default"
+anchor = "pocketclaw-4-2-moark-no-persist-no-train"
+
+[[product.training.point]]
+text_zh = "《PocketClaw 用户协议与隐私政策》§四.2 官方服务条：「该等数据仅用于实时推理，除非获得您的显式授权或法律法规要求，我们不会对您的对话内容进行持久化存储，亦不会将其用于模型训练」。同页《AI 安全与隐私保护声明》另写「通过 API 接入的业务数据默认不用于模型迭代训练」。两条方向一致，但都带限定：前者有「除非获得您的显式授权或法律法规要求」的例外，后者有「默认」二字。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "pocketclaw-4-2-moark-no-persist-no-train"
+
+[[product.zdr.point]]
+text_zh = "本档是唯一有近似「零保留」书面承诺的档位：官方模力方舟服务不持久化存储对话内容。但它不是可开通的 ZDR 产品选项，而是随 PocketClaw 官方算力服务附带的承诺"
+
+[[product.zdr.point]]
+text_zh = "且其援引的服务条款仍是 moark.com 上那份《模力方舟服务条款》。"
+
+[product.retention]
+object = "input_output"
+basis = "none"
+anchor = "pocketclaw-4-2-moark-no-persist-no-train"
+
+[[product.retention.point]]
+text_zh = "§四.2：官方模力方舟服务的对话数据不持久化存储（等于承诺不留存，无天数概念）"
+
+[[product.retention.point]]
+text_zh = "本地侧「PocketClaw 核心数据（如原始知识库、配置文件、系统日志）执行本地化存储策略，均物理存储于您的 PocketClaw 硬件中」，《AI 安全声明》§IV 亦称「这些日志物理存储于您的 PocketClaw 硬件存储器内，不会上传至我们的服务器」"
+
+[[product.retention.point]]
+text_zh = "第三方大模型 API 场景「我们不会中转或留存该等数据」。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://ai.gitee.com/docs/appendix/terms-privacy",
+  "https://ai.gitee.com/docs/appendix/ai-safety",
+  "https://ai.gitee.com/docs/appendix/warranty",
+  "https://ai.gitee.com/docs/pocketclaw/appendix/ai-safety",
+]
+
+[[product.processing_region.point]]
+text_zh = "三篇 PocketClaw 文档都没有数据处理地域条款"
+
+[[product.processing_region.point]]
+text_zh = "正文只讲本地存储与加密通道传输，未说明云端服务器所在地。硬件侧数据在用户本地，云端侧地域未披露。"
+
+[product.role]
+kind = "controller"
+anchor = "pocketclaw-1-def-moark-maas"
+
+[[product.role.point]]
+text_zh = "§四.1 自述收集设备信息（序列号、MAC、系统版本）与崩溃日志"
+
+[[product.role.point]]
+text_zh = "§四.2 官方服务场景是本公司自己的 MaaS，第三方 API 场景明确「您的数据将直接发送至该第三方服务商…我们对第三方服务商的行为不承担法律责任」——即第三方那一跳由用户与第三方直接建立关系，平台不充当受托方。"
+
+[[product]]
+id = "intl-moark-ai"
+badge = "国际站 MoArk"
+category = "api"
+plan_level = "any"
+site = "global"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://moark.ai/docs/appendix/privacy",
+  "https://moark.ai/docs/appendix/terms",
+]
+
+[[product.training.point]]
+text_zh = "国际站隐私政策只写「We may collect publicly available data from internet sources to train our models」，未对用户 Prompts/Inputs 是否用于训练作承诺（既未肯定也未否定）"
+
+[[product.training.point]]
+text_zh = "服务条款的服务范围含 train/fine-tune。未逐条核完国际站两份全文（本轮只作分站识别），故置信度 low。"
+
+[product.zdr]
+mark = "unknown"
+searched = ["https://moark.ai/docs/appendix/privacy", "https://moark.ai/docs/appendix/terms"]
+
+[[product.zdr.point]]
+text_zh = "国际站两份文本均无 ZDR/零保留表述。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "moark-ai-privacy-inputs-outputs"
+
+[[product.retention.point]]
+text_zh = "国际站隐私政策无保留期限章节，只给「Access/Delete/Correct/Opt-Out」权利清单与安全措施描述"
+
+[[product.retention.point]]
+text_zh = "未披露任何天数。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://moark.ai/docs/appendix/privacy", "https://moark.ai/docs/appendix/terms"]
+
+[[product.processing_region.point]]
+text_zh = "国际站隐私政策未声明存储地域"
+
+[[product.processing_region.point]]
+text_zh = "官网首页自称「SOC 2 and HIPAA compliant」「Deploy in enterprise VPC」，但未给出数据驻留条款。"
+
+[product.role]
+kind = "unknown"
+anchor = "moark-ai-terms-entity-delaware"
+
+[[product.role.point]]
+text_zh = "只确认了主体与公司形式"
+
+[[product.role.point]]
+text_zh = "本轮未对国际站做完整五维度核实。"
+
+[[anchor]]
+id = "gitee-ai-terms-7-2-no-training-input"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "的、免费的、不可撤销的、和非排他性的许可，以对这些内容进行使用、展示、发布、复制、分发、信息网络传播、以及制作衍生内容。"
+exact = "在此明确，未经您的允许，我们不会使用您的内容作为人工智能模型训练的输入"
+suffix = """
+。
+
+7.3 如果您决定将您的存储库状态设置为公开，则表示您授予模力方舟的每个用户包括知识产权和数据权益在内永久的、不可"""
+
+[[anchor]]
+id = "gitee-ai-terms-7-1-no-other-use"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+AC%E4%B8%83%E6%9D%A1-%E8%AE%B8%E5%8F%AF "第七条 许可的直接链接")
+
+7.1 """
+exact = "我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容"
+suffix = """
+。
+
+7.2 对于您在我们的网站上发布的内容或以其他方式提供的内容，为了以您和我们之间协议允许的方式向您提供服务，您特此"""
+
+[[anchor]]
+id = "gitee-ai-terms-7-2-broad-license"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+等内容。
+
+7.2 对于您在我们的网站上发布的内容或以其他方式提供的内容，为了以您和我们之间协议允许的方式向您提供服务，"""
+exact = "您特此授予我们包括知识产权和数据权益在内的永久的、全球性的、免费的、不可撤销的、和非排他性的许可"
+suffix = "，以对这些内容进行使用、展示、发布、复制、分发、信息网络传播、以及制作衍生内容。在此明确，未经您的允许，我们不会使用您的"
+
+[[anchor]]
+id = "gitee-ai-terms-0-17-content-def"
+source_id = "b509e3b279154bbe"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+他内容。根据本服务条款，“购买”和/或“销售”是指访问和使用服务的有限权利（而不是转让或获得任何所有权）。
+
+0.17“"""
+exact = "内容”是指在我们的网站或平台上发布、显示、访问、生成的任何材料"
+suffix = """
+，包括但不限于您、我们或任何第三方提供的模型、数据、应用、程序、代码、软件、文本、图形、图像、音频、视频等。
+
+0.18"""
+
+[[anchor]]
+id = "gitee-ai-terms-3-1-user-responsible"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+AC%E4%B8%89%E6%9D%A1-%E5%86%85%E5%AE%B9 "第三条 内容的直接链接")
+
+3.1 """
+exact = "您对您在网站上发布、显示、生成、或以其他方式提供的内容承担全部责任"
+suffix = """
+，这些内容包括但不限于模型、数据集、数据、应用、代码、程序、软件、文本、图形、图像、音频、视频等。
+
+3.2 您声明并保"""
+
+[[anchor]]
+id = "gitee-ai-terms-3-7-delete-on-release"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+华人民共和国境内经营 IDC、ISP 等业务；
+
+（9）其他我们明确反对或不允许的行为，例如虚拟币挖矿行为。
+
+3.7 """
+exact = "如果您释放服务或删除内容，您的内容将被清除，我们不再继续保留您的内容"
+suffix = """
+，也没有义务恢复或返还您的内容。您有义务在执行清除动作时谨慎操作，避免误操作风险。
+
+3.8 您的所有行为都应当遵守所适"""
+
+[[anchor]]
+id = "gitee-ai-terms-3-10-90-day-retention"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+除您的内容而无需另行通知，更无需承担任何法律责任。
+
+3.10 当服务期限届满或服务终止时，您应及时清理或迁移您的内容。"""
+exact = "您应当在 90 天的保留期（或者我们和您特别约定的期限）内完成内容清理或迁移"
+suffix = "。除法律另有规定、相关部门要求或我们和您另有约定外，保留期满我们有权删除您的内容，不再保留您的任何内容。同时，根据档案管"
+
+[[anchor]]
+id = "gitee-ai-terms-3-10-backup-right"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "有约定外，保留期满我们有权删除您的内容，不再保留您的任何内容。同时，根据档案管理、恢复和备份流程、业界惯例以及隐私政策，"
+exact = "我们保留留存您的内容和信息以符合法律法规要求的权利"
+suffix = """
+。
+
+## 第四条 模型[​](https://ai.gitee.com/docs/appendix/terms#%E7"""
+
+[[anchor]]
+id = "gitee-ai-terms-16-3-90-day-delete-after-cancel"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+无论是否有理由，无论是否通知，我们可以自行决定随时注销您的账号，并且我们保留随时暂停或终止您的服务的权利。
+
+16.3 """
+exact = "在注销您的账号后，我们将尽商业上的合理努力在 90 天内删除您自己的存储库"
+suffix = """
+（无论是公共的还是私人的）的信息和内容。我们不会删除由我们或其他用户制作的副本，以及您贡献给其他用户的存储库的内容。
+
+"""
+
+[[anchor]]
+id = "gitee-ai-terms-8-8-logs-owned-by-platform"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+论您与应用的创建者如何约定，我们作为仅提供算力支撑中立的平台，对该生成内容可能产生的任何风险不承担任何责任。
+
+8.8 """
+exact = "您使用我们的服务而产生的由我们记录的信息和数据，例如日志信息、计量和费用信息、服务咨询信息，我们拥有相应的权益"
+suffix = """
+。您不得也不会主张对于这些信息和数据的权利。
+
+## 第九条 保密[​](https://ai.gitee.com/do"""
+
+[[anchor]]
+id = "gitee-ai-terms-0-13-inference-api-def"
+source_id = "b509e3b279154bbe"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+存储库中可以包括模型、数据集和机器学习应用程序。
+
+0.13“推理应用程序编程接口（API）”是指网站上提供的托管服务，"""
+exact = "可让您通过对模力方舟上公开地或私有地托管的机器学习模型进行推理"
+suffix = """
+。
+
+0.14“订单”描述了您订购的服务数量以及此类服务的应付费用。订单可由您和我们协商签署，并纳入您和我们之间的协议。"""
+
+[[anchor]]
+id = "gitee-ai-terms-2-1-7-serverless-inference"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+署机器学习模型。
+
+（6）分布式算力网络：您或您的组织可以以方便快捷的方式无缝连接算力，落地人工智能创新应用。
+
+（7）"""
+exact = "无服务器推理引擎：支持模力方舟众多开源模型的推理和应用"
+suffix = """
+，免去自建模型推理系统耗时复杂的工作，相较于传统独占式的推理引擎可显著降低算力成本。
+
+2.2 您必须严格遵守本服务条款"""
+
+[[anchor]]
+id = "gitee-ai-terms-17-8-conflict-order"
+source_id = "b509e3b279154bbe"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+、承诺、书面、口头声明和任何性质的理解。
+
+17.8 如果您和我们之间任何文件的条款之间存在冲突，除非另有明确说明，否则"""
+exact = "优先顺序如下：（1）适用的订单（如有）；（2）适用的工作范围（如有）；（3）我们之间签署的任何其他具有约束力的文件；（4）补充条款；（5）本服务条款"
+suffix = """
+；（6）通过引用并入的所有其他文件或政策。
+
+17.9 如果本服务条款的任何规定因法律行为或任何其他原因在任何相关司法管"""
+
+[[anchor]]
+id = "gitee-ai-terms-0-1-entity-shenzhen"
+source_id = "b509e3b279154bbe"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+AC%E3%80%87%E6%9D%A1-%E5%AE%9A%E4%B9%89 "第〇条 定义的直接链接")
+
+0.1“"""
+exact = "模力方舟”是指深圳奥思研工智能科技有限公司"
+suffix = "，注册办公地址位于中国广东省深圳市南山区打石二路万科云城云科技大厦 22 层 01 室。公司有权通过其关联公司、董事、子"
+
+[[anchor]]
+id = "gitee-ai-terms-10-privacy-pointer"
+source_id = "b509e3b279154bbe"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+%AC%AC%E5%8D%81%E6%9D%A1-%E9%9A%90%E7%A7%81 "第十条 隐私的直接链接")
+
+"""
+exact = "我们将根据我们的隐私政策提供服务"
+suffix = "，网址为：[https://ai.gitee.com/docs/appendix/privacy](https://ai"
+
+[[anchor]]
+id = "gitee-ai-terms-7-4-private-repo-access"
+source_id = "b509e3b279154bbe"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "4 如果您决定将您的存储库设为私有，我们将采取合理和适当的措施来保护您的内容保密，并防止任何未经授权的访问或披露。但是，"
+exact = "我们可能会根据我们的隐私政策中规定的条款访问或共享您的私人信息"
+suffix = """
+。
+
+7.5 您从我们或其他用户之处访问、使用、或下载的任何内容均由您自行承担风险，并受本服务条款和/或此类内容随附的条"""
+
+[[anchor]]
+id = "gitee-ai-privacy-4-1-storage-in-cn"
+source_id = "263978d7d23f3c07"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+A1%E6%81%AF%E7%9A%84%E5%9C%B0%E7%82%B9 "4.1 存储信息的地点的直接链接")
+
+"""
+exact = "我们遵守法律法规的规定，将在中华人民共和国境内收集和产生的个人信息存储在境内。公司及其服务器位于中华人民共和国"
+suffix = """
+。
+
+### 4.2 存储信息的期限[​](https://ai.gitee.com/docs/appendix/pri"""
+
+[[anchor]]
+id = "gitee-ai-privacy-4-2-shortest-necessary"
+source_id = "263978d7d23f3c07"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+A1%E6%81%AF%E7%9A%84%E6%9C%9F%E9%99%90 "4.2 存储信息的期限的直接链接")
+
+"""
+exact = "一般而言，我们仅在为实现目的所必需的最短时间内保留您的数据信息，但下列情况除外"
+suffix = """
+：
+
+*   为遵守适用的法律法规等有关规定；
+*   为遵守法院判决、裁定或其他法律程序的规定；
+*   为遵守相关政"""
+
+[[anchor]]
+id = "gitee-ai-privacy-4-4-retention-purpose"
+source_id = "263978d7d23f3c07"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+A1%E6%81%AF%E7%9A%84%E4%BF%9D%E7%95%99 "4.4 存储信息的保留的直接链接")
+
+"""
+exact = "我们会在提供服务、遵守任何适用的法律要求、维护安全和防止事件以及总体上追求我们的合法利益所需的时间内保留您的信息"
+suffix = """
+。
+
+您可以随时通过编辑您的个人资料来决定取消您的帐户和内容。如果您希望请求删除我们处理的所有个人信息，您可以通过向 ["""
+
+[[anchor]]
+id = "gitee-ai-privacy-1-2-1-log-info"
+source_id = "263978d7d23f3c07"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "维护产品与服务的安全稳定运行，我们可能会收集设备信息（如设备类型、型号等）、软件信息（如操作系统、浏览器类型或版本等）、"
+exact = "服务日志信息（如会话日期、地点、IP 地址等）等相关信息"
+suffix = """
+。
+
+### 1.2.2 位置信息[​](https://ai.gitee.com/docs/appendix/priv"""
+
+[[anchor]]
+id = "gitee-ai-privacy-2-purposes-intro"
+source_id = "263978d7d23f3c07"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+BF%A1%E6%81%AF%E7%9A%84%E4%BD%BF%E7%94%A8 "2. 信息的使用的直接链接")
+
+"""
+exact = "我们严格遵守法律法规的规定及与用户的约定，将收集的信息用于以下用途"
+suffix = """
+。若我们超出以下用途使用您的信息，我们将再次向您进行说明，并征得您的同意。
+
+我们将信息用于以下目的：
+
+1.   向您"""
+
+[[anchor]]
+id = "gitee-ai-privacy-8-third-party-intro"
+source_id = "263978d7d23f3c07"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+%E4%BE%9B%E5%95%86%E5%90%8D%E5%8D%95 "8. 第三方服务提供商名单的直接链接")
+
+"""
+exact = "我们可能会与第三方服务提供商采集或共享您的信息，当我们这样做时，我们确保他们按照适用的数据保护政策访问您的信息"
+suffix = """
+。具体第三方服务供应商和使用数据说明如下：
+
+| 第三方服务供应商 | 适用数据范围和用途 |
+| --- | --- """
+
+[[anchor]]
+id = "gitee-ai-privacy-4-3-affiliates"
+source_id = "263978d7d23f3c07"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+A1%E6%81%AF%E7%9A%84%E5%A4%84%E7%90%86 "4.3 存储信息的处理的直接链接")
+
+"""
+exact = "通过服务收集的个人信息可能会在公司或其附属公司、子公司存储和处理"
+suffix = "。使用服务即表示您同意授权公司或其附属公司、子公司存储和处理您的数据。公司可能会将您的个人信息转移给关联公司，以便代表公"
+
+[[anchor]]
+id = "pocketclaw-4-2-moark-no-persist-no-train"
+source_id = "ef90253bb8783dc9"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+prefix = "舟）：** 若您选择由本公司提供的\"模力方舟\"算力服务，您的对话数据将通过加密通道传输至官方服务器。**我们承诺：** "
+exact = "该等数据仅用于实时推理，除非获得您的显式授权或法律法规要求，我们不会对您的对话内容进行持久化存储，亦不会将其用于模型训练"
+suffix = """
+。
+        *   **第三方服务：** 若您自行配置第三方大模型 API（如阿里通义千问、DeepSeek 等"""
+
+[[anchor]]
+id = "pocketclaw-4-2-third-party-no-retain"
+source_id = "ef90253bb8783dc9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "** 若您自行配置第三方大模型 API（如阿里通义千问、DeepSeek 等），您的数据将直接发送至该第三方服务商。**"
+exact = "我们不会中转或留存该等数据"
+suffix = """
+。** 关于此类数据的处理规则，请您务必阅读并认可该第三方服务商的隐私政策，我们对第三方服务商的行为不承担法律责任。
+
+"""
+
+[[anchor]]
+id = "pocketclaw-1-def-moark-maas"
+source_id = "ef90253bb8783dc9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+如微信、飞书、钉钉等）与部署在硬件上的智能体进行指令下达与消息往来的行为。
+5.   **模力方舟（Moark）：** """
+exact = "指由深圳奥思研工智能科技有限公司提供的模型集成与算力调度平台（MaaS），作为本产品的可选官方算力支持"
+suffix = """
+。
+6.   **第三方服务（Third-Party Services）：** 指除我们以外的其他主体提供的模型 API"""
+
+[[anchor]]
+id = "pocketclaw-4-2-local-storage-principle"
+source_id = "ef90253bb8783dc9"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+据存储：**
+
+    *   **本地化原则：** PocketClaw 核心数据（如原始知识库、配置文件、系统日志）"""
+exact = "执行本地化存储策略，均物理存储于您的 PocketClaw 硬件中"
+suffix = """
+。
+        *   **访问限制：****本产品不提供针对硬件管理后台的远程穿透或官方云端中继服务。** 在非局"""
+
+[[anchor]]
+id = "moark-ai-privacy-entity"
+source_id = "5e64b920dd169006"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+11:41:42 GMT
+
+Markdown Content:
+Thank you for using Moark!
+
+"""
+exact = "At Moark, Inc. (\"Moark\", \"we\", \"us\", or \"our"
+suffix = "\"), we are committed to protecting your personal information"
+
+[[anchor]]
+id = "moark-ai-privacy-inputs-outputs"
+source_id = "5e64b920dd169006"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+d.
+*   **User Content**: When you engage with our Services, """
+exact = "we may collect your text inputs, prompts, uploaded files, feedback"
+suffix = " (e.g., via thumbs up/thumbs down icons, which stores the as"
+
+[[anchor]]
+id = "moark-ai-terms-entity-delaware"
+source_id = "d1d46ff072b37521"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+ms of service")
+
+Welcome to the website for Moark, which is """
+exact = "owned and operated by Moark Inc., a Delaware corporation"
+suffix = " (the \"Company,\" \"we,\" or \"us\"). The Company has developed a"

@@ -1,0 +1,722 @@
+name = "Cloudflare AI Gateway"
+company = "cloudflare-workers-ai"
+line = "cloudflare-ai-gateway"
+site = "global"
+entity = "Cloudflare, Inc."
+endpoint = ""
+doc = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
+
+[[source]]
+url = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
+channel = "developer_data"
+tier = "core"
+note = "AI Gateway 官方文档 Unified Billing 页(页面 dateModified 2026-09-17)。覆盖 Unified Billing 档(Cloudflare 托管凭据、预付费转售);同时给出凭据解析顺序(请求内 provider key → BYOK → Unified Billing)与 ZDR 章节(网关级 zdr 设置 + 逐请求 cf-aig-zdr 头)。本家 ZDR 结论的权威来源。"
+
+[[source]]
+url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
+channel = "developer_data"
+tier = "core"
+note = "AI Gateway Logging 文档(dateModified 2026-06-15)。日志是 gateway 级行为,与凭据来源无关,故覆盖 api 与 unified-billing 两档。retention 维度主来源:默认开启、含 prompt/response 正文、『These logs persist』、按条数上限而非时间上限、自动删除可开关、逐请求头可跳过正文或整条。"
+
+[[source]]
+url = "https://developers.cloudflare.com/data-localization/compatibility/"
+channel = "developer_data"
+tier = "core"
+note = "Data Localization Suite 兼容性表(dateModified 2026-07-23)。AI Gateway 一行:Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(脚注 15 为『有条件兼容』)。processing_region 维度权威。注意:jina 通道把整页脚注全部丢掉,脚注 15 原文只在 docs 站的 .md 直连通道可读(原文见 notes),故此处只对表格行加锚点。"
+
+[[source]]
+url = "https://developers.cloudflare.com/data-localization/metadata-boundary/"
+channel = "developer_data"
+tier = "core"
+note = "Customer Metadata Boundary 文档(dateModified 2026-07-23)。默认无边界、日志可能存放在 Cloudflare 全球核心数据中心;CMB 只支持 eu / us 两区。processing_region 的默认态依据。"
+
+[[source]]
+url = "https://www.cloudflare.com/cloudflare-customer-dpa/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Customer DPA(页面显示 2026-04-03,v6.4 系列)。合同层角色与保留准则:Cloudflare 自认 Processor、Annex 保留期准则、终止后删除/返还、跨境处理预期、CCPA 目的限制。role 维度权威。适用于 AI Gateway(DPA 覆盖主协议下的 Services)。"
+
+[[source]]
+url = "https://www.cloudflare.com/enterpriseterms/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Enterprise Subscription Terms of Service(Last Updated September 12, 2025)。企业档主协议:§5.2 未约定代客户存储的 Customer Data 可在捕获后 72 小时起随时删除(反过来说明被文档约定代存的内容不适用该下限)、§5.4 Network Data、§6.2 审计日志与账户数据的保留。企业档与自助档的关键差异来源。"
+
+[[source]]
+url = "https://www.cloudflare.com/service-specific-terms-other-terms/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Service-Specific Terms - Other Terms(Last updated June 02, 2026)。其中 Data Localization Suite 一节:该套件仅对企业版 zone 销售、额外收 30% 费用;CMB 的承诺是『will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』。处理地维度的合同层来源;该目录里没有 AI Gateway 专属条款。"
+
+[[source]]
+url = "https://www.cloudflare.com/terms/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Self-Serve Subscription Agreement(Last Updated September 12, 2025)。自助订阅档主协议,AI Gateway 免费/付费档即在此档:§2.5.1 客户内容许可范围限于『necessary to provide the Services』、§2.5.3 对客户内容的修改/扫描权、§2.5.5 Network Data 与网络流量(含日志)检查权、§3 第三方产品由第三方条款管辖。training/role 的合同层来源。"
+
+[[product]]
+id = "api"
+badge = "BYOK 转发"
+category = "api"
+plan_level = "any"
+label = "AI Gateway 默认档(请求自带 provider key 或 BYOK;Cloudflare 仅代理转发)"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cf-aigw-selfserve-customer-content-license-scope"
+
+[[product.training.point]]
+text = "Gateway hop (Cloudflare) conclusion: at contract level Cloudflare is granted no license to train models on customer content. The content license in Self-Serve Subscription Agreement §2.5.1 is limited verbatim to \"to the extent necessary to provide the Services\""
+text_zh = "网关跳(Cloudflare)结论:合同层没有授予 Cloudflare 用客户内容训练模型的许可。《自助订阅协议》§2.5.1 的内容许可逐字限于『to the extent necessary to provide the Services』"
+
+[[product.training.point]]
+text = "§2.5.5 assigns to Cloudflare only the Network Data derived from server, network and traffic data, which it \"shall have the right to use ... for purposes of providing, maintaining, developing, and improving its Services\", and states expressly that \"Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services or protect the security or integrity of Cloudflare's network\" — derived data and security monitoring are the two openings left"
+text_zh = "§2.5.5 只把由服务器/网络/流量数据衍生出的 Network Data 归 Cloudflare,并可『use Network Data for purposes of providing, maintaining, developing, and improving its Services』,同时明文『Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services or protect the security or integrity of Cloudflare's network』——衍生数据与安全监控是两个留出的口子"
+
+[[product.training.point]]
+text = "§2.5.3 separately authorizes Cloudflare to modify or scan customer content to enhance performance, security or the functionality of the Services. DPA §3.3 (CCPA scope) says \"Cloudflare will not retain, use, or disclose that Personal Data for any purposes other than the purposes set out in the Main Agreement and this DPA\", and the Network Data wording in Enterprise §5.4 matches the self-serve version. Cloudflare has a blunter sentence of its own — \"we do not use our customers' content to train any LLMs\" (Trust Hub Responsible AI page) — but that page consistently returns a tracking-pixel shell through the production fetch channel r.jina.ai and its body cannot be retrieved (see the render_error entry in sources), so it is not treated as an authoritative source this round, only as a lead. Upstream hop: AI Gateway is a forwarding gateway and the request is ultimately processed by the upstream provider"
+text_zh = "§2.5.3 另授权 Cloudflare 修改/扫描客户内容以提升性能、安全或服务功能。DPA §3.3(CCPA 范围)写『Cloudflare will not retain, use, or disclose that Personal Data for any purposes other than the purposes set out in the Main Agreement and this DPA』,企业档 §5.4 的 Network Data 措辞与自助档同旨。Cloudflare 自己另有更直白的一句『we do not use our customers' content to train any LLMs』(Trust Hub Responsible AI 页),但该页在生产抓取通道 r.jina.ai 下固定返回跟踪像素壳、拿不到正文(见 sources 的 render_error 条),本轮不作为权威来源,只作线索。上游跳:AI Gateway 是转发网关,请求最终由上游 provider 处理"
+
+[[product.training.point]]
+text = "The documentation points the \"Terms and License\" of third-party models directly at each provider's own terms (every entry in the model catalog links to the upstream terms), and Self-Serve Subscription Agreement §3 likewise says a Third-Party Product is \"governed by the terms of service ... of the third party provider\" and that access is \"solely between you and the applicable Third-Party Product provider\". Cloudflare makes no commitment about whether upstreams train on requests; each has to be checked separately. Under the multi-hop rule, the end-to-end conclusion is governed by each upstream"
+text_zh = "文档把第三方模型的『Terms and License』直接指向 provider 自家条款(模型目录页每条都链到上游条款),《自助订阅协议》§3 亦写第三方产品『governed by the terms of service ... of the third party provider』『solely between you and the applicable Third-Party Product provider』。上游是否用请求训练,Cloudflare 不作任何承诺,须逐家核。按多跳规则,全链结论以上游各家为准"
+
+[[product.training.point]]
+text = "This round reaches a conclusion for the gateway hop only."
+text_zh = "本轮只对网关跳给结论。"
+
+[product.zdr]
+mark = "no"
+anchor = "cf-aigw-ub-zdr-scope-managed-creds"
+
+[[product.zdr.point]]
+text = "BYOK / bring-your-own provider key tier: no ZDR option, and this is an express denial rather than a non-disclosure — the Unified Billing page states verbatim that the ZDR setting \"only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.\" All this tier can do is switch logging or caching off; there is no request-level zero-retention commitment. Two further notes: (1) the AI Gateway Header Glossary calls itself a \"complete list of all supported headers\" yet omits cf-aig-zdr, while the Unified Billing page documents that header — on re-check this was judged a completeness problem of the reference page (not updated for the new header), not a contrary statement about the same tier and dimension, so it is not a contradiction and that source has been dropped. (2) Even with ZDR enabled on the Unified Billing tier, the vendor states that \"ZDR does not control AI Gateway logging\"."
+text_zh = "BYOK / 请求自带 provider key 档:没有 ZDR 选项,且这是明确否定而非未披露——Unified Billing 页逐字写 ZDR 设置『only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.』该档能做的只有关日志/关缓存,没有任何请求级零保留承诺。另记两处:①AI Gateway Header Glossary 自称是『complete list of all supported headers』,清单里却没有 cf-aig-zdr,而 Unified Billing 页明确文档了该头——重查后判为参考页文档完备性问题(参考页未随新头更新),不是对同一档位、同一维度的相反表述,不构成 contradiction,该 source 已 drop。②即便在 Unified Billing 档开了 ZDR,官方也说『ZDR does not control AI Gateway logging』。"
+
+[product.retention]
+object = "logs"
+basis = "undisclosed"
+anchor = "cf-aigw-logging-persist-no-time-limit"
+
+[[product.retention.point]]
+text = "Gateway hop conclusion: there is no time commitment at request level; content is persisted by default until the storage cap triggers deletion or logging is switched off. (1) Content kept by default: \"Logs, which include metrics as well as request and response data, are enabled by default for each gateway\", and the content includes the user prompt and the model response themselves"
+text_zh = "网关跳结论:请求级没有任何时限承诺,正文默认被持久保存,直到触顶删除或被主动关闭。①默认留正文:日志对每个 gateway 默认开启(『Logs, which include metrics as well as request and response data, are enabled by default for each gateway』),内容含 user prompt 与 model response 正文"
+
+[[product.retention.point]]
+text = "Official wording: \"These logs persist, giving you the flexibility to store them for your preferred duration\" — only an entry-count cap is given (free 100,000 per account, paid 10,000,000 per gateway, 10 MB per entry), with no limit in days. (2) How to switch it off: disable logging as a whole in the settings"
+text_zh = "官方措辞『These logs persist, giving you the flexibility to store them for your preferred duration』——只给条数上限(免费 100,000 条/账号、付费 10,000,000 条/gateway、单条 10 MB),没有天数上限。②关闭方式:设置里整体关闭日志"
+
+[[product.retention.point]]
+text = "Per request, cf-aig-collect-log: false skips the entire log entry"
+text_zh = "逐请求 cf-aig-collect-log: false 跳过整条日志"
+
+[[product.retention.point]]
+text = "cf-aig-collect-log-payload: false skips only the payload and keeps the metadata (\"Payload storage is skipped. Metadata-only log entries are still saved.\"). (3) Behaviour at the cap: Automatic Log Deletion can be switched on to delete the oldest logs automatically, or new logs stop being written. (4) Cache: off by default"
+text_zh = "cf-aig-collect-log-payload: false 只跳过正文而保留 metadata(『Payload storage is skipped. Metadata-only log entries are still saved.』)。③触顶行为:可开 Automatic Log Deletion 自动删最旧,或停止写入新日志。④缓存:默认关闭"
+
+[[product.retention.point]]
+text = "Once enabled, responses are cached by Cloudflare with a TTL of at least 60 seconds and at most 1 month. (5) Export: on paid tiers, Workers Logpush can push logs to the customer's own external storage. Contract-level comparison: Enterprise §5.2 says of Customer Data not stored on the customer's behalf as described in the documentation that Cloudflare \"may delete Customer Data at any time after seventy-two (72) hours\", but AI Gateway logs are content stored on the customer's behalf as documented, so that 72-hour floor does not apply — and \"logs are deleted after 72 hours\" cannot be inferred from it"
+text_zh = "开启后响应由 Cloudflare 缓存,TTL 最短 60 秒、最长 1 个月。⑤导出:付费档 Workers Logpush 可把日志推送到客户自己的外部存储。合同层对照:企业档 §5.2 对『未按文档约定代客户存储』的 Customer Data 写『may delete Customer Data at any time after seventy-two (72) hours』,但 AI Gateway 日志属于文档约定代客户存储的内容,不适用该 72 小时下限——不能反推『日志 72 小时后删除』"
+
+[[product.retention.point]]
+text = "The retention period in the DPA Annex is written as \"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\", a contract-level retention criterion rather than a request-level period. Also: §2.5.5 gives Cloudflare the right to inspect network traffic and related logs, but no retention commitment for abuse-monitoring logs."
+text_zh = "DPA Annex 的保留期写法是『Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...』,是合同层保留准则,不是请求级期限。另:§2.5.5 给了 Cloudflare 检查网络流量与相关日志的权限,但没有给 abuse 监控日志的保留期承诺。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cf-aigw-dls-compat-ai-gateway-row"
+
+[[product.processing_region.point]]
+text = "Gateway hop conclusion: by default there is no commitment at all about where data is processed or stored; only a paid enterprise add-on provides a limited regional boundary. (1) Default state: the CMB documentation says \"by default no boundary is applied and logs may be stored in Cloudflare's core data centers globally\""
+text_zh = "网关跳结论:默认没有任何处理地/存储地承诺,只有企业付费附加项提供有限的区域边界。①默认态:CMB 文档写『by default no boundary is applied and logs may be stored in Cloudflare's core data centers globally』"
+
+[[product.processing_region.point]]
+text = "DPA §6.1: \"the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area\", and §7.1 acknowledges processing outside the Originating Country. (2) In the DLS compatibility table the AI Gateway row reads Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧 (conditional)"
+text_zh = "DPA §6.1『the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area』,§7.1 承认会在 Originating Country 之外处理。②DLS 兼容性表里 AI Gateway 一行是 Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(有条件)"
+
+[[product.processing_region.point]]
+text = "Footnote 15, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
+text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
+
+[[product.processing_region.point]]
+text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
+text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
+
+[product.role]
+kind = "processor"
+anchor = "cf-aigw-dpa-cloudflare-is-processor"
+
+[[product.role.point]]
+text = "Gateway hop conclusion: Cloudflare designates itself processor. DPA §2.3: \"the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)\", and the Annex role table says the same"
+text_zh = "网关跳结论:Cloudflare 自认处理受托方(processor)。DPA §2.3『the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)』,Annex 角色表同旨"
+
+[[product.role.point]]
+text = "§3.1(i) provides that, following termination or expiry of the Main Agreement or completion of the Service, all personal data is deleted or returned at the customer's choice"
+text_zh = "§3.1(i) 约定主协议终止/到期或服务完成后,按客户选择删除或返还全部个人数据"
+
+[[product.role.point]]
+text = "§4.3 has the customer give blanket written authorization for Cloudflare group members and data-center and support third parties to act as sub-processors, with the sub-processor list at cloudflare.com/gdpr/subprocessors/. Upstream hop: not a question about Cloudflare's role — Self-Serve Subscription Agreement §3 states plainly that a Third-Party Product is \"governed by the terms of service ... of the third party provider\" and is \"solely between you and the applicable Third-Party Product provider\", each upstream provider being responsible for its own processing. Difference between the two tiers: on the BYOK / own-key tier the customer has a direct contractual and credential relationship with the upstream and Cloudflare is only a proxy"
+text_zh = "§4.3 客户对 Cloudflare 集团成员及数据中心/支持类第三方作为子处理者给出一揽子书面授权,子处理者清单在 cloudflare.com/gdpr/subprocessors/。上游跳:不是 Cloudflare 的角色问题——《自助订阅协议》§3 明写第三方产品『governed by the terms of service ... of the third party provider』『solely between you and the applicable Third-Party Product provider』,上游 provider 各自对其处理负责。两档差异:BYOK/自带 key 档,客户与上游有直接的合同与凭据关系,Cloudflare 只是代理"
+
+[[product.role.point]]
+text = "On the Unified Billing tier the credentials are held by Cloudflare and usage is billed against Cloudflare credit (\"the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance\", with provider inference pricing \"passed through with no markup\"), so Cloudflare is an intermediary in the billing chain — but the documentation does not disclose on what terms Cloudflare contracts with the upstreams, which is this tier's biggest open question."
+text_zh = "Unified Billing 档凭据由 Cloudflare 托管、按 Cloudflare 额度计费(『the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance』,provider 推理价『passed through with no markup』),即 Cloudflare 在结算上是中间方——但文档没有披露 Cloudflare 与上游之间以何种条款签约,这是本档最大的不确定点。"
+
+[[product]]
+id = "unified-billing"
+badge = "统一计费"
+category = "api"
+plan_level = "any"
+label = "AI Gateway Unified Billing(Cloudflare 托管凭据、预付费转售;唯一可开 ZDR 的档)"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cf-aigw-selfserve-customer-content-license-scope"
+
+[[product.training.point]]
+text = "Same source as the api tier: the contractual content license is still limited to what is \"necessary to provide the Services\", and the same two openings (Network Data and security monitoring) apply"
+text_zh = "与 api 档同源:合同层内容许可仍限于『necessary to provide the Services』,Network Data 与安全监控两个口子同样适用"
+
+[[product.training.point]]
+text = "The documentation makes no separate training commitment for Unified Billing. The difference lies in credentials and billing — requests on this tier are sent with Cloudflare-managed credentials and billed against Cloudflare credit, but the public documentation does not disclose on what terms Cloudflare contracts with the upstream providers, so whether upstreams train on requests is equally unresolved on this tier."
+text_zh = "文档没有对 Unified Billing 另作训练承诺。差别在凭据与结算——该档请求由 Cloudflare 托管凭据发出、按 Cloudflare 额度计费,但公开文档未披露 Cloudflare 与上游 provider 之间以何种条款签约,因此上游是否用请求训练在本档同样无解。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "cf-aigw-ub-zdr-routes-upstream"
+
+[[product.zdr.point]]
+text = "Unified Billing tier: there is a ZDR switch, but with three layers of qualification, and the commitment lands on the upstream endpoint side. (1) The wording is verbatim \"Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses\" — the party not retaining prompts or responses is the provider endpoints (upstream), while what Cloudflare provides is the routing and the setting (\"maps to ZDR-capable upstream provider configurations\"). (2) Scope: only Unified Billing requests that use Cloudflare-managed credentials; BYOK and other AI Gateway requests are out of scope"
+text_zh = "Unified Billing 档:有 ZDR 开关,但有三层限定,且承诺落在上游端点一侧。①逐字表述是『Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses』——不保留 prompt/response 的主体是 provider endpoints(上游),Cloudflare 侧提供的是路由与设置(『maps to ZDR-capable upstream provider configurations』)。②适用范围:仅使用 Cloudflare 托管凭据的 Unified Billing 请求,BYOK 与其他 AI Gateway 请求不适用"
+
+[[product.zdr.point]]
+text = "The documentation at the time listed only two supported upstreams, OpenAI and Anthropic; enabling it for a provider that does not support ZDR means AI Gateway \"falls back to the standard (non-ZDR) Unified Billing configuration\". (3) \"ZDR does not control AI Gateway logging.\" — with ZDR on, logging still has to be switched off separately, or the gateway side still keeps the prompt and response content. How to enable: the gateway-level zdr setting (off by default) or cf-aig-zdr: true per request. For the model-by-model view see the AI model catalog page (90 of 226 entries carry a Zero data retention marker, and the same page also has entries without it). This tier's ZDR must not be read as \"Cloudflare commits to zero retention\": it is a mapping onto upstream endpoint configurations and does not cover the gateway's own logs."
+text_zh = "文档当时只列 OpenAI 与 Anthropic 两个上游支持,给不支持 ZDR 的 provider 开启会『falls back to the standard (non-ZDR) Unified Billing configuration』。③『ZDR does not control AI Gateway logging.』——开了 ZDR 仍要单独关日志,否则网关侧仍留 prompt/response 正文。开启方式:网关级 zdr 设置(默认未开启)或逐请求 cf-aig-zdr: true。逐模型对照见 AI 模型目录页(226 条中 90 条带 Zero data retention 标记,同页也有不带该标记的条目)。不能把本档的 ZDR 当成『Cloudflare 承诺零保留』:它是对上游端点配置的映射,且不覆盖网关自身日志。"
+
+[product.retention]
+object = "logs"
+basis = "undisclosed"
+anchor = "cf-aigw-logging-persist-no-time-limit"
+
+[[product.retention.point]]
+text = "Same as the api tier: logging is a gateway-level behaviour, on by default, containing prompt and response content, persisted, and bounded by an entry-count cap. One official qualification must be recorded alongside on this tier: \"ZDR does not control AI Gateway logging\" — with ZDR on, logging still has to be switched off separately before nothing is written on the gateway side."
+text_zh = "与 api 档相同:日志是 gateway 级行为,默认开、含 prompt/response 正文、持久保存、按条数上限。该档另有一处必须并列的官方限定:『ZDR does not control AI Gateway logging』——开了 ZDR 仍要单独关日志才算网关侧不落盘。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cf-aigw-dls-compat-ai-gateway-row"
+
+[[product.processing_region.point]]
+text = "Gateway hop conclusion: by default there is no commitment at all about where data is processed or stored; only a paid enterprise add-on provides a limited regional boundary. (1) Default state: the CMB documentation says \"by default no boundary is applied and logs may be stored in Cloudflare's core data centers globally\""
+text_zh = "网关跳结论:默认没有任何处理地/存储地承诺,只有企业付费附加项提供有限的区域边界。①默认态:CMB 文档写『by default no boundary is applied and logs may be stored in Cloudflare's core data centers globally』"
+
+[[product.processing_region.point]]
+text = "DPA §6.1: \"the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area\", and §7.1 acknowledges processing outside the Originating Country. (2) In the DLS compatibility table the AI Gateway row reads Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧 (conditional)"
+text_zh = "DPA §6.1『the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area』,§7.1 承认会在 Originating Country 之外处理。②DLS 兼容性表里 AI Gateway 一行是 Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(有条件)"
+
+[[product.processing_region.point]]
+text = "Footnote 15, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
+text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
+
+[[product.processing_region.point]]
+text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
+text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
+
+[product.role]
+kind = "processor"
+anchor = "cf-aigw-dpa-cloudflare-is-processor"
+
+[[product.role.point]]
+text = "Gateway hop conclusion: Cloudflare designates itself processor. DPA §2.3: \"the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)\", and the Annex role table says the same"
+text_zh = "网关跳结论:Cloudflare 自认处理受托方(processor)。DPA §2.3『the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)』,Annex 角色表同旨"
+
+[[product.role.point]]
+text = "§3.1(i) provides that, following termination or expiry of the Main Agreement or completion of the Service, all personal data is deleted or returned at the customer's choice"
+text_zh = "§3.1(i) 约定主协议终止/到期或服务完成后,按客户选择删除或返还全部个人数据"
+
+[[product.role.point]]
+text = "§4.3 has the customer give blanket written authorization for Cloudflare group members and data-center and support third parties to act as sub-processors, with the sub-processor list at cloudflare.com/gdpr/subprocessors/. Upstream hop: not a question about Cloudflare's role — Self-Serve Subscription Agreement §3 states plainly that a Third-Party Product is \"governed by the terms of service ... of the third party provider\" and is \"solely between you and the applicable Third-Party Product provider\", each upstream provider being responsible for its own processing. Difference between the two tiers: on the BYOK / own-key tier the customer has a direct contractual and credential relationship with the upstream and Cloudflare is only a proxy"
+text_zh = "§4.3 客户对 Cloudflare 集团成员及数据中心/支持类第三方作为子处理者给出一揽子书面授权,子处理者清单在 cloudflare.com/gdpr/subprocessors/。上游跳:不是 Cloudflare 的角色问题——《自助订阅协议》§3 明写第三方产品『governed by the terms of service ... of the third party provider』『solely between you and the applicable Third-Party Product provider』,上游 provider 各自对其处理负责。两档差异:BYOK/自带 key 档,客户与上游有直接的合同与凭据关系,Cloudflare 只是代理"
+
+[[product.role.point]]
+text = "On the Unified Billing tier the credentials are held by Cloudflare and usage is billed against Cloudflare credit (\"the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance\", with provider inference pricing \"passed through with no markup\"), so Cloudflare is an intermediary in the billing chain — but the documentation does not disclose on what terms Cloudflare contracts with the upstreams, which is this tier's biggest open question. Additional note for this tier: Cloudflare is a reselling intermediary in the billing chain (5% fee, provider inference pricing passed through), but the documentation does not say whether it contracts with the upstream in its own name."
+text_zh = "Unified Billing 档凭据由 Cloudflare 托管、按 Cloudflare 额度计费(『the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance』,provider 推理价『passed through with no markup』),即 Cloudflare 在结算上是中间方——但文档没有披露 Cloudflare 与上游之间以何种条款签约,这是本档最大的不确定点。 本档补充:Cloudflare 在结算上是转售中间方(5% 手续费、provider 推理价透传),但文档未说明它是否以自己名义与上游签约。"
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-routes-upstream"
+source_id = "20c300b67d5fc5ff"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+provider, or custom metadata dimensions like user or team.
+
+"""
+exact = "Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses."
+suffix = " Enable it with the gateway-level `zdr` setting, which maps "
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-scope-managed-creds"
+source_id = "20c300b67d5fc5ff"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "which maps to ZDR-capable upstream provider configurations. "
+exact = "This setting only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests."
+suffix = """
+
+
+ZDR does not control AI Gateway logging. To disable reques"""
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-does-not-control-logging"
+source_id = "20c300b67d5fc5ff"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+s. It does not apply to BYOK or other AI Gateway requests.
+
+"""
+exact = "ZDR does not control AI Gateway logging."
+suffix = " To disable request/response logging in AI Gateway, update t"
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-supported-providers"
+source_id = "20c300b67d5fc5ff"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+elopers.cloudflare.com/ai-gateway/observability/logging/).
+
+"""
+exact = "ZDR is currently supported for:"
+suffix = """
+
+
+*   [OpenAI](https://developers.cloudflare.com/ai-gateway/"""
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-fallback-non-zdr"
+source_id = "20c300b67d5fc5ff"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+pers.cloudflare.com/ai-gateway/usage/providers/anthropic/)
+
+"""
+exact = "If ZDR is enabled for a provider that does not support it, AI Gateway falls back to the standard (non-ZDR) Unified Billing configuration."
+suffix = """
+
+
+To set ZDR as the default for Unified Billing in the dashb"""
+
+[[anchor]]
+id = "cf-aigw-ub-zdr-per-request-header"
+source_id = "20c300b67d5fc5ff"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ to **Settings** and toggle **Zero Data Retention (ZDR)**.
+
+"""
+exact = "Use the `cf-aig-zdr` header to override the gateway default for a single Unified Billing request."
+suffix = " Set it to `true` to force ZDR, or `false` to disable ZDR fo"
+
+[[anchor]]
+id = "cf-aigw-ub-credential-resolution-order"
+source_id = "20c300b67d5fc5ff"
+topics = ["role", "zdr"]
+
+[anchor.selector]
+prefix = """
+efault` alias, that key is used.
+3.   **Unified Billing** — """
+exact = "if neither of the above applies, the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance."
+suffix = """
+
+
+Turn on **Require provider credentials** to prevent Unifie"""
+
+[[anchor]]
+id = "cf-aigw-ub-pass-through-no-markup"
+source_id = "20c300b67d5fc5ff"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ample, a $100 credit purchase will result in a $105 charge. "
+exact = "Inference pricing from providers is passed through with no markup — you pay the same per-token rates as you would directly with the provider."
+suffix = """
+
+
+*   Ensure your Cloudflare account has [sufficient credits"""
+
+[[anchor]]
+id = "cf-aigw-logging-fields-include-prompt-response"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "our AI Gateway dashboard shows logs of individual requests, "
+exact = "including the user prompt, model response, provider, timestamp, request status, token usage, cost, duration, and the user agent of the client that made the request"
+suffix = ". When [DLP](https://developers.cloudflare.com/ai-gateway/fe"
+
+[[anchor]]
+id = "cf-aigw-logging-persist-no-time-limit"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Ds, and the specific detection entries that were triggered. "
+exact = "These logs persist, giving you the flexibility to store them for your preferred duration and do more with valuable request data."
+suffix = """
+
+
+Each gateway has a storage limit based on your plan. You c"""
+
+[[anchor]]
+id = "cf-aigw-logging-enabled-by-default"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+.cloudflare.com/ai-gateway/configuration/authentication/).
+
+"""
+exact = "Logs, which include metrics as well as request and response data, are enabled by default for each gateway."
+suffix = " This logging behavior will be uniformly applied to all requ"
+
+[[anchor]]
+id = "cf-aigw-logging-collect-log-header"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ttings tab, you can define headers on a per-request basis.
+
+"""
+exact = "The `cf-aig-collect-log` header allows you to bypass the default log setting for the gateway."
+suffix = " If the gateway is configured to save logs, the header will "
+
+[[anchor]]
+id = "cf-aigw-logging-collect-log-payload-metadata-kept"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " `cf-aig-collect-log`, which controls the entire log entry, "
+exact = "this header only affects payload storage — metadata such as token counts, model, provider, status code, cost, and duration will still be logged."
+suffix = """
+
+
+This is useful when you want to maintain visibility into u"""
+
+[[anchor]]
+id = "cf-aigw-logging-payload-false-metadata-only"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+` | Request and response payloads are stored. |
+| `false` | """
+exact = "Payload storage is skipped. Metadata-only log entries are still saved."
+suffix = """
+ |
+
+In the example below, we use `cf-aig-collect-log-payload"""
+
+[[anchor]]
+id = "cf-aigw-logging-storage-limit-per-plan"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+preferred duration and do more with valuable request data.
+
+"""
+exact = "Each gateway has a storage limit based on your plan."
+suffix = " You can customize this limit per gateway in your gateway se"
+
+[[anchor]]
+id = "cf-aigw-logging-automatic-deletion"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+y pay for what you need.
+*   Enable Automatic Log Deletion: """
+exact = "Activate the Automatic Log Deletion feature in your gateway settings to automatically delete the oldest logs once the storage limit for your account is reached."
+suffix = " This ensures new logs are always saved without manual inter"
+
+[[anchor]]
+id = "cf-aigw-logging-api-deletion"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ns | the user agent of the client that made the request. |
+
+"""
+exact = "You can programmatically delete logs using the AI Gateway API."
+suffix = " For more comprehensive information on the `DELETE` logs end"
+
+[[anchor]]
+id = "cf-aigw-dpa-cloudflare-is-processor"
+source_id = "8663956e47a09928"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "g the Personal Data, the parties acknowledge and agree that "
+exact = "the Customer is the Controller (or a Processor processing Personal Data on behalf of a third-party Controller), and Cloudflare is a Processor (or sub-Processor, as applicable)"
+suffix = """
+.
+
+2.4 If Customer is a Processor, Customer warrants to Clou"""
+
+[[anchor]]
+id = "cf-aigw-dpa-annex-role-table-processor"
+source_id = "8663956e47a09928"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+nex 1 shall be deemed executed upon execution of the DPA. |
+"""
+exact = "| **Role (controller/processor):** | Processor (or sub-Processor) |"
+suffix = """
+
+
+**B. DESCRIPTION OF DATA PROCESSING AND TRANSFER**
+
+|  |  """
+
+[[anchor]]
+id = "cf-aigw-dpa-retention-until-termination"
+source_id = "8663956e47a09928"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "not possible, the criteria used to determine that period: | "
+exact = "Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary for the purposes of either party performing its obligations under the Main Agreement (to the extent applicable)."
+suffix = """
+ |
+| For transfers to (sub-) Processors, also specify subjec"""
+
+[[anchor]]
+id = "cf-aigw-dpa-delete-or-return-on-termination"
+source_id = "8663956e47a09928"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " than to the extent required to comply with applicable law, "
+exact = "following termination or expiry of the Main Agreement or completion of the Service, at the choice of Customer, delete or return all Personal Data (including copies thereof) processed pursuant to this DPA"
+suffix = """
+;
+
+j) taking into account the nature of processing and the i"""
+
+[[anchor]]
+id = "cf-aigw-dpa-may-process-outside-eea"
+source_id = "8663956e47a09928"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+witzerland, and the UK
+
+6.1 In connection with the Service, """
+exact = "the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area"
+suffix = " (“**EEA** ”), Switzerland, and the United Kingdom, certain "
+
+[[anchor]]
+id = "cf-aigw-dpa-ccpa-purpose-limitation"
+source_id = "8663956e47a09928"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "are makes the following additional commitments to Customer: "
+exact = "Cloudflare will not retain, use, or disclose that Personal Data for any purposes other than the purposes set out in the Main Agreement and this DPA"
+suffix = " and as permitted under the CCPA, including under any “sale”"
+
+[[anchor]]
+id = "cf-aigw-selfserve-customer-content-license-scope"
+source_id = "176b2e1b6fe21490"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ided to Cloudflare. Subject to the terms of this Agreement, "
+exact = "you hereby grant us a non-exclusive, fully sublicensable, worldwide, royalty-free right to collect, use, copy, store, transmit, modify and create derivative works of Customer Content, in each case to the extent necessary to provide the Services."
+suffix = """
+
+
+#### 2.5.2
+
+You must obtain all necessary rights, releases"""
+
+[[anchor]]
+id = "cf-aigw-selfserve-network-data-improve-services"
+source_id = "176b2e1b6fe21490"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "e course of providing the Service (“**Network Data**”), and "
+exact = "shall have the right to use Network Data for purposes of providing, maintaining, developing, and improving its Services"
+suffix = ". Cloudflare may monitor and inspect the traffic on the Clou"
+
+[[anchor]]
+id = "cf-aigw-selfserve-monitor-inspect-traffic-logs"
+source_id = "176b2e1b6fe21490"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "iding, maintaining, developing, and improving its Services. "
+exact = "Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services or protect the security or integrity of Cloudflare’s network"
+suffix = ". To the extent the Network Data includes any Personal Data "
+
+[[anchor]]
+id = "cf-aigw-selfserve-content-modify-scan"
+source_id = "176b2e1b6fe21490"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+transferring or transmitting Customer Content.
+
+#### 2.5.3
+
+"""
+exact = "Cloudflare may modify certain components of Customer Content on or transmitted to or from your Internet Properties or scan your infrastructure and related configurations to enhance your website’s performance or security or the functionality of the Services"
+suffix = ". For example, depending on the Services you select or the A"
+
+[[anchor]]
+id = "cf-aigw-selfserve-thirdparty-governed-by-provider"
+source_id = "176b2e1b6fe21490"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "entitling you to any refund, credit, or other compensation. "
+exact = "Each Third-Party Product is governed by the terms of service, end user license agreement, privacy policies, and/or any other applicable terms and policies of the third party provider."
+suffix = " Your access or use of a Third-Party Product is solely betwe"
+
+[[anchor]]
+id = "cf-aigw-selfserve-thirdparty-solely-between-you"
+source_id = "176b2e1b6fe21490"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " applicable terms and policies of the third party provider. "
+exact = "Your access or use of a Third-Party Product is solely between you and the applicable Third-Party Product provider."
+suffix = " Cloudflare will not be directly or indirectly responsible o"
+
+[[anchor]]
+id = "cf-aigw-enterprise-72h-delete-unstored-data"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "t obligated to Customer to maintain any copies thereof, and "
+exact = "may delete Customer Data at any time after seventy-two (72) hours from the time such Customer Data is captured by Cloudflare"
+suffix = ", except for any Customer Account Information included there"
+
+[[anchor]]
+id = "cf-aigw-enterprise-network-data-improve"
+source_id = "c4fb147e26f92119"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+al Data in compliance with the DPA.
+
+**5.4. Network Data**. """
+exact = "Cloudflare retains all right, title, and interest in the Network Data, and shall have the right to use Network Data for purposes of providing, maintaining, developing, and improving its Services."
+suffix = " Cloudflare may monitor and inspect the traffic on the Cloud"
+
+[[anchor]]
+id = "cf-aigw-enterprise-audit-logs-retain"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ty Rights in Cloudflare Technology.
+
+**6.2. Account Data.** """
+exact = "Cloudflare may use and retain information Customer provides upon subscribing to Services, audit logs generated while using the Services, and Customer account settings for business purposes related to the Agreement"
+suffix = ", and to the extent necessary to meet Cloudflare’s legal com"
+
+[[anchor]]
+id = "cf-aigw-dls-compat-ai-gateway-row"
+source_id = "95facae3550f91de"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+velopers.cloudflare.com/data-localization/compatibility/) |
+"""
+exact = "| AI Gateway | ✘ | ✘ | 🚧"
+suffix = " [15](https://developers.cloudflare.com/data-localization/co"
+
+[[anchor]]
+id = "cf-aigw-dls-cmb-controls-log-region"
+source_id = "95facae3550f91de"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ata centers can decrypt and process your HTTPS traffic.
+*   """
+exact = "**Customer Metadata Boundary (CMB)**: Controls which region stores your logs and analytics data."
+suffix = """
+
+
+The tables below show whether each Cloudflare product is c"""
+
+[[anchor]]
+id = "cf-aigw-cmb-default-no-boundary-global"
+source_id = "3e4c45b2cbb0dbc2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Customer Metadata Boundary supports these two regions only; "
+exact = "by default no boundary is applied and logs may be stored in Cloudflare's core data centers globally"
+suffix = ". CMB uses its own region setting, separate from [Regional S"
+
+[[anchor]]
+id = "cf-aigw-sst-dls-enterprise-zone-only"
+source_id = "19513b36dc0a4750"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ervices, Geo Key Manager, and Keyless SSL)
+
+1.**Overview**
+
+"""
+exact = "Cloudflare Customers that purchase the Data Localization Suite will be entitled to Cloudflare’s Regional Services, Geo Key Manager, Customer Metadata Boundary, and Keyless SSL Services for Customer Zones that are on Cloudflare’s Enterprise plan"
+suffix = " for the sole use of Data Localization suite. Customers are "
+
+[[anchor]]
+id = "cf-aigw-sst-cmb-no-transfer-outside-region"
+source_id = "19513b36dc0a4750"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+ed and that some Services will have reduced functionality.
+
+"""
+exact = "Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services."
+suffix = " Customer is responsible for all configurations related to C"

@@ -1,0 +1,409 @@
+name = "Llama"
+line = "llama"
+site = "global"
+entity = "Meta Platforms, Inc. / Meta Platforms Ireland Limited"
+endpoint = ""
+doc = "https://dev.meta.ai/legal/terms-of-service"
+
+[[source]]
+url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Discounted 档，只说『ZDR support may vary by model』。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/terms-of-service"
+channel = "contract"
+tier = "core"
+note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[product]]
+id = "api-standard"
+badge = "标准 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "yes"
+anchor = "llama-tos-5-1-no-train-standard"
+mode = "by_tier"
+
+[[product.training.point]]
+text = "§5.1『will not use Content from Standard Services to train Meta Models』"
+
+[[product.training.point]]
+text = "Supporting: the same sentence in the Data Commitments and the developer docs, \"Every version is offered on the Standard tier (standard pricing; your data is never used for training)\". But under §4.2 Meta may use Usage Data (technical logs and request metadata) to \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\" — Content not being used for training is not the same as technical logs not being used for improvement."
+text_zh = "佐证见 Data Commitments 同句与开发者文档『Every version is offered on the Standard tier (standard pricing; your data is never used for training)』。但 Usage Data(技术日志/请求元数据)按 §4.2 可用于 test/support/develop/evaluate/improve Meta Model API——Content 不训练 ≠ 技术日志不用于改进。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "llama-zdr-available-not-default"
+
+[[product.zdr.point]]
+text = "Organization level, enabled separately by Meta, and \"ZDR support may vary by model\""
+text_zh = "组织级、需 Meta 单独启用、按模型支持程度可能不同"
+
+[[product.zdr.point]]
+text = "\"ZDR applies only to calls made directly to Meta Model API.\" See top-level zdr."
+text_zh = "只覆盖直连调用。见顶层 zdr。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "llama-tos-4-4-retention-purposes"
+
+[[product.retention.point]]
+text = "Same as top-level retention: §4.4 retains Content and Usage Data for five listed purposes, with no uniform period"
+text_zh = "同顶层 retention：§4.4 按五项目的保留、无统一期限"
+
+[[product.retention.point]]
+text = "Files uploaded through the Files API do not expire by default (an expiry of 1 hour to 30 days can be set)"
+text_zh = "Files API 上传文件默认不过期(可设 1 小时–30 天)"
+
+[[product.retention.point]]
+text = "Prefix caching is in memory by default, and up to 24 hours can be requested (a hint only)"
+text_zh = "前缀缓存默认内存中、可请求最长 24 小时(仅 hint)"
+
+[[product.retention.point]]
+text = "Sections 4, 5 and 6 survive termination, and the public terms carry no \"deleted on termination\" commitment."
+text_zh = "终止后 §4/§5/§6 存续，公开条款无『终止即删除』承诺。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/geographic-use-policy",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal",
+  "https://dev.meta.ai/help/policies-and-privacy/data-handling",
+  "https://dev.meta.ai/help/accounts-and-login/supported-countries",
+  "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
+  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.facebook.com/privacy/policy/",
+  "https://dev.meta.ai/docs/muse-code.md",
+  "https://dev.meta.ai/llms.txt",
+  "https://dev.meta.ai/sitemap.xml",
+]
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region."
+text_zh = "同顶层 processing_region。"
+
+[product.role]
+kind = "processor"
+anchor = "llama-tos-5-1-processor-standard"
+
+[[product.role.point]]
+text = "§5.1 states that Meta will collect, use, process, and share such data as a \"Service Provider\" or \"Processor\", and requires compliance with the MGPT"
+text_zh = "§5.1 明确 Service Provider / Processor，并遵守 MGPT"
+
+[[product.role.point]]
+text = "§2 incorporates the MGPT into these Terms."
+text_zh = "§2 把 MGPT 并入本 ToS。"
+
+[[product]]
+id = "api-contributor"
+badge = "Contributor 档"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "llama-tos-6-1-train-discounted"
+
+[[product.training.point]]
+text = "§6.1 states that \"Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services\""
+text_zh = "§6.1 明确可用于训练/开发/评估/改进 Meta 的 AI 模型"
+
+[[product.training.point]]
+text = "Content is disassociated from the account and the API key before training, but that step may be skipped for evaluation, safety, abuse, quality and policy review, and there is no guarantee that model output will not resemble your Content. §6.2: \"You must not submit sensitive, confidential, or personal information to the Discounted Services.\" (use Standard to process personal information)"
+text_zh = "训练前会做与账户及 API key 的 disassociate 步骤，但评估/安全/滥用/质量/政策审查可跳过该步骤，且不保证模型输出不与你的 Content 相似。§6.2：不得提交敏感、机密、个人信息(要处理个人信息请用 Standard)"
+
+[[product.training.point]]
+text = "This tier has no mechanism for excluding particular traffic from training"
+text_zh = "该档没有按流量排除训练的机制"
+
+[[product.training.point]]
+text = "The only way to avoid training is to use the Standard Services instead (the Data Commitments give the same route)."
+text_zh = "不想被训练只能改用 Standard Services(Data Commitments 给出同样路径)。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/policies-and-privacy/contributor-tier",
+]
+
+[[product.zdr.point]]
+text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\", without stating whether the Contributor/Discounted tier can enable ZDR. This tier exists on the premise that Meta may use Content for training, which is contractually incompatible with request-level zero retention, but Meta has taken no position, so it is recorded faithfully as not_found and must not be read in reverse as the vendor declining to offer it."
+text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor/Discounted 档能否启用 ZDR。该档的存在前提是 Meta 可用 Content 训练，与请求级零保留在条款上相斥，但官方未表态，故如实记 not_found，不得反推为厂商拒绝提供。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "llama-tos-6-1-retain-discounted"
+
+[[product.retention.point]]
+text = "Beyond the five purposes in §4.4, §6.1 also permits retaining Content in order to exercise Meta's rights to use Content under that section (that is, the training use is itself a ground for retention)"
+text_zh = "§6.1 除 §4.4 的五项目的外，另允许为『行使 Meta 在本节下的内容使用权』而保留 Content(即训练用途本身构成保留理由)"
+
+[[product.retention.point]]
+text = "§6.1 also points to Meta's consumer Privacy Policy, whose wording is case-by-case as needed with no fixed period. No quantified period."
+text_zh = "§6.1 同时指向 Meta 消费者隐私政策，该政策的口径是按需个案判断、无固定期限。无量化期限。"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/geographic-use-policy",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal",
+  "https://dev.meta.ai/help/policies-and-privacy/data-handling",
+  "https://dev.meta.ai/help/accounts-and-login/supported-countries",
+  "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
+  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.facebook.com/privacy/policy/",
+  "https://dev.meta.ai/docs/muse-code.md",
+  "https://dev.meta.ai/llms.txt",
+  "https://dev.meta.ai/sitemap.xml",
+]
+
+[[product.processing_region.point]]
+text = "Same as top-level processing_region"
+text_zh = "同顶层 processing_region"
+
+[[product.processing_region.point]]
+text = "The Discounted tier sets no separate processing-location clause."
+text_zh = "Discounted 档未另设处理地条款。"
+
+[product.role]
+kind = "unknown"
+anchor = "llama-tos-6-1-train-discounted"
+
+[[product.role.point]]
+text = "Section 6 contains no Service Provider or Processor wording at all (the opposite of §5.1), and Content is used by Meta to train Meta's own models, i.e. used for Meta's own purposes, which is not an entrusted processor. This is a determination that \"this section makes no processor statement\", and the anchor can only land on the own-purpose use clause in §6.1."
+text_zh = "§6 全文没有 Service Provider / Processor 表述(与 §5.1 相反)，Content 被 Meta 用于训练自己的模型，即为自身目的使用，不属于受托处理方。此项是『该节未作 processor 声明』的判断，锚点只能落在 §6.1 的自身目的使用条款上。"
+
+[[anchor]]
+id = "llama-tos-4-4-retention-purposes"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+s) applicable to such Third-Party Features.
+
+4.4 Retention. """
+exact = "Meta will retain your Content and Usage Data as needed:"
+suffix = " (i) to provide the Services under these Terms; (ii) to the "
+
+[[anchor]]
+id = "llama-tos-5-1-no-train-standard"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "n the MGPT) to you in relation to your use of the Services, "
+exact = "and will not use Content from Standard Services to train Meta Models."
+suffix = " You agree to comply with the MGPT when Meta acts as your Se"
+
+[[anchor]]
+id = "llama-tos-5-1-processor-standard"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Meta will process applicable data as described in the MGPT. "
+exact = "Meta will collect, use, process, and share such data as a “**Service Provider**” or “**Processor**”"
+suffix = " (each as defined in the MGPT) to you in relation to your us"
+
+[[anchor]]
+id = "llama-tos-6-1-train-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "[Privacy Policy](https://www.facebook.com/privacy/policy/). "
+exact = "You agree that Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services."
+suffix = " Before using Content from Discounted Services to train arti"
+
+[[anchor]]
+id = "llama-tos-6-1-retain-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ntent may be used by Meta for the above-described purposes. "
+exact = "Meta may also retain and process your Content: (i) to the extent necessary for compliance with applicable laws;"
+suffix = " (ii) in connection with the exercise of Meta’s rights to us"
+
+[[anchor]]
+id = "llama-zdr-available-not-default"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "n (ZDR) is available for qualified Meta Model API accounts. "
+exact = "When ZDR is enabled, your prompts and the model's responses are processed in real time and aren't stored by Meta after the response is returned"
+suffix = ", except where retention is required to comply with the law "
+
+[[anchor]]
+id = "llama-tos-1-tier-by-model"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "er Meta Models in connection with your use of the Services. "
+exact = "The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes."
+suffix = """
+
+
+You agree to be bound by these Terms by: (i) clicking to a"""
+
+[[anchor]]
+id = "llama-tos-4-1-instruct-retain-aup"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "at Meta may use the Content to provide the Services to you. "
+exact = "You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms"
+suffix = " and to develop, evaluate, and improve systems for the safet"
+
+[[anchor]]
+id = "llama-tos-4-2-usage-data"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "atency measurements, and operational metrics and telemetry. "
+exact = "Subject to restrictions in Section 5.1, Meta may use Usage Data to test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services."
+suffix = """
+
+
+4.3 Third-Party Features. Our Services may use or be used """
+
+[[anchor]]
+id = "llama-tos-5-1-mgpt-compliance"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "ot use Content from Standard Services to train Meta Models. "
+exact = "You agree to comply with the MGPT when Meta acts as your Service Provider or Processor."
+suffix = " You authorize Meta to engage subprocessors included in the "
+
+[[anchor]]
+id = "llama-tos-6-2-no-confidential-to-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+a potential policy violation.
+
+6.2 Your Responsibilities. **"""
+exact = "You must not submit sensitive, confidential, or personal information to the Discounted Services."
+suffix = "** If you intend, or are required (including by contract), t"
+
+[[anchor]]
+id = "llama-tos-12-confidentiality-not-limiting-retention"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e confidential (including information related to Accounts). "
+exact = "Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12."
+suffix = " Except as expressly permitted in these Terms, during and af"
+
+[[anchor]]
+id = "llama-tos-15-4-data-sections-survive-termination"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ms that apply to your use of Integrated Products; and (iii) "
+exact = "the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B."
+suffix = """
+
+
+15.5 Modification. We may modify these Terms from time to """
+
+[[anchor]]
+id = "llama-zdr-not-standard-usage"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+n is required to comply with the law or to address misuse.
+
+"""
+exact = "ZDR isn't part of standard usage and can't be turned on from the web UI."
+suffix = " It's enabled at the organization level and requires separat"
+
+[[anchor]]
+id = "llama-zdr-direct-calls-only"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ with a key from a different organization, aren't covered.
+
+"""
+exact = "ZDR applies only to calls made directly to Meta Model API."
+suffix = " Calls routed through third-party platforms follow that plat"
+
+[[anchor]]
+id = "llama-zdr-policy-violation-2y"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " request is flagged for an Acceptable Use Policy violation, "
+exact = "Meta may retain the associated inputs and outputs for up to 2 years"
+suffix = " for abuse detection, integrity and content-safety enforceme"
+
+[[anchor]]
+id = "llama-zdr-still-retained-metadata"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+eam information are retained.
+*   **Operational metadata**: """
+exact = "Details such as model name, latency, and app ID are retained for billing, analytics, and operations."
+suffix = """
+
+*   **Support feedback**: Anything you send through the sup"""
+
+[[anchor]]
+id = "llama-zdr-features-disabled"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+tion policy.
+
+## Which features aren't available with ZDR?
+
+"""
+exact = "Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected."
+suffix = """
+ With ZDR enabled, the following aren't available:
+
+*   Stat"""

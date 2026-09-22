@@ -1,0 +1,996 @@
+name = "OpenRouter"
+line = "openrouter"
+site = "global"
+entity = "OpenRouter, Inc."
+endpoint = ""
+doc = "https://openrouter.ai/data-processing-agreement"
+
+[[source]]
+url = "https://openrouter.ai/data-processing-agreement"
+channel = "contract"
+tier = "core"
+note = "《OpenRouter 数据处理协议》(DPA，页首标 Last Updated: August 26, 2026)，是本家最权威的一份文件：§1.2 定义 API Payload、§1.19 定义 ZDR、§2.1 定角色、§2.4 是 ZDR 条款（默认删除输入输出 + ZDR-only 路由不构成对上游的保证）、§5 子处理者、§9 删除、Schedule 1 处理细节与保留判据、Schedule 2 安全实践（GCP US regions）与删除响应期、Schedule 3 指向 trust.openrouter.ai、Exhibit A 是 EU-only 处理附录。terms §10.2 把 DPA 并入服务条款，适用对象限定为组织客户或以商业营利目的使用服务的客户。"
+
+[[source]]
+url = "https://openrouter.ai/docs/faq"
+channel = "developer_data"
+tier = "core"
+note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Chatroom 两档的日志口径、以及「OpenRouter 是 proxy」的自认。注意此页与 provider-selection 文档对「会训练的 provider 默认是否路由」说法不一致，两条并列见 training 维度 note。"
+
+[[source]]
+url = "https://openrouter.ai/docs/guides/features/zdr.md"
+channel = "developer_data"
+tier = "core"
+note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR 政策的原句、ZDR 定义、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、BYOK 与私有部署的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
+
+[[source]]
+url = "https://openrouter.ai/docs/guides/overview/auth/byok"
+channel = "developer_data"
+tier = "core"
+note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。BYOK 档的 ZDR 与区域结论都以此为准。"
+
+[[source]]
+url = "https://openrouter.ai/docs/guides/privacy/data-collection"
+channel = "developer_data"
+tier = "core"
+note = "「Data Collection」文档页，覆盖 OpenRouter 自身对 prompt/response 的处理：默认不存储、两个 opt-in 开关（私有日志、以及以 1% 折扣换取 OpenRouter 使用输入输出）、匿名分类、以及始终保留的请求元数据。注意 jina 渲染的这版正文里没有页首 <Note> 块（「Any prompt retention on OpenRouter is always opt-in.」只存在于 .md 通道），故该句未作锚点。"
+
+[[source]]
+url = "https://openrouter.ai/openrouter/free"
+channel = "developer_data"
+tier = "core"
+note = "Free Models Router（openrouter/free）的模型目录页，不是政策文档：它的「Related models」逐条列出当时的免费/匿名(cloaked)模型，其中绝大多数带一句上游数据披露『**Note:** All prompts and completions for this model are logged by the provider and may be used to improve the model.』（个别条目写作『It's free to use during this testing period, and prompts and completions are logged by the model creator for feedback and training』）。只用于免费档 products 行的上游那一跳，不作为 OpenRouter 自身政策的依据；该页模型清单是动态的。"
+
+[[source]]
+url = "https://openrouter.ai/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "OpenRouter 隐私政策（全站 + Service，含「Enterprise and API Users」与「Model Provider Data Practices」两节）。是「OpenRouter 自身不训练」与「上游可能训练」两句话的出处，也是默认保留（目的导向）、媒体文件不持久化、Files API 保留、处理地转移、以及与模型厂商责任划分的依据。"
+
+[[source]]
+url = "https://openrouter.ai/terms"
+channel = "contract"
+tier = "core"
+note = "OpenRouter 服务条款（页脚 © 2026 OpenRouter, Inc）。覆盖全部档位的合同层：§3.1 组织账户管理员可配置的项里含 zero data retention；§6.1「User Content Generally; Training Data」是训练维度的合同依据（内容许可 + 上游可能训练 + OpenRouter 尽可能 opt out）；§6.3(b) 批量/大体积请求的临时存储、§6.3(c) 保留期按功能而定；§10.2 把 DPA 并入本条款并限定商业/组织客户。"
+
+[[product]]
+id = "api"
+badge = "按量 API"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://openrouter.ai/privacy",
+  "https://openrouter.ai/docs/faq",
+]
+
+[[product.training.point]]
+text = "Removed anchor: \"OpenRouter does not use your Inputs or Outputs for model training.\" is a statement about OpenRouter's own hop only. This tier's mark is about the whole chain, and the upstream hop follows the policy of the selected Model Provider, so that clause does not settle the chain and is not a statement on this verdict. It remains the anchor for the provider's own commitment. Search scope is recorded in searched."
+text_zh = "已撤锚：「OpenRouter does not use your Inputs or Outputs for model training.」只说明 OpenRouter 自身这一跳，而本档判定的是全链（上游那一跳按所选 Model Provider 的政策），该句不足以定论，故不构成本判定的表述；它仍是「OpenRouter 自身不训练」这条事实的锚点。查阅范围见 searched。"
+
+[[product.training.point]]
+text = "See top-level training. OpenRouter itself is not_permitted (\"OpenRouter does not use your Inputs or Outputs for model training.\" in the privacy policy, plus the FAQ's \"zero logging\"), while upstream follows the policy of the selected Model Provider"
+text_zh = "见顶层 training。OpenRouter 自身 not_permitted（隐私政策明文 + FAQ「zero logging」），上游按所选 Model Provider 的政策"
+
+[[product.training.point]]
+text = "Account settings and the request-level `data_collection` / `provider.zdr` parameters can restrict routing, but OpenRouter does not guarantee upstream compliance."
+text_zh = "账户设置与请求级 `data_collection`/`provider.zdr` 可限制路由，但 OpenRouter 不保证上游合规。"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "openrouter-dpa-1-19-zdr-definition-zdr"
+
+[[product.zdr.point]]
+text = "See top-level zdr. Four ways to enforce it: account level, model-group level, guardrail, and request level with `provider.zdr: true`"
+text_zh = "见顶层 zdr。账户级/模型组级/guardrail/请求级 `provider.zdr: true` 四种强制方式"
+
+[[product.zdr.point]]
+text = "\"ZDR enforcement only applies to provider routing for inference requests.\" — it does not cover plugins or web search."
+text_zh = "只覆盖推理路由，不含 plugins 与 web search。"
+
+[product.retention]
+days = 90
+object = "input_output"
+basis = "fixed_period"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+
+[[product.retention.point]]
+text = "See top-level retention. By default, \"OpenRouter does not store your prompts or responses\""
+text_zh = "见顶层 retention。默认不存输入输出正文"
+
+[[product.retention.point]]
+text = "Once you opt in to private logging, the content is kept for at least 3 months"
+text_zh = "opt-in 私有日志后正文至少留 3 个月"
+
+[[product.retention.point]]
+text = "Request metadata is always stored, with no period given"
+text_zh = "请求元数据始终保留且无期限"
+
+[[product.retention.point]]
+text = "DPA customers can request deletion: \"OpenRouter deletes Customer Data from the datastores and backups within 30 business days of request\"."
+text_zh = "DPA 客户可要求删除，30 个工作日内从数据存储与备份中删除。"
+
+[product.processing_region]
+codes = ["US", "EU"]
+anchor = "openrouter-dpa-schedule2-us-regions-region"
+
+[[product.processing_region.point]]
+text = "See top-level processing_region. The default is \"Google Cloud Platform hosting in US regions; data at rest is region-restricted\""
+text_zh = "见顶层 processing_region。默认 GCP US regions"
+
+[[product.processing_region.point]]
+text = "In-region routing (EU/US) is a paid Business/Enterprise feature, and EU-only processing has its own DPA Exhibit A."
+text_zh = "in-region（EU/US）是 Business/Enterprise 付费功能，EU-only 另有 DPA Exhibit A。"
+
+[product.role]
+kind = "processor"
+anchor = "openrouter-dpa-2-1-roles-role"
+
+[[product.role.point]]
+text = "See top-level role. For customer personal data, \"Customer is the Controller, and OpenRouter is the Processor\""
+text_zh = "见顶层 role。对客户个人数据 OpenRouter 是 Processor"
+
+[[product.role.point]]
+text = "For site and account data it uses the data in its own right as a controller (marketing, analytics)."
+text_zh = "对站点/账户数据它自己以控制者身份使用（营销、分析）。"
+
+[[product]]
+id = "free-tier"
+badge = "免费层"
+category = "api"
+plan_level = "free"
+
+[product.training]
+mark = "no"
+anchor = "openrouter-freemodels-provider-logs-training"
+mode = "opt_out"
+
+[[product.training.point]]
+text = "The upstream hop on the free tier is a no: for each free/anonymous model listed at the time, the model catalogue page discloses \"All prompts and completions for this model are logged by the provider and may be used to improve the model.\" (a few entries read \"logged by the model creator for feedback and training\"). OpenRouter itself still commits not to train (the same privacy policy clause applies to the free tier), but under \"a clear no on any hop makes the whole chain a no\", the free tier's whole chain should be treated as **possibly used for training**. Control: account settings have a separate training toggle for free models (provider-logging: \"There are separate settings for paid and free models.\"). Uncertainty: that list is dynamic and OpenRouter writes no separate clause for the free tier in its policy documents — this point rests on the per-model disclosures on the model catalogue page, not on policy text."
+text_zh = "免费档的上游那一跳为「否」：模型目录页对当时列出的免费/匿名模型逐条披露「All prompts and completions for this model are logged by the provider and may be used to improve the model.」（个别条目为「logged by the model creator for feedback and training」）。OpenRouter 自身仍承诺不训练（隐私政策同一条适用于免费档），但按「任一跳明确为否，则全链为否」，免费档全链应视为**可能用于训练**。控制手段：账户设置里 free 档有独立的训练开关（provider-logging「There are separate settings for paid and free models.」）。不确定性：该清单是动态的，且 OpenRouter 未在政策文档中单独为免费档写条款——本条依据是模型目录页的逐模型披露，不是政策文本。"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://openrouter.ai/docs/guides/features/zdr.md",
+  "https://openrouter.ai/docs/guides/privacy/data-collection",
+]
+
+[[product.zdr.point]]
+text = "Removed anchor: \"we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such\" describes how OpenRouter labels endpoints whose policy it cannot ascertain. It does not state whether this tier itself has a zero-retention option, so it is not a statement on this dimension. Search scope is recorded in searched."
+text_zh = "已撤锚：「we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such」说的是 OpenRouter 对「政策无法确认的端点」如何标注，并未对本档自身是否有零保留选项表态，故不构成本维度的表述。查阅范围见 searched。"
+
+[[product.zdr.point]]
+text = "OpenRouter's own ZDR policy applies to the free tier, but enforcing ZDR excludes non-ZDR endpoints"
+text_zh = "OpenRouter 自身的 ZDR 政策适用于免费档，但强制 ZDR 时会排除非 ZDR 端点"
+
+[[product.zdr.point]]
+text = "For endpoints whose policy cannot be confirmed, OpenRouter takes a conservative stance and will \"assume that the endpoint both retains and trains on data and mark it as such\". So whether \"free tier + ZDR\" can hold at the same time depends on whether that free endpoint is on the ZDR list, which cannot be confirmed in advance from the public pages (the list is a dynamic table)."
+text_zh = "对政策无法确认的端点，OpenRouter 取保守假设「assume that the endpoint both retains and trains on data and mark it as such」。因此「免费档 + ZDR」能否同时成立，取决于该免费端点是否在 ZDR 清单内，公开页面无法预先确认（清单是动态表格）。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+
+[[product.retention.point]]
+text = "Object and context kept apart: on OpenRouter's own hop prompts and responses are likewise not written to disk on the free tier (the same policy clause), but the **upstream** retention period for free/anonymous models is not disclosed on OpenRouter's public pages (in the dynamic provider-logging table most upstreams show \"Prompts are retained for unknown period\"). So the content retention period for the free tier is unspecified overall."
+text_zh = "对象与语境分开：OpenRouter 自身这一跳对免费档同样不落盘 prompt/response（同一条政策），但**上游**对免费/匿名模型的保留期在 OpenRouter 公开页面上未披露（provider-logging 的动态表里多数上游显示「Prompts are retained for unknown period」）。故免费档的正文保留期整体为 unspecified。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "openrouter-dpa-schedule2-us-regions-region"
+
+[[product.processing_region.point]]
+text = "Same as the API tier: Google Cloud Platform hosting in US regions by default"
+text_zh = "同 API 档：默认 GCP US regions"
+
+[[product.processing_region.point]]
+text = "In-region routing is a paid Business/Enterprise feature that the free tier usually does not have. The actual processing location of an upstream endpoint is decided by each vendor, and OpenRouter does not disclose it model by model for free models."
+text_zh = "in-region 是 Business/Enterprise 付费功能，免费档通常不具备。上游端点的实际处理地由各厂商决定，OpenRouter 未按免费模型逐条披露。"
+
+[product.role]
+kind = "processor"
+anchor = "openrouter-dpa-2-1-roles-role"
+
+[[product.role.point]]
+text = "Same as the API tier. But terms §10.2 limits the DPA to organizational customers or commercial, for-profit use, and whether an individual user on the free tier falls under the DPA is not stated, hence low confidence."
+text_zh = "同 API 档。但 DPA 的适用对象在 terms §10.2 里限定为组织客户或商业营利用途，免费档的个人用户是否落入 DPA 未明确，故置信度低。"
+
+[[product]]
+id = "byok"
+badge = "BYOK"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://openrouter.ai/docs/guides/overview/auth/byok",
+  "https://openrouter.ai/privacy",
+]
+
+[[product.training.point]]
+text = "Removed anchor: \"Your data policies apply to BYOK endpoints. A BYOK key changes the credential for the upstream request. It does not change which endpoints you can route to.\" says the routing and data policies are unchanged — it is not a statement about training. The upstream hop is governed by the customer's own agreement with that provider, so the chain cannot be settled here. Search scope is recorded in searched."
+text_zh = "已撤锚：「Your data policies apply to BYOK endpoints… It does not change which endpoints you can route to.」说的是路由与 data policy 不变，不是对训练的表述；上游那一跳由客户与厂商自己的协议决定，全链无法在此定论。查阅范围见 searched。"
+
+[[product.training.point]]
+text = "BYOK changes neither which endpoints can be routed to nor the data policy: \"Your data policies apply to BYOK endpoints. A BYOK key changes the credential for the upstream request. It does not change which endpoints you can route to.\" OpenRouter itself commits not to train"
+text_zh = "BYOK 不改变可路由端点，也不豁免 data policy：「Your data policies apply to BYOK endpoints. A BYOK key changes the credential for the upstream request. It does not change which endpoints you can route to.」OpenRouter 自身承诺不训练"
+
+[[product.training.point]]
+text = "The upstream hop is governed by your own agreement with that provider (which OpenRouter cannot see)."
+text_zh = "上游那一跳以你自己与厂商的协议为准（OpenRouter 看不到该协议）。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "openrouter-byok-zdr-declaration-zdr"
+
+[[product.zdr.point]]
+text = "By default a BYOK key does not exempt you from ZDR restrictions: an endpoint that retains prompts stays blocked (\"When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.\"). The exception is a key whose \"Provider agreement → Zero data retention\" is declared as \"My account has ZDR\", which is let through; the declaration **does not cover video generation**, and OpenRouter says plainly that \"OpenRouter cannot see your provider agreement\", i.e. it is the customer's own attestation, not verification by OpenRouter."
+text_zh = "默认情况下 BYOK 键不豁免 ZDR 限制：端点会保留 prompt 时仍被拦（「When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.」）。例外是 key 上「Provider agreement → Zero data retention」声明为「My account has ZDR」时放行，声明**不覆盖视频生成**，且 OpenRouter 明说「OpenRouter cannot see your provider agreement」，即这只是客户自述、不是 OpenRouter 的核验。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+
+[[product.retention.point]]
+text = "OpenRouter's own hop is the same as the default tier (nothing written to disk by default; at least 3 months once you opt in to logging)"
+text_zh = "OpenRouter 这一跳同默认档（默认不落盘，opt-in 记录后至少 3 个月）"
+
+[[product.retention.point]]
+text = "The upstream hop is determined by the customer's own agreement, which OpenRouter does not disclose on their behalf."
+text_zh = "上游那一跳由客户自有协议决定，OpenRouter 不代为披露。"
+
+[product.processing_region]
+basis = "undisclosed"
+anchor = "openrouter-byok-zdr-declaration-zdr"
+
+[[product.processing_region.point]]
+text = "Region likewise rests on a declaration: the BYOK docs explain that under a regional domain OpenRouter routes only to endpoints onboarded in that region, while \"OpenRouter cannot see where your own OpenAI account processes requests, so you tell OpenRouter\""
+text_zh = "区域同样靠声明：byok 文档说明区域域名下 OpenRouter 只路由到该区域已接入的端点，而「OpenRouter cannot see where your own OpenAI account processes requests, so you tell OpenRouter」"
+
+[[product.processing_region.point]]
+text = "A region declaration does not change the key's retention policy (\"A region declaration does not change your key's retention policy.\")."
+text_zh = "区域声明不改变 key 的保留政策（「A region declaration does not change your key's retention policy.」）。"
+
+[product.role]
+kind = "processor"
+anchor = "openrouter-dpa-2-1-roles-role"
+
+[[product.role.point]]
+text = "For the part of the data OpenRouter itself processes it is still the Processor"
+text_zh = "就 OpenRouter 自己处理的那部分数据仍是 Processor"
+
+[[product.role.point]]
+text = "But on the BYOK tier there is a further direct relationship between the customer and the upstream vendor (the customer holds the key), and the upstream's use of content is determined by that agreement."
+text_zh = "但 BYOK 档下客户与上游厂商之间另有一层直接关系（客户自持密钥），上游对内容的使用由该协议决定。"
+
+[[product]]
+id = "enterprise"
+badge = "企业版"
+category = "api"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+anchor = "openrouter-dpa-exhibitA-no-train-training"
+mode = "by_contract"
+
+[[product.training.point]]
+text = "When the EU API is selected (Exhibit A), the DPA expressly says OpenRouter will \"not use API Payloads submitted through the EU API to train, fine-tune, improve, or develop models or services except as expressly instructed by Customer in writing\". Without EU-only it falls back to the general tier: OpenRouter itself does not train, and upstreams may still train (see top-level training)."
+text_zh = "选择 EU API（Exhibit A）时，DPA 明文「not use API Payloads submitted through the EU API to train, fine-tune, improve, or develop models or services except as expressly instructed by Customer in writing」。未选择 EU-only 时回到通用档：OpenRouter 自身不训练，上游仍可能训练（见顶层 training）。"
+
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "openrouter-dpa-1-19-zdr-definition-zdr"
+
+[[product.zdr.point]]
+text = "Beyond ZDR enforcement at the routing layer, on the enterprise tier the DPA itself supplies the ZDR definition and the deletion commitment, and provides that ZDR-only routing admits only upstreams registered as ZDR-eligible — but the same section states that \"it does not constitute OpenRouter's guarantee of AI Model Provider compliance\", so upstreams are still judged hop by hop."
+text_zh = "企业档除路由层面的 ZDR 强制外，DPA 本身给出 ZDR 定义与删除承诺，并规定 ZDR-only 路由只放行登记为 ZDR-eligible 的上游——但同一节明确「it does not constitute OpenRouter's guarantee of AI Model Provider compliance」，上游仍逐跳判定。"
+
+[product.retention]
+days = 90
+object = "input_output"
+basis = "fixed_period"
+anchor = "openrouter-dpa-2-4-a-delete-after-output-retention"
+
+[[product.retention.point]]
+text = "DPA §2.4(a) is an unconditional deletion commitment (except where required by law, for abuse investigations, or where the customer has opted in to logging), and §9 restates that the ZDR commitment takes effect immediately on completion of each API request and response"
+text_zh = "DPA §2.4(a) 是无条件删除承诺（除法律要求/恶意使用调查/客户 opt-in 记录），§9 重申 ZDR 承诺在每次 API 请求与响应完成时立即生效"
+
+[[product.retention.point]]
+text = "The customer may request deletion at any time, and Schedule 2 commits to deletion from the datastores and backups within 30 business days. Content under opt-in private logging is still at least 3 months."
+text_zh = "客户可随时要求删除，Schedule 2 承诺 30 个工作日内从数据存储与备份删除。opt-in 私有日志的正文仍是至少 3 个月。"
+
+[product.processing_region]
+codes = ["US", "EU"]
+anchor = "openrouter-dpa-exhibitA-eu-only-processing-region"
+
+[[product.processing_region.point]]
+text = "The default is still Google Cloud Platform hosting in US regions"
+text_zh = "默认仍是 GCP US regions"
+
+[[product.processing_region.point]]
+text = "Enterprise customers can choose in-region routing (EU/US), or select DPA Exhibit A on the Order Form for EU-only processing (which covers API Payloads only; account, billing and security logs are not restricted)."
+text_zh = "企业客户可选 in-region routing（EU/US），或在 Order Form 选择 DPA Exhibit A 做 EU-only 处理（仅覆盖 API Payloads，账户/账单/安全日志不受限）。"
+
+[product.role]
+kind = "processor"
+anchor = "openrouter-dpa-2-1-roles-role"
+
+[[product.role.point]]
+text = "The DPA states that Customer = Controller and OpenRouter = Processor, and includes subprocessor clauses (§5, with the list at trust.openrouter.ai), audit rights, SCCs/UK Addendum and other enterprise terms."
+text_zh = "DPA 明确 Customer=Controller、OpenRouter=Processor，并含子处理者条款（§5，名单在 trust.openrouter.ai）、审计权、SCC/UK Addendum 等企业条款。"
+
+[[product]]
+id = "consumer_chat"
+badge = "网页对话"
+category = "web"
+plan_level = "any"
+
+[product.training]
+mark = "unknown"
+searched = [
+  "https://openrouter.ai/privacy",
+]
+
+[[product.training.point]]
+text = "Removed anchor: \"OpenRouter does not use your Inputs or Outputs for model training.\" covers OpenRouter's own hop; this verdict is about the whole chain, and upstream follows the selected Model Provider's policy, so the clause does not settle it. Search scope is recorded in searched."
+text_zh = "已撤锚：「OpenRouter does not use your Inputs or Outputs for model training.」只覆盖 OpenRouter 自身这一跳；本档判定全链，上游按所选 Model Provider 的政策，该句不足以定论。查阅范围见 searched。"
+
+[[product.training.point]]
+text = "OpenRouter itself does not train on inputs or outputs (the same commitment)"
+text_zh = "OpenRouter 自身不训练输入输出（同一条承诺）"
+
+[[product.training.point]]
+text = "Upstreams still follow their own policies, and the \"Model Provider Data Practices\" section of the privacy policy applies to the Chatroom as well."
+text_zh = "上游仍按其自身政策，隐私政策「Model Provider Data Practices」一节同样适用于 Chatroom。"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "openrouter-zdr-own-retention-policy-zdr"
+
+[[product.zdr.point]]
+text = "OpenRouter's own \"your prompts are not retained unless you specifically opt in to prompt logging\" holds for the Chatroom as well"
+text_zh = "OpenRouter 自身的「prompts are not retained unless you specifically opt in to prompt logging」对 Chatroom 同样成立"
+
+[[product.zdr.point]]
+text = "But the ZDR enforcement switches sit on the API routing side (`provider.zdr` / guardrail) and the Chatroom has no equivalent parameter, so this is recorded as a policy-layer statement only."
+text_zh = "但 ZDR 强制开关是 API 路由侧的（`provider.zdr` / guardrail），Chatroom 没有对应参数，故此处只作政策层说明。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "openrouter-faq-chatroom-local-retention"
+
+[[product.retention.point]]
+text = "FAQ \"What data is logged during Chatroom use?\": \"The same data privacy applies to the chatroom as the API. All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices.\" — i.e. conversation history does not go to the cloud"
+text_zh = "FAQ「What data is logged during Chatroom use?」：『The same data privacy applies to the chatroom as the API. All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices.』即会话历史不上云"
+
+[[product.retention.point]]
+text = "Logging on the request side is the same as the API (prompts and completions are not logged by default)."
+text_zh = "请求侧日志口径同 API（默认不记录 prompt/completion）。"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "openrouter-privacy-data-transfers-us-region"
+
+[[product.processing_region.point]]
+text = "In-region routing does not apply to the consumer tier (a Business/Enterprise feature); there is only the default wording of privacy policy §9: \"your personal data may be transferred to our servers in the US, or to other countries outside the European Economic Area\"."
+text_zh = "消费档不适用 in-region routing（Business/Enterprise 功能），只有隐私政策 §9 的默认口径：数据可能被转移到美国或 EEA/UK 以外。"
+
+[product.role]
+kind = "controller"
+anchor = "openrouter-dpa-2-1-roles-role"
+
+[[product.role.point]]
+text = "Individual users on the consumer tier generally do not fall under the DPA (terms §10.2 limits it to organizational or commercial use), and OpenRouter then processes account and usage data as a controller (privacy policy §11 table: improving the service, research, interest-based advertising)"
+text_zh = "消费档个人用户一般不落入 DPA（terms §10.2 限定组织/商业用途），此时 OpenRouter 对账户与使用数据以控制者身份处理（隐私政策 §11 表格：改进服务、研究、兴趣广告）"
+
+[[product.role.point]]
+text = "For content forwarded to a model provider, the model provider is independently responsible for its own use of it."
+text_zh = "对转发给模型厂商的内容，模型厂商对其自身使用独立负责。"
+
+[[anchor]]
+id = "openrouter-dpa-1-2-api-payload-definition-retention"
+source_id = "830c9babcd2c05dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+common control with, another entity.
+
+1.2 "**API Payload**" """
+exact = "means the prompts, inputs, outputs, messages, files, attachments, embeddings, and other content or data transmitted by Customer, its Authorized Users, or Customer's End Customers to or from the Service through an API request, including model inputs and model outputs, but excluding account data, billing records, authentication data, security logs, abuse monitoring metadata"
+suffix = ", and other operational records that do not contain the cont"
+
+[[anchor]]
+id = "openrouter-dpa-1-19-zdr-definition-zdr"
+source_id = "830c9babcd2c05dd"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+-addendum.pdf.
+
+1.19 "**Zero Data Retention**" or "**ZDR**" """
+exact = "means OpenRouter does not persistently store API Payloads after completion of the applicable API request and response, except for transient processing in memory, short-lived buffering or caching strictly necessary to transmit, secure, or complete the request, and records required by law."
+suffix = """
+
+
+### 2. Processing of Personal Data
+
+2.1 **Roles of the Par"""
+
+[[anchor]]
+id = "openrouter-dpa-2-1-roles-role"
+source_id = "830c9babcd2c05dd"
+topics = ["role"]
+
+[anchor.selector]
+prefix = " agree that with regard to the Processing of Personal Data, "
+exact = "Customer is the Controller, and OpenRouter is the Processor"
+suffix = """
+.
+
+2.2 **Customer's Processing of Personal Data.** Customer """
+
+[[anchor]]
+id = "openrouter-dpa-2-4-a-delete-after-output-retention"
+source_id = "830c9babcd2c05dd"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " if Customer has not opted into prompt and/or chat logging, "
+exact = "OpenRouter will delete Inputs and Outputs promptly following generation of the relevant Output"
+suffix = ". OpenRouter may apply automated risk classification to Inpu"
+
+[[anchor]]
+id = "openrouter-dpa-2-4-b-no-upstream-guarantee-zdr"
+source_id = "830c9babcd2c05dd"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "ntion and no training\" on zero-data-retention API payloads; "
+exact = "it does not constitute OpenRouter's guarantee of AI Model Provider compliance"
+suffix = """
+.
+
+2.5 **Details of the Processing.** The subject-matter of """
+
+[[anchor]]
+id = "openrouter-dpa-schedule1-retention-criteria-retention"
+source_id = "830c9babcd2c05dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ble to determine, the criteria used to determine the period)"
+exact = "Personal Data will be retained for as long as necessary taking into account the purpose of the Processing, and in compliance with applicable laws, including laws on the statute of limitations and Data Protection Laws."
+suffix = """
+
+For transfers to (sub-) processors, also specify subject ma"""
+
+[[anchor]]
+id = "openrouter-dpa-schedule2-us-regions-region"
+source_id = "830c9babcd2c05dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+k.
+*   TLS 1.2+ encryption in transit; AES-256 at rest.
+*   """
+exact = "Google Cloud Platform hosting in US regions; data at rest is region-restricted"
+suffix = """
+.
+*   Cloudflare WAF, rate-limiting and DDoS mitigation.
+*  """
+
+[[anchor]]
+id = "openrouter-dpa-schedule2-deletion-30-business-days-retention"
+source_id = "830c9babcd2c05dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "OpenRouter deletes Customer Data from the datastores and backups within 30 business days of request"
+suffix = """
+ and supplies notification of completion via email.
+
+### Per"""
+
+[[anchor]]
+id = "openrouter-dpa-exhibitA-eu-only-processing-region"
+source_id = "830c9babcd2c05dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "mits API Payloads through the EU API, OpenRouter shall: (i) "
+exact = "process those API Payloads only in the European Union or EEA and will not intentionally transfer or permit access to those API Payloads from outside the European Union or EEA"
+suffix = ", except to the extent required by applicable law or Custome"
+
+[[anchor]]
+id = "openrouter-dpa-exhibitA-no-train-training"
+source_id = "830c9babcd2c05dd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " by applicable law or Customer's written instructions; (ii) "
+exact = "not use API Payloads submitted through the EU API to train, fine-tune, improve, or develop models or services except as expressly instructed by Customer in writing"
+suffix = "; and (iii) route API Payloads submitted through the EU API "
+
+[[anchor]]
+id = "openrouter-dpa-exhibitA-eu-storage-region"
+source_id = "830c9babcd2c05dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "ntirety with the following: \"Google Cloud Platform hosting: "
+exact = "API Payloads submitted through the EU API are processed and stored exclusively in EU/EEA-region infrastructure"
+suffix = "; other Service processing may use the regions described in "
+
+[[anchor]]
+id = "openrouter-terms-3-1-org-settings-zdr-zdr"
+source_id = "968b33cdbbb42880"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = " such configurations which may include, without limitation, "
+exact = "enabling prompt logging, chat logging, zero data retention, model training, and other settings"
+suffix = ". Authorized Users may also create separate individual accou"
+
+[[anchor]]
+id = "openrouter-terms-6-1-opted-out-training"
+source_id = "968b33cdbbb42880"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "t-out of model training, as described in their Model Terms. "
+exact = "Where possible, OpenRouter has opted out of model training with the Models it uses."
+suffix = " OpenRouter strives to accurately represent the status of pr"
+
+[[anchor]]
+id = "openrouter-terms-6-1-models-may-train-training"
+source_id = "968b33cdbbb42880"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "l-protection#a4d7d1d4d4cbd6d0e4cbd4c1cad6cbd1d0c1d68ac5cd). "
+exact = "Some Models may store or train on your Inputs for improving their own large language models and may allow you to opt-out of model training, as described in their Model Terms."
+suffix = " Where possible, OpenRouter has opted out of model training "
+
+[[anchor]]
+id = "openrouter-terms-6-1-user-content-license-training"
+source_id = "968b33cdbbb42880"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = ". By making any User Content available through the Service, "
+exact = "you hereby grant to OpenRouter a non-exclusive, transferable, worldwide, royalty-free license, with the right to sublicense, to use, host, cache, store, reproduce, transmit, publicly display, publicly perform, publish, distribute and modify (for formatting purposes only), your User Content solely in connection with operating and providing the Service"
+suffix = " and, depending on the permission you grant for certain feat"
+
+[[anchor]]
+id = "openrouter-terms-6-3-b-processing-storage-retention"
+source_id = "968b33cdbbb42880"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ce, such as batch or other large-volume request processing, "
+exact = "require OpenRouter to temporarily store your User Content in order to process, route, and fulfill your request, including where the volume or size of a request cannot be processed in memory."
+suffix = " You grant OpenRouter a worldwide, non-exclusive, royalty-fr"
+
+[[anchor]]
+id = "openrouter-terms-6-3-c-retention-by-feature-retention"
+source_id = "968b33cdbbb42880"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+cumentation for the applicable feature.
+
+**(c) Retention.** """
+exact = "Retention periods for User Content stored under this Section 6.3 vary by feature and are described in the applicable feature documentation"
+suffix = ", including [here](https://openrouter.ai/docs/guides/feature"
+
+[[anchor]]
+id = "openrouter-terms-10-2-dpa-commercial-scope-role"
+source_id = "968b33cdbbb42880"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+a part of, these Terms.
+
+## 10.2 Data Processing Agreement
+
+"""
+exact = "If you are part of and represent an organization in entering into these Terms or use the Service for commercial, for-profit purposes"
+suffix = ", please read the OpenRouter [Data Processing Agreement](htt"
+
+[[anchor]]
+id = "openrouter-terms-10-2-dpa-incorporated-role"
+source_id = "968b33cdbbb42880"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "r processing of your Personal Data (as defined in the DPA). "
+exact = "The DPA is incorporated by reference into, and made a part of, these Terms."
+suffix = """
+
+
+## 10.3 Non-OpenRouter Services
+
+OpenRouter or third parti"""
+
+[[anchor]]
+id = "openrouter-privacy-enterprise-api-training"
+source_id = "38394c2890ebf904"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+el Provider, including any restrictions on model training.
+
+"""
+exact = "**OpenRouter does not use your Inputs or Outputs for model training.**"
+suffix = """
+
+
+## Biometric Data Processing
+
+Some Models perform processi"""
+
+[[anchor]]
+id = "openrouter-privacy-model-provider-data-practices-training"
+source_id = "38394c2890ebf904"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "uts to train, fine-tune, evaluate, or improve their Models. "
+exact = "**Some Model Providers may use your Inputs and Outputs for model training or improvement.**"
+suffix = " Before using a Model, you should review the applicable Mode"
+
+[[anchor]]
+id = "openrouter-privacy-label-no-training-training"
+source_id = "38394c2890ebf904"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "router.ai/docs/features/provider-routing#terms-of-service). "
+exact = "Where disclosed to us, we label Models that do not use your data for training."
+suffix = " If you do not want your Inputs used for model training, sel"
+
+[[anchor]]
+id = "openrouter-privacy-ccpa-cannot-control-training"
+source_id = "38394c2890ebf904"
+topics = ["training"]
+
+[anchor.selector]
+prefix = " Providers that do not use your personal data for training. "
+exact = "OpenRouter cannot control Model Provider-side training once user data is transmitted to a training-permitted Model Provider."
+suffix = """
+
+
+### 5. Data Security
+
+We have implemented measures designe"""
+
+[[anchor]]
+id = "openrouter-privacy-model-provider-terms-role"
+source_id = "38394c2890ebf904"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "their own purposes, such as model training and improvement. "
+exact = "We contractually require Model Providers to comply with applicable data protection laws, but the Model Provider's own terms govern their independent use of your data to the extent permitted by our agreements."
+suffix = " A list of Model Providers and links to their data practices"
+
+[[anchor]]
+id = "openrouter-privacy-retention-general-retention"
+source_id = "38394c2890ebf904"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+n collected by OpenRouter.
+
+### 7. Personal Data Retention
+
+"""
+exact = "We are subject to applicable laws on the retention of information and will retain your information for as long as is reasonably necessary to comply with our business and legal obligations and to meet regulatory and compliance requirements."
+suffix = " When the personal data we have collected is no longer requi"
+
+[[anchor]]
+id = "openrouter-privacy-media-ephemeral-retention"
+source_id = "38394c2890ebf904"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "transmitted to the applicable Model Provider for inference. "
+exact = "We do not persist image, audio or video files beyond the duration necessary to route the request, except as required for abuse detection, security, billing, or legal compliance."
+suffix = " This paragraph describes our handling of image, audio, and "
+
+[[anchor]]
+id = "openrouter-privacy-files-api-retention-retention"
+source_id = "38394c2890ebf904"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e ephemeral image, audio, and video Inputs described above, "
+exact = "Uploaded Files are retained by us until you delete them or close your account, subject to the exceptions described below."
+suffix = """
+
+
+**How we use Uploaded Files.** We use Uploaded Files solel"""
+
+[[anchor]]
+id = "openrouter-privacy-data-transfers-us-region"
+source_id = "38394c2890ebf904"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+### 9. Data Transfers
+
+When you access our Site or Service, """
+exact = "your personal data may be transferred to our servers in the US, or to other countries outside the European Economic Area"
+suffix = " (\"**EEA**\") and the UK. This may be a direct provision of y"
+
+[[anchor]]
+id = "openrouter-zdr-own-retention-policy-zdr"
+source_id = "87e9e177299657ea"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+actual behavior.
+</Note>
+
+## OpenRouter's Retention Policy
+
+"""
+exact = "OpenRouter itself has a ZDR policy; your prompts are not retained unless you specifically opt in to prompt logging."
+suffix = """
+
+
+## Zero Retention Endpoints
+
+The following endpoints have """
+
+[[anchor]]
+id = "openrouter-zdr-definition-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+o"}</td>
+          </tr>)}
+      </tbody>
+    </table>;
+};
+
+"""
+exact = "Zero Data Retention (ZDR) means that a provider will not store your data for any period of time."
+suffix = """
+
+
+OpenRouter has [privacy settings](https://openrouter.ai/se"""
+
+[[anchor]]
+id = "openrouter-zdr-not-plugins-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ives you controls over both of these policies.
+
+<Warning>
+  """
+exact = "ZDR enforcement only applies to provider routing for inference requests."
+suffix = " It does not apply to [plugins](/docs/guides/features/plugin"
+
+[[anchor]]
+id = "openrouter-zdr-conservative-stance-zdr"
+source_id = "87e9e177299657ea"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "ish or ascertain a clear policy for a provider or endpoint, "
+exact = "we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such"
+suffix = """
+.
+</Note>
+
+A full list of providers and their data policies """
+
+[[anchor]]
+id = "openrouter-zdr-implicit-caching-not-retention-retention"
+source_id = "87e9e177299657ea"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+derable cost savings.
+
+OpenRouter has taken the stance that """
+exact = "in-memory caching of prompts is *not* considered \"retaining\" data"
+suffix = ", and we therefore allow endpoints/models with implicit cach"
+
+[[anchor]]
+id = "openrouter-zdr-declaration-not-verification-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+icy decides eligibility regardless of what you declared.
+
+  """
+exact = "A declaration is your attestation about your agreement with the upstream. OpenRouter records it and routes on it."
+suffix = " It is not independent verification by OpenRouter of the ups"
+
+[[anchor]]
+id = "openrouter-zdr-byok-no-video-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "ugh that key even when the shared endpoint retains prompts. "
+exact = "The declaration does not cover video generation."
+suffix = " See [Declaring ZDR on a Key](/docs/guides/overview/auth/byo"
+
+[[anchor]]
+id = "openrouter-datacollection-no-store-unless-optin-retention"
+source_id = "237f6dbe16a04ad1"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = """
+rvice](https://openrouter.ai/terms).
+
+## Within OpenRouter
+
+"""
+exact = "OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following"
+suffix = """
+:
+
+*   **Private Input & Output Logging:** Make your prompts"""
+
+[[anchor]]
+id = "openrouter-datacollection-anonymous-categorization-retention"
+source_id = "237f6dbe16a04ad1"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "f you are not opted in to OpenRouter use of inputs/outputs, "
+exact = "any categorization of your prompts is stored completely anonymously and never associated with your account or user ID"
+suffix = ". The categorization is done by model with a zero-data-reten"
+
+[[anchor]]
+id = "openrouter-datacollection-metadata-retention"
+source_id = "237f6dbe16a04ad1"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+ation is done by model with a zero-data-retention policy._
+
+"""
+exact = "OpenRouter does store metadata (e.g. number of prompt and completion tokens, latency, etc) for each request."
+suffix = " This is used to power our reporting and model ranking, and "
+
+[[anchor]]
+id = "openrouter-faq-zero-logging-retention"
+source_id = "606aefabac4f404c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "n counts). Prompt and completion are not logged by default. "
+exact = "We do zero logging of your prompts/completions, even if an error occurs, unless you opt-in to logging them."
+suffix = "We have an opt-in [setting](https://openrouter.ai/settings/p"
+
+[[anchor]]
+id = "openrouter-faq-chatroom-local-retention"
+source_id = "606aefabac4f404c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+
+
+The same data privacy applies to the chatroom as the API. """
+exact = "All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices."
+suffix = " It is possible to export and import conversations using the"
+
+[[anchor]]
+id = "openrouter-faq-training-toggle-default-training"
+source_id = "606aefabac4f404c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "rompts and completions are not logged or used for training. "
+exact = "Providers that do log, or where we have been unable to confirm their policy, will not be routed to unless the model training toggle is switched on"
+suffix = " in the [privacy settings](https://openrouter.ai/settings/pr"
+
+[[anchor]]
+id = "openrouter-faq-proxy-role"
+source_id = "606aefabac4f404c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+gs menu in the chatroom.
+
+What third-party sharing occurs?
+
+"""
+exact = "OpenRouter is a proxy that sends your requests to the model provider for it to be completed."
+suffix = " We work with all providers to, when possible, ensure that p"
+
+[[anchor]]
+id = "openrouter-byok-policies-apply-zdr"
+source_id = "87bcd6bb8730937e"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+ring-a-data-region-on-a-key).
+
+### BYOK with Data Policies
+
+"""
+exact = "Your data policies apply to BYOK endpoints. A BYOK key changes the credential for the upstream request. It does not change which endpoints you can route to."
+suffix = " Your provider, account, and guardrail data policies apply t"
+
+[[anchor]]
+id = "openrouter-byok-zdr-declaration-zdr"
+source_id = "87bcd6bb8730937e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+/routing/provider-selection).
+
+#### Declaring ZDR on a Key
+
+"""
+exact = "Some providers give your own account zero data retention. The shared endpoint that OpenRouter tracks for that provider can still retain prompts. OpenRouter cannot see your provider agreement."
+suffix = " You tell OpenRouter what it covers. Each key card has a **P"
+
+[[anchor]]
+id = "openrouter-byok-key-zdr-declared-zdr"
+source_id = "87bcd6bb8730937e"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+ A ZDR endpoint stays allowed. |
+| **My account has ZDR** | """
+exact = "OpenRouter treats requests through this key as zero data retention. The key can serve the model even when the shared endpoint retains prompts."
+suffix = """
+ |
+| **My account does not have ZDR** | OpenRouter treats re"""
+
+[[anchor]]
+id = "openrouter-freemodels-provider-logs-training"
+source_id = "c2cf14226e6f89c8"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ion-following precision that frameworks like OpenClaw need. "
+exact = "**Note:** All prompts and completions for this model are logged by the provider and may be used to improve the model."
+suffix = """
+ Text 1.0M context](https://openrouter.ai/openrouter/hunter-alpha)
+
+[Healer Alpha Healer Alpha is a frontier omni-modal """

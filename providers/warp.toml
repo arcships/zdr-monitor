@@ -1,0 +1,209 @@
+name = "Warp"
+line = "warp"
+site = "global"
+plan_levels = ["free", "individual", "team", "enterprise"]
+entity = "Denver Technologies, Inc."
+endpoint = ""
+doc = "https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md"
+
+[[source]]
+url = "https://www.warp.dev/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Warp 隐私政策。「Improving, Monitoring and Personalizing the Service」一节明写用途包含 training/fine-tuning 支撑 AI 功能的模型——这是消费档训练口径的来源。注意别和 enterprise 安全页那句「不持久保存源码、不用于模型训练」混：那句讲的是控制平面与 ZDR 下的推理链路。"
+
+[[source]]
+url = "https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md"
+channel = "developer_data"
+tier = "core"
+note = "Warp 当前安全总览；覆盖各档遥测默认值、上游 ZDR 与例外、云对话存储、代码索引、BYOLLM 及期限。"
+[[source]]
+url = "https://www.warp.dev/pricing"
+channel = "developer_data"
+tier = "core"
+note = "Free/Build/Business/Enterprise 档位依据。"
+
+[[product]]
+id = "free"
+badge = "Free"
+category = "coding_plan"
+plan_level = "free"
+[product.training]
+mark = "no"
+anchor = "warp-privacy-trains-models"
+
+[[product.training.point]]
+text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」写进了用途清单，消费档适用，没有给退出开关。"
+
+[[product.training.point]]
+text_zh = "别被 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」误导——那句讲的是控制平面和 ZDR 下的推理链路（约束的是签了 ZDR 的模型厂商），不是 Warp 自己对消费档数据的用途承诺。企业档另有条款，见 Enterprise 那一行。"
+anchor = "warp-control-plane-no-training"
+[[product.training.point]]
+text_zh = "上游 ZDR 不等于 Warp 自身不训练；Warp FAQ 另保留训练/改善权，安全页只对源码作不训练承诺，因此对全部交互按 no。遥测可由个人关闭。"
+[product.zdr]
+mark = "no"
+anchor = "warp-cloud-storage"
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "warp-telemetry-indefinite"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://www.warp.dev/legal/privacy-policy"]
+[product.role]
+kind = "controller"
+anchor = "warp-telemetry-indefinite"
+
+[[product]]
+id = "build"
+badge = "Build"
+category = "coding_plan"
+plan_level = "individual"
+[product.training]
+mark = "no"
+anchor = "warp-privacy-trains-models"
+
+[[product.training.point]]
+text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」写进了用途清单，消费档适用，没有给退出开关。"
+
+[[product.training.point]]
+text_zh = "别被 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」误导——那句讲的是控制平面和 ZDR 下的推理链路（约束的是签了 ZDR 的模型厂商），不是 Warp 自己对消费档数据的用途承诺。企业档另有条款，见 Enterprise 那一行。"
+anchor = "warp-control-plane-no-training"
+[product.zdr]
+mark = "no"
+anchor = "warp-cloud-storage"
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "warp-telemetry-indefinite"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://www.warp.dev/legal/privacy-policy"]
+[product.role]
+kind = "controller"
+anchor = "warp-telemetry-indefinite"
+
+[[product]]
+id = "paid-teams"
+badge = "团队版"
+category = "coding_plan"
+plan_level = "team"
+[product.training]
+mark = "no"
+anchor = "warp-privacy-trains-models"
+
+[[product.training.point]]
+text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」写进了用途清单，消费档适用，没有给退出开关。"
+
+[[product.training.point]]
+text_zh = "别被 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」误导——那句讲的是控制平面和 ZDR 下的推理链路（约束的是签了 ZDR 的模型厂商），不是 Warp 自己对消费档数据的用途承诺。企业档另有条款，见 Enterprise 那一行。"
+anchor = "warp-control-plane-no-training"
+[product.zdr]
+mark = "no"
+anchor = "warp-cloud-storage"
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "warp-telemetry-indefinite"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md"]
+[product.role]
+kind = "controller"
+anchor = "warp-telemetry-indefinite"
+[[product.retention.point]]
+text_zh = "团队数据收集默认开启但管理员可强制关闭；启用时遥测无限期保留。"
+
+[[product]]
+id = "business-enterprise"
+badge = "Enterprise"
+category = "coding_plan"
+plan_level = "enterprise"
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "warp-control-plane-no-training"
+[product.zdr]
+mark = "no"
+anchor = "warp-cloud-storage"
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "warp-cloud-storage"
+[product.processing_region]
+codes = ["unknown"]
+searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://www.warp.dev/legal/privacy-policy"]
+[product.role]
+kind = "processor"
+anchor = "warp-control-plane-no-training"
+[[product.retention.point]]
+text_zh = "数据收集默认关闭且可组织级强制；但云对话/云 agent 为功能必须存储，期限未披露。模型特定非 ZDR 端点默认关闭但管理员可启用。"
+
+[[product]]
+id = "enterprise-byollm"
+badge = "Enterprise BYOLLM"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "客户云推理；请求仍经 Warp 代理"
+[product.training]
+mark = "yes"
+mode = "by_tier"
+anchor = "warp-byollm-no-store"
+[product.zdr]
+mark = "no"
+anchor = "warp-cloud-storage"
+[product.retention]
+object = "mixed"
+basis = "undisclosed"
+anchor = "warp-byollm-no-store"
+[product.processing_region]
+codes = ["unknown"]
+anchor = "warp-byollm-no-store"
+[product.role]
+kind = "processor"
+anchor = "warp-byollm-no-store"
+[[product.role.point]]
+text_zh = "BYOLLM 推理在客户云，但请求经 Warp Server；Warp 不存请求内容，云对话与控制面元数据仍可能持久化，因此不是 no_data。"
+
+[[anchor]]
+id = "warp-privacy-trains-models"
+source_id = "a77fda589f2386cf"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "ideas from your responses into our business operations and customer service models;\n*   "
+exact = "Develop new products and Service, and improve existing products and features of the Service, including by training, fine-tuning and improving the performance of models that support our AI features;"
+suffix = "\n*   Aggregate information we receive from you and third parties"
+
+[[anchor]]
+id = "warp-control-plane-no-training"
+source_id = "8ab6bff0b37bb084"
+topics = ["training", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Warp does not persistently store your source code or use it for model training"
+suffix = ""
+[[anchor]]
+id = "warp-cloud-storage"
+source_id = "8ab6bff0b37bb084"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Some product features — including cloud conversations and cloud agent runs — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection."
+suffix = ""
+[[anchor]]
+id = "warp-telemetry-indefinite"
+source_id = "8ab6bff0b37bb084"
+topics = ["retention", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Telemetry data - When collected, Warp retains telemetry data indefinitely for analytics and debugging"
+suffix = ""
+[[anchor]]
+id = "warp-byollm-no-store"
+source_id = "8ab6bff0b37bb084"
+topics = ["training", "retention", "processing_region", "role"]
+[anchor.selector]
+prefix = ""
+exact = "BYOLLM - Requests are proxied through Warp’s servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests."
+suffix = ""

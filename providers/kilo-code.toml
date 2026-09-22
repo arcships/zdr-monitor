@@ -1,0 +1,76 @@
+name = "Kilo Code"
+company = "kilo-code"
+company_name = "Kilo Code"
+line = "gateway"
+site = "global"
+plan_levels = ["individual"]
+entity = "Kilo Code Inc."
+endpoint = ""
+doc = "https://kilo.ai/privacy"
+
+[[source]]
+url = "https://kilo.ai/privacy"
+channel = "consumer_privacy"
+tier = "core"
+note = "Kilo 托管服务隐私政策；托管 Gateway 经 OpenRouter/所选模型厂商处理，披露美国存储、账号期保留与删除。"
+
+[[product]]
+id = "hosted-gateway"
+badge = "Kilo Gateway"
+category = "coding_plan"
+plan_level = "individual"
+label = "Kilo 托管网关；改用本地模型或自带 key 可绕过 Gateway，但上游模型及 embedding provider 条款仍适用"
+[product.training]
+mark = "unknown"
+searched = ["https://kilo.ai/privacy", "https://kilo.ai/terms", "https://kilo.ai/security-and-compliance"]
+[product.zdr]
+mark = "unknown"
+searched = ["https://kilo.ai/privacy", "https://kilo.ai/terms", "https://kilo.ai/security-and-compliance"]
+[product.retention]
+object = "mixed"
+basis = "until_termination"
+anchor = "kilo-account-retention"
+[product.processing_region]
+codes = ["US", "global"]
+anchor = "kilo-us-hosting"
+[product.role]
+kind = "controller"
+anchor = "kilo-controller"
+[[product.role.point]]
+text_zh = "托管链路为 Kilo → OpenRouter → 用户所选模型厂商，任一上游的训练/保留政策都需另行组合。"
+
+[[anchor]]
+id = "kilo-selected-provider"
+source_id = "44fc087d5f8cb9a3"
+topics = ["training", "zdr", "retention", "processing_region", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Prompts and conversation content are sent to the AI provider you select per request, routed through OpenRouter."
+suffix = " This information is used only to generate the response."
+
+[[anchor]]
+id = "kilo-account-retention"
+source_id = "44fc087d5f8cb9a3"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Kilo Code will retain your information for as long as your account is active or as needed to perform our contractual obligations, provide you services through the Services, to comply with legal obligations, resolve disputes, preserve legal rights, or enforce our agreements."
+suffix = " For Google user data"
+
+[[anchor]]
+id = "kilo-us-hosting"
+source_id = "44fc087d5f8cb9a3"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "The Services are hosted in the United States and the personal information we collect will be stored and processed on our servers in the United States."
+suffix = " Our employees"
+
+[[anchor]]
+id = "kilo-controller"
+source_id = "44fc087d5f8cb9a3"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "The relevant data controller for any personal information processed in connection with the Services is Kilo Code Inc."
+suffix = ""

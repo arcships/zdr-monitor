@@ -1,0 +1,169 @@
+name = "七牛云 AI 企业订阅"
+name_en = "Qiniu AI Enterprise Subscription"
+company = "qiniu-ai"
+company_name = "七牛云 AI"
+line = "subscription"
+entity = "上海七牛信息技术有限公司 / 嘉兴七牛信息技术有限公司"
+plan_levels = ["enterprise"]
+doc = "https://apidocs.qnaigc.com/7926450m0"
+
+[[source]]
+url = "https://apidocs.qnaigc.com/7926450m0"
+channel = "developer_data"
+tier = "core"
+note = "七牛云官方 API 文档站(apidocs.qnaigc.com,Apifox 托管,qnaigc.com 即 api.qnaigc.com 同域)『七牛云大模型推理服务 常见问题 FAQ』→「🔒 安全与隐私」节,页面修改于 2026-06-16,页脚指向 developer.qiniu.com/aitokenapi 与 support.qiniu.com。**性质为开发者帮助文档(FAQ),不是合同条款**——故按 developer_data 记,单独不能对抗用户协议;覆盖国内站按量 API 档"
+
+[[source]]
+url = "https://www.qiniu.com/agreements/privacy-right"
+channel = "consumer_privacy"
+tier = "core"
+note = "《七牛云隐私权政策》(国内站,主体上海七牛信息技术有限公司)。§1 适用范围明示『本政策适用于七牛云提供的所有服务』,故覆盖 AI 大模型推理服务;§1.2 同时声明不适用于『七牛云服务中包含的或链接至第三方提供的信息/服务』,即不覆盖上游模型供应商自身的数据处理"
+
+[[source]]
+url = "https://www.qiniu.com/agreements/user-agreement"
+channel = "contract"
+tier = "core"
+note = "《七牛云服务用户协议》(国内站;签约方为上海七牛信息技术有限公司、嘉兴七牛信息技术有限公司及其各自子公司、关联公司中与用户实际签约的主体)。覆盖国内站全部服务,§9.3 为 AI 服务专章,§4 为「用户数据的保护、保存、销毁与下载」,§4.8 为 AI 类服务保留期特则。适用国内站 api.qnaigc.com 的按量 API 档与企业订阅档;不适用于国际站(新加坡主体另有 intl 版协议)"
+
+[[product]]
+id = "subscription-enterprise"
+badge = "企业订阅"
+category = "coding_plan"
+plan_level = "enterprise"
+label = "AI 大模型企业订阅(developer.qiniu.com/aitokenapi/13330)"
+site = "cn"
+
+[product.training]
+mark = "yes"
+anchor = "qiniu-ua-cn-no-train"
+mode = "default"
+
+[[product.training.point]]
+text_zh = "该档未公布独立数据条款(产品说明 developer.qiniu.com/aitokenapi/13330 全文无数据条款,分类为 not_policy),数据条款与按量 API 档同源:用户协议 §4.5 + 隐私政策 §2.2.2"
+
+[[product.training.point]]
+text_zh = "apidocs FAQ 的『不会被用于训练模型』承诺按服务(七牛云 AI 服务)口径同样覆盖订阅档,但未见订阅档专属声明"
+
+[product.zdr]
+mark = "yes"
+mode = "default"
+anchor = "qiniu-apidocs-no-content-storage"
+
+[[product.zdr.point]]
+text_zh = "无订阅档专属 ZDR 声明"
+
+[[product.zdr.point]]
+text_zh = "沿用同一 FAQ 的『不存储对话内容和敏感信息』承诺。未在订阅档文档中发现任何反向或加强条款"
+
+[product.retention]
+object = "mixed"
+basis = "none"
+anchor = "qiniu-ua-cn-ai-retention"
+
+[[product.retention.point]]
+text_zh = "同源:§4.8 的『AI 类服务』表述不区分计费方式,订阅档同受『不适用 30 天保留期、服务终止即删除』约束"
+
+[[product.retention.point]]
+text_zh = "请求日志约 30 天(接口文档,不分档)。订阅档特有的量化期限只有积分/额度『订阅周期清零』(30/90/365 天),那是额度而非数据保留期,不可混用"
+
+[product.processing_region]
+codes = ["CN"]
+anchor = "qiniu-pp-cn-region-in-china"
+
+[[product.processing_region.point]]
+text_zh = "同源:国内站主体、个人信息存储于中国境内"
+
+[[product.processing_region.point]]
+text_zh = "订阅档未见独立的处理地说明"
+
+[product.role]
+kind = "processor"
+anchor = "qiniu-pp-cn-processor"
+
+[[product.role.point]]
+text_zh = "同源:受托处理客户数据 + 网关层由模型供应商直接提供推理(用户协议 §9.3.1)"
+
+[[product.role.point]]
+text_zh = "订阅档产品说明未改变角色约定"
+
+[[anchor]]
+id = "qiniu-ua-cn-no-train"
+source_id = "afd5a7500c671112"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+日志、账单数据、客服信息等（下称“运营数据”），七牛云有权自行决定利用该等运营数据优化和改善七牛云服务。**
+
+4.5 """
+exact = "除依据适用法律法规或为了提供服务所需，未经您授权同意，七牛云不会擅自使用用户数据。"
+suffix = "**您确认并同意，如果由于您违反适用法律法规或因您的原因致使七牛云被任何第三方（包括任何政府机构或执法机构）提起或可能提"
+
+[[anchor]]
+id = "qiniu-ua-cn-ai-retention"
+source_id = "afd5a7500c671112"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "止之日起的 30 个自然日内，七牛云将继续存储您的数据，逾期将不再保留您数据，您需自行承担其数据被销毁后引发的一切后果。"
+exact = "但如您使用的是AI类服务，数据保留期限以七牛云官网届时公布的AI服务数据政策为准；政策未公布的，不适用本条约定的30天保留期，服务终止即删除。"
+suffix = """
+**
+
+### 5.**知识产权**
+
+5.1 **您应保证提交七牛云的素材、对七牛云服务的使用及使用七牛云服务所产生的"""
+
+[[anchor]]
+id = "qiniu-apidocs-no-content-storage"
+source_id = "fadef147b1ac20f0"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+9C)
+
+**🔒 端到端加密**
+
+所有数据传输采用 HTTPS 加密，防止中间人攻击
+
+**🚫 不存储敏感数据**
+
+"""
+exact = "七牛云不会存储您的对话内容和敏感信息"
+suffix = """
+
+
+**📝 完整审计日志**
+
+所有 API 调用都有详细日志，可追溯查询
+
+**⚖️ 合规认证**
+
+符合数据安全和隐"""
+
+[[anchor]]
+id = "qiniu-pp-cn-processor"
+source_id = "adfec6638df86b7c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+侵犯任何个人或实体的合法权利。**
+
+**3.2您保证有权使用七牛云服务对客户数据进行存储、传输、分析和分发等任何处理，"""
+exact = "我们将按照您的指令、委托处理您的客户数据。"
+suffix = "您应当就委托我们处理的客户数据独立向您的客户/用户履行相关义务并承担相应责任，包括但不限于确保已根据适用法律法规的要求向"
+
+[[anchor]]
+id = "qiniu-pp-cn-region-in-china"
+source_id = "adfec6638df86b7c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+的个人信息超出上述保存期限，我们将会对其进行源数据及备份数据的删除或匿名化处理**。
+
+七牛云会按照法律法规的规定，**"""
+exact = "将在境内运营过程中收集和产生的个人信息存储于中华人民共和国境内，且不会将该等信息向境外进行传输"
+suffix = "。如七牛云因涉及跨境业务，需向境外机构传输境内收集的相关个人信息的，我们会按照法律法规和相关监管部门的规定执行**， 向"
