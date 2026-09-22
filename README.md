@@ -1,115 +1,192 @@
 # zdr
 
-各家 LLM 供应商的数据处理政策台账。**每个 ✓ / ✗ 都能点开看到官方原文那一句。**
+[zdr](https://arcships.github.io/zdr-monitor/) is an open-source database of how LLM providers handle customer data. It tracks model training, zero data retention, retention periods, processing regions, and contractual roles at the product-plan level.
 
-站点 <https://arcships.github.io/zdr-monitor/> · 数据 <https://arcships.github.io/zdr-monitor/api.json> · agent 先读 [/llms.txt](https://arcships.github.io/zdr-monitor/llms.txt)
+There is no single place to compare these policies across providers and plans. We built zdr so every explicit verdict can be checked against the vendor's own words, and those source documents can be monitored for change.
 
 ```
-83 家 · 307 个档位 · 1535 条判定 · 2591 条引文 · 每天重抓比对
+83 companies · 307 plans · 1535 verdicts · 2591 anchored quotes
+558 source documents, re-fetched daily and diffed against the stored snapshot
 ```
 
-## 它回答五个问题
+A `✗` means the vendor makes no explicit public commitment on that dimension.
+It is not a claim about what the vendor actually does — only about what its
+published terms say, which is the only thing a buyer can hold them to.
 
-| 维度 | 问的是 |
-| --- | --- |
-| `training` | 是否承诺不用于训练？（拿去「改进服务质量」也算训练） |
-| `zdr` | 能否做到零数据保留？ |
-| `retention` | 推理输入输出保留多久 |
-| `processing_region` | 在哪处理 |
-| `role` | 合同角色：受托处理 / 独立控制者 / 次级受托 / 未约定 |
+## API
 
-**档位是一等公民，不是厂商。** 同一家厂商的个人档和企业档常常条款相反——
-Z.AI Coding Plan 国际站团队版承诺不训练且零保留，个人版两样都没有。
-把一家折成一行结论，得到的一定是错的。
-
-## 读一条结论要知道的三件事
-
-1. **`mark` 回答的是列名那个问题。** `training` 列问「是否不用于训练」，
-   所以 `yes` = 不训练、`no` = 会训练。按「会不会训练」的方向读会全反。
-2. **`unknown` 是「翻遍官方文档没找到这条承诺」，不是「还没查」。**
-   这类条目会列出查过哪些页面（`searched`，API 里也导出了）。
-3. **`mode` 说的是这个结论怎么达成。** 同样是 ✓，`by_contract`（商业合同禁止）、
-   `opt_out`（你得自己去关开关）、`by_deployment`（数据没出你的机房，不是厂商承诺）
-   对采购是三件完全不同的事。
-
-## 数据出口
-
-静态 JSON，直接取用，不需要 key：
-
-| 出口 | 内容 |
-| --- | --- |
-| `/api.json` | 全量。照 models.dev 的约定，顶层键是厂商 id：`api["cursor"].plans["cursor/teams"].training.quote` 一路直取 |
-| `/_catalog.json` | 只要表格：一行一个档位，五维结论加极简标签。一次性问答从它开始，别上来就拉 2MB |
-| `/p/<company>.json` | 单家详情：档位、证据、全部受监控文档 |
-| `/_changes.json` | 已确认的政策变化 |
-| `/_meta.json` | 生成时间、维度列表、抓取健康度 |
-| `/llms.txt` | 给 agent 的说明：字段级 schema、读取陷阱、收录边界 |
-
-## 核心原则
-
-1. **结论绑定保存下来的官方原文。** 每个锚点引用 `documents/` 中的不可变快照，厂商改页
-   不会悄悄改写旧证据。
-2. **抓取与解释分开。** 机器只抓正文、做技术校验、比较版本和匹配锚点；agent 负责来源
-   策展、权威性和政策语义。
-3. **抓取失败不是未披露。** 失败时保留最后成功正文，不移动锚点，只记录当前异常。
-4. **原始页面变化不是政策变化。** 完整 diff 是待审线索；只有 agent 确认后才能出现在站点
-   的变化历史里。
-
-## 命令
+You can access the complete dataset as static JSON. No API key is required.
 
 ```bash
-bun run fetch                         # 抓全部已登记来源
-bun run fetch -- volcengine           # 抓一家已导入 provider 引用的来源
-bun run fetch -- <source_id> --dry-run
-bun run verify:anchors                # 在当前正式快照上核验锚点
-bun run issues:open -- --dry-run      # 查看会开的复核 issue
+curl https://arcships.github.io/zdr-monitor/api.json
+```
+
+The top-level keys are **Company IDs**. Each company contains a `plans` object keyed by **Plan ID**:
+
+```js
+const api = await fetch("https://arcships.github.io/zdr-monitor/api.json").then((r) => r.json())
+
+const plan = api["cursor"].plans["cursor/teams"]
+console.log(plan.training.mark)   // "yes" means not used for training
+console.log(plan.training.quote)  // verbatim vendor text
+console.log(plan.training.source) // official source URL and channel
+```
+
+Plan IDs are the stable lookup key. Do not merge plans by company name: individual, team, and enterprise plans from the same vendor often have different terms.
+
+### Other endpoints
+
+| Endpoint | Contents |
+| --- | --- |
+| [`/api.json`](https://arcships.github.io/zdr-monitor/api.json) | Complete public dataset, indexed by company and plan ID |
+| [`/_catalog.json`](https://arcships.github.io/zdr-monitor/_catalog.json) | Compact catalog with one row per plan; start here for one-off queries |
+| [`/p/<company>.json`](https://arcships.github.io/zdr-monitor/p/cursor.json) | One company's plans, evidence, sources, and confirmed changes |
+| [`/_changes.json`](https://arcships.github.io/zdr-monitor/_changes.json) | Agent-confirmed policy changes |
+| [`/_meta.json`](https://arcships.github.io/zdr-monitor/_meta.json) | Generation time, dimensions, and source-monitoring health |
+| [`/llms.txt`](https://arcships.github.io/zdr-monitor/llms.txt) | Field schema, interpretation rules, and scope for agents |
+
+### Reading verdicts
+
+The five dimensions are:
+
+| Dimension | Question or value |
+| --- | --- |
+| `training` | Does the provider commit not to use the data for training? |
+| `zdr` | Is zero data retention available? |
+| `retention` | How long are inference inputs and outputs retained? |
+| `processing_region` | Where is the data processed? |
+| `role` | Processor, controller, subprocessor, or unspecified? |
+
+Three rules are easy to get wrong:
+
+1. `mark` answers the question in the column name. For `training`, `yes` means **not used for training** and `no` means it may be used for training.
+2. `unknown` means the official sources were searched but no applicable statement was found. The checked pages are exported in `searched`.
+3. `mode` describes how a result is achieved. A contractual prohibition, an opt-out switch, and isolation created by self-hosted deployment are not equivalent guarantees.
+
+Quotes stay in their original language so consumers can compare them directly with the official source. See [`llms.txt`](https://arcships.github.io/zdr-monitor/llms.txt) for the complete machine-readable contract.
+
+## Contributing
+
+The data is stored as TOML in [`providers/`](providers/). Each file contains a product line, its monitored official sources, product plans, five-dimensional verdicts, and evidence anchors. The same data generates both the website and public API.
+
+We need help keeping policies current. Corrections must cite an official page and the exact sentence supporting the change.
+
+### Data hierarchy
+
+```text
+company → product line / site → plan → verdict → evidence point → anchor → source snapshot
+```
+
+- A company may have several provider files when products or legal sites use different policy documents.
+- A plan is a first-class record. Free, individual, team, and enterprise plans must not be collapsed into one verdict.
+- BYOK and fully local tools are excluded when the tool vendor never receives the data. Self-hosted commercial plans are included when a distinct contract applies.
+
+See [`docs/scope.md`](docs/scope.md) for the full inclusion rules.
+
+### Adding or updating a provider
+
+Research artifacts live in `.verify/`, a gitignored staging area. A source is
+only registered in `providers/` once its baseline snapshot exists and every
+quote resolves against it — otherwise the ledger fills up with citations that
+were never verifiable.
+
+**A new provider:**
+
+1. Find the current official contracts, privacy policies, data-use
+   documentation, and plan-specific terms.
+2. Curate those URLs and the draft verdicts into `.verify/<provider-id>/`.
+3. Build the baseline snapshots, then import once every `exact` resolves:
+
+   ```bash
+   bun run research:fetch -- <provider-id> --dry-run
+   bun run research:fetch -- <provider-id>
+   bun run research:import -- <provider-id> --dry-run
+   bun run research:import -- <provider-id>
+   ```
+
+   `research:import` fails as a whole if a baseline is missing or a quote does
+   not resolve, so a provider cannot land half-verified.
+
+**An existing provider** is edited directly in `providers/<provider-id>.toml`.
+Add sources, add one `[[product]]` per distinct plan, record all five
+dimensions, then refresh and verify:
+
+```bash
+bun run fetch -- <provider-id>        # expands to every source it declares
+bun run verify:anchors
+```
+
+Bind explicit conclusions to verbatim `[[anchor]]` excerpts from the saved
+snapshot. For an `unknown` verdict, record the official pages checked in
+`searched`. Then:
+
+```bash
 bun run validate
 bun test
 bun run typecheck
 bun run build
 ```
 
-首次纳入新 provider 使用 `research:fetch → research:import`，详见
-[sync.md](sync.md)。
+Do not edit `documents/` or `health/` by hand. They are generated monitoring artifacts; `documents/` contains immutable, content-addressed snapshots.
 
-## 目录
+### Provider schema
 
-```text
-providers/<provider_id>.toml                  来源、产品档位、当前结论和证据锚点
-documents/<source_id>/<version_id>.md         不可变 Markdown 快照
-documents/<source_id>/history.toml            版本记录 + 当前版本指针
-health/<source_id>.toml                       当前抓取异常，恢复后删除
-changes/<provider_id>/<date>-<slug>.toml      agent 确认的政策变化
-packages/core/src/sync/                       抓取、版本、diff、健康状态
-packages/core/src/verify/                     纯文本锚点核验
-packages/core/script/                         CLI
+Provider-level fields identify the product line and legal scope:
+
+- `name`, `name_en`: display names
+- `company`, `company_name`: aggregate related product lines into one company page
+- `line`: product-line slug
+- `site`: legal site such as `cn`, `global`, `us`, or `eu`
+- `entity`: contracting legal entity, taken from the contract rather than inferred from the brand
+- `kind`: `model_vendor`, `cloud`, `aggregator`, `reseller`, or `self_host`
+- `homepage`, `doc`: product homepage and primary policy page
+
+Each `[[product]]` has:
+
+- `id`: stable plan ID within the provider file
+- `category`: `api`, `coding_plan`, `web`, or `self_host`
+- `plan_level`: `free`, `individual`, `team`, `enterprise`, or `any`
+- `training`, `zdr`, `retention`, `processing_region`, and `role` verdict tables
+
+Verdict interpretation and evidence standards are defined in [`docs/judgment.md`](docs/judgment.md). Existing provider files are the canonical examples.
+
+### Validation
+
+GitHub Actions validates every pull request. Run the same checks locally:
+
+```bash
+bun install
+bun run validate
+bun test
+bun run typecheck
+bun run build
 ```
 
-单次运行报告放在 `.sync/` 并由 CI artifact 保存，不用每日成功日志污染 Git。
+Validation checks TOML structure, controlled values, plan coverage, source references, and evidence anchors. Tests and type checking cover the generated API and website.
 
-## 站点发布
+### Working on the frontend
 
-`bun run build` 生成 `packages/web/dist/`。合入 `main` 后，GitHub Actions 会构建并发布到
-GitHub Pages。站点使用 hash 路由，详情页地址形如
-`https://arcships.github.io/zdr-monitor/#/p/openai`，直接刷新不会依赖服务端 rewrite。
+Install [Bun](https://bun.sh/), then run:
 
-## 纠错
+```bash
+bun install
+bun run dev
+```
 
-发现某一格和厂商现行条款对不上，开 issue 贴上**官方页面链接和那一句原文**即可——
-台账的规矩是结论必须绑定引文，所以纠错也以引文为准，不接受「我听说」。
+The local site opens through Vite. `bun run build` regenerates the public JSON endpoints and produces `packages/web/dist/`.
 
-## 许可
+### Questions and corrections
 
-代码与结构化数据：[MIT](LICENSE)。
+Open an issue with the official URL, affected plan, dimension, and exact source sentence. A page diff is a review lead, not automatically a confirmed policy change.
 
-引文本身不在此列——那是各家厂商政策原文的逐字摘录，著作权属于对应厂商，
-这里按事实性引用收录并标明出处。转载结论时请一并带上来源链接，
-读者才能自己回到原文核对。
+Maintenance and monitoring details are documented in:
 
-## 文档
+- [`sync.md`](sync.md) — initial research, daily fetching, anchor verification, and change confirmation
+- [`docs/maintenance.md`](docs/maintenance.md) — CI and agent maintenance workflow
+- [`AGENTS.md`](AGENTS.md) — mandatory evidence rules for contributors and agents
 
-- [sync.md](sync.md) — 首次纳入、日常抓取、锚点核验和变化确认的完整流程
-- [docs/scope.md](docs/scope.md) — provider 与产品档位的收录范围
-- [docs/judgment.md](docs/judgment.md) — 五个维度的判定口径
-- [docs/maintenance.md](docs/maintenance.md) — CI 与 agent 的实际维护方式
-- [AGENTS.md](AGENTS.md) — 修改数据和证据时必须遵守的规则
+## License
+
+Code and structured data are available under the [MIT License](LICENSE).
+
+Quoted policy text remains the property of its respective vendor and is included with attribution for verification.
