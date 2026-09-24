@@ -9,7 +9,7 @@ doc = "https://developers.openai.com/api/docs/guides/your-data"
 url = "https://developers.openai.com/api/docs/guides/your-data"
 channel = "developer_data"
 tier = "core"
-note = "API 档(developers 文档,Published 2026-09-20)。本轮重抓正文与缓存逐字一致(29587B),覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。不覆盖 ChatGPT/Codex 消费档"
+note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。本轮正文变更:/v1/videos 已随 2026-09-24 停机从逐端点留存表移除,原 48 小时/30 天条款改写成「Historical Videos API retention」历史说明;其余正文未变。不覆盖 ChatGPT/Codex 消费档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
@@ -110,8 +110,14 @@ text = "Abuse monitoring logs are retained for up to 30 days by default"
 text_zh = "滥用监测日志默认最多 30 天"
 
 [[product.retention.point]]
-text = "Application state follows separate per-endpoint rules such as 30 days, 48 hours and 24 hours"
-text_zh = "应用状态按端点另有 30 天/48 小时/24 小时等规则"
+text = "Application state follows separate per-endpoint rules rather than one blanket period: audio outputs of /v1/chat/completions store application state for 1 hour, and the prompt cache's encrypted key/value tensors sit in GPU-local storage only until the 24-hour expiration"
+text_zh = "应用状态按端点各有规则,而非一个通行期限:`/v1/chat/completions` 的音频输出应用状态存 1 小时,prompt cache 的加密 KV 张量只在 GPU 本地存储至 24 小时过期"
+anchor = "openai-api-prompt-cache-24h"
+
+[[product.retention.point]]
+text = "The 48-hour application-state figure our earlier points cited belonged to /v1/videos. That API was shut down on September 24, 2026, and the page now records its 48-hour download window and its 30 days of abuse monitoring as periods documented before shutdown that promise nothing afterwards. No other endpoint's retention terms changed in this revision"
+text_zh = "我们此前条目引用的 48 小时应用状态期限属于 `/v1/videos`。该 API 已于 2026-09-24 停机,页面现在把它的 48 小时下载窗口与 30 天滥用监测记为停机前的政策,不对停机后作任何承诺。本次修订中其他端点的留存条款未变"
+anchor = "openai-api-videos-shutdown-historical"
 
 [[product.retention.point]]
 text = "Response bodies carry a lower bound of their own: for /v1/responses the API keeps 30 days of Application State by default, or when `store` is set to `true`, and in those cases \"response data will be stored for at least 30 days\". That is a minimum on the request/response content itself, not a cap, and its object is the content rather than the abuse monitoring logs"
@@ -119,9 +125,9 @@ anchor = "openai-api-responses-state-30d"
 text_zh = "正文另有下限:/v1/responses 默认(或 store=true 时)保留 30 天应用状态,此时 response data「至少」存储 30 天。这是对请求/响应正文本身的下限而非上限,对象是内容本身而不是滥用监测日志"
 
 [[product.retention.point]]
-text = "The per-endpoint table still records /v1/responses Application state retention as \"None, see below for exceptions\", so the 30 days is not a blanket rule for that endpoint: it applies by default or when `store` is true, and other endpoints keep application state on their own terms (None, 24 hours, 48 hours, 30 days, or until deleted)"
+text = "The per-endpoint table still records /v1/responses Application state retention as \"None, see below for exceptions\", so the 30 days is not a blanket rule for that endpoint: it applies by default or when `store` is true, and other endpoints keep application state on their own terms (None, 24 hours, 30 days, or until deleted)"
 anchor = "openai-api-responses-table-state-none"
-text_zh = "逐端点表仍把 /v1/responses 的 Application state retention 记为「None, see below for exceptions」,所以 30 天不是该端点的通行规则:默认或 store=true 时才适用;其他端点各有各的规则(None、24 小时、48 小时、30 天或至删除)"
+text_zh = "逐端点表仍把 /v1/responses 的 Application state retention 记为「None, see below for exceptions」,所以 30 天不是该端点的通行规则:默认或 store=true 时才适用;其他端点各有各的规则(None、24 小时、30 天或至删除)"
 
 [[product.retention.point]]
 text = "Longest period on this tier: application-state objects of the Assistants family (/v1/assistants, /v1/threads, /v1/vector_stores, and /v1/files, which the table marks \"Until deleted\") are retained indefinitely when they are not deleted via the API or the dashboard, and are removed 30 days after deletion. This is until-deletion/indefinite, not a 30-day cap, and it is a separate object from the abuse monitoring logs"
@@ -554,3 +560,19 @@ topics = ["zdr"]
 prefix = "For customers approved for Zero Data Retention or Modified Abuse Monitoring, "
 exact = "we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers if reasonably necessary to investigate or prevent severe risk activity, as notified in advance to the impacted customers in writing"
 suffix = ". In this instance, we may retain and human review customer content"
+
+[[anchor]]
+id = "openai-api-prompt-cache-24h"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Prompt caching may store encrypted key/value tensors in GPU-local storage as application state. This data is stored on the local GPU machines and is not retained after the 24-hour expiration"
+
+[[anchor]]
+id = "openai-api-videos-shutdown-historical"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Before the September 24, 2026 shutdown, the Videos API documentation specified 48 hours for downloading generated videos, followed by 30 days of retention for abuse monitoring"
