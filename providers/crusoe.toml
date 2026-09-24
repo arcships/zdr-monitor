@@ -33,10 +33,11 @@ note = "Crusoe Legal Center 现行版全文（PactSafe/Ironclad 托管的静态�
 url = "https://legal.crusoe.ai/open-router"
 channel = "contract"
 tier = "core"
-note = "Terms of Service for OpenRouter Customers v4.6（2026-07-23 生效，当前版本）——只覆盖「经 OpenRouter 转售」这一跳的 Crusoe 侧义务；同一页面另内嵌现行 AUP v1.1、DPST v1.3、Cloud Platform Privacy Notice v1.3、Service Specific Terms v5.0。v4.6 相对 v4.5 的唯一实质变化是新增「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」本档 Customer 是 OpenRouter 的客户，Customer Data 定义为「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。链路另一跳（OpenRouter 自身的政策）不在本家台账范围内，本轮只取 openrouter.ai/privacy 作链路线索、不作 Crusoe 侧证据。"
+note = "Terms of Service for OpenRouter Customers v4.6（2026-07-23 生效，当前版本）——只覆盖「经 OpenRouter 转售」这一跳的 Crusoe 侧义务；同一页面另内嵌现行 AUP v1.1、DPST v1.3、Cloud Platform Privacy Notice v1.3、Service Specific Terms v5.0。v4.6 相对 v4.5 是整节改写：v4.5 的「Protection of Customer Data; No Training」在 v4.6 变为「Processing and Storage of Customer Data」，v4.5 原有三句被删（only access or use Customer Data…will not use it for any other Crusoe products；Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk…；日志披露句 Crusoe generally does not log Customer Data…），新增的是带 opt-in 条件的不训练句「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」。这是实质条款变化，不是「只新增一句」；是否记一次 changes 记录留人工确认，本轮不自动记。本档 Customer 是 OpenRouter 的客户，Customer Data 定义为「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。链路另一跳（OpenRouter 自身的政策）不在本家台账范围内，本轮只取 openrouter.ai/privacy 作链路线索、不作 Crusoe 侧证据。"
 
 [[source]]
 url = "https://trust.crusoe.ai"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Crusoe Trust Center 首页（Vanta 托管）：合规徽章（SOC 2 Type II、ISO 27001:2022、ISO 42001:2023、GDPR、CCPA）、控制项摘要、公开子处理者清单（Google Cloud Platform / Mailgun / Stripe / Zendesk，均标 United States）与更新公告。DPST v1.3 的 Subprocessors 节把子处理者信息指向 https://trust.crusoe.ai/subprocessors。本轮复核实测：首页与 /subprocessors、/controls、/updates 在 r.jina.ai 下均能完整渲染（分别 12990B / 2608B / 6719B / 10850B），本档 5 条锚点在首页渲染里全部逐字命中；此前的空壳是 r.jina.ai 对 Vanta SPA 的偶发未加载（Warning: This page maybe not yet fully loaded），不是 URL 或厂商侧问题——同一 URL 连测 4 次字节数一致，故 URL 维持不变，异常由抓取层重试消化。本页无量化保留期限、无 ZDR 表述，故不作 training/retention 的权威来源。"
@@ -94,6 +95,27 @@ text_zh = "条款只说明淘汰机制，未给缓存存活时限。(3) Training
 [[product.retention.point]]
 text = "That notice states expressly that it does not apply to Customer Data. (6) Exception = DPST v1.3 \"Law Enforcement Requests\" permits Inputs/Outputs/Training Data/Checkpoints/Customer Models to be provided in response to law enforcement requests (Crusoe must challenge any request that is not binding and valid, notify the customer, and request a waiver where notice is prohibited by law). There is no \"retained for at least N months\" floor anywhere in the texts, and no fixed ceiling."
 text_zh = "该通知明文不适用于 Customer Data。(6) 例外＝DPST v1.3「Law Enforcement Requests」允许在执法请求下提供 Inputs/Outputs/Training Data/Checkpoints/Customer Models（须先质疑不具约束力的请求并通知客户，法律禁止通知时须申请豁免）。全文无「至少保留 N 个月」类下限表述，也无固定上限。"
+anchor = "dpst-v13-law-enforcement-requests"
+
+[[product.retention.point]]
+text = "Running deletion right during the Term (DPST v1.3 \"Deletion by Customer during the Term\"): Crusoe will enable the customer to delete Customer Data during the Term, and will comply with a Customer Instruction to delete Customer Data from its systems \"as soon as reasonably practicable, unless European Law requires storage\" — the period type is \"as soon as practicable\", not a number of days, with a European Law exception"
+text_zh = "运行期删除权（DPST v1.3「Deletion by Customer during the Term」）：Crusoe 须让客户在 Term 期间删除 Customer Data，并依客户指示从系统中删除，「as soon as reasonably practicable, unless European Law requires storage」——期限类型是「尽快」而非天数，并带欧洲法保存例外"
+anchor = "dpst-deletion-by-customer-during-term"
+
+[[product.retention.point]]
+text = "Contract-level duration of the processing (DPST Appendix 1, \"Duration of the Processing\"): \"The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.\" — it defines how long processing lasts (Term, then until deletion), and is not a retention ceiling; it does not contradict the input/output non-persistence recorded above"
+text_zh = "合同层的处理持续期（DPST 附录 1「Duration of the Processing」）：「The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.」——定义处理持续到何时（Term 内，然后直到删除完毕），不是保留上限，与上面记的输入输出非持久化并不冲突"
+anchor = "dpst-duration-of-the-processing"
+
+[[product.retention.point]]
+text = "Exception and backup fact (Cloud Platform Privacy Notice v1.3): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\" — so Service Data copies can persist in backups. This is the notice's own statement about Service Data, and it is an exception to the \"deleted once no longer needed\" wording above, not a number of days"
+text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.3）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删——即 Service Data 副本可能长期留在备份里。这是通知本身对 Service Data 的表述，是上面「不再需要即删除」的例外，不是天数"
+anchor = "cloud-privacy-extended-retention-and-backup"
+
+[[product.retention.point]]
+text = "Fine-tuning datasets and checkpoints are stored in the Files API (developer_data): \"Datasets and checkpoints live in the Files API.\" The Serverless Fine-Tuning documentation gives no retention period for files stored there (it only says datasets and checkpoints share the same lifecycle primitives), so how long a dataset or checkpoint survives after the job is undisclosed"
+text_zh = "微调数据集与检查点存放在 Files API（developer_data）：「Datasets and checkpoints live in the Files API.」。Serverless Fine-Tuning 文档未给该处文件的保留期（只说数据集与检查点共用同一套生命周期原语），故数据集/检查点在任务结束后留存多久属未披露"
+anchor = "docs-sft-datasets-checkpoints-in-files-api"
 
 [product.processing_region]
 codes = ["global"]
@@ -116,8 +138,19 @@ text = "The \"data location selection\" mechanism is mentioned in the terms, but
 text_zh = "「按指令选择数据位置」的机制在条款里被提到，但公开文档未给出可选位置清单、适用范围或是否适用于 Managed Inference。(d) Service Data 侧：Cloud Platform Privacy Notice v1.3 称 Service Data 可能在用户所在国以外的服务器上处理（集中式或区域化的计费、支持、安全运营）。基础设施事实（developer_data）：文档站列出数据中心 Iceland / Houston, TX / Virginia / Sparks, NV / Norway（Norway 即将上线）"
 
 [[product.processing_region.point]]
-text = "The Serverless Fine-Tuning documentation states plainly that \"You don't pick a region, instance type, or GPU count.\" Subprocessor locations (enterprise_privacy_faq): the Trust Center publishes Google Cloud Platform / Mailgun / Stripe / Zendesk, all marked United States"
-text_zh = "Serverless Fine-Tuning 文档明说客户不能选 region、instance type 或 GPU 数量。子处理者位置（enterprise_privacy_faq）：Trust Center 公布 Google Cloud Platform / Mailgun / Stripe / Zendesk，均标注 United States"
+text = "The Serverless Fine-Tuning documentation states plainly that \"You don't pick a region, instance type, or GPU count.\""
+text_zh = "Serverless Fine-Tuning 文档明说客户不能选 region、instance type 或 GPU 数量。"
+anchor = "docs-sft-no-region-selection"
+
+[[product.processing_region.point]]
+text = "Subprocessor locations (contract + enterprise_privacy_faq): DPST v1.3 says information about Subprocessors, including their functions and locations, is available at the Crusoe Cloud Subprocessors page, and the published Trust Center list (Google Cloud Platform / Mailgun / Stripe / Zendesk) marks every entry United States"
+text_zh = "子处理者位置（合同 + enterprise_privacy_faq）：DPST v1.3 称子处理者的职能与所在地见 Crusoe Cloud Subprocessors 页面；Trust Center 公布的清单（Google Cloud Platform / Mailgun / Stripe / Zendesk）每条均标注 United States"
+anchor = "dpst-subprocessors-trust-center"
+
+[[product.processing_region.point]]
+text = "The first entry of that published list reads \"Google Cloud Platform … Cloud service provider … United States\" (enterprise_privacy_faq)"
+text_zh = "该清单首条在 Trust Center 上的实际内容为「Google Cloud Platform … Cloud service provider … United States」（enterprise_privacy_faq）"
+anchor = "trust-subprocessor-list-gcp-us"
 
 [[product.processing_region.point]]
 text = "Svix, added in 2026-02, \"processes data primarily in the United States using AWS infrastructure\". Overall: request content is processed by default in Crusoe's own facilities, but there is no contractual guarantee of processing or storage in any one country, and the actual location depends on the product chosen and on available capacity."
@@ -156,8 +189,9 @@ anchor = "tos-or-processing-and-storage-customer-data"
 mode = "default"
 
 [[product.training.point]]
-text = "Resale tier (customer → OpenRouter → Crusoe Managed Inference), Crusoe-side conclusion: likewise not used for training by default. TOS for OpenRouter Customers v4.6 \"Processing and Storage of Customer Data\": \"Crusoe does not store Inputs and Outputs to disk…\" plus \"We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.\" — that opt-in sentence is the only substantive clause v4.6 adds over v4.5, which confirms that what was fetched this round is the current version. DPST v1.3, SST v5.0 and AUP v1.1 are incorporated into this agreement through the \"URL Terms\" definition in v4.6 (URL Terms = AUP + Data Processing and Security Terms + Service Specific Terms). Chain note: \"Customer\" on this tier is OpenRouter's customer, and Crusoe's commitment covers the Crusoe hop only"
-text_zh = "转售档（客户 → OpenRouter → Crusoe Managed Inference）Crusoe 侧结论：同样默认不用于训练。TOS for OpenRouter Customers v4.6「Processing and Storage of Customer Data」：「Crusoe does not store Inputs and Outputs to disk…」＋「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」——该 opt-in 句是 v4.6 相对 v4.5 新增的唯一实质条款，说明本轮抓到的正是当前版本。DPST v1.3、SST v5.0、AUP v1.1 通过 v4.6 的「URL Terms」定义一并纳入本协议（v4.6 定义「URL Terms」= AUP + Data Processing and Security Terms + Service Specific Terms）。链路提示：本档的「Customer」是 OpenRouter 的客户，Crusoe 的承诺只覆盖 Crusoe 这一跳"
+text = "Resale tier (customer → OpenRouter → Crusoe Managed Inference), Crusoe-side conclusion: likewise not used for training by default. TOS for OpenRouter Customers v4.6 \"Processing and Storage of Customer Data\": \"Crusoe does not store Inputs and Outputs to disk…\" plus \"We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.\" — v4.5 → v4.6 was a rewrite of the whole section: v4.5's \"Protection of Customer Data; No Training\" became \"Processing and Storage of Customer Data\" in v4.6, and v4.6 dropped three v4.5 sentences (\"Crusoe will only access or use Customer Data to provide the Services to Customer…will not use it for any other Crusoe products, services, or advertising\"; \"Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk…\"; and the logging clause \"Crusoe generally does not log Customer Data…\"), while what v4.6 adds is the opt-in conditional sentence. This is a substantive clause change between versions; whether to record it under changes/ is left to human review and was not recorded automatically here. DPST v1.3, SST v5.0 and AUP v1.1 are incorporated into this agreement through the \"URL Terms\" definition in v4.6 (URL Terms = AUP + Data Processing and Security Terms + Service Specific Terms). Chain note: \"Customer\" on this tier is OpenRouter's customer, and Crusoe's commitment covers the Crusoe hop only"
+text_zh = "转售档（客户 → OpenRouter → Crusoe Managed Inference）Crusoe 侧结论：同样默认不用于训练。TOS for OpenRouter Customers v4.6「Processing and Storage of Customer Data」：「Crusoe does not store Inputs and Outputs to disk…」＋「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」——v4.5→v4.6 是整节改写：v4.5 的「Protection of Customer Data; No Training」在 v4.6 变成「Processing and Storage of Customer Data」，v4.6 删掉了 v4.5 的三句（only access or use Customer Data…will not use it for any other Crusoe products；Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk…；日志披露句 Crusoe generally does not log Customer Data…），新增的才是这条带 opt-in 条件的不训练句。这是版本间的实质条款变化，是否记入 changes/ 留人工确认，本轮不自动记。DPST v1.3、SST v5.0、AUP v1.1 通过 v4.6 的「URL Terms」定义一并纳入本协议（v4.6 定义「URL Terms」= AUP + Data Processing and Security Terms + Service Specific Terms）。链路提示：本档的「Customer」是 OpenRouter 的客户，Crusoe 的承诺只覆盖 Crusoe 这一跳"
+anchor = "tos-or-v45-protection-of-customer-data-no-training"
 
 [[product.training.point]]
 text = "Whether OpenRouter itself resells or retains inputs and outputs must be checked on the other hop (this round took openrouter.ai/privacy only as a lead)."
@@ -188,6 +222,22 @@ text_zh = "转售档 Crusoe 侧：与直连档同一句话——输入输出不�
 [[product.retention.point]]
 text = "No number of days. Customer Data is defined as \"Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter\". The post-termination deletion obligation, the Service Data retention periods and the law-enforcement exception all come from the DPST v1.3 / Cloud Platform Privacy Notice v1.3 embedded in the same page and match the direct tier. v4.6 also has a \"Required Disclosure\" clause permitting disclosure of Confidential Information (Customer Data being the customer's confidential information) to comply with Legal Process; that sentence appears 12 times on the page (12 TOS versions, word for word identical), so no anchor is given and it is noted here only."
 text_zh = "无天数。Customer Data 定义＝「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。服务终止后删除义务、Service Data 保留期、执法请求例外均来自同一页面内嵌的 DPST v1.3 / Cloud Platform Privacy Notice v1.3，与直连档一致。v4.6 另有一条「Required Disclosure」允许为遵守 Legal Process 披露 Confidential Information（Customer Data 属客户保密信息），该句在页面内出现 12 次（12 个 TOS 版本逐字相同），故未提锚点，仅在此说明。"
+anchor = "tos-or-customer-data-definition"
+
+[[product.retention.point]]
+text = "Running deletion right (DPST v1.3 \"Deletion by Customer during the Term\", incorporated through the URL Terms): Crusoe will enable the customer to delete Customer Data during the Term, and will comply with a Customer Instruction to delete Customer Data from its systems \"as soon as reasonably practicable, unless European Law requires storage\" — the period type is \"as soon as practicable\", not a number of days, with a European Law exception"
+text_zh = "运行期删除权（经 URL Terms 并入的 DPST v1.3「Deletion by Customer during the Term」）：Crusoe 须让客户在 Term 期间删除 Customer Data，并依客户指示从系统中删除，「as soon as reasonably practicable, unless European Law requires storage」——期限类型是「尽快」而非天数，并带欧洲法保存例外"
+anchor = "dpst-deletion-by-customer-during-term"
+
+[[product.retention.point]]
+text = "Contract-level duration of the processing (DPST Appendix 1, \"Duration of the Processing\"): \"The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.\" — a definition of how long processing lasts, not a retention ceiling"
+text_zh = "合同层的处理持续期（DPST 附录 1「Duration of the Processing」）：「The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.」——定义处理持续到何时，不是保留上限"
+anchor = "dpst-duration-of-the-processing"
+
+[[product.retention.point]]
+text = "v4.5 logging clause, dropped in v4.6: v4.5 said \"Crusoe generally does not log Customer Data, but does log metadata that might be useful for purposes of debugging and improving the performance of the Service. Crusoe may observe and log a small portion of Customer Data when necessary for debugging, security purposes, or as required by law.\" — a narrow exception touching a small portion of Customer Data for debugging, security or legal reasons. The current v4.6 text has no equivalent sentence, so whether request content is logged is now undisclosed rather than committed in either direction; dropping that clause is a substantive change between versions, and whether to record it under changes/ is left to human review (not recorded automatically here)."
+text_zh = "v4.5 的日志条款、v4.6 已删除：v4.5 写「Crusoe generally does not log Customer Data, but does log metadata that might be useful for purposes of debugging and improving the performance of the Service. Crusoe may observe and log a small portion of Customer Data when necessary for debugging, security purposes, or as required by law.」——一个窄口径例外：为调试、安全或法律要求可能观察并记录一小部分 Customer Data。现行 v4.6 文本无对应句，故「是否记录请求内容」现在是未披露，而不是任何方向的承诺；删句属版本间实质变化，是否记入 changes/ 留人工确认（本轮不自动记）。"
+anchor = "tos-or-v45-protection-of-customer-data-no-training"
 
 [product.processing_region]
 codes = ["global"]
@@ -208,6 +258,7 @@ anchor = "dpst-processor-and-controller-roles"
 [[product.role.point]]
 text = "The role on the resale tier has two layers, not reconciled: (1) For OpenRouter's customer, Crusoe's DPST v1.3 still says \"Crusoe is a processor of that Customer Personal Data\" — but the direct counterparty to that agreement is \"the entity or person agreeing to these terms\" (OpenRouter's customer), while Customer Data is defined as what \"Crusoe may receive from OpenRouter\", so OpenRouter still stands between Crusoe and the end customer"
 text_zh = "转售档角色分两层，不调和：(1) 对 OpenRouter 的客户而言，Crusoe 的 DPST v1.3 仍写「Crusoe is a processor of that Customer Personal Data」——但这份协议的直接签约相对方是「the entity or person agreeing to these terms」（即 OpenRouter 的客户），而 Customer Data 被定义为「Crusoe may receive from OpenRouter」，即 Crusoe 与终端客户之间还隔着 OpenRouter"
+anchor = "tos-or-customer-data-definition"
 
 [[product.role.point]]
 text = "The terms do not say whether Crusoe is processor or sub-processor relative to the end customer. (2) OpenRouter's own role in the chain (whether it passes requests to Crusoe as a controller) has to be checked separately and was not covered this round. That is why confidence is medium."
@@ -230,8 +281,7 @@ text = "GPU / Infrastructure Cloud tier (the customer runs their own environment
 text_zh = "GPU/Infrastructure Cloud 档（客户在 VM、磁盘、CMK 里自管环境）：平台层合同承诺 Crusoe 只会为提供服务/TSS 或依客户指示访问或使用 Customer Data，「will not use it for any other Crusoe products, services, or advertising」。与 Managed Inference 档的关键区别：本档没有「Customer Licenses to Crusoe」那类内容使用授权（SST v5.0 的授权条款只覆盖 Intelligence Foundry 的 Inputs/Outputs/Customer Models/Training Data/Checkpoints）。DPST 同时把客户自管资源内的数据保护责任划给客户：「Customer is responsible for implementing and maintaining privacy protections and security measures for aspects of the Services that it controls (such as… resources provisioned by Customer using the Services, such as a virtual machine or storage)」。即：客户在 VM 内自行训练模型不受 Crusoe 训练条款约束，Crusoe 也不会因此取得内容授权。"
 
 [product.zdr]
-mark = "no"
-mode = "not_disclosed"
+mark = "unknown"
 searched = [
   "https://legal.crusoe.ai/",
   "https://legal.crusoe.ai/#data-processing",
@@ -269,14 +319,61 @@ anchor = "dpst-return-or-deletion-end-of-term"
 [[product.retention.point]]
 text = "Data on this tier is managed by the customer, and the only commitment verifiable on Crusoe's side is that Customer Data left in its systems at the end of the Term is deleted (including existing copies, unless European Law requires storage)"
 text_zh = "本档数据由客户自管，Crusoe 侧可复核的承诺只有：Term 结束时删除其系统内残留的 Customer Data（含既有副本，除非欧洲法要求保存）"
+anchor = "dpst-return-or-deletion-end-of-term"
 
 [[product.retention.point]]
 text = "Service Data has retention periods set according to its use and is deleted or anonymized once no longer needed (no number of days)"
 text_zh = "Service Data 按用途设定保留期、不再需要即删除或匿名化（无天数）"
+anchor = "cloud-privacy-deletion-and-retention"
 
 [[product.retention.point]]
-text = "DPST v1.3 also carries the law-enforcement exception. What happens when the customer deletes a disk is documented specifically (developer_data): an Ephemeral Disk is \"cryptographically erased\" when the VM is destroyed, while for Persistent Disks and Shared Disks \"When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available\" — deletion is a soft delete with no guarantee of irrecoverability, and the at-rest encryption keys for those two disk types are pooled among all users of the storage cluster. Undisclosed: how long soft-deleted data actually stays in the storage cluster, backup system retention, and retention rules for VM snapshots and images. Confidence is medium because the contract level offers only \"deletion after termination\" while retention during operation depends entirely on the customer's configuration."
-text_zh = "DPST v1.3 另有执法请求例外。客户自己删除磁盘时会发生什么，官方文档有具体说明（developer_data）：Ephemeral Disk 在 VM 销毁时「cryptographically erased」，而 Persistent Disk / Shared Disk「When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available」——即删除是软删除、不保证不可恢复，且这两类盘的静态加密密钥在存储集群全体用户间共享。未披露：软删除数据在存储集群中的实际清除时限、备份系统保留期、VM 快照/镜像留存规则。置信度 medium 是因为合同层只有「终止后删除」，运行期保留完全取决于客户配置。"
+text = "Running deletion right during the Term (DPST v1.3 \"Deletion by Customer during the Term\"): Crusoe will enable the customer to delete Customer Data during the Term and will comply with a Customer Instruction to delete it \"as soon as reasonably practicable, unless European Law requires storage\" — the period type is \"as soon as practicable\", not a number of days"
+text_zh = "运行期删除权（DPST v1.3「Deletion by Customer during the Term」）：Crusoe 须让客户在 Term 期间删除 Customer Data，并依客户指示「as soon as reasonably practicable, unless European Law requires storage」——期限类型是「尽快」而非天数"
+anchor = "dpst-deletion-by-customer-during-term"
+
+[[product.retention.point]]
+text = "Contract-level duration of the processing (DPST Appendix 1, \"Duration of the Processing\"): \"The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.\" — the DPST covers every Crusoe Cloud Platform service, Infrastructure Cloud included, so this is the duration definition that goes with the until_termination reading above"
+text_zh = "合同层的处理持续期（DPST 附录 1「Duration of the Processing」）：「The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms.」——DPST 覆盖 Crusoe Cloud Platform 全部服务（含 Infrastructure Cloud），这是与上面 until_termination 记法配套的处理持续期定义"
+anchor = "dpst-duration-of-the-processing"
+
+[[product.retention.point]]
+text = "Exception and backup fact (Cloud Platform Privacy Notice v1.3): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\". This is the notice's own statement and is separate from the storage-cluster soft-delete clearing time recorded below, which stays undisclosed"
+text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.3）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删。这是通知本身的表述，与下面存储集群软删除数据的清除时限是两件事，后者仍未披露"
+anchor = "cloud-privacy-extended-retention-and-backup"
+
+[[product.retention.point]]
+text = "DPST v1.3 also carries the law-enforcement exception."
+text_zh = "DPST v1.3 另有执法请求例外。"
+anchor = "dpst-v13-law-enforcement-requests"
+
+[[product.retention.point]]
+text = "Disk layer (developer_data). Ephemeral Disk content: \"When a VM is destroyed, the content is cryptographically erased.\""
+text_zh = "磁盘层（developer_data）。Ephemeral Disk 内容：「When a VM is destroyed, the content is cryptographically erased.」"
+anchor = "docs-disks-ephemeral-cryptographic-erase"
+
+[[product.retention.point]]
+text = "Erasure of an Ephemeral Disk is triggered by more than \"the customer destroys the VM\": \"The disks are erased when the physical server reboots, or the VM is stopped and restarted, or if there are any other hardware or software failures\" — an uncontrolled data-loss surface for anything kept on an Ephemeral Disk"
+text_zh = "Ephemeral Disk 的擦除条件比「客户销毁 VM」更宽也更不可控：「The disks are erased when the physical server reboots, or the VM is stopped and restarted, or if there are any other hardware or software failures」——对放在 Ephemeral Disk 上的数据是不可控的丢失面"
+anchor = "docs-disks-ephemeral-erase-triggers"
+
+[[product.retention.point]]
+text = "Conversely, an in-VM reboot does not erase the disk: \"Note: if a VM is restarted from within the VM (e.g. using `sudo reboot now`) rather than by stopping and restarting the VM from the UI, CLI, or API, the disks will not be erased.\" — so \"the instance was destroyed or restarted\" and \"the disk content is gone\" are not equivalent in either direction"
+text_zh = "反过来，在 VM 内部 reboot 不会触发擦除：「Note: if a VM is restarted from within the VM (e.g. using `sudo reboot now`) rather than by stopping and restarting the VM from the UI, CLI, or API, the disks will not be erased.」——「实例被销毁/重启」与「盘上内容没了」两个方向都不等价"
+anchor = "docs-disks-ephemeral-in-vm-reboot"
+
+[[product.retention.point]]
+text = "Persistent Disk content is not erasable on deletion: \"Persistent Disks are backed by volumes on a centralized storage cluster. Data is encrypted at rest, but the encryption key(s) are pooled among all users of that storage cluster. When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available.\""
+text_zh = "Persistent Disk 删除不等于数据不可恢复：「Persistent Disks are backed by volumes on a centralized storage cluster. Data is encrypted at rest, but the encryption key(s) are pooled among all users of that storage cluster. When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available.」"
+anchor = "docs-disks-persistent-soft-delete"
+
+[[product.retention.point]]
+text = "Shared Disks behave the same way as Persistent Disks and are not encrypted in transit (developer_data): \"Shared Disks are backed by volumes on a centralized storage cluster. Data is encrypted at rest, but the encryption key(s) are pooled among all users of that storage cluster. Data is not encrypted while in transit. When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available.\""
+text_zh = "Shared Disk 与 Persistent Disk 行为相同，且传输中不加密（developer_data）：「Shared Disks are backed by volumes on a centralized storage cluster. Data is encrypted at rest, but the encryption key(s) are pooled among all users of that storage cluster. Data is not encrypted while in transit. When a disk is deleted, data is soft-deleted, but cryptographic erasure is not currently available.」"
+anchor = "docs-disks-shared-soft-delete"
+
+[[product.retention.point]]
+text = "Undisclosed: how long soft-deleted data actually stays in the storage cluster, backup system retention at the storage-cluster level, and retention rules for VM snapshots and images. Confidence is medium because the contract level offers only \"deletion after termination\" while retention during operation depends entirely on the customer's configuration."
+text_zh = "未披露：软删除数据在存储集群中的实际清除时限、存储集群层面的备份保留期、VM 快照/镜像留存规则。置信度 medium 是因为合同层只有「终止后删除」，运行期保留完全取决于客户配置。"
 
 [product.processing_region]
 codes = ["selected"]
@@ -285,6 +382,7 @@ anchor = "dpst-multitenant-replication"
 [[product.processing_region.point]]
 text = "This tier shares the same regional clauses as the Managed Inference tier (DPST v1.3 + SST v5.0 Data Location): no residency commitment. One extra layer of fact here: the published data center list on the documentation site (Iceland, Houston TX, Virginia, Sparks NV, Norway) and the locations resource in the CLI show that the customer can choose a location ID when ordering"
 text_zh = "与 Managed Inference 档共用同一套地域条款（DPST v1.3 + SST v5.0 Data Location）：无驻留承诺。本档多一层事实：文档站公开的数据中心位置清单（Iceland、Houston TX、Virginia、Sparks NV、Norway）与 CLI 的 locations 资源，说明客户可在下单时选 location ID"
+anchor = "docs-locations-data-centers"
 
 [[product.processing_region.point]]
 text = "The DPST likewise mentions a customer instruction \"in the form of a data location selection\". But the public terms do not turn the selected location into a guarantee about where data is processed, so it is not recorded as a residency commitment."
@@ -547,6 +645,26 @@ Data Security
 Crusoe’s Security Measures, Controls and As"""
 
 [[anchor]]
+id = "dpst-deletion-by-customer-during-term"
+source_id = "c941dab60e225f14"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Crusoe will enable Customer to delete Customer Data during the Term in a manner consistent with the functionality of the Services. "
+exact = "Crusoe will comply with a Customer Instruction to to delete Customer Data from Crusoe’s systems as soon as reasonably practicable, unless European Law requires storage."
+suffix = "Return or Deletion at the end of the Term"
+
+[[anchor]]
+id = "dpst-duration-of-the-processing"
+source_id = "c941dab60e225f14"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Duration of the Processing"
+exact = "The Term plus the period from the end of the Term until deletion of all Customer Data by Crusoe in accordance with the Terms."
+suffix = "Nature and Purpose of the Processing"
+
+[[anchor]]
 id = "dpst-subprocessors-trust-center"
 source_id = "c941dab60e225f14"
 topics = ["processing_region", "role"]
@@ -558,8 +676,8 @@ prefix = """
 Information about Subprocessors
 
 """
-exact = "Information about Subprocessors, including their functions and locations, is available at [Crusoe Cloud Subprocessors](https://trust.crusoe.ai/subprocessors"
-suffix = " \"Crusoe Cloud Subprocessors\") (as may be updated by Crusoe "
+exact = "Information about Subprocessors, including their functions and locations, is available at Crusoe Cloud Subprocessors"
+suffix = " (as may be updated by Crusoe from time to time in accordance with these Terms)."
 
 [[anchor]]
 id = "cloud-privacy-scope-excludes-customer-data"
@@ -611,6 +729,19 @@ suffix = """
 Service Data is deleted or anonymized once it is no longer"""
 
 [[anchor]]
+id = "cloud-privacy-extended-retention-and-backup"
+source_id = "c941dab60e225f14"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Crusoe deletes other Service Data once it is no longer needed. For each type of data and operation, we set retention timeframes based on the purpose for its collection, and ensure it is kept for no longer than necessary. "
+exact = """
+Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes. For example, when Crusoe processes a payment for you, or when you make a payment to Crusoe, we’ll retain data about those transactions as required for tax or accounting purposes. Other legitimate business or legal purposes that may require us to retain data include security, fraud and abuse prevention, ensuring continuity of our Services, and complying with legal or regulatory requirements.
+
+When we delete data, we follow detailed steps to make sure that the data is securely and completely removed from our active systems or retained only in anonymized form. We take measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems."""
+suffix = "Using Crusoe Accounts and Products"
+
+[[anchor]]
 id = "cloud-tos-protection-of-customer-data"
 source_id = "c941dab60e225f14"
 topics = ["training"]
@@ -655,8 +786,23 @@ topics = ["retention", "role"]
 prefix = """
 hat Customer creates or hosts using the OpenRouter API.
 *   """
-exact = "“**Customer Data**” means Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter, and excludes"
-suffix = " [Service Data](https://legal.crusoe.ai/open-router#cloud-pr"
+exact = "“**Customer Data**” means Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter, and excludes Service Data."
+suffix = "“**Data Processing and Security Terms**” means the terms stated at Data Processing and Security Terms."
+
+[[anchor]]
+id = "tos-or-v45-protection-of-customer-data-no-training"
+source_id = "199ae89518c6e368"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "Protection of Customer Data; No Training"
+exact = """
+Crusoe will only access or use Customer Data to provide the Services to Customer or as otherwise instructed by Customer and will not use it for any other Crusoe products, services, or advertising.
+
+Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk or use it for any other purpose other than the inference process.
+
+Crusoe generally does not log Customer Data, but does log metadata that might be useful for purposes of debugging and improving the performance of the Service. Crusoe may observe and log a small portion of Customer Data when necessary for debugging, security purposes, or as required by law."""
+suffix = "Customer Feedback"
 
 [[anchor]]
 id = "docs-sft-no-region-selection"
@@ -799,6 +945,26 @@ suffix = """
 
 
 _Note: if a VM is restarted from within the VM (e.g. using"""
+
+[[anchor]]
+id = "docs-disks-ephemeral-erase-triggers"
+source_id = "28203e2c987cdaf5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "The disks are erased when the physical server reboots, or the VM is stopped and restarted, or if there are any other hardware or software failures."
+suffix = "They are only suitable for use cases where data loss is tolerable"
+
+[[anchor]]
+id = "docs-disks-ephemeral-in-vm-reboot"
+source_id = "28203e2c987cdaf5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "When a VM is destroyed, the content is cryptographically erased."
+exact = "Note: if a VM is restarted from within the VM (e.g. using `sudo reboot now`) rather than by stopping and restarting the VM from the UI, CLI, or API, the disks will not be erased."
+suffix = "## Persistent Disks"
 
 [[anchor]]
 id = "docs-disks-persistent-soft-delete"

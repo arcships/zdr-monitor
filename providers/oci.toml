@@ -7,12 +7,14 @@ doc = "https://www.oracle.com/contracts/docs/data-processing-agreement-oracle-se
 
 [[source]]
 url = "https://blogs.oracle.com/ai-and-datascience/oci-generative-ai-adds-x-ai-model"
+fetch = "browser"
 channel = "official_blog"
 tier = "core"
 note = "Oracle AI 博客（2026-01-21，Grok 4.1 Fast 上 OCI）：『In-region data processing, supporting data residency and regulatory requirements』——xAI 模型档的地域口径（与 xAI 平台托管说法并列，未说明 in-region 指 OCI Region 还是 xAI 侧 Region）。"
 
 [[source]]
 url = "https://blogs.oracle.com/cloud-infrastructure/oci-gen-ai-service-in-us-classified-cloud"
+fetch = "browser"
 channel = "official_blog"
 tier = "core"
 note = "Oracle 博客（2026-01-13，OCI Generative AI 进入美国 Top Secret 分类云 Region）。同一段里既写『all data sent to the OCI Generative AI service is secure and private, remaining within the customer's tenancy』，又写『xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints』——**厂商自己的文本把『数据留在客户 tenancy 内』与『xAI 模型托管在 xAI 平台』并列**，是第三方模型路径的关键证据（对象限定为该篇所述的分类云 Region 部署）。"
@@ -107,13 +109,27 @@ mode = "default"
 anchor = "oci-genai-dh-finetune-not-improve-general"
 
 [[product.training.point]]
-text_zh = "同顶层 training：微调数据明文不用于改进通用场景"
+text = "Scope of the anchor: the clause \"This training data is not used to improve the general use cases for OCI Generative AI.\" is about customer-submitted fine-tuning training data — the same paragraph says \"This training data is solely used for building a custom model for this customer\". It is not a statement about inference inputs. The inference path on this tier is covered by the data-handling page only as \"No, OCI Generative AI doesn't retain customer inputs\" and \"Both input and output are not stored inside OCI Generative AI\" — a retention statement, not a training statement."
+text_zh = "锚点适用范围：原句『This training data is not used to improve the general use cases for OCI Generative AI.』的对象是客户提交的**微调训练数据**（同段写 This training data is solely used for building a custom model for this customer），不是推理输入。本档推理路径在 data-handling 页只有『No, OCI Generative AI doesn't retain customer inputs』『Both input and output are not stored inside OCI Generative AI』——那是保留表述，不是训练表述。"
 
 [[product.training.point]]
-text_zh = "推理数据的『不训练』原句只在 official_blog"
+text = "The service-wide \"not used to train foundation models\" wording that this ledger previously cited comes from an Oracle blog post on the Cohere models (oci-generative-ai-adds-cohere-command-a-models). That URL is not registered in [[source]] and has no snapshot in this repo, so per AGENTS (\"a quote only counts if it appears in a snapshot\") it cannot carry this tier's verdict. Until the fetch bot brings it back, the yes on this tier rests on the fine-tuning clause and covers fine-tuning training data only."
+text_zh = "台账此前引用的整服务口径『Data is not used to train foundation models』出自 Cohere 博客（oci-generative-ai-adds-cohere-command-a-models），该 URL 未登记在 [[source]]、仓库无快照，按 AGENTS「引文只有出现在快照里才算数」不能支撑本档结论。在该来源被 bot 抓回快照之前，本档的 yes 只覆盖微调训练数据这一条路径。"
 
 [[product.training.point]]
-text_zh = "合同层无条款，CSA §11.2 保留聚合数据用于研发。"
+anchor = "oci-privacy-training-purpose"
+text = "Reverse evidence in the same provider, recorded alongside rather than resolved: the consumer Privacy Policy §4 says \"We may process personal information in order to analyze, develop, improve and optimize the use, function and performance of our sites and products and services, including for quality assurance and training purposes, as well as for marketing and sales campaigns.\" Its object is website/account-side personal information — §2 excludes personal information Oracle processes to provide Cloud, Technical Support or Consulting services to customers — so it does not reach API content. It is the only place in this provider's library where the words \"training purposes\" appear, and it must not be read as covering API inputs."
+text_zh = "同一家的反面表述（并列保留，不选边）：消费侧《Oracle Privacy Policy》§4『We may process personal information in order to analyze, develop, improve and optimize the use, function and performance of our sites and products and services, including for quality assurance and training purposes, as well as for marketing and sales campaigns.』——对象是网站/账户侧个人信息，该政策 §2 明确把 Oracle 为提供 Cloud/技术支持/咨询等服务而处理的个人信息排除在外，故不覆盖 API 内容。这是本 provider 在库材料里唯一逐字出现 training purposes 的表述，不能读成覆盖 API 输入。"
+
+[[product.training.point]]
+anchor = "oci-dpa-2-2-purpose-limitation"
+text = "Contract layer: there is no verbatim \"not used for training\" clause (CSA §11.2 keeps data from the Services in aggregated form for research and development). What the contract layer does contain is a purpose limitation in DPA §2.2 — Oracle Processes Personal Information solely for the purpose of providing the Services — whose object is Personal Information and therefore does not cover non-personal customer content."
+text_zh = "合同层：没有逐字的『不用于训练』条款（CSA §11.2 保留以聚合形式使用服务数据用于研发）；但合同层有一条目的限制——DPA §2.2『Oracle will Process Personal Information during the term of the Services Agreement solely for the purpose of providing the Services in accordance with the Services Agreement and this Data Processing Agreement.』。对象是 Personal Information，不含非个人信息的客户内容。"
+
+[[product.training.point]]
+anchor = "oci-hdp-7-ai-terms"
+text = "Uncovered contract-layer document, recorded as a gap and not used as evidence: HDP §7 says \"The Oracle Artificial Intelligence Terms available online at http://oracle.com/contracts apply to Artificial Intelligence Functionality (as defined in such terms) in Your ordered Cloud Services.\" Those AI Terms are not in [[source]] and have no snapshot in this repo, so whether they carry their own training or retention clauses cannot be judged from this ledger today."
+text_zh = "未覆盖的合同层文档（记为缺口，不作依据）：HDP §7『The Oracle Artificial Intelligence Terms available online at http://oracle.com/contracts apply to Artificial Intelligence Functionality (as defined in such terms) in Your ordered Cloud Services.』该《Oracle Artificial Intelligence Terms》不在 [[source]]、仓库无快照，是否另有训练/保留条款目前无从判断，按「缺什么就记缺什么」记缺。"
 
 [product.zdr]
 mark = "yes"
@@ -129,39 +145,54 @@ text_zh = "营销页称『zero data retention endpoints』"
 [[product.zdr.point]]
 text_zh = "无合同层 ZDR 条款与开通流程。"
 
+[[product.zdr.point]]
+anchor = "oci-dpa-2-2-purpose-limitation"
+text = "Contract-layer cross-reference: DPA §2.2 limits the Processing of Personal Information to providing the Services, but it is a purpose limitation, not a zero-retention clause, and its object is Personal Information rather than non-personal customer content."
+text_zh = "合同层对照：DPA §2.2 把 Personal Information 的处理限定在「为提供服务」这一目的，但它是目的限制条款、不是零保留条款，对象也是 Personal Information 而非非个人信息的客户内容。"
+
 [product.retention]
-days = 365
-object = "mixed"
-basis = "fixed_period"
+object = "input_output"
+basis = "none"
 anchor = "oci-genai-dh-no-store-io"
 
 [[product.retention.point]]
-text_zh = "同顶层 retention：推理输入输出不落盘"
+text = "Field-level scope: object = input_output, basis = none covers the inference path only — \"No, OCI Generative AI doesn't retain customer inputs\" and \"Both input and output are not stored inside OCI Generative AI\". Retention on this tier has to be listed object by object; the remaining objects are in the points below."
+text_zh = "字段层适用范围：object=input_output、basis=none 只覆盖推理路径——『No, OCI Generative AI doesn't retain customer inputs』『Both input and output are not stored inside OCI Generative AI』。本档 retention 按对象分列，其余对象见下列各条。"
 
 [[product.retention.point]]
-text_zh = "微调数据作业结束即从微调集群删除"
+anchor = "oci-genai-dh-finetune-deleted-from-cluster"
+text_zh = "①微调训练数据：『OCI Generative AI doesn't retain this training data beyond the duration of this training job.』『The training data is deleted from the fine-tuning cluster as soon as the training job is completed.』——作业结束即删，不是固定天数。"
 
 [[product.retention.point]]
-text_zh = "服务终止后 60 天取回期届满删除"
+anchor = "oci-hdp-retrieval-60-days"
+text_zh = "②Your Content：服务期结束后 60 天取回期（HDP §6.1『For a period of 60 days after the end of the Services Period…』），取回期届满删除（oci-hdp-delete-after-retrieval）。"
 
 [[product.retention.point]]
-text_zh = "安全日志在线至少 1 年（下限，对象为 Oracle 安全运营日志）"
+anchor = "oci-hdp-security-logs-1-year"
+text_zh = "③安全日志：『Security logs are retained online for a minimum of 1 year.』——这是 **下限**，对象是 Oracle 内部安全运营日志（同段『These logs are retained and used by Oracle for our internal security operations』），不是请求内容的保留期。台账此前把这条下限记成整档 days=365 / basis=fixed_period，等于反推「内容留 1 年」，已删除。"
 
 [[product.retention.point]]
-text_zh = "HDP 的 60 天备份下限已被 Pillar §2.1 取代（客户自行备份）。"
+anchor = "oci-hdp-backup-60-days"
+text_zh = "④HDP §2.2 的 60 天备份下限已被 Pillar §2.1 取代（客户自行备份）。"
 
 [product.processing_region]
-codes = ["GLOBAL"]
+codes = ["selected"]
 anchor = "oci-dpa-6-1-stored-in-data-center-region"
 
 [[product.processing_region.point]]
-text_zh = "同顶层 processing_region：按订单/开通时选定 Region 存储"
+text_zh = "DPA §6.1（合同层）：『For Cloud Services, Personal Information will be stored in the data center region specified in Your order for such Services or, if applicable, the Cloud region that You have selected when activating the production instance of such Services.』——存储地是订单指定或开通生产实例时选定的 Cloud region，即**客户选定地域**，不是全球。字段层 codes=selected 对应这一条；此前记 GLOBAL（渲染「全球」）与本档 point 自述方向相反，已改。"
 
 [[product.processing_region.point]]
-text_zh = "Oracle 可为支持全球访问"
+anchor = "oci-dpa-6-2-global-access"
+text_zh = "限定一：DPA §6.2『Oracle may access Personal Information globally as necessary to perform the Services, such as for support, incident management or data recovery purposes.』——这是**支持访问**，不是处理地，支撑不了「全球处理」。"
 
 [[product.processing_region.point]]
-text_zh = "服务未覆盖所有 Region，跨 Region 调用存在。"
+anchor = "oci-hdp-replicate-within-dc-region"
+text_zh = "限定二：HDP『Your Content will be stored in the Data Center Region applicable to such Services. Oracle may replicate Your Content to other locations within the identified Data Center Region in support of data redundancy.』——复制限于同一 Data Center Region 内，仍属「选定 region」。"
+
+[[product.processing_region.point]]
+anchor = "oci-regions-cross-region-call"
+text_zh = "限定三：服务并未覆盖所有商业 Region，『if the Calling Region and Destination Region are not the same, then a cross-region call will be made』——跨 Region 调用是对「选定 region」的限定，不是全球处理。"
 
 [product.role]
 kind = "processor"
@@ -220,12 +251,40 @@ text_zh = "但 Oracle 未披露 xAI 侧的具体保留策略、提示缓存 TTL�
 [product.processing_region]
 basis = "undisclosed"
 anchor = "oci-blog-classified-xai-hosted-on-xai"
+searched = [
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/xai-models.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/data-handling.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/regions.htm",
+  "https://www.oracle.com/contracts/docs/data-processing-agreement-oracle-services-081425.pdf",
+  "https://blogs.oracle.com/ai-and-datascience/oci-generative-ai-adds-x-ai-model",
+  "https://blogs.oracle.com/cloud-infrastructure/oci-gen-ai-service-in-us-classified-cloud",
+  "https://www.oracle.com/news/announcement/xais-grok-models-are-now-on-oracle-cloud-infrastructure-2025-06-17/",
+]
 
 [[product.processing_region.point]]
-text_zh = "Oracle 博客明说『xAI Grok models are hosted on the xAI platform』，即该档请求离开 OCI、在 xAI 平台处理"
+text = "The hosting sentence is qualified by its source: \"xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints, offering an extra layer of protection.\" appears only in the 2026-01-13 classified-cloud post, whose subject is the general availability of OCI Generative AI in Oracle's US Top Secret classified cloud regions (see this provider's source note). It is a statement about that deployment, not about the commercial tier, so it is not used here as a fact about where commercial-tier requests are processed."
+text_zh = "托管说法受来源限定：『xAI Grok models are hosted on the xAI platform with data processed on zero data retention endpoints, offering an extra layer of protection.』只出现在 2026-01-13 的分类云博客，该篇主题是 OCI Generative AI 在美国 Top Secret 分类云 Region 的 GA（本 provider 的 source note 也把对象限定为该篇所述部署）。它说的是那次部署，不是商业档，故不作为「商业档请求在何处处理」的事实。"
 
 [[product.processing_region.point]]
-text_zh = "同段却写『all data sent to the OCI Generative AI service is … remaining within the customer's tenancy』，同一段落内部张力明显。另一篇博客补『In-region data processing, supporting data residency and regulatory requirements』，但未说明 in-region 指 OCI Region 还是 xAI 侧 Region。文档站（xai-models.htm）完全不提托管位置。故只能记『处理发生在 OCI 之外的 xAI 平台，Region 未披露』。"
+anchor = "oci-blog-grok41-in-region"
+text = "The commercial-tier wording does not settle it either: the 2026-01-21 post says \"**In-region data processing**, supporting data residency and regulatory requirements\", without saying whether in-region means the OCI Region or a region on the xAI side; the 2025-06-17 press release only says data sent to Grok models is processed on zero data retention endpoints and does not state where the models are hosted; the documentation site (xai-models.htm) does not discuss hosting at all. The two wordings are kept side by side rather than resolved."
+text_zh = "商业档口径同样不能定性：2026-01-21 博客只写『**In-region data processing**, supporting data residency and regulatory requirements』，未说明 in-region 指 OCI Region 还是 xAI 侧 Region；2025-06-17 新闻稿只说送到 Grok 模型的数据经零保留端点处理，未说模型托管在哪；文档站（xai-models.htm）完全不提托管位置。两条口径并列保留，不选边。"
+
+[[product.processing_region.point]]
+anchor = "oci-blog-classified-xai-hosted-on-xai"
+text_zh = "同一段内部张力同样并列保留：该篇既写『xAI Grok models are hosted on the xAI platform…』，又写『all data sent to the OCI Generative AI service is secure and private, remaining within the customer's tenancy』。"
+
+[[product.processing_region.point]]
+anchor = "oci-pillar-3-3-third-party-llm"
+text = "Contract layer, narrow scope: for Cloud Services that use third-party LLMs, the EUSC sovereign terms (Appendix A §3.3) say the data \"may be processed outside of the selected EUSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s)\" — the same clause appears for UKSC (Appendix B §3.3). This sits in the sovereign-region annexes and must not be extrapolated to all commercial tiers; for the commercial tiers no contract clause on third-party LLM processing location has been located."
+text_zh = "合同层（适用范围窄）：对使用第三方 LLM 的 Cloud Services，EUSC 主权条款（Appendix A §3.3）写数据『may be processed outside of the selected EUSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s)』；UKSC 有同旨表述（Appendix B §3.3）。该条位于主权 Region 附加条款，不能外推为全部商业档事实；商业档未找到关于第三方 LLM 处理地的合同条款。"
+
+[[product.processing_region.point]]
+anchor = "oci-pillar-uksc-3-3-third-party-llm"
+text_zh = "同一条款在 UKSC 侧（Appendix B §3.3）：『…Your data may be processed outside of the selected UKSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s).』——与 EUSC 并列，适用范围同样限于该主权 Region 附加条款。"
+
+[[product.processing_region.point]]
+text_zh = "结论维持未披露（basis=undisclosed）：分类云部署的托管表述不能当商业档事实，商业档的『in-region』未说明是哪一侧的 Region，xAI 侧的 Region 也未披露。查阅范围见 searched。"
 
 [product.role]
 mark = "unknown"
@@ -240,6 +299,11 @@ searched = [
 
 [[product.role.point]]
 text_zh = "DPA §2.1 的 processor 定性是 Oracle 对『Personal Information』的承诺，但 xAI 模型档的实际处理者在 xAI 平台侧"
+
+[[product.role.point]]
+anchor = "oci-pillar-3-3-third-party-llm"
+text = "Contract layer, narrow scope: the EUSC sovereign terms (Appendix A §3.3, same wording for UKSC in Appendix B §3.3) state that where a Cloud Service uses third-party LLMs, the data may be processed outside the selected sovereign data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s). That is the only clause in the public material that ties third-party LLMs to processing location and to extra third-party terms; it is confined to the EUSC/UKSC annexes and does not by itself settle the controller/processor chain for this tier."
+text_zh = "合同层（适用范围窄）：EUSC 主权条款（Appendix A §3.3，UKSC 同旨见 Appendix B §3.3）写明使用第三方 LLM 的 Cloud Services，数据可能被处理在所选主权 Region 之外，并可能适用第三方 LLM 提供方的额外条款。这是公开材料里唯一把「第三方 LLM」与处理地、第三方条款写在一起的条款；它限于 EUSC/UKSC 附加条款，本身仍不闭合本档的 controller/processor 链。"
 
 [[product.role.point]]
 text_zh = "Oracle 未说明 xAI 是否以 subprocessor 身份承接（DPA §5.3 的公开分包名单需登录 My Oracle Support Doc ID 2121811.1，无法公开核实），也未说明该档由谁对客户承担处理者义务。data-handling 页反而写『不与 xAI 等第三方模型提供商共享 prompts/responses』。角色链在公开材料中不闭合，记 not_found。"
@@ -260,7 +324,12 @@ mode = "default"
 anchor = "oci-genai-dh-finetune-not-improve-general"
 
 [[product.training.point]]
-text_zh = "微调在专用集群上进行：训练数据由客户自持、作业结束即从微调集群删除、不用于改进通用场景（data-handling 页）。『不训练基础模型』的整服务口径同样适用（official_blog）。"
+text = "Scope of the anchor: the clause \"This training data is not used to improve the general use cases for OCI Generative AI.\" is about fine-tuning training data (the same paragraph says \"This training data is solely used for building a custom model for this customer\"). Per the ai-cluster page this tier is used both to fine-tune custom models and \"to host endpoints for the pretrained base models, custom models, and imported models\" — the hosting/inference path is not covered by that clause, and the data-handling page says of inference only \"doesn't retain customer inputs\" / \"Both input and output are not stored inside OCI Generative AI\", which is a retention statement."
+text_zh = "锚点适用范围：原句『This training data is not used to improve the general use cases for OCI Generative AI.』的对象是微调训练数据（同段写 This training data is solely used for building a custom model for this customer）。按 ai-cluster 页，本档既用于微调自定义模型，也用于『host endpoints for the pretrained base models, custom models, and imported models』——托管/推理这条路径不在该句覆盖范围内，data-handling 页对推理只有『doesn't retain customer inputs』『Both input and output are not stored inside OCI Generative AI』，属保留表述。"
+
+[[product.training.point]]
+text = "The service-wide \"not used to train foundation models\" wording previously cited here comes from an Oracle/Cohere blog post that is not registered in [[source]] and has no snapshot in this repo, so it cannot support this tier either. The yes on this tier therefore covers the fine-tuning path only."
+text_zh = "台账此前引用的整服务口径『不训练基础模型』出自 Cohere 博客，该 URL 未登记在 [[source]]、仓库无快照，同样不能支撑本档。本档的 yes 只覆盖微调这一条路径。"
 
 [product.zdr]
 mark = "yes"
@@ -277,42 +346,55 @@ text_zh = "专用集群提高的是算力与网络隔离（ai-cluster 页『not 
 text_zh = "无合同层 ZDR 条款。"
 
 [product.retention]
-days = 365
-object = "mixed"
-basis = "fixed_period"
-anchor = "oci-genai-dh-finetune-deleted-from-cluster"
+object = "input_output"
+basis = "none"
+anchor = "oci-genai-dh-no-store-io"
 
 [[product.retention.point]]
-text_zh = "①微调训练数据：作业完成即从微调集群删除、不留存到作业之后"
+text = "Field-level scope: object = input_output, basis = none covers the inference path (\"Both input and output are not stored inside OCI Generative AI\"). Retention on this tier has to be listed object by object; the remaining objects are in the points below. The former days=365 / basis=fixed_period reading has been removed — 365 came from the security-log floor in HDP §1.14, not from any content retention period."
+text_zh = "字段层适用范围：object=input_output、basis=none 覆盖推理路径（『Both input and output are not stored inside OCI Generative AI』）。本档 retention 按对象分列，其余对象见下列各条。原 days=365 / basis=fixed_period 的记法已删除——365 出自 HDP §1.14 的安全日志下限，不是任何内容保留期。"
+
+[[product.retention.point]]
+anchor = "oci-genai-dh-finetune-deleted-from-cluster"
+text_zh = "①微调训练数据：作业完成即从微调集群删除、不留存到作业之后（『The training data is deleted from the fine-tuning cluster as soon as the training job is completed.』）"
 
 [[product.retention.point]]
 text_zh = "②自定义模型本身是客户 tenancy 内的资源（同页『The custom model is also a resource that's managed by the customer』）"
 
 [[product.retention.point]]
-text_zh = "③推理输入输出不落盘"
+anchor = "oci-hdp-retrieval-60-days"
+text_zh = "③服务期结束后 60 天取回期，取回期届满删除 Your Content（HDP §6.1）"
 
 [[product.retention.point]]
-text_zh = "④服务终止后 60 天取回期届满删除（HDP §6.1）"
-
-[[product.retention.point]]
-text_zh = "⑤安全日志在线至少 1 年（HDP §1.14）。"
+anchor = "oci-hdp-security-logs-1-year"
+text_zh = "④安全日志在线至少 1 年（HDP §1.14）——**下限**，对象是 Oracle 内部安全运营日志，不是请求内容保留期。"
 
 [product.processing_region]
-codes = ["GLOBAL"]
+codes = ["selected"]
 anchor = "oci-dpa-6-1-stored-in-data-center-region"
 
 [[product.processing_region.point]]
-text_zh = "集群创建在客户选定的 OCI Region 内（DPA §6.1 按开通时选定的 Cloud region 存储；HDP 限定在所选 Data Center Region 内复制）。Oracle 未单独承诺专用集群的数据不跨 Region 访问，DPA §6.2 的全球支持访问仍适用。"
+text_zh = "集群创建在客户选定的 OCI Region 内（DPA §6.1 按订单指定或开通生产实例时选定的 Cloud region 存储，即客户选定地域，不是全球）。"
+
+[[product.processing_region.point]]
+anchor = "oci-hdp-replicate-within-dc-region"
+text_zh = "HDP 限定在所选 Data Center Region 内复制（『Oracle may replicate Your Content to other locations within the identified Data Center Region in support of data redundancy.』）——仍属「选定 region」。"
+
+[[product.processing_region.point]]
+anchor = "oci-dpa-6-2-global-access"
+text_zh = "Oracle 未单独承诺专用集群的数据不跨 Region 访问；DPA §6.2 的全球**支持访问**（support / incident management / data recovery）仍适用，但它是访问权，不是处理地，支撑不了「全球处理」。"
 
 [product.role]
 kind = "processor"
+anchor = "oci-dpa-2-1-controller-processor"
+
+[[product.role.point]]
+text_zh = "协议层：DPA §2.1『You are a Controller and Oracle is a Processor for the Processing of Personal Information as part of the provision of the Services.』——对象是 Personal Information。"
+
+[[product.role.point]]
 anchor = "oci-ai-cluster-dedicated-not-shared"
-
-[[product.role.point]]
-text_zh = "产品层：集群专用于客户模型、不与其他 tenancy 共享"
-
-[[product.role.point]]
-text_zh = "分类云博客亦写『OCI Generative AI service uses dedicated AI clusters only accessible to the customer in their tenancy』。协议层角色仍为 DPA §2.1 的 processor（集群隔离是技术措施，不改变协议角色）。"
+text = "Product layer, technical measure only — not a role clause: \"The clusters are dedicated to your models and not shared with users in other tenancies.\" It answers who may use the compute, not who is controller or processor. The classified-cloud post adds \"OCI Generative AI service uses dedicated AI clusters only accessible to the customer in their tenancy\"."
+text_zh = "产品层（只是技术措施，不是角色条款）：『The clusters are dedicated to your models and not shared with users in other tenancies.』回答的是集群归谁用，不是 controller / processor 的归属。分类云博客另有『OCI Generative AI service uses dedicated AI clusters only accessible to the customer in their tenancy』。"
 
 [[product]]
 id = "agentic-api"
@@ -321,15 +403,27 @@ category = "api"
 plan_level = "any"
 
 [product.training]
-mark = "yes"
-mode = "default"
-anchor = "oci-genai-dh-finetune-not-improve-general"
+mark = "unknown"
+searched = [
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/data-handling.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/projects.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/create-project.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/responses-api.htm",
+  "https://docs.oracle.com/en-us/iaas/Content/generative-ai/conversations-api.htm",
+  "https://blogs.oracle.com/ai-and-datascience/oci-generative-ai-adds-cohere-command-a-models",
+  "https://www.oracle.com/artificial-intelligence/enterprise-ai/",
+]
 
 [[product.training.point]]
-text_zh = "Oracle 没有针对 Responses/Conversations/Projects 的专门训练条款"
+text = "Anchor removed: the clause \"This training data is not used to improve the general use cases for OCI Generative AI.\" answers the fine-tuning FAQ, and the two FAQs on the data-handling page ask only about inference on LLMs and about fine-tuning a custom model. Neither covers this tier's surface (Responses / Conversations / Projects), so the citation did not support a yes here. Recorded as unknown with the search scope in searched, rather than keeping a quote that does not reach this tier."
+text_zh = "已撤锚：原引句『This training data is not used to improve the general use cases for OCI Generative AI.』回答的是微调那条 FAQ，而 data-handling 页的两条 FAQ 分别只问 inference on LLMs 与 fine-tune a custom model，都不覆盖本档（Responses / Conversations / Projects）。引文撑不起本档的 yes，故撤锚记 mark=unknown，查阅范围见 searched，而不是留一条覆盖不到本档的引文。"
 
 [[product.training.point]]
-text_zh = "data-handling 页的 FAQ 只覆盖经典推理与微调，Cohere 博客的『Data is not used to train foundation models』是整服务口径。按整服务口径沿用，但**本档没有逐字覆盖的训练条款**，confidence=low。注意长期记忆会把从对话中提取的信息持久化存储，其用途（是否可用于改进服务）未披露。"
+text = "No verbatim training clause covering this tier has been located in the public material (the only service-wide wording, \"Data is not used to train foundation models\", comes from a Cohere blog post that is not registered in [[source]] and has no snapshot, so it cannot be used here). If that source is fetched back, this mark can be revisited."
+text_zh = "公开材料里没有找到逐字覆盖本档的训练条款（唯一一条整服务口径『Data is not used to train foundation models』出自未登记进 [[source]]、仓库无快照的 Cohere 博客，不能用）。该来源被 bot 抓回快照后可重新判定。"
+
+[[product.training.point]]
+text_zh = "未披露的风险点（无锚点：本条不构成对本维度的厂商表述，LTM 锚点 oci-projects-ltm-persist 的 topics 是 retention/zdr，故不在此绑定）：长期记忆启用后『the service extracts key information from conversations and stores it so it can be recalled in future interactions within the same project』——从对话中提取的信息被持久化存储，其用途（是否可用于改进服务）官方未披露，字段层无法表达，故在此并列记录。"
 
 [product.zdr]
 mark = "no"
@@ -373,14 +467,29 @@ text_zh = "③删除 project 连带删除其下 responses/conversations/files/co
 text_zh = "④后台执行模式即使 `store=false` 也必须做临时响应存储，响应数据留在 OCI（responses-api 页）——本档存在**不可关闭的临时保留**。上限清晰（30 天），下限/默认值未披露。"
 
 [product.processing_region]
-codes = ["GLOBAL"]
+codes = ["selected"]
 anchor = "oci-responses-data-remains-in-oci"
 
 [[product.processing_region.point]]
-text_zh = "官方对照表写『Data retention: Data remains in OCI』（对比 OpenAI 的『Data is stored in OpenAI』）、端点模型为『Regional endpoints』"
+anchor = "oci-responses-data-remains-in-oci"
+text = "The comparison table with the OpenAI Responses API gives the direction: \"| **Data retention** | Data remains in OCI | Data is stored in OpenAI |\" — on the OCI side the data stays in OCI rather than being handed to another platform."
+text_zh = "与 OpenAI Responses API 的对照表给出方向：『| **Data retention** | Data remains in OCI | Data is stored in OpenAI |』——OCI 一侧的数据留在 OCI，不交给别的平台。字段层此前记 GLOBAL（渲染「全球」）已改为 selected。"
 
 [[product.processing_region.point]]
-text_zh = "DPA §6.1 的按选定 Region 存储仍适用。Oracle 未披露 project 产物（files/vector stores/containers）是否严格留在开通 Region，也未说明长期记忆的存储位置。"
+anchor = "oci-responses-regional-endpoints"
+text = "Same table, endpoint row: \"| **Endpoint model** | Regional endpoints | Global endpoint |\" — the OCI column is the regional-endpoint column, and the OpenAI column is the global one, so the table cannot be read as supporting a global processing region."
+text_zh = "同表端点行：『| **Endpoint model** | Regional endpoints | Global endpoint |』——OCI 一侧是区域端点，全球端点那一列是 OpenAI，因此这张表支撑不了「全球处理」。"
+
+[[product.processing_region.point]]
+anchor = "oci-responses-execution-in-oci"
+text_zh = "端点层：『Although the request format is OpenAI-compatible, authentication uses OCI credentials, requests are routed through OCI Generative AI inference endpoints, and resources and execution remain in OCI.』——请求经 OCI 的推理端点路由，资源与执行留在 OCI。"
+
+[[product.processing_region.point]]
+anchor = "oci-dpa-6-1-stored-in-data-center-region"
+text_zh = "合同层：DPA §6.1 的按订单指定/开通时选定 Region 存储仍适用（客户选定地域）。"
+
+[[product.processing_region.point]]
+text_zh = "未披露部分：project 产物（files/vector stores/containers）是否严格留在开通 Region、长期记忆的存储位置，官方都未说明；regions 页的跨 Region 调用（oci-regions-cross-region-call）是对「选定 region」的限定。"
 
 [product.role]
 kind = "processor"
@@ -426,14 +535,14 @@ text_zh = "明文：查询与检索上下文仅在用户会话期间保留、『
 text_zh = "托管知识库数据隔离存储、不跨客户混合。会话的边界（超时/断开后的处理）未进一步量化。"
 
 [product.processing_region]
-codes = ["GLOBAL"]
+codes = ["selected"]
 anchor = "oci-dpa-6-1-stored-in-data-center-region"
 
 [[product.processing_region.point]]
-text_zh = "该服务自己的 data-handling 页不提地域。只能沿用 DPA §6.1（按选定 Region 存储）与 regions 页的通用口径"
+text_zh = "本服务自己的 data-handling 页不提地域，只能沿用 DPA §6.1（按订单指定或开通生产实例时选定的 Cloud region 存储）——即**客户选定地域**，不是全球。字段层此前记 GLOBAL（渲染「全球」）与所引条款方向不符，已改为 selected。"
 
 [[product.processing_region.point]]
-text_zh = "regions 页的 Destination Region 表是为『调用 OCI Generative AI Service 的服务』列的，未逐项确认是否覆盖 Agents 服务。confidence=low。"
+text_zh = "限制说明：本服务未单列地域条款、结论沿用通用合同条款；regions 页的 Destination Region 表是为「调用 OCI Generative AI Service 的服务」列的，未逐项确认是否覆盖 Agents 服务，且该表只说明调用 Region 与目标 Region 不一致时会发生跨 Region 调用。confidence=low。"
 
 [product.role]
 kind = "processor"
@@ -1033,3 +1142,88 @@ exact = "**In-region data processing**, supporting data residency and regulatory
 suffix = """
 
 *   **Native integration with OCI services** such as Object"""
+
+[[anchor]]
+id = "oci-hdp-replicate-within-dc-region"
+source_id = "08969734e24824e9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Your Content will be stored in the Data Center\nRegion applicable to such Services. "
+exact = "Oracle may replicate Your Content to other locations within the identified Data Center Region in support of data redundancy."
+suffix = " Capitalized terms that are not otherwise defined in thes"
+
+[[anchor]]
+id = "oci-dpa-2-2-purpose-limitation"
+source_id = "f95b359e0eda4913"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = """
+2.2 """
+exact = "Oracle will Process Personal Information during the term of the Services Agreement solely for the purpose of providing the Services in accordance with the Services Agreement and this Data Processing Agreement."
+suffix = """
+
+2.3 In particular and depending on the Services, Oracle ma"""
+
+[[anchor]]
+id = "oci-hdp-7-ai-terms"
+source_id = "08969734e24824e9"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+7. AI TERMS
+"""
+exact = "The Oracle Artificial Intelligence Terms available online at http://oracle.com/contracts apply to Artificial Intelligence Functionality (as defined in such terms) in Your ordered Cloud Services."
+suffix = """
+
+8. USE OF SERVICES"""
+
+[[anchor]]
+id = "oci-pillar-3-3-third-party-llm"
+source_id = "e01bac38e3dd3a2b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "the processing of data may not remain within the selected EUSC data center region(s) and these Sovereign Terms shall not apply. "
+exact = "In addition, You acknowledge that certain Cloud Services may utilize third party Large Language Models (LLMs). If You choose to use such Cloud Services, Your data may be processed outside of the selected EUSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s)."
+suffix = """
+
+3.4 You acknowledge that where Your technical contacts are loc"""
+
+[[anchor]]
+id = "oci-pillar-uksc-3-3-third-party-llm"
+source_id = "e01bac38e3dd3a2b"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "the processing of data may not remain within the selected UKSC data center region(s) and these UK Sovereign Cloud Terms shall not apply. "
+exact = "In addition, You acknowledge that certain Cloud Services may utilize third party Large Language Models (LLMs). If You choose to use such Cloud Services, Your data may be processed outside of the selected UKSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s)."
+suffix = """
+
+3.4 You acknowledge that where Your technical contacts are loc"""
+
+[[anchor]]
+id = "oci-responses-regional-endpoints"
+source_id = "bf19140c8d2e96d7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "| **Data retention** | Data remains in OCI | Data is stored in OpenAI |"
+exact = "| **Endpoint model** | Regional endpoints | Global endpoint |"
+suffix = """
+
+## Related Topics"""
+
+[[anchor]]
+id = "oci-responses-execution-in-oci"
+source_id = "bf19140c8d2e96d7"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Replace ${region} with a supported region such as `us-chicago-1`. "
+exact = "Although the request format is OpenAI-compatible, authentication uses OCI credentials, requests are routed through OCI Generative AI inference endpoints, and resources and execution remain in OCI."
+suffix = """
+
+**Note**"""

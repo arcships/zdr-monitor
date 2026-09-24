@@ -58,16 +58,18 @@ text_zh = "modeluse 六、3 同款授权但无 opt-out。官方 FAQ（api-data-s
 
 [product.zdr]
 mark = "yes"
-mode = "opt_in"
+mode = "by_agreement"
 anchor = "zdr-request-content-cleared"
 
 [[product.zdr.point]]
-text = "Application-based for enterprise customers (contact sales for assessment)"
-text_zh = "企业客户申请制（联系销售评估）"
+text = "On request to enterprise customers (contact sales to request an assessment), not self-serve. The ZDR page scopes the programme to enterprise customers (\"provided to enterprise customers\", \"opened to enterprise customers on demand\"), while this row is plan_level=any and per Section I.2 of the Model Use Agreement also covers individual-verified accounts — individual accounts fall outside the ZDR scope."
+text_zh = "企业客户按需开放、需联系销售申请评估，不是自助开通。ZDR 页把适用对象限定为「为企业客户提供」「按需开放给企业客户」，而本行 plan_level=any、按 modeluse 一、2 也覆盖个人认证账号——个人认证账号不在 ZDR 开放范围内。"
+anchor = "zdr-enterprise-on-request"
 
 [[product.zdr.point]]
 text = "Once enabled, request content is cleared as soon as the response is returned. Excluded: images and videos submitted by direct file upload, Kimi Hosted Agents data, operational data such as security logs and billing records, and third-party models, connectors and plugins."
 text_zh = "开通后请求内容响应返回即清除。排除：直接文件上传的图像/视频、Kimi Hosted Agents 数据、安全日志与账单等运营数据、第三方模型/连接器/插件。"
+anchor = "zdr-scope-exclusions"
 
 [product.retention]
 object = "mixed"
@@ -77,17 +79,35 @@ anchor = "retention-customer-data-no-obligation"
 [[product.retention.point]]
 text = "No fixed period on the standard tier; the only commitment is to store customer data \"as required by applicable laws and regulations or as needed for this service\", with no obligation to store (Section V.5)"
 text_zh = "普通档无固定期限，仅承诺「依据相关法律法规要求或基于本服务的需要」存储、且无存储义务（五、5）"
+anchor = "retention-customer-data-no-obligation"
 
 [[product.retention.point]]
-text = "After account deletion, registration data and activity records are still retained as required by the Cybersecurity Law and other laws (Section IX.4)"
-text_zh = "注销后仍按网络安全法保留注册数据及行为记录（九、4）"
+text = "Account deletion has two halves in the same document. Deletion side: once the account is deleted the account, data, API access and remaining balance are all cleared, and re-registering under the same entity does not restore them (Section IX.1). Statutory floor: registration data and activity records must still be retained as required by the Cybersecurity Law and other laws (Section IX.4) — a floor, which cannot be read backwards as \"everything is deleted at that point\"."
+text_zh = "注销在同一份文档里有两半。删除侧：一旦注销，账号、数据、API 和充值余额都会被清空，同一主体重新注册也无法恢复（九、1）。法定下限：注销后仍需按网络安全法等法律法规保留注册数据及行为记录（九、4）——是下限，不能反推「此时全部内容即删除」。"
+anchor = "retention-account-deletion-clears-account"
 
 [[product.retention.point]]
 text = "Personal information is kept for \"the time necessary to achieve the purpose of the service\" (userprivacy 5.2). On the approved ZDR tier, content is cleared as soon as the response is returned."
 text_zh = "个人信息为「实现服务目的所必需的时间」（userprivacy 5.2）。ZDR 获批档响应返回即清除。"
+anchor = "retention-personal-info-necessary-period"
+
+[[product.retention.point]]
+text = "Exception inside the deletion flow: where deleting or anonymising personal information is technically infeasible, processing stops except for storage and necessary security protection measures — the data is kept, not deleted (userprivacy 7.3). It sits alongside the statutory floor in Section IX.4; both qualify the reading \"deletion means the data is gone\"."
+text_zh = "删除流程内的例外：如果删除、匿名化处理个人信息从技术上难以实现，我们会停止除存储和采取必要的安全保护措施之外的处理——数据被继续存储，而非删除（userprivacy 7.3）。它与九、4 的法定下限并列，同属「注销≠立即消失」的限定。"
+anchor = "retention-deletion-technically-infeasible"
+
+[[product.retention.point]]
+text = "Object = raw request data on the content-moderation path, per the tier's own official FAQ: content review does not store or leak the user's raw data. The FAQ is the same source that contradicts the core contract on training (tier=contradiction), so this is recorded as supplementary evidence for the moderation path only, not as the main basis for this verdict."
+text_zh = "对象=内容安全审查链路上的请求原始数据，出自本档官方 FAQ：内容审查不会存储或泄露你的原始数据。该 FAQ 正是与 core 合同就 training 冲突的同一来源（tier=contradiction），故仅作审查链路的补充证据，不作本维度主证据。"
+anchor = "retention-faq-content-review-no-store"
+
+[[product.retention.point]]
+text = "Object = files uploaded through the file API, on user instruction: a file can be deleted at any time through the DELETE endpoint or the console, after which it can no longer be referenced and the related data is cleared from the servers. Also from the tier's official FAQ (tier=contradiction), recorded as a supplementary lead rather than the main basis."
+text_zh = "对象=通过文件接口上传的文件，语境=用户主动删除：可通过 DELETE 接口或控制台随时删除，删除后文件无法再被引用、相关数据会从服务器中清除。同出本档官方 FAQ（tier=contradiction），作补充线索而非主证据。"
+anchor = "retention-faq-file-delete"
 
 [product.processing_region]
-basis = "undisclosed"
+codes = ["CN"]
 anchor = "region-storage-in-china"
 
 [[product.processing_region.point]]
@@ -95,16 +115,32 @@ text = "Personal information is stored within mainland China; cross-border provi
 text_zh = "个人信息存储于中国境内，跨境提供需单独同意且合法（5.1）"
 
 [[product.processing_region.point]]
-text = "No public disclosure of the inference / processing region."
-text_zh = "推理/处理地域无公开披露。"
+text = "The disclosure covers storage location only. No public disclosure of the inference / processing region, the data centres used or any selectable region option; the row is coded CN on the storage clause, not on a processing-region commitment."
+text_zh = "该披露只覆盖存储地点：推理/处理地域、所用机房与可选区域均无公开披露。本行记 CN 的依据是存储地条款，不是处理地承诺。"
 
 [product.role]
-kind = "unknown"
-anchor = "training-optimization-license"
+kind = "processor"
+anchor = "role-neutral-processor"
 
 [[product.role.point]]
-text = "Conflict within the same document: Sections V.3 and V.6 point to an entrusted processor, while the self-use optimization license in Section VI.3 points to a controller; not adjudicated."
-text_zh = "同文冲突：五、3/五、6 指向受托处理者，六、3 自用优化许可指向控制者；不裁决。"
+text = "Main clause (Model Use Agreement V.3): Moonshot AI is a neutral technical service provider that only processes customer data on the customer's instructions, and will not make any unauthorised use or disclosure of it."
+text_zh = "主条款（modeluse 五、3）：月之暗面是中立的技术服务提供者，只严格执行客户指示处理客户数据，不会对客户数据做任何非授权的使用或披露。"
+anchor = "role-neutral-processor"
+
+[[product.role.point]]
+text = "Purpose limitation (V.6): Moonshot AI and its authorised partners process customer business data only on documented instructions and \"not for their own purposes\", or to meet legal requirements / regulator instructions — an entrusted-processor positioning."
+text_zh = "目的限制（五、6）：月之暗面及其委托授权合作伙伴仅按有文件记录的指示、且「不为其自身目的处理相关数据」处理客户业务数据，或为落实法律法规与主管部门指示——受托处理者定位。"
+anchor = "role-not-for-own-purpose"
+
+[[product.role.point]]
+text = "Boundary (V.1): responsibility for end users' personal information collected through the customer's own product lies with the customer, and the end-user product's own privacy policy applies rather than this service's — consistent with the customer being the party that determines the purposes of processing."
+text_zh = "边界（五、1）：客户利用本服务收集的终端用户个人信息由客户负全部责任，适用客户自己的隐私政策而非本服务的——与「由客户决定处理目的」一致。"
+anchor = "role-enduser-pi-governed-by-developer-policy"
+
+[[product.role.point]]
+text = "Counter-evidence kept in parallel: the IP section (VI.3) grants Moonshot AI a free licence to use inputs, outputs and feedback for model service optimisation; the identical clause in the User Service Agreement (V.3) carries a training opt-out. These are content-use licences rather than statements of role, so they do not overturn the processor positioning, but they pull the other way and are recorded here."
+text_zh = "并列保留的反向条款：知识产权节（六、3）授权月之暗面将输入输出及反馈用于模型服务优化；userservice 五、3 同款并续接训练 opt-out。两句都是内容使用许可而非角色声明，不推翻受托处理者定位，但方向相反，故一并记录。"
+anchor = "training-optimization-license"
 
 [[anchor]]
 id = "retention-customer-data-no-obligation"
@@ -438,3 +474,36 @@ suffix = """
 ## 如何删除已上传的文件？
 
 通过文件接口上传的"""
+
+[[anchor]]
+id = "retention-faq-file-delete"
+source_id = "ee466414d005500f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "在请求头中携带 API Key，传入文件 ID 即可删除。"
+exact = "删除后文件将无法再被引用，相关数据会从服务器中清除。"
+suffix = """
+你也可以在控制台的文件管理页面手动查看和删除已上传的文件。"""
+
+[[anchor]]
+id = "retention-account-deletion-clears-account"
+source_id = "ea33b0ec6d2e7d5b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "注销账号前请您注意账号充值余额的使用情况，"
+exact = "一旦注销，您的账号、数据、API和充值余额都会被清空，即使您再次通过同一主体进行注册，请您审慎选择。"
+suffix = """
+2.   我们需要一定时间来审核您的注销情况"""
+
+[[anchor]]
+id = "retention-deletion-technically-infeasible"
+source_id = "6ac384bca8f12588"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "一旦注销，我们将停止为您提供服务并将按照法律法规的要求处理您的个人信息。"
+exact = "如果删除、匿名化处理个人信息从技术上难以实现，我们会停止除存储和采取必要的安全保护措施之外的处理。"
+suffix = """
+**7.4 近亲属权利**"""

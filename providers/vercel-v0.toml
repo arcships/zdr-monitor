@@ -21,13 +21,13 @@ note = "《Vercel AI Product Terms》(Last Updated 2026-03-17，Effective 2026-0
 url = "https://vercel.com/legal/terms"
 channel = "contract"
 tier = "core"
-note = "《Vercel Terms of Service》(Last Updated June 1, 2026)。§3 按套餐区分 Model Training：Hobby 与 trial Pro 默认参与，付费 Pro 默认关闭并可 opt-in，用户可在 Team 设置退出或升级 Enterprise。"
+note = "《Vercel Terms of Service》(Last Updated June 1, 2026)。§3 按套餐区分 Model Training：Hobby 与 trial Pro 默认参与，付费 Pro 默认关闭并可 opt-in，用户可在 Team 设置退出或升级 Enterprise；§10.1 是快照里唯一直谈处理角色的条款（controller 或 processor，以 DPA 为准）；§10.4 定义 System Data 并允许协议期内与期后用于任意商业目的；§17.1 把免费 hobby 档与付费自助订阅档分列；§18.1 账户终止时 Your Content 可被永久删除。"
 
 [[source]]
 url = "https://vercel.com/legal/dpa"
 channel = "contract"
 tier = "core"
-note = "《Data Processing Addendum》。适用于 Enterprise 与 Pro 客户；§4.1 定义 Vercel 为 Processor，§12.1 规定终止后删除，§13.1 说明主要处理设施位于美国并可能全球处理。"
+note = "《Data Processing Addendum》。§4.1 的 Processor 定位只覆盖 Enterprise 与 Pro 客户，§4.2 就 Service-Generated Data 与 Contact Data 定义 Vercel 为 Controller；§12.1 规定终止后删除、§12.2 保留法律要求例外；§13.1 说明主要处理设施位于美国并可能全球处理；Schedule 1 §3.b 与 Schedule 2 §15 是保留期限条款。"
 
 [[product]]
 id = "v0-free"
@@ -53,7 +53,18 @@ basis = "undisclosed"
 anchor = "vercel-aipt-11-3-termination-may-destroy"
 
 [[product.retention.point]]
-text_zh = "仅有终止时 Vercel 可销毁 Customer Content；项目代码、向量索引、缓存、prompt history 与遥测均无量化期限。"
+text = "Only a permissive statement at termination: Vercel may destroy Customer Content (AIPT §11.3). No quantified period for project code, vector indexes, caches, prompt history or telemetry."
+text_zh = "仅有终止时 Vercel 可销毁 Customer Content（AIPT §11.3 的 may 是授权式表述，不是删除承诺）；项目代码、向量索引、缓存、prompt history 与遥测均无量化期限。"
+
+[[product.retention.point]]
+text = "Neighbouring clause for the same tier: All of Your Content on the Services (if any) may be permanently deleted by Vercel upon any termination of your account (ToS §18.1) — also permissive (may), not a deletion commitment."
+text_zh = "同一档的相邻条款：账户终止时全部 Your Content「may be permanently deleted」（ToS §18.1）——同样是「可」而非「必须」删除，不构成删除承诺。"
+anchor = "vercel-tos-18-1-your-content-permanently-deleted"
+
+[[product.retention.point]]
+text = "Logs and telemetry: ToS §10.4 defines System Data as including traffic data, telemetry, logs generated from the Services and usage statistics, and lets Vercel use it for any business purposes in its sole discretion during and after the term, with no retention period stated."
+text_zh = "日志与遥测：ToS §10.4 把 traffic data、telemetry、logs、usage statistics 列为 System Data，并允许 Vercel 在协议期内与期后「for any business purposes in its sole discretion」，未给任何保留期限。"
+anchor = "vercel-tos-10-4-system-data"
 
 [product.processing_region]
 codes = ["US"]
@@ -61,7 +72,16 @@ anchor = "vercel-aipt-12-controlled-operated-from-us"
 
 [product.role]
 kind = "controller"
-anchor = "vercel-aipt-6-2-hobby-pro-your-content-license"
+anchor = "vercel-tos-10-1-vercel-role"
+
+[[product.role.point]]
+text = "ToS §10.1 is the only clause in the Terms of Service that speaks to the processing role, and it states a disjunction: Vercel processes the personal information in Your Content, Account Information and System Data as a data controller or data processor in accordance with the DPA and the Privacy Policy."
+text_zh = "ToS §10.1 是 ToS 里唯一直谈处理角色的条款，且是二选一表述：Vercel 就 Your Content、Account Information 与 System Data 中的个人信息「as a data controller or data processor」，以 DPA 与隐私政策为准。"
+
+[[product.role.point]]
+text = "The DPA's processor designation (DPA §4.1) covers only Customers on Enterprise or Pro plans, so it does not reach this tier; with no processor designation in the contract, this tier is recorded as controller."
+text_zh = "DPA §4.1 的 processor 定位只覆盖 Enterprise 与 Pro 档，不及于本档；合同中没有把本档定为 processor，故按控制方记。"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
 
 [[product]]
 id = "v0-premium"
@@ -71,8 +91,17 @@ plan_level = "individual"
 
 [product.training]
 mark = "no"
-mode = "opt_out"
+mode = "not_disclosed"
 anchor = "vercel-tos-3-model-training-by-plan"
+
+[[product.training.point]]
+text = "ToS §3 enables Model Training by default only for the Hobby plan and trial Pro plans, and turns it off by default for paid Pro plans. It does not name v0 Premium, and no snapshot in this file maps v0 Premium to a Vercel plan tier (ToS §17.1 separates the free hobby plan from paid self-service subscription plans), so a default-training permission is not established for this tier."
+text_zh = "ToS §3 的默认训练只点名 Hobby 与 trial Pro，付费 Pro 则默认关闭；条款没有点名 v0 Premium，本文件的快照也没有 v0 Premium 与 Vercel 档位的对应关系（ToS §17.1 把免费 hobby 档与付费自助订阅档分列），故本档的默认训练授权不成立。"
+
+[[product.training.point]]
+text = "AIPT §7.3 gives a no-training warranty to an Enterprise subscription or another subscription plan that is entitled to opt out of training; whether v0 Premium falls in that set is not stated in any snapshot, so the direction cannot be settled from the documents. Recorded as no + not_disclosed: the vendor has text on the question, but no commitment for this tier."
+text_zh = "AIPT §7.3 对 Enterprise 订阅「或其他有资格退出训练的订阅档」给出不训练保证；v0 Premium 是否落入该集合在快照里没有依据，方向无法从文档定论。故记 mark=no + not_disclosed：官方有表述，但本档没有承诺。"
+anchor = "vercel-aipt-v0-no-training-entitled-plan"
 
 [product.zdr]
 mark = "unknown"
@@ -83,13 +112,36 @@ object = "mixed"
 basis = "undisclosed"
 anchor = "vercel-aipt-11-3-termination-may-destroy"
 
+[[product.retention.point]]
+text = "Only a permissive statement at termination: Vercel may destroy Customer Content (AIPT §11.3). No quantified period for project code, vector indexes, caches, prompt history or telemetry."
+text_zh = "仅有终止时 Vercel 可销毁 Customer Content（AIPT §11.3 的 may 是授权式表述，不是删除承诺）；项目代码、向量索引、缓存、prompt history 与遥测均无量化期限。"
+
+[[product.retention.point]]
+text = "Neighbouring clause for the same tier: All of Your Content on the Services (if any) may be permanently deleted by Vercel upon any termination of your account (ToS §18.1) — also permissive (may), not a deletion commitment."
+text_zh = "同一档的相邻条款：账户终止时全部 Your Content「may be permanently deleted」（ToS §18.1）——同样是「可」而非「必须」删除，不构成删除承诺。"
+anchor = "vercel-tos-18-1-your-content-permanently-deleted"
+
+[[product.retention.point]]
+text = "Logs and telemetry: ToS §10.4 defines System Data as including traffic data, telemetry, logs generated from the Services and usage statistics, and lets Vercel use it for any business purposes in its sole discretion during and after the term, with no retention period stated."
+text_zh = "日志与遥测：ToS §10.4 把 traffic data、telemetry、logs、usage statistics 列为 System Data，并允许 Vercel 在协议期内与期后「for any business purposes in its sole discretion」，未给任何保留期限。"
+anchor = "vercel-tos-10-4-system-data"
+
 [product.processing_region]
 codes = ["US"]
 anchor = "vercel-aipt-12-controlled-operated-from-us"
 
 [product.role]
 kind = "controller"
-anchor = "vercel-aipt-6-2-hobby-pro-your-content-license"
+anchor = "vercel-tos-10-1-vercel-role"
+
+[[product.role.point]]
+text = "ToS §10.1 is the only clause in the Terms of Service that speaks to the processing role, and it states a disjunction: Vercel processes the personal information in Your Content, Account Information and System Data as a data controller or data processor in accordance with the DPA and the Privacy Policy."
+text_zh = "ToS §10.1 是 ToS 里唯一直谈处理角色的条款，且是二选一表述：Vercel 就 Your Content、Account Information 与 System Data 中的个人信息「as a data controller or data processor」，以 DPA 与隐私政策为准。"
+
+[[product.role.point]]
+text = "No snapshot maps v0 Premium to a Vercel plan tier. The DPA's processor designation (DPA §4.1) covers only Enterprise or Pro plans; if this tier is one of them, Vercel would be a processor and the direction would flip. Both readings are kept, and the tier is recorded as controller for now."
+text_zh = "快照没有 v0 Premium 与 Vercel 档位的对应关系。DPA §4.1 的 processor 定位只覆盖 Enterprise 与 Pro 档；若本档属于其中，Vercel 即为 processor，方向相反。两种读法并列保留，本档暂按控制方记。"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
 
 [[product]]
 id = "v0-team"
@@ -114,6 +166,21 @@ object = "mixed"
 basis = "until_termination"
 anchor = "vercel-dpa-12-1-delete-on-termination"
 
+[[product.retention.point]]
+text = "Object one — Customer Data (the Personal Data in Your Content): termination or expiration of the Agreement serves as instruction to delete all Customer Data within a commercially reasonable timeframe (DPA §12.1; Schedule 2 §15 restates it and adds unless required by law)."
+text_zh = "对象一 Customer Data（Your Content 中的个人数据）：终止或到期即视为指示，在商业合理期限内删除全部 Customer Data（DPA §12.1；Schedule 2 §15 重申并附「unless required by law」）。"
+anchor = "vercel-dpa-schedule2-15-limited-retention"
+
+[[product.retention.point]]
+text = "Exception to that deletion: Vercel may retain Customer Data if required by law (DPA §12.2)."
+text_zh = "删除承诺的明文例外：法律要求时 Vercel 可继续保留 Customer Data（DPA §12.2）。"
+anchor = "vercel-dpa-12-2-retain-if-required-by-law"
+
+[[product.retention.point]]
+text = "Object two — Service-Generated Data and Contact Data: upon termination Vercel may still retain, use and disclose them for the purposes in Schedule 1 §2.b, and anonymizes or deletes them only when it no longer requires them — no period stated (Schedule 1 §3.b)."
+text_zh = "对象二 Service-Generated Data 与 Contact Data：终止后 Vercel 仍可保留、使用与披露（用途见 Schedule 1 §2.b），仅在「不再需要」时才匿名化或删除，未给期限（Schedule 1 §3.b）。"
+anchor = "vercel-dpa-schedule1-3-b-service-generated-post-termination"
+
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "vercel-dpa-13-1-primary-processing-in-us"
@@ -121,6 +188,16 @@ anchor = "vercel-dpa-13-1-primary-processing-in-us"
 [product.role]
 kind = "processor"
 anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[product.role.point]]
+text = "Object one — Customer Data: for Customers on Enterprise or Pro plans, Customer acts as a Controller (or Processor) and Vercel is a Processor (DPA §4.1)."
+text_zh = "对象一 Customer Data：Enterprise 或 Pro 档下，客户为 Controller（或 Processor）、Vercel 为 Processor（DPA §4.1）。"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[product.role.point]]
+text = "Object two — Service-Generated Data and Contact Data: Vercel is the Controller for such data and processes it under its Privacy Notice (DPA §4.2, restated in Schedule 1 §1.b)."
+text_zh = "对象二 Service-Generated Data 与 Contact Data：Vercel 就该数据为 Controller，按其隐私声明处理（DPA §4.2，Schedule 1 §1.b 重申）。"
+anchor = "vercel-dpa-4-2-vercel-as-controller"
 
 [[product]]
 id = "v0-enterprise"
@@ -145,6 +222,21 @@ object = "mixed"
 basis = "until_termination"
 anchor = "vercel-dpa-12-1-delete-on-termination"
 
+[[product.retention.point]]
+text = "Object one — Customer Data (the Personal Data in Your Content): termination or expiration of the Agreement serves as instruction to delete all Customer Data within a commercially reasonable timeframe (DPA §12.1; Schedule 2 §15 restates it and adds unless required by law)."
+text_zh = "对象一 Customer Data（Your Content 中的个人数据）：终止或到期即视为指示，在商业合理期限内删除全部 Customer Data（DPA §12.1；Schedule 2 §15 重申并附「unless required by law」）。"
+anchor = "vercel-dpa-schedule2-15-limited-retention"
+
+[[product.retention.point]]
+text = "Exception to that deletion: Vercel may retain Customer Data if required by law (DPA §12.2)."
+text_zh = "删除承诺的明文例外：法律要求时 Vercel 可继续保留 Customer Data（DPA §12.2）。"
+anchor = "vercel-dpa-12-2-retain-if-required-by-law"
+
+[[product.retention.point]]
+text = "Object two — Service-Generated Data and Contact Data: upon termination Vercel may still retain, use and disclose them for the purposes in Schedule 1 §2.b, and anonymizes or deletes them only when it no longer requires them — no period stated (Schedule 1 §3.b)."
+text_zh = "对象二 Service-Generated Data 与 Contact Data：终止后 Vercel 仍可保留、使用与披露（用途见 Schedule 1 §2.b），仅在「不再需要」时才匿名化或删除，未给期限（Schedule 1 §3.b）。"
+anchor = "vercel-dpa-schedule1-3-b-service-generated-post-termination"
+
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "vercel-dpa-13-1-primary-processing-in-us"
@@ -152,6 +244,16 @@ anchor = "vercel-dpa-13-1-primary-processing-in-us"
 [product.role]
 kind = "processor"
 anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[product.role.point]]
+text = "Object one — Customer Data: for Customers on Enterprise or Pro plans, Customer acts as a Controller (or Processor) and Vercel is a Processor (DPA §4.1)."
+text_zh = "对象一 Customer Data：Enterprise 或 Pro 档下，客户为 Controller（或 Processor）、Vercel 为 Processor（DPA §4.1）。"
+anchor = "vercel-dpa-4-1-vercel-as-processor"
+
+[[product.role.point]]
+text = "Object two — Service-Generated Data and Contact Data: Vercel is the Controller for such data and processes it under its Privacy Notice (DPA §4.2, restated in Schedule 1 §1.b)."
+text_zh = "对象二 Service-Generated Data 与 Contact Data：Vercel 就该数据为 Controller，按其隐私声明处理（DPA §4.2，Schedule 1 §1.b 重申）。"
+anchor = "vercel-dpa-4-2-vercel-as-controller"
 
 [[anchor]]
 id = "vercel-aipt-v0-no-training-entitled-plan"
@@ -210,6 +312,36 @@ exact = "if you are on a Hobby plan or trial Pro plan, you agree that we may use
 suffix = " You may opt-out of Model Training at any time by adjusting your Team account settings or by upgrading to an Enterprise plan."
 
 [[anchor]]
+id = "vercel-tos-10-1-vercel-role"
+source_id = "013fc4ddb3a94335"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "### 10.1 Vercel's Role\n"
+exact = "We will process the personal information in Your Content, Account Information, and System Data as a data controller or data processor in accordance with Vercel's Data Processing Addendum (\"**DPA**\"), which is incorporated by reference, and our Privacy Policy as applicable."
+suffix = ""
+
+[[anchor]]
+id = "vercel-tos-10-4-system-data"
+source_id = "013fc4ddb3a94335"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "### 10.4 System Data\n"
+exact = "Vercel may collect, and retains all right, title and interest in and to, data or information created, analyzed, generated, or derived in connection with the provision, use, and performance of the Services and related systems and technologies, including traffic data, telemetry, logs generated from the Services, and usage statistics (collectively, \"**System Data**,\" which in all cases excludes Account Information). Vercel may (during and after the term of this Agreement) (i) use System Data for any business purposes in its sole discretion, and (ii) disclose such data solely in aggregate or de-identified form in connection with its business."
+suffix = ""
+
+[[anchor]]
+id = "vercel-tos-18-1-your-content-permanently-deleted"
+source_id = "013fc4ddb3a94335"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "You acknowledge that Vercel reserves the right to terminate accounts that are inactive for an extended period of time and the right to modify or discontinue, temporarily or permanently, the Services (or any part thereof). "
+exact = "All of Your Content on the Services (if any) may be permanently deleted by Vercel upon any termination of your account."
+suffix = " If Vercel terminates your account without cause and you have signed up for a self-service subscription, Vercel will refund the pro-rated, unearned portion of any amount that you have prepaid to Vercel for such Services."
+
+[[anchor]]
 id = "vercel-dpa-4-1-vercel-as-processor"
 source_id = "445b142dbefa7c7b"
 topics = ["role"]
@@ -218,6 +350,16 @@ topics = ["role"]
 prefix = "1.   **Vercel as Processor.** "
 exact = "The parties acknowledge and agree that with regard to the Processing of Customer Data for Customers who are on Enterprise or Pro plans, Customer acts as a Controller (or Processor) and Vercel is a Processor."
 suffix = " Vercel will process Customer Data under and in accordance with Customer's instructions"
+
+[[anchor]]
+id = "vercel-dpa-4-2-vercel-as-controller"
+source_id = "445b142dbefa7c7b"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "2.   **Vercel as Controller.** "
+exact = "To the extent that any Service-Generated Data is considered Personal Data and as to any Contact Data, Vercel is the Controller with respect to such data and will Process such data in accordance with its Privacy Notice."
+suffix = " For the avoidance of doubt, Schedule 1 does not apply when Vercel Processes Customer Data as a Controller."
 
 [[anchor]]
 id = "vercel-dpa-12-1-delete-on-termination"
@@ -231,6 +373,36 @@ suffix = """
 
 
 2.   Notwithstanding the foregoing,"""
+
+[[anchor]]
+id = "vercel-dpa-12-2-retain-if-required-by-law"
+source_id = "445b142dbefa7c7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "2.   Notwithstanding the foregoing, "
+exact = "Customer understands that Vercel may retain Customer Data if required by law, and such data will remain subject to the requirements of this Addendum."
+suffix = ""
+
+[[anchor]]
+id = "vercel-dpa-schedule1-3-b-service-generated-post-termination"
+source_id = "445b142dbefa7c7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "2.   **Service-Generated Data and Contact Data.** "
+exact = "Upon termination of the Agreement, Vercel may retain, use, and disclose Service-Generated Data and/or Contact Data for the purposes set forth above in Section 2.b (Service-Generated Data and Contact Data) of this Schedule 1, subject to the confidentiality obligations set forth in the Agreement. Vercel will anonymize or delete Personal Data contained within Service-Generated Data and/or Contact Data when Vercel no longer requires it for the purpose set forth in Section 2.b (Service-Generated Data and/or Contact Data) of this Schedule 1."
+suffix = ""
+
+[[anchor]]
+id = "vercel-dpa-schedule2-15-limited-retention"
+source_id = "445b142dbefa7c7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Customers have the ability to delete Customer Data via the self-service functionality of the Services. "
+exact = "Vercel will, within a commercially reasonable timeframe after request by Customer following the termination or expiration of the Agreement, delete all Customer Data from Vercel's systems, unless required by law."
+suffix = ""
 
 [[anchor]]
 id = "vercel-dpa-13-1-primary-processing-in-us"

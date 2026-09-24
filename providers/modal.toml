@@ -39,20 +39,28 @@ text = "Same as top-level training: §5.5.4 bars training any AI model using Cus
 text_zh = "同顶层 training：§5.5.4 禁止用 Customer Data 训练 AI 模型（除客户事先书面同意）"
 
 [[product.training.point]]
-text = "The Data privacy section of the security page separately commits that Modal will never access or use your source code, the inputs and outputs of your Modal Functions, or any data you store in Images or Volumes. A customer running their own training job on this tier is the customer's own act and does not change this conclusion."
-text_zh = "security 页 Data privacy 节另承诺不访问/不使用客户源代码、函数输入输出与 Images/Volumes 数据。客户在该档跑自己的训练任务是客户自己的行为，不改变本结论。"
+text = "The Data privacy section of the security page separately commits that Modal will never access or use your source code, the inputs and outputs of your Modal Functions, or any data you store in Images or Volumes. That absolute wording is qualified at the contract layer by §5.3, which requires safeguards preventing access, use, modification or disclosure of Customer Data by Modal personnel \"except: (a) to provide the Service and to prevent or address service or technical problems, or (b) as Customer expressly permits in writing\" — so \"never access or use\" is not an unlimited commitment. A customer running their own training job on this tier is the customer's own act and does not change this conclusion."
+text_zh = "security 页 Data privacy 节另承诺不访问/不使用客户源代码、函数输入输出与 Images/Volumes 数据。这一绝对表述在合同层受 §5.3 限定：防止 Modal 人员访问、使用、修改或披露 Customer Data 的措施有例外——「(a) to provide the Service and to prevent or address service or technical problems, or (b) as Customer expressly permits in writing」，故「never access or use」不是无限定的承诺。客户在该档跑自己的训练任务是客户自己的行为，不改变本结论。"
+anchor = "modal-tos-5-3-no-personnel-access"
+
+[[product.training.point]]
+text = "Tier boundary not verified: this product is plan_level=any and therefore includes the free Starter tier, while §1.2 states that \"No-Fee Use may be subject to certain additional restrictions, limitations and differing terms all as specified in the corresponding No-Fee Use Limitations.\" That No-Fee Use Limitations text was not found publicly, so whether the §5.5.4 no-training promise applies unchanged to the free tier is unverified."
+text_zh = "档位边界未经核实：本档为 plan_level=any，因此含免费 Starter 档；而 §1.2 写明「No-Fee Use may be subject to certain additional restrictions, limitations and differing terms all as specified in the corresponding No-Fee Use Limitations.」。该 No-Fee Use Limitations 文本未公开找到，故 §5.5.4 的不训练承诺对免费档是否原样适用，未经核实。"
+anchor = "modal-tos-1-2-no-fee-use-differing-terms"
 
 [product.zdr]
 mark = "no"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.zdr.point]]
+text = "This tier is internally inconsistent and has to be read in parts: Function inputs and outputs are retained for up to 7 days (the security page table row \"Up to 7 days, then deleted\"), so there is no zero retention for Functions and therefore none for the tier as a whole"
+text_zh = "本档内不一致，必须分开看：Functions 的输入输出有上限 7 天的留存（security 页表行「Up to 7 days, then deleted」），故对 Functions 无零保留，整档因此无零保留"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.zdr.point]]
+text = "For Servers, request and response payloads are \"Not stored — proxied directly to your container\", sharing the zero-retention path with Endpoints. Zero retention therefore exists only on the Endpoints/Servers payload path and does not cover Functions. Logs and metadata are not included and are still retained for their own periods."
+text_zh = "Servers 的请求与响应 payload「Not stored — proxied directly to your container」，与 Endpoints 同享零保留路径。即零保留只存在于 Endpoints/Servers 的 payload 路径，不含 Functions。日志与元数据不在此列，仍按各自期限留存。"
 anchor = "modal-security-retention-endpoint-payloads-not-stored"
-
-[[product.zdr.point]]
-text = "This tier is internally inconsistent and has to be read in parts: Function inputs and outputs are retained for up to 7 days (the security page table row \"Up to 7 days, then deleted\"), so there is no zero retention for Functions"
-text_zh = "本档内不一致，必须分开看：Functions 的输入输出有上限 7 天的留存（security 页表行「Up to 7 days, then deleted」），故对 Functions 无零保留"
-
-[[product.zdr.point]]
-text = "For Servers, request and response payloads are \"Not stored — proxied directly to your container\", sharing the zero-retention path with Endpoints. Logs and metadata are not included and are still retained for their own periods."
-text_zh = "Servers 的请求与响应 payload「Not stored — proxied directly to your container」，与 Endpoints 同享零保留路径。日志与元数据不在此列，仍按各自期限留存。"
 
 [product.retention]
 days = 7
@@ -96,6 +104,16 @@ text_zh = "Queues 分区默认 24h TTL"
 text = "Audit logs are per Enterprise contract. At the contract layer, ToS §5.4, Customer Data \"is expunged promptly following completion of processing\", and §3.3, the account is deleted within 60 days following the termination date."
 text_zh = "审计日志按企业合同。合同层 ToS §5.4「expunged promptly following completion of processing」、§3.3 账户终止后 60 天内删除。"
 
+[[product.retention.point]]
+text = "The contract layer sets no ceiling on retention: DPA Schedule 2 states \"Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.\" The object-level periods published on the security page (7 days, 30 days, and so on) are documentation-layer disclosures of particular objects, not a contractual maximum."
+text_zh = "合同层不设保留上限：DPA Schedule 2 写明「Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.」。security 页公布的对象级期限（7 天、30 天等）是文档层对具体对象的披露，不是合同层上限。"
+anchor = "modal-tos-dpa-schedule-2-limited-retention"
+
+[[product.retention.point]]
+text = "Contract-layer carve-out that also touches training: §1.11 opens with \"Notwithstanding anything to the contrary\" and lets Modal \"collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter\". Service Metrics are defined as data used in an aggregate and/or permanently anonymized manner that does not identify an individual or Customer, with safeguards prohibiting re-identification, and they are not Customer Data — so the no-training and deletion promises are not absolute at the contract layer, but this carve-out does not reach Customer Data."
+text_zh = "同时涉及 training 的合同层例外：§1.11 以「Notwithstanding anything to the contrary」开头，允许 Modal「collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter」。Service Metrics 定义为以聚合和/或永久匿名方式使用、不识别个人或客户、并有禁止再识别保障的数据，且不含 Customer Data——故合同层的不训练与删除承诺并非绝对，但该例外不及于 Customer Data。"
+anchor = "modal-tos-1-11-service-metrics-carve-out"
+
 [product.processing_region]
 codes = ["selected", "US"]
 anchor = "modal-tos-1-9-processing-locations"
@@ -117,8 +135,14 @@ kind = "processor"
 anchor = "modal-tos-dpa-2-3-1-service-provider"
 
 [[product.role.point]]
-text = "Same as top-level role: DPA §2.3.1 states that \"Modal shall act as a Service Provider to Customer\", SCC Modules 2/3 are entered into in the processor capacity, §2.1 sets the purpose limitation, and ToS §1.8 leaves all right, title and interest with the customer, granting Modal only a limited licence."
-text_zh = "同顶层 role：DPA §2.3.1 自认 Service Provider、SCC Module 2/3 以 processor 身份签署、§2.1 目的限制、ToS §1.8 客户保留所有权仅给有限许可。"
+text = "Same as top-level role: DPA §2.3.1 states that \"Modal shall act as a Service Provider to Customer\", SCC Modules 2/3 are entered into in the processor capacity, §2.1 sets the purpose limitation, and ToS §1.8 leaves all right, title and interest with the customer, granting Modal only a limited licence. Kept alongside: DPA Appendix 1 also incorporates SCC Module 1, \"Transfer controller to controller ... apply where Modal Processes Personal Data as a Controller\", so there are situations covered by the SCC annex in which Modal acts as a controller."
+text_zh = "同顶层 role：DPA §2.3.1 自认 Service Provider、SCC Module 2/3 以 processor 身份签署、§2.1 目的限制、ToS §1.8 客户保留所有权仅给有限许可。并列保留：DPA Appendix 1 同时纳入 SCC Module 1「Transfer controller to controller … apply where Modal Processes Personal Data as a Controller」，即存在 SCC 附录覆盖的、Modal 以控制者身份处理的情形。"
+anchor = "modal-tos-dpa-2-3-1-service-provider"
+
+[[product.role.point]]
+text = "The controller case is a specific situation defined by the SCC annex, not a reframing of the service: Appendix 1 Module 1 applies where Modal Processes Personal Data as a Controller, Modal and its Affiliates sit in non-adequacy approved third countries and the Customer is established in the EEA. It sits alongside Modules 2 and 3 rather than replacing the processor characterisation for the service processing."
+text_zh = "该控制者情形是 SCC 附录界定的特定场景，不是对服务的重新定性：Appendix 1 Module 1 适用于 Modal 以控制者身份处理个人数据、Modal 及其关联方位于未获充分性认定的第三国、且客户设立于 EEA 的场合。它与 Module 2/3 并列，不取代服务处理上的 processor 定性。"
+anchor = "modal-tos-dpa-scc-module-1-controller"
 
 [[product]]
 id = "endpoints-shared"
@@ -139,6 +163,11 @@ text_zh = "同顶层 training。§5.5.1 明确 AI Tools 的 Input 与 Output 属
 text = "§5.5.3 further states that subcontractors processing Customer Data in order to provide AI Tools are on the subprocessor list. No clause was found that allows Modal to use inference requests to train models."
 text_zh = "§5.5.3 另说明为提供 AI Tools 而处理 Customer Data 的分包商在 subprocessor 名单上。未发现任何条款允许 Modal 用推理请求训练模型。"
 
+[[product.training.point]]
+text = "Tier boundary not verified: this product is plan_level=any and therefore includes the free Starter tier, while §1.2 states that \"No-Fee Use may be subject to certain additional restrictions, limitations and differing terms all as specified in the corresponding No-Fee Use Limitations.\" That No-Fee Use Limitations text was not found publicly, so whether the §5.5.4 no-training promise applies unchanged to the free tier is unverified."
+text_zh = "档位边界未经核实：本档为 plan_level=any，因此含免费 Starter 档；而 §1.2 写明「No-Fee Use may be subject to certain additional restrictions, limitations and differing terms all as specified in the corresponding No-Fee Use Limitations.」。该 No-Fee Use Limitations 文本未公开找到，故 §5.5.4 的不训练承诺对免费档是否原样适用，未经核实。"
+anchor = "modal-tos-1-2-no-fee-use-differing-terms"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -149,21 +178,36 @@ text = "The Modal Inference endpoints section of the security page: request and 
 text_zh = "security 页 Modal Inference endpoints 节：请求与响应 payload「never written to disk and pass through Modal's infrastructure only as in-flight network traffic」，默认生效、无需申请。范围限于 payload，不含日志与元数据。"
 
 [product.retention]
-days = 30
-object = "mixed"
-basis = "fixed_period"
+object = "input_output"
+basis = "none"
 anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
 
 [[product.retention.point]]
-text = "Request and response payloads are not stored (\"Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads\"). But logs and metadata for the same product are still retained: app and container logs 1 or 30 days depending on plan, metadata for the lifetime of the account"
-text_zh = "请求与响应 payload 不存储（「Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads」）。但同产品的日志与元数据仍留存：应用/容器日志按套餐 1/30 天、元数据随账户存续"
+text = "Request and response payloads are not stored (\"Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads\"). Logs and metadata for the same products are a different object and are still retained."
+text_zh = "请求与响应 payload 不存储（「Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads」）。同产品的日志与元数据属另一类对象，仍然留存。"
+anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
+
+[[product.retention.point]]
+text = "No single period applies to this tier because it is plan_level=any: the security page row for app and container logs reads \"Plan-dependent: 1 day on Starter, 30 days on Team, configurable on Enterprise\", and that row lists Functions and Sandboxes only — the log period for Endpoints is not published separately. Audit logs are \"Per Enterprise contract\" and metadata is \"Stored for the lifetime of your account\". The 30-day figure is the Team plan's number and is not used as this tier's period."
+text_zh = "本档为 plan_level=any，故没有单一期限：security 页的应用/容器日志行写「Plan-dependent: 1 day on Starter, 30 days on Team, configurable on Enterprise」，且该行只列 Functions 与 Sandboxes——Endpoints 的日志期限官方未单列。审计日志「Per Enterprise contract」、元数据「Stored for the lifetime of your account」。30 天是 Team 档的数字，不当作本档期限。"
+anchor = "modal-security-retention-logs-plan-dependent"
 
 [[product.retention.point]]
 text = "Audit logs are per Enterprise contract. Session affinity reuses the in-container KV prefix cache (endpoints docs), and the lifetime and purge rules of that cache are not disclosed — the unquantified item for retention on this tier."
 text_zh = "审计日志按企业合同。会话亲和会复用容器内 KV 前缀缓存（endpoints 文档），该缓存的生命周期与清除规则官方未披露——这是本档 retention 的未量化项。"
 
+[[product.retention.point]]
+text = "The contract layer sets no ceiling on retention: DPA Schedule 2 states \"Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.\" The object-level periods published on the security page are documentation-layer disclosures, not a contractual maximum."
+text_zh = "合同层不设保留上限：DPA Schedule 2 写明「Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.」。security 页公布的对象级期限是文档层披露，不是合同层上限。"
+anchor = "modal-tos-dpa-schedule-2-limited-retention"
+
+[[product.retention.point]]
+text = "Contract-layer carve-out that also touches training: §1.11 opens with \"Notwithstanding anything to the contrary\" and lets Modal \"collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter\". Service Metrics are defined as data used in an aggregate and/or permanently anonymized manner that does not identify an individual or Customer, with safeguards prohibiting re-identification, and they are not Customer Data — so the no-training and deletion promises are not absolute at the contract layer, but this carve-out does not reach Customer Data."
+text_zh = "同时涉及 training 的合同层例外：§1.11 以「Notwithstanding anything to the contrary」开头，允许 Modal「collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter」。Service Metrics 定义为以聚合和/或永久匿名方式使用、不识别个人或客户、并有禁止再识别保障的数据，且不含 Customer Data——故合同层的不训练与删除承诺并非绝对，但该例外不及于 Customer Data。"
+anchor = "modal-tos-1-11-service-metrics-carve-out"
+
 [product.processing_region]
-codes = ["US"]
+codes = ["US", "global"]
 anchor = "modal-data-residency-shared-endpoints-us-west"
 
 [[product.processing_region.point]]
@@ -171,12 +215,12 @@ text = "The data-residency page: for Shared Endpoints, neither the container reg
 text_zh = "data-residency 页：Shared Endpoints 的容器区域与路由区域均不可选"
 
 [[product.processing_region.point]]
-text = "Footnote: \"Shared Endpoints route through us-west, and containers are distributed across Modal’s global compute pool\""
-text_zh = "脚注「Shared Endpoints route through us-west, and containers are distributed across Modal's global compute pool」"
+text = "Footnote: \"Shared Endpoints route through us-west, and containers are distributed across Modal’s global compute pool\" — routing is fixed to us-west, but the containers that process the workload are spread over Modal's global compute pool, so processing is not confined to the United States. Logs and durable storage (Images, Volumes, Dicts, Queues, Secrets) do stay in the United States."
+text_zh = "脚注「Shared Endpoints route through us-west, and containers are distributed across Modal's global compute pool」——路由固定经 us-west，但跑工作负载的容器分布在 Modal 全球算力池，故处理地不限于美国。日志与持久存储（Images/Volumes/Dicts/Queues/Secrets）仍在美国。"
 
 [[product.processing_region.point]]
-text = "The shared-endpoints page is to the same effect. So region pinning is not possible on this tier, and customers with hard data residency requirements must switch to Dedicated Endpoints."
-text_zh = "shared-endpoints 页同旨。即本档无法做区域锁定，对数据驻留有硬要求的客户须改用 Dedicated Endpoints。"
+text = "The shared-endpoints page is to the same effect. So neither the container region nor the routing region is selectable on this tier, and customers with hard data residency requirements must switch to Dedicated Endpoints."
+text_zh = "shared-endpoints 页同旨。即本档容器区域与路由区域均不可选，对数据驻留有硬要求的客户须改用 Dedicated Endpoints。"
 
 [product.role]
 kind = "processor"
@@ -189,6 +233,11 @@ text_zh = "同顶层 role。本档的运营主体是 Modal 自己（Modal 托管
 [[product.role.point]]
 text = "Whether requests are forwarded to the original model vendor is disclosed neither in the documentation nor in the subprocessor list (which holds only cloud hosting providers and logging/monitoring/data-warehouse vendors). This is the unverified item for role on this tier."
 text_zh = "请求是否转发给模型原厂，官方文档与 subprocessor 名单中均无披露（名单只有云托管商与日志/监控/数据仓库类）。这是本档 role 的未核项。"
+
+[[product.role.point]]
+text = "Kept alongside the processor characterisation: DPA Appendix 1 also incorporates SCC Module 1, \"Transfer controller to controller ... apply where Modal Processes Personal Data as a Controller\". That is a specific situation defined by the SCC annex (Modal and its Affiliates in non-adequacy approved third countries, Customer established in the EEA) and does not displace the processor characterisation for the service processing above."
+text_zh = "与 processor 定性并列保留：DPA Appendix 1 同时纳入 SCC Module 1「Transfer controller to controller … apply where Modal Processes Personal Data as a Controller」。这是 SCC 附录界定的特定场景（Modal 及其关联方位于未获充分性认定的第三国、客户设立于 EEA），不取代前述服务处理上的 processor 定性。"
+anchor = "modal-tos-dpa-scc-module-1-controller"
 
 [[product]]
 id = "endpoints-dedicated"
@@ -215,18 +264,29 @@ text = "Same as endpoints-shared: zero retention on the payload path."
 text_zh = "同 endpoints-shared：payload 路径零保留。"
 
 [product.retention]
-days = 30
-object = "mixed"
-basis = "fixed_period"
+object = "input_output"
+basis = "none"
 anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
 
 [[product.retention.point]]
-text = "Same as endpoints-shared: payloads are not stored"
-text_zh = "同 endpoints-shared：payload 不存储"
+text = "Request and response payloads are not stored (\"Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads\"), so the payload path carries no period at all."
+text_zh = "请求与响应 payload 不存储（「Dedicated Endpoints, Shared Endpoints, and Servers do not store request and response payloads」），payload 路径本身没有任何期限。"
+anchor = "modal-data-residency-endpoints-servers-no-payload-storage"
 
 [[product.retention.point]]
-text = "Logs are plan-dependent and metadata lasts for the lifetime of the account. Customer-supplied weights and custom images live in Images and Volumes, which is durable storage (retained until the customer deletes them)."
-text_zh = "日志按套餐、元数据随账户存续。客户自带权重与自定义镜像存放在 Images/Volumes，属持久存储（客户删除前保留）。"
+text = "The log periods are the unquantified item here: the security page row gives numbers only for the lower plans (\"1 day on Starter, 30 days on Team\") and says \"configurable on Enterprise\", while audit logs are \"Per Enterprise contract\". This tier is plan_level=enterprise, so the 30-day figure is the Team plan's number and the enterprise log and audit-log periods are set by contract with no public number. Metadata is stored for the lifetime of the account; customer-supplied weights and custom images live in Images and Volumes, which is durable storage (retained until the customer deletes them)."
+text_zh = "日志期限是本档的未量化项：security 页该行只给低档数字（「1 day on Starter, 30 days on Team」）并写「configurable on Enterprise」，审计日志为「Per Enterprise contract」。本档 plan_level=enterprise，故 30 天是 Team 档数字，企业档日志与审计日志期限由合同约定、公开文档无数字。元数据随账户存续；客户自带权重与自定义镜像存放在 Images/Volumes，属持久存储（客户删除前保留）。"
+anchor = "modal-security-retention-logs-plan-dependent"
+
+[[product.retention.point]]
+text = "The contract layer sets no ceiling on retention: DPA Schedule 2 states \"Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.\" The object-level periods published on the security page are documentation-layer disclosures, not a contractual maximum."
+text_zh = "合同层不设保留上限：DPA Schedule 2 写明「Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.」。security 页公布的对象级期限是文档层披露，不是合同层上限。"
+anchor = "modal-tos-dpa-schedule-2-limited-retention"
+
+[[product.retention.point]]
+text = "Contract-layer carve-out that also touches training: §1.11 opens with \"Notwithstanding anything to the contrary\" and lets Modal \"collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter\". Service Metrics are defined as data used in an aggregate and/or permanently anonymized manner that does not identify an individual or Customer, with safeguards prohibiting re-identification, and they are not Customer Data — so the no-training and deletion promises are not absolute at the contract layer, but this carve-out does not reach Customer Data."
+text_zh = "同时涉及 training 的合同层例外：§1.11 以「Notwithstanding anything to the contrary」开头，允许 Modal「collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter」。Service Metrics 定义为以聚合和/或永久匿名方式使用、不识别个人或客户、并有禁止再识别保障的数据，且不含 Customer Data——故合同层的不训练与删除承诺并非绝对，但该例外不及于 Customer Data。"
+anchor = "modal-tos-1-11-service-metrics-carve-out"
 
 [product.processing_region]
 codes = ["selected"]
@@ -248,6 +308,11 @@ anchor = "modal-tos-dpa-2-3-1-service-provider"
 text = "Same as top-level role."
 text_zh = "同顶层 role。"
 
+[[product.role.point]]
+text = "Kept alongside the processor characterisation: DPA Appendix 1 also incorporates SCC Module 1, \"Transfer controller to controller ... apply where Modal Processes Personal Data as a Controller\". That is a specific situation defined by the SCC annex (Modal and its Affiliates in non-adequacy approved third countries, Customer established in the EEA) and does not displace the processor characterisation for the service processing above."
+text_zh = "与 processor 定性并列保留：DPA Appendix 1 同时纳入 SCC Module 1「Transfer controller to controller … apply where Modal Processes Personal Data as a Controller」。这是 SCC 附录界定的特定场景（Modal 及其关联方位于未获充分性认定的第三国、客户设立于 EEA），不取代前述服务处理上的 processor 定性。"
+anchor = "modal-tos-dpa-scc-module-1-controller"
+
 [[product]]
 id = "enterprise"
 badge = "企业版"
@@ -264,22 +329,52 @@ text = "Same as top-level training. The difference on the enterprise tier is tha
 text_zh = "同顶层 training。企业档的差异在 §5.5.4 的例外「Customer's prior written consent」可通过 Service Order 或单独书面授权扩展——即企业档更容易出现「经书面同意可用于训练」的约定，但公开条款未披露任何默认开启的授权。"
 
 [product.zdr]
-mark = "yes"
-mode = "default"
-anchor = "modal-security-inference-endpoints-zdr"
+mark = "no"
+anchor = "modal-security-retention-inputs-outputs-7d"
 
 [[product.zdr.point]]
-text = "Consistent with the self-serve tiers: the payload path for Endpoints and Servers is zero retention by default, and Functions have no zero retention. No separate ZDR commitment text was found for the enterprise tier."
-text_zh = "与自助档一致：Endpoints/Servers 的 payload 路径默认零保留，Functions 无零保留。未发现企业档另有独立的 ZDR 承诺文本。"
+text = "Zero retention exists only on the Endpoints/Servers payload path and does not cover this tier as a whole: Function inputs and outputs are retained for up to 7 days (the security page table row \"Up to 7 days, then deleted\", and the section below it, \"Both are deleted within a maximum TTL of 7 days\"), and this tier still includes Functions. No separate ZDR commitment text was found for the enterprise tier."
+text_zh = "零保留只存在于 Endpoints/Servers 的 payload 路径，不覆盖整档：Functions 的输入输出有上限 7 天的留存（security 页表行「Up to 7 days, then deleted」，同页下一节「Both are deleted within a maximum TTL of 7 days」），而本档仍含 Functions。未发现企业档另有独立的 ZDR 承诺文本。"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.zdr.point]]
+text = "On the payload path the security page is explicit: request and response payloads for Server and Auto Endpoints are \"Not stored — proxied directly to your container\", and the Modal Inference endpoints section says those endpoints are zero data retention. Logs and metadata are not part of that path."
+text_zh = "payload 路径上 security 页明确：Server 与 Auto Endpoints 的请求响应 payload「Not stored — proxied directly to your container」，Modal Inference endpoints 节亦称其为零数据保留。日志与元数据不在该路径内。"
+anchor = "modal-security-retention-endpoint-payloads-not-stored"
 
 [product.retention]
-object = "mixed"
-basis = "undisclosed"
+days = 7
+object = "input_output"
+basis = "fixed_period"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.retention.point]]
+text = "Input and output content on the enterprise tier keeps the same period as the self-serve tiers: Function inputs and outputs are \"Up to 7 days, then deleted\", with the section below stating they are \"deleted within a maximum TTL of 7 days\"."
+text_zh = "企业档的输入输出正文期限与自助档相同：Functions 的输入输出「Up to 7 days, then deleted」，其下小节写明「deleted within a maximum TTL of 7 days」。"
+anchor = "modal-security-retention-inputs-outputs-7d"
+
+[[product.retention.point]]
+text = "The other objects are documented object by object and are not undisclosed: request and response payloads for Server and Auto Endpoints are \"Not stored — proxied directly to your container\"; app, function and container metadata is \"Stored for the lifetime of your account\"; Volumes and Images are \"Persistent until you delete them\"; memory snapshots 7 days after creation; filesystem and directory snapshots 30 days after creation (configurable); Dict entries 7 days after last read or write; Queue partitions have a configurable per-partition TTL (default 24 hours)."
+text_zh = "其余对象在文档里是逐项给了期限的，并非未公布：Server 与 Auto Endpoints 的请求响应 payload「Not stored — proxied directly to your container」；应用/函数/容器元数据「Stored for the lifetime of your account」；Volumes 与 Images「Persistent until you delete them」；内存快照 7 天；文件系统与目录快照 30 天（可配置）；Dict 条目 7 天；Queue 分区 TTL 可配置（默认 24 小时）。"
+
+[[product.retention.point]]
+text = "The one genuinely unquantified item on this tier is logs: app and container log retention is \"configurable on Enterprise\" and audit logs are \"Per Enterprise contract\", so both are set by contract with no public number — the security page's \"1 day on Starter, 30 days on Team\" figures belong to the lower plans."
+text_zh = "本档真正未量化的只有日志：应用/容器日志保留期「configurable on Enterprise」，审计日志「Per Enterprise contract」，两者都由合同约定、公开文档无数字——security 页的「1 day on Starter, 30 days on Team」是低档数字。"
 anchor = "modal-security-retention-logs-plan-dependent"
 
 [[product.retention.point]]
-text = "On the enterprise tier, app and container log retention is \"configurable on Enterprise\" and audit logs are \"Per Enterprise contract\" — both sit in the contract and the public documentation gives no numbers, so this is recorded as unspecified. The periods for the other objects are the same as on the self-serve tiers (Function inputs and outputs up to 7 days, payloads not written to disk, metadata for the lifetime of the account). In the BAA scenario there are further exclusions: Volumes v1, Images (not including Filesystem and Directory Snapshots), Memory Snapshots and user code fall outside the BAA commitment."
-text_zh = "企业档的应用/容器日志保留期「configurable on Enterprise」，审计日志「Per Enterprise contract」——两项都落在合同里，公开文档不给数字，故记 unspecified。其余对象的期限与自助档相同（函数输入输出 ≤7 天、payload 不落盘、元数据随账户存续）。BAA 场景下另有排除项：Volumes v1、Images（不含 Filesystem/Directory Snapshots）、Memory Snapshots 与用户代码不在 BAA 承诺范围内。"
+text = "In the BAA scenario there are further exclusions: Volumes v1, Images (not including Filesystem and Directory Snapshots), Memory Snapshots and user code fall outside the BAA commitment."
+text_zh = "BAA 场景下另有排除项：Volumes v1、Images（不含 Filesystem/Directory Snapshots）、Memory Snapshots 与用户代码不在 BAA 承诺范围内。"
+
+[[product.retention.point]]
+text = "The contract layer sets no ceiling on retention: DPA Schedule 2 states \"Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.\" The object-level periods published on the security page (7 days, 30 days, and so on) are documentation-layer disclosures, not a contractual maximum."
+text_zh = "合同层不设保留上限：DPA Schedule 2 写明「Modal retains data as long as the Modal has a need for its use, or to meet regulatory or contractual requirements. Once data is no longer needed, it is securely disposed of or archived.」。security 页公布的对象级期限（7 天、30 天等）是文档层披露，不是合同层上限。"
+anchor = "modal-tos-dpa-schedule-2-limited-retention"
+
+[[product.retention.point]]
+text = "Contract-layer carve-out that also touches training: §1.11 opens with \"Notwithstanding anything to the contrary\" and lets Modal \"collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter\". Service Metrics are defined as data used in an aggregate and/or permanently anonymized manner that does not identify an individual or Customer, with safeguards prohibiting re-identification, and they are not Customer Data — so the no-training and deletion promises are not absolute at the contract layer, but this carve-out does not reach Customer Data."
+text_zh = "同时涉及 training 的合同层例外：§1.11 以「Notwithstanding anything to the contrary」开头，允许 Modal「collect and use Service Metrics for its own business purposes during the term of this Agreement and thereafter」。Service Metrics 定义为以聚合和/或永久匿名方式使用、不识别个人或客户、并有禁止再识别保障的数据，且不含 Customer Data——故合同层的不训练与删除承诺并非绝对，但该例外不及于 Customer Data。"
+anchor = "modal-tos-1-11-service-metrics-carve-out"
 
 [product.processing_region]
 codes = ["selected", "US"]
@@ -296,6 +391,11 @@ anchor = "modal-tos-dpa-2-3-1-service-provider"
 [[product.role.point]]
 text = "Same as top-level role. The enterprise tier also has a BAA path (security page: Modal is the business associate where you are processing PHI on Modal, and the BAA is offered on Enterprise), consistent with the processor characterization."
 text_zh = "同顶层 role。企业档另有 BAA 路径（security 页：Modal 在 PHI 场景下自认 business associate，BAA 在企业版提供），与 processor 定性一致。"
+
+[[product.role.point]]
+text = "Kept alongside the processor characterisation: DPA Appendix 1 also incorporates SCC Module 1, \"Transfer controller to controller ... apply where Modal Processes Personal Data as a Controller\". That is a specific situation defined by the SCC annex (Modal and its Affiliates in non-adequacy approved third countries, Customer established in the EEA) and does not displace the processor characterisation for the service processing above."
+text_zh = "与 processor 定性并列保留：DPA Appendix 1 同时纳入 SCC Module 1「Transfer controller to controller … apply where Modal Processes Personal Data as a Controller」。这是 SCC 附录界定的特定场景（Modal 及其关联方位于未获充分性认定的第三国、客户设立于 EEA），不取代前述服务处理上的 processor 定性。"
+anchor = "modal-tos-dpa-scc-module-1-controller"
 
 [[anchor]]
 id = "modal-security-data-privacy-never-access"
@@ -430,6 +530,20 @@ suffix = """
 
 
 Modal’s services can be used in a HIPAA compliant manner. """
+
+[[anchor]]
+id = "modal-tos-1-2-no-fee-use-differing-terms"
+source_id = "b702c00c0249cc5e"
+topics = ["training", "retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+the No-Fee Use is provided without any indemnification, support, warranties or representation of any kind. Further, """
+exact = "No-Fee Use may be subject to certain additional restrictions, limitations and differing terms all as specified in the corresponding No-Fee Use Limitations."
+suffix = """
+
+
+    3.   **Restrictions**. Customer will use the Service only in accordance"""
 
 [[anchor]]
 id = "modal-tos-1-8-customer-owns-data-limited-license"
@@ -594,6 +708,21 @@ f any.
     1.   Consent. """
 exact = "Modal may not transfer Personal Data to, or process such data in, a location outside of the European Economic Area or the UK without Customer's prior written consent"
 suffix = ", except in compliance with Section 10.2 below (in each case"
+
+[[anchor]]
+id = "modal-tos-dpa-scc-module-1-controller"
+source_id = "b702c00c0249cc5e"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+The parties agree that the Standard Contractual Clauses are hereby incorporated by reference into this DPA as follows:
+
+    1.   """
+exact = "Module 1: Transfer controller to controller, Clauses 1 to 6, 8 and 10 to 18 apply where Modal Processes Personal Data as a Controller, Modal and its relevant Affiliates are located in non-adequacy approved third countries, and Customer and its relevant Affiliates are established in the EEA."
+suffix = """
+
+    2.   Module 2: Transfer controller to processor,"""
 
 [[anchor]]
 id = "modal-tos-dpa-scc-module-2-processor"

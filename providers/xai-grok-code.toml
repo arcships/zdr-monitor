@@ -30,18 +30,21 @@ note = "Grok Build 官方发布页:确认它是终端编码 agent，面向 Super
 
 [[source]]
 url = "https://x.ai/build"
+fetch = "jina"
 channel = "developer_data"
 tier = "core"
 note = "Grok Build 当前产品页:确认编码 agent 可免费试用，并指向 SuperGrok 升级；用于区分 Free 与个人订阅 plan_level。"
 
 [[source]]
 url = "https://x.ai/legal/faq"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Grok.com/SuperGrok 消费档权威 FAQ:训练 opt-out、Private Chat、删除后 30 天、常规历史保留及消费档适用范围。Grok Build 的订阅登录路径受消费档姿态约束。"
 
 [[source]]
 url = "https://x.ai/legal/privacy-policy"
+fetch = "jina"
 channel = "consumer_privacy"
 tier = "core"
 note = "SpaceXAI 消费隐私政策:覆盖服务改进/训练、保留、全球处理与 controller 身份；适用于 SuperGrok 订阅登录路径，不覆盖 API-key 企业路径。"
@@ -60,6 +63,16 @@ anchor = "grok-build-retain-improve"
 [[product.training.point]]
 text_zh = "SuperGrok 账号登录的 Grok Build CLI 会显示是否允许保留数据以改进产品和模型的选择，并可之后修改；未排除模型训练，因此按 training=no。Grok.com Build 在 Improve the model 开启时也可能用于产品与模型改进。"
 
+[[product.training.point]]
+text = "The opt-out has a disclosed exception: 『Please note that, even if you opt out of model training, when you subsequently decide to voluntarily provide feedback, that feedback may be used for training purposes.』 Feedback submitted on your own initiative after opting out still reaches training; the Privacy Policy keeps a separate Feedback Data layer for it."
+text_zh = "退出训练有明示例外：『Please note that, even if you opt out of model training, when you subsequently decide to voluntarily provide feedback, that feedback may be used for training purposes.』——已退出训练后主动提交的 feedback 仍可能用于训练，隐私政策另设 Feedback Data 一层。"
+anchor = "xai-consumer-optout-feedback-exception"
+
+[[product.training.point]]
+text = "Same direction as mark=no: 『A limited number of our authorized personnel may review your conversations with Grok for specific business purposes, including improving model performance, investigating security incidents and potential misuse of our services, and complying with our legal obligations.』 Human review for improving model performance is kept for this tier."
+text_zh = "与 mark=no 同向的正面证据：『A limited number of our authorized personnel may review your conversations with Grok for specific business purposes, including improving model performance, investigating security incidents and potential misuse of our services, and complying with our legal obligations.』——消费档明确保留授权人员查看对话的权限，理由之一即改进模型表现。"
+anchor = "xai-consumer-human-review"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
@@ -67,27 +80,76 @@ searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/b
 [[product.zdr.point]]
 text_zh = "订阅账号登录路径未承诺 ZDR。文档中的 ZDR 是 API team 级能力；如改用 XAI_API_KEY，则属于 xAI API 档，而非 SuperGrok 订阅链路。"
 
+[[product.zdr.point]]
+text = "The only sentence in the registered sources that speaks to zero retention for this product line belongs to the API-team path and presupposes ZDR already enabled: 『If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained.』 It does not establish a zero-retention route for the subscription login path, which is why this tier stays undisclosed rather than recorded as a ZDR option."
+text_zh = "已登记来源里唯一谈本产品线零保留的句子，前提是「ZDR 已启用」且属 API 团队链路：『If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained.』——它没有为订阅登录路径建立零保留途径，故本档按未披露记，不当作本档可用的 ZDR 选项。"
+anchor = "xai-grok-build-zdr-cli"
+
+[[product.zdr.point]]
+text = "ZDR is defined as an API-team capability, not a subscription setting: 『Applied at a team level: If enabled, ZDR is team-wide. There is no ability to enable ZDR for specific API keys.』 The switch lives in the xAI Console, so a SuperGrok account has no equivalent control."
+text_zh = "ZDR 在文档里是 API 团队级能力，不是订阅设置：『Applied at a team level: If enabled, ZDR is team-wide. There is no ability to enable ZDR for specific API keys.』——开关在 xAI Console，SuperGrok 账号没有对应入口。"
+anchor = "xai-zdr-team-level"
+
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
 anchor = "grok-build-code-retention-toggle"
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
 
 [[product.retention.point]]
 text_zh = "非 ZDR 的 CLI 可在 /privacy 或 /settings 关闭代码数据留存，但官方未披露开关默认值及关闭前/开启时的期限。Grok.com Build 为跨会话功能保留 chats/build sessions，且当前不可用 Private Chat；代码索引与服务端缓存期限同样未披露。"
 
+[[product.retention.point]]
+text = "The one period disclosed for consumer content is a trigger-based deletion window, not a fixed retention period: 『Also, you can delete your information when you wish. SpaceXAI retains your information for as long as reasonably necessary for the purposes described in our Privacy Policy. If you delete conversations from your account or if you use Private Chat, conversations will be removed from our systems within 30 days, unless they have been de-identified or pseudoanonymized and disassociated from your account or we have to retain them for safety, security, or legal reasons.』 Object = consumer account conversations (input/output); context = after deleting conversations or using Private Chat; type = upper bound on deletion, with de-identified and safety/legal carve-outs. It says nothing about the CLI's code data, whose default and period stay unpublished — hence basis=undisclosed."
+text_zh = "消费档内容唯一披露的期限是触发式删除窗口，不是固定保留期：『Also, you can delete your information when you wish. SpaceXAI retains your information for as long as reasonably necessary for the purposes described in our Privacy Policy. If you delete conversations from your account or if you use Private Chat, conversations will be removed from our systems within 30 days, unless they have been de-identified or pseudoanonymized and disassociated from your account or we have to retain them for safety, security, or legal reasons.』——对象＝消费账号内的会话正文（输入输出）；语境＝删除会话或使用 Private Chat 之后；期限类型＝删除上限，例外为去标识/化名并与账号解绑，或安全、法律原因必须保留。该句不涉及 CLI 的 code data，其默认值与期限仍未披露，故 basis 记 undisclosed。"
+anchor = "xai-consumer-retention-window"
+
+[[product.retention.point]]
+text = "The Privacy Policy states the same window: 『Further, if you choose to delete any or all of your conversations or if you choose to delete your account, we will delete the data within 30 days unless it is necessary to retain the data for legal, compliance, or safety purposes.』"
+text_zh = "隐私政策写着同一个删除窗口：『Further, if you choose to delete any or all of your conversations or if you choose to delete your account, we will delete the data within 30 days unless it is necessary to retain the data for legal, compliance, or safety purposes.』"
+anchor = "xai-privacy-retention-window"
+
+[[product.retention.point]]
+text = "The Private Chat window has limited reach for this product line: 『Unlike for regular chat, Private Chats on grok.com and mobile are not available for Build mode currently to ensure publishing and building apps across multiple sessions is possible.』 Build mode chats and build sessions are retained for product functionality across sessions instead."
+text_zh = "Private Chat 窗口对本产品线的适用范围有限：『Unlike for regular chat, Private Chats on grok.com and mobile are not available for Build mode currently to ensure publishing and building apps across multiple sessions is possible.』——Build mode 的 chats 与 build sessions 是为跨会话产品功能保留的，该 30 天窗口的适用语境因此收窄。"
+anchor = "xai-build-mode-no-private-chat"
+
+[[product.retention.point]]
+text = "The API-key path is the only place with a stated default period: 『By default, all API requests and responses are stored on our servers (encrypted at rest) for 30 days for auditing purposes in the event of suspected abuse or misuse. xAI does not train on this data, and it is automatically deleted after 30 days.』 That 30-day audit retention is the pay-as-you-go API tier's default (and does not apply to ZDR-enabled teams), so it cannot be used to fill in the subscription login path's period — basis stays undisclosed for this tier."
+text_zh = "按量 API 档是唯一给出默认期限的地方：『By default, all API requests and responses are stored on our servers (encrypted at rest) for 30 days for auditing purposes in the event of suspected abuse or misuse. xAI does not train on this data, and it is automatically deleted after 30 days.』——该 30 天审计保留是 API 档的默认口径（ZDR 团队不适用），不能用来填订阅登录路径的期限，故本档 basis 仍记 undisclosed。"
+anchor = "xai-api-default-30d-retention"
+
 [product.processing_region]
-codes = ["GLOBAL"]
-anchor = "xai-consumer-us-company"
+codes = ["unknown"]
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
 
 [[product.processing_region.point]]
-text_zh = "消费订阅路径只披露 SpaceXAI 是美国公司，未承诺处理区域或数据驻留；API 的 US endpoint 保证不可外推。"
+text = "The consumer documents state no processing region: the Consumer FAQ and the Privacy Policy describe collection, use and disclosure without naming a country or region where processing happens, and the operator's US registration says nothing about processing location. No region and no residency commitment appear in the registered sources for this tier."
+text_zh = "消费档文档没有处理地表述：消费 FAQ 与隐私政策只讲收集、使用与披露，未给出处理国家或区域；运营主体注册在美国与「数据在哪里处理」是两件事。本档在已登记来源里既无区域、也无驻留承诺。"
+
+[[product.processing_region.point]]
+text = "The only processing-region clause in the registered sources belongs to the pay-as-you-go API tier, and it is an endpoint choice rather than a blanket guarantee: 『The default endpoint, `https://api.x.ai`, does not guarantee a processing region. To keep API request handling, model inference, moderation, and retained request data in the United States, use the US regional endpoint, `https://us.api.x.ai/v1`』. A subscription login path makes no such endpoint choice, so this cannot be read as a region commitment for this tier."
+text_zh = "已登记来源里唯一的处理地条款属按量 API 档，而且是端点选择、不是普遍保证：『The default endpoint, `https://api.x.ai`, does not guarantee a processing region. To keep API request handling, model inference, moderation, and retained request data in the United States, use the US regional endpoint, `https://us.api.x.ai/v1`』——订阅登录路径不做这种端点选择，故不能读成本档的区域承诺。"
+anchor = "xai-api-region-endpoint"
+
+[[product.processing_region.point]]
+text = "And that API guarantee is itself partial: 『Files, Collections, server-side tools, and the network path from your systems to the endpoint are outside the guarantee.』"
+text_zh = "而且那条 API 保证本身是部分的：『Files, Collections, server-side tools, and the network path from your systems to the endpoint are outside the guarantee.』——Files、Collections、服务端工具与网络链路都不在该保证范围内。"
+anchor = "xai-api-region-guarantee-exclusions"
 
 [product.role]
 kind = "controller"
-anchor = "xai-consumer-us-company"
+anchor = "xai-consumer-role-scope"
 
 [[product.role.point]]
-text_zh = "消费 FAQ 将 SuperGrok/Grok.com 定义为面向个人用户的服务，由 SpaceXAI LLC 提供；未见将 SpaceXAI 定义为受托 processor 的条款，按消费端 controller 记录。"
+text = "No consumer document names the role: neither the Consumer FAQ nor the Privacy Policy uses controller or processor for SpaceXAI's own position. The Privacy Policy's own purpose list treats training SpaceXAI's models as SpaceXAI's purpose (『to train our models』), and its reverse delimitation keeps the on-behalf-of-customer path out of this relationship, so the tier is recorded as controller on that scope reading — there is no processor clause to rely on here."
+text_zh = "消费档文档没有给角色定性：消费 FAQ 与隐私政策都没有用 controller / processor 描述 SpaceXAI 自身。隐私政策把自己的目的清单写成含「to train our models」，并用反向界定把「代客处理」路径排除在本关系之外，故按范围推断记独立控制方；本档没有可依赖的受托处理条款。"
+anchor = "xai-consumer-own-purpose-training"
+
+[[product.role.point]]
+text = "Tier attribution: the Consumer FAQ's own scope is 『This page is designed to address questions from individual users of Grok who use the Grok mobile app (iOS or Android) or the Grok.com website.』 The FAQ never names SuperGrok — it only separates limited free access from paid subscription plans. The SuperGrok attribution for Grok Build comes from the official announcement page, which is registered as a source in this file but has no snapshot yet and is therefore not citable."
+text_zh = "档位归属：消费 FAQ 自述适用范围是使用 Grok 移动端或 grok.com 的个人用户——『This page is designed to address questions from individual users of Grok who use the Grok mobile app (iOS or Android) or the Grok.com website.』原文全文没有出现 SuperGrok，只区分有限免费入口与付费订阅计划。Grok Build 的 SuperGrok 档位归属只见于官方发布页，该页已登记为本文件的 [[source]] 但 snapshots/ 里还没有快照，故不作为引文依据。"
+anchor = "xai-consumer-faq-scope"
 
 [[product]]
 id = "free"
@@ -100,22 +162,90 @@ mark = "no"
 mode = "opt_out"
 anchor = "grok-build-retain-improve"
 
+[[product.training.point]]
+text = "This tier has no training clause of its own: free access and paid subscriptions are covered by the same consumer documents, and the opt-out lives in the grok.com / mobile data controls rather than in any free-tier text. No official text states a separate training posture for free accounts."
+text_zh = "免费档没有自己的训练条款：免费入口与付费订阅由同一套消费档文档覆盖，退出开关在 grok.com／移动端的 data controls，不在任何免费档专属文本里；官方没有给免费账号单独的（哪怕是更宽松的）训练口径。"
+
+[[product.training.point]]
+text = "Disclosed exception to the opt-out: 『Please note that, even if you opt out of model training, when you subsequently decide to voluntarily provide feedback, that feedback may be used for training purposes.』"
+text_zh = "退出训练的明示例外：『Please note that, even if you opt out of model training, when you subsequently decide to voluntarily provide feedback, that feedback may be used for training purposes.』——退出后主动提交的 feedback 仍可能用于训练。"
+anchor = "xai-consumer-optout-feedback-exception"
+
+[[product.training.point]]
+text = "Same direction as mark=no: 『A limited number of our authorized personnel may review your conversations with Grok for specific business purposes, including improving model performance, investigating security incidents and potential misuse of our services, and complying with our legal obligations.』"
+text_zh = "与 mark=no 同向：『A limited number of our authorized personnel may review your conversations with Grok for specific business purposes, including improving model performance, investigating security incidents and potential misuse of our services, and complying with our legal obligations.』——消费档保留人工查看对话的权限，理由之一即改进模型表现。"
+anchor = "xai-consumer-human-review"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
+
+[[product.zdr.point]]
+text = "The free account runs on the same consumer login path as the individual subscription tier, and the consumer documents offer no zero-retention option for it; switching to XAI_API_KEY would put the call in the xAI API tier instead, which is outside this product block."
+text_zh = "免费账号与个人订阅档走同一条消费登录路径，消费档文档没有给本档任何零保留选项；如改用 XAI_API_KEY，则属于 xAI API 档，不在本档范围内。"
+
+[[product.zdr.point]]
+text = "The one ZDR sentence about Grok Build belongs to the API-team path and presupposes ZDR already enabled, so it covers no part of this tier: 『If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained.』"
+text_zh = "文档里唯一谈 Grok Build 零保留的句子以「ZDR 已启用」为前提、属 API 团队链路，不覆盖本档：『If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained.』"
+anchor = "xai-grok-build-zdr-cli"
+
+[[product.zdr.point]]
+text = "ZDR is an API-team capability, not a subscription setting: 『Applied at a team level: If enabled, ZDR is team-wide. There is no ability to enable ZDR for specific API keys.』"
+text_zh = "ZDR 是 API 团队级能力，不是订阅设置：『Applied at a team level: If enabled, ZDR is team-wide. There is no ability to enable ZDR for specific API keys.』——开关在 xAI Console，免费账号没有对应入口。"
+anchor = "xai-zdr-team-level"
 
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
 anchor = "grok-build-code-retention-toggle"
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
+
+[[product.retention.point]]
+text = "No free-tier text sets a period: this tier is covered by the same consumer documents as the individual subscription tier, and the CLI's non-ZDR code data retention can be switched off in /privacy or /settings without the default value or the period ever being published."
+text_zh = "免费档没有自己的期限条款：本档与个人订阅档由同一套消费档文档覆盖；非 ZDR 的 CLI 代码数据留存可在 /privacy 或 /settings 关闭，但开关默认值与期限官方都没公布。"
+anchor = "grok-build-code-retention-toggle"
+
+[[product.retention.point]]
+text = "The one period disclosed for consumer content is a trigger-based deletion window, not a fixed retention period: 『Also, you can delete your information when you wish. SpaceXAI retains your information for as long as reasonably necessary for the purposes described in our Privacy Policy. If you delete conversations from your account or if you use Private Chat, conversations will be removed from our systems within 30 days, unless they have been de-identified or pseudoanonymized and disassociated from your account or we have to retain them for safety, security, or legal reasons.』 Object = account conversations (input/output); context = after deleting conversations or using Private Chat; type = upper bound on deletion, with de-identified and safety/legal carve-outs."
+text_zh = "消费档内容唯一披露的期限是触发式删除窗口，不是固定保留期：『Also, you can delete your information when you wish. SpaceXAI retains your information for as long as reasonably necessary for the purposes described in our Privacy Policy. If you delete conversations from your account or if you use Private Chat, conversations will be removed from our systems within 30 days, unless they have been de-identified or pseudoanonymized and disassociated from your account or we have to retain them for safety, security, or legal reasons.』——对象＝账号内的会话正文（输入输出）；语境＝删除会话或使用 Private Chat 之后；期限类型＝删除上限，例外为去标识/化名并与账号解绑，或安全、法律原因必须保留。"
+anchor = "xai-consumer-retention-window"
+
+[[product.retention.point]]
+text = "The Privacy Policy states the same window: 『Further, if you choose to delete any or all of your conversations or if you choose to delete your account, we will delete the data within 30 days unless it is necessary to retain the data for legal, compliance, or safety purposes.』"
+text_zh = "隐私政策写着同一个删除窗口：『Further, if you choose to delete any or all of your conversations or if you choose to delete your account, we will delete the data within 30 days unless it is necessary to retain the data for legal, compliance, or safety purposes.』"
+anchor = "xai-privacy-retention-window"
+
+[[product.retention.point]]
+text = "The Private Chat window has limited reach for this product line: 『Unlike for regular chat, Private Chats on grok.com and mobile are not available for Build mode currently to ensure publishing and building apps across multiple sessions is possible.』"
+text_zh = "Private Chat 窗口对本产品线的适用范围有限：『Unlike for regular chat, Private Chats on grok.com and mobile are not available for Build mode currently to ensure publishing and building apps across multiple sessions is possible.』——Build mode 的 chats 与 build sessions 为跨会话产品功能保留，该 30 天窗口的适用语境因此收窄。"
+anchor = "xai-build-mode-no-private-chat"
+
+[[product.retention.point]]
+text = "The API-key path is the only place with a stated default period: 『By default, all API requests and responses are stored on our servers (encrypted at rest) for 30 days for auditing purposes in the event of suspected abuse or misuse. xAI does not train on this data, and it is automatically deleted after 30 days.』 That 30-day audit retention belongs to the pay-as-you-go API tier, not to a free account, so basis stays undisclosed for this tier."
+text_zh = "按量 API 档是唯一给出默认期限的地方：『By default, all API requests and responses are stored on our servers (encrypted at rest) for 30 days for auditing purposes in the event of suspected abuse or misuse. xAI does not train on this data, and it is automatically deleted after 30 days.』——该 30 天审计保留属 API 档，不是免费账号的口径，故本档 basis 仍记 undisclosed。"
+anchor = "xai-api-default-30d-retention"
 
 [product.processing_region]
-codes = ["GLOBAL"]
-anchor = "xai-consumer-us-company"
+codes = ["unknown"]
+searched = ["https://docs.x.ai/developers/faq/security.md", "https://docs.x.ai/build/overview.md", "https://x.ai/legal/faq", "https://x.ai/legal/privacy-policy"]
+
+[[product.processing_region.point]]
+text = "The free entry point has even less to go on than a subscription: the Consumer FAQ and the Privacy Policy name no processing region, and no clause in the registered sources for this tier speaks to where processing happens."
+text_zh = "免费入口比订阅档更没有可依据的处理地表述：消费 FAQ 与隐私政策都未给处理区域，本档在已登记来源里没有任何谈处理地的条款。"
+
+[[product.processing_region.point]]
+text = "The only processing-region clause in the registered sources belongs to the pay-as-you-go API tier, and it is an endpoint choice rather than a blanket guarantee: 『The default endpoint, `https://api.x.ai`, does not guarantee a processing region. To keep API request handling, model inference, moderation, and retained request data in the United States, use the US regional endpoint, `https://us.api.x.ai/v1`』."
+text_zh = "已登记来源里唯一的处理地条款属按量 API 档，而且是端点选择、不是普遍保证：『The default endpoint, `https://api.x.ai`, does not guarantee a processing region. To keep API request handling, model inference, moderation, and retained request data in the United States, use the US regional endpoint, `https://us.api.x.ai/v1`』——免费档连订阅关系都没有，更无可外推的驻留依据。"
+anchor = "xai-api-region-endpoint"
 
 [product.role]
 kind = "controller"
-anchor = "xai-consumer-us-company"
+anchor = "xai-consumer-role-scope"
+
+[[product.role.point]]
+text = "This tier shares the consumer documents with the individual subscription tier and has no role clause of its own: the Consumer FAQ and the Privacy Policy never use controller or processor for SpaceXAI's own position, and the reverse delimitation 『This Privacy Policy does not apply to data that we process on behalf of customers of our business offerings, such as the SpaceXAI API』 keeps the on-behalf-of-customer path out of this relationship. Recorded as controller on that scope reading, not on a self-designation."
+text_zh = "本档与个人订阅档共用消费档文档、没有自己的角色条款：消费 FAQ 与隐私政策都没有用 controller / processor 描述 SpaceXAI 自身，反向界定『This Privacy Policy does not apply to data that we process on behalf of customers of our business offerings, such as the SpaceXAI API』把代客处理路径排除在本关系之外。据此按范围推断记独立控制方，而非厂商自我定性。"
+anchor = "xai-consumer-own-purpose-training"
 
 [[anchor]]
 id = "grok-build-code-retention-toggle"
@@ -149,14 +279,105 @@ suffix = """
 If you are using the Build mode"""
 
 [[anchor]]
-id = "xai-consumer-us-company"
-source_id = "ec263a891d8292eb"
-topics = ["processing_region", "role"]
+id = "xai-api-region-endpoint"
+source_id = "565f7c372b670a68"
+topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-## [**Who is SpaceXAI?**](https://x.ai/legal/faq#who-is-spacexai)
+exact = "The default endpoint, `https://api.x.ai`, does not guarantee a processing region. To keep API request handling, model inference, moderation, and retained request data in the United States, use the US regional endpoint, `https://us.api.x.ai/v1`."
 
-"""
-exact = "SpaceXAI LLC (\"**SpaceXAI**\") is a United States-based company"
-suffix = " working on building artificial intelligence tools to accel"
+[[anchor]]
+id = "xai-api-region-guarantee-exclusions"
+source_id = "565f7c372b670a68"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Files, Collections, server-side tools, and the network path from your systems to the endpoint are outside the guarantee."
+
+[[anchor]]
+id = "xai-api-default-30d-retention"
+source_id = "565f7c372b670a68"
+topics = ["retention", "training"]
+
+[anchor.selector]
+exact = "By default, all API requests and responses are stored on our servers (encrypted at rest) for 30 days for auditing purposes in the event of suspected abuse or misuse. xAI does not train on this data, and it is automatically deleted after 30 days."
+
+[[anchor]]
+id = "xai-build-mode-no-private-chat"
+source_id = "565f7c372b670a68"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Unlike for regular chat, Private Chats on grok.com and mobile are not available for Build mode currently to ensure publishing and building apps across multiple sessions is possible."
+
+[[anchor]]
+id = "xai-grok-build-zdr-cli"
+source_id = "565f7c372b670a68"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "If you are using the Grok Build CLI with ZDR enabled, no trace or code data is retained."
+
+[[anchor]]
+id = "xai-zdr-team-level"
+source_id = "565f7c372b670a68"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "Applied at a team level: If enabled, ZDR is team-wide. There is no ability to enable ZDR for specific API keys."
+
+[[anchor]]
+id = "xai-consumer-optout-feedback-exception"
+source_id = "ec263a891d8292eb"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Please note that, even if you opt out of model training, when you subsequently decide to voluntarily provide feedback, that feedback may be used for training purposes."
+
+[[anchor]]
+id = "xai-consumer-human-review"
+source_id = "ec263a891d8292eb"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+exact = "A limited number of our authorized personnel may review your conversations with Grok for specific business purposes, including improving model performance, investigating security incidents and potential misuse of our services, and complying with our legal obligations."
+
+[[anchor]]
+id = "xai-consumer-retention-window"
+source_id = "ec263a891d8292eb"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Also, you can delete your information when you wish. SpaceXAI retains your information for as long as reasonably necessary for the purposes described in our Privacy Policy. If you delete conversations from your account or if you use Private Chat, conversations will be removed from our systems within 30 days, unless they have been de-identified or pseudoanonymized and disassociated from your account or we have to retain them for safety, security, or legal reasons."
+
+[[anchor]]
+id = "xai-consumer-faq-scope"
+source_id = "ec263a891d8292eb"
+topics = ["role"]
+
+[anchor.selector]
+exact = "This page is designed to address questions from individual users of Grok who use the Grok mobile app (iOS or Android) or the Grok.com website."
+
+[[anchor]]
+id = "xai-consumer-role-scope"
+source_id = "3576d0a9f8ab1254"
+topics = ["role"]
+
+[anchor.selector]
+exact = "This Privacy Policy does not apply to data that we process on behalf of customers of our business offerings, such as the SpaceXAI API"
+
+[[anchor]]
+id = "xai-consumer-own-purpose-training"
+source_id = "3576d0a9f8ab1254"
+topics = ["role", "training"]
+
+[anchor.selector]
+exact = "To develop and improve our Service and to conduct research: For example to develop new product features, to train our models, to identify usage trends, to operate and expand our business activities, to identify new customers, and for data analysis."
+
+[[anchor]]
+id = "xai-privacy-retention-window"
+source_id = "3576d0a9f8ab1254"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Further, if you choose to delete any or all of your conversations or if you choose to delete your account, we will delete the data within 30 days unless it is necessary to retain the data for legal, compliance, or safety purposes."

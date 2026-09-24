@@ -63,22 +63,138 @@ mark = "yes"
 mode = "default"
 anchor = "api-training-not-available-and-not-trained"
 
+[[product.training.point]]
+text = "Prompts and completions are not available to other customers or to OpenAI or other providers of Models sold by Azure, and are not used by those providers to improve their models or services."
+text_zh = "输入输出不对其他客户、OpenAI 及其他模型提供方开放,也不被它们用于改进模型或服务"
+
+[[product.training.point]]
+text = "No prompts or generated content are stored in the content classifier models, and prompts and outputs are not used to train any generative AI foundation models without your permission or instruction."
+text_zh = "内容分类器模型不存储提示与生成内容;未经许可或指示不用于训练生成式 AI 基础模型"
+anchor = "api-training-guardrails-not-trained"
+
+[[product.training.point]]
+text = "Scope limit: Azure Preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring."
+text_zh = "范围限定:Azure 预览功能(含预览期的 Models sold by Azure)可能适用不同的隐私做法,滥用监测方面亦然"
+anchor = "api-preview-features-different-privacy"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "api-zdr-modified-abuse-monitoring"
 
+[[product.zdr.point]]
+text = "Zero retention is by approval, not by default: only once the customer is approved for modified abuse monitoring is the data storage and human review process not performed; automated review may still be conducted."
+text_zh = "零保留需获批而非默认:只有获批 modified abuse monitoring 后才不进行该数据存储与人工复核,自动审核仍可能进行"
+
+[[product.zdr.point]]
+text = "Customers can verify the switch: the \"ContentLogging\" attribute appears as \"false\" only if data storage for abuse monitoring is turned off."
+text_zh = "可自助核验开关:只有滥用监测的数据存储确实关闭时,\"ContentLogging\" 属性才会显示为 \"false\""
+anchor = "api-zdr-contentlogging-verification"
+
+[[product.zdr.point]]
+text = "Scope limit: preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring."
+text_zh = "范围限定:预览功能(含预览期的 Models sold by Azure)可能适用不同的隐私做法,滥用监测方面亦然"
+anchor = "api-preview-features-different-privacy"
+
 [product.retention]
 object = "mixed"
-basis = "none"
+basis = "as_needed"
+anchor = "api-retention-abuse-monitoring-store"
+
+[[product.retention.point]]
+text = "Default context: prompts and completions flagged by abuse monitoring are stored in the abuse monitoring data store for human review (logically separated by customer resource, one store per geography); only customers approved for modified abuse monitoring skip that storage and human review."
+text_zh = "默认语境:被滥用监测标记的提示与补全会存入 abuse monitoring 数据存储等待人工复核(按客户资源逻辑隔离,每个 geography 一个存储);只有获批 modified abuse monitoring 的客户才不做这一存储与人工复核"
+
+[[product.retention.point]]
+text = "The models are stateless: no prompts or completions are stored in the model. This describes the model itself, not the service layer around it."
+text_zh = "模型本身无状态、不把提示与补全存进模型——这只覆盖模型内部,不代表服务层不留存"
 anchor = "api-retention-models-stateless"
+
+[[product.retention.point]]
+text = "Stateful features (Responses API, Assistants Threads, Stored completions, uploaded files and vector stores) keep data at rest in the customer's Foundry resource, within the same geography as the resource, encrypted, and the customer can delete it at any time."
+text_zh = "有状态功能(Responses API、Assistants Threads、Stored completions、上传文件与向量存储)的数据静态存放于客户租户内同 geography 的 Foundry 资源,加密且客户可随时删除"
+anchor = "api-retention-stateful-at-rest"
+
+[[product.retention.point]]
+text = "Batch processing is a Global deployment type: data stored at rest remains in the designated Azure geography until processing capacity becomes available, and processing may occur in any geography where the model is deployed."
+text_zh = "Batch 属 Global 部署类型:静态数据留在指定 geography 直到有处理能力,处理可能发生在模型已部署的任意 geography"
+anchor = "api-retention-batch-global"
+
+[[product.retention.point]]
+text = "After expiration or termination of the subscription: Customer Data that remains stored in Online Services is kept in a limited function account for 90 days so the customer may extract it, then deleted within a further 90 days."
+text_zh = "订阅到期或终止后:仍存于 Online Services 的 Customer Data 在受限功能账户中保留 90 天供取回,随后 90 天内删除"
+anchor = "retention-90d-limited-function-account"
+
+[[product.retention.point]]
+text = "Trigger for stateful resources: a service configuration or custom model that has been inactive (90 days without calls, unmodified with no current key, customer not signed in) may at Microsoft's discretion be treated as an Online Service whose subscription has expired."
+text_zh = "有状态资源的触发条件:非活跃的服务配置或自定义模型(90 天无调用、未修改且无有效密钥、客户未登录)可被 Microsoft 视为订阅已过期的 Online Service"
+anchor = "contract-inactive-config-custom-model"
+
+[[product.retention.point]]
+text = "Scope limit: Azure Preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring."
+text_zh = "范围限定:Azure 预览功能(含预览期的 Models sold by Azure)可能适用不同的隐私做法,滥用监测方面亦然"
+anchor = "api-preview-features-different-privacy"
 
 [product.processing_region]
 codes = ["selected"]
+anchor = "api-region-between-regions-in-geography"
+
+[[product.processing_region.point]]
+text = "Standard / regional deployments: prompts and responses are processed within the customer-specified geography, but may be processed between regions within that geography for operational purposes (performance and capacity management)."
+text_zh = "Standard / Regional 部署:输入输出在客户指定的 geography 内处理,但出于性能与容量管理等运营目的可在该 geography 内跨区域处理"
+
+[[product.processing_region.point]]
+text = "Scope limit: the Geo storage commitment applies only to the Core Online Services in the table, excluding any Previews."
+text_zh = "范围限定:Geo 静态存储承诺只覆盖表内的 Core Online Services,不含任何 Preview"
+anchor = "contract-core-online-services-excludes-previews"
+
+[[product.processing_region.point]]
+text = "Global deployment type: prompts and responses may be processed in any geography where the relevant model sold by Azure is deployed."
+text_zh = "Global 部署类型:输入输出可在该模型已部署的任意 geography 处理"
+anchor = "api-region-global-any-geography"
+
+[[product.processing_region.point]]
+text = "DataZone deployment type: processing happens within the specified data zone; for both Global and DataZone, data stored at rest (including the abuse monitoring data store) is stored in the customer-designated geography."
+text_zh = "DataZone 部署类型:在指定 data zone 内处理;Global 与 DataZone 的静态数据(含 abuse monitoring 数据存储)都存于客户指定的 geography"
+anchor = "api-region-global-datazone-at-rest"
+
+[[product.processing_region.point]]
+text = "Batch is a Global deployment type: data at rest stays in the designated geography until capacity becomes available, and processing may occur in any geography."
+text_zh = "Batch 属 Global 类型:静态数据留在指定 geography 直到有处理能力,处理可在任意 geography"
+anchor = "api-retention-batch-global"
+
+[[product.processing_region.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry, and Customer Data will flow outside the customer's compliance and Geo boundary."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,且 Customer Data 会流出客户的合规与 Geo 边界"
+anchor = "contract-grounding-with-bing"
+
+[[product.processing_region.point]]
+text = "Contract exception: certain services may not enable the customer to configure deployment in a particular Geo or outside the United States, and may store backups in other locations."
+text_zh = "合同层例外:部分服务不允许客户配置到特定 Geo 或美国以外,且可能把备份存在其他地点"
+anchor = "contract-geo-at-rest"
+
+[[product.processing_region.point]]
+text = "Scope limit: Preview Data may be transferred to, and stored and processed in, the United States or any other country in which Microsoft or its subprocessors operate; Location of Customer Data does not apply to Previews."
+text_zh = "范围限定:Preview Data 可传输、存储和处理于美国或 Microsoft 及其次级处理方运营的任意国家,Location of Customer Data 不适用于预览功能"
+anchor = "region-preview-data-not-covered"
 
 [product.role]
 kind = "processor"
 anchor = "role-customer-controller-microsoft-processor"
+
+[[product.role.point]]
+text = "Under the DPA the customer is the controller of Personal Data and Microsoft is the processor (subprocessor when the customer itself acts as a processor)."
+text_zh = "DPA 约定:客户是 Personal Data 的控制者,Microsoft 是受托处理方(客户自身为处理方时 Microsoft 为次级受托)"
+
+[[product.role.point]]
+text = "Second statement kept alongside: to the extent Microsoft processes Personal Data subject to the GDPR for business operations incident to providing the Products and Services, Microsoft complies with the obligations of an independent data controller."
+text_zh = "并列保留的另一说法:在提供产品与服务所附带的业务运营范围内处理受 GDPR 管辖的 Personal Data 时,Microsoft 以独立数据控制者身份承担义务"
+anchor = "role-microsoft-independent-controller"
+
+[[product.role.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry; the Microsoft Privacy Statement applies instead."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,改由 Microsoft Privacy Statement 管辖"
+anchor = "contract-grounding-with-bing"
 
 [[product]]
 id = "foundry-partner-models"
@@ -90,6 +206,16 @@ plan_level = "any"
 mark = "yes"
 mode = "default"
 anchor = "partner-training-no-train-any-model"
+
+[[product.training.point]]
+text = "Training data uploaded for fine-tuning isn't used to train, retrain, or improve any Microsoft or non-Microsoft model, except as you direct those activities within the service."
+text_zh = "微调上传的训练数据不用于训练、重训或改进任何 Microsoft 或非 Microsoft 模型,除非你在服务内明确指示这些操作"
+anchor = "partner-finetune-data-not-used"
+
+[[product.training.point]]
+text = "Scope limit: this verdict covers the Microsoft-hosted serverless API path only. Claude models come in two versions, Hosted on Azure and Hosted on Anthropic infrastructure; on the Anthropic-hosted path the processor and the applicable terms differ and must be verified separately."
+text_zh = "范围限定:本条结论只覆盖 Microsoft 托管的 serverless API 路径。Claude 模型有 Hosted on Azure 与 Hosted on Anthropic infrastructure 两种形态,后者处理方与适用条款都不同,须另行核实"
+anchor = "partner-claude-two-hosting-versions"
 
 [product.zdr]
 mark = "unknown"
@@ -103,17 +229,115 @@ searched = [
   "https://www.microsoft.com/licensing/docs/documents/download/MicrosoftProductandServicesDPA(WW)(English)(May2026)(CR).docx",
 ]
 
+[[product.zdr.point]]
+text = "Scope limit: this verdict covers the Microsoft-hosted serverless API path only. Claude's Hosted on Anthropic infrastructure version is a separate hop with a different processor and different terms; its retention posture must be verified against that provider's policy."
+text_zh = "范围限定:本条只覆盖 Microsoft 托管的 serverless API 路径。Claude 的 Hosted on Anthropic infrastructure 属另一跳,处理方与条款都不同,其保留政策须按该厂政策另行核实"
+anchor = "partner-claude-two-hosting-versions"
+
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "partner-retention-models-stateless"
 
+[[product.retention.point]]
+text = "Serverless API deployment: models are stateless and don't store any prompts or outputs."
+text_zh = "serverless API 部署:模型无状态,不存储任何提示或输出"
+
+[[product.retention.point]]
+text = "Other paths differ: if you download a model from the model catalog, you choose where to deploy it and you are responsible for how data is processed (managed compute likewise runs on customer-managed infrastructure)."
+text_zh = "其它路径不同:从目录下载模型后由客户决定部署位置、数据处理方式由客户负责(托管计算同样跑在客户自管的基础设施上)"
+anchor = "partner-downloaded-model-customer-responsible"
+
+[[product.retention.point]]
+text = "Trigger for stateful resources: a service configuration or custom model that has been inactive (90 days without calls, unmodified with no current key, customer not signed in) may at Microsoft's discretion be treated as an Online Service whose subscription has expired."
+text_zh = "有状态资源的触发条件:非活跃的服务配置或自定义模型(90 天无调用、未修改且无有效密钥、客户未登录)可被 Microsoft 视为订阅已过期的 Online Service"
+anchor = "contract-inactive-config-custom-model"
+
+[[product.retention.point]]
+text = "Scope limit: this verdict covers the Microsoft-hosted serverless path only; Claude's Hosted on Anthropic infrastructure version is a separate hop with its own retention terms."
+text_zh = "范围限定:本条只覆盖 Microsoft 托管的 serverless 路径;Claude 的 Hosted on Anthropic infrastructure 属另一跳,保留条款不同"
+anchor = "partner-claude-two-hosting-versions"
+
 [product.processing_region]
 codes = ["selected"]
+anchor = "partner-region-global-any-region"
+
+[[product.processing_region.point]]
+text = "Serverless API deployment: prompts and outputs are processed within the geography specified during deployment, but might be processed between regions within that geography for operational purposes."
+text_zh = "serverless API 部署:输入输出在部署时指定的 geography 内处理,但出于运营目的可能在该 geography 内跨区域处理"
+anchor = "partner-region-processing-geography"
+
+[[product.processing_region.point]]
+text = "Global deployments: Microsoft processes prompts and responses in any Azure region where you deploy the model."
+text_zh = "Global 部署:Microsoft 在你部署模型的任意 Azure 区域处理输入输出"
+
+[[product.processing_region.point]]
+text = "Data Zone deployments: processing happens anywhere within the specified data zone (US / EU member nations / Asia Pacific)."
+text_zh = "Data Zone 部署:在指定 data zone 内处理(美国 / 欧盟成员国 / 亚太)"
+anchor = "partner-region-datazone"
+
+[[product.processing_region.point]]
+text = "Downloaded models and managed compute: if you download a model from the catalog you choose where to deploy it and you are responsible for how data is processed."
+text_zh = "目录下载模型与托管计算:从目录下载模型后由客户决定部署位置,数据处理方式由客户负责"
+anchor = "partner-downloaded-model-customer-responsible"
+
+[[product.processing_region.point]]
+text = "Scope limit: this verdict covers the Microsoft-hosted serverless path only. Claude's Hosted on Anthropic infrastructure version is a separate hop whose processing location is not covered by Microsoft's statements."
+text_zh = "范围限定:本条只覆盖 Microsoft 托管的 serverless 路径;Claude 的 Hosted on Anthropic infrastructure 属另一跳,其处理地不在 Microsoft 的表述覆盖内"
+anchor = "partner-claude-two-hosting-versions"
+
+[[product.processing_region.point]]
+text = "Scope limit: the Geo storage commitment applies only to the Core Online Services in the table, excluding any Previews."
+text_zh = "范围限定:Geo 静态存储承诺只覆盖表内的 Core Online Services,不含任何 Preview"
+anchor = "contract-core-online-services-excludes-previews"
+
+[[product.processing_region.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry, and Customer Data will flow outside the customer's compliance and Geo boundary."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,且 Customer Data 会流出客户的合规与 Geo 边界"
+anchor = "contract-grounding-with-bing"
+
+[[product.processing_region.point]]
+text = "Contract exception: certain services may not enable the customer to configure deployment in a particular Geo or outside the United States, and may store backups in other locations."
+text_zh = "合同层例外:部分服务不允许客户配置到特定 Geo 或美国以外,且可能把备份存在其他地点"
+anchor = "contract-geo-at-rest"
+
+[[product.processing_region.point]]
+text = "Scope limit: Preview Data may be transferred to, and stored and processed in, the United States or any other country in which Microsoft or its subprocessors operate; Location of Customer Data does not apply to Previews."
+text_zh = "范围限定:Preview Data 可传输、存储和处理于美国或 Microsoft 及其次级处理方运营的任意国家,Location of Customer Data 不适用于预览功能"
+anchor = "region-preview-data-not-covered"
 
 [product.role]
 kind = "processor"
 anchor = "partner-role-microsoft-processor"
+
+[[product.role.point]]
+text = "Microsoft acts as the data processor for prompts and outputs sent to, and generated by, a model deployed for serverless API deployment, and doesn't share them with the model provider."
+text_zh = "serverless API 部署下 Microsoft 是输入输出的受托处理方,且不把输入输出共享给模型提供方"
+
+[[product.role.point]]
+text = "Scope limit: partner and community models that are not sold by Azure are Non-Microsoft Products under the Product Terms, so the DPA doesn't automatically apply; this processor verdict covers the models Azure sells and hosts."
+text_zh = "范围限定:非 Azure 售卖的伙伴与社区模型属 Product Terms 下的 Non-Microsoft Products,DPA 不当然适用;本条 processor 结论只覆盖 Azure 售卖并托管的那些模型"
+anchor = "partner-non-microsoft-products"
+
+[[product.role.point]]
+text = "Downloaded models: if you download a model from the model catalog, you choose where to deploy it and you are responsible for how data is processed — Microsoft is not the processor on that path."
+text_zh = "目录下载模型:由客户决定部署位置并自行负责数据处理,这条路径上 Microsoft 不是受托处理方"
+anchor = "partner-downloaded-model-customer-responsible"
+
+[[product.role.point]]
+text = "Multi-hop: Claude models come in Hosted on Azure and Hosted on Anthropic infrastructure versions; on the Anthropic-hosted path the processor is not Microsoft and that hop must be assessed separately."
+text_zh = "多跳链路:Claude 模型有 Hosted on Azure 与 Hosted on Anthropic infrastructure 两种形态,后者处理方不是 Microsoft,该跳须单独评估"
+anchor = "partner-claude-two-hosting-versions"
+
+[[product.role.point]]
+text = "Second statement kept alongside: to the extent Microsoft processes Personal Data subject to the GDPR for business operations incident to providing the Products and Services, Microsoft complies with the obligations of an independent data controller."
+text_zh = "并列保留的另一说法:在提供产品与服务所附带的业务运营范围内处理受 GDPR 管辖的 Personal Data 时,Microsoft 以独立数据控制者身份承担义务"
+anchor = "role-microsoft-independent-controller"
+
+[[product.role.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry; the Microsoft Privacy Statement applies instead."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,改由 Microsoft Privacy Statement 管辖"
+anchor = "contract-grounding-with-bing"
 
 [[product]]
 id = "azure-ai-services"
@@ -135,8 +359,22 @@ searched = [
   "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
 ]
 
+[[product.training.point]]
+text = "Azure AI Content Safety: \"No. We do not use customer data to train, retrain or improve the models in Azure AI Content Safety.\""
+text_zh = "Azure AI Content Safety 明确不用客户数据训练、重训或改进其模型"
+
+[[product.training.point]]
+text = "Text to speech: a customer's training data is used only to develop that customer's custom voice models and isn't used by Microsoft to train or improve any Microsoft text to speech voice models."
+text_zh = "text to speech:客户提交的训练数据只用于开发该客户自己的定制声音模型,Microsoft 不用于训练或改进自己的声音模型"
+
+[[product.training.point]]
+text = "Why this tier stays unknown: the two statements above each cover a single service (Content Safety; customer-submitted custom-voice training data for text to speech), not the Foundry Tools line as a whole. The Azure Language page carries no training statement, and the speech-to-text and Vision data-privacy pages have no snapshot yet (a fetch gap, not a vendor silence). A tier-wide ✓ would need a statement covering all services; splitting the tier per service is the way to record the per-service commitments."
+text_zh = "本档维持 unknown 的理由：上面两句各自只覆盖一个服务（Content Safety；text to speech 的客户定制声音训练数据），不是整条 Foundry Tools 产品线的表述。Azure Language 页没有任何训练用途表述，speech-to-text 与 Vision 的 data-privacy 页尚无快照（是抓取缺口，不是厂商未表态）。整档给 ✓ 需要覆盖全部服务的表述；要记录单个服务的承诺，应按服务拆档。"
+
 [product.zdr]
-mark = "unknown"
+mark = "yes"
+mode = "opt_in"
+anchor = "cs-no-human-review"
 searched = [
   "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/content-safety/data-privacy",
   "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/speech-service/speech-to-text/data-privacy-security",
@@ -149,17 +387,147 @@ searched = [
   "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy",
 ]
 
+[[product.zdr.point]]
+text = "Azure AI Content Safety: user input data is not stored and not made available for human review; the Azure OpenAI Abuse Monitoring process does not apply to it. Zero retention holds by default for this service."
+text_zh = "Azure AI Content Safety:输入数据不存储、不供人工复核,且 Azure OpenAI Abuse Monitoring 不适用——该服务默认即零保留"
+
+[[product.zdr.point]]
+text = "Azure Language: input can be temporarily stored for up to 48 hours by default; the LoggingOptOut query parameter turns that temporary storage off (false by default for Language Detection, Key Phrase Extraction, Sentiment Analysis and Named Entity Recognition endpoints; true by default for the PII and health endpoints)."
+text_zh = "Azure Language:输入默认最多临时存储 48 小时,LoggingOptOut 可关闭该临时存储(四个端点默认 false、即默认开启;PII 与 health 端点默认 true)"
+anchor = "lang-temp-48h-loggingoptout"
+
+[[product.zdr.point]]
+text = "Text to speech (real-time synthesis): neither input text nor output audio content is stored in Microsoft logs."
+text_zh = "text to speech(实时合成):输入文本与输出音频都不存入 Microsoft 日志"
+anchor = "tts-realtime-no-store"
+
+[[product.zdr.point]]
+text = "Scope limit: batch synthesis does keep input text and output audio in Azure storage until the customer deletes it, and the speech-to-text and Vision services have no snapshot yet — this verdict does not cover them."
+text_zh = "范围限定:批量合成的输入文本与输出音视频会存进 Azure storage 直到客户删除;speech-to-text 与 Vision 尚无快照——本条不覆盖这些情形"
+
 [product.retention]
 object = "mixed"
-basis = "none"
+basis = "as_needed"
+anchor = "lang-temp-48h-loggingoptout"
+
+[[product.retention.point]]
+text = "Azure AI Content Safety (input): no input texts or images are stored in the model during detection, except for customer-supplied blocklists."
+text_zh = "Azure AI Content Safety(输入):检测期间不存储任何输入文本或图像,客户自备 blocklist 除外"
 anchor = "cs-retention-no-store"
+
+[[product.retention.point]]
+text = "Azure AI Content Safety (blocklists): block item data is stored in Azure Storage in the same region as the resource, encrypted, and can be deleted by the customer via the DELETE API."
+text_zh = "Azure AI Content Safety(blocklist):block item 数据加密存于与资源同区域的 Azure Storage,客户可用 DELETE API 删除"
+anchor = "cs-blocklist-stored-in-region"
+
+[[product.retention.point]]
+text = "Azure Language: synchronous and asynchronous call input may be temporarily stored for up to 48 hours and is purged thereafter; this is on by default (LoggingOptOut is false by default for four endpoints, true by default for the PII and health endpoints)."
+text_zh = "Azure Language:同步/异步调用输入最多临时存储 48 小时,之后清除;该临时存储默认开启(四个端点 LoggingOptOut 默认 false,PII 与 health 端点默认 true)"
+
+[[product.retention.point]]
+text = "Text to speech (real-time): neither input text nor output audio is retained in Microsoft logs."
+text_zh = "text to speech(实时):输入文本与输出音频都不留存于 Microsoft 日志"
+anchor = "tts-realtime-no-store"
+
+[[product.retention.point]]
+text = "Text to speech (batch / Long Audio and avatar batch): input scripts and output audio or video are stored in Azure storage to process the request, and can be deleted at any time via the delete API — the period is customer-controlled, not a fixed term."
+text_zh = "text to speech(批量 / Long Audio 与头像批量):输入脚本与输出音视频存进 Azure storage 以处理请求,可随时用 delete API 删除——期限由客户控制,不是固定期限"
+anchor = "tts-batch-stored-in-azure-storage"
+
+[[product.retention.point]]
+text = "Text to speech (custom neural voice lite): the synthetic voice and related audio recording are automatically deleted within 90 days unless the customer gains full access and deploys the voice, in which case the customer controls retention."
+text_zh = "text to speech(custom neural voice lite):合成声音与相关录音 90 天内自动删除,除非客户获得完全访问并部署该声音,此时保留期由客户控制"
+anchor = "tts-synthetic-voice-90d-delete"
+
+[[product.retention.point]]
+text = "Text to speech (custom voice models): a different object from input/output — Microsoft may independently retain a copy of custom neural voice models for as long as necessary, for the sole purpose of protecting the security and integrity of Foundry Tools."
+text_zh = "text to speech(定制声音模型):与输入输出是不同的对象——Microsoft 可为保护 Foundry Tools 的安全与完整性而独立保留定制声音模型副本,期限按需"
+anchor = "tts-microsoft-independent-retention"
+
+[[product.retention.point]]
+text = "After expiration or termination of the subscription: Customer Data that remains stored in Online Services is kept in a limited function account for 90 days so the customer may extract it, then deleted within a further 90 days."
+text_zh = "订阅到期或终止后:仍存于 Online Services 的 Customer Data 在受限功能账户中保留 90 天供取回,随后 90 天内删除"
+anchor = "retention-90d-limited-function-account"
+
+[[product.retention.point]]
+text = "Trigger for stateful resources: a service configuration or custom model that has been inactive (90 days without calls, unmodified with no current key, customer not signed in) may at Microsoft's discretion be treated as an Online Service whose subscription has expired."
+text_zh = "有状态资源的触发条件:非活跃的服务配置或自定义模型(90 天无调用、未修改且无有效密钥、客户未登录)可被 Microsoft 视为订阅已过期的 Online Service"
+anchor = "contract-inactive-config-custom-model"
+
+[[product.retention.point]]
+text = "Scope limit: speech-to-text and Vision have no snapshot yet, so their retention terms are not covered here; preview features may employ different privacy practices."
+text_zh = "范围限定:speech-to-text 与 Vision 尚无快照,其保留条款不在本条覆盖内;预览功能可能适用不同的隐私做法"
 
 [product.processing_region]
 codes = ["selected"]
+anchor = "cs-region-in-region"
+
+[[product.processing_region.point]]
+text = "Azure AI Content Safety: all customer data sent to it remains within the service and in the region the customer chose, and is not transmitted to other regions."
+text_zh = "Azure AI Content Safety:送去的客户数据留在本服务内、留在客户所选区域,不外传到其他区域"
+
+[[product.processing_region.point]]
+text = "Azure Language: Language doesn't store or process customer data outside the region where the customer deploys the service instance."
+text_zh = "Azure Language:不在客户部署服务实例的区域之外存储或处理客户数据"
+anchor = "lang-no-outside-region"
+
+[[product.processing_region.point]]
+text = "Contract layer: if the customer configures a service to be deployed within a Geo, Microsoft stores Customer Data at rest within that Geo; the services in scope are the Azure Core Online Services listed in the Privacy and Security Terms."
+text_zh = "合同层:客户把服务配置到某个 Geo 后,Microsoft 把 Customer Data 静态存储在该 Geo;适用范围是 Privacy and Security Terms 列出的 Azure Core Online Services"
+anchor = "contract-cognitive-services-in-scope"
+
+[[product.processing_region.point]]
+text = "Contract exception: certain services may not enable the customer to configure deployment in a particular Geo or outside the United States, and may store backups in other locations."
+text_zh = "合同层例外:部分服务不允许客户配置到特定 Geo 或美国以外,且可能把备份存在其他地点"
+anchor = "contract-geo-at-rest"
+
+[[product.processing_region.point]]
+text = "Container form: the service can also run in containers on customer hardware, where the processing location is the customer's own environment and the DPA does not apply."
+text_zh = "容器形态:服务也可跑在客户硬件的容器里,此时处理地是客户自己的环境,且 DPA 不适用"
+anchor = "contract-dpa-exceptions-containers"
+
+[[product.processing_region.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry, and Customer Data will flow outside the customer's compliance and Geo boundary."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,且 Customer Data 会流出客户的合规与 Geo 边界"
+anchor = "contract-grounding-with-bing"
+
+[[product.processing_region.point]]
+text = "Scope limit: the Geo storage commitment applies only to the Core Online Services in the table, excluding any Previews."
+text_zh = "范围限定:Geo 静态存储承诺只覆盖表内的 Core Online Services,不含任何 Preview"
+anchor = "contract-core-online-services-excludes-previews"
+
+[[product.processing_region.point]]
+text = "Scope limit: Preview Data may be transferred to, and stored and processed in, the United States or any other country in which Microsoft or its subprocessors operate; Location of Customer Data does not apply to Previews."
+text_zh = "范围限定:Preview Data 可传输、存储和处理于美国或 Microsoft 及其次级处理方运营的任意国家,Location of Customer Data 不适用于预览功能"
+anchor = "region-preview-data-not-covered"
 
 [product.role]
 kind = "processor"
 anchor = "role-customer-controller-microsoft-processor"
+
+[[product.role.point]]
+text = "Under the DPA the customer is the controller of Personal Data and Microsoft is the processor (subprocessor when the customer itself acts as a processor)."
+text_zh = "DPA 约定:客户是 Personal Data 的控制者,Microsoft 是受托处理方(客户自身为处理方时 Microsoft 为次级受托)"
+
+[[product.role.point]]
+text = "Scope support: Azure Language, Content Safety, Azure Vision, Content Moderator, Custom Vision, Vision - Face and AI Metrics Advisor are all listed as Azure Core Online Services, so the DPA covers this product line."
+text_zh = "范围佐证:Azure Language、Content Safety、Azure Vision、Content Moderator、Custom Vision、Vision - Face、AI Metrics Advisor 都在 Azure Core Online Services 名单内,DPA 覆盖这条产品线"
+anchor = "contract-cognitive-services-in-scope"
+
+[[product.role.point]]
+text = "Exception: because containers installed on customer hardware are not under Microsoft's control, the terms of the DPA do not apply to those containers (except billing-endpoint Personal Data and Customer Data provided for custom model training before download)."
+text_zh = "例外:装在客户硬件上的容器不在 Microsoft 控制范围内,DPA 条款不适用于这些容器(计费端点的 Personal Data 与下载前提交用于定制模型训练的 Customer Data 除外)"
+anchor = "contract-dpa-exceptions-containers"
+
+[[product.role.point]]
+text = "Exception: the DPA does not apply to Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry; the Microsoft Privacy Statement applies instead."
+text_zh = "例外:经 Microsoft Foundry 使用 Grounding with Bing 时不适用 DPA,改由 Microsoft Privacy Statement 管辖"
+anchor = "contract-grounding-with-bing"
+
+[[product.role.point]]
+text = "Second statement kept alongside: to the extent Microsoft processes Personal Data subject to the GDPR for business operations incident to providing the Products and Services, Microsoft complies with the obligations of an independent data controller."
+text_zh = "并列保留的另一说法:在提供产品与服务所附带的业务运营范围内处理受 GDPR 管辖的 Personal Data 时,Microsoft 以独立数据控制者身份承担义务"
+anchor = "role-microsoft-independent-controller"
 
 [[anchor]]
 id = "api-scope-models-sold-by-azure"
@@ -308,6 +676,16 @@ exact = "Batch processing is a Global deployment type; data stored at rest remai
 suffix = "; processing may occur in any geography where the relevant m"
 
 [[anchor]]
+id = "api-preview-features-different-privacy"
+source_id = "82c97913adafd62d"
+topics = ["training", "zdr", "retention"]
+
+[anchor.selector]
+prefix = "Note"
+exact = "Azure Preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring."
+suffix = " Previews may be subject to supplemental terms at: Supplemental Terms of use for Microsoft Azure Previews."
+
+[[anchor]]
 id = "partner-role-microsoft-processor"
 source_id = "a97f48564c521628"
 topics = ["role"]
@@ -424,49 +802,24 @@ suffix = """
 For a list of Foundry Models sold by Azure, see [Foundry M"""
 
 [[anchor]]
+id = "partner-claude-two-hosting-versions"
+source_id = "4eba9a9f0afec271"
+topics = ["training", "zdr", "retention", "role", "processing_region"]
+
+[anchor.selector]
+prefix = "Note"
+exact = "Microsoft Foundry offers Claude models in two versions: **Hosted on Azure** and **Hosted on Anthropic infrastructure** deployments."
+suffix = " Both versions aren't available for every model."
+
+[[anchor]]
 id = "partner-region-global-any-region"
 source_id = "4eba9a9f0afec271"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-s/azure/foundry/foundry-models/concepts/deployment-types).
-
-"""
-exact = """
-For **global deployments**, Microsoft processes prompts and responses in any Azure region where you deploy the model.
-
-*   [Americas](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-from-partners#tabpanel_1_az-americas)
-*   [Europe](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-from-partners#tabpanel_1_az-europe)
-*   [Asia Pacific](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-from-partners#tabpanel_1_az-apac)
-*   [Middle East & Africa](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-from-partners#tabpanel_1_az-mea)
-
-| **Model** | **Version** | **brazilsouth** | **canadacentral** | **canadaeast** | **centralus** | **eastus** | **eastus2** | **northcentralus** | **southcentralus** | **westcentralus** | **westus** | **westus2** | **westus3** |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| claude-fable-5 | 1 | - | - | - | - | - | ✅ | - | - | - | - | - | - |
-| claude-fable-5-1 | 1 | - | - | - | - | - | ✅ | - | - | - | - | - | - |
-| claude-haiku-4-5 | 2 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-haiku-4-5 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-4-5 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-4-6 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-4-7 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-4-8 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-4-8 | 2 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-5 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-opus-5 | 2 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-sonnet-4-5 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-sonnet-4-6 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-sonnet-5 | 1 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| claude-sonnet-5 | 2 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| Codestral-2501 | 2 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Llama-4-Scout-17B-16E-Instruct | 1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Ministral-3B | 1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Mistral-large | 1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| mistral-medium-2505 | 1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| mistral-small-2503 | 1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-
-For **Data Zone** deployments"""
-suffix = ", Microsoft processes prompts and responses anywhere within "
+prefix = "### Global standard"
+exact = "For **global deployments**, Microsoft processes prompts and responses in any Azure region where you deploy the model."
+suffix = "- Americas"
 
 [[anchor]]
 id = "partner-region-datazone"
@@ -583,6 +936,16 @@ suffix = """
 
 
 ![Image 9: diagram of prebuilt neural voice data processin"""
+
+[[anchor]]
+id = "tts-batch-stored-in-azure-storage"
+source_id = "f08987be10f9846e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Microsoft doesn't retain or store the text that you provide with the real-time synthesis text to speech API. "
+exact = "Scripts provided via the Long Audio API for text to speech or via text to speech avatar batch API for text to speech avatar are stored in Azure storage to process the batch synthesis request. The input text can be deleted via the delete API at any time."
+suffix = " **Output audio and video content:**"
 
 [[anchor]]
 id = "tts-custom-voice-training-customer-only"
@@ -728,6 +1091,26 @@ suffix = """
 
 
 | Product Family | Online Service | Privacy & Security Ter"""
+
+[[anchor]]
+id = "contract-grounding-with-bing"
+source_id = "c6eec7afc1f01f8e"
+topics = ["role", "processing_region"]
+
+[anchor.selector]
+prefix = "| Microsoft Foundry | "
+exact = "The DPA does not apply to use of Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry (including when used through Microsoft Foundry Agent service, Responses API in Microsoft Foundry Models, and/or Web Knowledge Source in Microsoft Foundry Knowledge); the Microsoft Privacy Statement applies. When using Grounding with Bing Search and/or Grounding with Bing Custom Search, Customer Data will flow outside Customer’s compliance and Geo boundary."
+suffix = " |"
+
+[[anchor]]
+id = "contract-core-online-services-excludes-previews"
+source_id = "c6eec7afc1f01f8e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "### Core Online Services"
+exact = "The term “Core Online Services” applies only to the services in the table below, excluding any Previews."
+suffix = "| Online Services |"
 
 [[anchor]]
 id = "role-customer-controller-microsoft-processor"

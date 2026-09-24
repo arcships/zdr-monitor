@@ -30,16 +30,44 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "devin-default-training"
+[[product.training.point]]
+text = "Opting out of training does not isolate a project: the same answer adds 『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』 The official text does not say whether shared Knowledge falls inside the training scope. (The opt-out itself is limited to paid plans, so this tier stays on the default — training on.)"
+text_zh = "退出训练不等于完全隔离：同一段接着写『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』——Devin 仍可基于客户共享的 Knowledge 持续适配其项目。官方未进一步界定共享的 Knowledge 内容是否属于训练范围。（该退出开关本身只对付费档开放，本档仍是默认口径：会训练。）"
+anchor = "devin-knowledge-training"
 [product.zdr]
-mark = "unknown"
+mark = "no"
+anchor = "devin-zdr-paid-plan"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[[product.zdr.point]]
+text = "No ZDR path is disclosed for this tier, and that is a disclosed qualification rather than a silence: 『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 The zero-retention route is bound to the paid-plan opt-out on the Data Controls page, which this tier does not have. The object of that ZDR is the upstream model providers."
+text_zh = "本档没有零保留途径，而且这是已披露的资格限定、不是厂商未表态：『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』零保留与付费档在 Data Controls 页的退出绑定，免费档没有该开关。该 ZDR 的对象是上游模型商。"
+anchor = "devin-default-training"
 [product.retention]
 object = "mixed"
 basis = "until_termination"
 anchor = "devin-relationship-retention"
+[[product.retention.point]]
+text = "Exception sitting in the same FAQ answer: 『Any Feedback Data and User Interaction Data are retained as long as needed and as determined by Cognition.』 For those two objects there is no fixed period and no relationship-end bound — the duration is Cognition's call."
+text_zh = "同段并列的例外：『Any Feedback Data and User Interaction Data are retained as long as needed and as determined by Cognition.』——这两类对象没有固定期限，也不受「关系结束」约束，期限由 Cognition 自行决定。"
+anchor = "devin-retention-exception"
+[[product.retention.point]]
+text = "The object depends on the access channel (this sentence bounds what is read, processed and stored, not for how long): 『In Slack, Devin doesn’t read, process or store any data in your Slack instance other than the information provided when @Devin is tagged, initially prompted and when any additional information is provided within the Slack thread while the session is ongoing.』 The same page says that for the web application Cognition only processes data actively provided by the authorized user prompting Devin."
+text_zh = "保留对象随接入方式区分（该句限定的是读取/处理/存储范围，不是保留期限）：『In Slack, Devin doesn’t read, process or store any data in your Slack instance other than the information provided when @Devin is tagged, initially prompted and when any additional information is provided within the Slack thread while the session is ongoing.』同一页写明 web 应用下 Cognition 只处理用户主动提供的数据。"
+anchor = "devin-slack-scope"
+[[product.retention.point]]
+text = "Not disclosed per object: no separate retention or deletion period is published for access/system logs, nor for the repository indices that power DeepWiki and Ask Devin."
+text_zh = "分对象期限未披露：访问/系统日志，以及支撑 DeepWiki 与 Ask Devin 的代码索引，官方都没有公布独立的保留或删除期限。"
 [product.processing_region]
-codes = ["unknown"]
+codes = ["US"]
+anchor = "devin-subprocessors-us"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[[product.processing_region.point]]
+text = "DPA Appendix C lists the subprocessors behind core processing — Microsoft Azure, AWS, Google Cloud — all with location United States. This is a subprocessor location disclosure, not a data-residency commitment, and the DPA's own scope is 『enterprise or software services as applicable』, so whether a free individual account falls inside that Customer relationship is not spelled out in the public text."
+text_zh = "DPA Appendix C 把承担 core processing 的 subprocessor 列为 Microsoft Azure / AWS / Google Cloud，位置均为 United States。这是 subprocessor 位置披露，不等于数据驻留承诺；DPA 自身适用范围写的是『enterprise or software services as applicable』，免费个人档是否落入该 Customer 关系，公开文本没有交代（属档位不明）。"
+[[product.processing_region.point]]
+text = "Not only the United States: support workflow is carried by Agumbe (Cognition India), listed with location India — that hop is a support workflow, not core processing."
+text_zh = "处理地不只有美国：Support Workflow 由 Agumbe (Cognition India) 承担，位置列为 India——该跳是支持工作流，不是 core processing。"
+anchor = "devin-subprocessors-india"
 [product.role]
 kind = "unknown"
 searched = ["https://docs.devin.ai/admin/security"]
@@ -55,6 +83,10 @@ mode = "opt_out"
 anchor = "devin-default-training"
 [[product.training.point]]
 text_zh = "默认可训练；Team 管理员可在 Data Controls 退出。退出后不训练，并为上游模型商启用 ZDR。"
+[[product.training.point]]
+text = "Opting out does not isolate the project: 『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』 The official text does not say whether shared Knowledge counts as training."
+text_zh = "退出训练不等于完全隔离：『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』——退出后 Devin 仍可基于客户共享的 Knowledge 持续适配其项目；官方未进一步界定共享的 Knowledge 内容是否属于训练范围。"
+anchor = "devin-knowledge-training"
 [product.zdr]
 mark = "yes"
 mode = "opt_in"
@@ -65,12 +97,28 @@ basis = "until_termination"
 anchor = "devin-relationship-retention"
 [[product.retention.point]]
 text_zh = "一般数据保留至客户关系结束；Feedback 与 User Interaction Data 可按 Cognition 判断保留至所需期限。代码索引用于 DeepWiki/Ask Devin，但官方索引页未披露独立删除或缓存期限。"
+[[product.retention.point]]
+text = "The object depends on the access channel (this sentence bounds what is read, processed and stored, not for how long): 『In Slack, Devin doesn’t read, process or store any data in your Slack instance other than the information provided when @Devin is tagged, initially prompted and when any additional information is provided within the Slack thread while the session is ongoing.』 The same page says that for the web application Cognition only processes data actively provided by the authorized user prompting Devin."
+text_zh = "保留对象随接入方式区分（该句限定的是读取/处理/存储范围，不是保留期限）：Slack 集成下 Devin 只读取/处理/存储 @Devin 被标记、初始提示以及会话进行中线程内提供的信息；同一页写明 web 应用下 Cognition 只处理用户主动提供的数据。"
+anchor = "devin-slack-scope"
 [product.processing_region]
-codes = ["unknown"]
+codes = ["US"]
+anchor = "devin-subprocessors-us"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[[product.processing_region.point]]
+text = "DPA Appendix C lists the subprocessors behind core processing — Microsoft Azure, AWS, Google Cloud (and, where input is submitted, OpenAI, Anthropic, Microsoft/Azure, Google/Vertex) — all with location United States. This is a subprocessor location disclosure, not a data-residency commitment; whether a self-serve Team subscription carries the same DPA relationship is not stated in the public text."
+text_zh = "DPA Appendix C 把承担 core processing 的 subprocessor 列为 Microsoft Azure / AWS / Google Cloud（以及作为 Input 提交时的 OpenAI、Anthropic、Microsoft/Azure、Google/Vertex），位置均为 United States。这是 subprocessor 位置披露，不等于数据驻留承诺；自助付费的 Team 档是否随其协议适用该 DPA，公开文本没有说明（属档位不明）。"
+[[product.processing_region.point]]
+text = "Not only the United States: support workflow is carried by Agumbe (Cognition India), listed with location India — that hop is a support workflow, not core processing."
+text_zh = "处理地不只有美国：Support Workflow 由 Agumbe (Cognition India) 承担，位置列为 India——该跳是支持工作流，不是 core processing。"
+anchor = "devin-subprocessors-india"
 [product.role]
 kind = "processor"
 anchor = "devin-processor"
+[[product.role.point]]
+text = "Exception in the same DPA: the processor role covers Customer Data only. 『Notwithstanding anything to the contrary in this DPA, the parties acknowledge and agree that Licensor may process Account Data as a Data Controller solely to (a) manage and administer its relationship with Customer, including business user access management and account provisioning; (b) detect, prevent, or investigate security incidents, fraud, and other abuse or misuse of the Services; and (c) comply with applicable legal or regulatory obligations.』 (DPA §2.b) Account Data is therefore handled as an independent controller."
+text_zh = "同一份 DPA 里的例外：处理者角色只覆盖 Customer Data。DPA §2.b 规定 Licensor 可以就 Account Data 作为独立 Data Controller 处理，用途限于 (a) 管理与客户的业务关系（含账号开通与访问管理）、(b) 检测/预防/调查安全事件、欺诈与滥用、(c) 履行法律或监管义务。即 Account Data 走独立控制方路径，Customer Data 才是处理者角色。"
+anchor = "devin-account-data-controller"
 
 [[product]]
 id = "enterprise"
@@ -81,21 +129,70 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "devin-enterprise-no-train"
+[[product.training.point]]
+text = "Contract-level support for the same conclusion: 『Licensor’s subprocessors are subject to equivalent restrictions through contractual obligations or technical configurations that prevent Customer Data from being used for model training purposes.』 (DPA §4) This binds the upstream model providers listed in Appendix C — OpenAI, Anthropic, Microsoft/Azure, Google/Vertex and the others — i.e. the next hop of the chain, not Cognition alone."
+text_zh = "同一结论的合同层依据：『Licensor’s subprocessors are subject to equivalent restrictions through contractual obligations or technical configurations that prevent Customer Data from being used for model training purposes.』（DPA §4）——该条约束 Appendix C 列出的上游模型商（OpenAI、Anthropic、Microsoft/Azure、Google/Vertex 等），即多跳链路的下一跳，而不只是 Cognition 自己。"
+anchor = "devin-subprocessor-no-train"
+[[product.training.point]]
+text = "Contract-level purpose limitation: 『For clarity, as Data Processor, Licensor will not sell or share Customer Data, nor will Licensor use, disclose, retain, or otherwise process Customer Data (i) for a purpose other than the specific purpose of providing the Services; (ii) outside of the direct business relationship between Licensor and Customer and the written instructions received from Customer; and (iii) in a manner inconsistent with applicable Data Protection Laws.』 (DPA §3) This also bounds retention, not just training."
+text_zh = "合同层的用途限制：『For clarity, as Data Processor, Licensor will not sell or share Customer Data, nor will Licensor use, disclose, retain, or otherwise process Customer Data (i) for a purpose other than the specific purpose of providing the Services; (ii) outside of the direct business relationship between Licensor and Customer and the written instructions received from Customer; and (iii) in a manner inconsistent with applicable Data Protection Laws.』（DPA §3）——既禁止为提供服务之外的目的使用，也禁止超目的保留。"
+anchor = "devin-purpose-limitation"
+[[product.training.point]]
+text = "The no-training commitment does not isolate the project: 『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』 The official text does not say whether shared Knowledge counts as training."
+text_zh = "不训练不等于完全隔离：『Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time.』——Devin 仍可基于客户共享的 Knowledge 持续适配其项目；官方未进一步界定共享的 Knowledge 内容是否属于训练范围。"
+anchor = "devin-knowledge-training"
 [product.zdr]
-mark = "unknown"
+mark = "yes"
+mode = "opt_in"
+anchor = "devin-default-training"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
+[[product.zdr.point]]
+text = "Enterprise is a paid plan, so the paid-plan sentence covers it: 『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 Two qualifications: the object of that ZDR is the upstream model providers (the next hop), while retention on the Cognition side is the retention dimension's subject; and the page describes the Data Controls opt-out without writing a separate enterprise-only ZDR mechanism — its enterprise-specific sentence is the no-training-without-written-consent commitment, which is a contract path and does not by itself define ZDR. The page adds that on the Teams plan only an administrator can exercise the opt-out; the enterprise tier is not separately described."
+text_zh = "企业档属付费档，适用同一句：『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』两点限定：该 ZDR 的对象是上游模型商（下一跳），Cognition 侧的留存归 retention 列；页面描述的是 Data Controls 页的退出动作，没有另写企业专属的 ZDR 机制——同页企业专属的那句是「未经书面同意不训练」，属合同路径，本身不定义 ZDR。原文另写明 Teams 档只能由管理员执行退出，企业档未单独说明。"
+anchor = "devin-default-training"
 [product.retention]
 object = "mixed"
 basis = "until_termination"
+anchor = "devin-dpa-deletion"
+[[product.retention.point]]
+text = "Contract level (highest authority) fixes the post-termination deletion window: 『Upon termination of this DPA, Licensor will direct each Subprocessor to delete Customer Data within thirty (30) days of the termination, unless prohibited by law.』 (DPA §11) That is an upper bound on deletion after termination."
+text_zh = "合同层（权威性最高）给出终止后的删除期限：『Upon termination of this DPA, Licensor will direct each Subprocessor to delete Customer Data within thirty (30) days of the termination, unless prohibited by law.』（DPA §11）——终止后 30 天内指示各 subprocessor 删除 Customer Data，属终止后删除的上限。"
+[[product.retention.point]]
+text = "Carve-out in the next sentence of §11: 『To the extent Licensor is required to retain any Customer Data to comply with applicable legal or regulatory obligations, including record retention requirements, Licensor will isolate and protect such data for further processing and delete it as soon as such obligations are satisfied.』"
+text_zh = "§11 紧接的例外：依法必须留存的 Customer Data（含记录留存要求）会被隔离保护、仅供该目的处理，并在义务满足后尽快删除。"
+anchor = "devin-dpa-legal-retention"
+[[product.retention.point]]
+text = "Security-page FAQ (auxiliary, lower authority than the DPA): 『Cognition only retains data processed through Devin for the duration of the relationship with a given Customer, unless otherwise specified by the Customers.』"
+text_zh = "安全页 FAQ（辅助说明，权威性低于 DPA）：『Cognition only retains data processed through Devin for the duration of the relationship with a given Customer, unless otherwise specified by the Customers.』"
 anchor = "devin-relationship-retention"
+[[product.retention.point]]
+text = "Exception sitting in the same FAQ answer: 『Any Feedback Data and User Interaction Data are retained as long as needed and as determined by Cognition.』 For those two objects there is no fixed period and no relationship-end bound — the duration is Cognition's call."
+text_zh = "同段并列的例外：『Any Feedback Data and User Interaction Data are retained as long as needed and as determined by Cognition.』——这两类对象没有固定期限，也不受「关系结束」约束，期限由 Cognition 自行决定。"
+anchor = "devin-retention-exception"
+[[product.retention.point]]
+text = "The object depends on the access channel (this sentence bounds what is read, processed and stored, not for how long): 『In Slack, Devin doesn’t read, process or store any data in your Slack instance other than the information provided when @Devin is tagged, initially prompted and when any additional information is provided within the Slack thread while the session is ongoing.』 The same page says that for the web application Cognition only processes data actively provided by the authorized user prompting Devin."
+text_zh = "保留对象随接入方式区分（该句限定的是读取/处理/存储范围，不是保留期限）：Slack 集成下 Devin 只读取/处理/存储 @Devin 被标记、初始提示以及会话进行中线程内提供的信息；同一页写明 web 应用下 Cognition 只处理用户主动提供的数据。"
+anchor = "devin-slack-scope"
+[[product.retention.point]]
+text = "Not disclosed per object: no separate retention or deletion period is published for access/system logs, nor for the repository indices that power DeepWiki and Ask Devin."
+text_zh = "分对象期限未披露：访问/系统日志，以及支撑 DeepWiki 与 Ask Devin 的代码索引，官方都没有公布独立的保留或删除期限。"
 [product.processing_region]
-codes = ["selected"]
-anchor = "devin-processor"
+codes = ["US"]
+anchor = "devin-subprocessors-us"
 [[product.processing_region.point]]
-text_zh = "DPA 允许依客户指示进行跨境传输；专属部署可将数据留在客户 tenant，但公开 DPA 未列固定推理区域。"
+text = "DPA Appendix C lists the subprocessors behind core processing — Microsoft Azure, AWS, Google Cloud, plus, to the extent Personal Data is submitted as Input, OpenAI, Anthropic, Microsoft/Azure, Google/Vertex, Databricks, xAI and Snowflake — all with location United States. Subprocessor location is a disclosure about where processing happens; it is neither a customer-selectable region nor a data-residency commitment."
+text_zh = "DPA Appendix C 把承担 core processing 的 subprocessor 逐条列为 Microsoft Azure / AWS / Google Cloud，以及在作为 Input 提交 Personal Data 时的 OpenAI、Anthropic、Microsoft/Azure、Google/Vertex、Databricks、xAI、Snowflake，位置均为 United States。subprocessor 位置是对「数据在哪处理」的披露，既不是客户可选区域，也不是数据驻留承诺。"
+[[product.processing_region.point]]
+text = "Support workflow is a separate hop outside the United States: 『| Agumbe (Cognition India) | Support Workflow | India |』. Cross-border processing runs only on documented instructions from the customer (DPA §10)."
+text_zh = "支持工作流是另一跳，不在美国：『| Agumbe (Cognition India) | Support Workflow | India |』。跨境处理依 DPA §10 只按客户的书面指示进行。"
+anchor = "devin-subprocessors-india"
 [product.role]
 kind = "processor"
 anchor = "devin-processor"
+[[product.role.point]]
+text = "Exception in the same DPA: the processor role covers Customer Data only. 『Notwithstanding anything to the contrary in this DPA, the parties acknowledge and agree that Licensor may process Account Data as a Data Controller solely to (a) manage and administer its relationship with Customer, including business user access management and account provisioning; (b) detect, prevent, or investigate security incidents, fraud, and other abuse or misuse of the Services; and (c) comply with applicable legal or regulatory obligations.』 (DPA §2.b) Account Data is therefore handled as an independent controller."
+text_zh = "同一份 DPA 里的例外：处理者角色只覆盖 Customer Data。DPA §2.b 规定 Licensor 可以就 Account Data 作为独立 Data Controller 处理，用途限于 (a) 管理与客户的业务关系（含账号开通与访问管理）、(b) 检测/预防/调查安全事件、欺诈与滥用、(c) 履行法律或监管义务。即 Account Data 走独立控制方路径，Customer Data 才是处理者角色。"
+anchor = "devin-account-data-controller"
 
 [[anchor]]
 id = "devin-default-training"
@@ -124,8 +221,96 @@ suffix = ""
 [[anchor]]
 id = "devin-processor"
 source_id = "c7345437a9dd5fa6"
-topics = ["role", "processing_region"]
+topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "Customer is the entity that determines the purposes and means for which Customer Data is processed (“Data Controller”), and Licensor processes Customer Data on the Data Controller’s behalf and in accordance with the Data Controller’s written instructions (“Data Processor”)."
+suffix = ""
+[[anchor]]
+id = "devin-zdr-paid-plan"
+source_id = "3a442cc9dea8a53d"
+topics = ["zdr", "training"]
+[anchor.selector]
+prefix = ""
+exact = "If you’re on a paid plan, you can opt out at any time on the Data Controls settings page."
+suffix = ""
+[[anchor]]
+id = "devin-knowledge-training"
+source_id = "3a442cc9dea8a53d"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Devin can still learn to fit into your unique workflow via the Knowledge feature. When you share Knowledge, Devin can become more reliable at working on your specific projects over time."
+suffix = ""
+[[anchor]]
+id = "devin-retention-exception"
+source_id = "3a442cc9dea8a53d"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Any Feedback Data and User Interaction Data are retained as long as needed and as determined by Cognition."
+suffix = ""
+[[anchor]]
+id = "devin-slack-scope"
+source_id = "3a442cc9dea8a53d"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "In Slack, Devin doesn’t read, process or store any data in your Slack instance other than the information provided when @Devin is tagged, initially prompted and when any additional information is provided within the Slack thread while the session is ongoing."
+suffix = ""
+[[anchor]]
+id = "devin-subprocessors-us"
+source_id = "c7345437a9dd5fa6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "| Entity | Purpose | Location |"
+exact = "| Microsoft Azure | core processing | United States |"
+suffix = "| AWS | core processing, profile data, logs, and indices | United States |"
+[[anchor]]
+id = "devin-subprocessors-india"
+source_id = "c7345437a9dd5fa6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "| Agumbe (Cognition India) | Support Workflow | India |"
+suffix = ""
+[[anchor]]
+id = "devin-dpa-deletion"
+source_id = "c7345437a9dd5fa6"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Upon termination of this DPA, Licensor will direct each Subprocessor to delete Customer Data within thirty (30) days of the termination, unless prohibited by law."
+suffix = ""
+[[anchor]]
+id = "devin-dpa-legal-retention"
+source_id = "c7345437a9dd5fa6"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "To the extent Licensor is required to retain any Customer Data to comply with applicable legal or regulatory obligations, including record retention requirements, Licensor will isolate and protect such data for further processing and delete it as soon as such obligations are satisfied."
+suffix = ""
+[[anchor]]
+id = "devin-account-data-controller"
+source_id = "c7345437a9dd5fa6"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Notwithstanding anything to the contrary in this DPA, the parties acknowledge and agree that Licensor may process Account Data as a Data Controller solely to (a) manage and administer its relationship with Customer, including business user access management and account provisioning; (b) detect, prevent, or investigate security incidents, fraud, and other abuse or misuse of the Services; and (c) comply with applicable legal or regulatory obligations."
+suffix = ""
+[[anchor]]
+id = "devin-subprocessor-no-train"
+source_id = "c7345437a9dd5fa6"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Licensor’s subprocessors are subject to equivalent restrictions through contractual obligations or technical configurations that prevent Customer Data from being used for model training purposes."
+suffix = ""
+[[anchor]]
+id = "devin-purpose-limitation"
+source_id = "c7345437a9dd5fa6"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "For clarity, as Data Processor, Licensor will not sell or share Customer Data, nor will Licensor use, disclose, retain, or otherwise process Customer Data (i) for a purpose other than the specific purpose of providing the Services; (ii) outside of the direct business relationship between Licensor and Customer and the written instructions received from Customer; and (iii) in a manner inconsistent with applicable Data Protection Laws."
 suffix = ""

@@ -50,7 +50,9 @@ anchor = "deepinfra-tos-7b-no-training"
 text_zh = "同顶层 training：合同 §7(b) 不用于训练，例外为「as necessary to provide the Services (e.g., fine-tuning a model for Customer's use)」"
 
 [[product.training.point]]
-text_zh = "docs /account/data-privacy 与隐私政策同旨。无退出/申请机制说明。"
+text = "The Privacy Policy makes the same promise conditionally: 'We will not store, sell, or train using this data unless we have your explicit consent' — i.e. with explicit consent DeepInfra may store, sell, or train on API inputs and outputs. The docs page states the rule without that condition and names only the Google/Anthropic exceptions."
+text_zh = "隐私政策 §Data submitted to and returned by our inference Service 是条件式承诺：「We will not store, sell, or train using this data unless we have your explicit consent」——即获得你的明确同意后即可存储、出售或训练。docs /account/data-privacy 页没有这一条件，只有 Google/Anthropic 例外，两者措辞不同、并列保留。无退出/申请机制说明。"
+anchor = "deepinfra-privacy-inference-data-no-store-sell-train"
 
 [product.zdr]
 mark = "yes"
@@ -68,17 +70,48 @@ text_zh = "与 docs 页的四项例外冲突，两条并列。"
 
 [product.retention]
 object = "input_output"
-basis = "until_termination"
+basis = "none"
+anchor = "deepinfra-tos-7b-zdr-commitment"
+
+[[product.retention.point]]
+text = "Context: default online inference. The Section 7(b) Zero Data Retention commitment says Customer Data is not retained, stored, or logged beyond the period strictly necessary to process and return the request, after which it is deleted from Provider's systems; the docs page says the same for inference APIs."
+text_zh = "语境=默认在线推理。主证据用合同 §7(b) 的 Zero Data Retention 句：Customer Data 不留存超过「处理并返回该请求所严格必需的期间」，之后从系统删除；docs /account/data-privacy 同旨（输入不落盘、只在推理期留内存、完成即从内存删除，输出同理）。期限类型=不保留／处理完即删除。"
 anchor = "deepinfra-docs-dataprivacy-input-not-stored-on-disk"
 
 [[product.retention.point]]
-text_zh = "同顶层 retention：在线推理输入输出不落盘、完成即从内存删除"
+text = "Exception 1 — outputs of image generation models are stored for a short period of time to allow easy access; no length is quantified."
+text_zh = "例外①图片生成输出：「Outputs of image generation models are stored for a short period of time to allow easy access」——短期存储，具体期限未量化。"
+anchor = "deepinfra-docs-dataprivacy-image-outputs-stored"
 
 [[product.retention.point]]
-text_zh = "例外为图片生成输出（短期）、批量推理（可落盘加密，短期后删除）、日志（保留记录一小部分请求的权利）、Google/Anthropic 上游存储"
+text = "Exception 2 — bulk inference (several requests in one call): data may be stored for a longer period, potentially on disk in encrypted form, and is deleted from disk and memory after a short retention period once results are returned."
+text_zh = "例外②批量推理：可能「store data for a longer period, potentially on disk in encrypted form」，结果返回后「deleted from disk and memory after a short retention period」——加密落盘 + 短期，期限未量化。"
+anchor = "deepinfra-docs-dataprivacy-bulk-inference-disk-storage"
 
 [[product.retention.point]]
-text_zh = "量化的只有显式 prompt 缓存窗口 5 分钟/1 小时与账号删除后 PII 30 天。"
+text = "Exception 3 — logs: DeepInfra generally does not log the content of requests and logs only metadata, but reserves the right to log a small portion of requests for debugging or security."
+text_zh = "例外③日志：默认只记元数据（request ID、cost、sampling parameters），但「reserve the right to log a small portion of requests when necessary for debugging or security purposes」——对象是访问日志、不是输入输出正文，上限未量化。"
+anchor = "deepinfra-docs-dataprivacy-logs-metadata-debug-exception"
+
+[[product.retention.point]]
+text = "Exception 4 — Google / Anthropic models: the output is stored by the receiving company under its own policy, and DeepInfra quantifies no period."
+text_zh = "例外④上游一跳（Google/Anthropic 模型）：输出由上游存储，期限适用上游政策，DeepInfra 未量化。"
+anchor = "deepinfra-docs-dataprivacy-google-stores-output"
+
+[[product.retention.point]]
+text = "Exception 5 — Google models: Google logs prompts and responses for a limited period solely to detect violations of its Prohibited Use Policy, so the input side is recorded upstream as well."
+text_zh = "例外⑤上游记录输入侧（Google 模型）：「Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy」。"
+anchor = "deepinfra-docs-dataprivacy-google-logs-prompts-and-responses"
+
+[[product.retention.point]]
+text = "The Privacy Policy keeps a conditional promise about the same object: inputs and outputs will not be stored, sold, or trained on unless DeepInfra has your explicit consent. It does not match the unconditional docs page wording; both are kept."
+text_zh = "隐私政策对同一对象是条件式承诺：「We will not store, sell, or train using this data unless we have your explicit consent」——与 docs 页的无条件「不落盘、完成即删」措辞不同，两条并列保留。"
+anchor = "deepinfra-privacy-inference-data-no-store-sell-train"
+
+[[product.retention.point]]
+text = "Object: account-level Personal Information, not request content. Retained while you use the services, as required by law, or as otherwise communicated to you; after an account is deleted it is removed after 30 days. The sentence says 'as specified in our terms', but the current Terms contain no such 30-day account-deletion clause (the 30 days in Section 7(b)(i) is a support-ticket exception)."
+text_zh = "对象=账号层 PII（不是输入输出正文）：语境=默认，期限类型=开放式保留（「for as long as you use our services, as required by law, or as otherwise communicated to you」）＋删号后 30 天。该句自称「as specified in our terms」，但现行 ToS 通篇没有账号删除 30 天的条款（§7(b)(i) 的 30 天是支持工单例外），属原文内部引用链断裂。"
+anchor = "deepinfra-privacy-account-deletion-30-days"
 
 [product.processing_region]
 codes = ["US"]
@@ -111,13 +144,21 @@ anchor = "deepinfra-docs-dataprivacy-no-training-except-google-anthropic"
 text_zh = "docs /account/data-privacy §No training：「We do not use data you submit to our APIs for training models, except when using Google or Anthropic models, where the receiving company's training policy applies」——本档正是被该例外点名的子集，DeepInfra 侧的不训练承诺不覆盖它，训练政策由上游决定。按判定口径（未排除模型训练就不能替厂商排除）记 mark=no。合同 §7(b) 的「不用于训练」未点名此例外，两条并列。置信度 medium：DeepInfra 侧只说「适用上游政策」，未说明上游具体条款。"
 
 [product.zdr]
-mark = "unknown"
+mark = "no"
+anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.zdr.point]]
-text_zh = "未披露该子集能否实现端到端零保留。合同 §7(b) 称 ZDR「applies to all Customer Data」且未点名上游例外，§18 则称第三方内容「governed exclusively by the applicable third-party license, terms of use, and privacy policies」但未指名 Google / Anthropic，也未把它们列为子处理方（docs /account/subprocessors 同样未列）。因此「DeepInfra 的 ZDR 承诺是否覆盖上游这一跳」在公开文件中无答案。置信度 low。"
+text = "Requests of this subset have to be transferred to the upstream endpoints to be fulfilled, and the docs page discloses that the upstream hop retains: Google stores the output of Google models and Anthropic the output of Anthropic models, and Google additionally logs prompts and responses for a limited period. Under the ledger's multi-hop rule — one hop that clearly does not retain zero makes the whole chain non-ZDR — this subset has no end-to-end zero retention."
+text_zh = "本档请求必须转到上游端点才能完成，而 docs /account/data-privacy 明示上游一跳会留存：Google 模型下「Google will store the output as outlined in their Privacy Notice」，Anthropic 模型下同理；且 Google 还会为检测其禁用政策违规记录 prompts 与 responses 一段时间。按多跳口径「任一跳明确为否，则全链为否」记 mark=no。"
+anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.zdr.point]]
-text_zh = "§18 那句「第三方内容受第三方许可、使用条款与隐私政策专属管辖」是风险与准据法分配条款，没有说上游这一跳能否零保留，不构成对 zdr 维度的表述，故不再绑在本条；该 anchor 定义仍保留在本文件中（现无维度引用它）。"
+text = "The contract points the other way and is kept alongside: Section 5(a) says the Section 7(b) Zero Data Retention commitment controls over the Privacy Policy and any other Provider policy, webpage, or documentation and applies to all Customer Data, and the Section 7(b) exception list does not name Google or Anthropic. The docs page's upstream exceptions have no counterpart in the contract, so the conflict is unresolved in the public documents."
+text_zh = "合同方向相反，两条并列保留：§5(a) 称 §7(b) 的 Zero Data Retention 承诺优先于隐私政策及任何 Provider 政策/网页/文档，且「applies to all Customer Data」，§7(b) 的例外清单 (i)(ii)(iii) 也未点名 Google / Anthropic；docs 页的上游存储例外在合同层没有对应文字。冲突在公开文件中未解，本维度按全链最弱一跳记。置信度 medium。"
+anchor = "deepinfra-tos-5a-zdr-applies-to-all-customer-data"
+
+[[product.zdr.point]]
+text_zh = "§18 那句「第三方内容受第三方许可、使用条款与隐私政策专属管辖」是风险与准据法分配条款，没有说上游这一跳能否零保留，不构成对 zdr 维度的表述，故不再绑在本条；该 anchor 定义仍保留在本文件中（现无维度引用它）。它也未指名 Google / Anthropic，也未把它们列为子处理方（docs /account/subprocessors 同样未列）。"
 
 [product.retention]
 object = "input_output"
@@ -125,21 +166,40 @@ basis = "undisclosed"
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.retention.point]]
-text_zh = "docs /account/data-privacy 明示「If you opt to use a Google model, Google will store the output as outlined in their Privacy Notice」「If you opt to use an Anthropic model, Anthropic will store the output as outlined in their Trust Center」——输出由上游存储，期限适用上游政策。合同 §7(b) 的 ZDR 文本没有这一例外，且 §5(a) 称 ZDR 优先于「any other Provider policy, webpage, or documentation」，两条并列。"
+text = "Output side: the docs page says Google stores the output of Google models under its Privacy Notice, and Anthropic stores the output of Anthropic models under its Trust Center — the output is stored upstream, period set by the upstream policy. The contract's ZDR text has no such exception and Section 5(a) says ZDR controls over any other Provider policy, webpage, or documentation; both are kept."
+text_zh = "输出侧：docs /account/data-privacy 明示「If you opt to use a Google model, Google will store the output as outlined in their Privacy Notice」——输出由上游存储，期限适用上游政策。合同 §7(b) 的 ZDR 文本没有这一例外，且 §5(a) 称 ZDR 优先于「any other Provider policy, webpage, or documentation」，两条并列。"
+anchor = "deepinfra-docs-dataprivacy-google-stores-output"
+
+[[product.retention.point]]
+text = "Anthropic models: the same storage statement, referring to Anthropic's Trust Center."
+text_zh = "Anthropic 模型同义句：「If you opt to use an Anthropic model, Anthropic will store the output as outlined in their Trust Center」。"
+anchor = "deepinfra-docs-dataprivacy-anthropic-stores-output"
+
+[[product.retention.point]]
+text = "Input side: for Google models, Google logs prompts and responses for a limited period solely to detect violations of its Prohibited Use Policy, so the input side is retained upstream too and the period is set by the upstream policy."
+text_zh = "输入侧（原文缺失的一层）：Google 模型下「Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy」——上游不仅存输出，还记录输入侧的 prompts，期限由上游政策定。"
+anchor = "deepinfra-docs-dataprivacy-google-logs-prompts-and-responses"
 
 [product.processing_region]
 basis = "undisclosed"
-anchor = "deepinfra-docs-dataprivacy-anthropic-stores-output"
+anchor = "deepinfra-docs-dataprivacy-transfer-to-third-party-endpoints"
 
 [[product.processing_region.point]]
-text_zh = "该子集的请求被「transferred to those endpoints to fulfill the request」（docs §No sharing），但 DeepInfra 未披露上游端点的处理地"
+text = "The only official sentence about where this subset's data goes: DeepInfra does not share API data with third parties except when using Google or Anthropic models, where it is required to transfer data to those endpoints to fulfil the request. The sentence proves a receiving hop exists; it says nothing about that hop's identity or processing location."
+text_zh = "该子集数据去向的唯一直接官方句：「We do not share data you submit to our APIs with any third party, except when using Google or Anthropic models, where we are required to transfer data to those endpoints to fulfill the request」——只证明存在一跳接收方，未说明其身份与处理地。"
+anchor = "deepinfra-docs-dataprivacy-transfer-to-third-party-endpoints"
 
 [[product.processing_region.point]]
-text_zh = "隐私政策的「specifically in the United States」是否覆盖上游一跳未说明。置信度 low。"
+text_zh = "该子集的请求被转到上游端点处理，但 DeepInfra 未披露上游端点的处理地；隐私政策的「specifically in the United States」是否覆盖上游一跳未说明。置信度 low。"
 
 [product.role]
 kind = "unknown"
 anchor = "deepinfra-privacy-shared-with-relevant-api-endpoints"
+
+[[product.role.point]]
+text = "There is at least one more hop that can reach the content of this subset: data has to be transferred to those upstream endpoints to fulfil the request."
+text_zh = "该子集存在另一跳能拿到内容：docs §No sharing「we are required to transfer data to those endpoints to fulfill the request」。该句只证明存在一跳接收方，未说明其身份与处理地。"
+anchor = "deepinfra-docs-dataprivacy-transfer-to-third-party-endpoints"
 
 [[product.role.point]]
 text_zh = "隐私政策只说数据「will be shared with the relevant API endpoints, as specified at the time of use」，合同 §18 说受第三方条款约束。上游是 DeepInfra 的子处理方还是独立控制方、主体是谁，均未披露。置信度 low。"
@@ -512,3 +572,36 @@ suffix = """
 
 * **Custom weights** — deploy fine-tuned or trained-from-scratch models
 * **Predictable latency**"""
+
+[[anchor]]
+id = "deepinfra-tos-5a-zdr-applies-to-all-customer-data"
+source_id = "07d09ce3d7911532"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ", and "
+exact = "an executed DPA supplements, and does not narrow, that commitment, which applies to all Customer Data"
+suffix = "\n**(b) Customer Data Compliance"
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-transfer-to-third-party-endpoints"
+source_id = "18f12f8ea42656ad"
+topics = ["zdr", "role", "processing_region"]
+
+[anchor.selector]
+prefix = """
+## No sharing
+
+"""
+exact = "We do not share data you submit to our APIs with any third party, except when using Google or Anthropic models, where we are required to transfer data to those endpoints to fulfill the request"
+suffix = "\nLogs"
+
+[[anchor]]
+id = "deepinfra-docs-dataprivacy-google-logs-prompts-and-responses"
+source_id = "18f12f8ea42656ad"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "We reserve the right to log a small portion of requests when necessary for debugging or security purposes. "
+exact = "When using the Google model, Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy"
+suffix = "\nPersonal information and data provided"

@@ -15,7 +15,7 @@ note = "国际站《Privacy Policy》，Last updated March 1, 2025，主体 Alib
 url = "https://resouces.modelscope.ai/document/docdata/2026-9-1_19-48-INTL_EN/dist/agreements/terms/terms_INTL_EN.md"
 channel = "contract"
 tier = "core"
-note = "国际站（modelscope.ai）《Terms and Conditions》，Last updated August 21, 2025，主体 Alibaba Cloud (Singapore) Pte Ltd（§1 首段）。与中国站是不同法律实体、不同文本，不可混用。§3.1 定义 User Content，§3.2 是用户内容授权条款（许可措辞为 access/use/host/modify/…，未点名 training），§3.11 是免费算力供用户训练自己模型的条款（与中国站 §4.1(8) 同旨），§6 声明训练/升级模型与 output 等 IPR 归平台，§7 保留移除平台上存储内容的权利，§8 明确用户须自行备份、平台存储的数据可能被删除，§9 是个人信息处理角色条款（明文「for your purposes and on your behalf only」）。全文无 retention 期限、无 ZDR、无「使用输入训练模型」的自认。"
+note = "国际站（modelscope.ai）《Terms and Conditions》，Last updated August 21, 2025，主体 Alibaba Cloud (Singapore) Pte Ltd（§1 首段）。与中国站是不同法律实体、不同文本，不可混用。§3.1 定义 User Content，§3.2 是用户内容授权条款（许可措辞为 access/use/host/modify/…，未点名 training），§3.11 是免费算力供用户训练自己模型的条款（与中国站 §4.1(8) 同旨），§6 声明训练/升级模型与 output 等 IPR 归平台，§7 保留移除平台上存储内容的权利，§8 明确用户须自行备份、平台存储的数据可能被删除，§9 是个人信息处理角色条款（明文「for your purposes and on your behalf only」）。全文无 retention 期限、无 ZDR；全文没有「平台使用输入训练模型」的自认（字面成立），但 §3.5 的措辞是 develop and improve … machine-learning and artificial-intelligence technologies，未点名 training / model training（§3.11 的 model training 是用户用免费算力训练自己的模型），它明文授权平台「using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies」（对象限定为非个人数据的 User Content），属合同层对平台自我使用的授权，故不能再说全文没有平台自用的条款。"
 
 [[source]]
 url = "https://resouces.modelscope.cn/document/docdata/2026-9-10_15-4-CN/dist/agreements/privacy/privacy_CN.md"
@@ -37,7 +37,9 @@ plan_level = "free"
 site = "cn"
 
 [product.training]
-mark = "unknown"
+mark = "no"
+mode = "not_disclosed"
+anchor = "cn-privacy-2-6-1-support-improve"
 searched = [
   "https://resouces.modelscope.cn/document/docdata/2026-9-10_15-4-CN/dist/agreements/terms/terms_CN.md",
   "https://resouces.modelscope.cn/document/docdata/2026-9-10_15-4-CN/dist/agreements/privacy/privacy_CN.md",
@@ -59,16 +61,21 @@ searched = [
 ]
 
 [[product.training.point]]
-text = "China-site conclusion: undisclosed by the vendor (not_found) — there is neither an admission that \"the platform uses API inputs/outputs to train or optimize models\" nor an explicit \"not used for training\" commitment, and the latter must not be read as the former. Checked: the full text of both China-site agreements (User Agreement 2025-08-27, Privacy Policy 2024-06-05) plus every policy-type document on the docs site (content compliance review, AI ethics initiative, the three API-Inference pages, the Magicube credit system, FlexTrain, deployment introduction). The word \"training\" appears in only three places on the China site, none of them about the platform training on user data: (1) User Agreement §4.1(8) \"in order to improve your experience, this community may provide you with a certain amount of free computing resources, which you may use for model training and other related development activities\" — this is **the user training their own model on the platform's free compute** (with a requirement to credit \"this model was trained with technical support from the ModelScope community\"), the opposite direction from \"the platform trains on your data\""
-text_zh = "中国站结论：官方未披露（not_found），既没有「平台使用 API 输入/输出训练或优化模型」的自认，也没有「不用于训练」的明确承诺——不得把后者当成前者来解读。原绑的 §3.2.1 授权清单只界定用户内容许可的范围（列举托管、存储、传输、公开展示等，未含模型训练），它既未授权也未排除平台训练，不构成对本维度的表述，已撤锚；查阅范围见 searched。核过中国站两份协议全文（用户协议 2025-08-27、隐私政策 2024-06-05）+ docs 站全部政策类文档（内容合规审查、AI 伦理倡议书、API-Inference 三页、魔粒体系、FlexTrain、部署简介）。「训练」一词在中国站的分布只有三类，全部与平台使用用户数据训练无关：(1) 用户协议 §4.1(8)「为提升您的使用体验，本社区可能为您提供一定额度的免费计算资源，您可将其用于模型训练等相关开发活动」——这是**用户用平台免费算力训练自己的模型**（并要求标注「本模型训练获得魔搭社区技术支持」），方向与「平台拿你的数据训练」相反"
+text = "China-site conclusion: no explicit \"not used for training\" commitment exists, and one clause counts the other way — Privacy Policy §2.6.1 states that the support-channel records it collects are used \"to improve the service\", which this ledger's rule (\"used to improve the service / improve quality\" counts as training) records as mark=no with mode=not_disclosed. There is still no admission that \"the platform uses API inputs/outputs to train or optimize models\", and the absence of such an admission must not be read as the presence of a commitment. Checked: the full text of both China-site agreements (User Agreement 2025-08-27, Privacy Policy 2024-06-05) plus every policy-type document on the docs site (content compliance review, AI ethics initiative, the three API-Inference pages, the Magicube credit system, FlexTrain, deployment introduction). The word \"training\" appears in only three places on the China site, none of them about the platform training on user data: (1) User Agreement §4.1(8) \"in order to improve your experience, this community may provide you with a certain amount of free computing resources, which you may use for model training and other related development activities\" — this is **the user training their own model on the platform's free compute** (with a requirement to credit \"this model was trained with technical support from the ModelScope community\"), the opposite direction from \"the platform trains on your data\""
+text_zh = "中国站结论：没有「不用于训练」的明确承诺，且有一条反向口径——隐私政策 §2.6.1 把客服渠道收集的记录写明「用于改进服务」，按本台账口径（「用来改进服务/提高质量」算训练）记 mark=no、mode=not_disclosed。仍然没有「平台使用 API 输入/输出训练或优化模型」的自认——不得把「没有承诺」当成「有自认」来解读。原绑的 §3.2.1 授权清单只界定用户内容许可的范围（列举托管、存储、传输、公开展示等，未含模型训练），它既未授权也未排除平台训练，不构成对本维度的表述，已撤锚；查阅范围见 searched。核过中国站两份协议全文（用户协议 2025-08-27、隐私政策 2024-06-05）+ docs 站全部政策类文档（内容合规审查、AI 伦理倡议书、API-Inference 三页、魔粒体系、FlexTrain、部署简介）。「训练」一词在中国站的分布只有三类，全部与平台使用用户数据训练无关：(1) 用户协议 §4.1(8)「为提升您的使用体验，本社区可能为您提供一定额度的免费计算资源，您可将其用于模型训练等相关开发活动」——这是**用户用平台免费算力训练自己的模型**（并要求标注「本模型训练获得魔搭社区技术支持」），方向与「平台拿你的数据训练」相反"
 
 [[product.training.point]]
 text = "(2) Privacy Policy §2.4.2 \"to try out online model debugging, training and deployment, you may choose to bind an Alibaba Cloud account\" — a user-side feature entry point"
 text_zh = "(2) 隐私政策 §2.4.2「为体验模型在线调试、训练及部署能力，您可选择绑定阿里云账号」——是用户侧功能入口"
 
 [[product.training.point]]
-text = "(3) User Agreement §4.2.1(2), the compliance obligation of Studio creators for \"management of training data and generated content\" — the obligation falls on the creator. The two clauses closest to this dimension are: Privacy Policy §2.3.2, which limits the purpose of collecting \"the text, voice, images and video you input, reply with or generate\" to \"providing you with those services\" and adds that the platform \"has the right to display your nickname, avatar and published content\""
-text_zh = "(3) 用户协议 §4.2.1(2) 创空间创建者的「训练数据与生成内容管理」合规义务——义务落在创建者身上。与本维度最接近的两条条款是：隐私政策 §2.3.2 把「您输入、回复、生成的文字、语音、图片、视频」收集目的限定为「为向您提供该等服务」并「有权展示您的昵称、头像和发布内容」"
+text = "(3) User Agreement §4.2.1(2), the compliance obligation of Studio creators for \"management of training data and generated content\" — the obligation falls on the creator. Two further clauses bearing on this dimension: Privacy Policy §2.3.2, which limits the purpose of collecting \"the text, voice, images and video you input, reply with or generate\" to \"providing you with those services\" and adds that the platform \"has the right to display your nickname, avatar and published content\""
+text_zh = "(3) 用户协议 §4.2.1(2) 创空间创建者的「训练数据与生成内容管理」合规义务——义务落在创建者身上。另两条与本维度相关的条款：隐私政策 §2.3.2 把「您输入、回复、生成的文字、语音、图片、视频」收集目的限定为「为向您提供该等服务」并「有权展示您的昵称、头像和发布内容」"
+
+[[product.training.point]]
+text = "Privacy Policy §2.6.1 is the only China-site clause that carries a data object and says the information is used \"to improve the service\": \"When you request support or help from us through the customer-service channels we provide, you need to provide us with a description of the problem, and we will also need to collect your enquiry records, fault-report records and the troubleshooting process for your fault (such as **conversation or call recordings**); we will record and analyse this information so as to respond to your help request more promptly, and to improve the service.\" Under this ledger's rule that \"used to improve the service / improve quality\" counts as training, this is the basis for mark=no (mode=not_disclosed): the clause does not name model training, but it does not exclude it either, so a \"not used for training\" reading cannot be maintained. Scope limit to keep in view: the object is support-channel records (enquiry records, fault reports, troubleshooting process, conversation or call recordings) — **not API inference inputs/outputs** — so it does not show that inference request content is used for training; it is also narrower than the international site's Privacy Policy §6, which authorises product improvement over Personal Data generally."
+text_zh = "隐私政策 §2.6.1 是中国站唯一一条带数据对象的「用于改进服务」表述：「当您通过我们提供的客服渠道请求我们支持或帮助时，您需要向我们提供问题描述，同时我们会需要收集您的咨询记录、报障记录和针对用户故障的排障过程（如**对话或通话记录**），我们将通过记录、分析这些信息以便更及时响应您的帮助请求，以及用于改进服务。」按本台账口径（「用来改进服务/提高质量」算训练），这是 mark=no（mode=not_disclosed）的依据：该条没有点名模型训练，但也没有把模型训练排除在外，故不能维持「不用于训练」的读法。需保留的限定：对象是客服渠道记录（咨询记录、报障记录、排障过程、对话或通话记录），**不是 API 推理输入/输出**，因此它不证明推理请求内容被用于训练；它也比国际站隐私政策 §6（对 Personal Data 的概括性产品改进授权）更窄。"
+anchor = "cn-privacy-2-6-1-support-improve"
 
 [[product.training.point]]
 text = "The license list in User Agreement §3.2.1 is to host, store, transmit, publicly display, publicly perform, communicate to the public, reproduce, create derivative works and distribute, and **does not include model training or model optimization**. Two clauses pulling the other way must be recorded alongside: User Agreement §3.2.1(2) says plainly that \"we may access or share your private user content in accordance with what is set out in our privacy policy\", and §4.1(2) reserves the right to review user content (including Demo inputs, see the content compliance review document) by technical or human means. Uncertainties: (a) the privacy policy gives no affirmative \"not used for training without explicit authorization\" commitment of the kind PPIO gives, and no switch for any training purpose"
@@ -150,8 +157,13 @@ text = "(4) User Agreement §9.2.1 \"once the feature is withdrawn, your right t
 text_zh = "(4) 用户协议 §9.2.1「一旦功能取消，您使用本社区的权利立即终止，您在本社区中储存的任何信息可能无法恢复」——免费功能取消不承诺保留"
 
 [[product.retention.point]]
-text = "(5) The corresponding international-site text (which does not apply to the China site) separately says that data stored by the platform \"may be removed or rendered inaccessible from time to time\". **What is absent**: no request-level retention commitment (such as 0 days or 30 days)"
-text_zh = "(5) 国际站对应文本（不适用中国站）另说平台存储的数据「may be removed or rendered inaccessible from time to time」。**没有的东西**：没有请求级保留期（如 0 天/30 天）的承诺"
+text = "(5) User Agreement §3.4.1(3) legal-preservation permission: where the user fails to comply with statutory obligations (the context is the labelling duty for generated synthetic content), \"we have the right to preserve the relevant records in accordance with the law and report to the Cyberspace Administration and the relevant competent authorities\". It fixes no period, and the object is the records related to the breach — it is a permission to keep, not a retention period and not a floor, so no number of days may be derived from it."
+text_zh = "(5) 用户协议 §3.4.1(3) 法定保存许可：用户未遵守相关法定义务时（语境是生成合成内容的标识义务）「我们有权依法保存有关记录，并向网信部门和有关主管部门报告」。它没有期限，对象是违规相关的记录——是保存许可，不是保留期限、也不是下限，不能据此推任何天数。"
+anchor = "cn-tos-3-4-1-3-legal-preserve"
+
+[[product.retention.point]]
+text = "(6) The corresponding international-site text (which does not apply to the China site) separately says that data stored by the platform \"may be removed or rendered inaccessible from time to time\". **What is absent**: no request-level retention commitment (such as 0 days or 30 days)"
+text_zh = "(6) 国际站对应文本（不适用中国站）另说平台存储的数据「may be removed or rendered inaccessible from time to time」。**没有的东西**：没有请求级保留期（如 0 天/30 天）的承诺"
 
 [[product.retention.point]]
 text = "No retention rule for a KV cache or prompt cache (the docs site has no documentation for such a feature)"
@@ -210,7 +222,7 @@ site = "global"
 
 [product.training]
 mark = "no"
-anchor = "intl-privacy-6-legitimate-interests"
+anchor = "intl-tos-3-5-improve-ml-technologies"
 searched = [
   "https://resouces.modelscope.ai/document/docdata/2026-9-1_19-48-INTL_EN/dist/agreements/terms/terms_INTL_EN.md",
   "https://resouces.modelscope.ai/document/docdata/2026-9-1_19-48-INTL_EN/dist/agreements/privacy/privacy_INTL_EN.md",
@@ -221,12 +233,19 @@ searched = [
 ]
 
 [[product.training.point]]
-text = "International-site conclusion: equally undisclosed. The user content license in international Terms §3.2 is worded \"to access, use, host, modify, communicate, reproduce, adapt, make derivative works of, publish, perform, and/or distribute any User Content\" — \"use\" is broad, but training or model training never appears anywhere as a platform purpose"
-text_zh = "国际站结论：同样未披露。国际站 Terms §3.2 的用户内容许可措辞是「to access, use, host, modify, communicate, reproduce, adapt, make derivative works of, publish, perform, and/or distribute any User Content」——「use」很宽泛但全文没有出现 training 或 model training 作为平台用途"
+text = "International-site conclusion: the contract itself carries the platform's own-use authorisation, so the \"nothing found\" reading no longer holds. Terms §3.5: \"we may process any User Content to improve our services and/or develop new products and services (including without limitation for our internal business purposes and/or for other customers). You hereby expressly authorise and consent to us: (i) using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies; and (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI\". Two limits must be kept when reading it: the wording is \"develop and improve … machine-learning and artificial-intelligence technologies\", not \"train models\", and the express authorisation in (i) is confined to User Content **that is not personal data**. It is nevertheless contract-level, which outranks the privacy policy in this ledger's order of authority, so it is the primary evidence for this row. The user content license in international Terms §3.2 is worded \"to access, use, host, modify, communicate, reproduce, adapt, make derivative works of, publish, perform, and/or distribute any User Content\" — \"use\" is broad, but training or model training never appears anywhere as a platform purpose"
+text_zh = "国际站结论：合同层自带平台自我使用的授权，「全文没有」的读法不再成立。Terms §3.5「we may process any User Content to improve our services and/or develop new products and services (including without limitation for our internal business purposes and/or for other customers). You hereby expressly authorise and consent to us: (i) using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies; and (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI」。读这条要保留两个限定：措辞是「develop and improve … machine-learning and artificial-intelligence technologies」而非「train models」；(i) 的明示授权只限**非个人数据**的 User Content。但它属合同层，在本台账的权威顺序里高于隐私政策，故为本行主证据。国际站 Terms §3.2 的用户内容许可措辞是「to access, use, host, modify, communicate, reproduce, adapt, make derivative works of, publish, perform, and/or distribute any User Content」——「use」很宽泛但全文没有出现 training 或 model training 作为平台用途"
+anchor = "intl-tos-3-5-process-user-content"
 
 [[product.training.point]]
-text = "§3.11's \"free computing resources for model training\" matches China-site §4.1(8): users training their own models. The closest thing to platform self-use is the legitimate-interest basis in Privacy Policy §6, \"for improving our products, services, processes or business, understanding customer preferences and personalising experiences and recommendations\" — a general product-improvement authorization that does not name training and rests on legitimate interests rather than the user's express grant. §6 also carries an IPR clause stating that \"trained/upgraded models, output, analytics results … shall be solely and absolutely owned by us\", which is an ownership clause and not an admission of using inputs for training. Uncertainty: the international site has no separate API terms, and whether model inference request content is used for training is not answered in the public texts."
-text_zh = "§3.11 的「free computing resources for model training」与中国站 §4.1(8) 同旨，是用户自己训练模型。最接近「平台自我使用」的是 Privacy Policy §6 基于合法利益的「for improving our products, services, processes or business, understanding customer preferences and personalising experiences and recommendations」——这是「改进产品」的概括授权，未点名训练，且属合法利益基础而非用户明示授权。另有 §6 IPR 条款声明「trained/upgraded models, output, analytics results … shall be solely and absolutely owned by us」，是成果归属条款，不构成「使用输入训练」的自认。不确定性：国际站没有面向 API 的单独条款，模型推理请求内容是否被训练在公开文本中无答案。结构化结论：本档按口径「厂商写『用于提高质量/改进服务』而不提训练即按会训练算」记 mark=no——该句是平台自我使用用户数据的概括授权，未把模型训练排除在外。"
+text = "§3.11's \"free computing resources for model training\" matches China-site §4.1(8): users training their own models. The privacy-policy counterpart is the legitimate-interest basis in §6, \"for improving our products, services, processes or business, understanding customer preferences and personalising experiences and recommendations\" — a general product-improvement authorization that does not name training and rests on legitimate interests rather than the user's express grant. §6 also carries an IPR clause stating that \"trained/upgraded models, output, analytics results … shall be solely and absolutely owned by us\", which is an ownership clause and not an admission of using inputs for training. Uncertainty: the international site has no separate API terms, and whether model inference request content is used for training is not answered in the public texts."
+text_zh = "§3.11 的「free computing resources for model training」与中国站 §4.1(8) 同旨，是用户自己训练模型。隐私政策一侧的对应条款是 §6 基于合法利益的「for improving our products, services, processes or business, understanding customer preferences and personalising experiences and recommendations」——这是「改进产品」的概括授权，未点名训练，且属合法利益基础而非用户明示授权。另有 §6 IPR 条款声明「trained/upgraded models, output, analytics results … shall be solely and absolutely owned by us」，是成果归属条款，不构成「使用输入训练」的自认。不确定性：国际站没有面向 API 的单独条款，模型推理请求内容是否被训练在公开文本中无答案。结构化结论：本档按口径「厂商写『用于提高质量/改进服务』而不提训练即按会训练算」记 mark=no——该句是平台自我使用用户数据的概括授权，未把模型训练排除在外。"
+anchor = "intl-privacy-6-legitimate-interests"
+
+[[product.training.point]]
+text = "Terms §3.5 also covers usage-side telemetry: \"we may collect performance and usage metrics and data regarding your access and/or use of ModelScope.AI, including model versions, inferences, upload times, as well as processing, diagnostic and other data, and we may use such metrics and data to improve the quality and other aspects of ModelScope.AI and its underlying technologies\". Object limit: these are metrics and data about your access and/or use of ModelScope.AI (model versions, inference records, upload times, processing and diagnostic data) — **not the body of your requests**. It is same-direction support for mark=no (the platform uses data generated by your use to improve itself and its underlying technologies), and it must not be read as direct evidence that request content is retained or used for training."
+text_zh = "Terms §3.5 另覆盖使用侧遥测：「we may collect performance and usage metrics and data regarding your access and/or use of ModelScope.AI, including model versions, inferences, upload times, as well as processing, diagnostic and other data, and we may use such metrics and data to improve the quality and other aspects of ModelScope.AI and its underlying technologies」。对象限定：这是关于你访问/使用情况的度量与数据（模型版本、inferences 记录、上传时间、处理与诊断数据），**不是请求正文**。它同向支持 mark=no（平台用你的使用所产生的数据改进自身及其底层技术），但不能读成「请求正文被留存或被用于训练」的直接证据。"
+anchor = "intl-tos-3-5-usage-metrics"
 
 [product.zdr]
 mark = "unknown"
@@ -255,9 +274,15 @@ text_zh = "国际站结论：没有任何保留期限规定，唯一相关的是
 text = "§7 reserves the right to remove \"any content stored on any systems associated with ModelScope.AI\" at any time. The Privacy Policy has no retention clause at all (only the §7 cookies wording \"we shall retain all rights, title and interest in … analytics data\", a reservation of rights unrelated to retention periods). Recorded as duration_kind=unspecified: neither a ceiling nor a floor. Uncertainty: whether international-site inference request logs are kept, and for how long, is not disclosed."
 text_zh = "§7 保留随时移除「any content stored on any systems associated with ModelScope.AI」的权利。Privacy Policy 全文没有 retention/retain 条款（只有 §7 cookies 的「we shall retain all rights, title and interest in … analytics data」这种权利保留表述，与保留期限无关）。结论按 duration_kind=unspecified 记录：既无上限也无下限。不确定性：国际站的推理请求日志是否留存、留存多久，公开文档未披露。"
 
+[[product.retention.point]]
+text = "Terms §3.5 also grants an express storage right, but its object is limited and it fixes no period: the user \"expressly authorise[s] and consent[s] to us: (i) using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies; and (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI\". Two limits to keep: the object is User Content **that is not personal data** (so it is not an authorisation to store personal data), and it is a permission to store rather than a retention period — no number of days can be derived from it."
+text_zh = "Terms §3.5 另给出一项明示的存储授权，但对象有限、也不含期限：用户「expressly authorise[s] and consent[s] to us: (i) using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies; and (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI」。两点限定要保留：对象是**非个人数据**的 User Content（不构成对个人数据存储的授权），且它是存储许可而非保留期限——不能由此推出任何天数。"
+anchor = "intl-tos-3-5-improve-ml-technologies"
+
 [product.processing_region]
 mark = "unknown"
 codes = ["unknown"]
+anchor = "intl-tos-3-5-outside-jurisdiction"
 searched = [
   "https://resouces.modelscope.ai/document/docdata/2026-9-1_19-48-INTL_EN/dist/agreements/privacy/privacy_INTL_EN.md",
   "https://resouces.modelscope.ai/document/docdata/2026-9-1_19-48-INTL_EN/dist/agreements/terms/terms_INTL_EN.md",
@@ -266,8 +291,8 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "International-site conclusion: the privacy policy has no storage-location clause, so no processing-location conclusion can be drawn. The only usable circumstantial evidence is the operating entity and the governing law: the Privacy Policy opens with \"Alibaba Cloud (Singapore) Private Limited and its related corporations\", the DPO's mailing address is at Times Square, Causeway Bay, Hong Kong, and §11 provides that it \"shall be governed by the laws of the Republic of Singapore\""
-text_zh = "国际站结论：隐私政策没有存储地域条款，因此无法给出处理地结论。可用的旁证只有运营主体与法律适用：Privacy Policy 开篇主体为「Alibaba Cloud (Singapore) Private Limited and its related corporations」，DPO 通信地址在香港铜锣湾时代广场，§11「shall be governed by the laws of the Republic of Singapore」"
+text = "International-site conclusion: no specific region is named. The privacy policy has no storage-location clause at all, and the contract touches on the location of processing only negatively — Terms §3.5 has the user \"expressly authorise and consent to us: … (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI\", i.e. all that is disclosed is that processing and storage may take place outside the jurisdiction where the user is using ModelScope.AI; no country or region is committed to. The only usable circumstantial evidence is the operating entity and the governing law: the Privacy Policy opens with \"Alibaba Cloud (Singapore) Private Limited and its related corporations\", the DPO's mailing address is at Times Square, Causeway Bay, Hong Kong, and §11 provides that it \"shall be governed by the laws of the Republic of Singapore\""
+text_zh = "国际站结论：没有指名任何具体地域。隐私政策没有存储地域条款，合同层只从反面涉及处理地——Terms §3.5 要求用户「expressly authorise and consent to us: … (ii) processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI」，即厂商只披露处理与存储可能发生在用户所在司法辖区之外，未承诺任何国家或地域。可用的旁证只有运营主体与法律适用：Privacy Policy 开篇主体为「Alibaba Cloud (Singapore) Private Limited and its related corporations」，DPO 通信地址在香港铜锣湾时代广场，§11「shall be governed by the laws of the Republic of Singapore」"
 
 [[product.processing_region.point]]
 text = "§4 says expressly that personal data may be provided to \"our related corporations; analytics, search engine providers or other third party service providers …\", \"whether they are located overseas or in Singapore\" — the document only states that disclosure abroad is possible and promises no particular region for the data. Where the entity sits is not where the data is processed, so this is recorded faithfully as not_found rather than filled in as Singapore."
@@ -759,3 +784,63 @@ exact = "This Privacy Policy and your use of this website shall be governed by t
 suffix = """
 .
 """
+
+[[anchor]]
+id = "cn-privacy-2-6-1-support-improve"
+source_id = "49a7de041004ad59"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "2.6.1. 当您通过我们提供的客服渠道请求我们支持或帮助时，您需要向我们提供问题描述，"
+exact = "同时我们会需要收集您的咨询记录、报障记录和针对用户故障的排障过程（如**对话或通话记录**），我们将通过记录、分析这些信息以便更及时响应您的帮助请求，以及用于改进服务"
+suffix = ""
+
+[[anchor]]
+id = "cn-tos-3-4-1-3-legal-preserve"
+source_id = "69c8762849f7729d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "您基于本社区服务制作、发布非真实信息时， 依法应当以显著方式予以标识（包括但不限于在生成图片中添加水印、附上非真实信息声明）。"
+exact = "如您未遵守相关法定义务的，我们有权依法保存有关记录，并向网信部门和有关主管部门报告"
+suffix = ""
+
+[[anchor]]
+id = "intl-tos-3-5-process-user-content"
+source_id = "2c02f58b84d8e5a6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "we may process any User Content to improve our services and/or develop new products and services (including without limitation for our internal business purposes and/or for other customers)"
+suffix = ""
+
+[[anchor]]
+id = "intl-tos-3-5-improve-ml-technologies"
+source_id = "2c02f58b84d8e5a6"
+topics = ["training", "retention"]
+
+[anchor.selector]
+prefix = "You hereby expressly authorise and consent to us: (i) "
+exact = "using and storing User Content that is not personal data to develop and improve our machine-learning and artificial-intelligence technologies"
+suffix = "; and (ii) "
+
+[[anchor]]
+id = "intl-tos-3-5-outside-jurisdiction"
+source_id = "2c02f58b84d8e5a6"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "and (ii) "
+exact = "processing and storing such User Content outside of the jurisdiction where you are using ModelScope.AI"
+suffix = ""
+
+[[anchor]]
+id = "intl-tos-3-5-usage-metrics"
+source_id = "2c02f58b84d8e5a6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "we may collect performance and usage metrics and data regarding your access and/or use of ModelScope.AI, including model versions, inferences, upload times, as well as processing, diagnostic and other data, and we may use such metrics and data to improve the quality and other aspects of ModelScope.AI and its underlying technologies"
+suffix = ""

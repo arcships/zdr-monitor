@@ -24,6 +24,7 @@ note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-0
 
 [[source]]
 url = "https://trust.novita.ai/faq"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层，与 TOS §10.2 在方向上一致。"
@@ -44,8 +45,14 @@ text = "See top-level training. Contract §10.2, \"By Default, Novita AI will no
 text_zh = "见顶层 training。合同 §10.2「By Default, Novita AI will not use your Content to train our own models or to improve the Services.」+ FAQ 第 1 条「No... to train or improve our models」。未披露任何允许训练的可选档"
 
 [[product.training.point]]
-text = "It does not cover the upstream model provider's training policy for that provider's own models."
-text_zh = "未覆盖上游 model provider 对自有模型的训练政策。"
+text = "Upstream hop: FAQ item 12 lists \"Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.\" as a sub-processor category, and that answer gives no entity name for it (the other categories there carry examples such as AWS and Stripe); TOS §6 likewise refers only to a generic \"Model Provider\". Whether that hop trains on or retains API inputs and outputs is not disclosed, so the chain is recorded by its weakest hop."
+text_zh = "上游一跳：FAQ 第 12 条把「Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.」列为子处理者类别，该条回答未给它任何主体名（同类目里其他项带 AWS、Stripe 这类例子）；TOS §6 也只以「Model Provider」泛指。该跳是否用 API 输入输出训练或保留未披露，整链按最弱一跳记录。"
+anchor = "novita-trustfaq-subprocessor-model-provider"
+
+[[product.training.point]]
+text = "Policy layer (Privacy Policy, object = Personal Information): \"The Personal Information will not be used for model training\" sits in the same paragraph as the purpose \"To improve our Services and conduct research\", and the business-purposes list adds \"Research and Development: To conduct research and analysis to improve our Services and develop new products and features.\" Under the house rule that improving the service counts as training, both halves are kept side by side; the object is account and website personal information, not API inputs and outputs (those are governed by TOS §10.2)."
+text_zh = "政策层（隐私政策，对象=Personal Information）：「The Personal Information will not be used for model training」与同段的用途「To improve our Services and conduct research」并存，Business Purposes 还列有「Research and Development: To conduct research and analysis to improve our Services and develop new products and features.」。按「改进服务算训练」的口径，两半并列保留；其对象是账户与网站类个人信息，不是 API 输入输出（后者适用 TOS §10.2）。"
+anchor = "novita-privacy-no-model-training"
 
 [product.zdr]
 mark = "yes"
@@ -60,35 +67,70 @@ text_zh = "见顶层 zdr。TOS §10.2 定义 + FAQ 第 3 条「Zero Data Retenti
 text = "The exceptions and the open-ended \"as necessary to provide the Services or technical support\" clause are left undefined."
 text_zh = "例外与「as necessary to provide the Services or technical support」开口条款未界定。"
 
+[[product.zdr.point]]
+text = "Contract layer keeps a second, coexisting clause (§25 USER DATA): \"We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings… Although we perform regular routine backups of data…\" Routine backups are the classic exception to zero retention; the vendor does not quantify how long backup residue is kept, and §25 neither narrows nor widens §10.2 — the two clauses stand side by side."
+text_zh = "合同层另有一条并存条款（§25 USER DATA）：「We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings… Although we perform regular routine backups of data…」例行备份是零保留最经典的例外；官方未量化备份残余的期限，§25 也不缩小或扩大 §10.2 的范围——两条并列。"
+anchor = "novita-tos-25-user-data-maintained"
+
+[[product.zdr.point]]
+text = "Upstream hop: the sub-processor category \"Model provider\" processes \"API inputs and outputs per your requests\" (FAQ item 12) and that answer names no entity for it; its own retention policy is not disclosed, so the zero-retention chain cannot be closed at that hop."
+text_zh = "上游一跳：子处理者类别「Model provider」处理「API inputs and outputs per your requests」（FAQ 第 12 条），该条回答未给出主体名，其自身的保留政策未披露，零保留链在该跳无法闭合。"
+anchor = "novita-trustfaq-subprocessor-model-provider"
+
 [product.retention]
 days = 180
 object = "mixed"
 basis = "fixed_period"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.retention.point]]
+text = "The object has to be split rather than summarised by one number: API input and output content is \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\"; the 180 days recorded for this row is the upper bound for technical metadata only — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" Account & authentication data is kept for the duration of the account plus any statutory retention periods (FAQ item 3)."
+text_zh = "对象要分开写，不能用一个数字概括：API 输入输出正文「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」；本行记录的 180 天只是技术元数据的上限——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」。账户与鉴权数据为账户存续期加法定期间（FAQ 第 3 条）。"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.retention.point]]
+text = "Contract layer, §10.2 Zero Data Retention: Content is not retained beyond the time it takes to generate and deliver Output, with exceptions for applicable law, what is necessary to provide the Services or technical support, and automated safety screening. The clause carries no day count of its own — the 180 days above comes from the FAQ's metadata line, a different object."
+text_zh = "合同层 §10.2 Zero Data Retention：正文不为生成与交付 Output 所需之外保留，例外为法律要求、为提供服务或技术支持所必需、自动安全筛查。该条本身不含任何天数——上面的 180 天出自 FAQ 的元数据那句，是另一个对象。"
 anchor = "novita-tos-10-2-zero-data-retention"
 
 [[product.retention.point]]
-text = "See top-level retention. API input and output content is not retained beyond the time required to generate and deliver Output (exceptions: where required by applicable law, as necessary to provide the Services or technical support, and automated safety screening)"
-text_zh = "见顶层 retention。API 输入输出正文不为交付之外保留（例外：法律要求/为提供服务或技术支持所必需/自动安全筛查）"
+text = "§25 USER DATA coexists with §10.2: \"We will maintain certain data that you transmit to the Site… Although we perform regular routine backups of data…\" Backup residue is the classic zero-retention exception and the vendor does not quantify its period; read it as a residual copy, not as long-term retention of request content."
+text_zh = "§25 USER DATA 与 §10.2 并存：「We will maintain certain data that you transmit to the Site… Although we perform regular routine backups of data…」备份残余是零保留的经典例外，官方未量化其期限；按残余副本理解，不读成对请求正文的长期留存。"
+anchor = "novita-tos-25-user-data-maintained"
 
 [[product.retention.point]]
-text = "Technical metadata retained for 6 months (FAQ item 3)"
-text_zh = "技术元数据 6 个月（FAQ 第 3 条）"
+text = "A different kind of period, object = Personal Information: aggregated or de-identified information may be used indefinitely — \"We may also anonymize or de-identify your Personal Information (so that it can no longer be associated with you) for research or statistical purposes, as described above, in which case we may use this information indefinitely without further notice to you.\" It does not fall on API inputs and outputs."
+text_zh = "另一类期限，对象=个人信息：去标识化/聚合信息可无限期使用——「We may also anonymize or de-identify your Personal Information (so that it can no longer be associated with you) for research or statistical purposes, as described above, in which case we may use this information indefinitely without further notice to you.」该口径不落在 API 输入输出正文上。"
+anchor = "novita-privacy-deidentified-indefinite"
 
 [[product.retention.point]]
-text = "Batch inputs deleted after 15 days, results after 30 days"
-text_zh = "Batch 输入 15 天、结果 30 天删除"
+text = "Privacy-layer fixed periods by category: account information = account lifetime plus 7 years, transaction history = 7 years, communication information = 3 years from last communication, technical information = 2 years (Privacy Policy, \"Specific Retention Periods\"). These cover personal information, not request content — do not read 2 or 7 years as the retention period of prompts and outputs."
+text_zh = "隐私层的分类固定期限：账户信息=账户存续期加 7 年、交易记录 7 年、通讯信息自最后一次通讯起 3 年、技术信息 2 年（隐私政策「Specific Retention Periods」）。覆盖的是个人信息，不是请求正文——不要把 2 年或 7 年读成 prompt 与输出的保留期。"
+anchor = "novita-privacy-retention-specific-periods"
 
 [[product.retention.point]]
-text = "The Prompt Cache retention period is not disclosed."
-text_zh = "Prompt Cache 缓存保留期未披露。"
+text = "Privacy-layer general rule: \"We retain your Personal Information for only as long as we need in order to provide our Service to you, or for other legitimate business purposes…\" The policy does not say how long it takes to determine those factors."
+text_zh = "隐私层通则：「We retain your Personal Information for only as long as we need in order to provide our Service to you, or for other legitimate business purposes…」政策未写明这些因素的判定周期。"
+anchor = "novita-privacy-retention-general"
+
+[[product.retention.point]]
+text = "None of the sources registered for this file mentions Prompt Cache, so no retention period for it is recorded here — that is absence of evidence on our side, not a vendor statement that cache is retained."
+text_zh = "本文件登记的来源均未提到 Prompt Cache，故这里不记录其保留期——这是「我们没有证据」，不是厂商声明会留存缓存。"
 
 [product.processing_region]
-codes = ["US"]
+basis = "undisclosed"
 anchor = "novita-privacy-international-transfers"
+searched = [
+  "https://novita.ai/legal/terms-of-service",
+  "https://novita.ai/legal/privacy-policy",
+  "https://trust.novita.ai/faq",
+  "https://novita.ai/docs/guides/gpu-instance-faq.md",
+]
 
 [[product.processing_region.point]]
-text = "See top-level processing_region. The Privacy Policy expressly states \"We may transfer Personal Information to countries outside your country or region, including the United States.\""
-text_zh = "见顶层 processing_region。PP 明示可传输至美国等境外"
+text = "The Privacy Policy's cross-border sentence — \"We may transfer Personal Information to countries outside your country or region, including the United States.\" — takes Personal Information that Novita collects itself as its object, and the same policy states up front that it \"does not apply to content that we process on behalf of customers while providing services\"; the verb is transfer, so the sentence does not establish where API request content is processed."
+text_zh = "PP 的跨境句——「We may transfer Personal Information to countries outside your country or region, including the United States.」——对象是 Novita 自己收集的个人信息，且同一份政策开头就写明它「does not apply to content that we process on behalf of customers while providing services」；动词是 transfer，因此不能推出 API 请求内容的处理地。"
+anchor = "novita-privacy-international-transfers"
 
 [[product.processing_region.point]]
 text = "FAQ item 6 says the service is \"Hosted on AWS data centers\" (no region given)"
@@ -98,6 +140,10 @@ text_zh = "FAQ 第 6 条称托管在 AWS 数据中心（未给区域）"
 text = "FAQ item 8 gives the cross-border mechanism as SCC Module 2 plus the UK IDTA. There is no data residency commitment and no region selection option."
 text_zh = "FAQ 第 8 条跨境机制为 SCC Module 2 + UK IDTA。无数据驻留承诺或区域选择项。"
 
+[[product.processing_region.point]]
+text = "No source registered for this file states a processing location for API request content, so this row is recorded as undisclosed with the searched range listed, rather than read out of the cross-border transfer sentence — the same treatment as the other two tiers."
+text_zh = "本文件登记的来源都没有给出 API 请求内容的处理地，故本行记 undisclosed 并列出查阅范围，不从跨境传输句反推——与另两档口径一致。"
+
 [product.role]
 kind = "processor"
 anchor = "novita-privacy-scope-customer-content"
@@ -105,10 +151,17 @@ anchor = "novita-privacy-scope-customer-content"
 [[product.role.point]]
 text = "See top-level role. Customer content that \"we process on behalf of customers\" is governed by the customer agreements"
 text_zh = "见顶层 role。客户内容「we process on behalf of customers」由客户协议约束"
+anchor = "novita-privacy-scope-customer-content"
 
 [[product.role.point]]
-text = "The enterprise tier offers a GDPR Article 28 DPA and SCC Module 2. But the subprocessor list includes an unnamed \"Model provider\" that processes API inputs and outputs, and the upstream entity is not disclosed."
-text_zh = "企业档提供 GDPR Art.28 DPA 与 SCC Module 2。但子处理者中存在未具名「Model provider」，处理 API 输入输出，上游主体未披露。"
+text = "The enterprise tier offers a GDPR Article 28 DPA and SCC Module 2. But FAQ item 12 lists \"Model provider\" as a sub-processor category that processes API inputs and outputs, without naming the entity; the upstream entity and its data policy are not disclosed."
+text_zh = "企业档提供 GDPR Art.28 DPA 与 SCC Module 2。但 FAQ 第 12 条把「Model provider」列为处理 API 输入输出的子处理者类别，未给出主体名；上游主体及其数据政策未披露。"
+anchor = "novita-trustfaq-subprocessor-model-provider"
+
+[[product.role.point]]
+text = "The same policy also carries a controller-side stance for the Personal Information Novita collects itself: \"We may share personal information with third parties for purposes such as analytics and advertising, which may be considered a \"sale\" under CCPA.\" Its object is account and website information, not content processed on behalf of customers, so it does not overturn the processor reading above — the two are kept side by side with their own scopes."
+text_zh = "同一份政策对 Novita 自身收集的个人信息还有一条控制者侧口径：「We may share personal information with third parties for purposes such as analytics and advertising, which may be considered a \"sale\" under CCPA.」其对象是账户与网站信息，不是代表客户处理的内容，故不推翻上面的 processor 判定——两条各自带适用范围并列。"
+anchor = "novita-privacy-ccpa-sale-sharing"
 
 [[product]]
 id = "gpu-cloud"
@@ -117,17 +170,21 @@ category = "api"
 plan_level = "any"
 
 [product.training]
-mark = "yes"
-mode = "default"
-anchor = "novita-tos-10-2-no-training"
+mark = "unknown"
+searched = [
+  "https://novita.ai/legal/terms-of-service",
+  "https://novita.ai/legal/privacy-policy",
+  "https://trust.novita.ai/faq",
+  "https://novita.ai/docs/guides/gpu-instance-faq.md",
+]
 
 [[product.training.point]]
-text = "TOS §10.2 takes Content (user inputs and outputs) as its object and makes no separate provision for files inside an instance"
-text_zh = "TOS §10.2 以 Content（用户输入与输出）为对象，未对实例内文件另作规定"
+text = "TOS §10.2's no-training clause takes Content as its object, and §10 defines Content as the Input a user provides to the Services and the Output generated from it — files on an instance disk, volume or image are not inside that definition, so the clause does not cover this product line's data. It is therefore no longer bound to this entry, and the row is recorded as unknown rather than reading a clause that misses the object as a commitment."
+text_zh = "TOS §10.2 的不训练条款以 Content 为对象，而 §10 把 Content 定义为用户提供给 Services 的 Input 与由此产生的 Output——实例磁盘/卷/镜像内的文件不在该定义内，该条不覆盖本产品线的数据。故不再绑在本条上；本行记 unknown，不把对象不匹配的条款读成承诺。"
 
 [[product.training.point]]
-text = "There is no evidence that the vendor uses instance data for training and no tier-specific commitment, so it is recorded as no training under the general contract clause, with medium confidence."
-text_zh = "无证据显示厂商会用实例数据训练，也无档位专用承诺，按合同层通用条款记为不训练，置信度 medium。"
+text = "Privacy-policy layer: \"The Personal Information will not be used for model training\" is stated for Personal Information (and the same paragraph also lists \"To improve our Services and conduct research\" as a purpose), while that policy expressly excludes content processed on behalf of customers. Neither half covers instance data, so neither is bound to this entry."
+text_zh = "隐私政策层：「The Personal Information will not be used for model training」针对的是 Personal Information（同一段还把「To improve our Services and conduct research」列为用途），而该政策明文排除代表客户处理的内容。两半都不覆盖实例数据，故都不绑在本条上。"
 
 [product.zdr]
 mark = "unknown"
@@ -172,16 +229,22 @@ text = "Only broad wording such as \"Hosted on AWS data centers\" (and in the so
 text_zh = "只有「Hosted on AWS data centers」这类笼统表述（且原文置于安全问答中），无区域选择、无驻留承诺；低置信度。"
 
 [product.role]
-kind = "processor"
+kind = "unknown"
+searched = [
+  "https://novita.ai/legal/privacy-policy",
+  "https://novita.ai/legal/terms-of-service",
+  "https://trust.novita.ai/faq",
+  "https://novita.ai/docs/guides/gpu-instance-faq.md",
+]
+
+[[product.role.point]]
+text = "The Privacy Policy sentence the other tiers rely on is a scope exclusion, not a role clause: \"This Privacy Policy does not apply to content that we process on behalf of customers while providing services. Our use of that data is governed by our customer agreements covering access to and use of those offerings.\" It names no product line and assigns no controller/processor role for GPU Cloud data."
+text_zh = "另两档所依据的 PP 句子是适用范围排除句，不是角色条款：「This Privacy Policy does not apply to content that we process on behalf of customers while providing services. Our use of that data is governed by our customer agreements covering access to and use of those offerings.」它未点名任何产品线，也没有为 GPU 云数据约定控制者/受托处理方角色。"
 anchor = "novita-privacy-scope-customer-content"
 
 [[product.role.point]]
-text = "There is no role clause specific to this product line"
-text_zh = "无该产品线的专用角色条款"
-
-[[product.role.point]]
-text = "The Privacy Policy's \"process on behalf of customers\" positioning and the TOS's service-provider positioning can be applied by analogy, but the documentation does not name GPU Cloud; low confidence."
-text_zh = "PP 的「代表客户处理」定位与 TOS 的服务提供者定位可类推，但文档未点名 GPU 云，低置信度。"
+text = "The TOS has no role clause for this product line either: its only service-provider wording (\"We are a service provider and make no representations as to the safety, effectiveness, adequacy, accuracy…\") sits in the disclaimer context of §3, and §10.2 governs Content only. Recorded as unknown rather than inferred by analogy."
+text_zh = "TOS 里也没有本产品线的角色条款：唯一类似「service provider」的表述（「We are a service provider and make no representations as to the safety, effectiveness, adequacy, accuracy…」）位于 §3 的免责语境，§10.2 只管 Content。记 unknown，不用类推。"
 
 [[product]]
 id = "enterprise"
@@ -202,6 +265,11 @@ text_zh = "FAQ 第 1 条明确该承诺「contractually binding under our Terms 
 text = "But the enterprise custom terms themselves are not public, so whether they contain exceptions cannot be checked."
 text_zh = "但企业自定义条款本身不公开，无法核对是否含例外。"
 
+[[product.training.point]]
+text = "Policy layer (Privacy Policy, object = Personal Information): \"The Personal Information will not be used for model training\" sits in the same paragraph as the purpose \"To improve our Services and conduct research\", and the business-purposes list adds \"Research and Development: To conduct research and analysis to improve our Services and develop new products and features.\" Under the house rule that improving the service counts as training, both halves are kept side by side; the object is account and website personal information, not API inputs and outputs (those are governed by TOS §10.2)."
+text_zh = "政策层（隐私政策，对象=Personal Information）：「The Personal Information will not be used for model training」与同段的用途「To improve our Services and conduct research」并存，Business Purposes 还列有「Research and Development: To conduct research and analysis to improve our Services and develop new products and features.」。按「改进服务算训练」的口径，两半并列保留；其对象是账户与网站类个人信息，不是 API 输入输出（后者适用 TOS §10.2）。"
+anchor = "novita-privacy-no-model-training"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -212,17 +280,34 @@ text = "Zero retention is the default; the enterprise tier additionally has a DP
 text_zh = "默认即为零保留；企业档另有 DPA/SCC 与书面确认（FAQ 第 1 条）可作合同加固，但 DPA 模板不公开。"
 
 [product.retention]
+days = 180
 object = "mixed"
-basis = "none"
+basis = "fixed_period"
 anchor = "novita-trustfaq-retention-by-category"
 
 [[product.retention.point]]
-text = "FAQ item 3 gives the default wording (content not retained, technical metadata 6 months) and says technical metadata is handled \"as described in our Privacy Policy and applicable Data Processing Agreement\""
-text_zh = "FAQ 第 3 条给出默认口径（正文不留存、技术元数据 6 个月），并称技术元数据的处理「as described in our Privacy Policy and applicable Data Processing Agreement」"
+text = "The object has to be split rather than summarised by one number: API input and output content is \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\"; the 180 days recorded for this row is the upper bound for technical metadata only — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" Account & authentication data is kept for the duration of the account plus any statutory retention periods (FAQ item 3)."
+text_zh = "对象要分开写，不能用一个数字概括：API 输入输出正文「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」；本行记录的 180 天只是技术元数据的上限——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」。账户与鉴权数据为账户存续期加法定期间（FAQ 第 3 条）。"
+anchor = "novita-trustfaq-retention-by-category"
 
 [[product.retention.point]]
-text = "The specific periods for the enterprise tier are set by the DPA, which the public documentation does not carry."
-text_zh = "企业档的具体期限按 DPA 约定，公开文档未载。"
+text = "FAQ item 3 says technical metadata is handled \"as described in our Privacy Policy and applicable Data Processing Agreement\", so the periods above are the default tier's; the specific periods for the enterprise tier are set by the DPA, which the public documentation does not carry."
+text_zh = "FAQ 第 3 条称技术元数据的处理「as described in our Privacy Policy and applicable Data Processing Agreement」，即上面这些期限是默认档口径；企业档的具体期限按 DPA 约定，公开文档未载。"
+
+[[product.retention.point]]
+text = "A different kind of period, object = Personal Information: aggregated or de-identified information may be used indefinitely — \"We may also anonymize or de-identify your Personal Information (so that it can no longer be associated with you) for research or statistical purposes, as described above, in which case we may use this information indefinitely without further notice to you.\" It does not fall on API inputs and outputs."
+text_zh = "另一类期限，对象=个人信息：去标识化/聚合信息可无限期使用——「We may also anonymize or de-identify your Personal Information (so that it can no longer be associated with you) for research or statistical purposes, as described above, in which case we may use this information indefinitely without further notice to you.」该口径不落在 API 输入输出正文上。"
+anchor = "novita-privacy-deidentified-indefinite"
+
+[[product.retention.point]]
+text = "Privacy-layer fixed periods by category: account information = account lifetime plus 7 years, transaction history = 7 years, communication information = 3 years from last communication, technical information = 2 years (Privacy Policy, \"Specific Retention Periods\"). These cover personal information, not request content — do not read 2 or 7 years as the retention period of prompts and outputs."
+text_zh = "隐私层的分类固定期限：账户信息=账户存续期加 7 年、交易记录 7 年、通讯信息自最后一次通讯起 3 年、技术信息 2 年（隐私政策「Specific Retention Periods」）。覆盖的是个人信息，不是请求正文——不要把 2 年或 7 年读成 prompt 与输出的保留期。"
+anchor = "novita-privacy-retention-specific-periods"
+
+[[product.retention.point]]
+text = "Privacy-layer general rule: \"We retain your Personal Information for only as long as we need in order to provide our Service to you, or for other legitimate business purposes…\" The policy does not say how long it takes to determine those factors."
+text_zh = "隐私层通则：「We retain your Personal Information for only as long as we need in order to provide our Service to you, or for other legitimate business purposes…」政策未写明这些因素的判定周期。"
+anchor = "novita-privacy-retention-general"
 
 [product.processing_region]
 basis = "undisclosed"
@@ -494,6 +579,36 @@ suffix = """
 
 
 We may also anonymize or de-identify your Personal Informa"""
+
+[[anchor]]
+id = "novita-privacy-deidentified-indefinite"
+source_id = "65b322371ba5a6a6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+Technical Information: Retained for 2 years for security and analytics purposes
+
+"""
+exact = "We may also anonymize or de-identify your Personal Information (so that it can no longer be associated with you) for research or statistical purposes, as described above, in which case we may use this information indefinitely without further notice to you."
+suffix = """
+
+
+## Changes to the Privacy Policy"""
+
+[[anchor]]
+id = "novita-privacy-ccpa-sale-sharing"
+source_id = "65b322371ba5a6a6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+## Sale or Sharing of Personal Information
+
+"""
+exact = "We do not sell your personal information for monetary consideration. However, under the CCPA, \"sale\" is broadly defined to include making personal information available to third parties for monetary or other valuable consideration. We may share personal information with third parties for purposes such as analytics and advertising, which may be considered a \"sale\" under CCPA."
+suffix = """
+In the preceding 12 months, we have shared the following categories"""
 
 [[anchor]]
 id = "novita-trustfaq-subprocessor-model-provider"

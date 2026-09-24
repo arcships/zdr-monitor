@@ -28,7 +28,7 @@ id = "hosted"
 badge = "Zed 托管模型"
 category = "coding_plan"
 plan_level = "individual"
-label = "Zed 托管模型；也可改用本地模型或自带 key 绕过 Zed 托管推理，此时数据姿态由所选端点决定"
+label = "Zed 托管模型；也可改用本地模型或自带 key 绕过 Zed 托管推理，此时数据姿态由所选端点决定；但厂商指定为安全留存的模型由厂商在其提供该模型的所有平台上施加留存，换端点躲不掉"
 [product.training]
 mark = "yes"
 mode = "default"
@@ -40,27 +40,77 @@ text_zh = "例外有两条：少数被模型厂商指定为「安全留存」的
 mark = "yes"
 mode = "default"
 anchor = "zed-hosted-zdr"
+
+[[product.zdr.point]]
+text = "Provider-side safety retention is not escapable by changing endpoints: switching to your own API key or subscription does not avoid this retention for covered models, because providers apply it on every platform where those models are offered."
+text_zh = "厂商侧的安全留存换端点也躲不掉：改用自带 key 或订阅不能绕过厂商指定安全留存模型的留存，因为厂商在其提供这些模型的所有平台上都施加该留存。"
+anchor = "zed-covered-models-every-platform"
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "zed-does-not-retain"
 [[product.retention.point]]
 text_zh = "Zed 默认不留提示词/代码上下文；托管模型商也为 ZDR。例外：供应商指定的安全保留模型（如 Anthropic Covered Models）至少保留 30 天，Zed 无法关闭。"
+
+[[product.retention.point]]
+text = "Separate object from the AI input/output row: personal data (account, telemetry, communications) held by Zed as controller. It is kept as long as necessary to provide, maintain and secure the services; it is deleted or anonymised when you request deletion, unless Zed is legally required to retain it; periods are determined by the type of service, the relationship with the user, legal requirements and applicable statutes of limitations. No fixed period is stated."
+text_zh = "与 AI 输入输出一行分开的对象：Zed 作为 controller 持有的个人数据（账号、遥测、通信等）。期限为提供服务、维护与安全所必需；收到删除请求后删除或匿名化，法律要求保留的除外；具体期限按服务类型、与用户的关系、法律要求与诉讼时效确定，未给出固定期限。"
+anchor = "zed-retention-personal-data"
+
+[[product.retention.point]]
+text = "Further retention exceptions beyond a deletion request: personal data may be kept for backups, archiving, prevention of fraud and abuse, satisfaction of legal obligations, or where Zed otherwise reasonably believes it has a legitimate and lawful reason."
+text_zh = "删除请求之外的进一步保留例外：个人数据可为备份、归档、防欺诈与滥用、履行法律义务，或 Zed 认为另有正当合法理由而继续保留。"
+anchor = "zed-retention-exceptions"
+
+[[product.retention.point]]
+text = "Edit Prediction is listed as its own request path: each keystroke can send local editing context to the selected provider; Zeta requests are processed transiently unless training data collection is enabled; third-party providers follow their own terms."
+text_zh = "Edit Prediction 在本页单列一路：每次击键都可能把本地编辑上下文发给所选 provider；Zeta 请求瞬时处理，除非开启训练数据收集；第三方 provider 按其自身条款。"
+anchor = "zed-edit-prediction"
+
+[[product.retention.point]]
+text = "Telemetry is a separate object with a downstream flow: telemetry is sent from the application to Zed's servers every 5 minutes (or when 50 events accumulate), then routed to four services — Sentry (crash monitoring, stores diagnostic events), Snowflake (data warehouse, stores diagnostic and metric events), Hex and Amplitude (dashboards, read the data stored in Snowflake). Neither a retention period nor the location of these downstream services is stated."
+text_zh = "遥测是另一个对象、另有下游流向：遥测每 5 分钟（或累计 50 个事件）从应用发到 Zed 服务器，再路由到四个服务——Sentry（崩溃监控，存诊断事件）、Snowflake（数据仓库，存诊断与指标事件）、Hex 与 Amplitude（仪表盘，读取 Snowflake 中的数据）。这些下游服务的保留期限与所在地点均未声明。"
+anchor = "zed-telemetry-dataflow"
+
+[[product.retention.point]]
+text = "Telemetry is not necessarily anonymous: usage data is tied to a random telemetry ID, and if you are authenticated that ID may be linked to your email."
+text_zh = "遥测不必然匿名：使用数据绑定到一个随机遥测 ID，若已登录，该 ID 可能关联到你的邮箱。"
+anchor = "zed-telemetry-id"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://zed.dev/docs/ai/privacy-and-security", "https://zed.dev/privacy-policy"]
+codes = ["US"]
+anchor = "zed-region-us"
+
+[[product.processing_region.point]]
+text = "Zed's own hosting and processing location is the United States: the services are hosted in the U.S., and personal data from the EEA, the UK and other regions is transferred to the U.S. for storage and processing."
+text_zh = "Zed 自身的托管与处理地为美国：服务托管在美国，来自 EEA、英国及其他地区的个人数据被传输到美国存储与处理。"
+anchor = "zed-region-us"
+
+[[product.processing_region.point]]
+text = "The U.S. is not the only location: the same paragraph allows transferring data from the U.S. to other countries or regions in connection with storage and processing of data, fulfilling requests, and operating the websites, products and services."
+text_zh = "美国不是唯一地点：同段允许为数据存储与处理、履行请求、运营网站与产品服务，把数据从美国再转移到其他国家或地区。"
+anchor = "zed-region-us-transfer"
+
+[[product.processing_region.point]]
+text = "Layer this row does not cover: Zed routes Zed-hosted model requests to hosted model providers (Anthropic, Google, OpenAI), and the location where those providers process the data is not declared in the pages monitored here."
+text_zh = "本行覆盖不到的一层：Zed 把托管模型请求路由给托管模型商（Anthropic、Google、OpenAI）执行，这些厂商在何处处理数据，本档监控的页面没有声明。"
+anchor = "zed-hosted-routes"
 [product.role]
 kind = "controller"
 anchor = "zed-role"
 [[product.role.point]]
 text_zh = "个人档隐私数据由 Zed 作为 controller；Business 客户范围内可转为 processor。遥测：编辑器本地遥测默认自动收集但可在设置关闭；使用托管服务时服务端遥测仍收集，且不包含源码。"
 
+[[product.role.point]]
+text = "Disclosure under the controller role: Zed may disclose personal data to vendors that provide artificial intelligence services, for legitimate business purposes only, including website performance monitoring and sales and marketing of its products and services, and states that it does not utilize third-party services which use this information for AI training purposes. Where those vendors process the data is not stated."
+text_zh = "controller 身份下的披露面：Zed 可为合法商业目的把个人信息披露给提供 AI 服务的供应商，目的包括网站性能监控与产品服务的销售营销，并写明不使用会把这些信息用于 AI 训练的第三方服务；这些供应商在何处处理数据未说明。"
+anchor = "zed-disclosure-ai-providers"
+
 [[product]]
 id = "business-hosted"
 badge = "Zed Business"
 category = "coding_plan"
 plan_level = "team"
-label = "Business 组织档使用 Zed 托管模型；自带 key 或外部 agent 的数据姿态由所选端点决定"
+label = "Business 组织档使用 Zed 托管模型；自带 key 或外部 agent 的数据姿态由所选端点决定；但厂商指定为安全留存的模型由厂商在其提供该模型的所有平台上施加留存，换端点躲不掉"
 [product.training]
 mark = "yes"
 mode = "default"
@@ -68,20 +118,83 @@ anchor = "zed-hosted-zdr"
 
 [[product.training.point]]
 text_zh = "例外有两条：少数被模型厂商指定为「安全留存」的模型（如 Anthropic 的 Covered Models）不走零保留；以及你自己点了反馈或主动打开训练数据收集时，Zed 才会留 AI 数据。"
+
+[[product.training.point]]
+text = "Business adds an org-level control the individual tier does not have: administrators on Zed Business can enforce a no-sharing policy org-wide, after which members cannot opt into Edit Prediction training data sharing or AI feedback ratings. It only strengthens the no-training verdict."
+text_zh = "Business 档多了一层个人档没有的组织级控制：管理员可在全组织范围强制 no-sharing 策略，此后成员无法 opt-in Edit Prediction 训练数据共享与 AI 反馈评级。这一条只加强「不用于训练」的判定。"
+anchor = "zed-business-nosharing"
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "zed-hosted-zdr"
+
+[[product.zdr.point]]
+text = "Provider-side safety retention is not escapable by changing endpoints: switching to your own API key or subscription does not avoid this retention for covered models, because providers apply it on every platform where those models are offered."
+text_zh = "厂商侧的安全留存换端点也躲不掉：改用自带 key 或订阅不能绕过厂商指定安全留存模型的留存，因为厂商在其提供这些模型的所有平台上都施加该留存。"
+anchor = "zed-covered-models-every-platform"
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "zed-does-not-retain"
+
+[[product.retention.point]]
+text_zh = "Zed 默认不留提示词/代码上下文；托管模型商也为 ZDR。例外：供应商指定的安全保留模型（如 Anthropic Covered Models）至少保留 30 天，Zed 无法关闭。"
+
+[[product.retention.point]]
+text = "Separate object from the AI input/output row: personal data (account, telemetry, communications) held by Zed as controller. It is kept as long as necessary to provide, maintain and secure the services; it is deleted or anonymised when you request deletion, unless Zed is legally required to retain it; periods are determined by the type of service, the relationship with the user, legal requirements and applicable statutes of limitations. No fixed period is stated."
+text_zh = "与 AI 输入输出一行分开的对象：Zed 作为 controller 持有的个人数据（账号、遥测、通信等）。期限为提供服务、维护与安全所必需；收到删除请求后删除或匿名化，法律要求保留的除外；具体期限按服务类型、与用户的关系、法律要求与诉讼时效确定，未给出固定期限。"
+anchor = "zed-retention-personal-data"
+
+[[product.retention.point]]
+text = "Further retention exceptions beyond a deletion request: personal data may be kept for backups, archiving, prevention of fraud and abuse, satisfaction of legal obligations, or where Zed otherwise reasonably believes it has a legitimate and lawful reason."
+text_zh = "删除请求之外的进一步保留例外：个人数据可为备份、归档、防欺诈与滥用、履行法律义务，或 Zed 认为另有正当合法理由而继续保留。"
+anchor = "zed-retention-exceptions"
+
+[[product.retention.point]]
+text = "Edit Prediction is listed as its own request path: each keystroke can send local editing context to the selected provider; Zeta requests are processed transiently unless training data collection is enabled; third-party providers follow their own terms."
+text_zh = "Edit Prediction 在本页单列一路：每次击键都可能把本地编辑上下文发给所选 provider；Zeta 请求瞬时处理，除非开启训练数据收集；第三方 provider 按其自身条款。"
+anchor = "zed-edit-prediction"
+
+[[product.retention.point]]
+text = "Telemetry is a separate object with a downstream flow: telemetry is sent from the application to Zed's servers every 5 minutes (or when 50 events accumulate), then routed to four services — Sentry (crash monitoring, stores diagnostic events), Snowflake (data warehouse, stores diagnostic and metric events), Hex and Amplitude (dashboards, read the data stored in Snowflake). Neither a retention period nor the location of these downstream services is stated."
+text_zh = "遥测是另一个对象、另有下游流向：遥测每 5 分钟（或累计 50 个事件）从应用发到 Zed 服务器，再路由到四个服务——Sentry（崩溃监控，存诊断事件）、Snowflake（数据仓库，存诊断与指标事件）、Hex 与 Amplitude（仪表盘，读取 Snowflake 中的数据）。这些下游服务的保留期限与所在地点均未声明。"
+anchor = "zed-telemetry-dataflow"
+
+[[product.retention.point]]
+text = "Telemetry is not necessarily anonymous: usage data is tied to a random telemetry ID, and if you are authenticated that ID may be linked to your email."
+text_zh = "遥测不必然匿名：使用数据绑定到一个随机遥测 ID，若已登录，该 ID 可能关联到你的邮箱。"
+anchor = "zed-telemetry-id"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://zed.dev/docs/ai/privacy-and-security", "https://zed.dev/privacy-policy"]
+codes = ["US"]
+anchor = "zed-region-us"
+
+[[product.processing_region.point]]
+text = "Zed's own hosting and processing location is the United States: the services are hosted in the U.S., and personal data from the EEA, the UK and other regions is transferred to the U.S. for storage and processing."
+text_zh = "Zed 自身的托管与处理地为美国：服务托管在美国，来自 EEA、英国及其他地区的个人数据被传输到美国存储与处理。"
+anchor = "zed-region-us"
+
+[[product.processing_region.point]]
+text = "The U.S. is not the only location: the same paragraph allows transferring data from the U.S. to other countries or regions in connection with storage and processing of data, fulfilling requests, and operating the websites, products and services."
+text_zh = "美国不是唯一地点：同段允许为数据存储与处理、履行请求、运营网站与产品服务，把数据从美国再转移到其他国家或地区。"
+anchor = "zed-region-us-transfer"
+
+[[product.processing_region.point]]
+text = "Business limit, recorded as a limit rather than as an unknown region: data Zed processes as a processor on behalf of Zed Business customers is governed by the Data Processing Agreement, which the privacy policy says is available upon request. That document is not monitored here, so this row records Zed's own hosting location."
+text_zh = "Business 档的限定（以限定形式记录，而不是把处理地记成 unknown）：Zed 以 processor 身份代表 Zed Business 客户处理的数据受《数据处理协议》约束，隐私政策称该协议可应请求提供；本台账未监控该协议，因此本行记录的是 Zed 自身的托管地。"
+anchor = "zed-business-dpa"
+
+[[product.processing_region.point]]
+text = "Layer this row does not cover: Zed routes Zed-hosted model requests to hosted model providers (Anthropic, Google, OpenAI), and the location where those providers process the data is not declared in the pages monitored here."
+text_zh = "本行覆盖不到的一层：Zed 把托管模型请求路由给托管模型商（Anthropic、Google、OpenAI）执行，这些厂商在何处处理数据，本档监控的页面没有声明。"
+anchor = "zed-hosted-routes"
 [product.role]
 kind = "processor"
 anchor = "zed-role"
+
+[[product.role.point]]
+text = "Disclosure under the controller role: Zed may disclose personal data to vendors that provide artificial intelligence services, for legitimate business purposes only, including website performance monitoring and sales and marketing of its products and services, and states that it does not utilize third-party services which use this information for AI training purposes. Where those vendors process the data is not stated."
+text_zh = "controller 身份下的披露面：Zed 可为合法商业目的把个人信息披露给提供 AI 服务的供应商，目的包括网站性能监控与产品服务的销售营销，并写明不使用会把这些信息用于 AI 训练的第三方服务；这些供应商在何处处理数据未说明。"
+anchor = "zed-disclosure-ai-providers"
 
 [[anchor]]
 id = "zed-hosted-zdr"
@@ -106,4 +219,100 @@ topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "When data is used as outlined in this Privacy Policy, Zed is the data controller and responsible for the processing of your personal data. When Zed processes personal data on behalf of Zed Business customers as a data processor, the terms of our Data Processing Agreement apply."
+suffix = ""
+[[anchor]]
+id = "zed-region-us"
+source_id = "cb201e9aff88ba66"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Our websites, products, and services are hosted in the United States (“U.S.”). If you choose to use our websites or products and services from the EEA, the UK or other regions of the world with laws governing data collection and use that may differ from U.S. law, then please note that you are transferring your personal data outside of those regions to the U.S. for storage and processing."
+suffix = ""
+[[anchor]]
+id = "zed-region-us-transfer"
+source_id = "cb201e9aff88ba66"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "We may also transfer your data from the U.S. to other countries or regions in connection with storage and processing of data, fulfilling your requests, and operating our websites, products, and services."
+suffix = ""
+[[anchor]]
+id = "zed-hosted-routes"
+source_id = "37e0765a7fa5d203"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Zed routes requests to hosted model providers"
+suffix = ""
+[[anchor]]
+id = "zed-retention-personal-data"
+source_id = "cb201e9aff88ba66"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When you request deletion, we take measures to delete your personal data or anonymize it, unless we're legally required to retain it. We determine retention periods based on the type of service, our relationship with you, legal requirements, and applicable statutes of limitations."
+suffix = ""
+[[anchor]]
+id = "zed-retention-exceptions"
+source_id = "cb201e9aff88ba66"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "we may retain personal data for backups, archiving, prevention of fraud and abuse, satisfaction of legal obligations, or where we otherwise reasonably believe that we have a legitimate and lawful reason to do so"
+suffix = ""
+[[anchor]]
+id = "zed-covered-models-every-platform"
+source_id = "37e0765a7fa5d203"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Switching to your own API key or subscription does not avoid this retention for covered models, because providers apply it on every platform where those models are offered."
+suffix = ""
+[[anchor]]
+id = "zed-edit-prediction"
+source_id = "37e0765a7fa5d203"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Each keystroke can send local editing context to the selected provider. Zeta requests are processed transiently unless training data collection is enabled; third-party providers follow their own terms."
+suffix = ""
+[[anchor]]
+id = "zed-telemetry-dataflow"
+source_id = "d10640b61c024725"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Telemetry is sent from the application to our servers every 5 minutes (or when 50 events accumulate), then routed to the appropriate service. We currently use: Sentry: Crash-monitoring service - stores diagnostic events; Snowflake: Data warehouse - stores both diagnostic and metric events; Hex: Dashboards and data exploration - accesses data stored in Snowflake; Amplitude: Dashboards and data exploration - accesses data stored in Snowflake"
+suffix = ""
+[[anchor]]
+id = "zed-telemetry-id"
+source_id = "d10640b61c024725"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Usage data is tied to a random telemetry ID. If you’ve authenticated, this ID may be linked to your email so Zed can analyze patterns over time and reach out for feedback."
+suffix = ""
+[[anchor]]
+id = "zed-business-nosharing"
+source_id = "d10640b61c024725"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Administrators on Zed Business can enforce a no-sharing policy org-wide; members can’t opt into Edit Prediction training data sharing or AI feedback ratings."
+suffix = ""
+[[anchor]]
+id = "zed-disclosure-ai-providers"
+source_id = "cb201e9aff88ba66"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "AI Service Providers - We may disclose information we receive to vendors that provide artificial intelligence services in connection with our websites, software, or services for legitimate business purposes only, including website performance monitoring and sales and marketing of our products and services. Zed does not utilize third-party services which use this information for AI training purposes."
+suffix = ""
+[[anchor]]
+id = "zed-business-dpa"
+source_id = "cb201e9aff88ba66"
+topics = ["processing_region", "role"]
+[anchor.selector]
+prefix = ""
+exact = "This Privacy Policy does not apply to the extent we process personal data in the role of a processor or service provider on behalf of our Zed Business customers. Such processing is governed by our Data Processing Agreement, available upon request."
 suffix = ""

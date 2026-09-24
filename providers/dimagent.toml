@@ -56,6 +56,22 @@ anchor = "dim-privacy-self-hosted-local-only"
 text_zh = "「不留存」说的是对话记录不上传法至服务器这一条。账号、订单、日志这类个人信息另按第五节「最短必要期限」保留，并受《网络安全法》网络日志不少于 6 个月的法定要求约束；这与推理内容是两件事。"
 anchor = "dim-privacy-retention-minimum-necessary"
 
+[[product.retention.point]]
+text_zh = "期限类型：§五.2 的两类例外同样适用于本档——遵从法律法规的信息留存要求（例如《网络安全法》规定网络日志不少于 6 个月，这是下限，不能反推「到期即删全部内容」）；以及出于财务、审计、争议解决等目的需要合理延长的期限（仅限所列目的）。"
+anchor = "dim-privacy-retention-legal-floor-extension"
+
+[[product.retention.point]]
+text_zh = "删除不是即时的：§七.2 写明删除相关信息后，因安全技术限制可能无法立即从备份系统中删除，备份清除或实现匿名化前继续安全存储并限制进一步处理。"
+anchor = "dim-privacy-deletion-backup-delay"
+
+[[product.retention.point]]
+text_zh = "语境=停止运营：§五.3 写明本服务停止运营时，将以公告等形式通知，并在法律法规要求的期限内删除服务器中留存的个人信息。"
+anchor = "dim-privacy-stop-operation-delete"
+
+[[product.retention.point]]
+text_zh = "语境=终止后/卸载后：用户协议 §14.3.2 写明协议终止后法至仍有权在法律允许的最小必要范围内保存您的信息，存在违法行为时依法保存记录；§3.3.2 写明卸载后按法律法规要求处理相关信息。对象是账号/记录类信息，不改变输入输出不留存的结论。"
+anchor = "dim-terms-14-3-2-retention-after-termination"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "dim-privacy-storage-in-china"
@@ -79,41 +95,91 @@ id = "third-party-api-models"
 badge = "第三方 API 模型"
 category = "coding_plan"
 plan_level = "any"
-label = "法至采购、在产品界面里可选的第三方模型。接入哪几家官方说明会随业务调整，以产品界面展示为准"
+label = "法至采购、在产品界面里可选的第三方模型。接入哪几家官方说明会随业务调整，以产品界面展示为准。链路可能不止一跳：隐私政策 SDK 表写明 AI Provider SDK「含 AIHubMix 中转」，实际链路可能是「法至 → AIHubMix 中转 → 模型方」，但官方未说明哪些模型经此中转，中转方的条款与处理地均未公开"
 
 [product.training]
-mark = "yes"
-mode = "by_contract"
-
-[[product.training.point]]
-text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署约定：不得将输入输出用于模型训练或服务优化，默认对所有用户生效。该约定尚未写进公开的隐私政策或用户协议，因此这一条目前无法追到官方原文——本台账对其他厂商的同类情况一律判「未公开」，这里按厂商声明记录，待政策文本更新后重抓改绑。"
-
-[[product.training.point]]
-text_zh = "公开文本现在的兜底表述与上述声明方向相反，原样列在这里：服务商「可能会根据其自身的隐私政策和服务条款」把输入内容用于训练或服务优化。两者不一致时，以哪一条为准要由法至自己澄清。"
+mark = "no"
 anchor = "dim-privacy-third-party-may-train"
+
+[[product.training.point]]
+text_zh = "公开文本对本档上游只有反向表述：服务商「可能会根据其自身的隐私政策和服务条款」把输入内容用于模型训练或服务优化（§二.2 第三方 API 圆点、§7.2 第二圆点；用户协议 §7.2.2 同句）。按判定口径「可能会用于训练/服务优化」计为训练，本行据此判 ✗。"
+
+[[product.training.point]]
+text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署约定：不得将输入输出用于模型训练或服务优化，默认对所有用户生效。该约定尚未写进公开的隐私政策或用户协议，本轮追不到官方原文，因此只作待核实声明记录，不承担本行结论；该约定写进公开文本并由 bot 重抓快照后，才谈得上改判。"
 
 [[product.training.point]]
 text_zh = "法至自身不拿输入输出训练模型这一条是有公开依据的（§7.1），与上游那一跳是两件事。"
 anchor = "dim-privacy-7-1-no-own-training"
 
+[[product.training.point]]
+text_zh = "厂商自己承认第三方服务商可能拿内容去训练，并给出换档建议：§7.3 标题即「如您不希望第三方服务商使用您的内容进行训练，请您：」——优先选择法至自托管模型；或通过 BYOK 选择明确不用于训练的模型服务；或按产品界面展示的模型来源自行选择。"
+anchor = "dim-privacy-7-3-avoid-third-party-training"
+
+[[product.training.point]]
+text_zh = "合同层同向，且权威性高于隐私政策：用户协议 §7.2.3 要求使用前查看产品界面中的模型来源说明并阅读相应服务商的隐私政策，「如您不同意第三方服务商的数据处理方式，请优先选择法至自托管模型，或通过 BYOK 方式选择您信任的模型服务。」合同里同样没有第三方档不训练的承诺，规避方式是换档。"
+anchor = "dim-terms-7-2-3-choose-self-hosted"
+
+[[product.training.point]]
+text_zh = "链路还可能多一跳：SDK 表写「AI Provider SDK（含 AIHubMix 中转）」，使用目的是「连接模型服务、发送输入内容并接收输出」，涉及个人信息为输入内容、输出内容。官方未说明哪些模型经此中转，中转方是否训练未公开，不据此推断。"
+anchor = "dim-privacy-sdk-aihubmix-transit"
+
 [product.zdr]
-mark = "yes"
-mode = "default"
+mark = "no"
+anchor = "dim-privacy-third-party-may-train"
 
 [[product.zdr.point]]
-text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署零数据保留约定，默认生效、无需另行开通。同样尚未写进公开文本，暂按厂商声明记录。"
+text_zh = "上游那一跳：公开文本没有任何零保留表述，唯一相关的一句是服务商「可能会…用于模型训练或服务优化」，与「不留存」不相容。按「任一跳明确为否，则全链为否」，本档不能给 ✓。"
 
 [[product.zdr.point]]
-text_zh = "法至自己这一侧有公开依据：对话记录只保存在你的本地设备，不上传至法至服务器。"
+text_zh = "法至称已与当前接入的全部第三方模型 API 服务商签署零数据保留约定，默认生效、无需另行开通。该约定尚未写进公开文本，本轮追不到官方原文，只作待核实声明记录，不承担本行结论。"
+
+[[product.zdr.point]]
+text_zh = "法至自己这一侧有公开依据：对话记录仅保存在您的本地设备，不上传至法至服务器。这一条只覆盖法至侧，不覆盖输入内容发送给上游之后的留存。"
 anchor = "dim-privacy-third-party-local-record"
+
+[[product.zdr.point]]
+text_zh = "链路还可能多一跳：SDK 表写 AI Provider SDK「含 AIHubMix 中转」，中转方是否留存输入内容、在何处处理均未公开。"
+anchor = "dim-privacy-sdk-aihubmix-transit"
 
 [product.retention]
-object = "input_output"
-basis = "none"
+object = "mixed"
+basis = "undisclosed"
+anchor = "dim-privacy-third-party-local-record"
 
 [[product.retention.point]]
-text_zh = "法至侧不保存对话记录（公开依据）；上游侧按前述零保留约定不留存（厂商声明，公开文本未写）。"
-anchor = "dim-privacy-third-party-local-record"
+text_zh = "法至侧：对话记录仅保存在您的本地设备，不上传至法至服务器。这一条只覆盖法至侧这一跳，盖不住输入内容发送给上游之后的留存。"
+
+[[product.retention.point]]
+text_zh = "上游侧：公开文本没有给第三方 API 服务商任何保留期限或零保留表述，唯一相关的一句是服务商「可能会…用于模型训练或服务优化」，与「不留存」不相容，故全链 basis 记 undisclosed。「上游按零保留约定不留存」是厂商声明，尚未写进公开文本。"
+anchor = "dim-privacy-third-party-may-train"
+
+[[product.retention.point]]
+text_zh = "法至侧另有留存对象：账号、订单、支付信息按 §五.2「最短必要期限」保留；日志信息（§二.3：IP 地址、浏览器类型、访问时间、操作记录、使用日志等）在服务运营与安全保障目的下收集。"
+anchor = "dim-privacy-logs-collected"
+
+[[product.retention.point]]
+text_zh = "期限类型：§五.2 的两类例外——遵从法律法规的信息留存要求（例如《网络安全法》规定网络日志不少于 6 个月，这是下限，不能反推「到期即删全部内容」）；以及出于财务、审计、争议解决等目的需要合理延长的期限（仅限所列目的）。"
+anchor = "dim-privacy-retention-legal-floor-extension"
+
+[[product.retention.point]]
+text_zh = "删除不是即时的：§七.2 写明删除相关信息后，因安全技术限制可能无法立即从备份系统中删除，备份清除或实现匿名化前继续安全存储并限制进一步处理。"
+anchor = "dim-privacy-deletion-backup-delay"
+
+[[product.retention.point]]
+text_zh = "语境=停止运营：§五.3 写明本服务停止运营时，将以公告等形式通知，并在法律法规要求的期限内删除服务器中留存的个人信息。"
+anchor = "dim-privacy-stop-operation-delete"
+
+[[product.retention.point]]
+text_zh = "语境=终止后：用户协议 §14.3.2 写明协议终止后法至仍有权在法律允许的最小必要范围内保存您的信息，存在违法行为时依法保存记录并追究违约责任。对象是账号/记录类信息，不改变法至侧输入输出不留存的结论。"
+anchor = "dim-terms-14-3-2-retention-after-termination"
+
+[[product.retention.point]]
+text_zh = "语境=卸载后：用户协议 §3.3.2「卸载后，我们将按照法律法规要求处理您的相关信息。」"
+anchor = "dim-terms-3-3-2-uninstall"
+
+[[product.retention.point]]
+text_zh = "链路还可能多一跳：SDK 表写 AI Provider SDK「含 AIHubMix 中转」，中转方对输入输出的保留期限未公开。"
+anchor = "dim-privacy-sdk-aihubmix-transit"
 
 [product.processing_region]
 codes = ["unknown"]
@@ -125,6 +191,10 @@ searched = [
 [[product.processing_region.point]]
 text_zh = "法至自己收集产生的个人信息存于中国境内且目前不跨境；但第三方 API 服务商在哪处理，取决于接入了谁，公开文本未列清单。"
 anchor = "dim-privacy-storage-in-china"
+
+[[product.processing_region.point]]
+text_zh = "链路里可能还有中转这一跳：SDK 表写「AI Provider SDK（含 AIHubMix 中转）」，但官方未说明哪些模型经此中转，中转方在哪处理也未公开。本档 searched[] 已含 privacy 与 terms 两份文档，均无中转方处理地信息。"
+anchor = "dim-privacy-sdk-aihubmix-transit"
 
 [product.role]
 kind = "controller"
@@ -232,3 +302,83 @@ topics = ["role"]
 prefix = "佳实践，采取相应的安全保护措施，保护您的个人信息安全。\n\n本《DimAgent 隐私政策》（以下简称\"**本政策**\"）"
 exact = "旨在向您说明：在您使用 DimAgent 产品和服务的过程中，我们会如何收集、使用、存储、共享、转让、公开披露和保护您的个人信息，以及您可以如何管理您的个人信息。"
 suffix = "\n\n**请您在使用本服务前，仔细阅读并充分理解本政策，特别是以加粗形式标识的条款。如您不同意本政策的任何内容，请立即停止"
+
+[[anchor]]
+id = "dim-privacy-7-3-avoid-third-party-training"
+source_id = "a8f4593b6eddc0a0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "本服务接入的第三方 API 服务商可能随业务发展动态调整，具体以产品界面展示为准。**\n\n**"
+exact = "7.3 如您不希望第三方服务商使用您的内容进行训练，请您："
+suffix = "**\n\n- 优先选择法至自托管模型；"
+
+[[anchor]]
+id = "dim-privacy-sdk-aihubmix-transit"
+source_id = "a8f4593b6eddc0a0"
+topics = ["training", "zdr", "retention", "processing_region"]
+
+[anchor.selector]
+prefix = "| SDK / 组件名称 | 使用目的 | 涉及个人信息 | 收集方式 | 第三方主体 | 隐私政策链接 |\n| "
+exact = "AI Provider SDK（含 AIHubMix 中转） | 连接模型服务、发送输入内容并接收输出 | 输入内容、输出内容 | 应用主动调用 | 以产品界面展示的当前模型来源为准 | 以产品界面展示的链接为准"
+suffix = " |"
+
+[[anchor]]
+id = "dim-privacy-logs-collected"
+source_id = "a8f4593b6eddc0a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "我们会自动收集以下信息：\n- **设备信息**：设备型号、操作系统类型及版本、设备标识符等；\n- **"
+exact = "日志信息**：IP 地址、浏览器类型、访问时间、操作记录、使用日志等；"
+suffix = "\n- **网络信息**：网络接入方式、类型、状态等。"
+
+[[anchor]]
+id = "dim-privacy-retention-legal-floor-extension"
+source_id = "a8f4593b6eddc0a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "超出必要期限后，我们将对您的个人信息进行删除或匿名化处理，但以下情况除外：\n- "
+exact = "遵从法律法规有关信息留存的要求（例如：《网络安全法》规定网络日志不少于 6 个月）；\n- 出于财务、审计、争议解决等目的需要合理延长的期限。"
+suffix = "\n如您注销账号，我们将停止为您提供服务，并依法对您的个人信息进行删除或匿名化处理，法律法规另有规定的除外。"
+
+[[anchor]]
+id = "dim-privacy-deletion-backup-delay"
+source_id = "a8f4593b6eddc0a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "您也可以通过本软件内的功能删除历史对话记录。\n**"
+exact = "当您删除相关信息后，因安全技术限制，我们可能无法立即从备份系统中删除相应信息。我们将安全地存储该信息并限制对其的进一步处理，直到备份可以清除或实现匿名化。"
+suffix = "**\n\n### 3. 撤回授权"
+
+[[anchor]]
+id = "dim-privacy-stop-operation-delete"
+source_id = "a8f4593b6eddc0a0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "### 3. 停止运营\n"
+exact = "如本服务停止运营，我们将以公告等形式通知您，并在法律法规要求的期限内删除服务器中留存的您的个人信息。"
+suffix = "\n## 六、我们如何保护您的个人信息"
+
+[[anchor]]
+id = "dim-terms-14-3-2-retention-after-termination"
+source_id = "f84adb2947649f29"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**14.3.1** 协议终止后，法至无义务向您披露您账户中的任何信息，但法律法规另有规定的除外。\n**14.3.2** "
+exact = "法至仍有权在法律允许的最小必要范围内保存您的信息。如您在使用过程中存在违法行为，法至将依法保存记录并有权追究违约责任。"
+suffix = "**\n\n## 十五、通知与联系方式"
+
+[[anchor]]
+id = "dim-terms-3-3-2-uninstall"
+source_id = "f84adb2947649f29"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**3.3.2** "
+exact = "您可自由卸载本软件。卸载后，我们将按照法律法规要求处理您的相关信息。"
+suffix = "\n\n### 3.4 软件更新"

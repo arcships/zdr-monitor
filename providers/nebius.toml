@@ -66,12 +66,24 @@ mode = "opt_out"
 
 [[product.training.point]]
 text_zh = "默认模式下合同文本明文授权「train smaller Models used for Speculative Decoding」(Supplemental Terms §5.1(b)，旧 TOS §7 同旨)，且该 draft 模型归 Nebius 所有(§3.2)"
+anchor = "tf-suppl-5-1-train-speculative-decoding"
 
 [[product.training.point]]
 text_zh = "但 DPA Annex 3 与 Quick Guide 说 Token Factory 不 train/fine-tune/improve 任何模型。两条官方文本冲突，并列保留，不取平均"
+anchor = "dpa-annex3-tf-no-training"
 
 [[product.training.point]]
 text_zh = "实务读法：默认模式下 I/O 会被用于训练 Nebius 自有的 draft 模型，用于服务客户请求，不用于训练通用模型。"
+
+[[product.training.point]]
+text = "Context clause, Agreement §10.1.3 (top-level use restriction): Nebius shall \"use the Customer Data uploaded on the resources of the Platform and any related Customer AI Content solely to perform, or as otherwise set forth in, this Agreement including any applicable Service-Specific Terms (such as the Token Factory Supplemental Terms), any applicable Order Form, the Documentation, and the DPA\". It is background to the conflict, not a tie-breaker: the same sentence folds the Service-Specific Terms into the permitted purposes, so it does not by itself forbid the training that Supplemental Terms §5.1 authorizes."
+text_zh = "冲突面的第三份合同文本，Agreement §10.1.3(总协议层使用限制)：Nebius 只能把平台资源上的 Customer Data 及相关 Customer AI Content 用于履行本协议(含适用的 Service-Specific Terms，如 Token Factory Supplemental Terms)、Order Form、Documentation 与 DPA。它是冲突的背景文本而非裁决条款——同一句把服务专用条款纳入「as otherwise set forth in」的范围，故不能据此认为总协议已禁止训练。"
+anchor = "agreement-10-1-3-customer-data-use"
+
+[[product.training.point]]
+text = "Order of precedence, Agreement §20.12: \"In the event of a conflict among the components of this Agreement, the following order of precedence shall apply, unless expressly stated otherwise: (a) the DPA, solely with respect to the processing of Personal Data\". This is the contract basis for reading DPA Annex 3 ahead of Supplemental Terms §5.1, and it matches §5.1's own opening \"Subject to the terms of the DPA\"; its scope is limited to the processing of Personal Data, so per docs/judgment.md both facts stay recorded side by side rather than one being dropped."
+text_zh = "Agreement §20.12 给出协议各组件的优先次序：「(a) the DPA, solely with respect to the processing of Personal Data」，是判断 DPA Annex 3 不训练句与 Supplemental Terms §5.1 训练授权孰先的合同依据，也与 §5.1 自身「Subject to the terms of the DPA」相互印证。其限定是只就 Personal Data 的处理而言；按 docs/judgment.md 仍并列保留两条事实，不因这条次序条款删掉任一条。"
+anchor = "agreement-20-12-order-of-precedence"
 
 [product.zdr]
 mark = "yes"
@@ -105,6 +117,11 @@ text_zh = "公开端点 Region 字段显示 Global，处理地动态决定、可
 [[product.processing_region.point]]
 text_zh = "未开 ZDR 时保留物存芬兰(EU)。"
 
+[[product.processing_region.point]]
+text = "Contract layer for this product line, DPA §6.1: \"For Nebius Token Factory, the processing location depends on the model, endpoint type and processing location used\", with public model endpoints taking their location from the API or the Token Factory interface. No region commitment for public endpoints — same reading as Quick Guide §5.1."
+text_zh = "本产品线的合同层依据，DPA §6.1：「For Nebius Token Factory, the processing location depends on the model, endpoint type and processing location used」，公开端点的处理地以 API 或 Token Factory 界面所示为准。公开端点无区域承诺，与 Quick Guide §5.1 同旨。"
+anchor = "dpa-6-1-tf-processing-location"
+
 [product.role]
 kind = "processor"
 anchor = "qg-3-2-token-factory-processor"
@@ -122,15 +139,23 @@ category = "api"
 plan_level = "enterprise"
 
 [product.training]
-mark = "yes"
+mark = "no"
+anchor = "tf-suppl-5-1-train-speculative-decoding"
+mode = "opt_out"
+
+[[product.training.point]]
+text = "Supplemental Terms §2.3 puts Dedicated Endpoints inside the Token Factory Service (\"The Token Factory Service provides Customer with Dedicated Endpoints to deploy supported Models with dedicated capacity\"), and §5.1(b) authorizes Nebius to process Input and Output in order to \"train smaller Models used for Speculative Decoding\". Neither clause distinguishes endpoint type, so the authorization reaches this tier; Nebius has never made a dedicated-endpoint-specific statement about training."
+text_zh = "Supplemental Terms §2.3 把 Dedicated Endpoints 写进 Token Factory Service 的范围，而 §5.1(b) 明文授权用 Input/Output「train smaller Models used for Speculative Decoding」。两条都不区分端点类型，故该授权同样覆盖本档；官方从未就 dedicated endpoint 单独表态。"
+anchor = "tf-suppl-5-1-train-speculative-decoding"
+
+[[product.training.point]]
+text = "The opposite text, DPA Annex 3: \"Nebius Token Factory does not use Customer Content to train, fine-tune or improve models for Nebius or any third party, except as directed by the Customer to perform a Customer-requested fine-tuning or post-training operation\" — also written by product name, also without an endpoint-type distinction. The two conflicting texts therefore both apply to this tier; they are recorded in parallel, not averaged."
+text_zh = "相反的一条，DPA Annex 3：「Nebius Token Factory does not use Customer Content to train, fine-tune or improve models for Nebius or any third party…」，同样只按产品名写、未按端点类型区分。两条冲突因此同时适用于本档；并列保留，不取平均。"
 anchor = "dpa-annex3-tf-no-training"
-mode = "default"
 
 [[product.training.point]]
-text_zh = "DPA Annex 3 的不训练承诺按产品写的是「Nebius Token Factory」，未按端点类型再分"
-
-[[product.training.point]]
-text_zh = "Supplemental Terms §5.1 的 speculative-decoding 训练授权同样未按端点类型区分，故默认模式下两条冲突同样适用于 dedicated endpoint。不确定性：官方未就 dedicated endpoint 单独表态。"
+text = "Verdict rationale: this tier rests on the same evidence as the Token Factory pay-as-you-go tier and Nebius has published no dedicated-endpoint-specific position, so it is kept aligned with that tier (mark=no, mode=opt_out) instead of reading the DPA sentence as controlling for dedicated endpoints only. Customer-side exit is the Supplemental Terms §5.4 opt-out and the organization-level ZDR switch."
+text_zh = "判定理由：本档与 Token Factory 按量档用的是同一批证据，官方也未就 dedicated endpoint 单独表态，故与按量档取齐(mark=no、mode=opt_out)，不单方面把 DPA 的不训练句读成只对本档起决定作用。客户侧的退出通道是 Supplemental Terms §5.4 的 opt-out 与组织级 ZDR 开关。"
 
 [product.zdr]
 mark = "yes"
@@ -162,17 +187,31 @@ anchor = "dpa-7-return-deletion-on-termination"
 text_zh = "服务终止/到期时由客户选择删除或返还(DPA §7)"
 
 [[product.retention.point]]
+text = "Platform-side deletion window, Agreement §16.11: \"In case of termination of the Agreement the Customer Data uploaded on the resources of the Platform is marked and deleted along with resources of the Platform used by the Customer within 72 hours after termination of the Agreement unless applicable law stipulates any other storage period.\" Object: Customer Data on Platform resources; context: after termination of the Agreement; type: upper-bound window (statutory storage periods excepted)."
+text_zh = "平台侧删除窗口，Agreement §16.11：「In case of termination of the Agreement the Customer Data uploaded on the resources of the Platform is marked and deleted along with resources of the Platform used by the Customer within 72 hours after termination of the Agreement unless applicable law stipulates any other storage period.」对象＝平台资源上的 Customer Data；语境＝协议终止后；期限类型＝上限式窗口(适用法律另有存储期规定者除外)。"
+anchor = "agreement-16-11-deletion-72-hours"
+
+[[product.retention.point]]
+text = "Suspension window, Agreement §16.10.1: Nebius stores the Customer Data uploaded on Platform resources \"within sixty (60) calendar days from when access to the Services is suspended due to the Customer’s failure to comply with the terms of payment for the Services and/or the Trial Period runs out\". Object: Customer Data on Platform resources; context: access suspended for non-payment or after the Trial Period; type: upper-bound storage period."
+text_zh = "暂停情形，Agreement §16.10.1：因客户未按付款条款履约或试用期届满而暂停服务访问时，平台资源上的 Customer Data 存储期为自暂停起 60 个日历日内。对象＝平台资源上的 Customer Data；语境＝欠费/试用期届满导致访问暂停；期限类型＝上限式存储期。"
+anchor = "agreement-16-10-1-suspension-60-days"
+
+[[product.retention.point]]
 text_zh = "运行期内的请求内容保留规则官方未按端点类型说明。不确定性较高。"
 
 [product.processing_region]
-basis = "undisclosed"
+codes = ["selected"]
 anchor = "dpa-6-1-dedicated-endpoint-region"
 
 [[product.processing_region.point]]
-text_zh = "DPA §6.1 对 dedicated endpoint 承诺在客户选定 region 内处理 Customer Content"
+text = "DPA §6.1: \"For dedicated endpoints, Customer Content is processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List\". The customer-selected region is the disclosed processing location; limited cross-border Processing for operation, maintenance, security or support is the stated exception."
+text_zh = "DPA §6.1：「For dedicated endpoints, Customer Content is processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List」。客户选定的 region 即已披露的处理地；例外是为服务运营、维护、安全或支持所必需的有限跨境处理(依适用的 Sub-processor List)。"
+anchor = "dpa-6-1-dedicated-endpoint-region"
 
 [[product.processing_region.point]]
-text_zh = "Quick Guide §5.2 称其为 contractual commitment，不做多区路由/自动溢出。"
+text = "Quick Guide §5.2 turns that into a commitment: \"for dedicated endpoints the data-center region is fixed as part of the endpoint configuration – and it is a contractual commitment\", with no multi-region routing, load balancing or automatic overflow/failover — inference runs only in the chosen region."
+text_zh = "Quick Guide §5.2 把这一点写成承诺：「for dedicated endpoints the data-center region is fixed as part of the endpoint configuration – and it is a contractual commitment」，且不做多区路由、负载均衡或自动溢出/故障转移——推理只在客户选择的 region 内运行。"
+anchor = "qg-5-2-dedicated-endpoint-region-commitment"
 
 [product.role]
 kind = "processor"
@@ -198,6 +237,11 @@ text_zh = "DPA Annex 3 的例外句「except as directed by the Customer to perf
 [[product.training.point]]
 text_zh = "Supplemental Terms §2.10 亦规定 fine-tuned/distilled 模型只对创建者可见，但 Nebius 有权为提供该服务使用客户数据集。Fine-tuned/Distilled 模型可被 Nebius 提前 3 天通知后删除。"
 
+[[product.training.point]]
+text = "Broader dataset authorization, Supplemental Terms §2.11 (Professional Services): \"Subject to the terms of the DPA, Nebius has a right to use Customer's Datasets (provided hereunder) for the purpose of providing Professional Services\", and the same clause says those services \"may include but are not limited to … model training services (such as fine-tuning, distillation, and training of custom models to improve latency and quality)\". Context: Professional Services provided at Customer's written request or under an Order Form; object: Customer's Datasets. Recorded separately from §2.10's fine-tuning/distillation licence."
+text_zh = "更宽的数据集使用授权，Supplemental Terms §2.11(专业服务)：「Subject to the terms of the DPA, Nebius has a right to use Customer's Datasets (provided hereunder) for the purpose of providing Professional Services」，同节另写明专业服务「may include but are not limited to … model training services (such as fine-tuning, distillation, and training of custom models to improve latency and quality)」。语境＝客户书面请求或 Order Form 下由 Nebius 提供专业服务；对象＝客户 Datasets。与 §2.10 的微调/蒸馏授权分列。"
+anchor = "tf-suppl-2-11-professional-services-datasets"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -219,13 +263,28 @@ text_zh = "官方没有说这些数据可享零保留，故记 not_found(未披�
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "datalab-processing-location-eu-north1"
+anchor = "dpa-annex3-retention-necessary-only"
+searched = [
+  "https://docs.tokenfactory.nebius.com/data-lab/data-processing",
+  "https://docs.tokenfactory.nebius.com/data-lab/datasets",
+  "https://docs.tokenfactory.nebius.com/data-lab/chat-completions",
+  "https://docs.nebius.com/legal/dpa",
+  "https://docs.nebius.com/legal/agreement",
+]
 
 [[product.retention.point]]
-text_zh = "官方只写数据集/批量输出/微调产物统一存 EU，未给保留期限"
+text = "Contract-layer statement covering this tier, DPA Annex 3: \"Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations\" — no quantified period for datasets, batch outputs or fine-tuning artefacts. Object: Customer Personal Data (incl. datasets, outputs, artefacts); context: default; type: not quantified."
+text_zh = "覆盖本档的合同层表述，DPA Annex 3：「Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations」——对数据集、批量输出与微调产物都没有量化期限。对象＝Customer Personal Data(含数据集/输出/产物)；语境＝默认；期限类型＝未量化。"
+anchor = "dpa-annex3-retention-necessary-only"
 
 [[product.retention.point]]
-text_zh = "推理日志是否可导入取决于请求发生时的 ZDR 设置(Data Lab chat-completions 页：ZDR 开启期间的日志不存储、不可导入)。"
+text = "What the Data Lab page does state is the object list: \"Inference logs - inputs and outputs (unless you enable Zero Data Retention)\", uploaded/filtered datasets, batch inference outputs, fine-tuning results. It gives no retention period for any of them — its only period-like statement is about processing location (EU-North1), which is recorded under processing_region, not here."
+text_zh = "Data Lab 页实际给出的是对象清单：「Inference logs - inputs and outputs (unless you enable Zero Data Retention)」、上传/筛选数据集、批量推理输出、微调结果；对其中任何一类都没有给保留期限，该页唯一像期限的表述是处理地(EU-North1)，记在 processing_region，不记在本维度。"
+anchor = "datalab-inference-logs-unless-zdr"
+
+[[product.retention.point]]
+text = "Search scope is recorded in searched. The Data Lab chat-completions page cited in an earlier revision is not among this provider's monitored sources, so its content (logs produced while ZDR is on are not stored and cannot be imported) is not machine-checkable and is no longer used as a basis here."
+text_zh = "查阅范围见 searched。此前引用的 Data Lab chat-completions 页不在本 provider 已登记来源内，其内容(ZDR 开启期间的日志不存储、不可导入)无法机器复核，故不再作为本维度的依据。"
 
 [product.processing_region]
 codes = ["EU", "FI"]
@@ -282,24 +341,48 @@ text_zh = "DPA Annex 3 的共通基线里出现过「configuring Zero Data Reten
 
 [product.retention]
 object = "input_output"
-basis = "undisclosed"
+basis = "until_termination"
+anchor = "dpa-7-return-deletion-on-termination"
+
+[[product.retention.point]]
+text = "Contract layer, DPA Annex 1A.2 (AI Cloud details of processing): \"The duration of the processing will be for the term of the Terms of Service\". Object: Customer Personal Data processed as Customer Content; context: default; type: bounded by the contract term, not a fixed number of days."
+text_zh = "合同层，DPA Annex 1A.2(AI Cloud 处理详情)：「The duration of the processing will be for the term of the Terms of Service」。对象＝作为 Customer Content 处理的 Customer Personal Data；语境＝默认；期限类型＝以合同存续期为界，不是固定天数。"
+anchor = "dpa-annex1a2-processing-duration"
+
+[[product.retention.point]]
+text = "Same DPA, SCC Annex 2: \"The period for which the personal data will be retained is for the duration of the Agreement, unless agreed otherwise in the Agreement and/or the DPA.\" This sits in the Standard Contractual Clauses annex, so it is the contract-layer retention term; it does not replace AI Cloud's own \"documented retention schedules\", which are still not published in the monitored documents."
+text_zh = "同一份 DPA 的 SCC Annex 2：「The period for which the personal data will be retained is for the duration of the Agreement, unless agreed otherwise in the Agreement and/or the DPA.」该句位于 Standard Contractual Clauses 附件中，属合同层的存续期口径；它不能替代 AI Cloud 自己的「documented retention schedules」——后者仍未在被监控的文档里公布。"
+anchor = "dpa-scc-annex2-retention-duration"
+
+[[product.retention.point]]
+text = "Post-termination deletion window, Agreement §16.11: \"In case of termination of the Agreement the Customer Data uploaded on the resources of the Platform is marked and deleted along with resources of the Platform used by the Customer within 72 hours after termination of the Agreement unless applicable law stipulates any other storage period.\" Object: Customer Data on Platform resources; context: termination; type: upper-bound window."
+text_zh = "终止后删除窗口，Agreement §16.11：「In case of termination of the Agreement the Customer Data uploaded on the resources of the Platform is marked and deleted along with resources of the Platform used by the Customer within 72 hours after termination of the Agreement unless applicable law stipulates any other storage period.」对象＝平台资源上的 Customer Data；语境＝协议终止后；期限类型＝上限式窗口。"
+anchor = "agreement-16-11-deletion-72-hours"
+
+[[product.retention.point]]
+text = "Suspension window, Agreement §16.10.1: Customer Data uploaded on Platform resources is stored \"within sixty (60) calendar days from when access to the Services is suspended due to the Customer’s failure to comply with the terms of payment for the Services and/or the Trial Period runs out\". Object: Customer Data on Platform resources; context: access suspended for non-payment or after the Trial Period; type: upper-bound storage period."
+text_zh = "暂停情形，Agreement §16.10.1：因客户未按付款条款履约或试用期届满而暂停访问时，平台资源上的 Customer Data 存储期为自暂停起 60 个日历日内。对象＝平台资源上的 Customer Data；语境＝欠费/试用期届满导致访问暂停；期限类型＝上限式存储期。"
+anchor = "agreement-16-10-1-suspension-60-days"
+
+[[product.retention.point]]
+text = "What is not published: DPA Annex 3 says \"Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations\" and, for AI Cloud, \"Nebius applies documented retention schedules, and Customers can delete Customer-controlled resources\" — but the running-period periods in those schedules are not given in the monitored documents. \"No published default period\" is not the same as \"no bound after termination\": the term is bounded by Annex 1A.2 / SCC Annex 2 and by the §16.11 / §16.10.1 windows above."
+text_zh = "未公布的部分：DPA Annex 3 写「Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations」，对 AI Cloud 另写「Nebius applies documented retention schedules, and Customers can delete Customer-controlled resources」，但那些 schedule 里的运行期期限并未出现在被监控文档中。「运行期默认期限未公布」不等于「终止后无期限」——存续期由 Annex 1A.2 / SCC Annex 2 限定，终止/暂停后另有 §16.11 与 §16.10.1 的窗口。"
 anchor = "dpa-annex3-retention-necessary-only"
 
 [[product.retention.point]]
-text_zh = "DPA Annex 3 对 AI Cloud 写「Nebius applies documented retention schedules, and Customers can delete Customer-controlled resources」，但「documented retention schedules」的具体期限未在公开文档中给出"
-
-[[product.retention.point]]
-text_zh = "终止后按 DPA §7 删除或返还。"
+text_zh = "终止/到期时按 DPA §7 由客户选择删除或返还。"
 
 [product.processing_region]
-basis = "undisclosed"
-anchor = "dpa-6-1-tf-processing-location"
+codes = ["selected"]
+anchor = "dpa-6-1-ai-cloud-region"
 
 [[product.processing_region.point]]
-text_zh = "DPA §6.1 首句针对 AI Cloud：「Customer Content is hosted and processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List」"
+text = "DPA §6.1, AI Cloud sentence: \"For Nebius AI Cloud, Customer Content is hosted and processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List\". The disclosed processing location is the customer-selected region; the only carve-out is limited Processing outside it for operation, maintenance, security or support, per the applicable Sub-processor List."
+text_zh = "DPA §6.1 的 AI Cloud 句：「For Nebius AI Cloud, Customer Content is hosted and processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List」。已披露的处理地即客户选定的 region；唯一例外是为服务运营、维护、安全或支持所必需的有限跨境处理(依适用的 Sub-processor List)。故本档处理地是「可选地域」，不是未披露。"
 
 [[product.processing_region.point]]
-text_zh = "即区域可选，但运维/支持可能有限跨境。锚点取自同一条 §6.1 的 Token Factory 句(该句所在段落即 §6.1)。"
+text = "The evidence for this tier is the AI Cloud sentence of DPA §6.1 itself. The Token Factory sentence in the same clause (which an earlier revision bound here) governs the Token Factory tiers and is not a statement about AI Cloud's processing location."
+text_zh = "本档依据是 DPA §6.1 的 AI Cloud 句本身。同一条里的 Token Factory 句(此前被绑在本档)管辖 Token Factory 各档，不构成对 AI Cloud 处理地的表述。"
 
 [product.role]
 kind = "processor"
@@ -926,3 +1009,90 @@ tasets
 """
 exact = "Nebius Token Factory acts as a **Data Processor** under the terms of our"
 suffix = " [Data Processing Agreement (DPA)](https://docs.tokenfactory"
+
+[[anchor]]
+id = "dpa-6-1-ai-cloud-region"
+source_id = "a03dd15c9182af7b"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "6.1. **Data Processing Location.** "
+exact = "For Nebius AI Cloud, Customer Content is hosted and processed in the region selected by Customer, subject to any limited Processing outside that region necessary for the operation, maintenance, security or support of the Services as described in the applicable Sub-processor List"
+suffix = ". For Nebius Token Factory, the processing location depends on the"
+
+[[anchor]]
+id = "dpa-annex1a2-processing-duration"
+source_id = "a03dd15c9182af7b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**Subject Matter:** Customer Personal Data."
+exact = "The duration of the processing will be for the term of the Terms of Service"
+suffix = "| **Purpose(s) of the data transfer and further processing**"
+
+[[anchor]]
+id = "dpa-scc-annex2-retention-duration"
+source_id = "a03dd15c9182af7b"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "The period for which the personal data will be retained is for the duration of the Agreement, unless agreed otherwise in the Agreement and/or the DPA"
+
+[[anchor]]
+id = "datalab-inference-logs-unless-zdr"
+source_id = "8b321c003887f470"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "For all data you submit or generate through Data Lab, including:"
+exact = "Inference logs - inputs and outputs (unless you enable Zero Data Retention)"
+suffix = "Uploaded datasets"
+
+[[anchor]]
+id = "agreement-10-1-3-customer-data-use"
+source_id = "fd20c58a72d5436e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "10.1.3. "
+exact = "use the Customer Data uploaded on the resources of the Platform and any related Customer AI Content solely to perform, or as otherwise set forth in, this Agreement including any applicable Service-Specific Terms (such as the Token Factory Supplemental Terms), any applicable Order Form, the Documentation, and the DPA"
+suffix = "10.1.4. provide the Service in compliance with this Agreement"
+
+[[anchor]]
+id = "agreement-20-12-order-of-precedence"
+source_id = "fd20c58a72d5436e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "20.12. Conflicting Terms. "
+exact = "In the event of a conflict among the components of this Agreement, the following order of precedence shall apply, unless expressly stated otherwise: (a) the DPA, solely with respect to the processing of Personal Data"
+suffix = "(b) the applicable Order Form"
+
+[[anchor]]
+id = "agreement-16-11-deletion-72-hours"
+source_id = "fd20c58a72d5436e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "16.11. "
+exact = "In case of termination of the Agreement the Customer Data uploaded on the resources of the Platform is marked and deleted along with resources of the Platform used by the Customer within 72 hours after termination of the Agreement unless applicable law stipulates any other storage period"
+suffix = "16.12. The termination provisions set out in this Agreement"
+
+[[anchor]]
+id = "agreement-16-10-1-suspension-60-days"
+source_id = "fd20c58a72d5436e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "16.10.1. Nebius stores the Customer Data uploaded on the resources of the Platform as follows:"
+exact = "within sixty (60) calendar days from when access to the Services is suspended due to the Customer’s failure to comply with the terms of payment for the Services and/or the Trial Period runs out"
+suffix = "within sixty (60) calendar days from when the Customer’s access to the Services is suspended due to the non-compliance"
+
+[[anchor]]
+id = "tf-suppl-2-11-professional-services-datasets"
+source_id = "b37ba176a0af9091"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Subject to the terms of the DPA, Nebius has a right to use Customer's Datasets (provided hereunder) for the purpose of providing Professional Services"
+suffix = "Customer is solely responsible for (a) ensuring that the training and validation Datasets"

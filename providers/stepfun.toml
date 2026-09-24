@@ -86,6 +86,41 @@ text_zh = "个人信息按提供服务必需期间保留，注销/超期后删�
 [[product.retention.point]]
 text_zh = "无固定天数，API 内容靠 §一.2 纳入个人信息范围。"
 
+[[product.retention.point]]
+text = "Exception to that deletion commitment (privacy policy §4.2): the sentence on deletion or anonymisation after cancellation, voluntary deletion or expiry of the necessary period is followed verbatim by \"但以下情况除外\" — (1) \"遵从法律法规有关信息留存的要求\" and (2) \"出于财务、审计、争议解决等目的需要合理延长期限的\". Neither exception is quantified, so the deletion side has no fixed upper bound"
+text_zh = "§四.2 删除承诺的例外：『如果您注销账户、主动删除个人信息或超出必要的期限后，我们将对您的个人信息进行删除或匿名化处理，但以下情况除外』——(1)『遵从法律法规有关信息留存的要求』、(2)『出于财务、审计、争议解决等目的需要合理延长期限的』。两条例外均未量化期限，删除侧因此没有固定上限，读者不得据 §四.2 推出「超期必删」"
+anchor = "stepfun-retention-legal-retention-exception"
+
+[[product.retention.point]]
+text = "Even where a deletion request stands, §6.4 closes with a fallback: \"法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理\" — the data may end up in a store-and-isolate state (storage plus necessary security measures only). This is not the same as deleted"
+text_zh = "§六.4 段末兜底：删除请求成立也不等于数据已消失——『法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理』，即数据可转为「仅存储 + 必要的安全保护措施」的隔离状态，不得读成「已删除」"
+anchor = "stepfun-retention-deletion-technically-infeasible"
+
+[[product.retention.point]]
+text = "Contract-layer deletion trigger (userservice §1.1.4): \"未按约定支付相应的服务费用的，我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等\" — on non-payment the platform has a right, not a duty, to delete data other than what laws and regulations require, without notice"
+text_zh = "合同层删除触发（用户协议 §1.1.4）：『未按约定支付相应的服务费用的，我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等』。措辞是「平台有权」而非删除义务，且范围限于「非法律法规要求的」数据，不得写成「欠费即删除全部数据」"
+anchor = "stepfun-retention-unpaid-data-deletion"
+
+[[product.retention.point]]
+text = "Object-level clause running parallel to the §4.2 deletion commitment (userservice §2.3.4): after an account is reclaimed or cancelled the platform still \"仍有权：1）保留相关行为记录，但涉及个人信息的除外（如有）\" — behavioural records may be retained, personal information excepted. The agreement does not define what counts as 行为记录"
+text_zh = "与 §四.2 删除承诺并列的对象层条款（用户协议 §2.3.4）：账户被收回或者注销后平台『仍有权：1）保留相关行为记录，但涉及个人信息的除外（如有）』——行为记录仍可保留，个人信息除外。协议未定义「行为记录」的范围"
+anchor = "stepfun-retention-behavior-records-after-deactivation"
+
+[[product.retention.point]]
+text = "Object: a cache copy of the request body. 《Prompt 缓存最佳实践》 — \"完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message\" (images, videos, tool-call information and results are listed alongside); caching is automatic above 256 tokens. This copy sits outside the §4.2 \"necessary period for your personal information\" wording"
+text_zh = "对象：请求正文的缓存副本。《Prompt 缓存最佳实践》逐字『完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message』（图片、视频、工具调用信息及其结果同列），请求超 256 Token 自动进入。该副本不受 §四.2「为提供本平台相关服务之目的所必需的期间」表述约束"
+anchor = "stepfun-prompt-cache-conversation-array-stored"
+
+[[product.retention.point]]
+text = "Term type for that copy: unquantified and with no upper bound. The only time clue on the page is \"缓存淘汰采用最近最少使用（LRU）策略，在系统请求高峰期，不使用的缓存会更容易被逐出；在系统请求低峰期，缓存则会拥有更长的生命周期\" — eviction floats with system load; there is no TTL, so no number of days may be written from it"
+text_zh = "该副本的期限类型：无量化、无上限。唯一期限线索是『缓存淘汰采用最近最少使用（LRU）策略，在系统请求高峰期，不使用的缓存会更容易被逐出；在系统请求低峰期，缓存则会拥有更长的生命周期』——淘汰随系统负载浮动，全页无 TTL，不得据此写天数"
+anchor = "stepfun-retention-prompt-cache-lru"
+
+[[product.retention.point]]
+text = "Customer-side control over that copy: \"目前不提供手动清除缓存的能力\" — no purge API and no switch; the only way to avoid the cache is to change the Prompt. Server-side LRU eviction still applies, so this must not be written as \"kept forever\""
+text_zh = "客户侧对缓存副本无控制手段：『目前不提供手动清除缓存的能力』，没有清除接口也没有关闭开关，唯一规避方式是修改 Prompt；服务端仍有 LRU 淘汰，故也不得写成「永久保留」"
+anchor = "stepfun-prompt-cache-no-manual-purge"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "stepfun-region-storage-in-china"
@@ -96,6 +131,11 @@ text_zh = "个人信息存储于中华人民共和国境内，目前不跨境传
 [[product.processing_region.point]]
 text_zh = "未披露推理处理地域。"
 
+[[product.processing_region.point]]
+text = "Location of the entrusted partners is undisclosed: privacy policy §3.2 lists the entrusted tasks (server deployment and database storage for product code and data, SMS sending, content-safety review) but names neither the partners nor their locations, while the §4.1 in-China storage wording is limited to \"您的个人信息\". So the processing region of that entrusted hop is not disclosed"
+text_zh = "受托方所在地未披露：隐私政策 §三.2 只列委托事项（产品代码和数据的服务器部署、数据库存储、短信发送、内容安全审核），未写受托方名称与所在地；§四.1 的境内存储表述主语限于「您的个人信息」，故受托这一跳的处理地无公开披露"
+anchor = "stepfun-role-entrusted-partners"
+
 [product.role]
 kind = "controller"
 anchor = "stepfun-role-self-use-authorization"
@@ -105,6 +145,11 @@ text_zh = "§6.5 自用授权 + §5.4 数据权属 + 隐私政策以自身为个
 
 [[product.role.point]]
 text_zh = "客户对最终用户个人信息另负处理者义务（§6.2）。"
+
+[[product.role.point]]
+text = "Entrusted-processing chain (privacy policy §3.2): \"我们将必要信息委托给支持我们业务的合作伙伴处理，这些支持包括受我们委托提供的产品代码和数据的服务器部署以及数据库存储服务、短信发送服务、内容安全审核服务\" — the platform is the entrusting party and hands necessary information to partners; content-safety review is among the listed tasks, so request content may be processed by third parties. The sentence is a list of entrusted tasks, not a statement that third parties necessarily read request bodies, so the hedge 可能 must be kept"
+text_zh = "委托链条（隐私政策 §三.2）：『我们将必要信息委托给支持我们业务的合作伙伴处理，这些支持包括受我们委托提供的产品代码和数据的服务器部署以及数据库存储服务、短信发送服务、内容安全审核服务』——平台是委托方，把必要信息交给合作伙伴处理；列举项含内容安全审核，故正文可能被第三方处理。该句是委托事项清单，不能据此写成「确定有第三方读取正文」，引用时保留「可能」这一 hedge。平台在此链条中仍是委托方（个人信息处理者一侧），与上面 §6.5/§5.4 的自身处理者结论并列"
+anchor = "stepfun-role-entrusted-partners"
 
 [[anchor]]
 id = "stepfun-zdr-termination-deletion-period"
@@ -284,7 +329,7 @@ suffix = "，当开发者重复请求时，将会自动命中缓存，帮助开�
 [[anchor]]
 id = "stepfun-prompt-cache-conversation-array-stored"
 source_id = "57440802de2d7378"
-topics = ["zdr"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
@@ -300,7 +345,7 @@ suffix = """
 [[anchor]]
 id = "stepfun-prompt-cache-no-manual-purge"
 source_id = "57440802de2d7378"
-topics = ["zdr"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
@@ -309,3 +354,68 @@ prefix = """
 """
 exact = "目前不提供手动清除缓存的能力"
 suffix = "。您可以通过修改 Prompt 来使请求不命中缓存；"
+
+[[anchor]]
+id = "stepfun-retention-legal-retention-exception"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如果您注销账户、主动删除个人信息或超出必要的期限后，我们将对您的个人信息进行删除或匿名化处理，但以下情况除外："
+exact = "遵从法律法规有关信息留存的要求。\n- 出于财务、审计、争议解决等目的需要合理延长期限的"
+suffix = "五、我们如何保护个人信息的安全"
+
+[[anchor]]
+id = "stepfun-retention-deletion-technically-infeasible"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+- 违反法律、行政法规或者违反约定处理个人信息；
+- 法律、行政法规规定的其他情形。"""
+exact = "法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理"
+suffix = "5. 改变或撤回授权范围"
+
+[[anchor]]
+id = "stepfun-retention-unpaid-data-deletion"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "未按约定支付相应的服务费用的，"
+exact = "我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等"
+suffix = "由此给您或您的最终用户造成任何损失的，由您自行承担。"
+
+[[anchor]]
+id = "stepfun-retention-behavior-records-after-deactivation"
+source_id = "8b3e79f1a1e40639"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "但账户被收回或者注销后，我们仍有权：1）"
+exact = "保留相关行为记录，但涉及个人信息的除外"
+suffix = "（如有）；2）对用户在使用本平台过程中存在违法行为或违反本协议的行为，行使本协议所约定的权利。"
+
+[[anchor]]
+id = "stepfun-retention-prompt-cache-lru"
+source_id = "57440802de2d7378"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "包含多 Example、多轮次对话、长上下文或背景信息的场景下，缓存命中率会更高，帮助开发者提升系统整体性能，优化成本。"
+exact = "缓存淘汰采用最近最少使用（LRU）策略，在系统请求高峰期，不使用的缓存会更容易被逐出；在系统请求低峰期，缓存则会拥有更长的生命周期。"
+suffix = """
+## 如何判断自己是否使用了 Prompt 缓存
+
+在调用 Chat API 进行补全时，如果 `response."""
+
+[[anchor]]
+id = "stepfun-role-entrusted-partners"
+source_id = "7a07e3f7fdc0194d"
+topics = ["role", "processing_region"]
+
+[anchor.selector]
+prefix = "对于委托处理个人信息的场景，我们会与受托合作方根据法律规定签署相关处理协议，并对其个人信息使用活动进行监督。"
+exact = "我们将必要信息委托给支持我们业务的合作伙伴处理，这些支持包括受我们委托提供的产品代码和数据的服务器部署以及数据库存储服务、短信发送服务、内容安全审核服务"
+suffix = "3. 转移"

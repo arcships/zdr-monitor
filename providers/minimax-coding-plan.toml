@@ -21,18 +21,21 @@ note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动�
 
 [[source]]
 url = "https://platform.minimax.io/protocol/paid-agreement"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "国际站《MINIMAX OPEN PLATFORM PAID SERVICES AGREEMENT》(Effective Date: August 19, 2026,由 Nanonoble Pte. Ltd. 提供)。这是本档(Token Plan 订阅)的**订阅档专用合同**:§1.1 把 'API Services, Token Plan subscriptions, Credits' 全部列为 Paid Services;§2.8 给出 Token Plan 定义;第 5 章为 Token Plan 专章。逐条读过:全篇只处理付款、权益、自动续费、取消、责任与争议解决,**没有任何训练/保留/零保留/处理地域条款**;唯一与数据相关的是 §8.3(c) 终止后『may, but is not required to, retain information associated with the relevant Paid Service』。故 authoritative_for 为空,但它是本档范围界定与保留边界的关键证据。该 URL 旧仓库完全遗漏。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/privacy-policy"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "国际站《MiniMax API Privacy Policy》(updated/effective March 30, 2026,控制者 Nanonoble Pte. Ltd.)。不分档:未区分按量 API 与 Token Plan,正文把 'Services Input & Output' 一并纳入处理范围,故同时覆盖本档。retention / processing_region / role 三个维度的权威来源,并为 training 提供反向限定句与商业利用依据。channel 判为 consumer_privacy：该文是平台自有隐私政策正文；platform.minimax.io 不存在企业隐私 FAQ 页，本轮实测 /protocol/enterprise-privacy-policy、/enterprise、/trust、/security、/dpa 均 404。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "国际站《MiniMax Terms of Service》(Effective Date: March 30, 2026,提供方 Nanonoble Pte Ltd.,新加坡)。覆盖 platform.minimax.io 全部付费形态,本档(Token Plan 订阅)亦受其约束:付费协议 §1.1 明示 Paid Services 含 'Token Plan subscriptions'。本档训练维度与实体/角色维度的权威来源;亦提供 retention 的边界条款(§15 仅针对自购存储功能)与 processing_region 的服务区域线索(§8 'If you select the United States as the service region')。本轮以 r.jina.ai 重抓,md5 与上一轮缓存逐字节一致(004e66e8370f846f585b820e06881d14)。"
@@ -50,6 +53,21 @@ anchor = "training-input-output-develop-improve"
 [[product.training.point]]
 text = "The individual Token Plan tiers (Plus / Max / Ultra, \"designed for individual, interactive developer use\" in the official docs) share one set of ToS + API Privacy Policy + Paid Services Agreement with the pay-as-you-go API and carry no tier-specific data clause → there is no \"not used for training\" commitment, and ToS IP §3 expressly allows input and generated content to be used to \"provide, maintain, develop, and improve our Services\"."
 text_zh = "Token Plan 个人档(Plus / Max / Ultra,官方文档『designed for individual, interactive developer use』)与按量 API 共用同一份 ToS + API Privacy Policy + 付费协议,无档位专属数据条款 → 无『不用于训练』承诺,且 ToS IP §3 明文允许将输入与生成内容用于 develop/improve。"
+
+[[product.training.point]]
+text = "Scope limit: the only training-subject sentence in the API Privacy Policy negates something narrower — \"Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.\" (in the same \"What information we collect from you\" section as the \"Services Input & Output\" item). It rules out training for profiling / targeting consumers only and does not exclude model training itself, so it bounds the scope of mark=no instead of reversing it."
+text_zh = "范围限定:API 隐私政策里唯一以 training 为主语的句子否定的是更窄的一件事——「Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.」(与「Services Input & Output」条目同属「What information we collect from you」章节)。它只排除「为画像/定向消费者而训练」,不排除模型训练本身,因此是限定 mark=no 的范围,而非翻转它。"
+anchor = "training-no-profiling-only"
+
+[[product.training.point]]
+text = "Same direction (ToS §8 confidentiality): \"Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.\""
+text_zh = "同向(ToS §8 保密条款):「Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.」"
+anchor = "training-confidentiality-improving-algorithms"
+
+[[product.training.point]]
+text = "Same direction (API Privacy Policy, \"Commercial utilization\"): \"Legal basis: Legitimate interests, for the purpose of research and development.\""
+text_zh = "同向(API 隐私政策「Commercial utilization」):「Legal basis: Legitimate interests, for the purpose of research and development.」"
+anchor = "training-commercial-utilization-rd"
 
 [product.zdr]
 mark = "unknown"
@@ -75,8 +93,24 @@ text = "Same as top level: no quantified period (necessary / permitted by law / 
 text_zh = "同顶层:无量化期限(必要/法律允许/实现收集目的所需),到期删除或匿名化"
 
 [[product.retention.point]]
-text = "Object level: explicit prompt cache 5-minute expiration, uploaded files retained for up to 7 days"
-text_zh = "对象级:显式提示缓存 5 分钟、上传文件最长 7 天"
+text = "Object level, explicit path: prompt cache entries expire after 5 minutes and the lifetime is automatically renewed with continued use (Anthropic-compatible explicit caching only)."
+text_zh = "对象级、显式路径:提示缓存 5 分钟到期,持续使用自动续期(仅 Anthropic 兼容显式缓存)。"
+anchor = "retention-cache-expiration"
+
+[[product.retention.point]]
+text = "Object level, default path: caching is on by default (\"Passive caching that automatically identifies repeated context content without changing API call methods\", applied to API calls with 512 or more input tokens) and its \"Expiration time automatically adjusted based on system load\" — request content left in that server-side cache has no fixed period."
+text_zh = "对象级、默认路径:缓存默认开启(「Passive caching that automatically identifies repeated context content without changing API call methods」,适用于 512 及以上输入 token 的 API 调用),其「Expiration time automatically adjusted based on system load」——留在该服务端缓存里的请求内容没有固定期限。"
+anchor = "retention-cache-expiration-passive"
+
+[[product.retention.point]]
+text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
+text_zh = "对象级、上传物:Files API 的 video_understanding 视频文件最长 7 天、video_generation_input 材料 7 天内有效;其余上传用途(voice_clone / prompt_audio / t2a_async_input)未给期限。"
+anchor = "retention-uploaded-file-7-days"
+
+[[product.retention.point]]
+text = "Exception, EEA/UK/Switzerland addendum only: \"If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.\" This is a statutory carve-out from the deletion promise (\"in accordance with the applicable laws\"), not a contradicting commitment; retention lasts as long as applicable law requires."
+text_zh = "例外,仅 EEA/UK/瑞士附则:「If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.」这是上述删除承诺(「in accordance with the applicable laws」)的法定例外,不是相反的承诺;保留期限为法律要求的期间。"
+anchor = "retention-eu-copies-kept"
 
 [[product.retention.point]]
 text = "Paid Services Agreement §8.3(c): MiniMax may retain information after termination."
@@ -93,6 +127,12 @@ text_zh = "同顶层:个人信息存放于美国数据中心,EEA 附则称 Cloud
 [[product.processing_region.point]]
 text = "See also the selectable service region clause in ToS §8."
 text_zh = "ToS §8 另见可选服务区域条款。"
+anchor = "region-us-service-region"
+
+[[product.processing_region.point]]
+text = "Conflicting official wording in the same Privacy Policy, kept side by side: §9 says personal data \"are stored in the data center located in the United States\", while the Singapore addendum §3(a) says \"While we generally do not transfer your personal data to countries outside Singapore, if we need to transfer your personal data to our affiliates and/or third parties outside Singapore...\" and §3(b) makes providing personal data consent to such a transfer. Scope: the addendum speaks to users in Singapore, §9 is the main body; codes stay [\"US\"] on the strength of §9, and MiniMax gives no explanation of the divergence."
+text_zh = "同一份隐私政策里两条官方表述并列保留:§9 称个人信息「are stored in the data center located in the United States」,新加坡附则 §3(a) 则称「While we generally do not transfer your personal data to countries outside Singapore, if we need to transfer your personal data to our affiliates and/or third parties outside Singapore...」,§3(b) 另规定提供个人信息即视为同意该等传输。适用范围:附则针对新加坡用户,§9 是正文;codes 依 §9 取 US,官方未解释这处分歧。"
+anchor = "processing-region-singapore-tension"
 
 [product.role]
 kind = "controller"
@@ -120,6 +160,21 @@ anchor = "training-input-output-develop-improve"
 text = "Token Plan for Teams shares the same ToS / Privacy Policy / Paid Services Agreement as the individual tier (Paid Services Agreement §5.1, \"MiniMax may offer individual and Team plans\"), and the Teams documentation (pricing page / FAQ) carries no data clause at all → the conclusion is the same as for the individual tier. Note: Teams has been closed to new purchases since 2026-09-05 and applies to existing customers only."
 text_zh = "Token Plan for Teams 与个人档共用同一套 ToS/隐私政策/付费协议(付费协议 §5.1『MiniMax may offer individual and Team plans』),Teams 文档(定价页/FAQ)无任何数据条款 → 结论与个人档相同。注意:Teams 自 2026-09-05 起暂停新购,仅存量客户适用。"
 
+[[product.training.point]]
+text = "Scope limit: the only training-subject sentence in the API Privacy Policy negates something narrower — \"Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.\" (in the same \"What information we collect from you\" section as the \"Services Input & Output\" item). It rules out training for profiling / targeting consumers only and does not exclude model training itself, so it bounds the scope of mark=no instead of reversing it."
+text_zh = "范围限定:API 隐私政策里唯一以 training 为主语的句子否定的是更窄的一件事——「Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.」(与「Services Input & Output」条目同属「What information we collect from you」章节)。它只排除「为画像/定向消费者而训练」,不排除模型训练本身,因此是限定 mark=no 的范围,而非翻转它。"
+anchor = "training-no-profiling-only"
+
+[[product.training.point]]
+text = "Same direction (ToS §8 confidentiality): \"Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.\""
+text_zh = "同向(ToS §8 保密条款):「Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.」"
+anchor = "training-confidentiality-improving-algorithms"
+
+[[product.training.point]]
+text = "Same direction (API Privacy Policy, \"Commercial utilization\"): \"Legal basis: Legitimate interests, for the purpose of research and development.\""
+text_zh = "同向(API 隐私政策「Commercial utilization」):「Legal basis: Legitimate interests, for the purpose of research and development.」"
+anchor = "training-commercial-utilization-rd"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -142,6 +197,26 @@ text = "Same as the individual tier: no quantified period"
 text_zh = "同个人档:无量化期限"
 
 [[product.retention.point]]
+text = "Object level, same platform behaviour as the individual tier — explicit path: prompt cache entries expire after 5 minutes and the lifetime is automatically renewed with continued use (Anthropic-compatible explicit caching only)."
+text_zh = "对象级、与个人档同一平台行为——显式路径:提示缓存 5 分钟到期,持续使用自动续期(仅 Anthropic 兼容显式缓存)。"
+anchor = "retention-cache-expiration"
+
+[[product.retention.point]]
+text = "Object level, same platform behaviour as the individual tier — default path: caching is on by default (\"Passive caching that automatically identifies repeated context content without changing API call methods\", applied to API calls with 512 or more input tokens) and its \"Expiration time automatically adjusted based on system load\" — request content left in that server-side cache has no fixed period."
+text_zh = "对象级、与个人档同一平台行为——默认路径:缓存默认开启(「Passive caching that automatically identifies repeated context content without changing API call methods」,适用于 512 及以上输入 token 的 API 调用),其「Expiration time automatically adjusted based on system load」——留在该服务端缓存里的请求内容没有固定期限。"
+anchor = "retention-cache-expiration-passive"
+
+[[product.retention.point]]
+text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
+text_zh = "对象级、上传物:Files API 的 video_understanding 视频文件最长 7 天、video_generation_input 材料 7 天内有效;其余上传用途(voice_clone / prompt_audio / t2a_async_input)未给期限。"
+anchor = "retention-uploaded-file-7-days"
+
+[[product.retention.point]]
+text = "Exception, EEA/UK/Switzerland addendum only: \"If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.\" This is a statutory carve-out from the deletion promise, not a contradicting commitment; retention lasts as long as applicable law requires."
+text_zh = "例外,仅 EEA/UK/瑞士附则:「If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.」这是删除承诺的法定例外,不是相反的承诺;保留期限为法律要求的期间。"
+anchor = "retention-eu-copies-kept"
+
+[[product.retention.point]]
 text = "After termination MiniMax \"may, but is not required to, retain information associated with the relevant Paid Service\"."
 text_zh = "终止后 MiniMax 有权利无义务保留与付费服务相关的信息。"
 
@@ -156,6 +231,11 @@ text_zh = "同个人档:隐私政策 §9 美国数据中心"
 [[product.processing_region.point]]
 text = "The Teams documentation has no region clause."
 text_zh = "Teams 文档无地域条款。"
+
+[[product.processing_region.point]]
+text = "Same as the individual tier: the same Privacy Policy carries both §9 (personal data \"are stored in the data center located in the United States\") and the Singapore addendum §3(a) (\"we generally do not transfer your personal data to countries outside Singapore\"). The two are kept side by side, codes stay [\"US\"] on the strength of §9, and no official explanation of the divergence is given."
+text_zh = "同个人档:同一份隐私政策同时有 §9(个人信息「are stored in the data center located in the United States」)与新加坡附则 §3(a)(「we generally do not transfer your personal data to countries outside Singapore」)。两条并列保留,codes 依 §9 取 US,官方未解释这处分歧。"
+anchor = "processing-region-singapore-tension"
 
 [product.role]
 kind = "controller"
@@ -318,8 +398,11 @@ topics = ["retention"]
 prefix = """
 er and publicly disclose your Personal Information?”. 
 2.   """
-exact = "We will retain your personal data for as long as necessary to fulfill the purposes for which it was collected, as described in the section entitled"
-suffix = " “Chapter 7: Storage of your Personal Information”, or as re"
+exact = "We will retain your personal data for as long as necessary to fulfill the purposes for which it was collected, as described in the section entitled “Chapter 7: Storage of your Personal Information”, or as required by applicable law or regulation. If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems."
+suffix = """
+
+
+3. As mentioned in the section titled"""
 
 [[anchor]]
 id = "processing-region-us-data-center"
@@ -507,6 +590,16 @@ exact = "5-minute expiration, automatically renewed with continued use"
 suffix = """
                                      |
 | Supported Models | """
+
+[[anchor]]
+id = "retention-cache-expiration-passive"
+source_id = "2d4ef29441b12d09"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "| Expiration | "
+exact = "Expiration time automatically adjusted based on system load"
+suffix = " | 5-minute expiration"
 
 [[anchor]]
 id = "retention-uploaded-file-7-days"

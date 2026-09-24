@@ -25,36 +25,42 @@ note = "文档站《Privacy & Security》页。它把 ZDR 承诺明确限定在 
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/dpa"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《Perplexity Data Processing Addendum》(Last Updated: August 13, 2026)。第 1 段把「Services」定义为客户协议项下的任何 Perplexity 产品/功能/API，并明文保留例外：Embeddings API、Perplexity Search 等「may operate under data postures that differ from this DPA」，以产品专属条款为准——**Agent API 不在例外名单内**。§2 角色、§5 不得用于训练、§10 与服务结束后 30 天内删除、Annex 1 的 Input 保留规则、§6c/§6d/§6e 第三方模型提供方作为分包方及其义务流下，是本档 retention/role/training 的合同层权威。注意 DPA 只约束「Personal Data」；对非个人的 Input，合同层没有保留期限条款。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/enterprise-terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "Perplexity Enterprise Terms and Conditions，覆盖 Enterprise Pro 档（与 API 档并列的独立合同）。§1.3.3 不训练；§5.1 DPA 以 processor 身份适用、营销数据处理以独立控制者身份且不受 DPA 约束；§5.4 Marketing Services 的独立控制者定位。企业档结论单独成行，不并入 API 档。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《Perplexity API Terms of Service》(Last updated: January 23, 2026)。开篇把服务定义为「the Sonar by Perplexity and/or Agentic Research application programming interface (“API”) services (the “Services”)」——即本档(文档站称 Agent API、协议里称 Agentic Research API)与 Sonar/Chat Completions 同受本协议约束；并声明本协议只适用于 API 客户，不适用于 Enterprise Pro、官网等。§2.3.3 是 training 维度的合同层权威；§2.6 把第三方模型及其条款并入合同(本档多跳链路的合同依据)；§6.1 把 DPA 并入本协议(retention/role 的合同层入口)。全文无保留期限条款；§10.5 只规定终止后销毁/返还机密信息，自动备份按标准删除流程处理。经 apex 域抓取(www 域对 jina 匿名访问 403，见 notes)。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service-search"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "Perplexity Search Addendum (Last updated: September 22, 2025)，只覆盖 Schedule 1 列出的 Search Services（当前仅 /search 端点，且该端点不使用大模型生成）。§1.2.2 明文把「零数据保留义务」等排除在 Search Services 之外，§2.2 授权 Perplexity 保留、复制、分发 Search Data，§2.3 禁止客户提交个人信息。与 Sonar/Chat Completions 档姿态相反，必须分行。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/privacy-notice"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "消费者隐私声明（覆盖网站、Comet 浏览器、App）。明文排除 Enterprise 与 API 档，并自认对这两档「act as a service provider or processor」；消费者档保留期为「必要期限」。用作档位切分与 role 的旁证，不作 API 档任一维度的权威。"
 
 [[source]]
 url = "https://trust.perplexity.ai/subprocessors"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Trust Center 子处理者清单（23 家，DPA §6(a)/Annex 2 的授权依据）。全部标注 US；含模型提供方（OpenAI、Anthropic、Google Cloud、xAI、Amazon Bedrock、Microsoft Azure）与数据存储分析类（Snowflake、ClickHouse、Datadog）以及支付（Stripe、Metronome）。是处理地与多跳链路的官方清单来源。"
@@ -77,6 +83,17 @@ text_zh = "见顶层 training：§2.3.3 同时禁止 Perplexity 与第三方用 
 [[product.training.point]]
 text = "DPA §5 points the same way. Usage Data (§3.3) is outside that restriction."
 text_zh = "DPA §5 同向。Usage Data（§3.3）不在此限。"
+anchor = "perplexity-dpa-5-training"
+
+[[product.training.point]]
+text = "Multi-hop chain: the Services may utilize Third-Party Models provided by Third-Party Providers, and their terms are folded into the contract by §2.6; if Customer disagrees with any Third-Party Terms, its sole recourse is to cease all use of the relevant model. The trust-center subprocessor list names the model-provider hops (OpenAI, Anthropic, Google Cloud, xAI, Amazon Bedrock, Microsoft Azure)."
+text_zh = "多跳链路：服务可能调用第三方提供方（Third-Party Providers）的第三方模型，§2.6 把其条款并入合同；客户不同意 Third-Party Terms 的唯一救济是停用对应模型。trust center 子处理者清单列出的模型提供方跳为 OpenAI、Anthropic、Google Cloud、xAI、Amazon Bedrock、Microsoft Azure。"
+anchor = "perplexity-api-tos-2-6-third-party-models-training"
+
+[[product.training.point]]
+text = "Obligations are flowed down rather than erased: DPA §6c–e treats Model Providers as subcontractors, requires written agreements no less onerous than the DPA, and keeps Perplexity liable to Customer for their performance. This describes the chain only — it must not be read as proof that any hop can access content, nor that each hop's ZDR can be enabled in the same configuration."
+text_zh = "义务是流下而非消失：DPA §6c–e 把 Model Provider 作为分包方，要求其书面义务不低于 DPA，并保留 Perplexity 对其履约的责任。此处只描述链路——不得据此推断某一跳能否访问内容，也不得推断各跳 ZDR 可在同一配置下同时开通。"
+anchor = "perplexity-dpa-6c-role"
 
 [product.zdr]
 mark = "yes"
@@ -84,21 +101,42 @@ mode = "default"
 anchor = "perplexity-docs-privacy-security-zdr"
 
 [[product.zdr.point]]
-text = "Zero retention by default (the original sentence is limited to the Chat Completions API)"
-text_zh = "默认零保留（原句限定 Chat Completions API）"
+text = "Structured conclusion: zero retention by default, and the cited sentence is limited to the Chat Completions API. The same page adds that the only data collected through that API is billable metadata (\"This billing metadata does not include any content from your prompts, responses, or other user data.\")."
+text_zh = "结构化结论：默认零保留，且所引句子限定 Chat Completions API。同页说明该 API 只收集计费元数据（「This billing metadata does not include any content from your prompts, responses, or other user data.」）。"
+anchor = "perplexity-docs-privacy-security-retention"
 
 [[product.zdr.point]]
-text = "A separate ZDR agreement can also be signed, and stateful Agent API features require checking with the account team first. No public application path found."
-text_zh = "另有可签的 ZDR 协议，Agent API 有状态功能须先与 account team 确认。未找到公开申请入口。"
+text = "The platform-level FAQ says the same without naming an endpoint (\"By default, the API has zero day retention of user prompt data, which is never used for AI training.\"). Both wordings are kept side by side; the vendor does not clarify the scope difference."
+text_zh = "平台级 FAQ 同向但未点名端点（「By default, the API has zero day retention of user prompt data, which is never used for AI training.」）。两种措辞并列保留，范围差异厂商未澄清。"
+anchor = "perplexity-docs-faq-zdr"
+
+[[product.zdr.point]]
+text = "Scope note: this row records the Sonar / Chat Completions pay-as-you-go endpoints, so this zdr verdict is not a statement about the Agent API. The Agent API is a separate product line in this ledger (Perplexity Agent), where its server-side conversation state and the ZDR-by-agreement wording are recorded; the source note in this file also says that page cannot support an Agent API zdr verdict."
+text_zh = "范围说明：本行记 Sonar / Chat Completions 按量端点，故本行 zdr 结论不涉及 Agent API。Agent API 在台账里是独立产品线（Perplexity Agent），服务端会话状态与「ZDR 需协议」的措辞记在那里；本文件的来源注亦声明该页不能支撑 Agent API 的 zdr 结论。"
 
 [product.retention]
-object = "mixed"
+object = "input_output"
 basis = "none"
+anchor = "perplexity-docs-faq-training"
+
+[[product.retention.point]]
+text = "Structured conclusion: the FAQ states that the API does not retain query data (\"We do not retain any query data sent through the API and do not train on any of your data.\"), so Input/Output is recorded as not retained. The FAQ does not name an endpoint; the privacy-security page limits the same commitment to the Chat Completions API."
+text_zh = "结构化结论：FAQ 明说 API 不保留 query data（「We do not retain any query data sent through the API and do not train on any of your data.」），故输入输出记不留存。FAQ 未点名端点，privacy-security 页把同一承诺限定在 Chat Completions API。"
+
+[[product.retention.point]]
+text = "Personal Data contained in Input is a different object and is not covered by that sentence: DPA Annex 1 stores it until the earlier of (a) the date it is deleted by Customer through the Services' interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer — a termination-anchored rule, not a retention period for non-personal Input/Output."
+text_zh = "Input 中的个人信息是另一个对象，不在该句覆盖范围内：DPA Annex 1 保留至「客户通过服务界面删除」与「Perplexity 停止提供服务后 30 天」两者较早者——以终止为锚点，不是非个人输入输出的保留期限。"
+anchor = "perplexity-dpa-annex1-retention"
+
+[[product.retention.point]]
+text = "DPA §10 adds the post-termination deadline: all Personal Data is deleted (or, at Customer's option, returned) within thirty days of the end of the provision of the Services. It is not a retention period, and it covers Personal Data only."
+text_zh = "DPA §10 补充终止后期限：服务结束后 30 天内删除（或按客户选择返还）全部 Personal Data。这不是保留期限，且只覆盖个人信息。"
 anchor = "perplexity-dpa-10-retention"
 
 [[product.retention.point]]
-text = "See the top-level retention entry. This tier also has a feature-level exception: stateful Agent API conversations are persisted server-side with no period disclosed (store: false does not disable persistence)."
-text_zh = "见顶层 retention。本档内还有功能级例外：Agent API 有状态会话服务端持久化且未披露期限（store:false 不关闭持久化）。"
+text = "At contract level no retention period is given for non-personal Input/Output; the only post-termination rule in the API ToS is §10.5 — destroy or return Confidential Information, with copies in automated back-up systems deleted under the receiving party's standard deletion procedures."
+text_zh = "合同层未给非个人输入输出的保留期限；API ToS 里唯一的终止后规则是 §10.5——销毁或返还保密信息，自动备份中的副本按接收方标准删除流程删除。"
+anchor = "perplexity-api-tos-10-5-retention"
 
 [product.processing_region]
 codes = ["US"]
@@ -142,6 +180,11 @@ text_zh = "Addendum 未给不训练承诺"
 text = "§2.2 instead authorizes Perplexity to retain, copy and distribute Search Data \"for its lawful business purposes, including the improvement and development of products and services\". Whether the no-training commitment in API ToS §2.3.3 still applies to Search Data is not stated — §1.2.2 names only obligations such as \"update, upgrade and/or zero data retention obligations\" as excluded, and does not name §2.3.3. This uncertainty has to be flagged in the ledger and must not be resolved on the vendor's behalf."
 text_zh = "§2.2 反而授权 Perplexity 为「lawful business purposes, including the improvement and development of products and services」保留、复制、分发 Search Data。API ToS §2.3.3 的不训练承诺是否仍适用于 Search Data，文档未明说——§1.2.2 只点名排除了「update, upgrade and/or zero data retention obligations」这类义务，未点名 §2.3.3。此不确定性必须在台账上标明，不得替厂商推定。"
 
+[[product.training.point]]
+text = "Third-party model hops do not arise on this tier as currently configured: Schedule 1 states that the /search endpoint \"does not generate Output through the use of artificial intelligence, including large language models\". Whether API ToS §2.6 (Third-Party Models) otherwise applies to the Search Services is not stated, and §1.2.2 is not read in either direction here."
+text_zh = "按当前配置，本档不涉及第三方模型跳：Schedule 1 明说 /search 端点「does not generate Output through the use of artificial intelligence, including large language models」。API ToS §2.6（Third-Party Models）是否另行适用于 Search Services，文档未说明，§1.2.2 在此不作任何方向的推定。"
+anchor = "perplexity-search-addendum-schedule1-no-llm-training"
+
 [product.zdr]
 mark = "no"
 anchor = "perplexity-search-addendum-1-2-2-zdr"
@@ -167,28 +210,39 @@ text = "§1.2.2 states expressly that the zero-retention obligations for other p
 text_zh = "§1.2.2 明确其他产品的零保留义务不适用。§2.3 禁止客户提交个人信息（除非书面授权），因此本档的个人信息保留问题主要不适用。"
 
 [product.processing_region]
-codes = ["US"]
-anchor = "perplexity-trust-subprocessors-aws-processing-region"
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service-search",
+  "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service",
+  "https://perplexity.ai/hub/legal/dpa",
+  "https://trust.perplexity.ai/subprocessors",
+]
 
 [[product.processing_region.point]]
 text = "Neither the Search Addendum nor the API ToS has a processing-location clause"
 text_zh = "Search Addendum 与 API ToS 均无处理地条款"
 
 [[product.processing_region.point]]
-text = "The only thing citable is that the subprocessor list is entirely US, so confidence is low."
-text_zh = "只能引用子处理者清单全 US 这一点，置信度低。"
+text = "Removed anchor: the cited subprocessor-list row (\"Amazon Web Services / Cloud infrastructure and security / Cloud provider / US\") records where the subprocessor company sits, not where data is processed. The snapshot has no column header saying the US column is a processing location, so it cannot support a region code. The consumer tier is judged on the same reasoning, keeping the two tiers consistent. Search scope is recorded in searched."
+text_zh = "已撤锚：原引子处理者清单条目（「Amazon Web Services / Cloud infrastructure and security / Cloud provider / US」）记的是该子处理者公司所在地，不是数据处理地；快照里没有表头说明 US 列是处理地，故不能支撑区域码。消费者档按同一理由判定，两档口径一致。查阅范围见 searched。"
 
 [product.role]
 kind = "processor"
+anchor = "perplexity-dpa-2-role"
+
+[[product.role.point]]
+text = "The role clause is inherited rather than restated in the Addendum: §1.2.1 keeps the Agreement in force for the Search Services, API ToS §6.1 incorporates the DPA, and DPA §2 makes Perplexity the Service Provider or Processor."
+text_zh = "角色条款是继承来的，Addendum 未重述：§1.2.1 让 Agreement 对 Search Services 继续适用，API ToS §6.1 并入 DPA，DPA §2 自认 Service Provider or Processor。"
+
+[[product.role.point]]
+text = "The clause previously cited here is a customer obligation, not a statement of Perplexity's role: \"Customer shall not submit Personal Data (as defined in the DPA) to the Search Services unless explicitly authorized by Perplexity in writing\"."
+text_zh = "此处原先引用的条款是对客户的义务，不是对 Perplexity 角色的表述：「Customer shall not submit Personal Data (as defined in the DPA) to the Search Services unless explicitly authorized by Perplexity in writing」。"
 anchor = "perplexity-search-addendum-2-3-role"
 
 [[product.role.point]]
-text = "§2.3 requires the customer not to submit personal information (unless explicitly authorized by Perplexity in writing), implying that personal information is still handled under the DPA"
-text_zh = "§2.3 要求客户不得提交个人信息（除非书面授权），暗示个人信息仍按 DPA 处理"
-
-[[product.role.point]]
-text = "But §2.2 states expressly that \"Search Data is not Customer's Confidential Information\", the opposite of API ToS §5.1, which makes Customer Content the customer's confidential information. The processor relationship is weaker on this tier than on the Sonar tier."
-text_zh = "但 §2.2 明文「Search Data is not Customer's Confidential Information」，与 API ToS §5.1 把 Customer Content 定为客户保密信息相反。本档的受托关系比 Sonar 档弱。"
+text = "But §2.2 states expressly that \"Search Data is not Customer's Confidential Information\" and authorizes Perplexity to retain, copy, distribute and otherwise use Search Data for its lawful business purposes, the opposite of API ToS §5.1, which makes Customer Content the customer's confidential information. The processor relationship is weaker on this tier than on the Sonar tier; both statements are kept side by side."
+text_zh = "但 §2.2 明文「Search Data is not Customer's Confidential Information」，并授权 Perplexity 为 lawful business purposes 保留、复制、分发、使用 Search Data，与 API ToS §5.1 把 Customer Content 定为客户保密信息相反。本档受托关系比 Sonar 档弱；两句并列保留。"
 
 [[product]]
 id = "api-embeddings"
@@ -278,24 +332,20 @@ category = "web"
 plan_level = "any"
 
 [product.training]
-mark = "unknown"
-searched = [
-  "https://perplexity.ai/hub/legal/privacy-notice",
-  "https://perplexity.ai/hub/legal/terms-of-service",
-  "https://perplexity.ai/hub/legal",
-]
+mark = "no"
+anchor = "perplexity-privacy-notice-ai-models-training"
 
 [[product.training.point]]
-text = "Removed anchor: the clause cited here (\"We keep your personal data for only as long as necessary…\") is a retention-period statement and says nothing about training, so it is not a statement on this dimension. Search scope is recorded in searched."
-text_zh = "已撤锚：原引句「We keep your personal data for only as long as necessary…」是保留期限条款，与训练无关，不构成本维度的表述。查阅范围见 searched。"
+text = "Structured conclusion: the purposes list in the consumer privacy notice includes \"Improve or create services and products, including our AI models.\" Service-improvement wording that does not exclude model training counts as training, and this sentence names AI models outright, so the tier is recorded as mark=no."
+text_zh = "结构化结论：消费者隐私声明的处理目的清单含「Improve or create services and products, including our AI models.」。按「写『用于服务改进』而不排除模型训练即按会训练算」，且该句直接点名 AI 模型，本档记 mark=no。"
 
 [[product.training.point]]
-text = "The purposes listed in the consumer privacy notice include \"develop services\", \"conduct internal research\" and \"improve our websites\", but no sentence states affirmatively whether consumer queries are used to train models"
-text_zh = "消费者隐私声明列出的处理目的包含「develop services」「conduct internal research」「improve our websites」等，但没有一句正面说明消费者查询是否用于训练模型"
+text = "The other purposes listed alongside it (\"develop services\", \"conduct internal research\", \"improve our websites\") likewise do not exclude model training."
+text_zh = "与之并列的其他目的（「develop services」「conduct internal research」「improve our websites」）同样未排除模型训练。"
 
 [[product.training.point]]
-text = "Only for the Email Assistant is there an explicit \"We do not use the content of emails to create, train, improve, or fine-tune AI models.\" There are also in-product switches such as AI Data Retention (help center, not fetched this round). Recorded as undisclosed and not written up as a commitment."
-text_zh = "只对 Email Assistant 有明文「We do not use the content of emails to create, train, improve, or fine-tune AI models.」。另有 AI Data Retention 之类的产品内开关（帮助中心，本轮未取）。按未披露记，不得写成承诺。"
+text = "Feature-level exception, not the tier's commitment: \"We do not use the content of emails to create, train, improve, or fine-tune AI models.\" covers Email Assistant data only. In-product switches such as AI Data Retention (help center, not fetched this round) are retention settings, not training statements."
+text_zh = "功能级例外，不构成本档承诺：「We do not use the content of emails to create, train, improve, or fine-tune AI models.」只覆盖 Email Assistant 的数据。AI Data Retention 之类的产品内开关（帮助中心，本轮未取）属保留设置，不是训练表态。"
 
 [product.zdr]
 mark = "no"
@@ -311,8 +361,8 @@ text = "Structured conclusion: the cited clause states affirmatively that person
 text_zh = "结构化结论：原引句正面写明个人数据会被保留（「We keep your personal data for only as long as necessary…」），消费档也没有任何零保留机制。据此记 mark=no（条款明示会留存）。"
 
 [[product.zdr.point]]
-text = "No zero-retention commitment on the consumer tier (the product has only an AI Data Retention switch, a feature setting, and no official policy document explains its effect)."
-text_zh = "消费者档无零保留承诺（产品内只有 AI Data Retention 开关，属功能设置，未见官方政策文档说明其效果）。"
+text = "No zero-retention commitment on the consumer tier. Only feature-level mechanisms exist, and no official policy document explains their effect: the in-product AI Data Retention switch (help center, not fetched this round) and Incognito — \"Incognito increases your privacy by not saving your search activity across use sessions.\""
+text_zh = "消费者档无零保留承诺。只有功能级机制，且未见官方政策文档说明其效果：产品内的 AI Data Retention 开关（帮助中心，本轮未取）与 Incognito——「Incognito increases your privacy by not saving your search activity across use sessions.」。"
 
 [product.retention]
 object = "mixed"
@@ -330,6 +380,7 @@ text_zh = "另有删除权条款说明「in many cases we must keep your persona
 [product.processing_region]
 mark = "unknown"
 basis = "undisclosed"
+anchor = "perplexity-privacy-notice-cross-border-processing-region"
 searched = [
   "https://perplexity.ai/hub/legal/privacy-notice",
   "https://trust.perplexity.ai/subprocessors",
@@ -340,8 +391,8 @@ text = "Removed anchor: the cited subprocessor-list row (\"Amazon Web Services /
 text_zh = "已撤锚：原引子处理者清单条目（「Amazon Web Services / Cloud infrastructure and security / Cloud provider / US」）记的是该子处理者公司所在地，不是数据处理地。主体所在地 ≠ 数据处理地，故不构成本维度的表述。查阅范围见 searched。"
 
 [[product.processing_region.point]]
-text = "The consumer privacy notice states no storage or processing location"
-text_zh = "消费者隐私声明未写存储/处理地"
+text = "The notice discloses cross-border transfer only: \"By submitting your personal data to us you agree to the transfer, storage, and processing of your data in a country other than your country of residence including, but not limited to, the United States.\" It commits to no residency location, and the enumeration is open-ended, so no single region code can be assigned."
+text_zh = "声明只披露跨境传输：「By submitting your personal data to us you agree to the transfer, storage, and processing of your data in a country other than your country of residence including, but not limited to, the United States.」未承诺驻留地，且列举是开放的，故不能给出单一区域码。"
 
 [[product.processing_region.point]]
 text = "Only the DPF (EU-U.S. / UK Extension) and the all-US subprocessor list are available as indirect clues."
@@ -374,6 +425,11 @@ anchor = "perplexity-enterprise-tos-1-3-3-training"
 text = "Enterprise ToS §1.3.3 is word for word the same as API ToS §2.3.3: \"Perplexity shall not use (or authorize third parties to use) Customer Content to train, retrain, fine-tune or otherwise improve any generative artificial intelligence models.\""
 text_zh = "Enterprise ToS §1.3.3 与 API ToS §2.3.3 同文：「Perplexity shall not use (or authorize third parties to use) Customer Content to train, retrain, fine-tune or otherwise improve any generative artificial intelligence models.」"
 
+[[product.training.point]]
+text = "Exception that the §1.3.3 commitment does not cover: Usage Data is defined outside Customer Content and personal information, and §2.3 authorizes Perplexity to use it for any lawful purpose (e.g., to assess the relative popularity of the Services' features or to improve categorization algorithms). The same layer is recorded on the API tier."
+text_zh = "§1.3.3 承诺覆盖不到的例外：Usage Data 的定义排除 Customer Content 与个人信息，§2.3 授权 Perplexity 为 any lawful purpose（例如评估各功能的受欢迎程度、改进分类算法）使用它。API 档记有同一层。"
+anchor = "perplexity-enterprise-tos-2-3-usage-data-training"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -396,26 +452,46 @@ text = "ZDR is mentioned in the API documentation in the form of an \"agreement\
 text_zh = "ZDR 在 API 文档里以「agreement」形式被提及，是否覆盖 Enterprise 档未公开。"
 
 [product.retention]
-days = 30
 object = "input_output"
-basis = "fixed_period"
+basis = "until_termination"
+anchor = "perplexity-dpa-annex1-retention"
+
+[[product.retention.point]]
+text = "Structured conclusion: Enterprise ToS §5.1 incorporates the DPA, and no retention period is given for Input/Output during the term. The only rule that states both object and context is DPA Annex 1: personal information contained in Input is stored until the earlier of (a) the date it is deleted by Customer through the Services' interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer — hence basis=until_termination."
+text_zh = "结构化结论：Enterprise ToS §5.1 并入 DPA，服务期内未给输入输出的保留期限。唯一写明对象与语境的规则是 DPA Annex 1：Input 中的个人信息保留至「客户通过服务界面删除」与「Perplexity 停止提供服务后 30 天」两者较早者——故记 until_termination。"
+
+[[product.retention.point]]
+text = "DPA §10 is a post-termination deletion deadline, not a retention period: Perplexity deletes (or, at Customer's option, returns) all Personal Data within thirty days of the end of the provision of the Services. It covers Personal Data only, so non-personal Input/Output has no contract-level period."
+text_zh = "DPA §10 是终止后的删除期限，不是保留期限：服务结束后 30 天内删除（或按客户选择返还）全部 Personal Data；且只覆盖个人信息，非个人的输入输出在合同层没有期限条款。"
 anchor = "perplexity-dpa-10-retention"
 
 [[product.retention.point]]
-text = "Enterprise ToS §5.1 incorporates the DPA, so §10's deletion (or, at the customer's option, return) within thirty days of the end of the provision of the Services applies, as does the Annex 1 retention period for personal information contained in Input"
-text_zh = "Enterprise ToS §5.1 并入 DPA，故 §10 的「服务终止后 30 天内删除（或返还）」与 Annex 1 的输入个人信息保留期适用"
+text = "The enterprise contract's own post-termination clause: each party destroys or returns the other party's Confidential Information and all copies thereof, except copies in automated back-up systems, which remain subject to §4 while maintained and are deleted in accordance with the receiving party's standard deletion procedures. Customer Content is the customer's Confidential Information under §4.1."
+text_zh = "企业合同自身的终止后条款：各方销毁或返还对方保密信息及其所有副本，自动备份中的副本除外——该副本在保存期间仍受 §4 约束，并按接收方的标准删除流程删除。§4.1 下 Customer Content 属客户保密信息。"
+anchor = "perplexity-enterprise-tos-9-6-retention"
 
 [[product.retention.point]]
 text = "There are also enterprise settings such as \"Configuring Data Retention\" inside the product (that page was not fetched this round)."
 text_zh = "产品内另有「Configuring Data Retention」类企业设置（本轮未取该页）。"
 
 [product.processing_region]
-codes = ["US"]
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://perplexity.ai/hub/legal/enterprise-terms-of-service",
+  "https://perplexity.ai/hub/legal/dpa",
+  "https://perplexity.ai/enterprise/security",
+  "https://trust.perplexity.ai/subprocessors",
+]
+
+[[product.processing_region.point]]
+text = "No region code can be assigned: DPA §11 is the only transfer clause and it commits only to a transfer compliance mechanism (EU SCCs / UK Addendum, data importer obligations), naming no country or region. The only places \"US\" appears in the DPA are the definition of US Privacy Laws (including CCPA), which is a legal definition rather than a processing location."
+text_zh = "无法给出区域码：DPA §11 是唯一的传输条款，只承诺传输合规机制（EU SCCs / UK Addendum、data importer 义务），未出现任何国家或区域。DPA 里出现「US」的地方只有 US Privacy Laws（含 CCPA）的法定定义，不是处理地。"
 anchor = "perplexity-dpa-11-processing-region"
 
 [[product.processing_region.point]]
-text = "DPA §11 commits only to a transfer compliance mechanism, not to a residency location"
-text_zh = "DPA §11 只承诺传输合规机制，不承诺驻留地"
+text = "The subprocessor list marks every vendor US, but that column is the vendor company's location, not the processing location — the consumer tier is judged on the same reasoning, keeping the two tiers consistent."
+text_zh = "子处理者清单全标 US，但那是厂商公司所在地，不是处理地——消费者档按同一理由判定，两档口径一致。"
 
 [[product.processing_region.point]]
 text = "The enterprise security page likewise has no regional clause."
@@ -684,32 +760,6 @@ exact = "Our compute is hosted via Amazon Web Services in North America."
 suffix = " By default, the API has zero day retention of user prompt data, which"
 
 [[anchor]]
-id = "perplexity-docs-agent-api-conversation-state-retention"
-source_id = "5c4ae0551fc85104"
-topics = ["retention", "zdr"]
-
-[anchor.selector]
-prefix = """
-xt request at a completed prior response and send only the new turn.
-
-"""
-exact = "The Agent API persists response and conversation state server-side so responses can be retrieved (`store`) or continued (`previous_response_id`). Setting `store: false` only hides a response from retrieval — it does not disable persistence"
-suffix = ", and the response can still be used as a continuation source. If your"
-
-[[anchor]]
-id = "perplexity-docs-agent-api-conversation-state-zdr"
-source_id = "5c4ae0551fc85104"
-topics = ["zdr"]
-
-[anchor.selector]
-prefix = "istence, and the response can still be used as a continuation source. "
-exact = "If your account has a Zero Data Retention (ZDR) agreement with Perplexity, check with your account team before relying on stateful features"
-suffix = """
- — contact [api@perplexity.ai](mailto:api@perplexity.ai).
-
-1.   Create"""
-
-[[anchor]]
 id = "perplexity-search-addendum-1-2-2-zdr"
 source_id = "9e624fa001baa771"
 topics = ["retention", "zdr"]
@@ -911,3 +961,72 @@ topics = ["role"]
 prefix = "g Services to Perplexity. Perplexity does not share Customer Content. "
 exact = "For personal data processed for the Marketing Services, Perplexity acts as an independent controller, and the DPA does not apply."
 suffix = " Such information (“Perplexity Controlled Information”) will be used a"
+
+[[anchor]]
+id = "perplexity-privacy-notice-ai-models-training"
+source_id = "716cb64c588dbbfc"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+- Complete transactions.
+
+"""
+exact = "Improve or create services and products, including our AI models."
+suffix = """
+- Streamline checkouts."""
+
+[[anchor]]
+id = "perplexity-privacy-notice-cross-border-processing-region"
+source_id = "716cb64c588dbbfc"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Where possible, we treat personal data using the same privacy principles that guide the law of the country in which we first receive your data. "
+exact = "By submitting your personal data to us you agree to the transfer, storage, and processing of your data in a country other than your country of residence including, but not limited to, the United States."
+suffix = " For more information on our attempts to apply the privacy principles"
+
+[[anchor]]
+id = "perplexity-enterprise-tos-2-3-usage-data-training"
+source_id = "f45773fa16ac3090"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "As between Customer and Perplexity, Perplexity retains all right, title, and interest in and to such Usage Data. "
+exact = "Perplexity may use Usage Data for any lawful purpose (e.g., to assess the relative popularity of the Services’ features or to improve categorization algorithms) without remuneration to Customer."
+suffix = """
+## FEES."""
+
+[[anchor]]
+id = "perplexity-enterprise-tos-9-6-retention"
+source_id = "f45773fa16ac3090"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+9.6 **Effect of Expiration or Termination.** """
+exact = "Upon the termination of this Agreement, each party shall destroy or return to the other party all Confidential Information of the other party and all copies thereof, except copies in the Receiving Party’s automated back-up systems, which shall remain subject to Section 4 while maintained and which shall be deleted in accordance with the Receiving Party’s standard deletion procedures."
+suffix = " Termination of this Agreement shall be without prejudice to any rights"
+
+[[anchor]]
+id = "perplexity-api-tos-2-6-third-party-models-training"
+source_id = "c1e7df39a1db2493"
+topics = ["training", "role"]
+
+[anchor.selector]
+prefix = """
+ivate the relevant API Key(s).
+
+2.6 **Third-Party Models.** """
+exact = "The Services may utilize large language models and other models (“Third-Party Models”) developed and/or provided in whole or in part by third parties (“Third-Party Providers”)"
+suffix = ". In addition to these Terms and Conditions, Third-Party Mod"
+
+[[anchor]]
+id = "perplexity-search-addendum-schedule1-no-llm-training"
+source_id = "9e624fa001baa771"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "An API endpoint that retrieves and returns search results (e.g., snippets, URLs, page titles and associated metadata) from an index of public content. "
+exact = "This API does not generate Output through the use of artificial intelligence, including large language models."
+suffix = " The API’s Output is sourced from the public internet."

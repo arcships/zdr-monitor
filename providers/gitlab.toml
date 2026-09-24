@@ -83,7 +83,7 @@ text_zh = "也未把「不训练」承诺按 beta/experimental 功能单列（�
 
 [product.zdr]
 mark = "no"
-anchor = "gl-duo-data-usage-retention-prompt-cache"
+anchor = "gl-duo-data-usage-retention-vendor-limited"
 
 [[product.zdr.point]]
 text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
@@ -129,6 +129,7 @@ text_zh = "⑤【usage data collection 打开后】「Full prompt and response t
 [[product.retention.point]]
 text = "(6) [KV / prompt cache] \"When you turn on prompt caching, the model vendor temporarily stores prompt data in memory. The cached data is never logged to any persistent storage.\" — on by default and can be turned off, except for OpenAI models, where it cannot"
 text_zh = "⑥【KV/提示缓存】「When you turn on prompt caching, the model vendor temporarily stores prompt data in memory. The cached data is never logged to any persistent storage.」——默认开启、可关，OpenAI 模型不可关"
+anchor = "gl-duo-data-usage-retention-prompt-cache"
 
 [[product.retention.point]]
 text = "(7) [the model subprocessor hop] Fireworks AI discards the data immediately after the output is provided"
@@ -145,6 +146,16 @@ text_zh = "⑧【通用个人信息】Privacy Statement §Data Retention「GitLa
 [[product.retention.point]]
 text = "(1) is of the upper-bound type (zero by default) but carries the four exceptions (2)(3)(4)(5), so it cannot be read in reverse as \"no input or output is retained at all\". The self-managed + self-hosted model tier has an independent fact of its own: only billing metadata is sent to GitLab, and \"Prompts, code inputs, and model responses do not leave your network.\""
 text_zh = "①是上限型（默认 0）但带②③④⑤四条例外，不能反推「所有输入输出都不留」。self-managed + 自托管模型档另有一条独立事实：只向 GitLab 发送计费元数据，「Prompts, code inputs, and model responses do not leave your network.」"
+
+[[product.retention.point]]
+text = "(9) [secret detection and redaction — the express exception] \"Secret false positive detection is an opt-in feature that sends information about the vulnerability, including code context surrounding detected secrets, to LLMs for analysis. This is a deliberate exception to the secret detection and redaction behavior.\" It is opt-in and must be enabled at both group and project level before any vulnerability data is sent to LLMs, so code context containing secrets does reach an LLM once it is on."
+text_zh = "⑨【敏感信息检测与脱敏 —— 明文例外】「Secret false positive detection is an opt-in feature that sends information about the vulnerability, including code context surrounding detected secrets, to LLMs for analysis. This is a deliberate exception to the secret detection and redaction behavior.」该功能为 opt-in，须在群组与项目两级都显式启用后才会把漏洞数据发给 LLM；一旦启用，含 secrets 的代码上下文就会送到 LLM。"
+anchor = "gl-duo-data-usage-secret-false-positive-exception"
+
+[[product.retention.point]]
+text = "(10) [the redaction is not universal] \"Secret scanning does not occur when you interact with GitLab Duo Chat through the web interface.\" — the web-interface Duo Chat path is outside the pre-scan redaction workflow, so code context is not stripped of secrets there."
+text_zh = "⑩【脱敏并非全覆盖】「Secret scanning does not occur when you interact with GitLab Duo Chat through the web interface.」——网页版 Duo Chat 这条路径不在预扫描脱敏流程内，代码上下文不会在那里被剔除敏感信息。"
+anchor = "gl-duo-data-usage-secret-scanning-web-chat-not-scanned"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -229,7 +240,7 @@ text_zh = "同 saas_gitlab_com 行：试用档未另立训练条款，data_usage
 
 [product.zdr]
 mark = "no"
-anchor = "gl-duo-data-usage-retention-prompt-cache"
+anchor = "gl-duo-data-usage-retention-vendor-limited"
 
 [[product.zdr.point]]
 text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
@@ -240,8 +251,8 @@ text = "Same as the saas_gitlab_com row"
 text_zh = "同 saas_gitlab_com 行"
 
 [[product.zdr.point]]
-text = "The trial tier has no ZDR arrangement of its own."
-text_zh = "试用档没有单独的 ZDR 安排。"
+text = "The trial tier has no ZDR arrangement of its own: it follows the GitLab Duo-wide ZDR coverage (a single express ZDR statement, covering the Fireworks AI hop only) and is stuck on the Anthropic/OpenAI hop, where certain models are subject to limited vendor-side data retention. The public material states no ZDR terms specific to trial accounts."
+text_zh = "试用档没有单独的 ZDR 安排：沿用 GitLab Duo 全档的 ZDR 覆盖范围（只有一条 ZDR 明文，且只覆盖 Fireworks AI 那一跳），卡在 Anthropic/OpenAI 那一跳上——部分模型在 vendor 侧有有限保留。公开材料未为试用账号单列任何 ZDR 条款。"
 
 [product.retention]
 object = "input_output"
@@ -303,12 +314,13 @@ kind = "processor"
 anchor = "gl-duo-ai-terms-2-3-role-controller"
 
 [[product.role.point]]
-text = "Trial accounts usually sit under a Free or Premium namespace: for Enterprise Users the Privacy Statement makes the enterprise the controller and GitLab the processor"
-text_zh = "试用档通常挂在 Free/Premium 命名空间下：Enterprise 用户按 Privacy Statement 由企业为 controller、GitLab 为 processor"
+text = "Same contract-layer basis as the saas_gitlab_com row: Duo AI Terms §2.3 assigns the customer the controller role for AI Functionality powered by GitLab Models, with no plan restriction. The terms take effect on acceptance in the product or on any use of AI Functionality, and §1.4 defines the DPA as the public GitLab DPA at its URL \"or\" another written addendum, so a trial namespace is covered without a separately signed DPA."
+text_zh = "合同层依据同 saas_gitlab_com 行：《Duo AI Terms》§2.3 对「AI Functionality powered by GitLab Models」由客户担任 controller，没有档位限定；条款在产品内接受或使用任何 AI Functionality 时即生效，§1.4 把 DPA 定义为 URL 上公开的 GitLab DPA「或」双方另签的书面附录，所以试用命名空间不需要另签 DPA 也在其内。"
+anchor = "gl-duo-ai-terms-2-3-role-controller"
 
 [[product.role.point]]
-text = "For self-serve and free accounts GitLab is itself the controller. The contract-layer basis is the same as the saas_gitlab_com row."
-text_zh = "自助/免费账号则 GitLab 自任 controller。合同层依据同 saas_gitlab_com 行。"
+text = "Conflicting vendor statement, scope to be clarified: the GitLab Privacy Statement (not registered as a source here, no snapshot) says that for self-serve and free accounts GitLab is itself the controller, while for Enterprise Users or paid namespaces the enterprise is the controller. A trial on a free/self-serve namespace may fall under that reading."
+text_zh = "厂商说法冲突、适用范围待澄清：GitLab Privacy Statement（本文件未登记为来源、无快照）写自助/免费账号由 GitLab 自任 controller，Enterprise 用户或付费命名空间才由企业为 controller。挂在免费/自助命名空间下的试用可能落入这一口径。"
 
 [[product]]
 id = "self_managed_dedicated_gitlab_managed_models"
@@ -328,7 +340,7 @@ text_zh = "与 SaaS 档同一条款（data_usage 页覆盖 SaaS 与 self-managed
 
 [product.zdr]
 mark = "no"
-anchor = "gl-duo-data-usage-retention-prompt-cache"
+anchor = "gl-duo-data-usage-retention-vendor-limited"
 
 [[product.zdr.point]]
 text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
@@ -345,6 +357,11 @@ text_zh = "②「Certain Anthropic and OpenAI models, including when hosted on A
 [[product.zdr.point]]
 text = "And the public material offers no unified ZDR switch or application path (on the contrary, retaining inputs and outputs is what requires the customer's written consent through a support ticket). Uncertainty: GitLab does not disclose how to tell, per model or per feature, whether the current configuration falls within ZDR coverage, and provides no verifiable ZDR attestation document."
 text_zh = "且公开材料没有统一的 ZDR 开关或申请入口（保留输入输出反而是「客户经 support ticket 书面同意」才发生）。不确定性：GitLab 未披露如何按模型/功能判断当前配置是否处于 ZDR 覆盖范围，也未提供可核验的 ZDR 声明文件。"
+
+[[product.zdr.point]]
+text = "GitLab-side retention is decoupled from the subprocessors' ZDR by a feature-level exception, not by a tier difference: \"When you enable expanded logging for GitLab Duo Agent Platform, GitLab retains trace data. Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.\" No period is given, and it applies to any tier that turns expanded logging on."
+text_zh = "GitLab 侧的保留经一条功能级例外与子处理商 ZDR 脱钩，这不是档位差异：「When you enable expanded logging for GitLab Duo Agent Platform, GitLab retains trace data. Logging information related to AI features is separate from any zero data retention policy with GitLab AI model sub-processors.」该例外未给期限，凡启用 expanded logging 的档位都适用。"
+anchor = "gl-duo-data-usage-retention-expanded-logging"
 
 [product.retention]
 object = "input_output"
@@ -409,7 +426,7 @@ anchor = "gl-duo-data-usage-training-gitlab"
 text_zh = "与付费 SaaS 档相同：GitLab 不训练生成式 AI 模型，模型子处理商亦受协议限制不得用输入输出训练。"
 [product.zdr]
 mark = "no"
-anchor = "gl-duo-data-usage-retention-prompt-cache"
+anchor = "gl-duo-data-usage-retention-vendor-limited"
 
 [[product.zdr.point]]
 text_zh = "链上只有一跳有明确零保留承诺：GitLab 对 Fireworks AI 那一跳。端到端不成立，卡在这条例外上。"
@@ -474,11 +491,15 @@ text_zh = "Duo 层的 Fireworks ZDR 是否覆盖 beta 功能在公开材料中�
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "gl-testing-agreement-2-3-personal-data"
+anchor = "gl-duo-data-usage-retention-no-other"
 
 [[product.retention.point]]
 text = "The Testing Agreement sets no retention period and says only that Input and Output constitute Customer Content"
 text_zh = "《Testing Agreement》未规定保留期，只说 Input/Output 构成 Customer Content"
+
+[[product.retention.point]]
+text = "This tier falls back on the Duo-layer retention clause (data_usage page §Data retention, §GitLab): \"GitLab does not otherwise retain input and output data unless customers provide consent through a GitLab Support ticket\", plus chat/workflow history and expanded-logging trace data, none of them quantified. The tier's own contract carries no retention clause of any kind — a negative fact recorded after reading the whole Testing Agreement — so the Duo-layer clause is the only retention basis for these features."
+text_zh = "本档沿用 Duo 层的保留条款（data_usage 页 §Data retention 的 §GitLab 小节）：「GitLab does not otherwise retain input and output data unless customers provide consent through a GitLab Support ticket」，另有 chat/workflow history 与 expanded logging trace data，均未量化。本档自己的合同通篇无保留期条款（通读《Testing Agreement》后记下的否定事实），故 Duo 层条款是本档唯一的保留依据。"
 
 [[product.retention.point]]
 text = "There is no separate clause for data retention on beta features."
@@ -527,6 +548,11 @@ text_zh = "本档没有 GitLab 的训练条款可引：训练与否取决于客�
 text = "GitLab itself still states \"GitLab does not train generative AI models.\" (data_usage page)."
 text_zh = "GitLab 自身仍声明「GitLab does not train generative AI models.」（data_usage 页）。"
 
+[[product.training.point]]
+text = "Configuration condition: the facts above hold in the fully self-hosted configuration. The same page states that when specific features are configured to use GitLab-managed models, requests for those features are sent to the GitLab-hosted AI Gateway instead of the self-hosted gateway and internet connectivity is required — \"This is not a fully self-hosted or isolated configuration.\" On that hybrid path the corresponding SaaS tier's terms apply on top."
+text_zh = "配置条件：上述事实成立于 fully self-hosted 配置。同页写明，若把某些功能配成 GitLab 管理模型，这些功能的请求会改走 GitLab 托管的 AI Gateway 而非自托管网关、且需要联网——「This is not a fully self-hosted or isolated configuration.」走混合配置时应按对应 SaaS 档条款叠加判断。"
+anchor = "gl-self-hosted-hybrid-not-fully-isolated"
+
 [product.zdr]
 mark = "yes"
 mode = "by_deployment"
@@ -539,6 +565,11 @@ text_zh = "本档的内容零保留是架构性的（数据不离开客户环境
 [[product.zdr.point]]
 text = "\"Use a self-hosted AI Gateway to keep all request and response data in your own environment\" — retention and deletion are controlled by the customer."
 text_zh = "「Use a self-hosted AI Gateway to keep all request and response data in your own environment」——保留与删除由客户自己控制。"
+
+[[product.zdr.point]]
+text = "Configuration condition: the facts above hold in the fully self-hosted configuration. The same page states that when specific features are configured to use GitLab-managed models, requests for those features are sent to the GitLab-hosted AI Gateway instead of the self-hosted gateway and internet connectivity is required — \"This is not a fully self-hosted or isolated configuration.\" On that hybrid path the corresponding SaaS tier's terms apply on top."
+text_zh = "配置条件：上述事实成立于 fully self-hosted 配置。同页写明，若把某些功能配成 GitLab 管理模型，这些功能的请求会改走 GitLab 托管的 AI Gateway 而非自托管网关、且需要联网——「This is not a fully self-hosted or isolated configuration.」走混合配置时应按对应 SaaS 档条款叠加判断。"
+anchor = "gl-self-hosted-hybrid-not-fully-isolated"
 
 [product.retention]
 object = "input_output"
@@ -553,6 +584,11 @@ text_zh = "对象=prompt/代码/模型响应：不出客户网络（故 GitLab �
 text = "Object = billing metadata (Instance ID, User ID, Call count, Timestamp): sent to GitLab, with no retention period given. Also: the same documentation page states, for the self-managed MCP server scenario, that \"GitLab does not transmit, store, retain, or process any data when the GitLab MCP server is used.\" (data_usage page), corroborating evidence on the same tier."
 text_zh = "对象=计费元数据（Instance ID、User ID、Call count、Timestamp）：发给 GitLab，未给保留期。另：同一文档页对 self-managed 的 MCP server 场景写明「GitLab does not transmit, store, retain, or process any data when the GitLab MCP server is used.」（data_usage 页），属同一档位的旁证。"
 
+[[product.retention.point]]
+text = "Configuration condition: the facts above hold in the fully self-hosted configuration. The same page states that when specific features are configured to use GitLab-managed models, requests for those features are sent to the GitLab-hosted AI Gateway instead of the self-hosted gateway and internet connectivity is required — \"This is not a fully self-hosted or isolated configuration.\" On that hybrid path the corresponding SaaS tier's terms apply on top."
+text_zh = "配置条件：上述事实成立于 fully self-hosted 配置。同页写明，若把某些功能配成 GitLab 管理模型，这些功能的请求会改走 GitLab 托管的 AI Gateway 而非自托管网关、且需要联网——「This is not a fully self-hosted or isolated configuration.」走混合配置时应按对应 SaaS 档条款叠加判断。"
+anchor = "gl-self-hosted-hybrid-not-fully-isolated"
+
 [product.processing_region]
 codes = ["selected"]
 anchor = "gl-self-hosted-no-leave-network"
@@ -564,6 +600,11 @@ text_zh = "处理地=客户自建环境"
 [[product.processing_region.point]]
 text = "The Gov tier expressly requires installation in AWS GovCloud (US-West) (gov_dedicated page). Only billing metadata flows to GitLab."
 text_zh = "Gov 档明确要求装在 AWS GovCloud (US-West)（gov_dedicated 页）。仅计费元数据流向 GitLab。"
+
+[[product.processing_region.point]]
+text = "Configuration condition: the facts above hold in the fully self-hosted configuration. The same page states that when specific features are configured to use GitLab-managed models, requests for those features are sent to the GitLab-hosted AI Gateway instead of the self-hosted gateway and internet connectivity is required — \"This is not a fully self-hosted or isolated configuration.\" On that hybrid path the corresponding SaaS tier's terms apply on top."
+text_zh = "配置条件：上述事实成立于 fully self-hosted 配置。同页写明，若把某些功能配成 GitLab 管理模型，这些功能的请求会改走 GitLab 托管的 AI Gateway 而非自托管网关、且需要联网——「This is not a fully self-hosted or isolated configuration.」走混合配置时应按对应 SaaS 档条款叠加判断。"
+anchor = "gl-self-hosted-hybrid-not-fully-isolated"
 
 [product.role]
 kind = "unknown"
@@ -820,3 +861,33 @@ topics = ["role"]
 prefix = "s whose Personal Data is processed under a Testing Feature. "
 exact = "GitLab will process Customer’s Personal Data on the basis of performing this Agreement with Customer."
 suffix = " Any sub-processors used to provide a Testing Feature will b"
+
+[[anchor]]
+id = "gl-duo-data-usage-secret-false-positive-exception"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Exception: Secret false positive detection"
+exact = "Secret false positive detection is an opt-in feature that sends information about the vulnerability, including code context surrounding detected secrets, to LLMs for analysis. This is a deliberate exception to the secret detection and redaction behavior."
+suffix = " Because this feature is opt-in"
+
+[[anchor]]
+id = "gl-duo-data-usage-secret-scanning-web-chat-not-scanned"
+source_id = "4d1bb0f9c3ae6bdd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "CLI config logging."
+exact = "Secret scanning does not occur when you interact with GitLab Duo Chat through the web interface."
+suffix = " ### Exception: Secret false positive detection"
+
+[[anchor]]
+id = "gl-self-hosted-hybrid-not-fully-isolated"
+source_id = "41e541146aef8a61"
+topics = ["training", "zdr", "retention", "processing_region"]
+
+[anchor.selector]
+prefix = "Internet connectivity is required for these features."
+exact = "This is not a fully self-hosted or isolated configuration."
+suffix = " #### GitLab-managed models"

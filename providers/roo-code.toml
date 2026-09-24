@@ -37,7 +37,15 @@ searched = [
 ]
 
 [[product.training.point]]
-text_zh = "Roo Code 这个牌子现在指开源扩展，云端产品叫 Roomote。Roomote 没有公布任何数据处理政策：roocode.com/legal 是个前端路由，渲染出来还是首页；docs 整站 sitemap 里没有 cloud、privacy、terms 任何一页；仓库里的 PRIVACY.md 只讲扩展本身（API key 只存本机、PostHog 遥测不含代码和 prompt），明确不覆盖托管服务。五列因此全部是「厂商未公开」，不是我们没查。"
+text_zh = "Roo Code 这个牌子现在指开源扩展，云端产品叫 Roomote。Roomote 没有公布任何数据处理政策：roocode.com/legal 是个前端路由，渲染出来还是首页；docs 整站 sitemap 里没有 cloud、privacy、terms 任何一页；仓库里的 PRIVACY.md 只描述扩展自身的行为（API key 只存本机、PostHog 遥测不含代码和 prompt），全文未提及托管服务——那是沉默，不是排除。五列因此全部是「厂商未公开」，不是我们没查。"
+
+[[product.training.point]]
+text = "Scope note rather than an anchor for this tier: PRIVACY.md carries one vendor-level training statement, \"We do not train any models on your data.\" (line 14, under How We Use Your Data). That file is the extension's own privacy policy and describes the extension's data flows; the hosted Roomote service this tier covers is not mentioned anywhere in it. The sentence therefore constrains the extension tier only. The two tiers are separate, so it is recorded as a known vendor statement plus its scope, not bound as evidence for this tier, and the mark stays unknown."
+text_zh = "适用范围说明，不作本档锚点：PRIVACY.md 里唯一的厂商级训练表态是第 14 行（How We Use Your Data 一节）的「We do not train any models on your data.」。该文件是扩展自身的隐私政策，讲的全是扩展的数据流，本档覆盖的托管 Roomote 服务全文未提及，故这句话只约束扩展档。两个档位不同，这里只把它登记为「已知的厂商表态 + 适用范围」，不绑成本档的证据，mark 维持 unknown。"
+
+[[product.training.point]]
+text = "Separate data stream collected by the vendor: telemetry. \"We use telemetry to understand feature usage and improve Roo Code.\" (line 12); the same section says the telemetry is powered by PostHog and covers the VS Code machine ID, feature usage patterns and exception reports, explicitly excludes personally identifiable information, your code and AI prompts, and can be turned off in settings. Under the project rule that service-improvement purposes count as training this would matter if the object were API inputs, but the object here is telemetry rather than prompts or code, so it neither supports nor contradicts a training statement about this tier and does not change the mark."
+text_zh = "厂商自收的另一条数据流：遥测。第 12 行「We use telemetry to understand feature usage and improve Roo Code.」；同节写明遥测由 PostHog 承载，含 VS Code machine ID、功能使用模式与异常报告，明确不含个人可识别信息、你的代码与 AI prompt，且可在设置里关闭。按「用来改进服务/提高质量算训练」的口径，若对象是 API 输入就必须单独交代；但这里的对象是遥测数据而不是提示词或代码，故它既不支持也不否定本档的训练表态，不改变 mark。"
 
 [[product.training.point]]
 text_zh = "官方也没有公布 Cloud 的档次划分，所以按「不分档」收录。只有许可证里提到超过 10 个用户要 license key，那是自托管版的限制，不是云端的档位。"
@@ -50,6 +58,11 @@ searched = [
   "https://raw.githubusercontent.com/RooCodeInc/Roo-Code/main/PRIVACY.md",
 ]
 
+[[product.zdr.point]]
+text = "Extension-side no-store statement, not a zero-retention commitment for this tier: \"We do not have access to or store this data, but AI providers may process it per their privacy policies.\" (PRIVACY.md line 7, under Commands). The object is the code and context of commands that the extension forwards to the AI model provider the customer selected (BYOK), and the same sentence hands that data to the upstream provider's own policy, which makes the upstream a separate hop that this statement cannot cover. It says nothing about Roomote's hosted infrastructure, so it is not a zero-retention option for this tier and the mark stays unknown. Note that the premise \"this tier routes inference through the customer's own key\" currently rests on our own product label, not on official text; the chain for the hosted tier has to be judged once a hosted-tier source is fetched."
+text_zh = "扩展侧的不留存表述，不是本档的零保留承诺：PRIVACY.md 第 7 行（Commands 一节）「We do not have access to or store this data, but AI providers may process it per their privacy policies.」。对象是扩展把命令相关的代码与上下文发给客户自选的模型提供方（BYOK）；同一句把该数据交给上游厂商自己的政策处理，说明上游是另一跳，这句盖不住它。全句没有提到 Roomote 托管基础设施，因此不构成本档的零保留方案，mark 维持 unknown。另需注明：本档「推理走客户自己的 key」这一前提目前只有我们自己写的产品 label 为依据，不是官方文本；托管档的链路要等托管档来源抓回快照后再判。"
+anchor = "roo-extension-no-store-commands"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -58,6 +71,21 @@ searched = [
   "https://docs.roocode.com/sitemap.xml",
   "https://raw.githubusercontent.com/RooCodeInc/Roo-Code/main/PRIVACY.md",
 ]
+
+[[product.retention.point]]
+text = "Extension-side statement about command code and context: \"We do not have access to or store this data, but AI providers may process it per their privacy policies.\" (PRIVACY.md line 7). Object = the code and context of commands sent to the customer-selected model provider; context = the BYOK flow, where the data goes straight to that provider and whatever it keeps is governed by its own policy (the second hop of the chain). This describes the extension's own handling rather than Roomote's hosted infrastructure, so it is neither a retention period nor a zero-retention basis for this tier. The premise that this tier routes inference through the customer's own key comes from our own product label, not from official text."
+text_zh = "扩展侧关于命令代码与上下文的表述：PRIVACY.md 第 7 行「We do not have access to or store this data, but AI providers may process it per their privacy policies.」。对象=发往客户自选模型提供方的命令代码与上下文；语境=BYOK，数据直接到该提供方，上游保留什么由其自身政策决定（链路第二跳）。它讲的是扩展自身的行为，不涉及 Roomote 托管基础设施，故既不构成本档的保留期限，也不构成零保留依据。本档「推理走客户自己的 key」这一前提来自我们自己写的 label，不是官方文本。"
+anchor = "roo-extension-no-store-commands"
+
+[[product.retention.point]]
+text = "Prompts and project context: \"We do not store or process this data.\" (PRIVACY.md line 8, under Prompts & AI Requests). Object = prompts and the related project context sent to the customer-selected provider; the next sentence adds that those providers have their own privacy policies and may store data per their terms of service, i.e. the upstream is a separate hop. Same caveat as above: this describes the extension plus BYOK flow, so the object and context differ from the hosted tier, and this tier's object/basis stay as recorded until a hosted-tier source is fetched."
+text_zh = "提示词与项目上下文：PRIVACY.md 第 8 行（Prompts & AI Requests 一节）「We do not store or process this data.」。对象=发往客户自选提供方的提示词与相关项目上下文；紧接的一句说明这些厂商有自己的隐私政策、可能按各自服务条款存储数据，即上游是另一跳。与上一条同样的限定：这句描述的是扩展 + BYOK 流程，对象与语境都与托管档不同，本档的 object/basis 在托管档来源抓回快照前保持不变。"
+anchor = "roo-extension-no-store-prompts"
+
+[[product.retention.point]]
+text = "Extension indexing feature (customer-selected Qdrant): \"**Clear Index Data**: Deletes all data from the Qdrant collection and clears the local file cache.\" The same page states that vectors are stored in the Qdrant instance the customer chooses, that the customer controls where data lives, and that the action cannot be undone — a manual delete rather than an automatic expiry, and the vendor discloses no automatic expiry. This constrains the extension's indexing feature and the customer-side Qdrant only, so it is not evidence of a retention period for the hosted tier. The source stays core as the extension-side reference for this product line's retention and deletion objects."
+text_zh = "扩展的索引功能（客户自选 Qdrant）：「**Clear Index Data**: Deletes all data from the Qdrant collection and clears the local file cache.」。同页写明向量存放在客户自己选的 Qdrant 实例、数据放在哪里由客户控制，且该操作不可撤销——是手动删除而非自动到期，官方未披露自动到期。它只约束扩展的索引功能与客户侧的 Qdrant，不构成托管档保留期限的证据。该来源仍保留为 core：它是本产品线扩展侧保留与删除对象的官方文本，也是托管档的对照来源。"
+anchor = "roo-index-clear-data"
 
 [product.processing_region]
 codes = ["unknown"]
@@ -74,3 +102,33 @@ searched = [
   "https://docs.roocode.com/sitemap.xml",
   "https://raw.githubusercontent.com/RooCodeInc/Roo-Code/main/PRIVACY.md",
 ]
+
+[[anchor]]
+id = "roo-extension-no-store-commands"
+source_id = "5e264230760b3683"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "We do not have access to or store this data, but AI providers may process it per their privacy policies."
+suffix = ""
+
+[[anchor]]
+id = "roo-extension-no-store-prompts"
+source_id = "5e264230760b3683"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "We do not store or process this data."
+suffix = ""
+
+[[anchor]]
+id = "roo-index-clear-data"
+source_id = "3c379bc6b6bef7f5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "**Clear Index Data**: Deletes all data from the Qdrant collection and clears the local file cache."
+suffix = ""

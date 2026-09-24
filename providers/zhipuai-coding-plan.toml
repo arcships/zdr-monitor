@@ -9,6 +9,12 @@ endpoint = ""
 doc = "https://docs.bigmodel.cn/cn/terms/user-agreement"
 
 [[source]]
+url = "https://docs.bigmodel.cn/cn/guide/tools/batch"
+channel = "developer_data"
+tier = "core"
+note = "Batch 数据指南(与 zhipu-bigmodel 登记的是同一份快照):步骤 5 下载结果处「系统只保留您的数据 30 天」,scope 限 Batch 任务文件。登记它是为了让按量档 basis=undisclosed 旁边能看到唯一已知量化期限的反例范围"
+
+[[source]]
 url = "https://docs.bigmodel.cn/cn/terms/cancellation-agreement"
 channel = "contract"
 tier = "core"
@@ -61,6 +67,10 @@ text_zh = "本 provider(订阅档)自身没有按量 API 档"
 [[product.training.point]]
 text_zh = "按统一 products[] 结构保留 api 行,内容与 zhipu-bigmodel 同源同结论(同一法律主体、同一份《用户协议》《隐私政策》《服务协议》)。按量档同样无「不用于训练」承诺:四.10 匿名化训练授权、十.2 产品优化授权、十.3 永久免费许可。此行只用于说明订阅档与按量档共用平台通用条款,不重复主张按量档的档位归属"
 
+[[product.training.point]]
+text = "Reverse clue, deliberately left without an anchor: the 11th bullet under user agreement 三.4 forbids the customer from using the platform's models, prompts, generated content or exported data to develop, train, label, fine-tune, optimize or iterate any model outside the platform, and from using them to build algorithms or models competing with Zhipu. It binds the customer, not the vendor, so it says nothing about what Zhipu does with API input; read the other way round it would look like a no-training promise from the vendor, which it is not. No anchor is attached on purpose — an anchor here would make a customer-side duty look like vendor-side evidence."
+text_zh = "反向线索(刻意不配锚点,防止误读):用户协议三.4 第 11 条约束的是客户——不得将平台内模型、提示词、生成内容及导出数据用于平台外模型或其他模型的开发、训练、标注、微调、优化、迭代,不得用于与智谱存在竞争关系的算法、模型。它是客户侧义务,不是厂商对 API 输入的处理,方向恰好相反,不能读成智谱的「不训练」承诺;因此不绑锚点"
+
 [product.zdr]
 mark = "no"
 anchor = "cpp-ua-retention-buffer-delete"
@@ -82,7 +92,26 @@ basis = "undisclosed"
 anchor = "cpp-ua-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "同个人档:无量化请求级期限,只有「缓冲期届满删除含缓存与备份副本」「最小必要范围存储」「最短必要期限」三层定性表述。按量档另有 Batch 任务文件 30 天规则(见 zhipu-bigmodel 记录),不属本行范围"
+text_zh = "同个人档:无量化请求级期限,只有「缓冲期届满删除含缓存与备份副本」「最小必要范围存储」「最短必要期限」三层定性表述。按对象分列落点:①用户上传数据(输入/输出正文、上传的文件)在自行删除、服务期限届满或服务提前终止后继续存储至「一定缓冲期(时限以相关产品文档所载明的时限为准)」届满,再删除所有相关数据含全部缓存与备份副本;②缓存与备份副本随①同删;③账户内个人信息按隐私政策五(二)最短必要期限保留、注销后按注销协议删除或匿名化"
+anchor = "cpp-ua-retention-buffer-delete"
+
+[[product.retention.point]]
+text = "The only quantified period found on this tier is scoped to Batch job files, and it is recorded as a scoped exception so that basis=undisclosed reads as \"no period is disclosed for ordinary requests\" rather than \"no period exists anywhere on the platform\": the Batch guide states that the system keeps your data for 30 days only and deletes the files automatically after that."
+text_zh = "本档唯一量化期限只覆盖 Batch 任务文件,登记为有范围的例外:Batch 数据指南原文「系统只保留您的数据 30 天…过期后文件将自动删除,无法恢复」。对象是 Batch 任务文件,不能外推到普通请求;写在这里是为了说明 basis=undisclosed 指「普通请求无量化期限披露」,不是「全站任何对象都没有期限」"
+anchor = "cpp-batch-retention-30d"
+
+[[product.retention.point]]
+text = "Counter-direction clause in the same contract: user agreement 五.3① keeps, after the agreement ends, the platform's right to continue storing the information you left on it provided your user information is anonymized first. It sits beside 三.10(3) (delete all related data, caches and backups included, once the buffer period ends); the two are kept side by side and not averaged."
+text_zh = "相反方向条款(同一份《用户协议》):五.3① 规定本协议终止后,平台「在匿名化处理您的用户信息的前提下,继续保存您留存于大模型开放平台的各类信息」。与三.10(3)「缓冲期届满删除所有相关数据含缓存与备份副本」并列保留,不取平均"
+anchor = "cpp-ua-retention-anonymized-continue-keep"
+
+[[product.retention.point]]
+text = "Exception of a different kind — a statutory floor, not a period the vendor set: privacy policy 五(二)3 states that where the laws and regulations listed above impose a mandatory retention requirement, the platform cannot delete or anonymize your personal information even if you close the account or ask for deletion, and will do so once the statutory retention period ends."
+text_zh = "法定留存例外(期限类型是法定下限,非厂商自设期限):隐私政策五(二)3「在前述法律法规有强制留存要求的情况下,即使您注销您的账户或要求删除您的个人信息,我们亦无法删除或匿名化处理您的个人信息」,法定保存期限届满后才删除或匿名化。注销协议三.2 为同向表述。适用性:隐私政策一(二)1 直接覆盖平台产品与服务(锚点 cpp-pp-scope-platform-services),本档无需经订阅协议搭桥"
+anchor = "cpp-pp-legal-retention-exception"
+
+[[product.retention.point]]
+text_zh = "口径说明(本台账记账,不是厂商表述):同一句原文(用户协议三.10(3))在本文件记 object=mixed/basis=undisclosed——原文只写「一定缓冲期」且明言时限「以相关产品文档所载明的时限为准」,未披露任何天数,且与五.3① 的终止后继续保存权并存,故不记 until_termination。zhipu-bigmodel.toml 对同一句记 object=mixed/basis=until_termination,两行经 company 归并会同现于一个详情页,口径应对齐为 undisclosed;该文件的改动不在本文件范围内"
 
 [product.processing_region]
 codes = ["CN"]
@@ -111,15 +140,23 @@ anchor = "cpp-ua-training-anonymized"
 
 [[product.training.point]]
 text_zh = "个人档无「不用于训练」承诺,且经《订阅及自动续费协议》六.1 明文纳入《用户协议》:四.10 授权匿名化数据用于「机器学习或模型算法训练」且无需另行同意"
+anchor = "cpp-ua-training-anonymized"
 
 [[product.training.point]]
 text_zh = "十.2 允许用使用过程中产生的数据优化产品服务"
+anchor = "cpp-ua-training-usage-improve"
 
 [[product.training.point]]
 text_zh = "十.3 对非个人信息内容授予永久免费许可(含存储、派生作品、再许可第三方)"
+anchor = "cpp-ua-training-perpetual-license"
 
 [[product.training.point]]
 text_zh = "隐私政策二(七)4 复述。个人档产品文档(faq/overview/usage-notes/quick-start/notice)零命中数据条款,订阅协议本身也无相反承诺"
+anchor = "cpp-pp-training-anonymized"
+
+[[product.training.point]]
+text = "Reverse clue, deliberately left without an anchor: the 11th bullet under user agreement 三.4 forbids the customer from using the platform's models, prompts, generated content or exported data to develop, train, label, fine-tune, optimize or iterate any model outside the platform, and from using them to build algorithms or models competing with Zhipu. It binds the customer, not the vendor, so it is not evidence about how Zhipu treats subscription input; read the other way round it would look like a no-training promise from the vendor, which it is not."
+text_zh = "反向线索(刻意不配锚点,防止误读):用户协议三.4 第 11 条约束的是客户——不得将平台内模型、提示词、生成内容及导出数据用于平台外模型或其他模型的开发、训练、标注、微调、优化、迭代。它是客户侧义务,不是厂商对订阅档输入的处理,不能读成智谱的「不训练」承诺"
 
 [product.zdr]
 mark = "no"
@@ -154,6 +191,7 @@ text_zh = "个人档无零保留承诺,无申请入口"
 
 [[product.zdr.point]]
 text_zh = "订阅协议通篇只有计费/续费/退款/使用限制(六.1 纳入用户协议,但用户协议也无 ZDR 表述)"
+anchor = "cpp-sub-incorporates-ua"
 
 [product.retention]
 object = "mixed"
@@ -161,7 +199,41 @@ basis = "undisclosed"
 anchor = "cpp-ua-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "个人档无专属保留期条款,适用平台通用表述:三.10(3) 缓冲期后删除全部相关数据含缓存与备份、服务协议 4.6 最小必要存储、隐私政策五(二) 最短必要期限、注销协议注销后删除或匿名化。缓冲期天数未公开。团队档的 180 天宽限期条款不适用于个人档"
+text_zh = "个人档无专属保留期条款,适用平台通用表述。按对象分列落点:①用户上传数据(对话历史等输入输出正文、上传的文件)在自行删除、服务期限届满或服务提前终止后继续存储至「一定缓冲期(时限以相关产品文档所载明的时限为准)」届满,再删除所有相关数据含全部缓存与备份副本;②缓存与备份副本随①同删;③账户内个人信息按隐私政策五(二)最短必要期限保留;④注销后账户内个人信息、内容及数据删除或匿名化。缓冲期天数未公开。团队档的 180 天宽限期条款不适用于个人档"
+anchor = "cpp-ua-retention-buffer-delete"
+
+[[product.retention.point]]
+text_zh = "服务协议 4.6:智谱仅在为您提供服务和满足合规要求所需的最小必要范围内存储您的数据,且会进行必要的匿名化和加密处理(经订阅协议六.1 纳入个人档)"
+anchor = "cpp-sa-retention-min-necessary"
+
+[[product.retention.point]]
+text_zh = "隐私政策五(二)1:只会在达成本政策所述目的所需的最短必要期限内保留您的个人信息,除非法律法规另有强制的留存时间要求"
+anchor = "cpp-pp-retention-min-necessary"
+
+[[product.retention.point]]
+text_zh = "注销协议三.1:注销后,您的账户内个人信息、内容及数据将被删除或匿名化处理"
+anchor = "cpp-cancel-retention-delete"
+
+[[product.retention.point]]
+text = "Exception — a statutory floor, not a period the vendor set: privacy policy 五(二)3 states that where the laws and regulations impose a mandatory retention requirement, the platform cannot delete or anonymize your personal information even if you close the account or ask for deletion, and will delete or anonymize it once the statutory retention period ends."
+text_zh = "法定留存例外(期限类型是法定下限,非厂商自设期限):隐私政策五(二)3「在前述法律法规有强制留存要求的情况下,即使您注销您的账户或要求删除您的个人信息,我们亦无法删除或匿名化处理您的个人信息」,法定保存期限届满后第一时间删除或匿名化。即注销/删除请求在法定强制留存范围内不生效"
+anchor = "cpp-pp-legal-retention-exception"
+
+[[product.retention.point]]
+text_zh = "同一例外的注销侧表述(注销协议三.2):涉及法定最短保存期限的个人信息(如交易记录),在相应法定保存期限届满后第一时间删除或匿名化。与上一条是同一条例外,分列是为了避免只引三.1 的删除承诺而漏掉紧接的例外"
+anchor = "cpp-cancel-legal-min-kept"
+
+[[product.retention.point]]
+text = "Counter-direction clause reaching this tier through 订阅协议六.1: user agreement 五.3① keeps, after the agreement ends, the platform's right to continue storing the information you left on it provided your user information is anonymized first — kept beside the buffer-period deletion promise, not averaged with it."
+text_zh = "相反方向条款(经订阅协议六.1 纳入个人档):用户协议五.3① 规定协议终止后,在匿名化处理您的用户信息的前提下,平台仍可继续保存您留存于平台的各类信息。与三.10(3) 缓冲期届满删除并列保留,不取平均"
+anchor = "cpp-ua-retention-anonymized-continue-keep"
+
+[[product.retention.point]]
+text_zh = "适用性前提:个人档无独立隐私政策,保留期沿用平台隐私政策,依据是该政策一(二)1「如我们的产品或服务中使用了大模型开放平台的产品或服务,但未设独立隐私政策的,则本政策同样适用于该部分产品或服务」"
+anchor = "cpp-pp-scope-platform-services"
+
+[[product.retention.point]]
+text_zh = "口径说明(本台账记账,不是厂商表述):本行与 api 行同用一句原文(三.10(3))却与 zhipu-bigmodel.toml 记法不同——该文件记 object=mixed/basis=until_termination,本文件记 object=mixed/basis=undisclosed(原文未披露任何天数,且与五.3① 的终止后继续保存权并存)。两行经 company 归并会同现于一个详情页,口径应对齐为 undisclosed;该文件的改动不在本文件范围内"
 
 [product.processing_region]
 codes = ["CN"]
@@ -172,6 +244,11 @@ text_zh = "个人档无专属处理地条款"
 
 [[product.processing_region.point]]
 text_zh = "适用平台隐私政策五(一)境内存储、不跨境。对象是个人信息,未披露推理发生地"
+anchor = "cpp-pp-region-cn-only"
+
+[[product.processing_region.point]]
+text_zh = "适用性前提:隐私政策一(二)1「本政策适用于北京智谱华章科技股份有限公司旗下的大模型开放平台及随其技术发展出现的新形态向您提供的各项产品和服务」,并写明「如我们的产品或服务中使用了大模型开放平台的产品或服务,但未设独立隐私政策的,则本政策同样适用于该部分产品或服务」。本台账查阅的 Coding Plan 产品文档(overview/faq/usage-notes/quick-start/notice)未见独立隐私政策,故个人档处理地沿用本政策五(一)(订阅协议六.1 另要求遵守平台条款)"
+anchor = "cpp-pp-scope-platform-services"
 
 [product.role]
 kind = "processor"
@@ -179,6 +256,11 @@ anchor = "cpp-ua-role-no-unauthorized-use"
 
 [[product.role.point]]
 text_zh = "个人档经订阅协议六.1 受《用户协议》《服务协议》约束:三.10(1)/4.5 服务提供者语义 + 隐私政策「数据处理者」自称"
+anchor = "cpp-ua-role-no-unauthorized-use"
+
+[[product.role.point]]
+text_zh = "服务协议 4.5 原文:就您的数据,除为您提供服务所必需外,智谱不会进行任何未获授权的使用及披露(例外仅法定调取、另行协商一致、法律法规另有规定)"
+anchor = "cpp-sa-role-no-unauthorized-use"
 
 [[product.role.point]]
 text_zh = "但四.10/十.2/十.3 的自用授权使角色不完全等同于纯受托方,故 medium"
@@ -197,6 +279,7 @@ anchor = "cpt-team-training-no-train"
 
 [[product.training.point]]
 text_zh = "团队档有书面「不训练」承诺,且被写成团队套餐专属权益:《团队套餐购买协议》二.2 套餐内容列「数据默认不用于模型训练」"
+anchor = "cpt-team-training-no-train"
 
 [[product.training.point]]
 text_zh = "团队版权益页进一步复述为「提交的代码、提示词、对话内容等不会用于模型训练,保护企业核心研发资产」(developer_data 级佐证)"
@@ -209,6 +292,7 @@ text_zh = "②它是二.2「套餐包含内容(以报价单/订单页为准)」�
 
 [[product.training.point]]
 text_zh = "③团队协议六.1 同时要求遵守平台用户协议/隐私政策,而用户协议四.10 有匿名化训练授权——两文并存时以团队专属条款为准(同文档更具体的档位约定),但该张力需在台账中保留"
+anchor = "cpt-team-incorporates-platform-terms"
 
 [product.zdr]
 mark = "no"
@@ -238,13 +322,38 @@ basis = "fixed_period"
 anchor = "cpt-team-retention-grace-180d"
 
 [[product.retention.point]]
-text_zh = "团队档唯一的量化期限出现在终止场景:七.1.a 服务到期未续费时账户信息、配置数据和应用元数据被保留"
+text = "Read the 180 days together with its scope, which the structured fields alone cannot carry: it is a deletion window that opens on one termination path only — the service expiring without renewal — and it is an upper bound on when data gets deleted, not a request-level retention period. On this tier the request-level period stays undisclosed."
+text_zh = "适用范围先写死(结构化字段承载不了):180 天只出现在「服务到期未续费→宽限期届满」这一条终止路径(七.1.b),性质是「到期/终止后的删除窗口(上限)」,不是请求内容保留期;本档请求级仍无天数。故 days=180 不得读成该档统一保留期"
+anchor = "cpt-team-retention-grace-180d"
 
 [[product.retention.point]]
-text_zh = "七.1.b 宽限期 180 个自然日届满后删除「服务期间产生的所有用户业务数据(包括但不限于对话历史、Fine-tuning 模型、应用配置等)」且不可恢复。这是「到期/终止后的保留窗口」,不是请求内容保留期"
+text_zh = "保留侧(七.1.a):服务到期后未及时续费,您将无法调用 API、访问专属资源及使用套餐内功能,但您的账户信息、配置数据和应用元数据将被保留(保留多久未披露)"
+anchor = "cpt-team-retention-account-kept"
 
 [[product.retention.point]]
-text_zh = "请求级仍无天数,适用平台通用表述(用户协议三.10(3) 缓冲期、隐私政策五(二) 最短必要期限)"
+text_zh = "删除侧(七.1.b):宽限期 180 个自然日届满后,智谱有权终止服务并删除「您在服务期间产生的所有用户业务数据(包括但不限于对话历史、Fine-tuning 模型、应用配置等)」且不可恢复"
+anchor = "cpt-team-retention-grace-180d"
+
+[[product.retention.point]]
+text = "The four early-termination events in 七.2 — mutual written agreement; your material breach; force majeure, large-scale or virus attacks, legal-policy change or other events beyond Zhipu's control; and Zhipu's own operational needs (business model, core cost, equity or business scope changes) — are stated with no data-deletion period at all. On those paths the deletion timing is undisclosed, which is why the 180-day window cannot be read as this tier's retention ceiling."
+text_zh = "七.2 的四类提前终止情形(双方协商一致书面同意;您严重违约;不可抗力、大规模攻击、病毒攻击、法律政策变更等智谱无法控制的事由;智谱按运营需要提前通知)均未规定任何数据删除期限,这些路径下删除时点未披露。故 180 天不能当成本档保留上限"
+anchor = "cpt-team-termination-other-paths"
+
+[[product.retention.point]]
+text_zh = "按对象分列落点:①用户业务数据(对话历史等输入输出正文、Fine-tuning 模型、应用配置)只在「到期未续费」路径上有 180 天删除窗口;②账户信息、配置数据、应用元数据在到期未续费后被保留,无期限披露;③缓存与备份副本、访问日志无团队专属条款,适用平台通用表述(用户协议三.10(3) 缓冲期、隐私政策五(二) 最短必要期限)"
+anchor = "cpt-team-retention-account-kept"
+
+[[product.retention.point]]
+text_zh = "相反方向条款(经团队协议六.1「您还应遵循智谱平台的用户协议、隐私政策等平台条款」纳入本档):用户协议五.3① 规定协议终止后,在匿名化处理您的用户信息的前提下,平台仍可继续保存您留存于平台的各类信息。与七.1.b 宽限期届满删除并列保留,不取平均"
+anchor = "cpp-ua-retention-anonymized-continue-keep"
+
+[[product.retention.point]]
+text_zh = "法定留存例外(期限类型是法定下限,非厂商自设期限):隐私政策五(二)3「在前述法律法规有强制留存要求的情况下,即使您注销您的账户或要求删除您的个人信息,我们亦无法删除或匿名化处理您的个人信息」,法定保存期限届满后才删除或匿名化"
+anchor = "cpp-pp-legal-retention-exception"
+
+[[product.retention.point]]
+text_zh = "适用性前提:团队档无独立隐私政策,保留期沿用平台隐私政策,依据是该政策一(二)1「如我们的产品或服务中使用了大模型开放平台的产品或服务,但未设独立隐私政策的,则本政策同样适用于该部分产品或服务」"
+anchor = "cpp-pp-scope-platform-services"
 
 [product.processing_region]
 codes = ["CN"]
@@ -255,6 +364,11 @@ text_zh = "团队协议全文无处理地/跨境条款,团队版权益页只写�
 
 [[product.processing_region.point]]
 text_zh = "处理地沿用平台隐私政策五(一)境内存储、不跨境(对象为个人信息)。团队档不给高于 medium 的置信度"
+anchor = "cpp-pp-region-cn-only"
+
+[[product.processing_region.point]]
+text_zh = "适用性前提:隐私政策一(二)1「本政策适用于北京智谱华章科技股份有限公司旗下的大模型开放平台及随其技术发展出现的新形态向您提供的各项产品和服务」,并写明「如我们的产品或服务中使用了大模型开放平台的产品或服务,但未设独立隐私政策的,则本政策同样适用于该部分产品或服务」。本台账查阅的 Coding Plan 产品文档(overview/faq/usage-notes/quick-start/notice)未见独立隐私政策,故团队档处理地沿用本政策五(一);团队协议六.1 另要求遵守平台用户协议/隐私政策"
+anchor = "cpp-pp-scope-platform-services"
 
 [product.role]
 kind = "processor"
@@ -262,6 +376,12 @@ anchor = "cpp-ua-role-no-unauthorized-use"
 
 [[product.role.point]]
 text_zh = "团队协议没有 controller/processor 定性,九「网络和数据安全」把责任放在客户侧(九.2「您对自己存放在智谱平台上的数据…负全部责任」),属责任分配而非角色定性"
+anchor = "cpt-team-role-customer-data"
+
+[[product.role.point]]
+text = "Same-direction support inside the team-specific document (not a role determination): team agreement 十.3 — the copyright in anything you input stays with you or the original author, and \"智谱开放平台不主张对模型根据您的输入而生成的代码、文本等内容的所有权\" (the platform claims no ownership of the code or text the model generates from your input). Not claiming ownership of outputs points the same way as \"does not self-use, does not take possession of user data\", so it strengthens the processor reading without raising the strength of kind, which still rests on the platform-wide clauses."
+text_zh = "同向补强(团队专属文件内,不构成角色定性):十.3「您使用本服务输入的任何内容的版权均归您或原作者所有,智谱开放平台不主张对模型根据您的输入而生成的代码、文本等内容的所有权」——平台不主张生成物所有权,方向上支持「不自用、不占有用户数据」,故只作补强,不上调 kind 强度"
+anchor = "cpt-team-role-no-ownership-claim"
 
 [[product.role.point]]
 text_zh = "受托语义仍来自平台通用条款(用户协议三.10(1)、服务协议 4.5)。故团队档 role 记 medium 且以通用条款为源"
@@ -324,6 +444,19 @@ exact = "您可自行对您的用户上传数据进行删除、更改等操作�
 suffix = "数据一经删除即不可恢复，您应自行承担因数据删除所引发的后果和责任。您理解并同意，大模型开放平台没有继续保留、导出或返还已"
 
 [[anchor]]
+id = "cpp-ua-retention-anonymized-continue-keep"
+source_id = "beee352cc2569b01"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+本协议终止后，大模型开放平台仍享有下列权利：
+① """
+exact = "在匿名化处理您的用户信息的前提下，继续保存您留存于大模型开放平台的各类信息"
+suffix = """
+② 对于您过往的违约行为，大模型开放平台仍可依据本协议向您追究违约责任。"""
+
+[[anchor]]
 id = "cpp-ua-scope-platform-services"
 source_id = "beee352cc2569b01"
 topics = ["scope"]
@@ -356,6 +489,16 @@ suffix = """
 *   在国家有关机关依法查询或调阅用户上传数据时，大模型开放平台有义务按照相关法律法规或政策文件要求提供配"""
 
 [[anchor]]
+id = "cpp-pp-scope-platform-services"
+source_id = "55daa5e833844d63"
+topics = ["scope", "retention", "processing_region"]
+
+[anchor.selector]
+prefix = "**（二）适用范围** 1、"
+exact = "本政策适用于北京智谱华章科技股份有限公司旗下的大模型开放平台及随其技术发展出现的新形态向您提供的各项产品和服务。如我们的产品或服务中使用了大模型开放平台的产品或服务，但未设独立隐私政策的，则本政策同样适用于该部分产品或服务。"
+suffix = "我们就向您提供的产品或服务单独设立有隐私政策的，则相应产品或服务适用相应隐私政策。"
+
+[[anchor]]
 id = "cpp-pp-region-cn-only"
 source_id = "55daa5e833844d63"
 topics = ["processing_region"]
@@ -374,6 +517,16 @@ topics = ["retention"]
 prefix = "息的种类、您向境外接收方行使权利的方式和程序、安全保障措施和安全风险，并事先征得您的同意。**（二）存储期限****1、"
 exact = "我们只会在达成本政策所述目的所需的最短必要期限内保留您的个人信息"
 suffix = "，除非法律法规另有强制的留存时间要求**。2、我们判断个人信息的存储期限主要参考以下标准并以其中较长者为准：（1）完成、"
+
+[[anchor]]
+id = "cpp-pp-legal-retention-exception"
+source_id = "55daa5e833844d63"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "在前述法律法规有强制留存要求的情况下，即使您注销您的账户或要求删除您的个人信息，我们亦无法删除或匿名化处理您的个人信息"
+suffix = ""
 
 [[anchor]]
 id = "cpp-pp-training-anonymized"
@@ -516,6 +669,16 @@ exact = "您将无法调用 API、访问专属资源及使用套餐内功能，�
 suffix = "b. **数据删除期**：若您在宽限期（180 个自然日）内仍未续费，宽限期届满后，智谱有权终止提供服务，并删除您在服务"
 
 [[anchor]]
+id = "cpt-team-termination-other-paths"
+source_id = "ce127c89fc4f6160"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**协议终止情形**。"
+exact = "发生下列情形之一的，本协议提前终止：a. 双方协商一致书面同意提前终止的；b. 您严重违反本协议（包括违反法律法规、滥用服务、侵犯第三方权益等），智谱有权提前终止服务；c. 服务因不可抗力、大规模攻击、病毒攻击、法律政策变更或其他智谱无法控制的事由而无法继续提供；d. 智谱有权根据运营需要（包括但不限于商业模式变化、核心成本变化、公司股权变化、公司经营范围变化等）在合理期限内提前通知您终止本服务。"
+suffix = ""
+
+[[anchor]]
 id = "cpt-team-role-customer-data"
 source_id = "ce127c89fc4f6160"
 topics = ["role"]
@@ -531,6 +694,16 @@ suffix = """
 ## 十、知识产权
 
 1.   智谱拥有 GLM 系列模型、API、管理平台、网站标识、技术文档等平台内容的全部知识"""
+
+[[anchor]]
+id = "cpt-team-role-no-ownership-claim"
+source_id = "ce127c89fc4f6160"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "您使用本服务输入的任何内容的版权均归您或原作者所有，"
+exact = "智谱开放平台不主张对模型根据您的输入而生成的代码、文本等内容的所有权"
+suffix = "，如双方另有约定的，则以双方另行约定的为准。"
 
 [[anchor]]
 id = "cpt-team-scope-service"
@@ -594,3 +767,23 @@ exact = "注销后，您的账户内个人信息、内容及数据将被删除�
 suffix = """
 。若因技术限制无法立即完成（如：备份系统数据清除需要更长时间），我们将立即停止除存储和必要安全保护之外的所有处理行为。
 """
+
+[[anchor]]
+id = "cpp-cancel-legal-min-kept"
+source_id = "9a0351ec480fd2c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "如您账户内的个人信息涉及法定最短保存期限（如：交易记录），我们将在相应法定保存期限届满后第一时间进行删除或匿名化处理"
+suffix = ""
+
+[[anchor]]
+id = "cpp-batch-retention-30d"
+source_id = "ace8bc6c02b7299d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "系统只保留您的数据 30 天。请及时下载和备份您的数据，过期后文件将自动删除，无法恢复。"
+suffix = ""

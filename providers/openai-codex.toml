@@ -13,6 +13,7 @@ plan_levels = ["free", "individual", "team", "enterprise"]
 
 [[source]]
 url = "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Codex 档位与数据链路权威页:覆盖 CLI、IDE 扩展、Codex web/cloud；明确本地工作流在设备上运行、云任务在 OpenAI 托管环境运行，并分别说明个人档与 Business/Enterprise/Edu 的训练姿态及企业留存/驻留控制。"
@@ -25,36 +26,42 @@ note = "Codex 现行官方价格与功能矩阵:确认 Free/Go/Plus/Pro/Business
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Services for businesses」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。本轮重抓(7004B,仅页脚差异)确认正文未变。对 API 档无权威性"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Data Controls FAQ(Updated 5 days ago)。现行正文含专节「How do I turn off training for Codex tasks?」,Codex 训练开关与全环境独立设置都还在;另含临时会话 30 天删除。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性"
+note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性。同页也含工作区口径(overview 的 any workspace retention policy that applies、Enterprise/Edu/Healthcare 的 Library 文件按工作区留存策略、临时文件 48 小时、备份最多再留 30 天),故 Business/Enterprise 的留存证据也取自本页,适用档位以各 point 标注为准"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Data Usage for Consumer Services FAQ(Updated last month),自述覆盖「OpenAI’s non-API consumer services like ChatGPT」。本轮新发现(经 5722486 的相关文章链接)。含消费档训练默认、清空历史 30 天删除、以及「内容存储在美国和世界各地」——消费档 processing_region 的直接文本来源"
 
 [[source]]
 url = "https://openai.com/policies/data-processing-addendum/"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "API/企业档合同层角色条款。Effective 2026-01-01,补充并并入 OpenAI Services Agreement(business-terms §5.3 引用)。候选列表里没有,本轮重抓确认在线(19079B)后作为 role 权威。注意 openai.com 直连 403,且本机 r.jina.ai 被 Clash fake-ip 劫持需 --resolve 绕过"
 
 [[source]]
 url = "https://openai.com/policies/row-privacy-policy/"
+fetch = "jina"
 channel = "consumer_privacy"
 tier = "core"
 note = "消费档隐私政策(Rest of World)。覆盖消费档 role(§11 Data controller:EEA/瑞士=OpenAI Ireland Limited,其他=OpenAI OpCo, LLC)与 processing_region(服务器位于多法域含美国)。正文明确「does not apply to content that we process on behalf of customers of our business offerings, such as our API」,因此不能当 API 档证据"
@@ -73,6 +80,16 @@ anchor = "openai-consumer-training-may-train"
 [[product.training.point]]
 text_zh = "ChatGPT 个人账号的数据控制适用于 Codex；默认可能用于训练，可关闭 Improve the model for everyone。Codex 全环境另有独立开关。"
 
+[[product.training.point]]
+text = "Even after opting out of training, feedback the user proactively submits (for example thumbs up or thumbs down on a model response) can still be used: the entire conversation associated with that feedback may be used to train the models (context: after opting out)"
+text_zh = "退出训练之后的例外：即使已退出，主动提交反馈（例如对模型回答点赞或点踩）时，与该反馈关联的整段对话仍可能被用于训练（语境=退出训练之后，不是默认路径）"
+anchor = "openai-codex-consumer-training-feedback-exception"
+
+[[product.training.point]]
+text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
+text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
+anchor = "openai-codex-training-include-environments"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "https://developers.openai.com/codex/pricing", "https://help.openai.com/en/articles/7730893-data-controls-faq", "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"]
@@ -88,6 +105,11 @@ anchor = "openai-consumer-retention-chats"
 [[product.retention.point]]
 text_zh = "Codex 沿用 ChatGPT 数据控制；常规/归档对话保存至用户删除，删除后通常 30 天内永久删除。官方未单独披露本地仓库索引、云端环境或服务端缓存的固定期限。"
 
+[[product.retention.point]]
+text = "Temporary chats are a separate track from chats saved until deletion: they do not appear in chat history unless saved, and OpenAI may keep a copy for up to 30 days for safety purposes (object: temporary chat content; context: temporary chat; period type: upper bound)"
+text_zh = "临时对话不属于「保存至用户删除」那一轨：不保存则不进入历史，OpenAI 可为安全目的最多保留 30 天（对象=临时对话正文；语境=临时对话；期限类型=上限）"
+anchor = "openai-codex-consumer-temporary-chat-30d"
+
 [product.processing_region]
 codes = ["GLOBAL"]
 anchor = "openai-consumer-region-storage"
@@ -102,6 +124,11 @@ anchor = "openai-consumer-role-controller-row"
 [[product.role.point]]
 text_zh = "个人 ChatGPT 登录路径由 OpenAI 作为 controller；本地工作流在设备运行，云任务在 OpenAI 托管环境运行。"
 
+[[product.role.point]]
+text = "A limited number of authorized OpenAI personnel, and trusted service providers under confidentiality and security obligations, may access user content only as needed for abuse or security investigations, support, legal matters, or improving model performance (unless the user has opted out) — the content is not machine-only processing; this is an access-surface limitation and does not change the verdict"
+text_zh = "内容不是纯机器处理：授权人员与受保密义务约束的服务商可按需访问用户内容，理由限于滥用/安全事件调查、支持、法律事务，以及改进模型（已退出训练者除外）。这是访问面的语境限定，不改变本档结论"
+anchor = "openai-consumer-authorized-human-access"
+
 [[product]]
 id = "codex-personal"
 badge = "Codex Plus / Pro"
@@ -115,6 +142,16 @@ anchor = "openai-codex-personal-training"
 
 [[product.training.point]]
 text_zh = "Plus/Pro 的 Codex 对话默认可能用于改进模型，除非在 ChatGPT Data Controls 关闭训练；该控制覆盖 CLI、IDE 与云任务内容。"
+
+[[product.training.point]]
+text = "Even after opting out of training, feedback the user proactively submits (for example thumbs up or thumbs down on a model response) can still be used: the entire conversation associated with that feedback may be used to train the models (context: after opting out)"
+text_zh = "退出训练之后的例外：即使已退出，主动提交反馈（例如对模型回答点赞或点踩）时，与该反馈关联的整段对话仍可能被用于训练（语境=退出训练之后，不是默认路径）"
+anchor = "openai-codex-consumer-training-feedback-exception"
+
+[[product.training.point]]
+text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
+text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
+anchor = "openai-codex-training-include-environments"
 
 [product.zdr]
 mark = "unknown"
@@ -131,6 +168,11 @@ anchor = "openai-consumer-retention-chats"
 [[product.retention.point]]
 text_zh = "常规/归档对话保存至用户删除，删除后通常 30 天内永久删除；未单独披露代码索引、云端环境或服务端缓存期限。"
 
+[[product.retention.point]]
+text = "Temporary chats are a separate track from chats saved until deletion: they do not appear in chat history unless saved, and OpenAI may keep a copy for up to 30 days for safety purposes (object: temporary chat content; context: temporary chat; period type: upper bound)"
+text_zh = "临时对话不属于「保存至用户删除」那一轨：不保存则不进入历史，OpenAI 可为安全目的最多保留 30 天（对象=临时对话正文；语境=临时对话；期限类型=上限）"
+anchor = "openai-codex-consumer-temporary-chat-30d"
+
 [product.processing_region]
 codes = ["GLOBAL"]
 anchor = "openai-consumer-region-storage"
@@ -138,6 +180,11 @@ anchor = "openai-consumer-region-storage"
 [product.role]
 kind = "controller"
 anchor = "openai-consumer-role-controller-row"
+
+[[product.role.point]]
+text = "A limited number of authorized OpenAI personnel, and trusted service providers under confidentiality and security obligations, may access user content only as needed for abuse or security investigations, support, legal matters, or improving model performance (unless the user has opted out) — the content is not machine-only processing; this is an access-surface limitation and does not change the verdict"
+text_zh = "内容不是纯机器处理：授权人员与受保密义务约束的服务商可按需访问用户内容，理由限于滥用/安全事件调查、支持、法律事务，以及改进模型（已退出训练者除外）。这是访问面的语境限定，不改变本档结论"
+anchor = "openai-consumer-authorized-human-access"
 
 [[product]]
 id = "codex-business"
@@ -156,18 +203,32 @@ searched = ["https://help.openai.com/en/articles/11369540-using-codex-with-your-
 
 [product.retention]
 object = "input_output"
-basis = "undisclosed"
+basis = "until_termination"
 anchor = "openai-consumer-retention-chats"
 
 [[product.retention.point]]
-text_zh = "工作区留存策略可移除对话，但现行 Codex 页面未披露 Business 默认期限，也未量化代码索引、云端环境或服务端缓存期限。"
+text = "Regular and archived chats remain saved until the user deletes them or an applicable workspace retention policy removes them — a published mechanism with no fixed number of days (object: inputs and outputs; context: default; period type: until user deletion or removal by the workspace retention policy). The page also covers workspace contexts: its overview says retention depends on \"any workspace retention policy that applies\""
+text_zh = "对象=输入输出正文；语境=默认；期限类型=保存至用户删除或工作区留存策略移除，无固定天数。与消费档同源同读，不再记为「未公布期限」：留存页概述写明留存取决于「any workspace retention policy that applies」，工作区留存策略是页面已披露的移除机制"
+anchor = "openai-consumer-retention-chats"
+
+[[product.retention.point]]
+text = "Codex usage, including local clients such as the CLI and IDE extension as well as web or cloud-delegated usage, is available in the Compliance API — a log surface separate from cloud-task-specific endpoints (object: usage logs / access surface; context: admin audit). The Codex pricing matrix lists the Compliance API and audit logs for Enterprise only, so availability on Business is not confirmed"
+text_zh = "另有一条独立的日志面：Codex 用量（含 CLI、IDE 扩展等本地客户端与云委派用量）可在 Compliance API 中取得，独立于云任务专用端点（对象=用量日志/访问面；语境=管理方审计）。价格矩阵把 Compliance API 与审计日志只列在 Enterprise 行，Business 档是否可用未经确认"
+anchor = "openai-codex-compliance-api-log-surface"
 
 [product.processing_region]
 codes = ["GLOBAL"]
-anchor = "openai-consumer-region-storage"
+anchor = "openai-codex-business-no-residency-controls"
 
 [[product.processing_region.point]]
-text_zh = "未见 Business Codex 区域驻留承诺；Enterprise/Edu 才列有 retention and residency controls。"
+text = "Tier-matching basis: in the Codex pricing matrix the row \"Enterprise retention and residency controls\" is marked \"—\" in the Business column (it is listed for Enterprise/Edu only), i.e. this tier is not listed with any residency control, so no selected region can be recorded"
+text_zh = "档位匹配的依据是 Codex 价格矩阵：「Enterprise retention and residency controls」行在 Business 列为「—」（只有 Enterprise/Edu 有），即本档未列任何驻留控制，故不记 selected"
+anchor = "openai-codex-business-no-residency-controls"
+
+[[product.processing_region.point]]
+text = "Background only, not primary evidence: \"Content is stored on OpenAI systems and our trusted service providers' systems in the US and around the world\" comes from the consumer-services FAQ, which itself says OpenAI handles business and managed-workspace data differently from data in personal consumer accounts, so its applicability to a Business workspace is not confirmed by OpenAI"
+text_zh = "背景说明（不作主证据）：「Content is stored on OpenAI systems and our trusted service providers’ systems in the US and around the world」出自消费服务 FAQ，该页第 15 行自述 business 与 managed-workspace 数据同个人消费账号的处理方式不同，故这句对 Business 工作区的适用性未经官方确认"
+anchor = "openai-consumer-region-storage"
 
 [product.role]
 kind = "processor"
@@ -197,14 +258,47 @@ basis = "undisclosed"
 anchor = "openai-codex-enterprise-controls"
 
 [[product.retention.point]]
-text_zh = "Enterprise/Edu 提供留存控制，但该矩阵未给固定期限；代码索引、云端环境及服务端缓存期限未披露。"
+text = "The pricing matrix only shows that Enterprise/Edu have retention controls; the row itself carries no period, and no fixed period is published for Codex cloud-task content"
+text_zh = "Enterprise/Edu 提供留存控制，但该矩阵未给固定期限；代码索引、云端环境及服务端缓存期限未披露"
+anchor = "openai-codex-enterprise-controls"
+
+[[product.retention.point]]
+text = "Disclosed mechanism for this tier: for Enterprise, Edu and Healthcare workspaces, Library files follow the workspace retention policy — the period is set by the customer's own policy rather than a vendor default (object: Library files; context: default; period type: customer-configured)"
+text_zh = "本档已披露的机制：Enterprise、Edu、Healthcare 工作区的 Library 文件保留期由工作区留存策略决定，即期限由客户策略设定而非厂商默认值（对象=Library 文件；语境=默认；期限类型=由客户策略决定）"
+anchor = "openai-codex-enterprise-workspace-retention"
+
+[[product.retention.point]]
+text = "Quantified period (upper bound, exception context): in Enterprise workspaces some transient files that are not saved to Library can expire after 48 hours unless another retention period applies"
+text_zh = "已量化期限之一：Enterprise 工作区中未存入 Library 的临时文件可 48 小时后过期，除非另有保留期适用（对象=临时文件；语境=例外；期限类型=上限）"
+anchor = "openai-codex-enterprise-transient-48h"
+
+[[product.retention.point]]
+text = "Quantified period after deletion (upper bound): after a Library file is deleted, expires under the workspace retention policy or otherwise becomes inactive, OpenAI backups may retain it for up to 30 additional days unless OpenAI must retain it longer for security or legal obligations"
+text_zh = "已量化期限之二：Library 文件被删除、按工作区留存策略过期或失效后，OpenAI 备份最多可再保留 30 天，除非出于安全或法律义务需要更久（对象=Library 文件与备份；语境=删除后残留；期限类型=上限）"
+anchor = "openai-codex-enterprise-backup-30d"
+
+[[product.retention.point]]
+text = "Scope note: these three file and backup periods cover Library files, transient files and backups — not the body of Codex cloud-task content — so object stays input_output"
+text_zh = "范围说明：以上三条的对象是 Library 文件、临时文件与备份，不是 Codex 云任务正文，故 object 维持 input_output"
+
+[[product.retention.point]]
+text = "Codex usage, including local clients such as the CLI and IDE extension as well as web or cloud-delegated usage, is available in the Compliance API — a log surface separate from cloud-task-specific endpoints (object: usage logs / access surface; context: admin audit)"
+text_zh = "另有一条独立的日志面：Codex 用量（含 CLI、IDE 扩展等本地客户端与云委派用量）可在 Compliance API 中取得，独立于云任务专用端点（对象=用量日志/访问面；语境=管理方审计）"
+anchor = "openai-codex-compliance-api-log-surface"
 
 [product.processing_region]
 codes = ["GLOBAL"]
 anchor = "openai-codex-enterprise-controls"
 
 [[product.processing_region.point]]
-text_zh = "Enterprise/Edu 提供驻留控制，但支持区域与各 Codex 数据对象适用范围需以客户配置/协议为准。"
+text = "The matrix row \"Enterprise retention and residency controls\" only proves that this tier has residency controls; it does not state the default processing location, and the public page does not list the regions available"
+text_zh = "价格矩阵行「Enterprise retention and residency controls」只证明本档有驻留控制，不证明默认处理地；公开页未列出可选区域清单"
+anchor = "openai-codex-enterprise-controls"
+
+[[product.processing_region.point]]
+text = "DPA §4.1 gives the transfer mechanism only: where OpenAI Ireland Limited transfers EEA and Swiss Data to other OpenAI Affiliates or third parties outside the EEA or Switzerland to provide the Services, it relies on SCCs or an adequacy decision — the contract does not confine processing to the customer's region, and the specific region depends on the customer's configuration or agreement"
+text_zh = "DPA §4.1 只给出跨境传输机制：OpenAI Ireland Limited 为提供服务把 EEA/瑞士数据传给境外关联方或第三方时，依托 SCC 或充分性决定——协议未把数据限定在客户所在区域处理，具体区域以客户配置/协议为准"
+anchor = "openai-dpa-cross-border-transfers"
 
 [product.role]
 kind = "processor"
@@ -321,3 +415,103 @@ cessing of your Personal Data as described in this policy.
 """
 exact = "If you live anywhere else, OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States, is the controller"
 suffix = " and is responsible for the processing of your Personal Data"
+
+[[anchor]]
+id = "openai-codex-consumer-training-feedback-exception"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Even if you have opted out of training, you can still choose to provide feedback to us about your interactions with our products (for instance, by selecting thumbs up or thumbs down on a model response). If you choose to provide feedback, the entire conversation associated with that feedback may be used to train our models."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-training-include-environments"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Codex has a separate **Include environments** setting in Codex settings for allowing training on full environments. Changing your settings in ChatGPT or the Privacy Portal does not change that setting."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-consumer-temporary-chat-30d"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Temporary chats don’t appear in your chat history unless you save them. OpenAI may keep a copy for up to 30 days for safety purposes."
+suffix = ""
+
+[[anchor]]
+id = "openai-consumer-authorized-human-access"
+source_id = "e4f259dc140404cb"
+topics = ["role", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "A limited number of authorized OpenAI personnel, as well as trusted service providers that are subject to confidentiality and security obligations, may access user content only as needed for these reasons: (1) investigating abuse or a security incident; (2) to provide support to you if you reach out to us with questions about your account, or to troubleshoot issues affecting the product experience; (3) to handle legal matters; or (4) to improve model performance (unless you have opted out)."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-business-no-residency-controls"
+source_id = "b9e1269152d223c1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "| Enterprise retention and residency controls | — | — | — | | — |"
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-enterprise-workspace-retention"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "For Enterprise, Edu, and Healthcare workspaces, Library files follow the workspace retention policy."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-enterprise-transient-48h"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Files that are not saved to Library can expire separately from chat-retention settings. For Enterprise workspaces, some transient files can expire after 48 hours unless another retention period applies."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-enterprise-backup-30d"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "After a Library file is deleted, expires under the workspace retention policy, or otherwise becomes inactive, it is no longer available through the active Compliance API endpoint. OpenAI backups may retain it for up to 30 additional days unless OpenAI must retain it longer for security or legal obligations."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-compliance-api-log-surface"
+source_id = "5f85c478f0bca1e1"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Codex usage, including local clients such as the CLI and IDE extension as well as web or cloud-delegated usage, is available in the Compliance API. This log surface covers supported Codex clients, separate from cloud-task-specific endpoints."
+suffix = ""
+
+[[anchor]]
+id = "openai-dpa-cross-border-transfers"
+source_id = "f22729d5797dc763"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "To the extent OpenAI Ireland Limited transfers EEA and Swiss Data to other OpenAI Affiliates or third parties outside the European Economic Area or Switzerland to provide the Services, it will do so on the basis of agreements containing SCCs that ensure appropriate safeguards for the protection of Customer Data are in place or an adequacy decision issued by the European Commission under Article 45 GDPR."
+suffix = ""

@@ -20,24 +20,75 @@ badge = "Kilo Gateway"
 category = "coding_plan"
 plan_level = "individual"
 label = "Kilo 托管网关；改用本地模型或自带 key 可绕过 Gateway，但上游模型及 embedding provider 条款仍适用"
+
 [product.training]
-mark = "unknown"
-searched = ["https://kilo.ai/privacy", "https://kilo.ai/terms", "https://kilo.ai/security-and-compliance"]
+mark = "no"
+anchor = "kilo-improvement-purposes"
+searched = ["https://kilo.ai/privacy"]
+
+[[product.training.point]]
+text = "No clause in this policy commits Kilo Code not to train on API inputs or outputs. The training-relevant statements run the other way: personal information is used \"to improve and personalize your experience with us and the Services and to tailor communications to you\" (Legitimate interests), and automatically collected device and visit telemetry \"to improve the Services and experience for visitors\". Under the project's rule that service-improvement purposes count as training, this tier is marked no, and no opt-out switch is offered."
+text_zh = "全篇没有「不用于训练」的承诺。与训练相关的表述方向相反：合法利益一节把个人信息用于「to improve and personalize your experience with us and the Services and to tailor communications to you」；自动采集的设备与访问遥测用于「to improve the Services and experience for visitors」（后一句的对象是遥测数据，作为训练依据弱于前一句）。按「用来改进服务/提高质量算训练」的口径记 no，且没有可关闭的开关。"
+anchor = "kilo-improvement-purposes"
+
+[[product.training.point]]
+text = "The closest counter-statement is a purpose limitation, not a no-training commitment: \"Prompts and conversation content are sent to the AI provider you select per request, routed through OpenRouter. This information is used only to generate the response.\" It sits in the Mobile App (Kilo App for iOS and Android) data-flow section, so its scope is the App's data flow rather than the hosted Gateway as a whole; it never names model training, and the same policy lists improvement and personalization as purposes, so it does not settle this dimension."
+text_zh = "最接近的反方向表述是一句用途限制，不是不训练承诺：「Prompts and conversation content are sent to the AI provider you select per request, routed through OpenRouter. This information is used only to generate the response.」。该句出自「Mobile App (Kilo App for iOS and Android)」数据流一节，适用范围是 App 的数据流而非整个托管 Gateway；它没有点名模型训练，同一份政策又把改进与个性化列为用途，故不足以在本维度定论。"
+anchor = "kilo-selected-provider"
+
+[[product.training.point]]
+text = "Chain scope: prompts and conversation content go through OpenRouter to the AI provider selected per request, while \"Account ID and request metadata are sent to Kilo Gateway, our backend, for authentication, request routing, and billing reconciliation.\" That sentence describes what the Gateway backend receives and why; it does not exclude prompt or conversation content from Kilo's own systems, and it comes from the Kilo App data-flow section. The chain is Kilo → OpenRouter → the selected model provider (Anthropic, OpenAI, Google, xAI, Mistral, Meta and others listed at https://openrouter.ai/models)."
+text_zh = "链路范围：提示与对话内容经 OpenRouter 送往每次请求所选定的 AI 厂商，而「Account ID and request metadata are sent to Kilo Gateway, our backend, for authentication, request routing, and billing reconciliation.」描述的是 Gateway 后端收到哪些数据、用于什么（认证、路由、计费对账），并非排他性限定，也不排除提示与对话内容进入 Kilo 自有系统；该句出自 Kilo App 数据流一节。链路为 Kilo → OpenRouter → 所选模型厂商（Anthropic、OpenAI、Google、xAI、Mistral、Meta 等）。"
+anchor = "kilo-gateway-flow"
+
+[[product.training.point]]
+text = "Kilo limits its own service providers and partners by contract: \"Our service providers and partners are required by contract to safeguard any personal information they receive from us and are prohibited from using the personal information for any purpose other than to perform the services as instructed by Kilo Code.\" It sits in the Service Providers and partners section, so it applies to the Services generally rather than to the Kilo App alone, and it covers OpenRouter plus the downstream AI providers listed above it. It is a contract between Kilo and its providers, so it cannot substitute for the upstream model vendors' own terms on this dimension."
+text_zh = "Kilo 以合同约束自己的服务商与合作伙伴：「Our service providers and partners are required by contract to safeguard any personal information they receive from us and are prohibited from using the personal information for any purpose other than to perform the services as instructed by Kilo Code.」。该句位于「Service Providers and partners」一节，适用全部 Services（不是 Mobile App 专属），覆盖 OpenRouter 与其下列出的下游 AI 厂商。它约束的是 Kilo 与服务商之间的合同，不能替代上游模型厂商自有条款在本维度上的表态。"
+anchor = "kilo-partner-purpose-limit"
+
+[[product.training.point]]
+text = "\"OpenRouter and the downstream providers are bound by data protection terms equivalent to those described in this policy.\" This policy contains no no-training commitment, so \"equivalent to those described in this policy\" cannot be read as an upstream no-training promise. Per the multi-hop rule — any hop without a commitment makes the chain fail — the upstream hop does not lift this tier above no."
+text_zh = "「OpenRouter and the downstream providers are bound by data protection terms equivalent to those described in this policy.」本政策通篇没有不训练承诺，故「等效于本政策」在当前文本下不构成上游的不训练承诺。按多跳口径「任一跳无承诺则全链为否」，上游那一跳不能把本档抬到 no 之上。"
+anchor = "kilo-upstream-equivalent-terms"
+
 [product.zdr]
 mark = "unknown"
-searched = ["https://kilo.ai/privacy", "https://kilo.ai/terms", "https://kilo.ai/security-and-compliance"]
+searched = ["https://kilo.ai/privacy"]
+
+[[product.zdr.point]]
+text = "No zero-retention option is stated for the hosted Gateway. The nearest statements are purpose and retention descriptions rather than a ZDR scheme: \"This information is used only to generate the response.\" (Kilo App flow), \"Account ID and request metadata are sent to Kilo Gateway, our backend, for authentication, request routing, and billing reconciliation.\", and \"OpenRouter and the downstream providers are bound by data protection terms equivalent to those described in this policy.\" — equivalent to this policy, which offers no zero-retention option, so the upstream hop carries no ZDR promise either. Search scope is recorded in searched: only https://kilo.ai/privacy has a snapshot; https://kilo.ai/terms and https://kilo.ai/security-and-compliance are not registered sources and were removed from searched until the fetch bot brings them back."
+text_zh = "本档没有任何零保留方案。最接近的几句都是用途与留存描述，不是 ZDR 方案：「This information is used only to generate the response.」（Kilo App 数据流）、「Account ID and request metadata are sent to Kilo Gateway, our backend, for authentication, request routing, and billing reconciliation.」、「OpenRouter and the downstream providers are bound by data protection terms equivalent to those described in this policy.」——而本政策没有零保留选项，故「等效于本政策」也不构成上游的零保留承诺。查阅范围见 searched：只有 https://kilo.ai/privacy 有快照；https://kilo.ai/terms 与 https://kilo.ai/security-and-compliance 未登记为来源、无可复核快照，已从 searched 移除，待抓取 bot 补回后再写。"
+
 [product.retention]
 object = "mixed"
 basis = "until_termination"
 anchor = "kilo-account-retention"
+
+[[product.retention.point]]
+text = "Object and deletion path: \"Once deletion is confirmed, your Kilo account, prompts, conversation history, and account metadata are removed from Kilo's systems. Data already shared with third-party AI providers to generate responses is governed by those providers' retention policies, including those linked from the OpenRouter model list and the providers' own privacy documentation.\" So the objects covered by Kilo's own deletion are prompts, conversation history and account metadata; the context is the default account lifecycle; deletion happens on request plus confirmation rather than automatically after a fixed period. On the multi-hop chain Kilo cannot delete what has already been forwarded — that retention is governed by each upstream provider's policy."
+text_zh = "对象与删除路径：「Once deletion is confirmed, your Kilo account, prompts, conversation history, and account metadata are removed from Kilo's systems. Data already shared with third-party AI providers to generate responses is governed by those providers' retention policies, including those linked from the OpenRouter model list and the providers' own privacy documentation.」。Kilo 自身删除的对象是提示、对话历史与账户元数据；语境是默认的账户存续期；删除靠用户申请并确认，不是固定期限后自动删除。多跳链路上，已转发给第三方 AI 厂商的数据由各上游政策决定保留，Kilo 无法代为删除。"
+anchor = "kilo-deletion-scope"
+
+[[product.retention.point]]
+text = "Exception to deletion: \"Please note that due to the open source nature of our products, services, and community, we may retain limited personal information indefinitely in order to ensure transactional integrity and nonrepudiation.\" The next sentence gives the example of a GitHub issue or comment, which is not automatically deleted even after the account is removed. So basis = until_termination is the main rule, not an absolute one — limited personal information in open-source community contributions may be kept indefinitely."
+text_zh = "删除的例外：「Please note that due to the open source nature of our products, services, and community, we may retain limited personal information indefinitely in order to ensure transactional integrity and nonrepudiation.」。紧随的例句是 GitHub issue / comment——即使账户被删除，社区帖子也不会自动删除。故 basis = until_termination 是主规则而非绝对规则：开源社区贡献中的有限个人信息可能无限期保留（对象=开源社区贡献中的有限个人信息，期限类型=可能无限期，语境=例外）。"
+anchor = "kilo-indefinite-retention"
+
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "kilo-us-hosting"
+
 [product.role]
 kind = "controller"
 anchor = "kilo-controller"
+
 [[product.role.point]]
 text_zh = "托管链路为 Kilo → OpenRouter → 用户所选模型厂商，任一上游的训练/保留政策都需另行组合。"
+
+[[product.role.point]]
+text = "Tier boundary: \"If you are a customer of Kilo Code, this Privacy Policy does not apply to personal information or other data and information that we process on your behalf (if any) as your service provider (collectively, “Customer Data”).\" This product is the individual tier, so kind = controller holds; where Kilo processes Customer Data as a service provider this policy does not apply, and a separate product entry with the applicable agreement would be required."
+text_zh = "档位边界：「If you are a customer of Kilo Code, this Privacy Policy does not apply to personal information or other data and information that we process on your behalf (if any) as your service provider (collectively, “Customer Data”).」。本档是个人档，故 kind = controller 成立；涉及 Kilo 以 service provider 身份处理的客户数据（Customer Data）时本政策不适用，需另建档位条目并另找协议依据。"
+anchor = "kilo-customer-data-boundary"
 
 [[anchor]]
 id = "kilo-selected-provider"
@@ -47,6 +98,69 @@ topics = ["training", "zdr", "retention", "processing_region", "role"]
 prefix = ""
 exact = "Prompts and conversation content are sent to the AI provider you select per request, routed through OpenRouter."
 suffix = " This information is used only to generate the response."
+
+[[anchor]]
+id = "kilo-improvement-purposes"
+source_id = "44fc087d5f8cb9a3"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "to improve and personalize your experience with us and the Services and to tailor communications to you"
+suffix = ""
+
+[[anchor]]
+id = "kilo-gateway-flow"
+source_id = "44fc087d5f8cb9a3"
+topics = ["training", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Account ID and request metadata are sent to Kilo Gateway, our backend, for authentication, request routing, and billing reconciliation."
+suffix = ""
+
+[[anchor]]
+id = "kilo-partner-purpose-limit"
+source_id = "44fc087d5f8cb9a3"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Our service providers and partners are required by contract to safeguard any personal information they receive from us and are prohibited from using the personal information for any purpose other than to perform the services as instructed by Kilo Code."
+suffix = ""
+
+[[anchor]]
+id = "kilo-upstream-equivalent-terms"
+source_id = "44fc087d5f8cb9a3"
+topics = ["training", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "OpenRouter and the downstream providers are bound by data protection terms equivalent to those described in this policy."
+suffix = ""
+
+[[anchor]]
+id = "kilo-deletion-scope"
+source_id = "44fc087d5f8cb9a3"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Once deletion is confirmed, your Kilo account, prompts, conversation history, and account metadata are removed from Kilo's systems. Data already shared with third-party AI providers to generate responses is governed by those providers' retention policies, including those linked from the OpenRouter model list and the providers' own privacy documentation."
+suffix = ""
+
+[[anchor]]
+id = "kilo-indefinite-retention"
+source_id = "44fc087d5f8cb9a3"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Please note that due to the open source nature of our products, services, and community, we may retain limited personal information indefinitely in order to ensure transactional integrity and nonrepudiation."
+suffix = ""
+
+[[anchor]]
+id = "kilo-customer-data-boundary"
+source_id = "44fc087d5f8cb9a3"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "If you are a customer of Kilo Code, this Privacy Policy does not apply to personal information or other data and information that we process on your behalf (if any) as your service provider (collectively, “Customer Data”)."
+suffix = ""
 
 [[anchor]]
 id = "kilo-account-retention"

@@ -10,7 +10,7 @@ doc = "https://qoder.com/privacy-policy"
 url = "https://qoder.com/privacy-policy"
 channel = "consumer_privacy"
 tier = "core"
-note = "国际站现行隐私政策；覆盖所有档位的 User Content、改善服务、BYOK、期限与处理地。团队/企业文档本轮正式抓取遭 429，记录在 health，不以失败冒充未披露。"
+note = "国际站现行隐私政策；覆盖所有档位的 User Content、改善服务、BYOK、期限与处理地。Outputs 由第三方 LLM（阿里 Qwen、月之暗面 Kimi）参与生成，属多跳链路，上游政策本轮尚未登记为来源；BYOK 路径的数据流向与政策由用户指定的服务商决定。团队/企业文档本轮正式抓取遭 429，记录在 health，不以失败冒充未披露。"
 
 [[product]]
 id = "free"
@@ -20,19 +20,105 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "qoder-improvement-five-years"
+
+[[product.training.point]]
+text = "Free tier — object of the improvement use: \"We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.\" The vendor describes de-identifying User Content first and conditions the use on applicable law; that is its own description of a measure, not a verified fact, and it also defines the object of the five-year row."
+text_zh = "免费档——「改进服务」用途的对象：「We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.」厂商称先移除 User Content 中的个人数据、并以法律允许为条件；这是厂商自述措施而非已核实事实，该句同时定义了五年上限那一行的对象。"
+anchor = "qoder-training-deidentified"
+
+[[product.training.point]]
+text = "Free tier — exit is not retroactive, and the setting is plan-dependent: \"Depending on your plan, you may opt out …\" and \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" No opt-out is recorded for this tier; non-retroactivity bounds the clause wherever the setting exists."
+text_zh = "免费档——退出不追溯，且该开关按档位而定：原文「Depending on your plan, you may opt out …」与「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」本档没有记录退出开关；不追溯这一点限定了有该开关档位上的效力。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.training.point]]
+text = "Free tier — chain, not a single hop: Outputs are generated with third-party LLMs — \"large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs\" — so each upstream hop's own policy applies to its copy and, under the weakest-hop rule, an upstream that trains on inputs would make the chain a no. Same paragraph, mitigating: \"All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …\". Upstream policies are not registered as sources yet."
+text_zh = "免费档——链路，不是单跳：Outputs 由第三方 LLM 参与生成（原文「large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs」），上游各跳按自身政策处理其副本；按「任一跳明确为否则全链为否」，上游若训练输入即全链为否。同段减轻表述：「All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …」。上游政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.training.point]]
+text = "Free tier — scope condition, BYOK: \"When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.\" The default path is not covered by this exception."
+text_zh = "免费档——适用范围条件（BYOK）：原文「When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.」默认路径不适用该例外。"
+anchor = "qoder-byok"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://qoder.com/privacy-policy", "https://qoder.com/terms-of-service"]
+
+[[product.zdr.point]]
+text = "Free tier — scope note on the chain, not evidence of a zero-retention option (no ZDR wording exists in the policy): Outputs may be produced with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\"), each hop carrying its own stance; the vendor only commits that such providers are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\". No upstream option is evidenced here, and no upstream policy is registered as a source yet."
+text_zh = "免费档——链路适用范围说明，不构成零保留方案的证据（政策中没有任何 ZDR 措辞）：Outputs 可能由第三方 LLM 生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），各跳各有口径；厂商只承诺这些服务商「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」。本文件没有上游零保留方案的证据，上游政策亦未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.zdr.point]]
+text = "Free tier — scope condition, BYOK: a scope note, not a ZDR statement. With BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\", so a zero-retention question on that path belongs to the upstream. The default path is unaffected."
+text_zh = "免费档——适用范围条件（BYOK）：范围说明，不是零保留表态。启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」，该路径的零保留问题归上游；默认路径不受影响。"
+anchor = "qoder-byok"
 [product.retention]
-days = 1825
-object = "input_output"
-basis = "fixed_period"
+object = "mixed"
+basis = "as_needed"
+anchor = "qoder-retention-general"
+
+[[product.retention.point]]
+text = "Free tier — the only quantified period, and what it covers: the purpose-table row \"To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection\" — object = de-identified User Content; context = the research/development/improvement purpose; type = an upper bound, not a fixed deletion date for inputs and outputs."
+text_zh = "免费档——唯一量化的期限及其覆盖面：用途表那一行「To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection」——对象=去标识化后的 User Content；语境=研发与改进用途；期限类型=上限，不是输入输出正文的固定删除期。"
 anchor = "qoder-improvement-five-years"
+
+[[product.retention.point]]
+text = "Free tier — periods differ by object and purpose: \"The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.\" The same paragraph adds that a Terms violation lets the vendor remove access immediately while retaining the information to investigate."
+text_zh = "免费档——期限按对象与目的而异：「The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.」同段另写：违反服务条款时可立即停止访问，但按调查需要继续保留信息。"
+anchor = "qoder-retention-varies"
+
+[[product.retention.point]]
+text = "Free tier — conditional deletion/de-identification commitment: \"When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.\" Conditional on no need or legal reason remaining — not scheduled deletion, and not a basis of \"none\"."
+text_zh = "免费档——条件式的删除/去标识化承诺：「When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.」前提是已无正当需要或法律理由——不是按期删除，也不能读成「不留存」。"
+anchor = "qoder-retention-delete-deidentify"
+
+[[product.retention.point]]
+text = "Free tier — exception context for deletion requests: \"We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.\" A limit on the right, not a period."
+text_zh = "免费档——删除请求的例外语境：「We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.」这是权利行使的限制，不是期限。"
+anchor = "qoder-retention-rights-exception"
+
+[[product.retention.point]]
+text = "Free tier — data already processed for improvement keeps its own life: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Switching off Share & Improve does not shorten retention of what was processed before."
+text_zh = "免费档——此前已用于改进的数据另有存续口径：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 不会缩短此前已处理数据的保留。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.retention.point]]
+text = "Free tier — chain: the same question has an upstream hop. Outputs are generated with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\") and the only commitment about them is that they are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\"; their own policies govern their copies and are not registered as sources here."
+text_zh = "免费档——链路：同一问题还有上游一跳。Outputs 由第三方 LLM 参与生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），厂商对它们的唯一承诺是「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」；上游按自身政策留存其副本，这些政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.retention.point]]
+text = "Free tier — scope condition, BYOK: with BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\" — retention on that path is the designated provider's, not Qoder's. The default path is not covered by this exception."
+text_zh = "免费档——适用范围条件（BYOK）：启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」——该路径的留存由用户指定的服务商决定，不是 Qoder 的承诺。默认路径不适用该例外。"
+anchor = "qoder-byok"
 [product.processing_region]
 codes = ["US", "SG", "JP"]
 anchor = "qoder-regions"
+
+[[product.processing_region.point]]
+text = "Free tier — the three countries are the main server locations, not every entity that may process: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.\" Group entities and the §4 third parties may process outside US/SG/JP."
+text_zh = "免费档——三国是主要服务器所在地，不等于全部可能处理数据的实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.」集团内实体与 §4 的第三方都可能在美国/新加坡/日本之外处理。"
+anchor = "qoder-corporate-group"
+
+[[product.processing_region.point]]
+text = "Free tier — the policy itself says processing entities may sit elsewhere: \"Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.\" (Philippines Addendum.)"
+text_zh = "免费档——政策自己写明处理实体可能位于别处：「Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.」（菲律宾附则。）"
+anchor = "qoder-affiliates-jurisdictions"
+
 [product.role]
 kind = "controller"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Free tier — reading, not a vendor self-designation: the policy never calls Qoder a controller or a processor; its stance is that of a party setting its own purposes — \"We use, process, and/or disclose your personal data for the following purposes:\" — and the operating entity is BRIGHT ZENITH PRIVATE LIMITED (Singapore). The only controller/sub-processor wording sits elsewhere (a cookie-table row naming Google as the data controller for Google Analytics, and the sub-processor chain described for service providers). No DPA or subscription terms are registered in this file, so the value below is our reading of the privacy policy alone."
+text_zh = "免费档——这是解读而非厂商自述：政策没有把 Qoder 称作 controller 或 processor；其口径是由自己设定处理目的——「We use, process, and/or disclose your personal data for the following purposes:」——签约主体为 BRIGHT ZENITH PRIVATE LIMITED（新加坡）。仅有的 controller/sub-processor 字样在别处（cookie 表把 Google 列为 Google Analytics 的数据控制者；服务商链条提到其子处理者）。本文件未登记 DPA 或订阅条款，故下列取值只是我们对隐私政策的解读。"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Free tier — why the entity sentence is not role evidence: \"BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.\" It is the policy's scope self-description and designates no controller or processor; it is kept here for the operating-entity fact."
+text_zh = "免费档——主体那句话为什么不算角色依据：「BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.」这是政策的适用范围自述，没有指定 controller 或 processor；保留它只为记录签约主体。"
 anchor = "qoder-entity"
 
 [[product]]
@@ -44,19 +130,110 @@ plan_level = "individual"
 mark = "no"
 mode = "opt_out"
 anchor = "qoder-share-improve-optout"
+
+[[product.training.point]]
+text = "Individual paid tier — object of the improvement use: \"We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.\" The vendor describes de-identifying User Content first and conditions the use on applicable law; that is its own description of a measure, not a verified fact, and it also defines the object of the five-year row."
+text_zh = "个人付费档——「改进服务」用途的对象：「We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.」厂商称先移除 User Content 中的个人数据、并以法律允许为条件；这是厂商自述措施而非已核实事实，该句同时定义了五年上限那一行的对象。"
+anchor = "qoder-training-deidentified"
+
+[[product.training.point]]
+text = "Individual paid tier — the opt-out does not reach back: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Disabling Share & Improve stops later use only, and the setting itself is plan-dependent (\"Depending on your plan, you may opt out …\")."
+text_zh = "个人付费档——退出不追溯：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 只阻止后续使用；该开关本身按档位而定（原文「Depending on your plan, you may opt out …」）。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.training.point]]
+text = "Individual paid tier — chain, not a single hop: Outputs are generated with third-party LLMs — \"large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs\" — so each upstream hop's own policy applies to its copy and, under the weakest-hop rule, an upstream that trains on inputs would make the chain a no. Same paragraph, mitigating: \"All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …\". Upstream policies are not registered as sources yet."
+text_zh = "个人付费档——链路，不是单跳：Outputs 由第三方 LLM 参与生成（原文「large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs」），上游各跳按自身政策处理其副本；按「任一跳明确为否则全链为否」，上游若训练输入即全链为否。同段减轻表述：「All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …」。上游政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.training.point]]
+text = "Individual paid tier — scope condition, BYOK: \"When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.\" The default path is not covered by this exception."
+text_zh = "个人付费档——适用范围条件（BYOK）：原文「When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.」默认路径不适用该例外。"
+anchor = "qoder-byok"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://qoder.com/privacy-policy", "https://qoder.com/terms-of-service"]
+
+[[product.zdr.point]]
+text = "Individual paid tier — scope note on the chain, not evidence of a zero-retention option (no ZDR wording exists in the policy): Outputs may be produced with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\"), each hop carrying its own stance; the vendor only commits that such providers are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\". No upstream option is evidenced here, and no upstream policy is registered as a source yet."
+text_zh = "个人付费档——链路适用范围说明，不构成零保留方案的证据（政策中没有任何 ZDR 措辞）：Outputs 可能由第三方 LLM 生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），各跳各有口径；厂商只承诺这些服务商「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」。本文件没有上游零保留方案的证据，上游政策亦未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.zdr.point]]
+text = "Individual paid tier — scope condition, BYOK: a scope note, not a ZDR statement. With BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\", so a zero-retention question on that path belongs to the upstream. The default path is unaffected."
+text_zh = "个人付费档——适用范围条件（BYOK）：范围说明，不是零保留表态。启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」，该路径的零保留问题归上游；默认路径不受影响。"
+anchor = "qoder-byok"
 [product.retention]
-days = 1825
-object = "input_output"
-basis = "fixed_period"
+object = "mixed"
+basis = "as_needed"
+anchor = "qoder-retention-general"
+
+[[product.retention.point]]
+text = "Individual paid tier — the only quantified period, and what it covers: the purpose-table row \"To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection\" — object = de-identified User Content; context = the research/development/improvement purpose; type = an upper bound, not a fixed deletion date for inputs and outputs."
+text_zh = "个人付费档——唯一量化的期限及其覆盖面：用途表那一行「To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection」——对象=去标识化后的 User Content；语境=研发与改进用途；期限类型=上限，不是输入输出正文的固定删除期。"
 anchor = "qoder-improvement-five-years"
+
+[[product.retention.point]]
+text = "Individual paid tier — periods differ by object and purpose: \"The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.\" The same paragraph adds that a Terms violation lets the vendor remove access immediately while retaining the information to investigate."
+text_zh = "个人付费档——期限按对象与目的而异：「The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.」同段另写：违反服务条款时可立即停止访问，但按调查需要继续保留信息。"
+anchor = "qoder-retention-varies"
+
+[[product.retention.point]]
+text = "Individual paid tier — conditional deletion/de-identification commitment: \"When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.\" Conditional on no need or legal reason remaining — not scheduled deletion, and not a basis of \"none\"."
+text_zh = "个人付费档——条件式的删除/去标识化承诺：「When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.」前提是已无正当需要或法律理由——不是按期删除，也不能读成「不留存」。"
+anchor = "qoder-retention-delete-deidentify"
+
+[[product.retention.point]]
+text = "Individual paid tier — exception context for deletion requests: \"We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.\" A limit on the right, not a period."
+text_zh = "个人付费档——删除请求的例外语境：「We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.」这是权利行使的限制，不是期限。"
+anchor = "qoder-retention-rights-exception"
+
+[[product.retention.point]]
+text = "Individual paid tier — data already processed for improvement keeps its own life: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Switching off Share & Improve does not shorten retention of what was processed before."
+text_zh = "个人付费档——此前已用于改进的数据另有存续口径：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 不会缩短此前已处理数据的保留。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.retention.point]]
+text = "Individual paid tier — chain: the same question has an upstream hop. Outputs are generated with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\") and the only commitment about them is that they are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\"; their own policies govern their copies and are not registered as sources here."
+text_zh = "个人付费档——链路：同一问题还有上游一跳。Outputs 由第三方 LLM 参与生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），厂商对它们的唯一承诺是「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」；上游按自身政策留存其副本，这些政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.retention.point]]
+text = "Individual paid tier — scope condition, BYOK: with BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\" — retention on that path is the designated provider's, not Qoder's. The default path is not covered by this exception."
+text_zh = "个人付费档——适用范围条件（BYOK）：启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」——该路径的留存由用户指定的服务商决定，不是 Qoder 的承诺。默认路径不适用该例外。"
+anchor = "qoder-byok"
 [product.processing_region]
 codes = ["US", "SG", "JP"]
 anchor = "qoder-regions"
+
+[[product.processing_region.point]]
+text = "Individual paid tier — the three countries are the main server locations, not every entity that may process: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.\" Group entities and the §4 third parties may process outside US/SG/JP."
+text_zh = "个人付费档——三国是主要服务器所在地，不等于全部可能处理数据的实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.」集团内实体与 §4 的第三方都可能在美国/新加坡/日本之外处理。"
+anchor = "qoder-corporate-group"
+
+[[product.processing_region.point]]
+text = "Individual paid tier — the policy itself says processing entities may sit elsewhere: \"Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.\" (Philippines Addendum.)"
+text_zh = "个人付费档——政策自己写明处理实体可能位于别处：「Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.」（菲律宾附则。）"
+anchor = "qoder-affiliates-jurisdictions"
+
 [product.role]
 kind = "controller"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Individual paid tier — reading, not a vendor self-designation: the policy never calls Qoder a controller or a processor; its stance is that of a party setting its own purposes — \"We use, process, and/or disclose your personal data for the following purposes:\" — and it reserves further purposes of its own (see the consent point below). The operating entity is BRIGHT ZENITH PRIVATE LIMITED (Singapore). The only controller/sub-processor wording sits elsewhere (a cookie-table row naming Google as the data controller for Google Analytics, and the sub-processor chain described for service providers). No DPA or subscription terms are registered in this file, so the value below is our reading of the privacy policy alone."
+text_zh = "个人付费档——这是解读而非厂商自述：政策没有把 Qoder 称作 controller 或 processor；其口径是由自己设定处理目的——「We use, process, and/or disclose your personal data for the following purposes:」——并保留自行追加用途的开口（见下条）。签约主体为 BRIGHT ZENITH PRIVATE LIMITED（新加坡）。仅有的 controller/sub-processor 字样在别处（cookie 表把 Google 列为 Google Analytics 的数据控制者；服务商链条提到其子处理者）。本文件未登记 DPA 或订阅条款，故下列取值只是我们对隐私政策的解读。"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Individual paid tier — supporting, not decisive: Qoder reserves purposes of its own rather than acting on a customer's instructions — \"We may also use your information for any other purposes disclosed to you at the time we collect your information, with your consent, or as otherwise permitted by applicable laws.\""
+text_zh = "个人付费档——旁证而非决定性依据：Qoder 保留自行追加处理目的的开口，而不是按客户指令处理——「We may also use your information for any other purposes disclosed to you at the time we collect your information, with your consent, or as otherwise permitted by applicable laws.」"
+anchor = "qoder-other-purposes-consent"
+
+[[product.role.point]]
+text = "Individual paid tier — why the entity sentence is not role evidence: \"BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.\" It is the policy's scope self-description and designates no controller or processor; it is kept here for the operating-entity fact."
+text_zh = "个人付费档——主体那句话为什么不算角色依据：「BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.」这是政策的适用范围自述，没有指定 controller 或 processor；保留它只为记录签约主体。"
 anchor = "qoder-entity"
 
 [[product]]
@@ -68,19 +245,120 @@ plan_level = "team"
 mark = "no"
 mode = "opt_out"
 anchor = "qoder-share-improve-optout"
+
+[[product.training.point]]
+text = "Teams tier — object of the improvement use: \"We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.\" The vendor describes de-identifying User Content first and conditions the use on applicable law; that is its own description of a measure, not a verified fact, and it also defines the object of the five-year row."
+text_zh = "Teams 档——「改进服务」用途的对象：「We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.」厂商称先移除 User Content 中的个人数据、并以法律允许为条件；这是厂商自述措施而非已核实事实，该句同时定义了五年上限那一行的对象。"
+anchor = "qoder-training-deidentified"
+
+[[product.training.point]]
+text = "Teams tier — the opt-out does not reach back: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Disabling Share & Improve stops later use only, and the setting itself is plan-dependent (\"Depending on your plan, you may opt out …\")."
+text_zh = "Teams 档——退出不追溯：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 只阻止后续使用；该开关本身按档位而定（原文「Depending on your plan, you may opt out …」）。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.training.point]]
+text = "Teams tier — chain, not a single hop: Outputs are generated with third-party LLMs — \"large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs\" — so each upstream hop's own policy applies to its copy and, under the weakest-hop rule, an upstream that trains on inputs would make the chain a no. Same paragraph, mitigating: \"All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …\". Upstream policies are not registered as sources yet."
+text_zh = "Teams 档——链路，不是单跳：Outputs 由第三方 LLM 参与生成（原文「large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs」），上游各跳按自身政策处理其副本；按「任一跳明确为否则全链为否」，上游若训练输入即全链为否。同段减轻表述：「All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …」。上游政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.training.point]]
+text = "Teams tier — scope condition, BYOK: \"When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.\" The default path is not covered by this exception."
+text_zh = "Teams 档——适用范围条件（BYOK）：原文「When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.」默认路径不适用该例外。"
+anchor = "qoder-byok"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://qoder.com/privacy-policy", "https://docs.qoder.com/account/teams/get-started"]
+
+[[product.zdr.point]]
+text = "Teams tier — scope note on the chain, not evidence of a zero-retention option (no ZDR wording exists in the policy): Outputs may be produced with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\"), each hop carrying its own stance; the vendor only commits that such providers are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\". No upstream option is evidenced here, and no upstream policy is registered as a source yet."
+text_zh = "Teams 档——链路适用范围说明，不构成零保留方案的证据（政策中没有任何 ZDR 措辞）：Outputs 可能由第三方 LLM 生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），各跳各有口径；厂商只承诺这些服务商「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」。本文件没有上游零保留方案的证据，上游政策亦未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.zdr.point]]
+text = "Teams tier — scope condition, BYOK: a scope note, not a ZDR statement. With BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\", so a zero-retention question on that path belongs to the upstream. The default path is unaffected."
+text_zh = "Teams 档——适用范围条件（BYOK）：范围说明，不是零保留表态。启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」，该路径的零保留问题归上游；默认路径不受影响。"
+anchor = "qoder-byok"
 [product.retention]
-days = 1825
-object = "input_output"
-basis = "fixed_period"
+object = "mixed"
+basis = "as_needed"
+anchor = "qoder-retention-general"
+
+[[product.retention.point]]
+text = "Teams tier — the only quantified period, and what it covers: the purpose-table row \"To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection\" — object = de-identified User Content; context = the research/development/improvement purpose; type = an upper bound, not a fixed deletion date for inputs and outputs."
+text_zh = "Teams 档——唯一量化的期限及其覆盖面：用途表那一行「To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection」——对象=去标识化后的 User Content；语境=研发与改进用途；期限类型=上限，不是输入输出正文的固定删除期。"
 anchor = "qoder-improvement-five-years"
+
+[[product.retention.point]]
+text = "Teams tier — periods differ by object and purpose: \"The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.\" The same paragraph adds that a Terms violation lets the vendor remove access immediately while retaining the information to investigate."
+text_zh = "Teams 档——期限按对象与目的而异：「The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.」同段另写：违反服务条款时可立即停止访问，但按调查需要继续保留信息。"
+anchor = "qoder-retention-varies"
+
+[[product.retention.point]]
+text = "Teams tier — tier-specific retention context: \"If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.\" Member data reaches the Organization and its Administrators, so retention here is not the individual's alone to control. What the public consumer policy says is this tier's default; subscription terms or a DPA would govern if they say otherwise, and no contract-layer source is registered in this file."
+text_zh = "Teams 档——本档特有的保留语境：「If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.」成员数据会到达组织及其管理员，本档留存不由个人单独控制。公开消费级政策所述是本档默认值；订阅条款或 DPA 另有约定者从其约定，而本文件没有登记合同层来源。"
+anchor = "qoder-org-visibility"
+
+[[product.retention.point]]
+text = "Teams tier — conditional deletion/de-identification commitment: \"When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.\" Conditional on no need or legal reason remaining — not scheduled deletion, and not a basis of \"none\"."
+text_zh = "Teams 档——条件式的删除/去标识化承诺：「When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.」前提是已无正当需要或法律理由——不是按期删除，也不能读成「不留存」。"
+anchor = "qoder-retention-delete-deidentify"
+
+[[product.retention.point]]
+text = "Teams tier — exception context for deletion requests: \"We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.\" A limit on the right, not a period."
+text_zh = "Teams 档——删除请求的例外语境：「We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.」这是权利行使的限制，不是期限。"
+anchor = "qoder-retention-rights-exception"
+
+[[product.retention.point]]
+text = "Teams tier — data already processed for improvement keeps its own life: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Switching off Share & Improve does not shorten retention of what was processed before."
+text_zh = "Teams 档——此前已用于改进的数据另有存续口径：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 不会缩短此前已处理数据的保留。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.retention.point]]
+text = "Teams tier — chain: the same question has an upstream hop. Outputs are generated with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\") and the only commitment about them is that they are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\"; their own policies govern their copies and are not registered as sources here."
+text_zh = "Teams 档——链路：同一问题还有上游一跳。Outputs 由第三方 LLM 参与生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），厂商对它们的唯一承诺是「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」；上游按自身政策留存其副本，这些政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.retention.point]]
+text = "Teams tier — scope condition, BYOK: with BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\" — retention on that path is the designated provider's, not Qoder's. The default path is not covered by this exception."
+text_zh = "Teams 档——适用范围条件（BYOK）：启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」——该路径的留存由用户指定的服务商决定，不是 Qoder 的承诺。默认路径不适用该例外。"
+anchor = "qoder-byok"
 [product.processing_region]
 codes = ["US", "SG", "JP"]
 anchor = "qoder-regions"
+
+[[product.processing_region.point]]
+text = "Teams tier — the three countries are the main server locations, not every entity that may process: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.\" Group entities and the §4 third parties may process outside US/SG/JP."
+text_zh = "Teams 档——三国是主要服务器所在地，不等于全部可能处理数据的实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.」集团内实体与 §4 的第三方都可能在美国/新加坡/日本之外处理。"
+anchor = "qoder-corporate-group"
+
+[[product.processing_region.point]]
+text = "Teams tier — the policy itself says processing entities may sit elsewhere: \"Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.\" (Philippines Addendum.)"
+text_zh = "Teams 档——政策自己写明处理实体可能位于别处：「Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.」（菲律宾附则。）"
+anchor = "qoder-affiliates-jurisdictions"
+
 [product.role]
 kind = "controller"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Teams tier — reading, not a vendor self-designation: the policy never calls Qoder a controller or a processor; its stance is that of a party setting its own purposes — \"We use, process, and/or disclose your personal data for the following purposes:\" — and the operating entity is BRIGHT ZENITH PRIVATE LIMITED (Singapore). The only controller/sub-processor wording sits elsewhere (a cookie-table row naming Google as the data controller for Google Analytics, and the sub-processor chain described for service providers). No DPA or subscription terms are registered in this file, so the value below is our reading of the privacy policy alone."
+text_zh = "Teams 档——这是解读而非厂商自述：政策没有把 Qoder 称作 controller 或 processor；其口径是由自己设定处理目的——「We use, process, and/or disclose your personal data for the following purposes:」——签约主体为 BRIGHT ZENITH PRIVATE LIMITED（新加坡）。仅有的 controller/sub-processor 字样在别处（cookie 表把 Google 列为 Google Analytics 的数据控制者；服务商链条提到其子处理者）。本文件未登记 DPA 或订阅条款，故下列取值只是我们对隐私政策的解读。"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Teams tier — tier-specific, and why this tier's role is the least settled: \"If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.\" The Organization side can reach member data, so who is controller for what would normally come from subscription terms or a DPA — none is registered in this file, and the value below is the consumer-policy reading."
+text_zh = "Teams 档——本档特有，也是本档角色最不确定的原因：「If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.」组织侧可以拿到成员数据，因此「谁是控制者」通常由订阅条款或 DPA 约定——本文件都没有登记，下列取值只是消费级政策下的解读。"
+anchor = "qoder-org-visibility"
+
+[[product.role.point]]
+text = "Teams tier — several processing entities behind one facing entity: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us …\" — they act \"for us\", which leaves the facing role with BRIGHT ZENITH while the intra-group allocation stays undescribed."
+text_zh = "Teams 档——一个对外实体背后有多个处理实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us …」——它们「for us」处理，对外角色仍落在 BRIGHT ZENITH 身上，集团内部分配未作说明。"
+anchor = "qoder-corporate-group"
+
+[[product.role.point]]
+text = "Teams tier — why the entity sentence is not role evidence: \"BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.\" It is the policy's scope self-description and designates no controller or processor; it is kept here for the operating-entity fact."
+text_zh = "Teams 档——主体那句话为什么不算角色依据：「BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.」这是政策的适用范围自述，没有指定 controller 或 processor；保留它只为记录签约主体。"
 anchor = "qoder-entity"
 
 [[product]]
@@ -92,19 +370,120 @@ plan_level = "enterprise"
 mark = "no"
 mode = "opt_out"
 anchor = "qoder-share-improve-optout"
+
+[[product.training.point]]
+text = "Enterprise tier — object of the improvement use: \"We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.\" The vendor describes de-identifying User Content first and conditions the use on applicable law; that is its own description of a measure, not a verified fact, and it also defines the object of the five-year row."
+text_zh = "Enterprise 档——「改进服务」用途的对象：「We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services.」厂商称先移除 User Content 中的个人数据、并以法律允许为条件；这是厂商自述措施而非已核实事实，该句同时定义了五年上限那一行的对象。"
+anchor = "qoder-training-deidentified"
+
+[[product.training.point]]
+text = "Enterprise tier — the opt-out does not reach back: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Disabling Share & Improve stops later use only, and the setting itself is plan-dependent (\"Depending on your plan, you may opt out …\")."
+text_zh = "Enterprise 档——退出不追溯：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 只阻止后续使用；该开关本身按档位而定（原文「Depending on your plan, you may opt out …」）。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.training.point]]
+text = "Enterprise tier — chain, not a single hop: Outputs are generated with third-party LLMs — \"large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs\" — so each upstream hop's own policy applies to its copy and, under the weakest-hop rule, an upstream that trains on inputs would make the chain a no. Same paragraph, mitigating: \"All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …\". Upstream policies are not registered as sources yet."
+text_zh = "Enterprise 档——链路，不是单跳：Outputs 由第三方 LLM 参与生成（原文「large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs」），上游各跳按自身政策处理其副本；按「任一跳明确为否则全链为否」，上游若训练输入即全链为否。同段减轻表述：「All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations …」。上游政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.training.point]]
+text = "Enterprise tier — scope condition, BYOK: \"When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.\" The default path is not covered by this exception."
+text_zh = "Enterprise 档——适用范围条件（BYOK）：原文「When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers.」默认路径不适用该例外。"
+anchor = "qoder-byok"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://qoder.com/privacy-policy", "https://docs.qoder.com/account/teams/get-started"]
+
+[[product.zdr.point]]
+text = "Enterprise tier — scope note on the chain, not evidence of a zero-retention option (no ZDR wording exists in the policy): Outputs may be produced with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\"), each hop carrying its own stance; the vendor only commits that such providers are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\". No upstream option is evidenced here, and no upstream policy is registered as a source yet."
+text_zh = "Enterprise 档——链路适用范围说明，不构成零保留方案的证据（政策中没有任何 ZDR 措辞）：Outputs 可能由第三方 LLM 生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），各跳各有口径；厂商只承诺这些服务商「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」。本文件没有上游零保留方案的证据，上游政策亦未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.zdr.point]]
+text = "Enterprise tier — scope condition, BYOK: a scope note, not a ZDR statement. With BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\", so a zero-retention question on that path belongs to the upstream. The default path is unaffected."
+text_zh = "Enterprise 档——适用范围条件（BYOK）：范围说明，不是零保留表态。启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」，该路径的零保留问题归上游；默认路径不受影响。"
+anchor = "qoder-byok"
 [product.retention]
-days = 1825
-object = "input_output"
-basis = "fixed_period"
+object = "mixed"
+basis = "as_needed"
+anchor = "qoder-retention-general"
+
+[[product.retention.point]]
+text = "Enterprise tier — the only quantified period, and what it covers: the purpose-table row \"To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection\" — object = de-identified User Content; context = the research/development/improvement purpose; type = an upper bound, not a fixed deletion date for inputs and outputs."
+text_zh = "Enterprise 档——唯一量化的期限及其覆盖面：用途表那一行「To research, develop and improve our Services | - User Content in a de-identified format. | Up to five years from the date of collection」——对象=去标识化后的 User Content；语境=研发与改进用途；期限类型=上限，不是输入输出正文的固定删除期。"
 anchor = "qoder-improvement-five-years"
+
+[[product.retention.point]]
+text = "Enterprise tier — periods differ by object and purpose: \"The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.\" The same paragraph adds that a Terms violation lets the vendor remove access immediately while retaining the information to investigate."
+text_zh = "Enterprise 档——期限按对象与目的而异：「The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account.」同段另写：违反服务条款时可立即停止访问，但按调查需要继续保留信息。"
+anchor = "qoder-retention-varies"
+
+[[product.retention.point]]
+text = "Enterprise tier — tier-specific retention context: \"If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.\" Member data reaches the Organization and its Administrators, so retention here is not the individual's alone to control. What the public consumer policy says is this tier's default; an enterprise subscription or a DPA would govern if it says otherwise, and no contract-layer source is registered in this file — so these figures are the public-policy default, not the contractual one."
+text_zh = "Enterprise 档——本档特有的保留语境：「If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.」成员数据会到达组织及其管理员，本档留存不由个人单独控制。公开消费级政策所述是本档默认值；企业订阅条款或 DPA 另有约定者从其约定，而本文件没有登记合同层来源——故这些数字是公开政策下的默认值，不是合同值。"
+anchor = "qoder-org-visibility"
+
+[[product.retention.point]]
+text = "Enterprise tier — conditional deletion/de-identification commitment: \"When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.\" Conditional on no need or legal reason remaining — not scheduled deletion, and not a basis of \"none\"."
+text_zh = "Enterprise 档——条件式的删除/去标识化承诺：「When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you.」前提是已无正当需要或法律理由——不是按期删除，也不能读成「不留存」。"
+anchor = "qoder-retention-delete-deidentify"
+
+[[product.retention.point]]
+text = "Enterprise tier — exception context for deletion requests: \"We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.\" A limit on the right, not a period."
+text_zh = "Enterprise 档——删除请求的例外语境：「We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so.」这是权利行使的限制，不是期限。"
+anchor = "qoder-retention-rights-exception"
+
+[[product.retention.point]]
+text = "Enterprise tier — data already processed for improvement keeps its own life: \"Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.\" Switching off Share & Improve does not shorten retention of what was processed before."
+text_zh = "Enterprise 档——此前已用于改进的数据另有存续口径：「Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section.」关闭 Share & Improve 不会缩短此前已处理数据的保留。"
+anchor = "qoder-share-improve-no-retroactive"
+
+[[product.retention.point]]
+text = "Enterprise tier — chain: the same question has an upstream hop. Outputs are generated with third-party LLMs (\"such as Alibaba’s Qwen, MoonShoot’s Kimi\") and the only commitment about them is that they are \"contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations\"; their own policies govern their copies and are not registered as sources here."
+text_zh = "Enterprise 档——链路：同一问题还有上游一跳。Outputs 由第三方 LLM 参与生成（原文「such as Alibaba’s Qwen, MoonShoot’s Kimi」），厂商对它们的唯一承诺是「contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations」；上游按自身政策留存其副本，这些政策尚未登记为来源。"
+anchor = "qoder-service-providers-llm"
+
+[[product.retention.point]]
+text = "Enterprise tier — scope condition, BYOK: with BYOK on, \"the processing of such data shall be governed by the privacy policies of the respective third-party service providers\" — retention on that path is the designated provider's, not Qoder's. The default path is not covered by this exception."
+text_zh = "Enterprise 档——适用范围条件（BYOK）：启用 BYOK 后「the processing of such data shall be governed by the privacy policies of the respective third-party service providers」——该路径的留存由用户指定的服务商决定，不是 Qoder 的承诺。默认路径不适用该例外。"
+anchor = "qoder-byok"
 [product.processing_region]
 codes = ["US", "SG", "JP"]
 anchor = "qoder-regions"
+
+[[product.processing_region.point]]
+text = "Enterprise tier — the three countries are the main server locations, not every entity that may process: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.\" Group entities and the §4 third parties may process outside US/SG/JP."
+text_zh = "Enterprise 档——三国是主要服务器所在地，不等于全部可能处理数据的实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support.」集团内实体与 §4 的第三方都可能在美国/新加坡/日本之外处理。"
+anchor = "qoder-corporate-group"
+
+[[product.processing_region.point]]
+text = "Enterprise tier — the policy itself says processing entities may sit elsewhere: \"Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.\" (Philippines Addendum.)"
+text_zh = "Enterprise 档——政策自己写明处理实体可能位于别处：「Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions.」（菲律宾附则。）"
+anchor = "qoder-affiliates-jurisdictions"
+
 [product.role]
 kind = "controller"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Enterprise tier — reading, not a vendor self-designation: the policy never calls Qoder a controller or a processor; its stance is that of a party setting its own purposes — \"We use, process, and/or disclose your personal data for the following purposes:\" — and the operating entity is BRIGHT ZENITH PRIVATE LIMITED (Singapore). The only controller/sub-processor wording sits elsewhere (a cookie-table row naming Google as the data controller for Google Analytics, and the sub-processor chain described for service providers). No DPA or subscription terms are registered in this file, so the value below is our reading of the privacy policy alone."
+text_zh = "Enterprise 档——这是解读而非厂商自述：政策没有把 Qoder 称作 controller 或 processor；其口径是由自己设定处理目的——「We use, process, and/or disclose your personal data for the following purposes:」——签约主体为 BRIGHT ZENITH PRIVATE LIMITED（新加坡）。仅有的 controller/sub-processor 字样在别处（cookie 表把 Google 列为 Google Analytics 的数据控制者；服务商链条提到其子处理者）。本文件未登记 DPA 或订阅条款，故下列取值只是我们对隐私政策的解读。"
+anchor = "qoder-role-purposes"
+
+[[product.role.point]]
+text = "Enterprise tier — tier-specific, and why this tier's role is the least settled: \"If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.\" The Organization side can reach member data, so who is controller for what would normally come from subscription terms or a DPA — none is registered in this file, and the value below is the consumer-policy reading."
+text_zh = "Enterprise 档——本档特有，也是本档角色最不确定的原因：「If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization.」组织侧可以拿到成员数据，因此「谁是控制者」通常由订阅条款或 DPA 约定——本文件都没有登记，下列取值只是消费级政策下的解读。"
+anchor = "qoder-org-visibility"
+
+[[product.role.point]]
+text = "Enterprise tier — several processing entities behind one facing entity: \"Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us …\" — they act \"for us\", which leaves the facing role with BRIGHT ZENITH while the intra-group allocation stays undescribed."
+text_zh = "Enterprise 档——一个对外实体背后有多个处理实体：原文「Certain entities within our corporate group (“Corporate Group”) receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us …」——它们「for us」处理，对外角色仍落在 BRIGHT ZENITH 身上，集团内部分配未作说明。"
+anchor = "qoder-corporate-group"
+
+[[product.role.point]]
+text = "Enterprise tier — why the entity sentence is not role evidence: \"BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.\" It is the policy's scope self-description and designates no controller or processor; it is kept here for the operating-entity fact."
+text_zh = "Enterprise 档——主体那句话为什么不算角色依据：「BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data.」这是政策的适用范围自述，没有指定 controller 或 processor；保留它只为记录签约主体。"
 anchor = "qoder-entity"
 
 [[anchor]]
@@ -138,4 +517,108 @@ topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "BRIGHT ZENITH PRIVATE LIMITED, a Singapore registered entity (“BRIGHT ZENITH”), collect, use, disclose, and protect your personal data."
+suffix = ""
+[[anchor]]
+id = "qoder-role-purposes"
+source_id = "4b0a0b67f09ae412"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "We use, process, and/or disclose your personal data for the following purposes:"
+suffix = ""
+[[anchor]]
+id = "qoder-other-purposes-consent"
+source_id = "4b0a0b67f09ae412"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "We may also use your information for any other purposes disclosed to you at the time we collect your information, with your consent, or as otherwise permitted by applicable laws."
+suffix = ""
+[[anchor]]
+id = "qoder-training-deidentified"
+source_id = "4b0a0b67f09ae412"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "We take steps to remove personal data from your User Content, as permitted by applicable law, before it is used to research, develop, and improve our Services."
+suffix = ""
+[[anchor]]
+id = "qoder-share-improve-no-retroactive"
+source_id = "4b0a0b67f09ae412"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Any data already processed for the above purposes prior to disabling this setting may continue to be retained and used in accordance with this section."
+suffix = ""
+[[anchor]]
+id = "qoder-org-visibility"
+source_id = "4b0a0b67f09ae412"
+topics = ["role", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "If you are a member of an Organization under an Enterprise or Team Plan, we may share your personal data with your Organization, Administrators of your Organization, and/or other users (if applicable) in your Organization."
+suffix = ""
+[[anchor]]
+id = "qoder-service-providers-llm"
+source_id = "4b0a0b67f09ae412"
+topics = ["training", "retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "We may share your personal data with service providers we engage from time to time to provide various services, including cloud infrastructure to host our Services, large language models (such as Alibaba’s Qwen, MoonShoot’s Kimi) to support your coding experience and help generate Outputs, as well as codebase data storage and web search providers that help us provide and deliver the Service. All such Service Providers are contractually required to maintain data protection standards equal to or exceeding those required by applicable laws and regulations, in order to facilitate the delivery of our Services."
+suffix = ""
+[[anchor]]
+id = "qoder-byok"
+source_id = "4b0a0b67f09ae412"
+topics = ["training", "retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "When you enable the “Bring Your Own Key” (BYOK) feature, your information may be transmitted to third-party service providers designated by you, and such transmission constitutes your own independent action rather than a sharing practice by our Service, and the processing of such data shall be governed by the privacy policies of the respective third-party service providers."
+suffix = ""
+[[anchor]]
+id = "qoder-corporate-group"
+source_id = "4b0a0b67f09ae412"
+topics = ["processing_region", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Certain entities within our corporate group (\"Corporate Group\") receive and process personal data to support the provision of the Services. These entities process Information Provided By You, Automatically Collected Information, and Information From Other Sources for us, as necessary to provide functions such as storage, operation and maintenance of Service, security, research and development, analytics, online payments, customer and technical support."
+suffix = ""
+[[anchor]]
+id = "qoder-affiliates-jurisdictions"
+source_id = "4b0a0b67f09ae412"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Your personal data will be stored in Singapore. Your personal data may however be transferred to or accessed by our officers, employees, support staff, agents, Third Party Service Providers (and their sub-processors, if any), and our affiliate companies (and their designated Service Providers and the latter’s sub-processors, if any), which may be located in several other jurisdictions."
+suffix = ""
+[[anchor]]
+id = "qoder-retention-general"
+source_id = "4b0a0b67f09ae412"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "We retain information for as long as necessary to provide the Service and for the other purposes set out in this Privacy Policy. We also retain information when necessary to comply with our contractual and legal obligations, when we have a legitimate business interest to do so (such as improving and developing the Service, and enhancing its safety, security, and stability), and for the exercise or defense of legal claims."
+suffix = ""
+[[anchor]]
+id = "qoder-retention-varies"
+source_id = "4b0a0b67f09ae412"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "The retention periods will be different depending on the type of information and the purposes for which we use the information. For example, we retain your Account Information for as long as you have an account."
+suffix = ""
+[[anchor]]
+id = "qoder-retention-delete-deidentify"
+source_id = "4b0a0b67f09ae412"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When we have no further legitimate need or legal reason to retain your personal data, we will either delete it in a secure manner or deidentify it such that can no longer be associated with you."
+suffix = ""
+[[anchor]]
+id = "qoder-retention-rights-exception"
+source_id = "4b0a0b67f09ae412"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "We may be unable to comply with your request if we are required to retain your information due to legal or regulatory obligations, such as when the information is necessary to complete a transaction, when fulfilling the request would compromise the privacy of others, or when it would be impractical to do so."
 suffix = ""

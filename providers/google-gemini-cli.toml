@@ -13,22 +13,25 @@ plan_levels = ["free", "individual", "enterprise"]
 url = "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"
 channel = "developer_data"
 tier = "core"
-note = "Gemini CLI 官方文档「Terms of Service and Privacy Notice」，逐档列明认证方式对应的条款与训练归属。"
+note = "Gemini CLI 官方文档「Terms of Service and Privacy Notice」，逐档列明认证方式对应的条款与训练归属。其中关于 Gemini Code Assist for individuals 的表述已随该档 2026-06-18 停服而过时，且其链接的 individuals 隐私声明 URL 已变为停用公告页。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/terms"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "Gemini API Additional Terms of Service；覆盖 Gemini CLI 使用 Gemini API key 时的 Paid 与 Unpaid 档。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/zdr"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 官方 ZDR 专页；用于 Gemini CLI 付费 API key 档的零保留结论。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/usage-policies"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 官方滥用监控政策；用于 Gemini CLI API key 档的 55 天滥用监控日志期限。"
@@ -37,25 +40,25 @@ note = "Gemini API 官方滥用监控政策；用于 Gemini CLI API key 档的 5
 url = "https://policies.google.com/terms?hl=en-US"
 channel = "contract"
 tier = "core"
-note = "Google 消费者服务条款；用于 Gemini CLI 个人 Google 登录与免费 API key 档的合同角色。"
+note = "Google 消费者服务条款（合同相对方 Google LLC）。只用于 Gemini CLI 个人 Google 登录档（停服前条款体系）的角色旁证；Gemini Developer API 的 paid/unpaid 档由 Google APIs Terms of Service + Gemini API Additional Terms 与 Google Privacy Policy 管辖，消费者条款不是其合同。"
 
 [[source]]
 url = "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"
 channel = "consumer_privacy"
 tier = "core"
-note = "Gemini Code Assist individuals 隐私声明 URL；Gemini CLI 个人 Google 登录档查阅范围。"
+note = "Gemini Code Assist individuals 隐私声明 URL；该 URL 现为「Gemini Code Assist consumer accounts」停用公告页，不再含 individuals 隐私条款，对应档位（Gemini Code Assist for individuals / Gemini CLI 的 Login with Google）自 2026-06-18 起停服。"
 
 [[source]]
 url = "https://policies.google.com/privacy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Google 通用隐私政策；Gemini CLI 个人 Google 登录档处理地域查阅范围。"
+note = "Google 通用隐私政策；Gemini CLI 个人 Google 登录档（停服前条款体系）与 API key unpaid 档的处理地域依据。"
 
 [[source]]
 url = "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Gemini Code Assist Standard/Enterprise 安全、隐私与合规说明；企业档查阅范围。"
+note = "Gemini Code Assist Standard/Enterprise 安全、隐私与合规说明；企业档 retention（stateless 不存储提示词与响应）、处理地（global Edge Network）与角色（data processor）结论的证据来源。"
 
 [[product]]
 id = "gemini-cli-personal-google"
@@ -69,15 +72,33 @@ anchor = "training-gca-individuals-collected"
 [product.zdr]
 mark = "unknown"
 searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"]
+
+[[product.zdr.point]]
+text = "Evidence form and tier status: the Gemini Code Assist individuals privacy notice URL listed in searched now serves the consumer-account deprecation notice rather than a privacy notice, and the Login with Google authentication this tier is defined by stopped working for Gemini CLI on 18 June 2026. The tier's own privacy terms are therefore no longer live, which is why zero data retention stays undisclosed instead of being read off the current page."
+text_zh = "证据形态与档位状态：searched 里列的 individuals 隐私声明 URL 现在返回的是消费者账号停用公告，不再是隐私条款；本档所依托的 Login with Google 认证方式自 2026-06-18 起对 Gemini CLI 停用。该档自己的隐私条款已不在线，故零保留仍记未披露，不从现行页面推读。"
+anchor = "tier-individuals-shutdown"
+
 [product.retention]
 mark = "unknown"
 object = "input_output"
 basis = "undisclosed"
 searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://developers.google.com/gemini-code-assist/resources/privacy-notice-gemini-code-assist-individuals"]
+
+[[product.retention.point]]
+text = "Evidence form and tier status: the individuals privacy notice URL in searched is now the deprecation notice page for Gemini Code Assist consumer accounts, so this tier's own retention terms are no longer live and retention is recorded as undisclosed. Before it shut down, the terms system for this tier was the consumer Google Terms of Service with the Gemini Code Assist Privacy Notice for individuals; that notice's text is not on the current page."
+text_zh = "证据形态与档位状态：searched 里的 individuals 隐私声明 URL 现已是 Gemini Code Assist 消费者账号停用公告页，本档自己的保留条款已不在线，故 retention 记未披露。本档停服前的条款体系是消费者 Google 服务条款加 Gemini Code Assist Privacy Notice for individuals，该声明正文已不在现行页面。"
+anchor = "tier-individuals-shutdown"
+
 [product.processing_region]
-mark = "unknown"
-codes = ["unknown"]
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://policies.google.com/privacy"]
+mark = "yes"
+codes = ["global"]
+anchor = "region-privacy-policy-global"
+
+[[product.processing_region.point]]
+text = "The tier's own terms state no processing location; the region is read from the Google Privacy Policy that accompanies the consumer Google Terms of Service listed for this tier — Google maintains servers around the world and information may be processed on servers outside the country where you live. The tier shut down on 18 June 2026 (Login with Google no longer works for Gemini CLI), so this records the pre-shutdown terms system rather than a current product."
+text_zh = "本档自己的条款没有写处理地；处理地按该档适用的消费者 Google 服务条款所配套的 Google 隐私政策记录——服务器遍布全球，信息可能在所在国以外的服务器上处理。该档已于 2026-06-18 停服（Login with Google 不再可用于 Gemini CLI），此处记的是停服前条款体系，不是现行产品。"
+anchor = "region-privacy-policy-global"
+
 [product.role]
 kind = "controller"
 anchor = "role-google-llc-service-provider"
@@ -90,20 +111,57 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "training-unpaid-improve"
+
+[[product.training.point]]
+text = "Regional carve-out: for users in the European Economic Area, Switzerland or the United Kingdom the Paid Services data terms apply to all Services, including Google AI Studio and unpaid quota in the Gemini API. That section states Google doesn't use prompts or responses to improve its products and processes them under the Data Processing Addendum, so the worldwide default recorded here (unpaid content used to improve Google's products, including for model training) does not describe EEA/Swiss/UK usage of this tier. Both statements are kept: one contract gives two regions two answers."
+text_zh = "地域例外：EEA、瑞士、英国用户的全部用量（含 Google AI Studio 与 Gemini API 免费额度）适用 Paid Services 的数据条款——该节写明不拿提示词与响应用于改进产品，并按 Data Processing Addendum 处理。因此本档记录的全球默认口径（unpaid 内容被用于改进 Google 产品、包括模型训练）不描述这三个地区的用量。两条并列保留：同一份合同对两类地域给出相反答案。"
+anchor = "terms-eea-paid-treatment"
+
 [product.zdr]
-mark = "no"
+mark = "unknown"
 searched = ["https://ai.google.dev/gemini-api/docs/zdr", "https://ai.google.dev/gemini-api/terms", "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+
+[[product.zdr.point]]
+text = "Why undisclosed rather than an explicit refusal: the zero-data-retention page names retention paths only for Paid Services and tells workloads that need guaranteed zero data retention or enterprise data processing agreements to use Vertex AI; this tier's own terms instead say Google uses submitted content and generated responses to improve and develop its products, and that human reviewers may read API input and output. Google never says unpaid usage cannot have zero retention, so this is silence about this tier, not a stated denial."
+text_zh = "为何记未披露而不是明确否定：ZDR 专页只对 Paid Services 给出保留路径，并要求需要保证级零保留或企业数据处理协议的工作负载改用 Vertex AI；本档自己的条款则写明提交内容与生成响应会被用于改进和开发 Google 产品、且可能由人工审阅。厂商从未就 unpaid 档说过「做不到零保留」，这是对该档的沉默，不是明确拒绝。"
+
+[[product.zdr.point]]
+text = "Regional carve-out: for users in the European Economic Area, Switzerland or the United Kingdom the Paid Services data terms apply to all Services, including unpaid quota in the Gemini API, so which terms answer this tier's zero-retention question differs by region — and even there the terms promise processing under the Data Processing Addendum, not zero data retention."
+text_zh = "地域例外：EEA、瑞士、英国用户（含 Gemini API 免费额度）整体适用 Paid Services 的数据条款，故本档零保留问题的适用条款按地域不同；即便在该地域，条款承诺的是按 Data Processing Addendum 处理，而非零数据保留。"
+anchor = "terms-eea-paid-treatment"
+
 [product.retention]
 days = 55
-object = "input_output"
+object = "logs"
 basis = "fixed_period"
 anchor = "retention-abuse-logs-55-days"
+
+[[product.retention.point]]
+text = "Object and context of the 55 days: it is a fixed (outer) period for abuse-monitoring logs only — the prompts, contextual information and output Google keeps in order to detect and prevent violations of the Prohibited Use Policy — and that log is used solely for policy enforcement, not to train or fine-tune any AI/ML models other than those used for policy enforcement. It is not a promise that inputs and outputs are deleted after 55 days: retention for the separate use of unpaid content to improve Google's products (which may involve human review) is not disclosed."
+text_zh = "55 天的对象与语境：这是滥用监控日志的固定（上限）期限——即 Google 为检测和阻止违反 Prohibited Use Policy 而保留的提示词、上下文信息与输出——该日志仅用于政策执行，不用于训练或微调除政策执行以外的任何 AI/ML 模型。它不等于「输入输出 55 天后删除」：unpaid 内容被用于改进 Google 产品（可能经人工审阅）这一路径的保留期限官方未披露。"
+anchor = "retention-abuse-logs-purpose"
+
+[[product.retention.point]]
+text = "Regional carve-out: for users in the European Economic Area, Switzerland or the United Kingdom the Paid Services data terms apply to all Services, including unpaid quota in the Gemini API; there the abuse-monitoring logging is described as retention of prompts and responses for a limited period of time under the Data Processing Addendum. The 55-day figure recorded here therefore describes the worldwide default, not EEA/Swiss/UK usage."
+text_zh = "地域例外：EEA、瑞士、英国用户（含 Gemini API 免费额度）整体适用 Paid Services 的数据条款；在那里滥用监控日志被描述为按 Data Processing Addendum 有限期保留提示词与响应。因此本档记的 55 天是全球默认口径，不描述这三个地区的用量。"
+anchor = "terms-eea-paid-treatment"
+
 [product.processing_region]
 codes = ["global"]
-anchor = "region-any-country"
+anchor = "region-privacy-global-unpaid"
+
+[[product.processing_region.point]]
+text = "This tier's own terms state no processing location; the region is read from the Google Privacy Policy that the still-live Gemini CLI documentation lists as this tier's Privacy Notice — Google maintains servers around the world and information may be processed on servers outside the country where you live."
+text_zh = "本档自己的条款没有写处理地；处理地按仍在线的 Gemini CLI 官方文档给本档列明的隐私声明（Google 隐私政策）记录——服务器遍布全球，信息可能在所在国以外的服务器上处理。"
+
 [product.role]
 kind = "controller"
-anchor = "role-google-llc-service-provider"
+anchor = "role-unpaid-own-terms"
+
+[[product.role.point]]
+text = "Which contract applies: the still-live Gemini CLI documentation lists the Gemini API Terms of Service - Unpaid Services together with the Google Privacy Policy for the Gemini Developer API unpaid tier, so the consumer Google Terms of Service is not this tier's contract. It is kept only as corroboration of the contracting entity (Google LLC)."
+text_zh = "适用哪份合同：仍在线的 Gemini CLI 官方文档给 Gemini Developer API 的 unpaid 档列的是 Gemini API Terms of Service - Unpaid Services 加 Google 隐私政策，消费者 Google 服务条款不是本档合同，只作签约主体（Google LLC）的旁证。"
+anchor = "unpaid-terms-table-row"
 
 [[product]]
 id = "gemini-cli-api-key-paid"
@@ -118,11 +176,23 @@ anchor = "training-paid-no-improve"
 mark = "yes"
 mode = "opt_in"
 anchor = "zdr-requires-actions"
+
+[[product.zdr.point]]
+text = "Hard limit on this tier: prompt and response logging for abuse monitoring has no self-serve off switch — the same page gives no action for it and instead tells workloads that need guaranteed zero data retention or enterprise data processing agreements to use Vertex AI. What a customer can control are the feature-level retentions (Grounding with Google Search and Google Maps, Interactions API, Live API, File API, explicit context caching)."
+text_zh = "本档的硬限制：滥用监控的提示词与响应日志没有可自助关闭的动作——同页对该项没有给出任何可执行步骤，而是要求需要保证级零保留或企业数据处理协议的工作负载改用 Vertex AI。客户能自己控制的是特性级留存（Grounding with Google Search/Maps、Interactions API、Live API、File API、显式上下文缓存）。"
+anchor = "zdr-prompt-logging-paid-only"
+
 [product.retention]
 days = 55
 object = "mixed"
 basis = "fixed_period"
 anchor = "retention-abuse-logs-55-days"
+
+[[product.retention.point]]
+text = "The 55 days is the abuse-monitoring log's fixed (outer) period and is not evidence that inputs and outputs are used for improvement: that log is used solely for policy enforcement and is not used to train or fine-tune any AI/ML models other than those used for policy enforcement. It covers the prompts, contextual information and output Google keeps to detect and prevent violations of the Prohibited Use Policy."
+text_zh = "55 天是滥用监控日志的固定（上限）期限，不能读成「输入输出会被用于改进」：该日志仅用于政策执行，不用于训练或微调除政策执行以外的任何 AI/ML 模型。它覆盖 Google 为检测和阻止违反 Prohibited Use Policy 而保留的提示词、上下文信息与输出。"
+anchor = "retention-abuse-logs-purpose"
+
 [product.processing_region]
 codes = ["global"]
 anchor = "region-any-country"
@@ -139,21 +209,44 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "gemini-cli-enterprise-no-collection"
+
+[[product.training.point]]
+text = "Conditional wording in the tier's own cloud documentation (channel=enterprise_privacy_faq, lower priority than the developer_data page anchored above): under Google's privacy commitment for generative AI technologies, Google doesn't use your data to train our models without your permission. This is the same direction as the anchored statement (not collected, not used to train), stated with a permission condition instead of absolutely, so it is recorded as a scope note rather than as a conflict."
+text_zh = "本档自己的云文档（channel=enterprise_privacy_faq，优先级低于上面锚定的 developer_data 文档）用的是带条件的措辞：按 Google 生成式 AI 隐私承诺，「未经你的许可，Google 不会用你的数据训练模型」。方向与锚定句一致（不被收集、不用于训练），只是从绝对表述变成带许可条件，故记为适用范围说明而非冲突。"
+anchor = "training-enterprise-permission-condition"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
 [product.retention]
-mark = "unknown"
+mark = "yes"
 object = "input_output"
-basis = "undisclosed"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
+basis = "none"
+anchor = "retention-enterprise-stateless"
+
+[[product.retention.point]]
+text = "Scope and exception: the stateless default covers prompts and responses, and the same page lets a customer set up Gemini Code Assist Standard and Enterprise to store user input and responses in a Cloud Logging bucket, so any retention here is customer-configured rather than vendor-side. Service Data (user analytics, telemetry, Google feedback) is governed separately under the Google Cloud Privacy Notice."
+text_zh = "范围与例外：默认不留存的对象是提示词与响应；同页写明客户可以自行把用户输入与响应存到自己的 Cloud Logging bucket，即留存与否由客户配置，而非厂商侧保留。Service Data（用户分析、遥测、Google 反馈）另按 Google Cloud Privacy Notice 处理。"
+anchor = "retention-enterprise-service-data"
+
 [product.processing_region]
-mark = "unknown"
-codes = ["unknown"]
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html", "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"]
+mark = "yes"
+codes = ["global"]
+anchor = "region-enterprise-global-edge"
+
+[[product.processing_region.point]]
+text = "Limit stated by the same page: processing typically occurs at the data center closest to the request's geographic origin, but regionality is not guaranteed, so this is a global-processing disclosure rather than a data-residency commitment."
+text_zh = "同页写明的限制：处理通常发生在离请求来源最近的数据中心，但不保证区域——这是全球处理的披露，不是数据驻留承诺。"
+anchor = "region-enterprise-global-edge"
+
 [product.role]
 kind = "processor"
-anchor = "gemini-cli-enterprise-no-collection"
+anchor = "role-enterprise-processor"
+
+[[product.role.point]]
+text = "Exception stated by the same page: Google also acts as a data controller for information such as billing and account management and abuse detections, so processor does not describe the whole tier."
+text_zh = "同页写明的例外：账单、账号管理与滥用检测等信息上 Google 为独立控制者，processor 不覆盖整档。"
+anchor = "role-enterprise-controller-exception"
 
 [[anchor]]
 id = "training-unpaid-improve"
@@ -284,8 +377,134 @@ suffix = ". Under this notice, your **prompts, answers, and related code are col
 [[anchor]]
 id = "gemini-cli-enterprise-no-collection"
 source_id = "6e58103b5b10bd25"
-topics = ["training", "role"]
+topics = ["training"]
 [anchor.selector]
 prefix = ""
 exact = "Your prompts, answers, and related code are not collected and are not used to train models."
+suffix = "**Gemini API key via the Gemini Developer API**"
+
+[[anchor]]
+id = "retention-enterprise-stateless"
+source_id = "db45ece240ae6f22"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Because Gemini Code Assist Standard and Enterprise are stateless Google Cloud services, they don't store prompts and responses in Google Cloud."
+suffix = "If required, you can set up Gemini Code Assist Standard and Enterprise to store user input and responses in a Cloud Logging bucket."
+
+[[anchor]]
+id = "retention-enterprise-service-data"
+source_id = "db45ece240ae6f22"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Service Data for Gemini Code Assist Standard and Enterprise is defined in the Google Cloud Privacy Notice."
+suffix = ""
+
+[[anchor]]
+id = "region-enterprise-global-edge"
+source_id = "db45ece240ae6f22"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Gemini Code Assist Standard and Enterprise use the global Google Edge Network to receive data for processing. Typically, processing occurs at the data center that is closest to the request's geographic origin, but regionality is not guaranteed."
+suffix = ""
+
+[[anchor]]
+id = "training-enterprise-permission-condition"
+source_id = "db45ece240ae6f22"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Google doesn't use your data to train our models without your permission."
+suffix = ""
+
+[[anchor]]
+id = "role-enterprise-processor"
+source_id = "db45ece240ae6f22"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Gemini Code Assist Standard and Enterprise act as data processors for all Customer Data"
+suffix = "—for example when personalizing experiences and recommendations—troubleshooting issues, and maintaining the service."
+
+[[anchor]]
+id = "role-enterprise-controller-exception"
+source_id = "db45ece240ae6f22"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Google also acts as a data controller for information such as billing and account management and abuse detections."
+suffix = ""
+
+[[anchor]]
+id = "region-privacy-policy-global"
+source_id = "47330706f5e77b8d"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Data transfers"
+exact = "We maintain servers around the world and your information may be processed on servers located outside of the country where you live."
+suffix = ""
+
+[[anchor]]
+id = "region-privacy-global-unpaid"
+source_id = "47330706f5e77b8d"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Data transfers"
+exact = "We maintain servers around the world and your information may be processed on servers located outside of the country where you live."
+suffix = ""
+
+[[anchor]]
+id = "tier-individuals-shutdown"
+source_id = "1d7787749c75a657"
+topics = ["retention", "zdr", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Starting June 18, 2026, Gemini Code Assist IDE extensions stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers."
+suffix = "This also applies to usage of Gemini CLI."
+
+[[anchor]]
+id = "terms-eea-paid-treatment"
+source_id = "a56c52f541d6ad5f"
+topics = ["training", "retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = """If you're in the European Economic Area, Switzerland, or the United Kingdom, the terms under "How Google uses Your Data" in "Paid Services" apply to all Services, including Google AI Studio and unpaid quota in the Gemini API, even though they are offered free of charge."""
+suffix = ""
+
+[[anchor]]
+id = "role-unpaid-own-terms"
+source_id = "a56c52f541d6ad5f"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Google uses the content you submit to the Services and any generated responses to provide, improve, and develop Google products and services and machine learning technologies, including Google's enterprise features, products, and services, consistent with our Privacy Policy."
+suffix = ""
+
+[[anchor]]
+id = "unpaid-terms-table-row"
+source_id = "6e58103b5b10bd25"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "| Gemini Developer API | Unpaid | Gemini API Terms of Service - Unpaid Services | Google Privacy Policy |"
+suffix = ""
+
+[[anchor]]
+id = "zdr-prompt-logging-paid-only"
+source_id = "a5b5280b5b62735f"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = "Prompt logging for abuse monitoring: As outlined in the Gemini API Additional Terms of Service,"
+exact = "for Paid Services, Google logs prompts and responses for a limited period of time solely for detecting violations of the Prohibited Use Policy. If your workload requires guaranteed zero data retention or enterprise data processing agreements, use Vertex AI"
+suffix = ""
+
+[[anchor]]
+id = "retention-abuse-logs-purpose"
+source_id = "5e08212c4da8dea1"
+topics = ["retention", "training"]
+[anchor.selector]
+prefix = ""
+exact = "When data is logged for abuse monitoring, it is used solely for the purpose of policy enforcement and preventing policy violations. It is not used to train or fine-tune any AI/ML models besides those used specifically for policy enforcement."
 suffix = ""

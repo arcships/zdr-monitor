@@ -54,6 +54,12 @@ channel = "contract"
 tier = "core"
 note = "Cloudflare Self-Serve Subscription Agreement(Last Updated September 12, 2025)。自助订阅档主协议,AI Gateway 免费/付费档即在此档:§2.5.1 客户内容许可范围限于『necessary to provide the Services』、§2.5.3 对客户内容的修改/扫描权、§2.5.5 Network Data 与网络流量(含日志)检查权、§3 第三方产品由第三方条款管辖。training/role 的合同层来源。"
 
+[[source]]
+url = "https://www.cloudflare.com/service-specific-terms-developer-platform/"
+channel = "contract"
+tier = "core"
+note = "Cloudflare Service-Specific Terms → Developer Platform(页面标注 Last updated June 02, 2026),含独立小节「Cloudflare Workers AI; AI Gateway」——点名 AI Gateway 的合同层条款。该页声明补充 applicable master agreement(s),即同时补充自助订阅协议与企业订阅协议。AI Gateway 小节第 1 条是不训练承诺(『Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools』)、第 9 条保留『except as needed to provide and improve the Services』的使用口子、第 4 条明文规定经 AI Gateway 访问的第三方产品不适用 Cloudflare DPA 与 Information Security Exhibit。training/role 的合同层来源。**抓取通道注意**:r.jina.ai 对 www.cloudflare.com 本页抓取不稳定,缓存里曾存广告追踪像素壳(match.adsrvr.org);页面 HTML 本身逐字完整,坏 baseline 是闸门上线前写入的,不得据此改结论。"
+
 [[product]]
 id = "api"
 badge = "BYOK 转发"
@@ -64,7 +70,17 @@ label = "AI Gateway 默认档(请求自带 provider key 或 BYOK;Cloudflare 仅�
 [product.training]
 mark = "yes"
 mode = "by_contract"
-anchor = "cf-aigw-selfserve-customer-content-license-scope"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "Cloudflare's AI Gateway-specific contract terms — the section \"Cloudflare Workers AI; AI Gateway\" of the Service-Specific Terms → Developer Platform — state verbatim \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" This section names AI Gateway itself, so it is the most directly applicable no-training commitment, and it is tier-independent (the page supplements the applicable master agreement, self-serve or enterprise). The \"Unless otherwise agreed\" opening makes it a default that a contrary agreement can displace, not an absolute bar"
+text_zh = "Cloudflare 专指 AI Gateway 的合同条款——《服务专用条款 → 开发者平台》的「Cloudflare Workers AI; AI Gateway」一节——逐字写『Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.』该节点名 AI Gateway 本身,是最直接适用的不训练承诺,且不分档(该页补充 applicable master agreement,自助档与企业档皆适用)。『Unless otherwise agreed』这个开头说明它是可被另行约定覆盖的默认值,不是绝对禁止"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "The same AI Gateway section also writes \"Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services\", keeping a service-improvement opening. Under docs/judgment.md (using data to improve the service counts as training) this has to sit next to the no-training sentence, not replace it: items 1 and 9 of the same section are kept side by side and no side is picked"
+text_zh = "同一 AI Gateway 节还写『Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services』,保留了「服务改进」这个口子。按 docs/judgment.md 的口径(用来改进服务算训练),这条必须与不训练那句并列而非替代它:同节第 1 条与第 9 条并列保留,不选边"
+anchor = "cf-aigw-sst-dp-improve-the-services"
 
 [[product.training.point]]
 text = "Gateway hop (Cloudflare) conclusion: at contract level Cloudflare is granted no license to train models on customer content. The content license in Self-Serve Subscription Agreement §2.5.1 is limited verbatim to \"to the extent necessary to provide the Services\""
@@ -123,6 +139,16 @@ text_zh = "开启后响应由 Cloudflare 缓存,TTL 最短 60 秒、最长 1 个
 text = "The retention period in the DPA Annex is written as \"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\", a contract-level retention criterion rather than a request-level period. Also: §2.5.5 gives Cloudflare the right to inspect network traffic and related logs, but no retention commitment for abuse-monitoring logs."
 text_zh = "DPA Annex 的保留期写法是『Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...』,是合同层保留准则,不是请求级期限。另:§2.5.5 给了 Cloudflare 检查网络流量与相关日志的权限,但没有给 abuse 监控日志的保留期承诺。"
 
+[[product.retention.point]]
+text = "Object boundary of the DPA retention criteria: the Annex criterion above does not reach the upstream hop — the AI Gateway section of the Service-Specific Terms says the Cloudflare Data Processing Addendum and Information Security Exhibit \"do not apply to your use of such Third-Party Products accessed via AI Gateway\", so how long the upstream provider keeps the request is governed by that provider's own policy"
+text_zh = "DPA 保留准则的对象边界:上面那条 Annex 保留期不延伸到上游跳——《服务专用条款》AI Gateway 节写明 Cloudflare DPA 与 Information Security Exhibit『do not apply to your use of such Third-Party Products accessed via AI Gateway』,上游 provider 保留请求多久由它自己的政策决定"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+
+[[product.retention.point]]
+text = "Enterprise-tier comparison (does not constrain the self-serve tiers; recorded alongside §5.2 as reference only): §11.5 \"Access to Logs On Termination\" — \"For up to seventy-two (72) hours following expiration or termination of Customer's access to the Service, Cloudflare will use reasonable efforts to continue to make available to Customer the Customer Logs.\" This is a post-termination retrieval window on the Customer Logs, not a deletion deadline: §5.2's 72-hour point is a floor for data Cloudflare is not documented as storing, while §11.5 keeps documented Customer Logs available to the customer for up to 72 hours after termination"
+text_zh = "企业档对照(不对自助档构成约束,与 §5.2 一并只作对照):§11.5『Access to Logs On Termination』——『For up to seventy-two (72) hours following expiration or termination of Customer's access to the Service, Cloudflare will use reasonable efforts to continue to make available to Customer the Customer Logs.』这是终止后仍可取回 Customer Logs 的窗口,不是删除期限:§5.2 的 72 小时是「未按文档代存」数据的下限,§11.5 则让文档约定代存的 Customer Logs 在终止后最多 72 小时内仍对客户可取回"
+anchor = "cf-aigw-enterprise-logs-72h-after-termination"
+
 [product.processing_region]
 codes = ["global"]
 anchor = "cf-aigw-dls-compat-ai-gateway-row"
@@ -142,6 +168,11 @@ text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictiona
 [[product.processing_region.point]]
 text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
 text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
+
+[[product.processing_region.point]]
+text = "Exception to the boundary: CMB has an \"Allow out-of-region access\" setting — \"When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.\" CMB therefore constrains where logs are stored, not who may read them. Object caveat: the same document defines CMB's Customer Logs as traffic metadata (\"request URLs, timestamps, and firewall events\"), and Cloudflare does not state whether AI Gateway prompt/response content falls inside that definition"
+text_zh = "边界有例外:CMB 有『Allow out-of-region access』开关——开启后 Customer Logs 仍存于配置区,但账号内授权用户可在任意物理位置访问(原文:『When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.』)——CMB 约束的是日志存放在哪,不是谁能读。对象提醒:同一文档把 CMB 的 Customer Logs 定义为流量 metadata(『request URLs, timestamps, and firewall events』),而 AI Gateway 的 prompt/response 正文是否落在这个定义内,官方没有明说"
+anchor = "cf-aigw-cmb-out-of-region-access-exception"
 
 [product.role]
 kind = "processor"
@@ -163,6 +194,11 @@ text_zh = "§4.3 客户对 Cloudflare 集团成员及数据中心/支持类第�
 text = "On the Unified Billing tier the credentials are held by Cloudflare and usage is billed against Cloudflare credit (\"the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance\", with provider inference pricing \"passed through with no markup\"), so Cloudflare is an intermediary in the billing chain — but the documentation does not disclose on what terms Cloudflare contracts with the upstreams, which is this tier's biggest open question."
 text_zh = "Unified Billing 档凭据由 Cloudflare 托管、按 Cloudflare 额度计费(『the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance』,provider 推理价『passed through with no markup』),即 Cloudflare 在结算上是中间方——但文档没有披露 Cloudflare 与上游之间以何种条款签约,这是本档最大的不确定点。"
 
+[[product.role.point]]
+text = "Scope limit written into the contract itself: the AI Gateway section of the Service-Specific Terms provides that where AI Gateway features use Third-Party Products running on third-party infrastructure, \"you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway.\" Cloudflare's processor role — and the DPA that expresses it — therefore covers the gateway hop only; the role of the upstream hop is set by the upstream provider's own terms"
+text_zh = "合同自身写明的范围限定:《服务专用条款》AI Gateway 节规定,对于跑在第三方基础设施上的第三方产品,『you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway.』——Cloudflare 的 processor 角色(以及体现它的 DPA)只覆盖网关跳;上游跳的角色由上游 provider 自己的条款决定"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+
 [[product]]
 id = "unified-billing"
 badge = "统一计费"
@@ -173,7 +209,17 @@ label = "AI Gateway Unified Billing(Cloudflare 托管凭据、预付费转售;�
 [product.training]
 mark = "yes"
 mode = "by_contract"
-anchor = "cf-aigw-selfserve-customer-content-license-scope"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "The AI Gateway-specific contract terms — the section \"Cloudflare Workers AI; AI Gateway\" of the Service-Specific Terms → Developer Platform — state verbatim \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" That section names AI Gateway itself and supplements whichever master agreement applies, so it covers this tier as well; the \"Unless otherwise agreed\" opening makes it a default a contrary agreement can displace, not an absolute bar"
+text_zh = "专指 AI Gateway 的合同条款——《服务专用条款 → 开发者平台》的「Cloudflare Workers AI; AI Gateway」一节——逐字写『Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.』该节点名 AI Gateway 本身、补充适用的主协议,因此本档同样适用;『Unless otherwise agreed』这个开头说明它是可被另行约定覆盖的默认值,不是绝对禁止"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "The same AI Gateway section also writes \"Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services\", keeping a service-improvement opening. Under docs/judgment.md (using data to improve the service counts as training) this has to sit next to the no-training sentence rather than replace it; the two items of the same section are kept side by side and no side is picked"
+text_zh = "同一 AI Gateway 节还写『Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services』,保留了「服务改进」这个口子。按 docs/judgment.md 的口径(用来改进服务算训练),这条必须与不训练那句并列而非替代它:同节两条并列保留,不选边"
+anchor = "cf-aigw-sst-dp-improve-the-services"
 
 [[product.training.point]]
 text = "Same source as the api tier: the contractual content license is still limited to what is \"necessary to provide the Services\", and the same two openings (Network Data and security monitoring) apply"
@@ -205,6 +251,11 @@ anchor = "cf-aigw-logging-persist-no-time-limit"
 text = "Same as the api tier: logging is a gateway-level behaviour, on by default, containing prompt and response content, persisted, and bounded by an entry-count cap. One official qualification must be recorded alongside on this tier: \"ZDR does not control AI Gateway logging\" — with ZDR on, logging still has to be switched off separately before nothing is written on the gateway side."
 text_zh = "与 api 档相同:日志是 gateway 级行为,默认开、含 prompt/response 正文、持久保存、按条数上限。该档另有一处必须并列的官方限定:『ZDR does not control AI Gateway logging』——开了 ZDR 仍要单独关日志才算网关侧不落盘。"
 
+[[product.retention.point]]
+text = "Object boundary of the DPA retention criteria on this tier: the Annex criterion (\"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\") covers the gateway hop only — the AI Gateway section of the Service-Specific Terms says the Cloudflare DPA and Information Security Exhibit \"do not apply to your use of such Third-Party Products accessed via AI Gateway\", so how long the upstream provider keeps the request is governed by that provider's own policy. Even a ZDR-mapped configuration is a mapping onto upstream endpoints, not a Cloudflare retention commitment"
+text_zh = "本档 DPA 保留准则的对象边界:Annex 的保留期(『Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...』)只覆盖网关跳——《服务专用条款》AI Gateway 节写明 Cloudflare DPA 与 Information Security Exhibit『do not apply to your use of such Third-Party Products accessed via AI Gateway』,上游 provider 保留请求多久由它自己的政策决定;即便开了映射到上游 ZDR 端点的配置,那也只是对上游端点配置的映射,不是 Cloudflare 的保留承诺"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+
 [product.processing_region]
 codes = ["global"]
 anchor = "cf-aigw-dls-compat-ai-gateway-row"
@@ -225,6 +276,11 @@ text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictiona
 text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
 text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
 
+[[product.processing_region.point]]
+text = "Exception to the boundary: CMB has an \"Allow out-of-region access\" setting — \"When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.\" CMB therefore constrains where logs are stored, not who may read them. Object caveat: the same document defines CMB's Customer Logs as traffic metadata (\"request URLs, timestamps, and firewall events\"), and Cloudflare does not state whether AI Gateway prompt/response content falls inside that definition"
+text_zh = "边界有例外:CMB 有『Allow out-of-region access』开关——开启后 Customer Logs 仍存于配置区,但账号内授权用户可在任意物理位置访问(原文:『When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.』)——CMB 约束的是日志存放在哪,不是谁能读。对象提醒:同一文档把 CMB 的 Customer Logs 定义为流量 metadata(『request URLs, timestamps, and firewall events』),而 AI Gateway 的 prompt/response 正文是否落在这个定义内,官方没有明说"
+anchor = "cf-aigw-cmb-out-of-region-access-exception"
+
 [product.role]
 kind = "processor"
 anchor = "cf-aigw-dpa-cloudflare-is-processor"
@@ -244,6 +300,11 @@ text_zh = "§4.3 客户对 Cloudflare 集团成员及数据中心/支持类第�
 [[product.role.point]]
 text = "On the Unified Billing tier the credentials are held by Cloudflare and usage is billed against Cloudflare credit (\"the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance\", with provider inference pricing \"passed through with no markup\"), so Cloudflare is an intermediary in the billing chain — but the documentation does not disclose on what terms Cloudflare contracts with the upstreams, which is this tier's biggest open question. Additional note for this tier: Cloudflare is a reselling intermediary in the billing chain (5% fee, provider inference pricing passed through), but the documentation does not say whether it contracts with the upstream in its own name."
 text_zh = "Unified Billing 档凭据由 Cloudflare 托管、按 Cloudflare 额度计费(『the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance』,provider 推理价『passed through with no markup』),即 Cloudflare 在结算上是中间方——但文档没有披露 Cloudflare 与上游之间以何种条款签约,这是本档最大的不确定点。 本档补充:Cloudflare 在结算上是转售中间方(5% 手续费、provider 推理价透传),但文档未说明它是否以自己名义与上游签约。"
+
+[[product.role.point]]
+text = "Scope limit written into the contract itself, and it bites hardest on this tier: the AI Gateway section of the Service-Specific Terms provides that where AI Gateway features use Third-Party Products running on third-party infrastructure, \"you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway.\" Cloudflare's processor role — and the DPA that expresses it — therefore covers the gateway hop only; on this tier, where the request is served with Cloudflare-managed credentials, the role of the upstream hop is still set by the upstream provider's own terms"
+text_zh = "合同自身写明的范围限定,在本档影响最大:《服务专用条款》AI Gateway 节规定,对于跑在第三方基础设施上的第三方产品,『you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway.』——Cloudflare 的 processor 角色(以及体现它的 DPA)只覆盖网关跳;本档请求虽由 Cloudflare 托管凭据发出,上游跳的角色仍由上游 provider 自己的条款决定"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
 
 [[anchor]]
 id = "cf-aigw-ub-zdr-routes-upstream"
@@ -663,10 +724,12 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = """
-velopers.cloudflare.com/data-localization/compatibility/) |
+| Cloudflare Images | ⚫️ | ✅ 13 | 🚧 14 |
 """
-exact = "| AI Gateway | ✘ | ✘ | 🚧"
-suffix = " [15](https://developers.cloudflare.com/data-localization/co"
+exact = "| AI Gateway | ✘ | ✘ | 🚧 15 |"
+suffix = """
+| AI Search |
+"""
 
 [[anchor]]
 id = "cf-aigw-dls-cmb-controls-log-region"
@@ -720,3 +783,53 @@ ed and that some Services will have reduced functionality.
 """
 exact = "Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services."
 suffix = " Customer is responsible for all configurations related to C"
+
+[[anchor]]
+id = "cf-aigw-sst-dp-no-train-generative-ai"
+source_id = "c2e8b762df089842"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "proprietary rights in Inputs and Outputs to or from the Services. "
+exact = "Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools."
+suffix = " Certain uses of Workers AI may enable the Services to take"
+
+[[anchor]]
+id = "cf-aigw-sst-dp-improve-the-services"
+source_id = "c2e8b762df089842"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "documentation and any applicable third-party terms. "
+exact = "Cloudflare does not reference or use any Customer Content except as needed to provide and improve the Services"
+suffix = " and affirms that you retain intellectual property rights in"
+
+[[anchor]]
+id = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+source_id = "c2e8b762df089842"
+topics = ["role", "retention"]
+
+[anchor.selector]
+prefix = "immediate suspension of Cloudflare Services. "
+exact = "Certain AI Gateway features utilize Third-Party Products that operate on third-party infrastructure, as further described in the developer documents. By using such features, you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway."
+suffix = " Please refer to each Third-Party Product providers’ relevant policies for more information."
+
+[[anchor]]
+id = "cf-aigw-cmb-out-of-region-access-exception"
+source_id = "3e4c45b2cbb0dbc2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "located in the European Union. "
+exact = "An exception is made if \"Allow out-of-region access\" is enabled. When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location."
+suffix = " Refer to Out of region access for more details."
+
+[[anchor]]
+id = "cf-aigw-enterprise-logs-72h-after-termination"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**11.5. Access to Logs On Termination.** "
+exact = "For up to seventy-two (72) hours following expiration or termination of Customer’s access to the Service, Cloudflare will use reasonable efforts to continue to make available to Customer the Customer Logs."
+suffix = " Other than as set forth in this"

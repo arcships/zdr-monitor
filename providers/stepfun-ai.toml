@@ -47,6 +47,26 @@ text_zh = "ToS §4.1(ii) 与 §1.4 的明示训练授权以参与 StepFun Startu
 [[product.training.point]]
 text_zh = "§8.1 免责声明另载明服务「MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING」,未限定项目。隐私政策 §1.3 同向:特定项目下 API 的 Prompts/Outputs/API call logs 可被保留并用于训练、微调,此时 StepFun 自认 controller"
 
+[[product.training.point]]
+text = "ToS §4.1(iv) applies to every platform customer and is not conditioned on any program: “We may also use Content to provide, maintain, develop and improve our Services, comply with applicable laws, enforce our Terms, and ensure the security of our Services.” Content is defined in §4 as Prompts, Outputs and Feedback, so this is an unconditional statement that inputs and outputs may be used to develop and improve the Services — training under the “improving the service counts as training” rule, and a side indication for zdr that StepFun keeps the power to use Content."
+text_zh = "ToS §4.1(iv)（不限定项目、适用于全部平台客户）：「We may also use Content to provide, maintain, develop and improve our Services, comply with applicable laws, enforce our Terms, and ensure the security of our Services.」§4 定义 Content 含 Prompts、Outputs 与 Feedback，故这是「用输入输出开发与改进服务」的无条件表述；按 judgment.md「用来改进服务算训练」，它是本档 mark=no 最直接的无条件依据，同时也是厂商保留 use Content 权能（zdr 旁证）。"
+anchor = "training-content-improve-services"
+
+[[product.training.point]]
+text = "The only route the ToS offers out of the §4.4 training authorisation is not to take part: “If you do not consent to the use of your Usage Data for AI training purposes, you should not participate in that program or should contact us to discuss alternative arrangements.” There is no self-serve opt-out in this tier — the authorisation travels with program participation."
+text_zh = "§4.4 末句给出训练条款附带的唯一退路：「If you do not consent to the use of your Usage Data for AI training purposes, you should not participate in that program or should contact us to discuss alternative arrangements.」——不接受训练就不要参加该项目，或联系厂商另议。档内没有自助 opt-out，训练授权随项目参与绑定。"
+anchor = "training-no-consent-do-not-participate"
+
+[[product.training.point]]
+text = "Privacy Policy §2 lists as a general purpose “To evaluate and improve our models, products, and services, where permitted by applicable law.” — a purpose statement that is not tied to any program, on the controller side where StepFun sets the purposes."
+text_zh = "隐私政策 §2 的一般用途清单载明「To evaluate and improve our models, products, and services, where permitted by applicable law.」——不以参与任何项目为前提，属 StepFun 自任控制者一侧的用途声明。"
+anchor = "training-privacy-improve-models"
+
+[[product.training.point]]
+text = "The §12 legal basis table maps that purpose to the object “End Users’ Interaction Information” with the basis “Consent & Legitimate interests”, and §1.3(b) defines End Users’ Interaction Information to include API input data (text, images, voice messages). It sits in tension with the scope statement at the top of the same Policy (§1.3: in the processor scenario the commercial customer is the controller), so both facts are kept side by side."
+text_zh = "同一政策 §12 法律依据表把该目的的对象写作 End Users’ Interaction Information、依据写作 Consent & Legitimate interests，而 §1.3(b) 说明该信息含 API 输入（文本、图片、语音）。它与政策开头的范围声明存在内在张力（§1.3：受托场景下由商业客户担任 controller），故两条事实并列保留。"
+anchor = "training-privacy-legal-basis-table"
+
 [product.zdr]
 mark = "no"
 searched = [
@@ -66,6 +86,7 @@ text_zh = "不支持零保留:ToS §4.1(ii) 明文授权「store … all Output,
 
 [[product.zdr.point]]
 text_zh = "开发者文档《Prompt cache best practices》写默认开启的上下文缓存保存「the full array, including system prompt, user messages, and assistant messages」且不支持用户手动清缓存"
+anchor = "zdr-cache-full-conversation-array"
 
 [[product.zdr.point]]
 text_zh = "DPA 的 Customer Data 定义覆盖经服务提交的数据,删除只发生在协议终止后 30 天内。全部官方材料无 ZDR 表述、开关或申请渠道。【本轮重审(读,不要匹)逐条一句话依据】§4.1(ii)——用户授予 StepFun 对 all Output, Prompts and associated API call logs(段内定义为 Usage Data)的永久不可撤销许可、明文含 store/access,且不以参与任何项目为条件,所以合同层没有「处理完即不保留」的约束"
@@ -75,6 +96,7 @@ text_zh = "§4.1(iii)——厂商保留随时访问/审查/编辑/删除 your Co
 
 [[product.zdr.point]]
 text_zh = "prompt-cache——each request's input is cached、可缓存内容为完整对话数组(system prompt+用户消息+助手消息)、超过 256 token 自动开启,所以请求正文进入服务端缓存,且 Manual cache clearing is not supported 即用户无清除途径(适用模型 step-5-preview / step-3.7-flash / step-3.5-flash / step-3.5-flash-2603)"
+anchor = "zdr-cache-not-user-clearable"
 
 [[product.zdr.point]]
 text_zh = "DPA——Customer Data=all data or other information submitted through the Services,删除义务只在协议终止/到期后 30 天内触发,无请求级删除。反向检索:三份协议 + 74 页文档 + /legal 页均无「不存储 / 处理完删除」表述"
@@ -88,14 +110,47 @@ text_zh = "无 opt-out 或隐私设置页。维持 medium:厂商从未就 ZDR �
 [product.retention]
 days = 30
 object = "mixed"
-basis = "fixed_period"
+basis = "until_termination"
 anchor = "retention-30-days"
 
 [[product.retention.point]]
-text_zh = "DPA §7:协议终止/到期后 30 天内应要求返还或删除全部 Customer Data(法律要求、争议解决、反滥用除外)"
+text = "DPA §7 — object: all Customer Data, including Customer Personal Data; context: termination or expiration of the Agreement; the 30 days bounds the return/deletion step, it is not a retention period inside the service term, and deletion is not deferred to day 30 (the Customer may request a return or use self-service deletion within that window)."
+text_zh = "DPA §7:对象＝全部 Customer Data（含 Customer Personal Data）；语境＝协议终止或到期后；「30 天内」是返还/删除这一履行动作的上限，不是服务期内的保留期限，也不是「第 30 天才删」（客户可在该窗口内要求返还或自助删除）。"
+anchor = "retention-30-days"
 
 [[product.retention.point]]
-text_zh = "§2 另禁止将 Customer Personal Data 用于业务目的之外的保留。隐私政策 §7 为通用最小化原则(电话号码持续保留、IP 3 年、注销即删除或匿名化)"
+text = "The same §7 deletion obligation carries three exceptions: storage required by applicable law or regulatory requirements, retention necessary to resolve a dispute between the parties, and retention necessary to combat harmful use of the Services."
+text_zh = "同一删除义务带三类例外：适用法或监管要求要求存储、解决当事方之间的争议所必需、打击服务的有害使用所必需。"
+anchor = "retention-deletion-exceptions"
+
+[[product.retention.point]]
+text = "The contract layer gives no number of days inside the service term. Schedule 1 Part B records “Duration and frequency of processing: continuous for the duration of the Agreement, as determined by Customer’s configuration of the Services” — processing, and therefore retention, lasts at least as long as the Agreement."
+text_zh = "合同层没有服务期内的保留天数:Schedule 1 Part B 记「Duration and frequency of processing: continuous for the duration of the Agreement, as determined by Customer’s configuration of the Services」——处理（因而保留）至少持续整个协议期。"
+anchor = "retention-duration-of-processing"
+
+[[product.retention.point]]
+text = "Schedule 1 Part B “Storage limitation: compliance with legal retention requirements under applicable law” — the storage limitation points only to statutory retention requirements and sets no service-term day count. The DPA therefore cannot be read as “inputs/outputs, cache and logs are kept for 30 days”."
+text_zh = "Schedule 1 Part B「Storage limitation: compliance with legal retention requirements under applicable law」——存储限制只指向适用法下的法定保留要求,未给服务期内的天数。故本档不能读成「输入输出/缓存/日志保留 30 天」。"
+anchor = "retention-storage-limitation"
+
+[[product.retention.point]]
+text_zh = "§2 另禁止将 Customer Personal Data 用于业务目的之外的保留。隐私政策 §7 为通用最小化原则（电话号码持续保留、IP 3 年、注销即删除或匿名化）。"
+anchor = "retention-not-longer"
+
+[[product.retention.point]]
+text = "Deletion on account closure is not absolute: the Privacy Policy §7 rule “If you deactivate your account, delete personal information, or the retention period is expired, we will delete or anonymize your personal information, except in the following cases:” is followed by two exceptions — compliance with legal retention requirements, and extension of the period for financial, audit, dispute resolution, or other legitimate purposes. Together with the three DPA §7 exceptions there is no absolute “delete at expiry” commitment in this tier."
+text_zh = "注销/到期即删不是绝对承诺：隐私政策 §7 的「If you deactivate your account, delete personal information, or the retention period is expired, we will delete or anonymize your personal information, except in the following cases:」后接两条例外——适用法下的法定保留要求、为财务/审计/争议解决或其他正当目的延长保留期。与 DPA §7 的三类例外叠加后，本档没有任何「到期必删」的绝对承诺。"
+anchor = "retention-account-deletion-exceptions"
+
+[[product.retention.point]]
+text = "Cache object: the prompt-cache page says caching activates automatically above 256 tokens, publishes no TTL, and lets eviction float with load — “Eviction uses LRU: during peak traffic, unused cache entries are evicted more aggressively; off-peak they live longer.”"
+text_zh = "缓存对象:prompt-cache 页说明请求超过 256 token 自动开启缓存、未公布 TTL、淘汰随负载浮动——「Eviction uses LRU: during peak traffic, unused cache entries are evicted more aggressively; off-peak they live longer.」"
+anchor = "retention-cache-eviction-lru"
+
+[[product.retention.point]]
+text = "The only hint at a cache lifetime is the troubleshooting item “Verify calls are not spaced so far apart that the cache expires.” No number of days is given, and the page does not say whether the cached content is the original request text or a derived state."
+text_zh = "缓存期限的唯一暗示是排障清单的「Verify calls are not spaced so far apart that the cache expires.」——仍未给天数，也未说明缓存保存的是请求原文还是 KV 派生状态。"
+anchor = "retention-cache-expiry-hint"
 
 [product.processing_region]
 codes = ["US"]
@@ -395,3 +450,99 @@ topics = ["role", "training"]
 prefix = "ther information submitted through or generated by the API. "
 exact = "We may use and retain such data to evaluate and improve our models, products, and services, including for issue analysis, training, and fine-tuning where permitted by applicable law and program terms."
 suffix = " For these purposes, we act as a controller of such data.By "
+
+[[anchor]]
+id = "training-content-improve-services"
+source_id = "ff094c620e9155c1"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "including providing and developing the Services or if we think the Content violates these Terms or any applicable laws. (iv) "
+exact = "We may also use Content to provide, maintain, develop and improve our Services, comply with applicable laws, enforce our Terms, and ensure the security of our Services."
+suffix = """
+4.2 Personal information"""
+
+[[anchor]]
+id = "training-no-consent-do-not-participate"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "regarding the types of data used, the purposes of processing, and your choices with respect to such use. "
+exact = "If you do not consent to the use of your Usage Data for AI training purposes, you should not participate in that program or should contact us to discuss alternative arrangements."
+
+[[anchor]]
+id = "training-privacy-improve-models"
+source_id = "164a5044e0cb7b7d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "review your application, and determine your eligibility for access. "
+exact = "To evaluate and improve our models, products, and services, where permitted by applicable law."
+suffix = " To facilitate payments for the Services we provide."
+
+[[anchor]]
+id = "training-privacy-legal-basis-table"
+source_id = "164a5044e0cb7b7d"
+topics = ["training"]
+
+[anchor.selector]
+exact = "To evaluate and improve our models, products, and services"
+suffix = " | End Users’ Interaction Information"
+
+[[anchor]]
+id = "retention-deletion-exceptions"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "processed by StepFun or any subprocessors, except to the extent: "
+exact = """applicable law or regulatory requirements require storage
+- retention is necessary to resolve a dispute between the parties
+- retention is necessary to combat harmful use of the Services"""
+
+[[anchor]]
+id = "retention-duration-of-processing"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Duration and frequency of processing: "
+exact = "continuous for the duration of the Agreement, as determined by Customer’s configuration of the Services"
+
+[[anchor]]
+id = "retention-storage-limitation"
+source_id = "285b3dbfffce5c6d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Storage limitation: "
+exact = "compliance with legal retention requirements under applicable law"
+
+[[anchor]]
+id = "retention-account-deletion-exceptions"
+source_id = "164a5044e0cb7b7d"
+topics = ["retention"]
+
+[anchor.selector]
+exact = """If you deactivate your account, delete personal information, or the retention period is expired, we will delete or anonymize your personal information, except in the following cases:
+- Compliance with legal requirements regarding data retention according to the applicable laws.
+- Extension of the period for financial, audit, dispute resolution, or other legitimate purposes."""
+
+[[anchor]]
+id = "retention-cache-eviction-lru"
+source_id = "271e43688229ba1e"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Eviction uses LRU: during peak traffic, unused cache entries are evicted more aggressively; off-peak they live longer."
+
+[[anchor]]
+id = "retention-cache-expiry-hint"
+source_id = "271e43688229ba1e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Ensure the cached portion stays identical across calls. "
+exact = "Verify calls are not spaced so far apart that the cache expires."
+suffix = " Provide at least 256 tokens of input."

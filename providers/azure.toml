@@ -45,23 +45,160 @@ mark = "yes"
 mode = "default"
 anchor = "training-no-foundation-model-training"
 
+[[product.training.point]]
+text = "Prompts, completions, embeddings and training data are not available to other customers or to OpenAI and other providers of Models sold by Azure, are not used by those providers to improve their models or services, and are not used to train any generative AI foundation models without your permission or instruction"
+text_zh = "提示、补全、嵌入与训练数据不对其他客户开放,也不对 OpenAI 等模型提供方开放,不被这些提供方用于改进其模型或服务,未经你的许可或指示不用于训练任何生成式 AI 基础模型"
+
+[[product.training.point]]
+text = "Scope: Azure Preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring — the no-training commitment above is stated for generally available features"
+text_zh = "范围限定:Azure 预览功能(含 preview 状态的 Models sold by Azure)可能适用不同的隐私做法,包括滥用监测方面——上述「不用于训练」承诺是针对正式发布功能写的"
+anchor = "dp-preview-different-privacy-practices"
+
+[[product.training.point]]
+text = "Scope note, not a counter-example: the Azure DPIA (enterprise privacy FAQ layer) says Microsoft Azure processes personal data for purposes compatible with providing the online services, such as personalization, security, fraud and malware prevention, issue resolution and improvement. \"Improvement\" sits close to a training use under this ledger's criteria, but the DPIA ranks below the developer_data data-privacy page and speaks of Personal Data in Microsoft's own business operations, so it neither covers nor overturns training = yes"
+text_zh = "范围说明而非反证:Azure DPIA(enterprise_privacy_faq 层)写明 Azure 处理个人数据的目的包括与服务提供相容的用途,如个性化、安全、欺诈与恶意软件防护、问题解决与改进。按本仓库口径「改进」接近训练用途,但 DPIA 的权威层级低于 developer_data 的 data-privacy 页,且讲的是微软自身业务运营中的 Personal Data,既不能覆盖也不能推翻 training=yes"
+anchor = "dpia-azure-purpose-of-processing"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-modified-abuse-monitoring"
 
+[[product.zdr.point]]
+text = "Not open to everyone: \"Microsoft allows customers who meet additional Limited Access eligibility criteria to apply to modify abuse monitoring by completing this form\", and \"Some advanced Models sold by Azure may have more stringent criteria for turning off abuse monitoring\""
+text_zh = "不是谁都能申请:须满足额外的 Limited Access 资格条件才能提交表单申请修改滥用监测,且部分高级模型关闭滥用监测的条件更严"
+anchor = "am-limited-access-eligibility-criteria"
+
+[[product.zdr.point]]
+text = "Approved modified abuse monitoring stops the storage and human review described above, but automated review of prompts and completions may still be conducted at request time"
+text_zh = "获批 modified abuse monitoring 后不再进行上述数据存储与人工复核,但请求时的自动审核仍可能进行"
+
+[[product.zdr.point]]
+text = "Preview features may employ different privacy practices, including with respect to abuse monitoring, so this option is not guaranteed to cover models in preview"
+text_zh = "预览功能可能适用不同的隐私做法(含滥用监测),故该选项不保证覆盖 preview 状态的模型"
+anchor = "dp-preview-different-privacy-practices"
+
 [product.retention]
 object = "mixed"
-basis = "none"
+basis = "as_needed"
+anchor = "retention-abuse-monitoring-store"
+
+[[product.retention.point]]
+text = "Default: flagged prompts and completions are stored in the abuse monitoring data store for human review, logically separated by customer resource, and can be accessed by authorized Microsoft employees via point wise queries using request IDs"
+text_zh = "默认:被标记的提示与补全进入滥用监测数据存储等待人工复核,按客户资源逻辑隔离,经授权的微软员工可用请求 ID 逐条查询访问"
+anchor = "retention-abuse-monitoring-store"
+
+[[product.retention.point]]
+text = "That store holds only data already flagged by the abuse monitoring system or part of a potentially abusive pattern of use; prompts and completions that go through automated review are not stored by the abuse monitoring system and are not used to train the AI model or other systems"
+text_zh = "该存储只收已被滥用监测系统标记、或属于潜在滥用模式的数据;走自动审核的提示与补全不被滥用监测系统存储,也不用于训练 AI 模型或其他系统"
+anchor = "am-automated-review-no-store"
+
+[[product.retention.point]]
+text = "Approved modified abuse monitoring: the data storage and human review process described above is not performed, so no abuse-monitoring retention applies in that mode"
+text_zh = "获批 modified abuse monitoring 后,上述数据存储与人工复核不进行,该模式下没有滥用监测留存"
+anchor = "zdr-modified-abuse-monitoring"
+
+[[product.retention.point]]
+text = "Stateful features (Responses API, the Threads feature of the Assistants API, Stored completions) and customer uploads via the Files API or vector store are persisted in the service"
+text_zh = "有状态功能(Responses API、Assistants 的 Threads、Stored completions)与经 Files API/向量存储上传的数据会持久化在服务内"
+anchor = "retention-stateful-features-stored-in-service"
+
+[[product.retention.point]]
+text = "Data stored for those features sits at rest in the Foundry resource in the customer's Azure tenant, within the same geography as the resource, and can be deleted by the customer at any time — this is customer-requested persistence, a different object from the vendor's abuse-monitoring store"
+text_zh = "这类数据静态存放在客户 Azure 租户内的 Foundry 资源中、与资源同 geography,客户可随时删除——这是客户自己要求持久化的数据,与厂商为滥用监测留存的数据是两回事"
+anchor = "retention-stateful-features-customer-deletable"
+
+[[product.retention.point]]
+text = "After expiration or termination of the subscription, Microsoft retains Customer Data stored in the Online Service in a limited function account for 90 days so the customer can extract it, then disables the account and deletes the data. This is an upper bound on data already stored in the service, not the default retention period for request bodies"
+text_zh = "订阅到期或终止后,已存储在 Online Service 内的 Customer Data 在受限功能账户保留 90 天供客户导出,之后禁用账户并删除。这是服务内已存数据的保留上限,不是请求正文的默认保留期"
+anchor = "retention-azure-90d-limited-function-account"
+
+[[product.retention.point]]
+text = "Deletion trigger for stateful resources: a Services configuration or custom model that has been inactive for 90 days (no calls, not modified and no current key, customer not signed in) may at Microsoft's discretion be treated as an Online Service whose subscription has expired, which pulls in the DPA retention and deletion terms above. It governs the lifecycle of configurations and custom models, not how long request bodies are kept"
+text_zh = "有状态资源的删除触发条件:服务配置或自定义模型 90 天无调用、未修改且无当前密钥、客户未登录时,微软可自行决定将其视为订阅已过期的 Online Service,从而适用上述 DPA 的保留与删除口径。它管的是配置与自定义模型的生命周期,不是请求正文的保留期"
+anchor = "contract-inactive-config-custom-model-90d"
+
+[[product.retention.point]]
+text = "Supplement, not the basis: \"The models are stateless: no prompts or completions are stored in the model\" describes the model itself, not the service layer, so it does not by itself mean the service retains nothing"
+text_zh = "补充说明而非依据:『模型本身无状态、不在模型中存储提示或补全』讲的是模型内部,不等于服务层不留存"
 anchor = "training-retention-stateless-no-retrain"
+
+[[product.retention.point]]
+text = "Scope: preview features may employ different privacy practices, including with respect to abuse monitoring, so the retention picture above is stated for generally available features"
+text_zh = "范围限定:预览功能可能适用不同的隐私做法(含滥用监测),上述保留图景是针对正式发布功能"
+anchor = "dp-preview-different-privacy-practices"
 
 [product.processing_region]
 codes = ["selected"]
+anchor = "region-processing-in-customer-geography"
+
+[[product.processing_region.point]]
+text = "Standard and Regional Provisioned: prompts and responses are processed within the customer-specified Azure geography, and might be processed between regions within that geography for operational purposes"
+text_zh = "Standard / Regional Provisioned:提示与响应在客户指定的 Azure geography 内处理,运维需要时可在该 geography 内跨区域"
+anchor = "deployment-region-standard"
+
+[[product.processing_region.point]]
+text = "Data Zone: the service processes data only within the Microsoft-specified data zone (US, EU, or Asia Pacific (APAC))"
+text_zh = "Data Zone:只在微软指定的 data zone(US / EU / APAC)内处理"
+anchor = "deployment-region-data-zone"
+
+[[product.processing_region.point]]
+text = "Global: may be processed in any Azure region — and Global Standard is the deployment type Microsoft recommends starting with for most workloads, so the most common configuration carries no processing-region limit"
+text_zh = "Global:可在任意 Azure 区域处理——而 Global Standard 正是微软建议大多数工作负载的起点,即最常见的配置没有处理地限制"
+anchor = "deployment-region-global"
+
+[[product.processing_region.point]]
+text = "Location of processing is separate from location of storage: for all deployment types data stored at rest remains in the designated Azure geography"
+text_zh = "处理地与静态存储地是两件事:所有部署类型的静态数据都留在指定的 Azure geography"
+anchor = "deployment-at-rest-geography"
+
+[[product.processing_region.point]]
+text = "For Global and DataZone deployment types the abuse monitoring data store created for them is stored in the customer-designated geography, and only the location of processing is affected"
+text_zh = "Global 与 DataZone 部署产生的滥用监测数据存储也存在客户指定的 geography,使用这两类部署时改变的只是处理地"
 anchor = "region-global-datazone-at-rest"
+
+[[product.processing_region.point]]
+text = "Contract layer for storage: if the customer configures a service to be deployed within a Geo, Microsoft will store Customer Data at rest within that specified Geo"
+text_zh = "合同层的存储承诺:客户把服务配置在某个 Geo 内部署,微软就把 Customer Data 静态存储在该 Geo 内"
+anchor = "contract-azure-core-services-geo"
+
+[[product.processing_region.point]]
+text = "Contract-layer limit on that storage commitment: \"Certain services may not enable Customer to configure deployment in a particular Geo or outside the United States and may store backups in other locations\" — it qualifies the at-rest commitment only and does not change the Global/DataZone processing-location findings above"
+text_zh = "合同层对静态存储承诺的限定:部分服务不允许客户配置 Geo 或美国以外部署,且可能在别处存备份——它只限定静态存储承诺,不改变上面 Global/DataZone 的处理地结论"
+anchor = "contract-certain-services-no-geo-config-backups"
+
+[[product.processing_region.point]]
+text = "Developer deployment type (one of this product line's types): no data residency guarantees and a fixed 24-hour lifetime"
+text_zh = "Developer 部署类型(本产品线的类型之一):没有数据驻留保证,固定 24 小时生命周期"
+anchor = "deployment-region-developer"
+
+[[product.processing_region.point]]
+text = "Exception inside this product line: when Grounding with Bing Search and/or Grounding with Bing Custom Search is used through Microsoft Foundry (including via Foundry Agent service, Responses API in Foundry Models, and/or Web Knowledge Source), the DPA does not apply, the Microsoft Privacy Statement applies instead, and Customer Data will flow outside the customer's compliance and Geo boundary. The exception comes from the contract layer (Product Terms, Privacy & Security Terms), not from the Foundry Models data-privacy page"
+text_zh = "本产品线内的例外:通过 Microsoft Foundry 使用 Grounding with Bing Search 或 Grounding with Bing Custom Search 时(含 Foundry Agent service、Foundry Models 的 Responses API、Web Knowledge Source),DPA 不适用,改由 Microsoft 隐私声明管辖,Customer Data 会流出客户的合规与 Geo 边界。该例外出自合同层(产品条款 Privacy & Security Terms),不是 Foundry Models 的 data-privacy 页"
+anchor = "contract-grounding-bing-dpa-exception"
 
 [product.role]
 kind = "processor"
 anchor = "role-microsoft-processor-azure"
+
+[[product.role.point]]
+text = "Customer request data: Microsoft, as a data processor, processes Customer Data to provide Customer the Online Services in accordance with Customer's documented instructions"
+text_zh = "面向客户的请求数据:微软作为受托处理方,依客户书面指示为提供在线服务处理 Customer Data"
+
+[[product.role.point]]
+text = "Controller scope: \"Microsoft also uses Personal Data to support a limited set of business operations\" and \"Microsoft is controller of the processing of personal data to support these specific business operations\". This limited controller role for Microsoft's own business operations does not change the processor finding for customer request data"
+text_zh = "独立控制者范围:微软也会为有限的自有业务运营使用 Personal Data,并在这些场景下是 controller。这一有限控制者身份不改变本档位对客户请求数据的 processor 判定"
+anchor = "dpia-microsoft-controller-business-operations"
+
+[[product.role.point]]
+text = "Limit attached to that controller role: \"Microsoft won't use Customer Data or information derived from it for profiling or for advertising or similar commercial purposes\""
+text_zh = "对该控制者角色的限制:微软不会把 Customer Data 或其衍生信息用于画像、广告或类似商业目的"
+anchor = "dpia-no-profiling-advertising"
+
+[[product.role.point]]
+text = "Exception inside this product line: when Grounding with Bing Search and/or Grounding with Bing Custom Search is used through Microsoft Foundry, the DPA does not apply, the Microsoft Privacy Statement applies instead, and Customer Data will flow outside the customer's compliance and Geo boundary"
+text_zh = "本产品线内的例外:通过 Microsoft Foundry 使用 Grounding with Bing 搜索时 DPA 不适用,改由 Microsoft 隐私声明管辖,Customer Data 流出客户的合规与 Geo 边界"
+anchor = "contract-grounding-bing-dpa-exception"
 
 [[anchor]]
 id = "training-no-foundation-model-training"
@@ -234,3 +371,123 @@ Important
 **"""
 exact = "Data residency for all deployment types"
 suffix = "**: Data stored at rest remains in the designated Azure geog"
+
+[[anchor]]
+id = "dp-preview-different-privacy-practices"
+source_id = "82c97913adafd62d"
+topics = ["training", "zdr", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Azure Preview features, including Models sold by Azure in preview, may employ different privacy practices, including with respect to abuse monitoring."
+suffix = ""
+
+[[anchor]]
+id = "retention-stateful-features-stored-in-service"
+source_id = "82c97913adafd62d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Some Models sold by Azure features store data in the service. This data is either uploaded by the customer, using the Files API or vector store, or is automatically stored in connection with certain stateful entities such as the Responses API, the Threads feature of the Assistants API, and Stored completions."
+suffix = ""
+
+[[anchor]]
+id = "retention-stateful-features-customer-deletable"
+source_id = "82c97913adafd62d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Is stored at rest in the Foundry resource in the customer's Azure tenant, within the same geography as the resource;"
+suffix = ""
+
+[[anchor]]
+id = "am-limited-access-eligibility-criteria"
+source_id = "45ac46104fcb8553"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Microsoft allows customers who meet additional Limited Access eligibility criteria to apply to modify abuse monitoring by completing this form. Some advanced Models sold by Azure may have more stringent criteria for turning off abuse monitoring."
+suffix = ""
+
+[[anchor]]
+id = "dpia-microsoft-controller-business-operations"
+source_id = "56102d627610a228"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Microsoft also uses Personal Data to support a limited set of business operations. Microsoft is controller of the processing of personal data to support these specific business operations."
+suffix = ""
+
+[[anchor]]
+id = "dpia-no-profiling-advertising"
+source_id = "56102d627610a228"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Microsoft won't use Customer Data or information derived from it for profiling or for advertising or similar commercial purposes."
+suffix = ""
+
+[[anchor]]
+id = "dpia-azure-purpose-of-processing"
+source_id = "56102d627610a228"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Microsoft Azure processes personal data only to provide customers its online services including purposes compatible with providing those services such as personalization, security, fraud and malware prevention, issue resolution and improvement."
+suffix = ""
+
+[[anchor]]
+id = "contract-grounding-bing-dpa-exception"
+source_id = "d63c05d5c10f9d6e"
+topics = ["role", "processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "The DPA does not apply to use of Grounding with Bing Search and/or Grounding with Bing Custom Search through Microsoft Foundry (including when used through Microsoft Foundry Agent service, Responses API in Microsoft Foundry Models, and/or Web Knowledge Source in Microsoft Foundry Knowledge); the Microsoft Privacy Statement applies. When using Grounding with Bing Search and/or Grounding with Bing Custom Search, Customer Data will flow outside Customer's compliance and Geo boundary."
+suffix = ""
+
+[[anchor]]
+id = "contract-certain-services-no-geo-config-backups"
+source_id = "d63c05d5c10f9d6e"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Certain services may not enable Customer to configure deployment in a particular Geo or outside the United States and may store backups in other locations."
+suffix = ""
+
+[[anchor]]
+id = "deployment-region-global"
+source_id = "9b916d70d6426b23"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Global types: May be processed in any Azure region"
+suffix = ""
+
+[[anchor]]
+id = "deployment-region-data-zone"
+source_id = "9b916d70d6426b23"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Data Zone types: The service processes data only within the Microsoft-specified data zone (US, EU, or Asia Pacific (APAC))."
+suffix = ""
+
+[[anchor]]
+id = "deployment-region-developer"
+source_id = "9b916d70d6426b23"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "It provides cost-efficient testing of custom models but doesn't include data residency guarantees or an SLA. Developer deployments have a fixed 24-hour lifetime and are automatically deleted after expiration."
+suffix = ""

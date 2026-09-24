@@ -22,6 +22,7 @@ note = "Kimi 开放平台《Privacy Policy》(platform.kimi.ai 文档站,Last Up
 
 [[source]]
 url = "https://platform.kimi.ai/docs/guide/product-plans"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "开放平台文档《Compare with Other Kimi Products》(非政策正文,档位对照页):开放平台按量计费、无订阅方案,「It is different from products such as Kimi Membership and Kimi Code」;并明示 Kimi Membership 含 Kimi Code 权益、Kimi Code API 与本平台 API 相互独立。是判「开放平台 ZDR/不训练声明不覆盖本档」的关键证据。"
@@ -31,6 +32,13 @@ url = "https://platform.kimi.ai/docs/guide/zero-data-retention"
 channel = "developer_data"
 tier = "core"
 note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含图片/视频直传、安全日志与计费记录等运营数据、第三方模型与插件;内容安全审核对全部流量照常生效。本档(Kimi Code 订阅)不适用,收录作档位对照,authoritative_for 为空。"
+
+[[source]]
+url = "https://www.kimi.ai/help/kimi-api/api-data-security"
+fetch = "browser"
+channel = "developer_data"
+tier = "contradiction"
+note = "与 https://platform.kimi.ai/docs/agreement/modeluse(core,本文件 api 档 training 的权威来源)就同一档位(国际开放平台 API)的 training 表述相反。本页:「No. User data submitted through the API (including input content and model output) is not used to train or improve Kimi's models. Your data is used solely to fulfill the current API request and is not persistently stored for training purposes.」,另有表格行「Not Used for Training / API data is not used for model training」;合同 §4:「Customer who requires restrictions on the use of Customer Content for training or improving Moonshot AI models may contact Moonshot AI to discuss available enterprise arrangements or separate written agreements. Unless otherwise expressly agreed in writing, Customer Content may be used for the foregoing purposes.」——把 training or improving Moonshot AI models 明列为可能用途、限制须另洽企业安排,即默认不设限。适用范围:本页在 www.kimi.ai 帮助中心 kimi-api 分类(同分类 api-overview 给出 Platform URL = platform.kimi.ai,文件删除示例为 api.moonshot.ai/v1/files),与合同同指国际开放平台 API;档位、站点、时效三种化解的排除依据逐条写在 providers/moonshotai.toml 同一 URL 来源的 note 里。要点:合同 §4 首句把 Content 定义为 input(提交的 prompts/texts/audios 等)+ output(模型响应),逐字涵盖本页说的 input content and model output,故「ToS 的 Content 不含 API 请求数据」不成立;本页无生效日期,以「无版本取代证据」排除「旧版页」解释(现行 ZDR 页仍保留同一不训练口径,但该页限企业客户子档)。本页是帮助中心 FAQ,权威性低于合同,不覆盖 §4 的结论,仅按 docs/judgment.md「不选边、并列保留」并列记录;分歧待厂商书面澄清。"
 
 [[source]]
 url = "https://www.kimi.ai/help/others/account-deletion"
@@ -72,15 +80,60 @@ plan_level = "any"
 mark = "no"
 anchor = "optos-default-train"
 
+[[product.training.point]]
+anchor = "optos-default-train"
+text = "Contract side: ToS §4 lets Moonshot AI use Customer Content to provide, maintain, develop, support, and improve the Services; customers who need restrictions on the use of Customer Content for training or improving Moonshot AI models must contact Moonshot AI to discuss enterprise arrangements or a separate written agreement, and unless otherwise expressly agreed in writing Customer Content may be used for the foregoing purposes — i.e. training/improvement is permitted by default."
+text_zh = "合同侧:ToS §4 允许厂商用 Customer Content 提供、维护、开发、支持与改进服务;需限制「用 Customer Content 训练或改进 Moonshot AI 模型」的客户须另洽企业安排或书面协议,且除非另有书面约定,Customer Content 可用于前述用途——即默认可用于训练/改进。"
+
+[[product.training.point]]
+anchor = "help-api-no-train"
+text = "Contradiction side, kept side by side (no picking a side): the same vendor's help-center FAQ in the same kimi-api category denies it without any tier qualifier — user data submitted through the API, including input content and model output, is not used to train or improve Kimi's models and is not persistently stored for training purposes. A help-center FAQ is lower authority than the contract and does not override §4; the divergence stays visible pending written clarification from the vendor."
+text_zh = "冲突侧,并列保留(不选边):同一厂商帮助中心 kimi-api 分类的 FAQ 无档位限定地否认——通过 API 提交的用户数据(含输入内容与模型输出)不用于训练或改进 Kimi 的模型,也不为训练目的持久存储。帮助中心 FAQ 权威性低于合同,不覆盖 §4;分歧在页面上并列可见,待厂商书面澄清。"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-enterprise-scope"
 
+[[product.zdr.point]]
+anchor = "zdr-content-deleted"
+text = "Object and context: ZDR covers request content (prompts and model responses) only. When ZDR is enabled, request content is processed only while the response is being generated and is deleted as soon as the response is returned; the only stated exception is where retention is required by applicable laws and regulations."
+text_zh = "对象与语境:ZDR 只覆盖请求内容(提示与模型响应)。开通后请求内容仅在生成响应期间被处理、响应返回即删除;唯一明示例外是适用法律法规要求保留。"
+
+[[product.zdr.point]]
+anchor = "zdr-safety-review-applies"
+text = "ZDR is not \"nobody touches the content\": it changes only how content is retained, not the platform's usage policies; automated safeguards, including content safety reviews, continue to apply to all traffic, and abusive behavior may lead to action under the usage policies, including terminating ZDR service."
+text_zh = "ZDR ≠「无人接触内容」:它只改变内容的保留方式、不改变平台的使用政策;内容安全审核等自动保障对全部流量照常生效,发现滥用行为可依使用政策处理,包括终止 ZDR 服务。"
+
+[[product.zdr.point]]
+anchor = "zdr-upload-exclusion"
+text = "Scope exclusion (1 of 3): ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
+text_zh = "范围除外(三类之一):通过文件直传提交的图片或视频不能保证 ZDR。"
+
+[[product.zdr.point]]
+anchor = "zdr-operational-out-of-scope"
+text = "Scope exclusion (2 of 3): operational data, such as security logs and billing records, is outside the scope of zero data retention."
+text_zh = "范围除外(三类之二):安全日志与计费记录等运营数据不在零数据保留范围内。"
+
+[[product.zdr.point]]
+anchor = "zdr-thirdparty-exclusion"
+text = "Scope exclusion (3 of 3): third-party models, connectors, and plugins are not covered by this policy."
+text_zh = "范围除外(三类之三):第三方模型、连接器与插件不在本政策覆盖范围内。"
+
 [product.retention]
 object = "input_output"
-basis = "undisclosed"
+basis = "as_needed"
+anchor = "oppriv-retention-necessary"
+
+[[product.retention.point]]
 anchor = "oppriv-retention-account-active"
+text = "Object = input plus account and payment information; context = default, for as long as the account is active (violation-related information is retained until the violation is resolved); period type = no quantified number of days."
+text_zh = "对象=输入,以及账户与支付信息;语境=默认、账号存续期间(违规相关信息保留至违规解决);期限类型=无量化天数。"
+
+[[product.retention.point]]
+anchor = "optos-delete-after-termination"
+text = "The Open Platform's only deletion commitment: after your service is terminated, we will delete your content and data in accordance with the requirements of applicable laws and regulations. Object = content and data; context = after service termination; period type = tied to applicable law, no quantified number of days."
+text_zh = "开放平台唯一的删除承诺:服务终止后,厂商按适用法律法规的要求删除你的内容与数据。对象=内容与数据;语境=服务终止后;期限类型=依适用法律,无量化天数。"
 
 [product.processing_region]
 codes = ["SG"]
@@ -101,8 +154,19 @@ mark = "no"
 anchor = "tos-training-license"
 mode = "opt_out"
 
+[[product.training.point]]
+anchor = "tos-training-optout"
+text = "The opt-out channel is email: you can opt out of allowing your Content to be used to train the Services by contacting us at the membership address shown on the page (the fetched snapshot renders the address obfuscated as \"[email protected]\", whose mailto link points to membership@moonshot.ai)."
+text_zh = "退出渠道是邮件:ToS v2 §3「You can opt out of allowing your Content to be used to train the Services by contacting us at」页面所示会员邮箱(抓回的快照把该地址混淆成「[email protected]」,其 mailto 链接指向 membership@moonshot.ai)。"
+
+[[product.training.point]]
+anchor = "tos-optout-prospective"
+text = "Opt-out applies prospectively only and does not require us to delete or remove Content already used in prior training cycles — opting out does not remove historical data already used for training."
+text_zh = "退出仅向将来生效,厂商不承担删除或移除已用于先前训练周期内容的义务——退出不能追溯清除已用于训练的历史数据。"
+
 [product.zdr]
 mark = "no"
+mode = "not_disclosed"
 searched = [
   "https://www.kimi.ai/user/agreement/modelUse?version=v2",
   "https://www.kimi.ai/user/agreement/userPrivacy?version=v2",
@@ -130,20 +194,60 @@ searched = [
   "https://platform.kimi.ai/docs/guide/product-plans",
   "https://platform.kimi.com/docs/guide/zero-data-retention（国内站，不适用）",
 ]
+anchor = "privacy-retention-purpose"
+
+[[product.zdr.point]]
+text = "This tier (the Kimi Code membership subscription) contains no zero-data-retention statement anywhere: neither ToS v2 nor Privacy Policy v2, the texts that govern this tier, uses the words ZDR or zero data retention. What the governing texts do have is purpose-limited retention only — Privacy Policy v2 §7: \"We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, including to:\" — with no zero-retention option offered."
+text_zh = "本档(Kimi Code 会员订阅)全文无任何零数据保留表述:适用本档的 ToS v2 与隐私政策 v2 通篇无 ZDR/zero data retention 字样。本档文本只有目的限定式保留——隐私政策 v2 §7「We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, including to:」——未提供任何零保留选项。"
+
+[[product.zdr.point]]
 anchor = "pp-different-line"
+text = "The only ZDR item is platform.kimi.ai/docs/guide/zero-data-retention, which says on that same page that it is \"available to enterprise customers on the Kimi Open Platform\", while the comparison page product-plans states that the Open Platform \"is different from products such as Kimi Membership and Kimi Code\", so it is not a commitment covering this tier. No evidence obtained is not the same as no vendor commitment: this tier may simply have an undisclosed ZDR channel (enterprise sales may have separate arrangements), and confirming with sales may still be required."
+text_zh = "唯一 ZDR 项目是 platform.kimi.ai/docs/guide/zero-data-retention,同页自述「available to enterprise customers on the Kimi Open Platform」,而对照页 product-plans 明示开放平台与 Kimi Membership / Kimi Code 是不同产品线,故不构成本档承诺。拿不到证据 ≠ 厂商无承诺:本档可能只是未披露 ZDR 通道(企业销售渠道可能另有安排),不排除需联系销售确认。"
 
 [[product.zdr.point]]
-text = "This tier (the Kimi Code membership subscription) contains no zero-data-retention statement anywhere: neither ToS v2 nor Privacy Policy v2, the texts that govern this tier, uses the words ZDR or zero data retention"
-text_zh = "本档(Kimi Code 会员订阅)全文无任何零数据保留表述:适用本档的 ToS v2 与隐私政策 v2 通篇无 ZDR/zero data retention 字样"
-
-[[product.zdr.point]]
-text = "The only ZDR item is platform.kimi.ai/docs/guide/zero-data-retention, which says on that same page that it is \"available to enterprise customers on the Kimi Open Platform\", while the comparison page product-plans states that the Open Platform \"is different from products such as Kimi Membership and Kimi Code\" and that \"the Kimi Code API is independent from the API service on this platform\", so it is not a commitment covering this tier. No evidence obtained is not the same as no vendor commitment: this tier may simply have an undisclosed ZDR channel (enterprise sales may have separate arrangements), and confirming with sales may still be required."
-text_zh = "唯一 ZDR 项目是 platform.kimi.ai/docs/guide/zero-data-retention,同页自述「available to enterprise customers on the Kimi Open Platform」,而对照页 product-plans 明示开放平台与 Kimi Membership / Kimi Code 是不同产品线、Kimi Code API 独立于该平台 API,故不构成本档承诺。拿不到证据 ≠ 厂商无承诺:本档可能只是未披露 ZDR 通道(企业销售渠道可能另有安排),不排除需联系销售确认。"
+anchor = "pp-kimi-code-independent"
+text = "The same comparison page adds that \"the Kimi Code API is independent from the API service on this platform\", which keeps the Open Platform's ZDR channel and this tier's channel separate."
+text_zh = "同一对照页另写明「the Kimi Code API is independent from the API service on this platform」,开放平台的 ZDR 通道与本档通道相互独立。"
 
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
 anchor = "privacy-retention-purpose"
+
+[[product.retention.point]]
+text = "Object = personal information, which per §1 includes User Content (prompts, audio, images, files); context = default; period type = not quantified, no upper bound in days. Privacy Policy v2 §7 gives purposes, not periods, and adds that retention periods may vary depending on the nature of the information, its sensitivity, and applicable legal or contractual requirements."
+text_zh = "对象=个人信息(§1 定义含 User Content:prompts/audio/images/files);语境=默认;期限类型=未量化、无天数上限。隐私政策 v2 §7 只给目的不给期限,并说明期限视信息性质、敏感度与法律或合同要求而定。"
+
+[[product.retention.point]]
+anchor = "privacy-voiceprint-3years"
+text = "The only fixed period in Privacy Policy v2 §7 is voiceprint data (destroyed when the initial purpose is satisfied or within 3 years of your last interaction, whichever comes first) — a different object from prompt/output content, and must not be read as a period for input/output."
+text_zh = "隐私政策 v2 §7 中唯一有固定期限的是语音声纹(初始目的达成或最后一次交互后 3 年内,以先到者为准销毁)——对象与输入输出正文不同,不能读成输入输出的保留期限。"
+
+[[product.retention.point]]
+anchor = "privacy-retention-deletion"
+text = "On account deletion, Privacy Policy v2 §7 promises to delete or anonymize your personal information unless retention is required to comply with legal obligations or to resolve disputes."
+text_zh = "注销场景:隐私政策 v2 §7 承诺删除或匿名化个人信息,法律义务或解决争议所需者除外。"
+
+[[product.retention.point]]
+anchor = "tos-retention-legal"
+text = "Contract layer (ToS v2 §11, the only retention statement there): following termination of your account you may lose access to your Content and other information associated with your account, and we may retain information as required or permitted by applicable law. Context = after account termination; period type = as required or permitted by law, no quantified number of days. Account termination therefore does not mean immediate deletion of everything."
+text_zh = "合同层(ToS v2 §11,该层唯一的留存表述):账户终止后你可能失去对 Content 及相关信息的访问,厂商「may retain information as required or permitted by applicable law」。语境=账户终止后;期限类型=法律要求或许可范围内,无量化天数。注销不等于立即全删。"
+
+[[product.retention.point]]
+anchor = "chat-logs-retained"
+text = "Statutory floor for a different object: as required by the Cybersecurity Law and other applicable laws and regulations, the platform must retain certain network logs (such as operation timestamps and account identifiers) for a specified period, used solely for security compliance and regulatory audits — no number of days given, and the object is network/access logs, not prompt or output content, so it cannot be read as a retention period for input/output. Note on source applicability: this help-center page sits on the global site (kimi.ai) yet cites Chinese statutes (Cybersecurity Law and others), so its applicability to this tier is not clear."
+text_zh = "另一对象的法定义务下限:按《网络安全法》等适用法律法规,平台须将某些网络日志(如操作时间戳、账号标识)保留「for a specified period」,仅用于安全合规与监管审计——未给天数,且对象是网络/访问日志而非输入输出正文,不能反推输入输出的保留期限。来源适用性提示:该帮助页挂在国际站 kimi.ai 域名下,却以《网络安全法》等中国法规为据,对本档的适用性待澄清。"
+
+[[product.retention.point]]
+anchor = "accdel-statutory-minimum"
+text = "The account-deletion help page repeats the same statutory floor: certain information must be retained for the minimum statutory period, and is used solely for statutory purposes such as law-enforcement verification."
+text_zh = "注销帮助页重申同一法定下限:某些信息须保留至法定最短期限,仅用于执法核查等法定用途。"
+
+[[product.retention.point]]
+anchor = "accdel-minimum-extent"
+text = "After manually deleted conversations, the same page says the system retains data only to the minimum extent required by applicable laws for storage and security purposes, with no viewing or recovery access."
+text_zh = "手动删除会话后,同一页面称系统仅在适用法律为存储与安全目的所要求的最小范围内保留数据,且不提供查看或恢复访问。"
 
 [product.processing_region]
 codes = ["global"]
@@ -522,6 +626,46 @@ exact = "By default, the Kimi Open Platform does not use enterprise customer dat
 suffix = " ZDR further extends this protection by eliminating content "
 
 [[anchor]]
+id = "zdr-safety-review-applies"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Security"
+exact = "ZDR changes only how content is retained; it does not change the platform’s usage policies. Automated safeguards, including content safety reviews, continue to apply to all traffic. If we identify abusive behavior, we may take action under our usage policies, including terminating ZDR service."
+suffix = "Who can enable ZDR?"
+
+[[anchor]]
+id = "zdr-upload-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Does ZDR apply to all data types?"
+exact = "ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
+suffix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+
+[[anchor]]
+id = "zdr-thirdparty-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+exact = "Third-party models, connectors, and plugins are not covered by this policy."
+suffix = "Was this page helpful?"
+
+[[anchor]]
+id = "oppriv-retention-necessary"
+source_id = "39da5a3555051ba4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "## 6. Retention"
+exact = "We store your information as long as necessary to provide the services, fulfill the purposes outlined in this policy and other legitimate business purposes (such as service improvement, resolving disputes, safety or security), comply with legal obligations."
+suffix = "Retention periods vary based on factors such as information type, sensitivity, and legal requirements."
+
+[[anchor]]
 id = "oppriv-entity-pte"
 source_id = "39da5a3555051ba4"
 topics = ["role"]
@@ -550,6 +694,17 @@ topics = ["retention"]
 prefix = "ion type, sensitivity, and legal requirements. For example, "
 exact = "account, input, and payment information are retained while your account is active"
 suffix = ". Violation-related information is retained until the violat"
+
+[[anchor]]
+id = "optos-delete-after-termination"
+source_id = "d9802fc46b1c00dd"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "nd or discontinue the Services based on specific situations."
+exact = "After your service is terminated, we will delete your content and data in accordance with the requirements of applicable laws and regulations."
+suffix = """
+## 12.Governing Law and Dispute Resolution"""
 
 [[anchor]]
 id = "optos-entity-pte"
@@ -623,3 +778,13 @@ topics = ["training"]
 prefix = ".moonshot.cn/v1 Overseas https://api.moonshot.ai/v1 Billing "
 exact = "Membership subscription, monthly/annual payment, with rate limiting"
 suffix = " Pay-as-you-go, top up and use Best For Terminal/IDE Agent p"
+
+[[anchor]]
+id = "help-api-no-train"
+source_id = "0bfc51f1d8c0aba0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "**No.** "
+exact = "User data submitted through the API (including input content and model output) is not used to train or improve Kimi's models. Your data is used solely to fulfill the current API request and is not persistently stored for training purposes."
+suffix = "How is private data security ensured?"

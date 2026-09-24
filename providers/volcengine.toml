@@ -9,42 +9,49 @@ doc = "https://www.volcengine.com/docs/82379/1104498"
 
 [[source]]
 url = "https://docs.volcengine.com/docs/82379/1928265"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《火山引擎数据授权使用协议》(北京火山引擎科技有限公司与客户签约):订阅套餐条款 §1.3 明文将其并入个人版档(「数据授权协议内容为本服务的组成部分」);§1.1(5) 把授权对象定义为【Coding Plan / Agent Plan 个人版 订阅包月套餐】额度内的输入与生成内容,故本协议只服务个人版档,不适用于企业版档"
 
 [[source]]
 url = "https://docs.volcengine.com/docs/ark/collaboration-reward-program?lang=zh"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "协作奖励计划规则(opt-in):经授权接入点的推理数据授权火山引擎用于机器学习与模型优化开发、传输存储等;按量 API 档 training 的『单独同意』例外"
 
 [[source]]
 url = "https://docs.volcengine.com/docs/ark/create-context-cache-api?lang=zh"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Context API 上下文缓存 TTL:默认 86400 秒、可配 3600-604800 秒(1 小时-7 天),闲置计时、每次使用重置(官方已标待下线);按量 API 档 retention 佐证"
 
 [[source]]
 url = "https://docs.volcengine.com/docs/Legalagreements/Productsandservicesagreement?lang=zh"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "火山引擎《产品和服务协议》(全产品通用主协议,发布 2024-06-14、生效 2024-06-21),经订阅套餐条款 §1.2 并入完整协议,对本 provider 两档均适用:§12.8 服务终止后客户数据保留十五(15)天、届满自动清除(含缓存与备份);§6.6 除提供服务所必须或经授权外不任意使用客户数据、并在提供服务后的合理期限内删除或匿名化;§1.3 中立的技术服务提供者;§6.8 数据委托处理协议仅在单独签署时适用"
 
 [[source]]
 url = "https://www.volcengine.com/docs/82379/1104498"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "火山方舟大模型服务平台专用条款(发布 2026-08-05,生效 2026-08-11),按量 API 档权威:§3.7.7 数据处理(默认不存储不使用 + 四类列明场景)、§3.7.11 缓存/日志等功能存储须经授权。同一文档另有别名 URL https://www.volcengine.com/docs/ark/volcengine-ark-platform-terms"
 
 [[source]]
 url = "https://www.volcengine.com/docs/82379/1958520"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "方舟文本生成(Responses)API 文档,按量 API 档 retention 数字权威:store 默认 3 天、expire_at 最长 7 天,存 input/output 不存思维链,store=false 可关闭"
 
 [[source]]
 url = "https://www.volcengine.com/docs/ark/subscription-package-service-terms-conditions?lang=zh"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "火山方舟大模型订阅套餐服务专用条款:一份文档同时覆盖 Coding Plan / Agent Plan 的个人版(§1.3)与企业版(§1.4),§1.1 明确本服务「各分别包括个人版和企业版」;§1.2 把《火山引擎服务条款》《火山引擎隐私政策》《产品和服务协议》并入完整协议。两档数据处理条款完全相反(§1.4 不留存/不用于服务优化 vs §1.3 授权存储并使用输入输出),本条目全部档位结论的档位权威都在此文档"
@@ -69,43 +76,84 @@ text_zh = "§3.7.7 默认『未经单独同意不存储不使用』训练/优化
 text = "The separate-consent cases are the collaboration reward program (opt-in, through an authorized access point) and Doubao Model Service Agreement §4.1.1/4.1.2 (effective 2026-09-23)"
 text_zh = "单独同意情形=协作奖励计划(opt-in,经授权接入点)与(2026-09-23 起生效的)豆包模型服务协议 §4.1.1/4.1.2"
 
+[[product.training.point]]
+text = "§3.7.7(1) is one of the listed scenarios that need no separate consent: to meet legal compliance requirements Volcengine may review your use of the service, including automated filtering of what you submit to and receive from the service, and build and improve risk-filtering mechanisms and libraries of unlawful or infringing content features. That is a vendor-side use of customer input and output, but it is aimed at compliance filtering and feature-library building, not at model training, so it is recorded as a limit here rather than as a mark=no."
+text_zh = "§3.7.7(1) 是列明的无需单独同意场景之一:为履行法律法规合规要求,火山引擎可审查您使用本服务的行为及信息,包括对您提交给服务或使用服务输出的内容做自动化过滤审核、建立和改进风险过滤机制与违法违规侵权内容特征库。这是对客户输入输出的一项厂商侧使用,但目的是合规过滤与特征库建设,不等于用于模型训练,故只作限定登记,不改本行 mark"
+anchor = "volcengine-api-compliance-review-content-use"
+
+[[product.training.point]]
+text = "Exception that can override this tier's rule: §3.7.8 — if you use a model service without the high-grade security protection (the security-sandbox mutual-trust scheme, which keeps your data from being handed to the model provider), your data-processing rules follow the model service agreement and rules you accepted. §3.7.2 imposes the same on proprietary model services: you must read and observe the model provider's Model Service Agreement before use. The upstream hop therefore has to be checked model by model, and this tier's own promise does not carry the whole chain."
+text_zh = "可能覆盖本档结论的例外:§3.7.8——如您使用不具备高阶安全防护(安全沙箱安全互信方案,保护数据不提供给模型服务商)的模型服务,数据处理规则改由您接受的模型服务协议与规则约定;§3.7.2 对专有模型服务同属一个要求,须先查看并遵守模型服务商的《模型服务协议》。这一跳须逐模型核实,不能由本档承诺推出全链结论"
+anchor = "volcengine-api-high-grade-security-exception"
+
 [product.zdr]
 mark = "yes"
-mode = "default"
+mode = "opt_in"
+anchor = "volcengine-api-cache-storage-authorized"
+
+[[product.zdr.point]]
+text = "§3.7.7's default promise is scoped to training: \"without your separate consent, Volcengine will not store or use your data to train or optimize models\" — its object is the training or optimization of models, so on its own it does not establish default zero retention. Storage is confined to four listed scenarios (compliance review, troubleshooting, anomaly alerting, aggregate statistics)."
+text_zh = "§3.7.7 的默认承诺对象是训练——『未经您的单独同意,火山引擎不会存储和使用您的数据来训练或优化模型』,单独拿出来不构成『默认零保留』;存储仅限四类列明场景(合规审查/排障/异常告警/聚合统计)"
 anchor = "volcengine-api-training-zdr-default"
 
 [[product.zdr.point]]
-text = "Not stored and not used by default, with storage confined to four listed scenarios (compliance review, troubleshooting, anomaly alerting, aggregate statistics); under §3.7.11 storage for features requires authorization, and \"without your authorization, Volcengine will not access or use your data\""
-text_zh = "默认不存储不使用,存储仅限四类列明场景(合规审查/排障/异常告警/聚合统计),§3.7.11 功能存储须经授权、未授权不访问"
+text = "§3.7.11: using the cache storage, logging, AI app monitoring and debugging, observability platform, tagging or Managed Agents hosting features stores your data in the storage space Ark provides for you, and \"without your authorization, Volcengine will not access or use your data\"."
+text_zh = "§3.7.11:使用缓存存储、日志记录、AI 应用监控与调试、可观测性平台、加标识、Managed Agents 托管等功能会把您的数据存入方舟为您提供的存储空间,且『未经您授权,火山引擎不会访问或使用您的数据』"
+anchor = "volcengine-api-cache-storage-authorized"
+
+[[product.zdr.point]]
+text = "Zero retention here is a self-service configuration, not the default: the Responses API doc states storage is on by default and can be turned off with \"store\": false. The cache path is the same shape — entries are dropped when the idle TTL is exceeded (object-level figures are in the retention row). The store default-on in Responses is exactly why this tier is not default zero retention."
+text_zh = "本档零保留是自助配置而非默认:Responses 文档写明『默认开启存储功能』、可设 store: false 关闭;缓存同理,闲置超过 ttl 即被从缓存中删除(具体数字见 retention 行)。Responses 的 store 默认开启正是本档不构成『默认零保留』的原因"
+anchor = "volcengine-api-zdr-store-switch"
+
+[[product.zdr.point]]
+text = "§3.7.7(1) is one of the listed scenarios that need no separate consent: to meet legal compliance requirements Volcengine may automatically filter and review what you submit to and receive from the service, and build and improve risk-filtering mechanisms and libraries of unlawful or infringing content features — a vendor-side use of customer input and output that sits outside the default no-store/no-use promise."
+text_zh = "§3.7.7(1) 是列明的无需单独同意场景之一:为履行合规要求,火山引擎可对您提交与输出的内容做自动化过滤审核,建立和改进风险过滤机制与违法违规侵权内容特征库——这是默认不存储不使用承诺之外的一项厂商侧使用"
+anchor = "volcengine-api-compliance-review-content-use"
+
+[[product.zdr.point]]
+text = "Exception that can override this tier's rule: §3.7.8 — if you use a model service without the high-grade security protection (the security-sandbox mutual-trust scheme, which keeps your data from being handed to the model provider), your data-processing rules follow the model service agreement and rules you accepted; §3.7.2 likewise requires proprietary model services to observe the model provider's Model Service Agreement. Zero retention therefore has to be verified per upstream hop and is not implied by this tier's own terms."
+text_zh = "可能覆盖本档结论的例外:§3.7.8——如您使用不具备高阶安全防护(安全沙箱安全互信方案,保护数据不提供给模型服务商)的模型服务,数据处理规则改由您接受的模型服务协议与规则约定;§3.7.2 同属一个要求,专有模型服务须遵守模型服务商的《模型服务协议》。故零保留须逐跳核实,不能由本档条款推出"
+anchor = "volcengine-api-high-grade-security-exception"
 
 [[product.zdr.point]]
 text = "Functional zero retention is achievable (store=false, and the cache can be deleted). The \"zero data retention\" commitment in the white paper sits inside an image and cannot be machine-verified, so confidence=medium"
 text_zh = "功能性零保留可行(store=false、缓存可删)。白皮书『数据零留存』承诺正文在图片里不可机器复核,故 confidence=medium"
 
 [product.retention]
-object = "mixed"
-basis = "undisclosed"
+days = 3
+object = "input_output"
+basis = "fixed_period"
 anchor = "volcengine-api-retention-responses-store"
 
 [[product.retention.point]]
-text = "Responses API store defaults to true → stored for 3 days by default, customizable via expire_at up to 7 days; input and output are stored, the chain of thought is not; store=false turns it off"
-text_zh = "Responses API store 默认 true→默认存 3 天、expire_at 最长 7 天,存 input/output 不存思维链,store=false 可关"
+text = "Input and output (Responses API): storage is on by default, a stored response is kept 3 days by default and can be extended via expire_at up to 7 days — a typical value with a 7-day ceiling, not a floor. Input and output fields are stored, the chain of thought is not; store=false turns storage off."
+text_zh = "输入输出正文(Responses API):默认开启存储,默认存 3 天、可用 expire_at 自定义最长 7 天——典型值、上限 7 天,不是下限。存 input/output 字段、不存思维链;store=false 可关"
+anchor = "volcengine-api-retention-responses-store"
 
 [[product.retention.point]]
-text = "Context cache idle TTL 1 hour to 7 days (reset on each use)"
-text_zh = "Context 缓存闲置 TTL 1 小时-7 天(每次使用重置)"
+text = "Cache: idle TTL is 1 hour to 7 days (3600-604800 s, default 86400 s), timed from creation and reset on each use, and the entry is deleted from the cache once the timer exceeds the TTL. Caveat on the source: the page carrying this figure is the developer doc titled 上下文缓存 API（已下线）(Context Cache API, retired) — a developer_data page, not a current contract commitment, so it is a supporting figure for the cache object only."
+text_zh = "缓存:闲置 TTL 1 小时-7 天(3600-604800 秒,默认 86400 秒),创建即开始计时、每次使用重置,计时超过 ttl 即从缓存中删除。来源说明:该数字所在页面为开发者文档,标题已标『上下文缓存 API（已下线）』,属 developer_data 而非现行合同承诺,仅作缓存这一对象的佐证"
+anchor = "volcengine-api-context-cache-ttl"
 
 [[product.retention.point]]
-text = "15 days after service termination (Products and Services Agreement §12.8)"
-text_zh = "服务终止后 15 天(产品协议 §12.8)"
+text = "After service termination: 15 days is the fallback retention period of Products and Services Agreement §12.8, not an unconditional promise — the same sentence adds \"相关产品和服务专用条款或服务规则承诺期限另有约定的，以其专用条款或服务规则约定为准\", so a product-specific special term or service rule overrides it. This tier's own special terms (Ark platform terms) state no different period, so the 15 days govern here; it is a period for customer data and customer content in the account, not a cap on the retention figures above."
+text_zh = "服务终止后:15 天是《产品和服务协议》§12.8 的兜底保留期而非无条件承诺——同句写明『相关产品和服务专用条款或服务规则承诺期限另有约定的，以其专用条款或服务规则约定为准』,专用条款或服务规则另有约定时优先。本档专用条款(方舟平台专用条款)未另设期限,故此处适用 15 天;该期限的对象是账号内的客户数据与客户内容,不是上面各项保留数字的上限"
+anchor = "volcengine-generic-termination-retention-15d"
 
 [[product.retention.point]]
 text = "General terms §6.6: \"delete your customer data or anonymize it within a reasonable period after providing the service\""
 text_zh = "通用条款 §6.6『提供服务后的合理期限内删除或匿名化』"
+anchor = "volcengine-generic-delete-reasonable-period"
 
 [[product.retention.point]]
 text = "For the troubleshooting scenario it is \"within a reasonable time\", with no fixed period"
 text_zh = "排障场景为『合理时间内』无固定期限"
+
+[[product.retention.point]]
+text = "Anomaly alerting (§3.7.7(3)): the object is the data that triggers a model anomaly alert, which Volcengine stores and reviews to guard against abnormal calls; once the alert is cleared the platform stops storing and reviewing it — a stated stop condition with no fixed number of days."
+text_zh = "异常告警(§3.7.7(3)):对象是触发模型异常告警的数据,火山引擎为防范异常调用对其存储和审查;解除告警后平台不再继续存储和审查——有明确停止条件、无固定天数"
+anchor = "volcengine-api-anomaly-alert-storage-stop"
 
 [product.processing_region]
 mark = "unknown"
@@ -151,6 +199,11 @@ text_zh = "合同层另有产品和服务协议 §1.3『中立的技术服务提
 [[product.role.point]]
 text = "There is no standard DPA; the role is carried by the terms of service"
 text_zh = "无标准 DPA,角色载体为服务条款"
+
+[[product.role.point]]
+text = "Limit on the processor reading: Products and Services Agreement §6.7 lets Volcengine use the \"operating data\" it collects or generates while providing products and services and technical/network support (system logs, billing data, customer-service conversations, lead-capture information) to optimize and improve Volcengine's own products and services. The object is the vendor's own operating data, not customer input/output content, so it is an exception face of the processor reading and does not make the role a controller; it also means the vendor has a self-serving improvement use over that data, which the training row does not cover."
+text_zh = "受托口径的例外面向:《产品和服务协议》§6.7 允许火山引擎把在提供产品和服务、技术和网络支持过程中自行收集或产生的『运营数据』(系统日志、账单数据、客服对话、留资信息等)用于优化和改善火山引擎自己的产品和服务。对象是厂商自身的运营数据而非客户的输入输出内容,故它不把 role 变成 controller;同时它表明厂商对这类数据有自主改善用途,不在 training 行的覆盖范围内"
+anchor = "volcengine-generic-operating-data-improvement"
 
 [[anchor]]
 id = "volcengine-api-training-zdr-default"
@@ -307,3 +360,43 @@ suffix = """
 
 ​
 """
+
+[[anchor]]
+id = "volcengine-api-zdr-store-switch"
+source_id = "b03be1c857a73ce8"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "默认开启存储功能，支持通过设置\"store\": true 启用 / \"store\": false 关闭。"
+
+[[anchor]]
+id = "volcengine-api-compliance-review-content-use"
+source_id = "e58c4503a9accfe4"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+exact = "为履行法律法规合规要求，火山引擎有权采取技术手段对您使用本服务的行为及信息进行审查，包括但不限于对您提交给服务或使用服务输出的内容进行自动化过滤审核，建立和改进风险过滤机制、违法违规侵权内容特征库等。"
+
+[[anchor]]
+id = "volcengine-api-high-grade-security-exception"
+source_id = "e58c4503a9accfe4"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+exact = "如您选择使用不具备高阶安全防护的模型服务，那么您的数据处理规则将遵循您接受的模型服务协议与规则的约定。"
+
+[[anchor]]
+id = "volcengine-api-anomaly-alert-storage-stop"
+source_id = "e58c4503a9accfe4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "火山引擎会对触发模型异常告警的数据进行存储和审查，解除告警后平台将不会继续存储和审查您的数据。"
+
+[[anchor]]
+id = "volcengine-generic-operating-data-improvement"
+source_id = "a8fd9bb3ad21911b"
+topics = ["role", "training"]
+
+[anchor.selector]
+exact = "火山引擎可能会收集或产生某些技术和运营数据，例如系统日志、账单数据、客服对话、留资信息等（“运营数据”），火山引擎可利用该等运营数据优化和改善火山引擎的产品和服务。"

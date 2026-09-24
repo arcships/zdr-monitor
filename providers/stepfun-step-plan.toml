@@ -143,26 +143,54 @@ basis = "as_needed"
 anchor = "retention-necessary-period"
 
 [[product.retention.point]]
-text_zh = "对象与期限分三层：①个人信息（含账号、输入信息与输出信息）——隐私政策 四.2『仅在为提供本平台相关服务之目的所必需的期间内保留您的个人信息』，注销/主动删除/超期后删除或匿名化，例外为法律法规留存要求与财务审计争议解决延长"
+text_zh = "对象与期限分三层：①个人信息（含账号、输入信息与输出信息）——隐私政策 四.2『仅在为提供本平台相关服务之目的所必需的期间内保留您的个人信息』，注销/主动删除/超期后删除或匿名化，例外为法律法规留存要求与财务审计争议解决延长；另有 六.4 段末一条更硬的例外（见下条），两条合起来意味着删除侧没有固定上限"
+anchor = "retention-legal-retention-exception"
+
+[[product.retention.point]]
+text = "Harder exception on the deletion side (privacy policy §6.4, closing sentence): \"法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理\" — even where a deletion request stands, the data may end up in a store-and-isolate state (storage plus necessary security measures only), which is not the same as deleted. This is the exception that fixes the real boundary of the deletion right; its subject is still 您的个人信息, so it must not be extended to API request bodies"
+text_zh = "删除侧更硬的一条例外（隐私政策 六.4 段末）：『法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理』——删除请求成立也不等于数据已消失，可转为「仅存储 + 必要的安全保护措施」的隔离状态。该句主语仍是『您的个人信息』，不得据此扩大到 API 请求正文"
+anchor = "retention-deletion-technically-infeasible"
 
 [[product.retention.point]]
 text_zh = "未量化天数，属『下限/必要期间』而非上限。②API 输入正文——开发者文档《Prompt 缓存最佳实践》：对话数组（System/User/Assistant）、图片、视频进入缓存系统，按 LRU 淘汰，高峰期更易逐出、低峰期生命周期更长，无期限承诺、无关闭开关"
 
 [[product.retention.point]]
+text = "A third class of persistent copy derived from conversation content (privacy policy §1.3 个性化能力): \"我们会根据与您的对话记录，总结并形成对您的相关记忆（如您的工作习惯、偏好），以便模型参考对您的相关记忆，向您输出更适合您、更符合您需求的回答\" — 相关记忆 is summarised from the conversation record and persists, so it stands alongside the cache copy and the 个人信息 necessary-period wording instead of being a sub-item of the cache. Scope: \"本平台中的部分服务\" (the conversational service surface), not a Step Plan API channel mechanism; the same paragraph says the user can view, edit or delete the memory or switch the memory feature off, so this is recorded as an object/context note and must not raise or lower this tier's verdict"
+text_zh = "第三类由对话内容派生的持久副本（隐私政策 一.3 个性化能力）：『我们会根据与您的对话记录，总结并形成对您的相关记忆（如您的工作习惯、偏好），以便模型参考对您的相关记忆，向您输出更适合您、更符合您需求的回答』——「相关记忆」由对话记录总结生成并长期存在，与缓存副本、个人信息必要期间并列，不是缓存的一条子项。适用服务范围：『本平台中的部分服务』（对话式服务面），不是 Step Plan API 通道的机制；同段写明用户可查看、编辑、删除记忆或关闭记忆功能，故只作对象/语境补录，不据此加重或减轻本档判定"
+anchor = "retention-personalized-memory"
+
+[[product.retention.point]]
 text_zh = "该副本不受 四.2『个人信息』期限表述约束。③服务终止后——用户协议 3.6 平台『有权在服务终止后或在我们与您另行约定的保留期限（如有）届满后，删除上述信息』，为权利而非义务，且保留期限『如有』，未量化。日志类：隐私政策 一.8 收集设备与日志信息（IP、操作时间、服务日志等），期限适用 四.2 一般规则，无单独期限。"
+anchor = "retention-termination-deletion-right"
+
+[[product.retention.point]]
+text = "A second deletion context, triggered by non-payment (userservice §1.1.4): \"未按约定支付相应的服务费用的，我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等\" — non-payment alone lets the platform unilaterally and without notice delete 非法律法规要求的全部数据. Trigger and scope both differ from §3.6 (deletion after termination or after an agreed retention period); it is likewise a right, not a duty, so it must not be written as 欠费即删除全部数据"
+text_zh = "③-b 另一种删除语境，触发条件是欠费（用户协议 1.1.4）：『未按约定支付相应的服务费用的，我们有权单方面不经通知暂停或终止提供服务，并删除您在本平台上所有的非法律法规要求的全部数据等』——欠费即可被单方、不经通知地删除平台上「非法律法规要求的全部数据」，触发条件与删除口径都不同于 3.6 的服务终止后依约定期限删除；同样是权利而非义务，不得写成「欠费即删除全部数据」"
+anchor = "retention-unpaid-data-deletion"
+
+[[product.retention.point]]
+text = "An object that 注销后删除 does not cover (userservice §2.2.4): after an account is reclaimed or cancelled the platform 仍有权：1）\"保留相关行为记录，但涉及个人信息的除外\"（如有）— behavioural records may survive deactivation, and the 涉及个人信息的除外 carve-out must be read with the clause or it reads as unlimited retention. The object is account-level behavioural records, not API request bodies; the agreement does not define the scope of 行为记录"
+text_zh = "③-c 注销后删除覆盖不到的一类对象（用户协议 2.2.4）：账户被收回或者注销后平台『仍有权：1）保留相关行为记录，但涉及个人信息的除外（如有）』——「注销后删除」不覆盖行为记录，同时「涉及个人信息的除外」这一限定必须一并写出，否则会读成无限保留。对象是账户维度的行为记录，不是 API 请求正文；协议未定义「行为记录」的范围"
+anchor = "retention-behavior-records-after-deactivation"
 
 [product.processing_region]
 codes = ["CN"]
 anchor = "region-storage-prc-personal-info"
 
 [[product.processing_region.point]]
-text_zh = "隐私政策 四.1：『我们依照法律法规的规定，将在境内运营过程中收集和产生的您的个人信息存储于中华人民共和国境内。目前，我们不会将上述信息传输至境外』。条款主语限定为『您的个人信息』，对 API 输入输出等非个人信息数据的存储地域未作同等声明，故置信度 medium。协议族内无多区域/处理地选项或跨境处理说明"
+text_zh = "隐私政策 四.1 前段：『我们依照法律法规的规定，将在境内运营过程中收集和产生的您的个人信息存储于中华人民共和国境内』。codes=[CN] 的标的就是这句里的『您的个人信息』——境内运营过程中收集和产生的个人信息，存储地不等于全部 API 输入输出的处理地；条款主语限定为『您的个人信息』，对 API 输入输出等非个人信息数据未作同等地域声明，故置信度 medium。协议族内无多区域/处理地选项；同段后半句另留跨境传输开口（见下条）"
+
+[[product.processing_region.point]]
+text = "The same paragraph then leaves cross-border transfer open (privacy policy §4.1): \"目前，我们不会将上述信息传输至境外，如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征求您的同意\" — 目前不会传输至境外 is a statement of current practice, not an absolute bar. The agreement family states no region for API inputs/outputs and offers no multi-region or processing-location choice, so cross-border transfer remains an opening; the first sentence must not be read as 永不出境"
+text_zh = "同段紧接着留了跨境传输的开口（隐私政策 四.1 后段）：『目前，我们不会将上述信息传输至境外，如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征求您的同意』——「目前不会传输至境外」是现状陈述而非绝对不出境。协议族内未对 API 输入输出作地域声明，也没有多区域/处理地选项，跨境传输留有开口，不得把前段读成「永不出境」"
+anchor = "region-cross-border-transfer-opening"
 
 [[product.processing_region.point]]
 text_zh = "用户协议 9 条约定适用中国大陆法律、争议提交公司住所地法院，可作境内运营的旁证但不构成处理地承诺。"
 
 [product.role]
 kind = "unknown"
+anchor = "role-developer-processor"
 searched = [
   "https://platform.stepfun.com/docs/zh/agreement/userservice",
   "https://platform.stepfun.com/docs/zh/agreement/userprivacy",
@@ -177,10 +205,39 @@ searched = [
 ]
 
 [[product.role.point]]
-text_zh = "分层看：①对最终用户个人信息——用户协议 6.2『您作为最终用户个人信息的处理者应当履行个人信息处理者的相关法定义务』，即开发者/客户是处理者"
+text = "Layer one — end-user personal information (userservice §6.2): \"您作为最终用户个人信息的处理者应当履行个人信息处理者的相关法定义务\" — for this layer the agreement does allocate a role, and it puts it on the customer/developer, not on the platform"
+text_zh = "分层一：对最终用户个人信息——用户协议 6.2『您作为最终用户个人信息的处理者应当履行个人信息处理者的相关法定义务』，即开发者/客户是处理者，这一层协议确实分配了角色，只是分配给了客户一侧"
+anchor = "role-developer-processor"
 
 [[product.role.point]]
-text_zh = "隐私政策 三.2 平台『可能委托授权合作伙伴处理您的个人信息』，平台自身以受托合作方身份出现。②对客户自身输入/输出数据——用户协议 5.3/6.5 取得含存储、使用、复制、修订、编辑的许可使用，且第 1 条自述『本公司仅作为中立的技术服务提供者』，5.4 约定平台运行过程中产生的数据由平台享有合法权利。协议未使用『受托处理者/processor』这一法定表述，也无 DPA 可据以确认角色划分，故 medium。旧记录把本档 role 记为 independent controller，本轮按上述分层收窄。"
+text = "Same allocation on the consent side (userservice §6.4): \"您使用本服务时，向我们传输的任何信息，如涉及到个人信息和其他数据的，必须充分取得相关主体的明示同意和授权\" — the duty to obtain consent and authorization, plus liability for losses the platform suffers, sits with the customer. A customer-obligation clause with no 受托处理者/processor wording, so it corroborates that the agreement allocates roles without naming the platform's own statutory role"
+text_zh = "同一条角色分配链的同意侧（用户协议 6.4）：『您使用本服务时，向我们传输的任何信息，如涉及到个人信息和其他数据的，必须充分取得相关主体的明示同意和授权』，并须确保平台不因处理相关数据和个人信息遭受损失和投诉——取得同意与授权的责任、以及平台的赔偿请求权都在客户一侧。这是客户义务条款，不含平台自身的受托处理者字样，只能作「协议对角色有分配」的佐证，单独不足以定平台角色"
+anchor = "role-customer-warrants-consent"
+
+[[product.role.point]]
+text_zh = "分层二：对客户自身输入/输出数据——用户协议 5.3/6.5 取得含存储、使用、复制、修订、编辑的许可使用（5.3 目的含『提升大模型服务体验』，6.5 为『为提供、诊断、改善、优化、升级本服务之目的使用、处理』），5.4 约定平台运行过程中产生的一切数据由平台享有合法权利。这三句是知识产权章的许可授予与数据权属条款，说明平台对客户数据有自身目的的处分权，但没有出现处理者/控制者这一法定角色的表述"
+
+[[product.role.point]]
+text = "The platform's self-description (userservice §1.2): \"本公司仅作为中立的技术服务提供者\", immediately followed by pushing operational responsibility onto the customer (『您的网站、应用、软件、平台等任何产品、服务及相关内容等，由您自行运营』). This is a statement about how liability is divided, not a statement of the statutory processor/controller role"
+text_zh = "平台的自我定位（用户协议 1.2）：『本公司仅作为中立的技术服务提供者』，紧接一句把运营责任推给客户（『您的网站、应用、软件、平台等任何产品、服务及相关内容等，由您自行运营』）。这是责任划分的自述，不是对处理者/受托处理者这一法定角色的表态"
+anchor = "role-neutral-provider"
+
+[[product.role.point]]
+text = "Direction of privacy policy §3.2 must be read carefully: \"我们可能委托授权合作伙伴处理您的个人信息，以便授权合作伙伴代表我们为您提供某些服务或履行职能\" — the platform is the entrusting party and the authorized partners are the entrusted parties; the platform sets the purposes itself (『我们仅会出于本隐私政策声明的合法、正当、必要、特定、明确的目的委托其处理您的信息』). So this clause places the platform on the entrusting (personal-information-handler) side of the chain; it says nothing about whether the platform is a processor or a controller with respect to customer data"
+text_zh = "隐私政策 三.2 的方向要读准：『我们可能委托授权合作伙伴处理您的个人信息，以便授权合作伙伴代表我们为您提供某些服务或履行职能』——平台是委托方，受托方是授权合作伙伴；处理目的由平台自定（『我们仅会出于本隐私政策声明的合法、正当、必要、特定、明确的目的委托其处理您的信息』），同段还写明会与受托合作方签署处理协议并监督其使用活动。该条把平台放在委托方（个人信息处理者一侧）的位置，并不说明平台对客户数据是受托处理者还是独立控制者"
+anchor = "role-entrusted-partners"
+
+[[product.role.point]]
+text = "Privacy policy §3.1 limits third-party disclosure only: \"一般情况下，我们不会向其他任何公司、组织和个人提供您的个人信息\" — its subject is again 您的个人信息, and it says nothing about the platform's own role"
+text_zh = "隐私政策 三.1 只承诺不向第三方提供个人信息：『一般情况下，我们不会向其他任何公司、组织和个人提供您的个人信息』，主语同样是『您的个人信息』，不构成对平台自身角色的表态"
+anchor = "role-no-sharing-without-consent"
+
+[[product.role.point]]
+text = "Why the verdict stays 未约定角色 (kind=unknown): every sentence above either allocates duties to the customer or describes the entrusting chain; no clause in either snapshot characterises the platform itself as 受托处理者/processor or 独立控制者/controller for customer data, and the CN site has no DPA snapshot to confirm the split (/docs/zh/agreement/dataprocess, /legal/dpa.html, /legal/data-processing.html, /dpa, api.stepfun.com/dpa have no snapshot in snapshots/ and cannot be rechecked this round). Divergence kept side by side, not resolved: the pay-as-you-go API line (providers/stepfun.toml) records kind=controller for the same agreement family (§5.3/§5.4/§6.5/§6.2). The disputed point is whether §6.5 self-use authorization plus §5.4 data ownership plus the platform setting its own purposes in the privacy policy suffice to conclude controller; scope-wise that row covers the platform.stepfun.com pay-as-you-go API tier, this row is the Step Plan subscription tier"
+text_zh = "结论仍记「未约定角色」（kind=unknown）的理由：上述句子都在分配客户侧义务或描述委托链条，两份快照里没有一句把平台自身表述为『受托处理者/processor』或『独立控制者/controller』；中国站也没有 DPA 可据以确认角色划分（/docs/zh/agreement/dataprocess、/legal/dpa.html、/legal/data-processing.html、/dpa、api.stepfun.com/dpa 在 snapshots/ 下无快照，本轮无法复核）。分歧并列保留、不选边：同厂按量 API 档（providers/stepfun.toml）对同一协议族（含 5.3/5.4/6.5/6.2）记 kind=controller。分歧点是平台自身对客户数据的角色能否由 6.5 自用授权＋5.4 数据权属＋隐私政策自定处理目的推出 controller；适用范围上那条覆盖 platform.stepfun.com 按量 API 档，本档为 Step Plan 订阅档。国际站同路径 DPA 快照逐字写 Customer is the controller and StepFun is the processor，但那是另一实体（platform.stepfun.ai，Controller 为 STEPFUN TECHNOLOGY (HK) LIMITED）另一站点，按权威性口径只能当发现线索，不能作本档证据"
+
+[[product.role.point]]
+text_zh = "查阅范围说明：searched 里 /legal/*.html、/step-plan、/trust、/dpa 等条目本轮在 snapshots/ 下没有快照，无法复核；本档可复核的角色依据只有用户协议与隐私政策两份快照。故不据这些页面下结论，也不以「未披露」收口——缺的是可复核的 DPA，不是厂商的沉默"
 
 [[anchor]]
 id = "training-service-improvement"
@@ -329,6 +386,16 @@ exact = "我们依照法律法规的规定，将在境内运营过程中收集�
 suffix = "。目前，我们不会将上述信息传输至境外，如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征"
 
 [[anchor]]
+id = "region-cross-border-transfer-opening"
+source_id = "7a07e3f7fdc0194d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "目前，我们不会将上述信息传输至境外，"
+exact = "如果我们向境外传输，会严格遵守中国的相关法律、监管政策，并会遵循相关国家规定或者征求您的同意"
+suffix = "**2. 存储期限**"
+
+[[anchor]]
 id = "retention-necessary-period"
 source_id = "7a07e3f7fdc0194d"
 topics = ["retention"]
@@ -386,6 +453,26 @@ suffix = """
 ## 五、我们如何保护个人信息的安全
 
 1. 我们非常"""
+
+[[anchor]]
+id = "retention-deletion-technically-infeasible"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "违反法律、行政法规或者违反约定处理个人信息；"
+exact = "法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们会停止除存储和采取必要的安全保护措施之外的处理"
+suffix = "**5. 改变或撤回授权范围**"
+
+[[anchor]]
+id = "retention-personalized-memory"
+source_id = "7a07e3f7fdc0194d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "本平台中的部分服务支持您进行个性化管理，例如，"
+exact = "我们会根据与您的对话记录，总结并形成对您的相关记忆（如您的工作习惯、偏好），以便模型参考对您的相关记忆，向您输出更适合您、更符合您需求的回答"
+suffix = "。您可以随时根据本平台页面操作指引，查看、编辑或删除模型已保存的记忆"
 
 [[anchor]]
 id = "retention-log-collection"

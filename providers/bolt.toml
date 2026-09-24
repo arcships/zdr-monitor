@@ -10,13 +10,13 @@ doc = "https://stackblitz.com/privacy-policy"
 url = "https://stackblitz.com/privacy-policy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Bolt/StackBlitz Privacy Policy。明确 AI Input/Output、代码、项目文件及 interaction data 的训练/数据集许可默认值与免费 opt-out；EEA/UK/CH 排除；活跃账户保留与关户 30 天删除；跨境至美国。未披露向量索引、prompt cache 的独立期限，也未提供运营遥测总开关。"
+note = "Bolt/StackBlitz Privacy Policy。明确 AI Input/Output、代码、项目文件及 interaction data 的训练/数据集许可默认值与免费 opt-out；EEA/UK/CH 排除；组织托管账户默认排除但留了「管理员已开启」的口子；训练用途对既有账户 2026-10-07 起生效，且只覆盖该日及之后创建/生成的内容。保留口径：活跃期保留 + §11 首段 as long as necessary（按需保留），主动关户为 reasonable period（无量化），非过错终止/暂停后 30 天内容导出窗口（不是删除期限），备份/日志残留未量化；跨境至美国。§16 自认企业客户数据处理由 DPA 管辖、非仅由本政策管辖；DPA 与 trust.bolt.new 尚未纳管，拿到前组织档位维持 unknown。未披露向量索引、prompt cache 的独立期限，也未提供运营遥测总开关。"
 
 [[source]]
 url = "https://stackblitz.com/terms-of-service"
 channel = "contract"
 tier = "core"
-note = "StackBlitz Terms of Service。定义 Bolt Model Development Content 并规定训练许可；Bolt Forge 另有以内容使用为条件的特殊模式。"
+note = "StackBlitz Terms of Service。定义 Bolt Model Development Content 并规定训练许可；Bolt Forge 另有以内容使用为条件的特殊模式。§3.5(h)(ii) 把组织托管账户（含 Teams 与 Enterprise 工作区）无条件排除在该节之外，与隐私政策 §5.C 留的「管理员开启」例外口径不同。"
 
 [[source]]
 url = "https://bolt.new/platform/security"
@@ -34,16 +34,60 @@ mark = "no"
 mode = "opt_out"
 anchor = "bolt-training-default-opt-out"
 [[product.training.point]]
-text_zh = "默认可将 prompts、outputs、代码、项目文件、错误/fix traces、tool invocations 与 edit histories 用于训练/微调/评测并制作许可数据集；可免费退出，最长 15 天实施且不追溯已训练模型或已交付数据集。EEA/UK/CH 账户默认排除。Bolt Forge 启用时另受其内容使用条件约束。"
+text = "By default, and unless you opt out, Bolt Model Development Content that is eligible under the prospective-application rules may be used to train, fine-tune, evaluate, benchmark and improve models and to prepare datasets licensed to third parties; opt-out is free of charge, implemented within fifteen (15) days, and does not unwind models already trained or datasets already delivered."
+text_zh = "默认（除非退出）可将符合「Prospective Application」条件的 Bolt Model Development Content（AI Input、AI Output、代码、项目文件、错误/fix traces、tool invocations、edit histories）用于训练、微调、评测、基准测试并制作许可数据集；可免费退出，最长 15 天内实施，且不回溯已训练模型或已交付数据集。"
+anchor = "bolt-training-default-opt-out"
+[[product.training.point]]
+text = "Not applied before October 7, 2026 or before the Terms take effect for the account; only content created or generated on or after the later of those two dates is eligible, and earlier content is not eligible even if it remains stored in the account or project (earlier content re-submitted to Bolt AI Features on or after the applicable date becomes eligible). Forge Content is eligible from September 14, 2026 if covered by a Forge consent that has not been withdrawn."
+text_zh = "对既有账户 2026-10-07（或条款对该账户生效日）起才适用；只有在该日及之后创建或生成的内容 eligible，更早的内容即使仍存在账户或项目里也不 eligible（在该日之后重新提交给 Bolt AI Features 的部分除外）。Forge Content 自 2026-09-14 起需有未撤回的 Forge 同意。"
+anchor = "bolt-training-prospective-application"
+[[product.training.point]]
+text = "Accounts determined to be located in the EEA, the United Kingdom, or Switzerland are excluded: no model development and no dataset licensing, and no reliance on legitimate interests or consent for those purposes; an account whose location cannot be determined is treated as located there."
+text_zh = "EEA/UK/CH 账户默认排除：不用于模型开发或数据集许可，厂商也不依赖合法利益或同意；定位无法确定的账户按位于这些地区处理。"
+anchor = "bolt-training-eea-exclusion"
+[[product.training.point]]
+text = "Bolt Forge is offered on the condition that Forge Content (AI Input, AI Output and related interaction data such as error-and-fix traces generated while Forge is enabled, plus the project files processed by Forge) may be used to train models and to prepare de-identified datasets licensed to third-party AI developers, including for compensation; enabling Forge requires an affirmative consent action."
+text_zh = "Bolt Forge 以内容使用为条件：启用 Forge 期间产生的 AI Input、AI Output 与交互数据（含 error-and-fix traces）连同经 Forge 处理的项目文件（Forge Content）可用于训练模型并制作去标识化数据集对外许可（含付费许可）；启用需以肯定动作明示同意。"
+anchor = "bolt-forge-training-condition"
+[[product.training.point]]
+text = "While Forge is enabled, the opt-out does not apply to Forge Content; stopping use of Forge ends collection of new Forge Content but does not by itself withdraw consent; after withdrawal the content is no longer selected for new model-training runs or newly prepared or licensed datasets, but processing already completed, models already trained and datasets already delivered are not unwound."
+text_zh = "Forge 启用期间 opt-out 不适用于 Forge Content；停止使用 Forge 只终止新内容的收集，不等于撤回同意；撤回后不再把 Forge Content 选入新的训练运行或新数据集，但不回溯已完成的处理、已训练模型与已交付数据集。"
+anchor = "bolt-forge-optout-and-withdrawal"
 [product.zdr]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
 [product.retention]
 object = "mixed"
-basis = "until_termination"
-anchor = "bolt-retention-active-account-30d"
+basis = "as_needed"
+anchor = "bolt-retention-active-accounts"
 [[product.retention.point]]
-text_zh = "账户及项目内容在账户活跃期间保留；主动关户后不超过 30 天删除或匿名化，但备份、法律与安全例外未量化。向量索引与 prompt/cache 未单列期限。"
+text = "Object: personal information and user content. Context: default (while the account remains active). Duration type: no quantified period."
+text_zh = "对象=个人信息与用户内容；语境=默认（账户活跃期）；期限类型=无量化期限——账户活跃期间保留。"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Section 11 opening standard: retained for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce agreements — as-needed retention, neither a fixed period nor bounded by service termination."
+text_zh = "§11 首段总标准：为提供服务、支持活跃账户、履行法律义务、解决争议与执行协议所必需即保留——属按需保留，既不是固定期限，也不是以服务终止为界。"
+anchor = "bolt-retention-as-long-as-necessary"
+[[product.retention.point]]
+text = "Context: voluntary account closure. The account and associated data enter an inactive or expired state, and StackBlitz will delete or anonymize such data within a reasonable period following closure, subject to backup retention, legal obligations and security requirements — no quantified period (the text contains no thirty-day figure)."
+text_zh = "语境=主动关户：账户及关联数据进入 inactive/expired 状态，厂商在关户后「合理期间」内删除或匿名化，并受备份保留、法律义务与安全要求限制——无量化期限（原文没有 30 天这个数）。"
+anchor = "bolt-retention-voluntary-closure"
+[[product.retention.point]]
+text = "Context: termination or suspension other than for cause. A reasonable means to retrieve or export content is made available for thirty (30) days following the effective date, after which StackBlitz may delete it — this is an export availability window, not a deletion deadline."
+text_zh = "语境=非过错终止或暂停：厂商在生效日起 30 天内提供检索/导出内容的合理途径，之后「may delete」——这是导出可用期，不是删除期限。"
+anchor = "bolt-retention-termination-export"
+[[product.retention.point]]
+text = "Context: termination for abuse or policy violations. The account may be permanently disabled and associated data deleted, with no export window, subject to applicable legal requirements."
+text_zh = "语境=违规终止（滥用服务或违反条款）：可永久停用账户并删除关联数据，无导出窗口，仍受适用法律要求约束。"
+anchor = "bolt-retention-abuse-violation"
+[[product.retention.point]]
+text = "Context: after deletion or termination. Residual copies may persist in backups, logs, or archival systems for a limited period (unquantified), and are not used for active processing except as necessary for security, fraud prevention, or legal compliance."
+text_zh = "语境=删除或终止之后：备份、日志、归档系统中的残留副本可能再保留有限期间（未量化），且不得用于主动处理（安全、反欺诈、法律合规除外）。"
+anchor = "bolt-retention-backups-residual"
+[[product.retention.point]]
+text = "Object: relevant portions of files you explicitly attach to an AI prompt. Context: AI requests sent to third-party AI service providers. Duration type: limited but unquantified — those providers do not receive ongoing or independent access to your files."
+text_zh = "对象=显式附加到 AI prompt 的文件的相关部分；语境=经第三方 AI 服务商的 AI 请求；期限类型=有限期间但未量化——这些服务商不获得对文件的持续或独立访问。"
+anchor = "bolt-retention-third-party-ai-inputs"
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "bolt-region-us-global"
@@ -60,13 +104,61 @@ plan_level = "individual"
 mark = "no"
 mode = "opt_out"
 anchor = "bolt-training-default-opt-out"
+[[product.training.point]]
+text = "By default, and unless you opt out, Bolt Model Development Content that is eligible under the prospective-application rules may be used to train, fine-tune, evaluate, benchmark and improve models and to prepare datasets licensed to third parties; opt-out is free of charge, implemented within fifteen (15) days, and does not unwind models already trained or datasets already delivered."
+text_zh = "默认（除非退出）可将符合「Prospective Application」条件的 Bolt Model Development Content（AI Input、AI Output、代码、项目文件、错误/fix traces、tool invocations、edit histories）用于训练、微调、评测、基准测试并制作许可数据集；可免费退出，最长 15 天内实施，且不回溯已训练模型或已交付数据集。"
+anchor = "bolt-training-default-opt-out"
+[[product.training.point]]
+text = "Not applied before October 7, 2026 or before the Terms take effect for the account; only content created or generated on or after the later of those two dates is eligible, and earlier content is not eligible even if it remains stored in the account or project (earlier content re-submitted to Bolt AI Features on or after the applicable date becomes eligible). Forge Content is eligible from September 14, 2026 if covered by a Forge consent that has not been withdrawn."
+text_zh = "对既有账户 2026-10-07（或条款对该账户生效日）起才适用；只有在该日及之后创建或生成的内容 eligible，更早的内容即使仍存在账户或项目里也不 eligible（在该日之后重新提交给 Bolt AI Features 的部分除外）。Forge Content 自 2026-09-14 起需有未撤回的 Forge 同意。"
+anchor = "bolt-training-prospective-application"
+[[product.training.point]]
+text = "Accounts determined to be located in the EEA, the United Kingdom, or Switzerland are excluded: no model development and no dataset licensing, and no reliance on legitimate interests or consent for those purposes; an account whose location cannot be determined is treated as located there."
+text_zh = "EEA/UK/CH 账户默认排除：不用于模型开发或数据集许可，厂商也不依赖合法利益或同意；定位无法确定的账户按位于这些地区处理。"
+anchor = "bolt-training-eea-exclusion"
+[[product.training.point]]
+text = "Bolt Forge is offered on the condition that Forge Content (AI Input, AI Output and related interaction data such as error-and-fix traces generated while Forge is enabled, plus the project files processed by Forge) may be used to train models and to prepare de-identified datasets licensed to third-party AI developers, including for compensation; enabling Forge requires an affirmative consent action."
+text_zh = "Bolt Forge 以内容使用为条件：启用 Forge 期间产生的 AI Input、AI Output 与交互数据（含 error-and-fix traces）连同经 Forge 处理的项目文件（Forge Content）可用于训练模型并制作去标识化数据集对外许可（含付费许可）；启用需以肯定动作明示同意。"
+anchor = "bolt-forge-training-condition"
+[[product.training.point]]
+text = "While Forge is enabled, the opt-out does not apply to Forge Content; stopping use of Forge ends collection of new Forge Content but does not by itself withdraw consent; after withdrawal the content is no longer selected for new model-training runs or newly prepared or licensed datasets, but processing already completed, models already trained and datasets already delivered are not unwound. This applies to paid individual plans as well: on a Forge-only paid plan (currently Bolt Lite) Forge is the only AI mode."
+text_zh = "Forge 启用期间 opt-out 不适用于 Forge Content；停止使用 Forge 只终止新内容的收集，不等于撤回同意；撤回后不再把 Forge Content 选入新的训练运行或新数据集，但不回溯已完成的处理、已训练模型与已交付数据集。该例外对个人付费档同样成立：在 Forge-only 付费档（现为 Bolt Lite）上 Forge 是唯一的 AI 模式。"
+anchor = "bolt-forge-optout-and-withdrawal"
 [product.zdr]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
 [product.retention]
 object = "mixed"
-basis = "until_termination"
-anchor = "bolt-retention-active-account-30d"
+basis = "as_needed"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Object: personal information and user content. Context: default (while the account remains active). Duration type: no quantified period."
+text_zh = "对象=个人信息与用户内容；语境=默认（账户活跃期）；期限类型=无量化期限——账户活跃期间保留。"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Section 11 opening standard: retained for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce agreements — as-needed retention, neither a fixed period nor bounded by service termination."
+text_zh = "§11 首段总标准：为提供服务、支持活跃账户、履行法律义务、解决争议与执行协议所必需即保留——属按需保留，既不是固定期限，也不是以服务终止为界。"
+anchor = "bolt-retention-as-long-as-necessary"
+[[product.retention.point]]
+text = "Context: voluntary account closure. The account and associated data enter an inactive or expired state, and StackBlitz will delete or anonymize such data within a reasonable period following closure, subject to backup retention, legal obligations and security requirements — no quantified period (the text contains no thirty-day figure)."
+text_zh = "语境=主动关户：账户及关联数据进入 inactive/expired 状态，厂商在关户后「合理期间」内删除或匿名化，并受备份保留、法律义务与安全要求限制——无量化期限（原文没有 30 天这个数）。"
+anchor = "bolt-retention-voluntary-closure"
+[[product.retention.point]]
+text = "Context: termination or suspension other than for cause. A reasonable means to retrieve or export content is made available for thirty (30) days following the effective date, after which StackBlitz may delete it — this is an export availability window, not a deletion deadline."
+text_zh = "语境=非过错终止或暂停：厂商在生效日起 30 天内提供检索/导出内容的合理途径，之后「may delete」——这是导出可用期，不是删除期限。"
+anchor = "bolt-retention-termination-export"
+[[product.retention.point]]
+text = "Context: termination for abuse or policy violations. The account may be permanently disabled and associated data deleted, with no export window, subject to applicable legal requirements."
+text_zh = "语境=违规终止（滥用服务或违反条款）：可永久停用账户并删除关联数据，无导出窗口，仍受适用法律要求约束。"
+anchor = "bolt-retention-abuse-violation"
+[[product.retention.point]]
+text = "Context: after deletion or termination. Residual copies may persist in backups, logs, or archival systems for a limited period (unquantified), and are not used for active processing except as necessary for security, fraud prevention, or legal compliance."
+text_zh = "语境=删除或终止之后：备份、日志、归档系统中的残留副本可能再保留有限期间（未量化），且不得用于主动处理（安全、反欺诈、法律合规除外）。"
+anchor = "bolt-retention-backups-residual"
+[[product.retention.point]]
+text = "Object: relevant portions of files you explicitly attach to an AI prompt. Context: AI requests sent to third-party AI service providers. Duration type: limited but unquantified — those providers do not receive ongoing or independent access to your files."
+text_zh = "对象=显式附加到 AI prompt 的文件的相关部分；语境=经第三方 AI 服务商的 AI 请求；期限类型=有限期间但未量化——这些服务商不获得对文件的持续或独立访问。"
+anchor = "bolt-retention-third-party-ai-inputs"
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "bolt-region-us-global"
@@ -83,19 +175,71 @@ plan_level = "team"
 mark = "yes"
 mode = "by_contract"
 anchor = "bolt-team-enterprise-no-training"
+[[product.training.point]]
+text = "Enterprise and Team customers under an MSA or DPA are excluded from model training and data sharing."
+text_zh = "官方安全页：受 MSA 或 DPA 管辖的 Enterprise 与 Team 客户被排除在模型训练与数据共享之外。"
+anchor = "bolt-team-enterprise-no-training"
+[[product.training.point]]
+text = "Privacy Policy §5.C: the model-development and dataset-licensing practices do not apply to accounts governed by a separate written agreement with StackBlitz that addresses these uses, or to organization-managed accounts except to the extent the organization's administrator has enabled such uses and any notice and choices required by applicable law have been provided."
+text_zh = "隐私政策 §5.C：这些训练/数据集许可实践不适用于受单独书面协议（MSA/DPA）管辖的账户，也不适用于组织托管账户——除非组织管理员已开启这些用途，且厂商已提供适用法律要求的通知与选择。"
+anchor = "bolt-training-excluded-accounts"
+[[product.training.point]]
+text = "Terms §3.5(h)(ii): that section does not apply to organization-managed accounts, including Teams and Enterprise workspaces — an unconditional exclusion with no administrator exception. Both official versions are kept side by side: the Terms exclude these accounts outright, while the Privacy Policy leaves an administrator-enabled exception; the vendor does not explain the difference."
+text_zh = "ToS §3.5(h)(ii)：该节不适用于组织托管账户（含 Teams 与 Enterprise 工作区）——无条件排除，没有管理员例外。两条官方口径并列保留：ToS 无条件排除，隐私政策留了「管理员已开启」的口子，官方未解释差异。"
+anchor = "bolt-training-org-accounts-tos"
 [product.zdr]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
 [product.retention]
 object = "mixed"
-basis = "until_termination"
-anchor = "bolt-retention-active-account-30d"
+basis = "as_needed"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Object: personal information and user content. Context: default (while the account remains active). Duration type: no quantified period."
+text_zh = "对象=个人信息与用户内容；语境=默认（账户活跃期）；期限类型=无量化期限——账户活跃期间保留。"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Section 11 opening standard: retained for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce agreements — as-needed retention, neither a fixed period nor bounded by service termination."
+text_zh = "§11 首段总标准：为提供服务、支持活跃账户、履行法律义务、解决争议与执行协议所必需即保留——属按需保留，既不是固定期限，也不是以服务终止为界。"
+anchor = "bolt-retention-as-long-as-necessary"
+[[product.retention.point]]
+text = "Context: voluntary account closure. The account and associated data enter an inactive or expired state, and StackBlitz will delete or anonymize such data within a reasonable period following closure, subject to backup retention, legal obligations and security requirements — no quantified period (the text contains no thirty-day figure)."
+text_zh = "语境=主动关户：账户及关联数据进入 inactive/expired 状态，厂商在关户后「合理期间」内删除或匿名化，并受备份保留、法律义务与安全要求限制——无量化期限（原文没有 30 天这个数）。"
+anchor = "bolt-retention-voluntary-closure"
+[[product.retention.point]]
+text = "Context: termination or suspension other than for cause. A reasonable means to retrieve or export content is made available for thirty (30) days following the effective date, after which StackBlitz may delete it — this is an export availability window, not a deletion deadline."
+text_zh = "语境=非过错终止或暂停：厂商在生效日起 30 天内提供检索/导出内容的合理途径，之后「may delete」——这是导出可用期，不是删除期限。"
+anchor = "bolt-retention-termination-export"
+[[product.retention.point]]
+text = "Context: termination for abuse or policy violations. The account may be permanently disabled and associated data deleted, with no export window, subject to applicable legal requirements."
+text_zh = "语境=违规终止（滥用服务或违反条款）：可永久停用账户并删除关联数据，无导出窗口，仍受适用法律要求约束。"
+anchor = "bolt-retention-abuse-violation"
+[[product.retention.point]]
+text = "Context: after deletion or termination. Residual copies may persist in backups, logs, or archival systems for a limited period (unquantified), and are not used for active processing except as necessary for security, fraud prevention, or legal compliance."
+text_zh = "语境=删除或终止之后：备份、日志、归档系统中的残留副本可能再保留有限期间（未量化），且不得用于主动处理（安全、反欺诈、法律合规除外）。"
+anchor = "bolt-retention-backups-residual"
+[[product.retention.point]]
+text = "Object: relevant portions of files you explicitly attach to an AI prompt. Context: AI requests sent to third-party AI service providers. Duration type: limited but unquantified — those providers do not receive ongoing or independent access to your files."
+text_zh = "对象=显式附加到 AI prompt 的文件的相关部分；语境=经第三方 AI 服务商的 AI 请求；期限类型=有限期间但未量化——这些服务商不获得对文件的持续或独立访问。"
+anchor = "bolt-retention-third-party-ai-inputs"
+[[product.retention.point]]
+text = "Scope: this conclusion covers the Privacy Policy only. The Policy itself states that enterprise customer data processing is governed by applicable DPAs rather than solely by this Privacy Policy (§16) and excludes data processed by customers within their own applications (§2), so retention for organization tiers may be set by the MSA/DPA; the DPA text and trust.bolt.new are not collected yet."
+text_zh = "适用范围：本结论只覆盖隐私政策口径。隐私政策 §16 自认企业客户数据处理由适用 DPA 管辖、并非仅由本政策管辖（§2 另把客户自建/部署应用内的数据处理排除在政策之外），组织档位的保留期限可能由 MSA/DPA 另行约定；DPA 原文与 trust.bolt.new 尚未纳管。"
+anchor = "bolt-enterprise-dpa-governs"
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "bolt-region-us-global"
 [product.role]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+[[product.role.point]]
+text = "Scope limitation, not a role statement: §2 of the Policy excludes personal data processed by customers within applications they build or deploy, which is governed by customer agreements and DPAs."
+text_zh = "适用范围限制（不构成角色表述）：政策 §2 把客户在其自建/部署的应用内处理的个人数据排除在政策之外，这部分由客户协议与 DPA 管辖。"
+anchor = "bolt-scope-customer-apps-excluded"
+[[product.role.point]]
+text = "The Policy itself says enterprise customer data processing is governed by applicable DPAs rather than solely by this Privacy Policy; the DPA text is not collected yet, so this dimension stays unknown (pending sources: the DPA and trust.bolt.new)."
+text_zh = "隐私政策 §16 自认企业客户数据处理由适用 DPA 管辖、并非仅由本政策管辖；DPA 原文尚未纳管，故本档 role 维持 unknown（待纳管来源：DPA、trust.bolt.new）。"
+anchor = "bolt-enterprise-dpa-governs"
 
 [[product]]
 id = "enterprise"
@@ -106,19 +250,75 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "bolt-team-enterprise-no-training"
+[[product.training.point]]
+text = "Enterprise and Team customers under an MSA or DPA are excluded from model training and data sharing."
+text_zh = "官方安全页：受 MSA 或 DPA 管辖的 Enterprise 与 Team 客户被排除在模型训练与数据共享之外。"
+anchor = "bolt-team-enterprise-no-training"
+[[product.training.point]]
+text = "Privacy Policy §5.C: the model-development and dataset-licensing practices do not apply to accounts governed by a separate written agreement with StackBlitz that addresses these uses, or to organization-managed accounts except to the extent the organization's administrator has enabled such uses and any notice and choices required by applicable law have been provided."
+text_zh = "隐私政策 §5.C：这些训练/数据集许可实践不适用于受单独书面协议（MSA/DPA）管辖的账户，也不适用于组织托管账户——除非组织管理员已开启这些用途，且厂商已提供适用法律要求的通知与选择。"
+anchor = "bolt-training-excluded-accounts"
+[[product.training.point]]
+text = "Terms §3.5(h)(ii): that section does not apply to organization-managed accounts, including Teams and Enterprise workspaces — an unconditional exclusion with no administrator exception. Both official versions are kept side by side: the Terms exclude these accounts outright, while the Privacy Policy leaves an administrator-enabled exception; the vendor does not explain the difference."
+text_zh = "ToS §3.5(h)(ii)：该节不适用于组织托管账户（含 Teams 与 Enterprise 工作区）——无条件排除，没有管理员例外。两条官方口径并列保留：ToS 无条件排除，隐私政策留了「管理员已开启」的口子，官方未解释差异。"
+anchor = "bolt-training-org-accounts-tos"
 [product.zdr]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service", "https://bolt.new/platform/security"]
 [product.retention]
 object = "mixed"
-basis = "until_termination"
-anchor = "bolt-retention-active-account-30d"
+basis = "as_needed"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Object: personal information and user content. Context: default (while the account remains active). Duration type: no quantified period."
+text_zh = "对象=个人信息与用户内容；语境=默认（账户活跃期）；期限类型=无量化期限——账户活跃期间保留。"
+anchor = "bolt-retention-active-accounts"
+[[product.retention.point]]
+text = "Section 11 opening standard: retained for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce agreements — as-needed retention, neither a fixed period nor bounded by service termination."
+text_zh = "§11 首段总标准：为提供服务、支持活跃账户、履行法律义务、解决争议与执行协议所必需即保留——属按需保留，既不是固定期限，也不是以服务终止为界。"
+anchor = "bolt-retention-as-long-as-necessary"
+[[product.retention.point]]
+text = "Context: voluntary account closure. The account and associated data enter an inactive or expired state, and StackBlitz will delete or anonymize such data within a reasonable period following closure, subject to backup retention, legal obligations and security requirements — no quantified period (the text contains no thirty-day figure)."
+text_zh = "语境=主动关户：账户及关联数据进入 inactive/expired 状态，厂商在关户后「合理期间」内删除或匿名化，并受备份保留、法律义务与安全要求限制——无量化期限（原文没有 30 天这个数）。"
+anchor = "bolt-retention-voluntary-closure"
+[[product.retention.point]]
+text = "Context: termination or suspension other than for cause. A reasonable means to retrieve or export content is made available for thirty (30) days following the effective date, after which StackBlitz may delete it — this is an export availability window, not a deletion deadline."
+text_zh = "语境=非过错终止或暂停：厂商在生效日起 30 天内提供检索/导出内容的合理途径，之后「may delete」——这是导出可用期，不是删除期限。"
+anchor = "bolt-retention-termination-export"
+[[product.retention.point]]
+text = "Context: termination for abuse or policy violations. The account may be permanently disabled and associated data deleted, with no export window, subject to applicable legal requirements."
+text_zh = "语境=违规终止（滥用服务或违反条款）：可永久停用账户并删除关联数据，无导出窗口，仍受适用法律要求约束。"
+anchor = "bolt-retention-abuse-violation"
+[[product.retention.point]]
+text = "Context: after deletion or termination. Residual copies may persist in backups, logs, or archival systems for a limited period (unquantified), and are not used for active processing except as necessary for security, fraud prevention, or legal compliance."
+text_zh = "语境=删除或终止之后：备份、日志、归档系统中的残留副本可能再保留有限期间（未量化），且不得用于主动处理（安全、反欺诈、法律合规除外）。"
+anchor = "bolt-retention-backups-residual"
+[[product.retention.point]]
+text = "Object: relevant portions of files you explicitly attach to an AI prompt. Context: AI requests sent to third-party AI service providers. Duration type: limited but unquantified — those providers do not receive ongoing or independent access to your files."
+text_zh = "对象=显式附加到 AI prompt 的文件的相关部分；语境=经第三方 AI 服务商的 AI 请求；期限类型=有限期间但未量化——这些服务商不获得对文件的持续或独立访问。"
+anchor = "bolt-retention-third-party-ai-inputs"
+[[product.retention.point]]
+text = "Scope: this conclusion covers the Privacy Policy only. The Policy itself states that enterprise customer data processing is governed by applicable DPAs rather than solely by this Privacy Policy (§16) and excludes data processed by customers within their own applications (§2), so retention for organization tiers may be set by the MSA/DPA; the DPA text and trust.bolt.new are not collected yet."
+text_zh = "适用范围：本结论只覆盖隐私政策口径。隐私政策 §16 自认企业客户数据处理由适用 DPA 管辖、并非仅由本政策管辖（§2 另把客户自建/部署应用内的数据处理排除在政策之外），组织档位的保留期限可能由 MSA/DPA 另行约定；DPA 原文与 trust.bolt.new 尚未纳管。"
+anchor = "bolt-enterprise-dpa-governs"
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "bolt-region-us-global"
+[[product.processing_region.point]]
+text = "Deployment topology, not a region commitment: the security page states that BYOK deployment lets you run Bolt inside your own AWS or Azure tenant with full infrastructure isolation and no shared compute. It does not state which regions can be selected or where data is stored, and the statement comes from the marketing/security page only (no trust-centre or contract text collected yet)."
+text_zh = "部署拓扑而非区域承诺：安全页称 BYOK 部署可把 Bolt 跑在客户自己的 AWS/Azure 租户内、完全基础设施隔离、无共享算力。该页未声明可选处理区域或数据驻留地，且仅有营销/安全页口径（信任中心与合同文本尚未纳管），故 codes 不变。"
+anchor = "bolt-region-byok-deployment"
 [product.role]
 mark = "unknown"
 searched = ["https://stackblitz.com/privacy-policy", "https://stackblitz.com/terms-of-service"]
+[[product.role.point]]
+text = "Scope limitation, not a role statement: §2 of the Policy excludes personal data processed by customers within applications they build or deploy, which is governed by customer agreements and DPAs."
+text_zh = "适用范围限制（不构成角色表述）：政策 §2 把客户在其自建/部署的应用内处理的个人数据排除在政策之外，这部分由客户协议与 DPA 管辖。"
+anchor = "bolt-scope-customer-apps-excluded"
+[[product.role.point]]
+text = "The Policy itself says enterprise customer data processing is governed by applicable DPAs rather than solely by this Privacy Policy; the DPA text is not collected yet, so this dimension stays unknown (pending sources: the DPA and trust.bolt.new)."
+text_zh = "隐私政策 §16 自认企业客户数据处理由适用 DPA 管辖、并非仅由本政策管辖；DPA 原文尚未纳管，故本档 role 维持 unknown（待纳管来源：DPA、trust.bolt.new）。"
+anchor = "bolt-enterprise-dpa-governs"
 
 [[anchor]]
 id = "bolt-training-default-opt-out"
@@ -130,6 +330,60 @@ exact = "Unless you opt out and subject to the regional and consent rules below,
 suffix = " This processing is separate from the operational and safety uses described above"
 
 [[anchor]]
+id = "bolt-training-prospective-application"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "Timing and Prospective Application. "
+exact = "We will not use Bolt Model Development Content for model development or dataset licensing before October 7, 2026 or before the Terms take effect for your account. Bolt Model Development Content is eligible for those purposes only if it is created or generated on or after the later of October 7, 2026 and the date the Terms take effect for your account, except that Forge Content created or generated on or after September 14, 2026 is eligible if it is covered by a Forge consent that you have not withdrawn."
+suffix = " Content created or generated before the applicable date is not eligible, even if it remains stored in your account or project."
+
+[[anchor]]
+id = "bolt-training-excluded-accounts"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "Excluded Accounts. "
+exact = "These model-development and dataset-licensing practices do not apply to Bolt Model Development Content in accounts governed by a separate written agreement with us that addresses these uses, or to organization-managed accounts except to the extent the organization’s administrator has enabled such uses and we have provided any notice and choices required by applicable law."
+suffix = " These practices also do not apply to accounts located in the European Economic Area"
+
+[[anchor]]
+id = "bolt-training-eea-exclusion"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "Accounts in the EEA, United Kingdom, and Switzerland. "
+exact = "We do not use Bolt Model Development Content, including Forge Content, associated with an account we determine to be located in the European Economic Area, the United Kingdom, or Switzerland for AI model development or for preparing datasets for licensing, and we do not rely on legitimate interests or consent for those purposes for such accounts."
+suffix = " We determine an account’s location from billing address"
+
+[[anchor]]
+id = "bolt-forge-training-condition"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "Forge Content is subject to the timing and eligibility limitations above, in addition to the affirmative-consent requirements in this paragraph. "
+exact = "Forge is offered on the condition that we may use the AI Input, AI Output, and related interaction data (such as error-and-fix traces) generated while Forge is enabled, together with the project files processed by Forge (“Forge Content”), to train AI models and to prepare de-identified datasets that we license to third-party AI developers, including for compensation, for AI model development, training, and evaluation."
+suffix = " You enable Forge only by taking an affirmative action"
+
+[[anchor]]
+id = "bolt-forge-optout-and-withdrawal"
+source_id = "4b9a66c9075791b6"
+topics = ["training"]
+[anchor.selector]
+prefix = "If your account is located in the European Economic Area, the United Kingdom, or Switzerland, we do not ask for this consent and Forge Content from your account is not used for these purposes. "
+exact = "While Forge is enabled, the opt-out described above does not apply to Forge Content. You can stop using Forge at any time: on a plan that includes other AI modes, by switching to another agent or mode; on a plan in which Forge is the only AI mode, by changing your plan (including to a free plan). Stopping use of Forge ends the collection of new Forge Content but does not by itself withdraw your consent, and we may continue to use Forge Content collected while Forge was enabled for the purposes described in this paragraph until you withdraw that consent. You can withdraw your consent at any time, free of charge, by contacting privacy@stackblitz.com or, once available, in your account settings; we implement a withdrawal in the same manner as an opt-out under “Opting Out and Withdrawing Consent” above, and after withdrawal we will not select your Forge Content for new model-training runs or newly prepared or licensed datasets. Neither stopping use of Forge nor withdrawing consent unwinds processing completed before that time, models already trained, or datasets already delivered to licensees, except as required by applicable law."
+suffix = " Your deletion, access, and other rights described in this Privacy Policy continue to apply."
+
+[[anchor]]
+id = "bolt-training-org-accounts-tos"
+source_id = "f9a1769fbe2834f0"
+topics = ["training"]
+[anchor.selector]
+prefix = "(h) Excluded Accounts. "
+exact = "This Section 3.5 does not apply to: (i) Bolt Model Development Content in accounts governed by a separate written agreement with Stackblitz that addresses the uses described in this Section, in which case that agreement controls; (ii) organization-managed accounts, including Teams and Enterprise workspaces; or (iii) Restricted Region Accounts, as provided in Section 3.5(e)."
+suffix = ""
+
+[[anchor]]
 id = "bolt-team-enterprise-no-training"
 source_id = "c96be6c911fd4453"
 topics = ["training"]
@@ -139,13 +393,85 @@ exact = "Enterprise and Team customers under an MSA or DPA are excluded from mod
 suffix = ""
 
 [[anchor]]
-id = "bolt-retention-active-account-30d"
+id = "bolt-retention-active-accounts"
 source_id = "4b9a66c9075791b6"
 topics = ["retention"]
 [anchor.selector]
 prefix = "Active Accounts**.** "
 exact = "Personal information and user content associated with an account are retained while the account remains active."
 suffix = " Voluntary Account Closure**.**"
+
+[[anchor]]
+id = "bolt-retention-as-long-as-necessary"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Data Retention. "
+exact = "We retain personal information and user content for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce our agreements."
+suffix = " Where we terminate or suspend an account other than for cause"
+
+[[anchor]]
+id = "bolt-retention-voluntary-closure"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Voluntary Account Closure. "
+exact = "When an account is voluntarily closed, the account and associated data enter an inactive or expired state. We will delete or anonymize such data within a reasonable period following account closure, subject to backup retention, legal obligations, and security requirements."
+suffix = " Account Suspension. "
+
+[[anchor]]
+id = "bolt-retention-termination-export"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "We retain personal information and user content for as long as necessary to provide the Services, support active accounts, comply with legal obligations, resolve disputes, and enforce our agreements. "
+exact = "Where we terminate or suspend an account other than for cause, we will make available a reasonable means to retrieve or export your content for thirty (30) days following the effective date of the termination or suspension, after which we may delete it."
+suffix = " This period applies to all accounts, except where the Terms or applicable law provide otherwise."
+
+[[anchor]]
+id = "bolt-retention-abuse-violation"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Abuse or Policy Violations. "
+exact = "If an account is suspended or terminated due to abuse of the Services or violation of applicable terms or policies, we may permanently disable the account and delete associated data, subject to applicable legal requirements."
+suffix = " Backups and Residual Copies. "
+
+[[anchor]]
+id = "bolt-retention-backups-residual"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Backups and Residual Copies. "
+exact = "Residual copies of personal information and user content may persist in backups, logs, or archival systems for a limited period following deletion or account termination. Such data will not be used for active processing except as necessary for security, fraud prevention, or legal compliance."
+suffix = " Users may request deletion of personal information"
+
+[[anchor]]
+id = "bolt-retention-third-party-ai-inputs"
+source_id = "4b9a66c9075791b6"
+topics = ["retention"]
+[anchor.selector]
+prefix = "AI Processing: "
+exact = "When you explicitly attach files to an AI prompt, relevant portions of those files may be transmitted to third-party AI service providers solely to generate responses. These providers do not receive ongoing or independent access to your files and retain such inputs only for limited periods."
+suffix = " Subprocessors: "
+
+[[anchor]]
+id = "bolt-scope-customer-apps-excluded"
+source_id = "4b9a66c9075791b6"
+topics = ["role", "retention"]
+[anchor.selector]
+prefix = "This Privacy Policy governs information about users of StackBlitz and Bolt, including website visitors and account holders. "
+exact = "It does not apply to personal data processed by our customers within applications they build or deploy using the Services, which is governed by applicable customer agreements and data processing addenda (“DPA”), where applicable."
+suffix = ""
+
+[[anchor]]
+id = "bolt-enterprise-dpa-governs"
+source_id = "4b9a66c9075791b6"
+topics = ["role", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Enterprise customers should note that customer data processing is governed by applicable DPAs rather than solely by this Privacy Policy."
+suffix = ""
 
 [[anchor]]
 id = "bolt-region-us-global"
@@ -155,3 +481,12 @@ topics = ["processing_region"]
 prefix = ""
 exact = "StackBlitz, Inc. is headquartered in the United States, and personal information may be transferred to, processed, and stored in countries outside of your jurisdiction, including the United States."
 suffix = ""
+
+[[anchor]]
+id = "bolt-region-byok-deployment"
+source_id = "c96be6c911fd4453"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Can I deploy Bolt in my own cloud? "
+exact = "Yes. BYOK deployment lets you run Bolt inside your own AWS or Azure tenant with full infrastructure isolation and no shared compute, meeting HIPAA, FedRAMP, and SOC 2 requirements."
+suffix = " How is the automatic security review run?"

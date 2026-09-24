@@ -7,30 +7,35 @@ doc = "https://ai.google.dev/gemini-api/terms"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/feedback-policies"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 文档站 Policies › Feedback information(AI Studio Inline Preference Voting,Last updated 2026-04-28)。api 档辅助:反馈路径会记录 prompts/responses 并用于 provide/improve/develop 产品与 ML 技术。verify.py 启发式判 not_policy(行数=2),人工复核为可用正文。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/logs-policy"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 文档站「Data logging and sharing」(Last updated 2026-09-04)。api 档付费服务的 opt-in 日志(AI Studio Logs & Datasets):默认 55 天可调 7/14/28/55,默认不用于产品改进,主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练。与滥用监控 55 天是两套。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/usage-policies"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 文档站 Policies › Abuse monitoring(Last updated 2026-06-09;导航旧标签 usage-policies)。api 档:给出滥用监控日志的具体期限 55 天并声明不用于训练(政策执行模型除外);页末明确适用于 Gemini API 与 AI Studio。verify.py 启发式把本页判为 not_policy(主体x动作行数=1,阈值漏判),人工复核为政策正文。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/zdr"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Gemini API 官方 ZDR 专页(Last updated 2026-09-14),只覆盖 api 档付费服务;文末把保证式 ZDR/企业 DPA 指向 Vertex AI(现名 Gemini Enterprise Agent Platform),属 google-vertex 范围,本条只取「付费档须逐项规避才能达成零保留」的结论。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/terms"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "Gemini API Additional Terms of Service(Effective March 23, 2026 / Last updated 2026-04-28)。覆盖 api 档:Gemini Developer API 与 Google AI Studio;Paid=经有效 Cloud Billing 的 Cloud Project 或企业 Workspace 账号,Unpaid=AI Studio 直连与 API 免费额度;EEA/瑞士/UK 一律按 Paid 处理。Google Cloud/Vertex 由另一套条款管辖,不并入本条。"
@@ -72,10 +77,11 @@ tier = "core"
 note = "Google 消费者服务条款(合同相对方 Google LLC)。只用于消费档(code-assist-personal 停服前条款体系、antigravity-consumer)的 role;不适用于 Gemini Developer API(后者由 Google APIs ToS + Gemini API Additional Terms 管辖)。"
 
 [[product]]
-id = "api"
-badge = "按量 API"
+id = "api-paid"
+badge = "按量 API 付费档"
 category = "api"
-plan_level = "any"
+plan_level = "enterprise"
+label = "Gemini API 的 Paid Services:经绑定有效 Cloud Billing 的 Cloud Project 访问 Gemini API,或以企业 Workspace 账号访问 AI Studio(Additional Terms 的定义);EEA/瑞士/UK 的免费额度也按本档条款处理。Google Cloud/Vertex 由另一套条款管辖,见 google-vertex。"
 
 [product.training]
 mark = "yes"
@@ -83,13 +89,29 @@ mode = "by_contract"
 anchor = "training-paid-no-improve"
 
 [[product.training.point]]
-text_zh = "Paid Services(经绑定有效 Cloud Billing 的 Cloud Project 访问 API,或企业 Workspace 账号的 AI Studio)明确不用于改进产品"
+text = "Scope of this row: \"Your access to Gemini API is a 'Paid Service' only when accessing the API through a Cloud Project associated with an active billing account\"; on the AI Studio side an active Cloud Billing account or a Workspace enterprise account is enough. Everything below is scoped to Paid Services."
+text_zh = "本行适用范围:经绑定有效 Cloud Billing 的 Cloud Project 访问 Gemini API,或以企业 Workspace 账号访问 AI Studio,才算 Paid Services。以下各条都限定在 Paid Services。"
+anchor = "scope-paid-definition-api"
 
 [[product.training.point]]
-text_zh = "Unpaid Services(AI Studio 直连、API 免费额度)明确用于 provide/improve/develop 产品与 ML 技术,且人工审阅者可读取/标注输入输出"
+text = "EEA/Switzerland/UK carve-out: for users there the terms under \"How Google uses Your Data\" in \"Paid Services\" apply to all Services, including Google AI Studio and the unpaid quota in the Gemini API, even though they are offered free of charge — so this row's conclusion also covers the free quota in those countries."
+text_zh = "EEA/瑞士/UK 例外:当地的免费额度也适用 Paid Services 的数据条款(含 AI Studio 与 Gemini API 免费额度),故本行结论同样覆盖这些国家的免费额度——当地不存在「免费档授权训练」这一档。"
+anchor = "training-eea-ch-uk-paid-applies"
 
 [[product.training.point]]
-text_zh = "EEA/瑞士/UK 一律按 Paid 条款。付费档唯一例外=用户主动 opt-in 分享日志 dataset(docs/logs-policy),该路径按 Unpaid 条款可用于训练。"
+text = "Opt-in path 1 (logs contributed as datasets): with logging enabled, logs (requests, responses, metadata) put into a dataset and shared with Google are processed under the Unpaid Services data-use terms and \"may be used to improve model quality, and inform the training and evaluation of future models and services\" (docs/logs-policy). Logging is only available for billing-enabled projects, i.e. this tier."
+text_zh = "opt-in 路径一(日志放进 dataset 分享给 Google):开启日志后,在 AI Studio 的 Logs and Datasets 里把日志(请求/响应/元数据)放进 dataset 并分享给 Google,该数据按 Unpaid Services 的数据使用条款处理,「may be used to improve model quality, and inform the training and evaluation of future models and services」(docs/logs-policy)。日志功能只对付费项目开放,故这条路径属本档。"
+anchor = "training-optin-dataset"
+
+[[product.training.point]]
+text = "On the same path, human reviewers may read, annotate and process the API inputs and outputs you share, after the data is disconnected from your Google Account, API key and Cloud project (docs/logs-policy)."
+text_zh = "同一路径上,人工审阅者可读取、标注、处理你分享的 API 输入输出(审阅前会与账号、API key、Cloud 项目断开)(docs/logs-policy)。"
+anchor = "training-optin-human-review"
+
+[[product.training.point]]
+text = "Opt-in path 2 (AI Studio Inline Preference Voting): \"We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about\", and that feedback is used to provide, improve and develop Google products and services and machine learning technologies (docs/feedback-policies). The vote can be skipped when it appears, but that page does not distinguish Paid from Unpaid AI Studio — so the disclosed opt-in paths are two, not one."
+text_zh = "opt-in 路径二(AI Studio 的 Inline Preference Voting):「We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about」,该反馈用于 provide/improve/develop Google 产品、服务与 ML 技术(docs/feedback-policies)。投票出现时可跳过,但该页未按 Paid/Unpaid 区分 AI Studio——故已披露的 opt-in 路径有两条,不是一条。"
+anchor = "training-feedback-records"
 
 [product.zdr]
 mark = "yes"
@@ -100,7 +122,9 @@ anchor = "zdr-requires-actions"
 text_zh = "付费档可达成零保留但须逐项规避:Interactions API 显式 store=false、不配 SessionResumptionConfig、手动删 File API 文件、不用 cached_content、避开 Grounding(30 天且不可关闭)"
 
 [[product.zdr.point]]
-text_zh = "保证式 ZDR/企业 DPA 需改用 Vertex AI(Gemini Enterprise Agent Platform)。免费档不适用(训练排除仅覆盖 Paid Services)。"
+text = "For guaranteed zero data retention or enterprise data processing agreements the docs point to Vertex AI (Gemini Enterprise Agent Platform) rather than the Gemini Developer API. The free quota has none of the mechanisms above; see api-unpaid."
+text_zh = "保证式 ZDR/企业 DPA 需改用 Vertex AI(Gemini Enterprise Agent Platform),不是 Gemini Developer API。本行=付费档;免费额度档没有这套机制,见 api-unpaid。"
+anchor = "zdr-guaranteed-needs-vertex"
 
 [product.retention]
 days = 55
@@ -109,13 +133,49 @@ basis = "fixed_period"
 anchor = "retention-abuse-logs-55-days"
 
 [[product.retention.point]]
-text_zh = "滥用监控日志(prompts/上下文/输出)55 天"
+text = "Abuse-monitoring logs (prompts, contextual information, output) are kept for fifty-five (55) days; the same page's Scope says these guidelines apply to the use of the Gemini API and AI Studio, i.e. both tiers. That page publishes no deletion mechanism for these logs."
+text_zh = "滥用监控日志(prompts/上下文/输出)保留 55 天(usage-policies;Scope 明确适用于 Gemini API 与 AI Studio);该页没有写这些日志的删除机制。"
+anchor = "scope-gemini-api-and-ai-studio"
 
 [[product.retention.point]]
-text_zh = "合同层只写 a limited period of time。付费档 opt-in 日志默认最长 55 天、可调 7/14/28/55(docs/logs-policy)"
+text = "Do not read the \"automatically marked for deletion\" mechanism into these abuse-monitoring logs: that wording describes the AI Studio opt-in logs on docs/logs-policy, which the same page says are \"separate from any logs held solely for abuse monitoring purposes\"."
+text_zh = "不要把「自动标记删除」这一机制套到滥用监控日志上:该措辞讲的是 docs/logs-policy 里 AI Studio 的 opt-in 日志,而该页明说两套日志是分开的:「separate from any logs held solely for abuse monitoring purposes」。"
+anchor = "retention-logs-separate-from-abuse"
 
 [[product.retention.point]]
-text_zh = "Grounding with Google Search/Maps 30 天且不可关闭(terms)"
+text = "Content flagged by abuse detection can be assessed by authorized Google employees through an internal governance assessment and review management platform — this is how paid-tier request content can be seen by humans."
+text_zh = "滥用监控中被标记的内容可由授权 Google 员工通过内部治理评估与复核管理平台查看与评估——付费档请求内容可能被人看到的路径,与免费档的人工审阅(见 api-unpaid)分开记。"
+anchor = "retention-abuse-human-review"
+
+[[product.retention.point]]
+text = "That logged data is used solely for policy enforcement and is not used to train or fine-tune any AI/ML models besides those used specifically for policy enforcement."
+text_zh = "该滥用监控日志仅用于政策执行与防违规,不用于训练或微调任何 AI/ML 模型(政策执行模型除外)。"
+anchor = "training-abuse-logs-not-for-training"
+
+[[product.retention.point]]
+text = "Contract layer gives no number: \"For Paid Services, Google logs prompts and responses for a limited period of time, solely for detecting and preventing violations of the Prohibited Use Policy\" (terms, Paid Services section)."
+text_zh = "合同层只写 a limited period of time(terms,Paid Services 一节),没有数字。"
+anchor = "retention-paid-limited-period"
+
+[[product.retention.point]]
+text = "Opt-in logs (AI Studio Logs & Datasets) are retained for a default maximum of 55 days, after which they are automatically marked for deletion."
+text_zh = "付费档 opt-in 日志(AI Studio Logs & Datasets)默认最长 55 天,之后自动标记删除(docs/logs-policy)"
+anchor = "retention-logs-default-55"
+
+[[product.retention.point]]
+text = "That window can be updated in AI Studio to mark logs for deletion after 7, 14, 28 or 55 days."
+text_zh = "该保留窗口可在 AI Studio 调整为 7/14/28/55 天(docs/logs-policy)"
+anchor = "retention-logs-configurable"
+
+[[product.retention.point]]
+text = "Logs moved into a dataset leave the 55-day rule altogether: \"Logs stored in datasets don't have set retention periods.\" Once the dataset path is used, the period type is not a 55-day upper bound but no set period at all."
+text_zh = "日志一旦放进 dataset 就没有设定保留期:「Logs stored in datasets don't have set retention periods.」(docs/logs-policy)——期限类型因此不是「上限 55 天」而是「无期限」。它与默认 55 天上限、可调 7/14/28/55 是同一份 docs/logs-policy 里的三件事,且这条 dataset 路径正是 training 里可用于训练的 opt-in 路径。"
+anchor = "retention-datasets-no-period"
+
+[[product.retention.point]]
+text = "Grounding with Google Search stores prompts, contextual information and output for thirty (30) days and cannot be disabled; Grounding with Google Maps has its own thirty-day storage clause on the same page."
+text_zh = "Grounding with Google Search 存 prompts/上下文/输出 30 天且不可关闭(terms);Grounding with Google Maps 同页另有 30 天存储条款。"
+anchor = "retention-grounding-30-days"
 
 [[product.retention.point]]
 text_zh = "Live API 会话态最长 24h、File API 存至删除或过期、显式缓存按用户 ttl、调优内容随模型保留(docs/zdr)"
@@ -135,7 +195,107 @@ kind = "processor"
 anchor = "role-paid-processor-dpa"
 
 [[product.role.point]]
-text_zh = "Paid Services 为 processor:prompts/responses 按 Data Processing Addendum for Products Where Google is a Data Processor 处理,且 business.safety.google/services/ 的服务清单明列「Gemini API Paid Services」。Unpaid Services 不在该清单内(非 processor 角色)。其他数据(账号/计费/遥测)仍按 Controller-Controller DPA + Google Privacy Policy。"
+text_zh = "Paid Services 为 processor:prompts/responses 按 Data Processing Addendum for Products Where Google is a Data Processor 处理,且 business.safety.google/services/ 的服务清单明列「Gemini API Paid Services」。其他数据(账号/计费/遥测)仍按 Controller-Controller DPA + Google Privacy Policy。免费额度档不在该清单内,见 api-unpaid。"
+
+[[product]]
+id = "api-unpaid"
+badge = "按量 API 免费额度"
+category = "api"
+plan_level = "free"
+label = "Gemini API 的 Unpaid Services:与 Google AI Studio 的直接交互、Gemini API 免费额度(Additional Terms 的定义)。EEA/瑞士/UK 的免费额度按 Paid Services 处理,不适用本档,见 api-paid。"
+
+[product.training]
+mark = "no"
+anchor = "training-unpaid-improve"
+
+[[product.training.point]]
+text = "Scope of this row: \"Any Services that are offered free of charge like direct interactions with Google AI Studio or unpaid quota in Gemini API are unpaid Services\" (Additional Terms)."
+text_zh = "本行适用范围:Additional Terms 把「Any Services that are offered free of charge like direct interactions with Google AI Studio or unpaid quota in Gemini API」定义为 Unpaid Services,即 AI Studio 直连与 Gemini API 免费额度。"
+anchor = "scope-unpaid-definition"
+
+[[product.training.point]]
+text = "Google uses the content you submit and any generated responses to provide, improve and develop Google products and services and machine learning technologies, including Google's enterprise features and products. No opt-out switch is published for this use."
+text_zh = "Google 会把提交的内容与生成的回复用于 provide/improve/develop Google 产品、服务与 ML 技术(含企业特性与产品)。这条用途没有公开的退出开关。"
+anchor = "training-unpaid-improve"
+
+[[product.training.point]]
+text = "\"To help with quality and improve our products, human reviewers may read, annotate, and process your API input and output\" — after disconnecting it from your Google Account, API key and Cloud project; the terms therefore state \"Do not submit sensitive, confidential, or personal information to the Unpaid Services.\""
+text_zh = "「To help with quality and improve our products, human reviewers may read, annotate, and process your API input and output」——审阅前会与账号、API key、Cloud 项目断开;条款因此明文要求不要向免费档提交敏感、机密或个人信息。"
+anchor = "training-unpaid-human-review"
+
+[[product.training.point]]
+text = "Exception: for users in the EEA, Switzerland or the UK the Paid Services data terms apply to all Services including the free quota, so this row's training authorization does not hold there."
+text_zh = "例外:EEA/瑞士/UK 的用户适用 Paid Services 的数据条款(含免费额度),故本行的训练授权在当地不成立,见 api-paid。"
+anchor = "training-eea-ch-uk-paid-applies"
+
+[product.zdr]
+mark = "no"
+mode = "not_disclosed"
+anchor = "retention-abuse-logs-55-days"
+searched = [
+  "https://ai.google.dev/gemini-api/terms",
+  "https://ai.google.dev/gemini-api/docs/zdr",
+  "https://ai.google.dev/gemini-api/docs/usage-policies",
+]
+
+[[product.zdr.point]]
+text = "Why ✗: the abuse-monitoring rules apply to the Gemini API and AI Studio without a paid/unpaid distinction and keep prompts, contextual information and output for fifty-five (55) days, so what this tier submits is retained and the user has no control over it."
+text_zh = "判 ✗ 的理由:滥用监控规则适用于 Gemini API 与 AI Studio、不区分付费/免费档,prompts/上下文/输出保留 55 天,本档提交的内容会被留存,且用户侧没有控制手段。"
+anchor = "retention-abuse-logs-55-days"
+
+[[product.zdr.point]]
+text = "No zero-retention option is disclosed for this tier either: every mechanism on the ZDR page (store=false on the Interactions API, not configuring SessionResumptionConfig, manually deleting File API files, avoiding cached_content, avoiding Grounding) is written under Paid Services, and guaranteed zero data retention is pointed at Vertex AI."
+text_zh = "本档也没有公开任何零保留方案:ZDR 专页的逐项机制(Interactions API 的 store=false、不配 SessionResumptionConfig、手动删 File API 文件、不用 cached_content、避开 Grounding)都写在 Paid Services 名下,保证式零保留则被指向 Vertex AI。"
+anchor = "zdr-guaranteed-needs-vertex"
+
+[[product.zdr.point]]
+text_zh = "免费档的数据本身会被用于改进产品并可被人工审阅(见本档 training),条款未给出任何零保留或退出机制。"
+
+[product.retention]
+days = 55
+object = "logs"
+basis = "fixed_period"
+anchor = "retention-abuse-logs-55-days"
+
+[[product.retention.point]]
+text = "Abuse-monitoring logs (prompts, contextual information, output) are kept for fifty-five (55) days; the page's Scope states the guidelines apply to the use of the Gemini API and AI Studio, with no paid/unpaid distinction."
+text_zh = "滥用监控日志(prompts/上下文/输出)55 天;该页 Scope 明确适用于 Gemini API 与 AI Studio,不区分付费/免费档。"
+anchor = "scope-gemini-api-and-ai-studio"
+
+[[product.retention.point]]
+text = "Grounding with Google Search stores prompts, contextual information and output for thirty (30) days and cannot be disabled; AI Studio can use Grounding with Google Search as an Unpaid Service."
+text_zh = "Grounding with Google Search 存 prompts/上下文/输出 30 天且不可关闭;AI Studio 可作为 Unpaid Service 使用 Grounding with Google Search。"
+anchor = "retention-grounding-30-days"
+
+[[product.retention.point]]
+text = "The contract's only period wording — \"For Paid Services, Google logs prompts and responses for a limited period of time\" — is written for Paid Services; this tier has no published retention period for the request/response body itself."
+text_zh = "合同层唯一的期限表述「For Paid Services, Google logs prompts and responses for a limited period of time」只写给 Paid Services;本档的输入输出正文本身没有公开的保留期限,不能把付费档的措辞读成免费档的上限。"
+anchor = "retention-paid-limited-period"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://ai.google.dev/gemini-api/terms",
+  "https://ai.google.dev/gemini-api/docs/usage-policies",
+  "https://ai.google.dev/gemini-api/docs/zdr",
+]
+
+[[product.processing_region.point]]
+text = "No processing-location statement is published for this tier: the only region clause in the api sources (\"stored transiently or cached in any country in which Google or its agents maintain facilities\") sits in the Paid Services section, and the abuse-monitoring page says nothing about location."
+text_zh = "本档没有处理地表述:api 各来源里唯一的处理地条款(「stored transiently or cached in any country in which Google or its agents maintain facilities」)写在 Paid Services 一节,滥用监控页完全没提处理地。故记未披露,不引用付费档条款。"
+
+[product.role]
+kind = "unknown"
+searched = [
+  "https://ai.google.dev/gemini-api/terms",
+  "https://business.safety.google/services/",
+]
+
+[[product.role.point]]
+text = "Google's list of services subject to the Data Processing Addendum names \"Gemini API Paid Services\" and has no entry for the free quota; no document assigns this tier a controller or processor role, so it is recorded as unknown rather than guessed."
+text_zh = "Google 的 DPA 服务清单只列「Gemini API Paid Services」,免费额度不在其中;没有任何文件为免费档约定 controller/processor 角色,故记 unknown 不猜。"
+anchor = "role-gemini-api-paid-processor-service"
 
 [[product]]
 id = "antigravity-consumer"
@@ -170,14 +330,16 @@ text_zh = "条款只写会记录并存储 user data / interaction data / metadat
 text_zh = "用户可自行删除 Interactions 或发邮件请求删除,「unless and until you request deletion」即默认持续保留。"
 
 [product.processing_region]
-mark = "unknown"
-codes = ["unknown"]
+codes = ["global"]
+anchor = "region-servers-around-the-world"
 searched = [
   "https://antigravity.google/terms",
-  "https://antigravity.google/privacy",
   "https://policies.google.com/privacy?hl=en&gl=ie",
-  "https://policies.google.com/privacy",
 ]
+
+[[product.processing_region.point]]
+text = "Consumer-layer statement, not a residency option: the Antigravity Terms make the Google Privacy Policy part of the Agreement, and that policy says \"We maintain servers around the world and your information may be processed on servers located outside of the country where you live\" — the same kind of no-residency wording as the api tier's any-country clause. Its object is your information generally, not the request content specifically. antigravity.google/privacy is not declared as a source in this file and has no snapshot, so it is not used as evidence here."
+text_zh = "消费者层的表述,不是可选驻留区域:Antigravity 条款把 Google 隐私政策列为 Agreement 的组成部分,该政策写「We maintain servers around the world and your information may be processed on servers located outside of the country where you live」——与 api 档 any-country 条款同性质的「无驻留承诺」;该句对象是「your information」整体,不区分账号数据与请求内容。antigravity.google/privacy 未在本文件登记、仓库内无快照,故不作为依据。"
 
 [product.role]
 kind = "controller"
@@ -188,6 +350,11 @@ text_zh = "消费者档:Antigravity 条款把 Google 通用条款列为上位条
 
 [[product.role.point]]
 text_zh = "隐私政策按所在地指定控制者(EEA/瑞士=Google Ireland Limited)。属消费者 controller 定位,非 processor。"
+
+[[product.role.point]]
+text = "Multi-hop: if you select a third party or open source model as your main agent model, you become subject to that model's own terms (for Anthropic the terms point at its commercial terms), so that configuration adds a hop which Google's terms do not cover. This row's conclusions describe the Google hop only; the upstream hop must be assessed separately (see the anthropic entry)."
+text_zh = "多跳链路:把第三方/开源模型设为主模型时,适用的是该模型提供方自己的条款(Anthropic 明文指向其 commercial terms),该配置下链路多一跳,Google 的条款不覆盖这一跳。本档结论只描述 Google 这一跳;上游那一跳须另行组合评估(见本仓库 anthropic 条目)。"
+anchor = "chain-third-party-model-terms"
 
 [[anchor]]
 id = "training-paid-no-improve"
@@ -262,7 +429,7 @@ Prompt logging for abuse monitoring : As outlined in the G"""
 [[anchor]]
 id = "retention-abuse-logs-55-days"
 source_id = "5e08212c4da8dea1"
-topics = ["retention"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
@@ -693,6 +860,14 @@ Datasets can be created to retain logs of
 interest beyond """
 
 [[anchor]]
+id = "retention-logs-separate-from-abuse"
+source_id = "ae7b03cd1d30111a"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "are separate from any logs held solely for abuse monitoring purposes"
+
+[[anchor]]
 id = "training-logs-default-not-improve"
 source_id = "ae7b03cd1d30111a"
 topics = ["training"]
@@ -881,3 +1056,27 @@ Google Antigravity Additional
 Terms of Service"""
 exact = "If you are accessing the Service through [Gemini Enterprise (Google Cloud)](https://cloud.google.com/terms), [Gemini Enterprise for Business](https://cloud.google.com/terms/gemini-enterprise/business) or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise Agent Platform API Key"
 suffix = ", then you are subject to the terms of use accepted or signed by your administrator applicable to such service"
+
+[[anchor]]
+id = "retention-datasets-no-period"
+source_id = "ae7b03cd1d30111a"
+topics = ["retention", "training"]
+
+[anchor.selector]
+exact = "Logs stored in datasets don't have set retention periods."
+
+[[anchor]]
+id = "retention-abuse-human-review"
+source_id = "5e08212c4da8dea1"
+topics = ["retention", "training"]
+
+[anchor.selector]
+exact = "Data can be accessed for human review only by authorized Google employees via an internal governance assessment and review management platform."
+
+[[anchor]]
+id = "chain-third-party-model-terms"
+source_id = "caee9d2256b1a97d"
+topics = ["role", "training", "processing_region"]
+
+[anchor.selector]
+exact = "If you select a third party or open source model as your main agent model, you will be subject to the terms of that model. For Anthropic specifically, you agree to be bound by its terms and conditions found at https://www.anthropic.com/legal/commercial-terms."

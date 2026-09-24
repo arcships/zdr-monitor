@@ -66,6 +66,11 @@ mode = "by_contract"
 anchor = "sst-dp-no-training-generative-ai"
 
 [[product.training.point]]
+text = "Boundary clause — Feedback is licensed separately from Customer Data. Self-Serve §9: \"You hereby grant Cloudflare a non-exclusive, royalty-free, worldwide, transferable, irrevocable, sublicensable, and perpetual license to use or incorporate into the Services any suggestions, enhancement requests, recommendations, corrections, or other feedback (“Feedback”) you provide to Cloudflare relating to the Services.\" Feedback is something the customer chooses to send and is not part of Customer Data (ESA §1.7: Customer Data = Customer Account Information + Customer Content + Customer Logs), so it does not change mark=yes. Nor may it be turned into a mark=no: the clause concerns the customer's own suggestions, not the use of Customer Content to train models."
+text_zh = "边界条款——Feedback 与 Customer Data 分开授权。Self-Serve §9：「You hereby grant Cloudflare a non-exclusive, royalty-free, worldwide, transferable, irrevocable, sublicensable, and perpetual license to use or incorporate into the Services any suggestions, enhancement requests, recommendations, corrections, or other feedback (“Feedback”) you provide to Cloudflare relating to the Services.」Feedback 由客户主动提交、不属 Customer Data（ESA §1.7：Customer Data = Customer Account Information + Customer Content + Customer Logs），故不影响 mark=yes；也不得据此判 mark=no——该条讲的是客户自己的建议，不是把 Customer Content 用于训练模型。"
+anchor = "ss-terms-feedback-license"
+
+[[product.training.point]]
 text = "Contract level (strongest): the \"Cloudflare Workers AI; AI Gateway\" subsection of the Developer Platform Service-Specific Terms says \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" — a consent-gated statement (it can be agreed otherwise), not an absolute prohibition. The docs point the same way in different words: \"would not do so unless we received your explicit consent\" (explicit consent required, and covering (2) improve any Cloudflare or third-party services as well)"
 text_zh = "合同层（最强）：Developer Platform Service-Specific Terms 的「Cloudflare Workers AI; AI Gateway」小节写「Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.」——同意门控式表述（可另行约定），不是绝对禁止。docs 侧同旨但措辞不同：「would not do so unless we received your explicit consent」（需明示同意，且同时覆盖 (2) improve any Cloudflare or third-party services）"
 
@@ -137,6 +142,11 @@ text_zh = "另「ZDR does not control AI Gateway logging」，日志要单独关
 text = "The catalog entry previously bound here is a third-party model's tag (\"Alibaba's HappyHorse 1.0 … - Third-party - Zero data retention\"), i.e. it describes another provider's posture, not Workers AI's, so it is not a statement on this dimension and is no longer bound to this entry. It stays as contrast material in the point above."
 text_zh = "原先绑在本条的引文是统一目录里某个第三方模型的标签（「… - Third-party - Zero data retention」），说的是别的 provider 的立场，不构成对 Workers AI 本维度的表述，故不再绑在本条；它作为对照材料仍保留在上一条里。"
 
+[[product.zdr.point]]
+text = "Content-isolation fact recorded as circumstantial evidence, not as a ZDR statement and not as this dimension's basis (it says nothing about whether content is retained, for how long, or about a zero-retention option): \"Cloudflare does not make your Customer Content available to any other Cloudflare customer.\" Non-disclosure of a ZDR option for Workers AI hosted inference therefore stands as recorded above, and this dimension stays undisclosed."
+text_zh = "内容隔离层的事实，作为旁证记录，不构成 ZDR 表述、也不作为本维度的判定依据（它没有说明内容是否保留、保留多久，也没有说明零保留选项）：「Cloudflare does not make your Customer Content available to any other Cloudflare customer.」Workers AI 托管推理的 ZDR 选项仍属未披露，本维度维持未披露。"
+anchor = "wai-data-usage-no-other-customer"
+
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
@@ -175,6 +185,11 @@ text = "(6) EU Data Act Addendum (EU customers) §10.1: after termination the Cu
 text_zh = "(6) EU Data Act Addendum（欧盟客户）§10.1 终止后保留 Customer's Data 30 个日历日供取回或擦除、§10.2 期满擦除 Exportable Data"
 
 [[product.retention.point]]
+text = "(7) Service-Specific Terms → Cloudflare Developer Platform §9 — object = content uploaded to the Developer Platform, context = after expiry or termination of the trial or subscription, type = upper bound on a retrieval window, with no retention obligation: \"Subject to Section 8 above, you may be permitted to access the Customer Content you uploaded to the Developer Platform for up to thirty (30) days following the expiration or termination of your trial or subscription. You understand that Cloudflare has no obligation to retain the Customer Content you upload to the Developer Platform following the expiration or termination of your trial or subscription.\" Scope matters for procurement: the clause sits in the Developer Platform subsection whose product list (Cloudflare Workers; Cloudflare Pages; Workers KV; D1; Durable Objects; Vectorize; Hyperdrive; Cloudflare Queues; R2; Containers; and Workers for Platforms) does not include Workers AI, so it is a retrieval window for product content uploaded to the Developer Platform, not a retention or deletion period for Workers AI request content. It is a different clause from the other \"30 days\" in EU Data Act Addendum §10.1 (EU customers only, object = Customer's Data)."
+text_zh = "(7) Service-Specific Terms → Cloudflare Developer Platform §9——对象=上传到 Developer Platform 的内容，语境=试用或订阅到期/终止后，期限类型=取回窗口上限，且厂商声明无保留义务：「Subject to Section 8 above, you may be permitted to access the Customer Content you uploaded to the Developer Platform for up to thirty (30) days following the expiration or termination of your trial or subscription. You understand that Cloudflare has no obligation to retain the Customer Content you upload to the Developer Platform following the expiration or termination of your trial or subscription.」适用范围对采购很重要：该条位于 Developer Platform 小节，其产品清单（Cloudflare Workers; Cloudflare Pages; Workers KV; D1; Durable Objects; Vectorize; Hyperdrive; Cloudflare Queues; R2; Containers; and Workers for Platforms）不含 Workers AI，故它是上传到 Developer Platform 的产品内容的取回窗口，不是 Workers AI 请求内容的保留或删除期限。它与 EU Data Act Addendum §10.1 的另一处「30 天」（仅欧盟客户，对象=Customer's Data）是两条不同适用范围的条款。"
+anchor = "sst-dp-30-days-uploaded-content"
+
+[[product.retention.point]]
 text = "The addendum limits Workers AI's Exportable Data to \"LoRA adapters uploaded by Customers\" plus the available audit logs (inference inputs and outputs are not included)"
 text_zh = "附录把 Workers AI 的 Exportable Data 限定为「LoRA adapters uploaded by Customers」+ 可用审计日志（未含推理输入输出）"
 
@@ -183,8 +198,13 @@ text = "Footnote [2]: \"By default, Cloudflare stores any end user activity logs
 text_zh = "脚注 [2]「By default, Cloudflare stores any end user activity logs for seven days」，并声明「does not store ... for every product」——对象是终端用户活动日志，非请求正文"
 
 [[product.retention.point]]
-text = "(7) Privacy policy §11 gives only retention criteria (consumer_privacy, not authoritative for this tier). What can therefore be said about retention is: request content is not persisted by default (it is stored only where a storage product is used), and log-type data has a 7-day default (not applying to every product) and a 30-day retrieval window (EU Data Act tier only) — clauses split by object and context, none of which gives a general number of days for input and output content."
-text_zh = "(7) 隐私政策 §11 只给保留标准（consumer_privacy，非本档权威）。因此 retention 的可用表述是：默认不持久存储请求正文（仅在使用存储类产品时才会存储），日志类数据有 7 天默认（不适用于每个产品）与 30 日取回期（仅欧盟 Data Act 档）等分对象、分语境的条款，但没有任何一条给出输入输出正文的通用保留天数。"
+text = "(8) Object = network traffic and related logs, nature = a right for Cloudflare to monitor and inspect, with no time limit, context = as necessary to perform the Services or to protect the security or integrity of the network (Self-Serve §2.5.5; the enterprise tier's ESA §5.4 says the same): \"Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services or protect the security or integrity of Cloudflare's network.\" This shows that log-type data exists and is reachable by Cloudflare, but it is an inspection right rather than a retention period, and it gives no period for input and output content (duration_kind stays unspecified)."
+text_zh = "(8) 对象=网络流量与相关日志，性质=Cloudflare 的监控/检查权（无期限），语境=为提供服务或保护网络安全所必需（Self-Serve §2.5.5，企业档 ESA §5.4 同旨）：「Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs, as necessary to perform the Services or protect the security or integrity of Cloudflare's network.」它说明日志类数据存在且 Cloudflare 可及，但这是检查权、不是保留期限，也不给出输入输出正文的期限（duration_kind 维持 unspecified）。"
+anchor = "ss-terms-monitor-traffic"
+
+[[product.retention.point]]
+text = "(9) Privacy policy §11 gives only retention criteria (consumer_privacy, not authoritative for this tier). What can therefore be said about retention is: request content is not persisted by default (it is stored only where a storage product is used); log-type data has a 7-day default (not applying to every product); and there are two distinct 30-day retrieval windows — one for content uploaded to the Developer Platform (whose product list excludes Workers AI) and one for EU Data Act customers (Customer's Data). Clauses are split by object and context, and none of them gives a general number of days for input and output content."
+text_zh = "(9) 隐私政策 §11 只给保留标准（consumer_privacy，非本档权威）。因此 retention 的可用表述是：默认不持久存储请求正文（仅在使用存储类产品时才会存储）；日志类数据有 7 天默认（不适用于每个产品）；另有两个适用范围不同的 30 日取回窗口——上传到 Developer Platform 的内容（其产品清单不含 Workers AI）与欧盟 Data Act 客户的 Customer's Data。条款分对象、分语境，没有任何一条给出输入输出正文的通用保留天数。"
 
 [product.processing_region]
 mark = "unknown"
@@ -233,6 +253,11 @@ text_zh = "Regional Services 的区域内服务清单列出「Running Cloudflare
 text = "The DLS clauses previously bound here (\"Enterprise-only paid add-on\" / \"…enable customers to choose the location where Cloudflare inspects and stores data\") state a purchasable location-control product but do not say that Workers AI inference is covered by it, so they are not statements about this tier's processing location and are no longer bound. They remain as circumstantial evidence in item (4) above."
 text_zh = "原先绑在本条的两句 DLS 引文（「Enterprise-only paid add-on」／「…enable customers to choose the location where Cloudflare inspects and stores data」）只说明有一个可购买的定位控制产品，未说明覆盖 Workers AI 推理，不构成对本档处理地的表述，故不再绑在本条；它们作为旁证仍保留在上面第 (4) 条里。"
 
+[[product.processing_region.point]]
+text = "Checked and judged insufficient to support a conclusion: EU Data Act Addendum §7.2 discloses only \"The following URL identifies the locations of Cloudflare's infrastructure: cloudflare.com/network.\" — an infrastructure-location pointer (network map), not a disclosure of where a given service's data is processed; and the addendum itself applies only to customers who live or are headquartered in the EU with EU billing addresses, and only to agreements formed or orders placed on or after September 12, 2025."
+text_zh = "查过并判定不足以支撑结论：EU Data Act Addendum §7.2 只披露「The following URL identifies the locations of Cloudflare's infrastructure: cloudflare.com/network.」——这是基础设施位置指引（网络地图），不是某服务数据在哪处理的披露；且该附录只适用于居住地或总部在欧盟、账单地址在欧盟的客户，也只适用于 2025 年 9 月 12 日及之后成立或下单的协议。"
+anchor = "daa-7-2-infrastructure-location-url"
+
 [product.role]
 kind = "processor"
 anchor = "dpa-processor-role"
@@ -263,6 +288,11 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "sst-dp-no-training-generative-ai"
+
+[[product.training.point]]
+text = "Boundary clause — Feedback is licensed separately from Customer Data. ESA §6.3: \"If Customer chooses to provide feedback, suggestions, or recommendations for improvement to the Services (“Feedback”), Cloudflare may use Feedback without restrictions and without obligations to Customer.\" Feedback is something the customer chooses to send and is not part of Customer Data (§1.7: Customer Data = Customer Account Information + Customer Content + Customer Logs), so it does not change mark=yes. Nor may it be turned into a mark=no: the clause concerns the customer's own suggestions, not the use of Customer Content to train models."
+text_zh = "边界条款——Feedback 与 Customer Data 分开授权。ESA §6.3：「If Customer chooses to provide feedback, suggestions, or recommendations for improvement to the Services (“Feedback”), Cloudflare may use Feedback without restrictions and without obligations to Customer.」Feedback 由客户主动提交、不属 Customer Data（§1.7：Customer Data = Customer Account Information + Customer Content + Customer Logs），故不影响 mark=yes；也不得据此判 mark=no——该条讲的是客户自己的建议，不是把 Customer Content 用于训练模型。"
+anchor = "ent-terms-6-3-feedback"
 
 [[product.training.point]]
 text = "Contract level (strongest): the \"Cloudflare Workers AI; AI Gateway\" subsection of the Developer Platform Service-Specific Terms says \"Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools.\" — a consent-gated statement (it can be agreed otherwise), not an absolute prohibition. The docs point the same way in different words: \"would not do so unless we received your explicit consent\" (explicit consent required, and covering (2) improve any Cloudflare or third-party services as well)"
@@ -336,6 +366,11 @@ text_zh = "另「ZDR does not control AI Gateway logging」，日志要单独关
 text = "The catalog entry previously bound here is a third-party model's tag (\"Alibaba's HappyHorse 1.0 … - Third-party - Zero data retention\"), i.e. it describes another provider's posture, not Workers AI's, so it is not a statement on this dimension and is no longer bound to this entry. It stays as contrast material in the point above."
 text_zh = "原先绑在本条的引文是统一目录里某个第三方模型的标签（「… - Third-party - Zero data retention」），说的是别的 provider 的立场，不构成对 Workers AI 本维度的表述，故不再绑在本条；它作为对照材料仍保留在上一条里。"
 
+[[product.zdr.point]]
+text = "Content-isolation fact recorded as circumstantial evidence, not as a ZDR statement and not as this dimension's basis (it says nothing about whether content is retained, for how long, or about a zero-retention option): \"Cloudflare does not make your Customer Content available to any other Cloudflare customer.\" Non-disclosure of a ZDR option for Workers AI hosted inference therefore stands as recorded above, and this dimension stays undisclosed."
+text_zh = "内容隔离层的事实，作为旁证记录，不构成 ZDR 表述、也不作为本维度的判定依据（它没有说明内容是否保留、保留多久，也没有说明零保留选项）：「Cloudflare does not make your Customer Content available to any other Cloudflare customer.」Workers AI 托管推理的 ZDR 选项仍属未披露，本维度维持未披露。"
+anchor = "wai-data-usage-no-other-customer"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -350,12 +385,27 @@ text = "§11.5: for up to 72 hours after termination Cloudflare will still use r
 text_zh = "§11.5 终止后最多 72 小时内仍尽力提供 Customer Logs"
 
 [[product.retention.point]]
+text = "Residual-copy exception at the confidentiality layer (§11.4): on top of the duty to return or destroy Confidential Information upon termination, \"the Receiving Party may retain any Confidential Information that cannot feasibly be returned or destroyed, and a copy of any Confidential Information required for compliance with its internal record keeping requirements or automatic archival activities\", with Section 8 continuing to apply to such retained Confidential Information until it is deleted or returned. Object = Confidential Information (a mutual confidentiality clause; §5.2 ties customer data to Cloudflare's confidentiality obligations under Section 8), context = after expiry or termination. It gives no period for input and output content, so basis stays undisclosed."
+text_zh = "保密层的残余副本例外（§11.4）：在终止后返还或销毁保密信息的义务之外，「the Receiving Party may retain any Confidential Information that cannot feasibly be returned or destroyed, and a copy of any Confidential Information required for compliance with its internal record keeping requirements or automatic archival activities」，第 8 节对此类留存副本持续适用至其被删除或返还。对象=Confidential Information（双方互负的保密条款；§5.2 把客户数据连到第 8 节的保密义务），语境=到期或终止后。它不给出输入输出正文的期限，basis 维持 undisclosed。"
+anchor = "ent-terms-11-4-residual-copies"
+
+[[product.retention.point]]
 text = "§6.2: account information and audit logs may be retained as business and compliance needs require"
 text_zh = "§6.2 账户信息与审计日志可按业务与合规需要 retain"
 
 [[product.retention.point]]
+text = "Object = network traffic and related logs, nature = a right for Cloudflare to monitor and inspect, with no time limit, context = as necessary to perform the Services and to derive and compile Network Data (§5.4; the self-serve tier's Self-Serve §2.5.5 says the same): \"Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs as necessary to perform the Services and to derive and compile Network Data.\" This shows that log-type data exists and is reachable by Cloudflare, but it is an inspection right rather than a retention period, and it gives no period for input and output content (duration_kind stays unspecified)."
+text_zh = "对象=网络流量与相关日志，性质=Cloudflare 的监控/检查权（无期限），语境=为提供服务以及派生与汇编 Network Data 所必需（§5.4，自助档 Self-Serve §2.5.5 同旨）：「Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs as necessary to perform the Services and to derive and compile Network Data.」它说明日志类数据存在且 Cloudflare 可及，但这是检查权、不是保留期限，也不给出输入输出正文的期限（duration_kind 维持 unspecified）。"
+anchor = "ent-terms-5-4-monitor-traffic"
+
+[[product.retention.point]]
 text = "§5.3 provides that no rights in Customer Data are transferred, and that where it contains Personal Data the same DPA applies (so the DPA Annex 1 retention wording is identical on both tiers). EU customers are additionally covered by EU Data Act Addendum §10.1/§10.2: after termination the Customer's Data is kept for 30 calendar days for retrieval or erasure, after which Exportable Data is erased"
 text_zh = "§5.3 明定 Customer Data 的权利不发生转移，且含 Personal Data 时适用同一份 DPA（故 DPA Annex 1 的保留期表述两档一致）。欧盟客户另受 EU Data Act Addendum §10.1/§10.2 约束：终止后保留 Customer's Data 30 个日历日供取回或擦除，随后擦除 Exportable Data"
+
+[[product.retention.point]]
+text = "Service-Specific Terms → Cloudflare Developer Platform §9 — object = content uploaded to the Developer Platform, context = after expiry or termination of the trial or subscription, type = upper bound on a retrieval window, with no retention obligation: \"Subject to Section 8 above, you may be permitted to access the Customer Content you uploaded to the Developer Platform for up to thirty (30) days following the expiration or termination of your trial or subscription. You understand that Cloudflare has no obligation to retain the Customer Content you upload to the Developer Platform following the expiration or termination of your trial or subscription.\" Scope matters for procurement: the clause sits in the Developer Platform subsection whose product list (Cloudflare Workers; Cloudflare Pages; Workers KV; D1; Durable Objects; Vectorize; Hyperdrive; Cloudflare Queues; R2; Containers; and Workers for Platforms) does not include Workers AI, so it is a retrieval window for product content uploaded to the Developer Platform, not a retention or deletion period for Workers AI request content. It is a different clause from the other \"30 days\" in EU Data Act Addendum §10.1 above (EU customers only, object = Customer's Data)."
+text_zh = "Service-Specific Terms → Cloudflare Developer Platform §9——对象=上传到 Developer Platform 的内容，语境=试用或订阅到期/终止后，期限类型=取回窗口上限，且厂商声明无保留义务：「Subject to Section 8 above, you may be permitted to access the Customer Content you uploaded to the Developer Platform for up to thirty (30) days following the expiration or termination of your trial or subscription. You understand that Cloudflare has no obligation to retain the Customer Content you upload to the Developer Platform following the expiration or termination of your trial or subscription.」适用范围对采购很重要：该条位于 Developer Platform 小节，其产品清单（Cloudflare Workers; Cloudflare Pages; Workers KV; D1; Durable Objects; Vectorize; Hyperdrive; Cloudflare Queues; R2; Containers; and Workers for Platforms）不含 Workers AI，故它是上传到 Developer Platform 的产品内容的取回窗口，不是 Workers AI 请求内容的保留或删除期限。它与上文 EU Data Act Addendum §10.1 的另一处「30 天」（仅欧盟客户，对象=Customer's Data）是两条不同适用范围的条款。"
+anchor = "sst-dp-30-days-uploaded-content"
 
 [[product.retention.point]]
 text = "That addendum limits Workers AI's Exportable Data to \"LoRA adapters uploaded by Customers\" plus the available audit logs, and footnote [2] separately gives a 7-day default for end-user activity logs. The conclusion matches the self-serve tier: not one clause gives a general number of days for input and output content (duration_kind=unspecified)."
@@ -407,6 +457,11 @@ text_zh = "Regional Services 的区域内服务清单列出「Running Cloudflare
 [[product.processing_region.point]]
 text = "The DLS clauses previously bound here (\"Enterprise-only paid add-on\" / \"…enable customers to choose the location where Cloudflare inspects and stores data\") state a purchasable location-control product but do not say that Workers AI inference is covered by it, so they are not statements about this tier's processing location and are no longer bound. They remain as circumstantial evidence in item (4) above."
 text_zh = "原先绑在本条的两句 DLS 引文（「Enterprise-only paid add-on」／「…enable customers to choose the location where Cloudflare inspects and stores data」）只说明有一个可购买的定位控制产品，未说明覆盖 Workers AI 推理，不构成对本档处理地的表述，故不再绑在本条；它们作为旁证仍保留在上面第 (4) 条里。"
+
+[[product.processing_region.point]]
+text = "Checked and judged insufficient to support a conclusion: EU Data Act Addendum §7.2 discloses only \"The following URL identifies the locations of Cloudflare's infrastructure: cloudflare.com/network.\" — an infrastructure-location pointer (network map), not a disclosure of where a given service's data is processed; and the addendum itself applies only to customers who live or are headquartered in the EU with EU billing addresses, and only to agreements formed or orders placed on or after September 12, 2025."
+text_zh = "查过并判定不足以支撑结论：EU Data Act Addendum §7.2 只披露「The following URL identifies the locations of Cloudflare's infrastructure: cloudflare.com/network.」——这是基础设施位置指引（网络地图），不是某服务数据在哪处理的披露；且该附录只适用于居住地或总部在欧盟、账单地址在欧盟的客户，也只适用于 2025 年 9 月 12 日及之后成立或下单的协议。"
+anchor = "daa-7-2-infrastructure-location-url"
 
 [product.role]
 kind = "processor"
@@ -911,3 +966,53 @@ topics = ["processing_region"]
 prefix = "/agent-setup/)"
 exact = "Enterprise-only paid add-on"
 suffix = "The Data Localization Suite (DLS) is a collection of tools"
+
+[[anchor]]
+id = "ent-terms-11-4-residual-copies"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Notwithstanding the foregoing,"
+exact = "the Receiving Party may retain any Confidential Information that cannot feasibly be returned or destroyed, and a copy of any Confidential Information required for compliance with its internal record keeping requirements or automatic archival activities"
+suffix = ", provided that Section 8 shall continue to apply to such retained Confidential Information until it is deleted or returned."
+
+[[anchor]]
+id = "ent-terms-5-4-monitor-traffic"
+source_id = "c4fb147e26f92119"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "5.4. Network Data."
+exact = "Cloudflare may monitor and inspect the traffic on the Cloudflare network, including any related logs as necessary to perform the Services and to derive and compile Network Data."
+suffix = "To the extent Network Data includes any Personal Data"
+
+[[anchor]]
+id = "ent-terms-6-3-feedback"
+source_id = "c4fb147e26f92119"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "6.3. Feedback."
+exact = "Cloudflare may use Feedback without restrictions and without obligations to Customer."
+suffix = "6.4. Marks."
+
+[[anchor]]
+id = "ss-terms-feedback-license"
+source_id = "176b2e1b6fe21490"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "You hereby grant Cloudflare a"
+exact = "non-exclusive, royalty-free, worldwide, transferable, irrevocable, sublicensable, and perpetual license to use or incorporate into the Services any suggestions, enhancement requests, recommendations, corrections, or other feedback"
+suffix = "you provide to Cloudflare relating to the Services."
+
+[[anchor]]
+id = "daa-7-2-infrastructure-location-url"
+source_id = "e8fc72304d4c0359"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "7.2."
+exact = "The following URL identifies the locations of Cloudflare’s infrastructure: cloudflare.com/network."
+suffix = "7.3 Consistent with Data Act Articles 28 and 32"

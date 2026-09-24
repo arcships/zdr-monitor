@@ -8,9 +8,10 @@ doc = "https://privacy.mi.com/XiaomiMiMoPlatform/zh_CN/"
 
 [[source]]
 url = "https://mimo.mi.com/docs/terms/user-agreement"
+fetch = "browser"
 channel = "contract"
 tier = "core"
-note = "《Xiaomi MiMo 服务协议》（页面自述「Our Service Agreement was updated on July 7, 2026」，中文版为「版本生效日期：2026年7月7日」）。**该 URL 在本通道渲染出的是境外版**：运营主体 Xiaomi Technologies Singapore Pte. Ltd.（§1.1）与 Xiaomi Technology Netherlands B.V.，§1.1 明文「This Agreement applies to your use of the services outside the territory of the People's Republic of China (PRC)」，§4 数据保护条款「apply to regions outside the Chinese Mainland」，§4.1「Xiaomi acts as a Processor…you are the Data Controller」，§4.4 数据存于「Europe and Singapore」的服务器。这是本家**唯一**能在本通道取到正文的合同层文档，也是境内/境外分档的关键：同一 URL 在境内构建下渲染的是境内版（运营主体北京小米移动软件有限公司、§4.1「小米在数据处理活动中是个人信息处理受托人，您是个人信息处理者」、§4.4「在向中国大陆提供服务时，小米会将相关数据存储在中国大陆的服务器上，不会将此类信息传输至境外」）——该境内版正文只在站点自己的 JS bundle 里可见，本通道取不到，因此**未**被本报告用作任何维度的证据（见 notes）。全文未出现 ZDR/零保留；未出现「retention period」类量化表述。"
+note = "《Xiaomi MiMo 服务协议》（页面自述「版本生效日期：2026年7月7日」）。**该 URL 在本通道抓回的正文是境内中文版**：首部运营主体「北京小米移动软件有限公司（运营主体）及其关联公司」、§1.1「本协议适用于您在中华人民共和国境内使用Xiaomi MiMo服务」、§4 开篇「本部分数据保护条款所覆盖的地域为中国大陆」、§4.1「小米在数据处理活动中是个人信息处理受托人，您是个人信息处理者」、§4.4「在向中国大陆提供服务时，小米会将相关数据存储在中国大陆的服务器上，不会将此类信息传输至境外」、§3.9 第三方读取提示。此前本 note 称本通道渲染的是境外版、境内版正文只在站点 JS bundle 里取不到，与快照相反，已更正：本文件当前只作**境内档**的合同层证据（§1.1/§4/§4.1/§4.4 四个境内档锚点）。境外版服务协议（境外使用场景适用的那一版）在本仓库**没有任何快照**——bot 抓回的是境内版，属抓取缺口，不得据以写结论（原 8 条境外英文锚点已全部删除；需要境外合同层证据时先让 bot 抓回快照再引）。全文未出现 ZDR/零保留，未出现「retention period」类量化表述，也未出现训练条款。"
 
 [[source]]
 url = "https://privacy.mi.com/XiaomiMiMoPlatform-s/zh_CN/"
@@ -43,7 +44,18 @@ mode = "default"
 anchor = "mimo-cn-pp-no-training-without-consent"
 
 [[product.training.point]]
-text_zh = "见顶层 training 的境内档部分：默认不用于训练，措辞条件式（未经事先同意），只覆盖「文本内容」，图片/视频/音频未表态；合同层不可得。"
+text = "Domestic tier: not used for training by default, but the wording is conditional (without your prior consent) and covers only the text content you provide; images, video and audio are unaddressed. The domestic contract layer is obtainable but never mentions training, so it offers no stronger basis."
+text_zh = "见顶层 training 的境内档部分：默认不用于训练，措辞条件式（未经事先同意），只覆盖「文本内容」，图片/视频/音频未表态。境内版合同层（服务协议）可得，但全篇无训练条款，不构成更强依据。"
+
+[[product.training.point]]
+anchor = "mimo-cn-pp-non-personal-improve-service"
+text = "Context only, does not change this tier's verdict: §1(4) says of non-personal / statistical data (device information, daily-active events, page-view events, page-view-duration events, session events, network-monitoring data, app-crash events) that the purpose of collecting it is to improve the services Xiaomi provides. The object is not API-submitted content and is listed separately from §1(1)2's promise for the text you provide, so it is not an authorization to train on inputs."
+text_zh = "语境补充（不改变本档判定）：§一（四）对**非个人信息/统计类数据**（设备相关信息、日活事件、页面访问事件、页面访问时长事件、会话事件、网络监控数据、应用崩溃事件）写「收集此类信息的目的在于改善我们向您提供的服务」。对象不是 API 提交内容，与 §一（一）2 对「您提供的文本内容」的承诺分列，不构成对输入内容的训练授权。"
+
+[[product.training.point]]
+anchor = "mimo-cn-pp-consent-exemptions"
+text = "Context only, does not change this tier's verdict: §1(3) lists 10 statutory situations in which collecting or using personal information needs no consent (for example where necessary to maintain the safe and stable operation of the products and/or services, such as detecting and handling malfunctions). They are the context for the conditional wording without your prior consent, and none of the 10 concerns model training."
+text_zh = "语境补充（不改变本档判定）：§一（三）列出 10 项「收集、使用个人信息无需征得您的同意」的法定情形（例如「用于维护所提供的产品与/或服务的安全稳定运行所必需的，例如发现、处置产品与/或服务的故障；」），是「未经您的事先同意」这句条件式措辞的语境条件；10 项均与模型训练无关，不构成反向证据。"
 
 [product.zdr]
 mark = "no"
@@ -86,27 +98,57 @@ anchor = "mimo-cn-pp-retention-policy"
 text_zh = "见顶层 retention 的境内档部分：目的必需期间（未量化）+ 删除/注销/服务终止三种触发 + 备份延迟删除"
 
 [[product.retention.point]]
+anchor = "mimo-cn-pp-retention-public-interest"
+text = "Retention exception (does not change basis = undisclosed): for public-interest, scientific, historical-research or statistical purposes Xiaomi may continue to retain the data under applicable law even where the further processing is unrelated to the original collection purpose. It sits alongside the necessary-purpose period, so the three triggers (purpose fulfilled / deletion or account-closure request / termination of operations) are not the whole of the retention scope; the period type remains no floor, no ceiling, no typical range."
+text_zh = "保留例外：§三（三）末句「如果是出于公众利益、科学、历史研究或统计的目的，我们将基于适用的法律继续保留相关数据，即使进一步的数据处理与原有的收集目的无关。」——它与「目的所必需的期间」并列，说明「完成目的/删除或注销申请/终止运营」三种触发不是保留范围的全部。不改变 basis=undisclosed；期限类型仍是无下限、无上限、无典型区间。"
+
+[[product.retention.point]]
 text_zh = "无请求级保留期，无「不少于六个月」类下限。"
 
 [product.processing_region]
 codes = ["CN"]
-anchor = "mimo-cn-pp-stored-in-prc"
+anchor = "mimo-cn-ua-4-4-storage-cn"
 
 [[product.processing_region.point]]
-text_zh = "见顶层 processing_region 的境内档部分：境内使用 → 信息保存至中华人民共和国境内，措辞无「原则上」软化，未披露出境场景。"
+text = "Domestic tier: data stored in the Chinese Mainland, and the contract layer explicitly excludes transfer out of the Mainland."
+text_zh = "见顶层 processing_region 的境内档部分：境内使用 → 信息保存至中华人民共和国境内，措辞无「原则上」软化。合同层（境内版服务协议 §4.4）同向且更明确：「在向中国大陆提供服务时，小米会将相关数据存储在中国大陆的服务器上，不会将此类信息传输至境外。」——明确排除出境场景。"
+
+[[product.processing_region.point]]
+anchor = "mimo-cn-pp-stored-in-prc"
+text_zh = "隐私层同向（境内档隐私政策 §三（三）末段）：「本协议适用于您在中华人民共和国境内使用Xiaomi MiMo服务，为此您的信息将会保存至中华人民共和国境内。」"
+
+[[product.processing_region.point]]
+anchor = "mimo-cn-ua-scope-prc"
+text_zh = "适用范围（合同层 §1.1）：「本协议适用于您在中华人民共和国境内使用Xiaomi MiMo服务」；在中华人民共和国境外使用本服务，适用另行发布的境外条款——即本档的境内存储结论只覆盖境内使用场景。"
 
 [product.role]
 kind = "processor"
-anchor = "mimo-cn-pp-voice-clone-entrusted"
+anchor = "mimo-cn-ua-processor-controller"
 
 [[product.role.point]]
-text_zh = "见顶层 role：对用户上传并请求推理的内容为「受托处理」"
+text = "Contract layer (domestic Service Agreement §4.1): Xiaomi is the entrusted personal-information processor and you are the personal-information processor/controller; the data you upload, store, process, download or distribute through the service is your business data over which you retain full control."
+text_zh = "见顶层 role。合同层（境内版服务协议 §4.1）：「小米在数据处理活动中是个人信息处理受托人，您是个人信息处理者。您通过我们提供的服务，上传、存储、加工、下载、分发以及通过其他方式处理的数据，均为您的业务数据，您对此拥有完全的控制权。」"
+
+[[product.role.point]]
+anchor = "mimo-cn-ua-dp-terms-region"
+text_zh = "适用范围（合同层 §4 开篇）：「本部分数据保护条款所覆盖的地域为中国大陆」——上述受托处理定性只覆盖中国大陆。"
+
+[[product.role.point]]
+anchor = "mimo-cn-pp-voice-clone-entrusted"
+text_zh = "隐私层辅助证据（适用范围仅「音色模仿等上传场景」）：§一（一）2 音色模仿段「您授权 Xiaomi MiMo 基于您上传的信息进行受托处理以提供服务，Xiaomi MiMo 无需再另行获得其他授权。」"
 
 [[product.role.point]]
 text_zh = "账号/实名/发票/交易记录部分小米自主决定目的，属处理者一侧"
 
 [[product.role.point]]
-text_zh = "合同层境内版取不到。"
+anchor = "mimo-cn-share-list-search-keywords"
+text = "Multi-hop fact, only when the user enables the platform's web search: keywords derived from user input leave via API to 上海小宿科技有限公司, for the purpose of providing the web-search function. The disclosed shared data type is keywords generated from user input, not the full input content."
+text_zh = "多跳事实（仅当用户启用联网搜索功能时）：《第三方数据共享说明》列上海小宿科技有限公司，共享方式 API、共享目的「用于提供联网搜索功能」、共享数据类型「基于用户输入内容生成的关键词」——流出的是由输入派生的关键词，不扩大成输入正文全量外流。该清单只有捷付睿通（实名认证）与上海小宿两条，未披露任何大模型推理上游/模型原厂。"
+
+[[product.role.point]]
+anchor = "mimo-cn-ua-third-party-read"
+text = "Scope and risk note (domestic Service Agreement §3.9): when the user calls third-party systems, software or services (including open-source Skills, MCP interfaces and Repos the user installs), the third party may read user data. The subject is the third party invoked by the user; this is a disclaimer and risk warning, not a disclosure of a Xiaomi data flow, and it does not replace the third-party sharing list."
+text_zh = "范围与风险提示（境内版服务协议 §3.9）：「您须理解并同意，在使用第三方服务时，第三方可能会对用户数据进行读取，特别提醒您，您需谨慎选择第三方系统、软件或服务，充分评估后进行使用」——主体是您自行调用的第三方系统、软件、MCP、Skills，属免责与风险提示条款、不是小米自身的数据流披露；不据此推断小米会把内容交给第三方，也不替代《第三方数据共享说明》（境内档的实证是上海小宿）。"
 
 [[product]]
 id = "api-intl"
@@ -121,7 +163,7 @@ mode = "default"
 anchor = "mimo-intl-pp-no-training"
 
 [[product.training.point]]
-text_zh = "境外档结论：**不用于训练**，且措辞比境内档强。原句：境外版《Xiaomi MiMo 平台隐私条款》§3.1「小米不会将您提供的内容用于模型训练或任何其他目的。」——无条件式（没有「未经事先同意」），对象是「您提供的内容」（不限于文本）。佐证：同条款 §12「作为原则，我们不会将您提供的个人信息用于完全自动化的决策过程（包括画像）」。合同层没有训练条款：境外版服务协议英文与中文版全文均未出现 train/training/训练字样。不确定性：该句出自隐私条款而非合同，厂商保留修改隐私条款的权利（§13），且未说明是否有退出/例外机制。"
+text_zh = "境外档结论：**不用于训练**，且措辞比境内档强。原句：境外版《Xiaomi MiMo 平台隐私条款》§3.1「小米不会将您提供的内容用于模型训练或任何其他目的。」——无条件式（没有「未经事先同意」），对象是「您提供的内容」（不限于文本）。佐证：同条款 §12「作为原则，我们不会将您提供的个人信息用于完全自动化的决策过程（包括画像）」。本档训练结论只由隐私条款支撑，未引用合同层。不确定性：该句出自隐私条款而非合同，厂商保留修改隐私条款的权利（§13），且未说明是否有退出/例外机制。"
 
 [product.zdr]
 mark = "no"
@@ -153,17 +195,23 @@ searched = [
 anchor = "mimo-intl-pp-backup-delay"
 
 [[product.zdr.point]]
-text_zh = "同顶层 zdr。境外档另有一条相邻但不等价的条款：服务协议 §1.1 允许联系平台「select data storage regions or restrict the provision of services in certain regions」，属存储区域选择，不是请求级零保留。"
+text_zh = "同顶层 zdr（本家两档共用同一套检索范围）。本档绑定的原文是海外档隐私条款的备份例外：「我们可能无法立即从备份系统中移除该信息」——删除请求生效后信息仍可能留在备份中，与「做不到零保留」同向；全篇未见任何 ZDR 开关、开通方式或申请途径。"
 
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "mimo-intl-ua-4-4-data-storage-delete"
+anchor = "mimo-intl-pp-retention-general"
 
 [[product.retention.point]]
-text_zh = "境外档结论：**未量化**，触发式删除，且触发条件比境内档更明确。合同层原句：境外版服务协议 §4.4「Upon service expiration, completion of the agreed purpose, or at your request, unless prohibited by laws that Xiaomi must comply with, Xiaomi will cease processing or permanently delete the personal information within a reasonable period.」（中文版：「在服务到期、约定目的达成或根据您的要求时…小米将在合理期限内停止处理或永久删除该个人信息」）——三种触发（服务到期 / 目的达成 / **应您要求**）+「合理期限」，无天数。隐私层同向：境外版隐私条款 §6「作为一般规则，我们在本隐私条款所述之目的所需的期限内保留您的个人信息，或按照适用法律的要求保留…一旦相应的保留期限届满，此类个人信息将被删除或进行匿名化处理」"
+text = "International tier: unquantified, trigger-based deletion. Privacy terms §6 — retention as a general rule for as long as needed for the purposes described in the privacy terms or as required by applicable law; retention stops and the data is deleted or anonymized once the collection purpose is fulfilled, after a confirmed deletion request, or after termination of the corresponding service."
+text_zh = "境外档结论：**未量化**，触发式删除。海外档隐私条款 §6：「作为一般规则，我们在本隐私条款所述之目的所需的期限内保留您的个人信息，或按照适用法律的要求保留。」同段后文：「一旦收集个人信息的目的得以实现，或在我们确认您的删除请求后，或在我们终止运营相应服务后，我们将停止保留并删除个人信息或对其进行匿名化处理。」无天数。"
 
 [[product.retention.point]]
+anchor = "mimo-intl-pp-retention-delete"
+text_zh = "删除是触发式的：「一旦相应的保留期限届满，此类个人信息将被删除或进行匿名化处理。」——即保留期限一到即删除/匿名化，而非「保存固定年限后删除」。"
+
+[[product.retention.point]]
+anchor = "mimo-intl-pp-backup-delay"
 text_zh = "例外：§8「由于适用法律（例如，当有必要保留您的个人信息以应对可能因处理该个人信息而产生的或与之相关的潜在索赔时）和/或安全技术限制，我们可能无法立即从备份系统中移除该信息」。对象与语境：以上覆盖「个人信息」，即含 API 提交内容（§3.1 明确收集「您提交的内容（文本、音频、视频、图片）」）"
 
 [[product.retention.point]]
@@ -174,26 +222,33 @@ text_zh = "**访问日志/IP** 未给期限。期限类型：无下限、无上�
 
 [product.processing_region]
 codes = ["NL", "SG"]
-anchor = "mimo-intl-ua-4-4-servers-europe-singapore"
+anchor = "mimo-intl-pp-data-centers"
 
 [[product.processing_region.point]]
-text_zh = "境外档结论：**欧洲（荷兰）与新加坡**。合同层原句：境外版服务协议 §4.4「When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore.」（中文版：「在中国大陆以外提供服务时，小米会将相关数据存储在位于欧洲和新加坡的服务器上」）。隐私层同向：境外版隐私条款 §10「目前，小米在荷兰和新加坡设有数据中心」，§9 把 EEA/UK/CH 归荷兰 B.V.、其他地区归新加坡公司。不确定性（重要）：§10 紧接着写「我们还可能将您的个人信息传输给第三方服务提供商和业务合作伙伴，因此您的数据也可能被传输到其他国家或地区」，即「欧洲+新加坡」是**数据中心位置**的披露，不是「数据只留在这些国家」的承诺"
+text = "International tier: the disclosed data-center locations are the Netherlands and Singapore. §10 opens with the fact that Xiaomi processes and backs up personal information through globally operated and controlled infrastructure, so the codes read as disclosed data-center locations, not as data being processed only in those two countries."
+text_zh = "境外档结论：**已披露的数据中心所在地为荷兰与新加坡**。海外档隐私条款 §10：「小米通过全球运营和控制基础设施处理并备份个人信息。目前，小米在荷兰和新加坡设有数据中心。」——首句是对「处理地」最直接的表述，说明处理本身是全球化的，故 codes 读作「已披露的数据中心所在地（荷兰、新加坡）」，不要读成「数据只在两国处理」。"
 
 [[product.processing_region.point]]
-text_zh = "§10 另有「小米通过全球运营和控制基础设施处理并备份个人信息」，备份范围未限定。另：§1.1 允许用户联系平台选择数据存储区域（可能产生额外费用），但未披露可选区域清单。"
+text_zh = "不确定性（重要）：§10 紧接着写「我们还可能将您的个人信息传输给第三方服务提供商和业务合作伙伴，因此您的数据也可能被传输到其他国家或地区」，即「欧洲+新加坡」是**数据中心位置**的披露，不是「数据只留在这些国家」的承诺；备份范围亦未限定。同节 §10 后文把 EEA/UK/CH 归荷兰 B.V.（担任数据控制者）、其他地区归新加坡公司。"
+
+[[product.processing_region.point]]
+text_zh = "另：境内版服务协议 §1.1 允许用户联系平台自行选择数据存储区域或选择在某些区域禁止提供服务（可能产生额外费用），但未披露可选区域清单——该条出自境内版合同，本档（国际站）不适用。"
 
 [product.role]
 kind = "processor"
-anchor = "mimo-intl-ua-processor-controller"
+anchor = "mimo-intl-pp-entrusted"
 
 [[product.role.point]]
-text_zh = "境外档结论：**处理者（Processor）**，有合同层原文。原句：境外版服务协议 §4.1「Xiaomi acts as a Processor in data processing activities, and you are the Data Controller. The data you upload, store, process, download, distribute, or otherwise handle through our services constitutes your business data, over which you retain full control.」中文版：「小米在数据处理活动中作为处理者，您是数据控制者。」§4 开篇同时限定「These Data Protection Terms apply to regions outside the Chinese Mainland.」隐私层佐证：境外版隐私条款 §3.1「您授权 Xiaomi MiMo 受托处理您上传的信息以提供该服务，且 Xiaomi MiMo 无需从任何其他方获得任何额外的授权。」并列的反向面：(a) 境外版协议 §3.1「Xiaomi MiMo is only a neutral technical service provider」（中立技术服务提供者）——责任限制口径，与 §4.1 并存"
+text = "International tier: Processor. Privacy terms §3.1 — you authorize Xiaomi MiMo to process the information you upload as an entrusted processor in order to provide the service, without needing any further authorization from any other party. The single kind value records the data-processing relationship inside the agreement."
+text_zh = "境外档结论：**处理者（Processor）**。主证据为海外档隐私条款 §3.1「您授权 Xiaomi MiMo 受托处理您上传的信息以提供该服务，且 Xiaomi MiMo 无需从任何其他方获得任何额外的授权。」kind 记录的是**协议内部的数据处理关系**，范围是「您上传的信息」。"
 
 [[product.role.point]]
-text_zh = "(b) 隐私条款 §9 写明 EEA/UK/CH 场景下 Xiaomi Technology Netherlands B.V. **担任数据控制者**——即小米在部分法域对部分个人信息是控制者，§4.1 的 Processor 自认覆盖的是「你通过服务上传处理的业务数据」这一范围"
+anchor = "mimo-intl-pp-eea-controller"
+text_zh = "(b) 例外：§10 写明 EEA/UK/CH 场景下 Xiaomi Technology Netherlands B.V. **担任数据控制者**，Xiaomi Technologies Singapore Pte. Ltd. 负责处理部分个人信息——即小米在部分法域对部分个人信息是控制者。因此单值 kind=processor 不能被读成整体定性：对终端用户而言，小米对外仍是控制者一侧。"
 
 [[product.role.point]]
-text_zh = "(c) 隐私条款 §4 披露向 Waffo Hong Kong Limited（充值与退款）、谷歌（在线搜索，会收到「查询内容和 IP 地址」）提供信息——启用联网搜索时输入内容会流出到第三方，属多跳，本轮只记事实、不推断该跳的保留与训练政策。不确定性：§4.1 的「you are the Data Controller」把 PDPA/GDPR 下的控制者义务整体推给客户，对终端用户而言小米的对外定性仍是控制者一侧，本维度按**协议内部的数据处理关系**记 processor。"
+anchor = "mimo-intl-pp-share-search-google"
+text_zh = "(c) 隐私条款 §4 披露向 Waffo Hong Kong Limited（充值与退款）、谷歌（在线搜索，会收到「查询内容和 IP 地址」）提供信息——启用联网搜索时输入内容会流出到第三方，属多跳，本轮只记事实、不推断该跳的保留与训练政策。不确定性：本档角色结论只由隐私条款的「受托处理」表述支撑，未引用合同层；§3.1 的受托处理范围是「您上传的信息」，与 §10 的 EEA/UK/CH 控制者安排并存（见 (b)）。"
 
 [[anchor]]
 id = "mimo-cn-pp-scope-operator"
@@ -295,6 +350,36 @@ suffix = """
 我们有权拒绝处理无实质意义/纠缠式重复的请求、损害他人隐私权的请求、极端不现实的请求，要求不相称的技术工作，以及根据"""
 
 [[anchor]]
+id = "mimo-cn-pp-retention-public-interest"
+source_id = "b663e4270995d128"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "个人信息在完成收集目的，或在我们确认您的删除或注销申请后，或我们终止运营相应产品或服务后，我们将停止保留，并做删除或匿名化处理。"
+exact = "如果是出于公众利益、科学、历史研究或统计的目的，我们将基于适用的法律继续保留相关数据，即使进一步的数据处理与原有的收集目的无关。"
+suffix = "本协议适用于您在中华人民共和国境内使用Xiaomi MiMo服务，为此您的信息将会保存至中华人民共和国境内。"
+
+[[anchor]]
+id = "mimo-cn-pp-non-personal-improve-service"
+source_id = "b663e4270995d128"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "网络监控数据如请求时长、请求与错误请求数等；以及应用崩溃事件。"
+exact = "收集此类信息的目的在于改善我们向您提供的服务。"
+suffix = "所收集信息的类别和数量取决于您如何使用我们产品和/或服务。"
+
+[[anchor]]
+id = "mimo-cn-pp-consent-exemptions"
+source_id = "b663e4270995d128"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "7、根据您的要求签订合同所必需的；"
+exact = "用于维护所提供的产品与/或服务的安全稳定运行所必需的，例如发现、处置产品与/或服务的故障；"
+suffix = "9、为合法的新闻报道所必需的；"
+
+[[anchor]]
 id = "mimo-cn-pp-stored-in-prc"
 source_id = "b663e4270995d128"
 topics = ["processing_region"]
@@ -341,107 +426,54 @@ suffix = """
 我们有时可能会向第三方（定义见下文）共享您的个人信息，以便提供或改进我们的产品或服务，包括根据您的要求提供产品或服务"""
 
 [[anchor]]
-id = "mimo-intl-ua-scope-outside-prc"
+id = "mimo-cn-ua-scope-prc"
 source_id = "443dca43214dcb1b"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-prefix = "nt legal requirements and may incur additional service fees."
-exact = "This Agreement applies to your use of the services outside the territory of the People's Republic of China (PRC)."
-suffix = " If you access the services within the territory of the PRC,"
+prefix = "您知悉并同意，在满足相关法律法规的要求下，如您自行选择数据存储区域，可能会产生额外的服务费用。"
+exact = "本协议适用于您在中华人民共和国境内使用Xiaomi MiMo服务。"
+suffix = "如果您在中华人民共和国境外使用本服务，则您知悉并同意双方将适用发布在Xiaomi MiMo上适用于中华人民共和国境外服务的相关服务条款。"
 
 [[anchor]]
-id = "mimo-intl-ua-operator-singapore"
+id = "mimo-cn-ua-dp-terms-region"
 source_id = "443dca43214dcb1b"
-topics = ["processing_region", "role"]
+topics = ["role", "processing_region"]
 
 [anchor.selector]
-prefix = """
-he Xiaomi MiMo Services.
-
-## 1. Scope of the Agreement
-
-1.1 """
-exact = "Xiaomi MiMo is operated by Xiaomi Technologies Singapore Pte. Ltd. to provide API services based on artificial intelligence technology."
-suffix = " Xiaomi will conduct data processing in compliance with the "
+prefix = "按照适用法律，对于您的个人信息，您享有查询、更正、删除以及注销服务或账号的权利，具体流程请参见隐私政策。"
+exact = "本部分数据保护条款所覆盖的地域为中国大陆"
+suffix = "，双方应遵守本附录中约定的原则、程序以及双方应负的责任。"
 
 [[anchor]]
-id = "mimo-intl-ua-neutral-service-provider"
+id = "mimo-cn-ua-processor-controller"
 source_id = "443dca43214dcb1b"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-e of API keys.
-
-## 3. Platform Services and Disclaimer
-
-3.1 """
-exact = "Xiaomi MiMo is only a neutral technical service provider"
-suffix = ", providing you with various technical products and services"
+prefix = "是指发生或者可能发生个人信息泄露、篡改、丢失的事件。"
+exact = "小米在数据处理活动中是个人信息处理受托人，您是个人信息处理者。"
+suffix = "您通过我们提供的服务，上传、存储、加工、下载、分发以及通过其他方式处理的数据，均为您的业务数据，您对此拥有完全的控制权。"
 
 [[anchor]]
-id = "mimo-intl-ua-dp-terms-region"
+id = "mimo-cn-ua-4-4-storage-cn"
+source_id = "443dca43214dcb1b"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+prefix = "在服务到期后，或所约定的目的完成后，或在您的要求下（以先到达的时间为准），除非小米应遵守的法律所禁止，否则小米将在合理时间内停止处理或彻底删除个人信息。"
+exact = "在向中国大陆提供服务时，小米会将相关数据存储在中国大陆的服务器上，不会将此类信息传输至境外。"
+suffix = "4.5 安全保障措施"
+
+[[anchor]]
+id = "mimo-cn-ua-third-party-read"
 source_id = "443dca43214dcb1b"
 topics = ["role"]
 
 [anchor.selector]
-prefix = "nt. Specific procedures are detailed in the Privacy Policy. "
-exact = "These Data Protection Terms apply to regions outside the Chinese Mainland."
-suffix = " Both parties shall comply with the principles, procedures, "
-
-[[anchor]]
-id = "mimo-intl-ua-processor-controller"
-source_id = "443dca43214dcb1b"
-topics = ["role"]
-
-[anchor.selector]
-prefix = """
-uthorized disclosure of, or access to the Personal Data. |
-
-"""
-exact = "Xiaomi acts as a Processor in data processing activities, and you are the Data Controller."
-suffix = " The data you upload, store, process, download, distribute, "
-
-[[anchor]]
-id = "mimo-intl-ua-4-4-data-storage-delete"
-source_id = "443dca43214dcb1b"
-topics = ["retention"]
-
-[anchor.selector]
-prefix = """
-icable Data Protection Legislations.
-
-**4.4 Data Storage**
-
-"""
-exact = "Upon service expiration, completion of the agreed purpose, or at your request, unless prohibited by laws that Xiaomi must comply with, Xiaomi will cease processing or permanently delete the personal information within a reasonable period."
-suffix = " When providing services outside the Chinese Mainland, Xiaom"
-
-[[anchor]]
-id = "mimo-intl-ua-4-4-servers-europe-singapore"
-source_id = "443dca43214dcb1b"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "delete the personal information within a reasonable period. "
-exact = "When providing services outside the Chinese Mainland, Xiaomi will store the relevant data on servers located in Europe and Singapore."
-suffix = """
-
-
-**4.5 Security Measures**
-
-1.   Xiaomi shall implement app"""
-
-[[anchor]]
-id = "mimo-intl-ua-1-1-storage-region-choice"
-source_id = "443dca43214dcb1b"
-topics = ["processing_region", "zdr"]
-
-[anchor.selector]
-prefix = "e with the requirements of applicable laws and regulations. "
-exact = "If you wish to select data storage regions or restrict the provision of services in certain regions, you may contact us via the Platform."
-suffix = " You acknowledge and agree that, selecting data storage regi"
+prefix = "本服务可能会调用第三方系统、软件或服务（包括您下载安装开源社区或第三方Skills、调用的MCP接口、Repo等），您除遵守本协议相关规则外，还应遵守第三方的服务协议、相关使用规则。"
+exact = "您须理解并同意，在使用第三方服务时，第三方可能会对用户数据进行读取，特别提醒您，您需谨慎选择第三方系统、软件或服务，充分评估后进行使用"
+suffix = "，小米不保证通过系统、软件或服务支持实现的结果的安全性、准确性、有效性及其他不确定的风险"
 
 [[anchor]]
 id = "mimo-intl-pp-operator"

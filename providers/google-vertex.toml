@@ -24,6 +24,12 @@ channel = "developer_data"
 tier = "core"
 note = "Agent Platform「客户数据保留与达成零数据保留」官方清单（canonical；旧 Vertex AI data-governance URL 301 到此）。范围用 MaaS 口径，逐项列出达成 ZDR 所需动作（不开启 request-response logging、Interactions API store=false、滥用监控豁免、不用 Sandbox API 等），并声明部分 Advanced AI 特性可能无法达成 ZDR。覆盖 api 档。"
 
+[[source]]
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring"
+channel = "developer_data"
+tier = "core"
+note = "Agent Platform 滥用监控页（Last updated 2026-09-22）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（可申请豁免；仅受 GCP ToS 约束的客户在范围内，持 Google Cloud Master Agreement 的客户默认豁免）、Advanced AI 模型 prompt+response 强制 30 天且部分特性可能无法 opt-out；含 Advanced AI 范围清单与 Anthropic 段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。用于 api 档 retention 的日志对象与 zdr 的适用边界。"
+
 [[product]]
 id = "api"
 badge = "Vertex AI"
@@ -35,19 +41,109 @@ mark = "yes"
 mode = "by_contract"
 anchor = "training-restriction-s18"
 
+[[product.training.point]]
+text = """Not a training permission. The in-memory caching paragraph says cached data "is used only for improving service performance"; under this ledger's rule that "service improvement" wording counts as training, that sentence is examined here and does not overturn mark = yes. The contract layer (Service Specific Terms §18) expressly bars Google from using Customer Data to train or fine-tune AI/ML models, and the sentence describes a latency-reduction performance cache — in-memory only, not at-rest, 24-hour TTL — so it ranks below the contract."""
+text_zh = """不构成训练授权。内存缓存段写缓存数据「is used only for improving service performance」；按本台账「用来改进服务算训练」的口径，这句须在训练维度被审视，但它不推翻 mark = yes：合同层（Service Specific Terms §18）已明确禁止用 Customer Data 训练或微调 AI/ML 模型，而该句描述的是降低延迟的性能缓存（仅内存、不落盘、24 小时 TTL），权威性低于合同。"""
+anchor = "retention-in-memory-cache-24h"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-must-take-actions"
 
+[[product.zdr.point]]
+text = """Path to ZDR: "If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring." On this tier ZDR is not a self-serve switch — the customer must take specific actions in each of the areas listed on this page and request the abuse-monitoring exception from Google."""
+text_zh = """达成 ZDR 的路径：原文「If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring.」本档的 ZDR 不是自助开关——客户须在该页所列的每个领域逐项采取动作，并向 Google 申请滥用监控豁免。"""
+anchor = "zdr-abuse-monitoring-exception"
+
+[[product.zdr.point]]
+text = """Who that agreement path applies to: only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service are subject to prompt logging for abuse monitoring, and "customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default". The exception is granted only if the opt-out form is approved, after which "Google won't store any prompts associated with the approved Google Cloud account"."""
+text_zh = """这条申请路径对谁成立：只有使用受 Google Cloud Platform Terms of Service 约束的客户才在滥用监控范围内，「customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default」；豁免须填表并经批准，批准后「Google won't store any prompts associated with the approved Google Cloud account」。"""
+anchor = "zdr-abuse-scope-gcp-tos-only"
+
+[[product.zdr.point]]
+text = """Availability is not universal: "Zero data retention may not be possible when using some Advanced AI features." Customers are told to contact their account team for clarification."""
+text_zh = """可用性并非普遍成立：原文「Zero data retention may not be possible when using some Advanced AI features.」官方要求联系客户团队确认。"""
+anchor = "zdr-advanced-ai-may-not-be-possible"
+
+[[product.zdr.point]]
+text = """Which models the exception can hit: the models and features designated as "Advanced AI" include Claude Mythos (all versions), Claude Fable (all versions), and Claude Opus >=4.7 and Sonnet >=5 when `advanced_ai_enabled` is set to `true` for use within Anthropic's Cyber Verification Program. All other usage of those Claude models is out of scope of the Advanced AI Safety Addendum."""
+text_zh = """例外可能落在哪些模型上：被指定为「Advanced AI」的模型与特性包括 Claude Mythos（全部版本）、Claude Fable（全部版本），以及为 Anthropic Cyber Verification Program 开启 `advanced_ai_enabled` 时的 Claude Opus >=4.7 与 Sonnet >=5；这些 Claude 模型的其余用法不在 Advanced AI Safety Addendum 范围内。"""
+anchor = "zdr-advanced-ai-model-scope"
+
 [product.retention]
-days = 90
-object = "mixed"
-basis = "fixed_period"
+object = "input_output"
+basis = "as_needed"
+anchor = "retention-handling-prompts-s20h"
+
+[[product.retention.point]]
+text = """Default (contract layer, highest authority): object = prompts and Generated Output; context = default, outside Customer's Account; period type = as needed — "Absent Customer's prior permission or instruction, Google will not store outside Customer's Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output." The "Absent Customer's prior permission or instruction" clause makes it a default, not an absolute: traffic governed by the Google Cloud Platform Terms of Service is still logged for abuse monitoring (see the 90-day point below), and the Service Specific Terms repeat the same logging permission for Partners and Non-TOS Customers."""
+text_zh = """默认口径（合同层，权威最高）：对象=prompt 与 Generated Output；语境=默认、客户账户之外；期限类型=按需——原文「Absent Customer's prior permission or instruction, Google will not store outside Customer's Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output.」前置条件「Absent Customer's prior permission or instruction」说明它是默认而非绝对：受 GCP ToS 约束的流量仍会被滥用监控记录（见下面 90 天一条），SST 对 Partner 与 Non-TOS 客户也重述了同一项记录授权。"""
+anchor = "retention-handling-prompts-s20h"
+
+[[product.retention.point]]
+text = """Deletion on customer instruction (contract layer): object = Customer Data content; context = during the Term, after the customer deletes data that cannot be recovered by the customer; period type = upper bound — "Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days", with the proviso "unless European Law requires storage" (or applicable law requires storage, under any other Applicable Privacy Law). The 180 days is the compliance ceiling for completing deletion, not a statement that content is kept for 180 days."""
+text_zh = """客户指令删除（合同层）：对象=Customer Data 正文；语境=Term 内、客户删除后无法自行恢复的数据；期限类型=上限——原文「Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days」，并附但书「unless European Law requires storage」（其他适用隐私法下则为 applicable law requires storage）。180 天是完成删除动作的合规上限，不等于内容会被保留 180 天。"""
+anchor = "retention-deletion-6-1-180d"
+
+[[product.retention.point]]
+text = """When the Term ends (contract layer): object = all remaining Customer Data including existing copies; context = service termination; period type = upper bound — "After a recovery period of up to 30 days from that date, Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days", again unless European Law or other applicable law requires storage. Per Section 6.3 (Deferred Deletion Instruction), where the same Customer Data is also processed under an Agreement with a continuing Term, the deletion instruction takes effect only when that continuing Term expires."""
+text_zh = """服务终止时（合同层）：对象=全部剩余 Customer Data（含既有副本）；语境=Term 结束；期限类型=上限——原文「After a recovery period of up to 30 days from that date, Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days」，同样以欧洲法或其他适用法要求存储为例外。按 §6.3（Deferred Deletion Instruction），若同一 Customer Data 还受另一份仍在存续期的协议处理，删除指令要到该存续期届满才生效。"""
+anchor = "retention-deletion-6-2-term-end"
+
+[[product.retention.point]]
+text = """Abuse-monitoring prompt logs (developer doc): object = logged customer prompts (logs, not encrypted with Customer-managed encryption keys); context = only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service, and only when automated safety classifiers flag suspicious activity needing investigation; period type = upper bound — "This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project". Customers may request an opt-out."""
+text_zh = """滥用监控 prompt 日志（开发者文档）：对象=被记录的客户 prompt（日志，不用 CMEK 加密）；语境=仅限使用受 Google Cloud Platform Terms of Service 约束的客户，且仅当自动安全分类器标记出需要调查的可疑活动时；期限类型=上限——原文「This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project」。客户可申请豁免。"""
+anchor = "retention-abuse-prompt-log-90d"
+
+[[product.retention.point]]
+text = """Advanced AI models (developer doc): object = prompts and responses (logs); context = models and features designated as "Advanced AI"; period type = upper bound of 30 days — "All prompts and responses will be logged and securely stored for up to 30 days for the sole purpose of monitoring for abuse", and it may not be possible to opt out of this logging."""
+text_zh = """Advanced AI 模型（开发者文档）：对象=prompt 与 response（日志）；语境=被指定为「Advanced AI」的模型与特性；期限类型=上限 30 天——原文「All prompts and responses will be logged and securely stored for up to 30 days for the sole purpose of monitoring for abuse」，且部分特性可能无法退出该记录。"""
+anchor = "retention-advai-30d"
+
+[[product.retention.point]]
+text = """In-memory data caching (developer doc): object = Customer Data (inputs, outputs, and derived data); context = on by default for Google's published Gemini models; period type = 24-hour TTL, and "This data is stored only in-memory (not at-rest), is isolated at the project level". The feature can be disabled at the project level and "does not violate zero data retention"."""
+text_zh = """内存缓存（开发者文档）：对象=Customer Data（输入、输出与派生数据）；语境=Google 已发布 Gemini 模型的默认行为；期限类型=24 小时 TTL，且「This data is stored only in-memory (not at-rest), is isolated at the project level」。该特性可按项目关闭，且「does not violate zero data retention」。"""
+anchor = "retention-in-memory-cache-24h"
+
+[[product.retention.point]]
+text = """Request-response logging (developer doc): "This feature is disabled by default. It can be enabled using a configuration setting on a per-model, per-project basis." Once enabled it writes certain requests and responses to a designated BigQuery table, so it is an opt-in retention path."""
+text_zh = """请求-响应日志（开发者文档）：原文「This feature is disabled by default. It can be enabled using a configuration setting on a per-model, per-project basis.」开启后会把指定模型的某些请求与响应写入指定的 BigQuery 表，属需主动开启的留存路径。"""
+anchor = "retention-request-response-logging-off-by-default"
+
+[[product.retention.point]]
+text = """Interactions API default (developer doc): object = user data such as prompts, responses, and conversation state; context = default — "If you do not specify a value for `store`, it defaults to `true` for all models", which applies to all managed models on Gemini Enterprise Agent Platform, including GA and pre-GA models. Retention is avoided only by explicitly setting `store = false`."""
+text_zh = """Interactions API 的默认值（开发者文档）：对象=prompt、response、会话状态等用户数据；语境=默认——原文「If you do not specify a value for `store`, it defaults to `true` for all models」，适用于 Agent Platform 上所有托管模型（含 GA 与 pre-GA）。只有显式设置 `store = false` 才不产生留存。"""
+anchor = "retention-interactions-store-default-true"
+
+[[product.retention.point]]
+text = """Grounding with Google Search (developer doc + contract): object = logs containing queries derived from End User prompts and contextual information that Customer may provide, not associated with any Customer or its End Users; context = using this feature, storage cannot be turned off — "There is no way to disable the storage of this information if you use Grounding with Google Search"; period type = upper bound of three (3) days. The recommended route for customers who require zero data retention is Web Grounding for Enterprise, which deletes subsection 20(k)(ii) (storage for debugging)."""
+text_zh = """Google Search 接地（开发者文档 + 合同）：对象=由终端用户 prompt 派生的查询与客户可能提供的上下文信息，不与任何客户或终端用户关联；语境=使用该特性时无法关闭存储——原文「There is no way to disable the storage of this information if you use Grounding with Google Search」；期限类型=上限 3 天。需要 ZDR 的客户被建议改用 Web Grounding for Enterprise（SST §20.l 删除了 20(k)(ii) 的调试存储）。"""
+anchor = "retention-grounding-search-3d"
+
+[[product.retention.point]]
+text = """Grounding with Google Maps (developer doc + contract): object = prompts and contextual information that customers may provide, and generated output; context = using this feature, storage cannot be turned off; period type = thirty (30) days, for the purposes of creating grounded results and usable only for reliability engineering."""
+text_zh = """Google Maps 接地（开发者文档 + 合同）：对象=客户可能提供的 prompt 与上下文信息，以及生成输出；语境=使用该特性时无法关闭存储；期限类型=30 天，用途限于生成接地结果，且只能用于可靠性工程。"""
+anchor = "retention-grounding-maps-30d"
+
+[[product.retention.point]]
+text = """Session resumption for Gemini Live API (developer doc): object = cached data including text, video, and audio prompt data and model outputs; context = disabled by default and must be enabled by the user on each call; period type = up to 24 hours, and the way to achieve zero data retention is not to enable it."""
+text_zh = """Gemini Live API 会话续接（开发者文档）：对象=缓存数据，含文本、视频、音频 prompt 数据与模型输出；语境=默认关闭，须由用户每次调用时显式开启；期限类型=最长 24 小时，达成 ZDR 的方式是不开启该特性。"""
+anchor = "retention-live-session-resumption-24h"
+
+[[product.retention.point]]
+text = """CodeMender session data (developer doc, agent products): object = session state including target source code snippets, diffs, configuration, and analysis checkpoints; context = while a find-and-fix scan is in progress; period type = up to seven (7) days from session creation (encrypted), with source code cleared within seconds of a terminal state and the remaining session record deleted at the seven-day TTL; customers can delete a session earlier."""
+text_zh = """CodeMender 会话数据（开发者文档，agent 产品）：对象=会话状态，含目标源码片段、diff、配置与分析检查点；语境=find-and-fix 扫描进行期间；期限类型=自会话创建起最长 7 天（加密存储），会话进入终态后源码在数秒内清除、剩余会话记录在 7 天 TTL 时自动删除；客户可提前删除会话。"""
+anchor = "retention-codemender-7d"
 
 [product.processing_region]
 codes = ["selected"]
 anchor = "processing-region-data-location-s1b"
+
+[[product.processing_region.point]]
+text = """Default when no region is selected, or when the service is not on the data-residency list (DPA §10.1, contract layer): "Customer Data may be processed in any country where Google or its Subprocessors maintain facilities", subject to Google's data location commitments under the Service Specific Terms and the data transfer commitments under Appendix 3. codes = ["selected"] therefore holds only where the service is listed at the data-residency page (Service Specific Terms §1.b) and the customer actually configures a Region or Multi-Region (or the AI/ML Multi-Region under §16); otherwise this default applies."""
+text_zh = """未选地域、或所用服务不在 data-residency 列表内时的默认口径（DPA §10.1，合同层）：原文「Customer Data may be processed in any country where Google or its Subprocessors maintain facilities」，并受 Service Specific Terms 的数据位置承诺与附录 3 的数据传输承诺约束。因此 codes = ["selected"] 只在服务列入 data-residency 页（SST §1.b）、且客户实际配置了 Region/Multi-Region（AI/ML 场景见 §16）时成立；否则回落本句的默认。"""
+anchor = "processing-region-cdpa-10-1"
 
 [product.role]
 kind = "processor"
@@ -204,7 +300,7 @@ This applies to all managed models on Gemini Enterprise Ag"""
 [[anchor]]
 id = "retention-in-memory-cache-24h"
 source_id = "89852246e77a9205"
-topics = ["retention"]
+topics = ["retention", "training"]
 
 [anchor.selector]
 prefix = "data) in-memory to reduce latency and accelerate responses. "
@@ -286,3 +382,59 @@ topics = ["role"]
 prefix = " that Google Cloud uses in the development of its products. "
 exact = "More details about how Google processes data can also be found in Google's [Cloud Data Processing Addendum]"
 suffix = "(https://cloud.google.com/terms/data-processing-addendum) (C"
+
+[[anchor]]
+id = "retention-abuse-prompt-log-90d"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "This data won't be used to train or fine-tune any AI/ML models. "
+exact = "This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project"
+suffix = " and adheres to Google Cloud assurances, such as Data Reside"
+
+[[anchor]]
+id = "retention-advai-30d"
+source_id = "72542f8ee80026c3"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "**Prompt and response logging**: "
+exact = "All prompts and responses will be logged and securely stored for up to 30 days for the sole purpose of monitoring for abuse."
+suffix = " This data won't be used to train or fine-tune any AI/ML mod"
+
+[[anchor]]
+id = "retention-interactions-store-default-true"
+source_id = "89852246e77a9205"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "**Interactions API**: "
+exact = """When using the Interactions API with `store = true`, Google stores user data (such as prompts, responses, and conversation state) to enable multi-turn conversations and later retrieval. If you do not specify a value for `store`, it defaults to `true` for all models."""
+suffix = " To achieve zero data retention, explicitly set"
+
+[[anchor]]
+id = "zdr-abuse-scope-gcp-tos-only"
+source_id = "72542f8ee80026c3"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "**Customers in scope**: "
+exact = "Only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service."
+suffix = " This means that customers with a Google Cloud Master Agreement are exempt"
+
+[[anchor]]
+id = "zdr-advanced-ai-model-scope"
+source_id = "72542f8ee80026c3"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "**Services in scope**: "
+exact = """Models and features designated as "Advanced AI", including:
+
+Claude Mythos (all versions)
+
+Claude Fable (all versions)
+
+Claude Opus >=4.7 and Sonnet >=5 when `advanced_ai_enabled` is set to `true` for use within Anthropic's Cyber Verification Program (CVP)."""
+suffix = " All other usage of these models is out of scope"

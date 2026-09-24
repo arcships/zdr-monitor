@@ -123,9 +123,14 @@ text = "No zero-data-retention commitment covers this tier. ZDR appears in Repli
 text_zh = "本档没有任何零数据保留承诺。ZDR 在 Replit 文档里只以「企业档限定可用端点」的形式出现；免费档的条款、隐私政策与 ToS 都没有提到零保留。"
 
 [[product.zdr.point]]
-text = "Upstream handling on self-serve tiers is configured by Replit rather than chosen by the user: paid endpoints have training disabled, but free endpoints may train on your prompts and completions and may publish them to public datasets."
-text_zh = "自助档的上游处理由 Replit 配置而非用户选择：付费端点关闭训练，但免费端点可以用你的提示词与补全做训练，并可能把它们发布到公开数据集。"
-anchor = "aiintegrations-selfserve-defaults"
+text = "The OpenRouter privacy defaults Replit configures for self-serve users do not describe this tier: on the Starter plan Replit AI Integrations is disabled, and the documented path is the user's own API key, so free-tier prompts are not sent through the endpoints Replit configures."
+text_zh = "Replit 为自助用户配置的 OpenRouter 隐私默认值并不描述本档：Starter 档上 Replit AI Integrations 不可用，文档给出的路径是用户自带 API key，免费档的提示词因此不会经由 Replit 配置的端点发出。"
+anchor = "aiintegrations-starter-disabled"
+
+[[product.zdr.point]]
+text = "The availability premise is tier-gated: Replit AI Integrations requires a paid plan (Core, Pro, or Enterprise), and the docs point Starter users to their own API key instead."
+text_zh = "适用前提按档位设限：Replit AI Integrations 需要付费档（Core、Pro 或 Enterprise），文档把 Starter 用户引向自带 API key。"
+anchor = "aiintegrations-paid-plan-required"
 
 [[product.zdr.point]]
 text = "Whether a free-tier user can obtain ZDR by contract is not addressed in any public document — this is an undisclosed option, not a stated refusal."
@@ -155,6 +160,11 @@ text = "Public-facing content is a different object with default exposure: profi
 text_zh = "对外公开的内容是另一个对象且默认暴露：个人资料、代码与帖子默认可被其他用户查看与搜索，并被搜索引擎索引。"
 anchor = "privacy-public-content"
 
+[[product.retention.point]]
+text = "The contract layer for this tier fixes no period either: on account deletion Replit deletes stored data in accordance with its data retention policy and applicable law, which leaves the length to that policy rather than to a stated number."
+text_zh = "本档的合同层同样没有给出期限：账号删除时 Replit 按其数据保留政策与适用法律删除已存储的数据，长度交给该政策而非固定数字。"
+anchor = "tos-account-deletion-policy"
+
 [product.processing_region]
 codes = ["US"]
 anchor = "privacy-hosted-in-us"
@@ -164,8 +174,13 @@ text = "Services are primarily hosted in the United States and may also be hoste
 text_zh = "服务主要托管在美国，也可能托管在你所在司法辖区之外；从其他地区使用服务即表示接受数据被转移到美国及其他托管地存储、访问与处理。"
 
 [[product.processing_region.point]]
-text = "Publishing geography is a choice made when a project is published, and it is permanent: geography cannot be changed after publishing and a published project cannot be migrated to another geography."
-text_zh = "发布地域是发布项目时做出的选择，且不可更改：发布后地域不能变更，已发布项目也无法迁移到其他地域。"
+text = "This tier has no geography selection at all: publishing geography selection is available to Core, Pro and Enterprise customers, and free customers publish to North America by default."
+text_zh = "本档完全没有地域选择权：发布地域选择面向 Core、Pro 与 Enterprise 客户，免费客户默认发布到北美。"
+anchor = "geography-tier-selection"
+
+[[product.processing_region.point]]
+text = "The permanence rule then applies to whatever geography the project was published to: geography cannot be changed after publishing, and a published project cannot be migrated to another geography."
+text_zh = "此后不可更改的规则作用于项目发布时所在的地域：发布后地域不能变更，已发布项目也无法迁移到其他地域。"
 anchor = "geography-cannot-change"
 
 [product.role]
@@ -203,6 +218,11 @@ anchor = "model-improvement-pro-only"
 [[product.training.point]]
 text_zh = "Replit 会用提示词、指令、上下文与回复改进模型和 AI 功能；关闭 Model Improvement 的控制仅向 Pro 开放，Core 没有该开关。"
 
+[[product.training.point]]
+text = "Upstream handling on self-serve tiers is configured by Replit rather than chosen by the user: paid endpoints have training disabled, but free endpoints may train on your prompts and completions and may publish them to public datasets."
+text_zh = "自助档的上游处理由 Replit 配置而非用户选择：付费端点关闭训练，但免费端点可以用你的提示词与补全做训练，并可能把它们发布到公开数据集。"
+anchor = "aiintegrations-selfserve-defaults"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -223,12 +243,23 @@ anchor = "privacy-retention-deidentify"
 [[product.retention.point]]
 text_zh = "隐私政策仅承诺不再需要可识别数据时删除或去标识化，没有公布 Core 提示词与响应的量化期限。"
 
+[[product.retention.point]]
+text = "The contract layer for this tier fixes no period either: on account deletion Replit deletes stored data in accordance with its data retention policy and applicable law, which leaves the length to that policy rather than to a stated number."
+text_zh = "本档的合同层同样没有给出期限：账号删除时 Replit 按其数据保留政策与适用法律删除已存储的数据，长度交给该政策而非固定数字。"
+anchor = "tos-account-deletion-policy"
+
 [product.processing_region]
 codes = ["US", "selected"]
-anchor = "geography-workspace-and-publishing"
+anchor = "geography-tier-selection"
 
 [[product.processing_region.point]]
 text_zh = "服务主要托管于美国；Core 可在发布时选择部署地域，但 Workspace 地域选择仅向 Pro 开放。"
+anchor = "geography-tier-selection"
+
+[[product.processing_region.point]]
+text = "The two settings are independent by design: Replit provides separate geography settings, so development and published app locations are managed independently of each other."
+text_zh = "两套设置在设计上相互独立：Replit 提供分开的地域设置，开发位置与已发布 app 的位置各自管理。"
+anchor = "geography-workspace-and-publishing"
 
 [product.role]
 kind = "unknown"
@@ -240,6 +271,7 @@ searched = [
 
 [[product.role.point]]
 text_zh = "DPA 并入商业协议，而公开条款只明确 Pro 与 Enterprise 适用商业协议；Core 的 controller/processor 角色未公开界定。"
+anchor = "tos-commercial-agreement-scope"
 
 [[product]]
 id = "pro"
@@ -311,6 +343,11 @@ text = "Paid subscriptions are exempt from the free-tier inactivity deletion tri
 text_zh = "付费订阅不受免费档闲置删除触发条件的约束。"
 anchor = "inactivity-paid-exempt"
 
+[[product.retention.point]]
+text = "Retention length also has a customer-side configuration component: the responsibility matrix assigns \"data retention, deletion, and export\" to Replit as the mechanism and to the customer as the configuration — a division of responsibility rather than a period, and one that sits alongside the DPA window this tier has."
+text_zh = "保留长度也有客户侧的配置成分：责任矩阵把「数据保留、删除与导出」记为 Replit 提供机制、客户做配置——这是责任划分而非期限，且与本档另有的 DPA 窗口并存。"
+anchor = "sharedres-retention-mechanism-config"
+
 [product.processing_region]
 codes = ["US", "selected"]
 anchor = "sharedres-pro-workspace-geo"
@@ -342,6 +379,11 @@ text = "The DPA reaches this tier through the Commercial Agreement, which the To
 text_zh = "DPA 经由商业协议覆盖本档，而 ToS 写明商业协议适用于 Pro 与 Enterprise 服务。"
 anchor = "dpa-incorporated-into-commercial-agreement"
 
+[[product.role.point]]
+text = "The DPA also caps the purposes: Replit will not sell Customer Personal Data, nor use or disclose it for any purpose other than the specific purposes set forth in the Agreement and the DPA."
+text_zh = "DPA 还限定了处理目的：Replit 不会出售客户个人数据，也不会把客户个人数据用于或披露于协议与 DPA 列明目的之外的用途。"
+anchor = "dpa-purpose-limitation-no-sale"
+
 [[product]]
 id = "enterprise"
 badge = "企业版"
@@ -366,6 +408,11 @@ anchor = "model-improvement-enterprise-no-train"
 text = "Usage Data is carved out of the restriction — de-identified interaction data that excludes Customer Content remains usable for internal analytics and business purposes."
 text_zh = "Usage Data 被排除在该限制之外——不含客户内容的去标识化交互数据仍可用于内部分析与商业目的。"
 
+[[product.training.point]]
+text = "The licence in B.2.c and the restriction in B.2.g sit side by side in the same section: the customer grants Replit the right to use Customer Content \"including for troubleshooting, improving, and ensuring the safety and security of the Platform\", while B.2.g forbids using Customer Content to develop or improve Replit's products or services \"except as expressly permitted in this Agreement\". Whether platform-improvement work counts as such an express permission is left for the agreement to resolve, so the no-training conclusion rests on B.2.g while the licence's improvement language remains an in-contract exception to be clarified."
+text_zh = "同一节里 B.2.c 的许可与 B.2.g 的限制并列：客户授予 Replit 使用客户内容的权利，「包括用于排障、改进平台以及保障平台安全」；而 B.2.g 禁止用客户内容开发或改进 Replit 的产品或服务，「除本协议明确允许外」。「改进平台」是否构成这种明确许可，协议本身没有点名，因此「不训练」的结论建立在 B.2.g 上，而许可里的改进措辞属于协议内待澄清的例外。"
+anchor = "ent-customer-grant-license"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -380,15 +427,20 @@ anchor = "aiintegrations-enterprise-zdr-rationale"
 text = "Scope matters here: this ZDR is about which upstream endpoints Replit will route to through AI Integrations, not a statement that Replit itself retains nothing. Replit's platform-side retention (privacy policy, DPA, deletion windows) is unchanged by it, and the trade-off is a more limited model list."
 text_zh = "适用范围要注意：这条 ZDR 讲的是 Replit 经 AI Integrations 会路由到哪些上游端点，不等于 Replit 自身什么都不留。平台侧的保留（隐私政策、DPA、删除窗口）不因此改变，代价是可用模型更少。"
 
+[[product.zdr.point]]
+text = "The rule is a premise of using AI Integrations: for Pro and Enterprise organizations Replit AI Integrations access is disabled by default, and an organization admin has to enable it from the organization settings page before requests are routed under the ZDR-only rule."
+text_zh = "这条规则以使用 AI Integrations 为前提：Pro 与 Enterprise 组织默认关闭该功能的访问，需组织管理员在组织设置页开启后，请求才会按「仅 ZDR 端点」的规则路由。"
+anchor = "aiintegrations-enterprise-default-off"
+
 [product.retention]
 object = "input_output"
-basis = "fixed_period"
-days = 90
-anchor = "dpa-return-or-deletion-90-days"
+basis = "as_needed"
+anchor = "privacy-retention-deidentify"
 
 [[product.retention.point]]
-text = "The DPA gives the enterprise-tier window: the customer may request return or deletion of Customer Personal Data up to ninety days after termination, and Replit may retain it where required by law."
-text_zh = "DPA 给出企业档窗口：客户可在终止后 90 天内请求返还或删除客户个人数据，法律要求保留的除外。"
+text = "The DPA's ninety-day figure is a post-termination window for the customer to request return or deletion of Customer Personal Data, not a retention period for prompt and response content: the DPA terminates with the agreement, and Replit may retain Customer Personal Data where applicable law requires."
+text_zh = "DPA 的 90 天是协议终止后客户请求返还或删除客户个人数据的窗口，不是提示词与响应正文的保留期限：DPA 随协议终止，且适用法律要求时 Replit 可以保留客户个人数据。"
+anchor = "dpa-return-or-deletion-90-days"
 
 [[product.retention.point]]
 text = "The Enterprise Agreement adds a 30-day migration window: the customer may migrate or request migration of its content for up to thirty days after termination."
@@ -399,6 +451,11 @@ anchor = "ent-data-migration-30-days"
 text = "Outside those windows the privacy policy's as-needed deletion rule still applies, and no period for prompt and response content is published."
 text_zh = "在这些窗口之外，隐私政策的按需删除规则仍然适用，提示词与响应正文没有公布期限。"
 anchor = "privacy-retention-deidentify"
+
+[[product.retention.point]]
+text = "Retention length also has a customer-side configuration component: the responsibility matrix assigns \"data retention, deletion, and export\" to Replit as the mechanism and to the customer as the configuration — a division of responsibility rather than a period, and one that sits alongside the DPA window this tier has."
+text_zh = "保留长度也有客户侧的配置成分：责任矩阵把「数据保留、删除与导出」记为 Replit 提供机制、客户做配置——这是责任划分而非期限，且与本档另有的 DPA 窗口并存。"
+anchor = "sharedres-retention-mechanism-config"
 
 [product.processing_region]
 codes = ["US", "selected"]
@@ -430,6 +487,11 @@ text_zh = "客户为控制者，Replit 被指定为受托处理方，处理客�
 text = "Replit's responsibility matrix assigns the processing of prompts and model interaction — how they are logged, retained and whether used for training — to Replit, compliant with the Terms of Service and the DPA."
 text_zh = "Replit 的责任矩阵把提示词与模型交互的处理（如何记录、保留、是否用于训练）划归 Replit 负责，依据是服务条款与 DPA。"
 anchor = "sharedres-processing-of-prompts"
+
+[[product.role.point]]
+text = "The DPA also caps the purposes: Replit will not sell Customer Personal Data, nor use or disclose it for any purpose other than the specific purposes set forth in the Agreement and the DPA."
+text_zh = "DPA 还限定了处理目的：Replit 不会出售客户个人数据，也不会把客户个人数据用于或披露于协议与 DPA 列明目的之外的用途。"
+anchor = "dpa-purpose-limitation-no-sale"
 
 [[anchor]]
 id = "privacy-legitimate-interest-ml"
@@ -591,8 +653,8 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = "omatically upon termination or expiration of the Agreement. "
-exact = "Customer may request return or deletion of Customer Personal Data up to ninety (90) days after termination of the Agreement."
-suffix = " Notwithstanding the foregoing, Company may retain Customer "
+exact = "Customer may request return or deletion of Customer Personal Data up to ninety (90) days after termination of the Agreement. Notwithstanding the foregoing, Company may retain Customer Personal Data where required by applicable law."
+suffix = ""
 
 [[anchor]]
 id = "dpa-incorporated-into-commercial-agreement"
@@ -831,3 +893,84 @@ exact = "| Anthropic | USA | AI models |"
 suffix = """
 
 | AppsFlyer INC | USA | Analytics and customer interactions"""
+
+[[anchor]]
+id = "aiintegrations-starter-disabled"
+source_id = "0349aacd4dc1d826"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+Starter (Free)
+
+"""
+exact = "On the Starter plan, Replit AI Integrations is disabled. You can still build AI apps with your own API key."
+suffix = " See Bringing your own API key."
+
+[[anchor]]
+id = "aiintegrations-paid-plan-required"
+source_id = "0349aacd4dc1d826"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Replit AI Integrations requires a paid plan (Core, Pro, or Enterprise). You can still build AI apps with your own API key on the Starter plan."
+suffix = ""
+
+[[anchor]]
+id = "aiintegrations-enterprise-default-off"
+source_id = "0349aacd4dc1d826"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = """
+Pro and Enterprise
+
+"""
+exact = "For Pro and Enterprise organizations, Replit AI Integrations access is disabled by default. Organization admins can control access from the organization settings page"
+suffix = """
+
+1. Navigate to your organization settings"""
+
+[[anchor]]
+id = "geography-tier-selection"
+source_id = "962675855935e436"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Workspace geography selection is available only to Pro customers. Publishing geography selection is available to Core, Pro, and Enterprise customers. Free customers publish to North America by default."
+suffix = ""
+
+[[anchor]]
+id = "sharedres-retention-mechanism-config"
+source_id = "8660258b9eb694df"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Data retention, deletion, and export | How long data is kept and how it is deleted or exported. | Replit (mechanism)\nYou (configuration) |"
+suffix = ""
+
+[[anchor]]
+id = "dpa-purpose-limitation-no-sale"
+source_id = "57ff475337b8ff1d"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Company will not sell Customer Personal Data, nor use or disclose Customer Personal Data for any purpose other than for the specific purposes set forth in the Agreement and this DPA."
+suffix = ""
+
+[[anchor]]
+id = "ent-customer-grant-license"
+source_id = "1510fa9a571c5bfc"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "c. Customer Grant to Replit. "
+exact = "Only as necessary to provide the Platform and related services, Customer grants to Replit a non-exclusive, worldwide, fully paid-up, royalty-free right and license to use, copy, store, transmit, backup, archive, parse, access, modify, and display Customer Content, including for troubleshooting, improving, and ensuring the safety and security of the Platform."
+suffix = """
+
+
+d. No Sales. This license does not grant Replit the right to sell """

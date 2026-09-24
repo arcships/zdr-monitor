@@ -31,7 +31,7 @@ note = "IDE/CLI 客户端遥测退出步骤；Pro 不收集 content，但客户�
 url = "https://aws.amazon.com/service-terms/"
 channel = "contract"
 tier = "core"
-note = "§50.13 明确只适用于 Amazon Q Developer Free；§1.14 在 AWS Services 处理 Customer Data 时纳入 AWS DPA。仅以这条明确产品→通用合同链解释角色，不把 AWS 通用条款直接当产品专属结论。"
+note = "§50.13 明确只适用于 Amazon Q Developer Free；§1.14 在 AWS Services 处理 Customer Data 时纳入 AWS DPA。角色仍只以 §1.14 的产品→通用合同链解释，不把 AWS 通用条款直接当产品专属结论；本轮另以 §1.24/§1.24.1 引入、§50.12.2 给出的 Bedrock 滥用检测保留上限与 §1.15 的账号注销后删除承诺补 retention 例外，均按条件式记录。"
 
 [[product]]
 id = "free"
@@ -44,6 +44,10 @@ mode = "opt_out"
 anchor = "q-free-training"
 [[product.training.point]]
 text_zh = "默认可将问题、响应及生成代码用于服务改进，包括模型训练；可通过 Organizations AI services opt-out policy 或 IDE 设置退出。"
+[[product.training.point]]
+text = "Amazon Q Developer for GitHub (Preview) is the one integration the documentation puts expressly outside that authorization today: it \"does not currently use your content for service improvement\", and enabling it later requires adequate notice plus a way for you to opt out."
+text_zh = "GitHub (Preview) 集成是当前唯一被官方明确排除在该授权之外的：它「does not currently use your content for service improvement」，将来启用需事先通知并提供退出方式——采购方据此可知哪些集成目前不受 Free 档训练授权覆盖。"
+anchor = "q-free-github-preview-no-improvement"
 [product.zdr]
 mark = "no"
 anchor = "q-storage"
@@ -53,14 +57,32 @@ text_zh = "产品明确会存储问题、响应、控制台元数据和代码，
 mark = "unknown"
 object = "input_output"
 basis = "undisclosed"
-searched = ["https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md"]
+searched = [
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md",
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html",
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md",
+  "https://aws.amazon.com/service-terms/",
+]
 [[product.retention.point]]
-text_zh = "确认会存储内容，但未披露输入输出、代码索引或缓存的删除期限。"
+text = "Default position: content is stored, and the three product documents state no quantified retention period, no deletion point and no period type for inputs and outputs, code indexes or caches."
+text_zh = "默认口径：确认会存储内容，但 data-storage / service-improvement / opt-out-IDE 三份产品文档均未披露输入输出、代码索引或缓存的删除期限（无量化期限、无删除时点、无期限类型）。"
+[[product.retention.point]]
+text = "Contract layer (authority above the product docs, and the same source this file already uses for role): §1.24 lists Amazon Q among the generative AI features powered by Amazon Bedrock, and §1.24.1 says that \"Amazon Bedrock abuse detection mechanisms may apply to such Services\". If they do, §50.12.2 discloses a period for Service inputs and outputs — \"up to 30 days (unless otherwise required by law)\" — object = inputs and outputs, context = abuse-detection exception, period type = cap, and only for certain models identified on the Bedrock abuse detection page. Amazon Q has no product-specific clause of its own (Kiro does, in §50.14.2), so applicability still turns on the official Bedrock abuse detection page."
+text_zh = "合同层（权威高于产品文档，且本文件 role 已用同一来源）：§1.24 把 Amazon Q 列入 powered by Amazon Bedrock 的生成式 AI 功能，§1.24.1 写「Amazon Bedrock abuse detection mechanisms may apply to such Services」。若适用，§50.12.2 给出输入输出的已披露期限「up to 30 days (unless otherwise required by law)」——对象=输入输出、语境=滥用检测例外、类型=上限，且仅限 Bedrock abuse detection 页列出的特定模型。Amazon Q 没有 Kiro（§50.14.2）那样的产品专条，适用性仍以官方 Bedrock abuse detection 页为准。"
+anchor = "q-abuse-detection-30d-50-12-2"
+[[product.retention.point]]
+text = "§1.15 is the contract layer's deletion commitment: \"Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services.\" Context = after account closure; it promises deletion by reference to the technical documentation and carries no period of its own, so it does not turn the default position into a disclosed period. It applies only to users who have an AWS account."
+text_zh = "§1.15 是合同层唯一的删除承诺：「Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services.」语境=账号注销后；它只承诺按技术文档删除、本身不含量化期限，故不改变默认口径「未公布期限」的判定。仅适用于有 AWS 账户的用户，Builder ID 个人账号没有 AWS 账户、不适用。"
+anchor = "q-account-closure-delete-1-15"
 [product.processing_region]
 codes = ["US"]
 anchor = "q-free-region"
 [[product.processing_region.point]]
 text_zh = "除诊断控制台错误在 us-west-2 外，其余 Free 数据存于 us-east-1；推理可在同一 geography 内跨区。"
+[[product.processing_region.point]]
+text = "The same page lists features that \"store data differently\", and none of them is tier-specific: Amazon Q artifacts keep visualizations-related content in a US Region; Console to Code stores content in your console Region and processes it in a US Region; Amazon Q generative SQL in Amazon Redshift stores and processes content in your console Region; Amazon CloudWatch investigations may store and process content in other Regions. The US default therefore does not hold for every feature."
+text_zh = "同页另列「store data differently」的功能例外（不区分档位）：Amazon Q artifacts 的可视化相关内容存于美国 Region；Console to Code 存于你的 console Region、处理在美国 Region；Redshift 的 Amazon Q generative SQL 存并处理于你的 console Region；CloudWatch investigations 的内容可能存并处理于其他 Region。故美国并非对所有功能都成立。"
+anchor = "q-region-exceptions-note"
 [product.role]
 mark = "unknown"
 searched = ["https://aws.amazon.com/service-terms/", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-protection.html"]
@@ -83,18 +105,40 @@ mark = "no"
 anchor = "q-storage"
 [[product.zdr.point]]
 text_zh = "Pro 仍会存储内容；未见 ZDR 模式。"
+[[product.zdr.point]]
+text = "The same documentation set also carries a sentence that reads the other way: \"At the Amazon Q Developer Pro Tier, Amazon Q does not collect your content.\" (opt-out-IDE, once in the VS Code section and once in the Eclipse section). Both official statements are kept side by side rather than reconciled: that sentence sits under \"Opting out of sharing your content\" and is about not collecting or sharing content for service improvement, while the data-storage sentence describes storage in order to generate responses. Context differs, so this is a scope difference, not the vendor contradicting itself."
+text_zh = "同一套官方文档里另有一句字面相反：「At the Amazon Q Developer Pro Tier, Amazon Q does not collect your content.」（opt-out-IDE，VS Code 与 Eclipse 两节各一次）。两条官方表述并列保留、不选边：该句位于「Opting out of sharing your content」一节，指不为服务改进而收集/共享内容；data-storage 那句指为生成响应而存储。语境与对象不同，属适用范围差异，不宜读成厂商自相矛盾。"
+anchor = "q-pro-not-collect-content"
 [product.retention]
 mark = "unknown"
 object = "input_output"
 basis = "undisclosed"
-searched = ["https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html", "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md"]
+searched = [
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-storage.md",
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/service-improvement.html",
+  "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/opt-out-IDE.md",
+  "https://aws.amazon.com/service-terms/",
+]
 [[product.retention.point]]
-text_zh = "未披露输入输出、代码索引或缓存的删除期限。"
+text = "Default position: the three product documents state no quantified retention period, no deletion point and no period type for inputs and outputs, code indexes or caches. This tier is open to personal accounts (Builder IDs) as well as IAM Identity Center users."
+text_zh = "默认口径：data-storage / service-improvement / opt-out-IDE 三份产品文档均未披露输入输出、代码索引或缓存的删除期限。本档同时面向个人账号（Builder ID）与 IAM Identity Center 用户。"
+[[product.retention.point]]
+text = "Contract layer (authority above the product docs, and the same source this file already uses for role): §1.24 lists Amazon Q among the generative AI features powered by Amazon Bedrock, and §1.24.1 says that \"Amazon Bedrock abuse detection mechanisms may apply to such Services\". If they do, §50.12.2 discloses a period for Service inputs and outputs — \"up to 30 days (unless otherwise required by law)\" — object = inputs and outputs, context = abuse-detection exception, period type = cap, and only for certain models identified on the Bedrock abuse detection page. Amazon Q has no product-specific clause of its own (Kiro does, in §50.14.2), so applicability still turns on the official Bedrock abuse detection page."
+text_zh = "合同层（权威高于产品文档，且本文件 role 已用同一来源）：§1.24 把 Amazon Q 列入 powered by Amazon Bedrock 的生成式 AI 功能，§1.24.1 写「Amazon Bedrock abuse detection mechanisms may apply to such Services」。若适用，§50.12.2 给出输入输出的已披露期限「up to 30 days (unless otherwise required by law)」——对象=输入输出、语境=滥用检测例外、类型=上限，且仅限 Bedrock abuse detection 页列出的特定模型。Amazon Q 没有 Kiro（§50.14.2）那样的产品专条，适用性仍以官方 Bedrock abuse detection 页为准。"
+anchor = "q-abuse-detection-30d-50-12-2"
+[[product.retention.point]]
+text = "§1.15 is the contract layer's deletion commitment: \"Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services.\" Context = after account closure; it promises deletion by reference to the technical documentation and carries no period of its own, so it does not turn the default position into a disclosed period. Personal account (Builder ID) users of this tier have no AWS account and are outside its scope."
+text_zh = "§1.15 是合同层唯一的删除承诺：「Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services.」语境=账号注销后；它只承诺按技术文档删除、本身不含量化期限，故不改变默认口径「未公布期限」的判定。本档的 Builder ID（个人账号）用户没有 AWS 账户，不适用本条。"
+anchor = "q-account-closure-delete-1-15"
 [product.processing_region]
 codes = ["selected", "US"]
 anchor = "q-pro-region"
 [[product.processing_region.point]]
 text_zh = "IAM Identity Center workforce 用户的列举功能存于 profile Region；其他功能可在美国存储处理，跨区推理可在 geography 内发生。"
+[[product.processing_region.point]]
+text = "The same page lists features that \"store data differently\", and none of them is tier-specific: Amazon Q artifacts keep visualizations-related content in a US Region; Console to Code stores content in your console Region and processes it in a US Region; Amazon Q generative SQL in Amazon Redshift stores and processes content in your console Region; Amazon CloudWatch investigations may store and process content in other Regions. The US default therefore does not hold for every feature."
+text_zh = "同页另列「store data differently」的功能例外（不区分档位）：Amazon Q artifacts 的可视化相关内容存于美国 Region；Console to Code 存于你的 console Region、处理在美国 Region；Redshift 的 Amazon Q generative SQL 存并处理于你的 console Region；CloudWatch investigations 的内容可能存并处理于其他 Region。故美国并非对所有功能都成立。"
+anchor = "q-region-exceptions-note"
 [product.role]
 kind = "processor"
 anchor = "aws-dpa-chain"
@@ -148,4 +192,44 @@ topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "These Service Terms incorporate the [AWS Data Processing Addendum](https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf) (“DPA”), when you use AWS Services to process Customer Data (as defined in the DPA)."
+suffix = ""
+[[anchor]]
+id = "q-free-github-preview-no-improvement"
+source_id = "6b0593a8dcc4437c"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Amazon Q Developer for GitHub (Preview) does not currently use your content for service improvement. If we enable this in the future, we will provide you with adequate notice and a way for you to opt out of such use."
+suffix = ""
+[[anchor]]
+id = "q-pro-not-collect-content"
+source_id = "4bf5546c3bff6c80"
+topics = ["zdr"]
+[anchor.selector]
+prefix = "#### [ Visual Studio Code ]"
+exact = "At the Amazon Q Developer Pro Tier, Amazon Q does not collect your content."
+suffix = ""
+[[anchor]]
+id = "q-region-exceptions-note"
+source_id = "c90c453f75ac8291"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "When you use Amazon Q artifacts, your visualizations-related content is stored in a US Region. When you use Console to Code with Amazon Q, content is stored in your console Region and processed in a US Region. When you use Amazon Q generative SQL in Amazon Redshift, your content is stored and processed in your console Region. For more information, see Interacting with Amazon Q generative SQL in the Amazon Redshift Management Guide. When you create an investigation with Amazon CloudWatch investigations, your content may be stored and processed in other Regions."
+suffix = ""
+[[anchor]]
+id = "q-abuse-detection-30d-50-12-2"
+source_id = "e50c57a33d690ba0"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "For certain models identified on the Bedrock abuse detection page, as part of providing the Service, Amazon Bedrock stores Service inputs and outputs for up to 30 days (unless otherwise required by law) solely to detect activity that violates our, or third-party model providers', terms of service or use policies."
+suffix = ""
+[[anchor]]
+id = "q-account-closure-delete-1-15"
+source_id = "e50c57a33d690ba0"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services."
 suffix = ""

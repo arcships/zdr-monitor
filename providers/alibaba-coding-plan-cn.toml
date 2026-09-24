@@ -12,7 +12,7 @@ doc = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20
 url = "https://help.aliyun.com/zh/model-studio/coding-plan"
 channel = "developer_data"
 tier = "core"
-note = "Coding Plan 国内档产品文档（更新时间 2026-09-11）。正文为国内变体：控制台 bailian.console.aliyun.com/cn-beijing/subscription/coding-plan、Base URL coding.dashscope.aliyuncs.com（华北 2 北京）、Lite 停售公告。协议 1.2/13.1 条使其成为本档「规则」与订购页说明的载体，5.2.1 亦要求遵守各自产品文档。「订阅前须知-数据使用授权」给出档位授权口径并指向协议 5.2。档位为个人订阅（套餐为订阅人专享使用，禁止共享），当前仅 Pro 在售。"
+note = "Coding Plan 国内档产品文档（更新时间 2026-09-11）。正文为国内变体：Base URL coding.dashscope.aliyuncs.com（OpenAI / Anthropic 兼容协议各一个路径；该域名本身的地域归属需靠地域文档的域名对照表）、API Key 与按量档不互通的说明、Lite 停售公告。协议 1.2/13.1 条使其成为本档「规则」与订购页说明的载体，5.2.1 亦要求遵守各自产品文档。「订阅前须知-数据使用授权」给出档位授权口径并指向协议 5.2。档位为个人订阅（套餐为订阅人专享使用，禁止共享），当前仅 Pro 在售。旧记录里的控制台路径（bailian.console.aliyun.com/cn-beijing/...）是抓取时被剥离的超链接，快照正文里没有，不作为证据。"
 
 [[source]]
 url = "https://help.aliyun.com/zh/model-studio/privacy-notice"
@@ -36,7 +36,13 @@ note = "百炼产品简介（国内站，正文含 cn-beijing / maas.aliyuncs.co
 url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
 channel = "contract"
 tier = "core"
-note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，发布 2026-08-31；签约主体 通义云启（杭州）信息技术有限公司，§1.1）。覆盖国内站百炼按量付费 API 档：§6.2 客户业务数据保护（§6.2.1 控制权、§6.2.3 指示+不为自身目的、§6.2.4 未获授权不使用+备份删除、§6.2.5 最短必要时间+未授权不训练、§6.2.7 缓冲期届满删除、§6.2.8 处理地、§6.2.9 三方模型通道）；§5.2 为 AI 订阅产品（Token Plan/Coding Plan）特别约定，属另两个 provider 档位，本档只作为例外条款引用。本协议是百炼相关协议清单中的首条，为国内站唯一合同级依据（国内站无独立 DPA）。"
+note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，发布 2026-08-31；签约主体 通义云启（杭州）信息技术有限公司，§1.1）。覆盖国内站百炼按量付费 API 档：§6.2 客户业务数据保护（§6.2.1 控制权、§6.2.3 指示+不为自身目的、§6.2.4 未获授权不使用+备份删除、§6.2.5 最短必要时间+未授权不训练、§6.2.7 缓冲期届满删除、§6.2.8 处理地、§6.2.9 三方模型通道）；§5.1.2 三方模型及技术服务形态下的数据可能被第三方处理的例外；§5.2 为 AI 订阅产品（Token Plan/Coding Plan）特别约定，属另两个 provider 档位，本档只作为例外条款引用。本协议是百炼相关协议清单中的首条，为国内站唯一合同级依据（国内站无独立 DPA）。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/glm-5-3"
+channel = "developer_data"
+tier = "core"
+note = "百炼模型页 glm-5.3（国内站，更新时间 2026-09-15，与 alibaba-token-plan-cn 同源登记）。「推理服务供应商」栏写明该模型推理服务供应商为阿里云百炼。用于说明本档第三方品牌模型的推理服务方线索；本档模型列表里的 glm-5 / kimi-k2.5 / MiniMax-M2.5 尚无对应模型页快照，故不能据此断言档位内全部第三方品牌模型由百炼自运营推理。"
 
 [[product]]
 id = "coding-plan-personal"
@@ -74,15 +80,49 @@ text_zh = "对话数据（输入输出）承诺「仅在提供服务所必需的
 [[product.retention.point]]
 text_zh = "服务终止/欠费后按 6.2.7 缓冲期继续存储、届满删除全部客户业务数据含缓存与备份副本，缓冲期时限本档产品文档未载明。"
 
+[[product.retention.point]]
+text = "Deletion is not immediate: §6.2.4 acknowledges that legal and security-technical limits may prevent deleting information from backup systems right away, in which case it is stored securely with any further processing restricted until the backup can be deleted."
+text_zh = "删除路径非即时：§6.2.4 承认因适用的法律和安全技术限制，备份系统中的信息可能无法立即删除，将安全存储并限制进一步处理直到备份可以删除。object/basis 记录值不变。"
+anchor = "retention-backup-may-lag"
+
 [product.processing_region]
 codes = ["CN"]
+anchor = "regions-cn-beijing-domain"
+
+[[product.processing_region.point]]
+text = "Both Base URLs of this plan are fixed to coding.dashscope.aliyuncs.com (one path for the OpenAI-compatible protocol, one for the Anthropic-compatible one), i.e. a plan-specific sub-domain of the DashScope domain family."
+text_zh = "档位 Base URL 固定为 coding.dashscope.aliyuncs.com（OpenAI / Anthropic 兼容协议各一个路径），属 DashScope 域名体系。"
 anchor = "cp-base-url-openai-cn"
 
 [[product.processing_region.point]]
-text_zh = "国内站华北 2（北京）：coding.dashscope.aliyuncs.com + cn-beijing 控制台"
+text = "The region is inferred by one step the plan document does not spell out: the region page lists dashscope.aliyuncs.com as the DashScope domain of the China North 2 (Beijing) region, and that region supports only one deployment scope. coding.* is a plan-specific sub-domain of that domain family, hence CN."
+text_zh = "地域归属靠地域文档的域名对照表推出（Coding Plan 文档本身没有地域表述）：dashscope.aliyuncs.com 被列为华北 2（北京）地域的 DashScope 域名，该地域仅支持一种服务部署范围；coding.* 是该域名体系下的套餐专用子域名，故本档记 CN。"
+anchor = "regions-cn-beijing-domain"
 
 [[product.processing_region.point]]
-text_zh = "地域文档的域名对照表支持该判定。档位内第三方品牌模型由百炼自运营推理（模型页标注推理服务供应商为阿里云百炼）。"
+text = "Tier boundary: the Coding Plan API Key and Base URL are not interchangeable with the pay-as-you-go ones, so this plan cannot be treated as the pay-as-you-go API tier."
+text_zh = "档位边界：Coding Plan 的 API Key 和 Base URL 与百炼按量计费的 API Key / Base URL 不互通，不能混用（误用会被识别为按量付费）。"
+anchor = "cp-api-key-base-url-not-interchangeable"
+
+[[product.processing_region.point]]
+text = "Exception (to be verified): agreement §5.1.2 — depending on the third-party model and technical service you choose, your customer business data may be processed by the provider of that third-party model or technical service. Whether it applies to this plan's third-party-brand models is not stated in the plan document, so no verdict is changed on this basis."
+text_zh = "例外（待核实）：协议 §5.1.2「取决于您所选择的第三方模型及技术服务形态，您的客户业务数据可能被第三方模型及技术服务的提供商处理」。本档套餐是否落入该条取决于这些第三方品牌模型的服务形态，本档文档未说明，故不据此改动任何结论。"
+anchor = "third-party-model-data-processing"
+
+[[product.processing_region.point]]
+text = "The Pro plan's model list includes third-party-brand models (glm-5, kimi-k2.5, MiniMax-M2.5) alongside the Qwen models, which is why the §5.1.2 exception above is relevant to this tier."
+text_zh = "本档 Pro 套餐模型列表含 glm-5、kimi-k2.5、MiniMax-M2.5 等第三方品牌模型（与千问模型同列），这正是 §5.1.2 例外与本档相关的原因。"
+anchor = "cp-model-list"
+
+[[product.processing_region.point]]
+text = "Inference supplier of third-party-brand models: the model page states that glm-5.3's inference service provider is Alibaba Cloud Model Studio. No model page snapshot exists for this plan's glm-5 / kimi-k2.5 / MiniMax-M2.5, so we do not assert that every third-party-brand model in this tier is served by Model Studio itself."
+text_zh = "档位内第三方品牌模型的推理服务方：百炼模型页显示 glm-5.3 的推理服务供应商为阿里云百炼；本档模型列表中的 glm-5 / kimi-k2.5 / MiniMax-M2.5 尚无对应模型页快照，故不断言档位内全部第三方品牌模型由百炼自运营推理。"
+anchor = "model-page-glm-inference-provider"
+
+[[product.processing_region.point]]
+text = "Boundary note, not evidence: §6.2.6 lets us schedule more suitable temporary resources automatically when compute is scarce. Read together with the region page (inference is scheduled within the selected deployment scope), this clause is not a basis for cross-region processing and does not change codes."
+text_zh = "边界说明（非证据）：§6.2.6 允许算力资源紧张时自动调度更匹配的临时资源；结合地域文档「百炼将在所选范围内进行推理调度」，本条不构成跨地域处理的依据，也不改 codes。"
+anchor = "scheduling-temporary-resources"
 
 [product.role]
 kind = "processor"
@@ -93,6 +133,11 @@ text_zh = "受托处理者定位（6.2.1/6.2.3），但本档输入输出被 5.2
 
 [[product.role.point]]
 text_zh = "档位为个人订阅（套餐为订阅人专享使用，禁止共享），无团队版条款，团队版仅存在于 Token Plan（5.2.2/5.2.3）。"
+
+[[product.role.point]]
+text = "Exception (to be verified): §5.1.2 warns that depending on the third-party model and technical service chosen, customer business data may be processed by that third party's provider. The service form of this tier's third-party-brand models is not stated in the plan document, so whether a third-party hop exists stays open; the role verdict is not changed on this basis."
+text_zh = "例外（待核实）：协议 §5.1.2 提示取决于第三方模型及技术服务形态，客户业务数据可能被第三方模型及技术服务的提供商处理；本档第三方品牌模型的服务形态在本档文档中未说明，是否构成第三方一跳待核实，故不改 role 结论。"
+anchor = "third-party-model-data-processing"
 
 [[product]]
 id = "api"
@@ -130,15 +175,24 @@ text_zh = "同一协议 6.2.5/6.2.7 适用于按量档"
 [[product.retention.point]]
 text_zh = "平台侧另有「将存储模型与应用调用时产生的数据」。仅作对照。"
 
+[[product.retention.point]]
+text = "Deletion is not immediate: §6.2.4 acknowledges that legal and security-technical limits may prevent deleting information from backup systems right away, with further processing restricted until the backup can be deleted. Same boundary is recorded in the authoritative alibaba-cn row."
+text_zh = "删除路径非即时：§6.2.4 承认备份系统中的信息可能无法立即删除，将安全存储并限制进一步处理直到备份可以删除。仅作对照，同档权威 alibaba-cn 亦记录该边界。"
+anchor = "retention-backup-may-lag"
+
 [product.processing_region]
-codes = ["CN"]
+codes = ["selected"]
 anchor = "regions-region-determines-storage"
 
 [[product.processing_region.point]]
-text_zh = "按地域选择：地域决定接入点与数据存储位置，服务部署范围决定推理执行位置"
+text = "Region is user-selected: storage location follows the chosen region and the deployment scope decides where inference runs, so the pay-as-you-go tier is not fixed to mainland China."
+text_zh = "按地域选择：地域决定接入点与数据存储位置，服务部署范围决定推理执行位置；存储地随所选地域而定，本档不能记成固定 CN。与同档权威 alibaba-cn 一致记 selected。"
+anchor = "regions-region-determines-storage"
 
 [[product.processing_region.point]]
-text_zh = "dashscope.aliyuncs.com 以华北 2（北京）为例。仅作对照。"
+text = "Selectable regions, per the region table: China North 2 (Beijing) domestically, plus Singapore, Germany (Frankfurt), Japan (Tokyo), China Hong Kong and US (Virginia) abroad. Each region has its own access domain and API Key and they cannot be mixed; Beijing's DashScope domain is dashscope.aliyuncs.com."
+text_zh = "地域对照表：境内为华北 2（北京），其 DashScope 域名为 dashscope.aliyuncs.com；境外另有新加坡、德国（法兰克福）、日本（东京）、中国香港、美国（弗吉尼亚），各地域有独立接入域名与 API Key，不能跨地域混用。仅作对照，权威见 alibaba-cn。"
+anchor = "regions-cn-beijing-domain"
 
 [product.role]
 kind = "processor"
@@ -619,3 +673,53 @@ prefix = """
 """
 exact = "根据相关法律法规要求，阿里云百炼将存储模型与应用调用时产生的数据。"
 suffix = "详情请参见[《阿里云百炼服务协议》](https://terms.alicdn.com/legal-agreement/"
+
+[[anchor]]
+id = "cp-api-key-base-url-not-interchangeable"
+source_id = "f93256b5ee167078"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "**说明**"
+exact = "Coding Plan 的 API Key 和 Base URL 与百炼按量计费的 API Key（`sk-xxxxx`）和Base URL（`https://dashscope.aliyuncs.com/xxxxxx`）不互通，请勿混用。"
+suffix = "### 步骤三：接入AI工具"
+
+[[anchor]]
+id = "third-party-model-data-processing"
+source_id = "4b66d343a3815747"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "也不构成深度合成技术支持者。"
+exact = "此外，取决于您所选择的第三方模型及技术服务形态，您的客户业务数据可能被第三方模型及技术服务的提供商处理。"
+suffix = "您知悉并理解我们作为技术平台服务方"
+
+[[anchor]]
+id = "retention-backup-may-lag"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改等操作。"
+exact = "但请理解，因为适用的法律和安全技术限制，我们可能无法立即从备份系统中删除相应的信息，如存在此类情况，我们将安全地存储您的个人信息并限制对其的任何进一步的处理，直到备份可以删除。"
+suffix = "客户业务数据一经删除，即不可恢复。"
+
+[[anchor]]
+id = "scheduling-temporary-resources"
+source_id = "4b66d343a3815747"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "6.2.6."
+exact = "为提升您的服务使用体验，您同意我们可能会在算力资源紧张时，在符合法律法规要求的情况下自动为您调度更匹配的临时资源。"
+suffix = "6.2.7."
+
+[[anchor]]
+id = "model-page-glm-inference-provider"
+source_id = "fd25d11462665840"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "## 推理服务供应商"
+exact = "`glm-5.3`模型的推理服务供应商为阿里云百炼。"
+suffix = "## 模型能力"

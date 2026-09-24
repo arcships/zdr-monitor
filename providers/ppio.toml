@@ -85,6 +85,16 @@ text_zh = "②《模型隐私政策》§5.3.3 说的是 X「可能无法立即�
 text = "(3) the Batch Inference doc says X, \"the file will be retained for 15 days\" and \"the result output file will be deleted 30 days after batch inference finishes\" — therefore Y, on the batch tier request content is retained 15 days and output 30 days. For the contrary sentence see docs/model/FAQs (\"a stateless interface ... does not save the full conversation content of each request\"; that source has been judged drop and its anchor cleared): it says the console does not provide full conversation records (the qualifier is \"full\" and the context is \"how to view API call records\"), not \"the platform retains no request content\", which is not enough to overturn (1) and does not contradict (1) on the same proposition. The retention policy of the upstream technical support provider (User Agreement §8.6) is not disclosed; this conclusion covers only the PPIO hop."
 text_zh = "③《批量推理》文档说的是 X「该文件将保留 15 天」「结果输出文件将在批量推理结束后 30 天删除」——所以 Y 批量档请求内容保留 15 天、输出 30 天。反向句见 docs/model/FAQs（「无状态接口…不会保存每次请求的完整对话内容」，该源已判 drop、锚点清空）：它说的是控制台不提供完整对话记录（限定词「完整」、语境为「如何查看 API 调用记录」），不是「平台不保留任何请求内容」，不足以推翻①，也不与①构成同一命题的矛盾。上游技术支持商（《用户协议》§8.6）的保留策略未披露，本结论只覆盖 PPIO 这一跳。"
 
+[[product.zdr.point]]
+text = "(4) Model Service Agreement §3.6.4 says X, \"we have the right to review generated content technically or by humans\" (User Agreement §3.5.4 is to the same effect) — therefore Y, the platform reserves the right for personnel to touch the output side of request content. Both sit inside the trial-function sections (Model Service Agreement §3.6 大模型 API 服务试用功能特别规范, User Agreement §3.5 大模型API服务试用功能), so the scope is the trial scenario, and it is a reserved right to review rather than a statement that staff necessarily access content."
+text_zh = "(4)《模型服务协议》§3.6.4 说的是 X「我们有权对生成内容进行技术或人工审核」（《用户协议》§3.5.4 同旨）——所以 Y 平台保留人员接触请求内容输出侧的权利。两条都位于试用功能专节（《模型服务协议》§3.6 大模型 API 服务试用功能特别规范、《用户协议》§3.5 大模型API服务试用功能），适用范围限于试用场景；且它是「有权审核」的保留权利，不等于人员必然访问内容。"
+anchor = "ppio-model-tos-3-6-4-content-review"
+
+[[product.zdr.point]]
+text = "On the upstream hop: Model Privacy Policy §1.2 expressly excludes services provided by other third parties from that policy (their information handling is governed by the third party's own privacy policy or similar document), so the retention and training policy of the third-party technical support provider (User Agreement §8.6) is not covered by any PPIO document. That is why it is recorded as not disclosed — a statement about the reach of PPIO's documents, not a direction of commitment."
+text_zh = "关于上游跳：《PPIO 模型隐私政策》§1.2 明文把其他第三方提供的服务排除在本政策之外（其信息处理适用该等第三方的隐私权政策或类似文件），故第三方技术支持商（《用户协议》§8.6）的保留与训练策略不在 PPIO 任何文档的覆盖范围内。这是记为「未披露」的原因——说的是 PPIO 文档的覆盖范围，不是承诺的方向。"
+anchor = "ppio-model-privacy-1-2-third-party-services-excluded"
+
 [product.retention]
 object = "input_output"
 basis = "as_needed"
@@ -102,6 +112,11 @@ text_zh = "含存储功能服务终止后最多 7 个自然日"
 text = "Batch API input files 15 days, result output files 30 days."
 text_zh = "Batch API 输入文件 15 天、结果文件 30 天。"
 
+[[product.retention.point]]
+text = "Another object class — logs: User Agreement §3.5.5 (inside the LLM API trial-function section) says log information is kept in accordance with laws, administrative regulations and relevant state provisions. No number of days is given, so it is recorded as a statutory floor rather than a deletion deadline, and it is scoped to the LLM API trial-function section, not to all pay-as-you-go API call logs."
+text_zh = "另一类对象——日志：《用户协议》§3.5.5（位于大模型API服务试用功能专节内）写明「依照法律、行政法规和国家有关规定保存日志信息」。该条不给具体天数，只能记为法定义务、性质为下限，不是删除期限；适用范围限于大模型 API 服务试用功能专节，不代表覆盖全部按量 API 调用日志。"
+anchor = "ppio-tos-3-5-5-statutory-log-retention"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "ppio-model-privacy-6-6-storage-in-cn"
@@ -114,13 +129,33 @@ text_zh = "同顶层 processing_region：条款层境内存储、无出境场景
 text = "The product documentation's \"global multi-region deployment / global heterogeneous GPU compute\" is wording about access and scheduling; recorded alongside."
 text_zh = "产品文档的「全球多区域部署/全球异构 GPU 算力」为接入与调度表述，并列记录。"
 
+[[product.processing_region.point]]
+text = "User Agreement §3.4.6 (Model Service Agreement §3.4.6 to the same effect) mentions services outside mainland China, but that is a platform-level compliance prompt telling the customer to comply with local law; it does not say where the LLM API is processed. codes = [CN] still rests on Model Privacy Policy §6.6 and covers the PPIO hop only."
+text_zh = "《用户协议》§3.4.6（《模型服务协议》§3.4.6 同旨）提及中国大陆以外的服务，但那是平台层对用户的当地合规提示，未说明大模型 API 的处理地；codes = [CN] 的依据仍是《模型隐私政策》§6.6，且只覆盖 PPIO 这一跳。"
+anchor = "ppio-tos-3-4-6-services-outside-mainland-cn"
+
 [product.role]
 kind = "controller"
+anchor = "ppio-pilist-role-interactive-input-controller"
+
+[[product.role.point]]
+text = "Same as top-level role: PPIO identifies itself as a personal information handler (controller) for the interactive-service scenario. In the Personal Information Collection List, the row \"when you use the interactive services of the products on this website (e.g. the LLM API trial service)\" gives our role as \"personal information handler\", while the real-time audio/video SDK rows of the same table give \"personal information processing entrustee\". That row is scoped to the interactive service (e.g. the LLM API trial service), so it cannot be read as covering every paid API form."
+text_zh = "同顶层 role：PPIO 就交互服务场景自认个人信息处理者。《个人信息收集清单》中「当您使用本网站下产品的交互服务（例如大模型API试用服务）」一行的「我们的角色」列写「个人信息处理者」，同表实时音视频 SDK 各行写「个人信息处理受托方」。该行适用范围是交互服务（例如大模型 API 试用），不能读成覆盖全部付费 API 形态。"
+
+[[product.role.point]]
+text = "User Agreement §8.6 states that the LLM API product is provided by a third-party technical support provider, that PPIO gives no warranty of any kind for it, and that PPIO only provides a neutral platform and related technical services; §1.3 likewise states that PPIO is a neutral technology service provider. These are statements about the upstream hop and PPIO's platform position, not a determination that PPIO is a processor rather than a controller; the upstream entity is not disclosed."
+text_zh = "《用户协议》§8.6 声明大模型 API 产品由第三方技术支持商提供、派欧云不作任何类型的担保，派欧云仅提供中立的平台及相关技术服务；§1.3 亦称派欧云是中立的技术服务提供者。这两条说的是上游跳与平台定位，不是「PPIO 属受托处理方」的角色判定；上游主体未披露。"
 anchor = "ppio-tos-8-6-llm-api-by-third-party-provider"
 
 [[product.role.point]]
-text = "Same as top-level role: PPIO identifies itself as a personal information handler and states that the LLM API product is provided by a third-party technical support provider and that PPIO is a neutral technology service provider; the upstream entity is not disclosed."
-text_zh = "同顶层 role：自认个人信息处理者 + 声明大模型 API 由第三方技术支持商提供、仅中立平台，上游主体未披露。"
+text = "User Agreement §1.3: PPIO is a neutral technology service provider supplying technical products and services as agreed; the customer runs its own website, application, software and platform and bears all responsibility. Recorded alongside as a platform-position statement."
+text_zh = "《用户协议》§1.3：派欧云是中立的技术服务提供者，依约提供各类技术产品和服务；用户自行运营其网站、应用、软件、平台并承担全部责任。作为平台定位表述并列记录。"
+anchor = "ppio-tos-1-3-neutral-tech-service-provider"
+
+[[product.role.point]]
+text = "The upstream hop is outside PPIO's own policy: Model Privacy Policy §1.2 expressly excludes services provided by other third parties, whose information handling is governed by that third party's own privacy policy or similar document. The role of the upstream technical support provider is therefore not covered here."
+text_zh = "上游跳不在 PPIO 自己的政策覆盖范围内：《PPIO 模型隐私政策》§1.2 明文把其他第三方提供的服务排除在本政策之外，其信息处理适用该等第三方的隐私权政策或类似文件。上游技术支持商的角色因此不在本文件覆盖范围内。"
+anchor = "ppio-model-privacy-1-2-third-party-services-excluded"
 
 [[anchor]]
 id = "ppio-model-tos-4-5-training-license"
@@ -203,6 +238,26 @@ suffix = """
 """
 
 [[anchor]]
+id = "ppio-tos-3-4-6-services-outside-mainland-cn"
+source_id = "42116b5e61925e12"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "若您选择使用中国大陆以外的服务，应当确保您符合中国大陆法律法规、政策等的要求"
+suffix = ""
+
+[[anchor]]
+id = "ppio-tos-3-5-5-statutory-log-retention"
+source_id = "42116b5e61925e12"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "我们将依照法律、行政法规和国家有关规定保存日志信息"
+suffix = "。您通过互联网传播大模型API服务试用功能生成合成内容的，应保持上述内容标识的准确性、完整性。"
+
+[[anchor]]
 id = "ppio-tos-6-4-no-access-without-consent"
 source_id = "42116b5e61925e12"
 topics = ["training"]
@@ -273,6 +328,16 @@ exact = "API 接口、图片/视频生成服务、实时音视频服务及其他
 suffix = "（统称\"服务\"）向您提供的各项产品和服务。若我们及关联公司向您提供的产品或服务内设有单独隐私政策或类似法律文件，该等单独"
 
 [[anchor]]
+id = "ppio-model-privacy-1-2-third-party-services-excluded"
+source_id = "5656d6b775d76e6c"
+topics = ["retention", "zdr", "role", "processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "本政策不适用于其他第三方向您提供的服务，您的信息处理及保护事宜应当适用该等第三方的隐私权政策或类似文件"
+suffix = "，我们对任何第三方不当使用或披露由您提供的信息不承担任何法律责任。"
+
+[[anchor]]
 id = "ppio-model-privacy-2-3-2-interactive-service-api"
 source_id = "5656d6b775d76e6c"
 topics = ["retention", "training"]
@@ -339,14 +404,9 @@ source_id = "dda06b583a913975"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-信息。**-向您提供连续性、一致化的使用体验，保障服务质量（法律法规另有规定的除外）  
--在您使用本网站下交互服务时，"""
-exact = "收集您进行交互过程中所输入的信息，以向您输出内容，以提供相对应的生成服务"
-suffix = """
-。用户主动提供 个人信息处理者
-当您使用本网站下的付费产品/服务 我们会收集：  
-- 您使用的第三方支付平台（如微信、"""
+prefix = "以提供相对应的生成服务。</td><td>用户主动提供</td><td>"
+exact = "个人信息处理者"
+suffix = "</td></tr><tr><td>当您使用本网站下的付费产品/服务</td>"
 
 [[anchor]]
 id = "ppio-batch-input-file-retention-15-days"

@@ -39,16 +39,30 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "augment-community-training"
+[[product.training.point]]
+text = "Community Terms §1.8 goes beyond the opening grant: Augment may use, share, license, or sell anonymized versions of Customer Code, Usage Data and Output (collectively \"Training Data\") to develop, train and improve machine-learning or artificial-intelligence models by Augment or third parties."
+text_zh = "社区版条款 §1.8 比首段授权更进一步：Augment 可对匿名化后的 Customer Code、Usage Data 与 Output（合称 Training Data）进行 use / share / license / sell，用于自身或第三方开发、训练与改进机器学习/人工智能模型——采购最关心的「可转售」就写在这一条。"
+anchor = "augment-community-training-data"
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.augmentcode.com/legal/community-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
 [product.retention]
-object = "code_index"
-basis = "undisclosed"
+object = "mixed"
+basis = "as_needed"
+anchor = "augment-privacy-retention"
+[[product.retention.point]]
+text = "Object evidence: opening a workspace with Augment enabled automatically uploads the codebase to Augment's secure cloud and indexes it, so code and index content is a retained object; files can be excluded with .gitignore/.augmentignore. The formal documents disclose no quantitative period for the index, prompts or server-side cache."
+text_zh = "对象证据：工作区启用后代码库自动上传到 Augment 云端并建立索引，故代码/索引正文属于被保留对象（可用 .gitignore/.augmentignore 排除文件）；正式文档未披露索引、提示词或服务端缓存的量化期限。"
 anchor = "augment-cloud-index"
+[[product.retention.point]]
+text = "Scope: the Privacy Policy §Data Retention wording speaks of \"personal data\" — retained only as long as necessary to provide the Service, comply with legal obligations, resolve disputes or enforce agreements, then securely deleted or anonymized — and gives no quantified period; the ToS Effects of Termination clause only requires the customer to discontinue use and says nothing about deleting the index or server-side cache."
+text_zh = "适用范围：隐私政策 §Data Retention 的对象是 personal data——仅在提供服务、履行法律义务、解决争议或执行协议所必要的期间内保留，到期后安全删除或匿名化，未给量化期限；ToS 的 Effects of Termination 条款只要求客户停止使用，对索引与服务端缓存的删除无任何约定。"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.augmentcode.com/legal/community-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+codes = ["US"]
+anchor = "augment-privacy-region-us"
+[[product.processing_region.point]]
+text = "Region evidence: the Privacy Policy (incorporated into the ToS by reference) states that under the default Service settings personal information and other information sent to the Service is stored and processed in the United States, with transfers outside the US made under appropriate mechanisms such as the Standard Contractual Clauses (SCC); the ToS Providers clause only names third-party hosting providers and states no region. Scope caveat: the sentence covers personal information and other information sent to the Service — whether code and index payloads are covered on the same terms is not separately stated."
+text_zh = "处理地证据：隐私政策（经 ToS 以引用方式并入）写明默认设置下个人信息及其他发送到服务的信息在美国存储与处理，向美国境外传输时依据 SCC 等适当机制；ToS 的 Providers 条款只提第三方托管服务商、未给处理地。适用范围：该句对象是个人信息与「其他发送到服务的信息」，代码/索引正文是否同样适用未单独声明。"
 [product.role]
 kind = "unknown"
 searched = ["https://www.augmentcode.com/legal/community-terms-of-service"]
@@ -62,16 +76,30 @@ plan_level = "individual"
 mark = "yes"
 mode = "by_contract"
 anchor = "augment-professional-no-training"
+[[product.training.point]]
+text = "The opening paragraph of the Professional Terms states the same commitment in wider terms — Customer Code or Output is never used to train any artificial intelligence models — while §1.4 puts it as Company will not train its Models, using the Customer Code or Output. The two are one commitment worded differently, so if §1.4 is ever reworded the opening paragraph still carries the verdict."
+text_zh = "专业版条款首段以更宽的措辞给出同一承诺：Customer Code 或 Output 绝不用于训练任何人工智能模型；§1.4 的写法是 Company will not train its Models, using the Customer Code or Output。两条同源、措辞不同、方向一致，§1.4 若被改写，首段仍能支撑结论。"
+anchor = "augment-professional-first-para-no-training"
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.augmentcode.com/legal/professional-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
 [product.retention]
-object = "code_index"
-basis = "undisclosed"
+object = "mixed"
+basis = "as_needed"
+anchor = "augment-privacy-retention"
+[[product.retention.point]]
+text = "Object evidence: opening a workspace with Augment enabled automatically uploads the codebase to Augment's secure cloud and indexes it, so code and index content is a retained object; files can be excluded with .gitignore/.augmentignore. The formal documents disclose no quantitative period for the index, prompts or server-side cache."
+text_zh = "对象证据：工作区启用后代码库自动上传到 Augment 云端并建立索引，故代码/索引正文属于被保留对象（可用 .gitignore/.augmentignore 排除文件）；正式文档未披露索引、提示词或服务端缓存的量化期限。"
 anchor = "augment-cloud-index"
+[[product.retention.point]]
+text = "Scope: the Privacy Policy §Data Retention wording speaks of \"personal data\" — retained only as long as necessary to provide the Service, comply with legal obligations, resolve disputes or enforce agreements, then securely deleted or anonymized — and gives no quantified period; the ToS Effects of Termination clause only requires the customer to discontinue use and says nothing about deleting the index or server-side cache."
+text_zh = "适用范围：隐私政策 §Data Retention 的对象是 personal data——仅在提供服务、履行法律义务、解决争议或执行协议所必要的期间内保留，到期后安全删除或匿名化，未给量化期限；ToS 的 Effects of Termination 条款只要求客户停止使用，对索引与服务端缓存的删除无任何约定。"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.augmentcode.com/legal/professional-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+codes = ["US"]
+anchor = "augment-privacy-region-us"
+[[product.processing_region.point]]
+text = "Region evidence: the Privacy Policy (incorporated into the ToS by reference) states that under the default Service settings personal information and other information sent to the Service is stored and processed in the United States, with transfers outside the US made under appropriate mechanisms such as the Standard Contractual Clauses (SCC); the ToS Providers clause only names third-party hosting providers and states no region. Scope caveat: the sentence covers personal information and other information sent to the Service — whether code and index payloads are covered on the same terms is not separately stated."
+text_zh = "处理地证据：隐私政策（经 ToS 以引用方式并入）写明默认设置下个人信息及其他发送到服务的信息在美国存储与处理，向美国境外传输时依据 SCC 等适当机制；ToS 的 Providers 条款只提第三方托管服务商、未给处理地。适用范围：该句对象是个人信息与「其他发送到服务的信息」，代码/索引正文是否同样适用未单独声明。"
 [product.role]
 kind = "unknown"
 searched = ["https://www.augmentcode.com/legal/professional-terms-of-service"]
@@ -85,18 +113,30 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "augment-enterprise-no-training"
+[[product.training.point]]
+text = "The opening paragraph of the Enterprise Terms states the same commitment in wider terms — Customer Code or Output is never used to train any artificial intelligence models — while §1.4 puts it as Company will not train its Models, using the Customer Code or Output. The two are one commitment worded differently, so if §1.4 is ever reworded the opening paragraph still carries the verdict."
+text_zh = "企业版条款首段以更宽的措辞给出同一承诺：Customer Code 或 Output 绝不用于训练任何人工智能模型；§1.4 的写法是 Company will not train its Models, using the Customer Code or Output。两条同源、措辞不同、方向一致，§1.4 若被改写，首段仍能支撑结论。"
+anchor = "augment-enterprise-first-para-no-training"
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
 [product.retention]
-object = "code_index"
-basis = "undisclosed"
+object = "mixed"
+basis = "as_needed"
+anchor = "augment-privacy-retention"
+[[product.retention.point]]
+text = "Object evidence: opening a workspace with Augment enabled automatically uploads the codebase to Augment's secure cloud and indexes it, so code and index content is a retained object; files can be excluded with .gitignore/.augmentignore. The formal documents disclose no quantitative period for the index, prompts or server-side cache."
+text_zh = "对象证据：工作区启用后代码库自动上传到 Augment 云端并建立索引，故代码/索引正文属于被保留对象（可用 .gitignore/.augmentignore 排除文件）；正式文档未披露索引、提示词或服务端缓存的量化期限。"
 anchor = "augment-cloud-index"
 [[product.retention.point]]
-text_zh = "工作区启用后代码自动上传到 Augment 云端并建立索引；可用 .gitignore/.augmentignore 排除。正式文档未披露索引、提示词或服务端缓存的量化期限。"
+text = "Scope: the Privacy Policy §Data Retention wording speaks of \"personal data\" — retained only as long as necessary to provide the Service, comply with legal obligations, resolve disputes or enforce agreements, then securely deleted or anonymized — and gives no quantified period; the ToS Effects of Termination clause only requires the customer to discontinue use and says nothing about deleting the index or server-side cache."
+text_zh = "适用范围：隐私政策 §Data Retention 的对象是 personal data——仅在提供服务、履行法律义务、解决争议或执行协议所必要的期间内保留，到期后安全删除或匿名化，未给量化期限；ToS 的 Effects of Termination 条款只要求客户停止使用，对索引与服务端缓存的删除无任何约定。"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service", "https://docs.augmentcode.com/setup-augment/workspace-indexing"]
+codes = ["US"]
+anchor = "augment-privacy-region-us"
+[[product.processing_region.point]]
+text = "Region evidence: the Privacy Policy (incorporated into the ToS by reference) states that under the default Service settings personal information and other information sent to the Service is stored and processed in the United States, with transfers outside the US made under appropriate mechanisms such as the Standard Contractual Clauses (SCC); the ToS Providers clause only names third-party hosting providers and states no region. Scope caveat: the sentence covers personal information and other information sent to the Service — whether code and index payloads are covered on the same terms is not separately stated."
+text_zh = "处理地证据：隐私政策（经 ToS 以引用方式并入）写明默认设置下个人信息及其他发送到服务的信息在美国存储与处理，向美国境外传输时依据 SCC 等适当机制；ToS 的 Providers 条款只提第三方托管服务商、未给处理地。适用范围：该句对象是个人信息与「其他发送到服务的信息」，代码/索引正文是否同样适用未单独声明。"
 [product.role]
 kind = "unknown"
 searched = ["https://www.augmentcode.com/legal/enterprise-terms-of-service"]
@@ -110,12 +150,28 @@ prefix = ""
 exact = "However, as a condition of your access to the Solution, you grant us the right to use your Customer Code, Output, and Usage Data to train the artificial intelligence models used in connection with the Solution for product improvements and research purposes, including those of Company and our third-party model providers, including those of potential providers (\"Models\")"
 suffix = ""
 [[anchor]]
+id = "augment-community-training-data"
+source_id = "d20c1d2c0665c704"
+topics = ["training"]
+[anchor.selector]
+prefix = "1.8 Training Data."
+exact = "As mentioned herein, a condition of your use of the Solution is that you acknowledge and agree that Augment may use, share, license, or sell anonymized versions of your Customer Code, Usage Data, and Output (collectively \"Training Data\") for developing, training, and improving machine-learning or artificial-intelligence models by us or third parties."
+suffix = ""
+[[anchor]]
 id = "augment-professional-no-training"
 source_id = "af9774b78eeae00b"
 topics = ["training"]
 [anchor.selector]
 prefix = ""
 exact = "Company will not train its Models, using the Customer Code or Output."
+suffix = ""
+[[anchor]]
+id = "augment-professional-first-para-no-training"
+source_id = "af9774b78eeae00b"
+topics = ["training"]
+[anchor.selector]
+prefix = "collectively, \"Output\")"
+exact = "and promise that your Customer Code or Output is never used to train any artificial intelligence models (\"Models\")"
 suffix = ""
 [[anchor]]
 id = "augment-enterprise-no-training"
@@ -126,10 +182,34 @@ prefix = ""
 exact = "Company will not train its Models, using the Customer Code or Output."
 suffix = ""
 [[anchor]]
+id = "augment-enterprise-first-para-no-training"
+source_id = "ab1dd877ff24e33a"
+topics = ["training"]
+[anchor.selector]
+prefix = "collectively, \"Output\")"
+exact = "and promise that your Customer Code or Output is never used to train any artificial intelligence models (\"Models\")"
+suffix = ""
+[[anchor]]
 id = "augment-cloud-index"
 source_id = "1c76d2d4b9cc60c7"
 topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "When you open a workspace with Augment enabled, your codebase will be automatically uploaded to Augment’s secure cloud."
+suffix = ""
+[[anchor]]
+id = "augment-privacy-retention"
+source_id = "552e01ce8187a63c"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Data Retention"
+exact = "We retain your personal data only for as long as necessary to provide our Service, comply with our legal obligations, resolve disputes, or enforce our agreements. Retention periods vary depending on the nature of the data and why we collect it. After the applicable retention period, we securely delete or anonymize your data."
+suffix = "For more details on our retention practices, please contact us."
+[[anchor]]
+id = "augment-privacy-region-us"
+source_id = "552e01ce8187a63c"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Data residency and international data transfers"
+exact = "We are headquartered in the United States and, under the default Service settings, your personal information and other information sent to the Service shall be stored and processed in the United States."
 suffix = ""

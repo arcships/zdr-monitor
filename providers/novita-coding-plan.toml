@@ -21,6 +21,7 @@ note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-0
 
 [[source]]
 url = "https://trust.novita.ai/faq"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层，与 TOS §10.2 在方向上一致。"
@@ -40,6 +41,11 @@ anchor = "novita-tos-10-2-no-training"
 text = "There is no tier-specific clause; the default no-training commitment of TOS §10.2 and FAQ item 1 carries over. Confidence is medium rather than high: no sentence in the public documentation binds that commitment expressly to the Coding Plan tier, so applicability is derived from \"the TOS covers all Marketplace Offerings\"."
 text_zh = "无档位专用条款，沿用 TOS §10.2 与 FAQ 第 1 条的默认不训练承诺。置信度 medium 而非 high：公开文档没有一句话把该承诺明示绑定到 Coding Plan 这一档，属按「TOS 覆盖全部 Marketplace Offerings」推出的适用关系。"
 
+[[product.training.point]]
+text = "Multi-hop caveat: the Trust Center FAQ's sub-processor list names a category \"Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.\" API inputs and outputs therefore pass through at least one further hop. Whether that hop trains on them is not disclosed in any public document, and it must not be inferred from the category name; the whole-chain verdict therefore rests on this platform's own commitment."
+text_zh = "多跳提示：Trust Center FAQ 的子处理者清单里有一类「Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.」——API 输入输出至少要再经一跳。该跳是否用于训练，公开文档均未披露，也不得从类别名称反推；故整链结论以本平台自身的承诺为准。"
+anchor = "novita-trustfaq-subprocessor-model-provider"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -53,27 +59,75 @@ text_zh = "FAQ 第 3 条把 ZDR 说成「default for all endpoints, including se
 text = "The Coding Plan runs on the same API, but the documentation does not name this tier, hence medium."
 text_zh = "Coding Plan 走同一套 API，但文档未点名该档，故 medium。"
 
+[[product.zdr.point]]
+text = "The promise is bounded by the clause that states it: TOS §10.2 excludes the two behaviours \"unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you)\", and the sentence immediately after adds that automated safety screening \"does not constitute retention of your Content for any other purpose\". Both are qualifications of the ZDR commitment, not withdrawals of it: mark stays yes and mode stays default."
+text_zh = "该承诺被它自己那句限定：TOS §10.2 的两项排除以「unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you)」为前提，紧随其后的一句又写明自动化安全筛查「does not constitute retention of your Content for any other purpose」。两处都是 ZDR 承诺的限定条件、不是撤销：mark 仍为 yes、mode 仍为 default。"
+anchor = "novita-tos-10-2-safety-screening"
+
+[[product.zdr.point]]
+text = "Multi-hop caveat (see training): the sub-processor category \"Model provider\" processes API inputs and outputs per request, and that hop's retention policy is not disclosed. Zero retention is therefore established for this platform, not for the whole chain."
+text_zh = "多跳提示（见 training）：子处理者类别「Model provider」按请求处理 API 输入输出，该跳的保留政策未披露。故零保留只对本平台成立，不等于全链零保留。"
+anchor = "novita-trustfaq-subprocessor-model-provider"
+
 [product.retention]
-days = 180
 object = "mixed"
-basis = "fixed_period"
+basis = "none"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.retention.point]]
+text = "Object = API input and output content, context = default, type = upper bound with no fixed number of days, stated at the contract layer: no retention \"beyond the time it takes to generate Output and deliver that Output to you\" (TOS §10.2). The TOS quantifies no retention period for Content: the only six-month figure it contains is the liability look-back window in §23 (SIX (6) MONTH PERIOD), which is not a retention period. Hence this row carries basis=none and no days value."
+text_zh = "对象＝API 输入输出正文，语境＝默认，期限类型＝上限且无固定天数，合同层表述为：不保留「beyond the time it takes to generate Output and deliver that Output to you」（TOS §10.2）。TOS 没有量化任何针对 Content 的保留期限：全文唯一的六个月数字是 §23 责任限额的回溯窗口（SIX (6) MONTH PERIOD），它不是保留期限。故本行取 basis=none、不写 days。"
 anchor = "novita-tos-10-2-zero-data-retention"
 
 [[product.retention.point]]
-text = "As above, with no tier-specific period"
-text_zh = "同上，无档位专用期限"
+text = "The quantified, object-by-object statement lives in FAQ item 3, which is also the anchor of the zdr verdict: \"Not retained beyond the time required to generate and deliver Output, except where required by applicable law\" for API inputs and outputs, 6 months for technical metadata, and the duration of the account plus any statutory retention periods for account and authentication data. It is the same upper bound as the contract clause above, just split by object and with the metadata period quantified."
+text_zh = "量化且分对象的表述在 FAQ 第 3 条，该锚点同时承载 zdr 结论：API 输入输出「Not retained beyond the time required to generate and deliver Output, except where required by applicable law」、技术元数据 6 个月、账户与鉴权数据为账户存续期加法定期间。与上文合同层条款是同一个上限，只是按对象拆开、并把元数据期限量化了。"
 
 [[product.retention.point]]
-text = "Content is not retained, technical metadata is kept for 6 months, and account data follows the per-category periods in the Privacy Policy."
-text_zh = "正文不留存、技术元数据 6 个月、账户数据按 PP 分类期限。"
+text = "Object = technical metadata (request timestamps, error codes, usage metrics), context = default, type = fixed period of 6 months, for billing, debugging and security auditing (FAQ item 3)."
+text_zh = "对象＝技术元数据（请求时间戳、错误码、用量指标），语境＝默认，期限类型＝固定 6 个月，用于计费、调试与安全审计（FAQ 第 3 条）。"
+
+[[product.retention.point]]
+text = "Conflicting periods for an overlapping object, both kept on record without picking a side: the Privacy Policy's Specific Retention Periods give Technical Information 2 years for security and analytics, while FAQ item 3 gives technical metadata 6 months; the overlap is usage and request metadata. FAQ item 3's closing sentence defers to the Privacy Policy and the applicable DPA — \"Technical metadata for operational purposes (e.g., request timestamps, error codes, usage metrics) is handled as described in our Privacy Policy and applicable Data Processing Agreement\" — so the vendor's own framing is FAQ as overview, Privacy Policy as detail."
+text_zh = "同一对象上的两个冲突期限，并列保留、不选边：PP 的 Specific Retention Periods 给 Technical Information 2 年（security and analytics），FAQ 第 3 条给技术元数据 6 个月，重叠部分是用量与请求元数据。FAQ 第 3 条末句自认以 PP 与 DPA 为准——「Technical metadata for operational purposes (e.g., request timestamps, error codes, usage metrics) is handled as described in our Privacy Policy and applicable Data Processing Agreement」——即厂商口径是 FAQ 概览、PP 细则。"
+anchor = "novita-privacy-retention-specific-periods"
+
+[[product.retention.point]]
+text = "Object = account-side data, where the Privacy Policy gives per-category periods rather than one number: account information for as long as the account is active plus 7 years for legal and tax purposes (a duration-of-account lower bound plus a fixed period), transaction history 7 years for accounting and tax compliance, communication information 3 years from last communication, technical information 2 years for security and analytics. The Privacy Policy itself does not apply to content processed on behalf of customers."
+text_zh = "对象＝账户侧数据，PP 给的是分类期限而非一个数字：账户信息为账户存续期加 7 年（存续期下限＋固定年数）、交易记录 7 年（会计与税务合规）、通讯信息自最后一次沟通起 3 年、技术信息 2 年。PP 自身不适用于代客户处理的内容。"
+anchor = "novita-privacy-retention-specific-periods"
+
+[[product.retention.point]]
+text = "A separate retention path disclosed at the contract layer, object = data you transmit to the Site for managing the performance of the Marketplace Offerings plus data relating to your use of them: \"We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings, as well as data relating to your use of the Marketplace Offerings. Although we perform regular routine backups of data, you are solely responsible for all data that you transmit...\" (TOS §25). This is an account/operations-side path and the clause does not state that it applies to API input and output content, so it is recorded as another retention path and does not change the no-retention conclusion for content."
+text_zh = "合同层披露的另一条留存路径，对象＝你传输到 Site 的、用于管理 Marketplace Offerings 运行的数据以及与你使用相关的数据：「We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings, as well as data relating to your use of the Marketplace Offerings. Although we perform regular routine backups of data, you are solely responsible for all data that you transmit...」（TOS §25）。属账户/运营侧路径，条款未声明适用于 API 输入输出正文；故作为「其他留存路径」列出，不改变正文不留存的结论。"
+anchor = "novita-tos-25-user-data-maintained"
+
+[[product.retention.point]]
+text = "Exception qualifying the no-retention promise, sitting in the same clause: automated safety screening applied to Content \"does not constitute retention of your Content for any other purpose\" (TOS §10.2)."
+text_zh = "同一句里的限定条件：对 Content 施加的自动化安全筛查「does not constitute retention of your Content for any other purpose」（TOS §10.2）。"
+anchor = "novita-tos-10-2-safety-screening"
 
 [product.processing_region]
-codes = ["US"]
+mark = "unknown"
+searched = [
+  "https://novita.ai/legal/terms-of-service",
+  "https://novita.ai/legal/privacy-policy",
+  "https://trust.novita.ai/faq",
+]
+
+[[product.processing_region.point]]
+text = "The only sentence touching geography is the Privacy Policy's cross-border disclosure, and it states no processing location: \"We may transfer Personal Information to countries outside your country or region, including the United States.\" It names a transfer destination (and not only the United States), so codes=[\"US\"] cannot be derived from it; the same policy also says it \"does not apply to content that we process on behalf of customers\", which excludes API input and output content."
+text_zh = "唯一涉及地域的一句是 PP 的跨境传输披露，它并未声明处理地：「We may transfer Personal Information to countries outside your country or region, including the United States.」说的是传输去向（且不只美国），推不出 codes=[\"US\"]；同一份政策还自述「does not apply to content that we process on behalf of customers」，即 API 输入输出正文不在其适用范围内。"
 anchor = "novita-privacy-international-transfers"
 
 [[product.processing_region.point]]
-text = "No tier-specific wording; only the Privacy Policy's cross-border disclosure carries over; low confidence."
-text_zh = "无档位专用表述，仅沿用 PP 的跨境披露；低置信度。"
+text = "The only infrastructure statement in the three documents is FAQ item 6's \"Infrastructure: Hosted on AWS data centers\", which gives no region. The TOS carries no region or processing-location wording at all (§22 mentions only \"our secure servers\"). Recorded as undisclosed: the vendor has not stated where processing happens, and that is not the same as a statement that processing happens in the United States."
+text_zh = "三份文档里唯一的基础设施表述是 FAQ 第 6 条的「Infrastructure: Hosted on AWS data centers」，未给区域；TOS 全文无任何处理地或区域表述（§22 只说「our secure servers」）。按未披露记录：厂商没有说明处理地，这也不等于厂商声明在美国处理。"
+anchor = "novita-trustfaq-infra-aws"
+
+[[product.processing_region.point]]
+text = "No tier-specific wording: no region statement in the source set names the Coding Plan tier."
+text_zh = "无档位专用表述：来源集中的任何区域声明都未点名 Coding Plan 这一档。"
 
 [product.role]
 kind = "processor"
@@ -107,6 +161,36 @@ exact = "We have adopted a \"Zero Data Retention\" policy, which means that we w
 suffix = " Notwithstanding the foregoing, you agree that we have the r"
 
 [[anchor]]
+id = "novita-tos-10-2-safety-screening"
+source_id = "67323c4abe43949b"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " deliver that Output to you. Notwithstanding the foregoing, "
+exact = "you agree that we have the right to apply automated safety screening tools to your Content as we deem appropriate, and that such screening does not constitute retention of your Content for any other purpose."
+suffix = """
+
+
+**10.3. AI Output Disclaimer**
+
+THE SERVICES USE ARTIFICIA"""
+
+[[anchor]]
+id = "novita-tos-25-user-data-maintained"
+source_id = "67323c4abe43949b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+demnification upon becoming aware of it.
+
+## 25. USER DATA
+
+"""
+exact = "We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings, as well as data relating to your use of the Marketplace Offerings."
+suffix = " Although we perform regular routine backups of data, you ar"
+
+[[anchor]]
 id = "novita-privacy-scope-customer-content"
 source_id = "65b322371ba5a6a6"
 topics = ["role"]
@@ -137,6 +221,28 @@ exact = "We may transfer Personal Information to countries outside your country 
 suffix = " Where required by applicable law, we use appropriate safegu"
 
 [[anchor]]
+id = "novita-privacy-retention-specific-periods"
+source_id = "65b322371ba5a6a6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+y legal requirements.
+
+**Specific Retention Periods:**
+
+*   """
+exact = """
+Account Information: Retained for as long as your account is active plus 7 years for legal and tax purposes
+*   Transaction History: Retained for 7 years for accounting and tax compliance
+*   Communication Information: Retained for 3 years from last communication
+*   Technical Information: Retained for 2 years for security and analytics purposes"""
+suffix = """
+
+
+We may also anonymize or de-identify your Personal Informa"""
+
+[[anchor]]
 id = "novita-trustfaq-retention-by-category"
 source_id = "e41cd9e2fea73eae"
 topics = ["retention", "zdr"]
@@ -153,3 +259,23 @@ suffix = """
 https://trust.novita.ai/faq?s=5s1pb55bl2k8rtitswvg7s
 
 Do y"""
+
+[[anchor]]
+id = "novita-trustfaq-infra-aws"
+source_id = "e41cd9e2fea73eae"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "s; privileged access requires multi-factor authentication • "
+exact = "Infrastructure: Hosted on AWS data centers with enterprise-grade physical and network security"
+suffix = " Our security team maintains 24/7/365 on-call coverage to re"
+
+[[anchor]]
+id = "novita-trustfaq-subprocessor-model-provider"
+source_id = "e41cd9e2fea73eae"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "ng. Data processed: aggregated/anonymized usage metadata. • "
+exact = "Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests."
+suffix = " • Payment provider (e.g., Stripe): Provides billing and pay"

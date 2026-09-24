@@ -71,6 +71,21 @@ text_zh = "同顶层 training：§4.3 授权「输入内容及对应输出内容
 [[product.training.point]]
 text_zh = "匿名化训练句在隐私政策层，主语是最终用户个人信息。平台层并列条款：《用户服务协议》§五.3 的「广告营销以及技术优化」授权更宽且无退出机制，但该条对象是「您上传至本平台的内容」、属平台层范围，对接口服务范围已由接口协议 §11 与本协议 §三.2(4) 让位于本专门协议（见顶层 training 维度 (2)）。"
 
+[[product.training.point]]
+text = "Second content-layer licence, at the MaaS layer and wider than §4.3: the Xingchen MaaS Platform User Instructions §3 authorises use of the input content and the corresponding output content for optimisation of that service, with the same encryption/de-identification preconditions but without the limitation to this agreement, so it is not confined to the interface-service scope. Interface policy §6.2 admits that this service includes third-party models hosted on Xingchen MaaS, so this clause bears on this tier."
+text_zh = "第二条内容层授权，在 MaaS 层且比 §4.3 宽：星辰 MaaS《用户使用须知》§三以同样的加密/去标识化为前提，把「本服务所收集的输入内容及对应输出内容」用于「本服务的优化」，但去掉了「本协议下」的限定。接口协议 §6.2 自认本服务含「在星辰 MaaS 平台上托管的第三方模型」，故该条对本档范围有实际意义。"
+anchor = "xfyun-maas-3-content-optimization-license"
+
+[[product.training.point]]
+text = "The exit channel of that MaaS licence is a generic feedback request rather than a named contract clause: users who refuse the authorisation may send comments or suggestions to the vendor. It differs from §4.3, which points to §8.2."
+text_zh = "该 MaaS 授权的退出渠道是通用反馈（「您可以向我们反馈您的意见或建议」），不是像 §4.3 那样指向具体条款（§8.2）。"
+anchor = "xfyun-maas-3-optout-channel"
+
+[[product.training.point]]
+text = "Multi-hop: this tier covers third-party models hosted on the Xingchen MaaS platform (interface policy §6.2, MaaS instructions §二.3), and interface policy §6.1 admits the service may contain third-party open-source software, products or services. No public document states whether requests are forwarded to the original model vendors or what role those vendors take in the chain, so no end-to-end conclusion is drawn — one hop that is clearly negative would make the whole chain negative."
+text_zh = "多跳链路：本档范围含星辰 MaaS 平台上托管的第三方模型（接口协议 §6.2、MaaS 须知 §二.3），接口协议 §6.1 亦自认本服务可能包含第三方（开源）软件、产品或服务。公开文档未披露这些请求是否转发至模型原厂、也未披露原厂在链路中的角色与数据处理政策，故不给全链结论（任一跳明确为否即全链为否）。"
+anchor = "xfyun-iface-6-1-third-party-components"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -85,9 +100,15 @@ searched = [
 [[product.zdr.point]]
 text_zh = "同顶层 zdr：无零保留承诺、开关或申请方式，国内站无公开 DPA。"
 
+[[product.zdr.point]]
+text = "Multi-hop caveat, same scope as training: this tier includes third-party models hosted on Xingchen MaaS (interface policy §6.1/§6.2), and no public document says whether requests are forwarded to the model vendors or what role they take, so no end-to-end conclusion is given for the chain."
+text_zh = "多跳链路限定（与 training 同范围）：本档含星辰 MaaS 托管的第三方模型（接口协议 §6.1/§6.2），公开文档未披露请求是否转发至原厂、也未披露原厂角色，故不给全链结论。"
+anchor = "xfyun-iface-6-1-third-party-components"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
+anchor = "xfyun-privacy-6-2-network-log-six-months"
 searched = [
   "https://www.xfyun.cn/doc/policy/SparkInterfacePolicy.html",
   "https://www.xfyun.cn/doc/policy/privacy.html",
@@ -98,39 +119,97 @@ searched = [
 ]
 
 [[product.retention.point]]
-text_zh = "同顶层 retention：请求内容无量化期限（目的所需/最短时间）"
+text = "No quantitative period for request content: the platform privacy policy binds retention to purpose only — data is kept within the period needed for the purposes stated in the policy (§五.3) and for the shortest time necessary for those purposes (§六.2). No figure is given for API input or output."
+text_zh = "同顶层 retention：请求内容无量化期限。平台隐私政策 §五.3「达成本政策所述目的所需的期限内」与 §六.2「为实现本政策所述目的所必需的最短时间保留」都是目的绑定，输入输出正文没有任何期限数字。"
+anchor = "xfyun-privacy-5-3-retention-purpose-bound"
 
 [[product.retention.point]]
-text_zh = "调用日志与系统日志存在但无期限"
+text = "System logs exist with no stated period: the platform may automatically collect certain information as system logs, including product usage records, search queries, visited page addresses and login IP."
+text_zh = "系统日志存在但无期限：§二.1.a「系统可能会通过Cookies或其他方式自动收集某些信息作为系统日志保存」，含产品服务使用记录、搜索查询内容、访问的页面地址、登录IP。"
+anchor = "xfyun-privacy-2-1-a-system-log"
 
 [[product.retention.point]]
-text_zh = "网络日志≥6 个月与交易信息≥3 年为法定下限"
+text = "Call logs exist with no stated period: device call-record logs for the vendor's API/SDK are collected for statistical analysis of call volume."
+text_zh = "调用日志存在但无期限：§二.2.b「我们会收集您的设备调用我们API/SDK的调用记录日志，以用于调用数量的统计分析」。"
+anchor = "xfyun-privacy-2-2-b-call-log"
 
 [[product.retention.point]]
-text_zh = "注销后仍保留非个人信息的行为记录。"
+text = "Statutory lower bound, object = network logs: the Cybersecurity Law provision quoted in §六.2 requires relevant network logs to be kept for no less than six months. It is a floor, not a ceiling, and cannot be read backwards into a deletion time for input or output content."
+text_zh = "法定下限，对象是网络日志：§六.2 引《网络安全法》「留存相关的网络日志不少于六个月」。这是下限不是上限，不能反推输入输出正文的删除时点。"
+anchor = "xfyun-privacy-6-2-network-log-six-months"
+
+[[product.retention.point]]
+text = "Statutory lower bound, object = transaction information: the E-commerce Law provision quoted in §六.2 requires product, service and transaction information to be kept for no less than three years from completion of the transaction. Again a floor, and again not a period for input or output content."
+text_zh = "法定下限，对象是交易信息：§六.2 引《电子商务法》「商品和服务信息、交易信息保存时间自交易完成之日起不少于三年」。同样是下限，不是输入输出正文的期限。"
+anchor = "xfyun-privacy-6-2-ecommerce-three-years"
+
+[[product.retention.point]]
+text = "Deletion commitment after the period: once the period above has passed, or after the user asks for deletion or cancels the account, personal information is deleted as soon as possible under applicable law — unless the law or national normative documents require a longer period."
+text_zh = "超期删除承诺：§六.2「在超过上述期限，或您主动要求删除您的个人信息或注销您的账号后，我们将根据适用法律法规的要求尽快删除您的个人信息」，但保留法律法规或国家规范性文件要求更长期间的情形。"
+anchor = "xfyun-privacy-6-2-delete-after-period"
+
+[[product.retention.point]]
+text = "After account cancellation the vendor still keeps non-personal records: interface policy §1.5 — registration data and previous behaviour records are retained, except where they are personal information."
+text_zh = "注销后仍保留非个人信息的行为记录：接口协议 §1.5「保留该用户的注册数据及以前的行为记录，但属于个人信息的除外」。"
+anchor = "xfyun-iface-1-5-retain-after-cancel"
+
+[[product.retention.point]]
+text = "Boundary clause, not a period: platform agreement §五.4(3) ends the confidentiality obligation in six situations, including disclosure required by laws and regulations, by administrative or judicial organs, or by other competent authorities. It bounds when content may still be kept or disclosed; no retention period can be derived from it."
+text_zh = "边界条款，不是期限条款：平台总协议 §五.4(3) 规定保密义务在六种情形下终止，含「法律法规要求、行政司法机关要求、或其他有权机关要求披露的」。它限定内容仍可被保留或披露的边界，不能据此推保留期限。"
+anchor = "xfyun-agreement-5-4-confidentiality-exceptions"
 
 [product.processing_region]
 codes = ["CN"]
 anchor = "xfyun-privacy-6-1-storage-in-cn"
 
 [[product.processing_region.point]]
-text_zh = "同顶层 processing_region：境内存储与处理，例外三类"
+text = "Same as the processing-region verdict: information collected within mainland China is stored on iFlytek servers in mainland China, with three exceptions (express legal provisions, explicit authorisation, or cross-border transactions initiated by the user)."
+text_zh = "同顶层 processing_region：§六.1「收集的有关您的信息和资料将保存在中华人民共和国境内大陆地区科大讯飞的服务器上」，例外三类——法律法规有明确规定、获得您的明确授权、您通过互联网进行跨境交易等个人主动行为。"
+anchor = "xfyun-privacy-6-1-storage-in-cn"
 
 [[product.processing_region.point]]
-text_zh = "国际站为独立主体（新加坡），不并入。"
+text = "Boundary fact, not a processing-location statement: platform agreement §十三.4 limits use of the service to mainland China and disclaims liability if the user uses it outside mainland China, especially in the EU. This is a platform-layer service-use territory limit, in the same direction as the storage clause; it cannot serve as the main evidence for where data is processed."
+text_zh = "边界事实，不是处理地声明：平台总协议 §十三.4「本服务仅限于在中国大陆地区使用，如您擅自在中国大陆以外（特别是欧盟）地区使用，公司不承担因此而产生的任何责任」。这是平台层的服务使用地域限制，与存储条款同向，但不能当处理地的主证据。"
+anchor = "xfyun-agreement-13-4-china-mainland-only"
+
+[[product.processing_region.point]]
+text = "Same direction, developer layer: the developer compliance guide states that the vendor's SDK/API are provided only to developers in mainland China and strongly recommends using them only in mainland China."
+text_zh = "同向限定，开发者层：《开发者用户个人信息保护合规指引》§一.8「我们的SDK/API仅面向中华人民共和国大陆境内的开发者提供」，并强烈建议仅在中国大陆使用。"
+anchor = "xfyun-devguide-cn-mainland-only"
 
 [product.role]
 kind = "controller"
+anchor = "xfyun-privacy-2-controller-self-description"
+
+[[product.role.point]]
+text = "Content layer, controller side: the platform privacy policy states that iFlytek acts as the handler of personal information, and the same policy defines a personal-information handler as an organisation or individual that decides the purposes and means of processing on its own. Interface policy §4.3 additionally takes a licence over input and output content for the vendor's own optimisation purpose, with an exit channel under §8.2."
+text_zh = "内容层控制者一侧：平台隐私政策 §二 自述「科大讯飞作为个人信息的处理者」，该政策 §一.9 把「个人信息处理者」定义为「自主决定处理目的、处理方式的组织、个人」；接口协议 §4.3 另就输入输出内容取得用于自身优化目的的授权（退出渠道 §8.2）。"
+anchor = "xfyun-privacy-2-controller-self-description"
+
+[[product.role.point]]
+text = "Platform-layer support, with a scope caveat: the platform user service agreement §五.3 lets the vendor use content uploaded to the platform for advertising and marketing, technical optimisation, fault analysis and troubleshooting, with no de-identification precondition and no exit mechanism. Its object is content uploaded to the platform and it is a platform-layer clause; for the interface-service scope it yields to the interface policy (see that source's note and the second point under api training), so it is recorded here as a same-direction platform-layer fact rather than this tier's main evidence."
+text_zh = "平台层同向依据（附范围限定）：《用户服务协议》§五.3 允许将「您上传至本平台的内容」用于「广告营销以及技术优化、故障分析和排除」，无去标识化前提、无退出机制。其对象是上传至平台的内容、属平台层条款；对接口服务范围已让位于接口协议（见该来源 note 与 api 档 training 第 2 条 point），故此处只作平台层同向事实，不作本档主证据。"
+anchor = "xfyun-agreement-5-3-ad-marketing-optimization"
+
+[[product.role.point]]
+text = "Final-user personal data layer, processor side: the developer compliance guide says personal information of the developer's final users that the vendor processes on instruction is transferred to mainland China for processing — the only place in these documents where the vendor calls itself a processor."
+text_zh = "最终用户个人信息层，受托一侧：开发者合规指引 §一.9(2)「我们受托处理的有关您最终用户的个人信息将传输到中国大陆境内处理」——本家唯一一处自认「受托处理」的表述。"
+anchor = "xfyun-devguide-entrusted-processing-in-cn"
+
+[[product.role.point]]
+text = "Same layer, disclosure side: the same guide requires developers to tell final users that their personal information is shared to iFlytek for processing through the integrated SDK/API. This is a disclosure-layer wording, not a contradiction with the processor wording above: under PIPL the same entity can sit on different sides for different processing activities and purposes, so both statements are kept side by side."
+text_zh = "同层披露一侧：同指引 §一.3 要求开发者告知最终用户其个人信息将通过集成的讯飞SDK/API「共享至讯飞进行处理」。这是披露层表述，与上一条的受托表述并不矛盾——按 PIPL，同一主体可对不同处理活动与目的分别处于受托方与独立控制者位置，故两条并列保留。"
+anchor = "xfyun-devguide-1-3-share-to-iflytek"
+
+[[product.role.point]]
+text = "Third-party hosted models on Xingchen MaaS: interface policy §6.2 — the vendor calls itself a computing-infrastructure service provider and only provides capability-invocation services for third-party models, code and technology hosted on Xingchen MaaS, disclaiming any commitment on their timeliness, availability, security or compliance. The sentence defines that sub-tier's positioning and disclaimer; it is not a determination of controller status over the content layer."
+text_zh = "星辰 MaaS 托管第三方模型时自认仅提供能力调用服务（接口协议 §6.2）。该句界定的是该子档的定位与免责（不承诺第三方模型的时效性、可用性、安全性、合规性），不构成对内容层控制者地位的认定。"
 anchor = "xfyun-iface-6-2-infra-service-provider"
 
 [[product.role.point]]
-text_zh = "同顶层 role：内容层为控制者（§4.3 + 用户协议 §五.3）"
-
-[[product.role.point]]
-text_zh = "最终用户个人信息层自认受托处理（开发者合规指引）"
-
-[[product.role.point]]
-text_zh = "星辰 MaaS 托管第三方模型时自认仅提供能力调用服务。"
+text = "Multi-hop caveat, same scope as training: this tier includes third-party models hosted on Xingchen MaaS (interface policy §6.1/§6.2), and no public document discloses whether requests are forwarded to the model vendors or what role they take, so no end-to-end conclusion is given for the chain."
+text_zh = "多跳链路限定（与 training 同范围）：本档含星辰 MaaS 托管的第三方模型（接口协议 §6.1/§6.2），公开文档未披露请求是否转发至原厂、也未披露原厂角色，故不给全链结论。"
+anchor = "xfyun-iface-6-1-third-party-components"
 
 [[product]]
 id = "sparkdesk-consumer-app"
@@ -149,9 +228,13 @@ text_zh = "匿名化/去标识化后用于「学术研究或统计分析…以�
 [[product.training.point]]
 text_zh = "唯一一处明确的否定只针对记忆数据：「在未获得您单独明确同意的前提下，您的记忆数据不会被用于模型训练、模型迭代优化」。"
 
+[[product.training.point]]
+text = "Feedback information is used to improve output quality: the vendor collects the feedback the user submits in order to keep improving the quality of Xinghuo's output. Under the ledger rule that improving the service or its quality counts as training, this is a training-related purpose statement. Object: the feedback ratings and content the user actively submits, not the conversation input itself."
+text_zh = "反馈信息用于改进输出质量：§1.2「我们将收集您的反馈信息，包括您主动提交的内容，以便不断改进讯飞星火的输出内容质量」——按「用来改进服务/提高质量算训练」的口径属 training 相关用途。对象是用户主动提交的反馈评价信息，不是对话输入本身，不要混进「输入输出正文」的口径。"
+anchor = "xfyun-xinghuo-1-2-feedback-improve-quality"
+
 [product.zdr]
-mark = "no"
-anchor = "xfyun-xinghuo-1-6-qa-history-retention"
+mark = "unknown"
 searched = [
   "https://xinghuo.xfyun.cn/policy/%E8%AE%AF%E9%A3%9E%E6%98%9F%E7%81%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96v2",
   "https://www.xfyun.cn/doc/spark/PrivacyPolicy.html",
@@ -159,7 +242,8 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text_zh = "消费端文档无零保留/临时模式类承诺"
+text = "No zero-retention or temporary-mode commitment in the consumer documents: the Xinghuo privacy policy never states a zero-retention, no-retention or temporary (incognito) mode. This is an undisclosed item — we searched these pages and the vendor does not address the question — not a statement by the vendor that no such option exists. No sentence in the snapshot is bound here, because none addresses this dimension."
+text_zh = "消费端文档无零保留/临时模式类承诺：星火隐私政策全文未出现零保留、不保留或临时模式类表述。属「未披露」（查了 searched 里列出的页面、厂商未就本维度表态），不是厂商明确表示不提供，故不绑引文。"
 
 [[product.zdr.point]]
 text_zh = "记忆管理只能关闭记忆功能并删除数据，不是请求级零保留。"
@@ -167,6 +251,7 @@ text_zh = "记忆管理只能关闭记忆功能并删除数据，不是请求级
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
+anchor = "xfyun-xinghuo-1-6-qa-history-retention"
 searched = [
   "https://xinghuo.xfyun.cn/policy/%E8%AE%AF%E9%A3%9E%E6%98%9F%E7%81%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96v2",
   "https://www.xfyun.cn/doc/spark/PrivacyPolicy.html",
@@ -174,10 +259,39 @@ searched = [
 ]
 
 [[product.retention.point]]
-text_zh = "问答历史与对话主题「为履行网络信息安全义务，我们会在法律规定的时间内保留」（配合《网络安全法》网络日志≥6 个月，属下限口径）"
+text = "Question-and-answer history and conversation topics are kept for the period required by law, with no figure of its own: the vendor retains them to fulfil network information security obligations, and the user can look up and manage history that has not been deleted. No quantitative period is given for input or output content."
+text_zh = "问答历史与对话主题「为履行网络信息安全义务，我们会在法律规定的时间内保留」，本身没有数字；用户可查找并管理尚未删除的问答历史。输入输出正文无任何量化期限。"
+anchor = "xfyun-xinghuo-1-6-qa-history-retention"
 
 [[product.retention.point]]
-text_zh = "记忆数据「不会无限期保存；当您注销账号时，记忆数据将按照法律法规要求同步处理」——「不会无限期保存」是无上限的反面表述，不构成量化期限。"
+text = "Purpose-bound retention in §六.2: personal information is kept for the time necessary for the processing purposes stated in the policy, unless applicable law or national normative documents provide otherwise."
+text_zh = "§六.2 的目的绑定保留：「一般而言，我们将在您使用讯飞星火期间为实现本政策所述处理目的所必需的时间内保留您的个人信息」，除非可适用的法律法规或国家规范性文件另有规定。"
+anchor = "xfyun-xinghuo-6-2-retention-purpose-bound"
+
+[[product.retention.point]]
+text = "Deletion commitment in §六.2: once the period above has passed, or after the user asks for deletion or cancels the account, personal information is deleted as soon as possible under applicable law, unless a longer period is required. The memory-data sentence uses the same mechanism for memory data."
+text_zh = "§六.2 的删除承诺：「在超过上述期限，或您主动要求删除您的个人信息或注销您的账号后，我们将根据适用法律法规的要求尽快删除您的个人信息」，除非法律法规或国家规范性文件要求更长期间。"
+anchor = "xfyun-xinghuo-6-2-delete-after-period"
+
+[[product.retention.point]]
+text = "Statutory lower bound, object = network logs: §六.2 quotes the Cybersecurity Law provision requiring relevant network logs to be kept for no less than six months. This is a floor, not a ceiling — it cannot be read backwards into a deletion time for input or output content, and the consumer-side points above do not rest on it."
+text_zh = "法定下限，对象是网络日志：§六.2 引《网络安全法》「采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月」。这是下限不是上限，不能反推输入输出正文的删除时点。"
+anchor = "xfyun-xinghuo-6-2-network-log-six-months"
+
+[[product.retention.point]]
+text = "Statutory lower bound, object = transaction information: §六.2 quotes the E-commerce Law provision requiring product, service and transaction information to be kept for no less than three years from completion of the transaction. Again a floor, and again not a period for input or output content."
+text_zh = "法定下限，对象是交易信息：§六.2 引《电子商务法》「商品和服务信息、交易信息保存时间自交易完成之日起不少于三年」。同样是下限，不是输入输出正文的期限。"
+anchor = "xfyun-xinghuo-6-2-ecommerce-three-years"
+
+[[product.retention.point]]
+text = "Another object and context, digital avatar: for avatars already created, related information is kept only while the user continues to use that avatar, and deleting the avatar deletes the related data with it. The object is the face-material images and the generated avatar image; the context is that new avatars can no longer be created and this applies only to existing ones. It is not a request-level deletion commitment for input or output content."
+text_zh = "另一类对象与语境，数字分身：§1.13「对于您此前已创建的数字分身，我们仅在您继续使用该数字分身期间保存相关信息。您删除该数字分身后，相关数据将一并删除」。对象是含人脸素材的图片信息与生成的形象；语境是已停止新建、只对存量分身；期限类型是「随使用存续 + 删除即删」，不要读成请求级输入输出的删除承诺。"
+anchor = "xfyun-xinghuo-1-13-digital-avatar-retention"
+
+[[product.retention.point]]
+text = "Memory data: it is not kept indefinitely, and is handled together with account cancellation under the law. Not keeping it indefinitely is the negative of a ceiling, so it does not amount to a quantitative period."
+text_zh = "记忆数据：「不会无限期保存；当您注销账号时，记忆数据将按照法律法规要求同步处理」——「不会无限期保存」是无上限的反面表述，不构成量化期限。"
+anchor = "xfyun-xinghuo-memory-no-training-without-consent"
 
 [product.processing_region]
 codes = ["CN"]
@@ -195,6 +309,11 @@ text_zh = "消费端由科大讯飞直接运营并直接面向用户，隐私政
 
 [[product.role.point]]
 text_zh = "§4.3 取得输入输出用于产品优化的授权，拒绝渠道 §7.2。"
+
+[[product.role.point]]
+text = "Processing for the vendor's own purposes, same direction: the privacy policy reserves automated decision-making (profiling) built from account, device, log, location, text-content and search data, in order to show personalised pages and recommend content and the vendor's or third parties' commercial information and marketing advertising. Users can limit automated decision-making and turn pushes off under §七. This is role evidence only — it is not a statement about improving the service or a model, so it is not counted as a training-purpose clause."
+text_zh = "以自主目的处理个人信息，同向证据：§四(1) 基于账号信息、设备信息、日志信息、位置信息、文本内容、搜索记录等「进行自动化决策（构建用户画像）」，用于个性化页面展示与自有或第三方商业资讯、营销广告推送；可经第七条「限制自动化决策和关闭推送」限制。只作 role 证据，不作 training 的用途授权句。"
+anchor = "xfyun-xinghuo-4-1-automated-decision"
 
 [[anchor]]
 id = "xfyun-iface-4-3-optimization-license"
@@ -730,3 +849,130 @@ prefix = """
 7.   """
 exact = "我们的SDK/API仅面向中华人民共和国大陆境内的开发者提供"
 suffix = "，为避免您由于不了解最终用户所在国家或地区与个人信息保护相关的法律法规、规范性文件而触犯当地监管规定，**我们强烈建议您"
+
+[[anchor]]
+id = "xfyun-maas-3-content-optimization-license"
+source_id = "c7374e024200215c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+## # 三、数据处理须知
+
+**"""
+exact = "您知悉并授权，为了提升您使用本服务的用户体验，在经安全加密技术处理、去标识化或匿名化处理的前提下，我们可能会将本服务所收集的输入内容及对应输出内容，用于本服务的优化。"
+suffix = "如您拒绝提供前述授权，您可以向我们反馈您的意见或建议，我们将在充分尊重您的意见基础上采取有效措施以保护您的合法权益。**"
+
+[[anchor]]
+id = "xfyun-iface-6-1-third-party-components"
+source_id = "4d49bfc41954d452"
+topics = ["training", "role", "zdr"]
+
+[anchor.selector]
+exact = "本服务可能包含第三方（开源）软件、产品或服务"
+
+[[anchor]]
+id = "xfyun-agreement-13-4-china-mainland-only"
+source_id = "c12dbf9e32063454"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+3、如本协议中的任何条款无论因何种原因完全或部分无效或不具有执行力，本协议的其余条款仍应有效并且有约束力。
+
+4、"""
+exact = "本服务仅限于在中国大陆地区使用，如您擅自在中国大陆以外（特别是欧盟）地区使用，公司不承担因此而产生的任何责任。"
+
+[[anchor]]
+id = "xfyun-privacy-2-controller-self-description"
+source_id = "d91128c5d97d6f08"
+topics = ["role"]
+
+[anchor.selector]
+exact = "科大讯飞作为个人信息的处理者"
+suffix = "，会遵循合法、正当、必要、诚信的原则"
+
+[[anchor]]
+id = "xfyun-devguide-1-3-share-to-iflytek"
+source_id = "5df4324011c81cb6"
+topics = ["role"]
+
+[anchor.selector]
+exact = "应向最终用户告知其个人信息将通过开发者应用内集成的讯飞SDK/API共享至讯飞进行处理"
+suffix = "，说明个人信息处理的详情"
+
+[[anchor]]
+id = "xfyun-xinghuo-1-2-feedback-improve-quality"
+source_id = "1c7d4501e7e057a4"
+topics = ["training"]
+
+[anchor.selector]
+exact = "在对话过程中，您可以对讯飞星火所输出的内容进行反馈评价。我们将收集您的反馈信息，包括您主动提交的内容，以便不断改进讯飞星火的输出内容质量。"
+suffix = "如您拒绝我们收集和处理前述个人信息，请您谨慎输入前述信息"
+
+[[anchor]]
+id = "xfyun-xinghuo-4-1-automated-decision"
+source_id = "1c7d4501e7e057a4"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+（1）基于您向我们提供的和我们主动收集的个人信息，包括您的 **账号信息、设备信息、日志信息、位置信息、文本内容、搜索记录** ，"""
+exact = "我们可能会基于其中一项或多项信息的结合进行自动化决策（构建用户画像），以向您提供更契合您需求的页面展示、推荐您可能感兴趣的个性化内容、推荐我们或第三方的商业资讯和营销广告。"
+suffix = "请您知悉，根据相关法律法规规定，您有权拒绝通过自动化决策方式向个人进行的信息推送、商业营销。"
+
+[[anchor]]
+id = "xfyun-xinghuo-1-13-digital-avatar-retention"
+source_id = "1c7d4501e7e057a4"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "对于您此前已创建的数字分身，我们仅在您继续使用该数字分身期间保存相关信息。您删除该数字分身后，相关数据将一并删除。"
+suffix = "我们不会将您的个人信息用于个人身份识别，也不会与第三方进行共享。"
+
+[[anchor]]
+id = "xfyun-xinghuo-6-2-retention-purpose-bound"
+source_id = "1c7d4501e7e057a4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+2.存储信息的期限
+
+"""
+exact = "一般而言，我们将在您使用讯飞星火期间为实现本政策所述处理目的所必需的时间内保留您的个人信息"
+suffix = "，除非可适用的法律法规或国家规范性文件另有规定。具体参考法规包括："
+
+[[anchor]]
+id = "xfyun-xinghuo-6-2-delete-after-period"
+source_id = "1c7d4501e7e057a4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+（2）《电子商务法》第二章第三十一条规定：商品和服务信息、交易信息保存时间自交易完成之日起不少于三年；法律、行政法规另有规定的，依照其规定。
+
+"""
+exact = "在超过上述期限，或您主动要求删除您的个人信息或注销您的账号后，我们将根据适用法律法规的要求尽快删除您的个人信息"
+suffix = "，除非可适用的法律法规或国家规范性文件要求在更长的期间内保留这些信息。"
+
+[[anchor]]
+id = "xfyun-xinghuo-6-2-network-log-six-months"
+source_id = "1c7d4501e7e057a4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+（1）《网络安全法》第三章第二十一条规定："""
+exact = "采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月。"
+
+[[anchor]]
+id = "xfyun-xinghuo-6-2-ecommerce-three-years"
+source_id = "1c7d4501e7e057a4"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+（2）《电子商务法》第二章第三十一条规定："""
+exact = "商品和服务信息、交易信息保存时间自交易完成之日起不少于三年"
+suffix = "；法律、行政法规另有规定的，依照其规定。"

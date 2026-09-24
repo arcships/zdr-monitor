@@ -21,19 +21,59 @@ plan_level = "free"
 mark = "no"
 anchor = "training-3.3-iv-collect-improve-ai-models"
 
+[[product.training.point]]
+text = "Scope of this row: the NVIDIA API Catalog trial tier only. §1.4: \"Unless you purchase a Subscription from NVIDIA or a Service Provider (as applicable), you may only use the API Service for internal testing and evaluation purposes, not in production. The terms and conditions of your Subscription will govern your production use of the API Service.\" Production use runs under separately purchased Subscription terms, which have no public source and no snapshot in this ledger — nothing here may be read as the production tier's policy."
+text_zh = "本行范围：仅覆盖 NVIDIA API Catalog 试用档。§1.4：「Unless you purchase a Subscription from NVIDIA or a Service Provider (as applicable), you may only use the API Service for internal testing and evaluation purposes, not in production. The terms and conditions of your Subscription will govern your production use of the API Service.」生产使用由另行购买的 Subscription 条款管辖，该条款无公开来源、本台账也没有快照——不得据此推断生产档政策。"
+anchor = "scope-1.4-subscription-governs-production"
+
 [product.zdr]
 mark = "no"
 anchor = "retention-2.4-ft-30-90d-security-logging"
 
 [[product.zdr.point]]
-text_zh = "2.3 的默认确实是会话结束即不留存，但 2.4 把微调数据和安全日志排除在外（30 至 90 天），所以端到端不是零保留。"
+text = "The §2.3 default is genuinely no storage at the end of each session, but §2.4 carves out two exceptions — certain API Services such as Fine Tuning (User Content 30 days from first upload, its Generated Content 90 days from first availability) and security/anti-fraud logging and storage of User Content and Generated Content with no published period — so the tier is not end-to-end zero retention."
+text_zh = "2.3 的默认确实是会话结束即不留存，但 2.4 留了两条例外：某些 API Service（如微调）的 User Content 自首次上传起 30 天、其 Generated Content 自首次提供起 90 天；以及为安全/反欺诈可记录并留存 User Content 与 Generated Content，期限未公布——所以端到端不是零保留。"
 anchor = "retention-2.3-session-default"
 
+[[product.zdr.point]]
+text = "Second reason this tier is not zero-retention: \"Your use of the API Services will be logged for security, fraud or abuse monitoring and shared with third party service providers for this purpose.\" Use of the API Services is logged, the logs are shared with third party service providers, and no retention period is published for them."
+text_zh = "第二处不成零保留的理由：「Your use of the API Services will be logged for security, fraud or abuse monitoring and shared with third party service providers for this purpose.」API Service 的使用会被记录、日志会交给第三方服务商，且没有公布任何保留期限。"
+anchor = "retention-3.3-use-logs-third-party"
+
+[[product.zdr.point]]
+text = "Scope of this row: the API Catalog trial tier only. §1.4: \"The terms and conditions of your Subscription will govern your production use of the API Service.\" Production use is governed by separately purchased Subscription terms with no public source and no snapshot in this ledger, so whether that tier offers any zero-retention option cannot be answered from this file."
+text_zh = "本行范围：仅 API Catalog 试用档。§1.4：「The terms and conditions of your Subscription will govern your production use of the API Service.」生产使用由另行购买的 Subscription 条款管辖，该条款无公开来源、本台账也没有快照——该档是否提供零保留方案，本文件回答不了。"
+anchor = "scope-1.4-subscription-governs-production"
+
 [product.retention]
-days = 30
 object = "input_output"
-basis = "fixed_period"
+basis = "none"
 anchor = "retention-2.3-session-default"
+
+[[product.retention.point]]
+text = "Default of this tier (§2.3): \"Except as stated below in Section 2.4 or unless expressly disclosed to you for an API Service, NVIDIA will not store or use User Content or Generated Content at the end of each API Service session.\" Object = User Content and Generated Content (input and output content); context = the trial tier's default; the bound is the end of the session, not a retention window. The same sentence names its own two openings: Section 2.4 below, and anything expressly disclosed to you for an API Service."
+text_zh = "本档默认（§2.3）：「Except as stated below in Section 2.4 or unless expressly disclosed to you for an API Service, NVIDIA will not store or use User Content or Generated Content at the end of each API Service session.」对象=User Content 与 Generated Content（输入输出正文）；语境=试用档默认；边界是会话结束，不是某个保留窗口。该句自带两个开口：下文 §2.4，以及为某个 API Service 向你明示披露的另行约定。"
+anchor = "retention-2.3-session-default"
+
+[[product.retention.point]]
+text = "First exception, with its own scope (§2.4): \"For certain API Services, such as the Fine Tuning API Service or as expressly disclosed in the NVIDIA API Catalog, unless you purchase a Subscription from the appropriate Service Provider, NVIDIA will store User Content for thirty (30) days from first upload of User Content, and the Generated Content of the Fine Tuning Service for ninety (90) days from when it is first made available to you\". Object and period are split: User Content 30 days from first upload, the Fine Tuning Service's Generated Content 90 days from first availability. Context = certain API Services such as Fine Tuning, or as expressly disclosed in the API Catalog — this is not the trial tier's blanket default, so the 30 days must not be read as a single rule covering every call."
+text_zh = "第一条例外及其自身范围（§2.4）：「For certain API Services, such as the Fine Tuning API Service or as expressly disclosed in the NVIDIA API Catalog, unless you purchase a Subscription from the appropriate Service Provider, NVIDIA will store User Content for thirty (30) days from first upload of User Content, and the Generated Content of the Fine Tuning Service for ninety (90) days from when it is first made available to you」。对象与期限是分开的：User Content 自首次上传起 30 天；Fine Tuning Service 的 Generated Content 自首次提供起 90 天。语境=某些 API Service（如微调），或按 API Catalog 明示披露者——这不是试用档的笼统默认值，不能把 30 天读成覆盖所有调用的单一规则。"
+anchor = "retention-2.4-ft-30-90d-security-logging"
+
+[[product.retention.point]]
+text = "Second exception, in the same sentence as the 30/90 days and with no published period: \"except that NVIDIA may log and store User Content and Generated Content to monitor for security or to prevent fraud or abuse as stated in Section 3.3.\" Object = User Content and Generated Content themselves, not only access logs; context = security and fraud/abuse monitoring; no time limit is published, so this is an open-ended exception rather than a bounded deletion promise."
+text_zh = "第二条例外，与 30/90 天同句，且没有公布期限：「except that NVIDIA may log and store User Content and Generated Content to monitor for security or to prevent fraud or abuse as stated in Section 3.3.」对象=User Content 与 Generated Content 正文本身，不只是访问日志；语境=安全与反欺诈/反滥用监控；期限未公布，是一条无上限的例外，不能当作有界的删除承诺。"
+anchor = "retention-2.4-security-logging-exception"
+
+[[product.retention.point]]
+text = "Third object, with no period at all: \"Your use of the API Services will be logged for security, fraud or abuse monitoring and shared with third party service providers for this purpose.\" Object = use/access logs of the API Services, which is a different object from input and output content; context = security, fraud or abuse monitoring; the clause states the logging and the sharing but no retention period, so logs are the one object in this row whose period is undisclosed."
+text_zh = "第三类对象，完全没有期限：「Your use of the API Services will be logged for security, fraud or abuse monitoring and shared with third party service providers for this purpose.」对象=API Service 的使用/访问日志，与输入输出正文是不同的对象；语境=安全、欺诈或滥用监控；该句写明会记录并与第三方服务商共享，但没有给任何保留期限——日志是本行唯一期限未公布的对象。"
+anchor = "retention-3.3-use-logs-third-party"
+
+[[product.retention.point]]
+text = "Scope of this row: the API Catalog trial tier only. §1.4: \"The terms and conditions of your Subscription will govern your production use of the API Service.\" Production use is governed by separately purchased Subscription terms with no public source and no snapshot in this ledger; §2.4's 30/90 days is itself conditioned on \"unless you purchase a Subscription from the appropriate Service Provider\", so it must not be read as the production tier's retention rule."
+text_zh = "本行范围：仅 API Catalog 试用档。§1.4：「The terms and conditions of your Subscription will govern your production use of the API Service.」生产使用由另行购买的 Subscription 条款管辖，该条款无公开来源、本台账也没有快照；§2.4 的 30/90 天本身就以「unless you purchase a Subscription from the appropriate Service Provider」为前提，不得当作生产档的保留规则。"
+anchor = "scope-1.4-subscription-governs-production"
 
 [product.processing_region]
 mark = "unknown"
@@ -50,9 +90,34 @@ searched = [
   "https://www.nvidia.com/en-us/agreements/trustworthy-ai/terms/",
 ]
 
+[[product.processing_region.point]]
+text = "Why this stays undisclosed: the only clause bearing on whether NVIDIA servers are suitable for processing data is a disclaimer, not a location disclosure — §4.3: \"NVIDIA does not represent, and specifically disclaims, that NVIDIA servers are appropriate for processing of any data including personal data\". §4.5's \"NVIDIA servers\" is a prohibition on misuse, not a processing-location statement. No data residency, region or country is named anywhere in the trial terms, so the disclaimer is recorded here as the reason for undisclosed rather than as evidence of a location."
+text_zh = "为什么仍然是未披露：协议里唯一涉及「NVIDIA 服务器是否适合处理数据」的条款是免责声明，不是处理地披露——§4.3：「NVIDIA does not represent, and specifically disclaims, that NVIDIA servers are appropriate for processing of any data including personal data」。§4.5 提到的 NVIDIA servers 是禁止滥用的行为限制，不是处理地说明。试用条款全篇没有点名任何数据驻留地、区域或国家，故此处把该免责声明记为「未披露」的理由，而不是处理地的证据。"
+anchor = "region-4.3-servers-not-represented"
+
 [product.role]
 kind = "controller"
+anchor = "role-2.7-monitor-scan-review"
+
+[[product.role.point]]
+text = "Basis for reading NVIDIA as a controller, and what it rests on: §3.3 has NVIDIA collecting \"User Content and Generated Content to improve NVIDIA products and services, including AI models\" — it decides to use the content for its own products and models rather than only on the user's instructions. The Agreement itself never uses the words controller or processor (the only \"Service Provider\" in it, §1.4, defines a reseller of Subscriptions), so this determination rests on the own-purpose clause plus §2.7, not on a role stated in the text."
+text_zh = "把 NVIDIA 读作独立控制者的依据与其性质：§3.3 让 NVIDIA 收集「User Content and Generated Content to improve NVIDIA products and services, including AI models」——即为自身产品与模型决定使用目的，而不只是按用户指示处理。协议全文没有出现 controller / processor 字样（唯一出现的 Service Provider 是 §1.4 里订阅转售方的定义），因此该定性建立在「为自身目的处理」这一条款与 §2.7 之上，不是协议明写的角色。"
+anchor = "training-3.3-iv-collect-improve-ai-models"
+
+[[product.role.point]]
+text = "Counterweight inside the very clause that grants the licence (§2.2): the licence runs \"during your API Service session solely to provide you with the API Service and as otherwise described in this Agreement or expressly disclosed to you for an API Service\" — limited to the session and to serving the user, which reads closer to a service-provider side than to an independent controller. The same tail is also the opening condition on the retention promises in §2.3 and §2.4."
+text_zh = "同一条授予许可的条款里的反向面（§2.2）：许可被限定为「during your API Service session solely to provide you with the API Service and as otherwise described in this Agreement or expressly disclosed to you for an API Service」——只限会话期间、且仅为向你提供 API Service，方向更接近服务提供方一侧。同一句尾也是 §2.3、§2.4 保留承诺的开口条件。"
 anchor = "role-2.2-content-license-during-session"
+
+[[product.role.point]]
+text = "Second counterweight (§2.5): \"You acknowledge that NVIDIA does not manage or control User Content or Generated Content that you provide, make available or create through the NVIDIA API Catalog.\" With §2.1 (the user is solely responsible for all User Content and Generated Content) this pushes responsibility onto the user and cuts against reading NVIDIA as the party deciding how the content is handled."
+text_zh = "第二处反向面（§2.5）：「You acknowledge that NVIDIA does not manage or control User Content or Generated Content that you provide, make available or create through the NVIDIA API Catalog.」与 §2.1（用户对全部 User Content 与 Generated Content 负全责）一起把责任推向用户一侧，与「由 NVIDIA 决定内容如何处理」的读法相反。"
+anchor = "role-2.5-no-manage-control"
+
+[[product.role.point]]
+text = "Applicability limit carried by the section that also disclaims server suitability (§4.3): \"Unless expressly permitted by an API Service, you will not upload any personal information relating to an identifiable individual, financial, health or governmental information, or any other information which may be subject to data privacy or data security laws, rules, or regulations.\" The trial tier is not offered for personal or regulated data unless a service expressly permits it — a limit on what may be submitted, not a role designation."
+text_zh = "适用范围限制（§4.3，与「服务器适格性」免责同节）：「Unless expressly permitted by an API Service, you will not upload any personal information relating to an identifiable individual, financial, health or governmental information, or any other information which may be subject to data privacy or data security laws, rules, or regulations.」除某项服务明示许可外，试用档不接受个人信息或受监管数据——这是对可提交内容的限制，不是角色定性。"
+anchor = "role-4.3-no-personal-data-upload"
 
 [[anchor]]
 id = "training-3.3-iv-collect-improve-ai-models"
@@ -97,14 +162,67 @@ suffix = """
 2.5 You acknowledge that NVIDIA"""
 
 [[anchor]]
+id = "retention-2.4-security-logging-exception"
+source_id = "fad8b9f47627bf99"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "of the Fine Tuning Service for ninety (90) days from when it is first made available to you, "
+exact = "except that NVIDIA may log and store User Content and Generated Content to monitor for security or to prevent fraud or abuse"
+suffix = " as stated in Section 3.3."
+
+[[anchor]]
+id = "retention-3.3-use-logs-third-party"
+source_id = "fad8b9f47627bf99"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "including AI models. "
+exact = "Your use of the API Services will be logged for security, fraud or abuse monitoring and shared with third party service providers for this purpose."
+suffix = " 3.4 The API Service may contain links to third party"
+
+[[anchor]]
+id = "region-4.3-servers-not-represented"
+source_id = "fad8b9f47627bf99"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "which may be subject to data privacy or data security laws, rules, or regulations. "
+exact = "NVIDIA does not represent, and specifically disclaims, that NVIDIA servers are appropriate for processing of any data including personal data"
+suffix = ", data constituting credit card information subject to Payment Card Industry Data Security Standard"
+
+[[anchor]]
+id = "role-4.3-no-personal-data-upload"
+source_id = "fad8b9f47627bf99"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "4.3 "
+exact = "Unless expressly permitted by an API Service, you will not upload any personal information relating to an identifiable individual, financial, health or governmental information, or any other information which may be subject to data privacy or data security laws, rules, or regulations."
+suffix = " NVIDIA does not represent, and specifically disclaims"
+
+[[anchor]]
 id = "role-2.2-content-license-during-session"
 source_id = "fad8b9f47627bf99"
 topics = ["role", "zdr"]
 
 [anchor.selector]
-prefix = "Content or Generated Content on or through the API Service, "
-exact = "you grant NVIDIA, its affiliates and their service providers a worldwide license with respect to User Content and Generated Content, to use, host, store, reproduce, modify, create derivative works"
-suffix = " (such as those resulting from translations, adaptations or "
+prefix = "Content on or through the API Service, "
+exact = "you grant NVIDIA, its affiliates and their service providers a worldwide license with respect to User Content and Generated Content, to use, host, store, reproduce, modify, create derivative works (such as those resulting from translations, adaptations or other changes), display and transmit such User Content and Generated Content during your API Service session solely to provide you with the API Service and as otherwise described in this Agreement or expressly disclosed to you for an API Service."
+suffix = """
+ 
+
+2.3 Except as stated below in Section 2.4"""
+
+[[anchor]]
+id = "role-2.5-no-manage-control"
+source_id = "fad8b9f47627bf99"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "2.5 "
+exact = "You acknowledge that NVIDIA does not manage or control User Content or Generated Content that you provide, make available or create through the NVIDIA API Catalog."
+suffix = " You understand and agree that NVIDIA is not responsible"
 
 [[anchor]]
 id = "role-2.7-monitor-scan-review"
