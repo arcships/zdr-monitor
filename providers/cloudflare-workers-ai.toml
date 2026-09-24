@@ -10,7 +10,7 @@ doc = "https://www.cloudflare.com/service-specific-terms-developer-platform/"
 url = "https://developers.cloudflare.com/ai/models/index.md"
 channel = "developer_data"
 tier = "core"
-note = "Cloudflare 统一 AI 模型目录（226 个模型）：65 个 Cloudflare-hosted（即 Workers AI 目录）+ 161 个 Third-party（经 AI Gateway 接入的外部 provider），其中 90 个带「Zero data retention」标签——但 65 个 Cloudflare-hosted 模型无一带该标签（逐条解析 226 条目录项后统计）。用于说明 ZDR 标签的适用范围，不构成对 Workers AI 的承诺。**取正文方式**：原用页面 HTML URL /ai/models/，r.jina.ai 只返回模型卡片列表，漏掉「We found 226 models」计数句与筛选器文本，锚点随之落空；改用该页自带的官方『View as Markdown』静态源 index.md（逐字含计数句与全部目录项，实测两次抓取一致）。"
+note = "Cloudflare 统一 AI 模型目录（229 个模型）：65 个 Cloudflare-hosted（即 Workers AI 目录）+ 164 个 Third-party（经 AI Gateway 接入的外部 provider），其中 93 个带「Zero data retention」标签——但 65 个 Cloudflare-hosted 模型无一带该标签（逐条解析 229 条目录项后统计）。用于说明 ZDR 标签的适用范围，不构成对 Workers AI 的承诺。**取正文方式**：原用页面 HTML URL /ai/models/，r.jina.ai 只返回模型卡片列表，漏掉「We found 229 models」计数句与筛选器文本，锚点随之落空；改用该页自带的官方『View as Markdown』静态源 index.md（逐字含计数句与全部目录项，实测两次抓取一致）。"
 
 [[source]]
 url = "https://developers.cloudflare.com/data-localization/"
@@ -131,8 +131,8 @@ text = "The vendor discloses no zero-retention / ZDR option, switch or applicati
 text_zh = "官方未披露 Workers AI 托管推理的零保留 / ZDR 选项、开关或申请方式——这是「未披露」，不是「承诺相反」，不得反向解读为不提供。已核范围：Workers AI 文档站 llms.txt 枚举的全部页面（overview、data-usage、models、limits、pricing、glossary、event-subscriptions、changelog、errors、configuration/*、features/*（含 prompt-caching、batch-api、fine-tunes、function-calling、json-mode、markdown-conversion、prompting、reject-if-busy）、guides/*，共 25 页）逐页核过，无 ZDR / zero data retention / 零保留字样"
 
 [[product.zdr.point]]
-text = "Of the 226 entries in the unified model catalog, all 90 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
-text_zh = "统一模型目录 226 条里带「Zero data retention」标签的 90 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
+text = "Of the 229 entries in the unified model catalog, all 93 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
+text_zh = "统一模型目录 229 条里带「Zero data retention」标签的 93 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
 
 [[product.zdr.point]]
 text = "Also \"ZDR does not control AI Gateway logging\": logging has to be switched off separately. Observations pointing the other way (not equivalent to a ZDR commitment): data-usage's \"may be stored ... if you specifically use a storage service\" and the prompt caching description of cached input tensors indicate that the default inference path does not write content to disk, but those are descriptions of conditions and uses."
@@ -355,8 +355,8 @@ text = "The vendor discloses no zero-retention / ZDR option, switch or applicati
 text_zh = "官方未披露 Workers AI 托管推理的零保留 / ZDR 选项、开关或申请方式——这是「未披露」，不是「承诺相反」，不得反向解读为不提供。已核范围：Workers AI 文档站 llms.txt 枚举的全部页面（overview、data-usage、models、limits、pricing、glossary、event-subscriptions、changelog、errors、configuration/*、features/*（含 prompt-caching、batch-api、fine-tunes、function-calling、json-mode、markdown-conversion、prompting、reject-if-busy）、guides/*，共 25 页）逐页核过，无 ZDR / zero data retention / 零保留字样"
 
 [[product.zdr.point]]
-text = "Of the 226 entries in the unified model catalog, all 90 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
-text_zh = "统一模型目录 226 条里带「Zero data retention」标签的 90 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
+text = "Of the 229 entries in the unified model catalog, all 93 carrying a \"Zero data retention\" tag are Third-party (external providers reached through AI Gateway), and not one of the 65 Cloudflare-hosted entries (the Workers AI catalog) carries the tag. Cross-entry dependency (important): AI Gateway does have a ZDR switch, but the documentation states plainly that it \"only applies to Unified Billing requests that use Cloudflare-managed credentials\" and that \"ZDR is currently supported for: OpenAI / Anthropic\" — so routing Workers AI requests through AI Gateway (unified billing) still does not obtain ZDR; that switch works only for OpenAI's and Anthropic's third-party models"
+text_zh = "统一模型目录 229 条里带「Zero data retention」标签的 93 条全部是 Third-party（经 AI Gateway 接入的外部 provider），65 条 Cloudflare-hosted（即 Workers AI 目录）无一带该标签。跨条目依赖（重要）：AI Gateway 确有 ZDR 开关，但文档明文「only applies to Unified Billing requests that use Cloudflare-managed credentials」且「ZDR is currently supported for: OpenAI / Anthropic」——即把 Workers AI 请求接到 AI Gateway（unified billing）也拿不到 ZDR，该开关只对 OpenAI/Anthropic 的第三方模型成立"
 
 [[product.zdr.point]]
 text = "Also \"ZDR does not control AI Gateway logging\": logging has to be switched off separately. Observations pointing the other way (not equivalent to a ZDR commitment): data-usage's \"may be stored ... if you specifically use a storage service\" and the prompt caching description of cached input tensors indicate that the default inference path does not write content to disk, but those are descriptions of conditions and uses."
@@ -927,7 +927,7 @@ exact = "Alibaba's HappyHorse 1.0 image-to-video model. Animates a reference ima
 suffix = ""
 
 [[anchor]]
-id = "ai-models-unified-count-226"
+id = "ai-models-unified-model-count"
 source_id = "7c889b56a9202057"
 topics = ["role"]
 
@@ -936,7 +936,7 @@ prefix = """
 etup/)
 
 Task TypesCapabilitiesProvidersAuthorsNewest first"""
-exact = "We found 226 models"
+exact = "We found 229 models"
 suffix = """
 Clear filters
 
