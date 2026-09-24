@@ -1,6 +1,7 @@
 name: 派发复核
 
-# 快照 PR 合并后，给这个 provider 开一个 [policy-review] issue 交给 issue-fixer。
+# 快照 PR 合并后，若变化碰到了跟五个维度有关的内容（snapshot.yml 打的 needs-review 标签），
+# 给这个 provider 开一个 [policy-review] issue 交给 issue-fixer；页面装修类变化只更新快照。
 # 手动触发时开 [full-review]：每个 provider 一个 issue、一个 agent。
 # 对应 models.dev 同步时开 [missing-model] issue 再派发 issue-fixer。
 
@@ -23,7 +24,8 @@ jobs:
   open:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged && startsWith(github.head_ref, 'automation/snapshot-'))
+      (github.event.pull_request.merged && startsWith(github.head_ref, 'automation/snapshot-') &&
+       contains(github.event.pull_request.labels.*.name, 'needs-review'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

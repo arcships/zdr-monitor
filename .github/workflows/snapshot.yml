@@ -100,16 +100,27 @@ jobs:
           git checkout -B "$BRANCH"
           git add snapshots
           git commit -m "$TITLE"
-          bun run snapshot:auto-merge "$PROVIDER" HEAD^ HEAD
+          bun run --silent snapshot:auto-merge "$PROVIDER" HEAD^ HEAD > "$RUNNER_TEMP/check.md"
           safe="$(sed -n 's/^safe=//p' "$GITHUB_OUTPUT" | tail -1)"
+          review="$(sed -n 's/^review=//p' "$GITHUB_OUTPUT" | tail -1)"
+          cat .sync/snapshot-report.md "$RUNNER_TEMP/check.md" > "$RUNNER_TEMP/body.md"
+          tee -a "$GITHUB_STEP_SUMMARY" < "$RUNNER_TEMP/check.md" >/dev/null
           git push --force-with-lease origin "$BRANCH"
 
           pr="$(gh pr list --head "$BRANCH" --base main --json number --jq '.[0].number')"
           if [ -n "$pr" ]; then
-            gh pr edit "$pr" --title "$TITLE" --body-file .sync/snapshot-report.md
+            gh pr edit "$pr" --title "$TITLE" --body-file "$RUNNER_TEMP/body.md"
           else
-            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file .sync/snapshot-report.md --label snapshot
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file "$RUNNER_TEMP/body.md" --label snapshot
             pr="$(gh pr list --head "$BRANCH" --base main --json number --jq '.[0].number')"
+          fi
+
+          # 只有碰到五个维度的变化才在合并后叫 agent（review-issues.yml 看这个标签）
+          gh label create needs-review --color fbca04 --description "快照变化碰到了跟五个维度有关的内容" --force >/dev/null
+          if [ "$review" = "true" ]; then
+            gh pr edit "$pr" --add-label needs-review >/dev/null
+          else
+            gh pr edit "$pr" --remove-label needs-review >/dev/null 2>&1 || true
           fi
 
           if [ "$safe" = "true" ]; then
