@@ -69,9 +69,9 @@ export interface Capture {
   method: Method
   status: number
   /** created = 第一次有快照；changed = 正文变了且跟我们引用的内容有关；same = 没变；
-   *  cosmetic = 正文变了但跟引文、查过的页面都无关，不重写快照；failed = 没抓到可用正文 */
+   *  cosmetic = 正文变了但跟引文无关、也没有新增相关表述，不重写快照；failed = 没抓到可用正文 */
   outcome: "created" | "changed" | "same" | "cosmetic" | "failed"
-  /** changed 的理由：哪条引文失效、哪条引文的上下文变了、查过的页面新增了什么 */
+  /** changed 的理由：哪条引文失效、哪条引文的上下文变了、页面新增了什么相关表述 */
   reasons?: string[]
   error?: string
   chars?: number
