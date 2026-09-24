@@ -145,7 +145,9 @@ jobs:
 
           title="$(jq -r .title "$RUNNER_TEMP/issue.json")"
           git switch -c "$BRANCH"
-          git add -A -- providers changes snapshots
+          # 「检查改动范围」已经保证只动了 providers/<p>.toml 和 changes/<p>/，之后只多了 bot 抓的 snapshots/。
+          # 不按目录列举：changes/ 可能还不存在，git add 会因 pathspec 不匹配而失败
+          git add -A
           git commit -m "fix: ${title:0:200}"
           git push --force origin "$BRANCH"
           {
