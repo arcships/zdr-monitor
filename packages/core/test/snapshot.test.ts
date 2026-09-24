@@ -188,3 +188,26 @@ test("快照 diff：只有跟引文有关、或页面新增相关表述的变化
     server.stop(true)
   }
 })
+
+test("快照 diff：短行上的引文改了也要重写，不被「只有短行变了」吞掉", async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "zdr-snapshot-"))
+  let body = ""
+  const server = Bun.serve({ port: 0, fetch: () => new Response(body, { headers: { "content-type": "text/html" } }) })
+  const long = "本条款适用于您通过本平台使用的全部模型服务，包括按量付费与订阅套餐两种计费方式下产生的请求。"
+  const filler = [1, 2, 3, 4].map((n) => `<p>第${n}节：${long}</p>`).join("")
+  const page = (clause: string) => `<main><h2>数据使用</h2>${filler}<p>${clause}</p><p>${long.replace("本条款", "上述约定")}</p></main>`
+  try {
+    const url = `http://localhost:${server.port}/terms`
+    const src = { id: sourceId(url), url }
+    const watch = { anchors: [{ prefix: "", exact: "本服务不会使用您的数据训练模型", suffix: "" }], searched: false }
+    body = page("本服务不会使用您的数据训练模型。")
+    expect((await capture(root, src, false, watch)).outcome).toBe("created")
+    body = page("本服务会使用您的数据训练模型。")
+    const r = await capture(root, src, false, watch)
+    expect(r.outcome).toBe("changed")
+    expect(r.reasons?.[0]).toStartWith("引文失效")
+    expect(readSnapshot(root, src.id)).toContain("本服务会使用您的数据训练模型")
+  } finally {
+    server.stop(true)
+  }
+})
