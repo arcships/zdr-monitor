@@ -162,7 +162,9 @@ function context(text: string, selector: Selector) {
 /** 新旧两版之间的变化跟我们引用过的内容有没有关系，返回理由；空数组就是无关（cosmetic）：
  *    - 引文失效：原本能唯一定位，现在找不到或变成多处
  *    - 引文上下文变了：引文还在，但它所在的那几段改了
- *    - 查过的页面有新表述：某条 unknown 结论的 searched 里有这个页面，新增了碰到五个维度的句子 */
+ *    - 页面有新表述：我们引用过、或某条 unknown 结论查过的页面，新增了碰到五个维度的句子。
+ *      新句子离引文再远也算——「默认情况下每个请求的输入和回复都会持久化存储」这种新披露
+ *      不在任何引文旁边，却直接关系到保留期 */
 export function relevantChanges(before: string, after: string, watch: Watch): string[] {
   const reasons: string[] = []
   for (const a of watch.anchors) {
@@ -172,8 +174,8 @@ export function relevantChanges(before: string, after: string, watch: Watch): st
     if (now === null) reasons.push(`引文失效：「${quote}」`)
     else if (was !== now) reasons.push(`引文上下文变了：「${quote}」`)
   }
-  if (watch.searched)
+  if (watch.searched || watch.anchors.length)
     for (const line of policyChanges(before, after).filter((l) => l.startsWith("+ ")))
-      reasons.push(`查过的页面新增：${line.slice(2, 200)}`)
+      reasons.push(`页面新增：${line.slice(2, 200)}`)
   return reasons
 }

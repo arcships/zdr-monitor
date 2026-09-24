@@ -119,7 +119,7 @@ test("只有短行（导航、时间戳）变化不算正文变化；长句变�
   expect(sameMaterial(clause, clause.replace("不会", "会"))).toBe(false)
 })
 
-test("快照 diff：只有跟引文或查过的页面有关的变化才重写快照", async () => {
+test("快照 diff：只有跟引文有关、或页面新增相关表述的变化才重写快照", async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "zdr-snapshot-"))
   let body = ""
   const server = Bun.serve({ port: 0, fetch: () => new Response(body, { headers: { "content-type": "text/html" } }) })
@@ -163,18 +163,27 @@ test("快照 diff：只有跟引文或查过的页面有关的变化才重写快
     expect(lost.outcome).toBe("changed")
     expect(lost.reasons?.[0]).toStartWith("引文失效")
 
-    // 没有引文、但是 unknown 结论查过的页面：远处新增了保留期限的句子，算新表述
+    // 引用过的页面：离引文很远的小节新增了保留期限的句子，也算新表述
     body = page()
     await capture(root, src, false, cited)
-    const searched = { anchors: [], searched: true }
     body = page({ retention: "API inputs and outputs are retained for up to 30 days to identify abuse, then deleted." })
-    const found = await capture(root, src, false, searched)
+    const far = await capture(root, src, false, cited)
+    expect(far.outcome).toBe("changed")
+    expect(far.reasons?.[0]).toStartWith("页面新增")
+
+    // 没有引文、但是 unknown 结论查过的页面：同样算
+    const other = { id: sourceId(`${url}/faq`), url: `${url}/faq` }
+    const searched = { anchors: [], searched: true }
+    body = page()
+    expect((await capture(root, other, false, searched)).outcome).toBe("created")
+    body = page({ retention: "API inputs and outputs are retained for up to 30 days to identify abuse, then deleted." })
+    const found = await capture(root, other, false, searched)
     expect(found.outcome).toBe("changed")
-    expect(found.reasons?.[0]).toStartWith("查过的页面新增")
+    expect(found.reasons?.[0]).toStartWith("页面新增")
 
     // 什么都不关心的来源：正文怎么变都不重写
     body = page({ retention: "API inputs and outputs are retained for up to 90 days to identify abuse, then deleted." })
-    expect((await capture(root, src)).outcome).toBe("cosmetic")
+    expect((await capture(root, other)).outcome).toBe("cosmetic")
   } finally {
     server.stop(true)
   }

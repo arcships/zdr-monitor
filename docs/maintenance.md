@@ -62,11 +62,15 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 revi
 不重写快照。抓取失败不写快照，只进 `.sync/snapshot-report.md`。
 
 只要一个 provider 当天有一份快照被重写，就会走一轮快照 PR → CI → 复核 issue → agent
-（按 provider 合并，每天最多一轮）。为了不让纯装修的变化触发这一轮，diff 本身设了门槛
-（`src/snapshot/relevance.ts`）：新正文跟上一版比，只有这个来源上的引文失效了，或者变化的句子里
-出现训练、保留、删除、角色、数据驻留、期限这类词，才算变化、才重写快照。相关文章推荐、页面标题、
-目录项、侧栏、cookie 横幅、示例代码、同一句话换缩写都记为 `cosmetic`，不写快照；
-「do not use … to train」改成「may use … to train」这种只变了否定/情态词的算变化。
+（按 provider 合并，每天最多一轮）。所以 diff 只认跟我们有关的变化（`src/snapshot/relevance.ts`）：
+
+- 引文失效：原本能唯一定位的 `exact` 现在找不到或变成多处
+- 引文上下文变了：引文所在小节里、前后各 3 段有改动
+- 页面有新表述：我们引用过、或某条 unknown 结论查过的页面，新增了碰到五个维度的句子
+  （离引文再远也算）
+
+都不沾的记为 `cosmetic`，不写快照：相关文章推荐、标题、目录、侧栏、cookie 横幅、示例代码、
+同一句话换缩写都属于这一类。没有引文、也不在任何 `searched` 里的来源，正文怎么变都不触发。
 
 `bun run calibrate` 对每个来源三种方式各抓一次、按引文命中数给出建议，用于新增来源
 或换运行环境（本机和 GitHub runner 的出口 IP 不同）时重新确定 `fetch`。
