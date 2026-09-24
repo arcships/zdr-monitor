@@ -11,7 +11,7 @@ import { loadAll, sourceId, type Source } from "../registry"
 import { closeBrowser, fetchWith, type Method } from "./fetch"
 import { toText, unusable } from "./extract"
 import { fold, locate } from "./quote"
-import { relevantChanges, type Watch } from "./relevance"
+import { lostAnchors, relevantChanges, type Watch } from "./relevance"
 
 export { METHODS, type Method } from "./fetch"
 
@@ -99,9 +99,11 @@ export async function capture(
   if (reason) return { ...base, status: raw.status, outcome: "failed", error: reason }
 
   const previous = readSnapshot(root, source.id)
-  const reasons = previous === null || sameMaterial(previous, text) ? [] : relevantChanges(previous, text, watch)
-  const outcome =
-    previous === null ? "created" : sameMaterial(previous, text) ? "same" : reasons.length ? "changed" : "cosmetic"
+  // 引文失效先查、单独查：它不受「只有短行变了不算变化」的约束，短行上的引文改了也要重写快照
+  const lost = previous === null ? [] : lostAnchors(previous, text, watch.anchors)
+  const same = previous !== null && !lost.length && sameMaterial(previous, text)
+  const reasons = previous === null || same ? [] : lost.length && sameMaterial(previous, text) ? lost : relevantChanges(previous, text, watch)
+  const outcome = previous === null ? "created" : same ? "same" : reasons.length ? "changed" : "cosmetic"
   if (outcome === "created" || outcome === "changed") {
     if (!dryRun) {
       fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })

@@ -159,6 +159,13 @@ function context(text: string, selector: Selector) {
   return folded.slice(from, to + 1).join("")
 }
 
+/** 原本能唯一定位、新正文里定位不到的引文。只看引文本身，不管所在行多短——
+ *  「本服务不会使用您的数据训练模型。」这种短句改一个字，正文长行可能一行都没变 */
+export function lostAnchors(before: string, after: string, anchors: Selector[]) {
+  const [a, b] = [fold(before), fold(after)]
+  return anchors.filter((x) => locate(a, x) === 1 && locate(b, x) !== 1).map((x) => `引文失效：「${x.exact.slice(0, 100)}」`)
+}
+
 /** 新旧两版之间的变化跟我们引用过的内容有没有关系，返回理由；空数组就是无关（cosmetic）：
  *    - 引文失效：原本能唯一定位，现在找不到或变成多处
  *    - 引文上下文变了：引文还在，但它所在的那几段改了
