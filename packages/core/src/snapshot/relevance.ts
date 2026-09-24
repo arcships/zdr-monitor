@@ -3,7 +3,10 @@
  *  快照总是照常更新；这里只决定要不要开 [policy-review] issue。门槛是变化的正文行
  *  碰到了跟五个维度有关的内容。页面装修（相关文章换了推荐、时间戳、标题、侧栏）不算，
  *  同一句话换个缩写（Zero Data Retention → ZDR）也不算。 */
-import { fold } from "./quote"
+import { spawnSync } from "node:child_process"
+import path from "node:path"
+import { loadProvider } from "../registry"
+import { fold, locate } from "./quote"
 
 /** 跟五个维度有关的词。英文按词边界匹配，免得 log 命中 blog、login */
 export const POLICY = new RegExp(
@@ -113,4 +116,35 @@ export function policyChanges(before: string, after: string) {
       return bare !== whole && POLICY.test(canon(whole)) && POLARITY.test(bare)
     })
     .map(({ shown }) => shown)
+}
+
+export interface Assessment {
+  /** 原本能定位、这次失效的引文 */
+  lost: string[]
+  /** 碰到五个维度的变化行 */
+  hits: string[]
+}
+
+/** 比较 base..head 之间这个 provider 的快照变化。新来源的第一份快照不算变化：
+ *  它的引文由加来源的那次复核负责。 */
+export function assess(root: string, provider: string, base: string, head: string): Assessment {
+  const git = (...args: string[]) => spawnSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 })
+  const show = (rev: string, file: string) => {
+    const r = git("show", `${rev}:${file}`)
+    return r.status === 0 ? r.stdout.replace(/^<!--.*?-->\n/, "") : null
+  }
+  const { anchors } = loadProvider(root, provider)
+  const files = git("diff", "--name-only", "--no-renames", base, head, "--", "snapshots").stdout.split("\n").filter(Boolean)
+  const lost: string[] = []
+  const hits: string[] = []
+  for (const file of files) {
+    const id = path.basename(file, ".md")
+    const [before, after] = [show(base, file), show(head, file)]
+    if (before === null || after === null) continue
+    for (const a of anchors.filter((a) => a.source_id === id))
+      if (locate(fold(before), a.selector) === 1 && locate(fold(after), a.selector) !== 1)
+        lost.push(`\`${file}\` 引文失效：「${a.selector.exact.slice(0, 120)}」`)
+    for (const line of policyChanges(before, after)) hits.push(`\`${file}\` ${line.slice(0, 240)}`)
+  }
+  return { lost, hits }
 }

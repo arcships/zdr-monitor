@@ -9,11 +9,10 @@
 snapshot.yml（每天，按 provider 展开 matrix）
   抓这个 provider 引用的来源 → 规范化 → 写 snapshots/<source_id>.md
   有变化 → 固定分支 automation/snapshot-<provider>，原地更新同一个 PR
-        → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人），
-          并判断变化碰没碰到五个维度：碰到了打 needs-review 标签
+        → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人）
         ↓ 合并
-review-issues.yml（只处理带 needs-review 的快照 PR）
-  开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
+review-issues.yml
+  变化碰到五个维度才开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
         ↓
 issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
   只能改 providers/<provider>.toml 和 changes/<provider>/
@@ -62,7 +61,7 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 revi
 重复长行只留一份。只有短行（菜单、按钮、「Updated 5 minutes ago」）变化不算正文变化，
 不重写快照。抓取失败不写快照，只进 `.sync/snapshot-report.md`。
 
-快照更新不等于叫 agent。`src/snapshot/relevance.ts` 只在变化碰到五个维度时才开复核：
+快照更新不等于叫 agent。`review:issues` 用 `src/snapshot/relevance.ts` 判断，只在变化碰到五个维度时才开复核：
 原本能定位的引文失效，或者变化的句子里出现训练、保留、删除、角色、数据驻留、期限这类词。
 相关文章推荐、页面标题、目录项、侧栏、cookie 横幅、示例代码不算；同一句话换缩写不算；
 「do not use … to train」改成「may use … to train」这种只变了否定/情态词的算。

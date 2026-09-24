@@ -2,13 +2,14 @@
 /** 给 issue-fixer 派活：一个 provider 一个 issue、一个 agent。对应 models.dev 的
  *  missing-issues.ts——标题稳定可去重，open 和 closed 都算，列表拿不全就不开。
  *
- *    bun run review:issues <provider> --pr <n>     快照 PR 合并后：复核这次正文变化
+ *    bun run review:issues <provider> --pr <n>     快照 PR 合并后：变化碰到五个维度才开 issue
  *    bun run review:issues --full [provider...]    全量复核（留空 = 全部 provider），按月去重
  *    --dry-run                                     只打印 */
 import { $ } from "bun"
 import path from "node:path"
 import { loadProvider, providerIds } from "../src/registry"
 import { checkQuotes } from "../src/snapshot"
+import { assess } from "../src/snapshot/relevance"
 
 const root = path.join(import.meta.dirname, "..", "..", "..")
 const args = process.argv.slice(2)
@@ -45,15 +46,34 @@ async function issueFor(provider: string) {
         ...quoteSection(provider),
       ].join("\n"),
     }
-  const files = JSON.parse(await $`gh pr view ${pr} --json files,url`.quiet().text()) as { url: string; files: { path: string }[] }
+  const files = JSON.parse(await $`gh pr view ${pr} --json files,url,mergeCommit`.quiet().text()) as {
+    url: string
+    files: { path: string }[]
+    mergeCommit: { oid: string } | null
+  }
   const urls = new Map(loadProvider(root, provider).sources.map((s) => [s.id, s.url]))
   const changed = files.files.map((f) => path.basename(f.path, ".md")).filter((id) => urls.has(id))
+  // 快照照常更新，但只有变化碰到五个维度才叫 agent：相关文章换推荐、时间戳、标题、侧栏都不算。
+  // 判断不了（拿不到合并提交）时照旧开 issue，宁可多叫一次也不漏。
+  const merge = files.mergeCommit?.oid
+  let found: string[] | undefined
+  if (merge && (await $`git fetch --no-tags --depth=2 origin ${merge}`.nothrow().quiet()).exitCode === 0) {
+    const { lost, hits } = assess(root, provider, `${merge}^`, merge)
+    found = [...lost, ...hits]
+    if (!found.length) {
+      console.log(`${provider}: 快照 #${pr} 的变化没有碰到引文或五个维度，不开复核 issue`)
+      return null
+    }
+  }
   return {
     title: `[policy-review] ${provider}: snapshot #${pr}`,
     body: [
       `快照 PR ${files.url} 已合并，\`${provider}\` 引用的 ${changed.length} 个来源正文有变化。`,
       "判断这些变化是否影响五个维度：影响就修改结论和引文；不影响就说明理由。",
       "",
+      ...(found
+        ? ["机器筛出的相关变化（只是线索，以快照原文为准）：", ...found.slice(0, 20).map((x) => `- ${x}`), ""]
+        : []),
       "变化的来源（差异见上面 PR 的 Files changed，或 `git log -p` 对应快照文件）：",
       ...changed.map((id) => `- ${urls.get(id)} → \`snapshots/${id}.md\``),
       "",
@@ -75,6 +95,7 @@ if (!dryRun)
 
 for (const provider of providers) {
   const issue = await issueFor(provider)
+  if (!issue) continue
   if (dryRun) {
     console.log(`[dry-run] ${issue.title}\n${issue.body}\n`)
     continue
