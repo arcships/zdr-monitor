@@ -80,13 +80,12 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 ### Reasoning
 - Reasoning models
 - Reasoning best practices
-### Images and video
+### Images
 - Images and vision
 - Image input cost calculator
 - Image generation
 - Overview
 - Image prompting
-- Video generation
 ### Realtime and audio
 - Audio and speech
 - Getting started
@@ -121,7 +120,8 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Multi-agent
 - Observability and usage
 - Tracing
-### Agents SDK
+### Other tools
+- Agents SDK
 - Overview
 - Quickstart
 - Agent definitions
@@ -133,7 +133,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Results and state
 - Integrations and observability
 - Evaluate agent workflows
-### ChatKit
+- ChatKit
 - Overview
 - Customize
 - Widgets
@@ -229,6 +229,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Import and reconciliation
 - Private Link
 - IP allowlist
+- Organization blocking
 - Mutual TLS
 - Workload identity federation
 - Federation rules
@@ -666,7 +667,6 @@ The table below indicates when application state is stored for each endpoint. Ze
 | `/v1/completions` | No | 30 days | None | Yes | No |
 | `/v1/live/sessions` | No | 30 days | None, or 30 days if stored | Yes, with limitations below | No |
 | `/v1/realtime` | No | 30 days | None | Yes | No |
-| `/v1/videos` | No | 30 days | None | No | No |
 #### `/v1/chat/completions`
 - Audio outputs application state is stored for 1 hour to enable multi-turn conversations.
 - When Zero Data Retention is enabled for an organization, the `store` parameter will always be treated as `false`, even if the request attempts to set the value to `true`.
@@ -688,8 +688,8 @@ The table below indicates when application state is stored for each endpoint. Ze
 - Image generation is Zero Data Retention compatible when using `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`.
 #### `/v1/files`
 - Files can be manually deleted via the API or the dashboard, or can be automatically deleted by setting the `expires_after` parameter. See here for more information.
-#### `/v1/videos`
-- The `v1/videos` API includes a workflow that saves data to disk while processing and retains it for 48 hours to allow the caller to download the produced video and then for 30 days for abuse monitoring. `v1/videos` is currently blocked for MAM or ZDR requests. If your organization has data retention controls enabled, configure a project with its retention setting set to **None** as described in Configuring data retention controls to use `/v1/videos` with that project.
+#### Historical Videos API retention
+Before the September 24, 2026 shutdown, the Videos API documentation specified 48 hours for downloading generated videos, followed by 30 days of retention for abuse monitoring. These periods describe the policy documented before shutdown; they do not promise download access after shutdown. See the Videos API shutdown notice.
 #### Image and file inputs
 Images and files may be uploaded as inputs to `/v1/responses` (including when using the Computer Use tool), `/v1/chat/completions`, and `/v1/images`. Image and file inputs are scanned for CSAM content upon submission. If the classifier detects potential CSAM content, the image will be retained for manual review, even if Zero Data Retention, Modified Abuse Monitoring, or Private Retention with PSP is enabled.
 #### Web Search
