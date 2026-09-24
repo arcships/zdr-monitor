@@ -1,0 +1,122 @@
+<!-- https://intl.cloud.tencent.com/document/product/1300/78953 -->
+# tencent cloud
+- Promotions
+- Products
+- Solutions
+- Pricing
+- Partner Network
+- Marketplace
+- Explore
+PrevNext
+## LLM Service TokenHub
+- Announcements
+- Product Introduction
+- Product Overview
+- Model list
+- Billing
+- New User Free Trial Package
+- Billing Mode
+- Model pricing
+- Overdue Payments
+- Quick Start
+- Token Plan
+- Enterprise Token Plan
+- Personal Token Plan
+- API Integration Guide
+- API Usage Instructions
+- Language Model
+- Embedding Model
+- API Error Codes
+- Image Generation Models
+- Video Generation Model
+- AI Tools Integration
+- CodeBuddy Code
+- WorkBuddy
+- Claude Code
+- OpenClaw
+- Hermes Agent
+- OpenCode
+- Cline
+- Cursor
+- Kilo Code
+- Roo Code
+- Codex
+- Platform Feature
+- Model Hub
+- Experience Center
+- Activation
+- Online Inference
+- Usage statistics
+- Model Monitoring
+- Monitoring and Alarms
+- API Key Management
+- Platform Configuration
+- Control Plane API
+- History
+- Introduction
+- API Category
+- Making API Requests
+- API Key Management APIs
+- Terminology Library Management APIs
+- Token Plan Package Purchasing APIs
+- Token Plan Management APIs
+- TokenPlan APIKey Management APIs
+- Token Plan Call Detail APIs
+- Usage Statistics APIs
+- Data Types
+- Error Codes
+- FAQs
+- Practical Tutorial
+- TokenHub Migration Guide
+- TokenHub CLI User Guide
+- Billing Allocation
+- Agreements
+- LLM Service TokenHub Service Level Agreement
+- LLM Service TokenHub Terms of Service
+- PRIVACY POLICY MODULE
+- Data Processing and Security Protocol
+- Token Plan Personal Edition Privacy Policy
+- Glossary
+DocumentationLLM Service TokenHubAgreementsData Processing and Security Protocol
+# Data Processing and Security Protocol
+Download
+Focus Mode
+Font Size
+Last updated: 2026-09-11 18:02:20
+AI-Translated & Reviewed
+## 1. BACKGROUND
+This Data Processing and Security Agreement Module (**"Module"**) applies if you use the following features: Tencent LLM Service TokenHub and Enterprise Token Plan (collectively, **"Features"**). This Module is incorporated into the Data Processing and Security Agreement located at Data Processing and Security Agreement (**"DPSA"**). Terms used but not defined in this Module shall have the meaning given to them in the DPSA. In the event of any conflict between the DPSA and this Module, this Module shall apply to the extent of the inconsistency.
+## 2. PERSONAL DATA WE PROCESS
+We will process the following data in connection with the Features:
+<table data-slate-node="element" class="readonly fixed"><colgroup contenteditable="false"><col style="width:19%"><col style="width:81%"></colgroup><tbody><tr data-slate-node="element"><td data-slate-node="element" class="is-header"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Data Category</span></span></span></div></td><td data-slate-node="element" class="is-header"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Details</span></span></span></div></td></tr><tr data-slate-node="element"><td data-slate-node="element"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><b><span data-slate-string="true">Customer Content</span></b></span></span></div></td><td data-slate-node="element"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Data such as text or image files, inputs, prompts and instructions, API key, parameters and request settings that are provided to Tencent Cloud by, or on behalf of, customer or its end users through use of the Features, and metadata and technical attributes associated with such assets or inputs uploaded or provided to the Features.</span></span></span></div><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">The following data points processed only apply to Enterprise Token Plan.</span></span></span></div><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Credits, Total Quota, Exclusive Quota, Used Quota: Metric for Measuring Model Consumption, Plan Type.</span></span></span></div></td></tr><tr data-slate-node="element"><td data-slate-node="element"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><b><span data-slate-string="true">Service Generated Content</span></b></span></span></div></td><td data-slate-node="element"><div data-slate-node="element"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Data generated or derived by Tencent Cloud through operation of the Features, including 3D model output, generated text and responses, and metadata and technical attributes associated with such assets and outputs generated by the Features (including those that are generated based on Customer Content) and the Features’ processing of requests and responses.</span></span></span></div></td></tr></tbody></table>
+To provide the Features to you, we may also process the above data through integration with our features as follows:
+Cloud Object Storage;
+Cloud Access Management;
+Audio/Text Moderation System.
+## 3. PURPOSES OF PROCESSING
+We process the data categories in Section 2 for the purposes set out below:
+**Provide our Features.** We use data such as Customer Content and Service Generated Content to operate and provide you or your end users with the Features.
+**Troubleshooting.** We use data including Customer Content and Service Generated Content to monitor the Features’ performance and quality, detect and identify errors, bugs or failures, analyse the reasons and troubleshoot such problems.
+## 4. SUB-PROCESSORS
+As specified in the DPSA. You also confirm that you have read and agree to the provisions in the applicable Tencent LLM Service TokenHub product documentation and/or Enterprise Token Plan product documentation, including the provisions on the use of computing resources from different countries/regions based on resource availability.
+## 5. DATA RETENTION
+We will retain personal data in Section 2 for as long as it is necessary for the fulfilment of the purpose(s) as described in this Module and as required or authorized by applicable laws, to resolve disputes and to enforce our terms and conditions, other applicable terms of service, and our policies. The actual retention period can vary for different data categories, depending on the context of your interactions with us, your configuration set up (e.g., the retention periods you have set for the Features) and your use of the Features.
+For Customer Content and Service Generated Content, if you choose Singapore or Frankfurt or Silicon Valley as your resource region and activate the Zero Data Retention (ZDR) function, then we will not store such information. If you did not activate the ZDR function, we generally retain information for up to 30 days after your task request in connection with the Feature.
+If you have any questions or require additional information relating to the above (including where you require further or more specific information on how long we store data subject personal data), please refer to our Contact Information section in our Privacy Policy.
+## 6. SPECIAL CONDITIONS
+You must ensure that the Features are only used by end users who are of at least the minimum age at which an individual can consent to the processing of their personal data. This may be different depending on the jurisdiction in which an end user is located.
+These Features are not intended for the processing of sensitive data. You must ensure that the Features are not used to transfer or otherwise process any sensitive data by you or your end users, including (but not limited to) political opinions, religious or philosophical beliefs relating to your end users, where such processing could result in reputational risks to our business in and outside the jurisdiction in which your end users are located.
+You represent, warrant and undertake that you shall provide all notices and disclosures to data subjects (including in relation to your use of the Features), have a lawful basis for processing the relevant data subjects’ personal data, and shall obtain and maintain all necessary consents from end users in respect of the processing of their or the data subjects’ personal data (as applicable) in respect of the Features (including for the purposes of providing the Features), in accordance with the applicable laws and so as to enable us to comply with applicable laws. You agree you will indemnify and hold Tencent harmless from and against all claims, liabilities, costs, expenses, loss or damage (including consequential losses, loss of profit and loss of reputation and all interest, penalties and legal and other professional costs and expenses) incurred by Tencent arising directly or indirectly from a breach of this requirement. You represent, warrant and undertake that you are solely responsible for your use of the Features and its respective functions, and you have and will only use the Features and/or integrate the Features in your product, service or platform (as applicable) in compliance with (i) applicable laws and (ii) app store rules, agreements, terms or guidelines applicable in respect of the collection, storage, processing, transfer, disclosure, and use of any end user data in connection with your product, service or platform that uses and/or integrates the Features, including (without limitation) the Apple Developer Agreement, Apple Developer Program License Agreement, App Store Review Guidelines, Google Play Developer Distribution Agreement, Developer Program Policy, Developer API Terms of Service, Google Play Best Practices, and Google Play Developer Resources, in each case as amended or replaced from time to time.
+Please note that we will only collect, process, store, or otherwise access the content generated by the end users of this function (hereinafter referred to as "**UGC Content**") as per your instructions. You declare, warrant, and commit that you (i) bear full responsibility for the use of the Features and UGC Content by the end users (including compliance with any relevant provisions related to UGC Content); (ii) ensure that the end users do not directly or indirectly transmit any UGC Content related to our provision of the Features to Tencent, unless in compliance with any applicable laws; and (iii) always use this function and/or integrate the Features into your products, services, or platform (if applicable) in compliance with any applicable laws.
+You acknowledge, understand, and agree that (i) we do not make any representation or warranty or give any undertaking that the Features will be in compliance with any applicable laws or regulations, and (ii) any reliance on or use of the Features is at your sole risk.
+Previous Topic: PRIVACY POLICY MODULENext Topic: Token Plan Personal Edition Privacy Policy
+## Help and Support
+Was this page helpful?
+YesNo
+You can also Contact sales or Submit a Ticket for help.
+Help us improve! Rate your documentation experience in 5 mins.
+Start Now
+Feedback
+Search
+Search titles only
+Enter keywords to search documentation
