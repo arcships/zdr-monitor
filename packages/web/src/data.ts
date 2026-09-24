@@ -72,10 +72,7 @@ export interface Detail {
     note: string
     note_en: string
     tier: string
-    current_version: string | null
-    version_observed_at: string | null
-    version_origin: "fetch" | "import" | null
-    failure: { failed_at: string; consecutive_failures: number; verdict: string } | null
+    snapshot_at: string | null
   }>
   changes: PolicyChange[]
   dimensions: string[]
@@ -102,7 +99,7 @@ export const catalog = catalogJson as {
   generated_at: string
   dimensions: string[]
   rows: Row[]
-  monitoring: { sources: number; with_snapshot: number; failing: number }
+  monitoring: { sources: number; with_snapshot: number }
 }
 
 export type ChangeDirection = "weakened" | "strengthened" | "clarified"
@@ -114,8 +111,6 @@ export interface PolicyChange {
   observed_at: string
   effective_at?: string
   source_id: string
-  from_version: string
-  to_version: string
   summary_zh: string
   summary_en: string
   issue: string

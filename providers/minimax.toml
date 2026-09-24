@@ -2,7 +2,7 @@ name = "MiniMax"
 company_name = "MiniMax"
 line = "minimax"
 site = "global"
-entity = "Nanonoble Pte Ltd."
+entity = "Nanonoble Pte. Ltd."
 endpoint = ""
 doc = "https://platform.minimax.io/protocol/terms-of-service"
 
@@ -10,25 +10,27 @@ doc = "https://platform.minimax.io/protocol/terms-of-service"
 url = "https://platform.minimax.io/docs/api-reference/anthropic-api-compatible-cache"
 channel = "developer_data"
 tier = "core"
-note = "《Explicit Prompt Caching (Anthropic API)》API 文档（docs 站渲染通道抓取）。给出缓存条目的期限与缓存对象定义：「Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」，What Can Be Cached 明列 system / messages.content（user 与 assistant 两向）/ tools 的内容块。只支撑 zdr：文档未说明缓存在内存还是落盘、未说明缓存条目是原始正文还是中间状态（KV），也未提供删除或退出缓存的方式。"
+note = "《Explicit Prompt Caching (Anthropic API)》API 文档（docs 站渲染通道抓取）。给出缓存条目的期限与缓存对象定义：「Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」，What Can Be Cached 明列 system / messages.content（user 与 assistant 两向）/ tools 的内容块。是本档 retention 的**对象级**证据（显式缓存的期限与缓存对象），zdr 侧只作事实背景、不承载维度权威：文档未说明缓存在内存还是落盘、未说明缓存条目是原始正文还是中间状态（KV），也未提供删除或退出缓存的方式。"
 
 [[source]]
 url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
 channel = "developer_data"
 tier = "core"
-note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它是本档 retention 维度的**对象级**证据——显式提示缓存(Anthropic 兼容)『5-minute expiration, automatically renewed with continued use』,被动缓存『Expiration time automatically adjusted based on system load』。不单独承载维度权威,只补充「缓存对象保留多久」。抓取通道:r.jina.ai 渲染版(3602B);同页的 .md 直连版(10052B)含相同表格行。"
+note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它是本档 retention 维度的**对象级**证据——显式提示缓存(Anthropic 兼容)『5-minute expiration, automatically renewed with continued use』,被动缓存『Expiration time automatically adjusted based on system load』。不单独承载维度权威,只补充「缓存对象保留多久」。本轮把该页的期限锚点绑到 retention 与 zdr 的 point 上;zdr 维度不再以本页作维度锚点(该页不含零保留表述)。抓取通道:r.jina.ai 渲染版(3602B);同页的 .md 直连版(10052B)含相同表格行。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/privacy-policy"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "国际站《MiniMax API Privacy Policy》(updated/effective March 30, 2026,控制者 Nanonoble Pte. Ltd.)。不分档:未区分按量 API 与 Token Plan,正文把 'Services Input & Output' 一并纳入处理范围,故同时覆盖本档。retention / processing_region / role 三个维度的权威来源,并为 training 提供反向限定句与商业利用依据。channel 判为 consumer_privacy：该文是平台自有隐私政策正文；platform.minimax.io 不存在企业隐私 FAQ 页，本轮实测 /protocol/enterprise-privacy-policy、/enterprise、/trust、/security、/dpa 均 404。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
-note = "国际站《MiniMax Terms of Service》(Effective Date: March 30, 2026,提供方 Nanonoble Pte Ltd.,新加坡)。覆盖 platform.minimax.io 全部付费形态,本档(Token Plan 订阅)亦受其约束:付费协议 §1.1 明示 Paid Services 含 'Token Plan subscriptions'。本档训练维度与实体/角色维度的权威来源;亦提供 retention 的边界条款(§15 仅针对自购存储功能)与 processing_region 的服务区域线索(§8 'If you select the United States as the service region')。本轮以 r.jina.ai 重抓,md5 与上一轮缓存逐字节一致(004e66e8370f846f585b820e06881d14)。"
+note = "国际站《MiniMax Terms of Service》(Effective Date: March 30, 2026,提供方 Nanonoble Pte Ltd.,新加坡)。覆盖 platform.minimax.io 全部付费形态,本档(Token Plan 订阅)亦受其约束:付费协议 §1.1 明示 Paid Services 含 'Token Plan subscriptions'。本档训练维度与实体/角色维度的权威来源;亦提供 retention 的边界条款(§15 仅针对自购存储功能；『Term and Termination』第 7 项：终止后客户自删义务与「无义务返还 Client Data」)与 processing_region 的服务区域线索(§8 'If you select the United States as the service region')。本轮以 r.jina.ai 重抓,md5 与上一轮缓存逐字节一致(004e66e8370f846f585b820e06881d14)。"
 
 [[product]]
 id = "api"
@@ -40,11 +42,30 @@ plan_level = "any"
 mark = "no"
 anchor = "training-input-output-develop-improve"
 
+[[product.training.point]]
+text = "ToS IP §3 keeps the vendor's right to use input and generated content to develop and improve the Services — \"We may use the input and generated content to provide, maintain, develop, and improve our Services, comply with applicable law, enforce our terms and policies, and keep our Services safe.\" Neither the ToS nor the API Privacy Policy excludes model training, so under the house rule that \"improve the service\" counts as training the verdict stays no."
+text_zh = "ToS IP §3 明文保留厂商把输入与生成内容用于 develop/improve 的权利——「We may use the input and generated content to provide, maintain, develop, and improve our Services…」。ToS 与 API 隐私政策都没有排除模型训练的表述，按「用于改进服务算训练」口径维持 no。"
+anchor = "training-input-output-develop-improve"
+
+[[product.training.point]]
+text = "Same direction, contract side: ToS confidentiality §8 — \"Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.\""
+text_zh = "同向依据（合同侧）：ToS 保密 §8——「Our use or disclosure of Confidential Information for the purpose of improving algorithms or enhancing services does not constitute a breach of confidentiality obligations.」"
+anchor = "training-confidentiality-improving-algorithms"
+
+[[product.training.point]]
+text = "The only sentence in the whole privacy policy whose subject is training is a negative one, and it is narrower than it looks: \"Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.\" It rules out training for profiling / targeting consumers only; it does not rule out model training, so it is not a basis for yes."
+text_zh = "全份隐私政策里唯一以 training 为主语的句子是否定句，但范围比看上去窄：「Please note that we do not use your input personal data to infer characteristics about an individual, nor use personal data for training to profile or target consumers.」它只排除为画像/定向消费者而训练，没有排除模型训练本身，不构成 yes 的依据。"
+anchor = "training-no-profiling-only"
+
+[[product.training.point]]
+text = "Consent boundary as written, not as a protection: the policy's listed purposes already include service improvement and research — \"Legal basis: Legitimate interests, for the purpose of research and development.\" — plus commercial utilization of de-identified or anonymized data. Only purposes not listed in the policy need separate prior explicit consent: \"when we plan to use your Personal Information for other purposes not specified in this Privacy Policy, we will obtain your explicit consent in advance separately.\" The listed purposes therefore need no further consent; this clause is not a limit on training."
+text_zh = "同意边界按原文写、不写成保护条款：政策已列用途本身就含服务改进与研发——「Legal basis: Legitimate interests, for the purpose of research and development.」——以及去标识化/匿名化后的商业利用。只有政策未列出的新用途才需事先另行取得明示同意：「when we plan to use your Personal Information for other purposes not specified in this Privacy Policy, we will obtain your explicit consent in advance separately.」已列用途无需另行同意，这句不构成对训练的限制。"
+anchor = "training-commercial-utilization-rd"
+
 [product.zdr]
-mark = "no"
-anchor = "minimax-zdr-prompt-cache-passive-automatic-default"
+mark = "unknown"
 searched = [
-  "https://platform.minimax.io/docs/api-reference/text-prompt-caching（zdr 主依据）",
+  "https://platform.minimax.io/docs/api-reference/text-prompt-caching（缓存行为事实；该页不含零保留表述，不是 zdr 维度权威）",
   "https://platform.minimax.io/docs/api-reference/anthropic-api-compatible-cache",
   "https://platform.minimax.io/docs/api-reference/file-management-upload（上传文件 7 天保留，对象非 prompt 正文）",
   "https://platform.minimax.io/docs/api-reference/responses-create（store 字段示例 false，非请求参数）",
@@ -59,21 +80,107 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "The cited lines are \"Passive caching that automatically identifies repeated context content without changing API call methods\" plus \"Caching applies to API calls with 512 or more input tokens\", so the platform keeps request content in a server-side cache by default and the customer has no way to turn it off"
-text_zh = "这条说的是「Passive caching that automatically identifies repeated context content without changing API call methods」+「Caching applies to API calls with 512 or more input tokens」，所以平台默认就把请求内容留在服务端缓存里、客户无从关闭"
+text = "Why this dimension is unknown rather than no: there is no ZDR or DPA page anywhere on the site (9 paths re-tested, all 404) and the agreements contain no zero-retention clause whose object is request content — the search scope is listed in searched[]. No document states that the platform retains request content for a period and offers no way out, so the conservative ✗ is recorded as \"no option disclosed\", not as \"terms state retention\". The cache documents cited below describe caching behaviour; they are not statements about a zero-retention option."
+text_zh = "本维度记 unknown 而非 no 的理由：全站无 ZDR/DPA 页（9 条路径复测 404），协议正文无以请求内容为标的的零保留条款，查阅范围见 searched[]。没有任何文档写「平台保留请求内容且无退出方式」，所以保守的 ✗ 记成「厂商未公开方案」而不是「条款明示会留存」。下面引的缓存文档说的是缓存行为，不是关于零保留方案的表述。"
 
 [[product.zdr.point]]
-text = "A sibling document separately states \"Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.\" and what is cached is content blocks in system / messages.content / tools. There is no ZDR or DPA page anywhere on the site (9 paths re-tested, all 404), and the agreements contain no zero-retention clause whose object is request content. See dimensions.zdr."
-text_zh = "同族文档另写「Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」且缓存对象是 system / messages.content / tools 的内容块。全站无 ZDR/DPA 页（9 条路径复测 404），协议正文无以请求内容为标的的零保留条款。详见 dimensions.zdr。"
+text = "The fact behind the verdict: caching is on by default — \"Passive caching that automatically identifies repeated context content without changing API call methods\" — so repeated request content is held on the server side without the customer changing the call. Neither this page nor the pages in searched[] states a way to turn passive caching off."
+text_zh = "判定所依据的事实：缓存默认生效——「Passive caching that automatically identifies repeated context content without changing API call methods」——重复的请求内容会被留在服务端，客户无需改动调用方式。该页与 searched[] 所列页面都没有写关闭被动缓存的方式。"
+anchor = "minimax-zdr-prompt-cache-passive-automatic-default"
+
+[[product.zdr.point]]
+text = "Scope of that default cache: \"Caching applies to API calls with 512 or more input tokens\"."
+text_zh = "该默认缓存的适用范围：「Caching applies to API calls with 512 or more input tokens」。"
+anchor = "minimax-zdr-prompt-cache-passive-512-token-threshold"
+
+[[product.zdr.point]]
+text = "The explicit (Anthropic-compatible) cache is time-boxed — \"Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.\""
+text_zh = "显式（Anthropic 兼容）缓存有明确期限——「Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」"
+anchor = "minimax-zdr-prompt-cache-content-lifetime-5min"
+
+[[product.zdr.point]]
+text = "The default passive cache has no fixed period: \"Expiration time automatically adjusted based on system load\"."
+text_zh = "默认走的被动缓存没有固定期限：「Expiration time automatically adjusted based on system load」。"
+anchor = "minimax-zdr-prompt-cache-passive-expiration-load-dependent"
+
+[[product.zdr.point]]
+text = "What the cache holds: content blocks in the tools / system / messages.content arrays, for both user and assistant turns — \"Text messages: Content blocks in the `messages.content` array, for both user and assistant turns\"."
+text_zh = "缓存里装的是什么：tools / system / messages.content 数组里的内容块，user 与 assistant 两向都算——「Text messages: Content blocks in the `messages.content` array, for both user and assistant turns」。"
+anchor = "minimax-zdr-prompt-cache-what-can-be-cached"
 
 [product.retention]
 object = "input_output"
 basis = "as_needed"
 anchor = "retention-necessary-or-permitted"
 
+[[product.retention.point]]
+text = "Object: request input and output. The policy quantifies nothing — \"We may retain and use your personal data for as long as it is necessary or permitted by law or to fulfil the purpose for which it was collected.\" — and determines the storage duration by listed criteria, one of which is \"Your agreement to a longer storage duration\". Basis is therefore as-needed, not a fixed period."
+text_zh = "对象：请求输入输出。政策没有量化期限——「We may retain and use your personal data for as long as it is necessary or permitted by law or to fulfil the purpose for which it was collected.」——并按所列标准决定存储期限，其中一条是「Your agreement to a longer storage duration」。故 basis=as_needed，不是固定期限。"
+anchor = "retention-necessary-or-permitted"
+
+[[product.retention.point]]
+text = "Deletion promise at the end of the period: \"After the storage duration expires, we will delete your personal information or anonymize your Personal Information in accordance with the applicable laws.\""
+text_zh = "到期后的删除承诺：「After the storage duration expires, we will delete your personal information or anonymize your Personal Information in accordance with the applicable laws.」"
+anchor = "retention-delete-after-expiry"
+
+[[product.retention.point]]
+text = "Exception under the EEA/UK/Switzerland addendum §2 — the deletion promise is not absolute: \"If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.\""
+text_zh = "EEA/UK/瑞士附则 §2 的例外——删除承诺不是绝对的：「If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.」"
+anchor = "retention-eu-copies-kept"
+
+[[product.retention.point]]
+text = "Object level, explicit prompt cache (opened by the customer via cache_control): \"Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.\" This is a fixed period for cache entries, not a period for the request body as such."
+text_zh = "对象级、显式提示缓存（客户用 cache_control 主动开启）：「Cached content has a lifetime of 5 minutes. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.」这是缓存条目的固定期限，不是请求正文本身的期限。"
+anchor = "minimax-zdr-prompt-cache-content-lifetime-5min"
+
+[[product.retention.point]]
+text = "Object level, default passive prompt cache: no fixed period — \"Expiration time automatically adjusted based on system load\"."
+text_zh = "对象级、默认走的被动提示缓存：无固定期限——「Expiration time automatically adjusted based on system load」。"
+anchor = "minimax-zdr-prompt-cache-passive-expiration-load-dependent"
+
+[[product.retention.point]]
+text = "Object level, what the cache holds: content blocks in the tools / system / messages.content arrays, for both user and assistant turns — \"Text messages: Content blocks in the `messages.content` array, for both user and assistant turns\"."
+text_zh = "对象级、缓存里装的是什么：tools / system / messages.content 数组里的内容块，user 与 assistant 两向都算——「Text messages: Content blocks in the `messages.content` array, for both user and assistant turns」。"
+anchor = "minimax-zdr-prompt-cache-what-can-be-cached"
+
+[[product.retention.point]]
+text = "Context of the cache: \"Caching applies to API calls with 512 or more input tokens\"."
+text_zh = "缓存的适用语境：「Caching applies to API calls with 512 or more input tokens」。"
+anchor = "minimax-zdr-prompt-cache-passive-512-token-threshold"
+
+[[product.retention.point]]
+text = "Boundary, contract side: ToS §15's retain-then-delete promise covers only a storage function the customer purchased — \"If the specific service you purchased includes a storage function, upon expiration or termination of the service, we will retain any data or information you stored in the service for a specified period as outlined in the service rules.\""
+text_zh = "边界（合同侧）：ToS §15 的「保留一段期限后删除」只覆盖客户自购的存储功能——「If the specific service you purchased includes a storage function, upon expiration or termination of the service, we will retain any data or information you stored in the service for a specified period as outlined in the service rules.」"
+anchor = "retention-purchased-storage-feature-only"
+
+[[product.retention.point]]
+text = "Boundary after termination, as written — the two obligations run on different clocks: \"(a) You shall pay outstanding fees or other amounts under the order within 30 days of termination or expiration\" and \"(b) You shall delete the software and remove any applications and Client Data associated with the order from the services\"; the 30 days attach to (a) only, (b) carries no stated period. And \"Unless otherwise expressly agreed in writing, we are not obligated to provide you with Client Data associated with a terminated order.\""
+text_zh = "终止后的边界，按原文写——两项义务的时钟不同：「(a) You shall pay outstanding fees or other amounts under the order within 30 days of termination or expiration」与「(b) You shall delete the software and remove any applications and Client Data associated with the order from the services」；30 天只挂在 (a) 上，(b) 没有期限。且「Unless otherwise expressly agreed in writing, we are not obligated to provide you with Client Data associated with a terminated order.」"
+anchor = "retention-terminated-order-client-data"
+
 [product.processing_region]
 codes = ["US"]
 anchor = "processing-region-us-data-center"
+
+[[product.processing_region.point]]
+text = "§9 of the API Privacy Policy is the sentence the codes=[US] verdict rests on, and it is main text rather than an addendum: \"Your personal data described in this Policy are stored in the data center located in the United States and processed by us or third-party vendors in accordance with the requirements of relevant laws and regulations, including the GDPR.\""
+text_zh = "codes=[US] 以 API 隐私政策 §9 这句为准，它是政策正文、不是附则：「Your personal data described in this Policy are stored in the data center located in the United States and processed by us or third-party vendors in accordance with the requirements of relevant laws and regulations, including the GDPR.」"
+anchor = "processing-region-us-data-center"
+
+[[product.processing_region.point]]
+text = "Conflicting wording kept as two facts, no side taken: the Singapore addendum §3(a) says the opposite direction for Singapore users — \"While we generally do not transfer your personal data to countries outside Singapore, if we need to transfer your personal data to our affiliates and/or third parties outside Singapore, please be assured that we will take reasonable steps to ensure that your personal data is accorded a standard of protection comparable at least to the protection under the Personal Data Protection Act 2012, or as may be modified from time to time (the “PDPA”).\" So: no transfer out of Singapore for Singapore users vs a US data center for users generally; the vendor offers no explanation for the divergence."
+text_zh = "冲突并列保留、不选边：新加坡附则 §3(a) 对新加坡用户说的是相反方向——「While we generally do not transfer your personal data to countries outside Singapore…」。即：对新加坡用户「一般不向境外传输」vs 对全体用户「存放于美国数据中心」，官方未作解释。"
+anchor = "processing-region-singapore-tension"
+
+[[product.processing_region.point]]
+text = "Same direction as §9, from a second addendum: the Malaysia addendum states \"In relation to Users in Malaysia, our servers are located in the United States and you consent to the transfer of your data outside of your country.\""
+text_zh = "与 §9 同向的第二处附则：马来西亚附则「In relation to Users in Malaysia, our servers are located in the United States and you consent to the transfer of your data outside of your country.」"
+anchor = "processing-region-malaysia-servers-us"
+
+[[product.processing_region.point]]
+text = "The service region is a selectable configuration, but the vendor publishes no list of selectable regions: ToS \"User Rights and Obligations\" item 8 opens with \"If you select the United States as the service region, you and any affiliates, employees, service providers, or any third parties under your control may not:\", and the export-control section's item 3(c) lists \"designating the service region for any of the above actions\". No region list is inferred from this."
+text_zh = "服务区域是可配置项，但官方未公布可选区域清单：ToS『User Rights and Obligations』第 8 项以「If you select the United States as the service region…」开头，出口管制节第 3 项 (c) 另列「designating the service region for any of the above actions」。不据此推断区域列表。"
+anchor = "region-us-service-region"
 
 [product.role]
 kind = "controller"
@@ -134,7 +241,7 @@ topics = ["role"]
 [anchor.selector]
 prefix = " your use of the MiniMax Open Platform Service (\"Service\"), "
 exact = "provided by Nanonoble Pte Ltd., the Service Provider"
-suffix = " (\"we\" or \"us\"\"). Please carefully review the entire content"
+suffix = " (\"we\" or \"us\"). Please carefully review the entire content"
 
 [[anchor]]
 id = "entity-nanonoble-operates-website"
@@ -166,6 +273,26 @@ r correct the violation without prior notice to you.
 15.   """
 exact = "If the specific service you purchased includes a storage function, upon expiration or termination of the service, we will retain any data or information you stored in the service for a specified period as outlined in the service rules."
 suffix = " You are responsible for any fees incurred during the retent"
+
+[[anchor]]
+id = "retention-terminated-order-client-data"
+source_id = "e9c005d95aac81ab"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "both parties shall make commercially reasonable efforts to return or destroy all Confidential Information of the other party. "
+exact = "Unless otherwise expressly agreed in writing, we are not obligated to provide you with Client Data associated with a terminated order."
+suffix = "Termination of this Agreement will terminate all orders."
+
+[[anchor]]
+id = "region-us-service-region"
+source_id = "e9c005d95aac81ab"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Access services in a manner that circumvents fees or otherwise evades usage restrictions."
+exact = "If you select the United States as the service region, you and any affiliates, employees, service providers, or any third parties under your control may not:"
+suffix = "(a) Process or store any content subject to the International Traffic in Arms Regulations"
 
 [[anchor]]
 id = "retention-necessary-or-permitted"
@@ -216,15 +343,22 @@ exact = "We will cease to retain your personal data as soon as it is reasonable 
 suffix = " We will take commercially reasonable steps to ensure that y"
 
 [[anchor]]
+id = "retention-eu-copies-kept"
+source_id = "e3308c047d43ffdb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "or as required by applicable law or regulation. "
+exact = "If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems."
+suffix = "3. As mentioned in the section titled"
+
+[[anchor]]
 id = "processing-region-us-data-center"
 source_id = "e3308c047d43ffdb"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
- **How your Personal Information is transferred globally**
-
-"""
+prefix = "we will delete your personal information or anonymize your Personal Information in accordance with the applicable laws."
 exact = "Your personal data described in this Policy are stored in the data center located in the United States and processed by us or third-party vendors in accordance with the requirements of relevant laws and regulations, including the GDPR."
 suffix = """
 
@@ -257,6 +391,16 @@ exact = "While we generally do not transfer your personal data to countries outs
 suffix = ", please be assured that we will take reasonable steps to en"
 
 [[anchor]]
+id = "processing-region-malaysia-servers-us"
+source_id = "e3308c047d43ffdb"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "How We Store and Share Your Personal Information"
+exact = "In relation to Users in Malaysia, our servers are located in the United States and you consent to the transfer of your data outside of your country."
+suffix = "Rights of Data Subjects"
+
+[[anchor]]
 id = "role-controller-nanonoble-eea"
 source_id = "e3308c047d43ffdb"
 topics = ["role"]
@@ -268,6 +412,7 @@ ng Our legal bases for processing Your Personal Data.
 1.   """
 exact = "The controller of your Personal Data is: Nanonoble Pte. Ltd. (152 Beach Road, #14-02 Gateway East, Singapore)."
 suffix = """
+
 
 2.   The categories and purposes for which we process perso"""
 
@@ -323,7 +468,7 @@ suffix = """
 [[anchor]]
 id = "minimax-zdr-prompt-cache-passive-automatic-default"
 source_id = "2d4ef29441b12d09"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
@@ -338,7 +483,7 @@ suffix = " (_In contrast, the caching mode that requires explicitly se"
 [[anchor]]
 id = "minimax-zdr-prompt-cache-passive-512-token-threshold"
 source_id = "2d4ef29441b12d09"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
@@ -355,7 +500,7 @@ suffix = """
 [[anchor]]
 id = "minimax-zdr-prompt-cache-passive-expiration-load-dependent"
 source_id = "2d4ef29441b12d09"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
@@ -367,7 +512,7 @@ suffix = " | 5-minute expiration, automatically renewed with continued"
 [[anchor]]
 id = "minimax-zdr-prompt-cache-content-lifetime-5min"
 source_id = "cca92e4c0d5ff9a8"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
@@ -386,7 +531,7 @@ suffix = """
 [[anchor]]
 id = "minimax-zdr-prompt-cache-what-can-be-cached"
 source_id = "cca92e4c0d5ff9a8"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """

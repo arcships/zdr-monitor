@@ -291,10 +291,9 @@ watchEffect(() => {
                   </a>
                   <p class="mt-0.5 font-mono text-[10px] text-fg3">
                     <!-- 抓取异常不在界面上露出：那是 CI 和 agent 的事，读者要的是
-                         「这条结论依据的原文是什么时候的」。失败时下面这行仍然显示
-                         最后一次成功快照的日期，正文和锚点都没被失败动过。 -->
-                    <template v-if="s.version_observed_at && s.version_origin === 'import'">{{ t("导入的基线快照", "Imported baseline") }} {{ s.version_observed_at.slice(0, 10) }}</template>
-                    <template v-else-if="s.version_observed_at">{{ t("当前快照首次见于", "Current snapshot first seen") }} {{ s.version_observed_at.slice(0, 10) }}</template>
+                         「这条结论依据的原文是什么时候的」。抓取失败不动快照，
+                         这里始终是最后一份成功抓到的原文的日期。 -->
+                    <template v-if="s.snapshot_at">{{ t("原文最后变化于", "Text last changed") }} {{ s.snapshot_at }}</template>
                     <template v-else>{{ t("等待首份快照", "Awaiting first snapshot") }}</template>
                   </p>
                 </div>

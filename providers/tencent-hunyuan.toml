@@ -15,6 +15,7 @@ note = "《大模型服务平台 TokenHub 服务条款》中国站『政策与�
 
 [[source]]
 url = "https://privacy.qq.com/document/preview/91d5fd3c98ce4468ae462ac59233bba2"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "《TokenHub 隐私政策》（主体：腾讯云计算（北京）有限责任公司；更新/生效日期 2026-03-25）。这是中国站云侧 TokenHub 产品隐私政策的**官方发布地址**（由 TokenHub 文档站常见问题 1823/130104 与相关协议清单 1823/130105 直接链出；文档站条目 1823/130108 是只写着「详细信息，请参见…」的占位页，正文仍指向本地址），不是第三方镜像。覆盖 TokenHub 全档；§1.1.3 明确 API 调用输入信息会被收集用于安全审计，§2.1 最短必要期限保留，§2.2 境内存储、暂不向境外提供。不覆盖混元 App / 腾讯元宝等消费侧产品。**推断轮 2026-09-21 由 drop 升为 core**：§1.1.3 是 zdr 结论中唯一点名「请求内容（调用 API 时的输入信息）」的官方原句，承载锚点 th-privacy-api-input-1-1-3，故按「依据落在 drop 源上则改回 core」的规则升档"
@@ -33,6 +34,16 @@ mode = "default"
 [[product.training.point]]
 text = "The Hunyuan pay-as-you-go API tier (Tencent Cloud first-party models, postpaid TokenHub calls) is governed by TokenHub Terms of Service §2.17: Tencent Cloud will not use the content you input while using the service to develop, train, fine-tune or improve Tencent Cloud's own algorithms, models or services, and there is no \"may train with separate authorization\" exception. Supporting evidence: the TokenHub FAQ says it \"will certainly not be used for training\"."
 text_zh = "混元按量 API 档（腾讯云自有模型，TokenHub 后付费调用）适用《TokenHub 服务条款》§2.17：不将输入内容用于开发、训练、微调或改进腾讯云自身算法/模型/服务，且无「另行授权即可训练」的例外。佐证：TokenHub 常见问题「更不会用于训练」"
+
+[[product.training.point]]
+text = "Tier scope of this verdict: the §1.5 model-classification table lists the Hunyuan series (Hy3, Hy3 preview, Hy-MT2-Pro, Hy-MT2-Plus, Hy-MT2-Lite, Hy-Role-Latest, Hy-Role) in its 「腾讯云自有模型」 (Tencent Cloud first-party models) row, so the §2.17 commitment governs this tier rather than the third-party-deployed-model carve-outs."
+text_zh = "本档的档位界定：§1.5 的模型分类表把混元系列（Hy3、Hy3 preview、Hy-MT2-Pro、Hy-MT2-Plus、Hy-MT2-Lite、Hy-Role-Latest、Hy-Role）列在「腾讯云自有模型」一档，故本档适用 §2.17 的承诺，而不是第三方部署模型的例外。"
+anchor = "th-own-model-scope-1-5"
+
+[[product.training.point]]
+text = "Parallel clause kept side by side (conflict, no picking a side): §2.18 says Tencent Cloud processes the relevant data or derived information within a reasonably necessary scope for the listed purposes, and item (4) is 「进行计费结算、账单核对、资源用量统计、系统运维和服务优化」 (billing settlement, bill reconciliation, resource-usage statistics, system operations and service optimisation). §2.17 expressly excludes using input content to develop, train, fine-tune or improve Tencent Cloud's own algorithms, models or services, while §2.18(4) lists service optimisation among the processing purposes, so the two overlap and the text does not settle whether §2.18(4) leaves a gap for improving Tencent Cloud's own service. §2.18(4) only lists processing purposes and is not an authorisation to train."
+text_zh = "同一文档并列保留的冲突条款（不选边）：§2.18 规定腾讯云在合理必要范围内为所列目的处理相关数据或其衍生信息，其中第 (4) 项为「进行计费结算、账单核对、资源用量统计、系统运维和服务优化」。§2.17 明示排除对输入内容的训练、微调与对腾讯云自身算法/模型/服务的改进，而 §2.18(4) 把「服务优化」列为处理目的，两者范围重叠；「服务优化」是否为「改进自身服务」留下口子，原文未予澄清。§2.18(4) 只列处理目的，不构成训练授权。"
+anchor = "th-training-2-18-4"
 
 [product.zdr]
 mark = "no"
@@ -60,6 +71,11 @@ text = "§2.14: Tencent Cloud retains your data only for the period necessary to
 text_zh = "§2.14 必需期间保留、期满停止不必要使用或返还/删除，未给天数"
 
 [[product.retention.point]]
+text = "§2.14 second limb (limit on deletion): after the processing period ends Tencent Cloud stops unnecessary use of the data and returns or deletes it on your lawful and valid instructions, but where laws or regulations do not allow deletion or deletion is technically impracticable, it stops all processing other than storage, keeping records, performing statutory duties and taking necessary security protection measures. The end-of-period deletion promise is therefore not absolute."
+text_zh = "§2.14 后半（删除受限的例外）：处理期限结束后腾讯云停止不必要的数据使用，并依您的合法有效指示返还或删除数据；但法律法规不允许删除或删除在技术上难以实现时，将停止除存储、留存记录、履行法定义务和采取必要安全保护措施之外的处理。故期满删除承诺不是绝对的。"
+anchor = "th-retention-2-14-limit"
+
+[[product.retention.point]]
 text = "§2.9: logs relating to generated synthetic content, such as information about the party served, are retained as required by law for no less than six months."
 text_zh = "§2.9 生成合成内容相关日志依法留存不少于六个月"
 
@@ -68,8 +84,19 @@ text = "§2.12(1) permits processing of input content, output content and logs w
 text_zh = "§2.12(1) 允许为推理/内容安全/运维/合规审计等在合理必要范围内处理输入输出与日志"
 
 [[product.retention.point]]
-text = "TokenHub Privacy Policy §2.1: retention for the shortest necessary period."
-text_zh = "TokenHub 隐私政策 §2.1 最短必要期限保留"
+text = "Context/exception, platform side: §2.8 gives Tencent Cloud the right, where input or output content is unlawful or otherwise unsuitable, to intercept, block, delete, stop generation, stop transmission, restrict use, suspend the service, keep necessary records, report to the competent authorities or take other reasonable measures. No period and no object scope are stated — this is a record-keeping right on Tencent Cloud's side, not a retention period, and it is stated separately from the §2.14 deletion commitment. The same wording appears again in §4.10 (measures against breaching use)."
+text_zh = "语境/例外（平台侧）：§2.8 规定，输入或输出内容违法违规或不适宜时，腾讯云有权予以拦截、屏蔽、删除、停止生成、停止传输、限制使用、暂停服务、保存必要记录、向有关主管部门报告或采取其他合理措施。该条未约定期限与对象范围，属平台侧的记录保存权而非保留期限，与 §2.14 的期满删除承诺分列、不合并叙述。同一措辞另见 §4.10（对违规使用的处置措施）。"
+anchor = "th-retention-records-2-8"
+
+[[product.retention.point]]
+text = "TokenHub Privacy Policy §2.1 (channel=consumer_privacy, a lower tier than the contract-level §2.14 — secondary corroboration only): personal information is kept only for the shortest period necessary to fulfil the purpose, with three statutory exceptions — compliance with applicable laws and regulations, compliance with court judgments, rulings or other legal process, and compliance with government enforcement requirements. The object of this clause is personal information, not input/output content."
+text_zh = "TokenHub 隐私政策 §2.1（channel=consumer_privacy，权威层级低于合同层的 §2.14，仅作次级佐证）：个人信息仅在为实现目的所必需的最短时间内保留，但有三种法定例外——为遵守适用的法律法规等有关规定、为遵守法院判决/裁定或其他法律程序的规定、为遵守相关政府机关执法的要求。该条的对象是「个人信息」，不等于输入输出正文的保留期限。"
+anchor = "th-privacy-retention-exceptions-2-1"
+
+[[product.retention.point]]
+text = "Same policy, same section: if the product or service ceases operation, the user is notified and the personal information is deleted or anonymised within a reasonable period, unless the law provides otherwise. This is a deletion trigger bound to service termination, not a fixed retention period."
+text_zh = "同一政策同节：产品或服务停止运营时，将以推送通知、公告等形式通知，并在合理期限内删除或匿名化处理个人信息，法律法规另有规定的除外。这是与服务终止绑定的删除触发条件，不是固定保留期限。"
+anchor = "th-privacy-retention-stopops-2-1"
 
 [product.processing_region]
 codes = ["CN"]
@@ -100,16 +127,11 @@ id = "th-own-model-scope-1-5"
 source_id = "28c216027c015021"
 topics = ["scope"]
 
+# §1.5 的模型分类表在快照里是 HTML 表格，每个单元格的文字被 span data-slate-* 标签包住，
+# 折叠只剥非字母数字，标签名会留在折叠文本里，所以跨单元格的引文必然 miss。
+# 这里只摘「含义」单元格内的文本节点；档位标签「腾讯云自有模型」由 point 文字承载。
 [anchor.selector]
-prefix = """
-说明外，本服务项下相关模型服务可根据其来源和部署方式作如下区分：
-
-**类型****含义****协议适用和责任边界**
-"""
-exact = "腾讯云自有模型 由腾讯云或其关联方自主研发、运营或提供的模型。目前包括混元系列模型：Hy3、Hy3 preview、Hy-MT2-Pro、Hy-MT2-Plus、Hy-MT2-Lite、Hy-Role-Latest、Hy-Role"
-suffix = """
- 适用本服务条款、《TokenHub 服务等级协议》、《腾讯云服务协议》及腾讯云公布的相关服务规则。
-腾讯云自部署模型 """
+exact = "由腾讯云或其关联方自主研发、运营或提供的模型。目前包括混元系列模型：Hy3、Hy3 preview、Hy-MT2-Pro、Hy-MT2-Plus、Hy-MT2-Lite、Hy-Role-Latest、Hy-Role"
 
 [[anchor]]
 id = "th-training-2-17"
@@ -125,6 +147,14 @@ exact = "腾讯云不会将您在使用本服务过程中的输入内容用于�
 suffix = "为免疑义，前述承诺是腾讯云就其自身可控制的数据处理活动作出的承诺，不代表或替代任何外部模型服务商或其他第三方就其自身数据"
 
 [[anchor]]
+id = "th-training-2-18-4"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+exact = "（4）进行计费结算、账单核对、资源用量统计、系统运维和服务优化。"
+
+[[anchor]]
 id = "th-retention-2-14"
 source_id = "28c216027c015021"
 topics = ["retention", "zdr"]
@@ -135,7 +165,16 @@ prefix = """
 
 2.14 """
 exact = "除法律法规、监管要求、第三方协议、产品规则、您与腾讯云另行约定或为提供本服务所必需的情形外，腾讯云将仅在为提供本服务之目的所必需的期间内保留您的数据。"
-suffix = "腾讯云将在数据处理期限结束后停止不必要的数据使用行为，或者根据您的合法有效指示将相关数据返还给您或删除。如果法律法规不允"
+suffix = "腾讯云将在数据处理期限结束后停止不必要的数据使用行为，或者根据您的合法有效指示将相关数据返还给您或删除。如果法律法规不允许腾讯云删除此类数据，或删除此类数据从技术上难以实现，腾讯云将停止除存储、留存记录、履行法定义务和采取必要安全保护措施之外的处理。"
+
+[[anchor]]
+id = "th-retention-2-14-limit"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "腾讯云将在数据处理期限结束后停止不必要的数据使用行为，或者根据您的合法有效指示将相关数据返还给您或删除。"
+exact = "如果法律法规不允许腾讯云删除此类数据，或删除此类数据从技术上难以实现，腾讯云将停止除存储、留存记录、履行法定义务和采取必要安全保护措施之外的处理。"
 
 [[anchor]]
 id = "th-retention-log-6-months-2-9"
@@ -162,6 +201,15 @@ suffix = """
 
 
 （2）在第三方部署模型场景下，为完成您的使用请求，您的输入内容、上下文、文件、参数、输出内容、调用信息或其他必要数据"""
+
+[[anchor]]
+id = "th-retention-records-2-8"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如您的输入内容或输出内容出现含有违反法律法规、监管要求、本服务条款、第三方协议或腾讯云认为不适宜的内容的，"
+exact = "腾讯云有权对此予以拦截、屏蔽、删除、停止生成、停止传输、限制使用、暂停服务、保存必要记录、向有关主管部门报告或采取其他合理措施。"
 
 [[anchor]]
 id = "th-region-2-13"
@@ -208,3 +256,24 @@ suffix = """
 1.2 信息使用规则
 
 我们会在本隐私政策所涵盖的用途内使用收集的信息。"""
+
+[[anchor]]
+id = "th-privacy-retention-exceptions-2-1"
+source_id = "3d92a8c32b5da595"
+topics = ["retention"]
+
+[anchor.selector]
+exact = """
+一般情况下，我们仅在为实现目的所必需的最短时间内保留您的个人信息，但下列情况除外：
+·为遵守适用的法律法规等有关规定；
+·为遵守法院判决、裁定或其他法律程序的规定；
+·为遵守相关政府机关执法的要求。
+"""
+
+[[anchor]]
+id = "th-privacy-retention-stopops-2-1"
+source_id = "3d92a8c32b5da595"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "当我们的产品或服务发生停止运营的情形时，我们将采取例如推送通知、公告等形式通知您，并在合理的期限内删除或匿名化处理您的个人信息，法律法规另有规定的除外。"

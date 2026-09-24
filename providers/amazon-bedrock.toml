@@ -58,19 +58,100 @@ mark = "yes"
 mode = "by_contract"
 anchor = "training-bedrock-not-in-service-improvement-list-50-3"
 
+[[product.training.point]]
+text = "AWS Service Terms §1.20 is a generic service-improvement clause: \"We may use information about how you use and interact with the Services to improve those Services.\" Its object is information about how you use and interact with the Services — §1.19 defines Individualized Usage Data as data about your use of the Services that is specifically identified with your AWS account and treats it separately from Your Content, and §1.21 excludes resource identifiers, metadata tags, access controls and similar management items from Your Content. The wording of §1.20 does not cover the content of your requests, so it must not be read as a training authorization for Bedrock content."
+text_zh = "AWS Service Terms §1.20 是通用「改进服务」条款,对象是「你如何使用与交互服务的信息」——§1.19 把 Individualized Usage Data 定义为与你 AWS 账号相关联的使用数据,并与 Your Content 分开;§1.21 明确资源标识、元数据标签、访问控制等管理项不构成 Your Content。§1.20 的措辞不含请求正文,不能读成对 Bedrock 内容的训练授权。"
+anchor = "training-service-improvement-usage-info-1-20"
+
+[[product.training.point]]
+text = "The AI-Content-specific rule is §50.3: it authorizes service improvement only for a named list of AI Services and states that it \"does not apply to ... any AI Service that is not listed in the first sentence of this Section 50.3\". Amazon Bedrock is not in that list. §1.20 and §50.3 are two different scopes, not one permission covering Bedrock content."
+text_zh = "针对 AI Content 的专门条款是 §50.3:只对第一句列举的 AI Services 授权服务改进,并明文不适用于任何未列入该清单的 AI Service,Amazon Bedrock 不在清单内。§50.3 与 §1.20 是两条不同口径,不能合起来读成对 Bedrock 内容的训练许可。"
+anchor = "training-bedrock-not-in-service-improvement-list-50-3"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "zdr-default-no-store"
 
+[[product.zdr.point]]
+text = "The default posture carries model-level exceptions: a model whose minimum requirement is `aws_review` (currently Claude Fable 5 and Claude Fable 5.1) is unavailable when the effective mode is `none` or `default` — on the bedrock-mantle endpoint it shows as unavailable, and requests to it on the bedrock-runtime endpoint return a `ValidationException`. Using such a model means accepting retention and possible AWS human review, so ZDR is not the default for it."
+text_zh = "默认姿态带模型级例外:最低要求为 `aws_review` 的模型(当前为 Claude Fable 5 与 Claude Fable 5.1)在有效模式为 `none` 或 `default` 时不可用——bedrock-mantle 上显示为不可用,bedrock-runtime 上的请求返回 `ValidationException`。用这类模型即等于接受保留与可能的 AWS 人工审查,ZDR 对它们不是默认。"
+anchor = "zdr-block-model-requiring-retention"
+
+[[product.zdr.point]]
+text = "For models that require retention, ZDR is not self-serve: \"ZDR access is evaluated on a per-account, per-model basis in coordination with the model provider\", and you must contact your AWS account manager to discuss eligibility. Accounts approved for ZDR on a specific model see `none` added to that model's `allowed_modes`."
+text_zh = "对需要保留的模型,ZDR 不是自助可得:ZDR 访问按账号、按模型与模型商协同评估,须联系 AWS 客户经理谈资格;获批的账号会在该模型的 `allowed_modes` 里看到 `none`。"
+anchor = "zdr-eligibility-per-account-model"
+
+[[product.zdr.point]]
+text = "For Claude models the ZDR eligibility decision sits with Anthropic: \"ZDR eligibility for Claude models is managed by Anthropic.\" Contact your Anthropic account representative for support."
+text_zh = "Claude 系列的 ZDR 资格由 Anthropic 管理,须联系 Anthropic 客户代表。"
+anchor = "zdr-claude-eligibility-managed-by-anthropic"
+
+[[product.zdr.point]]
+text = "`store=false` is not a zero-retention guarantee: some models may still retain data for safety review even when `store=false`, and guaranteed zero retention requires setting `data_retention_mode` to `none`."
+text_zh = "`store=false` 不保证零保留:部分模型即使 `store=false` 仍会为安全审查保留数据;要保证零保留必须把 `data_retention_mode` 设为 `none`。"
+anchor = "retention-store-false-not-guarantee"
+
+[[product.zdr.point]]
+text = "Model-level exception that rules ZDR out in practice: for Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "实际排除 ZDR 的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 的全部流量都会为自动化离线滥用检测保留最多 30 天,被分类器标记的流量还可能由 AWS 人工审查。"
+anchor = "retention-claude-fable-all-traffic-30d"
+
+[[product.zdr.point]]
+text = "ZDR for the Enterprise Frontier Safeguards program has a stated end date: eligible customers receive ZDR only through December 31, 2026, and after ZDR ends all traffic is retained for up to 30 days for automated offline abuse detection."
+text_zh = "Enterprise Frontier Safeguards 的 ZDR 有明确截止日:合格客户只到 2026-12-31;ZDR 结束后全部流量会为自动化离线滥用检测保留最多 30 天。"
+anchor = "zdr-frontier-safeguards-until-2026-12-31"
+
 [product.retention]
 object = "input_output"
-basis = "none"
+basis = "fixed_period"
+days = 30
+anchor = "retention-abuse-detection-30d-50-12-2"
+
+[[product.retention.point]]
+text = "Object: Bedrock Service inputs and outputs, i.e. request and response bodies. Context: only \"certain models identified on the Bedrock abuse detection page\" — the models that require `aws_review`. Period type: an upper bound of 30 days, with the contract's own carve-out \"unless otherwise required by law\". This is the contract layer (AWS Service Terms §50.12.2), so it governs the api tier."
+text_zh = "对象=Bedrock 服务输入输出正文(请求与响应正文);语境=仅 abuse detection 页所列的特定模型,即需 `aws_review` 的模型;期限类型=上限 30 天,并带合同自带的例外「除法律另有要求」。这是合同层(AWS Service Terms §50.12.2),对 api 档有约束力。"
+anchor = "retention-abuse-detection-30d-50-12-2"
+
+[[product.retention.point]]
+text = "Default for models not on the abuse detection list: Amazon Bedrock does not store model inputs or outputs. The 30-day period is the exception, not the default, and it does not apply to models that do not require retention."
+text_zh = "不在 abuse detection 清单内的模型走默认:Bedrock 不存储模型输入输出。30 天是例外而非默认,不适用于不需要保留的模型。"
 anchor = "zdr-default-no-store"
+
+[[product.retention.point]]
+text = "Mandatory model-level exception: for Anthropic Claude Fable 5 and Claude Fable 5.1 all traffic (not only classifier-flagged traffic) is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. These models require `aws_review`, so this retention cannot be opted out of while using them."
+text_zh = "强制性的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 是全量流量(不只被分类器标记的流量)为自动化离线滥用检测保留最多 30 天,被标记的流量还可能由 AWS 人工审查。这两个模型要求 `aws_review`,用它就退不掉这项保留。"
+anchor = "retention-claude-fable-all-traffic-30d"
+
+[[product.retention.point]]
+text = "Narrower model-level exception: for OpenAI GPT-6 Astra, GPT-5.4, GPT-5.5, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.6 Luna, Daybreak Red: GPT-5.6 Cyber and Daybreak Blue: GPT-5.6 Sol, only classifier-flagged traffic is retained for up to 30 days, and eligible customers may request full ZDR through their AWS account team."
+text_zh = "范围更窄的模型级例外:OpenAI GPT-6 Astra、GPT-5.4、GPT-5.5、GPT-5.6 Sol/Terra/Luna、Daybreak Red: GPT-5.6 Cyber 与 Daybreak Blue: GPT-5.6 Sol,只有被分类器标记的流量保留最多 30 天,合格客户可通过 AWS 客户团队申请完全 ZDR。"
+anchor = "retention-openai-classifier-30d"
+
+[[product.retention.point]]
+text = "Restated on the product-documentation side for the models requiring `aws_review` (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. The content is not shared with the model provider."
+text_zh = "产品文档侧对需 `aws_review` 的模型(当前为 Claude Fable 5 与 Claude Fable 5.1)的重述:用户 prompt 与 completion 在 AWS 边界内保留最多 30 天,并可能由 AWS 审查,以满足模型商作为访问条件提出的人工审查要求;内容不与模型商共享。"
+anchor = "retention-aws-review-30d"
 
 [product.processing_region]
 codes = ["selected"]
 anchor = "processing-region-stored-at-rest-in-region"
+
+[[product.processing_region.point]]
+text = "Default: customer content processed by Amazon Bedrock is encrypted and stored at rest in the AWS Region where you are using Amazon Bedrock, and geographic cross-Region inference profiles keep requests inside the geography (US/EU/APAC) with data remaining in the Regions where it originally resides — by default the data stays stored only in the source Region."
+text_zh = "默认:Bedrock 处理的客户内容加密存放在你使用 Bedrock 的那个 AWS Region;地理跨区域推理(US/EU/APAC)把请求限制在同一 geography 内,数据留在原本所在的 Region,默认只存源 Region。"
+anchor = "cri-geography-stays-within-geography"
+
+[[product.processing_region.point]]
+text = "Documented divergence for abuse detection under cross-Region inference: \"To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.\" Scope is limited to requests routed through a cross-Region inference profile and to the models whose inputs and outputs are retained for abuse detection; the same page states that by default the data remains stored only in the source Region. Both statements are official, so both are kept here rather than picking one."
+text_zh = "启用跨区域推理时,为滥用检测保留的数据落在目标 Region,与 FAQ 那句「存放在使用 Bedrock 的 Region」有适用边界上的分歧:「To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.」适用范围仅限走跨区域推理 profile 的请求,且只涉及为滥用检测而保留输入输出的模型;同页写明默认仍只存源 Region。两句都是官方表述,并列保留、不选边。"
+anchor = "cri-abuse-detection-data-in-destination-region"
+
+[[product.processing_region.point]]
+text = "Optional path outside any geography: with a global inference profile, requests may be processed in other supported AWS commercial Regions. It has to be chosen explicitly (global profile ARN plus the three-part IAM policy, or a deny SCP to switch it off), and AWS tells organizations with data residency or compliance requirements to assess whether Global cross-Region inference fits their compliance framework."
+text_zh = "可选路径,不受 geography 限制:使用 global inference profile 时请求可能在全球其他受支持的商业 Region 处理。需显式选用(global profile ARN + 三段式 IAM 策略,禁用则用 deny SCP),官方要求有数据驻留或合规要求的组织自行评估是否适用。"
+anchor = "cri-global-may-process-in-other-regions"
 
 [product.role]
 kind = "processor"
@@ -180,6 +261,25 @@ suffix = """
 
 
 See [Anthropic Terms of Service](https://aws.amazon.com/le"""
+
+[[anchor]]
+id = "retention-store-false-not-guarantee"
+source_id = "45084a6538d274c1"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "###### Note"
+exact = "Setting `store=false` does not guarantee zero data retention. Some models may still retain data for safety review even when `store=false` — in this case, data is retained but is not retrievable by the customer through `GET /v1/responses/{id}`. If you require guaranteed zero retention, set `data_retention_mode` to `none`."
+suffix = "| `aws_review` |"
+
+[[anchor]]
+id = "zdr-claude-eligibility-managed-by-anthropic"
+source_id = "45084a6538d274c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "###### Anthropic Claude models"
+exact = "ZDR eligibility for Claude models is managed by Anthropic. Contact your Anthropic account representative for support."
 
 [[anchor]]
 id = "zoa-zero-operator-access"
@@ -427,6 +527,16 @@ prefix = """
 **50.12.1.**"""
 exact = "Third-party models are available to you on Amazon Bedrock as “Third-Party Content”."
 suffix = " By using a third-party model, you agree to the applicable t"
+
+[[anchor]]
+id = "training-service-improvement-usage-info-1-20"
+source_id = "e50c57a33d690ba0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "**1.20.**"
+exact = "We may use information about how you use and interact with the Services to improve those Services."
+suffix = "**1.21**"
 
 [[anchor]]
 id = "role-aws-processor-1-1"

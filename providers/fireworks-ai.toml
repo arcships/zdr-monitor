@@ -82,7 +82,19 @@ text_zh = "同顶层 zdr：默认开启、无需申请"
 text_zh = "例外为 Response API、prompt caching、training/fine-tuning/agent 功能"
 
 [[product.zdr.point]]
-text_zh = "文档层限定「for any open models」。"
+text = "Documentation layer narrows the no-logging statement to open models: \"Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in.\""
+text_zh = "文档层把「不记录」的范围限定在 open models：「Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in.」"
+anchor = "fireworks-datahandling-open-models-limit"
+
+[[product.zdr.point]]
+text = "Two limits sit inside the very ToS §3.6 sentence this verdict is anchored to: the promise does not apply where \"otherwise required by Applicable Law (or to provide the Service or support to you)\", and \"you agree that we have the right to use safety screening tools on the Content as we deem appropriate\" — the one opening in the no-logging promise that lets the vendor keep processing Content."
+text_zh = "结论所绑的 ToS §3.6 同一句里自带两处限定：依适用法律要求（或为向你提供服务/支持所必需）时不适用，以及「you agree that we have the right to use safety screening tools on the Content as we deem appropriate」（厂商保留对 Content 使用安全审查工具的权利）——这是「不记录、不留存」承诺里唯一允许继续处理 Content 的口子。"
+anchor = "fireworks-tos-3-6-safety-screening"
+
+[[product.zdr.point]]
+text = "Contract layer adds a precondition (DPA §4.5): the no-retention obligation applies when the customer uses the Services in accordance with Company's Zero Data Retention configuration and usage documentation, and keeping that configuration consistent with the then-current documentation is the customer's responsibility. DPA §2 makes the DPA supersede the Agreement in case of contradictions, so this limit is not a channel-priority argument."
+text_zh = "合同层另有 DPA §4.5 的前提：不保留义务只在客户按 Company 的 ZDR 配置与使用文档使用服务时成立，维持配置与最新文档一致的责任在客户。DPA §2 规定冲突时 DPA 优先于 Agreement——这条限定来自同层优先，不是 channel 排序。"
+anchor = "fireworks-dpa-4-5-request-lifecycle"
 
 [product.retention]
 object = "input_output"
@@ -91,15 +103,58 @@ anchor = "fireworks-tos-3-6-zdr-policy"
 
 [[product.retention.point]]
 text_zh = "同顶层 retention。本档内部还要再分：默认推理请求正文不落盘"
+anchor = "fireworks-datahandling-no-persistent-log"
+
+[[product.retention.point]]
+text = "Mechanism, verbatim: \"prompt and generation data exist only in volatile memory for the duration of the request\"; with prompt caching active, some prompt data and its associated KV caches can sit in volatile memory for several minutes."
+text_zh = "机制（逐字）：「prompt and generation data exist only in volatile memory for the duration of the request」；prompt caching 激活时，部分 prompt 数据与相关 KV 缓存可在内存中保留数分钟。"
+anchor = "fireworks-datahandling-volatile-memory"
 
 [[product.retention.point]]
 text_zh = "prompt cache 内存保留数分钟~数小时"
+anchor = "fireworks-promptcaching-cache-lifetime"
 
 [[product.retention.point]]
 text_zh = "Response API store=True 默认 30 天"
+anchor = "fireworks-datahandling-response-api-store-default"
+
+[[product.retention.point]]
+text = "Stored conversation data is deleted automatically after 30 days, and can be deleted immediately through the DELETE API endpoint with the response_id."
+text_zh = "已存储的会话数据 30 天后自动删除，也可用 DELETE API + response_id 立即删除。"
+anchor = "fireworks-datahandling-response-api-30-days"
 
 [[product.retention.point]]
 text_zh = "Batch API 上传的数据集保留期未披露。"
+
+[[product.retention.point]]
+text = "Feature-level exception: prompt and generation data can be logged when the user explicitly opts in (e.g. FireOptimizer) — the one path on that page where prompt content is recorded, and only on the user's choice."
+text_zh = "功能级例外：用户显式 opt-in 后可记录 prompt 与 generation 数据（如 FireOptimizer）——该页里唯一一条记录 prompt 正文的路径，且以用户选择为前提。"
+anchor = "fireworks-datahandling-optin-logging"
+
+[[product.retention.point]]
+text = "Object note: metadata (e.g. number of tokens in a request) is logged as required to deliver the service — a logs-object disclosure this row's object=input_output does not cover."
+text_zh = "对象说明：元数据（如请求的 token 数）按提供服务所需记录——属 logs 对象，本行 object=input_output 不覆盖它。"
+anchor = "fireworks-datahandling-metadata-logs"
+
+[[product.retention.point]]
+text = "The ToS §3.6 sentence this verdict is anchored to carries two limits: the promise does not apply where \"otherwise required by Applicable Law (or to provide the Service or support to you)\", and the vendor keeps the right to use safety screening tools on the Content."
+text_zh = "结论所绑的 ToS §3.6 同一句自带两处限定：依适用法律要求（或为提供服务/支持所必需）时不适用，以及厂商保留对 Content 使用安全审查工具的权利。"
+anchor = "fireworks-tos-3-6-safety-screening"
+
+[[product.retention.point]]
+text = "Contract layer (DPA §4.5) conditions the no-retention obligation on the customer using the Services in accordance with Company's Zero Data Retention configuration and usage documentation, with the customer responsible for keeping that configuration current."
+text_zh = "合同层（DPA §4.5）：不保留义务以「客户按 Company 的 ZDR 配置与使用文档使用服务」为前提，维持配置一致的责任在客户。"
+anchor = "fireworks-dpa-4-5-request-lifecycle"
+
+[[product.retention.point]]
+text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data processed by Company or any Authorised Sub-processor on expiry of the Retention Period, where §11.2(a) defines the Retention Period as the thirty (30) days from expiry of the Agreement — a deletion commitment at termination time, not the retention period of request content."
+text_zh = "合同层终止后删除：DPA §11.2(b) 规定在 Retention Period 届满时删除 Company 或任何授权子处理者处理的所有 Covered Data 副本（Administration Data 与 Usage Data 例外）；Retention Period 由 §11.2(a) 定义为协议终止后 30 天——这是终止时点的删除承诺，不是请求正文的保留期。"
+anchor = "fireworks-dpa-11-2-b-post-termination-delete"
+
+[[product.retention.point]]
+text = "DPA Schedule 2 puts the same commitment in one line: \"All Personal Data is deleted from the Services following service termination.\""
+text_zh = "DPA Schedule 2 一句话写明同一条承诺：「All Personal Data is deleted from the Services following service termination.」"
+anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
 codes = ["global", "selected"]
@@ -110,6 +165,26 @@ text_zh = "同顶层 processing_region：默认 None（多区域，可跨 GLOBAL
 
 [[product.processing_region.point]]
 text_zh = "residency 只约束推理且不搬迁已有部署。"
+
+[[product.processing_region.point]]
+text = "Contract layer supports the global code: DPA Schedule 4 lists authorised sub-processors outside the United States — Oracle Cloud Infrastructure (United States, Japan, United Kingdom, Germany), with AWS (United States, Japan), Crusoe (United States, Iceland) and Cloudflare (closest data center to End User, global) on the same table."
+text_zh = "合同层支撑 codes 里的 global：DPA Schedule 4 的授权子处理者不限于美国——Oracle Cloud Infrastructure「United States, Japan, United Kingdom, Germany」，同一张表里 AWS 为「United States, Japan」、Crusoe 为「United States, Iceland」、Cloudflare 为「Closest data center to End User (global)」。"
+anchor = "fireworks-dpa-sched4-oracle-multi"
+
+[[product.processing_region.point]]
+text = "One row of that schedule is explicitly global: Cloudflare is listed at the \"Closest data center to End User (global)\", i.e. processing follows the end user's location rather than a fixed country."
+text_zh = "该表里有一行的处理地是明文的 global：Cloudflare 记为「Closest data center to End User (global)」，即按终端用户位置就近处理，而非固定国家。"
+anchor = "fireworks-dpa-sched4-cloudflare-global"
+
+[[product.processing_region.point]]
+text = "Schedule 2 of the same DPA adds that \"All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud\" — the contract layer describes multi-country infrastructure, not a single-country default."
+text_zh = "同一 DPA 的 Schedule 2 另写「All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud.」——合同层描述的是多国基础设施，不是单国默认。"
+anchor = "fireworks-dpa-sched2-aws-gcp-oracle-datacenters"
+
+[[product.processing_region.point]]
+text = "ToS §10.1 is the contract-layer US wording — \"your personal information may be transferred to, and/or processed in, the United States\". It sits alongside the developer_data page (default None, lockable to US) without changing the codes; its object is personal information in the Privacy Notice / DPA sense (Covered Data counts as Personal Data), not the processing location of the request body itself."
+text_zh = "ToS §10.1 是合同层的美国口径——「your personal information may be transferred to, and/or processed in, the United States」。它与 developer_data 页的「默认 None、可锁 US」并列，不改变 codes；对象是 Privacy Notice / DPA 口径下的个人信息（Covered Data 属 Personal Data），不等于请求正文本身的处理地。"
+anchor = "fireworks-tos-10-1-us-processing"
 
 [product.role]
 kind = "processor"
@@ -144,16 +219,43 @@ anchor = "fireworks-tos-3-6-zdr-policy"
 [[product.zdr.point]]
 text_zh = "同 api：ToS §3.6 覆盖整个 Service 的 inference，未对 serverless/dedicated 作区分。"
 
+[[product.zdr.point]]
+text = "The same ToS §3.6 sentence carries two limits: the promise does not apply where \"otherwise required by Applicable Law (or to provide the Service or support to you)\", and the vendor keeps the right to use safety screening tools on the Content."
+text_zh = "同 api：ToS §3.6 那句自带两处限定——依适用法律要求（或为提供服务/支持所必需）时不适用，以及厂商保留对 Content 使用安全审查工具的权利。"
+anchor = "fireworks-tos-3-6-safety-screening"
+
 [product.retention]
-object = "mixed"
+object = "input_output"
 basis = "none"
+anchor = "fireworks-datahandling-no-persistent-log"
+
+[[product.retention.point]]
+text = "Request bodies follow the api tier: \"In either case, prompt and generation data are not logged into any persistent storage.\" basis=\"none\" covers that request-body half, not the prompt cache below."
+text_zh = "请求正文同 api 档：「In either case, prompt and generation data are not logged into any persistent storage.」本行 basis=\"none\" 覆盖的是这一半（请求正文不落盘），不含下一条的 prompt cache。"
+anchor = "fireworks-datahandling-no-persistent-log"
+
+[[product.retention.point]]
+text = "Tier-specific: dedicated deployments share a single prompt cache by default, and \"Cached prompts usually stay in the cache for at least several minutes. Depending on the model, load level, and deployment configuration, it can be up to several hours.\" The period is a range, not a fixed term, so no days value is given. The same page admits \"a minor risk of a timing attack\" and offers x-prompt-cache-isolation-key for full isolation. Confidence medium: that page describes cache behaviour, it makes no dedicated-specific retention promise."
+text_zh = "本档特有面：dedicated 默认共享单一 prompt cache，缓存内容在内存中「at least several minutes…up to several hours」——是区间而非固定期限，故本行不给 days。同页承认这带来「a minor risk of a timing attack」，需用 x-prompt-cache-isolation-key 才能完全隔离。置信度 medium：该页只描述缓存行为，未针对 dedicated 单独声明保留承诺。"
 anchor = "fireworks-promptcaching-cache-lifetime"
 
 [[product.retention.point]]
-text_zh = "请求正文同 api（不落盘）。本档特有面：dedicated 默认共享单一 prompt cache，缓存内容在内存中留存数分钟到数小时（prompt_caching 页），页面同时承认这带来「a minor risk of a timing attack」，需用 x-prompt-cache-isolation-key 才能完全隔离。置信度 medium，因为该页只描述缓存行为，未针对 dedicated 单独声明保留承诺。"
+text = "The ToS §3.6 sentence behind this tier's ZDR promise carries two limits: it does not apply where \"otherwise required by Applicable Law (or to provide the Service or support to you)\", and the vendor keeps the right to use safety screening tools on the Content."
+text_zh = "本档 ZDR 承诺所依据的 ToS §3.6 自带两处限定：依适用法律要求（或为提供服务/支持所必需）时不适用，以及厂商保留对 Content 使用安全审查工具的权利。"
+anchor = "fireworks-tos-3-6-safety-screening"
+
+[[product.retention.point]]
+text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data on expiry of the Retention Period (§11.2(a): thirty (30) days from expiry of the Agreement), other than Administration Data and Usage Data."
+text_zh = "合同层终止后删除：DPA §11.2(b) 在 Retention Period（§11.2(a)：协议终止后 30 天）届满时删除所有 Covered Data 副本，Administration Data 与 Usage Data 除外。"
+anchor = "fireworks-dpa-11-2-b-post-termination-delete"
+
+[[product.retention.point]]
+text = "DPA Schedule 2: \"All Personal Data is deleted from the Services following service termination.\""
+text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services following service termination.」"
+anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
-codes = ["selected"]
+codes = ["global", "selected"]
 anchor = "fireworks-regions-multi-region-default"
 
 [[product.processing_region.point]]
@@ -164,6 +266,16 @@ text_zh = "新账号只有 GLOBAL 配额，其他 placement 需授予"
 
 [[product.processing_region.point]]
 text_zh = "开启 data residency 后每个专用部署必须落在该区域，区域外的已有部署不会被搬迁但请求会被拒。"
+
+[[product.processing_region.point]]
+text = "Contract layer is consistent with the multi-region default: DPA Schedule 4 puts AWS at \"United States, Japan\", Oracle Cloud Infrastructure at \"United States, Japan, United Kingdom, Germany\", Crusoe at \"United States, Iceland\", and Cloudflare at the closest data center to the End User (global)."
+text_zh = "合同层与「默认多区域」一致：DPA Schedule 4 里 AWS 为「United States, Japan」、Oracle Cloud Infrastructure 为「United States, Japan, United Kingdom, Germany」、Crusoe 为「United States, Iceland」、Cloudflare 为「Closest data center to End User (global)」。"
+anchor = "fireworks-dpa-sched4-crusoe-us-iceland"
+
+[[product.processing_region.point]]
+text = "The same schedule puts AWS at \"United States, Japan\" — one more contract-layer data point that dedicated capacity is not confined to a single country."
+text_zh = "同一 Schedule 里 AWS 的处理地是「United States, Japan」——合同层再次说明专用算力不限于单一国家。"
+anchor = "fireworks-dpa-sched4-aws-us-japan"
 
 [product.role]
 kind = "processor"
@@ -208,15 +320,32 @@ text_zh = "BYOB 则留在客户自己的桶里、Fireworks 就地读取不留副
 [[product.retention.point]]
 text_zh = "Training API 根本不上传数据集，trainer 只收到瞬时 tokenized Datum 批次。产物——Job chunks/artifacts（中间 checkpoint）与 Traces/logs（请求响应元数据）均保留 30 天后删除，可提前请求删除。RFT 的 rollout 数据集可应请求删除。删除入口：控制台/API 删数据集，checkpoint/trace/rollout 需联系 account team。"
 
+[[product.retention.point]]
+text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data on expiry of the Retention Period (§11.2(a): thirty (30) days from expiry of the Agreement), other than Administration Data and Usage Data. This is a deletion commitment at termination time, separate from the 30-day artifact window above."
+text_zh = "合同层终止后删除：DPA §11.2(b) 在 Retention Period（§11.2(a)：协议终止后 30 天）届满时删除所有 Covered Data 副本，Administration Data 与 Usage Data 除外——这是终止时点的删除承诺，与上面 30 天产物窗口是两件事。"
+anchor = "fireworks-dpa-11-2-b-post-termination-delete"
+
+[[product.retention.point]]
+text = "DPA Schedule 2: \"All Personal Data is deleted from the Services following service termination.\""
+text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services following service termination.」"
+anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
+
 [product.processing_region]
 codes = ["US"]
-anchor = "fireworks-dataresidency-restricts-region"
+anchor = "fireworks-securetraining-gcs-managed-storage"
 
 [[product.processing_region.point]]
 text_zh = "data_residency 页 Limitations：「**Training.** Fine-tuning and training jobs are blocked. Support is coming soon.」即开启数据驻留的账号不能跑训练"
 
 [[product.processing_region.point]]
-text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure_training 页），DPA Schedule 4 的 GCP 处理地为 United States。"
+text = "When training runs on Fireworks-managed storage, \"training data is stored in Google Cloud Storage (GCS) with only a reference link retained in our database.\" The US code refers to where the training dataset and checkpoints are stored, not to the whole training path."
+text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure_training 页：training data is stored in Google Cloud Storage (GCS)）。codes=[\"US\"] 的对象是训练数据集与 checkpoint 的存储地，不是训练全链路。"
+anchor = "fireworks-securetraining-gcs-managed-storage"
+
+[[product.processing_region.point]]
+text = "The contract layer puts that storage in the United States — DPA Schedule 4 lists Google Cloud Platform / \"United States\" — but the same table also carries Japan, the United Kingdom, Germany and Iceland for other infrastructure (AWS: United States, Japan; Oracle: United States, Japan, United Kingdom, Germany; Crusoe: United States, Iceland), so \"US\" must not be read as \"training infrastructure only in the US\"."
+text_zh = "合同层把该存储地记为美国——DPA Schedule 4 的 Google Cloud Platform 处理地是「United States」；但同一张表里其他基础设施还列了 Japan / United Kingdom / Germany / Iceland（AWS：United States, Japan；Oracle：United States, Japan, United Kingdom, Germany；Crusoe：United States, Iceland），所以 US 不能读成「训练基础设施只在美国」。"
+anchor = "fireworks-dpa-sched4-gcp-us"
 
 [product.role]
 kind = "processor"
@@ -250,25 +379,52 @@ text_zh = "FireRouter 文档只描述路由、计费与鉴权，没有就「pass
 text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束 Anthropic/OpenAI。多跳判定：本跳（Fireworks 侧）无明确承诺，上游跳（Anthropic/OpenAI）的条款不在本台账本家范围内，因此按「任一跳明确为否则全链为否」+ 保守假设处理，不在本家记 training 的正面结论。"
 
 [[product.training.point]]
-text_zh = "原先绑在本条的引文（「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，不涉及训练，不构成对 training 维度的表述，故不再绑在本条；该引文仍绑在本档 zdr 条目。"
+text_zh = "原先绑在本条的引文（「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，既不涉及训练，也不涉及保留，故不再绑在本条；该引文现绑在本档 processing_region 条目。"
 
 [product.zdr]
 mark = "no"
-anchor = "fireworks-dataresidency-firerouter-third-party"
+mode = "not_disclosed"
+searched = [
+  "https://docs.fireworks.ai/ecosystem/firerouter/overview",
+  "https://docs.fireworks.ai/accounts/data-residency",
+  "https://fireworks.ai/dpa",
+]
 
 [[product.zdr.point]]
-text_zh = "data_residency 页在 Limitations 里明写「FireRouter can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」，同时该页说明开启 data residency 的账号无法使用 FireRouter（请求返回 403）。即 Fireworks 自己承认无法对本档的第三方跳作区域/处理约束"
+text = "Fireworks' own Zero Data Retention wording (ToS §3.6 and the Zero Data Retention page) is written for the inference path Fireworks itself serves. The FireRouter docs cover routing, billing and authentication only, and neither page states a zero-retention position for the pass-through hop, whose executor is a third-party provider."
+text_zh = "Fireworks 自己的零保留表述（ToS §3.6 与《Zero Data Retention》页）针对的是 Fireworks 自己提供推理的那条路径。FireRouter 文档只写路由、计费与鉴权，两处都没有就 pass-through 这一跳（执行方是第三方 provider）给出零保留方案。"
 
 [[product.zdr.point]]
-text_zh = "零保留同样不能由 Fireworks 单方面保证。"
+text = "Contrary reading, kept side by side: DPA §4.5 says Company shall not retain prompt inputs or model outputs beyond the lifecycle of the applicable request, and DPA Schedule 4 lists Anthropic as an authorised sub-processor — read at contract level, the pass-through hop may already be covered. The verdict stays at no because Fireworks' ZDR documentation does not extend the commitment to the third-party hop, and the upstream hop's own retention policy is not part of this provider's scope."
+text_zh = "相反口径并列保留：DPA §4.5 承诺 Company 不保留 prompt inputs / model outputs 超过请求生命周期，Schedule 4 又把 Anthropic 列为授权子处理者——按合同层读，pass-through 这一跳可能已被 DPA 覆盖。结论仍记否：Fireworks 的 ZDR 文档没有把承诺延伸到第三方跳，上游跳（Anthropic）自己的保留政策不在本台账本家范围内。"
+anchor = "fireworks-dpa-4-5-request-lifecycle"
 
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
+searched = [
+  "https://docs.fireworks.ai/ecosystem/firerouter/overview",
+  "https://docs.fireworks.ai/accounts/data-residency",
+  "https://fireworks.ai/dpa",
+]
+
+[[product.retention.point]]
+text = "The only retention-adjacent disclosure FireRouter makes is about credentials: \"Provider keys sent on individual requests are not persisted by FireRouter.\" (a per-request provider key is not stored; when workspace BYOK is provisioned by Fireworks the credential lives in the customer workspace and is supplied server-side). It says nothing about the retention period of request/response content on the pass-through path, which is why this row is recorded as undisclosed instead of being anchored to that sentence."
+text_zh = "FireRouter 唯一与保留沾边的披露是凭据侧：「Provider keys sent on individual requests are not persisted by FireRouter.」（逐请求携带的 provider key 不落库；若由 Fireworks 侧开通 workspace BYOK，则凭据存在客户 workspace 里、由服务端注入）。它没有说 pass-through 路径上请求/响应正文的保留期，故本行按「未披露」记 searched[]，不把这条句子当依据。"
 anchor = "fireworks-firerouter-third-party-provider-key"
 
 [[product.retention.point]]
-text_zh = "FireRouter 只披露了凭据侧的一条保留规则：「Provider keys sent on individual requests are not persisted by FireRouter.」（逐请求携带的 provider key 不落库；若由 Fireworks 侧开通 workspace BYOK，则凭据存在客户 workspace 里、由服务端注入）。对请求/响应正文在 pass-through 路径上的保留期没有任何披露。Fireworks 侧的 ZDR（ToS §3.6）只承诺 inference，而 pass-through 的执行方是第三方，故不能把 Fireworks 的 ZDR 结论直接套到本档。"
+text_zh = "Fireworks 侧的 ZDR（ToS §3.6）只承诺 inference，而 pass-through 的执行方是第三方，故不能把 Fireworks 的 ZDR 结论直接套到本档。"
+
+[[product.retention.point]]
+text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data on expiry of the Retention Period (§11.2(a): thirty (30) days from expiry of the Agreement), other than Administration Data and Usage Data."
+text_zh = "合同层终止后删除：DPA §11.2(b) 在 Retention Period（§11.2(a)：协议终止后 30 天）届满时删除所有 Covered Data 副本，Administration Data 与 Usage Data 除外。"
+anchor = "fireworks-dpa-11-2-b-post-termination-delete"
+
+[[product.retention.point]]
+text = "DPA Schedule 2: \"All Personal Data is deleted from the Services following service termination.\""
+text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services following service termination.」"
+anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
 codes = ["US"]
@@ -279,16 +435,17 @@ text_zh = "pass-through 路径由客户自己的 provider key 直连上游（默
 
 [[product.processing_region.point]]
 text_zh = "Fireworks 声明无法约束（data_residency 页）。Redirect 路径仍走 Fireworks 开源模型，此时适用 api 档结论。"
+anchor = "fireworks-dataresidency-firerouter-third-party"
 
 [product.role]
-kind = "unknown"
+kind = "processor"
 anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
 
 [[product.role.point]]
-text_zh = "两条口径需要并列：(a) firerouter_overview 页把第三方描述为「provider」，用客户自己的 key 计费，读起来像客户与上游的直接关系"
+text_zh = "适用范围分歧（(a)）：firerouter_overview 页把第三方描述为「provider」，用客户自己的 key 计费，读起来像客户与上游的直接关系；即 BYOK 直连时 Fireworks 是 conduit 还是 processor，本轮不选边。"
 
 [[product.role.point]]
-text_zh = "(b) DPA Schedule 4 却把「Anthropic / United States / AI services」列为 Fireworks 的授权子处理者，读起来像 Fireworks 以 processor 身份再委托。两处都是官方文件，本轮不选边、不调和，如实并列，并把「FireRouter pass-through 时 Fireworks 是 conduit 还是 processor」标为需要人工澄清的问题。"
+text_zh = "(b) DPA Schedule 4 把「Anthropic / United States / AI services」列为 Fireworks 的授权子处理者，读起来像 Fireworks 以 processor 身份再委托——合同层据此把 FireRouter 这一跳记为 processor，Anthropic 记为 subprocessor。两条事实并列保留、不取平均；「pass-through 时 Fireworks 是 conduit 还是 processor」仍需人工澄清。"
 
 [[product]]
 id = "self_managed"
@@ -321,13 +478,25 @@ text_zh = "原先绑在本条的引文（「deployments run in your own cloud ac
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "fireworks-dataresidency-byoc-not-enforceable"
+searched = [
+  "https://docs.fireworks.ai/ecosystem/integrations/byoc/overview",
+  "https://docs.fireworks.ai/accounts/data-residency",
+  "https://fireworks.ai/dpa",
+]
 
 [[product.retention.point]]
-text_zh = "data_residency 页明写「BYOC deployments run in your own cloud account, so Fireworks cannot enforce where they run.」。同理，BYOC 上的数据保留由客户自己的云环境决定，Fireworks 未作保留承诺"
+text = "The data_residency page only excludes BYOC from data residency — \"BYOC deployments run in your own cloud account, so Fireworks cannot enforce where they run.\" That sentence is about where deployments run, not about a retention object or period, so it is not bound here (it stays bound in this tier's processing_region row). None of the pages searched states a BYOC-specific retention clause or period; the BYOC overview page has still not been fetched, which is the precondition for filling this dimension."
+text_zh = "data_residency 页只把 BYOC 排除在数据驻留之外——「BYOC deployments run in your own cloud account, so Fireworks cannot enforce where they run.」该句讲的是运行地，不涉及保留对象或期限，故不绑在本条（它仍绑在本档 processing_region 条目）。已查阅的官方页面都没有给出 BYOC 专属的保留条款或期限；BYOC 概览页本轮仍未抓取，是该维度待补的前置条件。"
 
 [[product.retention.point]]
-text_zh = "文档没有给出 BYOC 专属的保留条款。"
+text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data on expiry of the Retention Period (§11.2(a): thirty (30) days from expiry of the Agreement), other than Administration Data and Usage Data. It covers what Company processed, not data sitting in the customer's own cloud account."
+text_zh = "合同层终止后删除：DPA §11.2(b) 在 Retention Period（§11.2(a)：协议终止后 30 天）届满时删除所有 Covered Data 副本，Administration Data 与 Usage Data 除外。它覆盖的是 Company 处理过的数据，不含留在客户自己云账号里的数据。"
+anchor = "fireworks-dpa-11-2-b-post-termination-delete"
+
+[[product.retention.point]]
+text = "DPA Schedule 2: \"All Personal Data is deleted from the Services following service termination.\""
+text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services following service termination.」"
+anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
 codes = ["selected"]
@@ -385,6 +554,16 @@ suffix = """
  
 
 3.7 Output Disclaimer. YOU ACKNOWLEDGE AND AGREE AS FOLLO"""
+
+[[anchor]]
+id = "fireworks-tos-3-6-safety-screening"
+source_id = "f3cd723579d811c6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "takes to generate Output and deliver that Output to you. "
+exact = "Notwithstanding the foregoing, you agree that we have the right to use safety screening tools on the Content as we deem appropriate."
+suffix = " For clarity, our Zero Data Retention commitment applies to your"
 
 [[anchor]]
 id = "fireworks-dpa-3-a-processor"
@@ -452,6 +631,16 @@ exact = "Retained for 30 days, then deleted; deletable earlier on request. Kept 
 suffix = """
  |
 | Traces / logs | Request/response metadata | Retained fo"""
+
+[[anchor]]
+id = "fireworks-securetraining-gcs-managed-storage"
+source_id = "31646488cd8888c8"
+topics = ["retention", "processing_region"]
+
+[anchor.selector]
+prefix = "Data retention by surface"
+exact = "When training runs on Fireworks-managed storage, training data is stored in Google Cloud Storage (GCS) with only a reference link retained in our database."
+suffix = " Customers control deletion of their own datasets."
 
 [[anchor]]
 id = "fireworks-promptcaching-cache-lifetime"
@@ -536,17 +725,12 @@ FireRouter uses a bring-your-own-key (BYOK) model:
 [[anchor]]
 id = "fireworks-firerouter-third-party-provider-key"
 source_id = "71f0c175ad418ee9"
-topics = ["role"]
+topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-s to FireRouter and pays for calls to Fireworks models.
-*   """
-exact = "A third-party **provider API key** pays for calls to that provider’s models."
-suffix = """
-
-
-Provider keys sent on individual requests are not persiste"""
+prefix = "A third-party **provider API key** pays for calls to that provider’s models."
+exact = "Provider keys sent on individual requests are not persisted by FireRouter."
+suffix = "If workspace BYOK is provisioned on your Fireworks account, Fireworks stores the credential in your workspace"
 
 [[anchor]]
 id = "fireworks-tos-10-1-us-processing"
@@ -705,6 +889,36 @@ suffix = """
 Content delivery network provider 
 
 Vercel  United States"""
+
+[[anchor]]
+id = "fireworks-datahandling-open-models-limit"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "Fireworks has Zero Data Retention by default. Specifically, this means"
+exact = "Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in."
+suffix = " More technically: prompt and generation data exist only in volatil"
+
+[[anchor]]
+id = "fireworks-dpa-sched4-gcp-us"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Amazon Web Services  United States, Japan  Cloud infrastructure and service provider"
+exact = "Google Cloud Platform  United States  Cloud infrastructure and service provider"
+suffix = "Oracle Cloud Infrastructure  United States, Japan, United Kingdom, Germany"
+
+[[anchor]]
+id = "fireworks-dpa-sched4-crusoe-us-iceland"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Lambda Labs  United States  Infrastructure provider"
+exact = "Crusoe  United States, Iceland  Infrastructure provider"
+suffix = "Voltage Park  United States  Infrastructure provider"
 
 [[anchor]]
 id = "fireworks-datahandling-volatile-memory"

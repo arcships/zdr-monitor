@@ -53,6 +53,11 @@ text_zh = "同顶层 dimensions.zdr：用户协议 §4.3 明示 API 档输入输
 [[product.zdr.point]]
 text_zh = "佐证为《模型原理与训练方法说明》§二.2 与 kv_cache 的默认硬盘落盘（详见顶层 note）。官方无任何 ZDR 表述、开关或开通方式，第三方路由商的 ZDR 承诺已 rejected。"
 
+[[product.zdr.point]]
+text = "Operational access path (circumstantial): the Terms of Use §3.4 gives DeepSeek the right to review user behaviour and information in order to meet statutory duties, expressly including reviewing inputs and outputs, building risk-filtering mechanisms and building a database of illegal-content characteristics. Request content is therefore visible to and processed by the vendor on the service side and may enter an illegal-content feature database — this points the same way as \"no zero retention\". It is support only and sets no retention period."
+text_zh = "运营性访问路径（佐证）：用户协议 §3.4 为履行法定义务赋予深度求索对用户使用本服务的行为及信息进行审查的权利，明文包括对输入和输出进行审查、建立风险过滤机制、建立违法内容特征库。请求内容因此在服务侧对厂商可见、会被厂商侧处理，并可能进入违法内容特征库，与「不支持零保留」同向。仅作佐证，不构成任何保留期限。"
+anchor = "deepseek-zdr-tos-use-3-4-content-review"
+
 [product.retention]
 mark = "unknown"
 object = "input_output"
@@ -70,18 +75,24 @@ searched = [
 [[product.retention.point]]
 text_zh = "同顶层 dimensions.retention：API 请求内容保留期无官方条款，相近材料（网络日志 6 个月、kv_cache 数小时至数天、Files API 文件有效期、国际站 input Personal Data 保留至账号存续）scope 或性质不符，不凑数。"
 
+[[product.retention.point]]
+text = "Legal-obligation exception, not a retention period: the Open Platform Terms of Service §7.2 states that records relating to suspected breaches of law or suspected criminal conduct will be kept and reported to the competent authorities, and the Terms of Use §2.5(1) keeps DeepSeek's right, after an account is cancelled, to retain the user's registration data and previous behaviour records as required by laws and regulations. Both are exception contexts only: the object is account data and behaviour records, not input/output content, and no period is given, so object=input_output / basis=undisclosed stand and no retention period for request content can be inferred from them."
+text_zh = "法定义务例外，不是保留期限：开放平台服务协议 §7.2 写明对涉嫌违反法律法规、涉嫌违法犯罪的行为将保存有关记录，并依法向有关主管部门报告、配合有关主管部门调查；用户协议 §2.5(1) 保留深度求索在用户注销账号后按照法律法规的要求保留该用户的注册数据及以前的行为记录的权利。两条都只构成例外语境：对象是账号数据与行为记录、不是输入输出正文，且期限未定，故本档 object=input_output / basis=undisclosed 不变，也不能据此推出请求内容的保留期。"
+anchor = "deepseek-retention-open-platform-7-2-legal-duty-records"
+
 [product.processing_region]
 mark = "unknown"
-codes = ["CN"]
 searched = [
   "https://cdn.deepseek.com/policies/zh-CN/deepseek-privacy-policy.html",
   "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
   "https://cdn.deepseek.com/policies/zh-CN/deepseek-open-platform-terms-of-service.html",
+  "https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html",
   "https://api-docs.deepseek.com/sitemap.xml",
 ]
 
 [[product.processing_region.point]]
-text_zh = "同顶层 dimensions.processing_region：境内存储句 scope 为个人信息，API 业务内容的处理地无披露。"
+text = "Processing location is undisclosed, and no region code is asserted for this tier. The two contracts that cover it contain no processing-location or cross-border clause: the Open Platform Terms of Service §9.1 only states that the agreement is governed by the law of mainland China (choice of law and jurisdiction, not a processing location), and the Terms of Use contain no processing-location or cross-border-transfer clause at all. The \"stored within China\" sentence cited elsewhere comes from the DeepSeek Privacy Policy, which is not registered as a source in this file and has no snapshot in this repository, so it cannot be re-checked — and its object is personal information, not the processing location of API business content."
+text_zh = "处理地未披露，本档不记任何地域码。覆盖本档的两份合同都没有处理地／跨境条款：开放平台服务协议 §9.1 只写本协议的订立、执行和解释及争议的解决均适用中华人民共和国大陆地区法律（法律适用与管辖，不是处理地），用户协议全文没有处理地／跨境条款。别处引用的「境内存储」句出自《DeepSeek 隐私政策》——该页未登记为本文件的来源、仓库内没有快照，无法复核，且其对象是个人信息、不是 API 业务内容的处理地。故记未披露，不等于认定在中国处理。"
 
 [product.role]
 kind = "processor"
@@ -89,6 +100,11 @@ anchor = "deepseek-role-3-5-entrusted-processing"
 
 [[product.role.point]]
 text_zh = "同顶层 dimensions.role：§3.5 受托处理链位 + §5.5 责任划分。"
+
+[[product.role.point]]
+text = "The role is layered, and kind=processor describes the end-user-data chain position only. For end-user data the developer is the processor and DeepSeek the entrusted party: §3.5 puts the duty on the developer to inform end users and to obtain consent for collecting/processing personal information and for entrusting DeepSeek to process it. For the developer's own personal information DeepSeek collects and processes it itself under the DeepSeek Privacy Policy (§5.5), i.e. on the controller side, and §5.5 also places end users' personal information outside that policy and puts the disclosure duty on the developer. kind=processor is therefore not an all-scenario \"processor\" role: §4.3 shows inputs and outputs may be used for DeepSeek's own model training and service optimisation."
+text_zh = "角色是分层的，kind=processor 只描述终端用户数据这一链位。终端用户数据：开发者是处理者、DeepSeek 是受托方——§3.5 把告知终端用户、就收集处理个人信息以及委托深度求索处理个人信息取得同意的义务放在开发者一侧。开发者自身的个人信息：由深度求索依《DeepSeek 隐私政策》自行收集、处理（§5.5），即独立控制方一侧；§5.5 同时把终端用户的个人信息排除在该隐私政策说明范围外，并把披露义务放在开发者一侧。故 kind=processor 不等于全场景受托：§4.3 显示输入输出可能被用于深度求索自身的模型训练与服务优化。"
+anchor = "deepseek-role-open-platform-5-5-developer-personal-info"
 
 [[anchor]]
 id = "deepseek-role-3-5-entrusted-processing"
@@ -154,4 +170,34 @@ topics = ["zdr"]
 [anchor.selector]
 prefix = "**如您拒绝将您的数据用于模型训练，可以在产品内通过关闭“数据用于优化体验”来选择退出，"
 exact = "关闭后您的输入和输出不会再用于我们的模型训练"
+suffix = ""
+
+[[anchor]]
+id = "deepseek-retention-open-platform-7-2-legal-duty-records"
+source_id = "c94e97ec21af7c7a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "深度求索有权公告处理结果，且有权根据实际情况决定是否恢复使用。"
+exact = "对涉嫌违反法律法规、涉嫌违法犯罪的行为将保存有关记录，并依法向有关主管部门报告、配合有关主管部门调查"
+suffix = "。由此而导致或产生的法律责任"
+
+[[anchor]]
+id = "deepseek-zdr-tos-use-3-4-content-review"
+source_id = "e3bfaa90c6529a58"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "3.4 "
+exact = "为履行法定义务的要求，深度求索有权采取技术手段等措施对用户使用本服务的行为及信息进行审查，包括但不限于对输入和输出进行审查、建立风险过滤机制、建立违法内容特征库等"
+suffix = "。作为本服务的使用者，**您不得通过以下方式恶意对抗"
+
+[[anchor]]
+id = "deepseek-role-open-platform-5-5-developer-personal-info"
+source_id = "c94e97ec21af7c7a"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "5.5 "
+exact = "我们会按照《DeepSeek隐私政策》收集、处理您作为个人信息主体在使用开放平台服务时产生和提供的个人信息。您的终端用户访问您基于开放平台开发的下游系统、应用或功能时，其被收集的个人信息的处理规则不在该隐私政策的说明范围内，您作为该场景下个人信息处理活动的处理者应当向终端用户披露相关个人信息保护规则"
 suffix = ""

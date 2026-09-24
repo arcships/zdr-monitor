@@ -26,21 +26,20 @@ jobs:
           set -euo pipefail
           cutoff="$(date -u -d '1 hour ago' +%s)"
           count=0
-          while IFS=$'\t' read -r number created title; do
+          while IFS=$'\t' read -r number created provider; do
             [ -n "$number" ] || continue
             created_epoch="$(date -u -d "$created" +%s)"
             [ "$created_epoch" -le "$cutoff" ] || continue
-            case "$title" in
-              "[document-changed]"*|"[anchor-lost]"*|"[unreachable]"*) ;;
-              *) continue ;;
-            esac
+            [ -n "$provider" ] || continue
             if [ "$(gh pr list --repo "$REPO" --state all --head "dim/issue-$number" --json number --jq length)" -gt 0 ]; then
               continue
             fi
             gh api --method POST "repos/$REPO/dispatches" \
-              -f event_type=policy-review -F "client_payload[issue_number]=$number"
+              -f event_type=policy-review -f "client_payload[provider]=$provider" -F "client_payload[issue_number]=$number"
             count=$((count + 1))
             [ "$count" -ge 3 ] && break
-          done < <(gh issue list --repo "$REPO" --state open --label automation --label dim:ready \
-            --limit 1000 --json number,createdAt,title --jq '.[] | [.number, .createdAt, .title] | @tsv')
+          done < <(gh issue list --repo "$REPO" --state open --label automation \
+            --limit 1000 --json number,createdAt,labels \
+            --jq 'sort_by(.createdAt) | .[] | select([.labels[].name] | index("blocked") | not)
+                  | [.number, .createdAt, ([.labels[].name | select(startswith("provider:")) | ltrimstr("provider:")] | first // "")] | @tsv')
           echo "重新派发 $count 条"

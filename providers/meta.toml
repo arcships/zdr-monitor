@@ -7,43 +7,49 @@ doc = "https://dev.meta.ai/legal/terms-of-service"
 
 [[source]]
 url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Discounted 档，只说『ZDR support may vary by model』。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/commitments"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Meta Model API Data Commitments（法律中心四份文档之一）。按档位写明训练政策：Standard Services 不用 Content 训练；Discounted Services 可用 Content（含 Inputs/Outputs）训练、开发、评估、改进（训练前做去关联处理，评估/安全/质量/政策审查不去关联）；Customer Data 一律不用于训练。含 Data Retention 小节（保留方式以 Terms 与 Privacy Policy 为准，用户可在账户内查看与删除）。作 api 档 training/retention 的同级佐证。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/geographic-use-policy"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "Meta Model API Model Designation and Geographic Use Policy，Last updated: September 18, 2026，是 ToS 的组成部分。§1 指定 Standard Models（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）与 Discounted Models（Muse Spark 1.2/1.3 Contributor）；§3 Restricted Territories 含中国大陆及香港、澳门特别行政区。这是服务访问地域限制，不是处理地/存储地/推理地披露，故 authoritative_for 为空，仅用于界定模型档位与访问范围。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
 
 [[source]]
 url = "https://www.meta.com/legal/meta-for-work/subprocessor-list/"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "由 Model API ToS §5.1 逐字引用（“as may be updated by Meta from time to time”）的子处理者清单，覆盖 api 档与订阅档（§3.2 明确订阅档的访问与使用同样受 ToS 管辖）。清单冠名 Meta Horizon Managed Solutions、Effective November 13, 2023，只披露子处理者的处理地点，不含推理发生地或数据驻留承诺。来源换址：旧 URL https://forwork.meta.com/legal/mfw-subprocessor-list/ 现 301 → 本 URL（forwork.meta.com/legal/mfw-subprocessor-list/ → www.meta.com/legal/meta-for-work/subprocessor-list → …/subprocessor-list/），旧 URL 经 r.jina.ai 取回时会带 “Warning: Target URL returned error 400: Bad Request” 一行而被抓取层判 target_http_400 丢弃；改用重定向终点后正文逐字相同且无该告警行。清单正文仍由 www.meta.com 官方站提供，无 PDF/镜像替代。"
 
 [[source]]
 url = "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "Meta Global Processor Terms（MGPT），由 Model API ToS §2 逐字纳入的 Additional Terms，也是 §5.1 判断角色身份的定义来源。§1.1 把 Meta 的适用身份写为 “in its capacity as Processor or Service Provider”；§2.1 规定按公司指示处理、30 天内未收到书面通知即按 Meta 数据保留政策删除既有副本；定义节把 Meta 关联公司/子处理者/第三方统称 Subprocessor。作 role/retention 的定义性佐证（对 Standard Services 有效）。"
 
 [[product]]
-id = "api"
-badge = "按量 API"
+id = "api-standard"
+badge = "标准 API"
 category = "api"
 plan_level = "any"
 
@@ -52,23 +58,232 @@ mark = "yes"
 mode = "by_tier"
 anchor = "training-standard-5-1"
 
+[[product.training.point]]
+text = "The commitment is a Standard Services clause: §5.1 reads \"will not use Content from Standard Services to train Meta Models\", and the section it sits in applies only \"When you use Standard Services\". It says nothing about the Discounted Services, which carry the opposite rule in §6.1 (see the Contributor tier)."
+text_zh = "该承诺是 Standard Services 的条款：§5.1 原文为『will not use Content from Standard Services to train Meta Models』，而整节只在『When you use Standard Services』时适用。它对 Discounted Services 只字未提，后者在 §6.1 有相反规定（见 Contributor 档）。"
+anchor = "training-standard-5-1"
+
+[[product.training.point]]
+text = "Corroborated tier by tier on the Data Commitments page, the one page of this vendor that states the training policy per tier: \"Meta does not use your Content from Standard Services to train Meta Models\", and model training is confined to the other tier — \"To train and improve Meta's AI models (Discounted Services Content only, as described above)\"."
+text_zh = "Data Commitments 页（本家唯一逐档写明训练政策的页面）逐档佐证：『Meta does not use your Content from Standard Services to train Meta Models』，并把模型训练限定在另一档——『To train and improve Meta's AI models (Discounted Services Content only, as described above)』。"
+anchor = "training-standard-no-train"
+
+[[product.training.point]]
+text = "Content not being used for training is not the same as technical data not being used for improvement: §4.2 defines Usage Data (tool call sequences, API request metadata, error or other logs, timestamps, token counts, latency measurements) and lets Meta \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\", subject to the restrictions in §5.1. §4.2 is not tier-limited, and its \"Subject to restrictions in Section 5.1\" wording does not itself exclude Usage Data from that improvement use."
+text_zh = "Content 不训练 ≠ 技术数据不用于改进：§4.2 定义 Usage Data（工具调用序列、API 请求元数据、错误或其他日志、时间戳、token 计数、延迟测量），并允许 Meta 用它 test/support/develop/evaluate/improve Meta Model API 等，但受 §5.1 限制。§4.2 不因档位而不同，『Subject to restrictions in Section 5.1』这句本身并未把 Usage Data 排除在该改进用途之外。"
+anchor = "tos-4-2-usage-data"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-available"
+
+[[product.zdr.point]]
+text = "Not default and not self-serve: ZDR \"isn't part of standard usage and can't be turned on from the web UI\" — it is enabled at the organization level and requires separate enablement by Meta (request it through the contact sales form). The same page adds \"ZDR support may vary by model\"."
+text_zh = "非默认、非自助：ZDR『isn't part of standard usage and can't be turned on from the web UI』——组织级启用、需 Meta 单独开通（走 contact sales 表单申请）。同页另注『ZDR support may vary by model』。"
+anchor = "zdr-not-standard-org-level"
+
+[[product.zdr.point]]
+text = "Scope: \"ZDR applies only to calls made directly to Meta Model API. Calls routed through third-party platforms follow that platform's data retention policy.\""
+text_zh = "范围：『ZDR applies only to calls made directly to Meta Model API. Calls routed through third-party platforms follow that platform's data retention policy.』"
+anchor = "zdr-scope-direct-calls-only"
+
+[[product.zdr.point]]
+text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — usage statistics (token, request and tool-call counts, without the prompts and responses), account and team data, operational metadata (model name, latency, app ID, for billing, analytics and operations), support feedback, and data processed by third-party tools or external integrations, which ZDR does not cover."
+text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——使用统计（token/请求/工具调用计数，不含提示词与回复）、账户与团队数据、运维元数据（模型名、延迟、app ID，用于计费/分析/运维）、支持反馈，以及第三方工具或外部集成处理的数据（不受 ZDR 覆盖）。"
+anchor = "zdr-still-retained-metadata"
+
+[[product.zdr.point]]
+text = "The only quantified period in this provider's evidence is an exception and an upper bound: \"Meta may retain the associated inputs and outputs for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations.\" The object is the inputs and outputs of a request flagged for an AUP violation, not all traffic."
+text_zh = "整套证据里唯一的量化期限是例外且为上限：『Meta may retain the associated inputs and outputs for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations.』对象是被标记为 AUP 违规的那次请求的输入输出，不是全部流量。"
+anchor = "zdr-abuse-2y"
 
 [product.retention]
 object = "input_output"
 basis = "as_needed"
 anchor = "retention-4-4"
 
+[[product.retention.point]]
+text = "§4.4 retains \"your Content and Usage Data\" as needed for five listed purposes — providing the Services, compliance with applicable laws, exercising Meta's rights to use Content and Usage Data under the Terms, systems flagging a potential policy violation, and security, safety, abuse and policy review and improvements — with no uniform period and no deletion deadline. Content (input/output text) and Usage Data are two separate objects, and only §4.2 defines the latter."
+text_zh = "§4.4 按五项目的（提供服务、合规、行使条款下的内容与 Usage Data 使用权、系统标记的政策违规、安全/滥用/政策审查与改进）按需保留『your Content and Usage Data』，无统一期限、也没有删除时点。Content（输入输出正文）与 Usage Data 是两个对象，后者只由 §4.2 定义。"
+anchor = "retention-4-4"
+
+[[product.retention.point]]
+text = "The only quantified period anywhere in this provider's evidence is an exception and an upper bound: with ZDR enabled, the inputs and outputs of a request flagged for an AUP violation \"may be retained for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations\" — object: input/output text; context: ZDR on plus a policy flag; type: ceiling."
+text_zh = "整套证据里唯一的量化期限是例外且为上限：开启 ZDR 后，被标记为 AUP 违规的请求，其输入输出『may be retained for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations』——对象：输入输出正文；语境：已开 ZDR 且被标记；类型：上限。"
+anchor = "zdr-abuse-2y"
+
+[[product.retention.point]]
+text = "Confidentiality does not limit retention: \"Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.\""
+text_zh = "保密义务不限制保留：『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.』"
+anchor = "tos-12-confidentiality"
+
+[[product.retention.point]]
+text = "The data sections survive termination: §15.4 lists \"the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B.\" So the public terms carry no \"deleted on termination\" commitment, and basis=as_needed must not be read as \"only while the service is running\"."
+text_zh = "数据条款在终止后存续：§15.4 的存续清单为『the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B.』公开条款没有『终止即删除』的承诺，as_needed 不能读成『仅服务期内按需』。"
+anchor = "tos-15-4-survive"
+
+[[product.retention.point]]
+text = "The only deletion commitment in this provider's evidence is conditional and belongs to the Standard Services side (the MGPT, incorporated by §2 and required by §5.1): the Company may give written notice within thirty days of termination and Meta returns the data; where no such notice is given, \"Meta shall delete existing copies of Applicable Personal Data in its possession in accordance with its data retention policies\", except as required by law or permitted by the Company."
+text_zh = "整套证据里唯一的删除承诺是条件性的，且只对 Standard Services 一侧有效（MGPT，经 §2 并入、§5.1 要求遵守）：公司在终止后 30 天内可书面通知要求返还；未在该期限内通知的，『Meta shall delete existing copies of Applicable Personal Data in its possession in accordance with its data retention policies』，法律要求或公司另行许可保留的除外。"
+anchor = "retention-delete-after-30d"
+
 [product.processing_region]
 codes = ["global"]
 anchor = "region-processing-location-table"
 
+[[product.processing_region.point]]
+text = "The subprocessor table gives a Processing Location per entity — United States, Denmark, Sweden, Ireland and others. What it records is where those subprocessors sit, not where a Model API request is inferred or stored."
+text_zh = "子处理者表为每个实体列出 Processing Location——美国、丹麦、瑞典、爱尔兰等。它记的是这些子处理者的所在地，不是某次 Model API 请求的推理地或存储地。"
+anchor = "region-processing-location-table"
+
+[[product.processing_region.point]]
+text = "The second table does the same for Meta affiliates — Canada, France, Germany, Italy, Netherlands, Poland, Singapore, Spain, United Kingdom, United States, Ireland, Philippines. Across both tables the list names 14 distinct locations, and none of them is stated to be an inference or storage region for the Services."
+text_zh = "第二张表对 Meta 关联公司同样处理——加拿大、法国、德国、意大利、荷兰、波兰、新加坡、西班牙、英国、美国、爱尔兰、菲律宾。两张表合计列出 14 个地点，其中没有任何一个被说明为本服务的推理地或存储地。"
+anchor = "region-meta-affiliates-table"
+
+[[product.processing_region.point]]
+text = "The list enters the record only through §5.1: \"You authorize Meta to engage subprocessors included in the list located here, as may be updated by Meta from time to time.\" That sentence sits inside the Standard Services section, and the Terms otherwise say nothing about where a request is processed — no inference location, no data residency option, no selectable region."
+text_zh = "这份清单进入证据的唯一依据是 §5.1：『You authorize Meta to engage subprocessors included in the list located here, as may be updated by Meta from time to time.』该句位于 Standard Services 一节之内，而条款除此之外没有就请求在哪里处理表态——没有推理发生地、没有数据驻留选项、没有可选区域。"
+anchor = "subprocessor-authorization-5-1"
+
+[[product.processing_region.point]]
+text = "Two mismatches to keep in view: the list is headed \"Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors\" — another product line's list — and it is \"Effective November 13, 2023\", nearly three years older than the current Terms of Service (September 18, 2026)."
+text_zh = "需要留意的两处错位：该清单冠名『Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors』，属于另一条产品线；其生效日为『Effective November 13, 2023』，比现行 ToS（September 18, 2026）早近三年。"
+anchor = "region-list-title-effective-date"
+
+[[product.processing_region.point]]
+text = "Not evidence on this dimension: the Geographic Use Policy's §3 Restricted Territories (the People's Republic of China including Hong Kong SAR and Macau SAR, and others) govern where you may access the Services and deploy Integrated Products — an access restriction, not a statement of where data is processed."
+text_zh = "不构成本维度证据：Geographic Use Policy §3 Restricted Territories（中华人民共和国及香港、澳门特别行政区等）管的是你能在哪些地域访问服务、部署 Integrated Products——是访问限制，不是数据处理地的表述。"
+anchor = "access-restricted-territories"
+
 [product.role]
 kind = "processor"
 anchor = "role-processor-5-1"
+
+[[product.role.point]]
+text = "§5.1: Meta will collect, use, process, and share the data as a Service Provider or Processor (each as defined in the MGPT), and Meta must comply with the MGPT when acting as your Service Provider or Processor. A processor designation — but one that sits inside the Standard Services section."
+text_zh = "§5.1：Meta 以 Service Provider / Processor 身份收集、使用、处理并共享数据（身份定义见 MGPT），且担任 Service Provider / Processor 时须遵守 MGPT。受托定性成立，但它在 Standard Services 一节之内。"
+anchor = "role-processor-5-1"
+
+[[product.role.point]]
+text = "Processor duties from the MGPT that §2 incorporates: \"Meta shall Process Applicable Personal Data for and at the direction of Company and for the purposes specified in the Applicable Terms\", and Meta must not disclose it except on the Company's direction or as those terms or the law permit."
+text_zh = "MGPT（经 §2 并入）给出的受托义务：『Meta shall Process Applicable Personal Data for and at the direction of Company and for the purposes specified in the Applicable Terms』；除按公司指示、条款或法律许可外不得披露。"
+anchor = "role-process-on-instruction"
+
+[[product.role.point]]
+text = "MGPT §1.1 states Meta's capacity as \"in its capacity as Processor or Service Provider\", and §1.1/§2.1 apply only to the extent the Applicable Terms specifies Meta as a Service Provider or Processor — which §5.1 does for the Standard Services."
+text_zh = "MGPT §1.1 把 Meta 的身份写为『in its capacity as Processor or Service Provider』，而 §1.1/§2.1 只在 Applicable Terms 指定 Meta 为 Service Provider 或 Processor 时才适用——§5.1 为 Standard Services 作了这一指定。"
+anchor = "role-processor-or-service-provider"
+
+[[product]]
+id = "api-contributor"
+badge = "Contributor 档"
+category = "api"
+plan_level = "any"
+
+[product.training]
+mark = "no"
+anchor = "training-discounted-6-1"
+
+[[product.training.point]]
+text = "§6.1: \"Meta may use your Content to train, develop, evaluate, and improve Meta's artificial intelligence models, products, and services\" — the opposite direction from §5.1, which does not cover this tier."
+text_zh = "§6.1：『Meta may use your Content to train, develop, evaluate, and improve Meta's artificial intelligence models, products, and services』——与 §5.1 方向相反，而 §5.1 不覆盖本档。"
+anchor = "training-discounted-6-1"
+
+[[product.training.point]]
+text = "Which tier applies is decided by the model you select, not by how you call it: \"The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes.\""
+text_zh = "适用哪一档由所选模型决定，不由接入方式决定：『The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes.』"
+anchor = "tos-1-tier-by-model"
+
+[[product.training.point]]
+text = "The Geographic Use Policy designates Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor as Discounted Models; every other model on its list (Muse Image, Muse Spark 1.1/1.2/1.3, Muse Voice Transcribe, SAM 3.1) is a Standard Model."
+text_zh = "Geographic Use Policy 把 Muse Spark 1.2 Contributor 与 Muse Spark 1.3 Contributor 指定为 Discounted Models；清单里其余模型（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）都是 Standard Models。"
+anchor = "model-designation-discounted"
+
+[[product.training.point]]
+text = "§6.2 caps what may be sent to this tier at all: \"You must not submit sensitive, confidential, or personal information to the Discounted Services\", and where you are required to keep software code confidential you must not submit that either. Personal or confidential traffic has to use the Standard Services."
+text_zh = "§6.2 对本档可提交的内容设了硬限制：『You must not submit sensitive, confidential, or personal information to the Discounted Services』；若软件代码依约需保密，同样不得提交。个人信息与机密内容只能走 Standard Services。"
+anchor = "tos-6-2-no-confidential"
+
+[[product.training.point]]
+text = "No way out of training on this tier: \"the Discounted Services do not offer a mechanism to exclude specific traffic from training\"."
+text_zh = "本档没有退出训练的开关：『the Discounted Services do not offer a mechanism to exclude specific traffic from training』。"
+anchor = "tos-6-2-no-training-exclusion"
+
+[[product.training.point]]
+text = "The only route is to move that traffic elsewhere: \"if you otherwise require that Content not be used for training, you must use the Standard Services for that traffic.\" The Data Commitments page gives the same route — \"If you do not want Content used for training, you may upgrade to Standard Services.\""
+text_zh = "唯一出路是把这部分流量挪走：『if you otherwise require that Content not be used for training, you must use the Standard Services for that traffic.』Data Commitments 给出同样路径——『If you do not want Content used for training, you may upgrade to Standard Services.』"
+anchor = "tos-6-2-must-use-standard"
+
+[[product.training.point]]
+text = "Beyond Content, §4.2 lets Meta use Usage Data (tool call sequences, API request metadata, error or other logs, timestamps, token counts, latency measurements) to \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\", subject to the restrictions in §5.1. §4.2 is not tier-limited and does not state how that restriction applies here."
+text_zh = "除 Content 外，§4.2 还允许 Meta 把 Usage Data（工具调用序列、API 请求元数据、错误或其他日志、时间戳、token 计数、延迟测量）用于 test/support/develop/evaluate/improve Meta Model API 等，但受 §5.1 限制。§4.2 不因档位而不同，原文也未写明该限制对本档如何适用。"
+anchor = "tos-4-2-usage-data"
+
+[product.zdr]
+mark = "unknown"
+searched = [
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/legal/geographic-use-policy",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+]
+
+[[product.zdr.point]]
+text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\"; it does not state whether the Contributor/Discounted tier can enable ZDR. This tier rests on Meta being able to use Content for training, which sits badly with request-level zero retention, but Meta has taken no position — recorded as not found, and not to be read in reverse as the vendor declining to offer it."
+text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor/Discounted 档能否启用 ZDR。本档的前提是 Meta 可用 Content 训练，与请求级零保留相斥，但官方未表态——如实记未找到，不得反推为厂商拒绝提供。"
+
+[product.retention]
+object = "input_output"
+basis = "as_needed"
+anchor = "tos-6-1-retain-discounted"
+
+[[product.retention.point]]
+text = "§4.4 applies to this tier as well: \"your Content and Usage Data\" are retained as needed for five listed purposes, with no uniform period."
+text_zh = "§4.4 对本档同样适用：按五项目的按需保留『your Content and Usage Data』，无统一期限。"
+anchor = "retention-4-4"
+
+[[product.retention.point]]
+text = "§6.1 adds retention grounds of its own for this tier: compliance with applicable laws; \"in connection with the exercise of Meta's rights to use your Content under this Section 6\" — that is, the training use is itself a ground for retention; and when systems flag data for a potential policy violation."
+text_zh = "§6.1 为本档另加保留依据：为遵守适用法律；『in connection with the exercise of Meta's rights to use your Content under this Section 6』——即训练用途本身构成保留理由；以及系统标记出潜在政策违规时。"
+anchor = "tos-6-1-retain-discounted"
+
+[[product.retention.point]]
+text = "Termination is not a deletion point on this tier either: §15.4 lists Sections 4, 5 and 6 among those that survive termination."
+text_zh = "本档的『终止』也不是删除时点：§15.4 的存续清单含 §4/§5/§6。"
+anchor = "tos-15-4-survive"
+
+[product.processing_region]
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/legal/geographic-use-policy",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+  "https://www.meta.com/legal/meta-for-work/subprocessor-list/",
+]
+
+[[product.processing_region.point]]
+text = "§6 sets no subprocessor or processing-location clause, and the §5.1 authorization for the subprocessor list is a Standard Services clause, so the list does not speak for this tier. No inference location, data residency option or selectable region is disclosed for the Discounted Services."
+text_zh = "§6 未设子处理者或处理地条款，而 §5.1 对子处理者清单的授权属 Standard Services 条款，故该清单对本档不构成表述。Discounted Services 未披露推理发生地、数据驻留选项或可选区域。"
+
+[product.role]
+kind = "unknown"
+anchor = "training-discounted-6-1"
+
+[[product.role.point]]
+text = "Section 6 contains no Service Provider or Processor wording at all — the opposite of §5.1 — and §6.1 has Meta using Content to train its own models, i.e. for Meta's own purposes rather than on your instruction. This is a determination that the section makes no processor statement, and the anchor can only land on the own-purpose use clause."
+text_zh = "§6 全文没有 Service Provider / Processor 表述（与 §5.1 相反），且 §6.1 是 Meta 拿 Content 训练自己的模型，即为自身目的使用，而非按你的指示处理。此项是『该节未作 processor 声明』的判断，锚点只能落在 §6.1 的自身用途条款上。"
+anchor = "training-discounted-6-1"
+
+[[product.role.point]]
+text = "The MGPT's processor duties are conditioned on the Applicable Terms specifying Meta as a Service Provider or Processor — MGPT §2.1 reads \"To the extent the Applicable Terms specifies Meta as a Service Provider or Processor\" — and §5.1 makes that specification for the Standard Services only, so those duties are not triggered on this tier."
+text_zh = "MGPT 的受托义务以 Applicable Terms 指定 Meta 为 Service Provider 或 Processor 为前提——MGPT §2.1 原文『To the extent the Applicable Terms specifies Meta as a Service Provider or Processor』；§5.1 只为 Standard Services 作了这一指定，故本档不触发这些义务。"
+anchor = "role-process-on-instruction"
 
 [[anchor]]
 id = "retention-4-4"
@@ -153,7 +368,7 @@ topics = ["processing_region"]
 [anchor.selector]
 prefix = " MGPT when Meta acts as your Service Provider or Processor. "
 exact = "You authorize Meta to engage subprocessors included in the list located"
-suffix = " [here](https://forwork.meta.com/legal/mfw-subprocessor-list"
+suffix = " here, as may be updated by Meta from time to time."
 
 [[anchor]]
 id = "training-standard-no-train"
@@ -218,6 +433,20 @@ topics = ["retention", "zdr"]
 prefix = " request is flagged for an Acceptable Use Policy violation, "
 exact = "Meta may retain the associated inputs and outputs for up to 2 years"
 suffix = " for abuse detection, integrity and content-safety enforceme"
+
+[[anchor]]
+id = "zdr-still-retained-metadata"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+eam information are retained.
+*   **Operational metadata**: """
+exact = "Details such as model name, latency, and app ID are retained for billing, analytics, and operations."
+suffix = """
+
+*   **Support feedback**: Anything you send through the sup"""
 
 [[anchor]]
 id = "region-list-title-effective-date"
@@ -321,3 +550,95 @@ e by updating this Policy.
 """
 exact = "You may not access the Services from"
 suffix = ", and you may not make Integrated Products available to or k"
+
+[[anchor]]
+id = "tos-1-tier-by-model"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "er Meta Models in connection with your use of the Services. "
+exact = "The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes."
+suffix = """
+
+
+You agree to be bound by these Terms by: (i) clicking to a"""
+
+[[anchor]]
+id = "tos-4-2-usage-data"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "atency measurements, and operational metrics and telemetry. "
+exact = "Subject to restrictions in Section 5.1, Meta may use Usage Data to test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services."
+suffix = """
+
+
+4.3 Third-Party Features. Our Services may use or be used """
+
+[[anchor]]
+id = "tos-6-1-retain-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ntent may be used by Meta for the above-described purposes. "
+exact = "Meta may also retain and process your Content: (i) to the extent necessary for compliance with applicable laws;"
+suffix = " (ii) in connection with the exercise of Meta’s rights to us"
+
+[[anchor]]
+id = "tos-6-2-no-confidential"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+a potential policy violation.
+
+6.2 Your Responsibilities. **"""
+exact = "You must not submit sensitive, confidential, or personal information to the Discounted Services."
+suffix = "** If you intend, or are required (including by contract), t"
+
+[[anchor]]
+id = "tos-6-2-no-training-exclusion"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "route traffic based on location of your End Users, and "
+exact = "the Discounted Services do not offer a mechanism to exclude specific traffic from training"
+suffix = ". If your End Users are located in a jurisdiction"
+
+[[anchor]]
+id = "tos-6-2-must-use-standard"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "or if you otherwise require that Content not be used for training, "
+exact = "you must use the Standard Services for that traffic"
+suffix = ". You are responsible for determining your End Users' locations"
+
+[[anchor]]
+id = "tos-12-confidentiality"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e confidential (including information related to Accounts). "
+exact = "Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12."
+suffix = " Except as expressly permitted in these Terms, during and af"
+
+[[anchor]]
+id = "tos-15-4-survive"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ms that apply to your use of Integrated Products; and (iii) "
+exact = "the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B."
+suffix = """
+
+
+15.5 Modification. We may modify these Terms from time to """

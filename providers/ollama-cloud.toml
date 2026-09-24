@@ -37,24 +37,64 @@ plan_level = "individual"
 mark = "yes"
 mode = "by_contract"
 anchor = "ollama-no-training-contract"
+
+[[product.training.point]]
+text = "Privacy Policy §4 lists \"Improve and develop new features\" among the purposes for which personal information collected via the Service is used, but the subject of that list is the §3 personal information — account information, payment information (processed by Stripe) and support communications, plus automatically collected metadata that expressly excludes prompt or response content (\"Diagnostic metadata for troubleshooting (does not include prompt or response content)\"). Input and output content is excluded from training separately, by Privacy Policy §2 and by ToS §5 (\"We do not use your inputs or outputs to train AI models.\"). Scope: this §4 line is not a statement about training on prompt or response content."
+text_zh = "隐私政策 §4 的「Improve and develop new features」是「personal information collected via our Service」的用途条目之一。该清单的对象是 §3 收集的个人信息——账号信息、支付信息（经 Stripe）与支持通信，以及明文不含 prompt/response 的自动收集元数据（「Diagnostic metadata for troubleshooting (does not include prompt or response content)」）。输入输出正文另由隐私政策 §2 与 ToS §5（「We do not use your inputs or outputs to train AI models.」）排除在训练之外。适用范围：该 §4 条目不构成对 prompt/response 正文的训练表述。"
+anchor = "ollama-usage-improve-features"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "ollama-cloud-zdr"
+
+[[product.zdr.point]]
+text = "The zero data retention commitment is a requirement Ollama places on the upstream hop rather than a first-party retention term: Privacy Policy §5 lists \"model inference providers\" among the third parties who help operate the Service (\"Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).\"), and the pricing FAQ names that hop (\"Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.\"), immediately followed by \"When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.\" Chain: Ollama → model inference provider (NVIDIA Cloud Providers); the commitment is what Ollama requires of that hop."
+text_zh = "零保留是对上游那一跳的要求，而不是第一方保留条款：隐私政策 §5 把「model inference providers」列为协助运营服务的第三方类别（「Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).」），定价页 FAQ 指明该跳为 NVIDIA Cloud Providers（「Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.」），紧接的一句是「When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.」。链路：Ollama → 模型推理提供方（NVIDIA Cloud Providers）；承诺的形式是 Ollama 对该跳提出的要求。"
+anchor = "ollama-privacy-third-parties"
+
+[[product.zdr.point]]
+text = "Not covered by that requirement as far as the published text goes: the pricing page bills a \"Cached input\" column, and its usage FAQ reads \"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\" A priced prompt-cache state therefore exists, but Ollama discloses neither its object (what is cached, per account or shared) nor any retention period for it — recorded as undisclosed, not as a vendor denial."
+text_zh = "该要求在公开文本里覆盖不到的未披露项：定价页设有「Cached input」列，其 usage FAQ 写明「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」。存在被计价的提示词缓存状态，但 Ollama 未披露其对象（缓存什么、按账号还是共享）与保留期限——记为未披露，不是厂商否定。"
+anchor = "ollama-pricing-cached-input"
+
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Object = prompt/response content, first-party statement: \"When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.\" The §6 categories are per object and are not the same period: account information retained while the account is active and deleted upon request, subject to legal obligations; billing records retained as required by tax, accounting and other legal obligations; metadata and analytics retained as needed for service operations, security and improvement. Support communications are a separate category — see the point below."
+text_zh = "对象 = prompt/response 正文（第一方表述）：「When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.」。§6 的分类按对象各计、期限并不相同：账号信息在账户存续期保留、请求即删（受法律义务限制）；账单记录按税务、会计等法律义务保留；元数据与分析按服务运营、安全与改进需要保留。支持通信是另一类——见下一条。"
+anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Exception path for input/output content, verbatim: \"Support communications: retained until resolved and then archived or deleted.\" Input or output content reaches that category only when the user voluntarily includes it in a support request (Privacy Policy §2: \"If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.\"); on that path the request-scoped limit (\"not stored beyond the time required to fulfill the request\") does not apply — the period is the support case lifecycle."
+text_zh = "输入输出正文的例外路径（逐字）：「Support communications: retained until resolved and then archived or deleted.」。正文进入该类的唯一路径是用户自愿在支持请求中提供（隐私政策 §2：「If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.」）；该路径下不适用按请求计的期限（「not stored beyond the time required to fulfill the request」），期限按支持工单生命周期计。"
+anchor = "ollama-privacy-support-retention"
+
+[[product.retention.point]]
+text = "Separate object, undisclosed period: cached input is priced (\"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\", with a \"Cached input\" column in the table). KV/prompt cache is its own object alongside prompt/response content, and Ollama publishes no lifetime, eviction rule or scope for it — undisclosed."
+text_zh = "独立对象、期限未披露：定价页对 cached input 计价（「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」，表头为「Cached input」列）。KV/提示词缓存是与 prompt/response 正文并列的独立对象，Ollama 未公布其存活时长、清除规则与范围——属未披露。"
+anchor = "ollama-pricing-cached-input"
+
 [product.processing_region]
 codes = ["US", "EU", "SG"]
 anchor = "ollama-cloud-region"
+
+[[product.processing_region.point]]
+text = "Privacy Policy §5 is the policy's only processing-location statement, and it names the United States only: \"Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.\""
+text_zh = "隐私政策 §5 是该政策里唯一的处理地表述，且只提美国：「Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.」"
+anchor = "ollama-privacy-us-processing"
+
+[[product.processing_region.point]]
+text = "The EU and SG codes in this row come from the pricing FAQ, which is narrower in kind — routing for capacity, not a declared processing location and not a user-selectable region or residency commitment: \"Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.\""
+text_zh = "本行 EU / SG 两个码出自定价页 FAQ，性质更窄——按需容量的路由，不是已声明的处理地，也不是用户可选区域或数据驻留承诺：「Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.」"
+anchor = "ollama-cloud-region"
+
 [product.role]
 kind = "controller"
 anchor = "ollama-controller"
-
-[[product.retention.point]]
-text_zh = "prompt/response 不记录，瞬时处理；输入缓存价目存在，但官方未披露缓存期限。账号、账单、支持和 usage metadata 另按账户存续/法律或运营需要保留。"
-anchor = "ollama-cloud-transient"
 
 [[product]]
 id = "cloud-free"
@@ -66,17 +106,61 @@ plan_level = "free"
 mark = "yes"
 mode = "by_contract"
 anchor = "ollama-no-training-contract"
+
+[[product.training.point]]
+text = "Privacy Policy §4 lists \"Improve and develop new features\" among the purposes for which personal information collected via the Service is used, but the subject of that list is the §3 personal information — account information, payment information (processed by Stripe) and support communications, plus automatically collected metadata that expressly excludes prompt or response content (\"Diagnostic metadata for troubleshooting (does not include prompt or response content)\"). Input and output content is excluded from training separately, by Privacy Policy §2 and by ToS §5 (\"We do not use your inputs or outputs to train AI models.\"). Scope: this §4 line is not a statement about training on prompt or response content."
+text_zh = "隐私政策 §4 的「Improve and develop new features」是「personal information collected via our Service」的用途条目之一。该清单的对象是 §3 收集的个人信息——账号信息、支付信息（经 Stripe）与支持通信，以及明文不含 prompt/response 的自动收集元数据（「Diagnostic metadata for troubleshooting (does not include prompt or response content)」）。输入输出正文另由隐私政策 §2 与 ToS §5（「We do not use your inputs or outputs to train AI models.」）排除在训练之外。适用范围：该 §4 条目不构成对 prompt/response 正文的训练表述。"
+anchor = "ollama-usage-improve-features"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "ollama-cloud-zdr"
+
+[[product.zdr.point]]
+text = "The zero data retention commitment is a requirement Ollama places on the upstream hop rather than a first-party retention term: Privacy Policy §5 lists \"model inference providers\" among the third parties who help operate the Service (\"Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).\"), and the pricing FAQ names that hop (\"Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.\"), immediately followed by \"When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.\" Chain: Ollama → model inference provider (NVIDIA Cloud Providers); the commitment is what Ollama requires of that hop."
+text_zh = "零保留是对上游那一跳的要求，而不是第一方保留条款：隐私政策 §5 把「model inference providers」列为协助运营服务的第三方类别（「Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).」），定价页 FAQ 指明该跳为 NVIDIA Cloud Providers（「Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.」），紧接的一句是「When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.」。链路：Ollama → 模型推理提供方（NVIDIA Cloud Providers）；承诺的形式是 Ollama 对该跳提出的要求。"
+anchor = "ollama-privacy-third-parties"
+
+[[product.zdr.point]]
+text = "Not covered by that requirement as far as the published text goes: the pricing page bills a \"Cached input\" column, and its usage FAQ reads \"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\" A priced prompt-cache state therefore exists, but Ollama discloses neither its object (what is cached, per account or shared) nor any retention period for it — recorded as undisclosed, not as a vendor denial."
+text_zh = "该要求在公开文本里覆盖不到的未披露项：定价页设有「Cached input」列，其 usage FAQ 写明「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」。存在被计价的提示词缓存状态，但 Ollama 未披露其对象（缓存什么、按账号还是共享）与保留期限——记为未披露，不是厂商否定。"
+anchor = "ollama-pricing-cached-input"
+
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Object = prompt/response content, first-party statement: \"When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.\" The §6 categories are per object and are not the same period: account information retained while the account is active and deleted upon request, subject to legal obligations; billing records retained as required by tax, accounting and other legal obligations; metadata and analytics retained as needed for service operations, security and improvement. Support communications are a separate category — see the point below."
+text_zh = "对象 = prompt/response 正文（第一方表述）：「When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.」。§6 的分类按对象各计、期限并不相同：账号信息在账户存续期保留、请求即删（受法律义务限制）；账单记录按税务、会计等法律义务保留；元数据与分析按服务运营、安全与改进需要保留。支持通信是另一类——见下一条。"
+anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Exception path for input/output content, verbatim: \"Support communications: retained until resolved and then archived or deleted.\" Input or output content reaches that category only when the user voluntarily includes it in a support request (Privacy Policy §2: \"If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.\"); on that path the request-scoped limit (\"not stored beyond the time required to fulfill the request\") does not apply — the period is the support case lifecycle."
+text_zh = "输入输出正文的例外路径（逐字）：「Support communications: retained until resolved and then archived or deleted.」。正文进入该类的唯一路径是用户自愿在支持请求中提供（隐私政策 §2：「If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.」）；该路径下不适用按请求计的期限（「not stored beyond the time required to fulfill the request」），期限按支持工单生命周期计。"
+anchor = "ollama-privacy-support-retention"
+
+[[product.retention.point]]
+text = "Separate object, undisclosed period: cached input is priced (\"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\", with a \"Cached input\" column in the table). KV/prompt cache is its own object alongside prompt/response content, and Ollama publishes no lifetime, eviction rule or scope for it — undisclosed."
+text_zh = "独立对象、期限未披露：定价页对 cached input 计价（「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」，表头为「Cached input」列）。KV/提示词缓存是与 prompt/response 正文并列的独立对象，Ollama 未公布其存活时长、清除规则与范围——属未披露。"
+anchor = "ollama-pricing-cached-input"
+
 [product.processing_region]
 codes = ["US", "EU", "SG"]
 anchor = "ollama-cloud-region"
+
+[[product.processing_region.point]]
+text = "Privacy Policy §5 is the policy's only processing-location statement, and it names the United States only: \"Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.\""
+text_zh = "隐私政策 §5 是该政策里唯一的处理地表述，且只提美国：「Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.」"
+anchor = "ollama-privacy-us-processing"
+
+[[product.processing_region.point]]
+text = "The EU and SG codes in this row come from the pricing FAQ, which is narrower in kind — routing for capacity, not a declared processing location and not a user-selectable region or residency commitment: \"Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.\""
+text_zh = "本行 EU / SG 两个码出自定价页 FAQ，性质更窄——按需容量的路由，不是已声明的处理地，也不是用户可选区域或数据驻留承诺：「Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.」"
+anchor = "ollama-cloud-region"
+
 [product.role]
 kind = "controller"
 anchor = "ollama-controller"
@@ -91,17 +175,61 @@ plan_level = "team"
 mark = "yes"
 mode = "by_contract"
 anchor = "ollama-no-training-contract"
+
+[[product.training.point]]
+text = "Privacy Policy §4 lists \"Improve and develop new features\" among the purposes for which personal information collected via the Service is used, but the subject of that list is the §3 personal information — account information, payment information (processed by Stripe) and support communications, plus automatically collected metadata that expressly excludes prompt or response content (\"Diagnostic metadata for troubleshooting (does not include prompt or response content)\"). Input and output content is excluded from training separately, by Privacy Policy §2 and by ToS §5 (\"We do not use your inputs or outputs to train AI models.\"). Scope: this §4 line is not a statement about training on prompt or response content."
+text_zh = "隐私政策 §4 的「Improve and develop new features」是「personal information collected via our Service」的用途条目之一。该清单的对象是 §3 收集的个人信息——账号信息、支付信息（经 Stripe）与支持通信，以及明文不含 prompt/response 的自动收集元数据（「Diagnostic metadata for troubleshooting (does not include prompt or response content)」）。输入输出正文另由隐私政策 §2 与 ToS §5（「We do not use your inputs or outputs to train AI models.」）排除在训练之外。适用范围：该 §4 条目不构成对 prompt/response 正文的训练表述。"
+anchor = "ollama-usage-improve-features"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "ollama-cloud-zdr"
+
+[[product.zdr.point]]
+text = "The zero data retention commitment is a requirement Ollama places on the upstream hop rather than a first-party retention term: Privacy Policy §5 lists \"model inference providers\" among the third parties who help operate the Service (\"Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).\"), and the pricing FAQ names that hop (\"Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.\"), immediately followed by \"When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.\" Chain: Ollama → model inference provider (NVIDIA Cloud Providers); the commitment is what Ollama requires of that hop."
+text_zh = "零保留是对上游那一跳的要求，而不是第一方保留条款：隐私政策 §5 把「model inference providers」列为协助运营服务的第三方类别（「Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).」），定价页 FAQ 指明该跳为 NVIDIA Cloud Providers（「Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.」），紧接的一句是「When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.」。链路：Ollama → 模型推理提供方（NVIDIA Cloud Providers）；承诺的形式是 Ollama 对该跳提出的要求。"
+anchor = "ollama-privacy-third-parties"
+
+[[product.zdr.point]]
+text = "Not covered by that requirement as far as the published text goes: the pricing page bills a \"Cached input\" column, and its usage FAQ reads \"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\" A priced prompt-cache state therefore exists, but Ollama discloses neither its object (what is cached, per account or shared) nor any retention period for it — recorded as undisclosed, not as a vendor denial."
+text_zh = "该要求在公开文本里覆盖不到的未披露项：定价页设有「Cached input」列，其 usage FAQ 写明「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」。存在被计价的提示词缓存状态，但 Ollama 未披露其对象（缓存什么、按账号还是共享）与保留期限——记为未披露，不是厂商否定。"
+anchor = "ollama-pricing-cached-input"
+
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Object = prompt/response content, first-party statement: \"When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.\" The §6 categories are per object and are not the same period: account information retained while the account is active and deleted upon request, subject to legal obligations; billing records retained as required by tax, accounting and other legal obligations; metadata and analytics retained as needed for service operations, security and improvement. Support communications are a separate category — see the point below."
+text_zh = "对象 = prompt/response 正文（第一方表述）：「When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.」。§6 的分类按对象各计、期限并不相同：账号信息在账户存续期保留、请求即删（受法律义务限制）；账单记录按税务、会计等法律义务保留；元数据与分析按服务运营、安全与改进需要保留。支持通信是另一类——见下一条。"
+anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Exception path for input/output content, verbatim: \"Support communications: retained until resolved and then archived or deleted.\" Input or output content reaches that category only when the user voluntarily includes it in a support request (Privacy Policy §2: \"If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.\"); on that path the request-scoped limit (\"not stored beyond the time required to fulfill the request\") does not apply — the period is the support case lifecycle."
+text_zh = "输入输出正文的例外路径（逐字）：「Support communications: retained until resolved and then archived or deleted.」。正文进入该类的唯一路径是用户自愿在支持请求中提供（隐私政策 §2：「If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.」）；该路径下不适用按请求计的期限（「not stored beyond the time required to fulfill the request」），期限按支持工单生命周期计。"
+anchor = "ollama-privacy-support-retention"
+
+[[product.retention.point]]
+text = "Separate object, undisclosed period: cached input is priced (\"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\", with a \"Cached input\" column in the table). KV/prompt cache is its own object alongside prompt/response content, and Ollama publishes no lifetime, eviction rule or scope for it — undisclosed."
+text_zh = "独立对象、期限未披露：定价页对 cached input 计价（「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」，表头为「Cached input」列）。KV/提示词缓存是与 prompt/response 正文并列的独立对象，Ollama 未公布其存活时长、清除规则与范围——属未披露。"
+anchor = "ollama-pricing-cached-input"
+
 [product.processing_region]
 codes = ["US", "EU", "SG"]
 anchor = "ollama-cloud-region"
+
+[[product.processing_region.point]]
+text = "Privacy Policy §5 is the policy's only processing-location statement, and it names the United States only: \"Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.\""
+text_zh = "隐私政策 §5 是该政策里唯一的处理地表述，且只提美国：「Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.」"
+anchor = "ollama-privacy-us-processing"
+
+[[product.processing_region.point]]
+text = "The EU and SG codes in this row come from the pricing FAQ, which is narrower in kind — routing for capacity, not a declared processing location and not a user-selectable region or residency commitment: \"Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.\""
+text_zh = "本行 EU / SG 两个码出自定价页 FAQ，性质更窄——按需容量的路由，不是已声明的处理地，也不是用户可选区域或数据驻留承诺：「Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.」"
+anchor = "ollama-cloud-region"
+
 [product.role]
 kind = "controller"
 anchor = "ollama-controller"
@@ -116,17 +244,61 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_contract"
 anchor = "ollama-no-training-contract"
+
+[[product.training.point]]
+text = "Privacy Policy §4 lists \"Improve and develop new features\" among the purposes for which personal information collected via the Service is used, but the subject of that list is the §3 personal information — account information, payment information (processed by Stripe) and support communications, plus automatically collected metadata that expressly excludes prompt or response content (\"Diagnostic metadata for troubleshooting (does not include prompt or response content)\"). Input and output content is excluded from training separately, by Privacy Policy §2 and by ToS §5 (\"We do not use your inputs or outputs to train AI models.\"). Scope: this §4 line is not a statement about training on prompt or response content."
+text_zh = "隐私政策 §4 的「Improve and develop new features」是「personal information collected via our Service」的用途条目之一。该清单的对象是 §3 收集的个人信息——账号信息、支付信息（经 Stripe）与支持通信，以及明文不含 prompt/response 的自动收集元数据（「Diagnostic metadata for troubleshooting (does not include prompt or response content)」）。输入输出正文另由隐私政策 §2 与 ToS §5（「We do not use your inputs or outputs to train AI models.」）排除在训练之外。适用范围：该 §4 条目不构成对 prompt/response 正文的训练表述。"
+anchor = "ollama-usage-improve-features"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "ollama-cloud-zdr"
+
+[[product.zdr.point]]
+text = "The zero data retention commitment is a requirement Ollama places on the upstream hop rather than a first-party retention term: Privacy Policy §5 lists \"model inference providers\" among the third parties who help operate the Service (\"Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).\"), and the pricing FAQ names that hop (\"Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.\"), immediately followed by \"When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.\" Chain: Ollama → model inference provider (NVIDIA Cloud Providers); the commitment is what Ollama requires of that hop."
+text_zh = "零保留是对上游那一跳的要求，而不是第一方保留条款：隐私政策 §5 把「model inference providers」列为协助运营服务的第三方类别（「Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers).」），定价页 FAQ 指明该跳为 NVIDIA Cloud Providers（「Ollama collaborates with NVIDIA Cloud Providers (NCPs) to host open models.」），紧接的一句是「When Ollama partners with providers, we require no logging, no training, and zero data retention policies in place.」。链路：Ollama → 模型推理提供方（NVIDIA Cloud Providers）；承诺的形式是 Ollama 对该跳提出的要求。"
+anchor = "ollama-privacy-third-parties"
+
+[[product.zdr.point]]
+text = "Not covered by that requirement as far as the published text goes: the pricing page bills a \"Cached input\" column, and its usage FAQ reads \"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\" A priced prompt-cache state therefore exists, but Ollama discloses neither its object (what is cached, per account or shared) nor any retention period for it — recorded as undisclosed, not as a vendor denial."
+text_zh = "该要求在公开文本里覆盖不到的未披露项：定价页设有「Cached input」列，其 usage FAQ 写明「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」。存在被计价的提示词缓存状态，但 Ollama 未披露其对象（缓存什么、按账号还是共享）与保留期限——记为未披露，不是厂商否定。"
+anchor = "ollama-pricing-cached-input"
+
 [product.retention]
 object = "input_output"
 basis = "none"
 anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Object = prompt/response content, first-party statement: \"When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.\" The §6 categories are per object and are not the same period: account information retained while the account is active and deleted upon request, subject to legal obligations; billing records retained as required by tax, accounting and other legal obligations; metadata and analytics retained as needed for service operations, security and improvement. Support communications are a separate category — see the point below."
+text_zh = "对象 = prompt/response 正文（第一方表述）：「When using cloud-hosted models, we process this content transiently to provide the Service and this content is not stored beyond the time required to fulfill the request.」。§6 的分类按对象各计、期限并不相同：账号信息在账户存续期保留、请求即删（受法律义务限制）；账单记录按税务、会计等法律义务保留；元数据与分析按服务运营、安全与改进需要保留。支持通信是另一类——见下一条。"
+anchor = "ollama-cloud-transient"
+
+[[product.retention.point]]
+text = "Exception path for input/output content, verbatim: \"Support communications: retained until resolved and then archived or deleted.\" Input or output content reaches that category only when the user voluntarily includes it in a support request (Privacy Policy §2: \"If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.\"); on that path the request-scoped limit (\"not stored beyond the time required to fulfill the request\") does not apply — the period is the support case lifecycle."
+text_zh = "输入输出正文的例外路径（逐字）：「Support communications: retained until resolved and then archived or deleted.」。正文进入该类的唯一路径是用户自愿在支持请求中提供（隐私政策 §2：「If you voluntarily include such content in support requests, it will be handled solely to resolve your issue and not used for training.」）；该路径下不适用按请求计的期限（「not stored beyond the time required to fulfill the request」），期限按支持工单生命周期计。"
+anchor = "ollama-privacy-support-retention"
+
+[[product.retention.point]]
+text = "Separate object, undisclosed period: cached input is priced (\"Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.\", with a \"Cached input\" column in the table). KV/prompt cache is its own object alongside prompt/response content, and Ollama publishes no lifetime, eviction rule or scope for it — undisclosed."
+text_zh = "独立对象、期限未披露：定价页对 cached input 计价（「Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model.」，表头为「Cached input」列）。KV/提示词缓存是与 prompt/response 正文并列的独立对象，Ollama 未公布其存活时长、清除规则与范围——属未披露。"
+anchor = "ollama-pricing-cached-input"
+
 [product.processing_region]
 codes = ["US", "EU", "SG"]
 anchor = "ollama-cloud-region"
+
+[[product.processing_region.point]]
+text = "Privacy Policy §5 is the policy's only processing-location statement, and it names the United States only: \"Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.\""
+text_zh = "隐私政策 §5 是该政策里唯一的处理地表述，且只提美国：「Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers.」"
+anchor = "ollama-privacy-us-processing"
+
+[[product.processing_region.point]]
+text = "The EU and SG codes in this row come from the pricing FAQ, which is narrower in kind — routing for capacity, not a declared processing location and not a user-selectable region or residency commitment: \"Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.\""
+text_zh = "本行 EU / SG 两个码出自定价页 FAQ，性质更窄——按需容量的路由，不是已声明的处理地，也不是用户可选区域或数据驻留承诺：「Ollama hosts models and compute resources primarily in the United States. To serve global demand, we may route to Europe and Singapore for additional capacity.」"
+anchor = "ollama-cloud-region"
+
 [product.role]
 kind = "controller"
 anchor = "ollama-controller"
@@ -175,3 +347,48 @@ topics = ["role"]
 prefix = ""
 exact = "Ollama Inc. is the data controller of this Privacy Policy."
 suffix = " If you have questions"
+
+[[anchor]]
+id = "ollama-usage-improve-features"
+source_id = "462957d19833fdaa"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Improve and develop new features"
+suffix = ""
+
+[[anchor]]
+id = "ollama-privacy-support-retention"
+source_id = "462957d19833fdaa"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Support communications: retained until resolved and then archived or deleted."
+suffix = ""
+
+[[anchor]]
+id = "ollama-privacy-third-parties"
+source_id = "462957d19833fdaa"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Third parties who help us operate (e.g., Stripe for payments, cloud infrastructure providers, model inference providers)."
+suffix = ""
+
+[[anchor]]
+id = "ollama-privacy-us-processing"
+source_id = "462957d19833fdaa"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Data may be transferred to and processed in the United States. Where required by law, we use appropriate safeguards for international transfers."
+suffix = ""
+
+[[anchor]]
+id = "ollama-pricing-cached-input"
+source_id = "df15d1f61a5712e6"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Usage is measured in tokens at each model's rates. The model pricing table lists the input, cached input, and output price per million tokens for every cloud model."
+suffix = ""

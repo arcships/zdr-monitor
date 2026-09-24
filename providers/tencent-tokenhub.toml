@@ -32,6 +32,7 @@ note = "腾讯云国际站《数据处理和安全协议》(DPSA)模块中文版
 
 [[source]]
 url = "https://privacy.qq.com/document/preview/91d5fd3c98ce4468ae462ac59233bba2"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "《TokenHub 隐私政策》（主体：腾讯云计算（北京）有限责任公司；更新/生效日期 2026-03-25）。这是中国站云侧 TokenHub 产品隐私政策的**官方发布地址**（由 TokenHub 文档站常见问题 1823/130104 与相关协议清单 1823/130105 直接链出；文档站条目 1823/130108 是只写着「详细信息，请参见…」的占位页，正文仍指向本地址），不是第三方镜像。覆盖 TokenHub 全档；§1.1.3 明确 API 调用输入信息会被收集用于安全审计，§2.1 最短必要期限保留，§2.2 境内存储、暂不向境外提供。不覆盖混元 App / 腾讯元宝等消费侧产品。**推断轮 2026-09-21 由 drop 升为 core**：§1.1.3 是 zdr 结论中唯一点名「请求内容（调用 API 时的输入信息）」的官方原句，承载锚点 th-privacy-api-input-1-1-3，故按「依据落在 drop 源上则改回 core」的规则升档"
@@ -58,10 +59,15 @@ anchor = "tokenhub-cn-training-no-train"
 text_zh = "中国站服务条款 §2.17：腾讯云不会将输入内容用于开发/训练/微调/改进腾讯云自身的算法、模型或服务，无开关、无退出机制、无企业版前提。范围限定写在同条后半句——该承诺只及腾讯云自身可控的数据处理活动"
 
 [[product.training.point]]
+anchor = "tokenhub-cn-service-optimization-purpose"
+text = "Tension inside the same document, kept side by side: §2.17 is a special undertaking about input content, while §2.18 is a general list of processing purposes for “the relevant data or information derived from it”, item (4) covering system operations and service optimisation without excluding input content. Under this ledger's rule that improving the service counts as training, this wider authorisation is recorded alongside §2.17; the mark is not changed by it."
+text_zh = "同一份条款内的张力，并列保留：§2.17 是对「输入内容」的特别承诺，§2.18 则是一般处理目的清单——腾讯云在合理必要范围内为计费结算、账单核对、资源用量统计、系统运维和服务优化处理「相关数据或其衍生信息」，未排除输入内容。按本仓库「用来改进服务/提高质量算训练」的口径值得并列保留；§2.17 为特别约定、§2.18 为一般清单，不因此改 mark。"
+
+[[product.training.point]]
 text_zh = "用户手动选择第三方部署模型时数据交外部服务商，训练用途以第三方协议为准（§1.9/§2.17 后半句 + 136530 §3.5），见 products[api-third-party-deployed-model]。反向限定：智能路由模式与备用切换都不会把数据发给第三方部署模型（§1.11、§6.4）。产品文档佐证：FAQ 130104 答「不会…更不会用于训练」。"
 
 [product.zdr]
-mark = "no"
+mark = "unknown"
 searched = [
   "https://cloud.tencent.com/document/product/301/129852",
   "https://cloud.tencent.com/document/product/301/136530",
@@ -72,6 +78,10 @@ searched = [
 
 [[product.zdr.point]]
 text_zh = "中国站未披露：129852 全文 0 次出现「ZDR/零数据保留」，TokenHub 隐私政策、FAQ、腾讯云隐私保护声明亦无零保留承诺——查了这几处，厂商没表态，不等于厂商拒绝。中国站不可得 ZDR 的直接依据只有「没有该功能文本」这一条。国际站另有条件式 ZDR（见 products[api-intl] 与 source 78953）"
+
+[[product.zdr.point]]
+text = "The only China-site clause naming API input content is the TokenHub Privacy Policy §1.1.3: input collected when calling the API through the model service is used for security-audit purposes. It shows that input content is collected, and therefore retained, but says nothing about any zero-retention arrangement, so it is deliberately not bound to this dimension (it is bound under this tier's retention dimension)."
+text_zh = "中国站唯一点名「调用 API 时的输入信息」的官方原句是 TokenHub 隐私政策 §1.1.3（通过 API 使用模型服务时收集输入信息用于安全审计），已绑在本档 retention 维度。该句只证明输入内容会被收集、因而会被留存，未提及任何零保留安排，不构成对本维度的表述，故本维度不绑锚点（按 mark=unknown 的口径记未披露）。"
 
 [[product.zdr.point]]
 text_zh = "第三方部署模型层即便腾讯侧零保留，上游第三方仍可能留存（136530 §3.5）。"
@@ -92,6 +102,11 @@ text_zh = "§2.9 生成合成内容标识相关日志「依法留存…不少于
 
 [[product.retention.point]]
 text_zh = "隐私政策 §2.1 个人信息「为实现目的所必需的最短时间」。第三方部署模型场景的留存适用第三方协议（§2.14 末句）。"
+
+[[product.retention.point]]
+anchor = "tokenhub-privacy-api-input-audit"
+text = "The only China-site clause that names API input content directly: the TokenHub Privacy Policy §1.1.3 states that input provided when calling the API through the model service is collected for security-audit purposes. It evidences that input content is collected, and hence retained, rather than a retention period itself; it is used together with §2.14's necessity principle and §2.8's retention of necessary records."
+text_zh = "中国站唯一直接点名「调用 API 时的输入信息」的收集条款：隐私政策 §1.1.3 写明通过 API 使用模型服务时会收集输入信息用于安全审计功能。该句证明的是输入信息被收集（因而会被留存），不是保留期限本身；与 §2.14 的必要期间原则、§2.8 的保存必要记录合用。"
 
 [product.processing_region]
 codes = ["CN"]
@@ -122,16 +137,24 @@ badge = "国际站 API"
 category = "api"
 plan_level = "any"
 site = "global"
+label = "国际站 API（适用 DPSA 模块，模块覆盖「腾讯大模型服务平台 TokenHub 和 Token Plan 企业版」）。模块 §6 特殊条件：该功能特性不适用于处理敏感数据（不得用于传输或以其他方式处理任何敏感数据），且仅限已达到法定最低同意年龄的最终用户使用——采购拟传入敏感数据前须先核此适用范围限制"
 
 [product.training]
 mark = "yes"
 mode = "by_contract"
-anchor = "tokenhub-intl-purposes-no-training"
+anchor = "tencent-intl-dpsa-purpose-limitation"
 
 [[product.training.point]]
+anchor = "tokenhub-intl-purposes-no-training"
 text_zh = "国际站无「不用于训练」的正面承诺句。可核的是反向证据：DPSA 模块 §3 把处理目的穷举为「提供我们的功能特性」「故障排除」两项，无训练/改进目的"
 
 [[product.training.point]]
+anchor = "tokenhub-intl-purposes-troubleshooting"
+text = "Second item of the same exhaustive list: troubleshooting — data including customer content and service-generated content is used to monitor the performance and quality of the features, detect and identify errors, defects or failures, analyse causes and troubleshoot. Neither of the two enumerated purposes is model training or service improvement."
+text_zh = "同节穷举的第二项「故障排除」：用包括客户内容和服务生成内容在内的数据监控功能特性的性能与质量、检测和识别错误、程序缺陷或故障、分析原因并排查相关问题。两项目的穷举清单中没有训练或改进目的，这是本维度判 yes 的反向依据。"
+
+[[product.training.point]]
+anchor = "tencent-intl-dpsa-purpose-limitation"
 text_zh = "母协议 §6.1a 要求腾讯仅按客户书面指示、为履行服务的限定目的处理。国际站 ToS §11.1 把数据处理全部交给 ToS/隐私政策/DPSA，三者均无训练条款。属「未授予训练目的」而非「明确承诺不训练」，故 confidence=medium。中国站另有 §2.17 的正面承诺。"
 
 [product.zdr]
@@ -175,6 +198,16 @@ text_zh = "§5.2 例外——因运营/监管等原因可能移出所选地域�
 
 [[product.processing_region.point]]
 text_zh = "§5.3 可指定关联方/分包处理方在该地域处理。模块 §5 侧另有「新加坡/法兰克福/硅谷」作为 ZDR 可用的资源地域选项。国际站通用 ToS §(c) 同向：User Data 存储在所选地域。实体按注册地分（EEA/英国/瑞士=Tencent Cloud Europe B.V.；北美=Tencent Cloud LLC 等）。"
+
+[[product.processing_region.point]]
+anchor = "tokenhub-intl-module-compute-resources-availability"
+text = "Scope note: module §4 (sub-processors) has the customer confirm the applicable TokenHub / Token Plan enterprise product documentation, including the provisions on using computing resources in different countries/regions based on resource availability. That sentence is an acknowledgement clause pointing at the product documentation rather than a substantive rule, and it sits alongside the DPSA §5.1/§5.2 material — DPSA §5.1 remains the main evidence for the codes on this row."
+text_zh = "适用范围说明：模块 §4（分包处理方）要求用户确认已阅读 TokenHub / Token Plan 企业版产品文档中的条款，包括「基于资源可用性使用不同国家/地区计算资源」的相关规定——即计算资源可能按可用性落在不同国家/地区。该句是引导用户阅读产品文档的确认条款，不是实体规则；本档 codes 仍以 DPSA §5.1 为主证据，跨境移出另见 §5.2 的例外。"
+
+[[product.processing_region.point]]
+anchor = "tokenhub-intl-privacy-server-locations"
+text = "Scope note for a lower-priority source: the International Site privacy policy states that its servers may be located outside the customer's country/region, e.g. mainland China. That page describes the site-wide services and account/management information, not where TokenHub customer content is processed; under contract > consumer_privacy, DPSA §5.1 and module §5 stay the main evidence and the codes on this row are unchanged."
+text_zh = "适用范围说明（低权威来源）：国际站隐私政策写明「我们的服务器可能位于您所在的国家/地区境外，例如中国大陆」——该页讲的是站点通用服务与账户/管理信息的服务器分布，不是 TokenHub 客户内容的处理地。按 contract > consumer_privacy 的优先级，本档处理地仍以 DPSA §5.1 与模块 §5 为准，codes 不改。"
 
 [product.role]
 kind = "processor"
@@ -454,6 +487,16 @@ exact = "手动选择模式是指您在 TokenHub 提供的模型库中自行选�
 suffix = "**在手动选择模式下，您应自行判断所选模型是否适合您的具体使用目的、业务场景、合规要求、数据安全要求及终端用户使用场景。"
 
 [[anchor]]
+id = "tokenhub-cn-service-optimization-purpose"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（3）根据您的请求提供技术支持、故障定位、工单处理和用户支持。"
+exact = "（4）进行计费结算、账单核对、资源用量统计、系统运维和服务优化。"
+suffix = "（5）对提供服务形成的匿名化或无法被识别到特定个人的聚合统计信息进行统计分析。"
+
+[[anchor]]
 id = "tokenhub-tp-model-definition"
 source_id = "8b276c971a256b15"
 topics = ["scope"]
@@ -565,13 +608,7 @@ source_id = "8b276c971a256b15"
 topics = ["scope"]
 
 [anchor.selector]
-prefix = """
-****接入方式 / 模型来源****第三方模型服务协议链接****SLA 适用说明****备注 / 特别提示**
-1 """
-exact = "DeepSeek-V4-Flash 0731 正式版 第三方部署 杭州深度求索人工智能基础技术研究有限公司 原厂直供 https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html TokenHub SLA 不适用；以第三方条款为准"
-suffix = """
- 暂无
-2 DeepSeek-V4-Pro 0813 正式版 第三方部署 杭州深度求索人工智能基础技术研究有限公司 原厂"""
+exact = "DeepSeek-V4-Flash 0731 正式版 第三方部署"
 
 [[anchor]]
 id = "tokenhub-privacy-retention-minimal"
@@ -755,6 +792,22 @@ suffix = """
 我们将在实现本模块所述目的之必要期限内，依据适用法律的要求或授权，"""
 
 [[anchor]]
+id = "tokenhub-intl-module-compute-resources-availability"
+source_id = "c92e1238810e7eb4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+## 4. 分包处理方
+
+如数据处理与安全协议所规定。"""
+exact = "您亦确认已阅读并同意适用的腾讯 大模型服务平台 TokenHub 产品文档 和/或 Token Plan 企业版产品文档 中的条款，包括基于资源可用性使用不同国家/地区计算资源的相关规定。"
+suffix = """
+## 5. 数据保留
+
+我们将在实现本模块所述目的之必要期限内，依据适用法律的要求或授权，保留第 2 节所述的个人数据"""
+
+[[anchor]]
 id = "tokenhub-intl-role-instructions-only"
 source_id = "c92e1238810e7eb4"
 topics = ["role"]
@@ -875,3 +928,13 @@ exact = "日志数据（含事件相关数据）将自收集之日起保存三�
 suffix = """
 
 **信用卡信息**：支付ID（除用于获取由支付处理方提供的支付ID外，我们不会存储您的其他信用卡信息，包括卡号、姓名、"""
+
+[[anchor]]
+id = "tokenhub-intl-privacy-server-locations"
+source_id = "109f41d4b45cc3dc"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "### 我们在哪里处理收集到的个人信息？"
+exact = "我们的服务器可能位于您所在的国家/地区境外，例如中国大陆。"
+suffix = "欲知更多信息，请参阅下文我们如何披露和存储您的个人信息。"

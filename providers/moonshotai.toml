@@ -27,6 +27,7 @@ note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《Wh
 
 [[source]]
 url = "https://www.kimi.ai/help/kimi-api/api-data-security"
+fetch = "browser"
 channel = "developer_data"
 tier = "contradiction"
 note = "与 https://platform.kimi.ai/docs/agreement/modeluse（core，本条目 training 权威来源）就同一档位（api：Kimi 国际开放平台，本条目唯一档位，按量计费 + 企业方案）的 training 维度表述不一致。本文件原句：「No. User data submitted through the API (including input content and model output) is not used to train or improve Kimi's models. Your data is used solely to fulfill the current API request and is not persistently stored for training purposes.」，另有表格行「Not Used for Training / API data is not used for model training」；core 合同原句：「We may use Content to provide, maintain, develop, support, and improve the Services, comply with applicable law, enforce our terms and policies, and keep the Services safe and secure.」＋「Customer who requires restrictions on the use of Customer Content for training or improving Moonshot AI models may contact Moonshot AI to discuss available enterprise arrangements or separate written agreements. Unless otherwise expressly agreed in writing, Customer Content may be used for the foregoing purposes.」（后者把 training or improving Moonshot AI models 明列为可能的用途，并称限制需企业安排或书面协议，即默认不设限）。各自范围：本文件是 www.kimi.ai 帮助中心「Kimi API」分类下的《Data processing & security》FAQ——同分类 api-overview 页给出 Platform URL = platform.kimi.ai，并写明开放平台 uses pay-as-you-go billing with no subscription plan，与 Kimi Membership / Kimi Code 明确区分，本页文件删除示例为 DELETE https://api.moonshot.ai/v1/files/{file_id}；正文主语逐字是 User data submitted through the API (including input content and model output) 与 API data，指向国际开放平台 API。core 是同一平台（platform.kimi.ai）的《Kimi OpenPlatform Terms of Service》，签约主体 Moonshot AI PTE. LTD.（新加坡），首段声明该 ToS 与 Kimi OpenPlatform Privacy Policy、Order Form 共同构成 Agreement。四种解释的排除依据：（1）适用范围——ToS §4 首句即给出定义：「You and End Users may submit prompts, texts, audios or other content or materials (input) to the Services and the Services generate corresponding content as a response (output). Both input and output are collectively referred to as content.」，即 Content 逐字包含 API 提交的输入与模型输出，与 FAQ 的 input content and model output 是同一数据对象，故「ToS 的 Content 不含 API 请求数据」这条化解不成立；FAQ 第二条锚点（retention 主题，is not persistently stored for training purposes）自带 for training purposes 限定，不否认账户存续期的一般保留，与 retention 权威来源（隐私政策 §6 retained while your account is active）不构成矛盾，保留该锚点仅作同一份文档的另一半证据。（2）档位——本家只有 api 一档（帮助中心 api-overview 明示开放平台无订阅套餐，订阅档归 kimi-code-plan-global 等条目）；FAQ 的否认句无任何档位限定（同页只把 higher security requirements 指向销售团队，企业内容另有 Kimi Business 分类），ToS §4 的许可句与限制句同样不限档位，且「限制需企业安排或书面协议」意味着按量档默认也不设限，故档位不解释差异。（3）站点——两份文档的标的是同一产品：FAQ 所在帮助中心的 kimi-api 分类即开放平台文档（Platform URL = platform.kimi.ai、文件接口 api.moonshot.ai/v1），ToS 就是该平台的协议，同属国际线（Moonshot AI PTE. LTD.）；国内线对应页为 www.kimi.com/help/kimi-api/api-data-security 与 platform.moonshot.cn（本条目已登记 rejected，另立 moonshotai-cn 条目），不构成国内站/国际站之分。注：同一英文 FAQ 文本另有 www.kimi.com/en 镜像（本条目别名，drop），说明按域名判实体不可靠；但两份文档同指国际开放平台 API 这一点由正文自证。（4）时效——本文件无生效/更新日期（帮助中心页与直连 HTML 快照均无日期行），故不作日期比对，改以「无版本取代证据」排除旧版解释：本页 2026-09-21 抓取有效（HTTP 200、2060B，两条锚点逐字命中），仍在帮助中心在列（分类页索引到该页），文件删除指引与现行文件接口一致；同一不训练表述在现行文档站 ZDR 页（platform.kimi.ai/docs/guide/zero-data-retention：By default, the Kimi Open Platform does not use enterprise customer data to train models.）上仍然存在（该页限企业客户子档，不能解释本页无限定的否认句，仅证差异非单一过期页）；而较新的合同文本（ToS Last Updated: July 30th, 2026）保留了上述许可条款，未采纳 FAQ 口径。需要厂商书面澄清：按量（非企业方案）API 下，API 输入输出是否默认用于训练/改进模型？帮助中心 FAQ 的 not used to train or improve Kimi's models 是无条件承诺（即合同 §4 的许可在实践中不对 API 内容行使），还是仅面向企业客户？若为前者，应把该承诺写入 ToS/隐私政策或修改 §4；若为后者，应在 FAQ 上明确档位限定。"
@@ -40,25 +41,119 @@ plan_level = "any"
 [product.training]
 mark = "no"
 anchor = "training-content-use"
-mode = "opt_out"
+
+[[product.training.point]]
+anchor = "training-content-use"
+text = "Contract side: ToS §4 lets Moonshot AI use Content — the same section defines Content as input plus output — to provide, maintain, develop, support, and improve the Services, and to comply with law, enforce its terms and keep the Services safe and secure. Under the ledger's rule that \"used to improve the service\" counts as training, this self-use permission is the basis for mark=no (training permitted by the terms)."
+text_zh = "合同侧:ToS §4 允许厂商用 Content(同节把 Content 定义为输入+输出)提供、维护、开发、支持与改进服务,并为守法、执行条款与保障服务安全而使用。按台账口径「用于改进服务算训练」,这条自用许可即 mark=no(条款允许训练)的依据。"
+
+[[product.training.point]]
+anchor = "training-restriction-enterprise"
+text = "Same section, the default made explicit: a customer who requires restrictions on the use of Customer Content for training or improving Moonshot AI models must contact Moonshot AI to discuss available enterprise arrangements or separate written agreements, and unless otherwise expressly agreed in writing Customer Content may be used for the foregoing purposes. That is a restriction to be negotiated with the vendor, not a self-serve opt-out switch — hence no mode is recorded on this verdict."
+text_zh = "同节写明默认不设限:需限制「用 Customer Content 训练或改进 Moonshot AI 模型」的客户,须联系厂商商谈可行的企业安排或另立书面协议;除非另有书面明确约定,Customer Content 可用于前述用途。这是需与厂商商定的限制,不是自助退出开关——故本判定不记 mode。"
+
+[[product.training.point]]
+anchor = "training-privacy-improve"
+text = "Privacy policy side (developer_data): §2 \"To Improve and Develop Our Services\" says the analysis of how you use the services \"includes training and refining our underlying technology, such as machine learning models and algorithms\" — the most explicit training basis on this product line."
+text_zh = "隐私政策侧(developer_data):§2「To Improve and Develop Our Services」写明对使用方式的分析「包括训练与改进我们的底层技术,如机器学习模型与算法」——本产品线最直白的训练依据。"
+
+[[product.training.point]]
+anchor = "zdr-enterprise-no-training"
+text = "Opposite direction, tier-qualified — kept side by side, no picking a side: the ZDR page states that by default the Kimi Open Platform does not use enterprise customer data to train models, i.e. the no-training statement is limited to enterprise customers, while this row covers the whole api tier (plan_level=any, pay-as-you-go plus enterprise options). It does not override the contract's §4 default."
+text_zh = "相反方向、带档位限定——并列保留,不选边:ZDR 页称开放平台默认不使用企业客户数据训练模型,即该不训练表述只限企业客户,而本行覆盖整个 api 档(plan_level=any,按量自助 + 企业方案)。它不覆盖合同 §4 的默认口径。"
+
+[[product.training.point]]
+anchor = "training-helpcenter-no-training"
+text = "Opposite direction, unqualified (contradiction source): the help-center FAQ in the same kimi-api category says user data submitted through the API, including input content and model output, is not used to train or improve Kimi's models. A developer_data FAQ ranks below the contract and does not override §4; both facts stay visible pending written clarification from the vendor."
+text_zh = "相反方向、无档位限定(冲突来源):同一帮助中心 kimi-api 分类的 FAQ 称通过 API 提交的用户数据(含输入内容与模型输出)不用于训练或改进 Kimi 的模型。developer_data 的 FAQ 权威性低于合同,不覆盖 §4;两条事实并列可见,待厂商书面澄清。"
 
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-enterprise-request"
 
+[[product.zdr.point]]
+anchor = "zdr-delete-on-response"
+text = "Object and context: ZDR covers request content (prompts and model responses) only. When ZDR is enabled, request content is processed only while the response is being generated and is deleted as soon as the response is returned; the only stated exception is where retention is required by applicable laws and regulations."
+text_zh = "对象与语境:ZDR 只覆盖请求内容(提示与模型响应)。开通后请求内容仅在生成响应期间被处理、响应返回即删除;唯一明示例外是适用法律法规要求保留。"
+
+[[product.zdr.point]]
+anchor = "zdr-safety-review"
+text = "ZDR is not \"nobody touches the content\": it changes only how content is retained, not the platform's usage policies; automated safeguards, including content safety reviews, continue to apply to all traffic, and abusive behavior may lead to action under the usage policies, including terminating ZDR service."
+text_zh = "ZDR ≠「无人接触内容」:它只改变内容的保留方式、不改变平台的使用政策;内容安全审核等自动保障对全部流量照常生效,发现滥用行为可依使用政策处理,包括终止 ZDR 服务。"
+
+[[product.zdr.point]]
+anchor = "zdr-upload-exclusion"
+text = "Scope exclusion (1 of 3): ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
+text_zh = "范围除外(三类之一):通过文件直传提交的图片或视频不能保证 ZDR。"
+
+[[product.zdr.point]]
+anchor = "zdr-operational-out-of-scope"
+text = "Scope exclusion (2 of 3): operational data, such as security logs and billing records, is outside the scope of zero data retention."
+text_zh = "范围除外(三类之二):安全日志与计费记录等运营数据不在零数据保留范围内。"
+
+[[product.zdr.point]]
+anchor = "zdr-thirdparty-exclusion"
+text = "Scope exclusion (3 of 3): third-party models, connectors, and plugins are not covered by this policy."
+text_zh = "范围除外(三类之三):第三方模型、连接器与插件不在本政策覆盖范围内。"
+
 [product.retention]
 object = "input_output"
 basis = "as_needed"
+anchor = "retention-as-long-as-necessary"
+
+[[product.retention.point]]
+anchor = "retention-as-long-as-necessary"
+text = "Period type: no quantified number of days. The OpenPlatform Privacy Policy §6 stores information as long as necessary to provide the services, fulfill the purposes outlined in this policy and other legitimate business purposes, and retention periods vary with information type, sensitivity, and legal requirements."
+text_zh = "期限类型:无量化天数。开放平台隐私政策 §6 称信息留存至「提供服务、实现本政策所述目的及其他合法商业目的所必需」的时间,保留期依信息类型、敏感度与法律要求而不同。"
+
+[[product.retention.point]]
+anchor = "retention-account-active"
+text = "Object and context: account, input, and payment information are retained while the account is active (default, for the life of the account); violation-related information is retained until the violation is resolved; in some cases the retention time depends on the customer's settings."
+text_zh = "对象与语境:账户、输入与支付信息在账户存续期间保留(默认、随账户存续);违规相关信息保留至违规解决;部分情形下保留时长取决于客户设置。"
+
+[[product.retention.point]]
 anchor = "retention-delete-after-termination"
+text = "Contract side, vendor-initiated termination: after your service is terminated, Moonshot AI will delete your content and data in accordance with the requirements of applicable laws and regulations — a deletion commitment with a legal carve-out, not \"everything is wiped the moment the service ends\"."
+text_zh = "合同侧·厂商侧终止:服务终止后,厂商按适用法律法规的要求删除你的内容与数据——这是带法律例外的删除承诺,不等于「服务一终止就全部清除」。"
+
+[[product.retention.point]]
+anchor = "retention-cancellation-by-customer"
+text = "Contract side, customer-initiated cancellation: the customer may terminate the services at any time by deleting the account; once the account is canceled, account information, data, APIs, and any remaining balance are permanently deleted and are not restored even if the same entity registers again."
+text_zh = "合同侧·客户主动注销:客户可随时通过删除账户终止服务;账户一旦注销,账户信息、数据、API 与剩余余额将被永久删除,同一主体重新注册也不会恢复。"
+
+[[product.retention.point]]
+anchor = "retention-helpcenter-not-persistent"
+text = "Contradiction side, kept side by side: the help-center FAQ says API data is used solely to fulfill the current API request and is not persistently stored for training purposes. The qualifier \"for training purposes\" is the FAQ's own limit — it does not deny the account-life retention recorded above."
+text_zh = "冲突侧,并列保留:帮助中心 FAQ 称 API 数据仅用于完成当次 API 请求、不为训练目的持久存储。限定语「for training purposes」是 FAQ 自带的范围——它不否认上文记录的账户存续期保留。"
 
 [product.processing_region]
 codes = ["SG"]
 anchor = "region-singapore"
 
+[[product.processing_region.point]]
+anchor = "region-singapore"
+text = "Object and context: the information the platform collects is stored by default on secure servers located in Singapore."
+text_zh = "对象与语境:平台收集的信息默认存储在新加坡的安全服务器上。"
+
+[[product.processing_region.point]]
+anchor = "region-cross-border-transfer"
+text = "Not an exclusive-region commitment: in the same section the policy says your personal information may be transferred to and stored on servers located outside your country of residence, and that cross-border transfers are made with appropriate safeguards consistent with applicable data protection laws. Singapore should therefore be read as the default storage location, not as a guarantee that processing stays there."
+text_zh = "不是排他性处理地承诺:同一节写明个人信息可能被转移到居住国以外的服务器存储,跨境转移时会依适用数据保护法采取适当保障措施。因此「新加坡」应读作默认存储地,而非「处理只在新加坡」的保证。"
+
 [product.role]
 kind = "controller"
 anchor = "role-self-use-license"
+
+[[product.role.point]]
+anchor = "role-self-use-license"
+text = "Controller direction: ToS §4 gives Moonshot AI a self-use permission — unless otherwise expressly agreed in writing, Customer Content may be used for the foregoing purposes (providing, maintaining, developing, supporting, and improving the Services) — i.e. the vendor uses the content for its own purposes rather than on the customer's instructions."
+text_zh = "控制者方向:ToS §4 给出厂商自用许可——除非另有书面明确约定,Customer Content 可用于前述用途(提供、维护、开发、支持与改进服务)——即厂商为自己的目的使用内容,而非依客户指示处理。"
+
+[[product.role.point]]
+anchor = "role-content-confidential"
+text = "Counter-direction clause in the same contract, recorded side by side: §6 deems Customer Content Customer's Confidential Information and binds the recipient not to disclose it. That obligation constrains the disclosure direction and does not withdraw §4's self-use permission, so the verdict is not flipped. Difference from moonshotai-cn.toml, which records the same tier as kind=unknown: that document contains both entrusted-processor clauses and a self-use optimization license (an intra-document conflict); this contract records no entrusted-processor clause, so no such conflict arises here."
+text_zh = "同一合同中的反方向条款,并列记录:§6 把 Customer Content 定为客户机密信息,并约束接收方不得披露。该义务约束的是披露方向,并未收回 §4 的自用许可,故不改判定。与 moonshotai-cn.toml 同档位记 kind=unknown 的差异:那份文档同时有受托处理条款与自用优化许可(同文冲突);本合同没有受托处理条款,不存在同类冲突。"
 
 [[anchor]]
 id = "training-content-use"
@@ -268,3 +363,53 @@ suffix = """
 ## How is private data security ensured?
 
 Kimi API employ"""
+
+[[anchor]]
+id = "zdr-safety-review"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Security"
+exact = "ZDR changes only how content is retained; it does not change the platform’s usage policies. Automated safeguards, including content safety reviews, continue to apply to all traffic. If we identify abusive behavior, we may take action under our usage policies, including terminating ZDR service."
+suffix = "Who can enable ZDR?"
+
+[[anchor]]
+id = "zdr-upload-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Does ZDR apply to all data types?"
+exact = "ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
+suffix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+
+[[anchor]]
+id = "zdr-operational-out-of-scope"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "for images or videos submitted through direct file uploads. "
+exact = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+suffix = " Third-party models, connectors, and plugins are not covered"
+
+[[anchor]]
+id = "zdr-thirdparty-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+exact = "Third-party models, connectors, and plugins are not covered by this policy."
+suffix = "Was this page helpful?"
+
+[[anchor]]
+id = "region-cross-border-transfer"
+source_id = "39da5a3555051ba4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "the length of time we retain data depends on your settings. "
+exact = "Your personal information may be transferred to and stored on servers located outside your country of residence."
+suffix = " We store the information we collect in secure servers located in Singapore."

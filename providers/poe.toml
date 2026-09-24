@@ -37,6 +37,7 @@ note = "Poe Terms of Service（页面标注 Last updated: Mar 19, 2026），Quor
 
 [[source]]
 url = "https://www.quora.com/about/privacy"
+fetch = "jina"
 channel = "consumer_privacy"
 tier = "core"
 note = "Quora Privacy Policy，被 Poe Privacy Policy 明文「incorporated by reference」并入，因此是 Poe 数据处理条款的组成部分。本家唯一给出处理地与保留期限文字的文档：How We Transfer Your Information（总部在美国、全球运营与服务商）、Retention（关系存续期间 + 关系结束后为审计/法定义务/诉讼目的再留一段时间）。另含 Quora 内容的 LLM 训练 opt-out（针对 Quora 上的 answers/posts/comments，不是 Poe 对话）。"
@@ -49,16 +50,21 @@ plan_level = "any"
 
 [product.training]
 mark = "no"
+anchor = "poe-privacy-center-developer-bots-train"
+
+[[product.training.point]]
+text = "Basis for mark=no on this tier (the half shield): the Privacy Center FAQ “Are my chats used to train the AI models?” answers “In most cases, no. Only third-party developer bots and apps are permitted to use your chats to train their models.”, and the half shield entry reads “Third-party developer bots and apps can use your chats to train their AI models – even then, they don’t have access to the personal data associated with your Poe account unless you interact with other users in a group chat.” The shield is also permission-dependent: “A bot or app can change from full shield to half shield if you grant it new permissions.” This tier therefore contains an explicit training-on hop and is recorded ✗ on the “not used for training?” column."
+text_zh = "本档 mark=no 的正面依据（half shield）：Privacy Center 的 FAQ「Are my chats used to train the AI models?」答「In most cases, no. Only third-party developer bots and apps are permitted to use your chats to train their models.」，half shield 条目逐字写「Third-party developer bots and apps can use your chats to train their AI models – even then, they don’t have access to the personal data associated with your Poe account unless you interact with other users in a group chat.」；shield 还随权限变化——「A bot or app can change from full shield to half shield if you grant it new permissions.」。本档存在明确会训练的一跳，故按列名问题（「不用于训练?」）记 ✗。"
+
+[[product.training.point]]
+anchor = "poe-privacy-model-providers-improve-services"
+text = "Conflicting statement, kept side by side rather than resolved: the Poe Privacy Policy says third-party AI model providers and third-party developers “may receive details about your interactions with bots and apps on Poe (including the contents of your chats and photos or documents you upload) to provide and generally improve their services”, a purpose not limited to producing the requested response — and under docs/judgment.md “generally improve their services” counts as training. Separately, Poe ToS §4.5 grants Poe itself a perpetual, transferable licence over Your Content, with a purpose listed as “Understanding your use of Poe to generally improve the Poe services”."
+text_zh = "与 Privacy Policy 的冲突（并列保留、不选边）：Poe Privacy Policy 说上游模型厂商与第三方开发者「may receive details about your interactions with bots and apps on Poe (including the contents of your chats and photos or documents you upload) to provide and generally improve their services」——用途未限制在「产出本次回复」，而「generally improve their services」按 docs/judgment.md 记作训练。另注：Poe ToS §4.5 给 Poe 自身一项永久、可转让的内容使用许可，用途含「Understanding your use of Poe to generally improve the Poe services」。"
+
+[[product.training.point]]
 anchor = "poe-privacy-center-official-bots-no-training"
-
-[[product.training.point]]
-text_zh = "本档按 bot/app 级 privacy shield 分三态，**不能混成一行结论**：(1) full shield（官方 bot 与使用 OpenAI/Anthropic/Google/Meta 模型的 prompt bot）——Poe 承诺不训练，且「cannot access your chats for anything other than to produce the requested LLM response」"
-
-[[product.training.point]]
-text_zh = "(2) half shield（第三方开发者 bot/app，或你授予了新权限的 bot）——「Your interactions with the bot or app may be used for training purposes.」+「Third-party developer bots and apps can use your chats to train their AI models」"
-
-[[product.training.point]]
-text_zh = "(3) 与 Privacy Policy 的冲突：Privacy Policy 说上游模型厂商「may receive details about your interactions … to provide and generally improve their services」，没有把用途限制在「产出本次回复」，与 full shield 的措辞冲突。另注：Poe ToS §4.5 给 Poe 自身一项永久、可转让的内容使用许可，用途含「generally improve the Poe services」。页面上按保守假设记 ✗（不能因为存在 full shield 承诺就整档记 ✓，因为 half shield 是明确允许训练的）。"
+text = "Exception, not a tier-level commitment: the full shield entry reads “Your interactions with the bot or app will not be used by AI model providers for training purposes.”, and the FAQ bullet adds that “Official Poe bots and user-created prompt bots using Open AI, Anthropic, Google, and Meta’s AI models do not train on your chats and cannot access your chats for anything other than to produce the requested LLM response”. This covers only a subset of this tier, so it is recorded as the scope of the promise and cannot turn the tier into ✓."
+text_zh = "例外说明（不构成整档承诺）：full shield 条目写「Your interactions with the bot or app will not be used by AI model providers for training purposes.」，FAQ 该条 bullet 另写「Official Poe bots and user-created prompt bots using Open AI, Anthropic, Google, and Meta’s AI models do not train on your chats and cannot access your chats for anything other than to produce the requested LLM response」——该承诺只覆盖本档的一个子集，因此只作适用范围记录，不能据此把整档记 ✓。"
 
 [product.zdr]
 mark = "no"
@@ -80,6 +86,11 @@ text_zh = "普通对话：Poe 不承诺期限，明文推给上游（Privacy Cen
 
 [[product.retention.point]]
 text_zh = "用户删除时从 Poe 系统删除（触发式）。temporary chat 功能：消息 24 小时内永久删除、上传文件最多 15 天（安全审核），但有「法律与安全义务可延长」开口。对象分别是「对话消息正文」「上传文件」「账号个人信息」，不能互相外推。"
+
+[[product.retention.point]]
+anchor = "quora-privacy-account-deletion-14-days"
+text = "The only quantified account-level window in this chain, and it belongs to the account process rather than to the chats: the Quora Privacy Policy (incorporated by reference into the Poe Privacy Policy) states “It may take Quora up to 14 days to process your account deletion request, and if you log back into your account during that time, your account may be reactivated.” The object is the processing window for an account-deletion request (an upper bound of 14 days, on the account personal-information layer) and re-logging in during that window can revive the account. It says nothing about how long chat contents are kept, so it must not be read as “contents are deleted after 14 days”, and this tier’s retention for inputs & outputs stays undisclosed."
+text_zh = "链路里唯一量化的账号级窗口，且属账号流程而非对话内容：被 Poe Privacy Policy 以引用方式并入的 Quora Privacy Policy 写「It may take Quora up to 14 days to process your account deletion request, and if you log back into your account during that time, your account may be reactivated.」——对象是账号删除请求的处理窗口（上限 14 天，账号个人信息层），期间重新登录还可能使账号复活。它没有说对话正文留多久，不得外推成「内容 14 天后删除」，本档对输入输出的 basis 仍为 undisclosed。"
 
 [product.processing_region]
 codes = ["US", "GLOBAL"]
@@ -184,6 +195,11 @@ text_zh = "Creator FAQ 第 2 问复述并指向 §4.c。适用范围要写清：
 [[product.training.point]]
 text_zh = "承诺方是 Poe，不含上游模型厂商。因此本条**不能**用来支撑 API 网关档或消费档的 training 结论。"
 
+[[product.training.point]]
+anchor = "poe-api-terms-4b-bot-query-api-no-training"
+text = "Reverse-side restriction — a developer obligation, not extra evidence that Poe does not train: API Terms §4b adds “Further, if you use the Bot Query API you will (i) not use the Bot Query API or any data received through it to train or develop foundation models or other large language models, and (ii) use the Bot Query API and any data received through it solely in connection with Your Bot on Poe.” The bound party is the developer, and the object is the Bot Query API and any data received through it — a different object from §4c’s “content provided by Your Bot”. It is therefore recorded as a use restriction on the receiving hop, and does not amount to a Poe-side no-training commitment covering user chats or bot content; the anchor and the verdict above are unchanged."
+text_zh = "反向限制（义务主体是开发者，不构成 Poe 侧不训练的额外证据）：API Terms §4b 另写「Further, if you use the Bot Query API you will (i) not use the Bot Query API or any data received through it to train or develop foundation models or other large language models, and (ii) use the Bot Query API and any data received through it solely in connection with Your Bot on Poe.」——被约束的是使用 Bot Query API 的开发者，标的为「Bot Query API 及其收到的任何数据」，与 §4c 的「content provided by Your Bot」是两个不同标的；因此它只作为本档链路里接收跳的使用限制记录，不能当作 Poe 对用户对话输入或 bot 内容的训练承诺，上方 verdict 与锚点不变。"
+
 [product.zdr]
 mark = "no"
 anchor = "poe-privacy-developer-bots-train-on-chats"
@@ -192,7 +208,7 @@ anchor = "poe-privacy-developer-bots-train-on-chats"
 text_zh = "开发者档链路里，用户对话会被交给 bot 开发者并可由其保存：Poe Privacy Policy 逐字写「Developers that create bots and apps on Poe using APIs may view and store your chats on their servers to train their models.」——标的 = 用户对话正文，动作 = store，主体 = 开发者（本档的接收跳）。API Terms 没有保留期或零保留条款：§4c 的限制句标的写作「any content provided by Your Bot」（creator FAQ 第 2 问复述为「the responses from your bot」），即**开发者 bot 的输出**，不是用户请求正文——它是不训练 / 不无合同约束转第三方的使用限制，不是保留承诺"
 
 [[product.zdr.point]]
-text_zh = "§5 只要求开发者在用户或 Poe 要求时删除用户个人数据，反推默认可以持有。故本档不构成零保留。锚点取自 Privacy Policy 的开发者句（该句写在消费档语境），此处按「同一数据流的接收跳」引用，未外推具体天数。"
+text_zh = "§5(b) 只有一条按请求触发的删除义务（条款原文与落位见 retention 维度），反推默认可以持有；§8 终止条款也未要求删除。故本档不构成零保留。锚点取自 Privacy Policy 的开发者句（该句写在消费档语境），此处按「同一数据流的接收跳」引用，未外推具体天数。"
 
 [product.retention]
 mark = "unknown"
@@ -204,6 +220,11 @@ searched = [
   "https://creator.poe.com/docs/resources/frequently-asked-questions",
   "https://creator.poe.com/docs/external-applications/external-application-guide",
 ]
+
+[[product.retention.point]]
+anchor = "poe-api-terms-5-delete-personal-data-on-request"
+text = "This tier is not a total silence on retention, but it still has no period commitment: API Terms §5(b) puts a trigger-based deletion duty on the developer — “promptly delete the personal data when requested by a user (or by us on behalf of a user or their authorized agent) or as required by law”. The duty carries no deadline and no default retention period, so it does not support a fixed_period reading and the basis stays undisclosed; the same clause is also the basis of the zdr conclusion for this tier (see the zdr dimension)."
+text_zh = "本档不是「全文无涉保留」，而是只有按请求删除的义务、没有期限承诺：API Terms §5(b) 对开发者设了一条触发式删除义务——「promptly delete the personal data when requested by a user (or by us on behalf of a user or their authorized agent) or as required by law」。该义务不含量化期限，也不构成默认保留期，故 basis 仍为 undisclosed（不得据此把本档读成「有删除期限承诺」）；同一条款也是本档 zdr 结论的依据，条款原文与落位见 zdr 维度。"
 
 [[product.retention.point]]
 text_zh = "API Terms 与 Monetization Terms 全文无保留期限条款（§8 终止条款只说开发者须停止使用 API、bot 不再可访问，未说数据删除）"
@@ -503,6 +524,25 @@ suffix = """
 We reserve the right to review You"""
 
 [[anchor]]
+id = "poe-api-terms-4b-bot-query-api-no-training"
+source_id = "fcbbd78d85ab1f39"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "or that we believe constitutes excessive or abusive usage. "
+exact = "Further, if you use the Bot Query API you will (i) not use the Bot Query API or any data received through it to train or develop foundation models or other large language models, and (ii) use the Bot Query API and any data received through it solely in connection with Your Bot on Poe."
+
+[[anchor]]
+id = "poe-api-terms-5-delete-personal-data-on-request"
+source_id = "fcbbd78d85ab1f39"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "only use such personal data in accordance with the Poe Privacy Policy, (b) "
+exact = "promptly delete the personal data when requested by a user (or by us on behalf of a user or their authorized agent) or as required by law"
+suffix = ",(c) implement strong technical and organizational security measures"
+
+[[anchor]]
 id = "quora-privacy-retention-relationship"
 source_id = "19e1e93a2d10829d"
 topics = ["retention"]
@@ -519,6 +559,15 @@ suffix = """
 How We Transfer Your Information
 
 Quora Inc. is headquarte"""
+
+[[anchor]]
+id = "quora-privacy-account-deletion-14-days"
+source_id = "19e1e93a2d10829d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "all your content will be removed from public visibility on the Quora Platform, and it may not be restored by us. "
+exact = "It may take Quora up to 14 days to process your account deletion request, and if you log back into your account during that time, your account may be reactivated."
 
 [[anchor]]
 id = "quora-privacy-transfer-us-and-worldwide"

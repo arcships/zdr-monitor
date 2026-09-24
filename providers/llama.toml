@@ -7,15 +7,24 @@ doc = "https://dev.meta.ai/legal/terms-of-service"
 
 [[source]]
 url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Discounted 档，只说『ZDR support may vary by model』。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/commitments"
+fetch = "jina"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Meta Model API Data Commitments（法律中心文档；与 meta.toml / meta-muse-code.toml 登记的同一 URL、同一快照）。本家唯一逐档写明训练政策的页面：Standard Services 不用 Content 训练 Meta Models；Discounted Services 可用 Content（含 Inputs/Outputs）训练、开发、评估、改进（训练前做去关联，评估/安全/质量/政策审查不去关联）；Customer Data 一律不用于训练。用途清单里的『To improve and maintain the Meta Model API』两档通用，按从严口径属改进用途；模型训练项则明写『Discounted Services Content only』。另含 Data Retention 小节（保留方式以 Terms 与 Privacy Policy 为准）。作 api 档 training/retention 的佐证。"
 
 [[product]]
 id = "api-standard"
@@ -35,6 +44,16 @@ text = "§5.1『will not use Content from Standard Services to train Meta Models
 text = "Supporting: the same sentence in the Data Commitments and the developer docs, \"Every version is offered on the Standard tier (standard pricing; your data is never used for training)\". But under §4.2 Meta may use Usage Data (technical logs and request metadata) to \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\" — Content not being used for training is not the same as technical logs not being used for improvement."
 text_zh = "佐证见 Data Commitments 同句与开发者文档『Every version is offered on the Standard tier (standard pricing; your data is never used for training)』。但 Usage Data(技术日志/请求元数据)按 §4.2 可用于 test/support/develop/evaluate/improve Meta Model API——Content 不训练 ≠ 技术日志不用于改进。"
 
+[[product.training.point]]
+text = "Which policy applies is decided by the model, not by the endpoint: \"The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes\" (§1), and §13.4 is to the same effect: \"The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.\""
+text_zh = "适用哪套政策由所选模型决定，不由接入方式决定：§1『The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes』；§13.4 同旨『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』"
+anchor = "llama-tos-1-tier-by-model"
+
+[[product.training.point]]
+text = "The Data Commitments page — the only page of this vendor that states the training policy tier by tier — lists \"To improve and maintain the Meta Model API\" among the uses of Content and Customer Data, and that item is not tier-limited; read strictly (improving the service counts as training), it is an improvement use. The same page confines model training to the Discounted tier (\"To train and improve Meta's AI models (Discounted Services Content only, as described above)\"), so it does not contradict §5.1."
+text_zh = "Data Commitments 页是本家唯一逐档写明训练政策的页面，其用途清单把『To improve and maintain the Meta Model API』列为 Content 与 Customer Data 的用途且未限定档位；按从严口径（改进服务算训练）属改进用途。同页把模型训练限定在 Discounted 档（『To train and improve Meta's AI models (Discounted Services Content only, as described above)』），故与 §5.1 不冲突。"
+anchor = "llama-commitments-improve-maintain"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
@@ -48,8 +67,23 @@ text_zh = "组织级、需 Meta 单独启用、按模型支持程度可能不同
 text = "\"ZDR applies only to calls made directly to Meta Model API.\" See top-level zdr."
 text_zh = "只覆盖直连调用。见顶层 zdr。"
 
+[[product.zdr.point]]
+text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — inputs and outputs of requests flagged for an AUP violation (up to 2 years), usage statistics (counts only), account and team data, operational metadata, support feedback, and data handled by third-party tools or external integrations, which ZDR does not cover."
+text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——AUP 违规请求的输入输出（最长 2 年）、使用统计（只有计数）、账户与团队数据、运维元数据、支持反馈，以及第三方工具/外部集成处理的数据（不受 ZDR 覆盖）。"
+anchor = "llama-zdr-still-retained-metadata"
+
+[[product.zdr.point]]
+text = "The only quantified period in this provider's evidence is an exception and an upper bound: \"Meta may retain the associated inputs and outputs for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations.\" The object is the inputs and outputs of a request flagged for an AUP violation, not all traffic."
+text_zh = "整套证据里唯一的量化期限是 ZDR 的例外，且为上限：『Meta may retain the associated inputs and outputs for up to 2 years for abuse detection, integrity and content-safety enforcement, and to meet legal obligations.』对象是被标记为 AUP 违规的那次请求的输入输出，不是全部流量。"
+anchor = "llama-zdr-policy-violation-2y"
+
+[[product.zdr.point]]
+text = "Availability boundary: \"Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected\" — stateful requests that reference an earlier response, background (asynchronous) requests, file uploads, web search and Playground chat history are unavailable."
+text_zh = "可用性边界：『Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected』——有状态请求、后台（异步）请求、文件上传、web search、Playground 历史都不可用。"
+anchor = "llama-zdr-features-disabled"
+
 [product.retention]
-object = "input_output"
+object = "mixed"
 basis = "as_needed"
 anchor = "llama-tos-4-4-retention-purposes"
 
@@ -69,6 +103,31 @@ text_zh = "前缀缓存默认内存中、可请求最长 24 小时(仅 hint)"
 text = "Sections 4, 5 and 6 survive termination, and the public terms carry no \"deleted on termination\" commitment."
 text_zh = "终止后 §4/§5/§6 存续，公开条款无『终止即删除』承诺。"
 
+[[product.retention.point]]
+text = "Objects: §4.4 retains \"your Content and Usage Data\" — the input/output text and Usage Data are separate objects. §4.2 defines Usage Data as technical data such as tool call sequences, API request metadata, error or other logs, timestamps, token counts and latency measurements, and lets Meta use it to \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\", subject to the restrictions in §5.1."
+text_zh = "保留对象：§4.4 保留的是『your Content and Usage Data』——输入输出正文与 Usage Data 是两个对象。§4.2 把 Usage Data 定义为 tool call sequences、API request metadata、error 或其他日志、时间戳、token 计数、延迟测量等技术数据，并允许 Meta 用它 test/support/develop/evaluate/improve Meta Model API 等，但受 §5.1 限制。"
+anchor = "llama-tos-4-2-usage-data"
+
+[[product.retention.point]]
+text = "§4.1 is a second retention ground beyond §4.4: \"You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.\" The same sentence also authorizes using Content to develop, evaluate and improve safety and security systems — a use distinct from the §4.2 Usage Data purpose."
+text_zh = "§4.4 之外的另一条保留依据是 §4.1：『You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.』同一句还授权把 Content 用于 develop/evaluate/improve 安全与安保系统——与 §4.2 的 Usage Data 用途分开。"
+anchor = "llama-tos-4-1-instruct-retain-aup"
+
+[[product.retention.point]]
+text = "Confidentiality does not limit retention: \"Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.\" Together with §15.4 (Sections 4, 5 and 6 survive termination), \"termination\" is not a deletion point."
+text_zh = "保密义务不限制保留与使用：『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.』配合 §15.4（§4/§5/§6 终止后存续），「终止」不是删除时点。"
+anchor = "llama-tos-12-confidentiality-not-limiting-retention"
+
+[[product.retention.point]]
+text = "Exception context: with ZDR on, the inputs and outputs of a request flagged for an AUP violation may be retained for up to 2 years (an upper bound) — the only quantified period in this provider's evidence."
+text_zh = "例外语境：开启 ZDR 后，被标记为 AUP 违规的请求，其输入输出最长可保留 2 年（上限），是本家证据里唯一的量化期限。"
+anchor = "llama-zdr-policy-violation-2y"
+
+[[product.retention.point]]
+text = "Meta keeps a monitoring right over Content: \"Meta may (i) monitor, including through automated or manual (human) review, your use of the Services to assess compliance with these Terms and applicable laws; and (ii) remove, without notice to you, any Content that Meta determines to be in violation of these Terms.\" Content can therefore be seen by humans, in step with the §4.1 AUP retention instruction."
+text_zh = "Meta 保留含人工审阅在内的监控权：『Meta may (i) monitor, including through automated or manual (human) review, your use of the Services to assess compliance with these Terms and applicable laws; and (ii) remove, without notice to you, any Content that Meta determines to be in violation of these Terms.』即 Content 会被人看到，与 §4.1 的 AUP 保留指示配套。"
+anchor = "llama-tos-10-3-right-to-monitor"
+
 [product.processing_region]
 mark = "unknown"
 codes = ["unknown"]
@@ -78,12 +137,10 @@ searched = [
   "https://dev.meta.ai/legal/commitments",
   "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
   "https://dev.meta.ai/legal",
-  "https://dev.meta.ai/help/policies-and-privacy/data-handling",
   "https://dev.meta.ai/help/accounts-and-login/supported-countries",
   "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
   "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
-  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
-  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.meta.com/legal/meta-for-work/subprocessor-list/",
   "https://www.facebook.com/privacy/policy/",
   "https://dev.meta.ai/docs/muse-code.md",
   "https://dev.meta.ai/llms.txt",
@@ -91,8 +148,12 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "Same as top-level processing_region."
-text_zh = "同顶层 processing_region。"
+text = "The subprocessor list incorporated by §5.1 now lives at https://www.meta.com/legal/meta-for-work/subprocessor-list/ (the two older addresses recorded earlier are stale). It gives the Processing Location of each subprocessor entity and Meta affiliate — United States, Denmark, Sweden, Ireland, Singapore, Philippines and others — that is, where those companies sit, not where the Services process or store data. It is an authorization list under §5.1 (Standard Services) only, so it is not a statement on this dimension and no anchor is bound to it."
+text_zh = "§5.1 并入的子处理者清单现址为 https://www.meta.com/legal/meta-for-work/subprocessor-list/（先前记的两个旧地址已失效）。它列的是各子处理者实体与 Meta 关联公司的 Processing Location——United States、Denmark、Sweden、Ireland、Singapore、Philippines 等——即这些公司所在地，不是本服务处理或存储数据的地点。该清单是 §5.1（Standard Services）项下的授权清单，不构成本维度的表述，故不为其绑锚点。"
+
+[[product.processing_region.point]]
+text = "The Geographic Use Policy's Restricted Territories govern where you may access the Services and deploy your Integrated Products (the page's own scope note says it describes where you may use the Services and where you may deploy your Integrated Products), not where data is processed, so it is not evidence on this dimension either."
+text_zh = "Geographic Use Policy 的 Restricted Territories 管的是你能在哪些地域访问服务、部署 Integrated Products（该页自述描述的是 where you may use the Services and where you may deploy your Integrated Products），不是数据处理地，同样不构成本维度的证据。"
 
 [product.role]
 kind = "processor"
@@ -132,6 +193,16 @@ text_zh = "该档没有按流量排除训练的机制"
 text = "The only way to avoid training is to use the Standard Services instead (the Data Commitments give the same route)."
 text_zh = "不想被训练只能改用 Standard Services(Data Commitments 给出同样路径)。"
 
+[[product.training.point]]
+text = "Which policy applies is decided by the model: \"The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes\" (§1), and §13.4 says the same (\"The Models you select determine how Meta may use your Content, as described in Sections 5 and 6\")."
+text_zh = "适用哪套政策由所选模型决定：§1『The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes』；§13.4 同旨（『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6』）。"
+anchor = "llama-tos-1-tier-by-model"
+
+[[product.training.point]]
+text = "Beyond Content, §4.2 lets Meta use Usage Data (technical data such as tool call sequences, API request metadata, error or other logs, timestamps, token counts and latency measurements) to \"test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\", subject to the restrictions in §5.1. That is a separate use from Content training, and §5.1 is a Standard Services clause, so the text does not state how it applies to the Discounted tier."
+text_zh = "除 Content 外，§4.2 还允许 Meta 把 Usage Data（tool call sequences、API request metadata、error 或其他日志、时间戳、token 计数、延迟测量等技术数据）用于 test/support/develop/evaluate/improve Meta Model API 等，但受 §5.1 限制。这与 Content 训练是两件事，且 §5.1 是 Standard Services 的条款，原文未写明它对本档如何适用。"
+anchor = "llama-tos-4-2-usage-data"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -145,8 +216,12 @@ searched = [
 text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\", without stating whether the Contributor/Discounted tier can enable ZDR. This tier exists on the premise that Meta may use Content for training, which is contractually incompatible with request-level zero retention, but Meta has taken no position, so it is recorded faithfully as not_found and must not be read in reverse as the vendor declining to offer it."
 text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor/Discounted 档能否启用 ZDR。该档的存在前提是 Meta 可用 Content 训练，与请求级零保留在条款上相斥，但官方未表态，故如实记 not_found，不得反推为厂商拒绝提供。"
 
+[[product.zdr.point]]
+text = "The same page sets ZDR's boundaries without distinguishing tiers: features that rely on storing prompts, attachments or responses are turned off (stateful requests, background/asynchronous requests, file uploads, web search, Playground chat history), and even with ZDR Meta still retains a few categories (AUP-violation inputs and outputs for up to 2 years, usage statistics, account and team data, operational metadata, support feedback; data processed by third-party integrations is not covered). None of this states whether the Discounted tier can enable ZDR."
+text_zh = "同一页在不区分档位的前提下给出了 ZDR 的边界：依赖存储提示词、附件或回复的功能会被关闭（有状态请求、后台/异步请求、文件上传、web search、Playground 历史）；且即使开了 ZDR，Meta 仍保留少数类别（AUP 违规的输入输出最长 2 年、使用统计、账户与团队数据、运维元数据、支持反馈；第三方集成处理的数据不受覆盖）。这些都没有说明本档能否启用 ZDR。"
+
 [product.retention]
-object = "input_output"
+object = "mixed"
 basis = "as_needed"
 anchor = "llama-tos-6-1-retain-discounted"
 
@@ -158,6 +233,26 @@ text_zh = "§6.1 除 §4.4 的五项目的外，另允许为『行使 Meta 在�
 text = "§6.1 also points to Meta's consumer Privacy Policy, whose wording is case-by-case as needed with no fixed period. No quantified period."
 text_zh = "§6.1 同时指向 Meta 消费者隐私政策，该政策的口径是按需个案判断、无固定期限。无量化期限。"
 
+[[product.retention.point]]
+text = "Objects: §4.4 retains \"your Content and Usage Data\" — the input/output text and Usage Data are separate objects. §4.2 defines Usage Data as technical data such as tool call sequences, API request metadata, error or other logs, timestamps, token counts and latency measurements."
+text_zh = "保留对象：§4.4 保留的是『your Content and Usage Data』——输入输出正文与 Usage Data 是两个对象。§4.2 把 Usage Data 定义为 tool call sequences、API request metadata、error 或其他日志、时间戳、token 计数、延迟测量等技术数据。"
+anchor = "llama-tos-4-2-usage-data"
+
+[[product.retention.point]]
+text = "§4.1 is another retention ground, and it applies to Content regardless of tier: \"You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.\""
+text_zh = "§4.1 是另一条保留依据，且不因档位而不同：『You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.』"
+anchor = "llama-tos-4-1-instruct-retain-aup"
+
+[[product.retention.point]]
+text = "Confidentiality does not limit retention, and the data sections survive termination: \"Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12\", and §15.4 lists Sections 4, 5 and 6 among those that survive — so \"termination\" is not a deletion point here either."
+text_zh = "保密义务不限制保留，且数据条款在终止后存续：『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12』，§15.4 的存续清单含 §4/§5/§6——「终止」在本档也不是删除时点。"
+anchor = "llama-tos-12-confidentiality-not-limiting-retention"
+
+[[product.retention.point]]
+text = "Meta keeps a monitoring right over Content: \"Meta may (i) monitor, including through automated or manual (human) review, your use of the Services to assess compliance with these Terms and applicable laws; and (ii) remove, without notice to you, any Content that Meta determines to be in violation of these Terms.\" Content can therefore be seen by humans, in step with the §4.1 AUP retention instruction."
+text_zh = "Meta 保留含人工审阅在内的监控权：『Meta may (i) monitor, including through automated or manual (human) review, your use of the Services to assess compliance with these Terms and applicable laws; and (ii) remove, without notice to you, any Content that Meta determines to be in violation of these Terms.』即 Content 会被人看到，与 §4.1 的 AUP 保留指示配套。"
+anchor = "llama-tos-10-3-right-to-monitor"
+
 [product.processing_region]
 mark = "unknown"
 codes = ["unknown"]
@@ -167,12 +262,10 @@ searched = [
   "https://dev.meta.ai/legal/commitments",
   "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
   "https://dev.meta.ai/legal",
-  "https://dev.meta.ai/help/policies-and-privacy/data-handling",
   "https://dev.meta.ai/help/accounts-and-login/supported-countries",
   "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
   "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
-  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
-  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.meta.com/legal/meta-for-work/subprocessor-list/",
   "https://www.facebook.com/privacy/policy/",
   "https://dev.meta.ai/docs/muse-code.md",
   "https://dev.meta.ai/llms.txt",
@@ -180,8 +273,12 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "Same as top-level processing_region"
-text_zh = "同顶层 processing_region"
+text = "The subprocessor list incorporated by §5.1 now lives at https://www.meta.com/legal/meta-for-work/subprocessor-list/ (the two older addresses recorded earlier are stale). It gives the Processing Location of each subprocessor entity and Meta affiliate — United States, Denmark, Sweden, Ireland, Singapore, Philippines and others — that is, where those companies sit, not where the Services process or store data. It is an authorization list under §5.1 (Standard Services) only and §6 sets no corresponding subprocessor clause for this tier, so it is not a statement on this dimension and no anchor is bound to it."
+text_zh = "§5.1 并入的子处理者清单现址为 https://www.meta.com/legal/meta-for-work/subprocessor-list/（先前记的两个旧地址已失效）。它列的是各子处理者实体与 Meta 关联公司的 Processing Location——United States、Denmark、Sweden、Ireland、Singapore、Philippines 等——即这些公司所在地，不是本服务处理或存储数据的地点。该清单只是 §5.1（Standard Services）项下的授权清单，§6 对本档没有对应的子处理者条款，故不构成本维度的表述，不为其绑锚点。"
+
+[[product.processing_region.point]]
+text = "The Geographic Use Policy's Restricted Territories govern where you may access the Services and deploy your Integrated Products, not where data is processed, so it is not evidence on this dimension either."
+text_zh = "Geographic Use Policy 的 Restricted Territories 管的是你能在哪些地域访问服务、部署 Integrated Products，不是数据处理地，同样不构成本维度的证据。"
 
 [[product.processing_region.point]]
 text = "The Discounted tier sets no separate processing-location clause."
@@ -407,3 +504,21 @@ suffix = """
  With ZDR enabled, the following aren't available:
 
 *   Stat"""
+
+[[anchor]]
+id = "llama-tos-10-3-right-to-monitor"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "10.3 Right to monitor. "
+exact = "Meta may (i) monitor, including through automated or manual (human) review, your use of the Services to assess compliance with these Terms and applicable laws"
+suffix = "; and (ii) remove, without notice to you, any Content that Meta determines to be in violation of these Terms."
+
+[[anchor]]
+id = "llama-commitments-improve-maintain"
+source_id = "a52b310c1de187bb"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Your Content and Customer Data will be used: * To provide the services; * To improve and maintain the Meta Model API;"

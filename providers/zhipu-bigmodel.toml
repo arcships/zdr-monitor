@@ -56,6 +56,16 @@ text_zh = "隐私政策二(七)4 同文复述。用户协议十.2 另允许「�
 [[product.training.point]]
 text_zh = "十.3 对非个人信息内容授予永久免费许可(含存储、使用、制作派生作品及再许可第三方)。反向线索:同站 Coding Plan 团队套餐档承诺「数据默认不用于模型训练」,恰说明按量 API 档无此承诺。这是条款许可,不等于每个 API 请求实际被用于训练"
 
+[[product.training.point]]
+text = "Direction check — this is a customer-side duty, not a vendor no-training promise: under 三.4 (\"您不应以以下方式不当使用大模型开放平台\"), the 11th bullet forbids the customer from using in-platform models, prompts and generated content to develop, train, label, fine-tune, optimize or iterate a new or other model outside the platform. It binds the customer, not the vendor, so it must not be read as the vendor's commitment not to train on customer data."
+text_zh = "易读反方向的一条:用户协议三.4「您不应以以下方式不当使用大模型开放平台」项下第 11 条禁止客户把平台内模型、提示词和通过提示生成的内容用于平台外新模型或其他模型的开发、训练、标注、微调、优化、迭代。这是客户侧义务,方向与「厂商是否拿客户数据训练」相反,不构成厂商的「不用于训练」承诺。"
+anchor = "zhipu-bigmodel-ua-customer-training-restriction"
+
+[[product.training.point]]
+text = "Qualifying condition: privacy policy 二(七)2 says information used for purposes not stated in the policy, or collected for one purpose but used for another, will only be so used with prior consent. The anonymized-training authorization in 二(七)4 is stated in the same policy, so this condition does not block it — the authorization rests on \"purposes already stated\" and the mark is unchanged."
+text_zh = "限定条件:隐私政策二(七)2 承诺「本政策未载明的其他用途,或者将基于特定目的收集而来的信息用于其他目的,均会事先获得您的同意」。二(七)4 的匿名化训练授权已在本政策载明,故本条不构成对 training=no 的反证——训练授权以「已载明用途」为前提,不改变 mark。"
+anchor = "zhipu-bigmodel-pp-other-purpose-consent"
+
 [product.zdr]
 mark = "no"
 anchor = "zhipu-bigmodel-ua-retention-buffer-delete"
@@ -97,19 +107,64 @@ searched = [
 [[product.zdr.point]]
 text_zh = "同顶层 dimensions.zdr:不支持零保留。依据同上——用户协议三.10(3) 删除触发后仍「继续存储您的用户上传数据」至缓冲期届满才删除(含缓存与备份副本)、服务协议 4.4+4.6 明示「最小必要范围内存储您的数据」、用户协议十.3 对您提供及在使用服务中形成的非个人信息内容取得含「存储」的永久免费许可。五类入口(内容授权条款/API 数据章节/日志与缓存/DPA/FAQ)本轮逐项复核,均无「处理完即不保留」表述。反向线索:Response API 默认 store=false 不落库(仅指响应对象不入库供查询)、FAQ 称异步任务无过期时间、Batch 文件 30 天(scope 限 Batch),均不构成零保留承诺。本行只登记 api 一档"
 
+[[product.zdr.point]]
+text = "Termination is not deletion — user agreement 五.3① keeps a post-termination right to continue storing, on an anonymized basis, \"您留存于大模型开放平台的各类信息\". It points the same way as the non-zero-retention reading; it is recorded side by side with the buffer-period clause in 三.10(3), not reconciled with it."
+text_zh = "终止不等于删除:用户协议五.3① 明说协议终止后平台仍享有「在匿名化处理您的用户信息的前提下,继续保存您留存于大模型开放平台的各类信息」的权利。方向与非零保留一致,与三.10(3) 的缓冲期条款并列保留,不作静默调和。"
+anchor = "zhipu-bigmodel-ua-termination-anonymized-continue-store"
+
 [product.retention]
-object = "input_output"
+object = "mixed"
 basis = "until_termination"
 anchor = "zhipu-bigmodel-ua-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "无量化期限,三层叠加:①用户协议三.10(3) 自行删除/服务期满/提前终止后,平台在「一定缓冲期内(以相关产品文档所载明的时限为准)继续存储您的用户上传数据」,缓冲期届满删除所有相关数据含全部缓存与备份副本"
+text = "Object: user-uploaded data (the input side). No quantified period. User agreement 三.10(3): after self-deletion, expiry of the service term or early termination, the platform keeps storing your uploaded data during a buffer period \"以相关产品文档所载明的时限为准\" (per the time limit stated in the relevant product documentation), and deletes all related data once the buffer period ends. The snapshot contains no day count for that buffer period."
+text_zh = "对象＝用户上传数据(输入侧)。无量化期限:用户协议三.10(3) 自行删除/服务期满/提前终止后,平台在「一定缓冲期内(以相关产品文档所载明的时限为准)继续存储您的用户上传数据」,缓冲期届满删除所有相关数据。缓冲期天数以相关产品文档为准,快照里没有天数——不能读成有确定期限。"
+anchor = "zhipu-bigmodel-ua-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "②服务协议 4.6 仅在服务与合规所需最小必要范围存储"
+text = "Object: caches and backup copies. The same clause names the deletion object explicitly — \"包括所有缓存或备份副本\" — so caches/backups of the uploaded data do have an anchor. It is not a statement about request-level KV cache: the snapshot has no retention clause for KV cache or inference-time state."
+text_zh = "对象＝缓存与备份副本:同一句明文写「包括所有缓存或备份副本」,删除对象有锚点。但它指用户上传数据的缓存/备份副本,不等于请求级 KV 缓存——后者在本轮来源里没有专门的保留条款。"
+anchor = "zhipu-bigmodel-ua-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "③隐私政策五(二) 个人信息只在达成目的所需最短必要期限保留(法定强制留存除外),注销协议补充注销后删除或匿名化。唯一量化期限是 Batch 任务文件 30 天(batch-api-issues / guide/tools/batch),不能外推到普通请求。用户协议八.7 另有免责句「智谱不对您…相关数据的删除或储存负责」"
+text = "Object: model outputs / generated content. 三.10(3) speaks of \"用户上传数据\" from beginning to end, so the output side has no retention-period anchor there. The only anchored clause touching this object is the perpetual free license over non-personal information in 十.3, which includes 存储 — a usage license, not a retention period. Output retention therefore stays undisclosed, which must not be read as \"short\"."
+text_zh = "对象＝模型输出/生成内容:三.10(3) 主语自始至终是「用户上传数据」,输出侧没有保留期落点。唯一有锚点、涉及该对象的是十.3 对非个人信息内容的永久免费许可(含「存储」)——那是使用授权,不是保留期限。故输出侧的保留期限属未披露,不能读成「很短」。"
+anchor = "zhipu-bigmodel-ua-zdr-content-license-store"
+
+[[product.retention.point]]
+text = "Context: default. Service agreement 4.6 — 智谱 stores your data only within the minimum scope necessary to provide the service and to meet compliance requirements, with necessary anonymization and encryption."
+text_zh = "语境＝默认:服务协议 4.6 智谱仅在为您提供服务和满足合规要求所需的最小必要范围内存储您的数据,且会进行必要的匿名化和加密处理。"
+anchor = "zhipu-bigmodel-sa-retention-min-necessary"
+
+[[product.retention.point]]
+text = "Context: default. Privacy policy 五(二)1 — personal information is kept only for the shortest necessary period to achieve the purposes stated in the policy, unless laws or regulations impose a mandatory retention time. No day count is given."
+text_zh = "语境＝默认:隐私政策五(二)1 只在达成本政策所述目的所需的最短必要期限内保留您的个人信息,除非法律法规另有强制的留存时间要求。页面没有天数。"
+anchor = "zhipu-bigmodel-pp-retention-min-necessary"
+
+[[product.retention.point]]
+text = "Account-lifecycle end: cancellation agreement 三.1 — after cancellation the personal information, content and data in the account are deleted or anonymized; where technical limits prevent immediate deletion (e.g. backup systems), only storage and necessary security protection continue."
+text_zh = "账号生命周期一端:注销协议三.1 注销后账户内个人信息、内容及数据将被删除或匿名化处理;因技术限制无法立即完成(如备份系统)时,仅继续存储和必要安全保护。"
+anchor = "zhipu-bigmodel-cancellation-account-delete"
+
+[[product.retention.point]]
+text = "The only quantified period in this source set: Batch task files are kept 30 days (\"系统只保留您的数据 30 天\"), scoped to Batch job files. It cannot be extrapolated to ordinary API requests."
+text_zh = "唯一量化期限:Batch 任务文件 30 天(「系统只保留您的数据 30 天」),scope 限 Batch 任务文件,不能外推到普通请求。"
+anchor = "zhipu-bigmodel-batch-guide-data-30d"
+
+[[product.retention.point]]
+text = "Exception pointing the other way: user agreement 五.3① — after the agreement ends, the platform still has the right, on an anonymized basis, to \"继续保存您留存于大模型开放平台的各类信息\". Objects differ: 五.3① covers the anonymized user information, 三.10(3) covers the user-uploaded data. Both are official text, so both are kept side by side rather than averaged; the deletion obligation stays anchored to the 三.10(3) buffer period."
+text_zh = "例外/相反方向:用户协议五.3① 协议终止后平台仍享有「在匿名化处理您的用户信息的前提下,继续保存您留存于大模型开放平台的各类信息」的权利。两句对象不同:五.3① 是匿名化后的用户信息,三.10(3) 是用户上传数据。都是官方原文,并列保留不选边;删除义务仍以三.10(3) 的缓冲期为准。"
+anchor = "zhipu-bigmodel-ua-termination-anonymized-continue-store"
+
+[[product.retention.point]]
+text = "Why basis = until_termination: the deletion trigger (self-deletion / expiry of the term / early termination) is disclosed, only the buffer length is not, so the period type is \"bounded by the service relationship, length undisclosed\" — not a fixed period. Sibling entry providers/zhipuai-coding-plan.toml records the same sentence (same source_id, same clause) as object = mixed / basis = undisclosed; that file is outside this fix's scope, so the divergence is left standing and the reason is recorded here instead of being silently reconciled."
+text_zh = "basis 取值理由与姊妹条目的差异:此处保留不是固定期限——删除触发(自行删除/服务期满/提前终止)已披露,只有缓冲期时长未披露,故期限类型记为「随服务关系终止、时长未公布」。同族的 providers/zhipuai-coding-plan.toml 对同一句原文(同 source_id、同一条款)记 object=mixed/basis=undisclosed;该文件不在本次修正范围内,故两处取值并列保留并在此写明理由,不做静默调和。"
+anchor = "zhipu-bigmodel-ua-retention-buffer-delete"
+
+[[product.retention.point]]
+text = "Disclaimer sitting next to it: user agreement 八.7 — \"智谱不对您在大模型开放平台及服务中相关数据的删除或储存负责。\""
+text_zh = "同处的免责句:用户协议八.7「智谱不对您在大模型开放平台及服务中相关数据的删除或储存负责」。"
 
 [product.processing_region]
 codes = ["CN"]
@@ -332,3 +387,37 @@ suffix = """
 
 <Tabs>
   <Tab title="python\""""
+
+[[anchor]]
+id = "zhipu-bigmodel-ua-termination-anonymized-continue-store"
+source_id = "beee352cc2569b01"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = """
+本协议终止后，大模型开放平台仍享有下列权利：
+① """
+exact = "在匿名化处理您的用户信息的前提下，继续保存您留存于大模型开放平台的各类信息"
+suffix = """
+；② 对于您过往的违约行为，大模型开放平台仍可依据本协议向您追究违约责任"""
+
+[[anchor]]
+id = "zhipu-bigmodel-ua-customer-training-restriction"
+source_id = "beee352cc2569b01"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "您除将平台内模型与您具体的业务场景结合后使用外，"
+exact = "不得将平台内模型、提示词和通过平台内模型提示生成的内容用于平台内模型之外的新模型或其他模型的开发、训练、标注、微调、优化、迭代以及其他类似活动"
+suffix = "，不得利用平台内模型或导出数据开发、训练或改善其他与智谱存在竞争关系的算法、模型"
+
+[[anchor]]
+id = "zhipu-bigmodel-pp-other-purpose-consent"
+source_id = "55daa5e833844d63"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "我们不存在利用您的个人信息结合算法做定向推送或精准营销的情形，"
+exact = "若我们将信息用于本政策未载明的其他用途，或者将基于特定目的收集而来的信息用于其他目的，均会事先获得您的同意"
+suffix = """
+3、若我们从第三方处间接获取您的信息"""

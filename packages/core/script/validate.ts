@@ -5,7 +5,7 @@ import { compile } from "../src/present"
 import { loadAll } from "../src/registry"
 import { loadSources } from "../src/sources"
 import { loadChanges } from "../src/changes"
-import fs from "node:fs"
+import { readSnapshot } from "../src/snapshot"
 
 const root = path.join(import.meta.dirname, "..", "..", "..")
 const problems: string[] = []
@@ -87,9 +87,8 @@ for (const change of loadChanges(root)) {
   if (!providerIds.has(change.provider)) problems.push(`${change.id}: provider ${change.provider} 不存在`)
   if (!sourcesByProvider.get(change.provider)?.has(change.source_id))
     problems.push(`${change.id}: source ${change.source_id} 不属于 provider ${change.provider}`)
-  for (const version of [change.from_version, change.to_version])
-    if (!fs.existsSync(path.join(root, "documents", change.source_id, `${version}.md`)))
-      problems.push(`${change.id}: 快照 ${change.source_id}/${version} 不存在`)
+  if (readSnapshot(root, change.source_id) === null)
+    problems.push(`${change.id}: 来源 ${change.source_id} 还没有快照`)
 }
 
 const { rows, details, missing } = compile(root)

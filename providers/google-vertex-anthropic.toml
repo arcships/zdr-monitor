@@ -71,6 +71,8 @@ id = "api"
 badge = "Vertex Claude"
 category = "api"
 plan_level = "any"
+label = "Gemini Enterprise Agent Platform 上的 Claude 常规模型（不含 Covered Models）"
+label_en = "Claude models on Gemini Enterprise Agent Platform (excluding Covered Models)"
 
 [product.training]
 mark = "yes"
@@ -82,19 +84,245 @@ mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-actions-required"
 
+[[product.zdr.point]]
+text = "ZDR here is a checklist to work through, not a default. To reach zero data retention the customer must leave request-response logging off, pass store = false explicitly on the Interactions API (store defaults to true for all models), request an abuse-monitoring exception where prompt logging applies, and not use the Sandbox API. The page does not state whether the Interactions API is open to partner models such as Claude, so that item is recorded as part of the checklist rather than as a Claude-specific rule."
+text_zh = "这里的 ZDR 是一份要逐项执行的清单，不是默认状态：不开启 request-response logging、Interactions API 显式 store=false（不指定时对所有模型默认 true）、适用滥用监控时申请豁免、不使用 Sandbox API。该页未说明 Interactions API 是否对 Claude 这类 partner model 开放，故此项按清单的一部分记录，不当作 Claude 专属规则。"
+anchor = "zdr-interactions-api-store-default-true"
+
+[[product.zdr.point]]
+text = "Request-response logging is a per-model, per-project switch that is disabled by default; reaching ZDR means leaving it off."
+text_zh = "request-response logging 是按型号、按项目的开关，默认关闭；要达成 ZDR 就不能打开它。"
+anchor = "zdr-request-response-logging-off"
+
+[[product.zdr.point]]
+text = "Prompt logging for abuse monitoring only binds customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service; those customers can request an exception in order to reach zero data retention."
+text_zh = "滥用监控的 prompt 记录只约束受 Google Cloud Platform Terms of Service 管辖的客户；这些客户可提交申请获得豁免，以达成零数据保留。"
+anchor = "zdr-abuse-monitoring-exception"
+
+[[product.zdr.point]]
+text = "Sandbox snapshots persist for the duration of the Sandbox TTL, so the page tells customers not to use the Sandbox API if they need zero retention."
+text_zh = "Sandbox 快照会随 Sandbox TTL 留存，该页因此写明要达成零保留就不要使用 Sandbox API。"
+anchor = "zdr-sandbox-api-not-used"
+
+[[product.zdr.point]]
+text = "Two official limits sit on top of that checklist: zero data retention may not be possible when using some Advanced AI features, and it may not be possible to opt out of prompt-response logging for some of them."
+text_zh = "清单之上还有两条官方限定：使用某些 Advanced AI 特性时可能无法达成零保留；某些 Advanced AI 特性下 prompt-response 记录可能无法退出。"
+anchor = "zdr-advanced-ai-caveat"
+
+[[product.zdr.point]]
+text = "The same limit stated from the abuse-monitoring side: it may not be possible to opt-out of prompt-response logging when using some Advanced AI features, and customers are told to ask their account team."
+text_zh = "滥用监控页从另一侧写了同一条限定：某些 Advanced AI 特性下可能无法退出 prompt-response 记录，需向客户团队确认。"
+anchor = "abuse-zdr-may-not-be-possible"
+
+[[product.zdr.point]]
+text = "This row's yes does not extend to the Covered Models subset (Claude Fable 5 / Fable 5.1, Claude Mythos 5 / Mythos 5.1), which is a separate row of this product line: for those models Anthropic's retention and safety review supersedes modified retention commitments such as ZDR."
+text_zh = "本行的 yes 不覆盖 Covered Models 子集（Claude Fable 5 / Fable 5.1、Claude Mythos 5 / Mythos 5.1）——它们在本产品线单列一行：对它们，Anthropic 的保留与安全审查优先于 ZDR 等修改后的保留承诺。"
+anchor = "anth-sst-f-covered-models-supersedes-zdr"
+
 [product.retention]
-days = 30
-object = "mixed"
+days = 90
+object = "logs"
 basis = "fixed_period"
+anchor = "abuse-standard-prompt-log-90d"
+
+[[product.retention.point]]
+text = "The 90 days is an upper bound on prompt logs, not a fixed retention period: prompts are logged only when automated safety classifiers flag suspicious activity that needs investigation, and the object logged is the prompt, not the response."
+text_zh = "90 天是 prompt 日志的上限，不是固定期限：只有自动安全分类器判定可疑、需要进一步调查时才会记录 prompt，记录对象是 prompt 本身，不是 response。"
+anchor = "abuse-prompt-log-triggered-only"
+
+[[product.retention.point]]
+text = "Scope of that logging: only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service; customers with a Google Cloud Master Agreement are exempt from it by default."
+text_zh = "该记录的适用范围：只有受 Google Cloud Platform Terms of Service 管辖的客户适用；有 Google Cloud Master Agreement 的客户默认豁免。"
+anchor = "abuse-master-agreement-exempt"
+
+[[product.retention.point]]
+text = "Other customers can request an exception, and if it is approved Google will not store any prompts associated with the approved account."
+text_zh = "其他客户可提交表单申请豁免；获批后 Google 不再为获批账户存储任何 prompt。"
+anchor = "abuse-customer-opt-out-form"
+
+[[product.retention.point]]
+text = "Second clock, for models inside the Advanced AI scope: Claude Mythos and Claude Fable (all versions, listed on this product line's Covered Models row) plus Claude Opus >= 4.7 and Sonnet >= 5 when advanced_ai_enabled = true for use within Anthropic's Cyber Verification Program. All other usage of these models is out of scope of the Advanced AI Safety Addendum."
+text_zh = "第二条时钟（Advanced AI 范围内的模型）：Claude Mythos 与 Claude Fable 的全部版本（见本产品线的 Covered Models 行），以及 advanced_ai_enabled=true 时用于 Anthropic CVP 的 Claude Opus >= 4.7 / Sonnet >= 5。这些模型的其他用法不在 Advanced AI Safety Addendum 范围内。"
+anchor = "abuse-advanced-ai-scope-claude"
+
+[[product.retention.point]]
+text = "Inside that scope prompts and responses are logged and stored for up to 30 days for abuse monitoring only — a different clock from the 90-day prompt-log path."
+text_zh = "落在该范围内的调用，prompt 与 response 一律记录、最多留存 30 天（仅用于滥用监控）——与 90 天的 prompt 日志是两条不同的时钟。"
 anchor = "abuse-advai-30d"
+
+[[product.retention.point]]
+text = "Contract layer, and the highest-authority rule for this row: absent the customer's prior permission or instruction, Google will not store outside the customer's Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output — a necessity standard rather than a number."
+text_zh = "合同层，也是本行最高权威的口径：未经客户事先许可或指示，Google 不会把提示给 Generative AI Service 的 Customer Data 或 Generated Output 存到客户 Account 之外超过生成输出所必需的时间——这是「必要时间」标准，不是具体天数。"
+anchor = "sst-20h-prompts-not-stored"
+
+[[product.retention.point]]
+text = "Deletion-completion timeline, not a retention period: when the customer deletes Customer Data through the Services, Google complies as soon as reasonably practicable and within a maximum period of 180 days."
+text_zh = "删除完成时限（不是保留期限）：客户通过服务删除 Customer Data 后，Google 在合理可行范围内尽快完成，最长 180 天。"
+anchor = "cdpa-6-1-deletion-by-customer"
+
+[[product.retention.point]]
+text = "Deletion-completion timeline, not a retention period: at the end of the Term, after a recovery period of up to 30 days, Google deletes the remaining Customer Data within a maximum period of 180 days."
+text_zh = "删除完成时限（不是保留期限）：服务期结束时，经过最长 30 天的恢复期后，Google 在最长 180 天内删除剩余 Customer Data。"
+anchor = "cdpa-6-2-term-end-deletion"
 
 [product.processing_region]
 codes = ["selected"]
+anchor = "dr-doc-ml-processing-by-endpoint"
+
+[[product.processing_region.point]]
+text = "The column asks where data is processed, and the platform page separates that from storage: data at rest stays in the customer-selected location independent of the endpoint called."
+text_zh = "列名问的是「数据在哪里处理」，平台页把这件事与存储分开：at-rest 数据留在客户选定位置，与所调端点无关。"
 anchor = "dr-doc-at-rest-stays"
+
+[[product.processing_region.point]]
+text = "Processing location is set by the choice of endpoint — jurisdictional multi-region, locational, or global."
+text_zh = "处理地由所选的端点决定——jurisdictional multi-region、locational 或 global。"
+anchor = "dr-doc-ml-processing-by-endpoint"
+
+[[product.processing_region.point]]
+text = "Global endpoints route and process data anywhere globally, without restricting it to a specific geographic region, and provide no regional isolation or data residency guarantees."
+text_zh = "global 端点在全球任意位置路由和处理数据，不限制在特定地理区域，也不提供区域隔离或数据驻留保证。"
+anchor = "dr-doc-global-endpoint-no-guarantee"
+
+[[product.processing_region.point]]
+text = "Contract layer (CDPA §10.1): subject to Google's data location commitments under the Service Specific Terms and its data transfer commitments, Customer Data may be processed in any country where Google or its Subprocessors maintain facilities."
+text_zh = "合同层（CDPA §10.1）：在 Google 于 Service Specific Terms 下的数据位置承诺与数据传输承诺约束下，Customer Data 可能在 Google 或其 Subprocessor 设有设施的任何国家处理。"
+anchor = "cdpa-10-1-processing-locations"
+
+[[product.processing_region.point]]
+text = "SST §16 lets the customer configure both at-rest storage and machine learning processing of Customer Data into a specific Multi-Region, and Google will perform both only in that Multi-Region."
+text_zh = "SST §16 允许客户把 Customer Data 的 at-rest 存储与 ML processing 一并配置到某个 Multi-Region，Google 只在那个 Multi-Region 内执行这两件事。"
+anchor = "sst-16-ai-ml-data-location"
+
+[[product.processing_region.point]]
+text = "Which regions are actually available is decided per model, not per provider: the data-residency page carries a partner-model table that lists regional support model by model, and each model page gives its own ML processing regions."
+text_zh = "具体哪些区域可用按型号而非按厂商决定：驻留文档里有 partner model 表，逐型号列出区域支持；每个型号页另给出该型号的 ML processing 区域。"
+anchor = "dr-doc-partner-model-table"
 
 [product.role]
 kind = "processor"
 anchor = "cdpa-4-1-google-processor"
+
+[[product.role.point]]
+text = "The Anthropic layer is scoped by Anthropic's own terms: use of Anthropic models on Agent Platform is governed by Anthropic's Commercial Terms of Service or other applicable agreement with Anthropic, with Advanced AI use governed by Section F of Anthropic's Service Specific Terms."
+text_zh = "Anthropic 那一层由 Anthropic 自己的条款划定：Agent Platform 上 Anthropic 模型的用量受 Anthropic 商业服务条款（或与 Anthropic 的其他适用协议）管辖，Advanced AI 的用量受 Anthropic Service Specific Terms §F 管辖。"
+anchor = "abuse-anthropic-terms-govern"
+
+[[product]]
+id = "api-covered-models"
+badge = "Vertex Claude · Covered Models"
+category = "api"
+plan_level = "any"
+label = "Claude Fable 5 / Fable 5.1、Mythos 5 / Mythos 5.1（Anthropic Covered Models）"
+label_en = "Claude Fable 5 / Fable 5.1, Claude Mythos 5 / Mythos 5.1 (Anthropic Covered Models)"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "sst-18-training-restriction"
+
+[[product.training.point]]
+text = "The Anthropic hop adds its own contract on top of Google's training restriction: Anthropic may not train models on Customer Content from Services."
+text_zh = "多出的一跳在 Google 的训练限制之上另有自己的合同：Anthropic 不得用 Services 的 Customer Content 训练模型。"
+anchor = "anth-ct-no-training-on-customer-content"
+
+[product.zdr]
+mark = "no"
+anchor = "anth-sst-f-covered-models-supersedes-zdr"
+
+[[product.zdr.point]]
+text = "Anthropic's Covered Models policy says it plainly: zero data retention is not available in workspaces, Claude Enterprise organizations, or third-party platforms where Covered Models can be accessed — Google Cloud Agent Platform is one of those platforms."
+text_zh = "Anthropic 的 Covered Models 政策写明：在可访问 Covered Models 的工作区、Claude Enterprise 组织或第三方平台上不提供零数据保留——Google Cloud Agent Platform 正是这类平台。"
+anchor = "cm-zdr-not-available-where-covered-models"
+
+[[product.zdr.point]]
+text = "Counter-statement kept side by side rather than reconciled: eligible customers are offered the option to use ZDR with Fable 5 and Fable 5.1 for their own internal business applications, for a limited time, as a transition to Enterprise Frontier Safeguards. The contract layer still supersedes modified retention commitments such as ZDR."
+text_zh = "并列保留、不调和的反向表述：符合条件的客户可限时获得对 Fable 5 / Fable 5.1 使用 ZDR 的选项（仅限自有内部业务应用，作为向 Enterprise Frontier Safeguards 的过渡）。合同层仍然明确优先于 ZDR 等修改后的保留承诺。"
+anchor = "cm-limited-time-zdr-transition"
+
+[product.retention]
+days = 30
+object = "input_output"
+basis = "fixed_period"
+anchor = "cm-30d-minimum-retention"
+
+[[product.retention.point]]
+text = "Anthropic's 30 days is a floor, not a ceiling: prompts and model completions are retained for at least 30 days and then automatically deleted, unless they are subject to a safety investigation or Anthropic is legally required to maintain them."
+text_zh = "Anthropic 的 30 天是下限而非上限：prompt 与模型输出至少保留 30 天后再自动删除，除非处于安全调查中或法律要求继续保留。"
+anchor = "cm-30d-at-least-with-exceptions"
+
+[[product.retention.point]]
+text = "Google's side gives the same 30 days as an upper bound and adds an enablement duty: for Anthropic Claude Fable 5 on Google Cloud and Mythos 5, prompts and responses are retained for up to 30 days, and using those models requires enabling sharing of that data with Anthropic. The two figures describe different things and are kept side by side."
+text_zh = "Google 一侧给出的是同一段 30 天的上限，并附加一项开启义务：Claude Fable 5 on Google Cloud 与 Mythos 5 的 prompt 与 response 最多保留 30 天，且使用这些模型必须开启与 Anthropic 的数据共享。两个数字说的不是同一件事，并列保留。"
+anchor = "abuse-claude-fable-mythos-30d"
+
+[[product.retention.point]]
+text = "The Fable 5 model page repeats the Google-side figure: all prompts and responses are stored for up to 30 days for the sole purpose of monitoring for potential abuse of relevant terms of service."
+text_zh = "Fable 5 型号页重复了 Google 一侧的口径：所有 prompt 与 response 最多存储 30 天，且仅用于监控是否滥用相关服务条款。"
+anchor = "fable5-advanced-ai-30d"
+
+[[product.retention.point]]
+text = "These policies follow the model and apply wherever Covered Models are offered, including third-party cloud platforms."
+text_zh = "这些政策随模型走，适用于所有提供 Covered Models 的地方，包括第三方云平台。"
+anchor = "cm-policies-follow-model-all-platforms"
+
+[[product.retention.point]]
+text = "Anthropic's API documentation states the same requirement for third-party platforms: the 30-day data retention requirement applies wherever Covered Models are offered."
+text_zh = "Anthropic 的 API 文档对第三方平台给出同一条要求：该 30 天保留要求适用于所有提供 Covered Models 的地方。"
+anchor = "anth-doc-covered-models-30d-anywhere"
+
+[[product.retention.point]]
+text = "Where that retained data sits on this platform: on Google Cloud's Agent Platform retained data stays within the cloud provider's environment."
+text_zh = "这些留存数据在云平台上的位置：在 Google Cloud Agent Platform 上，留存数据留在云厂商环境内。"
+anchor = "anth-doc-retained-data-in-cloud-provider-env"
+
+[product.processing_region]
+codes = ["selected", "global"]
+anchor = "dr-doc-ml-processing-by-endpoint"
+
+[[product.processing_region.point]]
+text = "Processing location is set by the choice of endpoint, and global endpoints route and process data anywhere globally with no residency guarantee."
+text_zh = "处理地由所选的端点决定；global 端点在全球任意位置路由和处理数据，不提供驻留保证。"
+anchor = "dr-doc-global-endpoint-no-guarantee"
+
+[[product.processing_region.point]]
+text = "The Fable 5 model page lists Global / global endpoint among the model's available regions, so a global endpoint is a documented option for this row — that is why the codes here include global."
+text_zh = "Fable 5 型号页把 Global / global endpoint 列在该型号的可用区域里，因此经 global 端点调用是本行有据可依的选项——本行 codes 因此含 global。"
+anchor = "fable5-model-availability-global"
+
+[[product.processing_region.point]]
+text = "But the same page's ML processing row lists only United States / Europe multi-region and Asia Pacific asia-southeast1, so what applies is per-model regional support rather than a blanket any-region."
+text_zh = "但同一页的 ML processing 列只列 United States / Europe multi-region 与 Asia Pacific asia-southeast1，因此适用的是逐型号的区域支持，而非「任意区域皆可」。"
+anchor = "fable5-ml-processing-regions"
+
+[[product.processing_region.point]]
+text = "Contract layer (CDPA §10.1): subject to Google's data location commitments under the Service Specific Terms and its data transfer commitments, Customer Data may be processed in any country where Google or its Subprocessors maintain facilities."
+text_zh = "合同层（CDPA §10.1）：在 Google 于 Service Specific Terms 下的数据位置承诺与数据传输承诺约束下，Customer Data 可能在 Google 或其 Subprocessor 设有设施的任何国家处理。"
+anchor = "cdpa-10-1-processing-locations"
+
+[[product.processing_region.point]]
+text = "SST §16 lets the customer configure both at-rest storage and machine learning processing of Customer Data into a specific Multi-Region, and Google will perform both only in that Multi-Region."
+text_zh = "SST §16 允许客户把 Customer Data 的 at-rest 存储与 ML processing 一并配置到某个 Multi-Region，Google 只在那个 Multi-Region 内执行这两件事。"
+anchor = "sst-16-ai-ml-data-location"
+
+[product.role]
+kind = "processor"
+anchor = "cdpa-4-1-google-processor"
+
+[[product.role.point]]
+text = "Default on Cloud Platforms: the technology Anthropic provides to enable access to the Hosted Services does not give Anthropic access to any Customer instance within the Cloud Platforms, including the Inputs or Outputs they contain — subject to Section F.2 below."
+text_zh = "云平台上的默认安排：Anthropic 为提供 Hosted Services 访问而提供的技术，不让 Anthropic 接触云平台上任何客户实例的内容（含其中的 Inputs/Outputs）——但受 §F.2 约束。"
+anchor = "anth-sst-d-no-access-on-vertex"
+
+[[product.role.point]]
+text = "Covered Models change that: the Fable 5 model page requires prompt-response sharing with Anthropic for each model location, as required by Section F of Anthropic's Service Specific Terms."
+text_zh = "Covered Models 改变了这一点：Fable 5 型号页要求为每个 model location 开启与 Anthropic 的 prompt-response 共享（Anthropic Service Specific Terms §F 的要求）。"
+anchor = "fable5-required-anthropic-sharing"
+
+[[product.role.point]]
+text = "But the role itself does not change: for data regarding the customer's use of Covered Models via a Cloud Platform, Anthropic processes such data on the customer's behalf in accordance with the Anthropic Data Processing Agreement."
+text_zh = "但角色本身不变：经云平台使用 Covered Models 所产生的数据，Anthropic 依 Anthropic DPA 以客户受托方身份处理。"
+anchor = "anth-sst-f-2-cloud-platform-processor"
 
 [[anchor]]
 id = "sst-18-training-restriction"
@@ -445,3 +673,148 @@ exact = "These policies follow the model. They apply wherever Covered Models are
 suffix = """
  
 *   **Eligibility.**Some Covered Models (such as Claude My"""
+
+[[anchor]]
+id = "zdr-abuse-monitoring-exception"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring."
+
+[[anchor]]
+id = "zdr-request-response-logging-off"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "Enabling this logging causes certain requests and responses to the specified model to be written to a designated BigQuery table. To achieve zero data retention, do not enable this feature."
+
+[[anchor]]
+id = "zdr-interactions-api-store-default-true"
+source_id = "89852246e77a9205"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "If you do not specify a value for `store`, it defaults to `true` for all models. To achieve zero data retention, explicitly set `store = false` in your API requests."
+
+[[anchor]]
+id = "zdr-sandbox-api-not-used"
+source_id = "89852246e77a9205"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "To achieve zero-data-retention, don't use the Sandbox API."
+
+[[anchor]]
+id = "abuse-prompt-log-triggered-only"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "If automated safety classifiers detect suspicious activity that requires further investigation into whether a customer has violated our policies, then Google may log customer prompts solely for the purpose of examining whether a violation of the AUP or Prohibited Use Policy has occurred."
+
+[[anchor]]
+id = "abuse-master-agreement-exempt"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "This means that customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default."
+
+[[anchor]]
+id = "abuse-customer-opt-out-form"
+source_id = "72542f8ee80026c3"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "If approved, Google won't store any prompts associated with the approved Google Cloud account."
+
+[[anchor]]
+id = "dr-doc-global-endpoint-no-guarantee"
+source_id = "72e6fe02c66dc87c"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Global endpoints route and process data anywhere globally, without restricting it to a specific geographic region."
+
+[[anchor]]
+id = "cdpa-10-1-processing-locations"
+source_id = "2109a76273ace44c"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Customer Data may be processed in any country where Google or its Subprocessors maintain facilities."
+
+[[anchor]]
+id = "cdpa-6-1-deletion-by-customer"
+source_id = "2109a76273ace44c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "If Customer uses the Services to delete any Customer Data during the Term and that Customer Data cannot be recovered by Customer, this use will constitute an Instruction to Google to delete the relevant Customer Data from Google's systems. "
+exact = "Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days"
+
+[[anchor]]
+id = "cdpa-6-2-term-end-deletion"
+source_id = "2109a76273ace44c"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "After a recovery period of up to 30 days from that date, Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days"
+
+[[anchor]]
+id = "cm-zdr-not-available-where-covered-models"
+source_id = "ffa01af450891d92"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "Accordingly, zero data retention is not available in workspaces, Claude Enterprise organizations, or third-party platforms (e.g., Azure Subscriptions) where Covered Models can be accessed."
+
+[[anchor]]
+id = "cm-30d-at-least-with-exceptions"
+source_id = "ffa01af450891d92"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Prompts and model completions are retained for at least 30 days and then automatically deleted, unless they are subject to a safety investigation or we are legally required to maintain them."
+
+[[anchor]]
+id = "cm-limited-time-zdr-transition"
+source_id = "ffa01af450891d92"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "To make the transition smooth, eligible customers will receive the option to use ZDR with Fable 5 and Fable 5.1 for their own internal business applications. This arrangement is available for a limited time, and intended to be a transition to EFS."
+
+[[anchor]]
+id = "anth-doc-retained-data-in-cloud-provider-env"
+source_id = "6bc4022c8696d7c6"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "On Amazon Bedrock and Google Cloud's Agent Platform, retained data stays within your cloud provider's environment"
+
+[[anchor]]
+id = "anth-sst-f-2-cloud-platform-processor"
+source_id = "74318b3bbc385d03"
+topics = ["role"]
+
+[anchor.selector]
+exact = "Anthropic will process such data on Customer's behalf in accordance with the Anthropic Data Processing Agreement (or other applicable data processing agreement between the parties) consistent with the terms governing the processing of Customer Data."
+
+[[anchor]]
+id = "fable5-model-availability-global"
+source_id = "703369df97c30dd8"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "<section class=\"geap-region\"><li>Global</li><ul><li><code translate=\"no\" dir=\"ltr\">global endpoint</code></li></ul></section>"
+
+[[anchor]]
+id = "fable5-ml-processing-regions"
+source_id = "703369df97c30dd8"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "<p>ML processing</p></td><td><ul><section class=\"geap-region\"><li>United States</li><ul><li><code translate=\"no\" dir=\"ltr\">Multi-region</code></li></ul></section><section class=\"geap-region\"><li>Europe</li><ul><li><code translate=\"no\" dir=\"ltr\">Multi-region</code></li></ul></section><section class=\"geap-region\"><li>Asia Pacific</li><ul><li><code translate=\"no\" dir=\"ltr\">asia-southeast1</code></li>"

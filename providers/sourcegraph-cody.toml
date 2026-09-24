@@ -32,6 +32,10 @@ plan_level = "free"
 [product.training]
 mark = "yes"
 anchor = "cody-individual-no-training"
+[[product.training.point]]
+text = "Same sentence, second fact: for individuals using Cody via Sourcegraph.com the prompts and responses may also be used \"to enhance the user experience\" — a use that goes beyond providing the service, and its object is this tier's inputs and outputs. The no-training half is explicit in the same sentence (\"does not use any of your data to train models\"), which is why the mark stays yes; the improvement-use authorisation is kept beside it as a separate fact."
+text_zh = "同一句的第二件事：Sourcegraph.com 个人档的 prompts 与 responses 还可被用于「enhance the user experience」（改进用户体验），这是超出「提供服务」的用途授权，对象就是本档的输入输出。同句后半段明确把模型训练排除（does not use any of your data to train models），故 mark 仍记 yes——判 yes 要求的是有明确把模型训练挡在外面的表述，这里满足；而「可用于改进用户体验」这条授权按台账口径「用来改进服务算训练」是 training 维度上的并列负面事实，一并保留。"
+anchor = "cody-individual-no-training"
 [product.zdr]
 mark = "unknown"
 searched = ["https://sourcegraph.com/docs/cody", "https://sourcegraph.com/terms/ai-terms"]
@@ -39,12 +43,38 @@ searched = ["https://sourcegraph.com/docs/cody", "https://sourcegraph.com/terms/
 object = "input_output"
 basis = "undisclosed"
 anchor = "cody-individual-collects"
+searched = [
+  "https://sourcegraph.com/docs/cody",
+  "https://sourcegraph.com/terms/ai-terms",
+  "https://sourcegraph.com/docs/cody/core-concepts/context",
+]
+[[product.retention.point]]
+text = "What this anchor supports is the object, not a period: it says which data is collected (prompts and responses, on default use of Cody) and contains no period or deletion statement. docs/cody sends the detail to a separate Cody Usage and Privacy policy, which is not registered as a [[source]] in this file and has no snapshot of its own, so the period is recorded as undisclosed — a sourcing gap, not a vendor denial that a period exists."
+text_zh = "锚点句支撑的是对象而不是期限：它只说收集哪些数据（个人档的 prompts 与 responses，默认使用 Cody 时），没有期限或删除表述。docs/cody 把细节指向独立的 Cody Usage and Privacy policy，该文档未在本文件登记为 [[source]]、也没有独立快照，故期限按未披露记（对象=输入输出正文、语境=默认、期限类型=未披露）——这是溯源缺口，不是厂商否认存在保留期限。"
+anchor = "cody-individual-policy-link"
 [product.processing_region]
 codes = ["unknown"]
-searched = ["https://sourcegraph.com/docs/cody", "https://sourcegraph.com/terms/privacy"]
+searched = [
+  "https://sourcegraph.com/docs/cody",
+  "https://sourcegraph.com/terms/ai-terms",
+  "https://sourcegraph.com/terms/privacy",
+  "https://sourcegraph.com/docs/cody/core-concepts/context",
+]
+[[product.processing_region.point]]
+text = "Part of this path is customer-side: context retrieval runs on the SG instance, which the docs describe as \"managed or self-hosted\" — a self-hosted instance is the customer's own environment, so no Sourcegraph processing region governs that hop. The sentence covers the context-retrieval hop only; it says nothing about where model inference happens."
+text_zh = "链路有一段在客户侧：上下文检索在 SG 实例上完成，文档写明该实例「managed or self-hosted」——自托管即客户自有环境，这一跳不由 Sourcegraph 的处理地决定。该句只覆盖上下文检索这一跳，没有交代模型推理在哪里处理。"
+anchor = "cody-context-sg-instance"
+[[product.processing_region.point]]
+text = "For this tier the handling detail is delegated to the linked Cody Usage and Privacy policy, which has no snapshot in this repository; none of the documents held here states a processing region for individuals using Cody via Sourcegraph.com."
+text_zh = "个人档的处理细节被指向同页链接的 Cody Usage and Privacy policy，该文档在本仓库没有快照；本仓库持有的文档里，Sourcegraph.com 个人档没有任何处理地表述。"
+anchor = "cody-individual-policy-link"
 [product.role]
 kind = "controller"
-anchor = "cody-individual-collects"
+anchor = "cody-individual-own-purpose"
+[[product.role.point]]
+text = "The role reading for this tier rests on purpose determination rather than on a role label: Sourcegraph itself decides what is done with individual prompts and responses (\"may use your prompts and responses to enhance the user experience\"), i.e. processing for its own purposes and not only on the user's instruction. The service-only wording of the AI Terms is scoped to Customers and does not cover individuals on Sourcegraph.com."
+text_zh = "个人档的角色读法依据的是用途决定权而不是角色标签：Sourcegraph 可自行决定个人档 prompts 与 responses 的用途（「may use your prompts and responses to enhance the user experience」），即为自身目的处理，而不是只按用户指示处理。AI Terms 里「solely to provide the Service」那套用途限制的适用对象是 Customer，不覆盖 Sourcegraph.com 个人档。"
+anchor = "cody-individual-own-purpose"
 
 [[product]]
 id = "enterprise"
@@ -60,18 +90,42 @@ anchor = "cody-enterprise-no-train"
 mark = "yes"
 mode = "by_agreement"
 anchor = "cody-partner-zero-retention"
+[[product.zdr.point]]
+text = "The Zero Retention definition this yes rests on is updatable by Sourcegraph alone: it \"may update this definition from time to time to reflect changes in Partner LLM retention practices by updating the 'last modified' date on this page\", so the scope of this verdict follows whichever version of the page is in force at the time of reading."
+text_zh = "本档 zdr=yes 所依赖的 Zero Retention 定义可由 Sourcegraph 单方更新：它「may update this definition from time to time to reflect changes in Partner LLM retention practices by updating the 'last modified' date on this page」，改页面 last modified 日期即生效。故该 yes 的适用范围随页面当时版本变动，采购时应按当时页面版本复核。"
+anchor = "cody-zero-retention-updatable"
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
 anchor = "cody-sourcegraph-may-store"
-[product.processing_region]
-codes = ["unknown"]
-searched = ["https://sourcegraph.com/terms/ai-terms", "https://sourcegraph.com/terms/privacy"]
-[product.role]
-kind = "processor"
-anchor = "cody-content-service-only"
 [[product.retention.point]]
 text_zh = "ZDR 只约束 Partner LLM；同一句明确不限制 Sourcegraph 为功能持久化输入输出，且没有给期限。"
+[[product.retention.point]]
+text = "Scope of this verdict: the AI Terms give no retention period of their own — the object here is Sourcegraph-side storage of the collected Customer Content (Inputs, Outputs, Candidate Context, Chat Transcripts, §4) under default operation — and §6 sends the processing of Customer Content to the Security Exhibit (\"Sourcegraph will process Customer Content in accordance with the Security Exhibit\", i.e. https://sourcegraph.com/terms/security). That document is not registered as a [[source]] in this file and has no snapshot, so basis=undisclosed rests on the AI Terms alone."
+text_zh = "本条结论的范围：AI Terms 自己没有给保留期限——本档对象是 Sourcegraph 侧对已收集 Customer Content（Inputs、Outputs、Candidate Context、Chat Transcripts，§4）的存储，语境为默认运行——而 §6 把 Customer Content 的处理指向 Security Exhibit（「Sourcegraph will process Customer Content in accordance with the Security Exhibit」，即 https://sourcegraph.com/terms/security）。该文件未在本文件登记为 [[source]]、也没有快照，故 basis=undisclosed 只建立在 AI Terms 之上。"
+anchor = "cody-security-exhibit"
+[product.processing_region]
+codes = ["unknown"]
+searched = [
+  "https://sourcegraph.com/terms/ai-terms",
+  "https://sourcegraph.com/terms/privacy",
+  "https://sourcegraph.com/docs/cody/core-concepts/context",
+]
+[[product.processing_region.point]]
+text = "The AI Terms state no processing region; §6 sends the processing of Customer Content to the Security Exhibit (https://sourcegraph.com/terms/security), which is not registered as a [[source]] in this file and has no snapshot, so any location commitment has to be re-checked there."
+text_zh = "AI Terms 没有处理地表述；§6 把 Customer Content 的处理指向 Security Exhibit（https://sourcegraph.com/terms/security），该文件未在本文件登记为 [[source]]、也没有快照，任何处理地承诺都需在该文件抓回后复核。"
+anchor = "cody-security-exhibit"
+[[product.processing_region.point]]
+text = "Part of this path is customer-side: search runs on the SG instance, which the docs describe as \"managed or self-hosted\" — a self-hosted instance sits in the customer's own environment, so no vendor processing region governs that hop. The sentence covers the context-retrieval hop only; it says nothing about where model inference happens."
+text_zh = "链路有一段在客户侧：检索在 SG 实例上完成，文档写明该实例「managed or self-hosted」；自托管即客户自有环境，这一跳不由厂商处理地决定。该句只覆盖上下文检索这一跳，没有交代模型推理在哪里处理。"
+anchor = "cody-context-sg-instance"
+[product.role]
+kind = "unknown"
+searched = ["https://sourcegraph.com/terms/ai-terms"]
+[[product.role.point]]
+text = "No role is stated for this tier: the AI Terms only limit the purpose for which Customer Content is collected (\"solely to provide the Service and not for product improvement purposes\") and never call Sourcegraph a processor or the Customer a controller; §6 sends the processing of Customer Content to the Security Exhibit, and no DPA, Security Exhibit or other role-bearing contract is registered as a [[source]] in this file, so the processor role cannot be anchored."
+text_zh = "本档没有角色表述：AI Terms 只限制 Customer Content 的收集用途（「solely to provide the Service and not for product improvement purposes」），全文没有把 Sourcegraph 写成 processor、也没有把 Customer 写成 controller；§6 把 Customer Content 的处理指向 Security Exhibit，而本文件没有登记 DPA、Security Exhibit 或任何含角色条款的合同来源，processor 角色无锚点可绑，故记未表态。"
+anchor = "cody-content-service-only"
 
 [[anchor]]
 id = "cody-individual-no-training"
@@ -90,6 +144,22 @@ prefix = ""
 exact = "When you use Cody, Sourcegraph collects your prompts and responses to provide the service."
 suffix = ""
 [[anchor]]
+id = "cody-individual-own-purpose"
+source_id = "a74a72658c3c36f4"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph may use your prompts and responses to enhance the user experience"
+suffix = ""
+[[anchor]]
+id = "cody-individual-policy-link"
+source_id = "a74a72658c3c36f4"
+topics = ["retention", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Read more about Cody Usage and Privacy policy here"
+suffix = ""
+[[anchor]]
 id = "cody-enterprise-no-train"
 source_id = "b2f63378e6932616"
 topics = ["training"]
@@ -106,6 +176,14 @@ prefix = ""
 exact = "Sourcegraph Partner LLMs will **not** retain any Input, Output, or Candidate Context beyond the time it takes to generate the Output (**\"Zero Retention\"**), except that Partner LLMs may temporarily retain Inputs and Outputs solely for the purpose of detecting and preventing abuse or serious harm, and will not use such data for model training or any other purpose, provided that you access AI Tools through Sourcegraph's Partner LLMs."
 suffix = ""
 [[anchor]]
+id = "cody-zero-retention-updatable"
+source_id = "b2f63378e6932616"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph may update this definition from time to time to reflect changes in Partner LLM retention practices by updating the 'last modified' date on this page."
+suffix = ""
+[[anchor]]
 id = "cody-sourcegraph-may-store"
 source_id = "b2f63378e6932616"
 topics = ["retention"]
@@ -120,4 +198,20 @@ topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "Sourcegraph collects the following **Customer Content** solely to provide the Service and not for product improvement purposes:"
+suffix = ""
+[[anchor]]
+id = "cody-security-exhibit"
+source_id = "b2f63378e6932616"
+topics = ["retention", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Sourcegraph will process Customer Content in accordance with the Security Exhibit."
+suffix = ""
+[[anchor]]
+id = "cody-context-sg-instance"
+source_id = "cc823f38c8c3ae0a"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Queries are sent to the SG instance (managed or self-hosted), and search is done using the SG search stack."
 suffix = ""

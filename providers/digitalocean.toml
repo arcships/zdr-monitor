@@ -80,14 +80,54 @@ mode = "default"
 text = "DigitalOcean-hosted models: \"DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.\" and \"Customer data submitted to the model is never sent back to the original model creator, so the creator cannot use it for training.\" At the contract layer there is only a narrow no-training commitment (Service Terms §7.2.2 covers Evaluation Datasets and Evaluation Outputs only), with no clause covering all inference content — recorded as such."
 text_zh = "DO 自托管模型:「DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.」且「Customer data submitted to the model is never sent back to the original model creator」。合同层只有窄口径不训练承诺(Service Terms §7.2.2 仅覆盖 Evaluation Datasets/Outputs),无覆盖全部推理内容的合同条款 —— 已如实标注。"
 
+[[product.training.point]]
+text = "Contract-layer boundary (TOS §4.3): \"We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.\" Under docs/judgment.md (using data to improve the service counts as training) this is the contract layer's service-improvement opening, and the same sentence carves Usage Data (resource identifiers, metadata, access controls, rules, usage policies, permissions, system logs, metrics, configurations and similar items) out of Services Content, so it does not overturn mark=yes. Whether \"other information about how you use and interact with the Services\" reaches prompt bodies is not defined in the text — recorded as stated, not narrowed on the vendor's behalf"
+text_zh = "合同层边界(TOS §4.3):「We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.」按 docs/judgment.md 的口径(用于改进服务算训练),这是合同层的服务改进口子;同句已把 Usage Data(资源标识、元数据、访问控制、规则、使用政策、权限、系统日志、指标、配置等)排除在 Services Content 之外,故不推翻 mark=yes。「其他关于你如何使用/交互服务的信息」是否涵盖 prompt 正文,原文未界定 —— 如实记录,不替厂商收窄"
+anchor = "do-tos-usage-data-improve-services"
+
+[[product.training.point]]
+text = "The same shape appears once more on the Evaluations side: Service Terms §7.2.3 lets DigitalOcean process anonymized, aggregated telemetry \"to maintain and improve the performance and reliability of the Service\", expressly excluding Evaluation Datasets and Evaluation Outputs"
+text_zh = "同类表述在 Evaluations 侧还有一处:Service Terms §7.2.3 允许为「to maintain and improve the performance and reliability of the Service」处理匿名聚合遥测,并明文排除 Evaluation Datasets 与 Evaluation Outputs"
+anchor = "do-st-eval-telemetry-improve"
+
+[[product.training.point]]
+text = "Third-party model hop: \"Data sent to other third-party model providers is handled according to the applicable provider's policies.\" The no-training mark covers DigitalOcean-hosted models; on the third-party path DigitalOcean makes no commitment of its own and the outcome is decided by the upstream provider (see this product's zdr points for the upstream regimes)"
+text_zh = "第三方模型跳:「Data sent to other third-party model providers is handled according to the applicable provider's policies.」不训练的 mark 只覆盖 DO 托管模型;走第三方模型时 DO 不作承诺,结果由上游 provider 的政策决定(上游各自的口径见本档 zdr 的 point)"
+anchor = "do-third-party-upstream-policies"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "do-infra-no-store-inputs-outputs"
 
 [[product.zdr.point]]
-text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch and Files exceptions. It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
-text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files 例外。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch, Files and Claude Fable exceptions (the cache exception is not uniformly bounded: the automatic cache for open-source models has no stated ceiling). It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
+text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files/Claude Fable 例外(缓存例外并非统一有界:开源模型的自动缓存无公布上限)。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+
+[[product.zdr.point]]
+text = "Exception — Claude Fable 5.1 and Claude Fable 5: \"access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews\", and DigitalOcean routes such traffic upstream to a compliant workspace automatically. It is a model-level precondition of access that the customer cannot switch off, carried by the upstream compliant workspace, so the \"nothing stored on the DigitalOcean side by default\" position does not hold for these models"
+text_zh = "例外——Claude Fable 5.1 / Fable 5:「access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews」,且 DO 自动把这类流量路由到上游合规 workspace。这是模型级的访问前置条件、客户无法关闭,由上游合规 workspace 承担,故「DO 侧默认不存输入输出」对这些模型不成立"
+anchor = "do-fable-mandatory-30d"
+
+[[product.zdr.point]]
+text = "Multi-hop data flow: \"In addition, we may share information, that does not include your Services Content, about your use of a Third-Party AI Model on the Gradient AI Platform Service with the provider of that Third-Party AI Model\", and for Evaluations \"DigitalOcean may share usage metadata (excluding your Services Content) with the relevant model provider for billing or abuse-detection purposes\". This is a flow of usage information, not of content, and it does not change the role analysis, which rests on DPA Schedule 1"
+text_zh = "多跳信息流:「In addition, we may share information, that does not include your Services Content, about your use of a Third-Party AI Model on the Gradient AI Platform Service with the provider of that Third-Party AI Model」;Evaluations 侧同旨「DigitalOcean may share usage metadata (excluding your Services Content) with the relevant model provider for billing or abuse-detection purposes」。这是使用信息的流向而非内容,不改变角色定性(角色以 DPA Schedule 1 为准)"
+anchor = "do-share-usage-info-not-content"
+
+[[product.zdr.point]]
+text = "Third-party model hop: \"Data sent to other third-party model providers is handled according to the applicable provider's policies.\" For that hop DigitalOcean commits to nothing itself — training and retention are decided by the upstream provider, and the upstream regimes are named on the same page (OpenAI and Anthropic, see the next two points)"
+text_zh = "第三方模型跳:「Data sent to other third-party model providers is handled according to the applicable provider's policies.」这一跳 DO 自己不作任何承诺 —— 训练与保留由上游 provider 决定,同页也点名了上游各自的口径(OpenAI 与 Anthropic,见下面两条)"
+anchor = "do-third-party-upstream-policies"
+
+[[product.zdr.point]]
+text = "Upstream hop, OpenAI models: \"OpenAI’s zero data retention policy\" applies — it excludes customer content from abuse monitoring logs and treats the store parameter for /v1/responses and /v1/chat/completions as false, while certain endpoints may still store limited application state"
+text_zh = "上游一跳,OpenAI 模型:适用「OpenAI’s zero data retention policy」—— 客户内容被排除在滥用监控日志之外,store 参数按 false 处理,但某些端点仍可能保留有限的应用状态"
+anchor = "do-openai-zdr-passthrough"
+
+[[product.zdr.point]]
+text = "Upstream hop, Anthropic models: \"Anthropic applies a Zero Retention Policy\" and deletes prompts and outputs after generation, except where required by law or to address malicious use; Anthropic may run risk classification models on prompts and outputs"
+text_zh = "上游一跳,Anthropic 模型:「Anthropic applies a Zero Retention Policy」,生成后即删除 prompts 与 outputs,法律要求或处理恶意使用时除外;Anthropic 可能对 prompts/outputs 跑风险分类模型"
+anchor = "do-anthropic-zero-retention"
 
 [[product.zdr.point]]
 text = "The earlier record of zdr=available/default is downgraded accordingly."
@@ -100,32 +140,57 @@ basis = "fixed_period"
 anchor = "do-batch-output-29-30d"
 
 [[product.retention.point]]
+text = "The tier-level \"30 days\" is composite, not one uniform rule: it is the Batch output/error file window (29-30 days from job completion), the mandatory 30-day retention that comes with Claude Fable 5/5.1, and the upper limit for deleting Personal Data after account de-activation (DPA §7.6). The default position is still that inputs and outputs are not stored on DigitalOcean infrastructure, so \"30 days\" must not be read as \"everything is kept for 30 days\""
+text_zh = "档位级的「30 天」是拼出来的,不是单一规则:Batch 输出/错误文件窗口(批次完成起算 29-30 天)、Claude Fable 5/5.1 附带的强制 30 天、账户停用后删除 Personal Data 的 30 天上限(DPA §7.6)。默认口径仍是 DO 自有基础设施不存输入输出,故「30 天」不得读成「所有内容都留 30 天」"
+
+[[product.retention.point]]
 text = "Object × period: (1) default — \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" (an architectural statement)"
 text_zh = "对象×期限:①默认——DO 自有基础设施不存输入输出(架构性表述)"
 
 [[product.retention.point]]
-text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are isolated per customer account"
-text_zh = "②前缀/KV 缓存——OpenAI 模型 24h 或内存内,Anthropic 模型 5m(默认)/1h,缓存按账户隔离"
+text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are isolated per customer account. The cache object is not uniformly bounded: on the same page \"Prompt caches are held for an unbounded period of time.\" sits under Open-Source Models (public), where caching is automatic for models such as DeepSeek V3.2 and needs no cache_control or prompt_cache_retention, and the only opt-out is X-Model-Affinity: none — \"You can’t opt out for older OpenAI models or DigitalOcean-hosted models.\""
+text_zh = "②前缀/KV 缓存——OpenAI 模型 24h 或内存内,Anthropic 模型 5m(默认)/1h,缓存按账户隔离。缓存对象并非统一有界:同页「Prompt caches are held for an unbounded period of time.」位于开源模型(public)段,该处 DeepSeek V3.2 一类模型自动缓存、无需 cache_control/prompt_cache_retention,唯一退出方式是 X-Model-Affinity: none,而「You can’t opt out for older OpenAI models or DigitalOcean-hosted models.」"
+anchor = "do-prompt-cache-unbounded"
 
 [[product.retention.point]]
-text = "(3) Batch — output and error result files 29-30 days from job completion (the how-to says up to 30 days), prompts and request content \"Not stored for training or any purpose beyond the current batch job\", policy-violating content kept as evidence for up to 1 year"
-text_zh = "③Batch——输出与错误文件 29-30 天(how-to 写 up to 30 days),prompts/请求内容仅为当前批次任务不存储,违规内容证据最多 1 年"
+text = "(2b) opt-out limits — automatic caching can be switched off only with the X-Model-Affinity: none header, and that opt-out \"works for Anthropic models and OpenAI models GPT-5.6 and newer\"; older OpenAI models and DigitalOcean-hosted models cannot opt out"
+text_zh = "(2b) 退出限制——自动缓存只能用 X-Model-Affinity: none 关闭,且该退出「works for Anthropic models and OpenAI models GPT-5.6 and newer」;较旧的 OpenAI 模型与 DO 托管模型无法退出"
+anchor = "do-prompt-cache-optout-limits"
+
+[[product.retention.point]]
+text = "(3) Batch — output and error result files 29-30 days from job completion (the how-to says up to 30 days), prompts and request content \"Not stored for training or any purpose beyond the current batch job\", policy-violating content kept as evidence for up to 1 year. The 29-30 days is the window for this sub-object and starts at job completion, not a tier-wide period"
+text_zh = "③Batch——输出与错误文件 29-30 天(how-to 写 up to 30 days,起算点是批次任务完成),prompts/请求内容仅为当前批次任务不存储,违规内容证据最多 1 年。29-30 天是这个子对象的窗口,不是档位级期限"
+anchor = "do-batch-output-29-30d"
 
 [[product.retention.point]]
 text = "(4) Files API (/v1/files) — retained statefully across requests until an explicit, authenticated DELETE request is executed"
 text_zh = "④Files API(/v1/files)——跨请求持久保存至显式 DELETE"
+anchor = "do-files-api-stateful-until-delete"
 
 [[product.retention.point]]
-text = "(5) Claude Fable 5/5.1 — access requires a mandatory 30-day data retention of prompts and completions"
-text_zh = "⑤Claude Fable 5/5.1——强制 30 天保留 prompts/completions"
+text = "(5) Claude Fable 5/5.1 — access requires a mandatory 30-day data retention of prompts and completions; it is a model-level condition of access rather than a storage option the customer picks, and DigitalOcean routes it upstream to a compliant workspace, so it is not a DigitalOcean-side retention rule"
+text_zh = "⑤Claude Fable 5/5.1——访问需强制 30 天保留 prompts/completions;这是模型级访问前置条件而非客户可选的存储设置,且由 DO 自动路由到上游合规 workspace,不属 DO 侧留存口径"
+anchor = "do-fable-mandatory-30d"
 
 [[product.retention.point]]
 text = "(6) contract layer — Service Terms §4.5.2 permits retaining relevant content and associated metadata as reasonably necessary to investigate violations"
 text_zh = "⑥合同层——Service Terms §4.5.2 允许为违规调查保留相关内容与元数据"
+anchor = "do-retain-relevant-content"
 
 [[product.retention.point]]
-text = "DPA §7.6: all Personal Data is deleted no later than 30 days following the date of de-activation."
-text_zh = "DPA §7.6 账户停用后 30 天内删除 Personal Data。"
+text = "(7) contract layer, Processor role — DPA Schedule 3 §2: \"DigitalOcean retains Personal Data it collects or receives from Customer as a Processor for the duration of the Agreement and consistent with its obligations in this DPA.\" Object is Personal Data, context is the contract default, and the period type is the life of the agreement; it sits alongside the 30-day post-de-activation ceiling in §7.6 rather than replacing it"
+text_zh = "⑦合同层(Processor 角色)——DPA Schedule 3 §2:「DigitalOcean retains Personal Data it collects or receives from Customer as a Processor for the duration of the Agreement and consistent with its obligations in this DPA.」对象是 Personal Data,语境为合同默认,期限类型是协议存续期间;与 §7.6 的「停用后 30 天」上限并列,不互相取代"
+anchor = "do-dpa-processor-retention-duration"
+
+[[product.retention.point]]
+text = "(8) DPA §7.6 — \"DigitalOcean will delete all Personal Data no later than 30 days following the date of de-activation\". That 30 days is an upper limit, not a guaranteed deletion"
+text_zh = "⑧DPA §7.6——「DigitalOcean will delete all Personal Data no later than 30 days following the date of de-activation」。这 30 天是上限,不是保证删除"
+anchor = "do-dpa-delete-within-30d"
+
+[[product.retention.point]]
+text = "(9) DPA §7.6, exceptions — \"Notwithstanding the foregoing, DigitalOcean may retain Personal Data as required by applicable law, or retain Personal Data it has archived on back-up systems subject to automated retention and disposal configured with such system\", which it must securely isolate from any further active processing. The 30 days in (8) therefore does not cover data kept for legal requirements or archived on back-up systems"
+text_zh = "⑨DPA §7.6 例外——「Notwithstanding the foregoing, DigitalOcean may retain Personal Data as required by applicable law, or retain Personal Data it has archived on back-up systems subject to automated retention and disposal configured with such system」,且须安全隔离、不再被主动处理。故 (8) 的 30 天不覆盖法律要求保留的数据与备份系统上归档的数据"
+anchor = "do-dpa-retention-exceptions"
 
 [product.processing_region]
 codes = ["selected"]
@@ -138,6 +203,11 @@ text_zh = "规则:「The processing location is the customer's selected region (
 [[product.processing_region.point]]
 text = "Dedicated Inference/BYOM is limited to NYC2/TOR1/ATL1/RIC1. SCC governing law: the member state where the EU customer is located, or the Netherlands (DPA Schedule 2/3)."
 text_zh = "Dedicated Inference/BYOM 仅 NYC2/TOR1/ATL1/RIC1。SCC 管辖:欧盟客户所在成员国/荷兰(DPA Schedule 2/3)。"
+
+[[product.processing_region.point]]
+text = "Customer-selected region is not a lock: \"When purchasing Services, you may specify the geographic region and jurisdiction in which your Services Content will be stored\", but \"Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion.\" So codes=[selected] means selectable, not that the processing location is fixed by the customer"
+text_zh = "客户自选地域不等于锁定:「When purchasing Services, you may specify the geographic region and jurisdiction in which your Services Content will be stored」,但「Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion.」。故 codes=[selected] 只表示「可选」,不等于处理地由客户锁定"
+anchor = "do-tos-transfer-store-other-regions"
 
 [product.role]
 kind = "processor"
@@ -170,6 +240,16 @@ text_zh = "同一份 AI 数据隐私页覆盖 agent 场景(含「We do not store
 text = "There is no separate contract-layer no-training clause on the knowledge base or agent side."
 text_zh = "知识库/agent 侧无单独的合同层不训练条款。"
 
+[[product.training.point]]
+text = "Contract-layer boundary (TOS §4.3), the same as the API tier: \"We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.\" Under docs/judgment.md this is a service-improvement opening, but the same sentence carves Usage Data out of Services Content, so mark=yes stands. Whether \"other information about how you use and interact with the Services\" reaches agent prompts or knowledge base content is not defined in the text"
+text_zh = "合同层边界(TOS §4.3),同 API 档:「We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.」按 docs/judgment.md 这是服务改进口子,但同句已把 Usage Data 排除在 Services Content 之外,故 mark=yes 维持。该句是否涵盖 agent prompt 或知识库内容,原文未界定"
+anchor = "do-tos-usage-data-improve-services"
+
+[[product.training.point]]
+text = "Third-party model hop: \"Data sent to other third-party model providers is handled according to the applicable provider's policies.\" The no-training mark covers DigitalOcean-hosted models; on the third-party path the outcome is decided by the upstream provider and DigitalOcean commits to nothing itself"
+text_zh = "第三方模型跳:「Data sent to other third-party model providers is handled according to the applicable provider's policies.」不训练的 mark 只覆盖 DO 托管模型;走第三方模型时结果由上游 provider 的政策决定,DO 自己不作承诺"
+anchor = "do-third-party-upstream-policies"
+
 [product.zdr]
 mark = "unknown"
 
@@ -180,6 +260,14 @@ text_zh = "DO 只明确排除 Files API 的 ZDR 资格,对知识库/agent 会话
 [[product.zdr.point]]
 text = "The clause previously bound here (\"We do not store agent input or output when using third-party model providers.\") covers only third-party-model-provider agent traffic, while this product's knowledge base is cross-request persistent storage that the vendor leaves unaddressed (and whose shape matches the Files API it does exclude from ZDR), so the clause is not a statement covering this tier and is no longer bound. The clause itself is still cited in this product's training points, whose verdict carries a different anchor."
 text_zh = "原先绑在本条的引文（「We do not store agent input or output when using third-party model providers.」）只覆盖走第三方模型 provider 的 agent 流量，而本产品的知识库属跨请求持久化存储、厂商未表态（其形态与厂商已排除 ZDR 资格的 Files API 同类），不构成覆盖本档的表述，故不再绑在本条；该引文在本档 training 条目的 point 里仍被引用（那条的 anchor 是另一个）。"
+
+[[product.zdr.point]]
+text = "Multi-hop boundary, recorded without an anchor because it does not answer this dimension's question: on the third-party-model path the applicable upstream provider's policies govern (\"Data sent to other third-party model providers is handled according to the applicable provider's policies.\", bound in this product's training dimension), and DigitalOcean may share usage information that does not include Services Content with that provider. None of it says whether ZDR applies to the knowledge base or to agent session storage, which is what this verdict leaves undisclosed"
+text_zh = "多跳边界,本条不绑锚点,因为这些话没有回答本维度的问题:走第三方模型时适用上游 provider 的政策(「Data sent to other third-party model providers is handled according to the applicable provider's policies.」,已绑在本档 training 维度),且 DO 可把不含 Services Content 的使用信息交给该 provider。这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
+
+[[product.zdr.point]]
+text = "Scope note on the shared inference path (clause bound in this file's api-tier retention points, not here): the cache exception is not uniformly bounded — for open-source models prompt caches are \"held for an unbounded period of time\" and cannot be switched off. Recorded as scope information only; it is not a statement about the knowledge base or agent session storage"
+text_zh = "共用推理路径上的范围说明(该句锚点绑在本文件的 api 档 retention,不在本条):缓存例外并非统一有界 —— 开源模型的 prompt 缓存「held for an unbounded period of time」且无法关闭。此处只作范围说明,不是关于知识库或 agent 会话存储的表述"
 
 [product.retention]
 object = "mixed"
@@ -270,6 +358,11 @@ text_zh = "内容保留由客户控制:GPU Droplet 自带 boot disk(持久)与 s
 text = "At the contract layer DigitalOcean \"does not promise to retain any preservations or backups of your Services Content\" (TOS §4.6), and Personal Data is deleted no later than 30 days following de-activation (DPA §7.6)."
 text_zh = "合同层 DO 不承诺保留任何备份或留存(TOS §4.6),账户停用后 30 天内删除 Personal Data(DPA §7.6)。"
 
+[[product.retention.point]]
+text = "The 30 days after de-activation is an upper limit with two exceptions in the same paragraph of DPA §7.6: retention required by applicable law, and Personal Data archived on back-up systems under automated retention and disposal, which must be securely isolated from further active processing. It is not a guarantee that everything is deleted"
+text_zh = "停用后 30 天是上限,DPA §7.6 同段另有两条例外:法律要求的保留,以及备份系统上按自动保留/销毁策略归档的 Personal Data(须安全隔离、不再被主动处理)。不能读成「一定全部删除」"
+anchor = "do-dpa-retention-exceptions"
+
 [product.processing_region]
 codes = ["selected"]
 anchor = "do-gpu-availability-by-datacenter"
@@ -281,6 +374,11 @@ text_zh = "GPU Droplets/Bare Metal GPU 按机房提供,客户自选机房(如 AT
 [[product.processing_region.point]]
 text = "See the platform regional table for the datacenter list."
 text_zh = "机房清单见平台区域表。"
+
+[[product.processing_region.point]]
+text = "Datacenter choice is not a lock at the contract layer: \"Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion.\" (TOS §4.7). codes=[selected] therefore means selectable, not customer-fixed"
+text_zh = "合同层上机房选择不等于锁定:「Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion.」(TOS §4.7)。故 codes=[selected] 只表示「可选」,不等于由客户固定"
+anchor = "do-tos-transfer-store-other-regions"
 
 [product.role]
 kind = "processor"
@@ -551,6 +649,16 @@ suffix = """
 7.2.3 Telemetry and Performance. To maintain and improve t"""
 
 [[anchor]]
+id = "do-st-eval-telemetry-improve"
+source_id = "a7c5321da63a84f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "7.2.3 Telemetry and Performance. "
+exact = "To maintain and improve the performance and reliability of the Service, we may process anonymized, aggregated telemetry data (e.g., latency, throughput)."
+suffix = " This data will not include your Evaluation Datasets or Evaluation Outputs."
+
+[[anchor]]
 id = "do-finetune-exclusive-use"
 source_id = "a7c5321da63a84f6"
 topics = ["role", "training"]
@@ -713,6 +821,16 @@ exact = "DigitalOcean will delete all Personal Data no later than 30 days follow
 suffix = ", provided Customer does not undertake any action to interru"
 
 [[anchor]]
+id = "do-dpa-retention-exceptions"
+source_id = "cc31017c21499e2d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ", provided Customer does not undertake any action to interrupt such processing such as attempting to log back into the Service account after deactivation. "
+exact = "Notwithstanding the foregoing, DigitalOcean may retain Personal Data as required by applicable law, or retain Personal Data it has archived on back-up systems subject to automated retention and disposal configured with such system"
+suffix = ", which such Personal Data DigitalOcean shall securely isolate and protect from any further active processing by the Services otherwise."
+
+[[anchor]]
 id = "do-dpa-controller-retention"
 source_id = "cc31017c21499e2d"
 topics = ["retention"]
@@ -764,6 +882,26 @@ topics = ["retention"]
 prefix = "ervices Content available upon closure of your Account, and "
 exact = "will delete Services Content upon termination in accordance with its standard Account closure practices"
 suffix = ". You are responsible for downloading or otherwise exporting"
+
+[[anchor]]
+id = "do-tos-usage-data-improve-services"
+source_id = "f334601e8d4695fd"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "does not constitute your Services Content. DigitalOcean recommends that you do not include personally identifying, confidential, or sensitive information in these items. "
+exact = "We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services."
+suffix = " 4.4 Some of our Services allow third parties to access"
+
+[[anchor]]
+id = "do-tos-transfer-store-other-regions"
+source_id = "f334601e8d4695fd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "You consent to the storage of your Services Content in, and transfer of your Services Content into, the geographic region and jurisdiction you select. "
+exact = "Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion."
+suffix = " You represent and warrant that such storage and transfer are adequately consented to by you and permissible pursuant to applicable laws, regulations, rules, and third party rights."
 
 [[anchor]]
 id = "do-processing-location"
@@ -861,6 +999,26 @@ t need to set `cache_control` or `prompt_cache_retention`.
 """
 exact = "Caches are isolated per customer account."
 suffix = " The platform derives cache entries from a per-account key, "
+
+[[anchor]]
+id = "do-prompt-cache-unbounded"
+source_id = "043233a73e648203"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "near the beginning of the prompt. **Note**: "
+exact = "Prompt caches are held for an unbounded period of time."
+suffix = " Treat prompt caching as opportunistic; do not depend on it for predictable cost savings."
+
+[[anchor]]
+id = "do-prompt-cache-optout-limits"
+source_id = "043233a73e648203"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "This opt-out works for Anthropic models and OpenAI models GPT-5.6 and newer. "
+exact = "You can’t opt out for older OpenAI models or DigitalOcean-hosted models."
+suffix = " ## Manual Prompt Caching for Anthropic Models"
 
 [[anchor]]
 id = "do-kb-indexed-and-stored"

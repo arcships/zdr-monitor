@@ -39,26 +39,94 @@ mode = "by_contract"
 anchor = "jb-tos-no-train-c"
 
 [[product.training.point]]
-text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+text = "Detailed-data collection (the full communication between you and the LLM, both text and code fragments) is opt-in and off by default. That clause governs collection, not the training restriction — the no-training commitment itself comes from Terms of Service §5(c)."
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §5(c) 的承诺本身。"
 anchor = "jb-detailed-data-opt-in"
 [[product.training.point]]
-text_zh = "完整提示词、回复和代码片段仅在明确选择加入后收集；默认关闭。加入后可用于产品改进和训练，保留 1 年。匿名遥测、运营元数据和事件数据不含源码/提示词且不训练生成模型。"
+text = "Exception carved out in the Product Data Collection and Usage Notice §1(f): detailed code-related data — \"the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets\" — \"can be used for product improvement and training AI models\". It is not collected from commercial users unless explicit, informed consent was obtained in advance, and organizations need an explicit company-level permission."
+text_zh = "《产品数据采集与使用通知》§1(f) 是训练口径的例外：详细代码数据（对象是发给大模型的输入全文与回复，含源码片段）可用于产品改进与训练 AI 模型；商用用户除非事先取得明确知情同意否则不采集，组织还需公司级明确许可。"
+anchor = "jb-detailed-data-training-retention"
+[[product.training.point]]
+text = "Multi-hop: ToS §5(e) lets JetBrains share inputs and data with third-party language model service providers (\"AI Subcontractors\"), and the training restriction is passed downstream only as a commitment that they \"not use Your Inputs, Data, Outputs, and Suggestions for the training of their AI models at least to the same extent\" as JetBrains commits. The list of AI Subcontractors sits on a separate service-providers page that is not yet a registered source. A new AI Subcontractor is published at least 30 days in advance, and the customer may object or terminate."
+text_zh = "多跳：服务条款 §5(e) 允许 JetBrains 把输入与数据交给第三方大模型服务商（AI Subcontractors），不训练约束只以「at least to the same extent」（至少与 JetBrains 同等程度）传导给上游；上游名单在另一份 service-providers 页，尚未纳入来源。新增 AI Subcontractor 提前至少 30 天公告，客户可提出异议或终止。"
+anchor = "jb-ai-subcontractors-no-train"
+[[product.training.point]]
+text = "Boundary of the §5(c) commitment: ToS §4(d) gives JetBrains an irrevocable, perpetual, royalty-free and sublicensable licence over feedback, and feedback is not among the Inputs/Data/Outputs/Suggestions that §5(c) protects. Content sent to JetBrains AI as an Input still falls inside the commitment (§2 definition of \"Input\")."
+text_zh = "§5(c) 承诺的边界：服务条款 §4(d) 的 Feedback 授权不可撤销、永久、免版税且可再许可，Feedback 不在 §5(c) 覆盖的 Inputs/Data/Outputs/Suggestions 之列；但通过 AI Assistant 提交的内容按 §2「Input」定义仍落在承诺范围内。"
+anchor = "jb-feedback-irrevocable"
+[[product.training.point]]
+text = "Scope limit: \"these data sharing preferences, once configured, apply to all installed JetBrains products\"."
+text_zh = "适用范围限定：数据共享偏好 once configured, apply to all installed JetBrains products（一次配置即作用于所有已安装的 JetBrains 产品）。"
+anchor = "jb-prefs-apply-to-all-products"
+[[product.training.point]]
+text = "Default-state wording on the help page: the IDE setting that controls detailed data collection (Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data) \"is disabled by default\"."
+text_zh = "帮助页的默认状态表述：控制详细数据采集的 IDE 设置项（Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data）is disabled by default（默认关闭）。"
+anchor = "jb-detailed-data-disabled-by-default"
+[[product.training.point]]
+text = "Conflicting statement in the same notice, kept side by side: §3's table row \"Individual developer / Non-commercial license\" says JetBrains \"may collect analytics as specified above by default based on our legitimate interest\" and that the user \"may opt out in the product settings\". The notice does not say which row the AI subscription tiers fall into."
+text_zh = "同一份通知里的另一说，并列保留：§3 表格 Individual developer / Non-commercial license 一行写 may collect analytics as specified above by default based on our legitimate interest、可在设置里退出。两句都是官方表述，通知没有说明 AI 订阅档落在哪一行。"
+anchor = "jb-noncommercial-analytics-default"
 
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
 [product.retention]
-object = "local_request_log"
+object = "mixed"
 basis = "fixed_period"
+days = 365
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Local IDE request log: \"Logs are stored during the current AI Assistant session.\""
+text_zh = "IDE 本地请求日志：Logs are stored during the current AI Assistant session（仅保留当前会话）。"
 anchor = "jb-session-log"
 [[product.retention.point]]
-text_zh = "IDE 本地请求日志仅保留当前 AI Assistant 会话；官方页未给云端请求正文或服务端缓存期限。"
+text = "Vendor-side period for opt-in detailed code-related data: \"We apply a 1-year data retention period for this data\". The object is the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets; the context is the opt-in detailed-code-data collection (explicit informed consent for commercial users, an explicit company-level permission for organizations). The text does not say whether one year is a ceiling."
+text_zh = "厂商侧期限（opt-in 详细代码数据）：We apply a 1-year data retention period for this data。对象是发给大模型的输入全文与回复（含源码片段），语境是 opt-in 的详细代码数据采集（商用用户需事先明确同意，组织需公司级许可）；原文未说明 1 年是否为上限。"
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Security exception, a different object and context (ToS §5(b)(ii)): \"Your Inputs, Data, Outputs, and Suggestions may be monitored by Us or our subcontractors ... and may be stored and used for a limited period\" — no specific period, and subcontractors may access the content."
+text_zh = "安全目的例外，对象与语境都不同（服务条款 §5(b)(ii)）：输入输出可被 JetBrains 或其分包商监控，并 may be stored and used for a limited period（期限未披露），分包商可访问内容。"
+anchor = "jb-retention-security-limited-period"
+[[product.retention.point]]
+text = "Third rule for Personal Data generally (Privacy Notice §7): \"When the reason for data storage expires, and we are no longer required to keep it, we remove your Personal Data from our servers or anonymize it for further usage\" — no fixed period."
+text_zh = "Personal Data 一般情形的第三套口径（隐私通知 §7）：存储理由消失且不再被要求保留时，从服务器删除或匿名化——无固定期限。"
+anchor = "jb-privacy-retention-as-needed"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+codes = ["EEA"]
+anchor = "jb-region-eea"
+searched = ["https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.processing_region.point]]
+text = "The Product Data Collection and Usage Notice §4 states \"The collected data remains stored within the European Economic Area (EEA).\" §1(f) defines that collected data as including the full text of inputs sent by the IDE to the large language model and its responses."
+text_zh = "《产品数据采集与使用通知》§4 明写 The collected data remains stored within the European Economic Area (EEA)；§1(f) 把被采集数据定义为包含发给大模型的输入全文与回复。"
+anchor = "jb-region-eea"
+[[product.processing_region.point]]
+text = "Privacy Notice §8 qualifies this for AI: \"The default location for any Personal Data of our customers is the EU, unless specified otherwise. ... For JetBrains AI, the default location of Personal Data storage may differ; see this link.\""
+text_zh = "隐私通知 §8 对 AI 另有限定：默认位置是 EU，但 For JetBrains AI, the default location of Personal Data storage may differ（AI 的默认存储地可能不同）。"
+anchor = "jb-region-privacy-ai-may-differ"
+[[product.processing_region.point]]
+text = "Same section: \"At times, JetBrains may process or transfer some of your Personal Data (such as your name and email address) to our affiliate companies or subprocessors outside the EU\", based on a relevant adequacy decision of the European Commission, especially standard data protection clauses."
+text_zh = "同节：JetBrains 有时会把部分 Personal Data（如姓名与邮箱）传输给欧盟外的关联公司或次级处理者，依据欧盟委员会的充分性决定/标准数据保护条款。"
+anchor = "jb-region-outside-eu-transfer"
+[[product.processing_region.point]]
+text = "Scope limit in the same notice: \"Detailed data is not currently collected in China.\""
+text_zh = "同通知的适用范围限定：Detailed data is not currently collected in China（详细数据当前在中国不采集）。"
+anchor = "jb-region-china-not-collected"
 [product.role]
-kind = "unknown"
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+kind = "processor"
+anchor = "jb-role-processor-tos-16b"
+searched = ["https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.role.point]]
+text = "Contract layer (highest authority) ToS §16(b): Personal Data \"that We will process on Your behalf in connection with these Terms, will be processed in accordance with the Data Processing Addendum ... which is a part of (‘incorporated into’) these Terms\"."
+text_zh = "合同层（权威最高）服务条款 §16(b)：JetBrains 代表客户处理的 Personal Data 依 Data Processing Addendum 处理，且 DPA 经条款明文并入（incorporated into）。"
+anchor = "jb-role-processor-tos-16b"
+[[product.role.point]]
+text = "The same section keeps a controller capacity for some data: \"We may also process some of Your Personal Data in connection with these Terms in our capacity as a data controller in accordance with our Privacy Policy\"."
+text_zh = "同节保留独立控制者身份：部分 Personal Data 以 data controller 身份依隐私政策处理。"
+anchor = "jb-role-controller-tos-16b"
+[[product.role.point]]
+text = "Privacy Notice: \"JetBrains and its associated companies act as joint data controllers\", and the notice applies only where JetBrains acts as a controller — processor situations are governed by the DPA."
+text_zh = "隐私通知：JetBrains 及其关联公司是 joint data controllers；该通知只覆盖 controller 情形，processor 情形见 DPA。"
+anchor = "jb-privacy-joint-controllers"
 
 [[product]]
 id = "hosted-free"
@@ -72,49 +140,204 @@ mode = "by_contract"
 anchor = "jb-tos-no-train-c"
 
 [[product.training.point]]
-text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+text = "Detailed-data collection (the full communication between you and the LLM, both text and code fragments) is opt-in and off by default. That clause governs collection, not the training restriction — the no-training commitment itself comes from Terms of Service §5(c)."
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §5(c) 的承诺本身。"
 anchor = "jb-detailed-data-opt-in"
+[[product.training.point]]
+text = "Exception carved out in the Product Data Collection and Usage Notice §1(f): detailed code-related data — \"the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets\" — \"can be used for product improvement and training AI models\". It is not collected from commercial users unless explicit, informed consent was obtained in advance, and organizations need an explicit company-level permission."
+text_zh = "《产品数据采集与使用通知》§1(f) 是训练口径的例外：详细代码数据（对象是发给大模型的输入全文与回复，含源码片段）可用于产品改进与训练 AI 模型；商用用户除非事先取得明确知情同意否则不采集，组织还需公司级明确许可。"
+anchor = "jb-detailed-data-training-retention"
+[[product.training.point]]
+text = "Multi-hop: ToS §5(e) lets JetBrains share inputs and data with third-party language model service providers (\"AI Subcontractors\"), and the training restriction is passed downstream only as a commitment that they \"not use Your Inputs, Data, Outputs, and Suggestions for the training of their AI models at least to the same extent\" as JetBrains commits. The list of AI Subcontractors sits on a separate service-providers page that is not yet a registered source. A new AI Subcontractor is published at least 30 days in advance, and the customer may object or terminate."
+text_zh = "多跳：服务条款 §5(e) 允许 JetBrains 把输入与数据交给第三方大模型服务商（AI Subcontractors），不训练约束只以「at least to the same extent」（至少与 JetBrains 同等程度）传导给上游；上游名单在另一份 service-providers 页，尚未纳入来源。新增 AI Subcontractor 提前至少 30 天公告，客户可提出异议或终止。"
+anchor = "jb-ai-subcontractors-no-train"
+[[product.training.point]]
+text = "Boundary of the §5(c) commitment: ToS §4(d) gives JetBrains an irrevocable, perpetual, royalty-free and sublicensable licence over feedback, and feedback is not among the Inputs/Data/Outputs/Suggestions that §5(c) protects. Content sent to JetBrains AI as an Input still falls inside the commitment (§2 definition of \"Input\")."
+text_zh = "§5(c) 承诺的边界：服务条款 §4(d) 的 Feedback 授权不可撤销、永久、免版税且可再许可，Feedback 不在 §5(c) 覆盖的 Inputs/Data/Outputs/Suggestions 之列；但通过 AI Assistant 提交的内容按 §2「Input」定义仍落在承诺范围内。"
+anchor = "jb-feedback-irrevocable"
+[[product.training.point]]
+text = "Scope limit: \"these data sharing preferences, once configured, apply to all installed JetBrains products\"."
+text_zh = "适用范围限定：数据共享偏好 once configured, apply to all installed JetBrains products（一次配置即作用于所有已安装的 JetBrains 产品）。"
+anchor = "jb-prefs-apply-to-all-products"
+[[product.training.point]]
+text = "Default-state wording on the help page: the IDE setting that controls detailed data collection (Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data) \"is disabled by default\"."
+text_zh = "帮助页的默认状态表述：控制详细数据采集的 IDE 设置项（Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data）is disabled by default（默认关闭）。"
+anchor = "jb-detailed-data-disabled-by-default"
+[[product.training.point]]
+text = "Conflicting statement in the same notice, kept side by side: §3's table row \"Individual developer / Non-commercial license\" says JetBrains \"may collect analytics as specified above by default based on our legitimate interest\" and that the user \"may opt out in the product settings\". This free tier is the most likely candidate for that row, but the notice does not split the AI subscription tiers."
+text_zh = "同一份通知里的另一说，并列保留：§3 表格 Individual developer / Non-commercial license 一行写 may collect analytics as specified above by default based on our legitimate interest、可在设置里退出。free 档最可能落到这一行，但通知没有按 AI 订阅档拆分。"
+anchor = "jb-noncommercial-analytics-default"
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
 [product.retention]
-object = "local_request_log"
+object = "mixed"
 basis = "fixed_period"
+days = 365
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Local IDE request log: \"Logs are stored during the current AI Assistant session.\""
+text_zh = "IDE 本地请求日志：Logs are stored during the current AI Assistant session（仅保留当前会话）。"
 anchor = "jb-session-log"
+[[product.retention.point]]
+text = "Vendor-side period for opt-in detailed code-related data: \"We apply a 1-year data retention period for this data\". The object is the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets; the context is the opt-in detailed-code-data collection. The text does not say whether one year is a ceiling."
+text_zh = "厂商侧期限（opt-in 详细代码数据）：We apply a 1-year data retention period for this data。对象是发给大模型的输入全文与回复（含源码片段），语境是 opt-in 的详细代码数据采集；原文未说明 1 年是否为上限。"
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Security exception, a different object and context (ToS §5(b)(ii)): \"Your Inputs, Data, Outputs, and Suggestions may be monitored by Us or our subcontractors ... and may be stored and used for a limited period\" — no specific period, and subcontractors may access the content."
+text_zh = "安全目的例外，对象与语境都不同（服务条款 §5(b)(ii)）：输入输出可被 JetBrains 或其分包商监控，并 may be stored and used for a limited period（期限未披露），分包商可访问内容。"
+anchor = "jb-retention-security-limited-period"
+[[product.retention.point]]
+text = "Third rule for Personal Data generally (Privacy Notice §7): \"When the reason for data storage expires, and we are no longer required to keep it, we remove your Personal Data from our servers or anonymize it for further usage\" — no fixed period."
+text_zh = "Personal Data 一般情形的第三套口径（隐私通知 §7）：存储理由消失且不再被要求保留时，从服务器删除或匿名化——无固定期限。"
+anchor = "jb-privacy-retention-as-needed"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+codes = ["EEA"]
+anchor = "jb-region-eea"
+searched = ["https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.processing_region.point]]
+text = "The Product Data Collection and Usage Notice §4 states \"The collected data remains stored within the European Economic Area (EEA).\" §1(f) defines that collected data as including the full text of inputs sent by the IDE to the large language model and its responses."
+text_zh = "《产品数据采集与使用通知》§4 明写 The collected data remains stored within the European Economic Area (EEA)；§1(f) 把被采集数据定义为包含发给大模型的输入全文与回复。"
+anchor = "jb-region-eea"
+[[product.processing_region.point]]
+text = "Privacy Notice §8 qualifies this for AI: \"The default location for any Personal Data of our customers is the EU, unless specified otherwise. ... For JetBrains AI, the default location of Personal Data storage may differ; see this link.\""
+text_zh = "隐私通知 §8 对 AI 另有限定：默认位置是 EU，但 For JetBrains AI, the default location of Personal Data storage may differ（AI 的默认存储地可能不同）。"
+anchor = "jb-region-privacy-ai-may-differ"
+[[product.processing_region.point]]
+text = "Same section: \"At times, JetBrains may process or transfer some of your Personal Data (such as your name and email address) to our affiliate companies or subprocessors outside the EU\", based on a relevant adequacy decision of the European Commission, especially standard data protection clauses."
+text_zh = "同节：JetBrains 有时会把部分 Personal Data（如姓名与邮箱）传输给欧盟外的关联公司或次级处理者，依据欧盟委员会的充分性决定/标准数据保护条款。"
+anchor = "jb-region-outside-eu-transfer"
+[[product.processing_region.point]]
+text = "Scope limit in the same notice: \"Detailed data is not currently collected in China.\""
+text_zh = "同通知的适用范围限定：Detailed data is not currently collected in China（详细数据当前在中国不采集）。"
+anchor = "jb-region-china-not-collected"
 [product.role]
-kind = "unknown"
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+kind = "processor"
+anchor = "jb-role-processor-tos-16b"
+searched = ["https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.role.point]]
+text = "Contract layer (highest authority) ToS §16(b): Personal Data \"that We will process on Your behalf in connection with these Terms, will be processed in accordance with the Data Processing Addendum ... which is a part of (‘incorporated into’) these Terms\"."
+text_zh = "合同层（权威最高）服务条款 §16(b)：JetBrains 代表客户处理的 Personal Data 依 Data Processing Addendum 处理，且 DPA 经条款明文并入（incorporated into）。"
+anchor = "jb-role-processor-tos-16b"
+[[product.role.point]]
+text = "The same section keeps a controller capacity for some data: \"We may also process some of Your Personal Data in connection with these Terms in our capacity as a data controller in accordance with our Privacy Policy\"."
+text_zh = "同节保留独立控制者身份：部分 Personal Data 以 data controller 身份依隐私政策处理。"
+anchor = "jb-role-controller-tos-16b"
+[[product.role.point]]
+text = "Privacy Notice: \"JetBrains and its associated companies act as joint data controllers\", and the notice applies only where JetBrains acts as a controller — processor situations are governed by the DPA."
+text_zh = "隐私通知：JetBrains 及其关联公司是 joint data controllers；该通知只覆盖 controller 情形，processor 情形见 DPA。"
+anchor = "jb-privacy-joint-controllers"
 
 [[product]]
 id = "hosted-enterprise"
 badge = "JetBrains AI Enterprise"
 category = "coding_plan"
 plan_level = "enterprise"
-label = "JetBrains 托管 AI 企业档；官方数据处理页未按 AI 订阅档拆分，组织许可仅在公司管理员允许后才可明确同意收集详细代码数据"
+label = "JetBrains 托管 AI 企业档；官方数据处理页未按 AI 订阅档拆分，组织许可下的详细代码数据采集由公司签约开启后覆盖全部终端用户、个人无法单独调整（waitlist 制）"
 [product.training]
 mark = "yes"
 mode = "by_contract"
 anchor = "jb-tos-no-train-c"
 
 [[product.training.point]]
-text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §c 的承诺本身。"
+text = "Detailed-data collection (the full communication between you and the LLM, both text and code fragments) is opt-in and off by default. That clause governs collection, not the training restriction — the no-training commitment itself comes from Terms of Service §5(c)."
+text_zh = "AI Assistant 那份「把你和模型的完整对话（含代码片段）交上去」的详细数据采集是 opt-in，默认不开；但它管的是采集，不是训练口径——不训练这条来自服务条款 §5(c) 的承诺本身。"
 anchor = "jb-detailed-data-opt-in"
+[[product.training.point]]
+text = "Exception carved out in the Product Data Collection and Usage Notice §1(f): detailed code-related data — \"the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets\" — \"can be used for product improvement and training AI models\". It is not collected from commercial users unless explicit, informed consent was obtained in advance, and organizations need an explicit company-level permission."
+text_zh = "《产品数据采集与使用通知》§1(f) 是训练口径的例外：详细代码数据（对象是发给大模型的输入全文与回复，含源码片段）可用于产品改进与训练 AI 模型；商用用户除非事先取得明确知情同意否则不采集，组织还需公司级明确许可。"
+anchor = "jb-detailed-data-training-retention"
+[[product.training.point]]
+text = "Shape of the enterprise opt-in (§3 table, Company / Organizational license): the company opts in \"by signing a contract with JetBrains\", and \"when enabled at the company level, this setting applies to all end users and cannot be adjusted individually\". Joining requires the waitlist."
+text_zh = "企业档 opt-in 的真实形态（§3 表格 Company / Organizational license）：公司通过与 JetBrains 签约开启，开启后覆盖全部终端用户、个人无法单独调整（cannot be adjusted individually），且需加入 waitlist。"
+anchor = "jb-company-opt-in-applies-to-all"
+[[product.training.point]]
+text = "Multi-hop: ToS §5(e) lets JetBrains share inputs and data with third-party language model service providers (\"AI Subcontractors\"), and the training restriction is passed downstream only as a commitment that they \"not use Your Inputs, Data, Outputs, and Suggestions for the training of their AI models at least to the same extent\" as JetBrains commits. The list of AI Subcontractors sits on a separate service-providers page that is not yet a registered source. A new AI Subcontractor is published at least 30 days in advance, and the customer may object or terminate."
+text_zh = "多跳：服务条款 §5(e) 允许 JetBrains 把输入与数据交给第三方大模型服务商（AI Subcontractors），不训练约束只以「at least to the same extent」（至少与 JetBrains 同等程度）传导给上游；上游名单在另一份 service-providers 页，尚未纳入来源。新增 AI Subcontractor 提前至少 30 天公告，客户可提出异议或终止。"
+anchor = "jb-ai-subcontractors-no-train"
+[[product.training.point]]
+text = "Boundary of the §5(c) commitment: ToS §4(d) gives JetBrains an irrevocable, perpetual, royalty-free and sublicensable licence over feedback, and feedback is not among the Inputs/Data/Outputs/Suggestions that §5(c) protects. Content sent to JetBrains AI as an Input still falls inside the commitment (§2 definition of \"Input\")."
+text_zh = "§5(c) 承诺的边界：服务条款 §4(d) 的 Feedback 授权不可撤销、永久、免版税且可再许可，Feedback 不在 §5(c) 覆盖的 Inputs/Data/Outputs/Suggestions 之列；但通过 AI Assistant 提交的内容按 §2「Input」定义仍落在承诺范围内。"
+anchor = "jb-feedback-irrevocable"
+[[product.training.point]]
+text = "Scope limit: \"these data sharing preferences, once configured, apply to all installed JetBrains products\"."
+text_zh = "适用范围限定：数据共享偏好 once configured, apply to all installed JetBrains products（一次配置即作用于所有已安装的 JetBrains 产品）。"
+anchor = "jb-prefs-apply-to-all-products"
+[[product.training.point]]
+text = "Default-state wording on the help page: the IDE setting that controls detailed data collection (Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data) \"is disabled by default\"."
+text_zh = "帮助页的默认状态表述：控制详细数据采集的 IDE 设置项（Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data）is disabled by default（默认关闭）。"
+anchor = "jb-detailed-data-disabled-by-default"
+[[product.training.point]]
+text = "Conflicting statement in the same notice, kept side by side: §3's table row \"Individual developer / Non-commercial license\" says JetBrains \"may collect analytics as specified above by default based on our legitimate interest\" and that the user \"may opt out in the product settings\". The notice does not say which row the AI subscription tiers fall into."
+text_zh = "同一份通知里的另一说，并列保留：§3 表格 Individual developer / Non-commercial license 一行写 may collect analytics as specified above by default based on our legitimate interest、可在设置里退出。两句都是官方表述，通知没有说明 AI 订阅档落在哪一行。"
+anchor = "jb-noncommercial-analytics-default"
 [product.zdr]
 mark = "unknown"
 searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
 [product.retention]
-object = "local_request_log"
+object = "mixed"
 basis = "fixed_period"
+days = 365
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Local IDE request log: \"Logs are stored during the current AI Assistant session.\""
+text_zh = "IDE 本地请求日志：Logs are stored during the current AI Assistant session（仅保留当前会话）。"
 anchor = "jb-session-log"
+[[product.retention.point]]
+text = "Vendor-side period for opt-in detailed code-related data: \"We apply a 1-year data retention period for this data\". The object is the full text of inputs sent by the IDE to the large language model and its responses, including source code snippets. Context for this tier: the one-year period applies only once the company-level opt-in is enabled (individual users cannot adjust it); with the default setting there is no published vendor-side period for request content, only the security-purpose limited-period storage and the session-scoped local log. The text does not say whether one year is a ceiling."
+text_zh = "厂商侧期限（opt-in 详细代码数据）：We apply a 1-year data retention period for this data。对象是发给大模型的输入全文与回复（含源码片段）。本档语境：该 1 年保留只在公司级 opt-in 开启后适用（个人无法单独调整）；默认档没有公开的厂商侧请求正文期限，只有安全目的的有限期存储与本地日志的会话期保留。原文未说明 1 年是否为上限。"
+anchor = "jb-detailed-data-training-retention"
+[[product.retention.point]]
+text = "Security exception, a different object and context (ToS §5(b)(ii)): \"Your Inputs, Data, Outputs, and Suggestions may be monitored by Us or our subcontractors ... and may be stored and used for a limited period\" — no specific period, and subcontractors may access the content."
+text_zh = "安全目的例外，对象与语境都不同（服务条款 §5(b)(ii)）：输入输出可被 JetBrains 或其分包商监控，并 may be stored and used for a limited period（期限未披露），分包商可访问内容。"
+anchor = "jb-retention-security-limited-period"
+[[product.retention.point]]
+text = "Third rule for Personal Data generally (Privacy Notice §7): \"When the reason for data storage expires, and we are no longer required to keep it, we remove your Personal Data from our servers or anonymize it for further usage\" — no fixed period."
+text_zh = "Personal Data 一般情形的第三套口径（隐私通知 §7）：存储理由消失且不再被要求保留时，从服务器删除或匿名化——无固定期限。"
+anchor = "jb-privacy-retention-as-needed"
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+codes = ["EEA"]
+anchor = "jb-region-eea"
+searched = ["https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.processing_region.point]]
+text = "The Product Data Collection and Usage Notice §4 states \"The collected data remains stored within the European Economic Area (EEA).\" §1(f) defines that collected data as including the full text of inputs sent by the IDE to the large language model and its responses."
+text_zh = "《产品数据采集与使用通知》§4 明写 The collected data remains stored within the European Economic Area (EEA)；§1(f) 把被采集数据定义为包含发给大模型的输入全文与回复。"
+anchor = "jb-region-eea"
+[[product.processing_region.point]]
+text = "Privacy Notice §8 qualifies this for AI: \"The default location for any Personal Data of our customers is the EU, unless specified otherwise. ... For JetBrains AI, the default location of Personal Data storage may differ; see this link.\""
+text_zh = "隐私通知 §8 对 AI 另有限定：默认位置是 EU，但 For JetBrains AI, the default location of Personal Data storage may differ（AI 的默认存储地可能不同）。"
+anchor = "jb-region-privacy-ai-may-differ"
+[[product.processing_region.point]]
+text = "Same section: \"At times, JetBrains may process or transfer some of your Personal Data (such as your name and email address) to our affiliate companies or subprocessors outside the EU\", based on a relevant adequacy decision of the European Commission, especially standard data protection clauses."
+text_zh = "同节：JetBrains 有时会把部分 Personal Data（如姓名与邮箱）传输给欧盟外的关联公司或次级处理者，依据欧盟委员会的充分性决定/标准数据保护条款。"
+anchor = "jb-region-outside-eu-transfer"
+[[product.processing_region.point]]
+text = "Scope limit in the same notice: \"Detailed data is not currently collected in China.\""
+text_zh = "同通知的适用范围限定：Detailed data is not currently collected in China（详细数据当前在中国不采集）。"
+anchor = "jb-region-china-not-collected"
+[[product.processing_region.point]]
+text = "No source discloses a selectable processing or storage region for this tier: the EEA statement is the vendor-side default, not a region the customer picks, and no per-tier region option is published."
+text_zh = "没有任何来源披露本档可选处理或存储区域：EEA 声明是厂商侧默认，不是客户可选项；也没有按档位公布的可选区域。"
+anchor = "jb-region-privacy-ai-may-differ"
 [product.role]
-kind = "unknown"
-searched = ["https://www.jetbrains.com/help/ai-assistant/how-we-handle-your-code-and-data.html", "https://www.jetbrains.com/help/ai/data-collection-and-use-policy.html"]
+kind = "processor"
+anchor = "jb-role-processor-tos-16b"
+searched = ["https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/", "https://www.jetbrains.com/legal/docs/privacy/privacy/"]
+[[product.role.point]]
+text = "Contract layer (highest authority) ToS §16(b): Personal Data \"that We will process on Your behalf in connection with these Terms, will be processed in accordance with the Data Processing Addendum ... which is a part of (‘incorporated into’) these Terms\"."
+text_zh = "合同层（权威最高）服务条款 §16(b)：JetBrains 代表客户处理的 Personal Data 依 Data Processing Addendum 处理，且 DPA 经条款明文并入（incorporated into）。"
+anchor = "jb-role-processor-tos-16b"
+[[product.role.point]]
+text = "The same section keeps a controller capacity for some data: \"We may also process some of Your Personal Data in connection with these Terms in our capacity as a data controller in accordance with our Privacy Policy\"."
+text_zh = "同节保留独立控制者身份：部分 Personal Data 以 data controller 身份依隐私政策处理。"
+anchor = "jb-role-controller-tos-16b"
+[[product.role.point]]
+text = "Privacy Notice: \"JetBrains and its associated companies act as joint data controllers\", and the notice applies only where JetBrains acts as a controller — processor situations are governed by the DPA."
+text_zh = "隐私通知：JetBrains 及其关联公司是 joint data controllers；该通知只覆盖 controller 情形，processor 情形见 DPA。"
+anchor = "jb-privacy-joint-controllers"
+[[product.role.point]]
+text = "The DPA itself (https://www.jetbrains.com/legal/dpa/) is not yet a registered source in this ledger; the role conclusion rests on ToS §16(b) until a snapshot of the DPA is captured."
+text_zh = "DPA 全文（https://www.jetbrains.com/legal/dpa/）尚未纳入本文件的来源，角色结论目前依据服务条款 §16(b)，待 DPA 快照抓回后再细化。"
 
 [[anchor]]
 id = "jb-tos-no-train-c"
@@ -141,4 +364,148 @@ topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "Logs are stored during the current AI Assistant session."
+suffix = ""
+
+[[anchor]]
+id = "jb-detailed-data-training-retention"
+source_id = "16eac948048e134e"
+topics = ["training", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Detailed code-related data can be used for product improvement and training AI models. We do not collect Detailed code-related data from our commercial users unless explicit, informed consent has been obtained in advance. We have a safeguard in place that disallows data sharing for organizations unless there's an explicit permission on a company level. We apply a 1-year data retention period for this data."
+suffix = ""
+
+[[anchor]]
+id = "jb-detailed-data-disabled-by-default"
+source_id = "d4f07d156b832916"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "The option that controls detailed data collection can be found in the IDE Settings under Settings | Appearance & Behavior | System Settings | Data Sharing | Send detailed code-related data and is disabled by default."
+suffix = ""
+
+[[anchor]]
+id = "jb-noncommercial-analytics-default"
+source_id = "16eac948048e134e"
+topics = ["training"]
+[anchor.selector]
+prefix = "| Individual developer | Non-commercial license | "
+exact = "We may collect analytics as specified above by default based on our legitimate interest. You may opt out in the product settings."
+suffix = ""
+
+[[anchor]]
+id = "jb-company-opt-in-applies-to-all"
+source_id = "16eac948048e134e"
+topics = ["training"]
+[anchor.selector]
+prefix = "| Company | Organizational license | "
+exact = "The company can opt in to detailed code-related data by signing a contract with JetBrains. When enabled at the company level, this setting applies to all end users and cannot be adjusted individually."
+suffix = ""
+
+[[anchor]]
+id = "jb-prefs-apply-to-all-products"
+source_id = "16eac948048e134e"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Note that these data sharing preferences, once configured, apply to all installed JetBrains products."
+suffix = ""
+
+[[anchor]]
+id = "jb-region-eea"
+source_id = "16eac948048e134e"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "The collected data remains stored within the European Economic Area (EEA)."
+suffix = ""
+
+[[anchor]]
+id = "jb-region-china-not-collected"
+source_id = "16eac948048e134e"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Detailed data is not currently collected in China."
+suffix = ""
+
+[[anchor]]
+id = "jb-region-privacy-ai-may-differ"
+source_id = "ec2c5f49dae1e0f5"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "The default location for any Personal Data of our customers is the EU, unless specified otherwise. For Software as a Service products, we may provide the option for our customers to choose between hosting their instance in the EU or in other regions. For JetBrains AI, the default location of Personal Data storage may differ; see this link."
+suffix = ""
+
+[[anchor]]
+id = "jb-region-outside-eu-transfer"
+source_id = "ec2c5f49dae1e0f5"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "At times, JetBrains may process or transfer some of your Personal Data (such as your name and email address) to our affiliate companies or subprocessors outside the EU."
+suffix = ""
+
+[[anchor]]
+id = "jb-role-processor-tos-16b"
+source_id = "dd4d219598ea29e7"
+topics = ["role"]
+[anchor.selector]
+prefix = "### b) Personal Data\n\n"
+exact = "Any information directly or indirectly identifying an individual or other data protected under an applicable law as personal data (“Personal Data”), that We will process on Your behalf in connection with these Terms, will be processed in accordance with the Data Processing Addendum"
+suffix = ""
+
+[[anchor]]
+id = "jb-role-controller-tos-16b"
+source_id = "dd4d219598ea29e7"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "We may also process some of Your Personal Data in connection with these Terms in our capacity as a data controller in accordance with our Privacy Policy"
+suffix = ""
+
+[[anchor]]
+id = "jb-privacy-joint-controllers"
+source_id = "ec2c5f49dae1e0f5"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "JetBrains and its associated companies act as joint data controllers, who are jointly responsible for compliance with data protection legislation."
+suffix = ""
+
+[[anchor]]
+id = "jb-retention-security-limited-period"
+source_id = "dd4d219598ea29e7"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Your Inputs, Data, Outputs, and Suggestions may be monitored by Us or our subcontractors to prevent violation of applicable acceptable use policies and may be stored and used for a limited period."
+suffix = ""
+
+[[anchor]]
+id = "jb-privacy-retention-as-needed"
+source_id = "ec2c5f49dae1e0f5"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When the reason for data storage expires, and we are no longer required to keep it, we remove your Personal Data from our servers or anonymize it for further usage."
+suffix = ""
+
+[[anchor]]
+id = "jb-feedback-irrevocable"
+source_id = "dd4d219598ea29e7"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "You give Us the right to use, change (‘modify’), commercialize, and incorporate into JetBrains AI any of Your ideas, suggestions, recommendations, proposals, or other feedback relating to JetBrains AI. You cannot withdraw this permission after it is given (it is ‘irrevocable’) and it is perpetual."
+suffix = ""
+
+[[anchor]]
+id = "jb-ai-subcontractors-no-train"
+source_id = "dd4d219598ea29e7"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "You give Us permission to process Your Inputs and Data that We select and to share them with these AI Subcontractors for the purpose of providing JetBrains AI. We will ensure that all AI Subcontractors commit not to use Your Inputs, Data, Outputs, and Suggestions for the training of their AI models at least to the same extent as We commit not to do so under these Terms."
 suffix = ""

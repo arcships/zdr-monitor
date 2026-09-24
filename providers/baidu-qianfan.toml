@@ -16,7 +16,7 @@ note = "《百度智能云用户服务协议》(更新时间 2026-04-23)，平�
 url = "https://cloud.baidu.com/doc/qianfan/s/Cmh4stmpy"
 channel = "contract"
 tier = "core"
-note = "《百度千帆大模型服务及Agent开发平台用户协议》(文档页标注 更新时间 2026-01-08)，千帆平台级协议，覆盖 api 档(千帆 ModelBuilder/AppBuilder 自营模型按量 API 调用、推理服务)。承载 training 权威结论(5.1(6))，并含 retention 的负向边界(§9 无存储义务)与范围边界(§12 第三方模型协议优先)。不含模型广场第三方模型(如 DeepSeek)的数据条款，不含 Token Plan/Coding Plan 订阅档独立条款。"
+note = "《百度千帆大模型服务及Agent开发平台用户协议》(文档页标注 更新时间 2026-01-08)，千帆平台级协议，覆盖 api 档(千帆 ModelBuilder/AppBuilder 自营模型按量 API 调用、推理服务)。承载 training 权威结论(5.1(6))与同协议相反方向的 §13.2(把「本服务相关数据」授权用于服务性能优化等，与 5.1(6) 并列保留、不裁决)，并含 retention 的负向边界(§9 无存储义务、对内容无保密义务及法定/风控披露窗口)与范围边界(§12 第三方模型协议优先)。不含模型广场第三方模型(如 DeepSeek)的数据条款，不含 Token Plan/Coding Plan 订阅档独立条款。"
 
 [[source]]
 url = "https://cloud.baidu.com/doc/qianfan/s/emh4stmvj"
@@ -37,6 +37,11 @@ anchor = "qf-training-5-1-6"
 
 [[product.training.point]]
 text_zh = "千帆自营模型 API(按量)：5.1(6) 不使用输入、模型输出、知识文档、数据集训练，数据集不与第三方共享。第三方模型/组件(模型广场)适用其自身协议(用户协议 §12)，不在本结论内。"
+
+[[product.training.point]]
+text = "Opposite-direction clause in the same agreement: §13.2 has the customer authorise Baidu to apply \"本服务相关数据\" (service-related data, not delimited to inference inputs and outputs) to \"服务性能优化、系统故障排查及风险控制管理\" — service performance optimisation, fault diagnosis and risk control. Under this ledger's rule that \"used to improve the service\" counts as training, that clause points the other way from §5.1(6). Both facts are kept side by side and are not adjudicated. Their scope differs and neither overrides the other: §5.1(6) covers inference inputs and outputs and uploaded knowledge documents/datasets, §13.2 covers undelimited service-related data."
+text_zh = "同一协议里的相反方向条款：§13.2 由您授权百度智能云在合规处理的前提下，将「本服务相关数据」（未限定为推理输入输出）应用于「服务性能优化、系统故障排查及风险控制管理等」。按台账口径「用来改进服务算训练」，它与 §5.1(6) 方向相反，两条事实并列保留、不裁决。两者适用范围不同且互不覆盖：§5.1(6) 的对象是推理输入输出与上传的知识文档/数据集，§13.2 的对象是未限定的「本服务相关数据」。"
+anchor = "qf-data-use-13-2-optimization"
 
 [product.zdr]
 mark = "no"
@@ -63,28 +68,47 @@ text_zh = "同顶层 dimensions.zdr：官方文件中无 ZDR/零保留条款或�
 text_zh = "协议授权存储 + 平台可审查输入输出 → 默认非零保留。"
 
 [product.retention]
-object = "input_output"
-basis = "undisclosed"
+object = "mixed"
+basis = "as_needed"
 anchor = "qf-sp-2-3-storage-auth"
 
 [[product.retention.point]]
-text_zh = "专项约定 2.3 授权为实现服务目的存储输入内容，无期限"
+text = "Inputs and uploaded material: the Qianfan service-specific agreement §2.3 has you agree that Baidu may store and use the information content you provide/upload/input/publish for the purpose of providing this service, to the extent the law allows — no period, no deletion trigger, no default/exception split. §1.4 of the same page defines \"输出\" separately, so this clause covers inputs and uploads only, not model outputs."
+text_zh = "输入与上传内容：千帆专项约定 2.3 约定您同意百度智能云为实现本服务目的，对您提供/上传/输入/发布的信息内容在法律允许的范围内进行存储及使用——无期限、无删除触发、不分默认与例外。同页 1.4 单独定义「输出」，故该条只覆盖输入与上传，不含模型输出。"
+anchor = "qf-sp-2-3-storage-auth"
 
 [[product.retention.point]]
-text_zh = "服务终止后缓冲期内继续存储、缓冲期届满删除含缓存与备份副本"
+text = "User business data: when the service term expires, the service is terminated early (including by agreement, or for any other reason) or the account is in arrears, Baidu keeps the data only during a buffer period whose length is set by the service-specific terms, product documentation or service description applicable to the service you ordered (not quantified in this document); when the buffer period expires Baidu deletes all user business data, including all cached or backup copies, and keeps none of it."
+text_zh = "用户业务数据：服务期届满、服务提前终止（含协商一致提前终止或其他原因导致的提前终止）或您欠费时，仅在缓冲期内继续存储，缓冲期时限以您所订购的服务适用的专有条款、产品文档、服务说明所载明的时限为准（本文档未量化）；缓冲期届满删除所有用户业务数据，包括所有缓存或者备份的副本，不再保留。"
+anchor = "bce-retention-buffer-delete"
 
 [[product.retention.point]]
-text_zh = "含输入输出的推理日志需客户开通 BLS 投递、保留周期由客户配置。"
+text = "Deletion on your instruction: if you release the service or delete data yourself, Baidu deletes your online data and, as instructed, keeps none of it."
+text_zh = "按指令删除：您自行释放服务或删除数据的，百度智能云删除您的在线数据，按照您的指令不再保留该等数据。"
+anchor = "bce-retention-user-delete-per-instruction"
+
+[[product.retention.point]]
+text = "Exception context: the Qianfan agreement §9 states that you must not provide confidential information, that Baidu has no confidentiality obligation over any of your content, and that Baidu may disclose your content to comply with laws, perform the agreement, prevent fraud or fix security or technical problems."
+text_zh = "例外语境：千帆用户协议 §9 约定您不得向本服务提供保密信息、百度对您的任何内容没有任何保密义务，并可为遵守法律法规、履行本协议、防止欺诈、修复安全或技术问题而披露您的内容。"
+anchor = "qf-disclosure-window-9"
 
 [product.processing_region]
-codes = ["CN"]
+codes = ["selected"]
 anchor = "bce-region-designate-storage"
 
 [[product.processing_region.point]]
-text_zh = "存储区域由客户指定、未获同意不迁移(法定/委托/运维三类例外)"
+text = "Storage region is customer-selected: you can designate the region where your content is stored, and Baidu will not migrate your content out of the region you chose without your consent — except (a) migration required to comply with applicable laws or a binding order of a government authority, (b) migration on your instruction (you must ensure the necessary government permits and user authorisations), (c) to provide billing, management or technical services, or to investigate security incidents or breaches of this agreement."
+text_zh = "存储区域由客户指定：您可以指定内容所存储的区域，未经您的同意不会从您选择的区域迁移——例外为 (a) 为遵守适用的法律法规或政府机关的约束性命令；(b) 依您的委托（您须确保已获得必要的政府许可及用户授权）；(c) 为提供账单、管理、技术服务，或因调查安全事件、调查违反本协议的行为。"
 
 [[product.processing_region.point]]
-text_zh = "处理可能发生在数据中心区域及百度维护运营/支持/调查团队所在区域，未限定单一国家/地区。千帆 API 只有全局 endpoint，无地域化 endpoint 文档。"
+text = "Processing location is not delimited: Baidu may process some data in the data centre region you use, and may also process data in the regions where its maintenance, operations, support and investigation systems and teams are located. The agreement does not state that storage or processing takes place in mainland China, and it publishes no list of available regions, so this file records customer-selected rather than CN."
+text_zh = "处理地未限定：百度智能云可能会在您使用服务的数据中心区域处理一些数据，也可能会在其维护运营、支持和调查系统及团队的区域处理这些数据。协议未说明存储或处理发生在中国境内，也未公布可选地域清单，故本文件记 customer-selected 而非 CN。"
+anchor = "bce-region-processing-areas"
+
+[[product.processing_region.point]]
+text = "The data centre is agreed case by case: Baidu stores user business data in the data centre you select, as agreed between you and Baidu. No regional endpoint is documented for the Qianfan API (this file records a single global endpoint)."
+text_zh = "数据中心逐案约定：百度智能云在您选定的数据中心存储用户业务数据（经您与百度智能云协商一致）。千帆 API 无地域化 endpoint 文档（本文件只记录一个全局 endpoint）。"
+anchor = "bce-region-datacenter-storage"
 
 [product.role]
 kind = "processor"
@@ -92,6 +116,11 @@ anchor = "bce-role-no-unauthorized-use"
 
 [[product.role.point]]
 text_zh = "processor：用户业务数据归用户完全拥有，平台除执行服务要求外不做未获授权使用及披露，按指令删除"
+
+[[product.role.point]]
+text = "Limit on the processor characterisation, from the Qianfan product-level agreement §9 (which applies alongside the platform-level agreement): you must not provide confidential information, you acknowledge and agree that Baidu has no confidentiality obligation over any of your content, and Baidu may disclose your content to comply with laws, perform the agreement, prevent fraud or fix security or technical problems. Kept alongside the platform-level clause that Baidu does not make unauthorised use or disclosure of user business data beyond executing your service request; it does not change kind=processor."
+text_zh = "受托处理的限制（来自千帆产品层协议 §9，与平台层协议并行适用）：您不得向本服务提供保密信息，您明确承认并同意百度对您的任何内容没有任何保密义务，且百度可为遵守法律法规、履行本协议、防止欺诈、修复安全或技术问题而披露您的内容。与平台层「就用户业务数据除执行您的服务要求外不进行任何未获授权的使用及披露」并列保留，不据此改判 kind。"
+anchor = "qf-no-confidentiality-9"
 
 [[product.role.point]]
 text_zh = "隐私政策 §8 自认中立技术服务提供者、严格执行客户委托与指示。"
@@ -165,6 +194,17 @@ exact = "您明确承认并同意，我们对您的任何内容没有任何保�
 suffix = """
 为了遵守法律法规、履行本协议、防止欺诈、修复安全或技术问题，我们可能会披露您的内容。
 
+**如果您输入或提交的内容包含个"""
+
+[[anchor]]
+id = "qf-disclosure-window-9"
+source_id = "e0fd89481d7869eb"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "您不得向本服务提供保密信息。您明确承认并同意，我们对您的任何内容没有任何保密义务。"
+exact = "为了遵守法律法规、履行本协议、防止欺诈、修复安全或技术问题，我们可能会披露您的内容。"
+suffix = """
 **如果您输入或提交的内容包含个"""
 
 [[anchor]]

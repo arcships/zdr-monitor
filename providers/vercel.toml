@@ -7,15 +7,16 @@ doc = "https://vercel.com/legal/ai-product-terms"
 
 [[source]]
 url = "https://security.vercel.com"
+fetch = "jina"
 channel = "contract"
 tier = "core"
-note = "Vercel Trust Center 首页，含 subprocessor 清单表（公司/职能/所在地三列）。该页是 DPA §7.2 明文指定的 subprocessor 清单落点（「including their functions and locations, is available at https://security.vercel.com」），因此按并入的合同文件对待。27 家里与推理直接相关的有 AWS / Google / Microsoft（均标注 generative AI services）、OpenAI、Fireworks AI、Anthropic、Groq、Cerebras Systems、Baseten Labs、SpaceXAI LLC (fka xAI)、Exa.ai、Invisible Tools (Raindrop.ai)，所在地一律 United States。另含 2026-08-21「Subprocessor Update」公告，说明这些是为「services utilized for our AI products」而新增/更新。"
+note = "Vercel Trust Center 首页，subprocessor 清单（公司/职能/所在地三列）的落点。该页是 DPA §7.2 明文指定的清单落点（「including their functions and locations, is available at https://security.vercel.com」），因此按并入的合同文件对待。**本轮快照不含清单表**：全文只有「## Subprocessors」标题、表格内容缺失（表格很可能只在渲染后可见），所以各家 subprocessor 的所在地本轮未复核，不再断言 United States。快照内可逐字引用的是 2026-08-21「Subprocessor Update」公告：新增 SpaceXAI LLC (fka xAI)「to provide Generative AI services」；Baseten Labs Inc / Cerebras Systems Inc / Fireworks AI / Groq LLC 更新描述为「to provide Generative AI services and AI model inference services」；另有 v0 侧新增 Cerebras Systems Inc. / Baseten Labs Inc. / Invisible Tools Inc. (dba Raindrop.ai) 与 Groq, Inc.。"
 
 [[source]]
 url = "https://vercel.com/docs/ai-gateway/security-and-compliance/disallow-prompt-training"
 channel = "developer_data"
 tier = "core"
-note = "Disallow Prompt Training 页。Vercel 自己的承诺在「Vercel」小节；上游 provider 是否训练取决于是否开启 disallowPromptTraining（非默认），未知 provider 一律按「会训练」处理；BYOK 请求不受该过滤约束。是 training 维度的开发者文档层主来源。"
+note = "Disallow Prompt Training 页。Vercel 自己的承诺在「Vercel」小节；上游 provider 是否训练取决于是否开启 disallowPromptTraining（非默认），未知 provider 一律按「会训练」处理；BYOK 请求不受该过滤约束，但回落到 AI Gateway 系统凭据的 failover 请求仍遵守该过滤。是 training 维度的开发者文档层主来源。"
 
 [[source]]
 url = "https://vercel.com/docs/ai-gateway/security-and-compliance/regional-inference"
@@ -27,7 +28,7 @@ note = "Regional Inference 页。给出网关档处理地的实际行为：默�
 url = "https://vercel.com/docs/ai-gateway/security-and-compliance/zdr"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway ZDR 页（旧记录唯一登记的那条来源，本轮复核仍可抓、非渲染壳、是政策正文）。覆盖网关档的 ZDR：可用档位（Pro/Enterprise）、两种开启方式、默认路由行为、未知 provider 的处理、BYOK 排除、provider 白名单表格（23 家），以及两条关键例外（不支持 ZDR 的模型 claude-fable-5；provider 政策可排除某些模型/功能而请求不会失败）。是 zdr 维度的主来源。"
+note = "AI Gateway ZDR 页（旧记录唯一登记的那条来源，本轮复核仍可抓、非渲染壳、是政策正文）。覆盖网关档的 ZDR：可用档位（Pro/Enterprise）、两种开启方式、默认路由行为、未知 provider 的处理、BYOK 排除、provider 白名单表格（24 家，含 Meta），以及两条关键例外（不支持 ZDR 的模型 claude-fable-5；provider 政策可排除某些模型/功能而请求不会失败）。表格里 Meta 行的 No prompt training 列为「—」，与同页「All ZDR-compliant providers also disallow prompt training」冲突，两条并列保留。是 zdr 维度的主来源。"
 
 [[source]]
 url = "https://vercel.com/legal/ai-product-terms"
@@ -45,7 +46,7 @@ note = "《Data Processing Addendum》。适用范围自述为「forms part of V
 url = "https://vercel.com/legal/terms"
 channel = "contract"
 tier = "core"
-note = "《Vercel Terms of Service》(Last Updated June 1, 2026)。平台层主合同，覆盖包括 AI Gateway 在内的全部 Services。§3「Your Content」第 3 段是按套餐分档的 Model Training 条款：Hobby 与 trial Pro 默认授权 Vercel 用 Your Content 训练自己的模型并与第三方共享；付费 Pro 默认关闭、可 opt-in；可随时在 Team 设置里退出或升级 Enterprise。注意：jina 本次抓回的快照不完整——正文缺 §9 Security and Compliance、§10 Data Protection（含 10.4 System Data）、§14、§16、§17、§18、§20、§22，以及 Schedule I 的 §2–§7（含「4. AI Products and Services」指向 AI Product Terms 那条）。本轮只用本快照内存在的 §3 做锚点；§10 的内容另用 DPA 与 Enterprise Terms 覆盖，不在本页做锚点。"
+note = "《Vercel Terms of Service》(Last Updated June 1, 2026)。平台层主合同，覆盖包括 AI Gateway 在内的全部 Services。§3「Your Content」第 3 段是按套餐分档的 Model Training 条款：Hobby 与 trial Pro 默认授权 Vercel 用 Your Content 训练自己的模型并与第三方共享；付费 Pro 默认关闭、可 opt-in；可随时在 Team 设置里退出或升级 Enterprise。注意：本轮 jina 快照含 §1–§23 与 Schedule I §1–§7 全文，§10.1（角色：按数据类型二分 controller/processor，并并入 DPA 与隐私政策）、§10.4（System Data 归 Vercel 所有、可用于任何商业目的、未设期限）、§18.3（终止后 14 个日历日内销毁/返还 Proprietary Information）都可逐字引用，已用于 platform 档的 role / retention / zdr。Enterprise Terms 未登记、本轮未核，文件里不引它。"
 
 [[product]]
 id = "gateway"
@@ -70,6 +71,16 @@ text_zh = "Enterprise：§8.4.1 明文保证「shall not use AI Gateway Customer
 [[product.training.point]]
 text_zh = "Stealth Models 例外允许上游训练（§8.2.1）。开发者文档另称「AI Gateway does not use your prompts or responses for training purposes」，与合同的按档许可并存，不取平均。"
 
+[[product.training.point]]
+text = "Boundary of disallowPromptTraining: BYOK requests are exempt from the filter, but a failover request that falls back to AI Gateway system credentials is still filtered."
+text_zh = "disallowPromptTraining 的边界：BYOK 请求不受该过滤约束，但回落到 AI Gateway 系统凭据的 failover 请求仍遵守该过滤。"
+anchor = "vercel-gateway-dpt-byok-failover-still-filtered"
+
+[[product.training.point]]
+text = "Scope limit: Input must not contain sensitive personal information, so such content sits outside the assumptions the AI Products and Services make about Customer Content."
+text_zh = "适用范围限制：Input 里不得包含敏感个人信息（AIPT §3.4），这类内容不在 AI Products and Services 对 Customer Content 的承诺假设内。"
+anchor = "vercel-aipt-3-4-no-sensitive-personal-information"
+
 [product.zdr]
 mark = "yes"
 mode = "opt_in"
@@ -79,7 +90,7 @@ anchor = "vercel-gateway-zdr-availability-pro-enterprise"
 text_zh = "仅 Pro 与 Enterprise"
 
 [[product.zdr.point]]
-text_zh = "team-wide（$0.10 / 1,000 请求）或 per-request `zeroDataRetention: true`，二者 OR。只对有 ZDR 协议的 23 家 provider 生效"
+text_zh = "team-wide（$0.10 / 1,000 请求）或 per-request `zeroDataRetention: true`，二者 OR。只对有 ZDR 协议的 24 家 provider 生效"
 
 [[product.zdr.point]]
 text_zh = "未知/未签约 provider 在开启 ZDR 时被排除在路由外"
@@ -93,13 +104,33 @@ text_zh = "provider 可排除某些模型/功能且请求不会失败"
 [[product.zdr.point]]
 text_zh = "provider 级 prompt cache 是否 ZDR 合规取决于 provider。索引页「by default」的表述与本页并列保留。"
 
+[[product.zdr.point]]
+text = "Conflict kept as-is: the Meta row of the ZDR table marks No prompt training as \"—\" while ZDR is ✓."
+text_zh = "厂商文档自相矛盾，两条并列：表内 Meta 一行的 No prompt training 列为「—」，而 ZDR 列为 ✓。"
+anchor = "vercel-gateway-zdr-meta-row-no-prompt-training-blank"
+
+[[product.zdr.point]]
+text = "The same page also states that all ZDR-compliant providers disallow prompt training, which is the opposite of the Meta row."
+text_zh = "同一页又写「All ZDR-compliant providers also disallow prompt training, since ZDR is a superset of disallowing prompt training」，与 Meta 行相反。两句都保留，不取平均。"
+anchor = "vercel-gateway-zdr-all-zdr-providers-disallow-training"
+
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
+anchor = "vercel-gateway-region-provider-terms-govern-retention"
+
+[[product.retention.point]]
+text = "This verdict covers the whole chain: Vercel's own gateway hop deletes prompts, outputs, and sensitive data immediately after the request is completed when ZDR is on, while the upstream provider hop is governed by each provider's own terms and carries no retention-period commitment. \"Undisclosed\" refers to the upstream hop, not to Vercel's own deletion promise."
+text_zh = "本维度记的是全链：网关跳（Vercel 自己）在开启 ZDR 时于请求完成后立即永久删除 prompts / outputs / sensitive data；上游 provider 跳的保留期由各家条款决定、没有期限承诺——「未公布」指的是上游那一跳，不是 Vercel 自己的删除承诺。"
 anchor = "vercel-gateway-zdr-no-retention-of-prompts-outputs"
 
 [[product.retention.point]]
-text_zh = "对象一：请求正文。Vercel 网关层声明不保留、请求完成后立即永久删除"
+text = "By default AI Gateway does not route based on the data retention policy of providers, so unless ZDR is enabled a request can land on a provider with no retention commitment at all."
+text_zh = "默认不按保留政策路由：未开启 ZDR 时请求可能落到没有任何保留承诺的 provider 上。"
+anchor = "vercel-gateway-zdr-not-routed-by-policy-by-default"
+
+[[product.retention.point]]
+text_zh = "对象一：请求正文。Vercel 网关层声明不保留、请求完成后立即永久删除（这一句只覆盖网关自己那一跳，不覆盖上游）"
 
 [[product.retention.point]]
 text_zh = "上游 provider 侧无期限承诺，由各家条款决定，开启 ZDR 时由 provider 在请求后删除。对象二：Vercel 侧日志/追踪，只含元数据不含正文，观测数据保留期 Hobby 12h / Pro 1d / Enterprise 3d（Plus 30 天）。对象三：provider 级 prompt cache，Anthropic 默认 5 分钟、可请求 1 小时。例外：claude-fable-5 保留 30 天"
@@ -109,6 +140,16 @@ text_zh = "abuse/safety 标记请求按 provider 政策保留且可能不在所�
 
 [[product.retention.point]]
 text_zh = "被 provider 排除的模型/功能开启 ZDR 也不报错。合同层：DPA §12.1 终止后 within a commercially reasonable timeframe 删除，§12.2 法律要求时可保留。"
+
+[[product.retention.point]]
+text = "The AI Gateway contract itself only gives permission, not a period: on termination Vercel may destroy Customer Content, subject to applicable law. That is weaker than the DPA §12.1 deletion triggered by termination."
+text_zh = "网关档自己的合同层（AIPT §11.3）：终止后 Vercel「may destroy Customer Content」，只给销毁的许可、不给期限，与 DPA §12.1 的「终止触发删除」不是一回事（AIPT 与 Terms 冲突时就 AI Products and Services 以 AIPT 为准）。"
+anchor = "vercel-aipt-11-3-termination-may-destroy"
+
+[[product.retention.point]]
+text = "Scope limit: Input must not contain sensitive personal information, so such content sits outside the assumptions the AI Products and Services make about Customer Content."
+text_zh = "适用范围限制：Input 里不得包含敏感个人信息（AIPT §3.4），这类内容不在 AI Products and Services 对 Customer Content 的承诺假设内。"
+anchor = "vercel-aipt-3-4-no-sensitive-personal-information"
 
 [product.processing_region]
 codes = ["GLOBAL", "US", "EU"]
@@ -124,7 +165,9 @@ text_zh = "可按请求 pin 到 us 或 eu（仅这两个），钉不住则 400 �
 text_zh = "BYOK 同样受 inferenceRegion 约束。网关自身的终止与处理不受 pin 约束（可在任意 Vercel 区域）。合同层声明 AI Products and Services 在美国控制与运营（AI Product Terms §12），DPA §13.1 主要处理设施在美国但允许全球转移"
 
 [[product.processing_region.point]]
-text_zh = "trust center 的推理相关 subprocessor 全部列 United States。"
+text = "DPA §7.2 points the subprocessor list (with functions and locations) at the trust center. The 2026-08-21 update there adds SpaceXAI LLC (fka xAI) and updates Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC to \"Generative AI services and AI model inference services\". This round's snapshot has only the \"## Subprocessors\" heading with no table, so locations are not re-verified here."
+text_zh = "DPA §7.2 把 subprocessor 清单（含职能与所在地）指向 trust center；2026-08-21 更新新增 SpaceXAI LLC (fka xAI)、并把 Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC 的职能更新为 generative AI 与 model inference 服务。本轮快照只有「## Subprocessors」标题、表格内容缺失，所在地未复核（该锚点只证明职能，不证明所在地）。"
+anchor = "vercel-trust-subprocessor-fireworks-function"
 
 [product.role]
 kind = "processor"
@@ -157,7 +200,7 @@ text_zh = "付费 Pro 默认关闭、可 opt-in"
 text_zh = "可随时在 Team 设置退出或升级 Enterprise。隐私政策侧另有两条：使用目的表把「Internal product development and improvement, including AI model training」列为正当利益依据"
 
 [[product.training.point]]
-text_zh = "对 Hobby 与 Pro 用户，可按 Team 设置把去标识化信息（含去标识化 AI Product Information）披露给 AI 商业伙伴用于其训练与改进。Enterprise 档：AI Product Terms §7.3.1 对 v0 有明文不训练保证，Enterprise Terms Schedule I 第 2 条把 AI Products and Services 整体指向 AI Product Terms。注意本页 jina 快照不完整（缺 §9 / §10 等节），§3 这一段在快照内、锚点有效。"
+text_zh = "对 Hobby 与 Pro 用户，可按 Team 设置把去标识化信息（含去标识化 AI Product Information）披露给 AI 商业伙伴用于其训练与改进。Enterprise 档：AI Product Terms §7.3.1 对 v0 有明文不训练保证，ToS Schedule I 第 4 条把 AI Products and Services 整体指向 AI Product Terms（ToS §10.4 的 System Data 另有「any business purposes」的授权）。本页 jina 快照含 §1–§23 与 Schedule I 全文，§3 这一段在快照内、锚点有效。"
 
 [product.zdr]
 mark = "no"
@@ -170,7 +213,8 @@ text_zh = "结论：部署平台档没有零保留——ZDR 在 Vercel 是 AI Ga
 text_zh = "整页讲的都是网关把请求转给上游模型时的保留策略（上游例外、缓存发生在上游一侧、被判滥用或安全审查的请求按上游政策保留），没有一句把这套机制延伸到部署平台上的构建产物、函数执行或可观测数据。(b) 平台档的实际口径与零保留相反：DPA §12.1「Termination or expiration of the Agreement serves as instruction for Vercel to delete all Customer Data within a commercially reasonable timeframe.」——删除的触发点是协议终止，即客户数据在合同存续期间持续保留"
 
 [[product.zdr.point]]
-text_zh = "§12.2 另允许法律要求时继续保留。可观测数据另有固定窗口（界面保留期 Hobby 12 小时 / Pro 1 天 / Enterprise 3 天，Observability Plus 30 天），Enterprise Terms §12.2 的 System Data（traffic data、logs、usage statistics）归 Vercel 所有且未设期限。(c) 为什么记 mark=no 而不是 not_found：这不是查不到，而是官方把 ZDR 的可用范围写死在网关档，同时平台档存在明示的持续保留条款，两件事都是正面事实。(d) 边界：这只说明平台档没有公开的零保留方案与申请入口，不等于 Enterprise 合同谈不出单独安排——Enterprise Terms 与 DPA 的可协商条款不公开。(e) 本轮查过 /docs/ai-gateway/security-and-compliance/zdr、/legal/dpa、/legal/terms、/legal/enterprise-terms、/legal/ai-product-terms 与 security.vercel.com，除网关页外没有第二处出现 zero data retention。"
+text_zh = "§12.2 另允许法律要求时继续保留。可观测数据另有固定窗口（界面保留期 Hobby 12 小时 / Pro 1 天 / Enterprise 3 天，Observability Plus 30 天），ToS §10.4 的 System Data（traffic data、telemetry、logs、usage statistics）归 Vercel 所有、合同期内与终止后都可为任何商业目的使用且未设期限。(c) 为什么记 mark=no 而不是 not_found：这不是查不到，而是官方把 ZDR 的可用范围写死在网关档，同时平台档存在明示的持续保留条款，两件事都是正面事实。(d) 边界：这只说明平台档没有公开的零保留方案与申请入口，不等于 Enterprise 合同谈不出单独安排——Enterprise 合同与 DPA 的可协商条款不公开（Enterprise Terms 未登记、本轮未核，不作为依据）。(e) 本轮查过 /docs/ai-gateway/security-and-compliance/zdr、/legal/dpa、/legal/terms、/legal/enterprise-terms、/legal/ai-product-terms 与 security.vercel.com，除网关页外没有第二处出现 zero data retention。"
+anchor = "vercel-tos-10-4-system-data-no-term"
 
 [product.retention]
 object = "input_output"
@@ -184,7 +228,14 @@ text_zh = "平台档没有请求级保留期，只有两类：(a) 客户内容�
 text_zh = "Schedule 1 §3 对 Customer Data 的期限未量化"
 
 [[product.retention.point]]
-text_zh = "Enterprise Terms §14.3 同类条款是 14 个日历日内销毁/返还 Proprietary Information 并允许保留一份存档副本。(b) 服务生成数据/遥测——Enterprise Terms §12.2 的 System Data（traffic data、logs、usage statistics）归 Vercel 所有，可用于提供/维护/开发/改进服务，未设期限"
+text = "ToS §18.3 is the only platform-side deletion clause with a concrete number of days: within 14 calendar days of termination each party destroys or returns the other party's Proprietary Information and may keep one archival copy. Its object is confidential Proprietary Information, not Customer Data and not prompt/response content, so it only stands alongside the DPA §12.1 \"commercially reasonable timeframe\" clause."
+text_zh = "(b) ToS §18.3 是平台档唯一带具体天数的删除条款：终止后 14 个日历日内销毁或返还对方的 Proprietary Information，允许保留一份存档副本。对象是双方的保密信息，不是 Customer Data、也不是输入输出正文，所以只能作为合同里的删除期限事实与 DPA §12.1 的「商业上合理期限」并列，不能读成「输入输出 14 天内删除」。"
+anchor = "vercel-tos-18-3-proprietary-information-14-days"
+
+[[product.retention.point]]
+text = "(c) Service-generated data / telemetry: ToS §10.4 puts System Data (traffic data, telemetry, logs, usage statistics) under Vercel's ownership, usable for any business purposes during and after the term, with no period set."
+text_zh = "(c) 服务生成数据/遥测：ToS §10.4 的 System Data（traffic data、telemetry、logs、usage statistics）归 Vercel 所有，合同期内与终止后都可为任何商业目的使用，未设期限"
+anchor = "vercel-tos-10-4-system-data-no-term"
 
 [[product.retention.point]]
 text_zh = "观测数据的界面保留期是 Hobby 12 小时 / Pro 1 天 / Enterprise 3 天，Observability Plus 30 天"
@@ -210,7 +261,9 @@ anchor = "vercel-dpa-4-1-vercel-as-processor"
 text_zh = "Pro/Enterprise 档：DPA §4.1 定 Vercel 为 Processor（客户为 Controller/Processor）"
 
 [[product.role.point]]
-text_zh = "Enterprise Terms §12.1 把 DPA 与隐私政策并入。Hobby 档：无 DPA，隐私政策自述「Vercel acts as a data controller for personal information that we collect about you… We act as a data processor on behalf of our Customers for the personal information contained in Customer Data.」且明确本通知不适用于其作为 processor 处理的 Customer Data。服务生成数据/账号联系数据为 controller 身份（DPA §4.b）。观测数据的 System Data 归 Vercel 所有（Enterprise Terms §12.2）。"
+text = "ToS §10.1 splits the role by data type: Vercel processes personal information in Your Content, Account Information, and System Data as a controller or a processor, per the DPA (incorporated by reference) and the Privacy Policy. Hobby: no DPA, the Privacy Policy says Vercel acts as a data controller for information collected about you and as a data processor for personal information in Customer Data, and that notice does not apply to data processed as a processor. Service-generated data / contact data: controller (DPA §4.b). Observability System Data belongs to Vercel (ToS §10.4)."
+text_zh = "ToS §10.1 按数据类型二分角色并把 DPA 与隐私政策并入：Your Content / Account Information / System Data 里的个人信息，Vercel 依 DPA 与隐私政策分别以 controller 或 processor 身份处理。Hobby 档：无 DPA，隐私政策自述「Vercel acts as a data controller for personal information that we collect about you… We act as a data processor on behalf of our Customers for the personal information contained in Customer Data.」且明确本通知不适用于其作为 processor 处理的 Customer Data。服务生成数据/账号联系数据为 controller 身份（DPA §4.b）。观测数据的 System Data 归 Vercel 所有（ToS §10.4）。"
+anchor = "vercel-tos-10-1-controller-or-processor-per-data-type"
 
 [[anchor]]
 id = "vercel-aipt-1-1-definition-includes-gateway"
@@ -244,6 +297,16 @@ topics = ["role", "training"]
 prefix = "Except as set forth below, the AI Products and Services are \"Services\" under the Terms and all other terms and conditions of the Terms are incorporated by reference and will remain in full force and effect. "
 exact = "If any AI Product Terms conflict with the Terms, the conflicting AI Product Terms will control with respect to the AI Products and Services and Customer Content."
 suffix = " The AI Product Terms supersede all other understandings or agreements between you and Vercel regarding the AI Products and Services."
+
+[[anchor]]
+id = "vercel-aipt-3-4-no-sensitive-personal-information"
+source_id = "4fedf854545826cd"
+topics = ["training", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "You must not include any sensitive personal information (such as health information, financial account numbers or information, or government-issued identifiers) in your Input."
+suffix = ""
 
 [[anchor]]
 id = "vercel-aipt-6-2-hobby-pro-your-content-license"
@@ -338,6 +401,36 @@ exact = "if you are on a Hobby plan or trial Pro plan, you agree that we may use
 suffix = " You may opt-out of Model Training at any time by adjusting your Team account settings or by upgrading to an Enterprise plan."
 
 [[anchor]]
+id = "vercel-tos-10-1-controller-or-processor-per-data-type"
+source_id = "013fc4ddb3a94335"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "We will process the personal information in Your Content, Account Information, and System Data as a data controller or data processor in accordance with Vercel's Data Processing Addendum (\"**DPA**\"), which is incorporated by reference, and our Privacy Policy as applicable."
+suffix = ""
+
+[[anchor]]
+id = "vercel-tos-10-4-system-data-no-term"
+source_id = "013fc4ddb3a94335"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "### 10.4 System Data\n\n"
+exact = "Vercel may collect, and retains all right, title and interest in and to, data or information created, analyzed, generated, or derived in connection with the provision, use, and performance of the Services and related systems and technologies, including traffic data, telemetry, logs generated from the Services, and usage statistics (collectively, \"**System Data**,\" which in all cases excludes Account Information). Vercel may (during and after the term of this Agreement) (i) use System Data for any business purposes in its sole discretion, and (ii) disclose such data solely in aggregate or de-identified form in connection with its business."
+suffix = ""
+
+[[anchor]]
+id = "vercel-tos-18-3-proprietary-information-14-days"
+source_id = "013fc4ddb3a94335"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "and (iv) "
+exact = "within fourteen (14) calendar days of such termination, each party shall destroy or return all Proprietary Information of the other party in its possession or control, and will not make or retain any copies of such information in any form, except that the receiving party may retain one (1) archival copy of such information solely for purposes of ensuring compliance with this Agreement"
+suffix = ""
+
+[[anchor]]
 id = "vercel-dpa-4-1-vercel-as-processor"
 source_id = "445b142dbefa7c7b"
 topics = ["role"]
@@ -422,20 +515,14 @@ suffix = """
 1.   **Customer Data.** Prior to the termination of the Agreement, Vercel will Process Customer Data in accordance with sections 3 and 12 of this Addendum."""
 
 [[anchor]]
-id = "vercel-trust-subprocessor-fireworks-us"
+id = "vercel-trust-subprocessor-fireworks-function"
 source_id = "d3c43d70ccbcc655"
-topics = ["processing_region", "role"]
+topics = ["role"]
 
 [anchor.selector]
-prefix = """
-Fireworks AI
-
-"""
+prefix = "*   **Fireworks AI** to provide "
 exact = "Generative AI services and AI model inference services"
-suffix = """
-
-
-United States"""
+suffix = ""
 
 [[anchor]]
 id = "vercel-trust-subprocessor-update-ai-products"
@@ -513,6 +600,26 @@ exact = "In some cases, certain models or functionalities may be excluded from a
 suffix = ", so review the provider's policy in the table below to understand the nuances of specific tools and how they affect data retention."
 
 [[anchor]]
+id = "vercel-gateway-zdr-meta-row-no-prompt-training-blank"
+source_id = "df6994cfbf2725d2"
+topics = ["zdr", "training"]
+
+[anchor.selector]
+prefix = "| Groq | ✓ | ✓ | ZDR policy |\n"
+exact = "| Meta | — | ✓ | ZDR policy |"
+suffix = ""
+
+[[anchor]]
+id = "vercel-gateway-zdr-all-zdr-providers-disallow-training"
+source_id = "df6994cfbf2725d2"
+topics = ["zdr", "training"]
+
+[anchor.selector]
+prefix = ""
+exact = "All ZDR-compliant providers also disallow prompt training, since ZDR is a superset of disallowing prompt training."
+suffix = ""
+
+[[anchor]]
 id = "vercel-gateway-zdr-prompt-caching-provider-level"
 source_id = "df6994cfbf2725d2"
 topics = ["retention", "zdr"]
@@ -587,6 +694,16 @@ Disallow prompt training is a subset of [Zero Data Retention (ZDR)](https://verc
 """
 exact = "Disallow prompt training enforcement does not apply to [BYOK (Bring Your Own Key)](https://vercel.com/docs/ai-gateway/authentication-and-byok/byok) requests."
 suffix = " When you use BYOK, this filter is not enforced since the request uses your own API key, your configuration, and agreement with the provider."
+
+[[anchor]]
+id = "vercel-gateway-dpt-byok-failover-still-filtered"
+source_id = "3ed59269620e486a"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "This enforcement does not apply to BYOK requests since those use your own API key, configuration, and agreement with the provider. If AI Gateway falls back to AI Gateway system credentials, it honors the disallow prompt training filter on the failover request."
+suffix = ""
 
 [[anchor]]
 id = "vercel-gateway-region-not-pinned-at-gateway"

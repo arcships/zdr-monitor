@@ -49,38 +49,93 @@ text_zh = "无独立条款，沿用 ToS §3.6 的无条件「不训练自有模�
 [product.zdr]
 mark = "yes"
 mode = "default"
-anchor = "fireworks-datahandling-open-models-scope"
+anchor = "fireworks-tos-3-6-zdr-policy"
 
 [[product.zdr.point]]
-text_zh = "无独立条款。本档只允许 open weight 模型（Fire Pass 页「A NEW dedicated Fire Pass key that only works for open weight models」），恰好落在文档层「for any open models」的措辞范围内。"
+text_zh = "主证据改用 contract 层的 ToS §3.6（本文件最高权威）：「We have adopted a “Zero Data Retention” policy」——不记录 Content 供人工审阅、不留存超过生成并交付 Output 所需时间，且不附加 open models 限定。因此本档不必再依赖「Fire Pass 只跑 open weight 模型」这一步推断。"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.zdr.point]]
+text_zh = "同一段的适用范围限定：ZDR 只覆盖 inference，明文不适用于按设计需要保留或进一步处理数据的功能，点名 Response API 与 training / fine-tuning / agent 功能。本档是个人 agentic coding 订阅，是否落在 §3.6 所称 agent features 内、以及本档实际可用的模型范围，本文件四个快照里都没有出处（Fire Pass 产品页未登记为来源、也没有快照），在人工确认前不要读成无条件零保留。"
+anchor = "fireworks-tos-3-6-inference-scope"
+
+[[product.zdr.point]]
+text_zh = "文档层（developer_data）同口径但把范围写死为「for any open models, without explicit user opt-in」；权威性低于 contract 层，作为细节保留。原先用来做档位适配的 Fire Pass 产品页说法（「only works for open weight models」）没有来源登记也没有快照，本轮不作为证据。"
+anchor = "fireworks-datahandling-open-models-scope"
 
 [product.retention]
-object = "input_output"
+object = "mixed"
 basis = "none"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.retention.point]]
+text_zh = "主证据用 contract 层 ToS §3.6 的 ZDR 政策：不记录 Content 供人工审阅，也不把 Content 留存到生成并交付 Output 所需时间之外。期限类型是上限式定性（「不超过必要时间」），没有天数；对象与语境分列于下。"
+anchor = "fireworks-tos-3-6-zdr-policy"
+
+[[product.retention.point]]
+text_zh = "文档层细节补充（developer_data）：「Fireworks has Zero Data Retention by default.」同页写明 prompt/generation 数据只在请求期间存在于易失内存、不写入任何持久存储。"
 anchor = "fireworks-datahandling-zdr-default"
 
 [[product.retention.point]]
-text_zh = "无独立条款，沿用推理档 ZDR（data_handling 页 + ToS §3.6）"
+text_zh = "对象=输入输出正文（默认推理路径）：prompt and generation data exist only in volatile memory for the duration of the request。语境=例外：prompt caching 生效时，部分 prompt 数据与关联 KV 缓存可在内存中驻留数分钟，期间仍不落盘。"
+anchor = "fireworks-datahandling-volatile-memory"
 
 [[product.retention.point]]
-text_zh = "例外同样适用（Response API / prompt caching）。Fire Pass 页面未提任何保留规则。"
+text_zh = "对象=对话数据（语境=启用 Response API 后）：store=True（默认）时完整对话数据落盘，30 天后自动删除；可用 store=False 关闭，或按 response_id 立即删除。"
+anchor = "fireworks-datahandling-response-api-30-days"
+
+[[product.retention.point]]
+text_zh = "对象=元数据日志（语境=默认）：Fireworks 记录投递服务所需的元数据（如请求 token 数），官方未给期限。"
+anchor = "fireworks-datahandling-metadata-logs"
+
+[[product.retention.point]]
+text_zh = "对象=输入输出正文（语境=显式 opt-in 后）：用户显式 opt-in 时，某些高级功能（如 FireOptimizer）会记录 prompt 与 generation 数据；本档是否提供这类功能，文档未明示。"
+anchor = "fireworks-datahandling-optin-logging"
+
+[[product.retention.point]]
+text_zh = "条件性（contract 层，DPA §4.5）：「不超请求生命周期」不是无条件承诺——它以 Customer 按 Company 当期 ZDR 配置与使用文档使用服务为前提，配置与当期文档保持一致由 Customer 负责；且 DPA 的适用对象是 business customer，本档个人订阅是否适用待确认。"
+anchor = "fireworks-dpa-4-5-request-lifecycle"
+
+[[product.retention.point]]
+text_zh = "DPA §4.5 同段另列两类例外：未配置 store=false 的 Response API、prompt caching——启用这些功能时输入输出数据可按功能所需时长保留。"
+anchor = "fireworks-dpa-4-5-feature-exceptions"
+
+[[product.retention.point]]
+text_zh = "适用范围限定（contract 层）：ToS §3.6 的 ZDR 只覆盖 inference，明文排除 Response API 与 training / fine-tuning / agent 功能；本档是个人 agentic coding 订阅，是否落在 agent features 这一排除项内尚无快照可证，须在使用前确认。"
+anchor = "fireworks-tos-3-6-inference-scope"
 
 [product.processing_region]
 codes = ["global"]
 anchor = "fireworks-dataresidency-none-default"
+searched = ["https://docs.fireworks.ai/accounts/data-residency", "https://fireworks.ai/terms-of-service"]
 
 [[product.processing_region.point]]
-text_zh = "无独立条款，沿用账号级设置（默认 None = 多区域）。Fire Pass 页面未提区域"
+text_zh = "无独立条款，沿用账号级设置：residency 默认 None（不限制区域，serverless 可跨区域），可把账号锁到 US 单一区域；且 residency 是账号级（Residency applies account-wide）。"
+anchor = "fireworks-dataresidency-none-default"
 
 [[product.processing_region.point]]
-text_zh = "residency 是账号级开关，理论上同样适用于本档，但文档未明示。"
+text_zh = "该页整页是 Enterprise 功能页：「**Enterprise feature.** Data residency is available on Enterprise accounts.」本档 plan_level=individual，个人订阅能否拿到这个账号级开关，文档未明示——codes=[\"global\"] 只说明默认不限定区域，不等于本档可以自选区域。"
+anchor = "fireworks-dataresidency-enterprise-only"
+
+[[product.processing_region.point]]
+text_zh = "contract 层补充，对象限于个人信息：ToS §10.1「your personal information may be transferred to, and/or processed in, the United States」。它说的是个人信息可能被传输到/在美处理，不等于请求内容的处理地，也不构成区域选择承诺，与 residency 页「默认 None（多区域）」并列保留、互不否定。"
+anchor = "fireworks-tos-10-1-us-processing"
 
 [product.role]
 kind = "processor"
 anchor = "fireworks-dpa-3-a-processor"
 
 [[product.role.point]]
-text_zh = "DPA 的适用对象是「business customer」，而 Fire Pass 的定位是个人 agentic coding（面向消费者式使用）。个人用户是否被视为 DPA 意义上的 Customer、还是落回隐私政策（隐私政策自称不是合同），官方没有说明，置信度低。需人工澄清。"
+text_zh = "口径一：DPA §3(a) 写 Company acts as a processor or service provider in the performance of its obligations under the Agreement and this DPA。"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "适用范围存疑：同一份 DPA 开篇把自己限定在 Company 与 business customer 之间的 Agreement 内，而本档是个人订阅（面向消费者式使用）；个人用户是否构成 DPA 意义上的 Customer，四个快照里都没有依据，需人工澄清。"
+anchor = "fireworks-dpa-scope-business-customer"
+
+[[product.role.point]]
+text_zh = "支持按 processor 记的依据：ToS §2.4 把 www.fireworks.ai/dpa 并入适用于全体用户的 Terms，个人订阅同样受这份 DPA 约束。"
+anchor = "fireworks-tos-2-4-dpa-incorporated"
 
 [[anchor]]
 id = "fireworks-tos-3-6-no-training"
@@ -154,3 +209,123 @@ ents/regions), or a single US region such as `US_IOWA_1` |
 """
 exact = "**None** is the default."
 suffix = " For a region that is not listed, contact [sales](https://fi"
+
+[[anchor]]
+id = "fireworks-tos-3-6-zdr-policy"
+source_id = "f3cd723579d811c6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "for longer than is necessary to provide the Service to you. "
+exact = "We have adopted a “Zero Data Retention” policy, which means that we will not, unless otherwise required by Applicable Law (or to provide the Service or support to you): (i) log your Content for human review; or (ii) retain your Content, beyond the time it takes to generate Output and deliver that Output to you."
+suffix = " Notwithstanding the foregoing, you agree that we have the r"
+
+[[anchor]]
+id = "fireworks-tos-3-6-inference-scope"
+source_id = "f3cd723579d811c6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "fety screening tools on the Content as we deem appropriate. "
+exact = "For clarity, our Zero Data Retention commitment applies to your use of the Service for inference. It does not apply to any feature of the Service that, by design, requires the retention or further processing of data beyond the time needed to generate and deliver Output — including, among other things, the Response API and any training, fine-tuning, or agent features."
+suffix = " 3.7 Output Disclaimer. YOU ACKNOWLEDGE AND AGREE AS FOLLO"
+
+[[anchor]]
+id = "fireworks-tos-2-4-dpa-incorporated"
+source_id = "f3cd723579d811c6"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "2.4. Data Processing Addendum. "
+exact = "The Data Processing Addendum located at www.fireworks.ai/dpa (the “DPA”) applies to these Terms, and is hereby incorporated in these Terms by this reference."
+suffix = " 3. Content "
+
+[[anchor]]
+id = "fireworks-tos-10-1-us-processing"
+source_id = "f3cd723579d811c6"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "as set forth in our Privacy Notice and the DPA, and that "
+exact = "your personal information may be transferred to, and/or processed in, the United States"
+suffix = " 10.2. Security. We care about the integrity and security"
+
+[[anchor]]
+id = "fireworks-dataresidency-enterprise-only"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "This setting *enforces* all requests to be in the set region, and rejects the ones that are not. "
+exact = "**Enterprise feature.** Data residency is available on Enterprise accounts. Contact your Fireworks representative if you need this enabled."
+suffix = " Only account **Admins** can change data residency."
+
+[[anchor]]
+id = "fireworks-datahandling-volatile-memory"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "More technically: "
+exact = "prompt and generation data exist only in volatile memory for the duration of the request"
+suffix = ". If prompt caching is active, some prompt data"
+
+[[anchor]]
+id = "fireworks-datahandling-metadata-logs"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "In either case, prompt and generation data are not logged into any persistent storage. "
+exact = "Fireworks logs metadata (e.g. number of tokens in a request) as required to deliver the service."
+suffix = " Users can explicitly opt-in to log prompt and generation data"
+
+[[anchor]]
+id = "fireworks-datahandling-optin-logging"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "as required to deliver the service. "
+exact = "Users can explicitly opt-in to log prompt and generation data for certain advanced features (e.g. FireOptimizer)."
+suffix = ""
+
+[[anchor]]
+id = "fireworks-datahandling-response-api-30-days"
+source_id = "9e4b92eacd199a46"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**Retention period**: "
+exact = "All stored conversation data is automatically deleted after 30 days."
+suffix = " **Immediate deletion**: You can immediately delete stored conversation data"
+
+[[anchor]]
+id = "fireworks-dpa-scope-business-customer"
+source_id = "809a8c0c397358d0"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "DATA PROCESSING ADDENDUM "
+exact = "This Data Processing Addendum (“DPA”) forms part of and is incorporated into the agreement between Fireworks.ai, Inc. (“Company”) and the business customer that has entered into or is otherwise bound by the applicable terms of service"
+suffix = " or other written agreement governing the Customer’s use of the Services (the “Agreement”)."
+
+[[anchor]]
+id = "fireworks-dpa-4-5-request-lifecycle"
+source_id = "809a8c0c397358d0"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "4.5 Except as described below, "
+exact = "Company shall not retain Customer's prompt inputs or model outputs beyond the lifecycle of the applicable request."
+suffix = " The foregoing obligation applies when Customer uses the Services in accordance with Company's Zero Data Retention"
+
+[[anchor]]
+id = "fireworks-dpa-4-5-feature-exceptions"
+source_id = "809a8c0c397358d0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Notwithstanding the foregoing, Customer acknowledges that "
+exact = "certain Service features require transient or persistent data handling, including: (a) use of the Response API unless configured with store=false; and (b) use of prompt caching."
+suffix = " When Customer enables such features, input and output data"

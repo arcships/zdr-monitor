@@ -20,6 +20,12 @@ channel = "contract"
 tier = "core"
 note = "讯飞星辰 MaaS 平台《用户使用须知》，自述是对《讯飞开放平台用户服务协议》及相关协议的「有效补充」，并写明「如您是企业或开发者用户，您还需遵守《讯飞开放平台大语言模型接口服务协议》」——即星辰 MaaS 托管模型、Coding Plan、Token Plan 的数据条款实际落在这里加上接口服务协议。§三「数据处理须知」是内容层优化授权条款，与接口协议 §4.3 同构但去掉了「本协议下」的限定、退出渠道改为通用反馈。§二.3 自认「我们并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者…仅对在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服务」。全文无保留期限、无 ZDR、无训练字样。"
 
+[[source]]
+url = "https://www.xfyun.cn/doc/policy/SparkInterfacePolicy.html"
+channel = "contract"
+tier = "core"
+note = "《讯飞开放平台大语言模型接口服务协议》，页面标注「更新时间：2025 年 8 月 25 日」，运营主体科大讯飞股份有限公司。登记为本档来源的依据是《用户使用须知》第 52 行：「如您是企业或开发者用户，您还需遵守《讯飞开放平台大语言模型接口服务协议》」——订阅档面向开发者，合同层据此并入本协议。本档只引 §4.3：与 MaaS 须知 §三 同构的内容层优化授权（主体写成「我们及关联公司」、限定「本协议下产品及服务的优化」、退出渠道为本协议 §8.2）。§6.2 对星辰 MaaS 上托管的第三方模型自认「仅提供能力调用服务」，属免责声明语境。全文无保留期限数字、无零保留/ZDR 表述。"
+
 [[product]]
 id = "subscription-coding-token-plan"
 badge = "订阅套餐"
@@ -33,6 +39,14 @@ anchor = "xfyun-maas-3-data-processing-optimization"
 
 [[product.training.point]]
 text_zh = "订阅档内容层依据是《用户使用须知》§三：「您知悉并授权，为了提升您使用本服务的用户体验，在经安全加密技术处理、去标识化或匿名化处理的前提下，我们可能会将本服务所收集的输入内容及对应输出内容，用于本服务的优化。如您拒绝提供前述授权，您可以向我们反馈您的意见或建议」——与接口协议 §4.3 同构，退出渠道改为通用反馈。多跳不确定性：文档自述整合 GLM/Kimi/MiniMax/DeepSeek/Qwen 等第三方模型，未披露是否转发至原厂及其角色。"
+
+[[product.training.point]]
+anchor = "xfyun-iface-4-3-optimization-license"
+text_zh = "合同层同构条款：《大语言模型接口服务协议》§4.3 同样把「输入内容及对应输出内容」用于「本协议下产品及服务的优化」（主体写「我们及关联公司」，退出渠道为协议 §8.2）。订阅档面向开发者，《用户使用须知》第 52 行把企业/开发者用户拉入本协议，故本档合同层依据不止《用户使用须知》一条。两条都是授权而非禁止，方向一致，不改变 mark=no。"
+
+[[product.training.point]]
+anchor = "xfyun-privacy-3-3-anonymized-training"
+text_zh = "平台层同向旁证（次要）：平台隐私政策 §三(3) 授权对匿名化/去标识化后的个人信息（此处写「语音信息」）作学术研究或统计分析，含「模型算法的训练」。对象是个人信息而不是本档 API 输入输出正文，不能替代 MaaS 须知 §三 作为本档直接依据，但方向与 mark=no 一致。"
 
 [product.zdr]
 mark = "unknown"
@@ -49,6 +63,7 @@ text_zh = "订阅档文档全文无零保留/不落盘表述，也无申请入�
 object = "mixed"
 basis = "undisclosed"
 searched = [
+  "https://www.xfyun.cn/doc/policy/privacy.html",
   "https://www.xfyun.cn/doc/spark/CodingPlan.html",
   "https://www.xfyun.cn/doc/spark/TokenPlan.html",
   "https://www.xfyun.cn/doc/spark/MaaS/user_instructions.html",
@@ -57,25 +72,79 @@ searched = [
 [[product.retention.point]]
 text_zh = "订阅档文档与 MaaS 须知都没有保留期限条款，只能沿用平台层《讯飞开放平台隐私政策》§五.3/§六.2 的目的绑定保留与法定下限。置信度 low：无法确认订阅档是否另有控制台内的保留规则。"
 
+[[product.retention.point]]
+anchor = "xfyun-privacy-5-3-retention-purpose-bound"
+text_zh = "对象=输入输出正文（平台层表述为「您的个人信息」；语境=默认）：平台层只有目的绑定保留、没有量化期限——§五.3「我们只会在达成本政策所述目的所需的期限内保留您的个人信息，除非需要延长保留期或受到法律的允许」。"
+
+[[product.retention.point]]
+anchor = "xfyun-privacy-6-2-network-log-six-months"
+text_zh = "法定下限（下限≠删除期限）：§六.2 引《网络安全法》「采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月」，同节引《电子商务法》「商品和服务信息、交易信息保存时间自交易完成之日起不少于三年」。两者都是下限，不能反推出「到期删除全部输入输出」。"
+
+[[product.retention.point]]
+anchor = "xfyun-privacy-2-2-b-call-log"
+text_zh = "对象=调用日志（语境=默认，期限=未披露）：§二.2.b 面向「使用调用了讯飞开放平台人工智能API/SDK的产品或服务」的最终用户，会收集「设备调用我们API/SDK的调用记录日志，以用于调用数量的统计分析」，未写期限。"
+
+[[product.retention.point]]
+anchor = "xfyun-privacy-2-1-a-system-log"
+text_zh = "对象=系统日志（语境=默认，期限=未披露）：§二.1.a 的系统日志含「产品服务使用记录、搜索查询内容、访问的页面地址、登录IP」，同样未写期限——日志存在但无期限，也不能由此推出「日志有期限」。"
+
+[[product.retention.point]]
+anchor = "xfyun-privacy-6-2-delete-after-period"
+text_zh = "最接近「上限」的表述：§六.2「在超过上述期限，或您主动要求删除您的个人信息或注销您的账号后，我们将根据适用法律法规的要求尽快删除您的个人信息」，其后另有五种「更改个人信息的存储时间」的例外（遵守适用的法律法规、法院判决裁定或其他法律程序、相关政府机关或法定授权组织的要求、有理由确信需要遵守法律法规、为执行相关服务协议或本政策及维护公共利益等）。「尽快」无量化期限，且对象是个人信息，不是输入输出正文的删除期限。"
+
+[[product.retention.point]]
+anchor = "xfyun-maas-4-privacy-policy-pointer"
+text_zh = "跨层引用的依据：《用户使用须知》§四「隐私保护：我们将严格按照《讯飞开放平台隐私政策》及相关隐私协议…处理和保护您的个人信息及数据」——订阅档没有独立的保留期限条款，本档沿用平台层政策凭这一条成立。"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "xfyun-privacy-6-1-storage-in-cn"
 
 [[product.processing_region.point]]
-text_zh = "订阅档文档未单独写处理地，沿用平台层境内存储承诺"
+text_zh = "订阅档文档未单独写处理地，沿用平台层境内存储承诺——注意是「原则上」而非无条件（三类例外与跨境路径见下两条）。"
+
+[[product.processing_region.point]]
+anchor = "xfyun-privacy-6-1-location-and-exceptions"
+text_zh = "§六.1「收集的有关您的信息和资料将保存在中华人民共和国境内大陆地区科大讯飞的服务器上」，紧随三类例外：法律法规有明确规定、获得您的明确授权、您通过互联网进行跨境交易等个人主动行为。故 codes 记 CN 是「原则上」境内、不是绝对承诺；该句主语是「您的信息和资料」（个人信息层），订阅档文档未单独披露请求内容本体的推理地。"
+
+[[product.processing_region.point]]
+anchor = "xfyun-privacy-9-cross-border-solo-consent"
+text_zh = "§九 给出跨境提供的条件与程序：确需向境外提供个人信息时，须告知境外接收方信息，并在「获得您的单独同意和法律法规规定的跨境提供应具备的条件后」才转移。它与 §六.1 的例外共同说明境内是原则、跨境有法定条件与单独同意路径；不读成「绝不跨境」，也不据此推翻 codes 的 CN。"
+
+[[product.processing_region.point]]
+anchor = "xfyun-maas-4-privacy-policy-pointer"
+text_zh = "跨层引用的依据：《用户使用须知》§四「隐私保护：我们将严格按照《讯飞开放平台隐私政策》及相关隐私协议…处理和保护您的个人信息及数据」——订阅档没有独立的处理地条款，本档沿用平台层政策凭这一条成立。"
 
 [[product.processing_region.point]]
 text_zh = "Base URL 的 cn-huabei-1 域名与境内部署一致，但这是命名线索而非条款依据，故置信度 medium。"
 
 [product.role]
 kind = "controller"
+anchor = "xfyun-privacy-2-processor-declaration"
+
+[[product.role.point]]
+anchor = "xfyun-privacy-1-9-processor-definition"
+text_zh = "平台隐私政策 §一.9 把「个人信息处理者」定义为「自主决定处理目的、处理方式的组织、个人」（即 PIPL 口径下的独立控制者），与 §二 的处理者自认合起来构成本行结论的主依据。"
+
+[[product.role.point]]
+anchor = "xfyun-privacy-2-3-1-automated-decision"
+text_zh = "控制者一侧的补充事实：§二.3(1) 讯飞基于自己收集的信息（如设备号、移动应用列表、系统日志）作自动化决策（构建画像）并推送个性化内容与营销，同段还写「我们可能会与讯飞开放平台的关联公司或委托处理的合作方共享设备信息」。对象是平台侧设备信息与系统日志（访问者与开发者场景），不是订阅档请求内容。"
+
+[[product.role.point]]
+anchor = "xfyun-privacy-5-2-anonymized-commercial-use"
+text_zh = "§五.2 授权讯飞「对整个用户数据库进行技术分析」，只对分析整理后达到匿名化的用户数据「进行商业上的利用」——自为目的的处理事实，用途比 MaaS 须知 §三 的「本服务的优化」更宽；「商业上的利用」不等于模型训练，不作为 training 的直接依据。"
+
+[[product.role.point]]
+anchor = "xfyun-maas-2-2-independent-infra-provider"
+text_zh = "《用户使用须知》§二.2（§二.1 同构）：「我们作为独立的算力基础设施服务提供者，只允许您将利用我们接入大模型所产生的全部数据交互内容用于您自身的产品或服务中，您不得向任何第三方转售与本服务相同或类似的服务」。「独立的」指独立于第三方模型原厂，本句是责任划分与使用限制（含禁止转售），供多跳判断使用；它不能替代 §二 的处理者声明作为主证据。"
+
+[[product.role.point]]
+anchor = "xfyun-maas-3-data-processing-optimization"
+text_zh = "内容层仍受 §三 优化授权约束（控制者一侧）。适用范围：本行 kind 只针对客户内容层（订阅档请求的输入输出）；上游第三方模型原厂（GLM/Kimi/MiniMax/DeepSeek/Qwen）的角色与政策未披露，多跳链路末端未核。"
+
+[[product.role.point]]
 anchor = "xfyun-maas-2-3-infra-provider-disclaimer"
-
-[[product.role.point]]
-text_zh = "订阅档下讯飞自认「并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者」，只对「在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服务」"
-
-[[product.role.point]]
-text_zh = "内容层仍受 §三 优化授权约束（控制者一侧）。上游第三方模型原厂的角色与政策未披露，多跳链路末端未核。"
+text_zh = "次要证据（语境受限）：《用户使用须知》§二.3「免责声明」自认「我们并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者」，只对「在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服务」。这是生成式人工智能/深度合成监管口径下的身份否认与责任划分，不是 PIPL 意义上的数据角色约定，推不出 controller，故降为次要证据。"
 
 [[anchor]]
 id = "xfyun-privacy-6-1-storage-in-cn"
@@ -118,3 +187,157 @@ prefix = """
 **3.免责声明。根据现行法律法规，在大模型托管服务项下，"""
 exact = "我们并非深度合成服务提供者、生成式人工智能服务提供者，亦非深度合成技术支持者"
 suffix = "。您知悉并理解，我们作为算力基础设施服务提供方，仅对在讯飞星辰MaaS平台上托管的第三方模型、代码、技术等提供能力调用服"
+
+[[anchor]]
+id = "xfyun-privacy-1-9-processor-definition"
+source_id = "d91128c5d97d6f08"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "个人信息处理者是指在个人信息处理活动中自主决定处理目的、处理方式的组织、个人。"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-2-processor-declaration"
+source_id = "d91128c5d97d6f08"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "科大讯飞作为个人信息的处理者，会遵循合法、正当、必要、诚信的原则"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-2-1-a-system-log"
+source_id = "d91128c5d97d6f08"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "此类信息包含：您使用讯飞开放平台时的详细使用情况，包括您的产品服务使用记录、搜索查询内容、访问的页面地址、登录IP"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-2-2-b-call-log"
+source_id = "d91128c5d97d6f08"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "在您使用调用了讯飞开放平台提供的人工智能API/SDK的应用或其他产品与/服务时，我们会收集您的设备调用我们API/SDK的调用记录日志，以用于调用数量的统计分析"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-2-3-1-automated-decision"
+source_id = "d91128c5d97d6f08"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "我们可能会基于其中一项或多项信息（如设备号、移动应用列表、系统日志）的结合进行自动化决策（构建画像）"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-3-3-anonymized-training"
+source_id = "d91128c5d97d6f08"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "根据适用的法律法规，我们可能会对您的个人信息进行技术处理，使得根据该信息无法精确识别到用户个人，并对技术处理后的信息进行匿名化或去标识化的学术研究或统计分析（包括使用匿名化或去标识化后的语音信息进行模型算法的训练）"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-5-2-anonymized-commercial-use"
+source_id = "d91128c5d97d6f08"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "在不透露单个用户隐私资料的前提下，科大讯飞有权对整个用户数据库进行技术分析，只有对进行分析、整理后达到匿名化后的用户数据方才进行商业上的利用"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-5-3-retention-purpose-bound"
+source_id = "d91128c5d97d6f08"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "我们只会在达成本政策所述目的所需的期限内保留您的个人信息，除非需要延长保留期或受到法律的允许。"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-6-1-location-and-exceptions"
+source_id = "d91128c5d97d6f08"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = """
+科大讯飞遵守法律法规的规定，收集的有关您的信息和资料将保存在中华人民共和国境内大陆地区科大讯飞的服务器上。以下情形除外：
+• 法律法规有明确规定；
+• 获得您的明确授权；
+• 您通过互联网进行跨境交易等个人主动行为。"""
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-6-2-network-log-six-months"
+source_id = "d91128c5d97d6f08"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-6-2-delete-after-period"
+source_id = "d91128c5d97d6f08"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "在超过上述期限，或您主动要求删除您的个人信息或注销您的账号后，我们将根据适用法律法规的要求尽快删除您的个人信息"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-privacy-9-cross-border-solo-consent"
+source_id = "d91128c5d97d6f08"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "如因业务等需要，确需向境外提供您的个人信息的，我们会向您告知境外接收方的名称或者姓名、联系方式、处理目的、处理方式、个人信息的种类以及您向境外接收方行使本法规定权利的方式和程序等事项，并在获得您的单独同意和法律法规规定的跨境提供应具备的条件后，才会将您的个人信息转移到您使用产品与/或服务所在国家/地区的境外管辖区"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-maas-2-2-independent-infra-provider"
+source_id = "c7374e024200215c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "我们作为独立的算力基础设施服务提供者，只允许您将利用我们接入大模型所产生的全部数据交互内容用于您自身的产品或服务中，您不得向任何第三方转售与本服务相同或类似的服务"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-maas-4-privacy-policy-pointer"
+source_id = "c7374e024200215c"
+topics = ["retention", "processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "隐私保护：我们将严格按照《讯飞开放平台隐私政策》及相关隐私协议（详见讯飞开放平台文档中心）处理和保护您的个人信息及数据"
+suffix = ""
+
+[[anchor]]
+id = "xfyun-iface-4-3-optimization-license"
+source_id = "4d49bfc41954d452"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "您知悉并授权，为了提升您使用本服务的用户体验，在经安全加密技术处理、去标识化或匿名化处理的前提下，我们及关联公司可能会将本服务所收集的输入内容及对应输出内容，用于本协议下产品及服务的优化"
+suffix = ""

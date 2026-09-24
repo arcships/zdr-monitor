@@ -42,6 +42,27 @@ anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
 text_zh = "默认不训练，训练是独立的组织级 opt-in 且默认关闭（ZDR 页 Training 条 + privacy-and-security 页开关默认值）。注意 opt-in 的对象是「models released by Together AI and partners」"
+anchor = "togetherai-zdr-doc-training-optin"
+
+[[product.training.point]]
+text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
+text_zh = "并列保留的反向事实：默认档（未开 ZDR）会存储 prompt/output 且可能用于产品改进，退出方式是组织级 Store prompts and model responses 开关。按本仓口径「改进服务」算训练，但在 Together 这里「模型训练」与「产品改进」是明写的两个独立设置——本维度 mark=yes 的依据只是 Training 条那句把模型训练明确挡在同意之外的表述。"
+anchor = "togetherai-zdr-doc-default-storage"
+
+[[product.training.point]]
+text = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+text_zh = "组织级存储开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR（同时连带关闭 passthrough 模型）。"
+anchor = "togetherai-privsec-store-toggle-default-on"
+
+[[product.training.point]]
+text = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services."
+text_zh = "contract 层（全局优先级最高）ToS §1.4 允许为改进服务监控使用情况，与「不训练模型」并列保留。"
+anchor = "togetherai-tos-1-4-monitor-use"
+
+[[product.training.point]]
+text = "To provide, maintain, and improve our Services, including to monitor the usage of our Services."
+text_zh = "consumer_privacy 层《Privacy Policy》§2.2 用途清单首项同样是「改进服务」（§2.1 把 Content you submit, including texts, images, or prompts 列为 Personal Data）。层级低于 contract，属并列事实而非主证据。"
+anchor = "togetherai-privacy-2-2-improve-services"
 
 [[product.training.point]]
 text_zh = "passthrough 模型走上游 provider 政策，见 zdr 与 retention 的 passthrough 锚点。"
@@ -53,6 +74,20 @@ anchor = "togetherai-zdr-doc-org-level-zdr"
 
 [[product.zdr.point]]
 text_zh = "同顶层 zdr。自助开关、默认关闭、覆盖请求内容不覆盖元数据与上传文件"
+
+[[product.zdr.point]]
+text = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+text_zh = "开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR——zdr=opt_in 的「默认非零保留」这一侧。"
+anchor = "togetherai-privsec-store-toggle-default-on"
+
+[[product.zdr.point]]
+text = "The **account** setting applies only to traffic you send under your personal account when it isn’t attached to an organization. The **organization** setting governs all traffic sent under that organization’s projects and API keys, regardless of which member makes the request."
+text_zh = "适用范围：组织级设置管辖该组织项目与 API key 下的全部流量；账号级设置只管未挂组织的个人账号流量。"
+anchor = "togetherai-privsec-account-vs-org-scope"
+
+[[product.zdr.point]]
+text_zh = "前置条件：Limited 档组织必须先添加支付方式才能修改这些隐私设置。"
+anchor = "togetherai-privsec-limited-tier"
 
 [[product.zdr.point]]
 text_zh = "开启后 passthrough 模型自动关闭"
@@ -77,15 +112,40 @@ text_zh = "batch 上传的输入文件保留到用户主动删除"
 [[product.retention.point]]
 text_zh = "请求元数据保留期未披露。"
 
+[[product.retention.point]]
+text = "Usage Data may include information such as system logs, performance metrics, model-usage statistics, metadata, and other operational information but excludes Your Content or any personal information."
+text_zh = "另一类对象＝运行/访问日志与运行元数据：contract 层 ToS §7.4 定义的 Usage Data（system logs、performance metrics、model-usage statistics、metadata 等运营信息），明确排除 Your Content 与个人信息。"
+anchor = "togetherai-tos-7-4-usage-data-excludes-content"
+
+[[product.retention.point]]
+text = "We may use the Usage Data for purposes including improving, maintaining, and securing the Services, developing new features or services, monitoring for abuse, and conducting analytics."
+text_zh = "该 Usage Data 的用途＝改进/维护/安全/开发新功能/滥用监测/分析。该句只给用途不给期限，故这类对象的保留期仍记未披露，不据此推期限。"
+anchor = "togetherai-tos-7-4-usage-data-purposes"
+
 [product.processing_region]
-codes = ["US"]
+codes = ["unknown"]
+anchor = "togetherai-privsec-serverless-no-region"
+searched = [
+  "https://docs.together.ai/docs/privacy-and-security",
+  "https://docs.together.ai/docs/zero-data-retention",
+  "https://www.together.ai/privacy",
+  "https://www.together.ai/terms-of-service",
+]
+
+[[product.processing_region.point]]
+text = "Serverless endpoints do not offer region selection; use a dedicated endpoint or contact us to discuss the right setup for your workload."
+text_zh = "本档不提供区域选择：官方只说不提供，既没有点名处理地，也没有给可选区域，故 codes 记未披露（不填 US）。EU 需改用 dedicated endpoint 或 VPC 部署。"
 anchor = "togetherai-privsec-serverless-no-region"
 
 [[product.processing_region.point]]
-text_zh = "同顶层 processing_region：serverless 不提供区域选择，EU 需改用 dedicated endpoint 或 VPC 部署"
+text = "DeepSeek models are hosted in Together’s secure North America data centers."
+text_zh = "唯一被点名的处理地是第三方作者模型（DeepSeek 等）所在的北美数据中心（对象是这些模型所在的 Together 自有基础设施，不是本档的默认处理地承诺）。"
+anchor = "togetherai-privsec-north-america-dc"
 
 [[product.processing_region.point]]
-text_zh = "唯一被点名的处理地是第三方作者模型（DeepSeek 等）所在的北美数据中心。"
+text = "Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located."
+text_zh = "《Privacy Policy》§2.5 另写明数据在公司的运营办公室及处理各方所在地处理，不限定美国。故官方从未承诺 serverless 默认在美国处理，本维度不据此填 US。"
+anchor = "togetherai-privacy-2-5-processing-locations"
 
 [product.role]
 mark = "unknown"
@@ -110,10 +170,31 @@ plan_level = "enterprise"
 [product.training]
 mark = "yes"
 mode = "default"
+anchor = "togetherai-privacy-2-2-no-training-without-optin"
+
+[[product.training.point]]
+text_zh = "本档没有专属的数据使用条款，结论建立在组织级隐私设置加《Privacy Policy》之上：§1 把 programmatic APIs 与 web interfaces 定义进 Service 范围，§2.2 承诺收集到的数据（含 Personal Data）不用于训练 Together 的模型，除非你明确 opt-in。"
+anchor = "togetherai-privacy-1-service-scope"
+
+[[product.training.point]]
+text = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+text_zh = "docs 的这句写在 ZDR 页的 Default behavior 节，语境是组织级隐私设置，未把 dedicated endpoints 排除在外。"
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text_zh = "docs 的「Together does not train on your data without your explicit consent, whether or not ZDR is enabled.」写在 ZDR 页的 Default behavior 节，语境是组织级隐私设置，未把 dedicated endpoints 排除在外"
+text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
+text_zh = "并列保留的反向事实：未开 ZDR 时 prompt/output 默认被存储且可用于产品改进，退出方式是组织级存储开关。"
+anchor = "togetherai-zdr-doc-default-storage"
+
+[[product.training.point]]
+text = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services."
+text_zh = "contract 层（全局优先级最高）ToS §1.4 允许为改进服务监控使用情况，与「不训练模型」并列保留。"
+anchor = "togetherai-tos-1-4-monitor-use"
+
+[[product.training.point]]
+text = "To provide, maintain, and improve our Services, including to monitor the usage of our Services."
+text_zh = "consumer_privacy 层《Privacy Policy》§2.2 用途清单首项同样是「改进服务」，层级低于 contract，属并列事实而非主证据。"
+anchor = "togetherai-privacy-2-2-improve-services"
 
 [[product.training.point]]
 text_zh = "但 dedicated 档的公开文档没有独立的数据使用条款，故 confidence 降为 medium。"
@@ -143,10 +224,15 @@ text_zh = "公开文档未就 dedicated endpoints 单独说明输入输出的保
 
 [product.processing_region]
 codes = ["EU"]
-anchor = "togetherai-privsec-serverless-no-region"
+anchor = "togetherai-zdr-doc-eu-dedicated"
 
 [[product.processing_region.point]]
-text_zh = "本档是 processing_region 唯一有正向披露的档位：EU regions 通过 private networking / VPC-based deployments 与 dedicated endpoints 提供。但具体可选区域清单、以及 EU 部署下子处理方是否也在 EU，文档未列。"
+text = "For data-residency, regulatory, or compliance requirements, Together supports private networking and VPC-based deployments, including in EU regions, on dedicated endpoints."
+text_zh = "本档是 processing_region 唯一有正向披露的档位：EU regions 通过 private networking / VPC-based deployments 与 dedicated endpoints 提供。privacy-and-security 页同段（Enterprise data residency and private networking）也有同向披露，但同一段明写 serverless 端点不提供区域选择。"
+anchor = "togetherai-zdr-doc-eu-dedicated"
+
+[[product.processing_region.point]]
+text_zh = "保留意见：具体可选区域清单未列；EU 部署下子处理方是否也在 EU，文档未列。故本档的 EU 是「可部署区域」的披露，不等于默认处理地承诺。"
 
 [product.role]
 mark = "unknown"
@@ -169,13 +255,32 @@ plan_level = "any"
 [product.training]
 mark = "yes"
 mode = "default"
-anchor = "togetherai-zdr-doc-uploaded-files"
+anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text_zh = "公开文档没有说 Together 会用客户上传的微调数据去训练自家的基础模型"
+text = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+text_zh = "训练是独立的组织级 opt-in 且默认关闭；这句是无条件表述，未把上传的微调数据排除在「your data」之外。"
+anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text_zh = "训练 opt-in 开关的对象是「your organization’s data」用于「models released by Together AI and partners」，语义上覆盖客户上传的数据。即：默认不用于训练，opt-in 后可用于训练 Together 及合作方发布的模型。此处 confidence 记 medium，因为「上传的微调数据在 opt-in 后的具体用途边界」没有专门条款。"
+text = "**Allow organization’s data for training**: off by default. Opt in to using your organization’s data for training models released by Together AI and partners."
+text_zh = "训练 opt-in 开关的对象是「your organization’s data」用于「models released by Together AI and partners」，语义上覆盖客户上传的数据。即：默认不用于训练，opt-in 后可用于训练 Together 及合作方发布的模型。公开文档没有说 Together 会用客户上传的微调数据去训练自家的基础模型；此处 confidence 记 medium，因为「上传的微调数据在 opt-in 后的具体用途边界」没有专门条款。"
+anchor = "togetherai-privsec-org-toggle-training"
+
+[[product.training.point]]
+text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
+text_zh = "并列保留的反向事实：未开 ZDR 时 prompt/output 默认被存储且可用于产品改进，退出方式是组织级存储开关。"
+anchor = "togetherai-zdr-doc-default-storage"
+
+[[product.training.point]]
+text = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services."
+text_zh = "contract 层（全局优先级最高）ToS §1.4 允许为改进服务监控使用情况，与「不训练模型」并列保留。"
+anchor = "togetherai-tos-1-4-monitor-use"
+
+[[product.training.point]]
+text = "To provide, maintain, and improve our Services, including to monitor the usage of our Services."
+text_zh = "consumer_privacy 层《Privacy Policy》§2.2 用途清单首项同样是「改进服务」，层级低于 contract，属并列事实而非主证据。"
+anchor = "togetherai-privacy-2-2-improve-services"
 
 [product.zdr]
 mark = "no"
@@ -484,6 +589,31 @@ suffix = """
 You may see a privac"""
 
 [[anchor]]
+id = "togetherai-privsec-store-toggle-default-on"
+source_id = "a8bf24d0415e4675"
+topics = ["zdr", "retention", "training"]
+
+[anchor.selector]
+prefix = "Only organization admins can change them:\n\n*   "
+exact = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+suffix = """
+
+*   **Allow organization’s data for training**: off by default."""
+
+[[anchor]]
+id = "togetherai-privsec-account-vs-org-scope"
+source_id = "a8bf24d0415e4675"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "These control different scopes:\n\n*   "
+exact = """The **account** setting applies only to traffic you send under your personal account when it isn’t attached to an organization.
+*   The **organization** setting governs all traffic sent under that organization’s projects and API keys, regardless of which member makes the request."""
+suffix = """
+
+When a request uses an organization’s API key, the **organization setting is what applies**."""
+
+[[anchor]]
 id = "togetherai-privacy-1-no-training-without-optin"
 source_id = "169be6f72ddcd775"
 topics = ["training"]
@@ -507,6 +637,27 @@ lect to send to the Company
 """
 exact = "Data that we collect, including your Personal Data, will not be used to train the Company’s models without your explicit opt-in and consent."
 suffix = " The Company may use Personal Data for the following purpose"
+
+[[anchor]]
+id = "togetherai-privacy-1-service-scope"
+source_id = "169be6f72ddcd775"
+topics = ["training", "role"]
+
+[anchor.selector]
+prefix = "with respect to personal data that is collected when you access www.together.ai (the “Website”), "
+exact = "the Company’s developed and available programmatic APIs and web interfaces that host, use, fine-tune, and train large AI models (the “Service(s)”)"
+suffix = ", and training, migration, or other professional services provided to you by the Company"
+
+[[anchor]]
+id = "togetherai-privacy-2-2-improve-services"
+source_id = "169be6f72ddcd775"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "The Company may use Personal Data for the following purposes:"
+exact = "To provide, maintain, and improve our Services, including to monitor the usage of our Services."
+suffix = """
+*   To manage your registration as a user of the Services"""
 
 [[anchor]]
 id = "togetherai-privacy-2-4-retention-necessary"
@@ -665,3 +816,13 @@ topics = ["retention"]
 prefix = "g to your access to and use of the Services (“Usage Data”). "
 exact = "Usage Data may include information such as system logs, performance metrics, model-usage statistics, metadata, and other operational information but excludes Your Content or any personal information."
 suffix = " We may use the Usage Data for purposes including improving,"
+
+[[anchor]]
+id = "togetherai-tos-7-4-usage-data-purposes"
+source_id = "0d328e2e1fe96347"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "but excludes Your Content or any personal information. "
+exact = "We may use the Usage Data for purposes including improving, maintaining, and securing the Services, developing new features or services, monitoring for abuse, and conducting analytics."
+suffix = " The Company will not use Usage Data in a manner that identifies you."

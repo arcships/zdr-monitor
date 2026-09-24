@@ -8,6 +8,7 @@ doc = "https://opencsg.com/assets/zhHant-C0PgeVPf.js"
 
 [[source]]
 url = "https://opencsg.com/assets/zhHant-C0PgeVPf.js"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "这是 opencsg.com（传神社区 SaaS）自己的前端 i18n 资源包，不是政策页；但它是本轮唯一可机读的官方政策正文载体，站上 /policy 的三份协议全部逐字存在这个文件里。资源包内含三份同一法律文档的完整中文原文：《开放传神用户协议》（policy.protocal.line1-144，contract 层）、《传神社区隐私政策》（policy.policy.line1-141，生效日期 2023-10-20，consumer_privacy 层）、《充值服务协议》（policy.recharge.line1-39，仅计费）。此外同一文件还含这两份文档的繁体中文与英文全文（英文签约主体写作 Beijing OpenTrans Technology Co., Ltd.，与中文「北京开放传神科技有限公司」对应）。为什么必须用这个 URL：官方政策页 https://opencsg.com/policy 是 Vue SPA 路由（服务端 HTML 里只有 <privacy-page> 占位），r.jina.ai 渲染后正文为空（183B，见本文件 sources 里 /policy 的 render_error 条目），四步验证第 1-3 步都过不去；政策文字在该 SPA 里唯一的存在形式就是本资源包里的 policy.* 字符串字面量，而 r.jina.ai 对这个 .js URL 返回原样文本（1,226,963B，classify=fetched）。已知代价与风险，如实记录：(1) 该文件是构建产物，文件名带内容哈希 zhHant-C0PgeVPf，下一次前端发版 URL 本身会变（旧 URL 失效），需要 runner 侧配合重新发现；(2) 文件含全站 UI 文案，任何一次前端发版都会造成整份文档 version_id 变化，因此监控价值实际落在锚点上，不在文档哈希上；(3) 锚点的 prefix/suffix 有时取自 JS 结构（例如 \",line59:\"），因为条款是资源包里的字符串字面量，那是该载体的真实上下文，不是编造。全站关键词实测：整份资源包中「零保留/不保留/不存储/ZDR/zero data retention」0 命中；「个人信息处理者」「个人信息处理受托方」「控制者」0 命中；「委托处理」2 命中且都出现在知识产权举报流程里，与数据处理角色无关。"
@@ -33,15 +34,16 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "opencsg-privacy-anonymized-ml-training"
-mode = "opt_out"
 
 [[product.training.point]]
-text = "See top-level training: collected information, once de-identified or anonymized, may be used for machine learning or model algorithm training, and such use requires no separate notification to or consent from you"
-text_zh = "见顶层 training：去标识化/匿名化后的收集信息可用于机器学习或模型算法训练，且无需另行通知与同意"
+text = "Privacy Policy §1(5)3: collected information, once de-identified or anonymized, may be used for machine learning or model algorithm training, and such use requires no separate notification to you or consent from you — the clause itself rules your choice out, and the same resource bundle describes no in-product training opt-out, so no mode is recorded (mark=no with no mode reads as \"permitted by the terms\")."
+text_zh = "隐私政策 §一（五）3：去标识化/匿名化后的收集信息可用于机器学习或模型算法训练，且此类使用无需另行通知并征得您的同意——条款本身把用户选择排除在外，整份资源包里也没有任何产品内训练退出开关，故不记 mode（mark=no 无 mode 读作「条款允许训练」）。"
+anchor = "opencsg-privacy-anonymized-ml-training"
 
 [[product.training.point]]
-text = "The parallel clauses on this tier are the User Agreement's right to review your input data and synthesized results, and the perpetual, irrevocable licence over \"contributed content\" (whose object is uploaded models and datasets, not API request bodies)."
-text_zh = "同档并列条款为用户协议对输入与合成结果的审核权，以及对「贡献内容」的永久不可撤销许可（对象是上传的模型/数据集，不是 API 正文）。"
+text = "The parallel clauses on this tier are the User Agreement's right to review your input data and synthesized results by technical or manual means — manual review means input content may be seen by people — and the perpetual, irrevocable licence over \"contributed content\" (whose object is uploaded models and datasets, not API request bodies)."
+text_zh = "同档并列条款为用户协议对输入与合成结果的技术或人工审核权（人工审核意味着输入内容可能被人接触），以及对「贡献内容」的永久不可撤销许可（对象是上传的模型/数据集，不是 API 正文）。"
+anchor = "opencsg-user-agreement-input-moderation"
 
 [product.zdr]
 mark = "unknown"
@@ -62,16 +64,38 @@ text_zh = "同顶层 zdr：整份政策载体与全站资源包无零保留/不�
 
 [product.retention]
 object = "mixed"
-basis = "until_termination"
+basis = "as_needed"
 anchor = "opencsg-privacy-retention-purpose-bound"
 
 [[product.retention.point]]
-text = "See top-level retention points 1-5: retained for the period needed to achieve the purposes stated in the policy (no quantified cap) + after account deletion, retained for the time required by regulators (a floor) + deleted or anonymized if the platform ceases operation + records of unlawful content preserved as required by law"
-text_zh = "见顶层 retention 第 1-5 点：目的所需期限（未量化上限）+ 注销后按监管要求保存（下限）+ 停止运营时删除/匿名化 + 违法记录依法保存"
+text = "Object = user information, default context: kept only for the period needed to achieve the purposes stated in this policy (an unquantified ceiling, purpose-bound), and beyond that period deleted or anonymized."
+text_zh = "对象=用户信息，默认语境：只在达成本政策所述目的所需的期限内保留（未量化的上限，目的绑定），超出后删除或匿名化。"
+anchor = "opencsg-privacy-retention-purpose-bound"
 
 [[product.retention.point]]
-text = "Information \"stored in this product\" is not guaranteed to be recoverable once the feature is cancelled."
-text_zh = "平台「储存的信息」在功能取消后不保证可找回。"
+text = "Object = information you provided or generated while using the service, context = after you delete your user information or close the account: the platform stops serving you, but that information still has to be kept for the time required by regulators — a floor, and a direct denial of \"deleted on termination\"."
+text_zh = "对象=您在使用服务期间提供或产生的信息，语境=主动删除/注销之后：平台停止为您提供服务，但这些信息仍需按监管要求的时间保存——这是下限，直接否定「终止即删除」。"
+anchor = "opencsg-privacy-retention-after-account-deletion"
+
+[[product.retention.point]]
+text = "Object = user information, context = the platform ceases operation: reasonable measures to protect it, including stopping further collection and deleting or anonymizing the personal information held."
+text_zh = "对象=用户信息，语境=平台停止运营：采取合理措施保护，包括停止继续收集、对所持有的个人信息进行删除或匿名化处理。"
+anchor = "opencsg-privacy-ceases-operation-deletion"
+
+[[product.retention.point]]
+text = "Object = information you have \"stored in this product\", context = the feature is cancelled: your rights in the product end immediately and that information may not be recoverable — this is not a retention period but the absence of any guarantee after termination."
+text_zh = "对象=您在本产品中「储存的信息」，语境=功能取消：权益即刻终止，信息可能无法找回——这不是保留期限，是终止后不保证。"
+anchor = "opencsg-user-agreement-termination-data-loss"
+
+[[product.retention.point]]
+text = "Object = records of unlawful content, context = reporting as required by law: such records are preserved and reported to the cyberspace authorities and competent departments."
+text_zh = "对象=违法内容相关记录，语境=依法报告：我们会依法保存有关记录，并向网信部门和有关主管部门报告。"
+anchor = "opencsg-user-agreement-illegal-content-records-preserved"
+
+[[product.retention.point]]
+text = "Deletion is on request, not automatic: in the situations listed in the policy you may ask us to delete your user information. A deletion request is a user-initiated right — it is not expiry on a schedule, and it is not a training opt-out switch either."
+text_zh = "删除是「可申请」而非自动到期：在政策列举的情形中您可以提出删除用户信息的请求。删除请求权是用户主动行使的权利——不等于到期自动删除，也不构成训练退出开关。"
+anchor = "opencsg-privacy-deletion-request-rights"
 
 [product.processing_region]
 codes = ["CN"]
@@ -86,12 +110,28 @@ kind = "controller"
 anchor = "opencsg-privacy-scope-platform-products"
 
 [[product.role.point]]
-text = "See top-level role (a)(d)(e): the platform identifies itself as the party collecting and using the information, claims rights in generated content, and imposes entrustment obligations on downstream partners"
-text_zh = "见顶层 role (a)(d)(e)：平台自认收集使用主体、主张对生成内容享有权益、对下游合作伙伴作委托约束"
+text = "The platform speaks of itself as the party that collects, uses, shares, stores and protects your personal information, i.e. it stands on the controller side. This quote is only the policy's opening statement of purpose and scope, though: the public text never uses controller / processor / entrusted-party terminology, so the role is read off the structure of the policy rather than designated in it."
+text_zh = "平台以「我们/本平台」为收集、使用、共享、存储和保护您个人信息的主体，即站在控制者一侧。但该句只是隐私政策开篇的目的与范围陈述：公开原文通篇没有出现控制者/受托方这类角色指定用语，角色是从政策结构推出的，不是原文指定的。"
+anchor = "opencsg-privacy-scope-platform-products"
 
 [[product.role.point]]
-text = "No entrusted-processor commitment, and no DPA."
-text_zh = "无受托处理者承诺，无 DPA。"
+text = "Privacy Policy §2(1)3: the platform may entrust trusted partners to provide services and may share certain user information with them, and those partners have no right to use the shared information for any other purpose — the entrustment runs platform → partner, not customer → platform."
+text_zh = "隐私政策 §二（一）3：平台可能委托受信赖的合作伙伴来提供服务并与伙伴共享某些用户信息，且合作伙伴无权将共享信息用于任何其他用途——委托方向是「平台委托、伙伴受托」，不是「平台是客户的受托方」。"
+anchor = "opencsg-privacy-partner-sharing-scope"
+
+[[product.role.point]]
+text = "User Agreement §5.2: for content generated by deep-processing with the product's models, \"ownership and related rights belong to us and the lawful rights holders\", and the platform calls itself the technology provider and lawful rights holder — a rights-holder stance, which is incompatible with acting merely as a processor."
+text_zh = "用户协议 §五2：对用户利用本产品模型深度加工生成的内容，「其所有权和相关权益均由我们和法定权利人所有」，平台自认技术提供者和法定权利人——这是权利人立场，与「仅为受托处理者」不相容。"
+anchor = "opencsg-user-agreement-generated-content-ownership"
+
+[[product.role.point]]
+text = "User Agreement §1.1 draws the agreement's own boundary: it covers only data/model upload and download, app-space experience and competitions in this product, and does not include services provided to you by third parties."
+text_zh = "用户协议 §一1 自设协议边界：仅针对本产品之数据、模型上传与下载、应用空间体验以及参与竞赛等活动，不包括第三方向您提供的服务。"
+anchor = "opencsg-user-agreement-scope-excludes-third-party"
+
+[[product.role.point]]
+text = "No commitment to act as the customer's entrusted processor, and no DPA to sign."
+text_zh = "无受托处理者承诺，无 DPA 可签。"
 
 [[product]]
 id = "api-gateway"
@@ -101,16 +141,22 @@ plan_level = "any"
 
 [product.training]
 mark = "no"
+anchor = "opencsg-privacy-anonymized-ml-training"
+
+[[product.training.point]]
+text = "The gateway pages do not themselves disclose a training use. What they say is that gateway request records may include prompts, tool calls and streamed output and may be used for \"troubleshooting, auditing or follow-up analysis\", and that \"before call records are used for fine-tuning or retraining, complete authorization confirmation under the enterprise's data management process\" — the object of that authorization step is the enterprise's own data-management process, not a statement of the vendor's training use; the vendor makes no \"not used for training by default\" commitment and gives the customer no switch."
+text_zh = "网关页本身没有披露训练用途：它只说请求记录可含 Prompt、工具调用及流式输出，用于排障、审计或后续分析，以及「将调用记录用于微调或再训练前，按企业的数据管理流程完成授权确认」——这一步的宾语是企业自己的数据管理流程，不是厂商训练用途的披露；官方也没有承诺「默认不用于训练」，没有给客户开关。"
 anchor = "opencsg-aigateway-request-logs-and-retention-by-config"
-mode = "opt_out"
 
 [[product.training.point]]
-text = "Two statements govern the gateway tier: gateway request records may include prompts, tool calls and streamed output, and may be used for \"auditing, performance analysis and authorized data analysis\""
-text_zh = "网关档的两条口径：请求记录可含 Prompt/工具调用/流式输出，可用于「审计、效果分析以及经授权的数据分析」"
+text = "The determination therefore rests on the Privacy Policy that also covers this platform service (community tier §1(5)3): information collected, once de-identified or anonymized, may be used for machine learning or model algorithm training without further notice or consent, so value is permitted and this tier points the same way as the community tier. Confidence only reaches medium: that wording sits in a Kubernetes/Helm self-deployment context and the SaaS-side values are not disclosed item by item, and the upstream is a third-party commercial API whose own training use of request bodies is outside the coverage of OpenCSG's documents (a multi-hop chain, where a no on any hop makes the whole chain no)."
+text_zh = "故本档判定依据的是同样覆盖本平台服务的《传神社区隐私政策》§一（五）3：去标识化/匿名化后的收集信息可用于机器学习或模型算法训练，无需另行通知与同意，value 取 permitted，方向与社区档一致。置信度只能到 medium：该口径写在面向 Kubernetes/Helm 自部署的语境里、SaaS 侧取值官方未逐项披露，且上游是第三方商业 API，上游对请求正文的训练用途不在 OpenCSG 文件覆盖范围内（多跳链路，任一跳为否即全链为否）。"
+anchor = "opencsg-privacy-anonymized-ml-training"
 
 [[product.training.point]]
-text = "\"Before call records are used for fine-tuning or retraining, complete authorization confirmation under the enterprise's data management process\" — retraining is written as an action that requires authorization confirmation, but the vendor makes no \"not used for training by default\" commitment and gives the customer no switch. Combined with the de-identified training authorization in community-tier Privacy Policy §1(5)3 (the same policy also covers this platform service), the training determination for this tier points the same way as the community tier, so value is permitted, but confidence can only reach medium: the upstream is a third-party commercial API, and the upstream's training use of request bodies falls outside the coverage of OpenCSG's own documents (a multi-hop chain, where a no on any hop makes the whole chain no, and the upstream policy for this hop is not given in this provider's file)."
-text_zh = "「将调用记录用于微调或再训练前，按企业的数据管理流程完成授权确认」——即再训练被写成需要授权确认的动作，但官方没有承诺「默认不用于训练」，也没有给客户开关。叠加社区档隐私政策 §一（五）3 的去标识化训练授权（同一份政策也覆盖本平台服务），本档训练判定与社区档同向，故 value 取 permitted，但置信度只能到 medium：上游是第三方商业 API，上游对请求正文的训练用途不在 OpenCSG 文件覆盖范围内（多跳链路，任一跳为否即全链为否，而本跳的上游政策本台账不在本家文件里给出）。"
+text = "A processing step disclosed on the same page: AI Gateway can run content checks on model inputs and outputs — enterprise editions can configure a sensitive-word check chain, an optional LLM content-safety guard and plugin-based security scanning services — so request and response content may be inspected and may pass through a moderation model service; where the deployment supports it, explicitly configured trusted requests skip detection. The configuration items (aigateway.moderation.*) are written for self-deployment and the SaaS-side values are not disclosed, so this is the platform's stated capability rather than an SaaS parameter. It does not change the mark."
+text_zh = "同页披露的处理环节：AI Gateway 可对模型输入与输出执行内容检测——企业版可配置敏感词检测链、可选的 LLM 内容安全守卫与插件接入的安全扫描服务——即请求与响应正文可能被检测、并可能经过审核模型服务；部署支持时，明确配置的可信请求可跳过检测。配置项（aigateway.moderation.*）面向自部署、SaaS 侧取值未披露，故这只是平台口径而非 SaaS 参数。不改变 mark。"
+anchor = "opencsg-aigateway-input-output-moderation"
 
 [product.zdr]
 mark = "unknown"
@@ -139,10 +185,17 @@ anchor = "opencsg-aigateway-logs-include-prompts-retention-by-config"
 [[product.retention.point]]
 text = "The clearest official statement for this tier is that there is no uniform period: for gateway request records (input prompts, tool calls, output content), \"how logs are obtained, which fields they contain and the retention scope are determined by the deployment configuration\""
 text_zh = "本档最明确的官方口径就是「没有统一期限」：网关请求记录（输入 Prompt、工具调用、输出内容）的「日志获取方式、字段与保留范围由部署配置决定」"
+anchor = "opencsg-aigateway-logs-include-prompts-retention-by-config"
 
 [[product.retention.point]]
-text = "On caching, the docs speak of \"viewing how the upstream reuses the cache of the input context\", and billing includes input cache hits (cached_price_per_million), but cache retention and purge rules are not disclosed. Note also: this wording sits in the configuration context of Kubernetes/Helm self-deployment, and the corresponding values on the SaaS side are not disclosed item by item — it cannot be taken as the SaaS retention parameter, nor read in reverse as \"the SaaS side retains nothing\"."
-text_zh = "缓存方面「查看上游对输入上下文的缓存复用情况」，且计费含输入缓存命中（cached_price_per_million），但缓存保留/清除规则未披露。另注意：该口径写在面向 Kubernetes/Helm 自部署的配置语境里，SaaS 侧对应取值官方未逐项披露——不能把它当成 SaaS 的保留期参数，也不能反推「SaaS 不保留」。"
+text = "Request records are also meant to be exported and handled by people: the troubleshooting page asks that real credentials be removed before submitting logs and that the call content be handled under enterprise rules — the records are taken out of the platform and looked at, which is exactly why credentials must be stripped first."
+text_zh = "请求记录还会被导出并由人工处理：排障页要求「提交日志前移除真实凭据，并按企业规则处理调用正文」——记录本就是要拿出来看的，所以先要求剥离真实凭据。"
+anchor = "opencsg-aigateway-log-submission-human-handling"
+
+[[product.retention.point]]
+text = "On caching, the docs speak of \"viewing how the upstream reuses the cache of the input context\", and billing includes input cache hits (cached_price_per_million), but cache retention and purge rules are not disclosed anywhere in these pages. Note also: this wording sits in the configuration context of Kubernetes/Helm self-deployment, and the corresponding values on the SaaS side are not disclosed item by item — it cannot be taken as the SaaS retention parameter, nor read in reverse as \"the SaaS side retains nothing\"."
+text_zh = "缓存方面「查看上游对输入上下文的缓存复用情况」，且计费含输入缓存命中（cached_price_per_million），但缓存条目的保留时长与清除规则全文未披露。另注意：该口径写在面向 Kubernetes/Helm 自部署的配置语境里，SaaS 侧对应取值官方未逐项披露——不能把它当成 SaaS 的保留期参数，也不能反推「SaaS 不保留」。"
+anchor = "opencsg-aigateway-prompt-cache-upstream"
 
 [product.processing_region]
 basis = "undisclosed"
@@ -158,15 +211,21 @@ text_zh = "平台自身对「收集的用户信息」有境内存储承诺（隐
 
 [product.role]
 kind = "controller"
-anchor = "opencsg-aigateway-request-content-goes-to-upstream"
+anchor = "opencsg-user-agreement-scope-excludes-third-party"
 
 [[product.role.point]]
-text = "Gateway tier role: the platform is a gateway and forwarder, User Agreement §1.1 places third-party services outside the scope of the agreement, the platform makes no commitment to act as the customer's entrusted processor, and it does not disclose the upstream entities"
-text_zh = "网关档角色：平台是网关/转发方，用户协议 §一1 把第三方服务排除在协议范围外，平台未承诺作为客户的受托处理者，也未披露各上游主体"
+text = "The role determination rests on the contract layer, not on the request-routing sentence: User Agreement §1.1 places third-party services outside the agreement's own scope (it covers only data/model upload and download, app-space experience and competitions in this product, and \"does not include services provided to you by third parties\"), and the platform makes no commitment to act as the customer's entrusted processor. The public text contains no controller/processor terminology, so this is a position read off the agreement's boundaries rather than a designated role."
+text_zh = "角色判定落在合同层，不在「请求正文发往上游」那句上：用户协议 §一1 把第三方服务排除在协议范围外（仅针对数据、模型上传下载、应用空间体验与竞赛等活动，「不包括第三方向您提供的服务」），平台未承诺作为客户的受托处理者。公开原文没有出现控制者/受托方用语，故这是从协议边界推出的立场，不是原文指定的角色。"
+anchor = "opencsg-user-agreement-scope-excludes-third-party"
 
 [[product.role.point]]
-text = "docs/model_access states that for commercial APIs the administrator configures the upstream endpoint and the provider credentials, i.e. the upstream relationship is configured on the customer side."
-text_zh = "docs/model_access 说明商业 API 由管理员配置上游 Endpoint 与供应商凭据，即上游关系由客户侧配置。"
+text = "User Agreement §6.3: disputes arising from third-party software or technology used by this product are to be settled by the third party, and \"we bear no relevant liability\" — the platform does not take on the upstream's responsibility."
+text_zh = "用户协议 §六3：本产品所使用的第三方软件或技术所引发的任何纠纷应由相关第三方负责解决，「我方不承担相关责任」——平台不与上游同责。"
+anchor = "opencsg-user-agreement-third-party-tech-disclaimer"
+
+[[product.role.point]]
+text = "Gateway tier: the platform is a gateway and forwarder and does not disclose the upstream entities. (Background only — docs/model_access is not registered as a source in this file and has no snapshot — is that for commercial APIs the administrator configures the upstream endpoint and the provider credentials, i.e. the upstream relationship is configured on the customer side.)"
+text_zh = "网关档：平台是网关/转发方，未披露各上游主体。（仅为背景——docs/model_access 在本文件里未登记为来源、没有快照——说明商业 API 由管理员配置上游 Endpoint 与供应商凭据，即上游关系由客户侧配置。）"
 
 [[anchor]]
 id = "opencsg-privacy-anonymized-ml-training"
@@ -417,3 +476,13 @@ topics = ["retention"]
 prefix = "Prompt 缓存率"
 exact = "查看上游对输入上下文的缓存复用情况"
 suffix = "流量与延迟趋势"
+
+[[anchor]]
+id = "opencsg-aigateway-log-submission-human-handling"
+source_id = "e77e6f1fe11672d3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如响应提供请求标识，一并保存。"
+exact = "提交日志前移除真实凭据，并按企业规则处理调用正文"
+suffix = ""

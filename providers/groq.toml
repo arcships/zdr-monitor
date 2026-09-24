@@ -44,7 +44,17 @@ anchor = "groq-sa-4-2-no-training"
 text_zh = "见顶层 training。GroqCloud 按量 API（含 inference / batch / fine-tuning / LoRA）适用 Services Agreement §4.2：默认不得用 Inputs/Outputs 训练或微调，除非客户明确授权或指示"
 
 [[product.training.point]]
-text_zh = "§8.2 进一步限定客户提供的训练数据仅用于向该客户提供服务。例外与地区变体（§17.15 沙特改写版不再提训练）见顶层 note。"
+text_zh = "§8.2 进一步限定客户提供的训练数据仅用于向该客户提供服务。"
+
+[[product.training.point]]
+text = "Regional carve-out (§17.15, Kingdom of Saudi Arabia): \"Groq’s rights to Inputs and Outputs in Section 4.2 (Inputs and Outputs) are amended as follows: “Groq does not access, use, store, or retain Inputs or Outputs unless necessary to provide the Cloud Services or comply with applicable law.”\" The amendment applies by billing address and rewrites the Inputs and Outputs paragraph as a whole, so for those Customers neither the no-training sentence nor the zero data retention setting sentence of §4.2 exists — training=yes and zdr=yes have no contractual basis for them. §8.2 (Customer's Training Data) is not touched by the amendment."
+text_zh = "地区例外（§17.15，沙特）：billing address 在沙特的客户适用改写版 §4.2——该条把 §4.2 的「Inputs and Outputs」整段替换为只讲 access/use/store/retain 的版本，原「不用于训练」句与 ZDR 开关句都不在新文本里，故对这批客户，本档 training=yes 与 zdr=yes 的合同层依据不成立。改写只针对 Inputs and Outputs 段，§8.2 的 Customer Training Data 限制不受影响（仍只可用于向该客户提供服务）。"
+anchor = "groq-sa-17-15-ksa-amended-4-2"
+
+[[product.training.point]]
+text = "Supporting contract-layer evidence (DPA §2.3): Groq will Process Personal Data only to provide, maintain and support the Cloud Services and fulfil its obligations to Customer, on Customer's documented instructions, or as required by Data Protection Laws, and will not \"sell\" or \"share\" Personal Data or otherwise Process it for any purpose other than the specific purposes described in the DPA or outside the direct business relationship with Customer. Under §17.11 the DPA outranks the Agreement itself. It is a purpose limitation, not an express training ban, so §4.2 remains the primary anchor for this dimension."
+text_zh = "合同层辅助证据（DPA §2.3）：处理只限三类目的——为提供/维护/支持 Cloud Services 并履行对客户的义务、按客户书面指示、或法律要求；并禁止 sell/share，禁止为 DPA 所述目的之外或直接业务关系之外的目的处理 Personal Data。按 §17.11 的效力顺序，DPA 高于协议本体。它是目的限制条款而非明文的训练禁令，故本维度的主锚点仍是 §4.2 不训练句。"
+anchor = "groq-dpa-2-3-purpose-limitation"
 
 [product.zdr]
 mark = "yes"
@@ -60,14 +70,54 @@ text_zh = "开启后 Batch / Fine-tuning 等依赖保留的功能被禁用"
 [[product.zdr.point]]
 text_zh = "合同 §4.2 用「Eligible Customers」表述，与文档「All customers」冲突，两条并列。"
 
+[[product.zdr.point]]
+text = "Regional carve-out: for Customers whose billing address is in the Kingdom of Saudi Arabia, §17.15 replaces the Inputs and Outputs paragraph of §4.2 with a version that no longer contains the zero data retention setting sentence, so the contractual route to ZDR does not exist for those Customers."
+text_zh = "地区例外：billing address 在沙特的客户，§17.15 把 §4.2 的 Inputs and Outputs 段整段改写为不含 ZDR 开关句的版本，故这批客户没有合同层的 ZDR 依据（文档层的 console 开关表述未按地区区分）。"
+anchor = "groq-sa-17-15-ksa-amended-4-2"
+
 [product.retention]
 days = 30
 object = "mixed"
 basis = "fixed_period"
-anchor = "groq-yourdata-default-no-retention-for-inference"
+anchor = "groq-sa-4-2-no-retain-except-necessary"
 
 [[product.retention.point]]
 text_zh = "见顶层 retention。本档对象：推理输入输出正文（默认不保留）／可靠性滥用日志（≤30 天，可 opt-out）／Batch 文件（30 天）／微调数据（至客户删除）／Prompt Cache（易失内存，2 小时未使用过期）／反馈中的对话片段（≤3 年）／终止后删除（30 天，DPA 路径最长 180 天）。"
+
+[[product.retention.point]]
+text = "Contract layer (primary anchor, §4.2): Groq does not access, use, store or retain Inputs or Outputs except as necessary to provide the Cloud Services, in accordance with the Customer's permission or instruction, to comply with applicable law, to ensure the reliable operation of the Cloud Services, or to confirm the Customer's compliance with the AUP. Mapping to what the developer-data page documents: \"ensure the reliable operation\" + \"confirm compliance with the AUP\" are the basis for the reliability and abuse-monitoring logs; \"as necessary to provide the Cloud Services\" is the basis for Batch and fine-tuning retention."
+text_zh = "合同层（主锚点，§4.2）：除四类情形外不 access/use/store/retain Inputs 与 Outputs——为提供 Cloud Services 所必需、依客户许可或指示、遵守适用法律、确保 Cloud Services 可靠运行、核实客户是否遵守 AUP。对应到开发者文档里的具体场景：「确保可靠运行」与「核实 AUP 合规」是可靠性/滥用监控日志的依据，「为提供服务所必需」是 Batch 与微调保留的依据。"
+anchor = "groq-sa-4-2-no-retain-except-necessary"
+
+[[product.retention.point]]
+text = "Product-behaviour layer, default: \"By default, Groq does not retain customer data for inference requests.\""
+text_zh = "产品行为层·默认：《Your Data in GroqCloud》明写默认不保留推理请求的客户数据（页面对象是 GroqCloud）。"
+anchor = "groq-yourdata-default-no-retention-for-inference"
+
+[[product.retention.point]]
+text = "Product-behaviour layer, exception period: system-reliability and abuse-monitoring logs \"are retained for up to 30 days, unless legally required to retain longer\" — an upper bound on that log class, not a promise that all content is deleted after 30 days."
+text_zh = "产品行为层·例外期限：可靠性/滥用监控日志「up to 30 days」，是这一类日志的上限，不是「30 天后全部内容删除」的承诺。"
+anchor = "groq-yourdata-abuse-logs-30-days"
+
+[[product.retention.point]]
+text = "Termination deletion (§11.5): on termination Groq deletes Customer Data, Customer Training Data and any Customer supplied AI Model Service within 30 days, unless otherwise described in the Agreement or the Order Form or required by law."
+text_zh = "终止后删除（§11.5）：协议终止后 30 天内删除 Customer Data、Customer Training Data 与客户自带的 AI Model Service（协议/Order Form 另有约定或法律要求保留的除外）。"
+anchor = "groq-sa-11-5-delete-within-30-days"
+
+[[product.retention.point]]
+text = "Deletion on request (DPA §10): the Customer may request deletion of Personal Data, to be done as soon as reasonably practicable and within a maximum of 180 days."
+text_zh = "客户请求删除（DPA §10）：客户可请求删除 Personal Data，最长 180 天内完成（含备份例外），比 §11.5 的 30 天更长。"
+anchor = "groq-dpa-10-deletion-max-180-days"
+
+[[product.retention.point]]
+text = "Two framings kept side by side: DPA ANNEX I describes a purpose-bound period (\"The data will be retained for the time period needed to accomplish the purposes of Processing, unless otherwise required by applicable law.\"), while the Agreement and the developer-data page give fixed caps (30 days for logs and termination deletion, 180 days for the DPA request path). Neither overrides the other here."
+text_zh = "两种口径并列保留：DPA ANNEX I 是目的绑定式期限（「为完成处理目的所需的时间」，法律另有要求除外），协议与开发者文档给的是固定上限（日志与终止后删除 30 天、DPA 请求路径最长 180 天）。按 docs/judgment.md，冲突的两条官方说法都写出，不选边。"
+anchor = "groq-dpa-annex1-retention-purpose-bound"
+
+[[product.retention.point]]
+text = "Supporting contract-layer evidence (DPA §2.3): Processing is limited to the purposes described in the DPA and the direct business relationship with Customer, and Groq will not \"sell\" or \"share\" Personal Data. This is a purpose limitation that supports retention=yes; it does not by itself state a retention period."
+text_zh = "合同层辅助证据（DPA §2.3）：处理限于 DPA 所述目的与直接业务关系之内，且不 sell/share Personal Data。它支持「不得为服务之外目的保留」这一支，但本身不给出期限，故只作辅助证据。"
+anchor = "groq-dpa-2-3-purpose-limitation"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -90,12 +140,30 @@ category = "web"
 plan_level = "any"
 
 [product.training]
-mark = "yes"
-mode = "by_contract"
-anchor = "groq-sa-4-2-no-training"
+mark = "unknown"
+searched = [
+  "https://console.groq.com/docs/legal/services-agreement",
+  "https://console.groq.com/docs/legal/customer-data-processing-addendum",
+  "https://console.groq.com/docs/your-data",
+  "https://groq.com/privacy-policy",
+  "https://groq.com/legal",
+  "https://groq.com/terms-of-use",
+  "https://groq.com/chat-terms",
+  "https://console.groq.com/docs/legal",
+  "https://trust.groq.com/faq",
+]
 
 [[product.training.point]]
-text_zh = "推定为与 API 档同一套条款，但依据是文档内部冲突的同一句话：Services Agreement §1 既写该协议 governs「GroqChat, Groq Playground, GroqCloud…」，又写「Cloud Services and the AI Model Services under this Agreement are not for consumer use」。GroqChat / Playground 没有独立的消费条款或消费隐私政策，《Privacy Policy》反而把 GroqChat 列入按 data processor 处理的 Cloud Services。故本行记 low：条款文本适用，但「消费档」这一档位本身未被官方单列。"
+text_zh = "档位本身未被官方单列，故本行不绑 §4.2 不训练句：Services Agreement §1 既写该协议 governs「GroqChat, Groq Playground, GroqCloud…」，同段又写「Cloud Services and the AI Model Services under this Agreement are not for consumer use」，两句话互相矛盾，GroqChat 消费档是否受 §4.2 管辖无法从文本确定。仓库里也没有消费档专属条款可替代：groq.com/chat-terms 404，无快照。"
+
+[[product.training.point]]
+text_zh = "《Privacy Policy》对 GroqChat 双重归类：第 7 行把 chat.groq.com 列入 Groq 自任 data controller 的 Websites，第 8 行又把 GroqChat 列入「we process as a data processor on behalf of customers」的 Cloud Services。两种归类并存，消费档的档位归属在官方文本里没有一致说法。"
+
+[[product.training.point]]
+text_zh = "反方向线索（旁证，不是模型训练的直接证据）：同一政策第 49 行把「To measure use of, analyze performance of, fix errors in, provide support for, improve, and develop the Services」列为用途，第 65 行 Legitimate Interests 下另有「Develop and improve the Services.」——按 docs/judgment.md「用来改进服务算训练」，这是训练方向的反向表述。但第 8 行明文把 Cloud Services 的 Customer Data 排除在该政策之外，故它管的是 Groq 自任 controller 的 Services，不构成对 API 输入输出的训练授权，也不改变本行结论。"
+
+[[product.training.point]]
+text_zh = "结论：消费档训练用途属未披露（mark=unknown，不据此推断厂商会训练）。查阅范围为上面 searched 列出的 9 处官方页面，没有一句对消费档单独表态。"
 
 [product.zdr]
 mark = "unknown"
@@ -118,25 +186,42 @@ text_zh = "ZDR 开关在 console 的 Data Controls，面向组织/API 客户"
 text_zh = "未找到任何把 ZDR 或零保留承诺适用于 GroqChat 消费档的官方表述，也未找到 GroqChat 独立条款页（groq.com/chat-terms 404）。按未披露记录。"
 
 [product.retention]
+mark = "unknown"
 object = "input_output"
 basis = "undisclosed"
-anchor = "groq-yourdata-default-no-retention-for-inference"
+searched = [
+  "https://console.groq.com/docs/your-data",
+  "https://console.groq.com/docs/legal/services-agreement",
+  "https://console.groq.com/docs/legal/customer-data-processing-addendum",
+  "https://groq.com/privacy-policy",
+  "https://groq.com/legal",
+  "https://groq.com/chat-terms",
+  "https://console.groq.com/docs/legal",
+]
 
 [[product.retention.point]]
-text_zh = "《Your Data in GroqCloud》标题即「Your Data in GroqCloud」，未声明覆盖 chat.groq.com"
+text_zh = "《Your Data in GroqCloud》标题即「Your Data in GroqCloud」，对象是 GroqCloud，未声明覆盖 chat.groq.com；它的「默认不保留推理请求」「日志最多 30 天」都不能当消费档的保留承诺，故本行不再引用它（该页锚点保留，供 API/企业档使用）。"
 
 [[product.retention.point]]
 text_zh = "GroqChat 无独立保留期披露。Privacy Policy 的 Data Retention 节只写「period necessary to fulfill the purposes」，且该政策明确不适用于 Customer Data。即：消费档没有可锚定的保留期承诺，属未披露，不据此推断厂商会长期保留。"
 
 [product.processing_region]
-codes = ["US"]
-anchor = "groq-yourdata-data-location-us-gcp"
+mark = "unknown"
+codes = ["unknown"]
+searched = [
+  "https://console.groq.com/docs/your-data",
+  "https://console.groq.com/docs/legal/services-agreement",
+  "https://console.groq.com/docs/legal/customer-data-processing-addendum",
+  "https://groq.com/privacy-policy",
+  "https://groq.com/legal",
+  "https://groq.com/chat-terms",
+]
 
 [[product.processing_region.point]]
-text_zh = "唯一可依据的是《Your Data in GroqCloud》的美国 GCP bucket 表述，但该页未声明覆盖 GroqChat"
+text_zh = "《Your Data in GroqCloud》的「美国 GCP bucket」表述以 GroqCloud 为对象，未声明覆盖 GroqChat，不能作为消费档的处理地依据，故本行不再据此填 US。"
 
 [[product.processing_region.point]]
-text_zh = "消费档无独立处理地披露。"
+text_zh = "消费档无独立处理地披露。《Privacy Policy》只说「Groq is located in the United States, and maintains processing operations in various global jurisdictions」，讲的是公司所在地与「various global jurisdictions」，且该政策明文不适用于 Cloud Services 的 Customer Data。属未披露。"
 
 [product.role]
 kind = "processor"
@@ -161,7 +246,14 @@ anchor = "groq-sa-4-2-no-training"
 text_zh = "合同层同 API 档（§4.2）。企业/离线档的不确定性：§17.10 规定「If you signed an offline variant of this Agreement… your offline terms govern」（契约框架说明页同旨），离线变体文本未公开，故企业档可能存在未公开的另行约定"
 
 [[product.training.point]]
-text_zh = "地区条款 §17.15 对沙特 billing address 有改写。"
+text = "Regional carve-out (§17.15, Kingdom of Saudi Arabia): \"Groq’s rights to Inputs and Outputs in Section 4.2 (Inputs and Outputs) are amended as follows: “Groq does not access, use, store, or retain Inputs or Outputs unless necessary to provide the Cloud Services or comply with applicable law.”\" The amendment applies by billing address and rewrites the Inputs and Outputs paragraph as a whole, so for those Customers neither the no-training sentence nor the zero data retention setting sentence of §4.2 exists. §8.2 (Customer's Training Data) is not touched by the amendment."
+text_zh = "地区条款 §17.15 对沙特 billing address 的改写：该条把 §4.2 的「Inputs and Outputs」整段替换为只讲 access/use/store/retain 的版本，原「不用于训练」句与 ZDR 开关句都不在新文本里，故对这批客户，本档 training=yes 与 zdr=yes 的合同层依据不成立。改写只针对 Inputs and Outputs 段，§8.2 的 Customer Training Data 限制不受影响。"
+anchor = "groq-sa-17-15-ksa-amended-4-2"
+
+[[product.training.point]]
+text = "Supporting contract-layer evidence (DPA §2.3): Processing is limited to providing, maintaining and supporting the Cloud Services and fulfilling obligations to Customer, to Customer's documented instructions, or to what Data Protection Laws require; Groq will not \"sell\" or \"share\" Personal Data or Process it for purposes outside the DPA or outside the direct business relationship with Customer. Under §17.11 the DPA outranks the Agreement, so this binds enterprise Customers too; it is a purpose limitation rather than an express training ban, and §4.2 stays the primary anchor."
+text_zh = "合同层辅助证据（DPA §2.3）：处理限于为提供/维护/支持 Cloud Services 并履行对客户的义务、按客户书面指示、或法律要求三类目的，且不 sell/share、不为 DPA 所述目的或直接业务关系之外的目的处理 Personal Data。按 §17.11 的效力顺序，DPA 高于协议本体，故对企业客户同样有效；它是目的限制条款而非明文训练禁令，主锚点仍是 §4.2。"
+anchor = "groq-dpa-2-3-purpose-limitation"
 
 [product.zdr]
 mark = "yes"
@@ -174,17 +266,48 @@ text_zh = "合同写「Eligible Customers may enable」，且未定义 Eligible 
 [[product.zdr.point]]
 text_zh = "文档写「All customers」。企业档若走离线协议，ZDR 条款是否适用取决于离线文本（未公开）。"
 
+[[product.zdr.point]]
+text = "Regional carve-out: for Customers whose billing address is in the Kingdom of Saudi Arabia, §17.15 replaces the Inputs and Outputs paragraph of §4.2 with a version that no longer contains the zero data retention setting sentence, so the contractual route to ZDR does not exist for those Customers."
+text_zh = "地区例外：billing address 在沙特的客户，§17.15 把 §4.2 的 Inputs and Outputs 段整段改写为不含 ZDR 开关句的版本，故这批客户没有合同层的 ZDR 依据。"
+anchor = "groq-sa-17-15-ksa-amended-4-2"
+
 [product.retention]
 days = 30
 object = "mixed"
 basis = "fixed_period"
-anchor = "groq-sa-11-5-delete-within-30-days"
+anchor = "groq-sa-4-2-no-retain-except-necessary"
+
+[[product.retention.point]]
+text = "Contract layer (primary anchor, §4.2): Groq does not access, use, store or retain Inputs or Outputs except as necessary to provide the Cloud Services, in accordance with the Customer's permission or instruction, to comply with applicable law, to ensure the reliable operation of the Cloud Services, or to confirm the Customer's compliance with the AUP."
+text_zh = "合同层（主锚点，§4.2）：除四类情形外不 access/use/store/retain Inputs 与 Outputs——为提供 Cloud Services 所必需、依客户许可或指示、遵守适用法律、确保 Cloud Services 可靠运行、核实客户是否遵守 AUP。企业档默认同样适用。"
+
+[[product.retention.point]]
+text = "Product-behaviour layer: the developer-data page gives the default and the log cap that the §4.2 exceptions cover — \"By default, Groq does not retain customer data for inference requests.\" and reliability/abuse logs retained \"for up to 30 days\"."
+text_zh = "产品行为层：开发者文档给出默认与日志上限——默认不保留推理请求的客户数据；可靠性/滥用监控日志「up to 30 days」（上限，可 opt-out）。"
+anchor = "groq-yourdata-default-no-retention-for-inference"
+
+[[product.retention.point]]
+text = "Product-behaviour layer, exception period: system-reliability and abuse-monitoring logs \"are retained for up to 30 days, unless legally required to retain longer\"."
+text_zh = "产品行为层·例外期限：可靠性/滥用监控日志最多 30 天（法律要求更长的除外），是上限而非「30 天后全部删除」。"
+anchor = "groq-yourdata-abuse-logs-30-days"
 
 [[product.retention.point]]
 text_zh = "企业档额外可依据的是终止后删除：§11.5 在 30 天内删除 Customer Data"
+anchor = "groq-sa-11-5-delete-within-30-days"
 
 [[product.retention.point]]
 text_zh = "若走 DPA §10 的客户请求路径，最长 180 天（含备份例外）。请求级保留期与 API 档同源（默认不保留 + 30 天滥用日志），但离线协议可能另有约定，未公开、未核。"
+anchor = "groq-dpa-10-deletion-max-180-days"
+
+[[product.retention.point]]
+text = "Two framings kept side by side: DPA ANNEX I describes a purpose-bound period (\"The data will be retained for the time period needed to accomplish the purposes of Processing, unless otherwise required by applicable law.\"), while the Agreement gives fixed caps (30 days for termination deletion, 180 days for the DPA request path). Both are official; neither is presented as overriding the other."
+text_zh = "两种口径并列保留：DPA ANNEX I 是目的绑定式期限（为完成处理目的所需的时间，法律另有要求除外），协议给的是固定上限（终止后删除 30 天、DPA 请求路径最长 180 天）。按 docs/judgment.md「厂商自己说法冲突就并列」，两条都写出、不选边。"
+anchor = "groq-dpa-annex1-retention-purpose-bound"
+
+[[product.retention.point]]
+text = "Supporting contract-layer evidence (DPA §2.3): Processing is limited to the purposes described in the DPA and the direct business relationship with Customer, and Groq will not \"sell\" or \"share\" Personal Data; it is a purpose limitation, not a stated retention period."
+text_zh = "合同层辅助证据（DPA §2.3）：处理限于 DPA 所述目的与直接业务关系之内，且不 sell/share Personal Data；是目的限制条款，本身不给期限。"
+anchor = "groq-dpa-2-3-purpose-limitation"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -341,7 +464,7 @@ suffix = " All Fees owed by Customer to Groq under this Agreement or O"
 [[anchor]]
 id = "groq-sa-17-15-ksa-amended-4-2"
 source_id = "96fba76a7d9bd214"
-topics = ["retention", "zdr"]
+topics = ["training", "retention", "zdr"]
 
 [anchor.selector]
 prefix = """
@@ -406,6 +529,14 @@ suffix = """
   
 
 **For transfers to (sub-) processors, also specify sub"""
+
+[[anchor]]
+id = "groq-dpa-2-3-purpose-limitation"
+source_id = "16a557a7175863fd"
+topics = ["training", "retention"]
+
+[anchor.selector]
+exact = "Groq will Process Personal Data only: (a) to provide, maintain, and support the Cloud Services and fulfill its obligations to Customer under the Agreement; (b) on Customer's behalf in compliance with Customer's documented instructions; and (c) as required by Data Protection Laws (however, Groq will inform Customer of the legal requirement before processing for that purpose unless the applicable law prohibits such notice). Groq will not \"sell\" or \"share\" (as such terms are defined in Data Protection Laws) Personal Data, or otherwise Process Personal Data for any purpose: (x) other than for the specific purposes described in this DPA, or (y) outside of the direct business relationship with Customer."
 
 [[anchor]]
 id = "groq-yourdata-default-no-retention-for-inference"

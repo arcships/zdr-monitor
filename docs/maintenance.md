@@ -1,113 +1,114 @@
 # 维护流程
 
-机器负责可确定的抓取和校验；DimCode agent 负责来源策展和政策语义，并通过 PR 交付，
-不能直接修改主分支。
+照 models.dev 的维护方式：机器负责抓取和确定性校验，DimCode agent 负责政策语义；
+所有改动都是 PR，一个 provider 一个 agent。
 
-## 目前实际运行的 CI
-
-`.github/workflows/fetch.yml` 每天运行一次：
-
-1. `bun run fetch`：汇总并限速抓取所有 provider 声明的 URL；
-2. `bun run verify:anchors`：在已保存正文上核验锚点；
-3. `bun run issues:open`：为正文变化、锚点丢失和连续失败开 issue；
-4. 只允许提交 `documents/`、`health/`；
-5. 上传 `.sync/fetch.json` 和 `.sync/verify-anchors.json` 作为 7 天 artifact；
-6. 若有抓取失败，报告和 issue 处理完后仍让 job 失败。
-
-`.github/workflows/validate.yml` 在 push 和 PR 上运行数据校验、测试、前后端类型检查与站点
-构建。构建成功只证明产物可生成，不会自动部署。
-
-机器抓取产物可以自动提交，因为它们是可复核的观察；`providers/*.toml` 是语义结论，必须由
-agent 或人修改并通过 PR 复核。`issue-fixer.yml` 会直接在 GitHub Actions 中启动 DimCode，
-处理三类同步 issue；它只允许改 provider 和已确认变化记录，workflow 负责校验、提交和开 PR。
-`retry-issue-fixer.yml` 每六小时重新派发创建超过一小时、仍没有 PR 的任务，每轮最多三条。
-
-DimCode workflow 需要仓库 secret `DIMCODE_API_KEY`。默认使用 `deepseek-v4-flash`，可通过
-repository variable `DIMCODE_MODEL` 覆盖。密钥只供 runner 登录 DimCode，不写入仓库或 issue。
-
-## 两条工作流
-
-### 首次纳入 provider
+## 链路
 
 ```text
-agent 调研官方来源
-  → research:fetch 直接为已策展 URL 建立正式 baseline
-  → agent 基于 baseline 写结论与锚点
-  → research:import 强制检查 baseline 和 exact 命中，一次写入完整 provider
-  → validate + test
+snapshot.yml（每天，按 provider 展开 matrix）
+  抓这个 provider 引用的来源 → 规范化 → 写 snapshots/<source_id>.md
+  有变化 → 固定分支 automation/snapshot-<provider>，原地更新同一个 PR
+        → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人）
+        ↓ 合并
+review-issues.yml
+  开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
+        ↓
+issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
+  只能改 providers/<provider>.toml 和 changes/<provider>/
+  → workflow 为新来源抓快照 → validate + check:quotes --strict → PR dim/issue-<n>
+  → 无需改动：评论理由并关闭 issue；证据不足：打 blocked
+        ↓
+pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 reviewer: ready → 人合并
 ```
 
-### 每日监控
+`retry-issue-fixer.yml` 每六小时重新派发创建超过一小时、还没有 PR 的 issue，每轮最多三条。
+`dimcode-auth.yml` 每十二小时检查 DimCode 登录态，剩不到三天就续期并写回 secret（见「仓库配置」）。
 
-```text
-fetch
-  ├─ 成功且相同：无写入
-  ├─ 成功且变化：新快照 + current 指针 + 完整 diff
-  └─ 失败：更新 health，保留最后成功正文
-        ↓
-verify:anchors
-  ├─ exact：无动作
-  ├─ reworded/gone：待 agent 复核
-  └─ health 存在/无 baseline：skip，不判 gone
-        ↓
-issues:open
-  ├─ document-changed
-  ├─ anchor-lost
-  └─ unreachable（连续失败达到阈值）
-        ↓
-repository_dispatch
-        ↓
-DimCode 对照两份不可变快照，决定是否修改 provider 和记录已确认变化
-  ├─ 有安全改动：validate + test + typecheck + build → PR
-  ├─ 确认无实质变化：评论依据并关闭 issue
-  └─ 证据不足/需要新 baseline：评论原因并标记 dim:blocked
+全量复核：手动触发 `review-issues.yml`（可指定 provider），每个 provider 开一个
+`[full-review] <provider>: <年-月>` issue，由 issue-fixer 逐个处理。
+
+## 全量审核
+
+`bun run audit run [provider...]` 开一个 DimAgent 会话，运行保存好的 workflow
+`.agents/workflows/zdr-audit.mjs`（自动拷进 `~/.dimcode/v2/data/workflows/saved/`）。
+每个 provider 两个只读子 agent：
+
+1. 审核：对照快照逐档位、逐维度判断 correct / wrong / weak / unverifiable，找出漏收条款，
+   写 `.sync/audit/<provider>.json`；
+2. 复核：逐条核实前者的 wrong、weak 和漏收条款，给出 confirmed / rejected / uncertain，
+   写 `.sync/audit/<provider>.review.json`。
+
+`bun run audit report` 汇总到 `.sync/audit/report.md`，两道都确认的排在最前。`--limit` 控制并发
+（默认 20；并发太高会被限流，子 agent 超时）。
+
+批量落地用 `bun run audit fix`（workflow `zdr-fix`：每家一个修改者、一个只读检查者）和
+`bun run audit verify`（确定性检查，没过的写进下一轮问题清单）。落地后 `bun run audit recheck`
+（workflow `zdr-recheck`）让每家一个只读子 agent 独立重核 ✓/✗ 翻转的格子，报告在
+`.sync/recheck/report.md`。
+
+## 抓取
+
+每个 `[[source]]` 可选 `fetch`，默认 `direct`：
+
+| 方式 | 做法 | 适用 |
+| --- | --- | --- |
+| `direct` | 直接请求，本地抽正文（HTML、markdown、PDF、docx） | 服务端直出正文的页面 |
+| `browser` | runner 上的无头 Chromium 渲染后抽正文 | 客户端渲染、或直接请求时好时坏的页面 |
+| `jina` | Jina 渲染后的 markdown，头部元数据由我们切掉 | 数据中心 IP 被反爬挡住的页面 |
+
+三种方式走同一套规范化：只留正文，去掉导航、页脚、链接地址和图片，一段一行，
+重复长行只留一份。只有短行（菜单、按钮、「Updated 5 minutes ago」）变化不算正文变化，
+不重写快照。抓取失败不写快照，只进 `.sync/snapshot-report.md`。
+
+`bun run calibrate` 对每个来源三种方式各抓一次、按引文命中数给出建议，用于新增来源
+或换运行环境（本机和 GitHub runner 的出口 IP 不同）时重新确定 `fetch`。
+
+## 本地命令
+
+```bash
+bun run snapshot [provider]          # 抓取，写 snapshots/ 和 .sync/snapshot-report.md
+bun run check:quotes [provider...]   # 引文核对；--strict 有 missing 即失败，--md 输出 markdown
+bun run review:issues --full [p...]  # 开全量复核 issue（需要 GH_TOKEN）；--dry-run 只打印
+bun run audit run [provider...]      # 只读审核 + 复核，结果在 .sync/audit/
+bun run validate                     # 数据结构
 ```
 
-完整正文 diff 不做政策关键词过滤。它是发现“既有锚点之外新增条款”的入口，不是直接发布
-到网站的变化历史。页面装修等无关变化由 agent 审阅后关闭 issue，不产生确认记录。
+## 仓库配置
 
-## Agent 角色
+- bot 凭证（二选一）：用它推分支、开 PR，否则 GITHUB_TOKEN 触发的事件不会再触发其他 workflow。
+  - GitHub App（推荐，对应 models.dev）：`vars.ZDR_APP_ID` + `secrets.ZDR_APP_PRIVATE_KEY`，
+    App 权限 Contents / Pull requests / Issues / Secrets 读写。需要组织 owner 创建并安装。
+  - 没有 App 时退回 `secrets.ZDR_BOT_TOKEN`（有本仓库 admin 权限的个人 token）。配了 App 就优先用 App。
+  issue-fixer 在 agent 跑完、改动范围检查过之后才配置这个凭证，agent 运行时工作区里没有推送权限。
+- DimCode 凭证：对应 models.dev 的 `OPENCODE_API_KEY`，这里用 DimAgent 的 OAuth 登录态。
+  - `secrets.DIMCODE_AUTH_JSON`：`~/.dimcode/v2/auth.json`
+  - `secrets.DIMCODE_MODELS_JSON`：`~/.dimcode/v2/dim-oauth-models.json`（账号可用的模型目录，
+    新环境靠它注册 `dimcode-api-oauth`）
 
-`.agents/skills/` 提供四份角色提示，但目前只是操作规范，不代表 CI 已自动调用它们：
+  给 CI 单独登录一次，不要直接上传本机桌面端的登录态——刷新令牌会轮换，两边各自续期会互相顶掉：
 
-| 角色 | 工作 | 可修改范围 |
-| --- | --- | --- |
-| `policy-sync` | 运行并解释抓取/锚点报告 | 机器产物；不改 provider 结论 |
-| `issue-fixer` | 查官方原文，处理复核 issue | `providers/*.toml` |
-| `pr-reviewer` | 审证据、适用档位和结论 | 只读 |
-| `ci-fixer` | 修格式、schema、代码检查失败 | 报错涉及的文件 |
+  ```bash
+  ci_home="$(mktemp -d)"
+  HOME="$ci_home" dim auth login --device-login   # 登录时顺带写好模型目录
+  gh secret set DIMCODE_AUTH_JSON < "$ci_home/.dimcode/v2/auth.json"
+  gh secret set DIMCODE_MODELS_JSON < "$ci_home/.dimcode/v2/dim-oauth-models.json"
+  rm -rf "$ci_home"
+  ```
 
-所有 agent 共用 [AGENTS.md](../AGENTS.md) 的证据规则。issue 是线索，不是证据；每条结论
-仍需回到官方来源和已保存正文验证。
-
-## Issue 类型
-
-| 类型 | 触发 | Agent 动作 |
-| --- | --- | --- |
-| `document-changed` | 正文 hash 变化且有行级 diff | 判断是否影响五个维度 |
-| `anchor-lost` | 锚点为 `gone` | 查条款是改写、迁移还是删除 |
-| `unreachable` | 同一来源连续失败 ≥ 3 次 | 找现行官方 URL 或修抓取路径 |
-
-标题稳定，并在 open + closed issue 中去重。抓取失败不能写成“厂商未披露”；`gone` 也不能
-自动改结论。
+  访问令牌 7 天过期。agent job 只读 secret、不续期（令牌剩不到 6 小时就直接失败），续期只在
+  `dimcode-auth.yml` 里串行做并写回 secret，所以 bot 凭证要能写 secret（App 的 Secrets 读写权限，或 admin 的个人 token）。
+  默认模型 `deepseek-v4.1-flash`，可用 `vars.DIMCODE_MODEL` 覆盖。
+- `secrets.JINA_API_KEY`（可选）：提高 jina 方式的限额。
+- Actions 设置里开启「Allow GitHub Actions to create and approve pull requests」和 auto-merge。
 
 ## 变化历史
 
-原始 diff 只是机器线索。站点变化历史应来自 agent 确认记录，最小字段为：
-
-- provider 和受影响维度；
-- 观察日期/官方生效日期；
-- `from_version` / `to_version`；
-- 变化方向（收紧、放宽、澄清）和中英文摘要；
-- 对应复核 issue。
-
-agent 判断无关的 diff 不创建记录。有意义的变化写入
-`changes/<provider_id>/<observed_at>-<slug>.toml`；`validate` 会检查 provider、source、前后
-快照和字段约束，站点 `/changes` 只读取这些确认记录。Git commit、raw diff 和未关闭 issue
-都不会自动展示成“厂商政策变化”。
+快照的 git diff 只是线索。站点变化历史只来自 agent 确认记录
+`changes/<provider_id>/<observed_at>-<slug>.toml`：provider、受影响维度、观察/生效日期、
+变化方向（收紧、放宽、澄清）、中英文摘要、对应 issue。agent 判断无关的变化不创建记录。
 
 ## 人工操作边界
 
-- 不手改 `documents/`、`health/`；
-- provider 结论变更必须说明官方来源、适用产品档位和具体引文；
-- 发布、推送、部署等外部动作仍需对应仓库权限与明确授权。
+- 不手改 `snapshots/`，那是抓取 bot 的产物；CI 会拦非 bot 分支上的快照改动。
+- provider 结论变更必须说明官方来源、适用产品档位和快照里的原句。

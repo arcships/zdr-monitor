@@ -44,27 +44,49 @@ plan_level = "any"
 [product.training]
 mark = "no"
 mode = "opt_out"
-anchor = "mistral-training-4-2-no-train"
+anchor = "mistral-training-dpa-2-3-optout"
 
 [[product.training.point]]
-text = "Commercial ToS §4.2 is a direct contract-level clause: \"Mistral AI will not use Customer Data or Outputs to train its artificial intelligence models\", except (a) where the customer opted in to training on a Mistral AI Product set to opt-out by default, or has not opted out of training on a Product set to opt-in by default, (b) where Customer or an End User provides Feedback, (c) as otherwise provided in an Order Form, or (d) where Customer uses Labs or Preview Models"
-text_zh = "Commercial ToS §4.2 是合同层的直接条款:Mistral AI 不会用 Customer Data / Outputs 训练其模型,例外为 (a) 产品被设为 opt-out by default 时用户主动 opt-in,或产品被设为 opt-in by default 时用户未 opt-out、(b) Feedback、(c) Order Form 另行约定、(d) Labs / Preview 模型"
+text = "Commercial ToS §4.2 is a direct contract-level clause, kept side by side with DPA §2.3 below because the two point in opposite directions: \"Mistral AI will not use Customer Data or Outputs to train its artificial intelligence models\", except (a) where the customer opted in to training on a Mistral AI Product set to opt-out by default, or has not opted out of training on a Product set to opt-in by default, (b) where Customer or an End User provides Feedback, (c) as otherwise provided in an Order Form, or (d) where Customer uses Labs or Preview Models"
+text_zh = "Commercial ToS §4.2 是合同层的直接条款,与下面的 DPA §2.3 并列保留(两条方向相反):Mistral AI 不会用 Customer Data / Outputs 训练其模型,例外为 (a) 产品被设为 opt-out by default 时用户主动 opt-in,或产品被设为 opt-in by default 时用户未 opt-out、(b) Feedback、(c) Order Form 另行约定、(d) Labs / Preview 模型"
+anchor = "mistral-training-4-2-no-train"
 
 [[product.training.point]]
 text = "§4.1 expressly puts model training outside the license granted by the customer (\"excludes model training\")"
 text_zh = "§4.1 把 model training 明确排除在客户授予的许可之外"
+anchor = "mistral-training-4-1-excludes-training"
 
 [[product.training.point]]
-text = "§4.3 states separately for Labs / Preview Models that \"Mistral AI may use Customer Data and Outputs generated from Labs or Preview Models to train its artificial intelligence models\" (use means training, and it is unaffected by the opt-out and ZDR available on other products). But DPA §2.3 in the same contract package authorizes Mistral AI to process Personal Data as Controller for training purposes, conditioned as \"unless Customer is or has opted-out of training\" (an opt-out regime: training by default unless the customer opts out), and DPA §11.2 provides that the DPA prevails in the event of conflict → the two contract-level clauses conflict, so §4.2's \"no training by default\" cannot stand on its own. The former direct statement at product/developer level (the old docs page \"Privacy and data controls\": \"API: data sent through the API isn't used for model training.\") now returns 404 and has been removed from the docs sitemap (896 entries)"
-text_zh = "§4.3 对 Labs / Preview 模型另有明示(用了就训练,且不受其他产品的 opt-out 与 ZDR 影响)。但同一合同包内的 DPA §2.3 授权 Mistral AI 以 Controller 身份为训练目的处理 Personal Data,条件写作『unless Customer is or has opted-out of training』(即 opt-out 制:默认训练,除非客户退出),且 DPA §11.2 规定冲突时以 DPA 为准 → 合同层两条互相冲突,§4.2 的『默认不训练』不能单独成立。产品/开发者层原先的直接声明(旧 docs 页『Privacy and data controls』:API : data sent through the API isn't used for model training.)现行 404、已从 docs sitemap(896 条)移除"
+text = "§4.3 states separately for Labs / Preview Models that \"Mistral AI may use Customer Data and Outputs generated from Labs or Preview Models to train its artificial intelligence models\" (use means training, and it is unaffected by the opt-out and ZDR available on other products). Observation of our own, not vendor text and not a policy change: the older docs page \"Privacy and data controls\" (which said \"API: data sent through the API isn't used for model training.\") now returns 404 and has been removed from the docs sitemap. That page is not among this provider's registered sources and no snapshot of it exists in this repo, so it carries no weight in this verdict."
+text_zh = "§4.3 对 Labs / Preview 模型另有明示:用了就训练,且不受其他产品的 opt-out 与 ZDR 影响。以下是我们自己的观察,不是厂商文本、也不算政策变化:旧 docs 页『Privacy and data controls』(原文 API : data sent through the API isn't used for model training.)现返回 404、已从 docs sitemap 移除;该页不在本 provider 登记的来源内,仓库里也没有它的快照,故在本行判定中不占权重。"
 
 [[product.training.point]]
-text = "The current Help Center says of Studio Pay-as-you-go only that \"Customers retain full control over this processing and have the right to opt out at any time.\", no longer stating that there is no training by default, while the Free mode paragraph on the same page says plainly \"we may use your data (input and output) to train\". Conclusion: the current official texts cannot establish that paid API inputs and outputs are not used for training by default, hence confidence=low (this is a disclosure conflict/gap, not a commitment to the contrary by the vendor)."
-text_zh = "现行 Help Center 对 Studio Pay-as-you-go 只写『Customers retain full control over this processing and have the right to opt out at any time.』,不再声明默认不训练,而同页 Free mode 段明写『we may use your data (input and output) to train』。结论:现行官方文本无法确证付费 API 输入输出默认不训练,故 confidence=low(这是披露冲突/缺口,不等于厂商反向承诺)。"
+text = "DPA §2.3 (contract layer, incorporated into the Agreement by §11.2) is the clause that carries mark=no: Mistral AI is authorized to process Personal Data as Controller for the purpose of \"Training its artificial intelligence models in accordance with its Privacy Policy, unless Customer is or has opted-out of training\", i.e. an opt-out regime — training by default unless the customer opts out. The same clause adds that Feedback given through the in-app thumbs up / thumbs down features is used as Controller, together with the associated Input and Output, to train models, conduct research or improve the products. Where the two layers meet: §4.2 exception (a)(ii) (customer has not opted out of training on a Product set to opt-in by default) and this clause describe the same switch."
+text_zh = "DPA §2.3(合同层,经 §11.2 并入协议)是支撑 mark=no 的条款:Mistral AI 被授权以 Controller 身份处理 Personal Data,目的包括『Training its artificial intelligence models in accordance with its Privacy Policy, unless Customer is or has opted-out of training』,即 opt-out 制——默认训练,除非客户退出。同条还写明:通过应用内 thumbs up / thumbs down 提交的 Feedback,连同相关 Input 与 Output,由 Mistral 以 Controller 身份用于训练模型、做研究或改进产品。两层交汇点:§4.2 例外 (a)(ii)(产品默认 opt-in 时客户未 opt-out)与这条讲的是同一个开关。"
+anchor = "mistral-training-dpa-2-3-optout"
 
 [[product.training.point]]
-text = "Structured conclusion: the contract layer conflicts with itself (§4.2 says no training by default; DPA §2.3 authorizes processing for training purposes as Controller under an opt-out regime, and DPA §11.2 gives the DPA precedence), and the current Help Center no longer states a no-training default. Under the conservative assumption (✓ requires an explicit no-training commitment) the tier is recorded as mark=no (used for training) with mode=opt_out. Both clauses are kept side by side; no averaging."
-text_zh = "结构化结论：合同层自相冲突（§4.2 默认不训练 vs DPA §2.3 授权以 Controller 身份为训练目的处理、opt-out 制，且 §11.2 冲突时 DPA 优先），现行 Help Center 又不再声明默认不训练。按保守假设（✓ 要求明确的不训练承诺）记 mark=no（会训练）+ mode=opt_out；两条官方文本并列保留，不取平均。"
+text = "The conflict is kept explicit instead of averaged: §4.2 says Mistral AI will not train on Customer Data or Outputs by default, while DPA §2.3 authorizes processing for training purposes as Controller under an opt-out regime, and DPA §11.2 provides that \"In the event of any conflict between the terms of the DPA and the remainder of the Agreement, the terms of the DPA shall prevail to the extent of such conflict.\", so §4.2's \"no training by default\" cannot stand on its own. Clauses that pull the other way are recorded too: DPA §3.1 (process only in accordance with the documented lawful instructions of Customer) and DPA §12.2 (CCPA: no processing for a commercial purpose other than as necessary to provide the products) both limit the Processor role and sit alongside, not against, the Controller-purpose authorization in §2.3."
+text_zh = "冲突显式并列、不取平均:§4.2 说默认不用 Customer Data / Outputs 训练,DPA §2.3 却授权以 Controller 身份为训练目的处理(opt-out 制),而 DPA §11.2 规定 DPA 与协议其余部分冲突时以 DPA 为准,所以 §4.2 的『默认不训练』不能单独成立。反向条款也一并记下:DPA §3.1(仅按客户书面合法指示处理)与 DPA §12.2(CCPA:除提供产品所必需外,不得为商业目的处理)都限制 Processor 角色,与 §2.3 的 Controller 用途授权并列而非对撞。"
+anchor = "mistral-dpa-11-2-prevails"
+
+[[product.training.point]]
+text = "Feedback is a wider exception than the one-liner in §4.2(b): Commercial ToS §2.4 provides that \"By providing Feedback, Customer acknowledges and agrees that Mistral AI may use, copy, disclose, license, distribute, and exploit such Feedback, along with the Customer Data and Output associated with such Feedback, in any manner without any obligation, royalty, or restriction based on intellectual property rights or otherwise.\", and §6.1 confirms such Feedback is not Customer Confidential Information. The same Feedback, with its associated Input and Output, is what DPA §2.3 has Mistral process as Controller for training, so this path is not covered by the training opt-out."
+text_zh = "Feedback 是比 §4.2(b) 一句话更宽的例外:Commercial ToS §2.4 规定,客户提供 Feedback 即同意 Mistral AI 可无限制使用、复制、披露、许可、分发和利用该 Feedback 及其关联的 Customer Data 与 Output,不承担任何义务、版税或其他知识产权限制;§6.1 进一步确认该等 Feedback 不属客户保密信息。同一批 Feedback(含关联 Input / Output)正是 DPA §2.3 下 Mistral 以 Controller 身份用于训练的数据,因此这条路径不受训练 opt-out 覆盖。"
+anchor = "mistral-training-2-4-feedback"
+
+[[product.training.point]]
+text = "A training opt-out switch exists at account level: Privacy Policy §8 states \"We’ve introduced a user control which allows you to object to the use of your input and output data for model training directly from your account.\", and the §3 table lists \"Your Input and Output, subject to your opt-out.\" Scope caveat: that Privacy Policy is written from the Controller side and its own Scope says it \"does not apply if you use our Mistral AI Products to process personal data in the context of your business activities\", so it is auxiliary support for the existence of the control only; the main basis for mode=opt_out remains ToS §4.2 exception (a) and the opt-out regime of DPA §2.3."
+text_zh = "账户级存在训练 opt-out 开关:隐私政策 §8 写『We’ve introduced a user control which allows you to object to the use of your input and output data for model training directly from your account.』,§3 表格列出『Your Input and Output, subject to your opt-out.』。适用范围提示:该隐私政策是 Controller 视角,其 Scope 自述不适用于『以企业身份处理个人数据』的场景,所以只能作『存在该开关』的辅助佐证;mode=opt_out 的主依据仍是 ToS §4.2 例外 (a) 与 DPA §2.3 的 opt-out 制。"
+anchor = "mistral-training-privacy-optout-control"
+
+[[product.training.point]]
+text = "Help Center articles on data usage are a lead rather than evidence: they are not among this provider's registered sources and no snapshot of them exists in this repo. They say of Studio Pay-as-you-go only that \"Customers retain full control over this processing and have the right to opt out at any time.\", no longer stating that there is no training by default, while the Free mode paragraph on the same page says plainly \"we may use your data (input and output) to train\". This row's evidence chain is the contract layer above (ToS §4.1 / §4.2 / §4.3, DPA §2.3, §11.2), not these pages."
+text_zh = "Help Center 的数据使用说明只能算线索、不算证据:它们不在本 provider 登记的来源内,仓库里也没有快照。对 Studio Pay-as-you-go 只写『Customers retain full control over this processing and have the right to opt out at any time.』,不再声明默认不训练;同页 Free mode 段则明写『we may use your data (input and output) to train』。本行的证据链是上面的合同层(ToS §4.1 / §4.2 / §4.3、DPA §2.3、§11.2),不是这些页面。"
+
+[[product.training.point]]
+text = "Structured conclusion: the contract layer conflicts with itself (§4.2 says no training by default; DPA §2.3 authorizes processing for training purposes as Controller under an opt-out regime, and DPA §11.2 gives the DPA precedence), and the current Help Center no longer states a no-training default. Under the conservative assumption (✓ requires an explicit no-training commitment) the tier is recorded as mark=no (used for training) with mode=opt_out. Both clauses are kept side by side; no averaging. The opt-out lands in §4.2 exception (a)(ii) and in the opt-out regime of DPA §2.3."
+text_zh = "结构化结论：合同层自相冲突（§4.2 默认不训练 vs DPA §2.3 授权以 Controller 身份为训练目的处理、opt-out 制，且 §11.2 冲突时 DPA 优先），现行 Help Center 又不再声明默认不训练。按保守假设（✓ 要求明确的不训练承诺）记 mark=no（会训练）+ mode=opt_out；两条官方文本并列保留，不取平均。退出机制落在 §4.2 例外 (a)(ii) 与 DPA §2.3 的 opt-out 制。"
 
 [product.zdr]
 mark = "yes"
@@ -93,6 +115,11 @@ text_zh = "Privacy Policy §5:除特定 API 外,Input / Output 在生成输出�
 text = "With the Fine-Tuning API, fine-tuning data is kept until it is deleted or the account is terminated. DPA §10.1 separately provides that Personal Data will no longer be accessible upon expiry of a thirty (30) day period following termination (a termination-cleanup rule). The ZDR page and Help Center 347612 give the contrasting state once ZDR is enabled (no longer retained). Help Center 347628 adds statutory retention periods for account-level data (identity data 5 years, account data 1 year, technical data 1 rolling year, invoices 10 years), but that is account/billing data, not API inputs and outputs."
 text_zh = "Fine-Tuning API 的微调数据保留至主动删除或销户。DPA §10.1 另定终止后 30 天内 Personal Data 不再可访问(终止清理口径)。ZDR 页与 Help Center 347612 给出启用 ZDR 后的对照态(不再留存)。Help Center 347628 补充账户类数据的法定保留期(身份数据 5 年、账户数据 1 年、技术数据 1 滚动年、发票 10 年),但那是账号/账单数据而非 API 输入输出。"
 
+[[product.retention.point]]
+text = "Contract layer for Personal Data processed as a Processor — DPA Exhibit 1 (Description of the Processing, incorporated into the Agreement by §11.2; contract outranks consumer_privacy in the global priority order) states the retention period as \"the duration of the Agreement\": \"The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period: the duration of the Agreement.\" The object differs from this row's headline figure: Exhibit 1 covers Personal Data (per DPA §1(f), Customer Data that is personal data and which Mistral AI processes as a Processor), not API input and output bodies. The two are kept side by side, not averaged: cleanup after termination is governed by DPA §10.1 (no longer accessible 30 days after termination), while API Input and Output bodies are governed by Privacy Policy §5 (30 rolling days)."
+text_zh = "以 Processor 身份处理的 Personal Data 的合同层口径——DPA Exhibit 1(Description of the Processing,经 §11.2 并入协议;按全局优先级 contract 高于 consumer_privacy)把保留期写作『the duration of the Agreement』:『The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period: the duration of the Agreement.』对象与本行头条数字不同:Exhibit 1 讲的是 Personal Data(按 DPA §1(f) 定义,即客户数据中属个人数据、且 Mistral 以 Processor 身份处理的部分),不是 API 输入输出正文。两条口径并列保留、不取平均:终止后的清理由 DPA §10.1 管(终止后 30 天不再可访问),API 输入输出正文由隐私政策 §5 管(滚动 30 天)。"
+anchor = "mistral-retention-exhibit-1-duration"
+
 [product.processing_region]
 codes = ["global", "selected"]
 anchor = "mistral-region-global-no-commit"
@@ -113,6 +140,11 @@ text_zh = "区域化只覆盖推理,控制面数据(账号配置、API key、账
 text = "Regionalization and ZDR are two separate controls. Help Center 347629 (updated 2026-08-12) adds that data is hosted in the EU by default and in the United States where the US API endpoint is used explicitly, and that some features may temporarily transfer data outside the EU (destinations listed in the Trust Center subprocessors). DPA §8.1 is the contractual authorization for cross-border transfers (adequacy-decision countries / appropriate safeguards / SCCs). Note the difference between the two statements: the Help Center speaks of hosting (storage) being in the EU by default, while the docs speak of the global endpoint not committing to an inference location."
 text_zh = "区域化与 ZDR 是两个独立控制。Help Center 347629(2026-08-12 更新)补充:默认数据托管在欧盟,显式使用 US API 端点则托管在美国,部分功能可能临时把数据传出欧盟(去向见 Trust Center subprocessors)。DPA §8.1 为跨境传输的合同授权(充分性认定国家 / 适当保障 / SCC)。注意两处口径差异:Help Center 说的是『托管(存储)默认在欧盟』,docs 说的是『global 端点不承诺推理处理地』。"
 
+[[product.processing_region.point]]
+text = "Boundary of the regional-processing commitment (same page, Limitations section): \"Regional endpoints have feature limitations. If a workload depends on an unsupported feature, the regional processing guarantees for that workload do not apply.\" The page adds that regional endpoints \"only serve models hosted in that region\", that function calling is the only supported regional tool, and that stateful features including Agents, Batch and the Files API are not available on regional endpoints. So the guarantee covers inference only, and only for models and features available in the target region — it is not a blanket promise that everything sent to an EU or US endpoint is processed there."
+text_zh = "区域处理承诺的边界(同页 Limitations 段):『Regional endpoints have feature limitations. If a workload depends on an unsupported feature, the regional processing guarantees for that workload do not apply.』同页还写:区域端点只服务托管在该区域的模型;工具调用目前只支持 function calling;Agents、Batch、Files API 等 stateful 功能在区域端点不可用。因此该保证只覆盖推理,且只对目标区域已托管、受支持的模型与功能生效——不能理解成『发往 EU / US 端点的一切都在该地处理』。"
+anchor = "mistral-region-feature-limits"
+
 [product.role]
 kind = "processor"
 anchor = "mistral-role-dpa-2-1"
@@ -124,6 +156,16 @@ text_zh = "DPA §2.1:客户是 Personal Data 的 Controller,Mistral AI 以 Proce
 [[product.role.point]]
 text = "DPA §2.3 lists the limited purposes for which Mistral may process as Controller (training, abuse monitoring, aggregated usage statistics). The general privacy policy's own Scope states that it \"does not apply if you use our Mistral AI Products to process personal data in the context of your business activities\" (in that case the customer is controller and Mistral the processor), consistent with this conclusion."
 text_zh = "DPA §2.3 列出 Mistral 以 Controller 身份可做的有限处理目的(训练、滥用监测、用量聚合统计)。通用隐私政策自身 Scope 明确不适用于『以企业身份处理个人数据』的场景(该场景客户是 controller、Mistral 是 processor),与本结论一致。"
+
+[[product.role.point]]
+text = "The instruction side of the Processor role, DPA §3.1: Mistral AI shall \"Process the Personal Data only in accordance with the documented lawful instructions of Customer, including as set forth in this DPA or the Agreement\". It sits alongside, not against, the Controller-purpose authorization in §2.3: the customer's documented instructions govern processing carried out on its behalf, while §2.3 lists the limited purposes for which Mistral may process the same Personal Data on its own account."
+text_zh = "Processor 身份的指示侧义务,DPA §3.1:Mistral AI 应『仅按客户书面合法指示处理 Personal Data,包括本 DPA 或协议中的指示』。它与 §2.3 的 Controller 用途授权并列而非对撞:客户指示管的是代客户执行的处理,§2.3 列的是 Mistral 为自身目的可做的有限处理。"
+anchor = "mistral-role-dpa-3-1-instructions"
+
+[[product.role.point]]
+text = "A second self-limitation on the Processor side, DPA §12.2 (CCPA subsection, which per §12.1 applies only where the corresponding law applies to the processing): Mistral AI \"shall not: (i) Process the Personal Data for a commercial purpose other than as necessary to provide the Mistral AI Products to Customer; (ii) “sell” or “share” (each as defined by the CCPA) any Personal Data; (iii) Process the Personal Data outside of the direct business relationship between Processor and Customer\". It limits the purposes of Processor-role processing and sits alongside the Controller-purpose authorization in §2.3 — it neither overrides §2.3 nor is covered by it. Note that Commercial ToS §12.2 is a different clause in a different document and cannot stand in for this one."
+text_zh = "Processor 身份的第二层自我限制,DPA §12.2(CCPA 小节,按 §12.1 仅在对应法律适用时生效):Mistral AI『不得 (i) 除提供 Mistral AI Products 所必需外为商业目的处理 Personal Data;(ii) 出售或共享(按 CCPA 定义)任何 Personal Data;(iii) 在 Processor 与客户直接商业关系之外处理 Personal Data』。它限制的是 Processor 角色的处理目的,与 §2.3 的 Controller 用途授权并列——既不推翻 §2.3,也不被 §2.3 掩盖。注意 Commercial ToS §12.2 是另一份文件的另一条,不能顶替这一条。"
+anchor = "mistral-role-dpa-12-2-ccpa"
 
 [[anchor]]
 id = "mistral-training-4-2-no-train"
@@ -478,3 +520,65 @@ topics = ["processing_region", "zdr"]
 prefix = "e controls where eligible inference requests are processed. "
 exact = "Zero data retention controls whether eligible request and response content is retained after processing. These are separate controls"
 suffix = ", and you may need both depending on your data handling requ"
+
+[[anchor]]
+id = "mistral-training-2-4-feedback"
+source_id = "af68fe494f5c6a73"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "collectively, “**Feedback**”). "
+exact = "By providing Feedback, Customer acknowledges and agrees that Mistral AI may use, copy, disclose, license, distribute, and exploit such Feedback, along with the Customer Data and Output associated with such Feedback, in any manner without any obligation, royalty, or restriction based on intellectual property rights or otherwise."
+suffix = " For clarity, Feedback will not be considered Confident"
+
+[[anchor]]
+id = "mistral-retention-exhibit-1-duration"
+source_id = "896a0f7b895680ab"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period: the duration of the Agreement."
+suffix = """
+For transfers to (sub-) processors, also specify subject matter"""
+
+[[anchor]]
+id = "mistral-role-dpa-3-1-instructions"
+source_id = "896a0f7b895680ab"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Process the Personal Data only in accordance with the documented lawful instructions of Customer, including as set forth in this DPA or the Agreement"
+suffix = ", , unless required to do so by applicable laws. In such a case, Mi"
+
+[[anchor]]
+id = "mistral-role-dpa-12-2-ccpa"
+source_id = "896a0f7b895680ab"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "### 12.2 CCPA"
+exact = "Mistral AI shall not: (i) Process the Personal Data for a commercial purpose other than as necessary to provide the Mistral AI Products to Customer; (ii) “sell” or “share” (each as defined by the CCPA) any Personal Data; (iii) Process the Personal Data outside of the direct business relationship between Processor and Customer"
+suffix = "; or (iv) combine Personal Data with any other personal da"
+
+[[anchor]]
+id = "mistral-region-feature-limits"
+source_id = "63e8828c958e7d41"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "### Limitations"
+exact = "Regional endpoints have feature limitations. If a workload depends on an unsupported feature, the regional processing guarantees for that workload do not apply."
+suffix = """
+- Not all tool calls are currently supported."""
+
+[[anchor]]
+id = "mistral-training-privacy-optout-control"
+source_id = "410c7a9e7180b2a0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "- **Objection.** You have the right to object to the processing of your personal data. This right does not apply when we have a legal obligation to process your personal data. **"
+exact = "We’ve introduced a user control which allows you to object to the use of your input and output data for model training directly from your account."
+suffix = " For more information, please refer to our** **Help Center.**"

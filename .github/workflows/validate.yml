@@ -10,9 +10,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 校验 GitHub Actions 工作流
+        run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: bun run validate
+      - run: bun run lint:verdicts
+      - name: 快照只能由 bot 改
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if git diff --name-only "$BASE"...HEAD | grep -q '^snapshots/'; then
+            case "$HEAD_REF" in
+              automation/*|dim/*) ;;
+              *) echo "snapshots/ 是抓取 bot 的产物，不能在 $HEAD_REF 里手改" >&2; exit 1 ;;
+            esac
+          fi
+      - name: 引文必须出现在快照里（只查本 PR 改动的 provider）
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          mapfile -t providers < <(git diff --name-only --diff-filter=d "$BASE"...HEAD -- providers | sed -n 's|^providers/\(.*\)\.toml$|\1|p')
+          [ "${#providers[@]}" -eq 0 ] && exit 0
+          bun run check:quotes "${providers[@]}" --md >> "$GITHUB_STEP_SUMMARY"
+          bun run check:quotes "${providers[@]}" --strict
       - run: bun test
       - run: bun run typecheck
       - run: bun run build

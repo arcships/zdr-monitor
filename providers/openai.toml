@@ -13,42 +13,49 @@ note = "API 档(developers 文档,Published 2026-09-20)。本轮重抓正文与�
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Services for businesses」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。本轮重抓(7004B,仅页脚差异)确认正文未变。对 API 档无权威性"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Data Usage for Consumer Services FAQ(Updated last month),自述覆盖「OpenAI’s non-API consumer services like ChatGPT」。本轮新发现(经 5722486 的相关文章链接)。含消费档训练默认、清空历史 30 天删除、以及「内容存储在美国和世界各地」——消费档 processing_region 的直接文本来源"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data Controls FAQ(Updated 5 days ago)。现行正文含专节「How do I turn off training for Codex tasks?」,Codex 训练开关与全环境独立设置都还在;另含临时会话 30 天删除。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
+note = "Data Controls FAQ(Updated yesterday)。现行正文含专节「Manage model training for Codex tasks」(原「How do I turn off training for Codex tasks?」),Codex 训练开关与「Include environments」独立设置都还在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
+fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性"
 
 [[source]]
 url = "https://openai.com/policies/data-processing-addendum/"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "API/企业档合同层角色条款。Effective 2026-01-01,补充并并入 OpenAI Services Agreement(business-terms §5.3 引用)。候选列表里没有,本轮重抓确认在线(19079B)后作为 role 权威。注意 openai.com 直连 403,且本机 r.jina.ai 被 Clash fake-ip 劫持需 --resolve 绕过"
 
 [[source]]
 url = "https://openai.com/policies/row-privacy-policy/"
+fetch = "jina"
 channel = "consumer_privacy"
 tier = "core"
 note = "消费档隐私政策(Rest of World)。覆盖消费档 role(§11 Data controller:EEA/瑞士=OpenAI Ireland Limited,其他=OpenAI OpCo, LLC)与 processing_region(服务器位于多法域含美国)。正文明确「does not apply to content that we process on behalf of customers of our business offerings, such as our API」,因此不能当 API 档证据"
 
 [[source]]
 url = "https://openai.com/policies/row-terms-of-use/"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "消费档 Terms of Use 的 Rest-of-World 版本(Effective 2026-01-01),与 /policies/terms-of-use/ 正文逐字一致(仅 URL Source 行不同)。覆盖 ChatGPT/Codex 消费订阅:缔约方 OpenAI OpCo, LLC + 训练 opt-out 条款。EEA/瑞士/英国另适用 /policies/eu-terms-of-use/"
@@ -77,6 +84,21 @@ anchor = "openai-api-zdr-approval"
 text = "By application: these controls are subject to prior approval by OpenAI and acceptance of additional requirements, are available at organization or project level, and do not apply to some endpoints"
 text_zh = "申请制(事先批准+附加要求),组织级/项目级可选,部分端点不适用"
 
+[[product.zdr.point]]
+text = "Retention exception that survives ZDR: image and file inputs to /v1/responses, /v1/chat/completions and /v1/images are scanned for CSAM on submission, and if the classifier detects potential CSAM content \"the image will be retained for manual review, even if Zero Data Retention, Modified Abuse Monitoring, or Private Retention with PSP is enabled\". This is a per-input exception, separate from the endpoint-level \"do not apply to some endpoints\" limitation"
+anchor = "openai-api-zdr-csam-image-exception"
+text_zh = "启用 ZDR 也成立的保留例外:提交到 /v1/responses、/v1/chat/completions、/v1/images 的图片/文件输入会做 CSAM 扫描,分类器命中时图片会被保留以供人工复核,「即使已启用 Zero Data Retention、Modified Abuse Monitoring 或 Private Retention with PSP」。这是按输入的例外,与端点级的「部分端点不适用」分开"
+
+[[product.zdr.point]]
+text = "OpenAI keeps the right to withdraw the controls, but not unconditionally: \"we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers, as notified in advance to the impacted customers in writing\". In that case (Private Retention with PSP, formerly Eyes Off) customer content is retained in encrypted abuse monitoring logs in OpenAI-managed infrastructure, but excluded from human review unless applicable law requires it"
+anchor = "openai-api-zdr-ineligible-psp"
+text_zh = "OpenAI 保留停用控制项的权利,但不是无条件的:「we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers, as notified in advance to the impacted customers in writing」。此情形下(Private Retention with PSP,原 Eyes Off)客户内容留在 OpenAI 自管的加密滥用监测日志中,除法律要求外不进入人工复核"
+
+[[product.zdr.point]]
+text = "The Safety Retention variant of the same right applies when it is \"reasonably necessary to investigate or prevent severe risk activity\", also with advance written notice; OpenAI may then retain and human review customer content on those models that its classifiers detect as potentially violating the Usage Policies or the agreement, while otherwise retention is not affected"
+anchor = "openai-api-zdr-ineligible-safety"
+text_zh = "同一权利的 Safety Retention 变体在「reasonably necessary to investigate or prevent severe risk activity」时适用,同样须事先书面通知;此时 OpenAI 可保留并人工复核其分类器判定可能违反使用政策或协议的内容,其余情况下保留不受影响"
+
 [product.retention]
 days = 30
 object = "logs"
@@ -90,6 +112,21 @@ text_zh = "滥用监测日志默认最多 30 天"
 [[product.retention.point]]
 text = "Application state follows separate per-endpoint rules such as 30 days, 48 hours and 24 hours"
 text_zh = "应用状态按端点另有 30 天/48 小时/24 小时等规则"
+
+[[product.retention.point]]
+text = "Response bodies carry a lower bound of their own: for /v1/responses the API keeps 30 days of Application State by default, or when `store` is set to `true`, and in those cases \"response data will be stored for at least 30 days\". That is a minimum on the request/response content itself, not a cap, and its object is the content rather than the abuse monitoring logs"
+anchor = "openai-api-responses-state-30d"
+text_zh = "正文另有下限:/v1/responses 默认(或 store=true 时)保留 30 天应用状态,此时 response data「至少」存储 30 天。这是对请求/响应正文本身的下限而非上限,对象是内容本身而不是滥用监测日志"
+
+[[product.retention.point]]
+text = "The per-endpoint table still records /v1/responses Application state retention as \"None, see below for exceptions\", so the 30 days is not a blanket rule for that endpoint: it applies by default or when `store` is true, and other endpoints keep application state on their own terms (None, 24 hours, 48 hours, 30 days, or until deleted)"
+anchor = "openai-api-responses-table-state-none"
+text_zh = "逐端点表仍把 /v1/responses 的 Application state retention 记为「None, see below for exceptions」,所以 30 天不是该端点的通行规则:默认或 store=true 时才适用;其他端点各有各的规则(None、24 小时、48 小时、30 天或至删除)"
+
+[[product.retention.point]]
+text = "Longest period on this tier: application-state objects of the Assistants family (/v1/assistants, /v1/threads, /v1/vector_stores, and /v1/files, which the table marks \"Until deleted\") are retained indefinitely when they are not deleted via the API or the dashboard, and are removed 30 days after deletion. This is until-deletion/indefinite, not a 30-day cap, and it is a separate object from the abuse monitoring logs"
+anchor = "openai-api-assistants-until-deleted"
+text_zh = "本档最长的期限:Assistants 系应用状态对象(/v1/assistants、/v1/threads、/v1/vector_stores,以及表中记为「Until deleted」的 /v1/files)若不通过 API 或控制台删除即无限期保留,删除后 30 天移除。属「至删除/无限期」而非 30 天上限,与滥用监测日志是两个对象"
 
 [product.processing_region]
 codes = ["GLOBAL"]
@@ -127,8 +164,8 @@ text = "To opt out, turn off \"Improve the model for everyone\" in ChatGPT under
 text_zh = "退出方式为 ChatGPT Settings → Data Controls 关掉「Improve the model for everyone」或在隐私门户选「Do not train on my content」,任一即可,对 ChatGPT 对话与 Codex 任务同时生效"
 
 [[product.training.point]]
-text = "Codex has separate controls for allowing training on full environments, managed in Codex Settings, and changing the ChatGPT-side setting does not affect them. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
-text_zh = "Codex 全环境(full environments)训练是独立开关,在 Codex Settings 里,改 ChatGPT 侧设置不影响它。退出后仅对新内容生效,不回溯。即使退出,主动点赞/点踩所关联的整段对话仍可能被用于训练"
+text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments, and changing the ChatGPT or Privacy Portal settings does not change it. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
+text_zh = "Codex 全环境(full environments)训练是独立开关「Include environments」,在 Codex settings 里,改 ChatGPT 或隐私门户的设置都不影响它。退出后仅对新内容生效,不回溯。即使退出,主动点赞/点踩所关联的整段对话仍可能被用于训练"
 
 [product.zdr]
 mark = "unknown"
@@ -165,8 +202,14 @@ text = "No fixed cap: regular and archived chats remain saved to the account unt
 text_zh = "无固定上限:常规/归档对话保存至用户删除(或工作区留存策略生效)"
 
 [[product.retention.point]]
-text = "Once deleted, OpenAI schedules the content for permanent deletion from its systems within 30 days, except where it has been de-identified and disassociated from the account, or where security or legal obligations require keeping it longer. Temporary Chats are deleted from OpenAI's systems after 30 days (for safety purposes) and are not used for training"
-text_zh = "删除后 OpenAI 在 30 天内从系统永久删除,例外是已去标识化并脱离账号,或安全/法律需要更久。临时对话最多保留 30 天(安全目的)且不用于训练"
+text = "Once deleted, OpenAI schedules the content for permanent deletion from its systems within 30 days, except where it has been de-identified and disassociated from the account, or where security or legal obligations require keeping it longer"
+anchor = "openai-consumer-retention-delete-30d"
+text_zh = "删除后 OpenAI 在 30 天内从系统永久删除,例外是已去标识化并脱离账号,或安全/法律需要更久"
+
+[[product.retention.point]]
+text = "Temporary chats are not used to improve the models while they remain temporary, and \"may be retained for up to 30 days for safety purposes\" — an upper bound on a safety copy, not a promise that they are deleted on day 30"
+anchor = "openai-consumer-temp-chat-30d"
+text_zh = "临时对话在保持临时期间不用于改进模型,且「最多保留 30 天(安全目的)」——这是安全副本的上限,不是「第 30 天删除」的承诺"
 
 [[product.retention.point]]
 text = "GPT knowledge files are kept until the GPT is deleted and project files until the project or the file is deleted; once deleted they are likewise permanently deleted within 30 days"
@@ -292,10 +335,7 @@ prefix = """
 
 """
 exact = "When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models"
-suffix = """
-.
-
-To opt out of model training, you can turn off “Improve t"""
+suffix = ". You can choose whether your conversations help improve our models."
 
 [[anchor]]
 id = "openai-consumer-training-optout"
@@ -303,12 +343,9 @@ source_id = "df535f59df9ad959"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-PT and Codex, we may use your content to train our models.
-
-"""
-exact = "To opt out of model training, you can turn off “Improve the model for everyone” in ChatGPT under Settings"
-suffix = " → Data Controls, or select “Do not train on my content” in "
+prefix = "You can choose whether your conversations help improve our models. "
+exact = "To opt out, turn off Improve the model for everyone under Settings > Data controls in ChatGPT"
+suffix = ", or select Do not train on my content in our Privacy Portal."
 
 [[anchor]]
 id = "openai-consumer-codex-fullenv-setting"
@@ -316,12 +353,9 @@ source_id = "df535f59df9ad959"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-se or create memories, or be used to train our models.  
-  
-"""
-exact = "Codex has separate controls for allowing training on full environments, which you can manage in the"
-suffix = " [Codex Settings](https://chatgpt.com/codex/settings/general"
+prefix = "if Improve the model for everyone is enabled in Settings.\n## Codex\n"
+exact = "Codex has a separate Include environments setting in Codex settings for allowing training on full environments"
+suffix = ". Changing your settings in ChatGPT or the Privacy Portal does not change that setting."
 
 [[anchor]]
 id = "openai-consumer-codex-optout-applies"
@@ -329,12 +363,9 @@ source_id = "c5bdc32bca931e70"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-odex tasks?**
-
-If you use Codex on a personal ChatGPT plan, """
-exact = "the “Improve the model for everyone” setting also applies to your Codex tasks"
-suffix = ". Turn it off in ChatGPT under Settings → Data Controls, or "
+prefix = "Manage model training for Codex tasks\nIf you use Codex on a personal ChatGPT plan, "
+exact = "Improve the model for everyone also applies to your Codex tasks"
+suffix = ". Turn it off in ChatGPT, or select Do not train on my content in the Privacy Portal."
 
 [[anchor]]
 id = "openai-consumer-temp-chat-30d"
@@ -342,19 +373,9 @@ source_id = "c5bdc32bca931e70"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-which device you’re using.
-
-## What about Temporary Chats?
-
-"""
-exact = "Temporary Chats are deleted from our systems after 30 days"
-suffix = """
-. These chats:
-
-*   Aren’t used to train our models
-
-*   May"""
+prefix = "are not used to improve OpenAI models\n* "
+exact = "may be retained for up to 30 days for safety purposes"
+suffix = "\nBefore the conversation begins, choose whether the temporary chat is personalized."
 
 [[anchor]]
 id = "openai-consumer-retention-chats"
@@ -473,3 +494,63 @@ prefix = """
 """
 exact = "OpenAI processes your Personal Data for the purposes described in this policy on servers located in various jurisdictions"
 suffix = ", including processing and storing your Personal Data in our"
+
+[[anchor]]
+id = "openai-api-responses-state-30d"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "In those cases, "
+exact = "response data will be stored for at least 30 days"
+suffix = "\n- Background mode stores response data to disk for roughly 10 minutes"
+
+[[anchor]]
+id = "openai-api-responses-table-state-none"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "| `/v1/responses` | No | 30 days | "
+exact = "None, see below for exceptions"
+suffix = " | Yes, see below for limitations"
+
+[[anchor]]
+id = "openai-api-assistants-until-deleted"
+source_id = "2aca780af5aa59ce"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Objects related to the Assistants API are deleted from our servers 30 days after you delete them via the API or the dashboard. "
+exact = "Objects that are not deleted via the API or dashboard are retained indefinitely"
+suffix = "\n#### `/v1/images`"
+
+[[anchor]]
+id = "openai-api-zdr-csam-image-exception"
+source_id = "2aca780af5aa59ce"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Image and file inputs are scanned for CSAM content upon submission. If the classifier detects potential CSAM content, "
+exact = "the image will be retained for manual review, even if Zero Data Retention, Modified Abuse Monitoring, or Private Retention with PSP is enabled"
+suffix = "\n#### Web Search"
+
+[[anchor]]
+id = "openai-api-zdr-ineligible-psp"
+source_id = "2aca780af5aa59ce"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "For customers approved for Zero Data Retention or Modified Abuse Monitoring, "
+exact = "we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers, as notified in advance to the impacted customers in writing"
+suffix = ". In this instance, customer content will be retained in encrypted abuse monitoring logs"
+
+[[anchor]]
+id = "openai-api-zdr-ineligible-safety"
+source_id = "2aca780af5aa59ce"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "For customers approved for Zero Data Retention or Modified Abuse Monitoring, "
+exact = "we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers if reasonably necessary to investigate or prevent severe risk activity, as notified in advance to the impacted customers in writing"
+suffix = ". In this instance, we may retain and human review customer content"

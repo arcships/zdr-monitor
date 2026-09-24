@@ -43,20 +43,86 @@ text_zh = "训练是 opt-in：官方写的是「除非你显式打开训练，�
 [[product.training.point]]
 text_zh = "例外是挂自己的 ChatGPT/Grok 订阅跑模型——那时走的是对方的消费级账号条款，Amp 的训练开关管不着，得去对方的 Data Controls 里单独关。"
 anchor = "amp-personal-subscription-terms"
+[[product.training.point]]
+text = "One lower-authority source points the other way: the privacy policy lists \"product improvement\" among Amp's own legitimate interests, and \"plan for and enhance our service\" among the uses of automatically collected data. Under this ledger's rule that improving a service counts as training, that sentence would argue the opposite; it is a consumer_privacy-level general statement, while the security page's \"Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.\" is the developer_data-level commitment and outranks it (contract > developer_data > enterprise_privacy_faq > consumer_privacy). Both facts are kept, and the mark stays yes on the security page."
+text_zh = "有一条低位阶表述方向相反：隐私政策把「product improvement」列进 Amp 自身的合法利益，自动收集数据的用途里也有「plan for and enhance our service」。按本台账「用来改进服务算训练」的口径，这句本应推出 mark=no；但它是 consumer_privacy 层级的一般性表述，而安全页的「Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.」属 developer_data 层级，按 contract > developer_data > enterprise_privacy_faq > consumer_privacy 优先。两条事实并列保留，结论仍以安全页为准记 yes。"
+anchor = "amp-privacy-product-improvement"
 [product.zdr]
 mark = "no"
 anchor = "amp-mdr-not-zero"
+[[product.zdr.point]]
+text = "MDR is a qualified mechanism rather than a blanket zero-retention promise: it is \"available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits.\" Requests routed through a customer-managed connection are not covered."
+text_zh = "MDR 是有条件的机制，不是无条件的零保留承诺：官方写它「available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits」。走客户自管连接的调用不在覆盖范围内。"
+anchor = "amp-mdr-availability"
+[[product.zdr.point]]
+text = "The object is the provider hop, not Amp's own storage: \"MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.\" Amp's own thread storage is governed by the retention row instead."
+text_zh = "对象是模型商那一跳，不是 Amp 自己的存储：官方写「MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.」。Amp 自身的 thread 存储由 retention 列的规则管辖。"
+anchor = "amp-mdr-third-party-only"
+[[product.zdr.point]]
+text = "Coverage is not uniform across models: \"Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.\" 30 days is an upper bound for that subset, not a general retention period."
+text_zh = "覆盖程度不因模型而一致：官方写「Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.」。这里的 30 天是该子集的上限，不是普遍保留期。"
+anchor = "amp-mdr-30d-exception"
+[[product.zdr.point]]
+text = "And some calls cannot be limited at all: \"Some models and features are not eligible for MDR.\" Eligibility can change as providers change their terms, so whether a given call is covered has to be checked per model and feature where it is enabled."
+text_zh = "而且有些调用根本不在覆盖范围内：官方写「Some models and features are not eligible for MDR.」。资格会随模型商条款变化，某次调用是否受覆盖必须在启用处按模型/功能确认。"
+anchor = "amp-mdr-not-eligible"
+[[product.zdr.point]]
+text = "Exception to the ordinary rule (retained only as long as needed to return a response): \"Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.\""
+text_zh = "常规规则（只为返回响应所需时长保留）之外的第一条例外：官方写「Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.」。"
+anchor = "amp-mdr-abuse-exception"
+[[product.zdr.point]]
+text = "Second exception: \"Providers may retain data when required by law, a court order, or a regulatory requirement.\""
+text_zh = "第二条例外：官方写「Providers may retain data when required by law, a court order, or a regulatory requirement.」。"
+anchor = "amp-mdr-legal-exception"
+[[product.zdr.point]]
+text = "BYOK leaves the MDR regime: \"Requests sent with your key are covered by the retention terms of your provider account.\" The MDR page says the same in its own words — the retention terms of the provider account apply instead."
+text_zh = "BYOK 不适用 MDR：官方写「Requests sent with your key are covered by the retention terms of your provider account.」。MDR 页同义表述为：客户自管连接的调用改为适用其模型账号的保留条款。"
+anchor = "amp-byok-provider-terms"
+[[product.zdr.point]]
+text = "The provider-side object is not only the prompt text: \"Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.\" KV cache / cached tokens are a separate object from Amp's thread data, and no period is given beyond \"a limited period\"."
+text_zh = "模型商侧的对象不只是提示词正文：官方写「Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.」。KV 缓存/缓存 token 与 Amp 的 thread 数据是两个对象，期限只写了「a limited period」，没有具体天数。"
+anchor = "amp-mdr-kv-cache"
 [product.retention]
 days = 30
 object = "input_output"
 basis = "until_termination"
 anchor = "amp-thread-delete-30d"
+[[product.retention.point]]
+text = "Account-level retention runs with the account: \"Amp retains your information while your account is active.\" This is the account-data clock; it is not the same object as the 30-day thread-deletion window."
+text_zh = "账号级保留随账号存续：「Amp retains your information while your account is active.」。这是账号信息的时钟，与线程删除后 30 天的窗口不是同一对象。"
+anchor = "amp-account-retention"
+[[product.retention.point]]
+text = "Audit logs are a separate object from thread content, and their period is a floor: \"Audit logs are retained for a minimum of 30 days.\" That is not a deadline for deleting inputs and outputs — the thread-deletion window is a different rule."
+text_zh = "审计日志是与线程内容不同的对象，且期限是下限：「Audit logs are retained for a minimum of 30 days.」。这不等于输入输出在 30 天后删除——线程删除窗口是另一条规则。"
+anchor = "amp-audit-log-retention-min-30d"
+[[product.retention.point]]
+text = "What that object is: structured application audit logs (timestamps, actor IDs, request details, event information) collected internally and monitored by Amp's security team, not exposed to Workspace Admins by default, but providable for Enterprise workspaces on request, for example during customer audits or incidents."
+text_zh = "该对象的范围：结构化应用审计日志（时间戳、actor ID、request details、事件信息），由 Amp 安全团队内部收集与监控，默认不对工作区管理员开放，但企业工作区可按需调取（例如客户审计或事件调查）。"
+anchor = "amp-audit-log-scope"
+[[product.retention.point]]
+text = "Orb-side object: \"Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.\" 72 hours is a reuse ceiling for project snapshots (cloned repository plus setup results), and deletion after replacement can be deferred until every orb derived from that snapshot is gone."
+text_zh = "Orb 侧对象：官方写「Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.」。72 小时是项目快照（克隆仓库 + setup 结果）的复用上限；替换后的删除会推迟到由该快照派生的 orb 全部消失为止。"
+anchor = "amp-orb-snapshot-72h"
+[[product.retention.point]]
+text = "Orbs have no retention period of their own: \"Amp does not offer a retention period for orbs that is separate from threads.\""
+text_zh = "Orb 没有独立保留期：官方写「Amp does not offer a retention period for orbs that is separate from threads.」。"
+anchor = "amp-orb-no-separate-retention"
+[[product.retention.point]]
+text = "Deletion is not the end of retention: \"After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.\" Read together with the 30-day window: that window covers thread content, while account information and sales correspondence can outlive it."
+text_zh = "删除不等于全部信息即刻消失：官方写「After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.」。与 30 天窗口并读：窗口管的是线程内容，账号信息与销售往来记录可以更久。"
+anchor = "amp-account-deletion-exception"
 [product.processing_region]
 codes = ["US"]
 anchor = "amp-us-processing"
 [product.role]
-kind = "controller"
-anchor = "amp-account-retention"
+kind = "unknown"
+searched = ["https://ampcode.com/privacy-policy", "https://ampcode.com/security", "https://ampcode.com/docs/enterprise/minimal-data-retention", "https://ampcode.com/docs/pricing"]
+[[product.role.point]]
+text = "No controller/processor designation: none of the pages checked (privacy policy, security reference, minimal data retention, pricing) names Amp's role toward its users or customers. The only instruction-based processing described belongs to Amp's service providers — the privacy policy says those vendors process Personal Information on Amp's instructions — which describes Amp directing its own suppliers, not Amp's role toward its customers."
+text_zh = "没有角色指定：已核实四页（隐私政策、安全参考、Minimal Data Retention、定价页）都没有写明 Amp 相对用户/客户是控制者还是受托方。唯一出现「按指示处理」的是隐私政策描述 Amp 的服务提供者按 Amp 的指示处理个人信息——那是 Amp 指挥自己的供应商，不是 Amp 相对客户的角色。"
+[[product.role.point]]
+text = "The direction is not settled in the text either way: the policy is written as Amp setting its own purposes (it lists the legal bases it relies on, including its own legitimate interests), which reads more like a controller posture than a processor one — but that is an inference from the framing, not a designation, so the kind is recorded as unknown and has to be confirmed in the contract."
+text_zh = "方向在原文里并未定死：隐私政策是按「Amp 自己设定处理目的」写的（它列出自己依赖的法律基础，含自身合法利益），读起来更像控制者而非受托方；但这是从行文推出的推断、不是角色指定，故 kind 记 unknown，需在合同层面确认。"
 
 [[product]]
 id = "individual"
@@ -69,20 +135,86 @@ mode = "default"
 anchor = "amp-training-optin"
 [[product.training.point]]
 text_zh = "和 Hobby 同一条规则：不打开训练开关就不训练。付费档买的是用量，不是另一套数据条款。"
+[[product.training.point]]
+text = "One lower-authority source points the other way: the privacy policy lists \"product improvement\" among Amp's own legitimate interests, and \"plan for and enhance our service\" among the uses of automatically collected data. Under this ledger's rule that improving a service counts as training, that sentence would argue the opposite; it is a consumer_privacy-level general statement, while the security page's \"Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.\" is the developer_data-level commitment and outranks it (contract > developer_data > enterprise_privacy_faq > consumer_privacy). Both facts are kept, and the mark stays yes on the security page."
+text_zh = "有一条低位阶表述方向相反：隐私政策把「product improvement」列进 Amp 自身的合法利益，自动收集数据的用途里也有「plan for and enhance our service」。按本台账「用来改进服务算训练」的口径，这句本应推出 mark=no；但它是 consumer_privacy 层级的一般性表述，而安全页的「Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.」属 developer_data 层级，按 contract > developer_data > enterprise_privacy_faq > consumer_privacy 优先。两条事实并列保留，结论仍以安全页为准记 yes。"
+anchor = "amp-privacy-product-improvement"
 [product.zdr]
 mark = "no"
 anchor = "amp-mdr-not-zero"
+[[product.zdr.point]]
+text = "MDR is a qualified mechanism rather than a blanket zero-retention promise: it is \"available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits.\" Requests routed through a customer-managed connection are not covered."
+text_zh = "MDR 是有条件的机制，不是无条件的零保留承诺：官方写它「available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits」。走客户自管连接的调用不在覆盖范围内。"
+anchor = "amp-mdr-availability"
+[[product.zdr.point]]
+text = "The object is the provider hop, not Amp's own storage: \"MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.\" Amp's own thread storage is governed by the retention row instead."
+text_zh = "对象是模型商那一跳，不是 Amp 自己的存储：官方写「MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.」。Amp 自身的 thread 存储由 retention 列的规则管辖。"
+anchor = "amp-mdr-third-party-only"
+[[product.zdr.point]]
+text = "Coverage is not uniform across models: \"Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.\" 30 days is an upper bound for that subset, not a general retention period."
+text_zh = "覆盖程度不因模型而一致：官方写「Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.」。这里的 30 天是该子集的上限，不是普遍保留期。"
+anchor = "amp-mdr-30d-exception"
+[[product.zdr.point]]
+text = "And some calls cannot be limited at all: \"Some models and features are not eligible for MDR.\" Eligibility can change as providers change their terms, so whether a given call is covered has to be checked per model and feature where it is enabled."
+text_zh = "而且有些调用根本不在覆盖范围内：官方写「Some models and features are not eligible for MDR.」。资格会随模型商条款变化，某次调用是否受覆盖必须在启用处按模型/功能确认。"
+anchor = "amp-mdr-not-eligible"
+[[product.zdr.point]]
+text = "Exception to the ordinary rule (retained only as long as needed to return a response): \"Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.\""
+text_zh = "常规规则（只为返回响应所需时长保留）之外的第一条例外：官方写「Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.」。"
+anchor = "amp-mdr-abuse-exception"
+[[product.zdr.point]]
+text = "Second exception: \"Providers may retain data when required by law, a court order, or a regulatory requirement.\""
+text_zh = "第二条例外：官方写「Providers may retain data when required by law, a court order, or a regulatory requirement.」。"
+anchor = "amp-mdr-legal-exception"
+[[product.zdr.point]]
+text = "BYOK leaves the MDR regime: \"Requests sent with your key are covered by the retention terms of your provider account.\" The MDR page says the same in its own words — the retention terms of the provider account apply instead."
+text_zh = "BYOK 不适用 MDR：官方写「Requests sent with your key are covered by the retention terms of your provider account.」。MDR 页同义表述为：客户自管连接的调用改为适用其模型账号的保留条款。"
+anchor = "amp-byok-provider-terms"
+[[product.zdr.point]]
+text = "The provider-side object is not only the prompt text: \"Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.\" KV cache / cached tokens are a separate object from Amp's thread data, and no period is given beyond \"a limited period\"."
+text_zh = "模型商侧的对象不只是提示词正文：官方写「Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.」。KV 缓存/缓存 token 与 Amp 的 thread 数据是两个对象，期限只写了「a limited period」，没有具体天数。"
+anchor = "amp-mdr-kv-cache"
 [product.retention]
 days = 30
 object = "input_output"
 basis = "until_termination"
 anchor = "amp-thread-delete-30d"
+[[product.retention.point]]
+text = "Account-level retention runs with the account: \"Amp retains your information while your account is active.\" This is the account-data clock; it is not the same object as the 30-day thread-deletion window."
+text_zh = "账号级保留随账号存续：「Amp retains your information while your account is active.」。这是账号信息的时钟，与线程删除后 30 天的窗口不是同一对象。"
+anchor = "amp-account-retention"
+[[product.retention.point]]
+text = "Audit logs are a separate object from thread content, and their period is a floor: \"Audit logs are retained for a minimum of 30 days.\" That is not a deadline for deleting inputs and outputs — the thread-deletion window is a different rule."
+text_zh = "审计日志是与线程内容不同的对象，且期限是下限：「Audit logs are retained for a minimum of 30 days.」。这不等于输入输出在 30 天后删除——线程删除窗口是另一条规则。"
+anchor = "amp-audit-log-retention-min-30d"
+[[product.retention.point]]
+text = "What that object is: structured application audit logs (timestamps, actor IDs, request details, event information) collected internally and monitored by Amp's security team, not exposed to Workspace Admins by default, but providable for Enterprise workspaces on request, for example during customer audits or incidents."
+text_zh = "该对象的范围：结构化应用审计日志（时间戳、actor ID、request details、事件信息），由 Amp 安全团队内部收集与监控，默认不对工作区管理员开放，但企业工作区可按需调取（例如客户审计或事件调查）。"
+anchor = "amp-audit-log-scope"
+[[product.retention.point]]
+text = "Orb-side object: \"Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.\" 72 hours is a reuse ceiling for project snapshots (cloned repository plus setup results), and deletion after replacement can be deferred until every orb derived from that snapshot is gone."
+text_zh = "Orb 侧对象：官方写「Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.」。72 小时是项目快照（克隆仓库 + setup 结果）的复用上限；替换后的删除会推迟到由该快照派生的 orb 全部消失为止。"
+anchor = "amp-orb-snapshot-72h"
+[[product.retention.point]]
+text = "Orbs have no retention period of their own: \"Amp does not offer a retention period for orbs that is separate from threads.\""
+text_zh = "Orb 没有独立保留期：官方写「Amp does not offer a retention period for orbs that is separate from threads.」。"
+anchor = "amp-orb-no-separate-retention"
+[[product.retention.point]]
+text = "Deletion is not the end of retention: \"After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.\" Read together with the 30-day window: that window covers thread content, while account information and sales correspondence can outlive it."
+text_zh = "删除不等于全部信息即刻消失：官方写「After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.」。与 30 天窗口并读：窗口管的是线程内容，账号信息与销售往来记录可以更久。"
+anchor = "amp-account-deletion-exception"
 [product.processing_region]
 codes = ["US"]
 anchor = "amp-us-processing"
 [product.role]
-kind = "controller"
-anchor = "amp-account-retention"
+kind = "unknown"
+searched = ["https://ampcode.com/privacy-policy", "https://ampcode.com/security", "https://ampcode.com/docs/enterprise/minimal-data-retention", "https://ampcode.com/docs/pricing"]
+[[product.role.point]]
+text = "No controller/processor designation: none of the pages checked (privacy policy, security reference, minimal data retention, pricing) names Amp's role toward its users or customers. The only instruction-based processing described belongs to Amp's service providers — the privacy policy says those vendors process Personal Information on Amp's instructions — which describes Amp directing its own suppliers, not Amp's role toward its customers."
+text_zh = "没有角色指定：已核实四页（隐私政策、安全参考、Minimal Data Retention、定价页）都没有写明 Amp 相对用户/客户是控制者还是受托方。唯一出现「按指示处理」的是隐私政策描述 Amp 的服务提供者按 Amp 的指示处理个人信息——那是 Amp 指挥自己的供应商，不是 Amp 相对客户的角色。"
+[[product.role.point]]
+text = "The direction is not settled in the text either way: the policy is written as Amp setting its own purposes (it lists the legal bases it relies on, including its own legitimate interests), which reads more like a controller posture than a processor one — but that is an inference from the framing, not a designation, so the kind is recorded as unknown and has to be confirmed in the contract."
+text_zh = "方向在原文里并未定死：隐私政策是按「Amp 自己设定处理目的」写的（它列出自己依赖的法律基础，含自身合法利益），读起来更像控制者而非受托方；但这是从行文推出的推断、不是角色指定，故 kind 记 unknown，需在合同层面确认。"
 
 [[product]]
 id = "team"
@@ -96,20 +228,97 @@ anchor = "amp-training-optin"
 [[product.training.point]]
 text_zh = "默认同样不训练，而且在 workspace 里要打开训练还得 Workspace Admin 批准——成员一个人点不动。"
 anchor = "amp-workspace-training"
+[[product.training.point]]
+text = "One lower-authority source points the other way: the privacy policy lists \"product improvement\" among Amp's own legitimate interests, and \"plan for and enhance our service\" among the uses of automatically collected data. Under this ledger's rule that improving a service counts as training, that sentence would argue the opposite; it is a consumer_privacy-level general statement, while the security page's \"Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.\" is the developer_data-level commitment and outranks it (contract > developer_data > enterprise_privacy_faq > consumer_privacy). Both facts are kept, and the mark stays yes on the security page."
+text_zh = "有一条低位阶表述方向相反：隐私政策把「product improvement」列进 Amp 自身的合法利益，自动收集数据的用途里也有「plan for and enhance our service」。按本台账「用来改进服务算训练」的口径，这句本应推出 mark=no；但它是 consumer_privacy 层级的一般性表述，而安全页的「Neither Amp nor our subprocessors train models on your data, unless you have explicitly opted into training.」属 developer_data 层级，按 contract > developer_data > enterprise_privacy_faq > consumer_privacy 优先。两条事实并列保留，结论仍以安全页为准记 yes。"
+anchor = "amp-privacy-product-improvement"
 [product.zdr]
 mark = "no"
 anchor = "amp-mdr-not-zero"
+[[product.zdr.point]]
+text = "MDR is a qualified mechanism rather than a blanket zero-retention promise: it is \"available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits.\" Requests routed through a customer-managed connection are not covered."
+text_zh = "MDR 是有条件的机制，不是无条件的零保留承诺：官方写它「available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits」。走客户自管连接的调用不在覆盖范围内。"
+anchor = "amp-mdr-availability"
+[[product.zdr.point]]
+text = "The object is the provider hop, not Amp's own storage: \"MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.\" Amp's own thread storage is governed by the retention row instead."
+text_zh = "对象是模型商那一跳，不是 Amp 自己的存储：官方写「MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.」。Amp 自身的 thread 存储由 retention 列的规则管辖。"
+anchor = "amp-mdr-third-party-only"
+[[product.zdr.point]]
+text = "Coverage is not uniform across models: \"Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.\" 30 days is an upper bound for that subset, not a general retention period."
+text_zh = "覆盖程度不因模型而一致：官方写「Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.」。这里的 30 天是该子集的上限，不是普遍保留期。"
+anchor = "amp-mdr-30d-exception"
+[[product.zdr.point]]
+text = "And some calls cannot be limited at all: \"Some models and features are not eligible for MDR.\" Eligibility can change as providers change their terms, so whether a given call is covered has to be checked per model and feature where it is enabled."
+text_zh = "而且有些调用根本不在覆盖范围内：官方写「Some models and features are not eligible for MDR.」。资格会随模型商条款变化，某次调用是否受覆盖必须在启用处按模型/功能确认。"
+anchor = "amp-mdr-not-eligible"
+[[product.zdr.point]]
+text = "Exception to the ordinary rule (retained only as long as needed to return a response): \"Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.\""
+text_zh = "常规规则（只为返回响应所需时长保留）之外的第一条例外：官方写「Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.」。"
+anchor = "amp-mdr-abuse-exception"
+[[product.zdr.point]]
+text = "Second exception: \"Providers may retain data when required by law, a court order, or a regulatory requirement.\""
+text_zh = "第二条例外：官方写「Providers may retain data when required by law, a court order, or a regulatory requirement.」。"
+anchor = "amp-mdr-legal-exception"
+[[product.zdr.point]]
+text = "BYOK leaves the MDR regime: \"Requests sent with your key are covered by the retention terms of your provider account.\" The MDR page says the same in its own words — the retention terms of the provider account apply instead."
+text_zh = "BYOK 不适用 MDR：官方写「Requests sent with your key are covered by the retention terms of your provider account.」。MDR 页同义表述为：客户自管连接的调用改为适用其模型账号的保留条款。"
+anchor = "amp-byok-provider-terms"
+[[product.zdr.point]]
+text = "The provider-side object is not only the prompt text: \"Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.\" KV cache / cached tokens are a separate object from Amp's thread data, and no period is given beyond \"a limited period\"."
+text_zh = "模型商侧的对象不只是提示词正文：官方写「Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.」。KV 缓存/缓存 token 与 Amp 的 thread 数据是两个对象，期限只写了「a limited period」，没有具体天数。"
+anchor = "amp-mdr-kv-cache"
 [product.retention]
 days = 30
 object = "input_output"
 basis = "until_termination"
 anchor = "amp-thread-delete-30d"
+[[product.retention.point]]
+text = "Account-level retention runs with the account: \"Amp retains your information while your account is active.\" This is the account-data clock; it is not the same object as the 30-day thread-deletion window."
+text_zh = "账号级保留随账号存续：「Amp retains your information while your account is active.」。这是账号信息的时钟，与线程删除后 30 天的窗口不是同一对象。"
+anchor = "amp-account-retention"
+[[product.retention.point]]
+text = "Audit logs are a separate object from thread content, and their period is a floor: \"Audit logs are retained for a minimum of 30 days.\" That is not a deadline for deleting inputs and outputs — the thread-deletion window is a different rule."
+text_zh = "审计日志是与线程内容不同的对象，且期限是下限：「Audit logs are retained for a minimum of 30 days.」。这不等于输入输出在 30 天后删除——线程删除窗口是另一条规则。"
+anchor = "amp-audit-log-retention-min-30d"
+[[product.retention.point]]
+text = "What that object is: structured application audit logs (timestamps, actor IDs, request details, event information) collected internally and monitored by Amp's security team, not exposed to Workspace Admins by default, but providable for Enterprise workspaces on request, for example during customer audits or incidents."
+text_zh = "该对象的范围：结构化应用审计日志（时间戳、actor ID、request details、事件信息），由 Amp 安全团队内部收集与监控，默认不对工作区管理员开放，但企业工作区可按需调取（例如客户审计或事件调查）。"
+anchor = "amp-audit-log-scope"
+[[product.retention.point]]
+text = "Orb-side object: \"Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.\" 72 hours is a reuse ceiling for project snapshots (cloned repository plus setup results), and deletion after replacement can be deferred until every orb derived from that snapshot is gone."
+text_zh = "Orb 侧对象：官方写「Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.」。72 小时是项目快照（克隆仓库 + setup 结果）的复用上限；替换后的删除会推迟到由该快照派生的 orb 全部消失为止。"
+anchor = "amp-orb-snapshot-72h"
+[[product.retention.point]]
+text = "Orbs have no retention period of their own: \"Amp does not offer a retention period for orbs that is separate from threads.\""
+text_zh = "Orb 没有独立保留期：官方写「Amp does not offer a retention period for orbs that is separate from threads.」。"
+anchor = "amp-orb-no-separate-retention"
+[[product.retention.point]]
+text = "Deletion is not the end of retention: \"After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.\" Read together with the 30-day window: that window covers thread content, while account information and sales correspondence can outlive it."
+text_zh = "删除不等于全部信息即刻消失：官方写「After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.」。与 30 天窗口并读：窗口管的是线程内容，账号信息与销售往来记录可以更久。"
+anchor = "amp-account-deletion-exception"
 [product.processing_region]
 codes = ["US"]
 anchor = "amp-us-processing"
 [product.role]
-kind = "controller"
-anchor = "amp-account-retention"
+kind = "unknown"
+searched = ["https://ampcode.com/privacy-policy", "https://ampcode.com/security", "https://ampcode.com/docs/enterprise/minimal-data-retention", "https://ampcode.com/docs/pricing"]
+[[product.role.point]]
+text = "No controller/processor designation: none of the pages checked (privacy policy, security reference, minimal data retention, pricing) names Amp's role toward its users or customers. The only instruction-based processing described belongs to Amp's service providers — the privacy policy says those vendors process Personal Information on Amp's instructions — which describes Amp directing its own suppliers, not Amp's role toward its customers."
+text_zh = "没有角色指定：已核实四页（隐私政策、安全参考、Minimal Data Retention、定价页）都没有写明 Amp 相对用户/客户是控制者还是受托方。唯一出现「按指示处理」的是隐私政策描述 Amp 的服务提供者按 Amp 的指示处理个人信息——那是 Amp 指挥自己的供应商，不是 Amp 相对客户的角色。"
+[[product.role.point]]
+text = "The workspace relationship is not addressed: nothing in the pages checked states a data role between a workspace and its members. The only workspace-scoped statements are about Enterprise thread ownership and about thread visibility — not about who is controller or processor for member data."
+text_zh = "工作区关系未约定：已核实文档没有表述工作区与其成员之间的数据角色；涉及工作区的表述只有企业档线程归属与线程可见范围，不涉及成员数据由谁控制。"
+[[product.role.point]]
+text = "The direction is not settled in the text either way: the policy is written as Amp setting its own purposes (it lists the legal bases it relies on, including its own legitimate interests), which reads more like a controller posture than a processor one — but that is an inference from the framing, not a designation, so the kind is recorded as unknown and has to be confirmed in the contract."
+text_zh = "方向在原文里并未定死：隐私政策是按「Amp 自己设定处理目的」写的（它列出自己依赖的法律基础，含自身合法利益），读起来更像控制者而非受托方；但这是从行文推出的推断、不是角色指定，故 kind 记 unknown，需在合同层面确认。"
+[[product.role.point]]
+text = "Access context for workspace buyers (not a role finding): joining a workspace with the same account used for personal threads makes those existing threads visible to all workspace members, unless the user makes those threads private or signs up to the workspace with a separate account under a separate email."
+text_zh = "工作区采购方关心的访问范围（不是角色判定）：用同一账号加入工作区后，此前创建的个人线程会对全体工作区成员可见，除非把这些线程设为 private，或改用另一个邮箱的独立账号加入。"
+anchor = "amp-workspace-thread-visibility"
+[[product.role.point]]
+text = "Private is not invisible to admins: private threads remain visible to workspace admins for workspace management purposes, and every admin access to a private thread is audit-logged."
+text_zh = "private 不等于对管理员不可见：private 线程对工作区管理员仍可见（用于工作区管理），且管理员每次访问 private 线程都会被审计记录。"
+anchor = "amp-private-threads-admin-visible"
 
 [[product]]
 id = "enterprise"
@@ -120,20 +329,105 @@ plan_level = "enterprise"
 mark = "yes"
 mode = "by_tier"
 anchor = "amp-enterprise-never-train"
+[[product.training.point]]
+text = "One lower-authority source points the other way: the privacy policy lists \"product improvement\" among Amp's own legitimate interests, and \"plan for and enhance our service\" among the uses of automatically collected data. Under this ledger's rule that improving a service counts as training, that sentence would argue the opposite; it is a consumer_privacy-level general statement, while the security page's \"On an Amp Enterprise workspace plan (paid or trial) training can never be enabled.\" is the developer_data-level commitment and outranks it (contract > developer_data > enterprise_privacy_faq > consumer_privacy). Both facts are kept, and the mark stays yes on the security page."
+text_zh = "有一条低位阶表述方向相反：隐私政策把「product improvement」列进 Amp 自身的合法利益，自动收集数据的用途里也有「plan for and enhance our service」。按本台账「用来改进服务算训练」的口径，这句本应推出 mark=no；但它是 consumer_privacy 层级的一般性表述，而安全页的「On an Amp Enterprise workspace plan (paid or trial) training can never be enabled.」属 developer_data 层级，按 contract > developer_data > enterprise_privacy_faq > consumer_privacy 优先。两条事实并列保留，结论仍以安全页为准记 yes。"
+anchor = "amp-privacy-product-improvement"
 [product.zdr]
 mark = "no"
 anchor = "amp-mdr-not-zero"
+[[product.zdr.point]]
+text = "MDR is a qualified mechanism rather than a blanket zero-retention promise: it is \"available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits.\" Requests routed through a customer-managed connection are not covered."
+text_zh = "MDR 是有条件的机制，不是无条件的零保留承诺：官方写它「available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits」。走客户自管连接的调用不在覆盖范围内。"
+anchor = "amp-mdr-availability"
+[[product.zdr.point]]
+text = "The object is the provider hop, not Amp's own storage: \"MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.\" Amp's own thread storage is governed by the retention row instead."
+text_zh = "对象是模型商那一跳，不是 Amp 自己的存储：官方写「MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data.」。Amp 自身的 thread 存储由 retention 列的规则管辖。"
+anchor = "amp-mdr-third-party-only"
+[[product.zdr.point]]
+text = "Coverage is not uniform across models: \"Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.\" 30 days is an upper bound for that subset, not a general retention period."
+text_zh = "覆盖程度不因模型而一致：官方写「Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation.」。这里的 30 天是该子集的上限，不是普遍保留期。"
+anchor = "amp-mdr-30d-exception"
+[[product.zdr.point]]
+text = "And some calls cannot be limited at all: \"Some models and features are not eligible for MDR.\" Eligibility can change as providers change their terms, so whether a given call is covered has to be checked per model and feature where it is enabled."
+text_zh = "而且有些调用根本不在覆盖范围内：官方写「Some models and features are not eligible for MDR.」。资格会随模型商条款变化，某次调用是否受覆盖必须在启用处按模型/功能确认。"
+anchor = "amp-mdr-not-eligible"
+[[product.zdr.point]]
+text = "Exception to the ordinary rule (retained only as long as needed to return a response): \"Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.\""
+text_zh = "常规规则（只为返回响应所需时长保留）之外的第一条例外：官方写「Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies.」。"
+anchor = "amp-mdr-abuse-exception"
+[[product.zdr.point]]
+text = "Second exception: \"Providers may retain data when required by law, a court order, or a regulatory requirement.\""
+text_zh = "第二条例外：官方写「Providers may retain data when required by law, a court order, or a regulatory requirement.」。"
+anchor = "amp-mdr-legal-exception"
+[[product.zdr.point]]
+text = "BYOK leaves the MDR regime: \"Requests sent with your key are covered by the retention terms of your provider account.\" The MDR page says the same in its own words — the retention terms of the provider account apply instead."
+text_zh = "BYOK 不适用 MDR：官方写「Requests sent with your key are covered by the retention terms of your provider account.」。MDR 页同义表述为：客户自管连接的调用改为适用其模型账号的保留条款。"
+anchor = "amp-byok-provider-terms"
+[[product.zdr.point]]
+text = "The provider-side object is not only the prompt text: \"Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.\" KV cache / cached tokens are a separate object from Amp's thread data, and no period is given beyond \"a limited period\"."
+text_zh = "模型商侧的对象不只是提示词正文：官方写「Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response.」。KV 缓存/缓存 token 与 Amp 的 thread 数据是两个对象，期限只写了「a limited period」，没有具体天数。"
+anchor = "amp-mdr-kv-cache"
 [product.retention]
 days = 30
 object = "input_output"
 basis = "until_termination"
 anchor = "amp-thread-delete-30d"
+[[product.retention.point]]
+text = "Enterprise-workspace threads are owned by the enterprise that owns the workspace rather than by the individual user who created the thread."
+text_zh = "企业工作区的线程归拥有该工作区的企业所有，而不是归创建线程的个人。"
+anchor = "amp-enterprise-owns-threads"
+[[product.retention.point]]
+text = "The deletion trigger for this tier is the end of the contract rather than a fixed period: \"We only delete workspace threads and associated user data when the enterprise's contract with us ends.\" The 30-day window applies to threads that are explicitly deleted."
+text_zh = "本档的删除触发点是合同终止而不是固定期限：官方写「We only delete workspace threads and associated user data when the enterprise’s contract with us ends.」。30 天窗口针对的是被显式删除的线程。"
+anchor = "amp-enterprise-threads-until-contract-end"
+[[product.retention.point]]
+text = "And the period itself is negotiable: the pricing page lists \"Configurable thread retention (on request)\" among the Enterprise controls."
+text_zh = "期限本身可协商：定价页把「Configurable thread retention (on request)」列为企业档控制项之一。"
+anchor = "amp-enterprise-thread-retention-configurable"
+[[product.retention.point]]
+text = "Audit logs are a separate object from thread content, and their period is a floor: \"Audit logs are retained for a minimum of 30 days.\" That is not a deadline for deleting inputs and outputs — the thread-deletion window is a different rule."
+text_zh = "审计日志是与线程内容不同的对象，且期限是下限：「Audit logs are retained for a minimum of 30 days.」。这不等于输入输出在 30 天后删除——线程删除窗口是另一条规则。"
+anchor = "amp-audit-log-retention-min-30d"
+[[product.retention.point]]
+text = "What that object is: structured application audit logs (timestamps, actor IDs, request details, event information) collected internally and monitored by Amp's security team, not exposed to Workspace Admins by default, but providable for Enterprise workspaces on request, for example during customer audits or incidents."
+text_zh = "该对象的范围：结构化应用审计日志（时间戳、actor ID、request details、事件信息），由 Amp 安全团队内部收集与监控，默认不对工作区管理员开放，但企业工作区可按需调取（例如客户审计或事件调查）。"
+anchor = "amp-audit-log-scope"
+[[product.retention.point]]
+text = "Orb-side object: \"Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.\" 72 hours is a reuse ceiling for project snapshots (cloned repository plus setup results), and deletion after replacement can be deferred until every orb derived from that snapshot is gone."
+text_zh = "Orb 侧对象：官方写「Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project.」。72 小时是项目快照（克隆仓库 + setup 结果）的复用上限；替换后的删除会推迟到由该快照派生的 orb 全部消失为止。"
+anchor = "amp-orb-snapshot-72h"
+[[product.retention.point]]
+text = "Orbs have no retention period of their own: \"Amp does not offer a retention period for orbs that is separate from threads.\""
+text_zh = "Orb 没有独立保留期：官方写「Amp does not offer a retention period for orbs that is separate from threads.」。"
+anchor = "amp-orb-no-separate-retention"
+[[product.retention.point]]
+text = "Deletion is not the end of retention: \"After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.\" Read together with the 30-day window: that window covers thread content, while account information and sales correspondence can outlive it."
+text_zh = "删除不等于全部信息即刻消失：官方写「After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes.」。与 30 天窗口并读：窗口管的是线程内容，账号信息与销售往来记录可以更久。"
+anchor = "amp-account-deletion-exception"
 [product.processing_region]
 codes = ["US"]
 anchor = "amp-us-processing"
 [product.role]
-kind = "processor"
-anchor = "amp-enterprise-owns-threads"
+kind = "unknown"
+searched = ["https://ampcode.com/privacy-policy", "https://ampcode.com/security", "https://ampcode.com/docs/enterprise/minimal-data-retention", "https://ampcode.com/docs/pricing"]
+[[product.role.point]]
+text = "The sentence previously bound here is about ownership, not about the contract role: the security page says Enterprise-workspace threads belong to the enterprise rather than to the individual creator. Data ownership is not a controller/processor designation, so that quote now supports the retention row and this row stays unknown."
+text_zh = "原先绑在本条的引文讲的是归属、不是合同角色：安全页写企业工作区的线程归企业所有而非创建者个人。数据归属不是控制者/受托方的角色指定，该引文现改绑 retention 列，本条记 unknown。"
+[[product.role.point]]
+text = "The enterprise legal terms are outside the checked set: the minimal-data-retention page points Enterprise customers to \"Data Retention for Enterprise Subscriptions\" in the Terms of Service for the full legal terms that apply to their plan, and that document is not among the sources this ledger monitors — so even if it designates a role, it cannot be verified from the pages checked."
+text_zh = "企业档的完整法律条款不在已核实范围内：Minimal Data Retention 页把企业客户指向 Terms of Service 里的「Data Retention for Enterprise Subscriptions」，该文档尚未纳入本台账的来源；即使其中指定了角色，也无法从已核实的页面确认。"
+[[product.role.point]]
+text = "The workspace relationship is not addressed: nothing in the pages checked states a data role between a workspace and its members. The only workspace-scoped statements are about Enterprise thread ownership and about thread visibility — not about who is controller or processor for member data."
+text_zh = "工作区关系未约定：已核实文档没有表述工作区与其成员之间的数据角色；涉及工作区的表述只有企业档线程归属与线程可见范围，不涉及成员数据由谁控制。"
+[[product.role.point]]
+text = "Access context for workspace buyers (not a role finding): joining a workspace with the same account used for personal threads makes those existing threads visible to all workspace members, unless the user makes those threads private or signs up to the workspace with a separate account under a separate email."
+text_zh = "工作区采购方关心的访问范围（不是角色判定）：用同一账号加入工作区后，此前创建的个人线程会对全体工作区成员可见，除非把这些线程设为 private，或改用另一个邮箱的独立账号加入。"
+anchor = "amp-workspace-thread-visibility"
+[[product.role.point]]
+text = "Private is not invisible to admins: private threads remain visible to workspace admins for workspace management purposes, and every admin access to a private thread is audit-logged."
+text_zh = "private 不等于对管理员不可见：private 线程对工作区管理员仍可见（用于工作区管理），且管理员每次访问 private 线程都会被审计记录。"
+anchor = "amp-private-threads-admin-visible"
 
 [[anchor]]
 id = "amp-training-optin"
@@ -168,12 +462,84 @@ prefix = ""
 exact = "On an [Amp Enterprise](https://ampcode.com/docs/pricing#enterprise) workspace plan (paid or trial) training can _never_ be enabled."
 suffix = ""
 [[anchor]]
+id = "amp-privacy-product-improvement"
+source_id = "4931216970fe2975"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Legitimate interests: We use your Personal Information for our legitimate interests, such as security, abuse, and fraud prevention, product improvement, and communications about your use of our Services."
+suffix = ""
+[[anchor]]
 id = "amp-mdr-not-zero"
 source_id = "f504aba9503d94e3"
 topics = ["zdr"]
 [anchor.selector]
 prefix = ""
 exact = "It limits how long third-party model providers retain prompts and responses. It does not mean that no data is ever retained."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-availability"
+source_id = "f504aba9503d94e3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Minimal Data Retention (MDR) is available to all Amp users when Amp sends requests through model provider connections managed by Amp and using Amp credits."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-third-party-only"
+source_id = "f504aba9503d94e3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "MDR only covers data handled by third-party model providers during inference (the process of generating a model response). It does not control how Amp stores thread data."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-30d-exception"
+source_id = "f504aba9503d94e3"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Certain models or features may require longer retention. A provider may retain data for up to 30 days when specified in its current documentation."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-not-eligible"
+source_id = "f504aba9503d94e3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Some models and features are not eligible for MDR."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-abuse-exception"
+source_id = "f504aba9503d94e3"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Providers may retain safety and abuse monitoring data, including classifier results, trust and safety scores, and content flagged as potentially violating their usage policies. Each provider retains this data according to its abuse prevention and safety policies."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-legal-exception"
+source_id = "f504aba9503d94e3"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Providers may retain data when required by law, a court order, or a regulatory requirement."
+suffix = ""
+[[anchor]]
+id = "amp-mdr-kv-cache"
+source_id = "f504aba9503d94e3"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Providers may store computational artifacts derived from prompts, such as key/value tensors or cached tokens, for a limited period. In this case, the provider does not persist the original prompt text after generating the response."
+suffix = ""
+[[anchor]]
+id = "amp-byok-provider-terms"
+source_id = "bd8ae33ee1627160"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Requests sent with your key are covered by the retention terms of your provider account."
 suffix = ""
 [[anchor]]
 id = "amp-thread-delete-30d"
@@ -184,6 +550,78 @@ prefix = ""
 exact = "When a thread is explicitly deleted, all data for that thread is removed within 30 days of thread deletion."
 suffix = ""
 [[anchor]]
+id = "amp-account-retention"
+source_id = "4931216970fe2975"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Amp retains your information while your account is active."
+suffix = ""
+[[anchor]]
+id = "amp-account-deletion-exception"
+source_id = "4931216970fe2975"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "After account deletion, Amp may retain information as needed to perform our contractual obligations, comply with tax, legal, and audit obligations, resolve disputes, preserve legal rights, or enforce our agreements. We retain sales inquiry records after account deletion because they are business correspondence. We keep them only as long as needed for sales follow-up, recordkeeping, legal and audit obligations, or resolving disputes."
+suffix = ""
+[[anchor]]
+id = "amp-audit-log-retention-min-30d"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Audit logs are retained for a minimum of 30 days."
+suffix = ""
+[[anchor]]
+id = "amp-audit-log-scope"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Amp maintains comprehensive application audit logs for security and monitoring purposes. Logs are structured and include key fields such as timestamps, actor IDs, request details, and event information. These logs are collected internally and monitored by the Amp security team, but are not currently exposed to Workspace Admins. Application audit logs can be provided for Enterprise workspaces upon request, for example during customer audits or incidents."
+suffix = ""
+[[anchor]]
+id = "amp-orb-snapshot-72h"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Amp reuses a snapshot for at most 72 hours and then replaces it. Replaced snapshots are queued for deletion, but cannot be deleted until all orbs created from it have also been deleted - either by deleting threads, or removing a project."
+suffix = ""
+[[anchor]]
+id = "amp-orb-no-separate-retention"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Amp does not offer a retention period for orbs that is separate from threads."
+suffix = ""
+[[anchor]]
+id = "amp-enterprise-owns-threads"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "are owned by the enterprise that owns the workspace, not the individual user who created the thread."
+suffix = ""
+[[anchor]]
+id = "amp-enterprise-threads-until-contract-end"
+source_id = "bd8ae33ee1627160"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "We only delete workspace threads and associated user data when the enterprise’s contract with us ends."
+suffix = ""
+[[anchor]]
+id = "amp-enterprise-thread-retention-configurable"
+source_id = "f60f3d0fe5b14fff"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Configurable thread retention (on request)"
+suffix = ""
+[[anchor]]
 id = "amp-us-processing"
 source_id = "4931216970fe2975"
 topics = ["processing_region"]
@@ -192,26 +630,18 @@ prefix = ""
 exact = "We store and process the information that we collect in the United States in accordance with this Privacy Policy, though our employees, contractors, and service providers may store and process data outside the United States."
 suffix = ""
 [[anchor]]
-id = "amp-account-retention"
-source_id = "4931216970fe2975"
-topics = ["role"]
-[anchor.selector]
-prefix = ""
-exact = "Amp retains your information while your account is active."
-suffix = ""
-[[anchor]]
-id = "amp-enterprise-owns-threads"
+id = "amp-workspace-thread-visibility"
 source_id = "bd8ae33ee1627160"
 topics = ["role"]
 [anchor.selector]
 prefix = ""
-exact = "are owned by the enterprise that owns the workspace, not the individual user who created the thread."
+exact = "Note that when joining a workspace with the same account as an individual user has used to create personal threads, the user understands and acknowledges that existing personal threads will be visible in the workspace to all workspace members unless: (a) the user makes those threads “private”, or (b) the user signs up to the workspace with a separate account under a separate email."
 suffix = ""
 [[anchor]]
-id = "amp-byok-provider-terms"
+id = "amp-private-threads-admin-visible"
 source_id = "bd8ae33ee1627160"
-topics = ["processing_region"]
+topics = ["role"]
 [anchor.selector]
 prefix = ""
-exact = "Requests sent with your key are covered by the retention terms of your provider account."
+exact = "Private threads are still visible to workspace admins for workspace management purposes; all workspace admin access to private threads is audit-logged."
 suffix = ""

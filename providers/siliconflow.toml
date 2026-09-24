@@ -32,12 +32,37 @@ category = "api"
 plan_level = "any"
 
 [product.training]
-mark = "yes"
-anchor = "intl-tos-7-4-purpose-limitation-only-providing-services"
-mode = "default"
+mark = "unknown"
+searched = [
+  "https://docs.siliconflow.com/en/legals/terms-of-service",
+  "https://docs.siliconflow.com/en/legals/privacy-policy",
+  "https://docs.siliconflow.com/cn/legals/terms-of-service",
+  "https://docs.siliconflow.com/cn/legals/privacy-policy",
+  "https://docs.siliconflow.com/llms.txt",
+  "https://siliconflow.com/trust",
+  "https://siliconflow.com/dpa",
+  "https://cloud.siliconflow.com/",
+]
 
 [[product.training.point]]
-text_zh = "同顶层 training：合同层用途限定为「solely for the purpose of providing Services to you」，无训练明文、无「不用于预训练/微调」承诺（国内站才有那句）。"
+text = "No explicit \"we do not train\" statement exists for this tier, so this dimension is recorded as not stated. The only clause on how API inputs and outputs may be used is ToS §7.4, and it is a purpose limitation — \"we will only use your Interaction Data in compliance with applicable laws and solely for the purpose of providing Services to you\" — that never names model training, and the paragraph sits under the heading \"7.4. Disclaimer\". Judging yes needs wording that explicitly rules model training out; the international site has none (the mainland-China site's \"不会用于任何大模型的预训练、微调或其他商业用途\" belongs to a different entity and site and is not used here)."
+text_zh = "本档没有「不用于训练」的明文，故本维度记「未表态」。涉及 API 输入输出用途的只有 ToS §7.4 的用途限定「we will only use your Interaction Data in compliance with applicable laws and solely for the purpose of providing Services to you」：该句未点名模型训练，整段位于「7.4. Disclaimer」标题之下。判 yes 需要明确把模型训练挡在外面的表述，国际站没有这句（国内站那句「不会用于任何大模型的预训练、微调或其他商业用途」属另一法律实体、另一站点，不能替用）。"
+
+[[product.training.point]]
+text = "Scope of the §7.4 wording: the carve-outs in the same sentence (\"Unless otherwise required by law, agreed under specific product rules, or necessary to provide technical assistance for troubleshooting or resolving technical issues at your request\") attach to the following sentence about strictly executing instructions and not accessing Interaction Data; they do not modify the purpose-limitation sentence, which starts with \"Additionally\" and carries no carve-out of its own."
+text_zh = "§7.4 的适用范围：同句的三个口子（法律另有要求、依据特定产品规则另行约定、或应客户要求提供故障排除的技术协助）挂在紧随其后那句「严格执行指示／不访问交互数据」上，不改变以 Additionally 另起的用途限定句的字面范围。"
+
+[[product.training.point]]
+text = "Opposite-facing clause in the same contract, kept side by side without picking a side: ToS §12b gives SiliconFlow the right to \"use and disclose any ideas, know-how, concepts, techniques, or other Intellectual Property Rights contained in such Feedback in any manner and for any purpose\", and §12a assigns those Feedback rights to SiliconFlow; Privacy Policy §3 and ToS §7.1 both list \"feedback\" among the ways Interaction Data comes into being. Scope limit: \"Feedback\" is what the user chooses to propose (ideas, suggestions, recommendations, enhancements, improvements), not the whole of API inputs and outputs."
+text_zh = "同一合同内的相反面向，两条并列、不选边：ToS §12b 授权厂商「use and disclose any ideas, know-how, concepts, techniques, or other Intellectual Property Rights contained in such Feedback in any manner and for any purpose」，§12a 更把 Feedback 的相关权利让与厂商；隐私政策 §3 与 ToS §7.1 都把 feedback 列为交互数据的生成方式之一。范围限定：Feedback 指用户主动提交的想法、建议、推荐、改进意见，不等于全部 API 输入输出。"
+
+[[product.training.point]]
+text = "\"training\" appears in the ToS only in §3.4b, and there it is a restriction on the user (no machine-learning or AI training or development on content provided through the service), not a vendor commitment about customer data."
+text_zh = "ToS 中唯一出现 training 的是 §3.4b，且是对用户的禁止（不得把服务提供的内容用于机器学习/AI 训练或开发），不是厂商对客户数据的承诺。"
+
+[[product.training.point]]
+text = "Object boundary: Privacy Policy §2.2b records network log information, usage frequency, crash data, usage scenarios and performance data, used \"to optimize the service experience and improve product quality\" — the object is operational data, not API inputs and outputs, so it neither supports nor overturns the training conclusion for this tier; §2.2c (troubleshooting records) is the same."
+text_zh = "对象边界：隐私政策 §2.2b 记录 network log、使用频率、崩溃数据、使用场景与性能数据，用于「optimize the service experience and improve product quality」——对象是运行数据，不是 API 输入输出正文，既撑不起也不推翻本档的训练结论；§2.2c 的故障排除记录同理。"
 
 [product.zdr]
 mark = "unknown"
@@ -61,6 +86,7 @@ text_zh = "无公开 DPA、无 trust center。"
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
+anchor = "intl-privacy-7-retain-as-necessary"
 searched = [
   "https://docs.siliconflow.com/en/legals/terms-of-service",
   "https://docs.siliconflow.com/en/legals/privacy-policy",
@@ -73,36 +99,79 @@ searched = [
 ]
 
 [[product.retention.point]]
-text_zh = "同顶层 retention：交互数据「无存储义务」（免责式）——§7.4 讲的是存储义务而非保留期限，不构成 retention 表述，故本维度不绑锚点"
+text = "No quantified retention period exists anywhere in the three snapshots: the 30 days, 7 days and one year that appear in these documents are the response window for access requests, the notice window for fee disputes and the liability cap — none of them is a retention period."
+text_zh = "三份快照里没有任何量化保留期限：出现的 30 天、7 天、一年分别是访问请求答复期、费用争议通知期与责任上限，与保留无关。"
 
 [[product.retention.point]]
-text_zh = "个人数据「按必需期间保留」"
+text = "Inputs and outputs (Interaction Data): no period at all. ToS §7.4 (\"We are under no obligation to store Interaction Data\") and Privacy Policy §3 (\"we have no obligation to store your Interaction Data\") are disclaimers of a storage duty, not retention commitments — they must not be read as a retention period."
+text_zh = "输入输出（交互数据）：完全没有期限。ToS §7.4「We are under no obligation to store Interaction Data」与隐私政策 §3「we have no obligation to store your Interaction Data」是存储义务的免责，不是保留承诺，不能读成保留期限。"
+anchor = "intl-tos-7-4-no-obligation-to-store"
 
 [[product.retention.point]]
-text_zh = "访问/账户/交易数据可被记录并送交当局（§5.11）"
+text = "Personal Data: kept \"as long as it is necessary to fulfil the purpose for which it was collected, or as required or permitted by applicable laws\" — an upper-bound style commitment with no number of days — and deleted or de-identified \"as soon as it is reasonable to assume that such retention no longer serves the purpose\". The object is Personal Data, not Interaction Data."
+text_zh = "个人数据：按「为实现收集目的所必需的期间，或适用法律要求或许可的期间」保留（上限式，无天数），并在「合理认为保留不再服务于该目的」时停止保留或去关联。对象是个人数据，不是交互数据。"
+anchor = "intl-privacy-7-retain-as-necessary"
 
 [[product.retention.point]]
-text_zh = "终止后删除为裁量式（§13.2c「may be deleted … at SiliconFlow's discretion」）。无任何量化期限。"
+text = "Access, account and transaction data and communications: no period. ToS §5.11 lets them be \"monitored, captured, recorded and transmitted to the authorities\" in compliance with local legal requirements and without further notice."
+text_zh = "访问/账户/交易数据与通信：无期限。ToS §5.11 允许其被「monitored, captured, recorded and transmitted to the authorities」，依当地法律要求且不再另行通知。"
+anchor = "intl-tos-5-11-access-data-recorded-to-authorities"
+
+[[product.retention.point]]
+text = "Operational data (network logs, usage frequency, crash data, performance data — Privacy Policy §2.2b) and troubleshooting records (§2.2c): collected for service improvement and support, with no retention period stated. The object is operational data, not the body of API inputs and outputs."
+text_zh = "运行数据（network log、使用频率、崩溃数据、性能数据——隐私政策 §2.2b）与故障排除记录（§2.2c）：用于服务改进与支持，未披露保留期限。对象是运行数据，不是 API 输入输出正文。"
+anchor = "intl-privacy-2-2-b-service-improvement-logs"
+
+[[product.retention.point]]
+text = "After termination: deletion is at the vendor's discretion — account content \"including your Interaction Data, may be deleted from SiliconFlow’s database at SiliconFlow’s discretion\" — which is not a commitment to delete, and no deadline is given."
+text_zh = "服务终止后：删除为裁量式——账户内容「including your Interaction Data, may be deleted from SiliconFlow’s database at SiliconFlow’s discretion」，不是删除承诺，也没有期限。"
+anchor = "intl-tos-13-2-c-deletion-at-discretion"
 
 [product.processing_region]
-codes = ["SG"]
+mark = "unknown"
+searched = [
+  "https://docs.siliconflow.com/en/legals/terms-of-service",
+  "https://docs.siliconflow.com/en/legals/privacy-policy",
+  "https://docs.siliconflow.com/cn/legals/terms-of-service",
+  "https://docs.siliconflow.com/cn/legals/privacy-policy",
+  "https://docs.siliconflow.com/llms.txt",
+  "https://siliconflow.com/trust",
+  "https://siliconflow.com/dpa",
+  "https://cloud.siliconflow.com/",
+]
+
+[[product.processing_region.point]]
+text = "No processing or storage location is disclosed for this tier, so no region code is asserted. The contracts contain no storage-location clause: Privacy Policy §5.1 allows Personal Data to be \"disclosed and/or transferred to the following third parties, and used or Processed by such third parties, whether within or outside Singapore\" (affiliates, service providers, and foreign authorities among the recipients), and ToS §15.7f lets SiliconFlow \"delegate or subcontract\" the performance of any of its functions and use any service provider, subcontractor or agent."
+text_zh = "本档未披露处理地/存储地，故不记任何地域码。合同里没有存储地域条款：隐私政策 §5.1 允许个人数据「may be disclosed and/or transferred to the following third parties, and used or Processed by such third parties, whether within or outside Singapore」（接收方含关联公司、服务商与境外政府/监管机构），ToS §15.7f 又允许把职能「delegate or subcontract」给任意服务提供者、分包商或代理。"
+anchor = "intl-privacy-5-1-transfer-outside-singapore"
+
+[[product.processing_region.point]]
+text = "Singapore appears only as the contracting entity, the licensed territory of use and the governing law — ToS §2.1 grants a licence \"to access and use the Platform and Services for in Singapore\", §4.1 sets Singapore Laws as the compliance baseline, §14.1 makes Singapore law governing, and Privacy Policy §1.1 applies the Singapore PDPA. None of these says where data is processed or stored, so SG is not recorded for this dimension."
+text_zh = "新加坡只出现在签约主体、许可使用地域与准据法上——ToS §2.1 授予「license to access and use the Platform and Services for in Singapore」，§4.1 以新加坡法律为合规基准，§14.1 以新加坡法为准据法，隐私政策 §1.1 适用新加坡 PDPA。这些都不是数据在何处处理或存储的表述，故本维度不记 SG。"
 anchor = "intl-tos-2-1-license-singapore"
-
-[[product.processing_region.point]]
-text_zh = "同顶层 processing_region：许可与合规基准为新加坡，但 §5.1 允许向新加坡境外传输并由境外第三方处理"
-
-[[product.processing_region.point]]
-text_zh = "无存储地域条款。"
 
 [product.role]
 kind = "processor"
 anchor = "intl-tos-7-4-passive-technical-channel"
 
 [[product.role.point]]
-text_zh = "同顶层 role：对 Interaction Data 自认「passive technical supporters or channels」、严格按客户指示处理"
+text = "For Interaction Data the vendor positions itself as \"passive technical supporters or channels\" and says its technical services \"will strictly execute your instructions for processing Interaction Data. We will not access your Interaction Data.\""
+text_zh = "对交互数据，厂商自认「passive technical supporters or channels」，并称技术服务「will strictly execute your instructions for processing Interaction Data. We will not access your Interaction Data.」。"
+anchor = "intl-tos-7-4-passive-technical-channel"
 
 [[product.role.point]]
-text_zh = "对账户与个人数据一侧仍是独立控制者。"
+text = "The \"strictly execute instructions / will not access\" sentence carries three carve-outs: \"Unless otherwise required by law, agreed under specific product rules, or necessary to provide technical assistance for troubleshooting or resolving technical issues at your request\". They attach to that sentence, not to the purpose-limitation sentence in §7.4."
+text_zh = "「严格执行指示／不访问」这句带三个口子：「Unless otherwise required by law, agreed under specific product rules, or necessary to provide technical assistance for troubleshooting or resolving technical issues at your request」——除非法律另有要求、依据特定产品规则另行约定、或应客户要求提供故障排除的技术协助。例外挂在这一句上，不在 §7.4 的用途限定句上。"
+anchor = "intl-tos-7-4-exceptions-carve-outs"
+
+[[product.role.point]]
+text = "\"We will not access\" also has a compliance-review and law-enforcement opening: ToS §3.5 reserves the right to \"monitor your access to or use of the Platform or Services, check, vet and/or control any activity, content or information\", and §5.11 lets access data, account data, transaction data and communications be monitored, captured, recorded and transmitted to the authorities. The object of both is access/account/transaction data and communications, not the body of API inputs and outputs."
+text_zh = "「不访问」另带合规审查与执法口子：ToS §3.5 保留监控、检查、审查平台活动的权利，§5.11 允许访问数据、账户数据、交易数据与通信被 monitored, captured, recorded 并送交当局。两条的对象都是访问/账户/交易数据与通信，不是 API 输入输出正文。"
+anchor = "intl-tos-3-5-monitor-rights"
+
+[[product.role.point]]
+text = "On the account and Personal Data side SiliconFlow is still an independent controller (the \"neutral technology service provider\" wording in Privacy Policy §3 covers Interaction Data only), and no public DPA is available."
+text_zh = "账户与个人数据一侧仍是独立控制者（隐私政策 §3 的「中立技术服务提供者」只针对交互数据），且无公开 DPA。"
 
 [[anchor]]
 id = "intl-tos-scope-excludes-mainland-china"
@@ -200,6 +269,16 @@ suffix = """
 8."""
 
 [[anchor]]
+id = "intl-tos-7-4-exceptions-carve-outs"
+source_id = "f7b1614acc1bbdc7"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "distribute, or otherwise handle through this Platform or model services. "
+exact = "Unless otherwise required by law, agreed under specific product rules, or necessary to provide technical assistance for troubleshooting or resolving technical issues at your request"
+suffix = ", our technical services will strictly execute your instructions for processing Interaction Data."
+
+[[anchor]]
 id = "intl-tos-13-2-c-deletion-at-discretion"
 source_id = "f7b1614acc1bbdc7"
 topics = ["retention"]
@@ -228,6 +307,18 @@ topics = ["training"]
 prefix = "r misrepresent your affiliation with any person or party;b. "
 exact = "use any content provided on or through this service (including any title information, keywords, or other metadata) for any machine learning and artificial intelligence training or development purposes"
 suffix = ", or for any technology intended to identify the identity of"
+
+[[anchor]]
+id = "intl-tos-3-5-monitor-rights"
+source_id = "f7b1614acc1bbdc7"
+topics = ["role", "retention"]
+
+[anchor.selector]
+prefix = """
+obligation, to:
+1. """
+exact = "monitor your access to or use of the Platform or Services, check, vet and/or control any activity, content or information occurring on or through the Platform or Services, to ensure your compliance with this Agreement, or to comply with SiliconFlow’s obligations under applicable Laws or the order or requirement of a court or other Governmental Authority"
+suffix = ""
 
 [[anchor]]
 id = "intl-tos-15-7-f-delegate-subcontract"

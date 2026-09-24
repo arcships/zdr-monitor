@@ -13,12 +13,14 @@ note = "覆盖档位:api(处理地维度权威)。Grok API 官方 Regional Endpo
 
 [[source]]
 url = "https://x.ai/legal/data-processing-addendum"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "覆盖档位:api(业务/企业 API 档的受托处理与跨境传输)。SpaceXAI DPA,经 Enterprise Terms §11.1 自动并入;§2.1 无条件声明 SpaceXAI 为 processor、客户为 controller/processor(不要求先提交个人数据),§8.1 说明可向欧洲以外(含美国)传输与处理个人数据。消费档不适用。"
 
 [[source]]
 url = "https://x.ai/legal/terms-of-service-enterprise"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "覆盖档位:api(Grok API / SpaceXAI 业务服务)。SpaceXAI Terms of Service — Enterprise,页面自述『These terms are for enterprise (business) users of the SpaceXAI API and related SpaceXAI Services (including Grok)』,生效方式为 Order Form 或在线购买确认;§3.4(a) 明确保留期可由客户经 self-service tools 选择,故 Console 自助购买/自助配置的 API 团队同样受本文件约束(启用 ZDR 的官方流程也要求接受 Enterprise Terms)。§3.1 不训练、§3.4 默认 30 天删除与 ZDR 行为、§11.1 角色均在此文件。消费档(grok.com)另见 Terms of Service — Consumer,不适用本文件。"
@@ -34,10 +36,25 @@ mark = "yes"
 mode = "by_contract"
 anchor = "tos-3-1-no-train"
 
+[[product.training.point]]
+text = "The no-training promise is not unconditional: the same sentence in Enterprise ToS §3.1 ends with “subject to disclosures to Customer and Customer-controlled user settings”, so the commitment is bounded by what SpaceXAI discloses to the customer and by settings the customer controls."
+text_zh = "不训练承诺不是无条件的：Enterprise ToS §3.1 同一句末尾写「subject to disclosures to Customer and Customer-controlled user settings」——承诺受厂商向客户披露的内容与客户可控的用户设置限定，不宜读成无条件禁止。"
+anchor = "tos-3-1-no-train"
+
+[[product.training.point]]
+text = "Nearest contrary provision, outside ZDR: Enterprise ToS §3.3 lets SpaceXAI create and use, “for any lawful purpose”, de-identified and/or aggregated data derived from the customer’s use of the Services, and SpaceXAI owns that De-Identified Data. It applies “Except when Customer elects to use SpaceXAI’s Zero Data Retention-enabled APIs”, so electing ZDR closes this channel. The object is De-Identified Data (irreversibly anonymized, neither containing nor revealing any User Content or Confidential Information), not User Content, so it does not overturn training = yes."
+text_zh = "非 ZDR 语境下方向最近的相反出口：Enterprise ToS §3.3 允许 SpaceXAI 为「any lawful purpose」创建并使用从客户使用中派生的去标识化／聚合数据，且该 De-Identified Data 归 SpaceXAI 所有；该条以「Except when Customer elects to use SpaceXAI’s Zero Data Retention-enabled APIs」为前提，即启用 ZDR 后关闭。客体是不可再识别、不含也不泄露任何 User Content 或 Confidential Information 的 De-Identified Data，不是 User Content，故不足以推翻 training = yes。"
+anchor = "tos-3-3-deidentified-data"
+
 [product.zdr]
 mark = "yes"
 mode = "opt_in"
 anchor = "tos-3-4-zdr-transient-1h"
+
+[[product.zdr.point]]
+text = "Scope and precondition (DPA §2.1, Enterprise ToS §11.2): the customer agrees to process Personal Data through the Services only using the ZDR-Enabled API, and failure to do so “will constitute a material breach of the Agreement”, with SpaceXAI “not responsible for any processing of such Personal Data outside of the ZDR Service”. §2.1 adds that when using the ZDR-Enabled API, only the customer, not SpaceXAI, will retain or have access to Personal Data. Enterprise ToS §11.2 states the same duty and adds that on the ZDR-Enabled API SpaceXAI will not retain any User Content (including Personal Data) after processing is complete, including content that might be needed to respond to government authorities, auditors or data subjects."
+text_zh = "适用范围与前提（DPA §2.1、Enterprise ToS §11.2）：客户承诺 Personal Data 只经 ZDR-Enabled API 提交，违反「will constitute a material breach of the Agreement」，且 SpaceXAI「not responsible for any processing of such Personal Data outside of the ZDR Service」。§2.1 另写明在 ZDR-Enabled API 上只有客户、不是 SpaceXAI，保留或能访问 Personal Data。ToS §11.2 同旨，并写明「SpaceXAI will not retain any User Content (including Personal Data) after processing is complete」，包括应对政府机关、审计方或数据主体请求所需的 User Content。"
+anchor = "tos-11-2-zdr-no-retain"
 
 [product.retention]
 days = 30
@@ -45,12 +62,57 @@ object = "mixed"
 basis = "fixed_period"
 anchor = "tos-3-4-retention-30d"
 
+[[product.retention.point]]
+text = "Contract layer, different object (DPA §9): upon termination of the Agreement SpaceXAI deletes any Personal Data in its possession, except to the extent applicable laws require retention, in which case the data is isolated and protected from further processing; the same section lets SpaceXAI continue to process information the customer instructed it to de-identify, anonymize and/or aggregate. Appendix 1 points the retention period for Personal Data at that section. This is a different object and clock from the request-level 30-day bound on User Content in Enterprise ToS §3.4 — the two must not be merged into one period."
+text_zh = "合同层、不同对象（DPA §9）：协议终止时 SpaceXAI 删除其持有的 Personal Data，法律要求留存的须隔离并停止进一步处理；同段另允许继续处理客户指示去标识化／匿名化／聚合后的派生信息，附录 1 的保留期一栏直接指向本节。这与 Enterprise ToS §3.4 对 User Content 的请求级 30 天上限是不同对象、不同时间轴，不能合成一个期限。"
+anchor = "dpa-9-deletion"
+
+[[product.retention.point]]
+text = "Second retention permission outside the 30-day cap (Enterprise ToS §10.4): notwithstanding the return-or-destruction rule, each Party may retain copies of the other Party’s Confidential Information solely for archival, audit, legal and/or regulatory purposes, provided the retained copies remain subject to the obligations and restrictions of the Agreement and are handled consistently with the retaining Party’s routine document retention policies and procedures. The period is therefore set by each Party’s own document retention policy rather than by a fixed number, and this permission stacks with the §3.4 exceptions rather than replacing them."
+text_zh = "30 天上限之外的第二条留存许可（Enterprise ToS §10.4）：尽管有返还或销毁规则，任一方仍可为归档、审计、法律与监管目的留存对方保密信息的副本，条件是留存副本继续受本协议义务与限制约束，且按留存方常规文档保留政策处理。期限因此由各方自身的文档保留政策决定，而非固定天数；该许可与 §3.4 的 (a)(b)(c) 例外是叠加关系，不是覆盖关系。"
+anchor = "tos-10-4-archival-retention"
+
+[[product.retention.point]]
+text = "Why User Content falls under §10.4 (Enterprise ToS §10.1(ii)): “Without any marking or further designation, subject to Sections 3 and 4 … all User Content will be deemed Customer’s Confidential Information.” The designation is expressly subject to Sections 3 and 4, so it does not override the deletion obligations in §3.4."
+text_zh = "User Content 何以落入 §10.4（Enterprise ToS §10.1(ii)）：「Without any marking or further designation, subject to Sections 3 and 4 … all User Content will be deemed Customer’s Confidential Information」——该认定明文受 Section 3 与 Section 4 约束，因此不凌驾 §3.4 的删除义务。"
+anchor = "tos-10-1-ii-confidential"
+
 [product.processing_region]
 codes = ["US"]
 anchor = "regions-us-guarantee-scope"
 
+[[product.processing_region.point]]
+text = "The default is the global endpoint and it does not pin a location: “https://api.x.ai is the global endpoint. SpaceXAI may route requests between regions for capacity or reliability, so the processing location is not guaranteed.” The United States location applies only when the client is pointed at the US regional endpoint."
+text_zh = "默认走全局端点，且不承诺处理地：「https://api.x.ai is the global endpoint. SpaceXAI may route requests between regions for capacity or reliability, so the processing location is not guaranteed.」只有把客户端指向美国区域端点时才适用美国处理地。"
+anchor = "regions-global-not-guaranteed"
+
+[[product.processing_region.point]]
+text = "The US guarantee is partial: API request handling, inference, moderation and retained request data are covered, but Files, Collections and server-side tools (web search, X search, code execution) “are outside the US guarantee and may process data outside the United States”, and the network path from the customer’s systems to the endpoint is not covered either. The endpoint is available to every team and existing API keys work on both endpoints, so it is a disclosed optional processing location rather than the tier default."
+text_zh = "美国保证是有范围的：覆盖 API 请求处理、推理、审核与 SpaceXAI 保留的请求数据，但 Files、Collections 与服务端工具（web search、X search、code execution）「are outside the US guarantee and may process data outside the United States」，客户系统到端点之间的网络链路同样不在保证内。该端点为所有团队可用、现有 API key 在两个端点上通用，即它是厂商披露的可选处理地，不是本档默认。"
+anchor = "regions-us-guarantee-exclusions"
+
+[[product.processing_region.point]]
+text = "Vendor’s own caveat on the US endpoint: “A regional endpoint is not, by itself, a comprehensive data-residency guarantee. If you have contractual requirements about where your data is processed or stored, contact sales@x.ai before relying on the US endpoint for compliance.”"
+text_zh = "厂商对美国端点的自带限定：「A regional endpoint is not, by itself, a comprehensive data-residency guarantee. If you have contractual requirements about where your data is processed or stored, contact sales@x.ai before relying on the US endpoint for compliance.」区域端点本身不等于数据驻留保证。"
+anchor = "regions-us-guarantee-not-residency"
+
+[[product.processing_region.point]]
+text = "Contract layer, different object (DPA §8.1; contract outranks developer docs): “SpaceXAI may transfer and process Personal Data on a global basis outside Europe as necessary to provide the Services, including in the United States and other countries where SpaceXAI and its Subprocessors maintain data processing operations.” This governs the transfer and processing range for Personal Data, while the regions page governs where request handling and inference happen; the two are kept side by side rather than merged. The DPA regime presupposes that the customer submits Personal Data only through the ZDR-Enabled API (§2.1)."
+text_zh = "合同层、不同对象（DPA §8.1；合同层权威性高于开发者文档）：「SpaceXAI may transfer and process Personal Data on a global basis outside Europe as necessary to provide the Services, including in the United States and other countries where SpaceXAI and its Subprocessors maintain data processing operations.」这一句管 Personal Data 的传输／处理范围，regions 页管请求处理与推理的发生地，两者并列保留而不互相覆盖；该合同层的适用前提是客户只经 ZDR-Enabled API 提交 Personal Data（§2.1）。"
+anchor = "dpa-8-1-transfers"
+
 [product.role]
 kind = "processor"
+anchor = "dpa-2-1-roles"
+
+[[product.role.point]]
+text = "Same layer, second source: Enterprise ToS §11.1 independently states that where data including “personal data” is submitted to the Services, “SpaceXAI will process such data as a processor on Customer’s behalf”, and the DPA is incorporated by reference automatically."
+text_zh = "同一权威层、第二处依据：Enterprise ToS §11.1 独立写明提交含「personal data」的数据时「SpaceXAI will process such data as a processor on Customer’s behalf」，并以引用方式自动并入 DPA。"
+anchor = "tos-11-1-processor"
+
+[[product.role.point]]
+text = "Scope of the role clause: the processor/controller statement in DPA §2.1 is itself unconditional, but the same section makes it the customer’s duty to process Personal Data through the Services only using the ZDR-Enabled API, makes failure to do so a material breach, and states that SpaceXAI is not responsible for processing outside the ZDR Service. The processor role is therefore not, by itself, a statement about non-ZDR API traffic."
+text_zh = "角色条款的适用范围：DPA §2.1 的 processor/controller 声明本身是无条件的，但同节把「Personal Data 只经 ZDR-Enabled API 提交」定为客户义务，违反构成 material breach，且 SpaceXAI 对 ZDR 之外的处理不负责。故该受托角色不构成对非 ZDR API 流量的角色承诺。"
 anchor = "dpa-2-1-roles"
 
 [[anchor]]
@@ -126,7 +188,7 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = "ernational Data Transfers.** You acknowledge and agree that "
-exact = "SpaceXAI may transfer and process Personal Data outside Europe as necessary to provide the Service, including the United States and other countries where SpaceXAI and its Subprocessors maintain data processing operations"
+exact = "SpaceXAI may transfer and process Personal Data on a global basis outside Europe as necessary to provide the Services, including in the United States and other countries where SpaceXAI and its Subprocessors maintain data processing operations"
 suffix = ". We shall take all such measures as are necessary to ensure"
 
 [[anchor]]
@@ -148,9 +210,67 @@ source_id = "983be7893acf3dd4"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
+prefix = "## What the guarantee covers"
+exact = "When you call `https://us.api.x.ai/v1`, SpaceXAI guarantees that the following happen in the United States"
+suffix = "- Handling of the request by SpaceXAI’s API servers."
 
-*   Safety moderation of the request and the response.
-*   """
-exact = "Storage of the request metadata, prompt inputs, and model outputs that SpaceXAI retains."
-suffix = " The [Security FAQ](https://docs.x.ai/developers/faq/securit"
+[[anchor]]
+id = "regions-us-guarantee-exclusions"
+source_id = "983be7893acf3dd4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "The image generation, video generation, and voice APIs are not served by the US endpoint."
+exact = "Files, Collections, and server-side tools such as web search, X search, and code execution still work on the US endpoint, but they are outside the US guarantee and may process data outside the United States"
+suffix = "If your requirements cover these features as well, avoid them when calling the US endpoint"
+
+[[anchor]]
+id = "regions-us-guarantee-not-residency"
+source_id = "983be7893acf3dd4"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "The guarantee also does not cover the network path between your own users or infrastructure and the endpoint."
+exact = "A regional endpoint is not, by itself, a comprehensive data-residency guarantee"
+suffix = "If you have contractual requirements about where your data is processed or stored, contact sales@x.ai before relying on the US endpoint for compliance."
+
+[[anchor]]
+id = "tos-3-3-deidentified-data"
+source_id = "8a3a1abc61a42e2e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "De-Identified and Aggregated Data"
+exact = "Except when Customer elects to use SpaceXAI’s Zero Data Retention-enabled APIs (“ZDR-Enabled API” or “ZDR”), SpaceXAI may create and use, for any lawful purpose, de-identified and/or aggregated data derived from Customer’s use of the Services that is irreversibly anonymized using industry-standard techniques, cannot be re-identified, and neither contains nor reveals any User Content or Confidential Information (“De-Identified Data”)"
+suffix = "SpaceXAI will own all right, title, and interest in the De-Identified Data"
+
+[[anchor]]
+id = "tos-10-4-archival-retention"
+source_id = "8a3a1abc61a42e2e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Return or Destruction"
+exact = "Notwithstanding the foregoing, each Party will be permitted to retain copies of the other Party’s Confidential Information solely for archival, audit, legal, and/or regulatory purposes provided that any Confidential Information so retained will: (a) remain subject to the obligations and restrictions contained in this Agreement; and (b) in a manner consistent with the retaining Party’s routine document retention policies and procedures"
+suffix = ""
+
+[[anchor]]
+id = "tos-10-1-ii-confidential"
+source_id = "8a3a1abc61a42e2e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Without any marking or further designation, subject to Sections 3 and 4,"
+exact = "all User Content will be deemed Customer’s Confidential Information"
+suffix = ""
+
+[[anchor]]
+id = "dpa-9-deletion"
+source_id = "b868f7653c35302d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Deletion of Personal Data"
+exact = "Upon termination of the Agreement, we shall delete any Personal Data in our possession in accordance with the Agreement, except to the extent that we are required to retain copies under applicable laws, in which case we shall isolate and protect such Personal Data from any further processing except to the extent required by applicable laws"
+suffix = "For clarity, SpaceXAI may continue to process information derived from Personal Data that you have instructed us to de-identify"
+

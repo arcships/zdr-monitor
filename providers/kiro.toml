@@ -14,6 +14,7 @@ tier = "core"
 note = "IDE/CLI 产品专属数据页：Free、个人付费、企业的训练、存储、地域、遥测默认值和 Bedrock 滥用检测期限。"
 [[source]]
 url = "https://kiro.dev/docs/web/data-protection"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "Kiro Web 同口径页面，正式 baseline 可用；用于交叉核验各档。"
@@ -37,19 +38,68 @@ plan_level = "free"
 mark = "no"
 mode = "opt_out"
 anchor = "kiro-individual-training"
+[[product.training.point]]
+text = "Contract layer, the strongest basis for this tier's mark=no: §50.3 names \"Kiro Free Tier\" among the services for which AWS may \"use and store AI Content ... to develop and improve the applicable AI Service and its underlying technologies\", and may use AI Content that is not personal data to develop and improve AWS and affiliate machine-learning and artificial-intelligence technologies. The product-page sentence (kiro-individual-training) is the same finding from the lower-authority source."
+text_zh = "合同层依据（本档 mark=no 的最强来源）：§50.3 点名「Kiro Free Tier」，AWS 可「use and store AI Content ... to develop and improve the applicable AI Service and its underlying technologies」，非个人数据还可用于开发改进 AWS 及关联方的机器学习/人工智能技术。产品页那句（kiro-individual-training）是同向的低层级证据。"
+anchor = "aws-kiro-50-3"
 [product.zdr]
 mark = "no"
 anchor = "kiro-free-60"
+[[product.zdr.point]]
+text = "Page-level statement, not tier-specific: Kiro may store your questions, responses and additional context such as code and metadata about your requests. The storage scope therefore covers inputs and outputs, not inputs alone."
+text_zh = "页面级、不分档的通用存储陈述：Kiro 可能存储你的问题、响应以及代码和请求元数据等附加上下文。存储范围因此是输入＋输出，不只是输入。"
+anchor = "kiro-general-storage"
+[[product.zdr.point]]
+text = "No zero-retention option is disclosed for this tier. Opting out of service improvement does not stop abuse-detection storage: for Free Tier the 60-day input retention still applies after opt-out."
+text_zh = "本档未披露任何零保留方案。退出服务改进不停止滥用检测留存：Free 档退出后，输入 60 天的留存仍然适用。"
+anchor = "kiro-optout-no-effect"
+[[product.zdr.point]]
+text = "Contract layer: §50.14.2 states that Bedrock abuse detection mechanisms apply to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected, and repeats the Free Tier 60-day input retention."
+text_zh = "合同层：§50.14.2 写明 Bedrock 滥用检测机制适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查，并重申 Free 档输入最多 60 天的留存。"
+anchor = "aws-kiro-50-14-2"
 [product.retention]
 days = 60
-object = "input_output"
+object = "mixed"
 basis = "fixed_period"
 anchor = "kiro-free-60"
 [[product.retention.point]]
-text_zh = "Free 输入为额外滥用检测最多保留 60 天；OpenAI GPT 被分类器标记的流量最长 30 天，Claude Fable 5.1 Preview 全量最长 30 天。代码索引/缓存期限未披露。"
+text = "Object: the disclosed 60 days covers inputs only (\"we may store your inputs\"); responses fall under the page-level storage statement but no deletion period is published for them. Context: this is Free Tier's additional abuse-detection mechanism, not this tier's general content retention — Free Tier content used for service improvement (opt-out available) carries no published deletion period. Period type: an upper bound, with the clause's own carve-out \"unless otherwise required by law\"."
+text_zh = "对象：已披露的 60 天只覆盖输入（原文 we may store your inputs）；响应在页面级存储陈述范围内，但没有任何删除期限。语境：这是 Free 档专属的额外滥用检测机制，不是本档的一般内容留存——用于服务改进的内容（可退出）未给删除期限。期限类型：上限，并带原文例外「unless otherwise required by law」。"
+anchor = "kiro-free-60"
+[[product.retention.point]]
+text = "Model-level abuse detection on top of the above: for OpenAI GPT models, classifier-flagged traffic is retained up to 30 days for automated offline abuse detection."
+text_zh = "其上叠加的模型级滥用检测：OpenAI GPT 被分类器标记的流量为自动化离线滥用检测最多保留 30 天。"
+anchor = "kiro-model-abuse"
+[[product.retention.point]]
+text = "Second model-level case: for Anthropic Claude Fable 5.1 (Preview) all traffic — not only classifier-flagged traffic — is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 (Preview) 是全量流量（不只是被标记流量）最多 30 天，且被标记流量可能由 AWS 人工审查。"
+anchor = "kiro-fable-abuse"
+[[product.retention.point]]
+text = "Opting out of service improvement does not affect abuse-detection storage: the Free Tier 60-day input retention still applies after opt-out."
+text_zh = "退出服务改进不影响滥用检测留存：Free 档退出服务改进后，输入 60 天的留存仍然适用。"
+anchor = "kiro-optout-no-effect"
+[[product.retention.point]]
+text = "Contract layer for every tier: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected, and repeats the Free Tier 60-day input retention."
+text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查，并重申 Free 档输入最多 60 天的留存。"
+anchor = "aws-kiro-50-14-2"
+[[product.retention.point]]
+text = "Code index and cache periods are not disclosed."
+text_zh = "代码索引与缓存期限未披露。"
 [product.processing_region]
 codes = ["US"]
 anchor = "kiro-individual-region"
+[[product.processing_region.point]]
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the US."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国服务。"
+anchor = "kiro-models-us-default"
+[[product.processing_region.point]]
+text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
+text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro Free Tier in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
+text_zh = "与 codes=[\"US\"] 并列阅读的合同层张力：§50.3(c) 允许 AWS 把 Kiro Free Tier 的 AI Content 存到使用地以外的 AWS Region，但仅限于 §50.3(a)-(b) 所述的开发与改进目的。"
+anchor = "aws-kiro-50-3"
 [product.role]
 mark = "unknown"
 searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://aws.amazon.com/service-terms/"]
@@ -65,19 +115,59 @@ mode = "opt_out"
 anchor = "kiro-individual-training"
 [[product.training.point]]
 text_zh = "社交登录或 Builder ID 的付费用户仍属 individual；默认收集内容和遥测，可分别关闭。服务改进明确包括 model training。"
+[[product.training.point]]
+text = "Contract layer: §50.3 names \"Kiro individual subscribers\" in the same improvement authorisation as Free Tier — AI Content may be used and stored to develop and improve the applicable AI Service and its underlying technologies, and clause (c) allows storing it in an AWS region outside the region of use."
+text_zh = "合同层：§50.3 把「Kiro individual subscribers」与 Free Tier 一起列入改进授权——AI Content 可用于开发和改进该 AI Service 及其底层技术，且 (c) 允许存到使用地以外的 AWS Region。"
+anchor = "aws-kiro-50-3"
+[[product.training.point]]
+text = "Documented exception: if you have an Amazon Q Developer Pro subscription and access Kiro through your AWS account with that subscription, Kiro will not use your content for service improvement. The page does not say whether such users count as individual subscribers or belong to the AWS-account chain, so the tier this exception attaches to is still unclear."
+text_zh = "原文记载的例外：若你持有 Amazon Q Developer Pro 订阅，并通过 AWS 账户以该订阅访问 Kiro，Kiro 不会把你的内容用于服务改进。页面没有说明这类用户算 individual 订阅者还是属于 AWS 账户链，因此这条例外挂在哪一档仍待澄清。"
+anchor = "kiro-q-developer-pro-no-improvement"
 [product.zdr]
 mark = "no"
 anchor = "kiro-individual-region"
+[[product.zdr.point]]
+text = "Page-level statement, not tier-specific: Kiro may store your questions, responses and additional context such as code and metadata about your requests. The storage scope therefore covers inputs and outputs, not inputs alone."
+text_zh = "页面级、不分档的通用存储陈述：Kiro 可能存储你的问题、响应以及代码和请求元数据等附加上下文。存储范围因此是输入＋输出，不只是输入。"
+anchor = "kiro-general-storage"
+[[product.zdr.point]]
+text = "No zero-retention option is disclosed for this tier; contract layer §50.14.2 adds retention and potential human review of inputs and outputs when certain models are selected."
+text_zh = "本档未披露零保留方案；合同层 §50.14.2 另加：选择特定模型时输入输出会被留存并可能经人工审查。"
+anchor = "aws-kiro-50-14-2"
 [product.retention]
 mark = "unknown"
 object = "input_output"
 basis = "undisclosed"
-searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models"]
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models", "https://aws.amazon.com/service-terms/"]
 [[product.retention.point]]
-text_zh = "未披露一般输入输出、代码索引或缓存期限；模型滥用检测例外为 GPT 标记流量最长 30 天、Fable 5.1 Preview 全量最长 30 天。"
+text_zh = "未披露一般输入输出、代码索引或缓存期限。"
+[[product.retention.point]]
+text = "Model-level exception: for OpenAI GPT models, classifier-flagged traffic is retained up to 30 days; traffic that is not flagged, and models outside these lists, have no published period."
+text_zh = "模型级例外：OpenAI GPT 被分类器标记的流量最多保留 30 天；未被标记的流量以及清单外的模型都没有公布期限。"
+anchor = "kiro-model-abuse"
+[[product.retention.point]]
+text = "Second model-level case: for Anthropic Claude Fable 5.1 (Preview) all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 (Preview) 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
+anchor = "kiro-fable-abuse"
+[[product.retention.point]]
+text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected; §50.12.2 puts a 30-day upper bound (with the \"unless otherwise required by law\" carve-out) on the inputs and outputs of certain models only."
+text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查；§50.12.2 只对「特定模型」的输入输出给出 30 天上限，并带「unless otherwise required by law」例外。"
+anchor = "aws-kiro-50-14-2"
 [product.processing_region]
 codes = ["US"]
 anchor = "kiro-individual-region"
+[[product.processing_region.point]]
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the US."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国服务。"
+anchor = "kiro-models-us-default"
+[[product.processing_region.point]]
+text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
+text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro individual subscribers in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
+text_zh = "与 codes=[\"US\"] 并列阅读的合同层张力：§50.3(c) 允许 AWS 把 Kiro individual 订阅者的 AI Content 存到使用地以外的 AWS Region，但仅限于 §50.3(a)-(b) 所述的开发与改进目的。"
+anchor = "aws-kiro-50-3"
 [product.role]
 mark = "unknown"
 searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://aws.amazon.com/service-terms/"]
@@ -96,18 +186,50 @@ mark = "no"
 anchor = "kiro-enterprise-storage"
 [[product.zdr.point]]
 text_zh = "不用于服务改进不等于零保留：profile Region 可存 prompts/responses；管理员启用 prompt logging/activity reports 时写入客户 S3；模型滥用检测仍可保留。"
+[[product.zdr.point]]
+text = "Page-level statement, not tier-specific: Kiro may store your questions, responses and additional context such as code and metadata about your requests. The storage scope therefore covers inputs and outputs, not inputs alone."
+text_zh = "页面级、不分档的通用存储陈述：Kiro 可能存储你的问题、响应以及代码和请求元数据等附加上下文。存储范围因此是输入＋输出，不只是输入。"
+anchor = "kiro-general-storage"
+[[product.zdr.point]]
+text = "Contract layer: §50.14.2 applies Bedrock abuse detection to Kiro use regardless of tier, including retention and potential human review of inputs and outputs when certain models are selected."
+text_zh = "合同层：§50.14.2 的 Bedrock 滥用检测不限档位地适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查。"
+anchor = "aws-kiro-50-14-2"
 [product.retention]
 mark = "unknown"
 object = "mixed"
 basis = "undisclosed"
-searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models"]
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models", "https://aws.amazon.com/service-terms/"]
 [[product.retention.point]]
 text_zh = "一般内容及客户 S3 日志期限由文档/客户配置未披露；GPT 标记流量与 Fable 5.1 Preview 流量最长 30 天。代码索引/缓存期限未披露。"
+[[product.retention.point]]
+text = "Contract layer deletion commitment: following closure of your AWS account, AWS will delete Your Content in accordance with the technical documentation applicable to the Services. Context = after account closure, object = Your Content; the period type is delegated to technical documentation and is therefore undisclosed — this is not a 60/30-day style retention period."
+text_zh = "合同层的删除承诺：AWS 账户注销后，AWS 会按适用于该服务的技术文档删除 Your Content。语境＝账号注销后，对象＝Your Content；期限类型交给技术文档，等于未披露——不是 60/30 天那样的留存期限。"
+anchor = "aws-account-closure-delete"
+[[product.retention.point]]
+text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected; §50.12.2 puts a 30-day upper bound (with the \"unless otherwise required by law\" carve-out) on the inputs and outputs of certain models only."
+text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查；§50.12.2 只对「特定模型」的输入输出给出 30 天上限，并带「unless otherwise required by law」例外。"
+anchor = "aws-kiro-50-14-2"
+[[product.retention.point]]
+text = "Second model-level case: for Anthropic Claude Fable 5.1 (Preview) all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 (Preview) 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
+anchor = "kiro-fable-abuse"
 [product.processing_region]
 codes = ["selected", "global"]
 anchor = "kiro-enterprise-storage"
 [[product.processing_region.point]]
 text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，experimental 可在全球商业 AWS Regions 推理。"
+[[product.processing_region.point]]
+text = "Which geography serves a request depends on the model and the profile region: GPT-5.6 models are served from the US regardless of profile region, Claude Fable 5.1 (Preview) only in US East (N. Virginia), and every other model from the geography that matches the profile."
+text_zh = "由哪个 geography 服务取决于模型与 profile region：GPT-5.6 一律从美国服务（与 profile region 无关），Claude Fable 5.1 (Preview) 仅 US East (N. Virginia)，其余模型按 profile 所在的 geography。"
+anchor = "kiro-models-geography"
+[[product.processing_region.point]]
+text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
+text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Models page states the same exception: experimental models may be processed in commercial AWS Regions worldwide, including outside the profile's geography, and cross-region inference does not change where data is stored."
+text_zh = "models 页同旨：experimental 模型可能在全球商业 AWS Regions 处理，包括 profile geography 之外；跨区推理不改变数据存储地。"
+anchor = "kiro-models-experimental-global"
 [product.role]
 kind = "processor"
 anchor = "aws-dpa-chain"
@@ -126,18 +248,71 @@ anchor = "kiro-enterprise-no-improvement"
 [product.zdr]
 mark = "no"
 anchor = "kiro-model-abuse"
+[[product.zdr.point]]
+text = "Page-level statement, not tier-specific: Kiro may store your questions, responses and additional context such as code and metadata about your requests. The storage scope therefore covers inputs and outputs, not inputs alone."
+text_zh = "页面级、不分档的通用存储陈述：Kiro 可能存储你的问题、响应以及代码和请求元数据等附加上下文。存储范围因此是输入＋输出，不只是输入。"
+anchor = "kiro-general-storage"
+[[product.zdr.point]]
+text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected."
+text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查。"
+anchor = "aws-kiro-50-14-2"
 [product.retention]
 days = 30
 object = "input_output"
 basis = "fixed_period"
 anchor = "kiro-model-abuse"
+[[product.retention.point]]
+text = "Object and model scope of the published 30 days: for OpenAI GPT models only classifier-flagged traffic is retained for up to 30 days for automated offline abuse detection; traffic that is not flagged has no published period and other models are not covered by this sentence."
+text_zh = "已公布 30 天的对象与模型范围：只针对 OpenAI GPT 模型、且只有被分类器标记的流量，为自动化离线滥用检测最多保留 30 天；未被标记的流量没有公布期限，其他模型也不在这句的范围内。"
+anchor = "kiro-model-abuse"
+[[product.retention.point]]
+text = "Second model-level case: for Anthropic Claude Fable 5.1 (Preview) all traffic — not only classifier-flagged traffic — is retained for up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 (Preview) 是全量流量（不只是被标记流量）最多保留 30 天，且被标记流量可能由 AWS 人工审查。"
+anchor = "kiro-fable-abuse"
+[[product.retention.point]]
+text = "Period type and scope at the contract layer: §50.12.2 covers only \"certain models identified on the Bedrock abuse detection page\", states an upper bound of 30 days on Service inputs and outputs with the clause's own carve-out \"unless otherwise required by law\", and allows AWS to review inputs and outputs on a suspected violation."
+text_zh = "合同层的期限类型与范围：§50.12.2 只覆盖「Bedrock abuse detection 页所列的特定模型」，对服务输入输出给出 30 天上限并带原文例外「unless otherwise required by law」，并允许 AWS 在疑似违规时审查输入输出。"
+anchor = "aws-kiro-bedrock-30d"
+[[product.retention.point]]
+text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected."
+text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查。"
+anchor = "aws-kiro-50-14-2"
 [product.processing_region]
 codes = ["selected", "global"]
 anchor = "kiro-bedrock"
+[[product.processing_region.point]]
+text = "Which geography serves a request depends on the model and the profile region: GPT-5.6 models are served from the US regardless of profile region, Claude Fable 5.1 (Preview) only in US East (N. Virginia), and every other model from the geography that matches the profile."
+text_zh = "由哪个 geography 服务取决于模型与 profile region：GPT-5.6 一律从美国服务（与 profile region 无关），Claude Fable 5.1 (Preview) 仅 US East (N. Virginia)，其余模型按 profile 所在的 geography。"
+anchor = "kiro-models-geography"
+[[product.processing_region.point]]
+text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
+text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Models page states the same exception: experimental models may be processed in commercial AWS Regions worldwide, including outside the profile's geography, and cross-region inference does not change where data is stored."
+text_zh = "models 页同旨：experimental 模型可能在全球商业 AWS Regions 处理，包括 profile geography 之外；跨区推理不改变数据存储地。"
+anchor = "kiro-models-experimental-global"
+[[product.processing_region.point]]
+text = "Downstream constraint: model availability varies by country or region, and Kiro's model offerings align with each provider's usage and geographic requirements (OpenAI, Anthropic, MiniMax, Zhipu AI, DeepSeek, Qwen)."
+text_zh = "下游约束：模型可用性因国家/地区而异，Kiro 的模型供给对齐各家提供方（OpenAI、Anthropic、MiniMax、Zhipu AI、DeepSeek、Qwen）的使用与地域要求。"
+anchor = "kiro-models-availability"
 [product.role]
-kind = "subprocessor"
+kind = "unknown"
+searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/models", "https://aws.amazon.com/service-terms/"]
+[[product.role.point]]
+text = "No official text assigns a role to this hop: the Bedrock sentence describes the inference path only (cross-region inference within a geography) and does not characterise Kiro or its model suppliers as processor, controller or subprocessor."
+text_zh = "没有官方原文给这一跳定性：Bedrock 那句只讲推理路径（geography 内的跨区推理），没有把 Kiro 或其模型供给方写成 processor、controller 或 subprocessor。"
 anchor = "kiro-bedrock"
 [[product.role.point]]
+text = "Third-party model providers are a separate, separately contracted hop: §50.12.1 supplies third-party models as \"Third-Party Content\", applies Section 20 (AWS Marketplace) to models sold by third parties, and makes Amazon Web Services, Inc. the invoicing party — independent contracting rather than a sub-processor relationship."
+text_zh = "第三方模型提供方是独立的一跳、各自缔约：§50.12.1 把第三方模型作为「Third-Party Content」提供，第三方销售的模型适用 §20（AWS Marketplace），并由 Amazon Web Services, Inc. 开票——更像各自缔约，而不是次级受托关系。"
+anchor = "aws-kiro-third-party-models"
+[[product.role.point]]
+text = "Scope of that hop: §50.12.5 says information shared with a third-party model provider does not include Your Content. The models page lists the downstream providers (OpenAI, Anthropic, MiniMax, Zhipu AI, DeepSeek, Qwen) without any role characterisation."
+text_zh = "这一跳的范围：§50.12.5 明确与第三方模型提供方共享的信息不含 Your Content；models 页列出下游提供方（OpenAI、Anthropic、MiniMax、Zhipu AI、DeepSeek、Qwen），但没有任何角色表述。"
+anchor = "aws-kiro-third-party-no-content"
+[[product.role.point]]
+text = "Official chain is Kiro → Amazon Bedrock hosted models only. No BYOK, custom OpenAI-compatible endpoint or local model capability was found, so there is no separately documented BYOK or local-inference data hop, and running the agent on your own machine is not local inference."
 text_zh = "官方链路只有 Kiro→Amazon Bedrock 托管模型。未发现 BYOK、自定义 OpenAI-compatible endpoint 或本地模型能力；因此没有可单列的 BYOK/本地数据链，不能把本机 agent 执行误写成本地推理。"
 
 [[anchor]]
@@ -203,4 +378,124 @@ topics = ["role"]
 [anchor.selector]
 prefix = ""
 exact = "These Service Terms incorporate the [AWS Data Processing Addendum](https://d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf) (“DPA”), when you use AWS Services to process Customer Data (as defined in the DPA)."
+suffix = ""
+[[anchor]]
+id = "kiro-general-storage"
+source_id = "1b5e1c583b858fd5"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = "## Data storage\n\n"
+exact = "Kiro may store your questions, responses, and additional context such as code and metadata about your requests to generate new responses to your requests and in some circumstances for abuse detection purposes (for more information, see Abuse detection)."
+suffix = " What Kiro stores depends on the features you use"
+[[anchor]]
+id = "kiro-optout-no-effect"
+source_id = "1b5e1c583b858fd5"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = "**Info**\n\n"
+exact = "If you are a Kiro Free Tier user, opting out of sharing your data for service improvement does not affect our ability to store your inputs for abuse detection purposes as described in more detail here."
+suffix = "\n\n### Opting out of sharing data"
+[[anchor]]
+id = "kiro-q-developer-pro-no-improvement"
+source_id = "1b5e1c583b858fd5"
+topics = ["training"]
+[anchor.selector]
+prefix = "**Info**\n\n"
+exact = "If you have an Amazon Q Developer Pro subscription and access Kiro through your AWS account with the Amazon Q Developer Pro subscription, then Kiro will not use your content for service improvement."
+suffix = "\n\n## Opt out of data sharing"
+[[anchor]]
+id = "kiro-fable-abuse"
+source_id = "1b5e1c583b858fd5"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = "- "
+exact = "For Anthropic Claude Fable 5.1 (Preview), all traffic will be retained for up to 30 days (unless otherwise required by law) for automated offline abuse detection."
+suffix = " Classifier-flagged traffic will be subject to potential human review"
+[[anchor]]
+id = "kiro-experimental-global"
+source_id = "1b5e1c583b858fd5"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "For models and capabilities marked as experimental:\n\n- "
+exact = "Inference requests may be processed in multiple AWS Regions globally, including Regions outside the one associated with your Kiro profile."
+suffix = "\n- The Region where your data is stored"
+[[anchor]]
+id = "kiro-models-geography"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "## Inference endpoint regions\n\n"
+exact = "The geography that serves your request depends on both the model you select and the region of your Kiro profile. GPT-5.6 models are served from the US regardless of your profile region. Claude Fable 5.1 is currently available only in US East (N. Virginia). Every other model is served from the geography that matches your profile."
+suffix = " Profile region applies to enterprise users"
+[[anchor]]
+id = "kiro-models-us-default"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Profile region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers are always served from the US."
+suffix = "\n| Model | Kiro profile in US East (N. Virginia)"
+[[anchor]]
+id = "kiro-models-experimental-global"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Cross-region inference does not change where your data is stored. "
+exact = "Models marked experimental are an exception to the table above: they may be processed in commercial AWS Regions worldwide, including outside your profile's geography."
+suffix = " See data protection for the full reference"
+[[anchor]]
+id = "kiro-models-availability"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region", "role"]
+[anchor.selector]
+prefix = "## Model availability\n\n"
+exact = "Model availability can vary by country or region. Kiro's model offerings align with each provider's usage and geographic requirements. For more information, see supported countries and regions: OpenAI, Anthropic, MiniMax, Zhipu AI (GLM), DeepSeek, and Qwen."
+suffix = "\n## Reasoning effort"
+[[anchor]]
+id = "aws-kiro-50-3"
+source_id = "e50c57a33d690ba0"
+topics = ["training", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Kiro Free Tier, and Kiro individual subscribers (as described here): (a) we may use and store AI Content that is processed by each of the foregoing AI Services to develop and improve the applicable AI Service and its underlying technologies; (b) we may use and store AI Content that is not personal data to develop and improve AWS and affiliate machine-learning and artificial-intelligence technologies; and (c) solely in connection with the development and improvement described in clauses (a) and (b), we may store such AI Content in an AWS region outside of the AWS region where you are using such AI Service."
+suffix = " This Section does not apply to Amazon Comprehend Medical"
+[[anchor]]
+id = "aws-kiro-50-14-2"
+source_id = "e50c57a33d690ba0"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = "**50.14.2.** "
+exact = "Per Section 1.24 of the Service Terms, Amazon Bedrock abuse detection mechanisms apply to your use of Kiro, including our retention and potential human review of inputs and outputs when you select certain models. See here for more details. Additionally, only for Kiro Free Tier users, we may store your inputs for up to 60 days (unless otherwise required by law) for the purposes of detecting activity that violates the Agreement and improving our ability to detect such activity."
+suffix = ""
+[[anchor]]
+id = "aws-kiro-bedrock-30d"
+source_id = "e50c57a33d690ba0"
+topics = ["retention"]
+[anchor.selector]
+prefix = "**Abuse Detection.** "
+exact = "For certain models identified on the Bedrock abuse detection page, as part of providing the Service, Amazon Bedrock stores Service inputs and outputs for up to 30 days (unless otherwise required by law) solely to detect activity that violates our, or third-party model providers’, terms of service or use policies."
+suffix = " If we detect a potential violation"
+[[anchor]]
+id = "aws-kiro-third-party-models"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+[anchor.selector]
+prefix = "**50.12.1.** "
+exact = "Third-party models are available to you on Amazon Bedrock as “Third-Party Content”. By using a third-party model, you agree to the applicable terms here. Notwithstanding anything to the contrary in the Agreement or Service Terms, Section 20 (AWS Marketplace) above applies to your use of models sold by third parties, and Amazon Web Services, Inc. is the invoicing party with respect to these models."
+suffix = ""
+[[anchor]]
+id = "aws-kiro-third-party-no-content"
+source_id = "e50c57a33d690ba0"
+topics = ["role"]
+[anchor.selector]
+prefix = "**50.12.5.** "
+exact = "We may share information, that does not include Your Content, about your use of a third-party model with the provider of that third-party model."
+suffix = ""
+[[anchor]]
+id = "aws-account-closure-delete"
+source_id = "e50c57a33d690ba0"
+topics = ["retention"]
+[anchor.selector]
+prefix = "**1.15.** "
+exact = "Following closure of your AWS account, we will delete Your Content in accordance with the technical documentation applicable to the Services."
 suffix = ""

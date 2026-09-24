@@ -9,36 +9,42 @@ doc = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-internati
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-membership-agreement"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "国际站 Membership Agreement（2026-09-10 更新）。4.1 除维护/提供服务或遵守法律所必需外不访问、不使用 Member Content；8.5(b) 协议终止后删除 Member Content（法律要求保留除外）；文末『DATA PROCESSING ADDENDUM TO ALIBABA CLOUD MEMBERSHIP AGREEMENT』段明确在数据保护法适用时，我方就 Member Content 中的个人数据以 processor 身份处理。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-product-terms-of-service-v-3-8-0"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "国际站《Alibaba Cloud International Website Product Terms of Service》v3.8.0（2026-08-28 更新）第 4.48 节 Alibaba Cloud Model Studio。1.2 条确立 Additional Agreement 优先规则；4.48.1(b) 处理角色=为你的目的、代表你；4.48.1(e) 默认不用于开发或改进 Model Studio 上的模型，除非你另行同意；4.48.1(f) 第三方模型服务适用第三方条款；4.48.1(viii) 处理地=Alibaba Cloud 及其关联方/分包商设施所在国。本轮直连全文（198114 字）复核：**全篇 Coding Plan / Token Plan 命中 0 次**，即国际站 Product Terms 没有订阅档专属数据条款。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/legal/latest/fe2cxg"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "国际站 Data Processing Addendum（/help/en/legal/latest/fe2cxg，Last Updated 2023-11-29；/help/zh/…/fe2cxg 为同文英文正文）。仅在 Data Protection Legislation（GDPR/UK GDPR 等）要求时适用。第 3 条：用户（controller 或 processor）委任 Alibaba Cloud 为其 processor，仅为向用户提供服务；4(a) 仅按书面指示处理；4(g) 终止后按用户选择删除或返还 Data（法律要求或备份归档除外）。role/retention 的合同级佐证。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/model-studio/model-telemetry"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "国际站 Model Studio「Model monitoring」(2026-09-11 更新)。提供 retention 维度的官方分层证据:平台默认存储 monitoring metrics 与 audit logs(无期限披露);控制台日志查询窗口默认 7 天、最长 30 天;inference logs 默认关闭、开启后存到客户自己的 SLS Logstore。注意区分:查询窗口 ≠ 保留期。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/model-studio/privacy-notice"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "国际站英文『Security certifications and privacy』（合规资质与隐私说明，更新时间 2026-09-20）。两句话同页并存：①『will never use your data for model training』（无 Coding Plan 例外）②『In compliance with relevant laws and regulations, Alibaba Cloud Model Studio stores data generated from model and application calls.』后者是 zdr 维度的直接依据（与零保留直接冲突）。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/model-studio/regions/"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "国际站 Model Studio 地域与接入点文档。覆盖 Singapore(ap-southeast-1)、Frankfurt(eu-central-1)、Tokyo(ap-northeast-1)、Hong Kong(cn-hongkong)、US Virginia(us-east-1)与 China (Beijing) 各 region 的接入点、数据存放与推理执行范围(service deployment scope)"
@@ -66,6 +72,11 @@ text_zh = "②国际站 Model Studio 隐私说明与产品介绍页「will never
 [[product.training.point]]
 text = "(3) The Training data summary, \"Customer data policy\" section: \"does not use customer business data to develop or improve models without explicit consent\". **Tier boundary (hard)**: the Chinese-language product page of the international site limits the no-training commitment by name to \"the pay-as-you-go API and the Token Plan team edition\", and the \"Important\" box on the same page states that the data-use terms differ for the Token Plan individual edition and Coding Plan (input and generated content while using Coding Plan will be used for service improvement and model optimization); those two tiers are outside this provider's scope. **Customer-side exception**: once inference logs are enabled, Log backflow can recycle logs into the customer's own training dataset (telemetry/backflow anchors) — that is the customer's own action, not the vendor training on the data. **Third-party model exception**: when a third-party model on Model Studio is used (DeepSeek/Kimi/GLM and others), data processing is provided directly by that vendor under that vendor's terms (§4.48.2), so this \"no training\" commitment covers only Alibaba Cloud's own model path"
 text_zh = "③Training data summary「Customer data policy」段「does not use customer business data to develop or improve models without explicit consent」。**档位边界(硬)**:国际站中文产品页把不训练承诺点名限定为「按量付费 API 和 Token Plan 团队版」,同页「重要」框写明 Token Plan 个人版与 Coding Plan 的数据使用条款不同(使用 Coding Plan 期间输入与生成内容将用于服务改进与模型优化),那两档不在本 provider 范围。**客户侧例外**:开启推理日志后可用 Log backflow 把日志回流入自己的训练数据集(telemetry/backflow 锚点),这是客户主动行为,不是厂商拿数据训练。**三方模型例外**:走 Model Studio 三方模型(DeepSeek/Kimi/GLM 等)时,数据处理由厂商直接提供并适用厂商条款(§4.48.2),本条的「不训练」承诺只覆盖阿里云自有模型链路"
+
+[[product.training.point]]
+text = "**Exception, not a training basis**: Membership Agreement §5.2 lets Alibaba Cloud access, disclose and/or remove any content you published on or submitted to us (including any Member Content) to comply with applicable law, legal process or lawful government requests, or in respect of any claims or potential claims brought against us, or our shareholders, subsidiaries or affiliates. That is an access, disclosure and removal right for enforcement, legal-process and claims purposes — it is not a licence to use Member Content to develop or improve models, and it does not alter the no-training commitment in Product ToS §4.48.1(e) or Membership Agreement §4.1."
+text_zh = "**例外而非训练依据**:会员协议 §5.2 允许阿里云为遵守适用法律、法律程序或合法政府请求,或为应对针对阿里云及其股东/子公司/关联方的索赔或潜在索赔,访问、披露和/或删除你发布或提交的任何内容(含 Member Content)。这是为执法/法律程序/索赔而设的访问、披露与删除权,不是拿 Member Content 开发或改进模型的许可,不改变 Product ToS §4.48.1(e) 与会员协议 §4.1 的不训练承诺。"
+anchor = "alibaba-ma-enforcement-access-disclosure"
 
 [product.zdr]
 mark = "no"
@@ -146,6 +157,21 @@ text_zh = "会员协议终止条款则写「we will delete such Member Content a
 text = "The query window is \"Last 7 days by default; supports querying logs for up to 30 days\" (this is a **query window, not a deletion deadline**; no deletion after 30 days can be inferred from it). (3) **Inference logs (full Prompt/Response, truncated at 128KB)**: off by default, must be enabled manually and delivered to the customer's own SLS Logstore, and can be recycled into training datasets. (4) **Task data and result URLs of the asynchronous media APIs**: expressly \"available for 24 hours and is then automatically deleted\" (the only object with an explicit period). (5) **Account-level personal data**: under §F of the international-site privacy policy, kept as long as there is an ongoing legitimate business need, until the account is closed. (6) Product ToS §4.48.1(g)(iv) points the other way: data provided to or stored by Alibaba Cloud may be removed or rendered inaccessible from time to time, and customers must keep their own redundancy. Confidence medium: at contract level there is only \"delete or return on termination\" and \"the duration of the Agreement\", no default retention period, and the DPA applies only where data protection legislation requires it"
 text_zh = "查询窗口默认 7 天、最长 30 天(这是**查询窗口,不是删除期限**,不能反推 30 天后删除)。(3) **推理日志(含完整 Prompt/Response,128KB 截断)**:默认关闭、需手动开启并投递到客户自有 SLS Logstore,可回流入训练数据集。(4) **异步媒体 API 的任务数据与结果 URL**:明确「available for 24 hours and is then automatically deleted」(唯一给出明确期限的对象)。(5) **账号类个人数据**:国际站隐私政策 §F 按持续正当业务需要,账号注销为止。(6) Product ToS §4.48.1(g)(iv) 反向提示:阿里云侧数据可能被移除或不可访问,客户须自备冗余。置信度 medium:合同层只有「终止时删除/返还」与「协议存续期」,没有默认保留期限,且 DPA 仅在数据保护法要求时适用"
 
+[[product.retention.point]]
+text = "**Monitoring metrics after delivery — delivery copies, it does not move data off the platform** (same object group as (2), audit logs and monitoring metrics): after delivery is enabled, monitoring data is stored on both the platform side and the user side. Enabling monitoring delivery therefore does not reduce platform-side retention; it is a copy, not an export. **Boundary**: that sentence covers model monitoring delivery (metrics) only — it does not cover log delivery or inference logs, which go to the customer's own SLS Logstore, and log delivery is a separate section of the same document."
+text_zh = "**监控指标开启投递后——投递是复制,不是把数据搬出平台**(与 (2) 审计日志/监控指标同属一个对象组):开启投递后,监控数据在平台侧与用户侧各存一份。故开启监控投递并不减少平台侧留存,投递=复制而非导出。**边界**:该句只覆盖 model monitoring delivery(监控数据),不覆盖日志投递与推理日志——推理日志存到客户自有 SLS Logstore,日志投递是同文档的独立小节。"
+anchor = "alibaba-telemetry-monitoring-delivery-both-sides"
+
+[[product.retention.point]]
+text = "**Licence survives termination**: Membership Agreement §8.5(c) — the licence granted by you to us to use your Member Content described in Clause 4.1 shall continue notwithstanding such suspension or termination. Read together with §8.5(b), termination does not end every right to use Member Content: deletion is discretionary and the §4.1 licence is stated to continue. **Cross-reference inconsistency, flagged rather than filled in by us**: in this snapshot §4.1 grants no such licence — it says that you retain any rights you may have in any Member Content and that the Agreement does not grant either party any rights to the other’s content except as set forth otherwise in this Agreement — and the only other licence reference in the text is the definition item §4.2(b). The sentence therefore stands as written, but the licence it points to is undefined in the current text: needs human confirmation, and must not be read as proof of a broad surviving use licence."
+text_zh = "**许可存续**:会员协议 §8.5(c)——the licence granted by you to us to use your Member Content described in Clause 4.1 shall continue notwithstanding such suspension or termination。与 §8.5(b) 并读:终止不等于使用权终止——删除是裁量性的,而 §4.1 项下的许可据本条继续存在。**交叉引用不一致,只标注不补全**:本快照 §4.1 并未授予该许可(§4.1 写的是你保留 Member Content 中的权利,且明确本协议不向任何一方授予对方内容的权利,除非本协议另有约定),全文另一处 licence 是 §4.2(b) 的定义项。故该句按原文成立,但其所指的许可在现行文本中未定义:需人工确认,不能读成一条概括的存续使用许可。"
+anchor = "alibaba-ma-licence-survives-termination"
+
+[[product.retention.point]]
+text = "**Exception to termination deletion (DPA §4(g), second half)**: the delete-or-return duty shall not apply to the extent that Alibaba Cloud is required or permitted by applicable law to retain some or all of the Data, **or Data archived on back-up systems**, in which event Alibaba Cloud shall securely isolate and protect such Data from any further processing except: (i) to the extent required by such law until deletion is possible; or (ii) where such Data ceases to contain personal data. So back-up copies may keep the Data past termination, isolated and no longer processed, until deletion becomes possible or the data no longer contains personal data. **Boundary**: this DPA applies only where Data Protection Legislation requires it — a contractual carve-out, not a default long-term retention commitment by the platform."
+text_zh = "**终止删除义务的例外(DPA §4(g) 后半句)**:删除或返还义务不适用于「阿里云被适用法律要求或许可保留部分或全部 Data,或备份系统中归档的 Data」的情形;此时阿里云须安全隔离并保护该 Data、停止任何进一步处理,直到 (i) 法律允许删除,或 (ii) 该 Data 不再含个人信息。即备份归档中的 Data 可在终止后继续留存,但须隔离保护、停止进一步处理。**边界**:该 DPA 仅在数据保护法要求时适用——这是合同层的例外条款,不是平台默认的长期保留承诺。"
+anchor = "alibaba-dpa-termination-backup-exception"
+
 [product.processing_region]
 codes = ["selected"]
 anchor = "alibaba-regions-access-and-storage-location"
@@ -187,6 +213,16 @@ text_zh = "DPA 附件形式并入会员协议(会员协议附件清单「Data Pr
 [[product.role.point]]
 text = "(2) When a third-party model API on Model Studio is used, Product ToS §4.48.2(c) states plainly that \"Alibaba Cloud does not perform the role of data processor or controller with respect to any personal data processed by such Third-party Model Service\"; the Marketplace Supplemental says the same, and the third-party model terms add that the Marketplace platform side \"have no access to …; will not process …\" End User Data — in that path Alibaba Cloud is not the processor of that chain, and the role is taken up by the vendor's EULA / vendor DPA (the vendor being Processor or sub-Processor). **Entity**: the default contracting entity on the international site is Alibaba Cloud (Singapore) Private Limited (with separate entities for the EEA/UK, the United States and Malaysia), not the same entity as Tongyi Yunqi (Hangzhou) on the China site"
 text_zh = "②走 Model Studio 三方模型 API 时,Product ToS §4.48.2(c) 明确「Alibaba Cloud does not perform the role of data processor or controller with respect to any personal data processed by such Third-party Model Service」,Marketplace Supplemental 同义,三方模型条款进一步写明 Marketplace 平台方对 End User Data「have no access to …; will not process …」——此时阿里云不是该链路的 processor,角色由厂商 EULA/厂商 DPA 承接(厂商为 Processor/sub-Processor)。**主体**:国际站默认签约主体 Alibaba Cloud (Singapore) Private Limited(EEA/UK/美国/马来西亚另有主体),与中国站通义云启(杭州)不是同一实体"
+
+[[product.role.point]]
+text = "Membership Agreement §5.2 (Investigation and Enforcement) is a second and broader exception alongside §4.1: to comply with applicable law, legal process or lawful government requests, or in respect of any claims or potential claims brought against us, or our shareholders, subsidiaries or affiliates, we shall have the right to access, disclose and/or remove any content you published on or submitted to us (including any Member Content). Object = content including Member Content (i.e. Input and Output where those are Member Content); no time limit is stated. **Boundary**: it is an access, disclosure and removal right — not a training licence and not a retention period — and it must not be merged with §4.1 into one general authorisation."
+text_zh = "会员协议 §5.2(Investigation and Enforcement)是 §4.1 之外的第二类、更宽的例外:为遵守适用法律、法律程序或合法政府请求,或为应对针对阿里云及其股东/子公司/关联方的索赔或潜在索赔,阿里云有权访问、披露和/或删除你发布或提交的任何内容(含 Member Content)。对象=内容(含 Member Content,即属于 Member Content 的输入输出);未设期限。**边界**:这是访问、披露与删除权,不是训练授权、也不是保留期限,不能与 §4.1 合并读成一条概括授权。"
+anchor = "alibaba-ma-enforcement-access-disclosure"
+
+[[product.role.point]]
+text = "Membership Agreement §8.5(c): the licence granted by the customer to use Member Content described in Clause 4.1 continues notwithstanding suspension or termination — the vendor's permission to use Member Content does not automatically end with the contract. **Flag**: §4.1 in this snapshot grants no such licence, so this is a cross-reference inconsistency to confirm with the vendor rather than a settled usage right."
+text_zh = "会员协议 §8.5(c):客户就 Clause 4.1 所指 Member Content 授予的使用许可,在暂停或终止后继续存在——厂商对 Member Content 的使用权不随合同自动终止。**标注**:本快照 §4.1 并未授予该许可,属条款交叉引用不一致,需人工确认,不宜当作已确定的使用权。"
+anchor = "alibaba-ma-licence-survives-termination"
 
 [[anchor]]
 id = "alibaba-tos-training-not-used"
@@ -346,18 +382,24 @@ exact = "at Your choice, delete or return all Data in Alibaba Cloud’s possessi
 suffix = ". This requirement shall not apply to the extent that Alibab"
 
 [[anchor]]
+id = "alibaba-dpa-termination-backup-exception"
+source_id = "a894605b4b338cb6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "at Your choice, delete or return all Data in Alibaba Cloud’s possession or control following the termination of the Agreement. "
+exact = "This requirement shall not apply to the extent that Alibaba Cloud is required or permitted by applicable law to retain some or all of the Data, or Data archived on back-up systems, in which event Alibaba Cloud shall securely isolate and protect such Data from any further processing except: (i) to the extent required by such law until deletion is possible; or (ii) where such Data ceases to contain personal data"
+suffix = "; and"
+
+[[anchor]]
 id = "alibaba-dpa-retention-duration"
 source_id = "a894605b4b338cb6"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-ith the Services and as otherwise set out in the Agreement.
-"""
-exact = "The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period:Data will be processed and transferred for the duration of the Agreement."
-suffix = """
-
-For transfers to (sub-) processors, also specify subject ma"""
+prefix = """The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period:</p></td><td id="f370dd92d4af7" rowspan="1" style="background-color:rgba(0, 0, 0, 0);vertical-align:center" colspan="1"><p id="768a8349efoa2" left="2.125">"""
+exact = "Data will be processed and transferred for the duration of the Agreement."
+suffix = """</p></td></tr><tr id="fd266582e1aa3" style="height:21px"><td id="4c159128absuj" rowspan="1" style="background-color:#D9D9D9;vertical-align:center" colspan="1"><p id="201089e817db6" left="2.125">For transfers to (sub-) processors, also specify subject matter, nature and duration of the processing:"""
 
 [[anchor]]
 id = "alibaba-dpa-selected-region"
@@ -380,16 +422,9 @@ source_id = "a894605b4b338cb6"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-:Please see signature and date to the Membership Agreement.
-"""
-exact = "Role (controller/processor):Processor"
-suffix = """
-
-
-**B. DESCRIPTION OF TRANSFER**
-
-Categories of data subject"""
+prefix = ""
+exact = "Role (controller/processor):"
+suffix = """</p></td><td id="48f37a7116buf" rowspan="1" style="background-color:rgba(0, 0, 0, 0);vertical-align:center" colspan="1"><p id="8d3f85c21cjvc" left="2.125">Processor"""
 
 [[anchor]]
 id = "alibaba-ma-no-access-except"
@@ -418,6 +453,29 @@ suffix = """
 c) the licence granted by you to us to use your Member Co"""
 
 [[anchor]]
+id = "alibaba-ma-enforcement-access-disclosure"
+source_id = "dac04cd917015852"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "5.2 We shall have the right to report any activities that we consider to be in violation of the Terms or any regulations or laws in any jurisdiction to the relevant enforcement agencies, regulators, government bodies, and any other appropriate third parties and "
+exact = "we shall have the right to access, disclose and/or remove any content you published on or submitted to us (including any Member Content) in connection therewith or to comply with applicable law, legal process or lawful government requests, or in respect of any claims or potential claims brought against us, or our shareholders, subsidiaries or affiliates."
+suffix = ""
+
+[[anchor]]
+id = "alibaba-ma-licence-survives-termination"
+source_id = "dac04cd917015852"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+b) you will lose access to any Member Content you have provided to us, and we will delete such Member Content at our sole discretion unless retention is required under applicable law;
+
+c) """
+exact = "the licence granted by you to us to use your Member Content described in Clause 4.1 shall continue notwithstanding such suspension or termination"
+suffix = "; and"
+
+[[anchor]]
 id = "alibaba-ma-dpa-applies-if-required"
 source_id = "dac04cd917015852"
 topics = ["role"]
@@ -436,15 +494,9 @@ source_id = "dac04cd917015852"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-page (if any).
-
-Name of Addendum/Supplemental Applicability
-"""
-exact = "Data Processing Addendum to Alibaba Cloud Membership Agreement Applicable to all users"
-suffix = """
-
-Europe (outside EEA) Addendum to Alibaba Cloud Membership A"""
+prefix = """Applicability</p></td></tr><tr id="f8dd71d236k7b"><td id="30b724938dfox" rowspan="1" colspan="1"><p id="08fe62ef151uw">"""
+exact = "Data Processing Addendum to Alibaba Cloud Membership Agreement"
+suffix = """</p></td><td id="bca0967c4aote" rowspan="1" colspan="1"><p id="7ee04f28fbqv8">Applicable to all users"""
 
 [[anchor]]
 id = "alibaba-ma-marketplace-no-processor-role"
@@ -541,6 +593,18 @@ y <span id="h2-sec-delivery" /> <span id="sec-delivery" />
 """
 exact = "By default, Model Studio stores monitoring metrics and audit logs on the platform, so you can view them in the console without any delivery."
 suffix = " To deliver monitoring metrics or logs to your own Alibaba C"
+
+[[anchor]]
+id = "alibaba-telemetry-monitoring-delivery-both-sides"
+source_id = "740c2545f129e8cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "For existing users who have already enabled monitoring delivery, the existing configuration is migrated automatically, platform monitoring data is automatically delivered to the previously enabled Prometheus instance, and the Prometheus instance cannot be changed. "
+exact = "After delivery is enabled, monitoring data is stored on both the platform side and the user side."
+suffix = """
+
+**Note**"""
 
 [[anchor]]
 id = "alibaba-telemetry-query-window-30d"

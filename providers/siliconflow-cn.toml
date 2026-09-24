@@ -9,24 +9,28 @@ doc = "https://docs.siliconflow.cn/cn/legals/privacy-policy"
 
 [[source]]
 url = "https://docs.siliconflow.cn/cn/legals/personal-information-collection-list"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "《个人信息收集清单》中文版（更新日期 2026 年 7 月 30 日）。表格式清单，9 行场景，无「我们的角色」列（与 PPIO 的个人信息收集清单不同，因此不能用作角色依据）。与 API 档相关的两行：第 4 行「大模型 API 调用与推理服务」收集 IP地址、模型名称、Token 消耗量、请求时间、请求状态码等日志信息；第 5 行「平台内容安全与风控」收集使用行为信息与「输入提示词（Prompt）和输出内容」。两行都只写收集目的，不写保留期限——这是 retention 维度「日志与审核副本期限未量化」的直接证据。"
 
 [[source]]
 url = "https://docs.siliconflow.cn/cn/legals/privacy-policy"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "《硅基流动隐私政策》中文版（更新日期 2026 年 7 月 30 日，正文首段自述适用主体「北京硅基流动科技股份有限公司…运营的 SiliconFlow平台（域名：siliconflow.cn）」）。这是国内站 siliconflow.cn 官网页脚「隐私协议」实际指向的页面，也是本条目的主权威来源。§一（四）「大模型 API 调用与推理服务」是训练/保留/零保留三维度的唯一出处：先收集 IP地址、模型名称、Token 消耗量、请求时间、请求状态码等日志信息，随后以【特别说明】限定「针对大模型API加速推理服务，我们仅作为底层算力与技术提供方」，再给出「仅在提供当次推理计算的必要且短暂的时间内进行处理／不会长期存储您的任何业务输入与输出数据／不会用于任何大模型的预训练、微调或其他商业用途／推理计算完成后相关业务数据将立即从我们的计算节点中销毁或不可恢复」。§一（五）平台内容安全与风控另承诺自动化安全审核「不会将其用于模型训练或其他商业目的」。§七给出存储地点（仅存储于中华人民共和国境内）与存储期限（满足产品/服务目的所必需且最短的期间）；§五（二）承认备份系统无法立即删除。全文无「零数据保留/ZDR/不落盘」字样，无 ZDR 开关或申请方式，无 DPA。"
 
 [[source]]
 url = "https://docs.siliconflow.cn/cn/legals/terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《平台使用协议》中文版（页脚标注更新日期 2026 年 5 月 22 日；文档站页脚把它同时登记为「用户协议」）。合同层文件，覆盖全部平台服务（含大模型 API）。与数据有关的条款：§3.1 定义「交互数据」并把详细数据使用政策引向《隐私政策》；§3.2 平台有权删除违规交互数据或停止技术服务；§3.4/§3.5 两次称「本平台作为独立的技术支持者」；§3.6.1 免责声明中给出本档最强的角色与保留表述「本平台提供的技术服务只会严格执行您的指示处理您的交互数据…我们不会访问您的交互数据…只是作为交互数据的被动技术支持者或渠道…不会对您的交互数据进行任何非授权的使用或披露，同时亦不会进行任何存储」；§4.3(b)「用户使用数据不同于交互数据。交互数据不保存、不披露」；§8.1 只承诺遵守《个人信息保护法》与适用法律。全文无「受托处理者/个人信息处理者/DPA」定性条款，也未出现任何保留天数。"
 
 [[source]]
 url = "https://docs.siliconflow.cn/cn/userguide/guides/batch"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "文档站《批量推理》页（中文，路径 /cn/userguide/guides/batch，正文由 r.jina.ai 抓取）。这是 API 档唯一一处量化保留期限：结果文件「系统将保留结果文件 30 天…超过保存期限的文件将被自动删除，且无法恢复」，同页开头另写「批量处理结果文件的 URL 有效期为一个月」。只覆盖 Batch 子功能的结果文件；该页对上传的输入 .jsonl 文件的保留期没有说明。"
@@ -48,6 +52,16 @@ text_zh = "同顶层：§一（四）不用于预训练、微调或其他商业�
 [[product.training.point]]
 text_zh = "§一（五）内容安全审核不用于训练。限定语「针对大模型API加速推理服务」的覆盖面含混，微调档另论。"
 
+[[product.training.point]]
+anchor = "sf-cn-tos-interaction-data-not-saved"
+text = "Contract layer (Platform ToS §4.3(b)): the clause that authorises using \"user usage data\" to improve and develop products carries the exclusion \"interaction data is not saved or disclosed\". The authorised object is the device/diagnostic \"user usage data\" defined in §4.3 (information about your computer, mobile device, system and software), not API prompts or outputs — so this clause is not a training authorisation for API content; it is kept here for contrast only."
+text_zh = "合同层（《平台使用协议》§4.3(b)）：授权把「用户使用数据」用于「改进我们的产品和服务或开发新的产品或服务」的同一条款，括号内写明「用户使用数据不同于交互数据。交互数据不保存、不披露」。该授权的标的是 §4.3 定义的设备/诊断类「用户使用数据」（有关您的计算机、移动设备、系统和软件的信息），不是 API 输入输出，不构成对 API 内容的训练授权；此处仅作对照。"
+
+[[product.training.point]]
+anchor = "sf-cn-privacy-device-info-improve-product"
+text = "Scope note: the \"keep improving our products\" purpose in §1(6) targets device information and network logs, not API prompts or outputs — recorded only to keep the two objects apart, not as training evidence."
+text_zh = "范围说明：§一（六）「以不断改进我们的产品」的标的是设备信息与网络日志，不是 API 输入输出；此条只用于区分对象，不作为训练依据。"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -56,21 +70,60 @@ anchor = "sf-cn-privacy-interaction-data-no-storage"
 [[product.zdr.point]]
 text_zh = "同顶层：默认承诺不留存业务输入输出，但不是可开通的 ZDR 选项，无开关/申请渠道/公开 DPA，且内容安全审核与请求日志为明文例外。"
 
+[[product.zdr.point]]
+anchor = "sf-cn-privacy-no-storage-three-exceptions"
+text = "The no-storage promise carries three built-in qualifiers: unless laws or regulations provide otherwise; unless separately agreed under specific product rules; or when we provide technical assistance at your request for troubleshooting or to resolve technical problems. Each has an instance: content-safety review collects prompts and outputs (statutory duty), Batch result files are kept 30 days (product rule), troubleshooting assistance."
+text_zh = "不留存承诺自带三项限定：除非法律法规另有规定／依据特定产品规则另行约定／基于您的要求为您提供技术协助进行故障排除或解决技术问题。三项各有实例：内容安全审核收集提示词与输出（法律法规另有规定）、Batch 结果文件保留 30 天（特定产品规则另行约定）、按您的要求提供故障排除协助。所以不留存不是无条件承诺。"
+
+[[product.zdr.point]]
+anchor = "sf-cn-tos-no-access-no-storage"
+text = "Contract layer: the Platform ToS states the same twice — §3.6.1 \"we will not access your interaction data ... nor will we store it\" and §4.3(b) \"interaction data is not saved or disclosed\". Both objects are interaction data, unlike the device/diagnostic \"user usage data\" that §4.3 authorises for product improvement."
+text_zh = "合同层并列：《平台使用协议》两处同义表述——§3.6.1「我们不会访问您的交互数据……同时亦不会进行任何存储」、§4.3(b)「交互数据不保存、不披露」。两处标的都是交互数据，与被 §4.3 授权用于改进产品的设备/诊断类「用户使用数据」不是同一对象。"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
 anchor = "sf-cn-privacy-api-no-long-term-store"
 
 [[product.retention.point]]
-text_zh = "同顶层：业务输入输出请求级销毁（限定措辞见上）"
+text_zh = "同顶层：业务输入输出请求级销毁（§一（四）措辞是「不会长期存储」而非无条件不留存）"
 
 [[product.retention.point]]
-text_zh = "请求日志与内容安全审核副本期限未量化，回落到 §七「最短必要期间」"
+anchor = "sf-cn-tos-interaction-data-not-saved"
+text = "Contract layer, listed alongside the privacy policy: Platform ToS §4.3(b) states \"interaction data is not saved or disclosed\" (§3.6.1 adds \"nor will we store it\"). The object is interaction data — not the device/diagnostic \"user usage data\" that the same clause authorises for product improvement."
+text_zh = "合同层并列（与隐私政策并列）：《平台使用协议》§4.3(b)「交互数据不保存、不披露」（§3.6.1 另有「同时亦不会进行任何存储」）。标的是交互数据，不是同一条款授权用于改进产品的设备/诊断类「用户使用数据」。"
 
 [[product.retention.point]]
+anchor = "sf-cn-privacy-api-log-collection"
+text = "No retention period is published for the request logs (IP address, model name, token usage, request time, status code) or for the content-safety review copies of prompts and outputs; both fall back to §7's \"minimum period necessary to fulfil the product/service purpose\"."
+text_zh = "请求日志（IP地址、调用的模型名称、Token消耗量、请求时间及请求状态码）与内容安全审核的提示词/输出副本均未公布保留期限，回落到 §七「满足产品/服务目的所必需且最短的期间」"
+
+[[product.retention.point]]
+anchor = "sf-cn-privacy-network-log-collection"
+text = "§1(6) additionally records network logs and frequency/crash/usage/performance data for keeping the site and services running and secure — again with no retention period. The object is device and log information, not API request content."
+text_zh = "§一（六）另记录网络日志信息，以及使用本平台及相关服务的频率、崩溃数据、使用情况及相关性能数据信息，同样未给保留期限；标的是设备与日志信息，不是 API 请求内容"
+
+[[product.retention.point]]
+anchor = "sf-cn-privacy-no-storage-three-exceptions"
+text = "The \"no storage\" wording carries three qualifiers, each with an instance: laws provide otherwise → content-safety review of prompts and outputs; separately agreed under specific product rules → Batch result files kept 30 days; technical assistance at your request → troubleshooting."
+text_zh = "「不会进行任何存储」自带三项限定并各有实例：法律法规另有规定→内容安全审核收集提示词与输出；依据特定产品规则另行约定→Batch 结果文件保留 30 天；基于您的要求提供技术协助→故障排除"
+
+[[product.retention.point]]
+anchor = "sf-cn-privacy-storage-period-minimum"
+text = "§7: personal information is kept for \"the minimum period necessary to fulfil the product/service purpose\"; the period itself is not quantified. The object is personal information, not interaction data."
+text_zh = "§七：个人信息在「满足产品/服务目的所必需且最短的期间」内保留，期限本身未量化；对象是个人信息，不是交互数据"
+
+[[product.retention.point]]
+anchor = "sf-cn-privacy-delete-after-storage-period"
+text = "§7 continues with a deletion commitment: after that storage period personal information is deleted or anonymised, unless laws provide otherwise. The object is personal information, listed separately from the per-request destruction of interaction data."
+text_zh = "§七紧接一句删除承诺：超出上述存储期限后对个人信息进行删除或匿名化处理，法律法规另有规定的除外；对象是个人信息，与交互数据的请求级销毁分列"
+
+[[product.retention.point]]
+anchor = "sf-cn-batch-output-file-30-days"
 text_zh = "Batch 结果文件 30 天（上限，仅该子功能）"
 
 [[product.retention.point]]
+anchor = "sf-cn-privacy-backup-deletion-delay"
 text_zh = "备份系统存在延迟删除。"
 
 [product.processing_region]
@@ -82,6 +135,11 @@ text_zh = "同顶层：个人信息仅存储于中国境内，跨境需单独同
 
 [[product.processing_region.point]]
 text_zh = "推理执行地与交互数据处理地未披露。"
+
+[[product.processing_region.point]]
+anchor = "sf-cn-privacy-third-party-sharing"
+text = "Boundary note: \"stored only in mainland China\" does not exclude third parties from processing. §3(2) allows sharing personal information with partners (carrier login, personal/organisational identity verification, payment, data analytics and security services) and points to a separate third-party sharing list; the policy does not state where those parties are located. The shared object is account-type personal information, not API request content, so codes=[CN] is unchanged."
+text_zh = "边界说明：境内存储不排除第三方参与处理。§三（二）允许向运营商认证、个人/机构实名认证、支付、数据分析及安全服务等合作伙伴共享个人信息，并另列《第三方共享信息清单和第三方 SDK 目录》，政策未说明这些主体的所在地。共享标的是账户类个人信息，不是 API 请求内容，故不改变 codes=[CN]。"
 
 [product.role]
 kind = "processor"
@@ -98,6 +156,11 @@ text_zh = "「独立的技术支持者」与「被动技术支持者」两套措
 
 [[product.role.point]]
 text_zh = "无公开 DPA。"
+
+[[product.role.point]]
+anchor = "sf-cn-privacy-third-party-sharing"
+text = "Third-party participation: §3(2) shares account-type personal information (carrier login, identity verification, payment, analytics and security) with partners, listed separately in the third-party sharing / SDK catalogue; the policy does not state those parties' roles, and no public DPA covers them."
+text_zh = "第三方参与：§三（二）把实名、支付、数据分析与安全等账户类个人信息共享给合作伙伴（另见《第三方共享信息清单和第三方 SDK 目录》），未说明这些主体的角色，也无公开 DPA 覆盖。"
 
 [[anchor]]
 id = "sf-cn-privacy-entity-cn-company"
@@ -271,6 +334,59 @@ suffix = """
 ### [（三）您有权改变您授权同意的范围或撤销您的授权同意](https://docs.siliconflow."""
 
 [[anchor]]
+id = "sf-cn-privacy-delete-after-storage-period"
+source_id = "f5a373b836257c8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "以向您正常提供该功能、保障您的账户和系统安全。"
+exact = "在超出上述存储期限后，我们会对您的个人信息进行删除或匿名化处理，法律法规另有规定的除外"
+suffix = """
+。
+
+## 八、本隐私政策如何更新"""
+
+[[anchor]]
+id = "sf-cn-privacy-no-storage-three-exceptions"
+source_id = "f5a373b836257c8e"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "本平台作为中立的技术服务提供者，只会严格执行您的指示处理您的交互数据，我们及本平台只是作为交互数据的被动技术支持者或渠道，"
+exact = "除非法律法规另有规定、依据特定产品规则另行约定或基于您的要求为您提供技术协助进行故障排除或解决技术问题"
+suffix = "。我们及本平台不会对您的交互数据进行任何非授权的使用或披露"
+
+[[anchor]]
+id = "sf-cn-privacy-network-log-collection"
+source_id = "f5a373b836257c8e"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "为让您体验到更好的服务，并保障您的使用安全，"
+exact = "我们可能记录网络日志信息，以及使用本平台及相关服务的频率、崩溃数据、使用情况及相关性能数据信息"
+suffix = "。"
+
+[[anchor]]
+id = "sf-cn-privacy-device-info-improve-product"
+source_id = "f5a373b836257c8e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（1）设备信息：我们收集您使用设备的设备 ID、IP 地址、手机号、操作数据、崩溃数据、设备及设备所处物理与网络环境信息、分辨率、时区和语言信息，"
+exact = "以便了解产品对不同硬件设备适配性、确保操作环境安全、识别账号异常状态，用于分析产品的使用状况、排查崩溃原因、减少崩溃情况，以不断改进我们的产品，以及保障账号和系统安全"
+suffix = "。"
+
+[[anchor]]
+id = "sf-cn-privacy-third-party-sharing"
+source_id = "f5a373b836257c8e"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = "（3）与授权合作伙伴共享：为了向您提供更完善、优质的服务，我们的某些服务将由授权合作伙伴提供。"
+exact = "我们可能会向合作伙伴等第三方共享您的信息，以保障为您提供的服务顺利完成"
+suffix = "。但我们仅会出于合法、正当、必要、特定、明确的目的共享您的个人信息"
+
+[[anchor]]
 id = "sf-cn-tos-independent-technical-supporter"
 source_id = "4a10c3bbd3b0281d"
 topics = ["role"]
@@ -302,7 +418,7 @@ suffix = """
 [[anchor]]
 id = "sf-cn-tos-interaction-data-not-saved"
 source_id = "4a10c3bbd3b0281d"
-topics = ["retention", "zdr"]
+topics = ["retention", "training", "zdr"]
 
 [anchor.selector]
 prefix = """

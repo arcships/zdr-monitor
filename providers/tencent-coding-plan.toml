@@ -16,6 +16,7 @@ note = "《大模型服务平台 TokenHub 服务条款》中国站『政策与�
 
 [[source]]
 url = "https://privacy.qq.com/document/preview/f49e2514993e48d9ae6f827dae0584f8"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "档位专属《腾讯云大模型 Coding Plan 隐私政策》(页面标注 2026-04-15 更新),主体『腾讯云计算（北京）有限责任公司』,自述『腾讯云大模型 Coding Plan 服务 是由 腾讯云计算（北京）有限责任公司…提供的产品』。中国站官方『相关协议』清单(1823/130105)第 6 条『Coding Plan 隐私政策』经文档中心条目页 1823/130135 指向本 URL,故本档专属规则正文即本文件(2026-09-21 重抓与 2 小时前缓存逐字节一致)。§1.1.2 是本档唯一授权『默认使用输入、输出内容优化模型』的条款,故 training 以本文件为准;§2.1/§2.2 与主档条款同口径,作 retention/processing_region 佐证"
@@ -45,8 +46,18 @@ text = "(3) the same policy line recurs in the adjacent personal subscription ti
 text_zh = "③同一政策线在相邻个人订阅档(Token Plan 个人版 §1.1.2 逐字相同)与 CodeBuddy 客户端声明(284d…)中重复出现,而企业档(Token Plan 企业版 §1.1.2)与平台档(91d5fd §1.1.3)均无此条款——是成文的档位差异而非孤立遗留。厂商未就两派文件给出优先级,故 confidence=medium"
 
 [[product.training.point]]
-text = "If the contract clauses were taken as controlling, the conclusion would flip to \"not used for training\""
-text_zh = "若以合同条款为准则结论反转为『不用于训练』"
+text = "Also pointing the other way, and inside the same contract: 129852 §2.18 is an authorisation list — \"you understand and agree that Tencent Cloud processes the relevant data or information derived from it within a reasonably necessary scope for the following purposes\": (1) performing laws, regulations, regulatory requirements, industry norms or platform-governance requirements; (2) content safety review, identifying illegal, non-compliant or infringing content and handling security incidents; (3) technical support, fault localisation, ticket handling and user support at your request; (4) \"billing settlement, bill reconciliation, resource-usage statistics, system operations and service optimization\"; (5) statistical analysis of anonymized or non-identifiable aggregated statistics formed in the course of providing the service; (6) other reasonably necessary purposes permitted by these terms, Tencent Cloud's service rules, a separate agreement with you or laws and regulations. Under the ledger's valuation rule (\"used to improve the service / raise quality\" counts as training), item (4) is a retained model-improvement purpose, and it stands in the same contract as §2.17's promise not to use input content to \"develop, train, fine-tune or improve Tencent Cloud's own algorithms, models or services\" — the two must be stated side by side. The tension on this tier is therefore three-way: §2.17 (Tencent Cloud itself does not train) / §2.18(4) (a retained \"service optimization\" purpose) / the tier privacy policy §1.1.2 (input and output used to optimize models by default)"
+text_zh = "反向方向的第二条,且在同一份合同里:129852 §2.18 是授权清单——『您理解并同意，腾讯云在合理必要范围内为以下目的处理相关数据或其衍生信息』:(1)履行法律法规、监管要求、行业规范或平台治理要求;(2)内容安全审核、违法违规或侵权内容识别和安全事件处置;(3)根据您的请求提供技术支持、故障定位、工单处理和用户支持;(4)『进行计费结算、账单核对、资源用量统计、系统运维和服务优化』;(5)对提供服务形成的匿名化或无法被识别到特定个人的聚合统计信息进行统计分析;(6)本服务条款、腾讯云服务规则、您与腾讯云另行约定或法律法规允许的其他合理必要目的。按台账口径(『用来改进服务/提高质量』算训练),(4)属保留的模型改进用途,与 §2.17『不会将您在使用本服务过程中的输入内容用于开发、训练、微调或改进腾讯云自身的算法、模型或服务』并存于同一份合同,必须并列说明。故本档 training 的张力是三方:§2.17 腾讯云自身不训练 / §2.18(4) 保留『服务优化』用途 / 档位隐私政策 §1.1.2 默认用输入、输出内容优化模型(anchor training-2-18-service-optimization)"
+anchor = "training-2-18-service-optimization"
+
+[[product.training.point]]
+text = "Scope limit on the \"no training\" promise (anchor training-thirdparty-caveat): the second half of §2.17 says the promise \"is a promise made by Tencent Cloud in respect of the data processing activities it can itself control, and does not represent or replace any promise made by any external model service provider or other third party in respect of its own data processing activities\", and that \"whether a third party will use the relevant data for training, optimization, improvement, evaluation or other purposes shall be governed by the third-party agreement, service rules, data processing rules, model list or the notice displayed by Tencent Cloud from time to time\". In the third-party-deployed model scenario defined in §1.5 (\"currently includes the DeepSeek series of models\"), the training/optimization rules are therefore set by the third-party agreement and model list, and this tier's promise covers only Tencent Cloud's own controllable activities. Whether this tier's models are third-party-deployed models is not labelled in the contract or in the tier documents, so the boundary of this promise is in doubt — the same doubt as in the zdr and processing_region points"
+text_zh = "不训练承诺的适用边界(anchor training-thirdparty-caveat):§2.17 后半『前述承诺是腾讯云就其自身可控制的数据处理活动作出的承诺，不代表或替代任何外部模型服务商或其他第三方就其自身数据处理活动作出的承诺，第三方部署模型可能涉及外部模型服务商或其他第三方的数据处理活动』,并『第三方是否会将相关数据用于训练、优化、改进、评测或其他目的，应以第三方协议、服务规则、数据处理规则、模型清单或腾讯云届时页面提示为准』。故在 §1.5 定义的第三方部署模型场景(『目前包括 DeepSeek 系列模型』)下,训练/优化口径以第三方协议与模型清单为准,本档承诺只覆盖腾讯云自身可控的数据处理活动;本档模型是否属第三方部署模型在合同与档位文件中均未标注,该承诺的边界因此存疑——与 zdr、processing_region 的存疑是同一个问题"
+anchor = "training-thirdparty-caveat"
+
+[[product.training.point]]
+text = "Even if the contract clauses were taken as controlling, the flip would be only partial: §2.17's promise covers only Tencent Cloud's own controllable processing activities, while §2.18(4) keeps a \"service optimization\" purpose inside the same contract, so the contract is not one-sided either"
+text_zh = "即便以合同条款为准,反转也只是部分的:§2.17 的承诺只覆盖腾讯云自身可控的数据处理活动,而同一份合同的 §2.18(4) 仍保留『服务优化』用途——合同本身也不是一面倒"
 
 [product.zdr]
 mark = "no"
@@ -100,8 +111,8 @@ text = "The opening of §2.12, \"Tencent Cloud will process your input content a
 text_zh = "§2.12 开头『腾讯云将根据不同模型、功能、部署或使用方式对您的输入内容进行相应处理』,其(1)项把处理对象列为『您的输入内容、输出内容、调用参数、调用时间、模型名称、模型版本、账号信息、资源用量、错误信息、日志信息、网络信息及其他必要数据』"
 
 [[product.zdr.point]]
-text = "The last sentence of §2.14, \"in the third-party-deployed model scenario, the rules for retention, deletion, return, anonymization or other processing of data\", echoes the list of objects for the third-party scenario in §2.12(2). So \"your data\" in §2.14 = the objects of processing under this service listed in §2.12 (including input and output bodies), not boilerplate about account personal information. (3) Scenario check: the models available on this tier (1823/130092: GLM-5, and Auto \"tc-code-latest\") are not \"third-party-deployed models\" as defined in 129852 §1.5 (\"currently includes the DeepSeek series of models\"), so they fall under §2.12(1), the \"Tencent Cloud first-party model and Tencent Cloud self-deployed model scenarios\""
-text_zh = "§2.14 末句『第三方部署模型场景下对数据的留存、删除、返还、匿名化或其他处理规则』与 §2.12(2) 第三方场景的对象列举呼应。故 §2.14 的『您的数据』= §2.12 列举的本服务处理对象(含输入/输出正文),不是账户个人信息套话。③场景确认:本档可用模型(1823/130092:GLM-5、Auto『tc-code-latest』)不属 129852 §1.5 定义的『第三方部署模型』(『目前包括 DeepSeek 系列模型』),故落入 §2.12(1)『腾讯云自有模型和腾讯云自部署模型场景』"
+text = "The last sentence of §2.14, \"in the third-party-deployed model scenario, the rules for retention, deletion, return, anonymization or other processing of data\", echoes the list of objects for the third-party scenario in §2.12(2). So \"your data\" in §2.14 = the objects of processing under this service listed in §2.12 (including input and output bodies), not boilerplate about account personal information. (3) Scenario in doubt: the contract's §1.5 definition of third-party-deployed models says \"currently includes the DeepSeek series of models\", but no document in this ledger states which category this tier's models fall into — the model list in 1823/130092 is not registered as a source of this file and cannot be quoted. So whether this tier's traffic falls under §2.12(1), the \"Tencent Cloud first-party model and Tencent Cloud self-deployed model scenarios\", or under §2.12(2), the third-party-deployed model scenario, is in doubt — the same doubt as in the processing_region points. The object chain above does not depend on which of the two applies, since §2.12(1) and §2.12(2) both cover input and output content"
+text_zh = "§2.14 末句『第三方部署模型场景下对数据的留存、删除、返还、匿名化或其他处理规则』与 §2.12(2) 第三方场景的对象列举呼应。故 §2.14 的『您的数据』= §2.12 列举的本服务处理对象(含输入/输出正文),不是账户个人信息套话。③场景存疑:合同 §1.5 对『第三方部署模型』的定义是『目前包括 DeepSeek 系列模型』,但本台账内没有任何文件标注本档模型属哪一类——1823/130092 的模型清单未登记为本文件的来源、无法引证。故本档流量落入 §2.12(1)『腾讯云自有模型和腾讯云自部署模型场景』还是 §2.12(2) 第三方部署模型场景存疑——与 processing_region 依据②同一存疑。上述对象链不依赖二者中的哪一个适用,因为 §2.12(1) 与 §2.12(2) 都覆盖输入内容与输出内容"
 
 [[product.zdr.point]]
 text = "§1.11 and §6.4 further commit that intelligent routing and fallback switching will not send your data to third-party-deployed models. Contract-layer documents applicable to this tier: item 2 of the China-site \"related agreements\" list 1823/130105, the \"LLM Service Platform TokenHub Terms of Service\", points through documentation-center entry page 1823/130106 to 301/129852 (that entry page carries only a title plus \"for details, see ...\"). (4) §2.16 repositioned (misjudged last round, removed from anchors[] this round): §2.16 is about security obligations — \"bears the corresponding security obligations for your business data within Tencent Cloud's control\", \"takes necessary protective measures for your data across use, storage, transmission, access, disclosure, security and other aspects\", \"without your consent, Tencent Cloud will not make any unauthorized access to, use of or disclosure of your business data\". Within it, \"data you upload, submit, transmit or store in Tencent Cloud data centers through this service\" is a qualifier on the protected data, and \"storage\" appears in the list of stages covered by the protective measures; neither is a statement that \"we will store your request content\" — taking it as zdr evidence last round was a word hit with a different meaning. (5) Reverse search (by reading, not by matching): the full text of 129852, the full tier privacy policy f49e, 130092, 130103, 130104 and 131410 contain no statement of the kind \"does not store\", \"not retained after processing completes\" or \"will not keep input and output\". The three closest passages all fail to apply to this tier: (a) CodeBuddy statement 284d §2.7, custom-model scenario, \"except where necessary to complete the user's request, effect necessary transmission, conduct security audit, troubleshoot faults or retain data as required by law and where separately notified, we will not read or store your input or the output content of your custom model during this process\" — the context is client-side direct forwarding with the user's own third-party model key, not platform-side inference on this tier"
@@ -133,12 +144,23 @@ text = "This tier gives no fixed number of days. (1) Object = \"your data\", inc
 text_zh = "本档无固定天数。①对象=输入/输出内容等『您的数据』:129852 §2.14『除法律法规、监管要求、第三方协议、产品规则、您与腾讯云另行约定或为提供本服务所必需的情形外，腾讯云将仅在为提供本服务之目的所必需的期间内保留您的数据』,期满停止不必要的数据使用行为,或按指示返还/删除"
 
 [[product.retention.point]]
-text = "Where the law does not permit deletion or deletion is technically difficult to achieve, this degrades to \"ceasing all processing other than storage, keeping records, performing statutory obligations and taking necessary security protection measures\". (2) Object = personal information: the tier privacy policy §2.1, \"we generally retain your personal information only for the shortest time necessary to achieve the purpose\" (the same wording as platform tier 91d5fd §2.1 and enterprise tier 5429d0 §2.1). (3) Exception (a floor, not a cap): §2.9, \"Tencent Cloud will retain logs such as information about the party served for no less than six months as required by law\", applies only to the explicit/implicit labelling scenario for generated synthetic content (the statutory retention of logs such as information about the party served), and cannot be read in reverse as \"all content is deleted after six months\""
-text_zh = "法律不允许删除或技术难以实现时,降级为『停止除存储、留存记录、履行法定义务和必要安全保护措施之外的处理』。②对象=个人信息:档位隐私政策 §2.1『仅在为实现目的所必需的最短时间内保留您的个人信息』(与平台档 91d5fd §2.1、企业档 5429d0 §2.1 同口径)。③例外(下限而非上限):§2.9『腾讯云将依法留存提供对象信息等相关日志不少于六个月』仅适用生成合成内容显式/隐式标识场景(提供对象信息等日志的法定留存),不能反推『六个月后删除全部内容』"
+text = "Where the law does not permit deletion or deletion is technically difficult to achieve, this degrades to \"ceasing all processing other than storage, keeping records, performing statutory obligations and taking necessary security protection measures\". (2) Object = personal information: the tier privacy policy §2.1, \"we generally retain your personal information only for the shortest time necessary to achieve the purpose\" (the same wording as platform tier 91d5fd §2.1 and enterprise tier 5429d0 §2.1) — an upper bound on the period, and the same section immediately carves out three exceptions: \"to comply with applicable laws and regulations and the like\", \"to comply with the provisions of a court judgment, ruling or other legal process\", \"to comply with the law-enforcement requirements of the relevant government authorities\"; it adds that \"when our product or service ceases operation, we will notify you by push notification, announcement or the like, and delete or anonymize your personal information within a reasonable period, unless otherwise provided by laws and regulations\". (3) Exception (a floor, not a cap): §2.9, \"Tencent Cloud will retain logs such as information about the party served for no less than six months as required by law\", applies only to the explicit/implicit labelling scenario for generated synthetic content (the statutory retention of logs such as information about the party served), and cannot be read in reverse as \"all content is deleted after six months\""
+text_zh = "法律不允许删除或技术难以实现时,降级为『停止除存储、留存记录、履行法定义务和必要安全保护措施之外的处理』。②对象=个人信息:档位隐私政策 §2.1『仅在为实现目的所必需的最短时间内保留您的个人信息』(与平台档 91d5fd §2.1、企业档 5429d0 §2.1 同口径)——这是期限上限,同节紧接着给出三项例外『为遵守适用的法律法规等有关规定』『为遵守法院判决、裁定或其他法律程序的规定』『为遵守相关政府机关执法的要求』;同节末并规定『当我们的产品或服务发生停止运营的情形时，我们将采取例如推送通知、公告等形式通知您，并在合理的期限内删除或匿名化处理您的个人信息，法律法规另有规定的除外』。③例外(下限而非上限):§2.9『腾讯云将依法留存提供对象信息等相关日志不少于六个月』仅适用生成合成内容显式/隐式标识场景(提供对象信息等日志的法定留存),不能反推『六个月后删除全部内容』"
+anchor = "retention-necessary-period-tier"
 
 [[product.retention.point]]
 text = "§2.12(1) permits processing of input, output and logs within a reasonably necessary scope in the first-party and self-deployed model scenarios, for purposes such as inference, content safety review, service operations, troubleshooting, compliance auditing and billing settlement. (4) In the third-party-deployed model scenario, retention may be governed by the third party's own agreement (last sentence of §2.14, and §3.5)"
 text_zh = "§2.12(1) 允许在自有/自部署模型场景为推理、内容安全审核、服务运维、故障排查、合规审计、计费结算等目的在合理必要范围内处理输入输出与日志。④第三方部署模型场景的留存可能适用第三方协议(§2.14 末句、§3.5)"
+
+[[product.retention.point]]
+text = "(5) Context = account deletion: the same tier privacy policy §5.3, \"after you delete your account, we will stop providing you with the product or service and stop processing your personal information, and delete or anonymize your personal information, unless otherwise provided by laws and regulations\" — object = personal information, and it is a written deletion commitment with an explicit trigger, though it keeps the \"unless otherwise provided by laws and regulations\" carve-out. Parallel to the cease-of-operations deletion above; both carry that carve-out and must not be read as absolute deletion commitments"
+text_zh = "⑤语境=注销账号:同一份档位隐私政策 §5.3『在您注销账号之后，我们将停止为您提供产品或服务以及停止处理您的个人信息，并对您的个人信息进行删除或匿名化处理，法律法规另有规定的除外』——对象=个人信息,是成文的删除承诺且有明确触发时点,但同样保留『法律法规另有规定的除外』。与上面的停止运营删除并列,两条都带该限定,不能读成绝对删除承诺(anchor retention-account-deletion)"
+anchor = "retention-account-deletion"
+
+[[product.retention.point]]
+text = "(6) Context = content safety review and handling of violating content: 129852 §2.8 provides that Tencent Cloud reviews your input and output content by technical means, and where such content violates laws and regulations, regulatory requirements, these terms, third-party agreements or is otherwise deemed inappropriate, \"Tencent Cloud has the right to intercept, block, delete, stop generating, stop transmission, restrict use, suspend the service, keep the necessary records, report to the relevant competent authorities or take other reasonable measures\" — input/output-related records may be kept in the violation-handling scenario with no stated period. Listed alongside the statutory log floor in §2.9 and the processing scope in §2.12(1), so basis=as_needed must not be read as \"deleted automatically once the period ends\""
+text_zh = "⑥语境=内容安全审核与违规内容处置:129852 §2.8 规定腾讯云以技术手段对您的输入内容及输出内容进行审核,出现违反法律法规、监管要求、本服务条款、第三方协议或腾讯云认为不适宜的内容时『腾讯云有权对此予以拦截、屏蔽、删除、停止生成、停止传输、限制使用、暂停服务、保存必要记录、向有关主管部门报告或采取其他合理措施』——违规处置场景下输入/输出相关记录可被留存,且未定期限。与 §2.9 的法定日志下限、§2.12(1) 的处理范围并列,故 basis=as_needed 不能读成『期满必删』(anchor retention-content-review-records)"
+anchor = "retention-content-review-records"
 
 [product.processing_region]
 codes = ["CN"]
@@ -171,6 +193,11 @@ text_zh = "②档位隐私政策通篇是个人信息处理者口吻(『我们�
 [[product.role.point]]
 text = "(3) the CodeBuddy statement §2.15 calls itself an entrusted processor in the enterprise-user scenario, and the personal tier has no corresponding wording"
 text_zh = "③CodeBuddy 声明 §2.15 在企业用户场景自称受托处理者,个人档无对应表述"
+
+[[product.role.point]]
+text = "(4) A boundary, not evidence of the role (anchor role-no-sharing-thirdparty): the tier privacy policy §4.2 states \"at present, we will not take the initiative to share your personal information with any third party\" — the qualifiers are \"at present\" and \"take the initiative\". The same chapter's §4.1 acknowledges cooperation with third parties and requires them to \"strictly comply with our measures and requirements on data privacy protection, including but not limited to processing according to data protection agreements, letters of commitment and related data processing policies\", and §4.5 lists six situations in which sharing, transfer or public disclosure needs no prior consent: necessary to conclude or perform a contract to which you are a party; necessary to perform statutory duties; public-health emergencies or urgent protection of a natural person's life, health and property; news reporting and public-opinion supervision in the public interest within a reasonable scope; personal information you have made public yourself or that is otherwise lawfully public, within a reasonable scope under the Personal Information Protection Law; other situations provided by laws and administrative regulations. So this sentence is only a ceiling on the scope of sharing and does not change kind=processor"
+text_zh = "④边界而非身份证据(anchor role-no-sharing-thirdparty):档位隐私政策 §4.2『目前，我们不会主动与任何第三方共享您的个人信息。』——限定词是『目前』『主动』。同章 §4.1 承认与第三方合作,并要求其『严格遵守我们关于数据隐私保护的措施与要求，包括但不限于根据数据保护协议、承诺书及相关数据处理政策进行处理』;§4.5 又列出六项无需事先征得授权同意的共享、转让、公开披露例外(为订立、履行您作为一方当事人的合同所必需;履行法定义务所必需;突发公共卫生事件或紧急情况下保护自然人的生命健康和财产安全所必需;为公共利益实施新闻报道、舆论监督等行为且在合理范围内处理;依照《个人信息保护法》在合理范围内处理您自行公开或其他已合法公开的个人信息;法律、行政法规规定的其他情形)。故该句只是共享范围的上限表述,不改变 kind=processor"
+anchor = "role-no-sharing-thirdparty"
 
 [[anchor]]
 id = "training-model-optimize"
@@ -238,6 +265,16 @@ suffix = """
 ·为遵守法院判决、裁定或其他法律程序的规定；
 
 ·为遵守相关政府机关执法的要求"""
+
+[[anchor]]
+id = "retention-account-deletion"
+source_id = "0e565c1a0c5cc6b3"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "您可以在腾讯云官网点击账号注销页面查询如何进行账号注销，详见《腾讯云隐私保护声明》，"
+exact = "在您注销账号之后，我们将停止为您提供产品或服务以及停止处理您的个人信息，并对您的个人信息进行删除或匿名化处理，法律法规另有规定的除外。"
+suffix = ""
 
 [[anchor]]
 id = "region-cn-storage-tier"
@@ -380,6 +417,16 @@ exact = "腾讯云将依法留存提供对象信息等相关日志不少于六�
 suffix = "您在使用、传播该类生成合成内容时，应遵守法律规定，不得用于违法违规用途，避免造成混淆、误认。如果您未恰当、合理地履行对生"
 
 [[anchor]]
+id = "retention-content-review-records"
+source_id = "28c216027c015021"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如您的输入内容或输出内容出现含有违反法律法规、监管要求、本服务条款、第三方协议或腾讯云认为不适宜的内容的，"
+exact = "腾讯云有权对此予以拦截、屏蔽、删除、停止生成、停止传输、限制使用、暂停服务、保存必要记录、向有关主管部门报告或采取其他合理措施。"
+suffix = "请您知悉，腾讯云不保证审核结果的完全准确性"
+
+[[anchor]]
 id = "region-cn-processing"
 source_id = "28c216027c015021"
 topics = ["processing_region"]
@@ -461,6 +508,16 @@ suffix = """
 2.18 您理解并同意，腾讯云在合理必要范围内为以下目的处理相关数据或其衍生信息：
 
 （1）履行法律法规、监管要"""
+
+[[anchor]]
+id = "training-2-18-service-optimization"
+source_id = "28c216027c015021"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（3）根据您的请求提供技术支持、故障定位、工单处理和用户支持。"
+exact = "（4）进行计费结算、账单核对、资源用量统计、系统运维和服务优化。"
+suffix = "（5）对提供服务形成的匿名化或无法被识别到特定个人的聚合统计信息进行统计分析。"
 
 [[anchor]]
 id = "thirdparty-model-data-passing"

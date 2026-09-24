@@ -78,7 +78,8 @@ anchor = "qiniu-apidocs-no-content-storage"
 text_zh = "七牛**没有**独立的 ZDR 产品/申请流程,只有帮助文档的『不存储对话内容和敏感信息』承诺(developer_data,非合同)。三条支撑与三条例外:支撑=①上述 FAQ 承诺"
 
 [[product.zdr.point]]
-text_zh = "②请求日志字段清单无 prompt/response(仅元数据)"
+text_zh = "②请求日志字段清单无 prompt/response(仅元数据):请求日志下载接口的响应字段表只列 id/model_id/api_key(脱敏)/start_time/end_time/server_type/code/errors/state/usage/计费字段"
+anchor = "qiniu-log-fields-metadata"
 
 [[product.zdr.point]]
 text_zh = "③合同 §4.8 承诺服务终止即删除。例外=①Claude 系列可主动开启 prompt caching,缓存内容默认保留 5 分钟(客户端显式设置才生效)"
@@ -91,17 +92,35 @@ text_zh = "③上游模型供应商自行处理(§9.3.1),七牛的不存储承�
 
 [product.retention]
 object = "mixed"
-basis = "none"
+basis = "until_termination"
 anchor = "qiniu-ua-cn-ai-retention"
 
 [[product.retention.point]]
-text_zh = "分三层,不要混:(1) **AI 类服务的对话内容**:帮助文档承诺『七牛云不会存储您的对话内容和敏感信息』,而合同 §4.8 只作排除式约定——AI 类服务不适用通用 30 天保留期,『政策未公布的,服务终止即删除』,即合同不承诺零留存、只承诺终止即删"
+text_zh = "分三层,不要混:(1) **AI 类服务的对话内容**:帮助文档承诺『七牛云不会存储您的对话内容和敏感信息』(developer_data),而合同 §4.8 只作排除式约定——AI 类服务不适用通用 30 天保留期,『政策未公布的,服务终止即删除』。两条方向不同、权威也不同(contract > developer_data),本维度以合同为准记 basis=until_termination(留至服务终止):合同不承诺零留存,只承诺终止即删"
+anchor = "qiniu-apidocs-no-content-storage"
 
 [[product.retention.point]]
-text_zh = "(2) **请求日志(元数据)**:接口文档明示『日志保留周期约为 30 天(以实际配置为准)』,且日志字段只有 model_id/api_key(脱敏)/start_time/end_time/server_type/code/errors/usage/费用,**不含 prompt/response 内容**"
+text_zh = "(2) **请求日志(元数据)**:接口文档明示『日志保留周期约为 30 天(以实际配置为准)』——对象=请求日志,语境=默认,期限类型=典型区间(约 30 天,不是删除上限),且日志字段只有 model_id/api_key(脱敏)/start_time/end_time/server_type/code/errors/usage/费用,**不含 prompt/response 内容**"
+anchor = "qiniu-log-retention-30d"
 
 [[product.retention.point]]
-text_zh = "(3) **账号类个人信息**:隐私政策 §5.4 为实现目的所必需的最小化时间保存,法律要求的最短保存期限内(身份与交易信息)至少 3 年。三者对象不同,旧记录把它们并成一条容易误读。另外用户协议 §4.8 本身引用的『AI 服务数据政策』并未公布(见 sources 中 dead 条目)"
+text_zh = "(3) **账号类个人信息**:隐私政策 §5.4 为实现目的所必需的最小化时间保存,在法律要求的最短保存期限内(身份与交易信息)至少 3 年——对象=账号类个人信息,语境=注销或主动删除后,期限类型=下限。三者对象不同,旧记录把它们并成一条容易误读。用户协议 §4.8 所引用的『AI 服务数据政策』没有在本文件登记来源,其内容无从核对"
+anchor = "qiniu-pp-cn-retention-min"
+
+[[product.retention.point]]
+text = "Two exceptions to the right of deletion (privacy policy §6.3): after you delete information, the backup system may not delete it immediately — it is deleted when the backup is refreshed; and where the retention period set by law or administrative regulation has not expired, or deletion is technically impracticable, Qiniu stops all processing other than storage and necessary security measures. Object: source data and backup data; context: after the user deletes information or exercises the right; period type: at the next backup refresh / before the statutory period expires."
+text_zh = "(4) **删除权的两条保留例外**(隐私政策 §6.3):用户删除信息后,备份系统可能延迟删除(备份更新时才删);法律、行政法规规定的保存期限未届满,或者删除个人信息从技术上难以实现的,仅停止除存储和采取必要安全保护措施之外的处理——对象=源数据与备份数据,语境=用户删除或行权后,期限类型=备份更新时/法定期限届满前"
+anchor = "qiniu-pp-cn-deletion-exceptions"
+
+[[product.retention.point]]
+text = "Arrears-driven freezing is a second deletion mechanism with a quantified period (user agreement §7.2.2): if the account freeze is not lifted within 30 natural days, the user is deemed to have abandoned the service, the agreement terminates, the storage space is reclaimed and the data in it is deleted and zeroed, irrecoverably. Object: data in the storage space; context: freeze for non-payment (a different context from expiry or early termination under §4.8)."
+text_zh = "(5) **欠费冻结是另一条有量化期限的删除机制**(用户协议 §7.2.2):账号被冻结后 30 个自然日内未解除即视为放弃服务、协议终止、存储空间回收、数据删除清零且不可恢复——对象=存储空间内的数据,语境=欠费冻结(与 §4.8 的协议期满/提前终止不是同一语境)"
+anchor = "qiniu-ua-cn-freeze-30d"
+
+[[product.retention.point]]
+text = "The same FAQ section that promises no storage of conversation content also states that every API call has detailed logs. \"Detailed logs\" there means call metadata: the log export API field list (id, model_id, masked api_key, start_time, end_time, server_type, code, errors, state, usage, billing fields) contains no prompt or response body, so the two statements do not conflict."
+text_zh = "(6) FAQ『不存储敏感数据』同一节另写『所有 API 调用都有详细日志，可追溯查询』:此处『详细日志』指调用元数据——请求日志下载接口的字段表只有 id/model_id/api_key(脱敏)/start_time/end_time/server_type/code/errors/state/usage/费用,**不含 prompt/response 正文**。两句并排不构成矛盾"
+anchor = "qiniu-apidocs-audit-log"
 
 [product.processing_region]
 codes = ["CN"]
@@ -141,20 +160,35 @@ label = "国际站/海外接入点(SUPERSTIFY TECHNOLOGY PTE.LTD.,新加坡;api.
 site = "global"
 
 [product.training]
-mark = "unknown"
+mark = "no"
+mode = "default"
+anchor = "qiniu-ua-intl-ops-data"
 searched = [
   "https://www.qiniu.com/intl/agreements/user-agreement",
   "https://www.qiniu.com/intl/agreements/privacy-right",
 ]
 
 [[product.training.point]]
-text_zh = "已撤锚：原绑的 §5.5『除为了提供服务所必须或经您的授权外，七牛云不会对您的用户数据进行任意使用』是对用户数据使用的概括限制，既未授权也未排除模型训练，不构成本维度的表述。查阅范围见 searched。"
+text = "Why this is not a yes (not used for training): §5.5 is only a general restriction on arbitrary use of user data — \"except as necessary to provide the service or with your authorisation, Qiniu will not make arbitrary use of your user data\". It neither authorises nor rules out model training, and judging yes requires a statement that explicitly shuts model training out, not the mere absence of a mention. Search scope in searched."
+text_zh = "本维度不能记 yes 的理由:§5.5『除为了提供服务所必须或经您的授权外，七牛云不会对您的用户数据进行任意使用』是对用户数据使用的概括限制,既未授权也未排除模型训练——判 yes(不用于训练)需要明确把模型训练挡在外面的表述,而不是没提到。查阅范围见 searched"
+anchor = "qiniu-ua-intl-no-arbitrary-use"
 
 [[product.training.point]]
-text_zh = "国际站协议无 AI 专章,亦无『不用于训练』的明示承诺。可用条款:§5.5『除为了提供服务所必须或经您的授权外，七牛云不会对您的用户数据进行任意使用，并在提供服务后的合理期限内…删除您的用户数据或进行匿名化处理』"
+text = "Why this is mark=no: §5.7 is a disclosed service-improvement authorisation over data Qiniu may collect — Qiniu may collect your data or produce certain technical and operational data (system logs, billing data, customer-service conversations, lead information) and \"has the right to decide on its own to use such operational data to optimise and improve Qiniu Cloud services\", with no opt-out, and neither intl document excludes model training. Under the house rule that using data to improve services counts as training, this points the training way; its object is operational data (including customer-service conversations), not necessarily the API request body, which is why the tier is recorded as terms-permit rather than an explicit statement that API inputs are trained on. The CN agreement §4.4 is worded almost identically, but the CN site additionally has the apidocs FAQ commitment and §4.5, which the intl site lacks — that is why the two tiers point in different directions."
+text_zh = "本档记 mark=no 的依据:§5.7『七牛云有权自行决定利用该等运营数据优化和改善七牛云服务』是一条例外式的『改善服务』型授权——对象是运营数据(系统日志、账单数据、客服对话、留资信息),无退出开关,而国际站两份文本都没有排除模型训练。按『用来改进服务算训练』的口径,这是训练向授权;对象是运营数据(含客服对话),不必然是 API 请求正文,故记『条款允许』而不是『明示拿 API 输入训练』。国内站 §4.4 措辞与本条近乎平行,但国内站另有 apidocs FAQ 的明确承诺与 §4.5 的『不会擅自使用用户数据』,国际站两者都没有——这是两档结论方向不同的原因"
+anchor = "qiniu-ua-intl-ops-data"
 
 [[product.training.point]]
-text_zh = "反向授权需注意 §1.4『授权七牛云使用、处理和传输任何相关的客户内容』(目的限定为向您提供服务)与 §5.7 运营数据可自行决定用于优化改善服务。与国内站不同:没有 §4.5 那种明确的『不会擅自使用用户数据』条款"
+text_zh = "§1.4『授权七牛云使用、处理和传输任何相关的客户内容』是反向授权,但目的限定为『为了向您提供服务』,未提训练或模型改进,既不能支持 yes(不用于训练),也不是本档记 mark=no 的正面依据"
+anchor = "qiniu-ua-intl-content-license"
+
+[[product.training.point]]
+text = "The closest the intl agreement comes to limiting what Qiniu does with content is §10.5, in the disclaimers and liability-limitation chapter: in the course of the service Qiniu only carries out lawfully, validly and necessarily authorised distribution, transmission, caching and parameter processing of your data (including user data), and does not process the content of your data itself on its own initiative. It is a description of processing forms under a liability disclaimer — it neither authorises nor rules out model training, so it must not be read as a positive basis for \"not used for training\". It is also the source for caching as a processing form. The CN-site agreement has a near-identical clause (§9.2.3)."
+text_zh = "国际站文本里最接近『不会拿内容做别的事』的是 §10.5(位于『免责条款与责任限制』章):『七牛云服务过程中仅对您的数据（包括用户数据）进行经合法、有效、必要授权的分发、传输、缓存、参数处理等工作，而不会私自对您的数据内容本身进行加工。』它既不授权也不排除训练,属责任限制语境下的处理形态描述,不是数据保护承诺,不能读成『不用于训练』的正面依据;zdr 侧『缓存』这一处理形态也出自此处。国内站协议 §9.2.3 有几乎同义的表述"
+anchor = "qiniu-ua-intl-processing-forms"
+
+[[product.training.point]]
+text_zh = "国际站协议无 AI 专章,亦无『不用于训练』的明示承诺;所选模型的上游供应商是否训练须按其各自政策另行核实"
 
 [product.zdr]
 mark = "no"
@@ -191,10 +225,21 @@ anchor = "qiniu-ua-intl-retention-30d"
 text_zh = "与国内站的关键差异:国际站 §5.9 无 AI 例外,协议期满或终止后统一『保留三十（30）个自然日』,期满自动清除含缓存与备份"
 
 [[product.retention.point]]
+text = "A second, parallel period in the intl privacy policy: §2.6 states that even if your relationship with Qiniu ends or changes in any way (for example, termination or variation under contract), the purposes listed in section 2 continue to apply for a reasonable period thereafter (including, where applicable, the period needed to enforce Qiniu's rights under any contract with you). Object: collection and use of personal information; context: after the relationship ends or changes; period type: an open-ended \"reasonable period\", not a deletion deadline. It sits alongside the thirty-day retention window in §5.9: §5.9 governs the user data and server-side content in your account, §2.6 governs how long the collection/use purposes for personal information survive."
+text_zh = "国际站隐私政策还有第二条期限口径,与 §5.9 的终止后 30 天并列:§2.6『即使您与我们的关系已经以任何方式终止或变更（例如，按照合同终止或变更），在之后合理的期限内（如适用，包括按照与您签订的任何合同执行我们的权利所需的期限），本第2条所列的目的也应继续适用。』——对象=个人信息的收集与使用目的,语境=关系终止或变更后,期限类型=『合理期限』(开放式,不是删除截止期)。与 §5.9 的关系:§5.9 管账号内用户数据与服务器内容的 30 天保留期,§2.6 管个人信息收集/使用目的在关系结束后的延续,两者不是同一对象"
+anchor = "qiniu-pp-intl-purposes-after-termination"
+
+[[product.retention.point]]
 text_zh = "§5.5 另有『提供服务后的合理期限内』删除或匿名化的原则性表述"
 
 [[product.retention.point]]
 text_zh = "国际站隐私政策 §5.4 补充『出于研究或统计目的』匿名化后『可以无限期地使用该信息』。国内站 §4.8 的 AI 排除条款在国际站不存在"
+anchor = "qiniu-pp-intl-retention-anon"
+
+[[product.retention.point]]
+text = "Exception to deletion on account closure: §5.4 of the intl privacy policy says that where you close your account or delete the information, Qiniu will keep certain of your personal information for as long as applicable law reasonably requires in order to meet its legal obligations — for example, keeping the personal information necessary for tax and accounting purposes — but will not use it for commercial purposes during that period. Object: personal information; context: after account closure or deletion, i.e. an exception to the deletion-or-anonymisation rule in §6.4; period type: the period applicable law requires."
+text_zh = "注销/删除后的例外:国际站隐私政策 §5.4 写明『七牛云将在适用法律合理要求的期限内保留你的某些个人信息以履行我们的法律义务，例如保留必要的个人信息以实现税务和会计目的』,期间不再作商业化使用——对象=个人信息,语境=注销账号或主动删除后(即同政策 §6.4『注销后删除或匿名化』的例外),期限类型=适用法律要求的期限。与同段的匿名化无限期使用并列"
+anchor = "qiniu-pp-intl-retention-legal-exception"
 
 [product.processing_region]
 basis = "undisclosed"
@@ -212,6 +257,11 @@ anchor = "qiniu-ua-intl-processor"
 
 [[product.role.point]]
 text_zh = "国际站隐私政策无国内站 §3.2 那种『委托处理您的客户数据』条款,只能从用户协议 §5.4(用户须保证有权『将其个人信息传输给七牛云或其指定的主体进行数据处理』)与隐私政策 §4.1(七牛自身委托新加坡/境外供应商为受托方)间接推出:七牛对客户数据是受托处理方,对其自身收集的个人信息是控制者。置信度低"
+
+[[product.role.point]]
+text = "The intl agreement's own clause on data flow to third parties is §5.8: user data and personal data may be disclosed in whole or in part (1) with your consent, (2) where required by applicable law or a lawful request from a regulator or judicial body, or (3) to a third party in order to provide the service you requested. The CN-site agreement has the parallel clause §4.7.4. This describes the direction of the data flow (including to upstream providers where the service requires it); it is not by itself a self-declaration of processor or controller status."
+text_zh = "数据流向的直接条款:国际站协议 §5.8『您确认并同意，您的数据（用户数据和个人数据）可能在下述情况下部分或全部被七牛云披露:(1) 经您授权同意后披露；(2) 根据可适用法律或者应监管机构或司法机构的合法要求披露；或者 (3) 为提供您所要求的服务而向第三方披露。』国内站对应条款为 §4.7.4。本条说明数据会流向第三方(含为提供服务所需的上游),本身不构成受托/控制角色的自述"
+anchor = "qiniu-ua-intl-third-party-disclosure"
 
 [[anchor]]
 id = "qiniu-ua-cn-no-train"
@@ -612,3 +662,63 @@ prefix = """
 受限于我们某些数据处理能力和服务资源，"""
 exact = "某些功能可能由我们委托的位于新加坡或新加坡境外的供应商（包括技术服务提供方）"
 suffix = "（**“受托方”**）协助提供。对我们委托处理您个人信息的受托方，我们会选取在专业知识、可靠性和资源方面能提供充分保证的"
+
+[[anchor]]
+id = "qiniu-pp-cn-deletion-exceptions"
+source_id = "adfec6638df86b7c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "若我们决定响应您的删除请求，我们还将同时通知从我们获得您的个人信息的主体，要求其及时删除，除非法律法规另有规定或这些主体获得您的独立授权。"
+exact = "当您从我们的服务中删除信息后，我们可能不会立即从备份系统中删除相应的信息，但会在备份更新时删除这些信息。法律、行政法规规定的保存期限未届满，或者删除个人信息从技术上难以实现的，我们将停止除存储和采取必要的安全保护措施之外的处理。"
+suffix = ""
+
+[[anchor]]
+id = "qiniu-ua-cn-freeze-30d"
+source_id = "afd5a7500c671112"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "您必须在账号冻结后的 30 个自然日内及时解除账户冻结状态，否则七牛云将视为您主动放弃七牛云服务，本协议将终止，存储空间将被回收，存储空间内的数据会被删除清零，且不可恢复。如果在冻结起的 30 个自然日内，您成功解除账户冻结状态，则七牛云服务及数据可以继续正常使用。"
+suffix = "其中，将以您支付的款项（扣减欠费部分后）为依据确认新的服务期限。"
+
+[[anchor]]
+id = "qiniu-ua-intl-processing-forms"
+source_id = "cd27c91cef689059"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "10.5 您确认，"
+exact = "七牛云服务过程中仅对您的数据（包括用户数据）进行经合法、有效、必要授权的分发、传输、缓存、参数处理等工作，而不会私自对您的数据内容本身进行加工。"
+suffix = "若您在使用七牛云提供的服务过程中发生侵权或存在违反可适用法律规定、监管机构要求或公序良俗的行为，您应自行承担全部责任，七牛云不承担任何责任。"
+
+[[anchor]]
+id = "qiniu-pp-intl-purposes-after-termination"
+source_id = "035d15c15474fc1b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "当我们要将信息用于本政策未载明的其它用途时或将基于特定目的收集而来的信息用于其他目的时，会事先征求您的同意。"
+exact = "即使您与我们的关系已经以任何方式终止或变更（例如，按照合同终止或变更），在之后合理的期限内（如适用，包括按照与您签订的任何合同执行我们的权利所需的期限），本第2条所列的目的也应继续适用。"
+suffix = ""
+
+[[anchor]]
+id = "qiniu-pp-intl-retention-legal-exception"
+source_id = "035d15c15474fc1b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "如果您注销账号或主动删除上述信息，"
+exact = "七牛云将在适用法律合理要求的期限内保留你的某些个人信息以履行我们的法律义务，例如保留必要的个人信息以实现税务和会计目的"
+suffix = "但在此期间我们将不再对您的个人信息进行商业化使用。"
+
+[[anchor]]
+id = "qiniu-ua-intl-third-party-disclosure"
+source_id = "cd27c91cef689059"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "在向您提供服务过程中，您确认并同意，七牛云可能会收集您的数据或产生某些技术和运营数据，例如系统日志、账单数据、客服对话、留资信息等（下称“运营数据”），七牛云有权自行决定利用该等运营数据优化和改善七牛云服务。"
+exact = "您确认并同意，您的数据（用户数据和个人数据）可能在下述情况下部分或全部被七牛云披露：(1) 经您授权同意后披露；(2) 根据可适用法律或者应监管机构或司法机构的合法要求披露；或者 (3) 为提供您所要求的服务而向第三方披露。"
+suffix = ""

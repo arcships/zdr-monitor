@@ -63,12 +63,14 @@ note = "腾讯云国际站《数据处理和安全协议》(DPSA)模块中文版
 
 [[source]]
 url = "https://privacy.qq.com/document/preview/5429d025a45642c188b051b391ac5fc3"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "中国站《腾讯云 Token Plan 企业版隐私政策》(更新日期与生效日期均为 2026-04-13；主体=腾讯云计算（北京）有限责任公司)。云文档 1823/130515(2026-04-17)入口页官方指向本页。§1.1.2 的处理目的只有「返回输出内容、准确统计模型用量消耗、安全审计」，没有个人版那种「使用输入、输出内容优化模型」的目的 —— 同一 Token Plan 档位内个人版与企业版在 training 上口径不同。§2.1/§2.2/§4.1 分别是 retention/processing_region/role 的同档佐证。"
 
 [[source]]
 url = "https://privacy.qq.com/document/preview/bd3cf8dbe11543e791ea914fdd6d9cad"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "中国站《腾讯云大模型 Token Plan 个人版隐私政策》(2026-04-23 更新说明；主体=腾讯云计算（北京）有限责任公司)。云文档 1823/130134(2026-04-24)入口页官方指向本页，确认本页即 Token Plan 个人版(Lite/Standard/Pro/Max，通用 Token Plan 与 Hy Token Plan 两系列)档位专属隐私政策。§1.1.2 是 training 的档位级条款(默认用输入、输出内容优化模型，可工单关闭)；§2.1/§2.2 是 retention/processing_region 的同档佐证。"
@@ -151,6 +153,11 @@ text_zh = "§2.11：腾讯云基于您的委托、指令和需求并以向您提
 
 [[product.role.point]]
 text_zh = "指示违法时可拒绝/暂停执行 —— 即腾讯云在本档为受托处理方(processor)。个人版隐私政策 §4.1 亦为「委托处理」框架(企业版同名条款见 role-enterprise-4-1-entrusted-processing)。置信度 medium 的原因：条款用「委托/指示」表述，没有出现控制方/处理方字面标签，且 §2.18 显示腾讯云也会为内容安全审核、计费、运维、服务优化等自身合规目的处理数据(有限例外)。"
+
+[[product.role.point]]
+anchor = "role-personal-4-2-no-active-sharing"
+text = "The tier-specific privacy policy states in §4.2 (Sharing): \"目前，我们不会主动与任何第三方共享您的个人信息。\" It sits next to §4.1 (Entrusted Processing), which already acknowledges cooperation with third parties under strict restrictions — under PIPL these are two different acts, not a contradiction between the vendor's own statements. But §4.2 must not be read as \"no third party is involved in this tier\": the models supplied directly by third parties (DeepSeek-V4 series) receive the input, context, files, parameters and output content and process them under their own terms (TokenHub ToS §2.12(2); Third-Party Deployed Model Notice §3.5)."
+text_zh = "档位专属隐私政策 §4.2「目前，我们不会主动与任何第三方共享您的个人信息」(anchor role-personal-4-2-no-active-sharing)。它与 §4.1 委托处理框架并列(anchor role-personal-4-1-entrusted-processing)：PIPL 语境下「委托处理」与「共享」是两类行为，§4.1 已承认与第三方合作并对第三方作严格限制，故这不是厂商自相矛盾；但 §4.2 也不能读成「本档没有第三方参与」—— 套餐内 DeepSeek-V4 系列等第三方部署模型会把输入内容、上下文、文件、参数、输出内容提交给相应第三方并按第三方协议处理(合同层 §2.12(2) anchor thirdparty-2-12-2-transfer；《第三方部署模型服务特别说明》§3.5 anchor training-thirdparty-model-terms-prevail)。"
 
 [[product]]
 id = "token-plan-enterprise"
@@ -269,7 +276,7 @@ searched = [
   "https://www.tencentcloud.com/document/product/1300/81184",
   "https://intl.cloud.tencent.com/zh/document/product/1300/78952",
   "https://intl.cloud.tencent.com/document/product/1300/78953",
-  "https://intl.cloud.tencent.com/document/product/301/17345（国际站通用隐私政策，Data Retention 表未含 AI 输入输出，未规定处理地）",
+  "https://intl.cloud.tencent.com/document/product/301/17345（国际站通用隐私政策：Data Retention 表只覆盖账号数据/技术数据/日志，未含 AI 输入输出；处理地只有「Our servers may be located outside of the country you are located, for example in Mainland China.」这类覆盖全站的通用表述，没有针对本档的地域清单）",
   "https://intl.cloud.tencent.com/zh/document/product/301/78869（国际站 TokenHub ToS 未规定处理地，仅按 region of access 确定签约实体）",
 ]
 
@@ -278,6 +285,11 @@ text_zh = "国际站个人版隐私政策模块 §2 只说控制方如隐私政�
 
 [[product.processing_region.point]]
 text_zh = "国际站 TokenHub ToS 也没有处理地条款。中国站文档 129852 §2.13 虽提到「国际站服务的数据处理地点为新加坡或…」，但该条款属中国站文档体系，本轮不作为国际站档位的权威依据。"
+
+[[product.processing_region.point]]
+anchor = "region-intl-general-servers-outside-country"
+text = "The general Tencent Cloud International privacy policy (301/17345) says in its summary: \"Our servers may be located outside of the country you are located, for example in Mainland China.\" The same page adds that transfers outside the EEA/UK for processing rely on the standard contractual clauses and may go to Mainland China. But that statement covers every Service on the site; it is neither a region list for the Personal Token Plan nor a commitment about where this tier's data is stored or processed, so this tier stays undisclosed rather than being given region codes."
+text_zh = "国际站通用《隐私政策》(301/17345) 概要「Where do we process the collected personal information?」写「Our servers may be located outside of the country you are located, for example in Mainland China.」(anchor region-intl-general-servers-outside-country)；同页另有 EEA/UK 数据出境依赖标准合同条款、可传至中国大陆的说明(anchor region-intl-general-eu-uk-scc)。但这句覆盖全站所有服务，既不是 Personal Token Plan 的地域清单，也不是本档的存储/处理地承诺，故本档仍记 undisclosed，不据此填 codes —— 原 searched 里「未规定处理地」的记法已按此修正。"
 
 [product.role]
 kind = "processor"
@@ -303,7 +315,7 @@ anchor = "training-intl-enterprise-improve-limited"
 mode = "default"
 
 [[product.training.point]]
-text_zh = "国际站隐私政策模块(适用 TokenHub 和 Token Plan 企业版)§4：「改进与开发我们的功能特性。我们使用包括配置数据与诊断与使用数据在内的数据来分析并了解我们的潜在客户，改进并优化我们的功能特性」—— 改进用途不含客户内容(§3 收集的数据类别里本就没有 Customer Content)"
+text_zh = "国际站隐私政策模块(适用 TokenHub 和 Token Plan 企业版)§4：「改进与开发我们的功能特性。我们使用包括配置数据、诊断与使用数据在内的数据来分析并了解我们的潜在客户，改进并优化我们的功能特性」—— 改进用途不含客户内容(§3 收集的数据类别里本就没有 Customer Content)"
 
 [[product.training.point]]
 text_zh = "DPSA 模块 §3 的处理目的只有「提供功能特性」与「故障排除」，也没有训练。置信度 medium：属「未列入目的」的隐含否定，两份模块都没有「不用于训练」明文(对照：中国站企业版产品页 131172 有明文「不使用用户请求与模型返回数据进行模型训练」)。范围限制：第三方部署模型按第三方协议。"
@@ -520,6 +532,29 @@ suffix = """
 3.1 安全保护措施
 
 我们为您的信息提供相应的安全保障，以防止信息的丢失、不当使用、未经授"""
+
+[[anchor]]
+id = "role-personal-4-1-entrusted-processing"
+source_id = "85df8f1cfe96778a"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "我们与第三方合作过程中，将遵守法律规定，按照最小必要原则，安全审慎地处理相关数据。我们将按照法律法规的规定，对数据处理涉及的第三方进行严格的限制。要求其严格遵守我们关于数据隐私保护的措施与要求，包括但不限于根据数据保护协议、承诺书及相关数据处理政策进行处理，保障数据安全。"
+suffix = ""
+
+[[anchor]]
+id = "role-personal-4-2-no-active-sharing"
+source_id = "85df8f1cfe96778a"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "目前，我们不会主动与任何第三方共享您的个人信息。"
+suffix = """
+4.3 转让
+
+随着我们业务的持续发展，我们有可能进行合并"""
 
 [[anchor]]
 id = "training-enterprise-1-1-2-purposes-only"
@@ -851,15 +886,9 @@ source_id = "58e84bdb2dd28223"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-内的数据来促进我们的计费流程。
-为履行我们与您签订的合同，或在应您要求签订合同前采取相关步骤，我们有必要处理此等信息。
-"""
-exact = "改进与开发我们的功能特性。 我们使用包括配置数据、诊断与使用数据在内的数据来分析并了解我们的潜在客户，改进并优化我们的功能特性。"
-suffix = """
-
-处理此类信息旨在了解我们的潜在客户、分析我们功能特性网站的访问趋势并改进功能特性，这符合我们的合法利益。
-5. 如何存"""
+prefix = ""
+exact = "我们使用包括配置数据、诊断与使用数据在内的数据来分析并了解我们的潜在客户，改进并优化我们的功能特性。"
+suffix = ""
 
 [[anchor]]
 id = "data-categories-intl-enterprise-config-diag"
@@ -867,24 +896,9 @@ source_id = "58e84bdb2dd28223"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-策中所指定。
-3. 我们收集的个人数据
-我们收集、接收、存储并以其他方式处理关于您的以下个人数据：
-数据类别
-详细信息
-"""
-exact = """
-配置数据
-配置与设置数据，包括用户数量和服务调用次数的统计信息。
-诊断与使用数据
-与您使用功能特性相关的运营及使用数据，包括事件与请求详情、服务区域、使用和时间戳数据、运营数据、日志数据、调试信息、访问日志数据、输出信息、计费数据、错误报告。"""
-suffix = """
-
-为向您提供本功能特性，我们还可能通过集成我们的以下功能特性来处理上述数据：
-对象存储；
-访问管理。
-4. 目的与法律依"""
+prefix = ""
+exact = "与您使用功能特性相关的运营及使用数据，包括事件与请求详情、服务区域、使用和时间戳数据、运营数据、日志数据、调试信息、访问日志数据、输出信息、计费数据、错误报告。"
+suffix = ""
 
 [[anchor]]
 id = "retention-intl-personal-7days"
@@ -905,11 +919,9 @@ source_id = "a1758891db806ee0"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-teps at your request prior to entering a contract with you.
-"""
-exact = "**Improve and develop our Features.**We use data including Configuration Data and Diagnostic and Usage Data to analyse and understand our potential customers, improve and optimize our Features."
-suffix = "It is in our legitimate interests to process this informatio"
+prefix = ""
+exact = "We use data including Configuration Data and Diagnostic and Usage Data to analyse and understand our potential customers, improve and optimize our Features."
+suffix = ""
 
 [[anchor]]
 id = "role-intl-processor-content"
@@ -920,3 +932,23 @@ topics = ["role"]
 prefix = "nerate in managing your Services, we act as the controller. "
 exact = "For information that you store using the Services (for example, content that you upload to store on our servers), we act as a processor."
 suffix = " See below at The Types of Personal Information we Collect a"
+
+[[anchor]]
+id = "region-intl-general-servers-outside-country"
+source_id = "2a1e276b5e79c64d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Our servers may be located outside of the country you are located, for example in Mainland China."
+suffix = " See below at How We Disclose and Store Your Personal Information for more information."
+
+[[anchor]]
+id = "region-intl-general-eu-uk-scc"
+source_id = "2a1e276b5e79c64d"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "To the extent data is transferred outside of the EEA or UK for processing (for example, to Mainland China), we rely on the European Commission's model contracts for the transfer of personal data to third countries (i.e., the standard contractual clauses), pursuant to Decision 2001/497/EC (in the case of transfers to a controller) and Decision 2004/915/EC (in the case of transfers to a processor);"
+suffix = ""

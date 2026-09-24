@@ -61,6 +61,7 @@ text_zh = "Kimi Business 企业档另有『企业数据不用于模型训练』�
 
 [product.zdr]
 mark = "no"
+mode = "not_disclosed"
 searched = [
   "https://www.kimi.com/user/agreement/userPrivacy?version=v2",
   "https://www.kimi.com/user/agreement/modelUse?version=v2",
@@ -93,7 +94,12 @@ searched = [
 anchor = "zdr-enterprise-only"
 
 [[product.zdr.point]]
-text_zh = "本档未见任何零保留/零数据保留承诺——属『未披露』,不是厂商否定。反向证据:唯一的 ZDR 项目是开放平台『为企业客户提供』(platform.kimi.com/docs/guide/zero-data-retention),而 api-overview 明示『Kimi Code API 与本平台提供的 API 服务相互独立』,故开放平台 ZDR 不构成本档承诺"
+text = "No zero-data-retention option is disclosed for this tier — undisclosed, not a vendor denial. The only ZDR item is the Open Platform page, which scopes itself to enterprise customers on the Kimi Open Platform; that is the platform.kimi.com line (a separate ledger entry) and is not a clause of this tier"
+text_zh = "本档未见任何零保留/零数据保留承诺——属『未披露』,不是厂商否定。唯一的 ZDR 项目是开放平台页(platform.kimi.com/docs/guide/zero-data-retention),它自述适用对象为『Kimi 开放平台为企业客户』;该页属 platform.kimi.com 线(另一条台账记录),不是本档条款"
+
+[[product.zdr.point]]
+text = "The other half of the tier-isolation chain — that the Kimi Code API is independent from the API service on the Open Platform — has no snapshot in this file yet: that sentence is on www.kimi.com/help/kimi-api/api-overview, and the domestic comparison page platform.kimi.com/docs/guide/product-plans is likewise only listed in searched[]. Until those snapshots are fetched, zdr-enterprise-only stands only as boundary evidence (the ZDR programme is offered to Open Platform enterprise customers), and no claim is made here about whether this tier is covered by it"
+text_zh = "档位隔离链的另一半——『Kimi Code API 与本平台提供的 API 服务相互独立』——在本文件里还没有快照:该句见 www.kimi.com/help/kimi-api/api-overview,国内站对照页 platform.kimi.com/docs/guide/product-plans 同样只在 searched[] 里。两个快照抓回前,zdr-enterprise-only 只作边界佐证(ZDR 项目面向开放平台企业客户),不就『本档是否被该 ZDR 覆盖』下断言"
 
 [[product.zdr.point]]
 text_zh = "消费档文档(隐私政策、用户协议、付费服务协议、帮助中心)全无同类表述。"
@@ -104,13 +110,37 @@ basis = "undisclosed"
 anchor = "up-retention-period"
 
 [[product.retention.point]]
-text_zh = "对象=个人信息(含输入输出内容)"
+text = "Object = personal information, including input/output content. No period is disclosed for input/output content, KV cache or access logs, and no ceiling in days is given anywhere — undisclosed, not a vendor denial"
+text_zh = "对象=个人信息(含输入输出内容)。输入输出正文 / KV 缓存 / 访问日志各自的期限均未披露,也未给出天数上限——属『未披露』,不是厂商否定"
 
 [[product.retention.point]]
 text_zh = "语境=默认。§5.2『除国家法律法规另有规定外,我们仅在为实现服务目的所必需的时间内保留您的个人信息』——是规则而非固定天数"
+anchor = "up-retention-period"
 
 [[product.retention.point]]
-text_zh = "同节『当我们的产品和服务发生停止运营的情形时…在合理的期限内匿名化处理或彻底删除』。注销场景:帮助中心《账号注销与数据删除》『部分信息需在法定最短期限内保留,仅用于执法核查等法定用途,到期后按规定删除或匿名化处理』(法定下限,不能反推『到期即删全部内容』)。未披露输入输出正文 / KV 缓存 / 访问日志各自的期限,也未给出天数上限。"
+text = "Context = service shutdown: users are notified by SMS/announcement, and personal information is anonymised or deleted \"within a reasonable period\", except where laws provide otherwise (Privacy Policy v2 §5.2)"
+text_zh = "语境=服务停止运营。§5.2『当我们的产品和服务发生停止运营的情形时…在合理的期限内匿名化处理或彻底删除您的个人信息,法律法规另有规定的除外』"
+anchor = "up-retention-termination"
+
+[[product.retention.point]]
+text = "Context = account deletion (Help Centre: Account deletion & data removal): conversation history, uploaded files and Memory Space data enter the deletion flow, while some information must be kept for the minimum statutory period and used solely for statutory purposes such as law-enforcement checks, then deleted or anonymised. The same page notes that deletion is irreversible and that all information, data and paid entitlements in the account are cleared — clearing an account is not the same as retaining nothing"
+text_zh = "语境=账号注销(帮助中心《账号注销与数据删除》):对话记录、上传文件、记忆空间数据进入删除流程;部分信息需在法定最短期限内保留,仅用于执法核查等法定用途,到期后按规定删除或匿名化(法定下限,不能反推『到期即删全部内容』)。同页另注注销不可逆、账号内所有信息/数据/付费权益一并清空——清空账号 ≠ 无任何留存"
+anchor = "deletion-legal-retention"
+
+[[product.retention.point]]
+text = "Object = registration data and activity records (logs), at contract level: after account deletion such log information must still be retained as required by the Cybersecurity Law and other laws — a statutory minimum, which cannot be read backwards as a ceiling on when content is deleted (User Agreement v2 §II.3). The period for input/output content and KV cache remains undisclosed"
+text_zh = "对象=注册数据及行为记录等日志(合同级):注销后仍须按网络安全法等法律法规的要求保留——法定下限,不能反推内容何时删除(用户服务协议 v2 §二.3)。输入输出正文与 KV 缓存的期限仍未披露"
+anchor = "ua-retention-after-deletion-logs"
+
+[[product.retention.point]]
+text = "Exception inside the deletion flow: where deleting or anonymising personal information is technically infeasible, processing stops except for storage and necessary security protection measures — the data is kept, not deleted (Privacy Policy v2 §7.4)"
+text_zh = "删除流程的例外:如果删除、匿名化处理个人信息从技术上难以实现,我们会停止除存储和采取必要的安全保护措施之外的处理——数据被继续存储,而非删除(隐私政策 v2 §7.4)"
+anchor = "up-retention-deletion-exception"
+
+[[product.retention.point]]
+text = "Object = conversations deleted by the user: after a manual deletion the system keeps data only to the minimum extent required by laws for storage and security protection, and provides no viewing or recovery path — another statutory minimum, in a context distinct from account deletion (Help Centre: Account deletion & data removal)"
+text_zh = "对象=用户主动删除的对话:手动删除后系统仅按法律法规做最低限度的存储与安全保护,不再提供任何查看或恢复入口——同属法定下限,语境与注销不同(帮助中心《账号注销与数据删除》)"
+anchor = "accdel-manual-delete-minimum"
 
 [product.processing_region]
 codes = ["CN"]
@@ -133,6 +163,11 @@ text_zh = "推定为 controller / 个人信息处理者(政策全文未使用『
 text_zh = "§4.2 共享条款显示 Kimi 自主决定向合作方(关联方、支付方、广告合作方)共享的范围与目的。confidence=medium 是因为这属条款推定,而非厂商自述角色"
 
 [[product.role.point]]
+text = "Boundary on the same sharing clause: although the scope and purpose of sharing are Kimi's to decide, conversation content and input/output files are expressly excluded from the advertising channel — such information is not provided to advertising partners (Privacy Policy v2 §4.2). The sharing wording must therefore be read with that limit"
+text_zh = "同一共享条款的边界:共享范围与目的虽由 Kimi 决定,但对话内容与输入输出的文件被明确排除在广告链路之外——不向广告合作伙伴提供(隐私政策 v2 §4.2)。共享口径需带这条上限来读"
+anchor = "up-role-ad-exclusion"
+
+[[product.role.point]]
 text_zh = "若需合同级结论,应查其 DPA(本轮未找到公开 DPA)。"
 
 [[product]]
@@ -149,7 +184,7 @@ mark = "unknown"
 text_zh = "本 provider 只覆盖 kimi.com 国内消费订阅档(个人会员,含 Kimi Code 权益)。开放平台按量 API(platform.kimi.com)属 moonshotai-cn 家,另条记录"
 
 [[product.training.point]]
-text_zh = "api-overview 的通道隔离引文可证两通道相互独立。"
+text_zh = "通道隔离的依据页(www.kimi.com/help/kimi-api/api-overview、platform.kimi.com/docs/guide/product-plans)本轮只有查阅记录、没有快照,故本行不引其原文。"
 
 [product.zdr]
 mark = "unknown"
@@ -158,7 +193,7 @@ mark = "unknown"
 text_zh = "本 provider 只覆盖 kimi.com 国内消费订阅档(个人会员,含 Kimi Code 权益)。开放平台按量 API(platform.kimi.com)属 moonshotai-cn 家,另条记录"
 
 [[product.zdr.point]]
-text_zh = "api-overview 的通道隔离引文可证两通道相互独立。"
+text_zh = "通道隔离的依据页(www.kimi.com/help/kimi-api/api-overview、platform.kimi.com/docs/guide/product-plans)本轮只有查阅记录、没有快照,故本行不引其原文。"
 
 [product.retention]
 object = "mixed"
@@ -168,7 +203,7 @@ basis = "undisclosed"
 text_zh = "本 provider 只覆盖 kimi.com 国内消费订阅档(个人会员,含 Kimi Code 权益)。开放平台按量 API(platform.kimi.com)属 moonshotai-cn 家,另条记录"
 
 [[product.retention.point]]
-text_zh = "api-overview 的通道隔离引文可证两通道相互独立。"
+text_zh = "通道隔离的依据页(www.kimi.com/help/kimi-api/api-overview、platform.kimi.com/docs/guide/product-plans)本轮只有查阅记录、没有快照,故本行不引其原文。"
 
 [product.processing_region]
 codes = ["unknown"]
@@ -177,7 +212,7 @@ codes = ["unknown"]
 text_zh = "本 provider 只覆盖 kimi.com 国内消费订阅档(个人会员,含 Kimi Code 权益)。开放平台按量 API(platform.kimi.com)属 moonshotai-cn 家,另条记录"
 
 [[product.processing_region.point]]
-text_zh = "api-overview 的通道隔离引文可证两通道相互独立。"
+text_zh = "通道隔离的依据页(www.kimi.com/help/kimi-api/api-overview、platform.kimi.com/docs/guide/product-plans)本轮只有查阅记录、没有快照,故本行不引其原文。"
 
 [product.role]
 kind = "unknown"
@@ -186,7 +221,7 @@ kind = "unknown"
 text_zh = "本 provider 只覆盖 kimi.com 国内消费订阅档(个人会员,含 Kimi Code 权益)。开放平台按量 API(platform.kimi.com)属 moonshotai-cn 家,另条记录"
 
 [[product.role.point]]
-text_zh = "api-overview 的通道隔离引文可证两通道相互独立。"
+text_zh = "通道隔离的依据页(www.kimi.com/help/kimi-api/api-overview、platform.kimi.com/docs/guide/product-plans)本轮只有查阅记录、没有快照,故本行不引其原文。"
 
 [[anchor]]
 id = "up-training-model-optimize"
@@ -446,3 +481,43 @@ suffix = """
 ​
 
 ZDR"""
+
+[[anchor]]
+id = "ua-retention-after-deletion-logs"
+source_id = "e4a5560a0f962029"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "但您注销账号后，账号内的信息、数据、付费权益将不可恢复，请您审慎注销。"
+exact = "您注销后，我们仍需按照网络安全法等法律法规的要求，保留您相应的注册数据及行为记录等日志信息。"
+suffix = "如您在注销前使用本服务过程中存在违法或违反本协议的行为，我们仍有权行使本协议所约定的权利。"
+
+[[anchor]]
+id = "up-retention-deletion-exception"
+source_id = "f98d01332e49d545"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "一旦注销，我们将停止为您提供服务并将按照法律法规的要求处理您的个人信息。"
+exact = "如果删除、匿名化处理个人信息从技术上难以实现，我们会停止除存储和采取必要的安全保护措施之外的处理。"
+suffix = "### 7.5 近亲属权利"
+
+[[anchor]]
+id = "accdel-manual-delete-minimum"
+source_id = "0027317e18883898"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "## 手动删除的对话还会保留吗？"
+exact = "不会。删除后，系统仅按法律法规做最低限度的存储与安全保护，不再提供任何查看或恢复入口，你也无法再次找回。"
+suffix = "## 误删的聊天记录还能找回吗？"
+
+[[anchor]]
+id = "up-role-ad-exclusion"
+source_id = "f98d01332e49d545"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "为向您展示 Kimi 产品和服务的广告并衡量广告投放效果，我们可能与广告发布平台、广告代理商、服务商等广告合作伙伴合作，向其提供经匿名化处理的个人信息。"
+exact = "我们不会向广告合作伙伴提供您的对话内容、输入输出的文件等可以反映您具体使用情况的信息。"
+suffix = "我们将通过协议约定，要求广告合作伙伴仅为前述约定目的处理您的个人信息并采取相应的安全保护措施。"

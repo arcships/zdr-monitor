@@ -15,12 +15,14 @@ note = "开放平台文档中心 Files API『文件上传』页。订阅 Key 与
 
 [[source]]
 url = "https://platform.minimax.cn/protocol/privacy-policy"
+fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
 note = "《MiniMax开放平台隐私政策》（中国站，运营方上海稀宇科技有限公司），官方索引页描述为『适用于企业 API 服务的隐私政策』，覆盖开放平台注册用户与API/订阅调用场景（角色表含『调用API』行）。三(二)『您个人信息的保存』给出保留口径（最短必要 + 超期删除/匿名化 + 终止服务后删除/匿名化）与境内存储；角色表标注调用 API=个人信息处理者、企业 SDK 接入=个人信息处理受托方；对话过滤条款主语是『个人信息』而非请求内容本体，不构成零保留承诺。"
 
 [[source]]
 url = "https://platform.minimax.cn/protocol/user-agreement"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《MiniMax开放平台用户协议》（中国站，1.1 主体上海稀宇科技有限公司），覆盖开放平台全部产品与服务——本档订阅 Key（sk-cp）通过 API 端点调用时适用。官方索引页把『开放平台条款』入口指定为 platform.minimaxi.com/protocol/user-agreement（302 到本页）。5.4『提升算法服务』目的与 6.3『输入及对应输出』去标识化后用于服务优化，是 API 侧 training 证据；5.1/5.2 客户须自行取得终端用户授权（role）；3.13 含存储功能服务的保留与届满删除；3.16 境内使用要求。全文无『训练』字样，也无零保留承诺。"
@@ -42,6 +44,11 @@ text_zh = "同顶层：无「训练」字样，仅 6.3 的去标识化后「服�
 [[product.training.point]]
 text = "Not presumed to be equivalent to a training authorization"
 text_zh = "不推定等于训练授权"
+
+[[product.training.point]]
+anchor = "minimax-cn-training-deidentified-commercial-use"
+text = "Second and broader grant on the same de-identification chain: Privacy Policy §1(5)1 says that once personal information has been technically de-identified we are entitled to use the de-identified information, and that without disclosing your personal information we are entitled to analyse the user database and make commercial use of it. Object caveat: the licensed subject is de-identified personal information and the user database, not the API input/output text itself — same direction as §6.3 (de-identify, then use) and recorded as same-direction supporting evidence, not as a training authorisation over request content. mark=no is unchanged"
+text_zh = "同一条去标识化链路上的第二条、也是更外扩的授权：隐私政策一(五)1「请您了解并同意，在此情况下我们有权使用已经去标识化的信息；在不透露您个人信息的前提下，我们有权对用户数据库进行分析并予以商业化的利用。」对象说明：授权标的是去标识化后的个人信息与用户数据库，不是 API 输入输出正文——与 §6.3（去标识化后用于服务优化）同向，记作同向加强证据，不读成对请求内容的直接训练授权。mark=no 不变"
 
 [product.zdr]
 mark = "unknown"
@@ -66,6 +73,11 @@ anchor = "minimax-cn-retention-shortest-period"
 text = "Shortest necessary retention (personal information only) + Files API uploads kept at most 7 days + a right but no obligation to retain after termination of paid services"
 text_zh = "最短必要保留（限个人信息）+ Files API 上传文件最长 7 天 + 付费服务终止后有权利无义务保留"
 
+[[product.retention.point]]
+anchor = "minimax-cn-retention-interaction-content-collected"
+text = "Mapping behind object=input_output: Privacy Policy §1(1)1 lists among the information collected \"包括但不限于您与系统交互时发出的信息、您填写或选择的各类如偏好信息等等\" — what you emit while interacting with the system falls inside the collection scope, which is why the personal-information retention statements in this row can be used to support the input/output encoding. Those statements themselves remain about personal information, not about request content as such"
+text_zh = "object=input_output 的映射依据：隐私政策一(一)1 把「包括但不限于您与系统交互时发出的信息、您填写或选择的各类如偏好信息等等」列入收集范围——您与系统交互时发出的内容属收集对象，这就是标的是「个人信息」的保留条款可以用来支撑 input_output 编码的原因。保留口径本身仍是针对个人信息，不是针对请求内容本体"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "minimax-cn-region-cn-storage"
@@ -78,17 +90,34 @@ text_zh = "境内收集的个人信息存储在境内"
 text = "No storage-location commitment covering API content as a whole"
 text_zh = "未对 API 内容整体作存储地承诺"
 
+[[product.processing_region.point]]
+anchor = "minimax-cn-region-affiliate-sharing"
+text = "Adjacent fact, kept side by side: Privacy Policy §2(1)2 allows personal information to be shared with affiliates (\"我们可能会将您的个人信息与我们的关联公司共享。但我们只会共享必要的个人信息，且受本隐私政策中所声明目的的约束。\") and does not state where those affiliates sit. Domestic storage is therefore not the same as no third-party participation; MiniMax also runs a separate international site (minimaxi.com)"
+text_zh = "并列的相邻事实：隐私政策二(一)2 允许与关联公司共享个人信息（「我们可能会将您的个人信息与我们的关联公司共享。但我们只会共享必要的个人信息，且受本隐私政策中所声明目的的约束。」），未说明这些主体的所在地。故「境内存储」不等于「无第三方参与处理」；MiniMax 另运营国际站（minimaxi.com）"
+
+[[product.processing_region.point]]
+anchor = "minimax-cn-region-cloud-vendor-processing"
+text = "Same direction, and closer to the content itself: §2(1)3 and §2(1)(4) disclose sharing with partners / cloud service vendors, expressly including \"将您的对话内容传输至我们的云服务器由我们的云服务供应商进行计算处理\", again without stating where those vendors are. Neither point changes codes=[\"CN\"]: the CN determination rests on §3(2)1 (personal information collected within China is stored within China), and no storage-location commitment covers API content as a whole"
+text_zh = "同向、且更贴近内容本体：二(一)3 与二(一)(4) 披露与合作伙伴/云服务供应商共享，明写「将您的对话内容传输至我们的云服务器由我们的云服务供应商进行计算处理」，同样未说明这些主体的所在地。两条都不改 codes=[\"CN\"]：CN 判定依据是 §三(二)1「在中华人民共和国境内收集的个人信息存储在中华人民共和国境内」，且没有任何存储地承诺覆盖 API 内容整体"
+
 [product.role]
 kind = "controller"
 anchor = "minimax-cn-role-api-personal-info-handler"
 
 [[product.role.point]]
-text = "Declares itself a personal information handler for direct platform API calls"
-text_zh = "平台直连 API 场景自认个人信息处理者"
+anchor = "minimax-cn-role-api-personal-info-handler"
+text = "Basis for kind=controller: in the privacy policy role table the \"调用API\" row gives \"我们的角色\" as 个人信息处理者 — for the data of a direct API call (the submitted payload, the auth information, Group id, Api key) MiniMax designates itself the personal information handler. The anchor quotes the role value itself; the row identity comes from the table context, and no cross-cell quote is possible because the table is stored as raw HTML"
+text_zh = "kind=controller 的依据：隐私政策角色表中「调用API」一行的「我们的角色」列写的是「个人信息处理者」——平台对直连 API 调用所涉数据（该次提交的处理数据、鉴权信息、Group id、Api key）自认个人信息处理者。锚点引的是角色值本身，行身份由表格上下文定位；该表以原始 HTML 落盘，任何跨单元格的引文都无法命中"
 
 [[product.role.point]]
-text = "Acts as an entrusted party (processor) for SDK integration"
-text_zh = "SDK 接入场景为受托方"
+anchor = "minimax-cn-role-sdk-processor"
+text = "Acts as an entrusted party (processor) for SDK integration: the \"在其他应用场景下接入我们的SDK\" row of the same table gives \"我们的角色\" as 个人信息处理受托方"
+text_zh = "SDK 接入场景为受托方：同一张表中「在其他应用场景下接入我们的SDK」一行的「我们的角色」列为「个人信息处理受托方」"
+
+[[product.role.point]]
+anchor = "minimax-cn-role-customer-end-user-consent"
+text = "Contrary-direction pointer, kept side by side and not resolved: User Agreement §5.1/§5.2 place the consent and lawfulness burden for end-user personal information on the customer — §5.2 \"如您的客户数据中包含了个人信息的，您应保证已经获得了个人信息主体的同意，并有权将其个人信息传输给我们进行数据处理\", and if the customer lacks sufficient authorisation we may delete the data, suspend the service, freeze or close the account without liability. Scope of each statement: the privacy-policy table governs MiniMax's own role over the data of an API call (submitted payload, auth information, Group id, Api key), while §5.1/§5.2 govern who answers for end-user personal data the customer brings in. kind=controller is not changed on the strength of this"
+text_zh = "相反方向的角色线索，并列保留、不选边：用户协议 §5.1/§5.2 把终端用户个人信息的取得同意与合法性责任放在客户一侧——§5.2「如您的客户数据中包含了个人信息的，您应保证已经获得了个人信息主体的同意，并有权将其个人信息传输给我们进行数据处理」，客户未取得充分授权时我们可删除相关信息及数据、暂停服务、冻结或注销账号且不承担任何责任。适用范围：隐私政策角色表说的是平台对 API 调用数据（提交内容、鉴权信息、Group id、Api key）自身的角色，§5.1/§5.2 说的是客户带入的终端用户个人数据由谁负责。不据此改 kind=controller"
 
 [[anchor]]
 id = "minimax-cn-training-input-output-optimization"
@@ -159,6 +188,14 @@ suffix = """
 3.17 深度合成的相关规定。我们提供的服务基于深度合成技术"""
 
 [[anchor]]
+id = "minimax-cn-role-customer-end-user-consent"
+source_id = "8d82777b36723765"
+topics = ["role"]
+
+[anchor.selector]
+exact = "如您的客户数据中包含了个人信息的，您应保证已经获得了个人信息主体的同意，并有权将其个人信息传输给我们进行数据处理。"
+
+[[anchor]]
 id = "minimax-cn-retention-shortest-period"
 source_id = "159e3544b4fdfc62"
 topics = ["retention"]
@@ -216,18 +253,9 @@ source_id = "159e3544b4fdfc62"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-新信息和相关的促销活动
-*   向有关部门提供相应的审核信息
-*   提供账单、完成服务的费用结算信息 个人信息处理者
-"""
-exact = "调用API*   该次提交的处理数据"
-suffix = """
-
-*   该次提交的鉴权信息
-*   Group id
-*   Api key*   用于后台计算，生成返回数据
-*  """
+prefix = "在问题反馈中调取，用于解决相应的用户问题</li></ul></td><td><p>"
+exact = "个人信息处理者"
+suffix = "</p></td></tr><tr><td><p>当您提出服务咨询"
 
 [[anchor]]
 id = "minimax-cn-role-sdk-processor"
@@ -235,15 +263,9 @@ source_id = "159e3544b4fdfc62"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-up id
-*   Api key*   用于后台计算，生成返回数据
-*   在问题反馈中调取，用于解决相应的用户问题 """
+prefix = "该次提交的处理数据</li><li>该次提交的鉴权信息</li><li>Group id</li><li>Api key</li></ul></td><td><ul><li>用于后台计算，生成返回数据</li><li>在问题反馈中调取，用于解决相应的用户问题</li></ul></td><td><p>"
 exact = "个人信息处理受托方"
-suffix = """
-
-
-**除上述为实现功能必须提供的个人信息外，我们不会主动要求您提供您的其他个人信息，请注意在对话交互过程中不要透露其他"""
+suffix = "</p></td></tr></tbody></table>"
 
 [[anchor]]
 id = "minimax-cn-zdr-personal-info-filter-excluded"
@@ -259,6 +281,38 @@ exact = "我们不会将您的对话和您注册、申请开放平台时的个�
 suffix = """
 ，同时我们也会提升我们服务的过滤机制，对可能是您的个人信息，尤其是个人敏感信息的对话内容进行过滤、删除并不予保存。**
 """
+
+[[anchor]]
+id = "minimax-cn-training-deidentified-commercial-use"
+source_id = "159e3544b4fdfc62"
+topics = ["training"]
+
+[anchor.selector]
+exact = "请您了解并同意，在此情况下我们有权使用已经去标识化的信息；在不透露您个人信息的前提下，我们有权对用户数据库进行分析并予以商业化的利用。"
+
+[[anchor]]
+id = "minimax-cn-retention-interaction-content-collected"
+source_id = "159e3544b4fdfc62"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "包括但不限于您与系统交互时发出的信息、您填写或选择的各类如偏好信息等等"
+
+[[anchor]]
+id = "minimax-cn-region-affiliate-sharing"
+source_id = "159e3544b4fdfc62"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "我们可能会将您的个人信息与我们的关联公司共享。但我们只会共享必要的个人信息，且受本隐私政策中所声明目的的约束。"
+
+[[anchor]]
+id = "minimax-cn-region-cloud-vendor-processing"
+source_id = "159e3544b4fdfc62"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "将您的对话内容传输至我们的云服务器由我们的云服务供应商进行计算处理"
 
 [[anchor]]
 id = "minimax-cn-retention-file-7days"

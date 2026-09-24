@@ -9,13 +9,29 @@ doc = "https://dev.meta.ai/legal/terms-of-service"
 plan_levels = ["individual"]
 
 [[source]]
+url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
+fetch = "jina"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)。页面把 ZDR 限定为面向 qualified Meta Model API accounts、在组织级开通且需 Meta 单独启用(support may vary by model)，写明个人账户或他组织 key 的请求不受覆盖、只覆盖直连 Model API 的调用；同时给出保留侧唯一一条量化期限(AUP 违规的输入输出最长 2 年，上限)。本文件把该页登记为 retention 的证据来源；zdr 维度只用它说明适用边界——订阅凭据是否属于 qualified / ZDR-enabled 组织，官方未表态。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/commitments"
+fetch = "jina"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Meta Model API Data Commitments(法律中心四份文档之一)。按档位写明训练政策：Standard Services 不用 Content 训练；Discounted Services 可用 Content(含 Inputs/Outputs)训练、开发、评估、改进(训练前做去关联处理，评估/安全/质量/政策审查不去关联)；Customer Data 一律不用于训练。含 Data Retention 小节(保留以 Terms 与 Privacy Policy 为准，用户可在账户内查看与删除)。权威层级低于 ToS(enterprise_privacy_faq)，在本文件只作 training 与 retention 的佐证，不作主证据。"
+
+[[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
 
 [[source]]
 url = "https://www.meta.com/legal/meta-for-work/subprocessor-list/"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "由 Model API ToS §5.1 逐字引用（“as may be updated by Meta from time to time”）的子处理者清单，覆盖 api 档与订阅档（§3.2 明确订阅档的访问与使用同样受 ToS 管辖）。清单冠名 Meta Horizon Managed Solutions、Effective November 13, 2023，只披露子处理者的处理地点，不含推理发生地或数据驻留承诺。来源换址：旧 URL https://forwork.meta.com/legal/mfw-subprocessor-list/ 现 301 → 本 URL（forwork.meta.com/legal/mfw-subprocessor-list/ → www.meta.com/legal/meta-for-work/subprocessor-list → …/subprocessor-list/），旧 URL 经 r.jina.ai 取回时会带 “Warning: Target URL returned error 400: Bad Request” 一行而被抓取层判 target_http_400 丢弃；改用重定向终点后正文逐字相同且无该告警行。清单正文仍由 www.meta.com 官方站提供，无 PDF/镜像替代。"
@@ -29,23 +45,90 @@ plan_level = "individual"
 [product.training]
 mark = "yes"
 mode = "by_tier"
-anchor = "training-standard-5-1"
-
-[[product.training.point]]
-text_zh = "订阅档走哪一套数据条款，取决于你选了哪个模型：§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』订阅默认给的是 Standard 模型，对应 §5.1——不拿 Standard Services 的 Content 训练 Meta 模型。"
 anchor = "coding-harness-model-determines-use-13-4"
 
 [[product.training.point]]
-text_zh = "反过来也要看清：选到 Discounted（Contributor）模型就落到 §6.1，Meta 明确可以拿 Content 去训练、开发、评估和改进自己的模型。订阅帮助页只写『Access to the latest Muse models』，没枚举订阅能选哪些模型，也没说订阅用户能不能选 Discounted 档——这一层没核清。"
+anchor = "coding-harness-model-determines-use-13-4"
+text = "Which data terms a Coding Harness Subscription gets is determined by the model selected, not by the subscription itself: §13.4 『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』 With a Standard model, §5.1 applies and Meta 『will not use Content from Standard Services to train Meta Models』. The same §13.4 sentence says a Coding Harness Subscription 『does not provide any discount, fee reduction, or increased per-period allowance based on the Models you select, including Discounted Models』, from which we infer — our inference, not Meta's wording — that Discounted models are selectable under a subscription. Which models a subscription may select, and whether it defaults to a Standard model, cannot be verified from any source registered in this file: the subscription help page is not declared as a source here and has no snapshot, so no default model is asserted."
+text_zh = "订阅档适用哪一套数据条款，由所选模型决定，而不是由订阅产品本身决定：§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』选到 Standard 模型时适用 §5.1，Meta『will not use Content from Standard Services to train Meta Models』。同一句 §13.4 还写明订阅『does not provide any discount, fee reduction, or increased per-period allowance based on the Models you select, including Discounted Models』，由此推断(我们的推论、不是原文措辞)订阅下可选 Discounted 模型。订阅可选哪些模型、是否默认给 Standard 模型，在本文件已登记的来源里无法核实：订阅帮助页未登记为本文件来源、也没有快照，故此处不写默认模型。"
+
+[[product.training.point]]
+anchor = "training-standard-5-1"
+text = "Where the no-training commitment comes from: §5.1 sits under §5, whose heading reads 『**5. Standard Services.** When you use Standard Services, the following terms apply:』, so it binds only when a Standard model is selected."
+text_zh = "不训练承诺的出处：§5.1 挂在 §5 项下，该节标题写明『**5. Standard Services.** When you use Standard Services, the following terms apply:』，因此只在你选到 Standard 模型时成立。"
+
+[[product.training.point]]
 anchor = "training-discounted-6-1"
+text = "The other side of the same fork: select a Contributor (Discounted) model and §6.1 applies — 『Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services.』 §13.4's 『including Discounted Models』 wording means that path is reachable from a Coding Harness Subscription."
+text_zh = "同一个分叉的另一边：选到 Contributor(Discounted)模型就落到 §6.1，Meta 明确『may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services』。§13.4 的『including Discounted Models』表明这条路径在订阅档下可达。"
+
+[[product.training.point]]
+anchor = "retention-4-1-instruct-retain"
+text = "One boundary worth keeping: §4.1's instruction to retain and process Content covers detecting violations and 『develop, evaluate, and improve systems for the safety and the security of Meta products and services』 — safety and security systems, not Meta Models training. It does not undercut §5.1, but it does mean 『Content is not used for training』 must not be read as 『no Content is ever used to improve anything』."
+text_zh = "一条值得写明的边界：§4.1 的保留与处理指示覆盖违规检测与『develop, evaluate, and improve systems for the safety and the security of Meta products and services』——对象是安全与滥用防护系统，不是 Meta Models 训练。它不推翻 §5.1，但意味着『Content 不训练』不能读成『任何数据都不用于改进』。"
+
+[[product.training.point]]
+anchor = "retention-15-4-survive-termination"
+text = "The data sections survive termination: §15.4(iii) keeps §§4, 5, 6 and 12 in force after the Term ends, so on the Discounted path the §6.1 training authorization does not lapse with the agreement."
+text_zh = "数据条款在协议终止后存续：§15.4(iii) 使第 4、5、6、12 节在协议终止后继续有效，因此在 Discounted 路径下 §6.1 的训练授权不随协议结束而失效。"
+
+[[product.training.point]]
+anchor = "training-upgrade-to-standard"
+text = "Corroboration from the Data Commitments page (authority below the ToS, so not the main evidence): that page splits the policy by tier and adds 『If you do not want Content used for training, you may upgrade to Standard Services.』 The tier follows the model selected — it is not a property of the subscription."
+text_zh = "Data Commitments 页的佐证(权威层级低于 ToS，不作主证据)：该页按档位分写政策，并写明『If you do not want Content used for training, you may upgrade to Standard Services.』档位随所选模型而定，不是订阅产品自带的属性。"
 
 [product.zdr]
 mark = "unknown"
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
+  "https://dev.meta.ai/legal/commitments",
+  "https://dev.meta.ai/help/subscriptions/what-is-a-muse-code-subscription",
+]
+
+[[product.zdr.point]]
+text = "No ZDR wording covers this tier: the ToS never mentions ZDR or Zero Data Retention. The ZDR help page (declared as a source in this file) scopes ZDR to 『qualified Meta Model API accounts』, enables it 『at the organization level』 and 『requires separate enablement by Meta』, notes 『ZDR support may vary by model』, and adds that 『Requests made with a personal account, or with a key from a different organization, aren't covered』 while ZDR 『applies only to calls made directly to Meta Model API』. Whether a Coding Harness Subscription credential belongs to a qualified / ZDR-enabled organization is not stated anywhere, so this stays unknown — a gap in our evidence, not a Meta statement. The subscription help page is not declared as a source here and has no snapshot, so nothing in this verdict rests on it."
+text_zh = "本档没有任何零保留表述：ToS 全文没有出现 ZDR / Zero Data Retention。ZDR 帮助页(已登记为本文件来源)把 ZDR 限定为面向『qualified Meta Model API accounts』，在『at the organization level』开通且『requires separate enablement by Meta』，并注明『ZDR support may vary by model』；同时写明『Requests made with a personal account, or with a key from a different organization, aren't covered』、ZDR『applies only to calls made directly to Meta Model API』。订阅凭据是否属于 qualified / ZDR-enabled 组织，官方没有表态，故维持 unknown——这是我方证据缺口，不是 Meta 的声明。订阅帮助页未登记为本文件来源、也没有快照，本判定不依赖它。"
 
 [product.retention]
 object = "input_output"
 basis = "as_needed"
 anchor = "retention-4-4"
+
+[[product.retention.point]]
+anchor = "retention-4-1-instruct-retain"
+text = "On top of §4.4, §4.1 carries a separate standing instruction to retain and process Content: 『You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.』 It sits in the general §4, so it applies to both tiers, and it states no period — the as-needed basis is not narrowed by it."
+text_zh = "在 §4.4 之外，§4.1 另有一条长期有效的保留与处理指示：『You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.』该条位于通用 §4，两档都适用，且未给期限——不缩小『按需保留』的口径。"
+
+[[product.retention.point]]
+anchor = "retention-6-1-discounted-retain"
+text = "If the subscription selects a Discounted model (see §13.4), that tier adds its own retention grounds: §6.1 lets Meta 『also retain and process your Content: (i) to the extent necessary for compliance with applicable laws; (ii) in connection with the exercise of Meta’s rights to use your Content under this Section 6; and (iii) when our systems flag data for a potential policy violation』 — the training use itself is a ground for retention, on top of the purposes in §4.4. No period is given here either."
+text_zh = "若订阅选到 Discounted 模型(见 §13.4)，该档另有保留依据：§6.1 允许 Meta『also retain and process your Content: (i) to the extent necessary for compliance with applicable laws; (ii) in connection with the exercise of Meta’s rights to use your Content under this Section 6; and (iii) when our systems flag data for a potential policy violation』——训练用途本身构成保留理由，叠加在 §4.4 的目的之外，同样不含期限。"
+
+[[product.retention.point]]
+anchor = "retention-12-confidentiality-not-limiting"
+text = "Confidentiality does not cut the data terms down: §12 — 『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.』 §12 must not be read as protective deletion of confidential content."
+text_zh = "保密条款不削减数据条款：§12 写明『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.』不应把 §12 读成机密内容会被保护性删除。"
+
+[[product.retention.point]]
+anchor = "retention-15-4-survive-termination"
+text = "Termination is not deletion: §15.4(iii) lists the sections that survive, including 4, 5, 6 and 12, so the public terms carry no 『deleted on termination』 commitment — what survives is the clauses' force and Meta's rights, not a promise to keep the content. On the Discounted path the §6.1 training authorization survives with them."
+text_zh = "终止不等于删除：§15.4(iii) 列出的存续条款包含 4、5、6、12，公开条款因此没有『终止即删除』的承诺——存续的是条款效力与 Meta 的权利，不等于承诺保留内容。在 Discounted 路径下 §6.1 的训练授权也随之存续。"
+
+[[product.retention.point]]
+anchor = "retention-zdr-aup-2y"
+text = "The only quantified period we found is an upper bound and sits in the ZDR context rather than on the default path: the ZDR help page says 『If a request is flagged for an Acceptable Use Policy violation, Meta may retain the associated inputs and outputs for up to 2 years』 for abuse detection, integrity and content-safety enforcement and to meet legal obligations. Object = inputs and outputs; context = exception (AUP violation); type = upper bound. The default path still carries no quantified period."
+text_zh = "我们找到的唯一量化期限是上限，且属 ZDR 语境、不在默认路径上：ZDR 帮助页写明『If a request is flagged for an Acceptable Use Policy violation, Meta may retain the associated inputs and outputs for up to 2 years』，用于滥用检测、完整性与内容安全执法及法律义务。对象是输入输出，语境是例外(AUP 违规)，类型是上限。默认路径仍无量化期限。"
+
+[[product.retention.point]]
+anchor = "retention-commitments-data-retention"
+text = "Corroboration from the Data Commitments page (lower authority than the ToS): 『Meta will retain your Content as described in the Terms and Privacy Policy. You can view and delete your Content through your Account.』 That is a user-facing delete path, not a retention period."
+text_zh = "Data Commitments 页的旁证(权威层级低于 ToS)：『Meta will retain your Content as described in the Terms and Privacy Policy. You can view and delete your Content through your Account.』这是用户侧删除入口，不是保留期限。"
+
+[[product.retention.point]]
+anchor = "subscription-relationship-3-2"
+text = "Coverage gap, not a vendor statement: §3.2 says 『Your purchase of a Coding Harness Subscription, and the subscription relationship it creates, are governed by the Meta Subscription Terms of Service.』 That document is not declared as a source in this file and has no snapshot in the repository (our research notes record its URL as https://www.facebook.com/legal/meta_subs_terms), so any data-handling or retention terms it contains are not visible in these five dimensions. Bringing it in requires the fetch bot to return a snapshot first."
+text_zh = "这是我方覆盖缺口、不是厂商的表态：§3.2 写明『Your purchase of a Coding Harness Subscription, and the subscription relationship it creates, are governed by the Meta Subscription Terms of Service.』该文件尚未登记为本文件来源、仓库也没有它的快照(调研记录里的地址是 https://www.facebook.com/legal/meta_subs_terms)，因此其中若有数据处理或保留约定，现有五个维度看不到。要把它纳入来源，需先由抓取 bot 取回快照。"
 
 [product.processing_region]
 codes = ["global"]
@@ -53,7 +136,22 @@ anchor = "region-processing-location-table"
 
 [product.role]
 kind = "processor"
+anchor = "role-processor-5-1"
+
+[[product.role.point]]
+anchor = "role-processor-5-1"
+text = "The only role wording in the ToS is §5.1, and it sits under §5 (Standard Services): 『Meta will collect, use, process, and share such data as a “Service Provider” or “Processor” (each as defined in the MGPT) to you in relation to your use of the Services.』 §6 (both §6.1 and §6.2) contains no Service Provider or Processor wording at all, so the processor determination holds only when a Standard model is selected."
+text_zh = "ToS 里唯一的角色表述在 §5.1，且挂在 §5(Standard Services)项下：『Meta will collect, use, process, and share such data as a “Service Provider” or “Processor” (each as defined in the MGPT) to you in relation to your use of the Services.』§6(§6.1、§6.2)全文没有任何 Service Provider / Processor 表述，因此 processor 定性只在你选到 Standard 模型时成立。"
+
+[[product.role.point]]
+anchor = "coding-harness-model-determines-use-13-4"
+text = "The subscription tier produces no role clause of its own: per §13.4 which section applies depends on the model selected. Whether a Coding Harness Subscription defaults to a Standard model, and which models it may select, cannot be verified from any source registered in this file, so the processor determination recorded here is conditional."
+text_zh = "订阅档本身不产生独立的角色条款：按 §13.4，适用哪一节取决于所选模型。订阅是否默认给 Standard 模型、可选哪些模型，在本文件已登记的来源里无法核实，因此此处记的 processor 定性是有条件的。"
+
+[[product.role.point]]
 anchor = "subscription-coding-harness-3-2"
+text = "Scope anchor rather than role evidence: §3.2 defines the Coding Harness Subscription, states that access and use under it are governed by these Terms (which prevail over the Meta Subscription Terms of Service on conflict), and limits the key to that harness. It names no controller, processor or Service Provider."
+text_zh = "这是范围锚点、不是角色证据：§3.2 定义 Coding Harness Subscription，写明其访问与使用同样受本 ToS 管辖(冲突时以本 ToS 为准)，并把凭据限定在该 harness 内使用。该节没有出现 controller / processor / Service Provider。"
 
 [[anchor]]
 id = "retention-4-4"
@@ -127,3 +225,98 @@ suffix = """
 
 | Cassin Networks Aps | Denmark |
 | Greater Kudu LLC | Unit"""
+
+[[anchor]]
+id = "role-processor-5-1"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Meta will process applicable data as described in the MGPT. "
+exact = "Meta will collect, use, process, and share such data as a “**Service Provider**” or “**Processor**”"
+suffix = " (each as defined in the MGPT) to you in relation to your us"
+
+[[anchor]]
+id = "retention-4-1-instruct-retain"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "at Meta may use the Content to provide the Services to you. "
+exact = "You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms"
+suffix = " and to develop, evaluate, and improve systems for the safet"
+
+[[anchor]]
+id = "retention-6-1-discounted-retain"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ntent may be used by Meta for the above-described purposes. "
+exact = "Meta may also retain and process your Content: (i) to the extent necessary for compliance with applicable laws;"
+suffix = " (ii) in connection with the exercise of Meta’s rights to us"
+
+[[anchor]]
+id = "retention-12-confidentiality-not-limiting"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e confidential (including information related to Accounts). "
+exact = "Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12."
+suffix = " Except as expressly permitted in these Terms, during and af"
+
+[[anchor]]
+id = "retention-15-4-survive-termination"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "ms that apply to your use of Integrated Products; and (iii) "
+exact = "the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B."
+suffix = "\n15.5 Modification. We may modify these Terms from time to"
+
+[[anchor]]
+id = "subscription-relationship-3-2"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = "Coding Harness Subscription\"). "
+exact = "Your purchase of a Coding Harness Subscription, and the subscription relationship it creates, are governed by the Meta Subscription Terms of Service."
+suffix = " These Terms govern your access and use of the Services and, to the"
+
+[[anchor]]
+id = "retention-zdr-aup-2y"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = " request is flagged for an Acceptable Use Policy violation, "
+exact = "Meta may retain the associated inputs and outputs for up to 2 years"
+suffix = " for abuse detection, integrity and content-safety enforceme"
+
+[[anchor]]
+id = "training-upgrade-to-standard"
+source_id = "a52b310c1de187bb"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "However, Meta may use Content for evaluation, safety, abuse, quality, and policy review without first applying those disassociation steps. "
+exact = "If you do not want Content used for training, you may upgrade to Standard Services."
+suffix = "\n\n**In all cases, Meta does not use Customer Data"
+
+[[anchor]]
+id = "retention-commitments-data-retention"
+source_id = "a52b310c1de187bb"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+unt for the purposes described above.
+
+**Data Retention.**
+
+"""
+exact = "Meta will retain your Content as described in the Terms and Privacy Policy."
+suffix = " You can view and delete your Content through your Account. "

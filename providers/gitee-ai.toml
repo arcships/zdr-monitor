@@ -48,10 +48,33 @@ mode = "default"
 anchor = "gitee-ai-terms-7-2-no-training-input"
 
 [[product.training.point]]
-text_zh = "同顶层 training：§7.2 的例外句以「未经您的允许」为前提，属条件式否定"
+text = "The only clause that puts model training itself outside is terms §7.2: 『在此明确，未经您的允许，我们不会使用您的内容作为人工智能模型训练的输入』. It is a conditional negative — the gate is 『未经您的允许』 — and the clause does not say how that permission is obtained, whether it can be withdrawn, or whether a switch exists."
+text_zh = "全文只有 §7.2 这一句把「模型训练」本身单独排除：「在此明确，未经您的允许，我们不会使用您的内容作为人工智能模型训练的输入」。它是以「未经您的允许」为前提的条件式否定，条款没写「允许」如何取得、能否撤回、有无开关。"
+anchor = "gitee-ai-terms-7-2-no-training-input"
 
 [[product.training.point]]
-text_zh = "「默认不用于模型迭代训练」那句来自 PocketClaw 的 AI 安全声明，只能作旁证。"
+text = "Opposite-direction clause in the same terms, kept side by side and not reconciled: §8.3 『根据我们的隐私政策，我们可能会汇总、匿名化或以其他方式从与您使用我们网站和服务相关的数据中进行学习，并用其改进这些服务，您对此知晓并同意』. The object is data related to your use of the website and services, the use is learning plus service improvement; under docs/judgment.md (using data to improve the service counts as training) this is a training-relevant authorisation, and §7.2 does not carve it out."
+text_zh = "同一份条款里方向相反的一条，并列保留、不裁决：§8.3「根据我们的隐私政策，我们可能会汇总、匿名化或以其他方式从与您使用我们网站和服务相关的数据中进行学习，并用其改进这些服务，您对此知晓并同意」。对象是「与您使用我们网站和服务相关的数据」，用途是「学习 + 改进服务」——按 docs/judgment.md「用来改进服务/提高质量算训练」，这属训练相关表述，且 §7.2 没有把它排除在外。"
+anchor = "gitee-ai-terms-8-3-learn-improve"
+
+[[product.training.point]]
+text = "§8.2 gives the platform a perpetual, irrevocable, worldwide, royalty-free, non-exclusive licence over any 『反馈』 you provide about the website or service — to commercialise the feedback, improve the services, and develop and/or commercialise new products. Feedback is information the user supplies about use, operation, performance or features, and the clause does not exclude feedback that contains user input."
+text_zh = "§8.2 对「反馈」给出永久、不可撤销、全球性、免费的许可：可用于商业化利用反馈、改进我们的服务、开发和/或商业化新产品。对象是用户就网站/服务的使用、操作、性能或功能提供的反馈，条款没有把含用户输入内容的反馈排除在外。"
+anchor = "gitee-ai-terms-8-2-feedback-license"
+
+[[product.training.point]]
+text = "Privacy policy §2 lists the purposes the collected information is used for; item 4 is 『评估、改善我们的服务』 and the section opens with 『若我们超出以下用途使用您的信息，我们将再次向您进行说明，并征得您的同意』. The list never mentions model training, but it does authorise service-improvement uses."
+text_zh = "隐私政策 §2 的用途清单里，第 4 项是「评估、改善我们的服务」；同节开头写「若我们超出以下用途使用您的信息，我们将再次向您进行说明，并征得您的同意」。清单没有出现「模型训练」，但明确授权了服务改进用途。"
+anchor = "gitee-ai-privacy-2-4-improve-service"
+
+[[product.training.point]]
+text = "Item 5 of the same list authorises analysis or research on the services or on any subject related to them, for business-operation or scientific purposes."
+text_zh = "同一清单第 5 项：「出于业务运营或科学目的对服务或与之相关的任何主题进行分析或研究。」"
+anchor = "gitee-ai-privacy-2-5-research"
+
+[[product.training.point]]
+text = "Ledger treatment: training=yes rests on §7.2 alone (the only training-specific exclusion in the documents); the §8.3, §8.2 and privacy-§2 authorisations above point the other way and are recorded beside it, not adjudicated (docs/judgment.md: a vendor's own conflicting statements are kept side by side). 『默认不用于模型迭代训练』 comes from the PocketClaw AI safety statement, a different tier, and only counts as circumstantial evidence."
+text_zh = "本台账的处理：training=yes 只由 §7.2 支撑（全文唯一针对训练的排除）；上面 §8.3/§8.2/隐私政策 §2 三条方向相反，并列记录、不裁决（docs/judgment.md：厂商自己说法冲突时两条事实并列保留）。「默认不用于模型迭代训练」那句来自 PocketClaw 的 AI 安全声明，属另一档位，只能作旁证。"
 
 [product.zdr]
 mark = "unknown"
@@ -75,13 +98,31 @@ text_zh = "唯一的不落盘承诺在 PocketClaw 协议里，属另一档位。
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
-anchor = "gitee-ai-terms-3-10-90-day-retention"
 
 [[product.retention.point]]
 text_zh = "同顶层 retention：API 请求正文保留期未披露"
 
 [[product.retention.point]]
-text_zh = "90 天/90 天两条只约束用户存储的存储库内容，个人信息按最短必要（未量化），日志无天数，提示词缓存与异步任务产物的保留期文档未写。"
+text = "The 90-day clauses previously bound here are about another object and are no longer bound to this verdict: terms §3.10 『您应当在 90 天的保留期（或者我们和您特别约定的期限）内完成内容清理或迁移』 and §16.3 govern content the user stores — the repositories a user must clean up or migrate when the service term ends or the account is closed — not the retention of API request bodies. They stay bound to the model-hosting tier, where user-stored content is the object. Readers must not read the 90 days as an API input/output retention period."
+text_zh = "原先绑在本条的 90 天条款对象不对，故不再绑在本条：§3.10「您应当在 90 天的保留期（或者我们和您特别约定的期限）内完成内容清理或迁移」与 §16.3 约束的是用户自己存储的内容（服务期满或注销账号时的清理窗口），不是 API 请求正文的保留期。它们仍绑在 model-hosting 档（那一档的对象才是用户存储的内容）。不能把这 90 天读成 API 输入输出的保留期。"
+
+[[product.retention.point]]
+text = "Privacy policy §4.2 『一般而言，我们仅在为实现目的所必需的最短时间内保留您的数据信息，但下列情况除外』 (exceptions: laws and regulations, court rulings, government enforcement) is the only retention wording in the documents, and its object is the personal information the policy collects — §1.1/§1.2 list nicknames, phone numbers, emails, usernames, passwords, images, log/device/location data, contacts and cookie data, and never list API inference inputs or outputs. It gives no number of days and does not cover this verdict's object."
+text_zh = "隐私政策 §4.2「一般而言，我们仅在为实现目的所必需的最短时间内保留您的数据信息，但下列情况除外」（例外：法律法规、法院判决、政府执法）是全文仅有的保留期表述，对象是政策所收集的个人信息——§1.1/§1.2 列举的是昵称、手机号、邮箱、用户名、密码、图片、日志/设备/位置信息、通讯录与 Cookie，没有把 API 推理输入输出列为收集对象。它不含天数，也不覆盖本结论的对象。"
+anchor = "gitee-ai-privacy-4-2-shortest-necessary"
+
+[[product.retention.point]]
+text = "Privacy policy §4.4 『我们会在提供服务、遵守任何适用的法律要求、维护安全和防止事件以及总体上追求我们的合法利益所需的时间内保留您的信息』 is an as-needed wording with no number of days, and its object is likewise 『您的信息』 (personal information), not API request bodies."
+text_zh = "隐私政策 §4.4「我们会在提供服务、遵守任何适用的法律要求、维护安全和防止事件以及总体上追求我们的合法利益所需的时间内保留您的信息」是按需保留型表述、无天数，对象同样是「您的信息」（个人信息），不是 API 请求正文。"
+anchor = "gitee-ai-privacy-4-4-retention-purpose"
+
+[[product.retention.point]]
+text = "Access and metering logs: privacy policy §1.2.1 collects 『服务日志信息（如会话日期、地点、IP 地址等）』 and terms §8.8 says the platform owns the rights in the information and data it records about your use of the service (log, metering and billing, service-enquiry information). Neither gives any number of days, and the documents contain no 『network logs kept at least six months』 floor of the kind common on Chinese sites."
+text_zh = "访问与计量日志：隐私政策 §1.2.1 收集「服务日志信息（如会话日期、地点、IP 地址等）」，服务条款 §8.8 声明平台对「您使用我们的服务而产生的由我们记录的信息和数据，例如日志信息、计量和费用信息、服务咨询信息」拥有权益。两者都没有给出保留天数，全文也没有国内站常见的「相关网络日志不少于六个月」下限表述。"
+anchor = "gitee-ai-terms-8-8-logs-owned-by-platform"
+
+[[product.retention.point]]
+text_zh = "提示词缓存与异步任务产物的保留期文档未写，属本档 retention 的已知空白。"
 
 [product.processing_region]
 codes = ["CN"]
@@ -93,12 +134,38 @@ text_zh = "同顶层 processing_region：个人信息境内存储，无出境条
 [[product.processing_region.point]]
 text_zh = "国际站 moark.ai 属另一实体。"
 
+[[product.processing_region.point]]
+text = "Qualification on the CN conclusion, from privacy policy §4.3: 『通过服务收集的个人信息可能会在公司或其附属公司、子公司存储和处理』, and §4.3.1/§4.3.2 add affiliates (including entities that become part of the group on a change of control, merger, acquisition or sale) and third-party service providers. The clause names no region for those affiliates, so the storage-in-China commitment covers the company and its servers and does not rule out storage or processing by group companies elsewhere. §8 of the same policy lists only analytics/SMS/payment vendors (百度统计、神策数据、SendCloud、云片、支付宝/微信支付) and no model or compute provider."
+text_zh = "对 CN 结论的限定，出自隐私政策 §4.3：「通过服务收集的个人信息可能会在公司或其附属公司、子公司存储和处理」，§4.3.1/§4.3.2 进一步包括附属机构（含控制权变更、合并、收购或出售时并入集团的企业）与第三方服务提供商，且未对这些关联方限定地域——即境内存储承诺覆盖的是公司及其服务器，不排除集团内其他主体在别处存储或处理。同政策 §8 的第三方名单只有统计/短信/支付类（百度统计、神策数据、SendCloud、云片、支付宝/微信支付），未列任何模型或算力供应商。"
+anchor = "gitee-ai-privacy-4-3-affiliates"
+
 [product.role]
 kind = "controller"
-anchor = "gitee-ai-terms-17-8-conflict-order"
+anchor = "gitee-ai-terms-8-8-logs-owned-by-platform"
+searched = [
+  "https://ai.gitee.com/docs/appendix/terms",
+  "https://ai.gitee.com/docs/appendix/privacy",
+  "https://ai.gitee.com/docs/appendix/terms-privacy",
+  "https://ai.gitee.com/docs/appendix/dpa",
+]
 
 [[product.role.point]]
-text_zh = "同顶层 role：自述中立平台，保留内容访问/删除权与日志权益，无 processor 定性、无公开 DPA。"
+text = "Neither the terms nor the privacy policy designates the platform as a processor or a controller: the only role-like wording in the privacy policy is 『个人信息保护团队和个人信息保护负责人』, which is a PIPL compliance role, not a controller/processor designation. The clauses that come closest all describe processing for the platform's own purposes: §8.8 『您使用我们的服务而产生的由我们记录的信息和数据，例如日志信息、计量和费用信息、服务咨询信息，我们拥有相应的权益』 with 『您不得也不会主张对于这些信息和数据的权利』; §7.4 『我们可能会根据我们的隐私政策中规定的条款访问或共享您的私人信息』; §11.2 (it may disclose your identity information to a rights holder when handling an infringement complaint). Recorded as controller on that basis — this is an interpretation drawn from the platform's own data rights and the absence of any processor commitment, not a designation in the text (confidence medium)."
+text_zh = "服务条款与隐私政策都没有把平台定性为受托处理者或独立控制者：隐私政策里唯一近似角色的表述是「个人信息保护团队和个人信息保护负责人」（PIPL 合规角色，不是控制者/处理者定性）。最接近的几条都描述「为平台自身目的处理」：§8.8「您使用我们的服务而产生的由我们记录的信息和数据，例如日志信息、计量和费用信息、服务咨询信息，我们拥有相应的权益」并写「您不得也不会主张对于这些信息和数据的权利」；§7.4「我们可能会根据我们的隐私政策中规定的条款访问或共享您的私人信息」；§11.2（处置侵权投诉时有权向权利人披露您的身份信息）。据此记 controller——这是从平台自身数据权益与「无任何受托承诺」推出的解释性结论，不是原文定性（置信度 medium）。"
+anchor = "gitee-ai-terms-8-8-logs-owned-by-platform"
+
+[[product.role.point]]
+text = "§7.4 only promises that reasonable and appropriate measures will be taken to keep private repositories confidential, while keeping the right to access or share private information under the privacy policy — an access right, not a processor undertaking."
+text_zh = "§7.4 私有存储库条款只承诺「采取合理和适当的措施来保护您的内容保密」，同时保留按隐私政策访问或共享私人信息的权利——是访问权，不是受托处理承诺。"
+anchor = "gitee-ai-terms-7-4-private-repo-access"
+
+[[product.role.point]]
+text = "Subcontracting: terms §17.3 『我们可以自行决定分包我们在本服务条款下的全部或部分义务，而无需通知您』, with the platform taking the same responsibility for a subcontractor's acts and omissions as for its own performance. There is no published sub-processor list and no notice duty. This is context for the role reading only — it does not on its own establish a processor designation."
+text_zh = "分包：§17.3「我们可以自行决定分包我们在本服务条款下的全部或部分义务，而无需通知您」，且平台对分包商的作为和不作为承担与自身履行相同的责任。无公开子处理者清单，也无通知义务。此条只作角色口径的旁证，不据此单独推出 processor 定性。"
+anchor = "gitee-ai-terms-17-3-subcontract-no-notice"
+
+[[product.role.point]]
+text_zh = "同顶层 role：自述中立平台，保留内容访问/删除权与日志权益，无 processor 定性、无公开 DPA。原绑在本条的 §17.8 只是文件冲突时的效力优先顺序，不含任何数据处理角色定性，故不再绑在本条。"
 
 [[product]]
 id = "model-hosting"
@@ -110,10 +177,29 @@ site = "cn"
 [product.training]
 mark = "yes"
 mode = "default"
+anchor = "gitee-ai-terms-7-2-no-training-input"
+
+[[product.training.point]]
+text = "The training-specific exclusion is terms §7.2 『在此明确，未经您的允许，我们不会使用您的内容作为人工智能模型训练的输入』, the same clause that carries the serverless-api tier. §7.1 『我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容』 is a general limitation on the scope of use and contains no reference to training, so it is kept as a supporting point rather than as the basis of this verdict."
+text_zh = "把「模型训练」单独排除的是 §7.2「在此明确，未经您的允许，我们不会使用您的内容作为人工智能模型训练的输入」，与按量 API 档同一句。§7.1「我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容」是概括性的使用范围限制、不含「训练」字样，故只作旁证 point 保留，不再充当本档结论的锚点。"
 anchor = "gitee-ai-terms-7-1-no-other-use"
 
 [[product.training.point]]
-text_zh = "同一份服务条款：§7.1「我们不会以本服务条款未允许的其他任何方式使用您的模型、数据集、应用等内容」+ §7.2 训练例外句，同样以「未经您的允许」为前提。本档另有大量把合规义务压给用户的条款（§4.1/§4.2 模型备案、§5.9 违法信息不得作训练语料、§6.10 应用采集使用者输入作训练语料须事前约定并给关闭选项）。"
+text_zh = "§7.2 的例外句同样以「未经您的允许」为前提。本档另有大量把合规义务压给用户的条款（§4.1/§4.2 模型备案、§5.9 违法信息不得作训练语料、§6.10 应用采集使用者输入作训练语料须事前约定并给关闭选项）。"
+
+[[product.training.point]]
+text = "Opposite-direction clauses in the same terms, kept side by side and not reconciled: §8.3 『根据我们的隐私政策，我们可能会汇总、匿名化或以其他方式从与您使用我们网站和服务相关的数据中进行学习，并用其改进这些服务，您对此知晓并同意』 and §8.2 (a perpetual, irrevocable licence over 『反馈』 to commercialise it, improve the services and develop new products). Under docs/judgment.md (using data to improve the service counts as training) both are training-relevant, and §7.2 does not carve them out."
+text_zh = "同一份条款里方向相反的两条，并列保留、不裁决：§8.3「根据我们的隐私政策，我们可能会汇总、匿名化或以其他方式从与您使用我们网站和服务相关的数据中进行学习，并用其改进这些服务，您对此知晓并同意」，以及 §8.2（对「反馈」的永久、不可撤销许可，可用于商业化利用反馈、改进服务、开发新产品）。按 docs/judgment.md「用来改进服务/提高质量算训练」，两条都属训练相关表述，且 §7.2 没有把它们排除在外。"
+anchor = "gitee-ai-terms-8-3-learn-improve"
+
+[[product.training.point]]
+text = "Privacy policy §2 lists the purposes the collected information is used for; item 4 is 『评估、改善我们的服务』 and item 5 is 『出于业务运营或科学目的对服务或与之相关的任何主题进行分析或研究』. The list never mentions model training, but it does authorise service-improvement and research uses."
+text_zh = "隐私政策 §2 的用途清单：第 4 项「评估、改善我们的服务」、第 5 项「出于业务运营或科学目的对服务或与之相关的任何主题进行分析或研究」。清单没有出现「模型训练」，但明确授权了服务改进与研究用途。"
+anchor = "gitee-ai-privacy-2-4-improve-service"
+
+[[product.training.point]]
+text = "Ledger treatment: training=yes rests on §7.2 alone (the only training-specific exclusion in the documents); the §8.3/§8.2/privacy-§2 authorisations above point the other way and are recorded beside it, not adjudicated (docs/judgment.md: a vendor's own conflicting statements are kept side by side)."
+text_zh = "本台账的处理：training=yes 只由 §7.2 支撑（全文唯一针对训练的排除）；上面 §8.3/§8.2/隐私政策 §2 三条方向相反，并列记录、不裁决（docs/judgment.md：厂商自己说法冲突时两条事实并列保留）。"
 
 [product.zdr]
 mark = "unknown"
@@ -148,6 +234,11 @@ text_zh = "§3.7 用户主动释放服务或删除内容即清除"
 [[product.retention.point]]
 text_zh = "§3.10 末尾同时保留「根据档案管理、恢复和备份流程、业界惯例以及隐私政策…留存您的内容和信息以符合法律法规要求的权利」。注意 90 天是**清理窗口/上限型表述**，不是「内容一定保留 90 天」。"
 
+[[product.retention.point]]
+text = "Not this tier's object either: privacy policy §4.2 『一般而言，我们仅在为实现目的所必需的最短时间内保留您的数据信息，但下列情况除外』 and §4.4 『我们会在提供服务、遵守任何适用的法律要求、维护安全和防止事件以及总体上追求我们的合法利益所需的时间内保留您的信息』 apply to the personal information collected under §1.1/§1.2 and carry no number of days. They are not the basis of this verdict (the 90-day window is) and they add no quantified period for API request bodies."
+text_zh = "同样不是本档的对象：隐私政策 §4.2「一般而言，我们仅在为实现目的所必需的最短时间内保留您的数据信息，但下列情况除外」与 §4.4「我们会在提供服务、遵守任何适用的法律要求、维护安全和防止事件以及总体上追求我们的合法利益所需的时间内保留您的信息」针对的是 §1.1/§1.2 所收集的个人信息，且不含天数。它们不是本档结论的依据（本档依据是 90 天清理窗口），也没有为 API 请求正文提供任何量化期限。"
+anchor = "gitee-ai-privacy-4-2-shortest-necessary"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "gitee-ai-privacy-4-1-storage-in-cn"
@@ -158,6 +249,11 @@ text_zh = "同顶层：条款层只承诺个人信息境内存储"
 [[product.processing_region.point]]
 text_zh = "「模型专属部署」独享算力的实际机房地域条款未披露。"
 
+[[product.processing_region.point]]
+text = "Qualification on the CN conclusion, from privacy policy §4.3: 『通过服务收集的个人信息可能会在公司或其附属公司、子公司存储和处理』, with §4.3.1/§4.3.2 adding affiliates (including entities joining the group on a change of control, merger, acquisition or sale) and third-party service providers, without naming any region for them. The storage-in-China commitment therefore covers the company and its servers; it does not rule out storage or processing by group companies elsewhere."
+text_zh = "对 CN 结论的限定，出自隐私政策 §4.3：「通过服务收集的个人信息可能会在公司或其附属公司、子公司存储和处理」，§4.3.1/§4.3.2 进一步包括附属机构（含控制权变更、合并、收购或出售时并入集团的企业）与第三方服务提供商，且未限定地域。境内存储承诺覆盖的是公司及其服务器，不排除集团内其他主体在别处存储或处理。"
+anchor = "gitee-ai-privacy-4-3-affiliates"
+
 [product.role]
 kind = "controller"
 anchor = "gitee-ai-terms-7-4-private-repo-access"
@@ -167,6 +263,11 @@ text_zh = "§7.4 私有存储库保密义务同时保留「根据隐私政策中
 
 [[product.role.point]]
 text_zh = "§4.1/§4.2 要求用户自行完成模型备案并自担使用责任——平台把自己定位为算力与存储的提供方，不承诺按用户指示处理。"
+
+[[product.role.point]]
+text = "Subcontracting: terms §17.3 『我们可以自行决定分包我们在本服务条款下的全部或部分义务，而无需通知您』, with the platform taking the same responsibility for a subcontractor's acts and omissions as for its own performance. No sub-processor list and no notice duty are published. Context for the role reading only — it does not on its own establish a processor designation."
+text_zh = "分包：§17.3「我们可以自行决定分包我们在本服务条款下的全部或部分义务，而无需通知您」，且平台对分包商的作为和不作为承担与自身履行相同的责任。无公开子处理者清单，也无通知义务。此条只作角色口径的旁证，不据此单独推出 processor 定性。"
+anchor = "gitee-ai-terms-17-3-subcontract-no-notice"
 
 [[product]]
 id = "pocketclaw"
@@ -226,13 +327,26 @@ text_zh = "正文只讲本地存储与加密通道传输，未说明云端服务
 
 [product.role]
 kind = "controller"
-anchor = "pocketclaw-1-def-moark-maas"
+anchor = "pocketclaw-4-1-device-info-collection"
+searched = [
+  "https://ai.gitee.com/docs/appendix/terms-privacy",
+  "https://ai.gitee.com/docs/appendix/ai-safety",
+  "https://ai.gitee.com/docs/pocketclaw/appendix/ai-safety",
+  "https://ai.gitee.com/docs/appendix/warranty",
+]
 
 [[product.role.point]]
-text_zh = "§四.1 自述收集设备信息（序列号、MAC、系统版本）与崩溃日志"
+text = "§四.1: 『为识别设备身份，我们可能收集硬件序列号、MAC 地址、系统版本号』, and with your authorisation crash records 『以改进性能』 — device identifiers collected for the vendor's own device-identification purpose, which is what this tier's controller reading rests on. The agreement names no controller/processor role, so this is an interpretation (confidence medium). The definition of 『模力方舟（Moark）』 in the glossary says only who provides the MaaS platform; it is not a statement about data-processing roles and is no longer bound to this verdict."
+text_zh = "§四.1：「为识别设备身份，我们可能收集硬件序列号、MAC 地址、系统版本号」，并在您授权下收集系统崩溃记录「以改进性能」——为厂商自身的设备识别目的收集设备标识，这是本档记 controller 的依据。协议没有出现控制者/处理者定性，属解释性结论（置信度 medium）。术语表对「模力方舟（Moark）」的定义只说明 MaaS 平台由谁提供，不含任何数据处理角色定性，故不再绑在本条。"
+anchor = "pocketclaw-4-1-device-info-collection"
 
 [[product.role.point]]
-text_zh = "§四.2 官方服务场景是本公司自己的 MaaS，第三方 API 场景明确「您的数据将直接发送至该第三方服务商…我们对第三方服务商的行为不承担法律责任」——即第三方那一跳由用户与第三方直接建立关系，平台不充当受托方。"
+text = "§四.2 third-party scenario: 『您的数据将直接发送至该第三方服务商。』 with 『关于此类数据的处理规则，请您务必阅读并认可该第三方服务商的隐私政策，我们对第三方服务商的行为不承担法律责任。』 The third-party hop is a relationship the user forms directly with that provider; the platform does not act as a processor for it."
+text_zh = "§四.2 第三方场景：「您的数据将直接发送至该第三方服务商。」「关于此类数据的处理规则，请您务必阅读并认可该第三方服务商的隐私政策，我们对第三方服务商的行为不承担法律责任。」——第三方那一跳由用户与第三方直接建立关系，平台不充当受托方。"
+anchor = "pocketclaw-4-2-third-party-no-liability"
+
+[[product.role.point]]
+text_zh = "官方服务场景（本公司自己的模力方舟 MaaS）由本公司提供，§四.1 的收集行为与 §四.2 的第三方免责是全文与角色相关的两条表述；除此之外协议没有任何角色定性，也没有公开 DPA。《模力方舟服务条款》§17.3 的分包条不在本档适用范围内——本档由《PocketClaw 用户协议与隐私政策》管辖，该协议 §五.1 把模力方舟的服务条款另行指向别处文本。"
 
 [[product]]
 id = "intl-moark-ai"
@@ -242,17 +356,31 @@ plan_level = "any"
 site = "global"
 
 [product.training]
-mark = "unknown"
+mark = "no"
 searched = [
   "https://moark.ai/docs/appendix/privacy",
   "https://moark.ai/docs/appendix/terms",
 ]
+anchor = "moark-ai-terms-monitoring-improve"
 
 [[product.training.point]]
-text_zh = "国际站隐私政策只写「We may collect publicly available data from internet sources to train our models」，未对用户 Prompts/Inputs 是否用于训练作承诺（既未肯定也未否定）"
+text = "Terms, Services section: 『The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services.』 Under docs/judgment.md (using data to improve the service counts as training) this is a training-relevant authorisation, and neither international document excludes model training."
+text_zh = "服务条款 Services 节：「The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services.」——按 docs/judgment.md「用来改进服务/提高质量算训练」属训练相关授权，而国际站两份文本都没有把模型训练排除在外，故本档记 training=no（条款授权、无开关）。"
+anchor = "moark-ai-terms-monitoring-improve"
 
 [[product.training.point]]
-text_zh = "服务条款的服务范围含 train/fine-tune。未逐条核完国际站两份全文（本轮只作分站识别），故置信度 low。"
+text = "Privacy policy, Service Enhancement: 『To improve user experience and maintain security, we may gather network logs, usage frequency, crash reports, usage scenarios, and performance metrics. This data helps us optimize the Platform and enhance service quality.』"
+text_zh = "隐私政策 Service Enhancement 条：「To improve user experience and maintain security, we may gather network logs, usage frequency, crash reports, usage scenarios, and performance metrics. This data helps us optimize the Platform and enhance service quality.」——服务改进/优化用途的明文表述。"
+anchor = "moark-ai-privacy-service-enhancement"
+
+[[product.training.point]]
+text = "The only sentence about training itself concerns third-party sources rather than user Prompts/Inputs: privacy policy 『We may collect publicly available data from internet sources to train our models and deliver our services.』 The terms also describe the service scope as programmatic APIs and web interfaces to host, use, fine tune and train large AI models. There is no commitment anywhere that user Prompts/Inputs are not used for training."
+text_zh = "唯一直接提到训练的句子针对的是互联网公开数据而非用户 Prompts/Inputs：隐私政策「We may collect publicly available data from internet sources to train our models and deliver our services.」；服务条款把服务范围写成 host/use/fine tune/train 大模型。国际站对 Prompts/Inputs 不用于训练没有任何承诺。"
+anchor = "moark-ai-privacy-public-data-train"
+
+[[product.training.point]]
+text = "Scope of this round's check: both international documents (terms and privacy policy) were read line by line, which is why this verdict is no longer recorded as unknown — the monitoring and service-enhancement clauses are statements about this dimension, and under the ledger rule a verdict that quotes the record cannot also say no wording was found."
+text_zh = "本轮核查范围：国际站两份文本（服务条款与隐私政策）已逐条核过，故本档不再记 unknown——monitoring 与 Service Enhancement 两条都是针对本维度的表述，按台账规则「绑了引文就不能判 unknown」。"
 
 [product.zdr]
 mark = "unknown"
@@ -264,13 +392,20 @@ text_zh = "国际站两份文本均无 ZDR/零保留表述。"
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
-anchor = "moark-ai-privacy-inputs-outputs"
 
 [[product.retention.point]]
-text_zh = "国际站隐私政策无保留期限章节，只给「Access/Delete/Correct/Opt-Out」权利清单与安全措施描述"
+text = "The international privacy policy has no retention-period section, and the collection clause previously bound here only answers what is collected — 『we may collect your text inputs, prompts, uploaded files, feedback』, chat history — so it is not a statement about how long anything is kept and is no longer bound to this verdict."
+text_zh = "国际站隐私政策没有保留期限章节；原先绑在本条的收集条只回答「收集哪些内容」（text inputs、prompts、uploaded files、feedback、chat history），不涉及留存多久，故不再绑在本条。"
 
 [[product.retention.point]]
-text_zh = "未披露任何天数。"
+text = "The only deletion wording is in the rights list: 『Delete the personal information we maintain about you, unless such information is necessary for compliance with our legal or regulatory obligations.』 — a deletion right with a compliance exception, and no number of days; the terms contain no retention clause either."
+text_zh = "唯一的删除表述在权利清单里：「Delete the personal information we maintain about you, unless such information is necessary for compliance with our legal or regulatory obligations.」——只给删除权（附合规例外），没有任何天数；服务条款也没有保留条款。"
+anchor = "moark-ai-privacy-delete-right"
+
+[[product.retention.point]]
+text = "Terms, Confidentiality Restrictions: 『The parties will have no confidentiality obligations to each other unless otherwise agreed in writing.』 Prompts/Inputs are not placed under any confidentiality duty on the international site, so no retention limit can be derived from confidentiality either. (The China site is a different entity and a different text, so this clause does not carry over.)"
+text_zh = "服务条款 Confidentiality Restrictions：「The parties will have no confidentiality obligations to each other unless otherwise agreed in writing.」——国际站不把 Prompts/Inputs 置于保密义务之下，因此也不能从保密义务推出保留期限。（国内站是另一实体、另一文本，本条不适用。）"
+anchor = "moark-ai-terms-no-confidentiality"
 
 [product.processing_region]
 mark = "unknown"
@@ -285,13 +420,29 @@ text_zh = "官网首页自称「SOC 2 and HIPAA compliant」「Deploy in enterpr
 
 [product.role]
 kind = "unknown"
+searched = [
+  "https://moark.ai/docs/appendix/terms",
+  "https://moark.ai/docs/appendix/privacy",
+]
+
+[[product.role.point]]
+text = "Both international documents were read line by line this round and neither designates Moark as a processor or a controller — there is no controller/processor wording and no DPA. The two clauses that bear on the data relationship are the IP clause and the confidentiality clause below; neither is a role designation, so the role stays unknown."
+text_zh = "本轮逐条核过国际站两份文本，都没有把 Moark 定性为受托处理者或独立控制者——没有 controller/processor 用语，也没有 DPA。与数据关系相关的只有下面两条（IP 条与无保密义务条），两条都不构成角色定性，故仍记 kind=unknown。"
+
+[[product.role.point]]
+text = "IP clause: 『The Company exclusively owns all right, title and interest in and to the Website, the Services, the Professional Services deliverables, and all related data. You exclusively own all right, title and interest in your data.』 It divides ownership between the parties' data but names no processing role."
+text_zh = "IP 条：「The Company exclusively owns all right, title and interest in and to the Website, the Services, the Professional Services deliverables, and all related data. You exclusively own all right, title and interest in your data.」——只划分双方数据的权属（all related data 归公司、用户数据归用户），没有角色定性。"
+anchor = "moark-ai-terms-ip-ownership"
+
+[[product.role.point]]
+text = "Confidentiality Restrictions: 『The parties will have no confidentiality obligations to each other unless otherwise agreed in writing.』 A processor relationship normally carries confidentiality duties; this text disclaims them, which is the key fact for this dimension on the international site. It does not apply to the China site (different entity, different text)."
+text_zh = "Confidentiality Restrictions：「The parties will have no confidentiality obligations to each other unless otherwise agreed in writing.」——受托处理关系通常伴随保密义务，本条反向声明双方互不承担保密义务，是国际站本维度的关键事实。它不适用于国内站（不同实体、不同文本）。"
+anchor = "moark-ai-terms-no-confidentiality"
+
+[[product.role.point]]
+text = "The counterparty is 『Moark Inc., a Delaware corporation』, which owns and operates the website and services."
+text_zh = "对手方主体为「Moark Inc., a Delaware corporation」（Delaware 公司），运营该网站与服务。"
 anchor = "moark-ai-terms-entity-delaware"
-
-[[product.role.point]]
-text_zh = "只确认了主体与公司形式"
-
-[[product.role.point]]
-text_zh = "本轮未对国际站做完整五维度核实。"
 
 [[anchor]]
 id = "gitee-ai-terms-7-2-no-training-input"
@@ -737,3 +888,153 @@ ms of service")
 Welcome to the website for Moark, which is """
 exact = "owned and operated by Moark Inc., a Delaware corporation"
 suffix = " (the \"Company,\" \"we,\" or \"us\"). The Company has developed a"
+
+[[anchor]]
+id = "gitee-ai-terms-8-2-feedback-license"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "如果您向我们提供有关我们网站、服务的使用、操作、性能或功能的反馈（统称为“反馈”），"
+exact = "您特此授予我们永久的、不可撤销的、全球性的、免费的、非排他性的权利和许可，以商业化利用这些反馈、改进我们的服务、以及开发和/或商业化我们的新产品"
+suffix = """
+。
+
+8.3 根据我们的隐私政策"""
+
+[[anchor]]
+id = "gitee-ai-terms-8-3-learn-improve"
+source_id = "b509e3b279154bbe"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "8.3 根据我们的隐私政策，"
+exact = "我们可能会汇总、匿名化或以其他方式从与您使用我们网站和服务相关的数据中进行学习，并用其改进这些服务，您对此知晓并同意"
+suffix = """
+。
+
+8.4 如果您认为我们网站上的任何服务或内容侵害您的知识产权"""
+
+[[anchor]]
+id = "gitee-ai-terms-17-3-subcontract-no-notice"
+source_id = "b509e3b279154bbe"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "17.3 "
+exact = "我们可以自行决定分包我们在本服务条款下的全部或部分义务，而无需通知您"
+suffix = "。对于代表我们行事的分包商在履行这些条款项下的义务时的作为和不作为"
+
+[[anchor]]
+id = "gitee-ai-privacy-2-4-improve-service"
+source_id = "263978d7d23f3c07"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "4. "
+exact = "评估、改善我们的服务"
+suffix = """
+- 诊断或解决服务问题。"""
+
+[[anchor]]
+id = "gitee-ai-privacy-2-5-research"
+source_id = "263978d7d23f3c07"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "5. "
+exact = "出于业务运营或科学目的对服务或与之相关的任何主题进行分析或研究"
+suffix = """
+6. 执行任何适用的服务条款或协议"""
+
+[[anchor]]
+id = "pocketclaw-4-1-device-info-collection"
+source_id = "ef90253bb8783dc9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "- **设备信息：** "
+exact = "为识别设备身份，我们可能收集硬件序列号、MAC 地址、系统版本号"
+suffix = """
+- **日志信息：** 在您授权下，收集系统崩溃记录以改进性能。"""
+
+[[anchor]]
+id = "pocketclaw-4-2-third-party-no-liability"
+source_id = "ef90253bb8783dc9"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "**我们不会中转或留存该等数据。** "
+exact = "关于此类数据的处理规则，请您务必阅读并认可该第三方服务商的隐私政策，我们对第三方服务商的行为不承担法律责任"
+suffix = """
+3. **第三方共享：** 除非获得您的明确同意或法律要求"""
+
+[[anchor]]
+id = "moark-ai-terms-monitoring-improve"
+source_id = "d1d46ff072b37521"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services"
+suffix = """
+## Your Responsibilities"""
+
+[[anchor]]
+id = "moark-ai-terms-ip-ownership"
+source_id = "d1d46ff072b37521"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+## IP
+- """
+exact = "The Company exclusively owns all right, title and interest in and to the Website, the Services, the Professional Services deliverables, and all related data. You exclusively own all right, title and interest in your data."
+suffix = " Subject to this Agreement, the Company hereby grants you"
+
+[[anchor]]
+id = "moark-ai-terms-no-confidentiality"
+source_id = "d1d46ff072b37521"
+topics = ["role", "retention"]
+
+[anchor.selector]
+prefix = """
+## Confidentiality Restrictions
+"""
+exact = "The parties will have no confidentiality obligations to each other unless otherwise agreed in writing"
+suffix = ". You will not directly or indirectly: (a) reverse engineer"
+
+[[anchor]]
+id = "moark-ai-privacy-service-enhancement"
+source_id = "5e64b920dd169006"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "- **Service Enhancement**: "
+exact = "To improve user experience and maintain security, we may gather network logs, usage frequency, crash reports, usage scenarios, and performance metrics. This data helps us optimize the Platform and enhance service quality"
+suffix = """
+- **Issue Resolution**:"""
+
+[[anchor]]
+id = "moark-ai-privacy-public-data-train"
+source_id = "5e64b920dd169006"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "- **Public Information**: "
+exact = "We may collect publicly available data from internet sources to train our models and deliver our services"
+suffix = """
+## How We Collect and Use Your Personal Data"""
+
+[[anchor]]
+id = "moark-ai-privacy-delete-right"
+source_id = "5e64b920dd169006"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+**Access** the personal information we maintain about you.
+- **"""
+exact = "Delete the personal information we maintain about you, unless such information is necessary for compliance with our legal or regulatory obligations"
+suffix = """
+- **Correct** inaccurate personal information we maintain about you."""

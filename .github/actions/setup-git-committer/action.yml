@@ -1,0 +1,68 @@
+name: "Setup Git Committer"
+description: "用 bot 身份提交和开 PR（GITHUB_TOKEN 的推送和 PR 不会触发其他 workflow）"
+inputs:
+  app-id:
+    description: "GitHub App ID（vars.ZDR_APP_ID）。配了就用 App，对应 models.dev 的做法"
+    required: false
+    default: ""
+  private-key:
+    description: "GitHub App private key（secrets.ZDR_APP_PRIVATE_KEY）"
+    required: false
+    default: ""
+  token:
+    description: "没配 App 时退回的 token（secrets.ZDR_BOT_TOKEN）"
+    required: false
+    default: ""
+  permission-secrets:
+    description: "App token 是否需要写 secret（留空 = 不需要）"
+    required: false
+    default: ""
+outputs:
+  token:
+    description: "用来推送和调 GitHub API 的 token"
+    value: ${{ steps.apptoken.outputs.token || inputs.token }}
+runs:
+  using: "composite"
+  steps:
+    - name: Create app token
+      id: apptoken
+      if: inputs.app-id != ''
+      uses: actions/create-github-app-token@v2
+      with:
+        app-id: ${{ inputs.app-id }}
+        private-key: ${{ inputs.private-key }}
+        owner: ${{ github.repository_owner }}
+        permission-contents: write
+        permission-pull-requests: write
+        permission-issues: write
+        permission-secrets: ${{ inputs.permission-secrets || '' }}
+
+    - name: Configure git user
+      shell: bash
+      env:
+        SLUG: ${{ steps.apptoken.outputs.app-slug }}
+        TOKEN: ${{ steps.apptoken.outputs.token || inputs.token }}
+      run: |
+        set -euo pipefail
+        if [ -z "$TOKEN" ]; then
+          echo "::error::没有 bot 凭证：配置 vars.ZDR_APP_ID + secrets.ZDR_APP_PRIVATE_KEY，或 secrets.ZDR_BOT_TOKEN（见 docs/maintenance.md）"
+          exit 1
+        fi
+        if [ -n "$SLUG" ]; then
+          name="${SLUG}[bot]"
+          email="${SLUG}[bot]@users.noreply.github.com"
+        else
+          user="$(GH_TOKEN="$TOKEN" gh api user --jq '[.id, .login] | @tsv')"
+          name="$(cut -f2 <<<"$user")"
+          email="$(cut -f1 <<<"$user")+${name}@users.noreply.github.com"
+        fi
+        git config --global user.name "$name"
+        git config --global user.email "$email"
+
+    - name: Configure git remote
+      shell: bash
+      env:
+        TOKEN: ${{ steps.apptoken.outputs.token || inputs.token }}
+      run: |
+        git config --local --unset-all http.https://github.com/.extraheader || true
+        git remote set-url origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}"

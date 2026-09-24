@@ -65,7 +65,11 @@ label = "Token Plan 个人版(Lite/Essential/Standard/Pro)"
 
 [product.training]
 mark = "no"
-mode = "opt_out"
+anchor = "training-personal-authorization-5.2.2"
+
+[[product.training.point]]
+text = "The §5.2.2 authorization takes effect with the subscription terms; this tier has no in-product switch. The only route the clause gives is to stop using Token Plan 个人版 and/or Coding Plan, and that termination is expressly not retroactive: it does not cover the content and data already authorized for our use."
+text_zh = "5.2.2 的存储并使用授权随订阅条款自动生效，档内没有开关；条款给出的唯一退出路径是停止使用 Token Plan 个人版和/或 Coding Plan 服务，且明文不追溯——终止授权的范围不涵盖已授权我们使用的相关内容和数据。"
 anchor = "training-personal-authorization-5.2.2"
 
 [product.zdr]
@@ -77,13 +81,63 @@ object = "input_output"
 basis = "as_needed"
 anchor = "retention-min-time-conversation-6.2.5"
 
+[[product.retention.point]]
+text = "Two statements about the same object are recorded side by side, not reconciled: §6.2.5 promises conversation data is kept only as long as necessary to provide the service (no number of days), while §5.2.2 separately authorizes us and our affiliates to store and use this tier's inputs and outputs for service improvement and model optimisation with no stated time limit. The §5.2.2 carve-out excludes the team plan."
+text_zh = "同一对象上的两种口径并列保留、不选边：6.2.5 承诺仅在提供服务所必需的最短时间内保留对话数据（按需，无天数）；5.2.2 另授权我们和我们的关联公司存储并使用本档输入输出以实现服务改进与模型优化，未设期限（该条明文排除团队版）。"
+anchor = "training-personal-authorization-5.2.2"
+
+[[product.retention.point]]
+text = "Deletion is not immediate: the last sentence of §6.2.4 states that because of applicable legal and security-technology limits the corresponding information may not be deleted from backup systems right away, in which case it is stored securely with any further processing restricted until the backup can be deleted. This is an exception to the deletion promise, not a retention period in itself."
+text_zh = "删除并非即时：6.2.4 末句载明因适用的法律和安全技术限制，相应信息可能无法立即从备份系统中删除，此情形下将安全存储并限制对其的任何进一步处理，直到备份可以删除。这是删除承诺的例外，不是保留期限本身。"
+anchor = "retention-backup-delete-lag-6.2.4"
+
+[[product.retention.point]]
+text = "Object distinction, platform-level document that does not name Token Plan: the platform records audit logs by default on the platform side with no configuration, covering each model call's request information but not the Prompt/Response — a different object from the input/output content itself."
+text_zh = "对象区分旁证（平台级文档、未点名 Token Plan）：平台侧默认记录审计日志，存储在平台侧、无需配置，记录每次模型调用的请求信息但不包含 Prompt/Response——与输入输出正文是不同的对象。"
+anchor = "retention-audit-log-default-platform-side"
+
+[[product.retention.point]]
+text = "Different context once a feature is switched on, platform-level document that does not name Token Plan: inference logs record the full Prompt/Response plus intermediate steps, must be enabled manually, and rely on log delivery to write into the customer's own SLS log store. This is an opt-in feature context and the logs land in the customer's own SLS; it does not change the default retention statement."
+text_zh = "启用某功能后语境不同（平台级文档、未点名 Token Plan）：推理日志记录完整的 Prompt/Response 与中间步骤，需手动开启，并依赖日志投递写入客户自有的 SLS 日志库。属 opt-in 功能语境、日志落在客户自有 SLS，不改变默认路径的保留口径。"
+anchor = "retention-inference-log-optin-full-prompt"
+
+[[product.retention.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, retention-side processing (storage, deletion, content-safety filtering) follows the customer's agreement with that third-party provider (§6.2.9). The snapshots on file prove self-operated inference by Model Studio only for deepseek-v4-pro and glm-5.3; that cannot be extended to the other third-party brands in this tier."
+text_zh = "适用边界：若实际选用云市场三方模型 API，保留侧的处理（存储、删除、内容安全过滤等）以客户与三方模型 API 服务商的约定为准（协议 6.2.9）。现有快照只能证明 deepseek-v4-pro 与 glm-5.3 由百炼自运营推理，不能外推到档内其余三方品牌模型。"
+anchor = "role-third-party-models-6.2.9"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "processing-region-personal-cn-beijing"
 
+[[product.processing_region.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, the deployment mode (service access location and inference location) follows the customer's agreement with that third-party provider (§6.2.9)."
+text_zh = "适用边界：若实际选用云市场三方模型 API，部署模式（服务接入地和推理地等）以客户与三方模型 API 服务商的约定为准（协议 6.2.9）。"
+anchor = "role-third-party-models-6.2.9"
+
 [product.role]
 kind = "processor"
 anchor = "role-processor-6.2.3"
+
+[[product.role.point]]
+text = "Exception: §6.2.3(1) promises processing only on this agreement and on any further documented instructions from the customer, and not for our own purposes, yet §5.2.2 authorizes us and our affiliates to store and use this tier's inputs and outputs for service improvement and model optimisation — processing for the provider's own purpose. kind stays processor. That carve-out expressly excludes the team plan, so it does not affect the team tier."
+text_zh = "例外：6.2.3（1）承诺仅按本协议及客户有文件记录的指示处理且不为其自身目的处理相关数据，而 5.2.2 恰恰授权我们和我们的关联公司为本档输入输出用于服务改进与模型优化而存储并使用——属为服务商自身目的的处理。kind 仍记 processor。该条明文排除团队版，不影响团队档。"
+anchor = "training-personal-authorization-5.2.2"
+
+[[product.role.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, the processing of customer business data and the deployment mode follow the customer's agreement with that third-party provider (§6.2.9)."
+text_zh = "适用边界：若实际选用云市场三方模型 API，客户业务数据的处理与部署模式以客户和三方模型 API 服务商在相关服务协议中的约定为准（协议 6.2.9）。"
+anchor = "role-third-party-models-6.2.9"
+
+[[product.role.point]]
+text = "The inference provider of a third-party brand model in this tier can only be checked model by model: the deepseek-v4-pro model page states its inference service provider is Alibaba Cloud Model Studio, so that model is not covered by §6.2.9."
+text_zh = "档内第三方品牌模型的推理归属只能逐模型页核对：deepseek-v4-pro 模型页标注推理服务供应商为阿里云百炼，故该模型不适用 §6.2.9。"
+anchor = "role-deepseek-v4-pro-inference-provider"
+
+[[product.role.point]]
+text = "The glm-5.3 model page (China site) likewise states its inference service provider is Alibaba Cloud Model Studio. Beyond these two models the other third-party brands in this tier have no snapshot on file, so self-operated inference cannot be extended to them."
+text_zh = "glm-5.3 模型页（国内站）同样标注推理服务供应商为阿里云百炼。除这两个模型外，档内其余三方品牌模型没有对应快照，不能外推为自运营推理。"
+anchor = "role-glm-5-3-inference-provider-zh"
 
 [[product]]
 id = "token-plan-team"
@@ -106,13 +160,58 @@ object = "input_output"
 basis = "as_needed"
 anchor = "retention-min-time-conversation-6.2.5"
 
+[[product.retention.point]]
+text = "Deletion is not immediate: the last sentence of §6.2.4 states that because of applicable legal and security-technology limits the corresponding information may not be deleted from backup systems right away, in which case it is stored securely with any further processing restricted until the backup can be deleted. This is an exception to the deletion promise, not a retention period in itself."
+text_zh = "删除并非即时：6.2.4 末句载明因适用的法律和安全技术限制，相应信息可能无法立即从备份系统中删除，此情形下将安全存储并限制对其的任何进一步处理，直到备份可以删除。这是删除承诺的例外，不是保留期限本身。"
+anchor = "retention-backup-delete-lag-6.2.4"
+
+[[product.retention.point]]
+text = "Object distinction, platform-level document that does not name Token Plan: the platform records audit logs by default on the platform side with no configuration, covering each model call's request information but not the Prompt/Response — a different object from the input/output content itself."
+text_zh = "对象区分旁证（平台级文档、未点名 Token Plan）：平台侧默认记录审计日志，存储在平台侧、无需配置，记录每次模型调用的请求信息但不包含 Prompt/Response——与输入输出正文是不同的对象。"
+anchor = "retention-audit-log-default-platform-side"
+
+[[product.retention.point]]
+text = "Different context once a feature is switched on, platform-level document that does not name Token Plan: inference logs record the full Prompt/Response plus intermediate steps, must be enabled manually, and rely on log delivery to write into the customer's own SLS log store. This is an opt-in feature context and the logs land in the customer's own SLS; it does not change the default retention statement."
+text_zh = "启用某功能后语境不同（平台级文档、未点名 Token Plan）：推理日志记录完整的 Prompt/Response 与中间步骤，需手动开启，并依赖日志投递写入客户自有的 SLS 日志库。属 opt-in 功能语境、日志落在客户自有 SLS，不改变默认路径的保留口径。"
+anchor = "retention-inference-log-optin-full-prompt"
+
+[[product.retention.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, retention-side processing (storage, deletion, content-safety filtering) follows the customer's agreement with that third-party provider (§6.2.9). The snapshots on file prove self-operated inference by Model Studio only for deepseek-v4-pro and glm-5.3; that cannot be extended to the other third-party brands in this tier."
+text_zh = "适用边界：若实际选用云市场三方模型 API，保留侧的处理（存储、删除、内容安全过滤等）以客户与三方模型 API 服务商的约定为准（协议 6.2.9）。现有快照只能证明 deepseek-v4-pro 与 glm-5.3 由百炼自运营推理，不能外推到档内其余三方品牌模型。"
+anchor = "role-third-party-models-6.2.9"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "processing-region-team-cn-beijing"
 
+[[product.processing_region.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, the deployment mode (service access location and inference location) follows the customer's agreement with that third-party provider (§6.2.9)."
+text_zh = "适用边界：若实际选用云市场三方模型 API，部署模式（服务接入地和推理地等）以客户与三方模型 API 服务商的约定为准（协议 6.2.9）。"
+anchor = "role-third-party-models-6.2.9"
+
 [product.role]
 kind = "processor"
 anchor = "role-processor-6.2.3"
+
+[[product.role.point]]
+text = "§5.2.2 expressly excludes the team plan, so this tier has no own-purpose storage/use authorization and the role verdict carries no such exception."
+text_zh = "5.2.2 明文排除团队版（不包括 Token Plan 团队版），团队档没有该自身目的存储使用授权，role 不因它产生例外。"
+anchor = "training-team-excluded-5.2.2"
+
+[[product.role.point]]
+text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, the processing of customer business data and the deployment mode follow the customer's agreement with that third-party provider (§6.2.9)."
+text_zh = "适用边界：若实际选用云市场三方模型 API，客户业务数据的处理与部署模式以客户和三方模型 API 服务商在相关服务协议中的约定为准（协议 6.2.9）。"
+anchor = "role-third-party-models-6.2.9"
+
+[[product.role.point]]
+text = "The inference provider of a third-party brand model in this tier can only be checked model by model: the deepseek-v4-pro model page states its inference service provider is Alibaba Cloud Model Studio, so that model is not covered by §6.2.9."
+text_zh = "档内第三方品牌模型的推理归属只能逐模型页核对：deepseek-v4-pro 模型页标注推理服务供应商为阿里云百炼，故该模型不适用 §6.2.9。"
+anchor = "role-deepseek-v4-pro-inference-provider"
+
+[[product.role.point]]
+text = "The glm-5.3 model page (China site) likewise states its inference service provider is Alibaba Cloud Model Studio. Beyond these two models the other third-party brands in this tier have no snapshot on file, so self-operated inference cannot be extended to them."
+text_zh = "glm-5.3 模型页（国内站）同样标注推理服务供应商为阿里云百炼。除这两个模型外，档内其余三方品牌模型没有对应快照，不能外推为自运营推理。"
+anchor = "role-glm-5-3-inference-provider-zh"
 
 [[anchor]]
 id = "training-personal-authorization-5.2.2"
@@ -215,6 +314,16 @@ prefix = """
 6.2.4. """
 exact = "您使用本服务输入和产生的客户业务数据，除执行您的服务要求外，我们不会进行任何未获授权的使用及披露。"
 suffix = "您可自行对您的客户业务数据进行删除、更改等操作，我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改等"
+
+[[anchor]]
+id = "retention-backup-delete-lag-6.2.4"
+source_id = "4b66d343a3815747"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "我们会按照您的指令同步进行相应处置，因此，您应谨慎操作数据的删除、更改等操作。"
+exact = "但请理解，因为适用的法律和安全技术限制，我们可能无法立即从备份系统中删除相应的信息，如存在此类情况，我们将安全地存储您的个人信息并限制对其的任何进一步的处理，直到备份可以删除。"
+suffix = "客户业务数据一经删除，即不可恢复。"
 
 [[anchor]]
 id = "processing-region-selected-country-6.2.8"

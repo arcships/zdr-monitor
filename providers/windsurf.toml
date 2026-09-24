@@ -34,6 +34,7 @@ note = "Cognition Privacy Policy（2026-03-09），正文明确 Services 包括 
 
 [[source]]
 url = "https://docs.windsurf.com/windsurf/accounts/usage.md"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "现行产品文档已将 Windsurf 更名为 Devin Desktop；列出 Free、Pro、Max、Teams、Enterprise。本文据此拆成免费、个人付费、团队、企业四档。"
@@ -46,6 +47,7 @@ note = "代码上下文说明：整个本地代码库会被索引；Pro 提高�
 
 [[source]]
 url = "https://docs.windsurf.com/context-awareness/remote-indexing.md"
+fetch = "browser"
 channel = "developer_data"
 tier = "core"
 note = "远程索引说明：服务端单租户索引；Store Snippets 未勾选时生成 embeddings 后删除代码和片段，但 embeddings 持续保存，未披露期限。"
@@ -54,7 +56,7 @@ note = "远程索引说明：服务端单租户索引；Store Snippets 未勾选
 url = "https://docs.devin.ai/desktop/troubleshooting/plugins-common-issues"
 channel = "developer_data"
 tier = "core"
-note = "现行 Devin Desktop/Windsurf 插件排障页，明确 code snippet telemetry 可在账户设置退出；没有声明默认关闭，故按默认收集、可关闭记录。"
+note = "现行 Devin Desktop/Windsurf 插件排障页：code snippet telemetry 可在账户设置退出。该句既不说明默认状态也不说明用途，且把口径推给未被本文件监控的 security 页，故不据此下任何结论。"
 
 [[source]]
 url = "https://docs.windsurf.com/windsurf/agent-command-center.md"
@@ -76,19 +78,42 @@ anchor = "windsurf-platform-training-default"
 [[product.training.point]]
 text_zh = "现行平台条款允许 Cognition 将 Customer Data 用于模型训练及服务改进；免费档没有条款提供的 Opt-Out，故 training=no。"
 
+[[product.training.point]]
+text = "Consumer-layer corroboration: the privacy policy lists “using User Content to train, fine tune and improve the models that power our Services” as a processing purpose, qualified by “depending on the terms that apply to your use of the Services”. It points the same way as the contract layer and does not override it."
+text_zh = "消费者层印证：隐私政策把「using User Content to train, fine tune and improve the models that power our Services」列为处理目的，并带「取决于适用于你的条款」的分档限定。方向与合同层一致，不覆盖合同层的结论。"
+anchor = "windsurf-privacy-training-user-content"
+
+[[product.training.point]]
+text = "DPA §4 constrains the subprocessor layer — subprocessors must be contractually or technically prevented from using Customer Data for model training — and its first sentence applies the same level of restriction as the Agreement. The DPA is incorporated into the self-serve tiers by Platform Terms §4.2, so the two statements cover different layers (subprocessor handling vs the Agreement's own use rights) rather than being an unexplained conflict."
+text_zh = "DPA §4 约束的是子处理者层——子处理者须受合同或技术配置约束、不得用 Customer Data 做模型训练，首句还把限制水平回指协议本身；DPA 经平台条款 §4.2 并入自助档。两条约束的是不同层面（子处理者的处理 vs 协议授予的自身使用权），属适用范围差异，不是未说明的冲突。"
+anchor = "windsurf-dpa-subprocessor-no-training"
+
 [product.zdr]
-mark = "unknown"
+mark = "no"
+mode = "not_disclosed"
+anchor = "windsurf-platform-optout-paid-only"
 searched = ["https://cognition.com/legal/platform-terms-of-service", "https://cognition.com/legal/privacy-policy", "https://cognition.com/legal/data-processing-statement"]
 
 [[product.zdr.point]]
-text_zh = "只查到付费档退出训练后对模型提供商启用 ZDR；免费档没有 ZDR/Privacy Mode 开关承诺。"
+text = "The Platform Terms place the Opt-Out — and the Zero Data Retention it enables with our model providers — behind a paid Service Tier, so the Free tier has no ZDR channel. That is a disclosed qualification of the free tier, not a silence, hence mark=no rather than unknown."
+text_zh = "平台条款把 Opt-Out（以及随之对模型提供商启用的 ZDR）限定在付费 Service Tier，免费档没有 ZDR 通道。这是厂商对免费档的资格限定、不是未表态，故按明确否定记 mark=no，而不是 unknown。"
+anchor = "windsurf-platform-paid-optout"
 
 [product.retention]
-mark = "unknown"
+object = "input_output"
+basis = "as_needed"
+anchor = "windsurf-privacy-retention"
 searched = ["https://cognition.com/legal/platform-terms-of-service", "https://cognition.com/legal/privacy-policy", "https://docs.windsurf.com/context-awareness/windsurf-overview.md"]
 
 [[product.retention.point]]
-text_zh = "请求输入输出没有量化期限。隐私政策只按提供服务、法律义务、安全等目的所需保留。整个本地代码库会建立索引，但官方未披露本地索引期限。"
+text = "No quantified period for request inputs and outputs: the privacy policy retains personal information as needed to provide the Service, comply with legal obligations, or protect ours or others interests, and states no fixed term."
+text_zh = "请求输入输出没有量化期限：隐私政策按「提供服务所需、法律义务、保护我们或他人的利益」保留个人信息，未给固定期限。整个本地代码库会建立索引，但官方未披露本地索引期限。"
+anchor = "windsurf-privacy-retention"
+
+[[product.retention.point]]
+text = "On termination of the Terms or the subscription, §7.2 only says Cognition “may at our option delete any Customer Data” — discretionary deletion, not a retention commitment, and not the same as the DPA's 30-day deletion for the enterprise tier."
+text_zh = "平台条款 §7.2：协议或订阅终止后只写 Cognition「may at our option」自行决定删除 Customer Data——是裁量删除，不是保留承诺，与 DPA 企业档的 30 天删除不是一回事。"
+anchor = "windsurf-platform-termination-deletion"
 
 [product.processing_region]
 codes = ["global", "US"]
@@ -115,6 +140,16 @@ anchor = "windsurf-platform-paid-optout"
 [[product.training.point]]
 text_zh = "默认可用于训练和服务改进；付费档可退出，退出后 Customer Data 不再用于其他目的（包括训练语言模型）。“服务改进”未排除训练，因此默认姿态仍为 training=no。"
 
+[[product.training.point]]
+text = "Consumer-layer corroboration: the privacy policy lists “using User Content to train, fine tune and improve the models that power our Services” as a processing purpose, qualified by “depending on the terms that apply to your use of the Services”. It points the same way as the contract layer and does not override it."
+text_zh = "消费者层印证：隐私政策把「using User Content to train, fine tune and improve the models that power our Services」列为处理目的，并带「取决于适用于你的条款」的分档限定。方向与合同层一致，不覆盖合同层的结论。"
+anchor = "windsurf-privacy-training-user-content"
+
+[[product.training.point]]
+text = "DPA §4 constrains the subprocessor layer — subprocessors must be contractually or technically prevented from using Customer Data for model training — and its first sentence applies the same level of restriction as the Agreement. The DPA is incorporated into the self-serve tiers by Platform Terms §4.2, so the two statements cover different layers (subprocessor handling vs the Agreement's own use rights) rather than being an unexplained conflict."
+text_zh = "DPA §4 约束的是子处理者层——子处理者须受合同或技术配置约束、不得用 Customer Data 做模型训练，首句还把限制水平回指协议本身；DPA 经平台条款 §4.2 并入自助档。两条约束的是不同层面（子处理者的处理 vs 协议授予的自身使用权），属适用范围差异，不是未说明的冲突。"
+anchor = "windsurf-dpa-subprocessor-no-training"
+
 [product.zdr]
 mark = "yes"
 mode = "opt_in"
@@ -123,13 +158,25 @@ anchor = "windsurf-platform-paid-optout"
 [[product.zdr.point]]
 text_zh = "付费用户执行同一个 Opt-Out 后，条款承诺对模型提供商启用 ZDR。ZDR 定义为 Customer Data 不落盘/不持久保留，并在生成输出后删除；但安全、AUP 与法律流程例外可保留。"
 
+[[product.zdr.point]]
+text = "§3.3.3 qualifies the ZDR obtained above: ZDR does not preclude retention or disclosure of Customer Data flagged on automated safety and abuse-detection classifiers, retained to perform safety, security and AUP compliance review, or as compelled by applicable law or legal process."
+text_zh = "§3.3.3 限定了上面取得的 ZDR：ZDR 不排除对安全与滥用检测分类器标记的 Customer Data 的留存或披露、为安全/安保/AUP 合规审查而留存，以及法律或法律程序强制要求的情形。"
+anchor = "windsurf-platform-zdr-exceptions"
+
 [product.retention]
 object = "input_output"
 basis = "none"
-anchor = "windsurf-platform-zdr-definition"
+anchor = "windsurf-platform-paid-optout"
 
 [[product.retention.point]]
-text_zh = "仅在用户退出训练并启用 ZDR 后为不持久保存、输出生成后删除；默认状态的输入输出期限未披露。prompt cache 是否存在及期限也未见现行官方披露。"
+text = "This verdict covers only the request path after an Opt-Out election: §3.3.1(B) enables ZDR with our model providers and §1.8 defines ZDR as not saved to disk and deleted upon generation of the Output. The default path's retention period is undisclosed, and §3.3.3 carves out safety, AUP and legal-process retention."
+text_zh = "本结论只覆盖执行 Opt-Out 后的请求路径：§3.3.1(B) 对模型提供商启用 ZDR，§1.8 把 ZDR 定义为不落盘、输出生成后删除。默认路径的期限未披露；§3.3.3 的安全/AUP/法律流程留存属例外。prompt cache 是否存在及期限也未见现行官方披露。"
+anchor = "windsurf-platform-paid-optout"
+
+[[product.retention.point]]
+text = "On termination of the Terms or the subscription, §7.2 only says Cognition “may at our option delete any Customer Data” — discretionary deletion, not a retention commitment, and not the same as the DPA's 30-day deletion for the enterprise tier."
+text_zh = "平台条款 §7.2：协议或订阅终止后只写 Cognition「may at our option」自行决定删除 Customer Data——是裁量删除，不是保留承诺，与 DPA 企业档的 30 天删除不是一回事。"
+anchor = "windsurf-platform-termination-deletion"
 
 [product.processing_region]
 codes = ["global", "US"]
@@ -153,6 +200,16 @@ anchor = "windsurf-platform-paid-optout"
 [[product.training.point]]
 text_zh = "现行平台条款不再沿用旧 Codeium 文档的“团队默认不训练”姿态：默认允许训练/改进；只有 Teams 管理员可执行 Opt-Out。"
 
+[[product.training.point]]
+text = "Consumer-layer corroboration: the privacy policy lists “using User Content to train, fine tune and improve the models that power our Services” as a processing purpose, qualified by “depending on the terms that apply to your use of the Services”. It points the same way as the contract layer and does not override it."
+text_zh = "消费者层印证：隐私政策把「using User Content to train, fine tune and improve the models that power our Services」列为处理目的，并带「取决于适用于你的条款」的分档限定。方向与合同层一致，不覆盖合同层的结论。"
+anchor = "windsurf-privacy-training-user-content"
+
+[[product.training.point]]
+text = "DPA §4 constrains the subprocessor layer — subprocessors must be contractually or technically prevented from using Customer Data for model training — and its first sentence applies the same level of restriction as the Agreement. The DPA is incorporated into the self-serve tiers by Platform Terms §4.2, so the two statements cover different layers (subprocessor handling vs the Agreement's own use rights) rather than being an unexplained conflict."
+text_zh = "DPA §4 约束的是子处理者层——子处理者须受合同或技术配置约束、不得用 Customer Data 做模型训练，首句还把限制水平回指协议本身；DPA 经平台条款 §4.2 并入自助档。两条约束的是不同层面（子处理者的处理 vs 协议授予的自身使用权），属适用范围差异，不是未说明的冲突。"
+anchor = "windsurf-dpa-subprocessor-no-training"
+
 [product.zdr]
 mark = "yes"
 mode = "opt_in"
@@ -161,16 +218,28 @@ anchor = "windsurf-platform-paid-optout"
 [[product.zdr.point]]
 text_zh = "由 Teams 管理员退出后，对模型提供商启用 ZDR；安全、AUP 和法律流程除外。"
 
+[[product.zdr.point]]
+text = "§3.3.3 qualifies the ZDR obtained above: ZDR does not preclude retention or disclosure of Customer Data flagged on automated safety and abuse-detection classifiers, retained to perform safety, security and AUP compliance review, or as compelled by applicable law or legal process."
+text_zh = "§3.3.3 限定了上面取得的 ZDR：ZDR 不排除对安全与滥用检测分类器标记的 Customer Data 的留存或披露、为安全/安保/AUP 合规审查而留存，以及法律或法律程序强制要求的情形。"
+anchor = "windsurf-platform-zdr-exceptions"
+
 [product.retention]
 object = "input_output"
 basis = "none"
-anchor = "windsurf-platform-zdr-definition"
+anchor = "windsurf-platform-paid-optout"
 
 [[product.retention.point]]
-text_zh = "管理员退出后的请求路径不持久保存并在输出生成后删除；默认路径期限未披露。"
+text = "This verdict covers only the request path after the administrator's Opt-Out: §3.3.1(B) enables ZDR with our model providers and §1.8 defines ZDR as not saved to disk and deleted upon generation of the Output. The default path's retention period is undisclosed, and §3.3.3 carves out safety, AUP and legal-process retention."
+text_zh = "本结论只覆盖管理员执行 Opt-Out 后的请求路径：§3.3.1(B) 对模型提供商启用 ZDR，§1.8 把 ZDR 定义为不落盘、输出生成后删除。默认路径的期限未披露；§3.3.3 的安全/AUP/法律流程留存属例外。"
+anchor = "windsurf-platform-paid-optout"
 
 [[product.retention.point]]
-text_zh = "远程索引由服务端单租户执行；Store Snippets 未勾选时 embeddings 完成后删除代码/片段，只持久保存不可反推原代码的 embeddings。embeddings 的删除期限未披露。"
+text = "On termination of the Terms or the subscription, §7.2 only says Cognition “may at our option delete any Customer Data” — discretionary deletion, not a retention commitment, and not the same as the DPA's 30-day deletion for the enterprise tier."
+text_zh = "平台条款 §7.2：协议或订阅终止后只写 Cognition「may at our option」自行决定删除 Customer Data——是裁量删除，不是保留承诺，与 DPA 企业档的 30 天删除不是一回事。"
+anchor = "windsurf-platform-termination-deletion"
+
+[[product.retention.point]]
+text_zh = "远程索引由服务端单租户执行；Store Snippets 未勾选时 embeddings 完成后删除代码/片段，只持久保存不可反推原代码的 embeddings。embeddings 的删除期限未披露。本页第 26 行写该功能「only available in the Devin Desktop Plugins for Enterprise plans」、第 27 行写「organizations on Teams and Enterprise plans can use」，同页对可用档位的表述不一致，Teams 侧依据按第 27 行理解。"
 anchor = "windsurf-remote-index-retention"
 
 [product.processing_region]
@@ -194,6 +263,11 @@ anchor = "windsurf-enterprise-no-training"
 
 [[product.training.point]]
 text_zh = "Enterprise MSA 禁止 Cognition 或第三方在未经客户事先书面同意时以 Customer Data 训练任何 AI 模型。Usage Data 可用于内部分析与一般性能/功能改进，但其合同定义排除 Customer Data、客户机密和可识别用户的信息。"
+
+[[product.training.point]]
+text = "The consent path in the MSA has a matching product capability: the official product docs state that Devin Desktop offers full fine-tuning for enterprises. This is a product-documentation fact, not a policy commitment, so it does not by itself change the training verdict — it only shows the consent route is a real option."
+text_zh = "企业档的同意路径有对应的产品能力：官方产品文档写明 Devin Desktop 为企业提供全量微调。该页是产品文档而非政策承诺，不能据此判 training，只说明同意路径是真实存在的选项。"
+anchor = "windsurf-enterprise-finetuning"
 
 [product.zdr]
 mark = "unknown"
@@ -220,7 +294,14 @@ codes = ["US", "global"]
 anchor = "windsurf-dpa-subprocessor-locations"
 
 [[product.processing_region.point]]
-text_zh = "DPA 子处理者表将核心处理、日志和索引主要列在美国，并列印度支持工作流；隐私政策还声明可在全球（包括 EU、UK、US）传输、存储和处理。未见当前公开合同提供区域选择承诺。"
+text = "Contract layer: Appendix C of the DPA lists core processing, logs and indices in the United States and adds one India entry (Agumbe, Cognition India) for support workflow, so both the US code and the India entry come from the subprocessor table."
+text_zh = "合同层：DPA Appendix C 把核心处理、日志与索引列在美国，另有一条印度条目（Agumbe, Cognition India）承担支持工作流，US 与印度两处都出自子处理者表。"
+anchor = "windsurf-dpa-subprocessor-india"
+
+[[product.processing_region.point]]
+text = "The global code rests on a lower-authority layer: the privacy policy (consumer_privacy) states that Cognition, its third-party partners and service providers may transfer, store and process personal information throughout the world, including the EU, UK and the US. No current public contract offers a region-selection commitment."
+text_zh = "global 一码依据的是较低权威层：隐私政策（consumer_privacy）声明 Cognition、其第三方伙伴与服务提供商可在全球（包括 EU、UK、US）传输、存储和处理个人信息。未见当前公开合同提供区域选择承诺。"
+anchor = "windsurf-privacy-global-processing"
 
 [product.role]
 kind = "processor"
@@ -241,7 +322,7 @@ suffix = " If you subscribe to a paid Service Tier, you may opt out of this use"
 [[anchor]]
 id = "windsurf-platform-paid-optout"
 source_id = "24ab41c0cbc2deee"
-topics = ["training", "zdr"]
+topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = "Cognition may use Customer Data for model training purposes and to improve and enhance the Services. "
 exact = "If you subscribe to a paid Service Tier, you may opt out of this use (“Opt-Out”). Following an Opt-Out election: (A) Customer Data will not be used for any other purpose, including training language models; and (B) Zero Data Retention will be enabled with our model providers. For the Teams Service Tier, only an administrator may exercise the Opt-Out."
@@ -336,3 +417,75 @@ topics = ["processing_region"]
 prefix = "Agent Command Center "
 exact = "Manage all of your Devin Desktop agents — local and cloud — from a single Kanban-style view inside Devin Desktop."
 suffix = " The Agent Command Center is a new surface inside Devin Desktop 2.0"
+
+[[anchor]]
+id = "windsurf-platform-optout-paid-only"
+source_id = "24ab41c0cbc2deee"
+topics = ["zdr", "training"]
+[anchor.selector]
+prefix = "3.3.1 Use of Customer Data: Cognition may use Customer Data for model training purposes and to improve and enhance the Services. "
+exact = "If you subscribe to a paid Service Tier, you may opt out of this use (“Opt-Out”)."
+suffix = " Following an Opt-Out election: (A) Customer Data will not be used for any other purpose"
+
+[[anchor]]
+id = "windsurf-platform-zdr-exceptions"
+source_id = "24ab41c0cbc2deee"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = "Cognition owns all right, title, and interest in and to the Usage Data. 3.3.3 Abuse and Legal Process: "
+exact = "ZDR does not preclude retention or disclosure of Customer Data (i) flagged on automated safety and abuse-detection classifiers; (ii) to perform safety, security, and AUP compliance review; or (iii) as compelled by applicable law or legal process."
+suffix = " 3.4 Marketing: Subject to your prior consent"
+
+[[anchor]]
+id = "windsurf-platform-termination-deletion"
+source_id = "24ab41c0cbc2deee"
+topics = ["retention"]
+[anchor.selector]
+prefix = "7.2 Subscription Termination: You may terminate your subscription at any time. "
+exact = "Upon termination of these Terms or your subscription, we may at our option delete any Customer Data or other data associated with your account."
+suffix = " 8. Warranty disclaimer"
+
+[[anchor]]
+id = "windsurf-privacy-retention"
+source_id = "2259fa08d86037b8"
+topics = ["retention"]
+[anchor.selector]
+prefix = "5. Retention "
+exact = "We retain your personal information as needed to provide our Service to you, comply with legal obligations, or protect ours or others interests."
+suffix = " How long we retain personal information includes considerations"
+
+[[anchor]]
+id = "windsurf-privacy-training-user-content"
+source_id = "2259fa08d86037b8"
+topics = ["training"]
+[anchor.selector]
+prefix = "our corporate responsibilities where we operate "
+exact = "To customize your experience with our Services and otherwise improve our Services including, depending on the terms that apply to your use of the Services, using User Content to train, fine tune and improve the models that power our Services."
+suffix = " Basic Information, Account Information, Communications, App, browser, and device information, Services usage data, and User Content"
+
+[[anchor]]
+id = "windsurf-dpa-subprocessor-no-training"
+source_id = "c7345437a9dd5fa6"
+topics = ["training"]
+[anchor.selector]
+prefix = "4. AI and Machine Learning Restrictions "
+exact = "Licensor shall apply the same level of AI and machine learning restrictions as set forth in the Agreement. Licensor’s subprocessors are subject to equivalent restrictions through contractual obligations or technical configurations that prevent Customer Data from being used for model training purposes."
+suffix = " 5. Subprocessors"
+
+[[anchor]]
+id = "windsurf-dpa-subprocessor-india"
+source_id = "c7345437a9dd5fa6"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = "Decagon Support Chatbot United States "
+exact = "Agumbe (Cognition India) Support Workflow India"
+suffix = " The following entities to the extent Personal Data is submitted as Input to the Services"
+
+[[anchor]]
+id = "windsurf-enterprise-finetuning"
+source_id = "cd8eabf5c0cb40c7"
+topics = ["training"]
+[anchor.selector]
+prefix = "which produces higher quality suggestions and fewer hallucinations. "
+exact = "Devin Desktop offers full fine-tuning for enterprises, and the best solution combines fine-tuning with RAG."
+suffix = " Default Context"

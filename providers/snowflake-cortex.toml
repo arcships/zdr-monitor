@@ -84,10 +84,34 @@ anchor = "ai-terms-3-2-no-train-models-for-others"
 mode = "by_contract"
 
 [[product.training.point]]
-text_zh = "见顶层 training：AI Terms §3.2 合同层禁止拿 Customer Data / Usage Data（含 Inputs/Outputs）训练「对外提供给其他方的模型」"
+text = "Scope of the mark: the contract-layer prohibition covers training of any Model that Snowflake makes available for use by other parties — it is not a blanket no-training commitment for every use Snowflake may make of the data."
+text_zh = "本档 mark=yes 的范围：AI Terms §3.2 的合同层禁止只覆盖「Snowflake 对外提供给其他方使用的模型」，不是「Snowflake 对数据的任何用途都不训练」的总承诺。"
+anchor = "ai-terms-3-2-no-train-models-for-others"
 
 [[product.training.point]]
-text_zh = "§3.1 允许用聚合匿名化的 AI Data 改进产品，ToS §4.2 允许用 Usage Data 做产品开发改进，docs 又把 AI Functions 的 Input 归为 Usage Data，三条须并列。"
+text = "Clause pointing the other way in the same contract layer: Snowflake will only use AI Data that has been aggregated and anonymized, such that neither Customer nor its Users can be identified, to develop or improve Snowflake's products and services. Under docs/judgment.md ('using data to improve the service counts as training') this is a relevant counter-direction clause, not an irrelevant one."
+text_zh = "同属合同层的反向条款：AI Terms §3.1 授权用 AI Data（仅限已聚合、匿名化到无法识别客户与其用户）develop or improve Snowflake 的产品与服务。按 docs/judgment.md「用来改进服务算训练」的口径，这是与本档结论方向相反的相关条款。"
+anchor = "ai-terms-3-1-aggregated-anonymized-improvement"
+
+[[product.training.point]]
+text = "Second counter-direction clause, Customer Agreement layer: Snowflake may collect and use Usage Data to develop, improve, support, and operate its products and services."
+text_zh = "第二条反向条款，Customer Agreement 层：ToS §4.2 允许 Snowflake 收集并使用 Usage Data 做其产品与服务的 develop/improve/support/operate。"
+anchor = "tos-4-2-usage-data-develop-improve"
+
+[[product.training.point]]
+text = "The docs Legal notices table classifies the Input of Cortex AI Functions as Usage Data and the Output as Customer Data, so the §4.2 authorization reaches request content, not just telemetry."
+text_zh = "docs 侧 Legal notices 表把 Cortex AI Functions 的 Input 归为 Usage Data、Output 归为 Customer Data，故 §4.2 的授权落在请求内容上，而不只是遥测。"
+anchor = "aisql-input-usage-data-output-customer-data"
+
+[[product.training.point]]
+text = "Why these clauses do not flip the mark: AI Terms §1.4 provides that in the event of any conflict between the AI Terms and the Customer Agreement, the AI Terms control with respect to the subject matter herein, so for Covered AI Features §3.2 governs over §3.1 and over ToS §4.2. §3.1 is limited to AI Data aggregated and anonymized past identifiability, §4.2 to Usage Data for product development, while §3.2 is a direct prohibition on training models made available to other parties — which is why the conclusion is scoped to those models rather than read as a blanket commitment."
+text_zh = "为何这两条不翻转 mark：AI Terms §1.4 规定 AI Terms 与 Customer Agreement 冲突时以 AI Terms 为准，故对 Covered AI Features，§3.2 优先于 §3.1 与 ToS §4.2。§3.1 限于聚合匿名化到不可识别之后的 AI Data，§4.2 限于 Usage Data 的产品开发用途，而 §3.2 是对「训练对外提供给其他方使用的模型」的直接禁止——故结论限定到这一范围，而不是读成总承诺。"
+anchor = "ai-terms-1-4-ai-terms-control-conflicts"
+
+[[product.training.point]]
+text = "Plainest wording of the same commitment, one authority layer lower (enterprise_privacy_faq, below AI Terms): \"No, we do not use your Usage Data or Customer Data (in each case, including any Inputs or Outputs of Snowflake AI Features) to train any Model to be made available for use by other customers.\" Same scope — models made available to other customers."
+text_zh = "同一承诺在最直白的一处表述，来源层级为 enterprise_privacy_faq（低于 AI Terms）：「No, we do not use your Usage Data or Customer Data (in each case, including any Inputs or Outputs of Snowflake AI Features) to train any Model to be made available for use by other customers.」范围相同——对外提供给其他方使用的模型。"
+anchor = "aits-faq-no-training-on-usage-or-customer-data"
 
 [product.zdr]
 mark = "unknown"
@@ -104,7 +128,7 @@ searched = [
 text_zh = "同顶层 zdr：合同层与 docs 站均无 ZDR 选项/承诺/申请方式"
 
 [[product.zdr.point]]
-text_zh = "唯一 ZDR 字样在 Cortex Agents web search 的 Brave 上游（见 cortex-agents 档）。原绑的跨区文档「处理区域不落盘」讲的是区域级传输行为，既不构成零保留方案、也不构成「明示留存」，故本维度不绑锚点，按 searched 记未披露。"
+text_zh = "原绑的跨区文档「处理区域不落盘」讲的是区域级传输行为，既不构成零保留方案、也不构成「明示留存」，故本维度不绑锚点，按 searched 记未披露。曾提到的 Cortex Agents web search 上游（Brave）ZDR 表述出自本文件未声明、仓库也没有快照的页面，本轮已撤下（见 cortex-agents 档）。"
 
 [product.retention]
 object = "input_output"
@@ -123,15 +147,44 @@ text_zh = "账户侧 inputs/outputs/logs 加密落盘（blog）"
 [[product.retention.point]]
 text_zh = "无任何请求级通用期限。"
 
+[[product.retention.point]]
+text = "Quantified floor on a different object: Cloud Environment infrastructure logs (host-based intrusion detection and similar monitoring tools) are securely stored to prevent tampering for at least one year. Object = infrastructure logs, not inputs/outputs; type = floor. The same section separately describes Account user logs, which Snowflake makes available to Customer for the Customer's own preservation, so the two objects must not be merged."
+text_zh = "另一对象的量化下限：Cloud Environment 基础设施日志（主机入侵检测等监控工具）「securely stored to prevent tampering for at least one year」。对象 = 基础设施日志，不是输入输出正文；期限类型 = 下限。同页 §4.6.2 另述 Account 用户日志（Snowflake 捕获后交由客户自行保存），两者对象不同，不可合并。"
+anchor = "sec-4-6-1-infrastructure-logs-one-year"
+
+[[product.retention.point]]
+text = "Second quantified floor, again a different object: any logs Snowflake determines to be relevant to a Security Incident shall be preserved for at least one year. Object = security-incident-related logs; context = when a Security Incident occurs; type = floor. It does not change the conclusion that inputs/outputs are retained as needed, and it cannot be read backwards as 'everything is deleted after one year'."
+text_zh = "第二条量化下限，对象又不同：Snowflake 认定与安全事件相关的日志至少保留一年。对象 = 安全事件相关日志；语境 = 发生安全事件时；期限类型 = 下限。它不改变「输入输出按需保留」的结论，也不能反推成「一年后删除全部内容」。"
+anchor = "sec-7-2-incident-logs-preserved-one-year"
+
 [product.processing_region]
 codes = ["GLOBAL"]
+anchor = "cri-default-any-region-new-orgs-2026-03-09"
+
+[[product.processing_region.point]]
+text = "Why GLOBAL: for new accounts created in new organizations within commercial regions after March 9, 2026, ANY_REGION is the default value of CORTEX_ENABLED_CROSS_REGION, so inference requests can be processed in any Snowflake-supported region, across any cloud provider."
+text_zh = "为何记 GLOBAL：2026-03-09 之后在新组织、商业区域创建的账户，CORTEX_ENABLED_CROSS_REGION 默认 ANY_REGION，推理请求可在任意 Snowflake 支持的跨云区域处理。"
+anchor = "cri-default-any-region-new-orgs-2026-03-09"
+
+[[product.processing_region.point]]
+text = "Storage stays put while processing moves: your customer data remains stored only in the region where your account is located. codes=GLOBAL therefore describes the processing location of the inference payload, not the storage location of account data."
+text_zh = "存储不动、处理可动：客户数据只存在账户所在区域。因此 codes=GLOBAL 描述的是推理载荷的处理地，不是账户数据的存储地。"
+anchor = "cri-customer-data-stored-only-in-account-region"
+
+[[product.processing_region.point]]
+text = "What actually crosses the boundary: during cross-region inference the inference payload — the input prompt you send and the output response you receive — is transmitted transiently to the processing region for the duration of processing, and no customer data is persisted in the processing region."
+text_zh = "真正跨区的是推理载荷：处理期间只有输入提示与输出响应临时传输到处理区域，处理区域不持久化客户数据。"
+anchor = "cri-payload-transmitted-transiently-not-persisted"
+
+[[product.processing_region.point]]
+text = "Contract-layer limit kept alongside the above: once Customer has selected a Hosting Region, Snowflake will not Process Customer Personal Data from outside the Hosting Region except as reasonably necessary to provide the Snowflake Offerings procured by Customer, or as necessary to comply with the law or binding order of a governmental body. Cross-region inference falls under the 'reasonably necessary to provide the procured Offerings' exception."
+text_zh = "与上述事实并列保留的合同层限定：DPA §7.1 规定客户选定 Hosting Region 后不在区外处理 Customer Personal Data，例外为「为提供所购 Offering 所合理必需」或法律/政府强制令；跨区推理落在该例外之内。"
 anchor = "dpa-7-1-hosting-region-no-outside-processing"
 
 [[product.processing_region.point]]
-text_zh = "见顶层 processing_region：DPA §7.1 只托管在客户选定 Hosting Region、不在区外处理（例外为提供所购 Offering 所必需或法律要求）"
-
-[[product.processing_region.point]]
-text_zh = "实际路由由 CORTEX_ENABLED_CROSS_REGION 控制，新组织 2026-03-09 后默认 ANY_REGION。"
+text = "Upstream hop when frontier models are called: Claude (Anthropic on AWS Bedrock), GPT (Azure OpenAI) and Gemini (GCP) are served at the CSP-hosted frontier model endpoint instead of a Snowflake GPU cluster. Source level is official_blog — a discovery lead only; that hop's own ZDR has to be applied for separately and does not come together with Snowflake's."
+text_zh = "调用 frontier 模型时的上游跳：Claude（Anthropic on AWS Bedrock）、GPT（Azure OpenAI）、Gemini（GCP）在 CSP 托管端点上完成，而不是 Snowflake GPU 集群。来源层级为 official_blog，仅作发现线索；该跳的 ZDR 需各自申请，不自动与 Snowflake 同开。"
+anchor = "blog-frontier-models-run-on-csp-endpoints"
 
 [product.role]
 kind = "processor"
@@ -142,6 +195,10 @@ text_zh = "见顶层 role：DPA §3.1 自认 processor/子处理方（CCPA servi
 
 [[product.role.point]]
 text_zh = "账户/账单侧控制者身份来自隐私政策，属另一层。"
+
+[[product.role.point]]
+text = "Upstream hop that the role chain does not cover: when frontier models are called, inference terminates at the CSP-hosted frontier model endpoint (Claude on AWS Bedrock, GPT on Azure OpenAI, Gemini on GCP) rather than a Snowflake GPU cluster. The public text does not describe the role arrangement between Snowflake and those providers for that hop, so it is not read as a role determination here; source level is official_blog."
+text_zh = "角色链未覆盖的上游跳：调用 frontier 模型时推理在 CSP 托管端点完成（Claude on AWS Bedrock、GPT on Azure OpenAI、Gemini on GCP），而不是 Snowflake GPU 集群。公开文本未说明该跳上 Snowflake 与这些厂商的角色安排，故不据此作角色认定；来源层级为 official_blog。"
 
 [[product]]
 id = "cortex-agents"
@@ -155,7 +212,34 @@ anchor = "ai-terms-3-2-no-train-models-for-others"
 mode = "by_contract"
 
 [[product.training.point]]
-text_zh = "与 api 档同：Cortex Agents / Analyst / Search / CoWork 均属 AI Trust and Safety 页点名的 Snowflake AI Features，受 AI Terms §3.2 覆盖（含 Inputs 与 Outputs），无档位差异证据。"
+text = "Tier mapping and scope: Cortex Agents / Analyst / Search / CoWork are named on the AI Trust and Safety page as Snowflake AI Features, and AI Terms §6.4 defines Covered AI Features as the generally available Snowflake AI Features identified in the Documentation, so §3.2 applies to this tier with no evidence of a tier-level difference. But §3.2 only bars training of any Model that Snowflake makes available for use by other parties — that is the scope of this mark."
+text_zh = "档位映射与范围：Cortex Agents / Analyst / Search / CoWork 均属 AI Trust and Safety 页点名的 Snowflake AI Features，AI Terms §6.4 把 Covered AI Features 定为文档中列明的 GA「Snowflake AI Features」，故 §3.2 覆盖本档，无档位差异证据；但 §3.2 只禁止训练「Snowflake 对外提供给其他方使用的模型」，本档 mark=yes 按这个范围读。"
+anchor = "ai-terms-3-2-no-train-models-for-others"
+
+[[product.training.point]]
+text = "Clause pointing the other way in the same contract layer: Snowflake will only use AI Data that has been aggregated and anonymized, such that neither Customer nor its Users can be identified, to develop or improve Snowflake's products and services. Under docs/judgment.md ('using data to improve the service counts as training') this is a relevant counter-direction clause, not an irrelevant one."
+text_zh = "同属合同层的反向条款：AI Terms §3.1 授权用 AI Data（仅限已聚合、匿名化到无法识别客户与其用户）develop or improve Snowflake 的产品与服务。按 docs/judgment.md「用来改进服务算训练」的口径，这是与本档结论方向相反的相关条款。"
+anchor = "ai-terms-3-1-aggregated-anonymized-improvement"
+
+[[product.training.point]]
+text = "Second counter-direction clause, Customer Agreement layer: Snowflake may collect and use Usage Data to develop, improve, support, and operate its products and services."
+text_zh = "第二条反向条款，Customer Agreement 层：ToS §4.2 允许 Snowflake 收集并使用 Usage Data 做其产品与服务的 develop/improve/support/operate。"
+anchor = "tos-4-2-usage-data-develop-improve"
+
+[[product.training.point]]
+text = "The docs Legal notices table classifies the Input of Cortex AI Functions as Usage Data and the Output as Customer Data, so the §4.2 authorization reaches request content, not just telemetry."
+text_zh = "docs 侧 Legal notices 表把 Cortex AI Functions 的 Input 归为 Usage Data、Output 归为 Customer Data，故 §4.2 的授权落在请求内容上，而不只是遥测。"
+anchor = "aisql-input-usage-data-output-customer-data"
+
+[[product.training.point]]
+text = "Why these clauses do not flip the mark: AI Terms §1.4 provides that in the event of any conflict between the AI Terms and the Customer Agreement, the AI Terms control with respect to the subject matter herein, so for Covered AI Features §3.2 governs over §3.1 and over ToS §4.2. §3.1 is limited to AI Data aggregated and anonymized past identifiability, §4.2 to Usage Data for product development, while §3.2 is a direct prohibition on training models made available to other parties — which is why the conclusion is scoped to those models rather than read as a blanket commitment."
+text_zh = "为何这两条不翻转 mark：AI Terms §1.4 规定 AI Terms 与 Customer Agreement 冲突时以 AI Terms 为准，故对 Covered AI Features，§3.2 优先于 §3.1 与 ToS §4.2。§3.1 限于聚合匿名化到不可识别之后的 AI Data，§4.2 限于 Usage Data 的产品开发用途，而 §3.2 是对「训练对外提供给其他方使用的模型」的直接禁止——故结论限定到这一范围，而不是读成总承诺。"
+anchor = "ai-terms-1-4-ai-terms-control-conflicts"
+
+[[product.training.point]]
+text = "Plainest wording of the same commitment, one authority layer lower (enterprise_privacy_faq, below AI Terms): \"No, we do not use your Usage Data or Customer Data (in each case, including any Inputs or Outputs of Snowflake AI Features) to train any Model to be made available for use by other customers.\" Same scope — models made available to other customers."
+text_zh = "同一承诺在最直白的一处表述，来源层级为 enterprise_privacy_faq（低于 AI Terms）：「No, we do not use your Usage Data or Customer Data (in each case, including any Inputs or Outputs of Snowflake AI Features) to train any Model to be made available for use by other customers.」范围相同——对外提供给其他方使用的模型。"
+anchor = "aits-faq-no-training-on-usage-or-customer-data"
 
 [product.zdr]
 mark = "no"
@@ -169,14 +253,26 @@ searched = [
 anchor = "obs-agent-threads-logged-into-event-table"
 
 [[product.zdr.point]]
-text_zh = "本档没有任何「会话/提示/输出可零保留」的选项或承诺"
+text = "No zero-retention option or commitment is disclosed for this tier, and the tier states the opposite for conversation content: Cortex Agents deployed through the Agent API or Snowflake CoWork log conversation threads, turns, and execution spans automatically into SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS."
+text_zh = "本档没有任何「会话/提示/输出可零保留」的选项或承诺，方向相反的公开事实明示落表：经 Agent API 或 Snowflake CoWork 部署的 Cortex Agents 会把会话线程、轮次与执行跨度自动写入 SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS。"
+anchor = "obs-agent-threads-logged-into-event-table"
 
 [[product.zdr.point]]
-text_zh = "反而有三条相反方向的公开事实：会话线程持久化、会话与轮次自动写入观测事件表、web search 查询与结果离开 Snowflake 边界。唯一出现的 ZDR 是对上游子处理方 Brave 的局部承诺——docs 原文「Snowflake has enabled zero data retention (ZDR) with Brave: Brave does not store the search query text, the results returned, or any metadata associated with the request, for any length of time.」——它只说明 Brave 侧不存，且同一段先讲「the query and the results leave Snowflake and traverse the public internet」，不能推成 Cortex Agents 本身可零保留。按规则记 not_found。"
+text = "The thread messages themselves are persisted rather than transient — the Threads documentation refers to the persisted user message ID and the persisted assistant message ID, and long conversations are compacted into a summary message."
+text_zh = "会话线程消息本身是持久化的，不是临时对象：Threads 文档称消息为「persisted」（user 与 assistant 消息各有持久化 id），长会话还会写入 compaction 摘要。"
+anchor = "threads-messages-are-persisted"
+
+[[product.zdr.point]]
+text_zh = "结论范围：会话线程与观测数据明示落表、本档无 ZDR 选项或申请方式（合同层与 docs 站均未披露）。"
+
+[[product.zdr.point]]
+text_zh = "撤下：原依据里「web search 的查询与结果离开 Snowflake 边界」与「唯一 ZDR 字样在 Brave 上游」两句出自本文件未声明、仓库也没有快照的页面，本轮无法复核，故不作为本维度依据；要引用须先补 [[source]] 并由 bot 抓回快照。"
 
 [product.retention]
 object = "mixed"
-basis = "undisclosed"
+basis = "fixed_period"
+days = 180
+anchor = "blog-threads-default-180-days-retention"
 searched = [
   "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-manage",
   "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-threads",
@@ -186,36 +282,88 @@ searched = [
 ]
 
 [[product.retention.point]]
-text_zh = "本档比 api 档多两类落盘对象：(1) 会话线程本身持久化——Threads 文档称消息是「persisted」的（user 与 assistant 消息都有持久化 id），长会话还会写入 compaction 摘要"
+text = "Object: the Cortex Threads conversation content itself — default 180 days, reducible via account parameter; a default value, not a ceiling. Authority note: this figure appears only in the official engineering blog, i.e. the official_blog layer, the lowest in this ledger, so it is recorded as a lead rather than as a contract-layer period; the developer docs only confirm that the messages are persisted and state no duration. The contract layer (DPA §3.5(e)) is what makes the period customer-configurable."
+text_zh = "对象：Cortex Threads 的会话内容本身——默认 180 天，可用账户参数调低；是默认值不是上限。权威层级说明：该天数只出现在官方工程博客，即 official_blog（本台账最低层），按线索记录而不作合同层期限；developer docs 只证消息是 persisted 的，未写时长。合同层 DPA §3.5(e) 才是「期限由客户配置决定」的权威。"
+anchor = "blog-threads-default-180-days-retention"
 
 [[product.retention.point]]
-text_zh = "官方 blog 称 Threads「configurable retention (default 180 days, reducible via account parameter)」，但**该天数只有 blog 一处，docs 未写**，故置信度 medium，天数按线索记录而不作为权威期限。(2) 观测数据——Cortex Agents 经 Agent API 或 CoWork 部署时会自动把会话线程、轮次与执行跨度写入 SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS"
+text = "Object: the observability tables. Cortex Agents deployed through the Agent API or Snowflake CoWork log conversation threads, turns, and execution spans automatically into SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS; no retention period is stated for those tables."
+text_zh = "对象：观测表。经 Agent API 或 Snowflake CoWork 部署的 Cortex Agents 会把会话线程、轮次与执行跨度自动写入 SNOWFLAKE.LOCAL.AI_OBSERVABILITY_EVENTS；这些表没有公布保留期限。"
+anchor = "obs-agent-threads-logged-into-event-table"
 
 [[product.retention.point]]
-text_zh = "Cortex Analyst 的请求与响应遥测写入 SNOWFLAKE.LOCAL.CORTEX_ANALYST_REQUESTS_RAW"
+text = "Object: Cortex Analyst request and response telemetry, stored in SNOWFLAKE.LOCAL.CORTEX_ANALYST_REQUESTS_RAW rather than in the shared event table; no retention period is stated for it either."
+text_zh = "对象：Cortex Analyst 的请求与响应遥测，写在 SNOWFLAKE.LOCAL.CORTEX_ANALYST_REQUESTS_RAW 而不是共享事件表；同样没有公布保留期限。"
+anchor = "obs-analyst-raw-request-response-table"
 
 [[product.retention.point]]
-text_zh = "Cortex Search 开启 REQUEST_LOGGING 后每请求一行。这些表内数据不可修改，删除需 SNOWFLAKE.AI_OBSERVABILITY_ADMIN 应用角色。合同层的保留期与删除规则同 api 档（DPA §3.5(e)、ToS §7.3、Security Addendum §8.2）。"
+text = "Contract layer, object = Customer Personal Data: the period for which Customer Personal Data will be retained and the criteria used to determine that period is determined by Customer via use and configuration of the Service (DPA §3.5(e)); after termination there is a 30-day retrieval window (ToS §7.3), and then remaining Customer Data is promptly deleted (Security Addendum §8.2)."
+text_zh = "合同层，对象 = Customer Personal Data：保留期与判定标准由客户通过服务使用与配置决定（DPA §3.5(e)）；终止后 30 天取回期（ToS §7.3），之后及时删除剩余 Customer Data（Security Addendum §8.2）。"
+anchor = "dpa-3-5-e-retention-period-set-by-customer"
+
+[[product.retention.point]]
+text = "Object: the inference payload (input prompt and output response). Not persisted in the processing region — it is transmitted transiently for the duration of processing only."
+text_zh = "对象：推理载荷（输入提示与输出响应）。处理区域不落盘，只在处理期间临时传输。"
+anchor = "cri-payload-transmitted-transiently-not-persisted"
+
+[[product.retention.point]]
+text = "Quantified floor on a different object: Cloud Environment infrastructure logs (host-based intrusion detection and similar monitoring tools) are securely stored to prevent tampering for at least one year. Object = infrastructure logs, not inputs/outputs; type = floor. The same section separately describes Account user logs, which Snowflake makes available to Customer for the Customer's own preservation, so the two objects must not be merged."
+text_zh = "另一对象的量化下限：Cloud Environment 基础设施日志（主机入侵检测等监控工具）「securely stored to prevent tampering for at least one year」。对象 = 基础设施日志，不是输入输出正文；期限类型 = 下限。同页 §4.6.2 另述 Account 用户日志（Snowflake 捕获后交由客户自行保存），两者对象不同，不可合并。"
+anchor = "sec-4-6-1-infrastructure-logs-one-year"
+
+[[product.retention.point]]
+text = "Second quantified floor, again a different object: any logs Snowflake determines to be relevant to a Security Incident shall be preserved for at least one year. Object = security-incident-related logs; context = when a Security Incident occurs; type = floor. It does not change the conclusion that inputs/outputs are retained as needed, and it cannot be read backwards as 'everything is deleted after one year'."
+text_zh = "第二条量化下限，对象又不同：Snowflake 认定与安全事件相关的日志至少保留一年。对象 = 安全事件相关日志；语境 = 发生安全事件时；期限类型 = 下限。它不改变「输入输出按需保留」的结论，也不能反推成「一年后删除全部内容」。"
+anchor = "sec-7-2-incident-logs-preserved-one-year"
 
 [product.processing_region]
 codes = ["GLOBAL"]
+anchor = "cri-default-any-region-new-orgs-2026-03-09"
+
+[[product.processing_region.point]]
+text = "Why GLOBAL: for new accounts created in new organizations within commercial regions after March 9, 2026, ANY_REGION is the default value of CORTEX_ENABLED_CROSS_REGION, so inference requests can be processed in any Snowflake-supported region, across any cloud provider."
+text_zh = "为何记 GLOBAL：2026-03-09 之后在新组织、商业区域创建的账户，CORTEX_ENABLED_CROSS_REGION 默认 ANY_REGION，推理请求可在任意 Snowflake 支持的跨云区域处理。"
+anchor = "cri-default-any-region-new-orgs-2026-03-09"
+
+[[product.processing_region.point]]
+text = "Storage stays put while processing moves: your customer data remains stored only in the region where your account is located. codes=GLOBAL therefore describes the processing location of the inference payload, not the storage location of account data."
+text_zh = "存储不动、处理可动：客户数据只存在账户所在区域。因此 codes=GLOBAL 描述的是推理载荷的处理地，不是账户数据的存储地。"
+anchor = "cri-customer-data-stored-only-in-account-region"
+
+[[product.processing_region.point]]
+text = "What actually crosses the boundary: during cross-region inference the inference payload — the input prompt you send and the output response you receive — is transmitted transiently to the processing region for the duration of processing, and no customer data is persisted in the processing region."
+text_zh = "真正跨区的是推理载荷：处理期间只有输入提示与输出响应临时传输到处理区域，处理区域不持久化客户数据。"
+anchor = "cri-payload-transmitted-transiently-not-persisted"
+
+[[product.processing_region.point]]
+text = "Contract-layer limit kept alongside the above: once Customer has selected a Hosting Region, Snowflake will not Process Customer Personal Data from outside the Hosting Region except as reasonably necessary to provide the Snowflake Offerings procured by Customer, or as necessary to comply with the law or binding order of a governmental body. Cross-region inference falls under the 'reasonably necessary to provide the procured Offerings' exception."
+text_zh = "与上述事实并列保留的合同层限定：DPA §7.1 规定客户选定 Hosting Region 后不在区外处理 Customer Personal Data，例外为「为提供所购 Offering 所合理必需」或法律/政府强制令；跨区推理落在该例外之内。"
 anchor = "dpa-7-1-hosting-region-no-outside-processing"
 
 [[product.processing_region.point]]
-text_zh = "与 api 档同受 DPA §7.1 与 CORTEX_ENABLED_CROSS_REGION 约束（docs 称 Cortex Agents 支持跨区推理，且 Cortex Agents 页面同标 PRC 不可用）。本档额外有一个**出 Snowflake 边界**的工具例外：Cortex Agents 的 web search 使用 Brave Web Search API，「Note that the query and the results leave Snowflake and traverse the public internet.」——这是本台账里 Cortex 唯一明示数据离开 Snowflake 边界的路径，必须单独记"
+text = "Upstream hop when frontier models are called: Claude (Anthropic on AWS Bedrock), GPT (Azure OpenAI) and Gemini (GCP) are served at the CSP-hosted frontier model endpoint instead of a Snowflake GPU cluster. Source level is official_blog — a discovery lead only; that hop's own ZDR has to be applied for separately and does not come together with Snowflake's."
+text_zh = "调用 frontier 模型时的上游跳：Claude（Anthropic on AWS Bedrock）、GPT（Azure OpenAI）、Gemini（GCP）在 CSP 托管端点上完成，而不是 Snowflake GPU 集群。来源层级为 official_blog，仅作发现线索；该跳的 ZDR 需各自申请，不自动与 Snowflake 同开。"
+anchor = "blog-frontier-models-run-on-csp-endpoints"
 
 [[product.processing_region.point]]
-text_zh = "官方对该跳只给了 Brave 侧的 ZDR，未给该跳的处理地域承诺。"
+text_zh = "撤下：原 point 里「web search 的查询与结果离开 Snowflake 走公网」与「Cortex Agents 页面同标 PRC 不可用」两条出自本文件未声明、仓库也没有快照的页面，本轮无法复核，故不作为本维度依据；要引用须先补 [[source]] 并由 bot 抓回快照。"
 
 [product.role]
 kind = "processor"
 anchor = "dpa-3-1-snowflake-only-data-processor"
 
 [[product.role.point]]
-text_zh = "主体角色同 api 档（processor，Usage Data 例外为控制者）。本档的不确定性在**上游跳**：web search 的 Brave 未被列入子处理方页，官方只说明它不存查询与结果，未说明 Snowflake 与 Brave 之间的角色安排"
+text_zh = "主体角色同 api 档（processor，Usage Data 例外为控制者）。本档的不确定性在**上游跳**：Cortex Agents 的工具链会调用第三方服务（web search 等），公开文本未说明 Snowflake 与这些第三方之间的角色安排，故不据此推下游角色。"
 
 [[product.role.point]]
-text_zh = "AI Terms §5.1 规定 Pass-Through Terms 不改变 Snowflake 在 AI Terms 下的义务，但 Brave 不在 Pass-Through Terms 名单内。故对「agent 工具链上的第三方」角色，公开文本无答案。"
+text_zh = "AI Terms §5.1 规定第三方 Pass-Through Terms 不改变 Snowflake 在 AI Terms 下的义务，但该条只说明 Pass-Through Terms 的效力，不回答工具链上第三方的角色。故对「agent 工具链上的第三方」角色，公开文本无答案。"
+
+[[product.role.point]]
+text = "Upstream hop the role chain does not cover: when frontier models are called, inference terminates at the CSP-hosted frontier model endpoint (Claude on AWS Bedrock, GPT on Azure OpenAI, Gemini on GCP) rather than a Snowflake GPU cluster. The public text does not describe the role arrangement between Snowflake and those providers for that hop, so it is not read as a role determination here; source level is official_blog."
+text_zh = "角色链未覆盖的上游跳：调用 frontier 模型时推理在 CSP 托管端点完成（Claude on AWS Bedrock、GPT on Azure OpenAI、Gemini on GCP），而不是 Snowflake GPU 集群。公开文本未说明该跳上 Snowflake 与这些厂商的角色安排，故不据此作角色认定；来源层级为 official_blog。"
+
+[[product.role.point]]
+text_zh = "撤下：原依据里「web search 使用 Brave Web Search API」「查询与结果离开 Snowflake 边界」「Brave 不在 Pass-Through Terms 名单内」等表述出自本文件未声明、仓库也没有快照的页面，本轮无法复核，故不作为本维度依据；要引用须先补 [[source]] 并由 bot 抓回快照。"
 
 [[product]]
 id = "preview-ai-features"
@@ -307,6 +455,10 @@ searched = [
 [[product.training.point]]
 text_zh = "BYO 档结论：AI Features 的「不用于训练对外提供的模型」承诺**不适用于客户自带模型**——官方 FAQ「Any models (including third-party models) that you bring into your Service account (for example, using Snowpark Container Services) in accordance with the Documentation are treated as Customer Data and are not considered part of the Service.」模型本身被当作 Customer Data，适用客户数据的一般权利义务（ToS §2.1 的有限处理授权、DPA §3.1 的 processor 角色），而不是 AI Terms 的 AI Features 条款。Snowflake 是否可能读到这些模型的内容，取决于客户数据侧的通用条款与支持访问政策，不是本档的 AI 专属承诺。"
 
+[[product.training.point]]
+text = "Relation to the AI Trust FAQ's no-training answer: that page is about Snowflake AI Features throughout (the bullet list sits under 'USE OF YOUR DATA FOR SNOWFLAKE AI FEATURES'), and the FAQ answer's subject is 'your Usage Data or Customer Data', while the same page treats models the customer brings in as Customer Data and 'not considered part of the Service'. The commitment therefore attaches to data processed by Snowflake AI Features; a BYO model and its own inputs/outputs are outside that scope. So the mark stays unknown and is not flipped either way: the sentence is not read as a no-training commitment for this tier (the scope does not match), and its existence is not read as 'training happens'. Should it be used to flip the mark later, it must be anchored and labelled enterprise_privacy_faq (below AI Terms)."
+text_zh = "与 AI Trust FAQ 那句「不训练对外提供的模型」的关系：该页通篇讲 Snowflake AI Features（不训练那组 bullet 挂在「USE OF YOUR DATA FOR SNOWFLAKE AI FEATURES」小节下），FAQ 回答的主语是「your Usage Data or Customer Data」，而同一页又把客户自带模型界定为 Customer Data、且「not considered part of the Service」——即该承诺挂在 Snowflake AI Features 处理的数据上，自带模型本身与其输入输出不在其列。故本档仍记 unknown，两个方向都不据此改判：既不把该句当作本档的不训练承诺（范围对不上），也不因它存在就记成「会训练」。若日后据此改判，须绑该 FAQ 锚点并注明来源层级为 enterprise_privacy_faq（低于 AI Terms）。"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -329,12 +481,23 @@ anchor = "dpa-3-5-e-retention-period-set-by-customer"
 [[product.retention.point]]
 text_zh = "BYO 档结论：按**客户数据**的通用保留规则处理（DPA §3.5(e) 保留期由客户配置决定；ToS §7.3 终止后 30 天取回期；Security Addendum §8.2 之后及时删除），不适用 Cortex AI Features 的任何专门说明（跨区推理载荷不落盘、Threads 保留等都不适用于该档）。客户在 Snowpark Container Services 里自己控制的存储与日志，保留期由客户自己的实现决定。"
 
+[[product.retention.point]]
+text = "Quantified floor on a different object: Cloud Environment infrastructure logs (host-based intrusion detection and similar monitoring tools) are securely stored to prevent tampering for at least one year. Object = infrastructure logs, not inputs/outputs; type = floor. The same section separately describes Account user logs, which Snowflake makes available to Customer for the Customer's own preservation, so the two objects must not be merged."
+text_zh = "另一对象的量化下限：Cloud Environment 基础设施日志（主机入侵检测等监控工具）「securely stored to prevent tampering for at least one year」。对象 = 基础设施日志，不是输入输出正文；期限类型 = 下限。同页 §4.6.2 另述 Account 用户日志（Snowflake 捕获后交由客户自行保存），两者对象不同，不可合并。"
+anchor = "sec-4-6-1-infrastructure-logs-one-year"
+
+[[product.retention.point]]
+text = "Second quantified floor, again a different object: any logs Snowflake determines to be relevant to a Security Incident shall be preserved for at least one year. Object = security-incident-related logs; context = when a Security Incident occurs; type = floor. It does not change the conclusion that inputs/outputs are retained as needed, and it cannot be read backwards as 'everything is deleted after one year'."
+text_zh = "第二条量化下限，对象又不同：Snowflake 认定与安全事件相关的日志至少保留一年。对象 = 安全事件相关日志；语境 = 发生安全事件时；期限类型 = 下限。它不改变「输入输出按需保留」的结论，也不能反推成「一年后删除全部内容」。"
+anchor = "sec-7-2-incident-logs-preserved-one-year"
+
 [product.processing_region]
-codes = ["GLOBAL"]
+codes = ["selected"]
 anchor = "dpa-7-1-hosting-region-no-outside-processing"
 
 [[product.processing_region.point]]
-text_zh = "BYO 档结论：按 Customer Data 适用 DPA §7.1 的 Hosting Region 承诺（只在客户选定区域托管，区外处理的例外为提供所购 Offering 所必需或法律要求）。注意 Snowpark Container Services 本身的跨区部署/复制能力不在本次核实的公开条款范围内，未核。"
+text = "BYO tier conclusion: the only processing-location commitment that applies is the Customer Data rule in DPA §7.1 — once Customer has selected a Hosting Region, Snowflake will not Process Customer Personal Data from outside the Hosting Region except as reasonably necessary to provide the Snowflake Offerings procured by Customer, or as necessary to comply with the law or binding order of a governmental body. Hence codes=selected: the region is the one the customer picks, not global."
+text_zh = "BYO 档结论：本档唯一适用的处理地承诺是 Customer Data 侧的 DPA §7.1——客户选定 Hosting Region 后不在区外处理 Customer Personal Data，例外为提供所购 Offering 所必需或法律要求。故 codes=selected：地域由客户选定，不是全球。"
 
 [product.role]
 kind = "processor"
@@ -551,6 +714,16 @@ suffix = """
 """
 
 [[anchor]]
+id = "sec-4-6-1-infrastructure-logs-one-year"
+source_id = "08d748084799f022"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**4.6.1. Infrastructure Logs.** Monitoring tools or services, such as host-based intrusion detection tools, are utilized to log certain activities and changes within the Cloud Environment. "
+exact = "These logs are further monitored, analyzed for anomalies, and are securely stored to prevent tampering for at least one year."
+suffix = " **4.6.2. User Logs.** As further described in the Documentation, Snowflake also captures logs"
+
+[[anchor]]
 id = "preview-may-use-info-for-product-improvement"
 source_id = "905e137bb618f030"
 topics = ["training"]
@@ -741,6 +914,16 @@ nation |
 | Usage Data | Customer Data | """
 exact = "Generally available functions are Covered AI Features. Preview functions are Preview AI Features."
 suffix = " [[1]](https://docs.snowflake.com/en/user-guide/snowflake-co"
+
+[[anchor]]
+id = "aisql-input-usage-data-output-customer-data"
+source_id = "2019f23ce3243c86"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "## Legal notices¶ "
+exact = "The data classification of inputs and outputs are as set forth in the following table. | Input data classification | Output data classification | Designation | | Usage Data | Customer Data |"
+suffix = ""
 
 [[anchor]]
 id = "threads-messages-are-persisted"

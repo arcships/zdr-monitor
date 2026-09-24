@@ -20,6 +20,18 @@ channel = "contract"
 tier = "core"
 note = "Google 消费者服务条款(合同相对方 Google LLC)。只用于消费档(code-assist-personal 停服前条款体系、antigravity-consumer)的 role;不适用于 Gemini Developer API(后者由 Google APIs ToS + Gemini API Additional Terms 管辖)。"
 
+[[source]]
+url = "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance"
+channel = "enterprise_privacy_faq"
+tier = "core"
+note = "Gemini Code Assist Standard/Enterprise 官方隐私说明(Security, privacy, and compliance for Gemini Code Assist Standard and Enterprise,即 CLI 页逐档指定的 Gemini Code Assist Privacy Notices for Standard and Enterprise)。本产品线 Standard/Enterprise 两档留存(第 65 行 stateless/不存储)、处理地(第 82 行全球 Google Edge Network)、角色(第 88 行对全部 Customer Data 为 data processor)三条产品级正面表述的主证据;个人档(已停服)仅作查阅范围。"
+
+[[source]]
+url = "https://policies.google.com/privacy?hl=en&gl=ie"
+channel = "consumer_privacy"
+tier = "core"
+note = "Google 消费者隐私政策(EEA/瑞士版,渲染出 Data controller 段)。只用于 code-assist-personal 停服前条款体系的 role(控制者按所在地指定);其 Data transfers 段的「服务器遍布全球」是通用政策表述,不构成本产品线各档的处理地承诺。"
+
 [[product]]
 id = "code-assist-personal"
 badge = "Code Assist"
@@ -43,6 +55,16 @@ anchor = "training-gca-individuals-collected"
 
 [[product.training.point]]
 text_zh = "仍在线的官方 Gemini CLI 文档逐档写明:个人 Google 账号登录 Gemini Code Assist for individuals 时「prompts, answers, and related code are collected and may be used to improve Google's products, including for model training」,且其链接指向的 individuals 隐私声明 URL 现已变成停用公告页。旧记录据快照记的「默认收集并可用于训练 + 可 opt out」无法用现行原文复核。"
+
+[[product.training.point]]
+text = "Contract layer (the consumer Google Terms of Service that governed this tier before it shut down): the content licence is granted for the limited purpose of operating and improving the services. Under this ledger rule, using content to improve the service counts as training, so this is an independent line of evidence pointing the same way as the CLI page."
+text_zh = "合同层(本档停服前适用的 Google 消费者服务条款):用户内容的许可目的之一是「operating and improving the services」——按本台账口径「用于改进服务」即算训练,是个人档 training=no 的独立同向依据,与 CLI 页第 43 行的表述并列。口径优先级 contract > developer_data;该条款只适用本档,不得外推到 Standard/Enterprise 档。"
+anchor = "training-google-tos-license-operating-improving"
+
+[[product.training.point]]
+text = "The same licence also covers developing new technologies and services for Google, again at the contract layer and not limited to operating this service."
+text_zh = "同一许可还覆盖为 Google「developing new technologies and services」,同属合同层,且不限于本服务自身的运营与改进。"
+anchor = "training-google-tos-license-new-technologies"
 
 [product.zdr]
 mark = "unknown"
@@ -79,12 +101,27 @@ searched = [
   "https://developers.google.com/gemini-code-assist/resources/privacy-notices",
 ]
 
+[[product.processing_region.point]]
+text = "Why the searched pages do not yield a verdict for this tier: Google's general Privacy Policy (listed in searched, and declared in this file as a source for the role dimension) says Google maintains servers around the world and that information may be processed on servers outside the country where you live, but that is a generic consumer-policy statement and it does not name Gemini Code Assist for individuals, so it cannot stand in for this product's processing-region commitment. This tier's own privacy notice was withdrawn when the tier shut down on June 18, 2026, so the processing region for this tier is still recorded as undisclosed rather than read off the general policy."
+text_zh = "为何查过的页面都下不了结论:通用 Google 隐私政策(已在 searched 内,本文件因 role 维度把它登记为来源)写明服务器遍布全球、信息可能在所在国以外处理,但这是消费者通用政策表述,不点名 Gemini Code Assist for individuals,不能代替本产品的处理地承诺;本档原隐私声明已随 2026-06-18 停服撤下(其 URL 现为停用公告页),故本档处理地仍记为未表态。"
+
 [product.role]
 kind = "controller"
 anchor = "role-google-llc-service-provider"
 
 [[product.role.point]]
-text_zh = "停服前该档的 ToS 为消费者 Google Terms of Service(由仍在线的 Gemini CLI 官方文档逐档列明),合同相对方 Google LLC,数据控制者按所在地指定(EEA/瑞士=Google Ireland Limited,UK=Google LLC)。注意:档位已停服,此为停服前条款体系的现行 URL,不是该产品现行条款。"
+text = "Before this tier was shut down its terms were the consumer Google Terms of Service, listed per tier by the still-live Gemini CLI documentation. The anchored sentence proves only that the contracting entity is Google LLC; the section heading Service provider there means the entity providing the service, not a data-protection processor."
+text_zh = "停服前该档的 ToS 为消费者 Google Terms of Service(由仍在线的 Gemini CLI 官方文档逐档列明)。本档 role 绑定的原文只证明合同相对方是 Google LLC——该节标题「Service provider」在消费者条款里指「服务提供方」,不是数据保护法意义上的处理者。"
+
+[[product.role.point]]
+text = "Which Google entity processes your information follows the country associated with your account: Google Ireland Limited for the EEA or Switzerland, Google LLC for the UK. The sentence says which entity processes your information but carries no controller or processor wording, so it is recorded as corroboration and not as the role determination. This tier is shut down: these are the current URLs of the pre-shutdown terms, not the tier's current terms."
+text_zh = "由哪个 Google 实体处理你的信息,按账号关联的国家/地区确定(EEA/瑞士=Google Ireland Limited,UK=Google LLC)——这是消费者条款里唯一涉及该问题的表述,与 role 同向,但只有「处理你信息的 Google 实体」字样,不含 controller/processor,故记为佐证而不作为角色判定。注意:档位已停服,此为停服前条款体系的现行 URL,不是该产品现行条款。"
+anchor = "role-google-affiliate-by-country"
+
+[[product.role.point]]
+text = "The controller determination rests on Google's Privacy Policy: the data controller responsible for processing your information depends on where you are based — Google Ireland Limited for the EEA or Switzerland, Google LLC for the UK. That clause is qualified by unless otherwise stated in a service-specific privacy notice, and this tier's own privacy notice was withdrawn with the June 18, 2026 shutdown, so the general policy designation is what is recorded here."
+text_zh = "判为 controller 的依据是 Google 隐私政策:数据控制者按你所在的国家/地区指定(EEA/瑞士=Google Ireland Limited,UK=Google LLC)。该条带「除非服务特定隐私声明另有规定」的限定;本档自己的隐私声明已随 2026-06-18 停服撤下,故此处按通用政策的指定记录。"
+anchor = "role-controller-by-location"
 
 [[product]]
 id = "code-assist-standard"
@@ -102,23 +139,76 @@ anchor = "training-gca-standard-enterprise"
 text_zh = "官方文档对 Standard/Enterprise 合并说明：提示词、回答和相关代码不被收集，也不用于模型训练。"
 
 [product.zdr]
-mark = "unknown"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+mark = "yes"
+mode = "default"
+anchor = "gca-standard-enterprise-stateless"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.zdr.point]]
+text = "The tier's privacy notice makes this a default, not an option: the service is stateless and does not store prompts and responses in Google Cloud, so zero retention holds without an opt-in or an application. The only storage path is one the customer turns on in their own project (Cloud Logging; see retention). The page never uses the term zero data retention, so the verdict rests on the default no-storage statement rather than on a named ZDR programme."
+text_zh = "本档隐私说明写的是默认而非可选项:服务 stateless、不在 Google Cloud 存储 prompts 与 responses,故零保留无需自助开通、也不必申请;唯一的存储路径是客户在自己项目里自行开启的 Cloud Logging(见 retention 维度)。该页通篇没有 ZDR/零数据保留字样,本条依据的是「默认不存储」这一层,不是有名有实的 ZDR 承诺。"
+
+[[product.zdr.point]]
+text = "Human access caveat: Gemini Code Assist Standard and Enterprise engineers have access to telemetry data to help with continual product improvements. Telemetry belongs to Service Data and excludes request and response content, so this does not reopen retention of inputs and outputs; it is recorded so that zero retention is not read as no one at the vendor ever seeing any collected data."
+text_zh = "人工访问的限定条件:厂商工程师可为产品改进访问遥测数据。遥测属 Service Data、不含请求与回答正文,故不推翻输入输出不落地这一层;记在此处是为了避免把「零保留」读成厂商侧任何人都看不到任何已收集数据。"
+anchor = "gca-standard-enterprise-engineers-telemetry"
 
 [product.retention]
-mark = "unknown"
 object = "input_output"
-basis = "undisclosed"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+basis = "none"
+anchor = "gca-standard-enterprise-stateless"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.retention.point]]
+text = "Default is no storage and the only storage path is customer-side: the service is stateless and does not store prompts and responses in Google Cloud, and if required the customer can set up Gemini Code Assist Standard and Enterprise to store user input and responses in a Cloud Logging bucket. That bucket sits in the customer's own project, so it is not retention performed by the service and not the vendor's default."
+text_zh = "默认不落地,唯一的存储路径在客户侧:服务 stateless、不在 Google Cloud 存 prompts 与 responses;如客户需要,可以自行把 user input and responses 存进 Cloud Logging bucket。该 bucket 在客户自己的项目里,不属于服务侧的留存,也不是厂商的默认行为。"
+anchor = "gca-standard-enterprise-cloud-logging"
+
+[[product.retention.point]]
+text = "Object split: Customer Data (prompt data, response data, additional context) is the object this verdict covers. Service Data is a different object — user analytics, telemetry data and Google feedback — and a telemetry event indicates that a request was made but not the contents of the request, so Service Data is not retention of request or response content."
+text_zh = "对象划分:本条覆盖的对象是 Customer Data(提示词、回答、附加上下文);Service Data 是另一类对象(用户分析、遥测数据、Google 反馈),其中遥测事件只表示「发过一次请求」而不含请求正文,故不属于请求/回答正文的留存。"
+anchor = "gca-standard-enterprise-telemetry-no-request-content"
+
+[[product.retention.point]]
+text = "Contract layer: this page defines Customer Data by reference to the Google Cloud Terms of Service and points to the Cloud Data Processing Addendum (Customers) for how Customer Data is processed and protected. The addendum's own retention terms are outside this snapshot, so no contract-layer period is recorded here — only the page's default no-storage statement."
+text_zh = "合同层:本页把 Customer Data 的定义指向 Google Cloud Terms of Service,并把 Customer Data 的处理与保护指向 Cloud Data Processing Addendum(Customers)。该 DPA 的存续期条款不在本次快照内,故此处不记合同层期限,只记页面给出的「默认不落地」。"
+anchor = "gca-standard-enterprise-cloud-dpa"
 
 [product.processing_region]
-mark = "unknown"
-codes = ["unknown"]
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+codes = ["global"]
+anchor = "gca-standard-enterprise-region-edge-network"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.processing_region.point]]
+text = "Positive disclosure of where processing happens: Gemini Code Assist Standard and Enterprise use the global Google Edge Network to receive data for processing, processing typically occurs at the data center closest to the request's geographic origin, but regionality is not guaranteed. Recorded as global on that disclosure, which comes from the Standard/Enterprise privacy notice rather than from the CLI page."
+text_zh = "处理地的正面披露:数据经全球 Google Edge Network 接收处理,通常在离请求地理起点最近的数据中心执行,但不保证区域驻留。据该披露记 global;这条出自 Standard/Enterprise 官方隐私说明,CLI 页对本档处理地没有表述。"
 
 [product.role]
-kind = "unknown"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+kind = "processor"
+anchor = "gca-standard-enterprise-processor"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.role.point]]
+text = "Scope of the processor role: Customer Data here means prompt data (developer queries), response data and additional context such as conversation history, snippets of open files and cursor location; the tier acts as a data processor for all Customer Data. Google also acts as a data controller for information such as billing and account management and abuse detections, so the processor role does not cover the whole relationship."
+text_zh = "processor 角色的适用范围:本档的 Customer Data 指提示词(开发者查询)、回答,以及会话历史、IDE 中打开文件片段、光标位置等附加上下文;对这些数据本档是 data processor。计费、账号管理与滥用检测等信息 Google 另为 data controller,故 processor 不覆盖全部关系。"
+anchor = "gca-standard-enterprise-customer-data-scope"
+
+[[product.role.point]]
+text = "Contract layer: the still-live Gemini CLI documentation lists this tier's Terms of Service as the Google Cloud Platform Terms of Service, so the processor position sits on the GCP contract stack (GCP Terms of Service and the Cloud Data Processing Addendum) rather than on consumer terms."
+text_zh = "合同层:仍在线的 Gemini CLI 官方文档逐档列明本档适用的 Terms of Service 是 Google Cloud Platform Terms of Service,故本档的受托地位落在 GCP 合同层(GCP ToS + Cloud Data Processing Addendum)上,而不是消费者条款。"
+anchor = "role-gca-standard-enterprise-gcp-tos"
 
 [[product]]
 id = "code-assist-enterprise"
@@ -136,23 +226,76 @@ anchor = "training-gca-standard-enterprise"
 text_zh = "官方文档对 Standard/Enterprise 合并说明：提示词、回答和相关代码不被收集，也不用于模型训练。"
 
 [product.zdr]
-mark = "unknown"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+mark = "yes"
+mode = "default"
+anchor = "gca-standard-enterprise-stateless"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.zdr.point]]
+text = "The tier's privacy notice makes this a default, not an option: the service is stateless and does not store prompts and responses in Google Cloud, so zero retention holds without an opt-in or an application. The only storage path is one the customer turns on in their own project (Cloud Logging; see retention). The page never uses the term zero data retention, so the verdict rests on the default no-storage statement rather than on a named ZDR programme."
+text_zh = "本档隐私说明写的是默认而非可选项:服务 stateless、不在 Google Cloud 存储 prompts 与 responses,故零保留无需自助开通、也不必申请;唯一的存储路径是客户在自己项目里自行开启的 Cloud Logging(见 retention 维度)。该页通篇没有 ZDR/零数据保留字样,本条依据的是「默认不存储」这一层,不是有名有实的 ZDR 承诺。"
+
+[[product.zdr.point]]
+text = "Human access caveat: Gemini Code Assist Standard and Enterprise engineers have access to telemetry data to help with continual product improvements. Telemetry belongs to Service Data and excludes request and response content, so this does not reopen retention of inputs and outputs; it is recorded so that zero retention is not read as no one at the vendor ever seeing any collected data."
+text_zh = "人工访问的限定条件:厂商工程师可为产品改进访问遥测数据。遥测属 Service Data、不含请求与回答正文,故不推翻输入输出不落地这一层;记在此处是为了避免把「零保留」读成厂商侧任何人都看不到任何已收集数据。"
+anchor = "gca-standard-enterprise-engineers-telemetry"
 
 [product.retention]
-mark = "unknown"
 object = "input_output"
-basis = "undisclosed"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+basis = "none"
+anchor = "gca-standard-enterprise-stateless"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.retention.point]]
+text = "Default is no storage and the only storage path is customer-side: the service is stateless and does not store prompts and responses in Google Cloud, and if required the customer can set up Gemini Code Assist Standard and Enterprise to store user input and responses in a Cloud Logging bucket. That bucket sits in the customer's own project, so it is not retention performed by the service and not the vendor's default."
+text_zh = "默认不落地,唯一的存储路径在客户侧:服务 stateless、不在 Google Cloud 存 prompts 与 responses;如客户需要,可以自行把 user input and responses 存进 Cloud Logging bucket。该 bucket 在客户自己的项目里,不属于服务侧的留存,也不是厂商的默认行为。"
+anchor = "gca-standard-enterprise-cloud-logging"
+
+[[product.retention.point]]
+text = "Object split: Customer Data (prompt data, response data, additional context) is the object this verdict covers. Service Data is a different object — user analytics, telemetry data and Google feedback — and a telemetry event indicates that a request was made but not the contents of the request, so Service Data is not retention of request or response content."
+text_zh = "对象划分:本条覆盖的对象是 Customer Data(提示词、回答、附加上下文);Service Data 是另一类对象(用户分析、遥测数据、Google 反馈),其中遥测事件只表示「发过一次请求」而不含请求正文,故不属于请求/回答正文的留存。"
+anchor = "gca-standard-enterprise-telemetry-no-request-content"
+
+[[product.retention.point]]
+text = "Contract layer: the enterprise tier additionally sits on the Cloud Data Processing Addendum, which this page points to for how Customer Data is processed and protected. The addendum's own retention terms are outside this snapshot, so no contract-layer period is recorded here — only the page's default no-storage statement."
+text_zh = "合同层:企业档另落在 Cloud Data Processing Addendum 之下——本页把 Customer Data 的处理与保护指向该 DPA。该 DPA 的存续期条款不在本次快照内,故此处不记合同层期限,只记页面给出的「默认不落地」。"
+anchor = "gca-standard-enterprise-cloud-dpa"
 
 [product.processing_region]
-mark = "unknown"
-codes = ["unknown"]
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+codes = ["global"]
+anchor = "gca-standard-enterprise-region-edge-network"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.processing_region.point]]
+text = "Positive disclosure of where processing happens: Gemini Code Assist Standard and Enterprise use the global Google Edge Network to receive data for processing, processing typically occurs at the data center closest to the request's geographic origin, but regionality is not guaranteed. Recorded as global on that disclosure, which comes from the Standard/Enterprise privacy notice rather than from the CLI page."
+text_zh = "处理地的正面披露:数据经全球 Google Edge Network 接收处理,通常在离请求地理起点最近的数据中心执行,但不保证区域驻留。据该披露记 global;这条出自 Standard/Enterprise 官方隐私说明,CLI 页对本档处理地没有表述。"
 
 [product.role]
-kind = "unknown"
-searched = ["https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html"]
+kind = "processor"
+anchor = "gca-standard-enterprise-processor"
+searched = [
+  "https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html",
+  "https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance",
+]
+
+[[product.role.point]]
+text = "Scope of the processor role: Customer Data here means prompt data (developer queries), response data and additional context such as conversation history, snippets of open files and cursor location; the tier acts as a data processor for all Customer Data. Google also acts as a data controller for information such as billing and account management and abuse detections, so the processor role does not cover the whole relationship."
+text_zh = "processor 角色的适用范围:本档的 Customer Data 指提示词(开发者查询)、回答,以及会话历史、IDE 中打开文件片段、光标位置等附加上下文;对这些数据本档是 data processor。计费、账号管理与滥用检测等信息 Google 另为 data controller,故 processor 不覆盖全部关系。"
+anchor = "gca-standard-enterprise-customer-data-scope"
+
+[[product.role.point]]
+text = "Contract layer: the still-live Gemini CLI documentation lists this tier's Terms of Service as the Google Cloud Platform Terms of Service, so the processor position sits on the GCP contract stack (GCP Terms of Service and the Cloud Data Processing Addendum) rather than on consumer terms."
+text_zh = "合同层:仍在线的 Gemini CLI 官方文档逐档列明本档适用的 Terms of Service 是 Google Cloud Platform Terms of Service,故本档的受托地位落在 GCP 合同层(GCP ToS + Cloud Data Processing Addendum)上,而不是消费者条款。"
+anchor = "role-gca-standard-enterprise-gcp-tos"
 
 [[anchor]]
 id = "role-google-llc-service-provider"
@@ -189,3 +332,134 @@ topics = ["training"]
 prefix = "By default (if you have not opted out):"
 exact = "**Google account with Gemini Code Assist for Standard, or Enterprise**: No. For these accounts, your data is governed by the [Gemini Code Assist Privacy Notices](https://cloud.google.com/gemini/docs/codeassist/security-privacy-compliance#standard_and_enterprise_data_protection_and_privacy) terms, which treat your inputs as confidential. Your **prompts, answers, and related code are not collected** and are not used to train models."
 suffix = "**Gemini API key via the Gemini Developer API**"
+
+[[anchor]]
+id = "training-google-tos-license-operating-improving"
+source_id = "3d477953bfac2424"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "This license is for the limited purpose of: operating and improving the services, which means allowing the services to work as designed and creating new features and functionalities."
+suffix = ""
+
+[[anchor]]
+id = "training-google-tos-license-new-technologies"
+source_id = "3d477953bfac2424"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "developing new technologies and services for Google consistent with these terms"
+suffix = ""
+
+[[anchor]]
+id = "role-google-affiliate-by-country"
+source_id = "3d477953bfac2424"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "If you have a Google Account, we associate your account with a country (or territory) so that we can determine: the Google affiliate that provides the services to you and that processes your information as you use the services"
+suffix = ""
+
+[[anchor]]
+id = "role-controller-by-location"
+source_id = "7852979af54a7d97"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "less otherwise stated in a service-specific privacy notice, "
+exact = "the data controller responsible for processing your information depends on where you are based"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-stateless"
+source_id = "db45ece240ae6f22"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Because Gemini Code Assist Standard and Enterprise are stateless Google Cloud services, they don't store prompts and responses in Google Cloud"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-cloud-logging"
+source_id = "db45ece240ae6f22"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "If required, you can set up Gemini Code Assist Standard and Enterprise to store user input and responses in a Cloud Logging bucket"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-telemetry-no-request-content"
+source_id = "db45ece240ae6f22"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "An event indicating that a request was made (but not the contents of the request)"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-engineers-telemetry"
+source_id = "db45ece240ae6f22"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Gemini Code Assist Standard and Enterprise engineers have access to telemetry data to help with continual product improvements"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-cloud-dpa"
+source_id = "db45ece240ae6f22"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "For information about how we process and protect Customer Data, see the Cloud Data Processing Addendum (Customers)"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-customer-data-scope"
+source_id = "db45ece240ae6f22"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "For example, Gemini Code Assist Standard and Enterprise handle the following data as Customer Data: Prompt data, which includes developer queries Response data from Gemini Code Assist Standard and Enterprise Additional context, such as the current conversation history, snippets of files that are open in the IDE, snippets of files that are stored adjacent to the open file, and cursor location in the current file"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-region-edge-network"
+source_id = "db45ece240ae6f22"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Gemini Code Assist Standard and Enterprise use the global Google Edge Network to receive data for processing. Typically, processing occurs at the data center that is closest to the request's geographic origin, but regionality is not guaranteed"
+suffix = ""
+
+[[anchor]]
+id = "gca-standard-enterprise-processor"
+source_id = "db45ece240ae6f22"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Gemini Code Assist Standard and Enterprise act as data processors for all Customer Data—for example when personalizing experiences and recommendations—troubleshooting issues, and maintaining the service. Google also acts as a data controller for information such as billing and account management and abuse detections"
+suffix = ""
+
+[[anchor]]
+id = "role-gca-standard-enterprise-gcp-tos"
+source_id = "6e58103b5b10bd25"
+topics = ["role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Your use of the Gemini CLI is governed by the Google Cloud Platform Terms of Service"
+suffix = ""
+

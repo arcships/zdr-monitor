@@ -25,12 +25,14 @@ note = "文档站《Privacy & Security》页。它把 ZDR 承诺明确限定在 
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/dpa"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《Perplexity Data Processing Addendum》(Last Updated: August 13, 2026)。第 1 段把「Services」定义为客户协议项下的任何 Perplexity 产品/功能/API，并明文保留例外：Embeddings API、Perplexity Search 等「may operate under data postures that differ from this DPA」，以产品专属条款为准——**Agent API 不在例外名单内**。§2 角色、§5 不得用于训练、§10 与服务结束后 30 天内删除、Annex 1 的 Input 保留规则、§6c/§6d/§6e 第三方模型提供方作为分包方及其义务流下，是本档 retention/role/training 的合同层权威。注意 DPA 只约束「Personal Data」；对非个人的 Input，合同层没有保留期限条款。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《Perplexity API Terms of Service》(Last updated: January 23, 2026)。开篇把服务定义为「the Sonar by Perplexity and/or Agentic Research application programming interface (“API”) services (the “Services”)」——即本档(文档站称 Agent API、协议里称 Agentic Research API)与 Sonar/Chat Completions 同受本协议约束；并声明本协议只适用于 API 客户，不适用于 Enterprise Pro、官网等。§2.3.3 是 training 维度的合同层权威；§2.6 把第三方模型及其条款并入合同(本档多跳链路的合同依据)；§6.1 把 DPA 并入本协议(retention/role 的合同层入口)。全文无保留期限条款；§10.5 只规定终止后销毁/返还机密信息，自动备份按标准删除流程处理。经 apex 域抓取(www 域对 jina 匿名访问 403，见 notes)。"
@@ -51,8 +53,14 @@ text = "Same as top-level training: API ToS §2.3.3 covers Customer Content and 
 text_zh = "同顶层 training：API ToS §2.3.3 覆盖 Customer Content 且含「or authorize third parties to use」"
 
 [[product.training.point]]
-text = "DPA §5 covers Personal Data. The conduct of the upstream providers themselves falls outside Perplexity's commitment (§2.6)."
-text_zh = "DPA §5 覆盖 Personal Data。上游提供方自身行为不在 Perplexity 承诺范围内(§2.6)。"
+text = "DPA §5 covers Personal Data, but its (a)–(c) prohibitions are prefixed with \"To the extent required by Privacy Laws\"; the training prohibition at the end of the same paragraph opens with \"For the avoidance of doubt\", so whether that prefix governs it is open to interpretation. This dimension therefore rests on the unconditional API ToS §2.3.3. The conduct of the upstream providers themselves falls outside Perplexity's commitment (§2.6)."
+text_zh = "DPA §5 覆盖 Personal Data，但其 (a)–(c) 禁令以「To the extent required by Privacy Laws」为前提；同段末句的训练禁令以「For the avoidance of doubt」起头，是否受该前提约束存在解释空间，故本维度以无条件的 API ToS §2.3.3 为主依据。上游提供方自身行为不在 Perplexity 承诺范围内(§2.6)。"
+anchor = "perplexity-agent-dpa-5-privacy-laws-premise"
+
+[[product.training.point]]
+text = "Boundary of the commitment (API ToS §3.3): \"Usage Data\" means metadata, analytics, performance metrics and other operational data that \"does not include Customer Content or personal information or is anonymized and/or aggregated\", and Perplexity \"may use Usage Data for any lawful purpose (e.g., to assess the relative popularity of the Services’ features or to improve categorization algorithms) without remuneration to Customer\". Improving the service counts as training under this ledger's rule, but §3.3 sits expressly outside Customer Content, so it does not overturn §2.3.3 — it only marks the edge of the no-training commitment."
+text_zh = "承诺的边界(API ToS §3.3)：「Usage Data」指元数据、分析、性能指标等运营数据，且「does not include Customer Content or personal information or is anonymized and/or aggregated」；Perplexity「may use Usage Data for any lawful purpose (e.g., to assess the relative popularity of the Services’ features or to improve categorization algorithms) without remuneration to Customer」。按本台账口径「用来改进服务算训练」，但 §3.3 明文排除 Customer Content，故不推翻 §2.3.3，只标明不训练承诺的边界。"
+anchor = "perplexity-agent-api-tos-3-3-usage-data"
 
 [product.zdr]
 mark = "yes"
@@ -69,17 +77,33 @@ text_zh = "默认的零保留承诺只写在 Chat Completions 档(privacy-securi
 
 [product.retention]
 days = 30
-object = "input_output"
-basis = "fixed_period"
+object = "mixed"
+basis = "until_termination"
+anchor = "perplexity-agent-dpa-10-deletion-30-days"
+
+[[product.retention.point]]
+text = "Object: personal information contained in Input. DPA Annex 1 stores it \"until the earlier of (a) the date it is deleted by Customer through the Services’ interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer\" — a post-termination deletion obligation, not a fixed 30-day retention period; during the term it sets no ceiling at all."
+text_zh = "对象：Input 中的个人信息。DPA Annex 1 规定其留存至「客户经界面删除」与「不再向客户提供服务后 30 天」两者较早者——这是终止后的删除义务，不是固定 30 天保留期；服务存续期间它不给任何上限。"
 anchor = "perplexity-agent-dpa-annex1-input-retention"
 
 [[product.retention.point]]
-text = "Same as top-level retention: the Input retention rule in DPA Annex 1 (the earlier of deletion by Customer and thirty days after Perplexity is no longer providing the Services) coexists with the absence of any disclosed period for server-side state"
-text_zh = "同顶层 retention：DPA Annex 1 的 Input 保留规则(客户删除或服务结束后 30 天)与服务端状态无期限披露并存"
+text = "Second limb (DPA §10): Perplexity deletes (or returns) all Personal Data \"within thirty days of the end of the provision of the Services to Customer, unless retention of the Personal Data is required by law\", and deletes it once that legal retention obligation expires. The thirty days is therefore an upper bound that starts at the end of the service and carries a statutory-retention exception — days = 30 records that deletion window, not a retention period."
+text_zh = "第二层依据(DPA §10)：Perplexity 在「服务结束后 30 天内」删除(或返还)全部 Personal Data，除非法律要求留存，并在该法定留存义务届满后删除。故 30 天是自服务结束时起算的上限，且带法定保留例外——days = 30 记的是这个删除窗口，不是保留期。"
+anchor = "perplexity-agent-dpa-10-deletion-30-days"
 
 [[product.retention.point]]
-text = "The \"no retention / zero day retention\" wording in the FAQ and the privacy-security page is recorded alongside it."
-text_zh = "FAQ/privacy-security 的「不保留/零日保留」与之并列。"
+text = "Duration at the contract layer (DPA Annex 1, \"Frequency and duration of the processing\"): processing runs \"for the duration of the term of the Agreement and any post-termination retention period as set out in the Agreement\" — the contract speaks only to Personal Data's processing duration and gives no specific period for Input or Output content beyond that."
+text_zh = "合同层的处理持续期(DPA Annex 1「Frequency and duration of the processing」)：处理持续到「the duration of the term of the Agreement and any post-termination retention period as set out in the Agreement」——合同层只界定 Personal Data 的处理持续期，对输入输出正文没有给出具体期限。"
+anchor = "perplexity-agent-dpa-annex1-processing-duration"
+
+[[product.retention.point]]
+text = "May still survive termination: API ToS §10.5 requires each party to destroy or return all Confidential Information on termination, and §5.1 makes Customer Content Customer's Confidential Information, so that duty covers Input and Output — but \"copies in the Receiving Party’s automated back-up systems\" are carved out and deleted only \"in accordance with the Receiving Party’s standard deletion procedures\", with no period stated. That sits alongside the DPA §10 thirty-day deletion duty."
+text_zh = "终止后仍可能留存：API ToS §10.5 要求双方在终止时销毁或返还全部机密信息，§5.1 又把 Customer Content 定性为客户的机密信息，故该义务覆盖输入输出正文；但「copies in the Receiving Party’s automated back-up systems」被明文排除，只按「标准删除流程」删除、未给期限。该条与 DPA §10 的 30 天删除义务并列。"
+anchor = "perplexity-agent-api-tos-10-5-backup-exception"
+
+[[product.retention.point]]
+text = "Output has no retention clause at the contract layer (the DPA governs Personal Data, and Annex 1's storage rule is written for Input), which is why this row reads \"varies by object\"; the platform-level \"no retention / zero day retention\" wording in the FAQ and the privacy-security page is recorded alongside it without picking a side."
+text_zh = "Output 在合同层没有保留期限条款(DPA 只约束 Personal Data，Annex 1 的存储规则是为 Input 写的)，本行故记「按对象分列」；FAQ/privacy-security 的平台级「不保留/零日保留」与之并列保留，不选边。"
 
 [product.processing_region]
 codes = ["US"]
@@ -125,13 +149,21 @@ text = "The conduct of the upstream Third-Party Providers themselves still falls
 text_zh = "但上游 Third-Party Providers 自身行为仍不在承诺范围。"
 
 [product.zdr]
-mark = "yes"
-mode = "by_agreement"
-anchor = "perplexity-agent-conversation-state-zdr-agreement"
+mark = "no"
+mode = "not_disclosed"
+anchor = "perplexity-agent-conversation-state-zdr-stateful-unconfirmed"
+searched = [
+  "https://docs.perplexity.ai/docs/agent-api/conversation-state",
+  "https://docs.perplexity.ai/docs/resources/privacy-security",
+  "https://docs.perplexity.ai/docs/resources/faq",
+  "https://perplexity.ai/hub/legal/dpa",
+  "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service",
+]
 
 [[product.zdr.point]]
-text = "Same as top-level zdr. The key fact on this row: the docs expressly say that if your account has a Zero Data Retention (ZDR) agreement you should check with your account team before relying on stateful features, which amounts to acknowledging an unresolved interaction between ZDR and stateful features"
-text_zh = "同顶层 zdr。本行的关键事实：官方明说 stateful 功能要先与客户团队确认 ZDR 是否适用，等于承认 ZDR 与有状态功能存在未解决的交互"
+text = "Not a silence but an unresolved reservation: the docs tell account holders with a Zero Data Retention (ZDR) agreement to \"check with your account team before relying on stateful features\" — the vendor does not confirm that ZDR covers stateful features. The account-level ZDR agreement itself is recorded on the api row; what is unconfirmed is whether it reaches this configuration, hence mark = no with mode = not_disclosed rather than \"we could not find anything\"."
+text_zh = "官方有表述、但不是承诺：文档要求持 ZDR 协议的账户在依赖有状态功能前「check with your account team」，即未确认 ZDR 覆盖有状态功能。账户级 ZDR 协议本身记在 api 档，未确认的是它是否及于本配置——故记 mark = no + mode = not_disclosed，不是「我们没查到」。"
+anchor = "perplexity-agent-conversation-state-zdr-agreement"
 
 [[product.zdr.point]]
 text = "store: false is not a ZDR switch."
@@ -149,6 +181,12 @@ text_zh = "本档 retention 的核心冲突：Agent API 默认服务端持久化
 [[product.retention.point]]
 text = "**The retention period, automatic expiry and deletion method are all undisclosed**. At the contract layer (DPA Annex 1) there is only one rule, covering Personal Data, \"until the earlier of (a) the date it is deleted by Customer through the Services' interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer\", and it does not address conversation state itself"
 text_zh = "**保留期限、自动过期、删除方式均未披露**。合同层(DPA Annex 1)只给 Personal Data 一条「客户删除或服务结束后 30 天」的规则，且不涉及会话状态本身"
+anchor = "perplexity-agent-dpa-annex1-input-retention"
+
+[[product.retention.point]]
+text = "Contract layer, second limb: API ToS §10.5 requires each party on termination to destroy or return all Confidential Information — Customer Content is Customer's Confidential Information under §5.1, so this covers Input and Output — but \"copies in the Receiving Party’s automated back-up systems\" are excluded and deleted only \"in accordance with the Receiving Party’s standard deletion procedures\", with no period. Content can therefore outlive termination in backups even alongside the DPA §10 thirty-day deletion duty."
+text_zh = "合同层另一支：API ToS §10.5 要求双方在终止时销毁或返还全部机密信息——Customer Content 依 §5.1 属客户机密信息，故覆盖输入输出正文——但「copies in the Receiving Party’s automated back-up systems」被排除，只按「标准删除流程」删除、无期限。故即便有 DPA §10 的 30 天删除义务，正文仍可能在备份中留存更久。"
+anchor = "perplexity-agent-api-tos-10-5-backup-exception"
 
 [[product.retention.point]]
 text = "The \"no retention / zero day retention\" wording in the FAQ and the privacy-security page coexists with that persistence, so both are recorded side by side without picking a side."
@@ -199,13 +237,23 @@ text = "This row exists only to mark the tier boundary."
 text_zh = "本行只为划清档位边界。"
 
 [product.retention]
-object = "mixed"
-basis = "undisclosed"
+object = "input_output"
+basis = "none"
+anchor = "perplexity-agent-privacy-security-zdr-chat-completions"
+
+[[product.retention.point]]
+text = "The body of requests and responses is not retained on this tier: the same page reads \"Perplexity maintains a strict **Zero Data Retention Policy** for the Chat Completions API. We do not retain data sent through the Chat Completions API...\", and the FAQ repeats \"the API has zero day retention of user prompt data\"."
+text_zh = "该档的请求/响应正文不留存：同页原文「Perplexity maintains a strict **Zero Data Retention Policy** for the Chat Completions API. We do not retain data sent through the Chat Completions API…」，FAQ 亦写「the API has zero day retention of user prompt data」。"
+anchor = "perplexity-agent-privacy-security-zdr-chat-completions"
+
+[[product.retention.point]]
+text = "Billing metadata is the exception and comes with no stated period: token counts, the model used, the request timestamp and duration, and API key identification are collected, and \"This billing metadata does not include any content from your prompts, responses, or other user data\" — the vendor does not say how long that metadata is kept."
+text_zh = "计费元数据是例外且未给期限：官方收集 token 数、所用模型、请求时间戳与时长、API key 标识，并写明「This billing metadata does not include any content from your prompts, responses, or other user data」——但未说明该元数据留存多久。"
 anchor = "perplexity-agent-privacy-security-billing-metadata-only"
 
 [[product.retention.point]]
-text = "This tier keeps only billing metadata (token counts, model, timestamp, API key identifier), and \"This billing metadata does not include any content from your prompts, responses, or other user data\". That is the opposite of the Agent API tier, so it has to be a separate row."
-text_zh = "该档只留计费元数据(token 数、模型、时间戳、API key 标识)，且「This billing metadata does not include any content from your prompts, responses, or other user data」。与 Agent API 档相反，故必须分行。"
+text = "That is the opposite of the Agent API tier, so it has to be a separate row."
+text_zh = "与 Agent API 档相反，故必须分行。"
 
 [product.processing_region]
 codes = ["US"]
@@ -452,3 +500,57 @@ suffix = """
 .
 
 What Security and Compliance Certifications Does the API """
+
+[[anchor]]
+id = "perplexity-agent-api-tos-3-3-usage-data"
+source_id = "c1e7df39a1db2493"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Perplexity may use Usage Data for any lawful purpose (e.g., to assess the relative popularity of the Services’ features or to improve categorization algorithms) without remuneration to Customer"
+suffix = ""
+
+[[anchor]]
+id = "perplexity-agent-api-tos-10-5-backup-exception"
+source_id = "c1e7df39a1db2493"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "except copies in the Receiving Party’s automated back-up systems, which shall remain subject to Section 5 while maintained and which shall be deleted in accordance with the Receiving Party’s standard deletion procedures"
+suffix = ""
+
+[[anchor]]
+id = "perplexity-agent-dpa-5-privacy-laws-premise"
+source_id = "7274a3856bd85107"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "To the extent required by Privacy Laws, Perplexity shall not (a) Sell or Share Personal Data, (b) retain, use, or disclose the Personal Data outside of the direct business relationship between Perplexity and Customer"
+suffix = ""
+
+[[anchor]]
+id = "perplexity-agent-dpa-annex1-processing-duration"
+source_id = "7274a3856bd85107"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "On a continuous basis, for the duration of the term of the Agreement and any post-termination retention period as set out in the Agreement"
+suffix = ""
+
+# 这一条只取保留句本身。「Zero Data Retention」字样留在同句的整句锚点
+# (perplexity-agent-conversation-state-zdr-agreement)里，由 point 引用——
+# lint:verdicts 会把「mark=no 却引一句写着 Zero Data Retention 的原文」判成方向存疑，
+# 而同 devin-zdr-paid-plan 的记法一样，mark=no 的主锚点应当是那句限定语本身。
+[[anchor]]
+id = "perplexity-agent-conversation-state-zdr-stateful-unconfirmed"
+source_id = "5c4ae0551fc85104"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "check with your account team before relying on stateful features"
+suffix = ""

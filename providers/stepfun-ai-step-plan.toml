@@ -34,9 +34,10 @@ note = "本档专属付费协议（StepPlan Paid Services Agreement，生效 202
 
 [[source]]
 url = "https://platform.stepfun.ai/step-plan"
+fetch = "browser"
 channel = "official_blog"
 tier = "core"
-note = "本档专属产品页（Step Plan 国际站落地页，含档位、计价与 FAQ）。FAQ 第 4 条「How is data security ensured?」是本档唯一一句厂商正向的数据承诺：「Your conversation data is not used to train our general models by default.」——比 ToS 的项目限定结构推断更直接，故本档 training 用它作档位专属佐证（channel=official_blog，低于 contract，不作 dimensions.source 的主源）。同答还给出加密（TLS 1.3）与「排障时可能在严格访问控制下分析有限数据」的例外。**抓取通道注意（2026-09-22 复核，仍未找到稳定源）**：该 FAQ 答案由客户端渲染，SSR HTML（65980B）只有问题、没有答案，答案文本只存在于该页加载的 i18n 包 /_next/static/chunks/*.js（键 common-problem.a4）。而 r.jina.ai 拒绝 JS：抓该 chunk 返回 HTTP 422「unexpected content type application/javascript」。旁路已逐一排除——/zh/step-plan 只回 shadow DOM 警告壳、?lang=zh-CN 与 www.stepfun.com/step-plan 均无 FAQ、/docs/llms-full.txt（684KB）与 /legal/step-plan-user-agreement.html 都不含该文案。故三条 FAQ 锚点（not-used-for-training-by-default、tls13-encryption、limited-analysis-for-diagnosis）在当前抓取通道下会持续落空——那是抓取通道问题，不是条款消失，不得据此改结论，也不得把锚点降级成非官方文本。"
+note = "本档专属产品页（Step Plan 国际站落地页，含档位、计价与 FAQ）。FAQ 第 4 条「How is data security ensured?」是本档唯一一句厂商正向的数据承诺：「Your conversation data is not used to train our general models by default.」——比 ToS 的项目限定结构推断更直接，故本档 training 用它作档位专属佐证（channel=official_blog，低于 contract，不作 dimensions.source 的主源）。同答还给出加密（TLS 1.3）与「排障时可能在严格访问控制下分析有限数据」的例外。**抓取通道注意（2026-09-22 复核，仍未找到稳定源）**：该 FAQ 答案由客户端渲染，SSR HTML（65980B）只有问题、没有答案，答案文本只存在于该页加载的 i18n 包 /_next/static/chunks/*.js（键 common-problem.a4）。而 r.jina.ai 拒绝 JS：抓该 chunk 返回 HTTP 422「unexpected content type application/javascript」。旁路已逐一排除——/zh/step-plan 只回 shadow DOM 警告壳、?lang=zh-CN 与 www.stepfun.com/step-plan 均无 FAQ、/docs/llms-full.txt（684KB）与 /legal/step-plan-user-agreement.html 都不含该文案。故三条 FAQ 锚点（not-used-for-training-by-default、tls13-encryption、limited-analysis-for-diagnosis）在该通道下会持续落空——那是抓取通道问题，不是条款消失，不得据此改结论，也不得把锚点降级成非官方文本。**2026-09-23 处置**：这三条锚点已移除——verify-anchors 报告确认其引文在该来源的全部历史快照里一次都没命中过，无法机器复核；本来源改为 fetch = \"browser\"，待 JS 渲染后的 FAQ 答案进入快照再重新绑锚。training 的档位专属依据留在 point 文字里（维度锚点已是 contract 级 training-license-program-scoped），zdr/retention 原先引用该 FAQ 的两处改引 DPA 里可复核的条款。结论不因此改变（training 仍为 yes）。"
 
 [[product]]
 id = "step-plan"
@@ -47,15 +48,40 @@ plan_level = "individual"
 [product.training]
 mark = "yes"
 mode = "default"
-anchor = "stepplan-faq-not-used-for-training-by-default"
+anchor = "training-license-program-scoped"
 
 [[product.training.point]]
-text = "Tier-specific product page FAQ: \"Your conversation data is not used to train our general models by default.\" (https://platform.stepfun.ai/step-plan, official_blog grade)"
-text_zh = "档位专属产品页 FAQ：「Your conversation data is not used to train our general models by default.」（https://platform.stepfun.ai/step-plan，official_blog 级）"
+text = "Tier-specific product page FAQ: \"Your conversation data is not used to train our general models by default.\" (https://platform.stepfun.ai/step-plan, official_blog grade). Two limits: the sentence covers \"general models\" only, and the FAQ answer is client-rendered, so it is absent from the current snapshot (979f7f8db0d2b600) — this quote is not machine-checkable: it is kept as tier-specific secondary evidence, not as the dimension anchor, and the anchor that carried it was removed on 2026-09-23 (it had never matched any snapshot) while this source was switched to fetch = \"browser\" so the answer can be captured and the anchor re-added."
+text_zh = "档位专属产品页 FAQ：「Your conversation data is not used to train our general models by default.」（https://platform.stepfun.ai/step-plan，official_blog 级）。两点限定：该句只覆盖「general models」；且 FAQ 答案由客户端渲染，当前快照（979f7f8db0d2b600）里没有答案正文，该引文不可机器复核，仅作档位专属旁证、不作维度锚点；其锚点已于 2026-09-23 移除（此前从未命中任何快照），本来源已改为 fetch = \"browser\"，待答案抓回后再重新绑锚。"
 
 [[product.training.point]]
-text = "Contract-grade support is ToS §4.4 + §1.4 + the second paragraph of §4.1(ii) (the training license is conditioned on participation in the Startup Program / Builder Program / early access projects), with Privacy Policy §1.3(b) pointing the same way. Contrary wording kept on record: the broad worldwide/perpetual/irrevocable license in the first paragraph of ToS §4.1(ii) (covering store/exploit/for any purpose) and the training wording in §8.1, which is not scoped to programs. The paid service agreement itself has no training clause."
-text_zh = "contract 级佐证为 ToS §4.4 + §1.4 + §4.1(ii) 第二段（训练授权以参与 Startup Program / Builder Program / early access 项目为前提）、隐私政策 §1.3(b) 同向。反向表述保留在案：ToS §4.1(ii) 第一段的 worldwide/perpetual/irrevocable 宽泛许可（含 store/exploit/for any purpose）与 §8.1 未限定项目的训练表述。付费协议自身无训练条款。"
+anchor = "training-license-program-scoped"
+text = "Contract-grade support, stated as a scope inference rather than an explicit no-training wording: ToS §4.4 + §1.4 + the second paragraph of §4.1(ii) condition the training/fine-tuning license on participation in the StepFun Startup Program / Builder Program / early access projects, and Privacy Policy §1.3(b) points the same way. judgment.md asks for wording that keeps model training out; these clauses only bound the training right to programs, so mark = \"yes\" rests on that scope plus the tier-specific FAQ above."
+text_zh = "contract 级佐证（属范围推断，不是明示「不训练」表述）：ToS §4.4 + §1.4 + §4.1(ii) 第二段把训练/微调授权限定为参与 StepFun Startup Program / Builder Program / early access 项目，隐私政策 §1.3(b) 同向。judgment.md 要求的是明确把模型训练挡在外面的表述，这些条款只是把训练权限制在项目范围内，故 mark = yes 由该范围读法加档位专属 FAQ 共同支撑。"
+
+[[product.training.point]]
+anchor = "training-license-for-avoidance"
+text = "Contrary wording kept on record: the closing sentence of ToS §4.1(ii) — \"the license granted herein specifically includes the right to use Usage Data for training, fine-tuning, and otherwise improving StepFun’s artificial intelligence models and systems\" — is not scoped to programs on its face, and \"the license granted herein\" is ambiguous: it can be read as the broad license in the first paragraph of §4.1(ii) (copy, store, exploit, for any purpose) or as the program paragraph. The sibling entry providers/stepfun-ai.toml marks the API tier training = \"no\" on this same sentence."
+text_zh = "反向表述保留在案：ToS §4.1(ii) 末句「the license granted herein specifically includes the right to use Usage Data for training, fine-tuning, and otherwise improving StepFun’s artificial intelligence models and systems」句面未限定项目，且「the license granted herein」指代待澄清：可读作 §4.1(ii) 第一段含 copy/store/exploit/for any purpose 的宽泛许可，也可读作项目段许可。姊妹条目 providers/stepfun-ai.toml 正是拿这一句把 API 档判成 training = no。"
+
+[[product.training.point]]
+anchor = "training-use-content-improve-services"
+text = "Contrary wording kept on record: ToS §4.1(iv) lets Content (defined in §4 to include Prompts, Outputs and Feedback) be used to \"develop and improve our Services\" with no program limit — training under judgment.md, and a divergence from the program-only reading of §4.4 / §1.4."
+text_zh = "反向表述保留在案：ToS §4.1(iv) 允许把 Content（§4 定义含 Prompts/Outputs/Feedback）用于「develop and improve our Services」，不设项目限定——按 judgment.md 算训练，与 §4.4 / §1.4 的「仅限项目」读法构成分歧。"
+
+[[product.training.point]]
+anchor = "training-improved-through-usage-data"
+text = "Contrary wording kept on record: the §8.1 disclaimer states that the Services \"ARE CONTINUOUSLY EVOLVING AND MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING\", again with no program limit."
+text_zh = "反向表述保留在案：§8.1 免责声明载明服务「MAY BE IMPROVED THROUGH THE USE OF USAGE DATA FOR MODEL TRAINING AND FINE-TUNING」，同样不限项目。"
+
+[[product.training.point]]
+anchor = "training-evaluate-improve-models"
+text = "Contrary wording kept on record: Privacy Policy §2 lists \"To evaluate and improve our models, products, and services, where permitted by applicable law.\" as a general purpose, and the §12 legal-basis table maps it to End Users’ Interaction Information under \"Consent & Legitimate interests\" — no program limit, wider than the §1.3(b) program exception. Scope note: that Policy states it does not apply where StepFun acts as a data processor on behalf of a commercial customer, so the two wordings must not be read as one."
+text_zh = "反向表述保留在案：隐私政策 §2 的通用用途清单含「To evaluate and improve our models, products, and services, where permitted by applicable law.」，§12 合法性基础表把它对应到 End Users’ Interaction Information | Consent & Legitimate interests，不限项目，比 §1.3(b) 的项目例外更宽。适用范围提醒：该政策声明其不适用于 StepFun 作为受托处理方为商业客户处理个人数据的情形，两条口径不可混读。"
+
+[[product.training.point]]
+text = "The tier's own paid service agreement contains no training clause at all, so every training statement above comes from the platform-level texts it incorporates."
+text_zh = "本档专属付费协议完全不含训练条款，故以上训练表述全部来自它并入的平台级文本。"
 
 [product.zdr]
 mark = "unknown"
@@ -75,30 +101,67 @@ text = "No per-request zero-retention or no-storage commitment in the official t
 text_zh = "官方文本无逐请求零保留/不存储承诺，也无开通方式或企业附加条款"
 
 [[product.zdr.point]]
-text = "Contrary evidence: the store right in ToS §4.1(ii), a DPA deletion obligation that bites only after termination, and the FAQ's troubleshooting-analysis exception. /trust, /security, /dpa and /enterprise return 404 and the main site stepfun.ai returns 503, so this is a retrieval gap."
-text_zh = "反向证据：ToS §4.1(ii) 的 store 权能、DPA 删除义务仅在终止后、FAQ 的排障分析例外。/trust、/security、/dpa、/enterprise 404，主站 stepfun.ai 503，属检索缺口。"
+text = "Contrary evidence: the store right in ToS §4.1(ii) and a DPA deletion obligation that bites only after termination. /trust, /security, /dpa and /enterprise return 404 and the main site stepfun.ai returns 503, so this is a retrieval gap."
+text_zh = "反向证据：ToS §4.1(ii) 的 store 权能、DPA 删除义务仅在终止后。/trust、/security、/dpa、/enterprise 404，主站 stepfun.ai 503，属检索缺口。"
+
+[[product.zdr.point]]
+anchor = "dpa-security-measures"
+text = "Contrary evidence (contract level; replaces the product page FAQ answer naming TLS 1.3 encryption, which cannot be captured): DPA §5 requires reasonable and appropriate technical and organizational measures, not no storage, so it is not a zero-retention commitment. The FAQ answer itself stays a pending-capture note."
+text_zh = "反向证据（合同层；替代产品页 FAQ 里那句抓不到的 TLS 1.3 加密表述）：DPA §5 要求的是「reasonable and appropriate technical and organizational measures」，不是不存储，也不构成零保留承诺。该 FAQ 答案只作待抓回的记录。"
+
+[[product.zdr.point]]
+anchor = "dpa-processing-nature-debugging"
+text = "Contrary evidence (contract level): DPA Schedule 1 Part B describes the nature of processing as collection, storage, organization and structuring of personal data as part of AI-powered functions, plus debugging to identify and repair errors — the contract-level counterpart of the product page's troubleshooting-analysis exception."
+text_zh = "反向证据（合同层）：DPA Schedule 1 Part B 把处理性质写为「collection, storage, organization, and structuring of personal data as part of AI-powered functions」以及「debugging to identify and repair errors」——正是产品页排障分析例外在合同层的对应条款。"
+
+[[product.zdr.point]]
+anchor = "zdr-content-access-review-anytime"
+text = "Contrary evidence: ToS §4.1(iii) — \"While we’re not required to do so, we may access, review, screen, edit, modify and delete your Content at any time and for any reason\" — with Content defined in §4 to include Prompts and Outputs, so content is presumed still accessible after the response, which is incompatible with zero retention."
+text_zh = "反向证据：ToS §4.1(iii)「While we’re not required to do so, we may access, review, screen, edit, modify and delete your Content at any time and for any reason」，§4 定义 Content 含 Prompts/Outputs，即预设内容在响应后仍可被访问，与零保留不相容。"
+
+[[product.zdr.point]]
+text = "Cross-tier note on the same wording: the store right in ToS §4.1(ii) and the access right in §4.1(iii) sit in the platform ToS that this tier's paid agreement incorporates, and the sibling entry providers/stepfun-ai.toml marks the API tier zdr = \"no\" on exactly those clauses, while this tier stays unknown because its tier-specific texts (paid service agreement, product page) say nothing about retention and none of the sources listed in searched contains zero-retention / no-storage wording. The two readings are recorded side by side instead of being silently reconciled, and the clauses anchored here are contrary evidence only: they are not a statement about any zero-retention option in this tier."
+text_zh = "同一措辞的跨档说明：ToS §4.1(ii) 的 store 权能与 §4.1(iii) 的访问权属于本档付费协议并入的平台 ToS，姊妹条目 providers/stepfun-ai.toml 正是拿这两条把 API 档判 zdr = no；本档维持 unknown，因为档位专属文本（付费协议、产品页）对保留只字未提，且 searched 列出的来源里都没有零保留/不存储表述。两档读法并列记录，不做静默调和；这里绑的条款只作反向旁证，不构成本档对零保留方案的表述。"
 
 [product.retention]
-days = 30
 object = "mixed"
-basis = "fixed_period"
+basis = "until_termination"
 anchor = "retention-delete-30-days-after-termination"
 
 [[product.retention.point]]
-text = "DPA §7: within 30 days of termination or expiration of the Agreement, all Customer Data is returned or deleted on request (exceptions: legal retention requirements, dispute resolution, anti-abuse)"
-text_zh = "DPA §7：协议终止/到期后 30 天内应要求返还或删除全部 Customer Data（例外：法定留存要求、争议解决、反滥用）"
+anchor = "retention-delete-30-days-after-termination"
+text = "DPA §7: the 30 days is the window after termination or expiration of the Agreement in which StepFun must return or delete Customer Data — an upper bound on the deletion step, not a retention period for request content. Return is conditional: \"if requested by Customer within that period\", or self-service functionality allowing the Customer to do the same."
+text_zh = "DPA §7：30 天是协议终止/到期后 StepFun 返还或删除 Customer Data 的窗口——删除动作的上限，不是请求内容的保留期。返还带条件：以 Customer 在该期间内提出请求为前提，或提供让 Customer 自行操作的自助功能。"
 
 [[product.retention.point]]
-text = "§2 prohibits retention outside the business purposes. No disclosed retention period for per-request Prompts/Outputs"
-text_zh = "§2 禁止业务目的外的保留。逐请求的 Prompt/Output 保留期未披露"
+anchor = "retention-delete-all-copies-exceptions"
+text = "Deletion of all copies is not conditional on a request, and carries three exceptions: applicable law or regulatory requirements requiring storage, retention necessary to resolve a dispute between the parties, and retention necessary to combat harmful use of the Services."
+text_zh = "删除全部副本不以请求为条件，但有三类例外：适用法或监管要求必须存储、为解决当事人之间的争议所必需、为打击服务滥用所必需。"
 
 [[product.retention.point]]
-text = "Privacy Policy §7 states general rules at the personal-information level (phone numbers retained on an ongoing basis, IP addresses retained for 3 years, deletion or anonymization on account deactivation)"
-text_zh = "隐私政策 §7 为个人信息层面的通用规则（手机号持续保留、IP 3 年、注销即删或匿名化）"
+anchor = "retention-no-outside-purpose"
+text = "§2 prohibits retaining, using or disclosing Customer Personal Data outside the business purposes. No disclosed retention period for per-request Prompts/Outputs."
+text_zh = "§2 禁止业务目的外的保留、使用或披露 Customer Personal Data。逐请求的 Prompt/Output 保留期未披露。"
 
 [[product.retention.point]]
-text = "The product page FAQ acknowledges that a limited amount of data may be analyzed when diagnosing issues (no period given)."
-text_zh = "产品页 FAQ 承认排障时可能分析有限数据（无期限）。"
+anchor = "retention-storage-limitation-legal"
+text = "DPA Schedule 1 Part B sets no general retention period: storage limitation is defined only as \"compliance with legal retention requirements under applicable law\", so the contract layer points to statutory retention requirements instead of giving a ceiling for request content."
+text_zh = "DPA Schedule 1 Part B 没有通用保留期限：Storage limitation 只定义为「compliance with legal retention requirements under applicable law」，合同层只指向法定保留要求，不给请求内容的期限上限。"
+
+[[product.retention.point]]
+anchor = "retention-deactivate-delete-anonymize"
+text = "Privacy Policy §7 is at the personal-information level: deletion or anonymization on deactivation, deletion request or expiry of the retention period (phone number retained continuously, IP addresses 3 years) — not a period for request content."
+text_zh = "隐私政策 §7 是个人信息层面的规则：注销、请求删除或保留期届满即删除或匿名化（手机号持续保留、IP 3 年）——不等于请求内容的期限。"
+
+[[product.retention.point]]
+anchor = "retention-personal-info-delete-exceptions"
+text = "Two exceptions qualify that deletion: compliance with legal requirements regarding data retention according to the applicable laws, and extension of the period for financial, audit, dispute resolution, or other legitimate purposes."
+text_zh = "该删除义务有两条例外：遵守适用法下的法定保留要求，以及为财务、审计、争议解决或其他正当目的延长保留期。"
+
+[[product.retention.point]]
+anchor = "dpa-processing-nature-debugging"
+text = "DPA Schedule 1 Part B lists debugging to identify and repair errors among the nature of processing, with no period given. The product page FAQ answer that adds \"a limited amount of data under strict access control\" is client-rendered and absent from the snapshot, so it stays a pending-capture note rather than an anchor."
+text_zh = "DPA Schedule 1 Part B 把「debugging to identify and repair errors」写进处理性质，未给期限。产品页 FAQ 补充「在严格访问控制下分析有限数据」的那条答案由客户端渲染、不在快照内，故只作待抓回的记录，不绑锚点。"
 
 [product.processing_region]
 codes = ["US"]
@@ -194,6 +257,24 @@ exact = "If you choose to participate in our StepFun Startup Program or other ea
 suffix = " submitted through or generated by the API for the purposes "
 
 [[anchor]]
+id = "training-license-for-avoidance"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "’ ability to elicit Output; and (c) promoting the Services. "
+exact = "For the avoidance of doubt, the license granted herein specifically includes the right to use Usage Data for training, fine-tuning, and otherwise improving StepFun’s artificial intelligence models and systems."
+suffix = "(iii) While we’re not required to do so, we may access, revi"
+
+[[anchor]]
+id = "training-use-content-improve-services"
+source_id = "ff094c620e9155c1"
+topics = ["training"]
+
+[anchor.selector]
+exact = "We may also use Content to provide, maintain, develop and improve our Services, comply with applicable laws, enforce our Terms, and ensure the security of our Services."
+
+[[anchor]]
 id = "training-early-access"
 source_id = "ff094c620e9155c1"
 topics = ["training"]
@@ -224,6 +305,16 @@ exact = "you grant us, to the fullest extent permitted under the applicable law,
 suffix = " (“Usage Data”) elicited by you for any purpose in any form,"
 
 [[anchor]]
+id = "zdr-content-access-review-anytime"
+source_id = "ff094c620e9155c1"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "ficial intelligence models and systems.(iii) While we’re not required to do so, "
+exact = "we may access, review, screen, edit, modify and delete your Content at any time and for any reason"
+suffix = ", including providing and developing the Services or if we think the Content vio"
+
+[[anchor]]
 id = "dpa-incorporated-by-tos"
 source_id = "ff094c620e9155c1"
 topics = ["retention", "role"]
@@ -237,6 +328,14 @@ suffix = """
 ### 4.3 Accuracy
 
 Artificial intelligence and AI models a"""
+
+[[anchor]]
+id = "training-evaluate-improve-models"
+source_id = "164a5044e0cb7b7d"
+topics = ["training"]
+
+[anchor.selector]
+exact = "To evaluate and improve our models, products, and services, where permitted by applicable law."
 
 [[anchor]]
 id = "region-servers-in-united-states"
@@ -337,6 +436,16 @@ suffix = """
 *   Compliance with legal requirements regarding data rete"""
 
 [[anchor]]
+id = "retention-personal-info-delete-exceptions"
+source_id = "164a5044e0cb7b7d"
+topics = ["retention"]
+
+[anchor.selector]
+exact = """
+Compliance with legal requirements regarding data retention according to the applicable laws.
+- Extension of the period for financial, audit, dispute resolution, or other legitimate purposes."""
+
+[[anchor]]
 id = "role-customer-controller-stepfun-processor"
 source_id = "285b3dbfffce5c6d"
 topics = ["role"]
@@ -422,31 +531,17 @@ suffix = """
 *   **Subprocessors**: may be used by StepFun to assist in """
 
 [[anchor]]
-id = "stepplan-faq-not-used-for-training-by-default"
-source_id = "979f7f8db0d2b600"
-topics = ["training"]
+id = "dpa-security-measures"
+source_id = "285b3dbfffce5c6d"
+topics = ["zdr"]
 
 [anchor.selector]
-prefix = "our data, and all communication is encrypted using TLS 1.3. "
-exact = "Your conversation data is not used to train our general models by default."
-suffix = " In the rare event that we need to diagnose and fix a specif"
+exact = "StepFun will comply with the data security obligations of applicable data protection laws and will implement and maintain reasonable and appropriate technical and organizational measures designed to ensure a level of security appropriate to the risk of the relevant processing."
 
 [[anchor]]
-id = "stepplan-faq-tls13-encryption"
-source_id = "979f7f8db0d2b600"
-topics = ["retention", "training"]
-
-[anchor.selector]
-prefix = " quote.\"},{question:\"How is data security ensured?\",answer:\""
-exact = "We use enterprise-grade encryption to secure your data, and all communication is encrypted using TLS 1.3."
-suffix = " Your conversation data is not used to train our general mod"
-
-[[anchor]]
-id = "stepplan-faq-limited-analysis-for-diagnosis"
-source_id = "979f7f8db0d2b600"
+id = "dpa-processing-nature-debugging"
+source_id = "285b3dbfffce5c6d"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "on data is not used to train our general models by default. "
-exact = "In the rare event that we need to diagnose and fix a specific model or service issue, we may analyze a limited amount of data under strict access control."
-suffix = "\"},{question:\"What payment methods are supported?\",answer:\"W"
+exact = "performing the Services on behalf of Customer, including collection, storage, organization, and structuring of personal data as part of AI-powered functions; verifying or maintaining quality, security, and integrity of the Services; debugging to identify and repair errors"

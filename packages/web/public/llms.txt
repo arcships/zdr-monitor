@@ -52,7 +52,7 @@ CSV 无法无损表达多条引文、来源和五维嵌套结构。
 - `dimensions`：固定的五个维度。
 - `rows[]`：一项就是一个档位。`id` 是档位唯一 ID；`provider_id` 是产品线；
   `company` 是聚合公司；`category`、`plan_level` 是筛选字段；`cells` 是五维机器判定。
-- `monitoring`：`sources` 来源总数、`with_snapshot` 已有快照数、`failing` 当前抓取异常数。
+- `monitoring`：`sources` 来源总数、`with_snapshot` 已有快照数。
 
 结构化值：
 
@@ -87,7 +87,7 @@ CSV 无法无损表达多条引文、来源和五维嵌套结构。
       }
     },
     "sources": [{ "id": "…", "url": "https://…", "channel": "developer_data",
-                  "line": "Cursor", "current_version": "…", "observed_at": "…" }],
+                  "line": "Cursor", "snapshot_at": "2026-09-24" }],
     "changes": []
   }
 }
@@ -130,8 +130,7 @@ CSV 无法无损表达多条引文、来源和五维嵌套结构。
   }],
   "sources": [{
     "source_id": "...", "line_id": "codebuff", "url": "https://...",
-    "channel": "consumer_privacy", "current_version": "...",
-    "version_observed_at": "...", "version_origin": "fetch", "failure": null
+    "channel": "consumer_privacy", "snapshot_at": "2026-09-24"
   }],
   "changes": []
 }
@@ -141,9 +140,10 @@ CSV 无法无损表达多条引文、来源和五维嵌套结构。
 `evidence` 是解释和原文，适合回答“为什么”。`evidence.<dimension>.quote/source` 是维度级
 主引文；`points[]` 可各自带不同的 `quote/source`。可选字段缺席时不要自行补值或反推结论。
 `sources[]` 是公司下所有受监控文档，不代表每份都支撑当前档位；应以 evidence 中实际绑定的
-source 为准。`changes[]` 只含 agent 已确认的政策变化，不把抓取 diff 直接当政策变化。
+source 为准。`snapshot_at` 是该来源快照正文最后一次变化的日期（抓取失败不改快照），
+还没有快照时为 null。`changes[]` 只含 agent 已确认的政策变化，不把抓取 diff 直接当政策变化。
 变化记录的 `direction` 为 `weakened` / `strengthened` / `clarified`，并用 `dimensions`、
-`from_version`、`to_version`、`observed_at` 和双语 summary 描述影响。
+`source_id`、`observed_at`、`issue`（对应的复核 issue 或 PR）和双语 summary 描述影响。
 
 ## 怎么读这些结论 / How to read a verdict
 

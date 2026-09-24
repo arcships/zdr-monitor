@@ -51,8 +51,18 @@ text = "Same as the top level: Terms §6.3 covers Customer Content, \"including 
 text_zh = "同顶层：Terms §6.3 覆盖 Customer Content（含 Customer Models、Model Outputs、inference logs）"
 
 [[product.training.point]]
-text = "The \"Model APIs\" entry in the Security Practices states in the same paragraph that a ZDR posture applies to all Customer Content. For the third-party model tier there is also SML §6/§9.B: customer content (prompts and request-level logs included) is not forwarded to Model Lab."
-text_zh = "Security Practices「Model APIs」条目同段即声明对 all Customer Content 持 ZDR。第三方模型档另有 SML §6/§9.B：不向 Model Lab 转发客户内容（含 prompt 与请求级日志）。"
+text = "The \"Model APIs\" entry in the Security Practices states in the same paragraph that a ZDR posture applies to all Customer Content. For the third-party model tier the vendor's supplemental Model Labs terms (SML) are cited as saying that customer content, prompts and request-level logs included, is not forwarded to the Model Lab — that document is not declared as a [[source]] in this file and has no snapshot, so it is recorded here as a sourcing gap and not as an anchor."
+text_zh = "Security Practices「Model APIs」条目同段即声明对 all Customer Content 持 ZDR。第三方模型档另有厂商的 Model Labs 补充条款（SML）：不向 Model Lab 转发客户内容（含 prompt 与请求级日志）；该文档尚未在本文件登记为 [[source]]、也没有快照，故记为溯源缺口，不作为锚点。"
+
+[[product.training.point]]
+text = "Boundary of the no-training commitment: \"Usage Information\" is technical and operational telemetry about the use and performance of the Services (latency, throughput, error rates, utilization, feature usage data), and §1 defines Customer Content to exclude it — so it is not the customer's inference inputs or outputs. Baseten may use it to operate, maintain, secure and improve the Services; beyond the direct operation of the customer's workloads, analytics, benchmarking and product development are allowed only in aggregated or de-identified form that cannot reasonably be used to identify Customer or to reveal Customer Content."
+text_zh = "「不用于训练」的边界：Usage Information 是服务使用与性能的技术/运营遥测（latency、throughput、error rates、utilization、feature usage data），§1 的 Customer Content 定义明确把它排除在外，故它不是客户的推理输入输出。Baseten 可用它运营、维护、保障与改进服务；超出客户负载直接运营之外的分析、基准测试与产品开发，只能用无法合理识别客户或暴露 Customer Content 的聚合或去标识形式。"
+anchor = "baseten-tos-6-4-usage-information-telemetry"
+
+[[product.training.point]]
+text = "Hard limit on that telemetry: in no event may Baseten collect or use Usage Information for the purpose of reproducing the customer's model weights or training datasets, or of developing products that replicate customer-specific deployments. Neither point changes mark=yes — they bound telemetry, not inference inputs and outputs."
+text_zh = "该类遥测的硬性限制：Baseten 绝不得为复制客户模型权重或训练集、或为开发复刻客户专属部署的产品而收集或使用 Usage Information。两条 point 都不改变 mark=yes——它们约束的是遥测，不是推理输入输出。"
+anchor = "baseten-tos-6-4-usage-information-limit"
 
 [product.zdr]
 mark = "yes"
@@ -63,6 +73,16 @@ anchor = "baseten-security-practices-model-apis-zdr"
 text = "This product is named in the Security Practices as operating under a ZDR posture, and ZDR is the default configuration (no application required)."
 text_zh = "该产品被 Security Practices 点名为 ZDR 姿态，且 ZDR 是默认配置（无需申请）。"
 
+[[product.zdr.point]]
+text = "Scope limit on the ZDR commitment: Baseten is not in breach of these Security Practices (including the ZDR commitments) where logging, retention, storage, access, use or disclosure of Customer Content arises from (a) configurations, settings or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring or any Third-Party Product; or (d) actions taken at a customer's written direction. This is an exception defining the scope of the commitment, not a withdrawal of it; mark stays yes."
+text_zh = "ZDR 承诺的适用边界（例外，非撤销）：若 Customer Content 的 logging、retention、storage、access、use 或 disclosure 源于 (a) 客户或其授权用户所作的配置、设置或部署选择；(b) 客户提供或选用的 model runtime code、packages、dependencies 等软件（含 Customer Model 或其供应链中的潜在漏洞）；(c) 客户自行开启 logging、retention、abuse monitoring 或任何 Third-Party Product；或 (d) 按客户书面指示采取的行动，则不构成 Baseten 违反 Security Practices（含 ZDR 承诺）。mark 仍为 yes。"
+anchor = "baseten-security-practices-customer-controlled-factors"
+
+[[product.zdr.point]]
+text = "ZDR configuration is changeable at the customer's request: customers may request changes to the applicable ZDR configuration for their workloads by written notice, and Baseten will promptly implement requested changes whenever technically supported for the applicable Service; where it cannot, it must promptly notify the customer with an explanation. This is what mode=default means here — a default the customer can have changed — and it does not mean Baseten may rewrite the default on its own."
+text_zh = "ZDR 配置可依客户书面请求变更：客户可书面请求变更其负载适用的 ZDR 配置，Baseten 在适用服务技术上支持时即迅速实现，不可实现时须迅速通知并说明原因。这解释了本档 mode=default 的成色——默认值可由客户请求改写——不等于厂商可自行变更默认值。"
+anchor = "baseten-security-practices-zdr-config-changes"
+
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -72,8 +92,23 @@ anchor = "baseten-security-practices-model-apis-zdr"
 text = "Security Practices「Model APIs」：Baseten will not store, retain, or otherwise make a persistent copy of model inputs or outputs during a customer's use of the Model APIs"
 
 [[product.retention.point]]
-text = "The same section defines ZDR as (a) not logging, recording or saving Customer Content, and (b) not saving Customer Content to persistent storage (hard disk, SSD, cloud storage, database) after real-time processing. The async exception is the same as at top level (72 hours)."
-text_zh = "同节把 ZDR 定义为 (a) 不 log/record/store 客户内容、(b) 不在实时处理之后把客户内容保存到持久存储（硬盘、SSD、云存储、数据库）。异步档例外同顶层（72 小时）。"
+text = "The same section defines ZDR as (a) not logging, recording or saving Customer Content, and (b) not saving Customer Content to persistent storage (hard disk, SSD, cloud storage, database) after real-time processing."
+text_zh = "同节把 ZDR 定义为 (a) 不 log/record/store 客户内容、(b) 不在实时处理之后把客户内容保存到持久存储（硬盘、SSD、云存储、数据库）。"
+
+[[product.retention.point]]
+text = "Async exception, from the \"Asynchronous Inference\" entry of the Security Practices (the page lists it as a product entry alongside Model APIs and Dedicated Inference): where the customer elects to enable asynchronous inference, model inputs get temporarily stored and queued for the duration of the request, can stay in queue for up to 72 hours before being processed and then deleted, and Model Outputs are not stored. It applies only where the customer turns async on, and the 72 hours is an upper bound."
+text_zh = "异步例外，出自 Security Practices「Asynchronous Inference」条（该页把它与 Model APIs、Dedicated Inference 并列为产品条）：客户启用异步推理时，模型输入在请求期间被暂存排队，最多 72 小时后处理并删除，且不存 Model Outputs。仅在客户开启 async 时适用，72 小时是上限。"
+anchor = "baseten-security-practices-async-72h"
+
+[[product.retention.point]]
+text = "Multi-hop caveat on this tier: Baseten Model APIs is where Third-Party Products are made available through managed API endpoints, and if a customer connects or enables Third-Party Products for use with the Services, the providers of those products may have access to Customer Content in connection with the interoperation, and Baseten will not be responsible for any use, disclosure, modification or deletion of Customer Content by them (Terms §4.4). The retention position above therefore covers only Baseten's own hop."
+text_zh = "本档的多跳提示：Baseten Model APIs 正是通过托管 API 端点提供 Third-Party Products 的入口；客户接入或启用第三方产品时，其提供方可能因互操作而接触 Customer Content，Baseten 不负责其对 Customer Content 的使用、披露、修改或删除（Terms §4.4）。故上面的保留结论只覆盖 Baseten 自己这一跳。"
+anchor = "baseten-tos-4-4-third-party-products-content-access"
+
+[[product.retention.point]]
+text = "A different object inside this dimension: Baseten's access and authentication-related security logs (access and actions taken by Baseten personnel, plus customer authentication events such as device type, IP addresses and abnormality detection) are stored for up to 4 years and cannot be deleted or modified, even by an administrator. That is an upper bound for that log class, not the retention rule for model inputs and outputs, which are covered by the ZDR posture above."
+text_zh = "本维度内的另一类对象：Baseten 的访问与认证类安全日志（Baseten 人员的访问与操作，以及客户认证相关事件，如 device type、IP addresses、abnormality detection）最多留存 4 年，且不可删除或修改。这是该类日志的上限，不等于模型输入输出的保留口径——输入输出适用上面的 ZDR 姿态。"
+anchor = "baseten-security-practices-audit-logs-4-years"
 
 [product.processing_region]
 basis = "undisclosed"
@@ -92,8 +127,8 @@ kind = "processor"
 anchor = "baseten-dpa-3-1-processor"
 
 [[product.role.point]]
-text = "Same as the top level. On the third-party model tier, Model Lab is not a sub-processor of the customer and Baseten does not forward customer content (SML §6)."
-text_zh = "同顶层。第三方模型档下 Model Lab 不是客户 sub-processor，Baseten 不转发客户内容（SML §6）。"
+text = "Same as the top level. On the third-party model tier, Model Lab is not a sub-processor of the customer and Baseten does not forward customer content (SML §6) — SML has no snapshot in this file yet, so this is a sourcing gap rather than an anchor."
+text_zh = "同顶层。第三方模型档下 Model Lab 不是客户 sub-processor，Baseten 不转发客户内容（SML §6）——SML 在本文件尚无快照，故这是溯源缺口而非锚点。"
 
 [[product]]
 id = "dedicated"
@@ -111,6 +146,16 @@ anchor = "baseten-tos-6-3-no-training"
 text = "Same as the top level. The definition of Customer Model expressly includes associated weights, checkpoints, adapters and configurations, so weights are within the scope of §6.3 as well."
 text_zh = "同顶层。Customer Model 定义明确包含 associated weights、checkpoints、adapters、configurations，故权重也在 §6.3 覆盖范围内。"
 
+[[product.training.point]]
+text = "Boundary of the no-training commitment: \"Usage Information\" is technical and operational telemetry about the use and performance of the Services (latency, throughput, error rates, utilization, feature usage data), and §1 defines Customer Content to exclude it — so it is not Customer Model inputs, outputs or weights. Baseten may use it to operate, maintain, secure and improve the Services; beyond the direct operation of the customer's workloads, analytics, benchmarking and product development are allowed only in aggregated or de-identified form that cannot reasonably be used to identify Customer or to reveal Customer Content."
+text_zh = "「不用于训练」的边界：Usage Information 是服务使用与性能的技术/运营遥测（latency、throughput、error rates、utilization、feature usage data），§1 的 Customer Content 定义明确把它排除在外，故它不是 Customer Model 的输入、输出或权重。Baseten 可用它运营、维护、保障与改进服务；超出客户负载直接运营之外的分析、基准测试与产品开发，只能用无法合理识别客户或暴露 Customer Content 的聚合或去标识形式。"
+anchor = "baseten-tos-6-4-usage-information-telemetry"
+
+[[product.training.point]]
+text = "Hard limit on that telemetry: in no event may Baseten collect or use Usage Information for the purpose of reproducing the customer's model weights or training datasets, or of developing products that replicate customer-specific deployments. Neither point changes mark=yes — they bound telemetry, not the customer's own models and data."
+text_zh = "该类遥测的硬性限制：Baseten 绝不得为复制客户模型权重或训练集、或为开发复刻客户专属部署的产品而收集或使用 Usage Information。两条 point 都不改变 mark=yes——它们约束的是遥测，不是客户自己的模型与数据。"
+anchor = "baseten-tos-6-4-usage-information-limit"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -123,6 +168,16 @@ text_zh = "该产品被点名持 ZDR 姿态"
 [[product.zdr.point]]
 text = "ZDR is the default configuration."
 text_zh = "ZDR 是默认配置。"
+
+[[product.zdr.point]]
+text = "Scope limit on the ZDR commitment: Baseten is not in breach of these Security Practices (including the ZDR commitments) where logging, retention, storage, access, use or disclosure of Customer Content arises from (a) configurations, settings or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring or any Third-Party Product; or (d) actions taken at a customer's written direction. This is an exception defining the scope of the commitment, not a withdrawal of it; mark stays yes."
+text_zh = "ZDR 承诺的适用边界（例外，非撤销）：若 Customer Content 的 logging、retention、storage、access、use 或 disclosure 源于 (a) 客户或其授权用户所作的配置、设置或部署选择；(b) 客户提供或选用的 model runtime code、packages、dependencies 等软件（含 Customer Model 或其供应链中的潜在漏洞）；(c) 客户自行开启 logging、retention、abuse monitoring 或任何 Third-Party Product；或 (d) 按客户书面指示采取的行动，则不构成 Baseten 违反 Security Practices（含 ZDR 承诺）。mark 仍为 yes。"
+anchor = "baseten-security-practices-customer-controlled-factors"
+
+[[product.zdr.point]]
+text = "ZDR configuration is changeable at the customer's request: customers may request changes to the applicable ZDR configuration for their workloads by written notice, and Baseten will promptly implement requested changes whenever technically supported for the applicable Service; where it cannot, it must promptly notify the customer with an explanation. This is what mode=default means here — a default the customer can have changed — and it does not mean Baseten may rewrite the default on its own."
+text_zh = "ZDR 配置可依客户书面请求变更：客户可书面请求变更其负载适用的 ZDR 配置，Baseten 在适用服务技术上支持时即迅速实现，不可实现时须迅速通知并说明原因。这解释了本档 mode=default 的成色——默认值可由客户请求改写——不等于厂商可自行变更默认值。"
+anchor = "baseten-security-practices-zdr-config-changes"
 
 [product.retention]
 object = "input_output"
@@ -144,6 +199,16 @@ text_zh = "「Customer Model Weights」：权重动态载入 GPU 内存、默认
 [[product.retention.point]]
 text = "The KV cache lives only in GPU memory and is not written to disk (docs/observability/security)."
 text_zh = "KV cache 只在 GPU 内存、不落盘（docs/observability/security）。"
+
+[[product.retention.point]]
+text = "Async exception on this tier, from the \"Asynchronous Inference\" entry of the Security Practices (listed there as a product entry alongside Model APIs and Dedicated Inference): if the customer elects to enable asynchronous inference, model inputs get temporarily stored and queued for the duration of the request, can stay in queue for up to 72 hours before being processed and then deleted, and Model Outputs are not stored. It applies only where the customer turns asynchronous inference on; 72 hours is an upper bound, and the inputs are deleted once processed."
+text_zh = "本档的异步例外，出自 Security Practices「Asynchronous Inference」条（该页把它与 Model APIs、Dedicated Inference 并列为产品条）：客户启用异步推理时，模型输入在请求期间被暂存排队，最多 72 小时后处理并删除，且不存 Model Outputs。仅在客户主动启用异步推理时适用；72 小时是上限，处理完即删除。"
+anchor = "baseten-security-practices-async-72h"
+
+[[product.retention.point]]
+text = "A different object inside this dimension: Baseten's access and authentication-related security logs (access and actions taken by Baseten personnel, plus customer authentication events such as device type, IP addresses and abnormality detection) are stored for up to 4 years and cannot be deleted or modified, even by an administrator. That is an upper bound for that log class, not the retention rule for Customer Model inputs and outputs, which are covered by the ZDR posture above."
+text_zh = "本维度内的另一类对象：Baseten 的访问与认证类安全日志（Baseten 人员的访问与操作，以及客户认证相关事件，如 device type、IP addresses、abnormality detection）最多留存 4 年，且不可删除或修改。这是该类日志的上限，不等于 Customer Model 输入输出的保留口径——输入输出适用上面的 ZDR 姿态。"
+anchor = "baseten-security-practices-audit-logs-4-years"
 
 [product.processing_region]
 codes = ["selected"]
@@ -193,8 +258,8 @@ mark = "no"
 anchor = "baseten-security-practices-post-term-30-days"
 
 [[product.zdr.point]]
-text = "The ZDR posture is worded as \"across all inference products\", whereas training data and checkpoints are storage-type data (kept until 30 days after the end of the subscription term) and fall outside zero retention of inference inputs and outputs. Request-level ZDR therefore does not apply to this tier; only the 30-day post-term retrieval window and the deletion commitment do."
-text_zh = "ZDR 姿态的表述是「across all inference products」，而训练数据与 checkpoint 属存储型数据（保留到订阅期结束后 30 天），不在推理输入输出的零保留范围内。即本档不适用请求级 ZDR，只有终止后 30 天取回期与删除承诺。"
+text = "The scope of the ZDR posture in the Security Practices is worded as \"across all inference products\"; training data and checkpoints are storage-type data (retrievable until 30 days after the end of the subscription term) and fall outside zero retention of inference inputs and outputs. Request-level ZDR therefore does not apply to this tier — only the 30-day post-term retrieval window and the deletion commitment do."
+text_zh = "ZDR 姿态的适用范围是 all inference products；训练数据与 checkpoint 属存储型数据（订阅期结束后 30 天内可取回），不在推理输入输出的请求级零保留范围内。即本档不适用请求级 ZDR，只有终止后 30 天取回期与删除承诺。"
 anchor = "baseten-security-practices-zdr-products"
 
 [product.retention]
@@ -255,6 +320,11 @@ text_zh = "本档的「不保留」由架构保证（payload 不出客户环境�
 text = "The ZDR posture in the Security Practices, being \"across all inference products\", covers this tier too."
 text_zh = "Security Practices 的 ZDR 姿态对 all inference products 同样覆盖本档。"
 
+[[product.zdr.point]]
+text = "Scope limit on the ZDR commitment (the Security Practices clause is worded generally and covers this tier as well): Baseten is not in breach of these Security Practices (including the ZDR commitments) where logging, retention, storage, access, use or disclosure of Customer Content arises from (a) configurations, settings or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring or any Third-Party Product; or (d) actions taken at a customer's written direction. This is an exception defining the scope of the commitment, not a withdrawal of it; mark stays yes."
+text_zh = "ZDR 承诺的适用边界（该条措辞是一般性的，同样覆盖本档；属例外而非撤销）：若 Customer Content 的 logging、retention、storage、access、use 或 disclosure 源于 (a) 客户或其授权用户所作的配置、设置或部署选择；(b) 客户提供或选用的 model runtime code、packages、dependencies 等软件（含 Customer Model 或其供应链中的潜在漏洞）；(c) 客户自行开启 logging、retention、abuse monitoring 或任何 Third-Party Product；或 (d) 按客户书面指示采取的行动，则不构成 Baseten 违反 Security Practices（含 ZDR 承诺）。mark 仍为 yes。"
+anchor = "baseten-security-practices-customer-controlled-factors"
+
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -264,8 +334,13 @@ anchor = "baseten-docs-self-hosted-payload-retention"
 text = "docs/hosting-options/self-hosted「Payload retention」：Baseten doesn't store synchronous inference inputs or outputs"
 
 [[product.retention.point]]
-text = "Async inputs queue inside the customer's own infrastructure until the request is executed (the queue ceiling is the 72-hour parameter in the async documentation). Note that some platform data still passes through Baseten on this tier: model code and container images travel through the control plane, metrics and billing data are sent back, and logs and metrics stay in the customer's cluster but are queried remotely by Baseten — the page gives no retention period for that platform data, so duration_kind is recorded as unspecified."
-text_zh = "异步输入在客户自己的基础设施内排队直到请求执行（排队上限见 async 文档的 72 小时参数）。注意本档部分平台数据仍会经过 Baseten：model code 与 container image 经 control plane，metrics 与 billing 数据回传，logs 与 metrics 留在客户集群但 Baseten 远程查询——该页未给出这些平台数据的保留期限，故 duration_kind 记 unspecified。"
+text = "Async inputs queue inside the customer's own infrastructure until the request is executed. The 72-hour queue ceiling quoted for asynchronous inference comes from the \"Asynchronous Inference\" entry of the Security Practices; on this tier the queueing itself happens inside the customer's own infrastructure rather than in Baseten's, so that entry is recorded here only as the source of the ceiling, not as a second registration of the same exception. Note that some platform data still passes through Baseten on this tier: model code and container images travel through the control plane, metrics and billing data are sent back, and logs and metrics stay in the customer's cluster but are queried remotely by Baseten — the page gives no retention period for that platform data, so its duration is recorded as unspecified."
+text_zh = "异步输入在客户自己的基础设施内排队直到请求执行。异步推理的 72 小时排队上限出自 Security Practices「Asynchronous Inference」条；本档的排队发生在客户自己的基础设施内而非 Baseten 侧，故这里只把该条记为上限的出处，不重复登记为同一例外。注意本档部分平台数据仍会经过 Baseten：model code 与 container image 经 control plane，metrics 与 billing 数据回传，logs 与 metrics 留在客户集群但 Baseten 远程查询——该页未给出这些平台数据的保留期限，故其期限记 unspecified。"
+
+[[product.retention.point]]
+text = "A different object inside this dimension: Baseten's access and authentication-related security logs (access and actions taken by Baseten personnel, plus customer authentication events such as device type, IP addresses and abnormality detection) are stored for up to 4 years and cannot be deleted or modified, even by an administrator. That is an upper bound for that log class, not the retention rule for inference payloads on this tier, which are covered by the self-hosted payload retention point above."
+text_zh = "本维度内的另一类对象：Baseten 的访问与认证类安全日志（Baseten 人员的访问与操作，以及客户认证相关事件，如 device type、IP addresses、abnormality detection）最多留存 4 年，且不可删除或修改。这是该类日志的上限，不等于本档推理 payload 的保留口径——payload 适用上面的自托管保留条款。"
+anchor = "baseten-security-practices-audit-logs-4-years"
 
 [product.processing_region]
 codes = ["selected"]
@@ -358,8 +433,8 @@ prefix = """
 ement of any algorithms.
 
 **Zero Data Retention Products.** """
-exact = "Baseten adheres to a Zero Data Retention (\"**ZDR**\") posture across all inference products. Unless a customer, acting through an authorized representative, requests otherwise in writing, ZDR is the default configuration for the customer's use of the inference products; Baseten does not log Customer Content contained in inference inputs or outputs for human review; and Baseten will not retain Customer Content contained in inference inputs or outputs at rest without the customer's prior written consent."
-suffix = " Any consented retention will be limited to the minimum nece"
+exact = "Baseten adheres to a Zero Data Retention posture across all inference products."
+suffix = " Product-specific details are set forth below."
 
 [[anchor]]
 id = "baseten-security-practices-model-apis-zdr"
@@ -632,3 +707,43 @@ prefix = """
 """
 exact = "Inference payloads never leave your environment."
 suffix = " Some platform data does. Model builds run in the Baseten co"
+
+[[anchor]]
+id = "baseten-security-practices-customer-controlled-factors"
+source_id = "27db51c160a382cc"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "**Customer-Controlled Factors.** "
+exact = "Baseten will not be in breach of these Security Practices (including the ZDR commitments) to the extent that any logging, retention, storage, access, use, or disclosure of Customer Content arises from (a) configurations, settings, or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies, or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring, or any Third-Party Product; or (d) actions taken at a customer's written direction."
+suffix = " Baseten will promptly notify the customer upon becoming aware of any such event"
+
+[[anchor]]
+id = "baseten-security-practices-zdr-config-changes"
+source_id = "27db51c160a382cc"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "**ZDR Configuration Changes.** "
+exact = "Customers may request changes to the applicable ZDR configuration for their workloads by written notice, and Baseten will promptly implement requested changes whenever technically supported for the applicable Service."
+suffix = " If Baseten cannot implement a requested change due to technical impossibility"
+
+[[anchor]]
+id = "baseten-tos-4-4-third-party-products-content-access"
+source_id = "318b903b7257ac8e"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "Customer assumes and shall perform all obligations applicable to a deployer or provider under applicable law with respect to such use. "
+exact = "If Customer connects or enables Third-Party Products for use with the Services, Customer acknowledges that providers of those Third-Party Products may have access to Customer Content in connection with the interoperation thereof, and Baseten will not be responsible for any use, disclosure, modification, or deletion of Customer Content by Third-Party Products."
+suffix = "**4.5. Removal Requests.**"
+
+[[anchor]]
+id = "baseten-tos-6-4-usage-information-telemetry"
+source_id = "318b903b7257ac8e"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "**6.4. Telemetry and Platform Learnings.** "
+exact = "Baseten may collect technical and operational telemetry relating to the use and performance of the Services (e.g., latency, throughput, error rates, utilization, and feature usage data) (\"Usage Information\"), and may use Usage Information to operate, maintain, secure, and improve the Services. To the extent Baseten uses Usage Information for analytics, benchmarking, or product development purposes beyond the direct operation of Customer's workloads, Baseten will do so only in aggregated or de-identified form that cannot reasonably be used to identify Customer or to reveal Customer's Confidential Information or Customer Content."
+suffix = " In no event will Baseten collect or use Usage Information for the purpose of reproducing"

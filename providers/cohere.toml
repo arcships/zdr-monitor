@@ -39,7 +39,8 @@ note = "Cohere Trust Center(secureframetrust 托管、官方域名,页内 FAQ)�
 id = "api"
 badge = "按量 API"
 category = "api"
-plan_level = "any"
+plan_level = "enterprise"
+label = "Cohere SaaS Platform 付费档：EDC 界定为「有信用卡在账的商业付费客户」；用试用 API key 访问同一平台的子档走 Terms of Use + 隐私政策，单列 trial 一行"
 
 [product.training]
 mark = "no"
@@ -47,19 +48,70 @@ mode = "opt_out"
 anchor = "training-optout-enterprise"
 
 [[product.training.point]]
-text = "The only training clause in the public material is an opt-out: \"You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.\" Prompts and generations are therefore used to train Cohere models unless the customer switches it off — recorded as mark=no with mode=opt_out, not as undisclosed."
-text_zh = "公开材料里唯一的训练条款是 opt-out：「You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.」即默认会用于训练 Cohere 模型、客户可随时在控制台关闭，故记 mark=no + mode=opt_out，不是「未披露」。"
+text = "Policy layer (Enterprise Data Commitments, channel=enterprise_privacy_faq): prompts and generations are used to train Cohere models unless the customer turns the dashboard toggle off — \"You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.\" The toggle is described for this paying tier, and EDC states its own scope as the enterprise data of Cohere's commercial, paying customers, i.e. SaaS Platform customers who have a credit card on file in their account. Recorded as mark=no with mode=opt_out, not as undisclosed."
+text_zh = "政策层（EDC，channel=enterprise_privacy_faq）：默认会用于训练，客户可在控制台随时关闭——「You can opt out from your prompts and generations being used to train Cohere models in your dashboard settings at any time.」该开关是给本付费档描述的；EDC 自述适用范围是商业付费客户的企业数据，即 SaaS Platform 上有信用卡在账的客户。故记 mark=no + mode=opt_out，不是「未披露」。"
+anchor = "training-optout-enterprise"
+
+[[product.training.point]]
+text = "Time boundary of the switch: \"Your change in settings will apply to data created after you make that change.\" Opting out therefore covers only data created afterwards; data already submitted and already drawn on is not affected by the change."
+text_zh = "开关的时间边界：「Your change in settings will apply to data created after you make that change.」即退出只对之后产生的数据生效，此前已提交、已被使用的数据不因此停止被使用。"
+anchor = "training-optout-applies-to-future-data"
+
+[[product.training.point]]
+text = "Contract layer (Cohere API SaaS Agreement §3(a)(iii), channel=contract, tier=contradiction): \"CUSTOMER GRANTS TO COHERE A NONEXCLUSIVE, WORLDWIDE, ROYALTY-FREE, IRREVOCABLE, SUBLICENSABLE, AND FULLY PAID-UP RIGHT TO ACCESS, COLLECT, USE, PROCESS, STORE, DISCLOSE AND TRANSMIT CUSTOMER DATA TO: … (III) IMPROVE AND ENHANCE THE SERVICES AND COHERE’S OTHER OFFERINGS AND BENCHMARK THE FOREGOING, INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THIRD PARTIES WHO MAY USE THE FINETUNING DATA AND API DATA TO PROVIDE SERVICES TO COHERE AND FOR OTHER PURPOSES PERMITTED UNDER THEIR TERMS AND CONDITIONS.\" The licence is expressly irrevocable, covers Customer Data generally without any opt-in by the customer, and allows API Data / Finetuning Data to be handed to third parties under their own terms. The two layers of the same tier are kept side by side rather than averaged: the policy layer gives a dashboard opt-out, the contract layer grants an irrevocable licence; neither document says whether the dashboard switch limits that licence."
+text_zh = "合同层（《Cohere API SaaS Agreement》§3(a)(iii)，channel=contract，tier=contradiction）：对 Customer Data 授予 NONEXCLUSIVE…IRREVOCABLE… 的许可，第 (III) 项明确用于 IMPROVE AND ENHANCE THE SERVICES AND COHERE’S OTHER OFFERINGS，并允许把 API Data / Finetuning Data 交第三方按第三方条款使用；许可明文不可撤销、覆盖全部 Customer Data、不需要客户 opt-in。同一档位的两种口径并列保留、不取平均：政策层给 dashboard opt-out，合同层给不可撤销许可；两份文件都没说 dashboard 开关是否构成对该许可的合同性限缩。"
+anchor = "saas-training-improve-license"
+
+[[product.training.point]]
+text = "Scope of this row: EDC itself sends data from users on a trial API key to the Terms of Use and Privacy Policy, and that sub-tier is recorded as its own row (trial) because its training mechanism is different — there is no dashboard switch there. The opt-out described above is not offered on it."
+text_zh = "本行范围：EDC 自己把「用试用 API key 访问 SaaS Platform」的用户数据划给 Terms of Use + 隐私政策；该子档的训练机制不同（没有 dashboard 开关），故单列 trial 一行。上面这个 opt-out 开关不适用于它。"
+anchor = "training-trial-scope"
 
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
 anchor = "zdr-definition"
 
+[[product.zdr.point]]
+text = "Besides the request-based scheme, the Trust Center describes a configuration that stores nothing at all: \"we can, in certain circumstances, configure our offering to ensure that no customer data is stored on Cohere’s systems. When the Cohere offering is configured in this way, the customer data is considered “ephemeral”, as it transits through Cohere’s systems only briefly for the purposes of providing the services and is purged immediately after processing.\" The same answer records the trade-off — it limits some features and Cohere's ability to improve the user experience by reviewing customer data — and describes it as a configuration rather than a self-serve switch, so it corroborates the by_agreement record instead of replacing the ZDR definition as this row's main basis."
+text_zh = "除按申请开通的方案外，Trust Center 还描述了另一种「完全不存储」的配置：「we can, in certain circumstances, configure our offering to ensure that no customer data is stored on Cohere’s systems… the customer data is considered “ephemeral”… and is purged immediately after processing.」同一条回答也承认代价（会限制部分功能，并削弱 Cohere 通过查阅客户数据来改进体验的能力），且它写的是「配置」而非自助开关——故作为 by_agreement 的佐证，不替换 ZDR 定义句作主锚点。"
+anchor = "zdr-ephemeral-configuration"
+
+[[product.zdr.point]]
+text = "Two limits stated in the same FAQ answer: \"we only allow ZDR for enterprise customers who can make additional commitments about their usage of the Cohere Services\", and \"ZDR does not affect usage data, which Cohere still receives.\" ZDR therefore does not extend to the trial sub-tier (see that row) and does not cover usage metadata."
+text_zh = "同一条 FAQ 里的两处限定：「we only allow ZDR for enterprise customers who can make additional commitments about their usage of the Cohere Services」以及「ZDR does not affect usage data, which Cohere still receives.」即 ZDR 不覆盖试用子档（见 trial 行），也不覆盖 usage data 这类元数据。"
+anchor = "zdr-enterprise-only-by-request"
+
 [product.retention]
 days = 30
 object = "input_output"
 basis = "fixed_period"
 anchor = "retention-30d-logged-prompts"
+
+[[product.retention.point]]
+text = "Object, context and exceptions of the 30 days: object = logged prompts and generations (input/output content); context = the default on the SaaS Platform for this paying tier; \"We automatically delete logged prompts and generations after 30 days, unless we need it to comply with a legal requirement or customer contract, or unless your usage is flagged as potentially violating our terms, including our Usage Policy (e.g. abuse or misuse of our services).\" EDC adds that flagged prompts and associated logs may be retained and reviewed to enforce the policies, and that deleting an account does not delete prompts or generations — those follow the 30-day rule and its exceptions."
+text_zh = "这 30 天的对象、语境与例外：对象=被记录的 prompts 与 generations（输入输出正文）；语境=本付费档在 SaaS Platform 上的默认值；原文「We automatically delete logged prompts and generations after 30 days, unless we need it to comply with a legal requirement or customer contract, or unless your usage is flagged as potentially violating our terms…」。EDC 另写：被标记的 prompts 与相关日志可被保留并复核以执行政策；删除账号也不会删除 prompts/generations，它们仍按 30 天规则及其例外处理。"
+anchor = "retention-30d-logged-prompts"
+
+[[product.retention.point]]
+text = "Exception inside the same paragraph as the 30 days: \"Data you allow us to use for training purposes may be retained separately in accordance with our agreement with you.\" Input/output the customer allows Cohere to use for training is therefore not covered by the 30 days — it is kept separately under the agreement instead."
+text_zh = "与 30 天同段的例外：「Data you allow us to use for training purposes may be retained separately in accordance with our agreement with you.」即被允许用于训练的输入输出不受 30 天约束，按协议另行保留。"
+anchor = "retention-training-data-separate"
+
+[[product.retention.point]]
+text = "Contract layer, a second and different \"30 days\": \"Within 30 calendar days following termination, Cohere will, at Customer’s request, delete or otherwise render inaccessible any Customer Data that remains in the hardware or systems used by Cohere to provide the Cohere API SaaS Services, including any Custom Models.\" Context = after termination, and conditional on the customer asking; this is not the automatic deletion during the term, and the two figures must not be read as one."
+text_zh = "合同层的另一个「30 天」：「Within 30 calendar days following termination, Cohere will, at Customer’s request, delete or otherwise render inaccessible any Customer Data that remains in the hardware or systems used by Cohere to provide the Cohere API SaaS Services, including any Custom Models.」语境=服务终止之后，且以客户提出请求为前提；这与服务期内的自动删除是两回事，不能合并成同一个数字。"
+anchor = "saas-retention-termination-deletion"
+
+[[product.retention.point]]
+text = "The same clause excludes one class of data from that deletion duty: \"Notwithstanding the foregoing, Cohere will have no obligation to delete or otherwise render inaccessible any API Data or Finetuning Data submitted by Customer to Cohere in accordance with Section 3(a)(iii).\" In context this governs deletion after termination (it follows the 30-day window above); §3(a)(iii) covers Customer Data generally without the customer opting in, so for data submitted under it the contract layer makes no deletion commitment, while the policy layer keeps the 30-day automatic deletion as the default. The two layers are recorded side by side."
+text_zh = "同一条把一类数据排除在删除义务之外：「Notwithstanding the foregoing, Cohere will have no obligation to delete or otherwise render inaccessible any API Data or Finetuning Data submitted by Customer to Cohere in accordance with Section 3(a)(iii).」按上下文它管的是终止后的删除（紧接上文那个 30 天窗口）；§3(a)(iii) 的许可覆盖全部 Customer Data 且不需要客户 opt-in，因此对该许可项下的数据，合同层不作删除承诺，而政策层仍保留 30 天自动删除作为默认值。两层并列记录。"
+anchor = "saas-no-deletion-obligation-3aiii"
+
+[[product.retention.point]]
+text = "Scope: EDC applies to \"enterprise data of our commercial, paying customers … customers who have a credit card on file in their account\", and EDC sends trial API key data to the Terms of Use and Privacy Policy, where no fixed period for inputs and outputs is published (see the trial row). The 30 days above is therefore this paying tier's default, not a platform-wide rule."
+text_zh = "适用范围：EDC 适用于「enterprise data of our commercial, paying customers … customers who have a credit card on file in their account」，并把试用 API key 的数据划给 Terms of Use + 隐私政策（其中没有公布输入输出的固定期限，见 trial 行）。故上面的 30 天是本付费档的默认值，不是全平台规则。"
+anchor = "edc-scope-paying-customers"
 
 [product.processing_region]
 codes = ["US"]
@@ -68,6 +120,83 @@ anchor = "region-gcp-us-central"
 [product.role]
 kind = "processor"
 anchor = "role-dpa-on-behalf"
+
+[[product]]
+id = "trial"
+badge = "试用 API key"
+category = "api"
+plan_level = "free"
+label = "用试用 API key 访问 Cohere SaaS Platform 的试用/自助子档：EDC 明确其数据走 Terms of Use + 隐私政策，训练机制与付费档不同（没有 dashboard 开关）"
+
+[product.training]
+mark = "no"
+anchor = "tou-training-improve-license"
+
+[[product.training.point]]
+text = "Contract layer for this sub-tier: EDC states that \"Our Terms of Use and Privacy Policy apply to data we receive from users using a trial API key to access our SaaS Platform\", and ToU §4(a) grants Cohere a right over Customer Data \"TO: … (III) IMPROVE AND ENHANCE THE COHERE SOLUTION AND OUR OTHER OFFERINfGS AND BENCHMARK THE FOREGOING, INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THIRD PARTIES WHO MAY USE THE FINETUNING DATA AND API DATA TO PROVIDE SERVICES TO COHERE\". Input and output is therefore used to improve the products — training under this ledger's rule — and the licence is expressly irrevocable."
+text_zh = "本子档的合同层：EDC 写明「Our Terms of Use and Privacy Policy apply to data we receive from users using a trial API key to access our SaaS Platform」，而 ToU §4(a) 对 Customer Data 授予不可撤销的权利：「TO: … (III) IMPROVE AND ENHANCE THE COHERE SOLUTION AND OUR OTHER OFFERINfGS AND BENCHMARK THE FOREGOING, INCLUDING BY SHARING API DATA AND FINETUNING DATA WITH THIRD PARTIES…」（OFFERINfGS 是厂商原文笔误，照录）。输入输出因此会用于改进产品——按本台账判定口径即训练——且许可明文不可撤销。"
+anchor = "tou-training-improve-license"
+
+[[product.training.point]]
+text = "Privacy Policy §2.3 covers this population directly (Trial Users and Researchers): \"We may use this input and output data to conduct research and development. This includes analyzing usage trends and using inputs/outputs to improve the performance and safety of Cohere Products.\" The same section states that de-identification steps are taken before any research and development use, and that these environments are not intended for personal information."
+text_zh = "隐私政策 §2.3 直接覆盖这批用户（Trial Users 与 Researchers）：「We may use this input and output data to conduct research and development. This includes analyzing usage trends and using inputs/outputs to improve the performance and safety of Cohere Products.」同节写明用于研发前会做去标识化，且这些环境不适用于处理个人信息。"
+anchor = "privacy-trial-research-rnd"
+
+[[product.training.point]]
+text = "Mechanism: no dashboard switch on this sub-tier. EDC describes the opt-out toggle for enterprise/paying customers, and the Terms of Use and Privacy Policy that govern trial API key data provide no way to withdraw the licence — hence mark=no with no opt_out mode."
+text_zh = "机制：本子档没有 dashboard 开关。EDC 的 opt-out 开关是给企业/付费客户描述的，而治理试用 API key 数据的 Terms of Use 与隐私政策没有提供撤回许可的途径——故记 mark=no 且不带 opt_out。"
+anchor = "training-trial-scope"
+
+[product.zdr]
+mark = "no"
+mode = "not_disclosed"
+searched = [
+  "https://cohere.com/terms-of-use",
+  "https://cohere.com/privacy",
+  "https://cohere.com/enterprise-data-commitments",
+]
+
+[[product.zdr.point]]
+text = "No zero-retention option is disclosed for this sub-tier: the Terms of Use and the Privacy Policy say nothing about zero retention, and the only ZDR mechanism Cohere publishes is limited — \"we only allow ZDR for enterprise customers who can make additional commitments about their usage of the Cohere Services.\""
+text_zh = "本子档没有公开任何零保留方案：Terms of Use 与隐私政策都没提到零保留，而 Cohere 公开的 ZDR 机制是有限定的——「we only allow ZDR for enterprise customers who can make additional commitments about their usage of the Cohere Services.」"
+anchor = "zdr-enterprise-only-by-request"
+
+[product.retention]
+object = "mixed"
+basis = "as_needed"
+anchor = "privacy-retention-as-needed"
+
+[[product.retention.point]]
+text = "The 30-day figure published elsewhere is stated for Enterprise Users only: \"Retention of inputs and outputs on the Platform is generally 30 days for Enterprise Users.\" The next sentence sends Trial Users and Researchers elsewhere — the Platform \"is not intended to process personal information\", with deletion on request if personal information is inadvertently included in an input."
+text_zh = "别处公布的 30 天只针对 Enterprise Users：「Retention of inputs and outputs on the Platform is generally 30 days for Enterprise Users.」紧接着的一句把 Trial Users 与 Researchers 划到另一套：平台「is not intended to process personal information」，若输入中不慎包含个人信息，可发信要求删除。"
+anchor = "retention-30d-enterprise-users"
+
+[[product.retention.point]]
+text = "This row covers two objects with different answers, which is why the object field is recorded as mixed rather than as inputs and outputs alone. What the governing documents do state is the Privacy Policy's as-needed rule, and that rule is stated for personal information: \"We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, to meet business or legal requirements…\", the same section adding that \"there is not typically a fixed retention period that will always apply to a particular category of personal information\". Inputs and outputs are a different object and no period is published for them on this sub-tier: the 30-day figure is stated for Enterprise Users, and EDC's 30-day automatic deletion is scoped to paying customers — EDC applies to \"enterprise data of our commercial, paying customers … customers who have a credit card on file in their account\" and routes trial API key data to the Terms of Use and Privacy Policy."
+text_zh = "本行覆盖两种对象、答案不同，故 object 记 mixed 而非只记输入输出。治理本子档的文件里能落实的是隐私政策的按需保留规则，而该规则针对的是个人信息：「We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, to meet business or legal requirements…」，同节还写「there is not typically a fixed retention period that will always apply to a particular category of personal information」。输入输出是另一种对象，本子档没有公布它的期限：30 天是针对 Enterprise Users 写的，EDC 的 30 天自动删除适用于付费客户——EDC 适用于「enterprise data of our commercial, paying customers … customers who have a credit card on file in their account」，并把试用 API key 的数据划给 Terms of Use + 隐私政策。"
+anchor = "edc-scope-paying-customers"
+
+[product.processing_region]
+codes = ["US"]
+anchor = "region-gcp-us-central"
+
+[[product.processing_region.point]]
+text = "The hosting answer is platform-level rather than tier-specific: \"Our hosting centers are on Google Cloud Platform servers located in US-Central. We do not use servers outside of the US…\" It is the same answer that describes the ephemeral configuration, and no region choice is offered for this sub-tier."
+text_zh = "托管地的回答是平台级而非分档的：「Our hosting centers are on Google Cloud Platform servers located in US-Central. We do not use servers outside of the US…」它与描述 ephemeral 配置的是同一条回答，本子档没有可选地域。"
+anchor = "region-gcp-us-central"
+
+[product.role]
+kind = "unknown"
+searched = [
+  "https://cohere.com/terms-of-use",
+  "https://cohere.com/privacy",
+  "https://cohere.com/enterprise-data-commitments",
+]
+
+[[product.role.point]]
+text = "Neither document that governs this sub-tier assigns Cohere a controller/processor role for trial API key data. The processor framing in the Privacy Policy is stated for End Users (\"In this case we are usually the processor or service provider\") — a different population from the Trial Users covered by §2.3, whose content Cohere may use for research and development. Recorded as unknown rather than guessed."
+text_zh = "治理本子档的两份文件都没有为试用 API key 数据约定 Cohere 的控制者/受托处理方角色。隐私政策里的受托处理口径是针对 End Users 写的（「In this case we are usually the processor or service provider」），与 §2.3 覆盖的 Trial Users 不是同一批人——后者的内容 Cohere 可用于研发。故记 unknown，不猜。"
+anchor = "role-processor-enduser"
 
 [[anchor]]
 id = "edc-scope-paying-customers"
@@ -268,3 +397,53 @@ topics = ["role"]
 prefix = "ve prepared a multi-jurisdictional Data Processing Addendum "
 exact = "designed to give our customers contractual assurances regarding Cohere’s handling of customer data on their behalf"
 suffix = " in compliance with applicable privacy laws, including the G"
+
+[[anchor]]
+id = "saas-no-deletion-obligation-3aiii"
+source_id = "06c21154c11d1b9b"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Within 30 calendar days following termination, Cohere will, at Customer’s request, delete or otherwise render inaccessible any Customer Data that remains in the hardware or systems used by Cohere to provide the Cohere API SaaS Services, including any Custom Models. "
+exact = "Notwithstanding the foregoing, Cohere will have no obligation to delete or otherwise render inaccessible any API Data or Finetuning Data submitted by Customer to Cohere in accordance with Section 3(a)(iii)."
+suffix = ""
+
+[[anchor]]
+id = "training-optout-applies-to-future-data"
+source_id = "2085dff5045de847"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Your change in settings will apply to data created after you make that change."
+suffix = "2. Log Data: Log data are generated automatically when you use our SaaS Platform."
+
+[[anchor]]
+id = "zdr-ephemeral-configuration"
+source_id = "259c19653a171084"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "We do not use servers outside of the US; "
+exact = "however, we can, in certain circumstances, configure our offering to ensure that no customer data is stored on Cohere’s systems. When the Cohere offering is configured in this way, the customer data is considered “ephemeral”, as it transits through Cohere’s systems only briefly for the purposes of providing the services and is purged immediately after processing."
+suffix = ""
+
+[[anchor]]
+id = "privacy-trial-research-rnd"
+source_id = "4f7ce59a681f9f1d"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "we collect content you submit to the Cohere Products, and outputs generated by the Cohere Products. "
+exact = "We may use this input and output data to conduct research and development. This includes analyzing usage trends and using inputs/outputs to improve the performance and safety of Cohere Products."
+suffix = ""
+
+[[anchor]]
+id = "privacy-retention-as-needed"
+source_id = "4f7ce59a681f9f1d"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "A framework for the retention and destruction of personal information consistent with applicable laws. "
+exact = "We retain personal information only for as long as necessary to fulfill the purposes for which it was collected, to meet business or legal requirements, and as otherwise permitted or required by applicable law, including litigation holds."
+suffix = ""

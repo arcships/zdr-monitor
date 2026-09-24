@@ -88,6 +88,11 @@ text = "If it does not, only MSA §4(a) applies and the conclusion points the sa
 text_zh = "若不属，则只有 MSA §4(a) 适用，结论方向相同。另一条硬事实：MSA §2(e)「W&B may use Customer Data from free and academic customers for testing and development purposes」——Free 与 Academic 档客户的数据可另用于 testing and development，付费档无此条。上游跳：AI Terms §1 声明 Third-Party AI 不是 W&B Assets、其行为不受 W&B 约束"
 
 [[product.training.point]]
+text = "Second improvement-use grant, independent of §4(a): MSA §4(b) \"Notwithstanding anything else to the contrary in this Agreement, W&B may collect and analyze Usage Data to develop, improve and support the W&B Assets.\" §1 defines Usage Data as \"data and other information relating to the provision, use and performance of the Software and Service\", and the same clause allows disclosure of Usage Data to affiliates, subprocessors and service providers. Whether Usage Data covers the Input/Output content of a request is not stated: the definition turns on the provision, use and performance of the service and does not exclude request content on its face."
+text_zh = "独立于 §4(a) 的第二条改进用途授权：MSA §4(b)「Notwithstanding anything else to the contrary in this Agreement, W&B may collect and analyze Usage Data to develop, improve and support the W&B Assets.」§1 把 Usage Data 定义为「data and other information relating to the provision, use and performance of the Software and Service」，同条还允许向关联方、子处理者与服务提供者披露 Usage Data。Usage Data 是否包含请求的 Input/Output 正文未明说：定义落在「服务的提供、使用与性能」上，从文本看并未把请求内容排除在外。"
+anchor = "msa-4b-usage-data-improvement-grant"
+
+[[product.training.point]]
 text = "The subprocessor table on the Security page lists Anthropic/OpenAI as \"Generative AI services\" subprocessors, but whether those subprocessors sit on the open-source model inference path of Serverless Inference is not explained in the public documentation (the product page says inference \"runs directly on CoreWeave infrastructure\")."
 text_zh = "Security 页子处理者表把 Anthropic/OpenAI 列为「Generative AI services」子处理者，但这些子处理者是否在 Serverless Inference 的开源模型推理链上，公开文档未说明（产品页称推理「runs directly on CoreWeave infrastructure」）。"
 
@@ -199,6 +204,16 @@ text_zh = "MSA §6(d) 终止后删除、「W&B will initiate deletion within 30 
 text = "That is a post-deletion recovery window, not a retention period for request content. (5) Weave side: the pricing FAQ defines ingested bytes as including LLM inputs and outputs and counts them towards long term storage, but gives no number of days. Conclusion type: no quantified uniform period (unspecified), deletion-triggered plus retention for the term of the contract."
 text_zh = "这是「删除后恢复窗口」，不是「请求内容保留期」。(5) Weave 侧：定价 FAQ 明确定义 ingested bytes 含 LLM inputs/outputs 且计入 long term storage，但未给天数。结论类型：无量化统一期限（unspecified），删除触发型 + 合同期保留。"
 
+[[product.retention.point]]
+text = "Exception to the deletion commitment (DPA §9): \"This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company's deletion policies.\" Personal Data that a law requires Company to keep, and Personal Data in back-up archives, are therefore outside the return/deletion commitment; for backups the promise is only isolation plus eventual deletion, with no period, and the Backup Policy itself is not public."
+text_zh = "删除承诺的例外（DPA §9）：「This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company’s deletion policies.」即法律要求保留的 Personal Data 与备份归档中的 Personal Data 不在返还/删除承诺范围内；备份项下只承诺隔离保护与「最终删除」，没有期限，且 Backup Policy 本身不公开。"
+anchor = "dpa-9-exceptions-law-and-backups"
+
+[[product.retention.point]]
+text = "The DPA outlives the Agreement: \"This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.\" It runs in parallel with the MSA §6(d) deletion-within-30-days rule — Personal Data still Processed under a legal retention requirement or held in back-up archives keeps the DPA in force."
+text_zh = "DPA 不随协议终止而失效：「This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.」它与 MSA §6(d) 的「终止后 30 天内发起删除」并行——只要 Personal Data 仍被处理（法律要求保留或存于备份归档中），DPA 就继续有效。"
+anchor = "dpa-2-duration-notwithstanding-termination"
+
 [product.processing_region]
 codes = ["US"]
 anchor = "mtc-region-gcp-north-america"
@@ -206,14 +221,26 @@ anchor = "mtc-region-gcp-north-america"
 [[product.processing_region.point]]
 text = "Terms level: Multi-tenant Cloud (the platform Serverless Inference sits on) is deployed in W&B's own Google Cloud account, in Google Cloud North America regions"
 text_zh = "条款层：Multi-tenant Cloud（含 Serverless Inference 所在平台）部署在 W&B 自己的 Google Cloud 账户、Google Cloud 北美区域"
+anchor = "mtc-region-gcp-north-america"
 
 [[product.processing_region.point]]
 text = "Artifact files are uploaded to a Google Cloud bucket"
 text_zh = "artifact 文件上传到 Google Cloud bucket"
 
 [[product.processing_region.point]]
+anchor = "security-subprocessors-cloud-hosting-locations"
 text = "Weave multi-tenant data sits in a shared ClickHouse Cloud cluster. The inference request itself has no separate regional disclosure: the docs say only that Inference is accessible from supported geographic locations (usage-limits §Geographic restrictions) and point to the geographic restrictions in the CoreWeave Terms of Use for detail — that section is in fact a statement about the availability of site content outside the United States, not a data residency rule or an eligibility list, so the pointer is broken (a documentation error on the same page). Subprocessor locations (Security page table): AWS/Azure/GCP/ClickHouse \"United States or as chosen by Customer\", Datadog/Hex United States, Anthropic/OpenAI \"United States and other countries where X operates\", Modal Labs the same. \"As chosen by Customer\" corresponds to the region choice on the dedicated cloud tier and is not an option on multi-tenant SaaS. By contrast: Dedicated Cloud supports multiple AWS/GCP/Azure regions (Europe and Asia-Pacific included)"
 text_zh = "Weave 多租户档数据存在共享 ClickHouse Cloud 集群。推理请求本身没有独立的区域披露：docs 只写 Inference 仅可从受支持地理位置访问（usage-limits §Geographic restrictions），并把细节指向 CoreWeave Terms of Use 的 geographic restrictions——该节实际是「网站内容在美国境外可访问性」声明，不是数据驻留或资格清单，这条指路是坏的（同页文档错误）。子处理者所在地（Security 页表）：AWS/Azure/GCP/ClickHouse「United States or as chosen by Customer」、Datadog/Hex 美国、Anthropic/OpenAI「United States and other countries where X operates」、Modal Labs 同。「as chosen by Customer」对应专属云档的区域可选，不是多租户 SaaS 的可选项。对照：Dedicated Cloud 支持 AWS/GCP/Azure 多区域（含欧洲与亚太）"
+
+[[product.processing_region.point]]
+text = "CoreWeave appears in the same table as \"| Coreweave (Affiliate) | United States | Cloud infrastructure administration |\" — machine-checkable evidence that the affiliate running cloud infrastructure for W&B is located in the United States, and together with the platform deployment location in Google Cloud North America it is what the US code rests on. It does not say which operator's facility serves a given Serverless Inference request: the product page's \"runs directly on CoreWeave infrastructure\" has no snapshot and is not anchorable, so the siting of the inference path itself stays undisclosed."
+text_zh = "同一张表里 CoreWeave 记为「| Coreweave (Affiliate) | United States | Cloud infrastructure administration |」——这是「替 W&B 跑云基础设施的关联方位于美国」这条可机器复核的证据，它与平台部署地在 Google Cloud 北美一起构成 US 这个码的依据。它没有说明某次 Serverless Inference 请求落在谁的机房：产品页的「runs directly on CoreWeave infrastructure」没有快照、无法作锚点，故推理链路本身的落点仍未披露。"
+anchor = "security-subprocessors-coreweave-affiliate-us"
+
+[[product.processing_region.point]]
+text = "Generative AI services are listed as subprocessors too: Anthropic and OpenAI are \"United States and other countries where X operates\", Modal Labs the same — recorded as the multi-hop tail of AI Features, not as evidence for the siting of a plain inference request."
+text_zh = "生成式 AI 服务也列在子处理者表里：Anthropic 与 OpenAI 为「United States and other countries where X operates」、Modal Labs 同——这是 AI Features 的多跳尾段，不作为普通推理请求落点的证据。"
+anchor = "security-subprocessors-ai-vendors"
 
 [[product.processing_region.point]]
 text = "Self-Managed runs entirely in the customer's infrastructure. Unchecked: the siting of CoreWeave's own data centers (coreweave.com/trust claims the United States and Europe) is not a processing-location commitment for W&B SaaS and is recorded alongside only."
@@ -237,6 +264,11 @@ text_zh = "DPA §8(a) 客户授权 W&B 指定子处理者，子处理者清单�
 [[product.role.point]]
 text = "For data the customer uploads, \"you are the controller ... and CoreWeave is the processor\". (b) In the BAA, W&B says of itself that \"Business Associate generally cannot view Customer Data\" (Dedicated Cloud BYOB tier only). (c) A support article acknowledges that W&B staff can access logged values with permission, and that isolation requires Self-Managed. Multi-hop: the Third-Party AI behind AI Features are subprocessors rather than W&B itself (Anthropic/OpenAI are listed as Generative AI services), their processing is governed by their own terms, and W&B's processor commitment does not automatically cover them."
 text_zh = "对客户上传的数据则「you are the controller ... and CoreWeave is the processor」。(b) BAA 里 W&B 自述「Business Associate generally cannot view Customer Data」（仅 Dedicated Cloud BYOB 档）。(c) 支持文章承认 W&B 员工经许可可访问 logged values，隔离需 Self-Managed。多跳：AI Features 的 Third-Party AI 是子处理者而非 W&B 自身（Anthropic/OpenAI 列为 Generative AI services），其处理受各自条款约束，W&B 的 processor 承诺不自动覆盖它们。"
+
+[[product.role.point]]
+text = "Precedence conflict, recorded without adjudicating: MSA §14(d) ranks the documents \"(a) Order Form; (b) Agreement; (c) DPA; and (d) BAA (if applicable)\", while DPA §10 states \"In the event of any conflict or inconsistency between this DPA and the other terms of the Agreement, this DPA will govern.\" The controller/processor allocation lives in the DPA (§6 and Annex I) while the deletion duties are split across both instruments, so which document controls on a given point is left unresolved by the published texts; the DPA §6 allocation is subject to both rules at once, with the scope of application still to be clarified."
+text_zh = "优先级冲突，并列记录、不选边：MSA §14(d) 把文件排序为「(a) Order Form; (b) Agreement; (c) DPA; and (d) BAA (if applicable)」，而 DPA §10 写「In the event of any conflict or inconsistency between this DPA and the other terms of the Agreement, this DPA will govern.」角色（controller/processor）分配写在 DPA（§6 与 Annex I），删除义务则分散在两份文件里，冲突时以哪份为准，公开文本本身并未解决；DPA §6 的角色分配同时受这两条相反规则约束，适用范围待澄清。"
+anchor = "msa-14d-order-of-precedence"
 
 [[product]]
 id = "saas-multi-tenant"
@@ -309,6 +341,16 @@ anchor = "mtc-retention-7-days-after-deletion"
 [[product.retention.point]]
 text = "Split by object: (a) Runs and history, non-artifact run files (media/config/log), artifacts and artifact references — kept for 7 days after deletion, recoverable within that window and purged afterwards (Multi-tenant Cloud documentation; the Artifacts documentation says the same). (b) Weave trace data (LLM inputs and outputs included) sits in a shared ClickHouse Cloud cluster and is expressly counted towards long term storage by the pricing FAQ, with no retention period in days; deletion goes through the Call delete API/UI. (c) Personal Data: DPA Annex I for the term of the contract + deletion within 30 days of a request (Annex II) + daily backups under the Backup Policy (not public). (d) Free/Pro data is entirely in shared storage; Enterprise can use BYOB (customer-controlled storage). There is no request-level commitment of the \"request content deleted after X days\" kind."
 text_zh = "对象拆开：(a) Runs and history、非 artifact run 文件（media/config/log）、artifacts 与 artifact references —— 删除后保留 7 天、期内可恢复，之后清除（Multi-tenant Cloud 文档；Artifacts 文档同口径）。(b) Weave 的 trace 数据（含 LLM inputs/outputs）存于共享 ClickHouse Cloud 集群，定价 FAQ 明确计入 long term storage，未给保留天数，删除需走 Call delete API/UI。(c) Personal Data：DPA Annex I 合同存续期 + 应请求 30 天内删除（Annex II）+ 每日备份按 Backup Policy（不公开）。(d) Free/Pro 档数据全部在共享存储，Enterprise 可 BYOB（自控存储）。没有「请求内容 X 天后删除」这类请求级承诺。"
+
+[[product.retention.point]]
+text = "Exception to the deletion commitment (DPA §9): \"This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company's deletion policies.\" Personal Data that a law requires Company to keep, and Personal Data in back-up archives, are therefore outside the return/deletion commitment; for backups the promise is only isolation plus eventual deletion, with no period, and the Backup Policy itself is not public."
+text_zh = "删除承诺的例外（DPA §9）：「This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company’s deletion policies.」即法律要求保留的 Personal Data 与备份归档中的 Personal Data 不在返还/删除承诺范围内；备份项下只承诺隔离保护与「最终删除」，没有期限，且 Backup Policy 本身不公开。"
+anchor = "dpa-9-exceptions-law-and-backups"
+
+[[product.retention.point]]
+text = "The DPA outlives the Agreement: \"This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.\" It runs in parallel with the deletion-within-30-days rules — Personal Data still Processed under a legal retention requirement or held in back-up archives keeps the DPA in force."
+text_zh = "DPA 不随协议终止而失效：「This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.」它与「应请求 30 天内删除」并行——只要 Personal Data 仍被处理（法律要求保留或存于备份归档中），DPA 就继续有效。"
+anchor = "dpa-2-duration-notwithstanding-termination"
 
 [product.processing_region]
 codes = ["US"]
@@ -422,13 +464,29 @@ text_zh = "与付费 SaaS 档相同的删除后 7 天恢复窗口与 DPA 保留�
 text = "The differences are quota and storage location: the Free tier has only shared storage, 5 GB/mo of storage and 1 GB/mo of Weave ingestion (pricing page), beyond which an upgrade or purchase is required. Note the other side: §2(e) permits free/academic data to be used for testing and development, which means such data is retained and used within the contractually permitted purposes, but the vendor gives no separate retention period for that use."
 text_zh = "差别在额度与存储位置：Free 档只有共享存储、5 GB/mo 存储与 1 GB/mo Weave 摄入（定价页），超过限额需升级或购买。反向注意：§2(e) 允许 free/academic 数据用于 testing and development，意味着这些数据在合同允许的用途下被留存与使用，但官方未给该用途下的独立保留期。"
 
+[[product.retention.point]]
+text = "Same DPA §9 exception as the paid SaaS tier: \"This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company's deletion policies.\" Personal Data that a law requires Company to keep, and Personal Data in back-up archives, are outside the return/deletion commitment; for backups the promise is only isolation plus eventual deletion, with no period."
+text_zh = "与付费 SaaS 档同一条 DPA §9 例外：「This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company’s deletion policies.」法律要求保留的 Personal Data 与备份归档中的 Personal Data 不在返还/删除承诺范围内；备份项下只承诺隔离保护与「最终删除」，没有期限。"
+anchor = "dpa-9-exceptions-law-and-backups"
+
+[[product.retention.point]]
+text = "The DPA outlives the Agreement on this tier too: \"This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.\""
+text_zh = "本档同样适用 DPA 的存续条款：「This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.」"
+anchor = "dpa-2-duration-notwithstanding-termination"
+
 [product.processing_region]
 codes = ["US"]
-anchor = "mtc-free-pro-shared-storage"
+anchor = "mtc-region-gcp-north-america"
 
 [[product.processing_region.point]]
-text = "Free tier data lives only in shared cloud storage and on shared compute (the documentation names Free/Pro expressly), with no region or bucket choice."
-text_zh = "Free 档数据只在共享云存储与共享算力上（文档明文点名 Free/Pro），无区域或存储桶选择。"
+text = "Basis for the US code: the multi-tenant platform this tier runs on is deployed in W&B's own Google Cloud account in Google Cloud North America regions (the same clause the paid SaaS tier uses)."
+text_zh = "US 这个码的依据：本档所在的多租户平台部署在 W&B 自有 Google Cloud 账户的北美区域（与付费 SaaS 档同一条条款）。"
+anchor = "mtc-region-gcp-north-america"
+
+[[product.processing_region.point]]
+text = "Supplementary evidence, not the basis for the region code: Free tier data lives only in shared cloud storage and on shared compute (the documentation names Free/Pro expressly), with no region or bucket choice — the clause carries no location information of its own."
+text_zh = "补充依据，不是区域码的依据：Free 档数据只在共享云存储与共享算力上（文档明文点名 Free/Pro），无区域或存储桶选择——这句话本身不含地点信息。"
+anchor = "mtc-free-pro-shared-storage"
 
 [product.role]
 kind = "processor"
@@ -519,13 +577,23 @@ anchor = "dc-retention-7-days-after-deletion"
 text = "Express statement on the dedicated cloud tier: by default data is kept for 7 days after deletion (Runs and history / non-artifact run files / artifacts and references), and \"you can change the data retention period for your Dedicated Cloud instance\" (the environment variable GORILLA_DATA_RETENTION_PERIOD or Helm env.dataRetentionPeriod, in hours). This is the vendor's only official statement of a configurable retention period. PHI: under the BAA, PHI must be destroyed or returned on termination. Backups follow the Backup Policy (not public). Note: what is configurable is the post-deletion recovery window, not a retention period for request content."
 text_zh = "专属云档明文：默认删除后保留 7 天（Runs and history / 非 artifact run 文件 / artifacts 与 references），且「you can change the data retention period for your Dedicated Cloud instance」（环境变量 GORILLA_DATA_RETENTION_PERIOD 或 Helm env.dataRetentionPeriod，单位小时）。这是本家唯一一处「保留期可配置」的官方表述。PHI：BAA 档终止时 PHI 必须销毁或返还。备份按 Backup Policy（不公开）。注意：可配置的是删除后恢复窗口，不是「请求内容保留期」。"
 
+[[product.retention.point]]
+text = "Exception to the deletion commitment (DPA §9): \"This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company's deletion policies.\" Personal Data that a law requires Company to keep, and Personal Data in back-up archives, are therefore outside the return/deletion commitment; for backups the promise is only isolation plus eventual deletion, with no period, and the Backup Policy itself is not public."
+text_zh = "删除承诺的例外（DPA §9）：「This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company’s deletion policies.」即法律要求保留的 Personal Data 与备份归档中的 Personal Data 不在返还/删除承诺范围内；备份项下只承诺隔离保护与「最终删除」，没有期限，且 Backup Policy 本身不公开。"
+anchor = "dpa-9-exceptions-law-and-backups"
+
+[[product.retention.point]]
+text = "The DPA outlives the Agreement: \"This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.\" It runs in parallel with the BAA duty to destroy or return PHI on termination and with the MSA §6(d) deletion rule — Personal Data still Processed under a legal retention requirement or held in back-up archives keeps the DPA in force."
+text_zh = "DPA 不随协议终止而失效：「This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement.」它与 BAA 的「终止时 PHI 必须销毁或返还」以及 MSA §6(d) 的删除规则并行——只要 Personal Data 仍被处理（法律要求保留或存于备份归档中），DPA 就继续有效。"
+anchor = "dpa-2-duration-notwithstanding-termination"
+
 [product.processing_region]
-codes = ["US", "CA", "JP", "KR", "SG", "AU", "IN"]
+codes = ["US", "CA", "EU", "JP", "KR", "SG", "AU", "IN"]
 anchor = "dc-regions-supported-global-list"
 
 [[product.processing_region.point]]
-text = "Dedicated Cloud can be deployed as an isolated instance in W&B's own AWS/GCP/Azure accounts, with the region list given per cloud provider (15 AWS, 14 GCP, 9 Azure, Europe and Asia-Pacific included)"
-text_zh = "专属云可部署在 W&B 自有 AWS/GCP/Azure 账户的隔离实例中，区域清单按云厂商列出（AWS 15 个、GCP 14 个、Azure 9 个，含欧洲与亚太）"
+text = "Dedicated Cloud can be deployed as an isolated instance in W&B's own AWS/GCP/Azure accounts, with the region list given per cloud provider (14 AWS, 14 GCP, 9 Azure; Europe and Asia-Pacific included). European entries in the snapshot: AWS Europe (Frankfurt) eu-central-1, Europe (Ireland) eu-west-1, Europe (London) eu-west-2, Europe (Stockholm) eu-north-1; GCP Belgium europe-west1, London europe-west2, Frankfurt europe-west3, Netherlands europe-west4; Azure France Central francecentral, Netherlands westeurope. They are recorded as EU because Sweden and Belgium have no separate code in the controlled vocabulary."
+text_zh = "专属云可部署在 W&B 自有 AWS/GCP/Azure 账户的隔离实例中，区域清单按云厂商列出（AWS 14 个、GCP 14 个、Azure 9 个，含欧洲与亚太）。快照里的欧洲区域：AWS Europe (Frankfurt) eu-central-1、Europe (Ireland) eu-west-1、Europe (London) eu-west-2、Europe (Stockholm) eu-north-1；GCP Belgium europe-west1、London europe-west2、Frankfurt europe-west3、Netherlands europe-west4；Azure France Central francecentral、Netherlands westeurope。在 codes 里记为 EU，因为瑞典与比利时在受控词表里没有独立代码。"
 
 [[product.processing_region.point]]
 text = "Weave on the dedicated cloud tier keeps data in a separate ClickHouse cluster in the cloud and region the customer chose"
@@ -537,11 +605,17 @@ text_zh = "可另配 IP allowlisting 与私有连接。文档明确该档用于�
 
 [product.role]
 kind = "processor"
-anchor = "baa-scope-dedicated-cloud-byob-only"
+anchor = "dpa-6-customer-controller-company-processor"
+
+[[product.role.point]]
+text = "Role basis (the clause the BAA scope sentence does not supply): DPA §6 \"Customer is the controller (or is acting on behalf of the controller) and Company is the processor.\""
+text_zh = "角色依据（BAA 适用范围那句并不提供这一层）：DPA §6「Customer is the controller (or is acting on behalf of the controller) and Company is the processor.」"
+anchor = "dpa-6-customer-controller-company-processor"
 
 [[product.role.point]]
 text = "The DPA-level role is the same as on the other tiers (Customer = controller / Company = processor). The dedicated cloud tier can additionally sign a BAA, and the BAA expressly covers only (i) Models with Dedicated Cloud BYOB Deployment and (ii) Weave on Dedicated Cloud BYOB (GCP and AWS)"
 text_zh = "DPA 层角色同其他档（Customer=controller / Company=processor）。专属云档额外可签 BAA，且 BAA 明文只覆盖 (i) Models with Dedicated Cloud BYOB Deployment 与 (ii) Weave on Dedicated Cloud BYOB (GCP 和 AWS)"
+anchor = "baa-scope-dedicated-cloud-byob-only"
 
 [[product.role.point]]
 text = "In the BAA, W&B says of itself that \"Business Associate generally cannot view Customer Data\". The processing description in Annex I lists Multi-Tenant Cloud and Dedicated Cloud together as processing \"on a continuous basis\"."
@@ -554,20 +628,24 @@ category = "self_host"
 plan_level = "any"
 
 [product.training]
-mark = "no"
-anchor = "msa-4a-customer-data-use-grant"
-mode = "by_tier"
+mark = "yes"
+mode = "by_deployment"
+anchor = "sm-run-in-infrastructure-you-control"
 
 [[product.training.point]]
 text = "On the self-hosted tier W&B has no access to Customer Data inside the platform: the data sits in the customer's own infrastructure, and W&B touches it only during technical support with written consent (DPA Annex I). The MSA §4(a) grant to use Customer Data to improve the products is still in the contract, but its object is data \"transferred to W&B\""
 text_zh = "自建档里 W&B 拿不到平台内的 Customer Data：数据在客户自有基础设施，W&B 仅在技术支持时经书面同意接触（DPA Annex I）。MSA §4(a) 的「使用 Customer Data 改进产品」授权文本仍在合同里，但其对象是「transferred to W&B」的数据"
+anchor = "dpa-annex1-self-managed-support-only"
 
 [[product.training.point]]
-text = "and the self-hosted tier has no default path for transmitting platform data to W&B. Self-Managed also supports air-gapped deployment (the docs mention an air-gapped Kubernetes deployment path). The official documentation writes no separate \"no training\" commitment for the self-hosted tier — the answer on this dimension is that the data does not leave the customer's environment, not a vendor training commitment."
-text_zh = "自建档没有向 W&B 传输平台数据的默认路径。Self-Managed 也支持 air-gapped 部署（docs 提到 air-gapped Kubernetes 部署路径）。官方文档未就自建档单独写「不训练」承诺；合同层的 MSA §4(a) 授权（improve / develop new product offerings）并未把模型训练排除在外，按口径记 mark=no。事实层面的「数据不离开客户环境」是部署形态带来的隔离，不等于厂商的训练承诺，作为并列事实保留。"
+text = "and the self-hosted tier has no default path for transmitting platform data to W&B. Self-Managed also supports air-gapped deployment (the docs mention an air-gapped Kubernetes deployment path). The official documentation writes no separate \"no training\" commitment for the self-hosted tier — the answer on this dimension is that the data does not leave the customer's environment, not a vendor training commitment — hence mode = by_deployment rather than a default rule."
+text_zh = "自建档没有向 W&B 传输平台数据的默认路径。Self-Managed 也支持 air-gapped 部署（docs 提到 air-gapped Kubernetes 部署路径）。官方文档未就自建档单独写「不训练」承诺：本档记 mark=yes 靠的是部署形态（数据不出客户环境，W&B 拿不到内容），不是厂商的训练承诺——故 mode = by_deployment。合同层的 MSA §4(a) 授权（improve / develop new product offerings）文本仍在，但对象是「transferred to W&B」的数据，作为并列事实保留。"
+anchor = "msa-4a-customer-data-use-grant"
 
 [product.zdr]
-mark = "unknown"
+mark = "yes"
+mode = "by_deployment"
+anchor = "dpa-annex1-self-managed-support-only"
 searched = [
   "https://wandb.ai/site/terms",
   "https://wandb.ai/site/ai-terms",
@@ -609,6 +687,11 @@ text_zh = "全部本家文档（MSA、AI Terms、DPA 含 Schedule 1-4 与安全�
 [[product.zdr.point]]
 text = "(2) LLM inputs and outputs logged in Weave are expressly counted towards \"long term storage\""
 text_zh = "(2) Weave 中记录的 LLM inputs/outputs 被明确计入「long term storage」"
+
+[[product.zdr.point]]
+text = "This tier's yes is architectural, hence mode = by_deployment: the data never reaches W&B unless the customer transmits it for technical support with written consent (DPA Annex I), so from the vendor's side there is nothing retained by default. It is not a vendor ZDR option or commitment — no tier has a published ZDR switch or application method (see below) — and what W&B itself still retains on this tier (license verification: the Kubernetes operator connects to deploy.wandb.ai and \"receives updates as long as the license is valid\") has no disclosed retention period."
+text_zh = "本档的 ✓ 是架构性的，故 mode = by_deployment：除非客户为技术支持经书面同意把数据传输给 W&B（DPA Annex I），数据根本不会到 W&B，从厂商侧看默认没有可保留的东西。这不是厂商的 ZDR 选项或承诺——没有任何档位公开过 ZDR 开关或申请方式（见下）——而 W&B 自身在本档仍会保留的部分（license 校验：Kubernetes operator 连接 deploy.wandb.ai，且「receives updates as long as the license is valid」）没有已披露的保留期。"
+anchor = "dpa-annex1-self-managed-support-only"
 
 [[product.zdr.point]]
 text = "(3) The MSA / AI Terms grant W&B broad rights to use Customer Data to improve the products and the AI Features. Recorded as not_found under the rules: not disclosed in the public documents does not mean the vendor does not offer it. Unchecked: the gated portal trust.coreweave.com (a customer account is required) was not checked. Zero retention on the self-hosted tier is controlled by the customer, and the vendor has not written it up as a ZDR commitment or option."
@@ -723,7 +806,7 @@ suffix = """
 [[anchor]]
 id = "msa-14d-order-of-precedence"
 source_id = "2c2464b72ce912d9"
-topics = ["role"]
+topics = ["role", "retention"]
 
 [anchor.selector]
 prefix = "Agreement will be construed as if it had not been included. "
@@ -902,7 +985,7 @@ For processor’s “Customer-Managed Single-Tenant Cloud” and"""
 [[anchor]]
 id = "dpa-annex1-self-managed-support-only"
 source_id = "0c177744efed3599"
-topics = ["processing_region", "retention"]
+topics = ["processing_region", "retention", "zdr"]
 
 [anchor.selector]
 prefix = """
@@ -1166,3 +1249,50 @@ suffix = """
 
 
 To isolate cache reuse to a specific trust boundary, set t"""
+
+[[anchor]]
+id = "dpa-9-exceptions-law-and-backups"
+source_id = "0c177744efed3599"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Company will delete or return Personal Data in accordance with the Agreement. "
+exact = "This requirement shall not apply to the extent Company is required by any applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on back-up systems, which Personal Data Company shall securely isolate and protect from any further processing and eventually delete in accordance with Company’s deletion policies."
+suffix = " Customer acknowledges and agrees that Company may automatically"
+
+[[anchor]]
+id = "dpa-2-duration-notwithstanding-termination"
+source_id = "0c177744efed3599"
+topics = ["retention", "role"]
+
+[anchor.selector]
+prefix = """
+#### 2. Duration and Scope of DPA
+
+"""
+exact = "This DPA will remain in effect so long as Company Processes Personal Data, notwithstanding the expiration or termination of the Agreement."
+suffix = " Schedules 1 and 2 to this DPA apply solely to Processing subject"
+
+[[anchor]]
+id = "msa-4b-usage-data-improvement-grant"
+source_id = "2c2464b72ce912d9"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "2.   *Usage Data*. "
+exact = "Notwithstanding anything else to the contrary in this Agreement, W&B may collect and analyze Usage Data to develop, improve and support the W&B Assets."
+suffix = " W&B will not disclose Usage Data to any third party"
+
+[[anchor]]
+id = "security-subprocessors-coreweave-affiliate-us"
+source_id = "6872b99fd91f56dd"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = """
+| GCP | United States or as chosen by Customer | Cloud hosting provider |
+"""
+exact = "| Coreweave (Affiliate) | United States | Cloud infrastructure administration |"
+suffix = """
+| Clickhouse | United States or as chosen by Customer | Data hosting provider |
+"""

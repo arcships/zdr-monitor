@@ -1,7 +1,7 @@
 name = "Cline"
 line = "cline"
 site = "global"
-plan_levels = ["individual"]
+plan_levels = ["individual", "enterprise"]
 entity = "Cline Bot Inc."
 endpoint = ""
 doc = "https://docs.cline.bot/enterprise-solutions/overview.md"
@@ -10,7 +10,7 @@ doc = "https://docs.cline.bot/enterprise-solutions/overview.md"
 url = "https://docs.cline.bot/enterprise-solutions/overview.md"
 channel = "developer_data"
 tier = "core"
-note = "Cline Enterprise 官方架构页。适用于企业自带推理/自有环境部署；明确本地处理、不上传、不索引缓存、不训练。上游模型条款仍由客户所选 provider 决定。"
+note = "Cline Enterprise 官方架构页。只适用于企业自带推理（BYO）档：扩展在客户环境本地执行、推理走客户自有云合同，明确本地处理、不上传、不索引缓存、不训练。该档承诺与 cline-managed（使用 Cline 提供的 API key）方向相反，不得用于 cline-managed 的任何维度；上游模型条款仍由客户所选 provider 决定。"
 
 [[source]]
 url = "https://docs.cline.bot/more-info/telemetry"
@@ -22,35 +22,220 @@ note = "扩展遥测页：用户可即时关闭；不含代码、路径、命令
 url = "https://cline.bot/privacy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Cline Privacy Notice。区分 BYOK（内容直接给第三方、Cline 不收集）与 Cline 提供 API key（Cline 收集并转发）；明确上游隐私和训练条款仍适用。"
+note = "Cline Privacy Notice。区分 BYOK（内容直接给第三方、Cline 不收集）与 Cline 提供 API key（Cline 收集并转发）；明确上游隐私和训练条款仍适用，并写明部分上游在用户未选择退出时可能用内容训练。"
 
 [[product]]
 id = "cline-managed"
 badge = "Cline 托管推理"
 category = "coding_plan"
 plan_level = "individual"
+label = "使用 Cline 提供的 API key：Cline 收集输入并代你转发给上游模型提供方。BYOK 时 Cline 不收集内容；企业自带推理档另见 enterprise-byo"
+
 [product.training]
-mark = "unknown"
+mark = "no"
 searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+
+[[product.training.point]]
+text = "Multi-hop: Cline transmits the request to the upstream AI model provider on the user's behalf, and the notice says some AI model providers may use content for training unless the user has explicitly opted out where such an option is offered by that AI model provider. One hop is explicitly a no, so the whole chain is no."
+text_zh = "多跳口径：本档请求由 Cline 代用户转给上游模型提供方，而隐私通知写明部分上游「may use content for training unless you have explicitly opted out where such an option is offered by that AI model provider」。任一跳明确为否则全链为否，故本档记 mark=no。对象=输入输出正文；语境=仅使用 Cline 提供的 API key 时（BYOK 时 Cline 不收集内容）；退出开关由上游决定、只在提供该选项的模型上存在，Cline 侧没有统一退出路径，因此不写 mode。"
+anchor = "cline-managed-upstream-training"
+
+[[product.training.point]]
+text = "Secondary basis: Cline also uses the personal data it collects, which on this tier includes User Content, to administer, improve and personalize its own products and services. Service or product improvement counts as training under our judgment rules."
+text_zh = "辅助依据：Cline 对自行收集的个人数据（本档包含 User Content）写明用于「Administer, improve, and personalize our products and services」。按判定口径「用来改进服务/提高质量算训练」，这也是训练维度的反向依据；主依据仍是上游跳那句。"
+anchor = "cline-managed-additional-uses"
+
+[[product.training.point]]
+text = "Scope note: the no training on your data promise on docs.cline.bot/enterprise-solutions/overview.md belongs to the enterprise BYO tier (local execution) and must not be cited for this managed tier."
+text_zh = "适用范围：docs.cline.bot/enterprise-solutions/overview.md 的「no training on your data」属企业自带推理（BYO）档（本地执行），不得用于本托管档。"
+
 [product.zdr]
 mark = "unknown"
 searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
 anchor = "cline-managed-collects"
+searched = ["https://cline.bot/privacy", "https://docs.cline.bot/more-info/telemetry"]
+
+[[product.retention.point]]
+text = "Object = input and output content; context = only when using API keys provided by Cline (BYOK does not apply, Cline does not collect it); period type = undisclosed, as the notice sets no quantified period and no deletion point for request content. This anchor only shows that the tier does collect the content; it is not evidence of a period."
+text_zh = "对象=输入输出正文；语境=仅使用 Cline 提供的 API key 时（BYOK 时 Cline 不收集，不适用）；期限类型=未披露——通知对正文既没有量化期限也没有删除承诺。本锚点只证明该档位确实收集正文，不含期限或删除时点，不能当作期限证据。"
+anchor = "cline-managed-collects"
+
+[[product.retention.point]]
+text = "The only quantified period in the notice is the cookie consent preference of 12 months; its object is cookie preferences, not request content, so it is not evidence of a content retention period."
+text_zh = "通知里唯一的量化期限是 cookie 同意偏好 12 个月，对象是 cookie 偏好而非输入输出正文，不构成正文保留期限的依据。"
+anchor = "cline-cookie-consent-12-months"
+
 [product.processing_region]
 codes = ["unknown"]
 searched = ["https://cline.bot/privacy", "https://docs.cline.bot/getting-started/authorizing-with-cline"]
+
 [product.role]
-kind = "controller"
-anchor = "cline-managed-collects"
+mark = "unknown"
+kind = "unknown"
+searched = ["https://cline.bot/privacy", "https://docs.cline.bot/more-info/telemetry"]
+
+[[product.role.point]]
+text = "No role is designated in the public text: the notice states that it is not a contract and does not create any legal rights or obligations not otherwise provided by law, and controller or processor appears nowhere in the snapshot."
+text_zh = "公开文本未指定角色：通知明写自身「is not a contract and does not create any legal rights or obligations not otherwise provided by law」，快照全文没有 controller / processor 的角色指定。"
+anchor = "cline-privacy-not-a-contract"
+
+[[product.role.point]]
+text = "Controller posture is only an inference from the structure of the notice: Cline decides purposes for the personal data it collects, including administering, improving and personalizing its own products and services. That is not a designated role, and an enterprise DPA has to be obtained separately."
+text_zh = "独立控制者姿态只是从通知结构推断：Cline 为自身目的（管理、改进与个性化自家产品与服务）决定所收集个人数据的处理方式，不是原文的角色指定；企业 DPA 需另行索取。"
+anchor = "cline-managed-additional-uses"
+
+[[product]]
+id = "enterprise-byo"
+badge = "企业版自带模型"
+category = "self_host"
+plan_level = "enterprise"
+label = "Cline Enterprise：扩展在客户环境本地执行、推理走客户自有云合同（BYO），Cline 不在内容链路上；不涵盖使用 Cline 提供 API key 的托管档（见 cline-managed）"
+
+[product.training]
+mark = "yes"
+mode = "by_deployment"
+anchor = "cline-enterprise-local"
+
+[[product.training.point]]
+text = "The no-training result comes from the deployment shape, not from a hosted commitment: your code never leaves your environment, Cline processes everything locally, with no uploads, no indexing and no training on your data."
+text_zh = "不训练来自部署形态而非托管承诺：官方架构页写明「Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data.」，即内容不出客户环境，Cline 拿不到内容做训练。"
+anchor = "cline-enterprise-local"
+
+[[product.training.point]]
+text = "The Security by Design card on the same page restates it: no model training, your code and prompts are not used for training."
+text_zh = "同一页 Security by Design 卡片复述：「No model training：Your code and prompts aren't used for training」。"
+anchor = "cline-enterprise-no-training"
+
+[[product.training.point]]
+text = "Upstream hop: inference runs on the customer's own cloud contracts and negotiated rates, so whether the chosen provider trains on the content is governed by that provider's terms; Cline makes no commitment about it."
+text_zh = "上游跳：推理走客户自有的云合同与议定价格，内容是否被训练取决于客户所选 provider 的条款，Cline 对此不作承诺。"
+anchor = "cline-enterprise-byo"
+
+[product.zdr]
+mark = "yes"
+mode = "by_deployment"
+anchor = "cline-enterprise-local"
+
+[[product.zdr.point]]
+text = "Zero retention of content on this tier is architectural (code and context never leave the customer's environment), not a vendor ZDR commitment."
+text_zh = "本档内容零保留是架构性的（代码与上下文不出客户环境），不是厂商的 ZDR 承诺。"
+anchor = "cline-enterprise-local"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "cline-enterprise-local"
+
+[[product.retention.point]]
+text = "Object = code, prompts and context: they never leave the customer's environment, so no Cline-side retention period applies."
+text_zh = "对象=代码、prompt 与上下文：不出客户环境，Cline 侧保留期不适用。"
+anchor = "cline-enterprise-local"
+
+[[product.retention.point]]
+text = "Object = conversation history when the enterprise Prompt Storage feature is enabled: backed up to AWS S3 or Cloudflare R2, with ownership and period not stated in the snapshot, so no period can be given for this tier."
+text_zh = "对象=启用企业档 Prompt Storage 后的会话历史：备份到 AWS S3 或 Cloudflare R2，快照未说明归属与期限，故本档不给期限。"
+anchor = "cline-prompt-storage"
+
+[product.processing_region]
+codes = ["selected"]
+anchor = "cline-enterprise-local"
+
+[[product.processing_region.point]]
+text = "Processing location = the customer's own environment: the page describes client-side execution and connecting directly to the customer's own providers, and gives no region list of its own."
+text_zh = "处理地=客户自建环境：官方页写的是客户端执行、直连客户自己的 provider，未给自家的区域清单，故记「可选地域」。"
+anchor = "cline-enterprise-byo"
+
+[product.role]
+mark = "unknown"
+kind = "unknown"
+searched = ["https://docs.cline.bot/enterprise-solutions/overview.md", "https://cline.bot/privacy"]
+
+[[product.role.point]]
+text = "Neither the enterprise page nor the privacy notice designates Cline as controller or processor for this tier; the notice states it is not a contract, and on this tier Cline is not in the content path at all, so the role has to be settled in the customer's own agreement with Cline."
+text_zh = "企业页与隐私通知都没有指定本档的 controller / processor 角色；通知明示自身不是合同，而本档 Cline 不在内容链路上，角色只能在客户与 Cline 的合同里确认。"
+anchor = "cline-privacy-not-a-contract"
 
 [[anchor]]
 id = "cline-managed-collects"
 source_id = "f81871f1482ce250"
-topics = ["retention", "role"]
+topics = ["retention"]
 [anchor.selector]
 prefix = "we do not collect it. "
 exact = "However, if you use API keys provided by Cline rather than your own, we collect this information in order to facilitate your requests to third-party AI model providers on your behalf."
 suffix = "\n"
+
+[[anchor]]
+id = "cline-managed-upstream-training"
+source_id = "f81871f1482ce250"
+topics = ["training"]
+[anchor.selector]
+prefix = "Once this personal data is received by the AI model provider, it is subject to the applicable AI model provider's privacy notice. "
+exact = "Some AI model providers may use content for training unless you have explicitly opted out where such an option is offered by that AI model provider."
+suffix = " You are encouraged to review the applicable AI model provider's privacy notice for more information."
+
+[[anchor]]
+id = "cline-managed-additional-uses"
+source_id = "f81871f1482ce250"
+topics = ["training", "role"]
+[anchor.selector]
+prefix = ""
+exact = "Administer, improve, and personalize our products and services, including by recognizing you and remembering your information when you return to our products and services;"
+suffix = ""
+
+[[anchor]]
+id = "cline-cookie-consent-12-months"
+source_id = "f81871f1482ce250"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Your consent preferences are stored for 12 months, after which you will be asked to renew your consent choices."
+suffix = ""
+
+[[anchor]]
+id = "cline-privacy-not-a-contract"
+source_id = "f81871f1482ce250"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "This Privacy Notice is not a contract and does not create any legal rights or obligations not otherwise provided by law."
+suffix = ""
+
+[[anchor]]
+id = "cline-prompt-storage"
+source_id = "2a2700006c7c2742"
+topics = ["retention"]
+[anchor.selector]
+prefix = "Prompt Storage\n"
+exact = "Automatically backup conversation history to AWS S3 or Cloudflare R2 for:"
+suffix = "\n- Compliance and audit trails"
+
+[[anchor]]
+id = "cline-enterprise-local"
+source_id = "918890f2033b56b8"
+topics = ["training", "zdr", "retention", "processing_region"]
+[anchor.selector]
+prefix = "Security by Design\n"
+exact = "Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data."
+suffix = ""
+
+[[anchor]]
+id = "cline-enterprise-no-training"
+source_id = "918890f2033b56b8"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Your code and prompts aren't used for training"
+suffix = ""
+
+[[anchor]]
+id = "cline-enterprise-byo"
+source_id = "918890f2033b56b8"
+topics = ["training", "processing_region", "role"]
+[anchor.selector]
+prefix = "Bring Your Own Inference\n"
+exact = "Use your existing cloud contracts and negotiated rates."
+suffix = ""

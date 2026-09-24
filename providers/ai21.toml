@@ -39,8 +39,9 @@ text = "Same as the top-level training entry: §7.2 \"Unless otherwise agreed in
 text_zh = "同顶层 training：§7.2「Unless otherwise agreed in writing, AI21 will not use your Customer Data to train AI21’s foundational or generally available AI models」"
 
 [[product.training.point]]
-text = "The exits are the license to improve the Services, any lawful purpose once data is de-identified, and whatever may be agreed otherwise in writing."
-text_zh = "出口为改善服务许可、去标识化后任意合法用途、以及可另行书面约定。"
+anchor = "ai21-pp-legal-bases-improve-with-user-content"
+text = "The exits are the license to improve the Services, any lawful purpose once data is de-identified, and whatever may be agreed otherwise in writing. The privacy policy's legal-bases table lists User Content among the principal data categories for \"Operating, analyzing, improving, and developing the Services and our products\", on the legal basis of legitimate interests in maintaining and improving the Services."
+text_zh = "出口为改善服务许可、去标识化后任意合法用途、以及可另行书面约定。隐私政策的法律基础表把 User Content 列为「Operating, analyzing, improving, and developing the Services and our products」这一处理目的的主要数据类别之一，法律基础为维护与改善服务的正当利益。"
 
 [product.zdr]
 mark = "no"
@@ -89,12 +90,34 @@ text = "Same as the top-level retention entry: retained as long as necessary for
 text_zh = "同顶层 retention：按目的所需保留、无请求级量化期限"
 
 [[product.retention.point]]
+anchor = "ai21-tos-17-4-deletion-after-retrieval-period"
 text = "After termination, the \"reasonable retrieval period\" in §17.4 is not quantified"
 text_zh = "终止后 §17.4「reasonable retrieval period」未量化"
 
 [[product.retention.point]]
-text = "Capped at thirty (30) days in the EU Data Act customer-switching scenario."
-text_zh = "EU Data Act 客户切换场景上限 30 天。"
+anchor = "ai21-data-act-30-day-retrieval-period"
+text = "Capped at thirty (30) days in the EU Data Act customer-switching scenario: the Retrieval Period under the Data Act Addendum, which applies only to customers headquartered in the EU that are subject to the Data Act and buy a Data Processing Service listed in Annex A. It is an upper bound on how long Exportable Data may be kept after the transition period, not a general retention period."
+text_zh = "EU Data Act 客户切换场景上限 30 天：即 Data Act Addendum 的 Retrieval Period，仅适用于总部在欧盟、受 Data Act 约束且购买 Annex A 所列 Data Processing Service 的客户。它是过渡期后 Exportable Data 可保留时长的上限，不是通用保留期。"
+
+[[product.retention.point]]
+anchor = "ai21-tos-5-2-data-act-not-for-evaluation-products"
+text = "That thirty-day cap applies to a narrower set than \"EU customers\": the Data Act Addendum does not apply to any Evaluation Products (§5.2), so free trials, betas, pilots and evaluation products have no quantified retention period at all. The ToS expressly cover free, trial, evaluation and self-serve Services as well, so those scenarios fall inside this tier."
+text_zh = "该 30 天上限的适用面比「欧盟客户」更窄：Data Act Addendum 不适用于任何 Evaluation Products（§5.2），免费试用、beta、Pilot、评估产品连这唯一的量化期限也不适用。ToS 明文也约束 free / trial / evaluation / self-serve 服务，故这些场景落在本档范围内。"
+
+[[product.retention.point]]
+anchor = "ai21-data-act-deletion-within-notice-period"
+text = "Second quantified period, same EU Data Act context: a Deletion Request is honoured no later than within the Notice Period (2 months). It is an upper bound on when the deletion must happen, not a promise that every copy is gone."
+text_zh = "同一 EU Data Act 语境下的第二个量化期限：删除请求最迟在 Notice Period（2 个月）内完成。这是删除动作的上限，不是「所有副本都已清除」的承诺。"
+
+[[product.retention.point]]
+anchor = "ai21-data-act-retrieval-period-reserves-right-to-delete"
+text = "After the Retrieval Period expires, AI21 only \"reserves the right to delete\" Exportable Data, subject to its standard deletion practices — a reserved right, not a deletion obligation."
+text_zh = "Retrieval Period 到期后，AI21 仅「reserves the right to delete」Exportable Data，且受其标准删除实践约束——属权利保留，不是删除义务。"
+
+[[product.retention.point]]
+anchor = "ai21-pp-retention-extended-exceptions"
+text = "Exception, privacy policy: Personal Data may be kept longer where required to comply with law, to maintain accurate records of dealings with you in the event of complaints or disputes, where litigation is reasonably anticipated, or in aggregated or de-identified form. These are the contexts in which data can outlive the purpose-bound period."
+text_zh = "例外情形（隐私政策）：法律要求、为投诉或争议保留与你往来的准确记录、合理预期诉讼、或以聚合/去标识化形式时，个人数据可保留更久。这些就是可能超出「按目的所需」期限的语境。"
 
 [product.processing_region]
 codes = ["global"]
@@ -116,9 +139,16 @@ text_zh = "同顶层 role：企业客户场景 AI21 为 processor 并需签 DPA�
 text = "For individual developers using the service for themselves, AI21 acts as controller."
 text_zh = "个人开发者自用场景为 controller。"
 
+[[product.role.point]]
+anchor = "ai21-tos-13-third-party-service-access"
+text = "Enabling a Third-Party Service is a customer-initiated access path: §13 provides that where you enable Third-Party Services, you authorize AI21 to permit the relevant provider to access Customer Data as necessary for the interoperation. It is limited to what the interoperation requires, is not part of AI21's own subprocessor chain, and does not change the processor finding or the global processing-region conclusion."
+text_zh = "启用第三方服务是一条由客户主动开启的访问路径：§13 规定启用 Third-Party Services 即授权 AI21 允许相关提供方在互操作必需范围内访问 Customer Data。它限于互操作所需，不属于 AI21 自有的 subprocessor 链，也不改变 processor 判定与 global 处理地结论。"
+
 [[product]]
-id = "enterprise_private_deployment"
-badge = "私有部署"
+id = "private_deployment_ai21_managed"
+badge = "专属部署"
+label = "AI21 托管的私有部署（Single tenant VPC / On-premise），仍属 ToS 的 Services 范围"
+label_en = "AI21-managed private deployment (Single tenant VPC / On-premise), still within the Services under the ToS"
 category = "api"
 plan_level = "enterprise"
 
@@ -128,16 +158,11 @@ mode = "by_contract"
 anchor = "ai21-tos-7-2-no-training-commitment"
 
 [[product.training.point]]
-text = "In a self-managed deployment the data never enters AI21's environment, so the no-training commitment in §7.2 holds by itself and holds more strongly"
-text_zh = "自管部署时数据不进 AI21 环境，§7.2 的不训练承诺自然成立且更强"
-
-[[product.training.point]]
-text = "An AI21-managed private deployment is still within the Services covered by the ToS, so §7.2 applies. The website separately has a Post-Training product line that expressly trains custom models on customer data (the model belongs to the customer), which is a training scenario agreed separately and recorded apart from this tier's default conclusion."
-text_zh = "AI21 托管私有部署仍属 ToS 的 Services 范围，适用 §7.2。官网另有 Post-Training 产品线明确用客户数据训练定制模型（模型归客户），属另行约定的训练场景，与本档默认结论分开记。"
+text = "An AI21-managed private deployment is still within the Services covered by the ToS, so §7.2 applies: \"Unless otherwise agreed in writing, AI21 will not use your Customer Data to train AI21's foundational or generally available AI models\". The website separately has a Post-Training product line that expressly trains custom models on customer data (the model belongs to the customer), which is a training scenario agreed separately and recorded apart from this tier's default conclusion."
+text_zh = "AI21 托管私有部署仍属 ToS 的 Services 范围，适用 §7.2「Unless otherwise agreed in writing, AI21 will not use your Customer Data to train AI21’s foundational or generally available AI models」。官网另有 Post-Training 产品线明确用客户数据训练定制模型（模型归客户），属另行约定的训练场景，与本档默认结论分开记。"
 
 [product.zdr]
-mark = "yes"
-mode = "by_agreement"
+mark = "no"
 anchor = "ai21-tos-7-2-license-improve-services"
 searched = [
   "https://www.ai21.com/terms-policies/terms-of-use/",
@@ -170,12 +195,8 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "In a self-managed deployment request content never enters AI21's environment and the retention period is entirely under the customer's control"
-text_zh = "自管部署下请求内容不进 AI21 环境,保留期完全由客户控制"
-
-[[product.zdr.point]]
-text = "An AI21-managed private deployment is still within the Services covered by the ToS, so the storage license in §7.2 and the \"may\" delete of §17.4 apply, giving the same contract-level conclusion as the rest of this vendor (no zero-retention commitment). This tier has no policy document of its own; the /deployment/ page carries only marketing wording about deployment shapes and data residency options and cannot serve as an anchor source."
-text_zh = "AI21-managed 私有部署仍属 ToS 的 Services 范围,适用 §7.2 的存储许可与 §17.4 的『可』删除,故与本家合同层结论相同(无零保留承诺)。本档没有独立政策文档,官网 /deployment/ 只有部署形态与 data residency options 的营销表述,不能作锚点来源。"
+text = "An AI21-managed private deployment is still within the Services covered by the ToS, so the storage license in §7.2 and the \"may\" delete of §17.4 apply, giving the same contract-level conclusion as the rest of this vendor (no zero-retention commitment). This tier has no policy document of its own; the /deployment/ page carries only marketing wording about deployment shapes and data residency options and has no snapshot in this repo, so it cannot serve as an anchor source."
+text_zh = "AI21 托管私有部署仍属 ToS 的 Services 范围，适用 §7.2 的存储许可与 §17.4 的『可』删除，故与本家合同层结论相同（无零保留承诺）。本档没有独立政策文档；官网 /deployment/ 只有部署形态与 data residency options 的营销表述，且本仓库没有它的快照，不能作锚点来源。"
 
 [product.retention]
 object = "input_output"
@@ -183,23 +204,26 @@ basis = "undisclosed"
 anchor = "ai21-pp-data-retention-purpose-bound"
 
 [[product.retention.point]]
-text = "In a self-managed deployment the retention period is entirely under the customer's own control"
-text_zh = "自管部署的保留期完全由客户自己控制"
-
-[[product.retention.point]]
 text = "For an AI21-managed private deployment, the public materials contain no clause at all on retention periods, logging or operational-access retention rules — only the general privacy policy's \"as long as necessary to fulfill the purposes\"."
 text_zh = "AI21 托管私有部署的保留期、日志与运维访问的保留规则在公开材料中没有任何条款，只有通用隐私政策的「按目的所需」。"
 
+[[product.retention.point]]
+anchor = "ai21-tos-17-4-deletion-after-retrieval-period"
+text = "Termination is governed by §17.4, which says only that AI21 \"may delete Customer Data following a reasonable retrieval period\" — a permission rather than a deletion commitment, and the period is not quantified anywhere."
+text_zh = "终止场景由 §17.4 管辖，仅写 AI21「may delete Customer Data following a reasonable retrieval period」——是许可而非删除承诺，且该期限全文未量化。"
+
+[[product.retention.point]]
+anchor = "ai21-pp-retention-extended-exceptions"
+text = "Exception, privacy policy: Personal Data may be kept longer where required to comply with law, to maintain accurate records of dealings with you in the event of complaints or disputes, where litigation is reasonably anticipated, or in aggregated or de-identified form. These are the contexts in which data can outlive the purpose-bound period."
+text_zh = "例外情形（隐私政策）：法律要求、为投诉或争议保留与你往来的准确记录、合理预期诉讼、或以聚合/去标识化形式时，个人数据可保留更久。这些就是可能超出「按目的所需」期限的语境。"
+
 [product.processing_region]
-codes = ["selected"]
+codes = ["global"]
+anchor = "ai21-tos-12-2-hosting-locations"
 
 [[product.processing_region.point]]
-text = "The location of a self-managed deployment is decided by the customer"
-text_zh = "自管部署位置由客户决定"
-
-[[product.processing_region.point]]
-text = "The list of available regions for an AI21-managed private deployment is not published; /deployment/ only gives the data residency options as Single tenant VPC / On-premise, with no regions. There is no policy clause to bind an anchor to here, so no anchor_id is set."
-text_zh = "AI21 托管私有部署的可选区域清单未公开，/deployment/ 只写 data residency options 为 Single tenant VPC / On-premise，未给区域。此处无政策条款可绑锚点，故不带 anchor_id。"
+text = "The list of available regions for an AI21-managed private deployment is not published; §12.2 lists Israel, the United States, the EEA, the UK and other locations worldwide, with no customer-selectable region. The /deployment/ page's data residency options (Single tenant VPC / On-premise) are marketing wording with no snapshot in this repo, so they are not used as evidence and the codes stay at the conservative global default."
+text_zh = "AI21 托管私有部署的可选区域清单未公开；§12.2 只列 Israel / United States / EEA / UK 及全球其他地点，没有可供客户选择的区域。官网 /deployment/ 的 data residency options（Single tenant VPC / On-premise）是营销表述、本仓库无快照，故不作为依据，区域码保守记为 global。"
 
 [product.role]
 kind = "processor"
@@ -210,8 +234,106 @@ text = "In an AI21-managed private deployment AI21 remains the processor of the 
 text_zh = "AI21 托管私有部署下 AI21 仍按 §12.2 作为客户个人数据的 processor"
 
 [[product.role.point]]
+anchor = "ai21-tos-13-third-party-service-access"
+text = "Enabling a Third-Party Service is a customer-initiated access path: §13 provides that where you enable Third-Party Services, you authorize AI21 to permit the relevant provider to access Customer Data as necessary for the interoperation. It is limited to what the interoperation requires, is not part of AI21's own subprocessor chain, and does not change the processor finding or the global processing-region conclusion."
+text_zh = "启用第三方服务是一条由客户主动开启的访问路径：§13 规定启用 Third-Party Services 即授权 AI21 允许相关提供方在互操作必需范围内访问 Customer Data。它限于互操作所需，不属于 AI21 自有的 subprocessor 链，也不改变 processor 判定与 global 处理地结论。"
+
+[[product]]
+id = "private_deployment_self_managed"
+badge = "自托管"
+label = "自管部署：AI21 软件运行在客户自有环境（数据留在客户侧）"
+label_en = "Self-managed deployment: AI21 software runs in the customer's own environment (data stays on the customer side)"
+category = "self_host"
+plan_level = "enterprise"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "ai21-tos-7-2-no-training-commitment"
+
+[[product.training.point]]
+text = "In a self-managed deployment the data never enters AI21's environment, so the no-training commitment in §7.2 holds by itself and holds more strongly"
+text_zh = "自管部署时数据不进 AI21 环境，§7.2 的不训练承诺自然成立且更强"
+
+[product.zdr]
+mark = "no"
+mode = "not_disclosed"
+searched = [
+  "https://www.ai21.com/terms-policies/terms-of-use/",
+  "https://www.ai21.com/terms-policies/privacy-policy/",
+  "https://www.ai21.com/terms-policies/data-act/",
+  "https://www.ai21.com/terms-policies/acceptable-use/",
+  "https://www.ai21.com/terms-policies/cookie-list/",
+  "https://www.ai21.com/terms-of-service/",
+  "https://www.ai21.com/terms-policies/",
+  "https://www.ai21.com/terms-policies/dpa/",
+  "https://www.ai21.com/terms-policies/data-processing-agreement/",
+  "https://www.ai21.com/trust/",
+  "https://www.ai21.com/legal/",
+  "https://www.ai21.com/privacy/",
+  "https://www.ai21.com/dpa/",
+  "https://www.ai21.com/security/",
+  "https://www.ai21.com/security/vdp/",
+  "https://www.ai21.com/deployment/",
+  "https://www.ai21.com/private-ai/",
+  "https://www.ai21.com/gateway/",
+  "https://trust.ai21.com/",
+  "https://docs.ai21.com/llms.txt",
+  "https://docs.ai21.com/sitemap.xml",
+  "https://docs.ai21.com/docs/traceless-mode",
+  "https://docs.ai21.com/docs/overview",
+  "https://docs.ai21.com/docs/managing-your-account",
+  "https://docs.ai21.com/docs/responsible-use-1",
+  "https://docs.ai21.com/docs/training-data-1",
+  "https://www.ai21.com/sitemap.xml",
+]
+
+[[product.zdr.point]]
+text = "In a self-managed deployment request content never enters AI21's environment, so zero retention is a property of the deployment shape rather than a commitment. The only vendor statement to that effect is on the /deployment/ page, which has no snapshot in this repo, so it cannot be anchored; under the conservative assumption this tier is recorded as no zero-retention option disclosed."
+text_zh = "自管部署下请求内容不进 AI21 环境，零保留来自部署形态而非厂商承诺。唯一相关表述在官网 /deployment/ 页，本仓库没有它的快照，无法作锚点；按保守假设本档记为「未公开零保留方案」。"
+
+[[product.zdr.point]]
+text = "The published contract contains no zero-retention commitment for this tier either: §7.2 licenses AI21 to host, store and process Customer Data and §17.4 says only that AI21 may delete it, and no switch, option or application path is documented on any page checked (searched[])."
+text_zh = "公开合同对本档同样没有零保留承诺：§7.2 许可 AI21 host / store / process Customer Data，§17.4 仅说 AI21 可删除；查阅过的页面（searched[]）中均无开关、选项或申请入口。"
+
+[product.retention]
+object = "input_output"
+basis = "undisclosed"
+anchor = "ai21-pp-data-retention-purpose-bound"
+
+[[product.retention.point]]
+text = "In a self-managed deployment the retention period is entirely under the customer's own control; that follows from the deployment shape (the vendor's /deployment/ page, which has no snapshot in this repo) and not from any published clause."
+text_zh = "自管部署的保留期完全由客户自己控制；这来自部署形态（官网 /deployment/ 页，本仓库无快照），不是任何已公布条款的规定。"
+
+[[product.retention.point]]
+text = "The only retention clause AI21 publishes is the privacy policy's \"as long as necessary\" rule, which governs AI21's own processing of account and usage data (the policy itself states it does not govern Customer Data for which AI21 acts as a processor); for the customer's data in a self-managed deployment no period is published."
+text_zh = "AI21 公布的唯一保留条款是隐私政策的「按目的所需」，它管辖 AI21 自己对账户与用量数据的处理（政策自述不管辖 AI21 作为 processor 处理的 Customer Data）；自管部署中客户自有数据的保留期没有公布。"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "ai21-tos-12-2-hosting-locations"
+
+[[product.processing_region.point]]
+text = "The location of a self-managed deployment is decided by the customer, but that follows from the deployment shape (the vendor's /deployment/ page, which has no snapshot in this repo) and not from a published clause; §12.2 gives no customer-selectable region, so the codes stay at the conservative global default."
+text_zh = "自管部署的位置由客户决定，但这来自部署形态（官网 /deployment/ 页，本仓库无快照），不是已公布条款的规定；§12.2 没有可供客户选择的区域，故区域码保守记为 global。"
+
+[product.role]
+kind = "processor"
+anchor = "ai21-tos-12-2-processor-and-dpa"
+
+[[product.role.point]]
 text = "In a self-managed deployment AI21 essentially does not process personal data. The DPA is not published."
 text_zh = "自管部署下 AI21 基本不处理个人数据。DPA 未公开。"
+
+[[anchor]]
+id = "ai21-tos-5-2-data-act-not-for-evaluation-products"
+source_id = "4053edb5c8fa7885"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "AI21 may terminate an evaluation period at any time, with or without notice. "
+exact = "The Data Act Addendum does not apply to any Evaluation Products."
+suffix = ""
 
 [[anchor]]
 id = "ai21-tos-7-2-no-training-commitment"
@@ -296,6 +418,16 @@ suffix = """
 AI21 will maintain commercially reason"""
 
 [[anchor]]
+id = "ai21-tos-13-third-party-service-access"
+source_id = "4053edb5c8fa7885"
+topics = ["role", "processing_region"]
+
+[anchor.selector]
+prefix = "AI21 disclaims all liability arising from Third-Party Services and third-party Content. "
+exact = "Where you enable Third-Party Services, you authorize AI21 to permit the relevant provider to access Customer Data as necessary for the interoperation."
+suffix = ""
+
+[[anchor]]
 id = "ai21-tos-17-4-deletion-after-retrieval-period"
 source_id = "4053edb5c8fa7885"
 topics = ["retention", "zdr"]
@@ -336,13 +468,9 @@ source_id = "4eef1121e9a60bf2"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-vices, and our business; compliance with a legal obligation
-"""
-exact = "Operating, analyzing, improving, and developing the Services and our products Usage Data; User Content; Information from third parties; aggregated and de-identified data Legitimate interests in maintaining and improving our Services"
-suffix = """
-
-Sending marketing and promotional communications Communicat"""
+prefix = ""
+exact = "Operating, analyzing, improving, and developing the Services and our products"
+suffix = ""
 
 [[anchor]]
 id = "ai21-pp-data-retention-purpose-bound"
@@ -358,6 +486,16 @@ ai21.com](mailto:privacy@ai21.com).
 """
 exact = "We retain Personal Data for as long as necessary to fulfill the purposes described in this Policy, after which we securely delete or anonymize it."
 suffix = " Retention periods depend on the nature and sensitivity of t"
+
+[[anchor]]
+id = "ai21-pp-retention-extended-exceptions"
+source_id = "4eef1121e9a60bf2"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Retention periods depend on the nature and sensitivity of the data, the purposes for which we process it, applicable legal, regulatory, tax, and accounting requirements, and our legitimate business needs. "
+exact = "We may retain Personal Data for longer where required to comply with law, to maintain accurate records of our dealings with you in the event of complaints or disputes, where we reasonably anticipate litigation, or in aggregated or de-identified form."
+suffix = " The Services are not intended to serve as a data-storage or archiving product, and you remain responsible for maintaining your own records and backups of your inputs and outputs."
 
 [[anchor]]
 id = "ai21-pp-international-transfers-locations"
@@ -407,3 +545,23 @@ itching was successful.
     1.   """
 exact = "Customer may request AI21 to retain the Exportable Data for up to thirty (30) days following the completion of the Transition Period or the Extended Transition Period to the extent applicable (“**Retrieval Period**“)."
 suffix = " Customer shall continue to pay all charges in accordance wi"
+
+[[anchor]]
+id = "ai21-data-act-deletion-within-notice-period"
+source_id = "b0901f03a9cb7f0c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "AI21 will support a Customer’s Deletion Request to the extent permitted by applicable law, by deleting the Exportable Data in accordance with the procedures and timeframes specified in the Agreement, however no later than within the Notice Period."
+suffix = ""
+
+[[anchor]]
+id = "ai21-data-act-retrieval-period-reserves-right-to-delete"
+source_id = "b0901f03a9cb7f0c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Customer shall continue to pay all charges in accordance with the Agreement during any Retrieval Period. "
+exact = "Upon expiration of the Retrieval Period, the AI21 reserves the right to delete Exportable Data, subject to its standard data deletion practices, except as required under applicable laws."
+suffix = ""

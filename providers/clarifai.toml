@@ -34,8 +34,9 @@ text_zh = "同顶层 training：除主动分享到 Community 外，不使用客�
 text_zh = "聚合使用模式分析允许，明细日志需 opt-in。"
 
 [product.zdr]
-mark = "no"
-anchor = "retention-store-data-to-enable-portal"
+mark = "yes"
+mode = "opt_in"
+anchor = "zdr-opt-out-of-storage"
 searched = [
   "https://raw.githubusercontent.com/Clarifai/docs/main/docs/resources/privacy-security.md",
   "https://raw.githubusercontent.com/Clarifai/docs/main/static/llms.txt",
@@ -60,7 +61,15 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text_zh = "同顶层 zdr。条款明示默认存储输入（「we securely store the data you send to our platform」，保留由客户控制，但厂商侧不是零保留），故记 mark=no（明确否定）而非「未披露」。"
+text = "Zero retention is available per request: when making an API call, you can specify that the input data should not be stored; in that case the data is used only to generate a prediction and is not retained."
+text_zh = "零保留属请求级自助开通：API 调用时可指定不存储输入，此时数据仅用于生成预测、不留存。故记 mark=yes / mode=opt_in，而非「明确否定」。"
+
+[[product.zdr.point]]
+text_zh = "适用范围：仅在按请求显式关闭时生效，未关闭的调用仍会持久存储输入与预测；条款出自同一页「How to Opt-Out of Data Storage」一节。"
+
+[[product.zdr.point]]
+anchor = "retention-store-data-to-enable-portal"
+text_zh = "背景：默认行为是安全存储输入（原文「we securely store the data you send to our platform」），保留由客户控制——这是 opt_in 方案的前提，不构成对零保留方案的否定。"
 
 [product.retention]
 object = "input_output"
@@ -69,6 +78,14 @@ anchor = "retention-secure-storage-by-default"
 
 [[product.retention.point]]
 text_zh = "同顶层 retention：输入与预测默认持久存储在平台（S3），保留期由客户控制，无量化期限"
+
+[[product.retention.point]]
+text = "Customers can configure data retention policies to meet their needs via the API, setting a specific retention period (e.g., 30 days) after which their data is automatically purged."
+text_zh = "客户可经 API 自行配置保留策略、设定具体保留期（例：30 天），到期后数据自动清除。"
+anchor = "retention-full-control-over-retention"
+
+[[product.retention.point]]
+text_zh = "basis=undisclosed 只描述「默认保留期限未公布」：默认存储行为见锚点 retention-secure-storage-by-default，厂商未给默认量化期限（期限由客户配置），不等于该维度没有披露——同一页已披露到期自动清除与请求级不写入持久存储两种机制。"
 
 [[product.retention.point]]
 text_zh = "元数据日志用途已披露、期限未披露。"
@@ -319,3 +336,19 @@ topics = ["retention"]
 prefix = ".7 release, all inputs will be accessible through SDH URLs. "
 exact = "The new inputs will be uploaded to S3 as private files, which can only be accessible via secure SDH URLs."
 suffix = " S3 URLs will not be accessible through the API anymore as t"
+
+[[anchor]]
+id = "zdr-opt-out-of-storage"
+source_id = "fe4df6588b57c8c8"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "**API Control:** When making an API call, you can specify that the input data should not be stored. In this case, the data is used only to generate a prediction and is not retained."
+
+[[anchor]]
+id = "retention-full-control-over-retention"
+source_id = "fe4df6588b57c8c8"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "**Full Control Over Retention:** You can configure data retention policies to meet your specific security and privacy needs. This can be done via the API, allowing you to set a specific retention period (e.g., 30 days) after which your data will be automatically purged."

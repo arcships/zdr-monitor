@@ -72,8 +72,7 @@ for (const [id, detail] of details) {
       url: source.url,
       channel: source.channel,
       line: source.line,
-      current_version: source.current_version,
-      observed_at: source.version_observed_at,
+      snapshot_at: source.snapshot_at,
     })),
     changes: detail.changes,
     plans,
@@ -85,6 +84,6 @@ write("_meta.json", { generated_at, dimensions, monitoring, changes })
 const size = (f: string) => (fs.statSync(path.join(out, f)).size / 1024).toFixed(0)
 console.log(`${rows.length} 行 · ${details.size} 家`)
 console.log(`_catalog.json ${size("_catalog.json")}KB（内联）· ${details.size} 份详情 · api.json ${size("api.json")}KB`)
-console.log(`${changes.length} 条已确认变化 · ${monitoring.with_snapshot}/${monitoring.sources} 个来源有快照 · ${monitoring.failing} 个异常`)
+console.log(`${changes.length} 条已确认变化 · ${monitoring.with_snapshot}/${monitoring.sources} 个来源有快照`)
 if (missing.length)
   console.log(`⚠ ${missing.length} 个格子没有结论：${missing.slice(0, 6).join(" ")}${missing.length > 6 ? " …" : ""}`)

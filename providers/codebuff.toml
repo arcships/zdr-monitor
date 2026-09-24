@@ -8,6 +8,7 @@ doc = "https://www.codebuff.com/privacy-policy"
 
 [[source]]
 url = "https://www.codebuff.com/"
+fetch = "jina"
 channel = "developer_data"
 tier = "core"
 note = "Codebuff 官方主页，明确是终端 AI 编码助手并在本地快速索引整个代码库。"
@@ -66,9 +67,19 @@ anchor = "codebuff-local-map"
 text_zh = "产品默认会向 analytics/observability 服务商发送有界的使用、性能和诊断事件；官方政策及 CLI 文档未披露全局关闭开关或遥测保留期限。"
 anchor = "codebuff-telemetry"
 
+[[product.retention.point]]
+text = "A deletion request does not remove everything: deleted information may remain in backups, and deidentified or aggregated data, derived interests, derived Codebase Evaluation results that contain no raw source code or agent traces, permitted training data, and content others keep through a sharing or publishing feature may all survive deletion."
+text_zh = "删除请求不等于全删：已删除信息可能仍留在备份中，去标识或聚合数据、派生兴趣、不含原始源码与 agent traces 的派生 Codebase Evaluation 结果、已授权的训练数据，以及他人通过分享或发布功能保留的内容，都可能在删除后继续存在。"
+anchor = "codebuff-deletion-exceptions"
+
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "codebuff-region"
+
+[[product.processing_region.point]]
+text = "Edits and commands run locally, but relevant prompts, code, files, and repository context are sent to Freebuff and to model providers, so the processing region — and the role of each hop — is additionally governed by those providers' own terms."
+text_zh = "编辑与命令在本机执行，但相关提示词、代码、文件与仓库上下文会发往 Freebuff 及各模型商，处理地（以及各跳的角色）还受这些模型商各自条款约束。"
+anchor = "codebuff-data-path"
 
 [product.role]
 mark = "unknown"
@@ -76,7 +87,18 @@ kind = "unknown"
 searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service", "https://freebuff.com/enterprise"]
 
 [[product.role.point]]
-text_zh = "政策未使用 controller/processor 法律角色术语；页面展示按 controller 口径处理，但企业 DPA/processor 身份未公开，采购前需另行确认。"
+text = "The policy never uses controller or processor for Codebuff's own role; the only occurrences of processor refer to payment processors. No enterprise DPA or processor commitment is published, so the role has to be confirmed separately before procurement."
+text_zh = "政策未用 controller/processor 术语描述自身角色，processor 仅指支付处理商；企业 DPA 或受托处理方身份未公开，采购前需另行确认。"
+
+[[product.role.point]]
+text = "The policy grounds processing in the company's own legal bases — performing the contract, complying with legal obligations, and pursuing its own legitimate interests such as securing and improving Service, preventing abuse, and supporting its business. That reads like processing for its own purposes, but the clause names no role, so it is recorded as context rather than as proof of controller status."
+text_zh = "政策把处理建立在自身合法依据上（履行合同、遵守法定义务，以及保护与改进服务、防止滥用、支持自身业务等自有合法利益），口径接近为自身目的处理；但该句未指明角色，只作背景记录，不足以据此改判角色。"
+anchor = "codebuff-legal-bases"
+
+[[product.role.point]]
+text = "Prompt and Project Data are also used to personalize advertising inside the Service, including by deriving general interest categories — again processing for the company's own purposes, and no retention period is published for those derived interest categories."
+text_zh = "提示词与项目数据还被用于站内广告个性化，包括派生一般兴趣类别，同样是为自身目的处理，且政策未公布这些派生兴趣类别的保留期限。"
+anchor = "codebuff-ad-personalization"
 
 [[product]]
 id = "training-labeled"
@@ -94,6 +116,12 @@ anchor = "codebuff-training-exception"
 object = "input_output_code"
 basis = "undisclosed"
 anchor = "codebuff-training-exception"
+
+[[product.retention.point]]
+text = "Data submitted through a model or feature labeled for AI training may be retained for the permitted development and improvement uses and may not be removable once it has been deidentified or incorporated into a model — an authorised retention with no deletion ceiling."
+text_zh = "带 AI 训练标注的模型或功能所提交的数据可按已授权的开发与改进用途留存，且在去标识或并入模型后可能不可移除——属授权性留存，没有删除上限。"
+anchor = "codebuff-training-retention"
+
 [product.processing_region]
 codes = ["US", "global"]
 anchor = "codebuff-region"
@@ -102,14 +130,10 @@ mark = "unknown"
 kind = "unknown"
 searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service"]
 
-[[anchor]]
-id = "codebuff-official-cli"
-source_id = "44fc255b008100ab"
-topics = ["role"]
-[anchor.selector]
-prefix = "Title: "
-exact = "Codebuff – AI Coding Assistant for Your Terminal"
-suffix = ""
+[[product.role.point]]
+text = "In jurisdictions where these advertising choices are not legally required, certain advertising processing may be necessary to use the free Service — advertising the provider runs for its own purposes rather than on a customer's instruction. The policy still names no role for Codebuff."
+text_zh = "在未强制提供广告选择的辖区，部分广告处理是使用免费服务的必要条件，即厂商为自身广告目的而非按客户指示进行的处理；但政策仍未指明 Codebuff 的角色。"
+anchor = "codebuff-ad-necessity"
 
 [[anchor]]
 id = "codebuff-local-map"
@@ -146,6 +170,51 @@ topics = ["training", "zdr", "retention"]
 prefix = ""
 exact = "A label or notice such as May use data for AI training means that Prompt and Project Data submitted through that model or feature may be retained and used by Company or the applicable third-party provider for AI training, development, evaluation, testing, fine-tuning, quality improvement, safety research, and related model or product improvement."
 suffix = " A general notice"
+
+[[anchor]]
+id = "codebuff-training-retention"
+source_id = "56524e038896a2bf"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Data submitted through a model or feature labeled for AI training may be retained for the permitted development and improvement uses above and may not be removable after it is deidentified or incorporated into a model."
+suffix = ""
+
+[[anchor]]
+id = "codebuff-deletion-exceptions"
+source_id = "56524e038896a2bf"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Deleted information may remain in backups, and deidentified or aggregated data, derived interests, derived Codebase Evaluation results that do not contain raw source code or agent traces, permitted training data, and content others retain through a sharing or publishing feature may remain after deletion."
+suffix = " Where required"
+
+[[anchor]]
+id = "codebuff-ad-personalization"
+source_id = "56524e038896a2bf"
+topics = ["role", "retention"]
+[anchor.selector]
+prefix = "## Personalized Advertising\n\n"
+exact = "We may use Prompt and Project Data to personalize advertising shown within Service, including by deriving general interest categories."
+suffix = ""
+
+[[anchor]]
+id = "codebuff-ad-necessity"
+source_id = "56524e038896a2bf"
+topics = ["role"]
+[anchor.selector]
+prefix = ""
+exact = "In jurisdictions where these choices are not legally required, certain advertising processing may be necessary to use the free Service."
+suffix = ""
+
+[[anchor]]
+id = "codebuff-legal-bases"
+source_id = "56524e038896a2bf"
+topics = ["role"]
+[anchor.selector]
+prefix = "## Legal Bases and International Transfers\n\n"
+exact = "Where applicable law requires a legal basis, we process personal information as necessary to perform our contract with you, comply with legal obligations, and pursue legitimate interests such as securing and improving Service, preventing abuse, and supporting our business."
+suffix = " We rely on consent"
 
 [[anchor]]
 id = "codebuff-retention"

@@ -14,6 +14,12 @@ tier = "core"
 note = "七牛云官方 API 文档站(apidocs.qnaigc.com,Apifox 托管,qnaigc.com 即 api.qnaigc.com 同域)『七牛云大模型推理服务 常见问题 FAQ』→「🔒 安全与隐私」节,页面修改于 2026-06-16,页脚指向 developer.qiniu.com/aitokenapi 与 support.qiniu.com。**性质为开发者帮助文档(FAQ),不是合同条款**——故按 developer_data 记,单独不能对抗用户协议;覆盖国内站按量 API 档"
 
 [[source]]
+url = "https://developer.qiniu.com/aitokenapi/13420/log-download-api"
+channel = "developer_data"
+tier = "core"
+note = "开发者中心『请求日志下载』接口文档(最近更新 2026-07-09)。披露 API 请求日志(monitor_log)的保留周期与字段清单,覆盖按量 API 档与企业订阅档的日志侧"
+
+[[source]]
 url = "https://www.qiniu.com/agreements/privacy-right"
 channel = "consumer_privacy"
 tier = "core"
@@ -35,14 +41,36 @@ site = "cn"
 
 [product.training]
 mark = "yes"
-anchor = "qiniu-ua-cn-no-train"
+anchor = "qiniu-apidocs-no-training"
 mode = "default"
 
 [[product.training.point]]
-text_zh = "该档未公布独立数据条款(产品说明 developer.qiniu.com/aitokenapi/13330 全文无数据条款,分类为 not_policy),数据条款与按量 API 档同源:用户协议 §4.5 + 隐私政策 §2.2.2"
+text = "Tier basis: this tier publishes no data clause of its own (the subscription product description developer.qiniu.com/aitokenapi/13330 contains no data terms, classified not_policy), so it relies on the same set of sources that cover 七牛云 AI 服务 as a service — user agreement §4.4/§4.5, privacy policy §2.2.2 and the developer FAQ."
+text_zh = "档位依据:该档未公布独立数据条款(产品说明 developer.qiniu.com/aitokenapi/13330 全文无数据条款,分类为 not_policy),故沿用按「七牛云 AI 服务」服务口径覆盖订阅档的同一批来源:用户协议 §4.4/§4.5、隐私政策 §2.2.2、apidocs FAQ。"
 
 [[product.training.point]]
-text_zh = "apidocs FAQ 的『不会被用于训练模型』承诺按服务(七牛云 AI 服务)口径同样覆盖订阅档,但未见订阅档专属声明"
+text = "Contract layer, with its limits stated: §4.5 \"除依据适用法律法规或为了提供服务所需，未经您授权同意，七牛云不会擅自使用用户数据。\" This is a general restriction on the use of user data — the clause never mentions 训练, and it carries two exceptions of its own (as required by applicable law, and as needed to provide the service). The same structure on the international site (§5.5) has already been withdrawn as evidence for this dimension (providers/qiniu-ai.toml), so it is recorded here as contract-layer context only; the explicit basis for mark=yes is the FAQ sentence bound as this dimension's anchor."
+text_zh = "合同层,连同它的限度一并记录:用户协议 §4.5『除依据适用法律法规或为了提供服务所需，未经您授权同意，七牛云不会擅自使用用户数据』。这是对用户数据使用的概括性限制,全文不含「训练」二字,且自带两处例外(依适用法律法规、为提供服务所需)。本仓库对国际站同形条款(§5.5)已按此撤锚(见 providers/qiniu-ai.toml),故此处只作合同层语境记录——本档 mark=yes 的明确依据是绑作本维度锚点的 FAQ 明示句。"
+anchor = "qiniu-ua-cn-no-train"
+
+[[product.training.point]]
+text = "The explicit commitment and its tier scope: the developer FAQ writes \"您通过七牛云 AI 服务提交的数据 **不会被用于训练模型**！\" under the heading 明确承诺. It is developer_data rather than a contract clause, and the sentence names 七牛云 AI 服务 as the service whose submitted data is covered (not one billing mode), which is why it is applied to this tier; no subscription-specific no-training statement exists. Being developer_data it cannot override the user agreement, so the contract layer above is kept side by side instead of replaced."
+text_zh = "明示承诺与档位范围:apidocs FAQ 在「明确承诺」下写『您通过七牛云 AI 服务提交的数据 **不会被用于训练模型**！』。它是 developer_data 而非合同条款,句子按「七牛云 AI 服务」这个服务(不是某一种计费方式)说提交的数据,故适用于本档;订阅档没有专属的不训练声明。因属 developer_data,不能对抗用户协议,故与上面的合同层并列保留,不互相替换。"
+
+[[product.training.point]]
+text = "Opposite direction in the same contract, kept side by side without picking a side: §4.4 \"您确认并同意，七牛云可能会收集或产生某些技术和运营数据，例如系统日志、账单数据、客服信息等（下称“运营数据”），七牛云有权自行决定利用该等运营数据优化和改善七牛云服务。\" Under docs/judgment.md, using data to improve the service counts as training, so this direction has to be shown. Its object is 运营数据 (system logs, billing data, support information) and does not include request content, so it does not overturn mark=yes for inputs and outputs — and it must not be read as \"your prompts are used to improve the service\"."
+text_zh = "同一份合同里的相反方向,并列保留、不选边:§4.4『您确认并同意，七牛云可能会收集或产生某些技术和运营数据，例如系统日志、账单数据、客服信息等（下称“运营数据”），七牛云有权自行决定利用该等运营数据优化和改善七牛云服务。』按 docs/judgment.md「用来改进服务算训练」,这个方向必须呈现。其对象是「运营数据」(系统日志、账单数据、客服信息等),不含请求内容,故不推翻输入输出侧的 mark=yes——也不能被读成「您的请求内容会被用于改善服务」。"
+anchor = "qiniu-ua-cn-ops-data"
+
+[[product.training.point]]
+text = "Second opposite direction, in the privacy policy: §2.2.2 \"为了改善我们的产品、服务并开发给您更好的服务，我们将会使用您的个人信息。\" with its own limit in the following clause, \"一般情况下，我们为此目的仅使用采用匿名化处理后的综合信息和统计性信息，并不会识别到您个人\". Recorded as an authorization direction (service improvement counts as training) plus its anonymized/statistical limit; the object is account and usage-type personal information, whose boundary against request content has to be checked separately."
+text_zh = "第二处相反方向,在隐私政策:§2.2.2『为了改善我们的产品、服务并开发给您更好的服务，我们将会使用您的个人信息。』紧随其后的限定是『一般情况下，我们为此目的仅使用采用匿名化处理后的综合信息和统计性信息，并不会识别到您个人』。按「授权方向 + 匿名化/统计性限定」两层记;对象主要是账号与使用类个人信息,它与请求正文的边界须另行核实。"
+anchor = "qiniu-pp-cn-improve-anonymized"
+
+[[product.training.point]]
+text = "Upstream boundary: §9.3.1 states that the model's computation, inference and content generation are provided directly by the third-party model suppliers, who have \"完整的独立控制权\", and this tier resells international models (Claude, GPT-OSS and others in the FAQ model list). This conclusion therefore covers the Qiniu layer only; whether an upstream supplier trains on the request must be checked against that supplier's own policy."
+text_zh = "上游边界:§9.3.1 写明模型的计算、推理与内容生成能力由各模型供应商直接提供、供应商对其服务拥有「完整的独立控制权」;本档转售 Claude、GPT-OSS 等国际模型(见 FAQ 模型表)。故本结论只覆盖七牛自身层,上游模型供应商是否拿请求训练须按其各自政策另行核实。"
+anchor = "qiniu-ua-cn-upstream-models"
 
 [product.zdr]
 mark = "yes"
@@ -50,21 +78,50 @@ mode = "default"
 anchor = "qiniu-apidocs-no-content-storage"
 
 [[product.zdr.point]]
-text_zh = "无订阅档专属 ZDR 声明"
+text = "Tier scope: no ZDR statement of its own for this tier (the subscription product description has no data clause). The commitment used is the FAQ sentence bound above, written for 七牛云 AI 服务 as a service; the source note in this file records that same FAQ as covering the domestic pay-as-you-go API tier, so the cross-tier reading rests on that service-level wording plus the absence of any subscription-specific data clause — and it is developer_data, which cannot override the user agreement."
+text_zh = "档位范围:无订阅档专属 ZDR 声明(订阅档产品说明全文无数据条款)。所用承诺是上面绑定的 FAQ 那句,按「七牛云 AI 服务」这个服务口径写;本文件对该 FAQ 的 source note 自述覆盖国内站按量 API 档,故跨档推定依据的是服务口径措辞 + 订阅档无专属数据条款,且它是 developer_data,不能对抗用户协议。"
 
 [[product.zdr.point]]
-text_zh = "沿用同一 FAQ 的『不存储对话内容和敏感信息』承诺。未在订阅档文档中发现任何反向或加强条款"
+text = "Authority layer, and what the contract actually says: the contract clause directly about retention for AI services is §4.8, and it is exclusionary only — AI-type services are outside the general 30-day retention, and where no AI data policy has been published the data is deleted on service termination. It makes no no-storage commitment: \"deleted on termination\" and \"not stored\" are two different things, so mark=yes rests on the FAQ sentence, not on §4.8. The AI service data policy that §4.8 refers to has not been found published in the sources registered for this tier."
+text_zh = "权威层级与合同实际写了什么:与 AI 类服务保留直接相关的合同条款是 §4.8,它只作排除式约定——AI 类服务不适用通用 30 天保留期,政策未公布时服务终止即删除,并没有承诺不存储。「终止即删」与「不存储」是两件事,故本维度 mark=yes 的依据是 FAQ 那句,不是 §4.8。§4.8 所引用的「AI 服务数据政策」在本档已登记的来源中未见公布。"
+anchor = "qiniu-ua-cn-ai-retention"
+
+[[product.zdr.point]]
+text = "Log layer, in the same FAQ block: immediately after the no-storage sentence comes \"所有 API 调用都有详细日志，可追溯查询\". Conversation content not being stored and call logs being kept coexist; per the request-log export doc the log fields are metadata (id, model_id, masked api_key, start/end time, server_type, code, errors, usage, cost) and contain no prompt/response body."
+text_zh = "日志层,在同一 FAQ 段落里:紧接「不存储对话内容」之后写『所有 API 调用都有详细日志，可追溯查询』。对话内容不存与调用日志留存可以并存;据请求日志导出接口文档,日志字段为元数据(id、model_id、脱敏 api_key、起止时间、server_type、code、errors、用量、费用),不含 prompt/response 正文。"
+anchor = "qiniu-apidocs-audit-log"
+
+[[product.zdr.point]]
+text = "Upstream boundary: this commitment comes from the developer FAQ (developer_data) and covers the Qiniu layer only. §9.3.1 puts the model's computation, inference and content generation with the third-party suppliers, who have \"完整的独立控制权\"; retention on that hop must be checked against each supplier's own policy. mark=yes/mode=default is therefore not a zero-retention statement for the whole chain, including the resold Claude/GPT/Gemini models."
+text_zh = "上游边界:本承诺出自开发者 FAQ(developer_data),只覆盖七牛自身层。§9.3.1 把模型的计算、推理与内容生成交给第三方模型供应商、供应商拥有「完整的独立控制权」;这一跳的留存须按各原厂政策另行核实。故 mark=yes/mode=default 不构成对整条链路(含转售的 Claude/GPT/Gemini 等模型)的零保留承诺。"
+anchor = "qiniu-ua-cn-upstream-models"
+
+[[product.zdr.point]]
+text_zh = "未在订阅档文档中发现任何反向或加强条款"
 
 [product.retention]
 object = "mixed"
-basis = "none"
+basis = "until_termination"
 anchor = "qiniu-ua-cn-ai-retention"
 
 [[product.retention.point]]
-text_zh = "同源:§4.8 的『AI 类服务』表述不区分计费方式,订阅档同受『不适用 30 天保留期、服务终止即删除』约束"
+text = "Contract layer, object = AI service data: §4.8 excludes AI-type services from the general 30-day retention and provides that where no AI data policy has been published, the data is deleted on service termination. What the contract commits to is deletion at termination, not zero retention — data is kept during the service term and removed when the service ends. The AI service data policy that §4.8 refers to has not been found published in the sources registered for this tier, so retention inside the service term is governed by that policy. The clause does not distinguish billing mode, so the subscription tier is under the same rule."
+text_zh = "合同层,对象=AI 类服务数据:§4.8 把 AI 类服务排除在通用 30 天保留期之外,并约定政策未公布时「服务终止即删除」。合同承诺的是终止时删除,不是零留存——数据在服务期内留存、服务终止时删除。§4.8 所引用的「AI 服务数据政策」在本档已登记的来源中未见公布,服务期内的留存期限以该政策为准。该条不区分计费方式,订阅档同受此约束。"
 
 [[product.retention.point]]
-text_zh = "请求日志约 30 天(接口文档,不分档)。订阅档特有的量化期限只有积分/额度『订阅周期清零』(30/90/365 天),那是额度而非数据保留期,不可混用"
+text = "Object = request logs (metadata): the request-log export doc states \"日志保留周期约为 30 天（以实际配置为准），请及时下载所需数据。\" and lists the log fields as id, model_id, masked api_key, start/end time, server_type, code, errors, state, usage and cost — metadata only, no prompt/response body. This is the log layer, a different object both from the conversation content and from account personal information."
+text_zh = "对象=请求日志(元数据):请求日志导出接口文档写『日志保留周期约为 30 天（以实际配置为准），请及时下载所需数据。』,并列出日志字段为 id、model_id、脱敏 api_key、起止时间、server_type、code、errors、state、用量与费用——只有元数据,不含 prompt/response 正文。这是日志层,与对话内容、账号个人信息都不是同一个对象。"
+anchor = "qiniu-log-retention-30d"
+
+[[product.retention.point]]
+text = "The same FAQ paragraph discloses the log layer next to the no-storage sentence: \"所有 API 调用都有详细日志，可追溯查询\" — conversation content not stored, call metadata logged. Recorded so that the log layer is not misread as content retention."
+text_zh = "同一 FAQ 段落在「不存储对话内容」旁披露了日志层:『所有 API 调用都有详细日志，可追溯查询』——对话内容不存,调用元数据有日志。记下来,免得把日志层误读成内容留存。"
+anchor = "qiniu-apidocs-audit-log"
+
+[[product.retention.point]]
+text = "Object = account and transaction personal information (a third, different object): privacy policy §5.4 keeps it for the minimum period required by law, and for identity and transaction information under the online-transaction/identity record-keeping duty states \"您提供的个人信息将至少保存3年\". This is a floor, not a deletion deadline, and it says nothing about how long inputs and outputs are kept."
+text_zh = "对象=账号与交易类个人信息(第三个、不同的对象):隐私政策 §5.4 按法律要求的最短期限保存,其中为履行网络在线交易/互联网服务对身份及交易信息的保存义务写『您提供的个人信息将至少保存3年』。这是下限而非删除期限,也不能用来推断输入输出正文的保留期。"
+anchor = "qiniu-pp-cn-retention-min"
 
 [product.processing_region]
 codes = ["CN"]
@@ -76,12 +133,27 @@ text_zh = "同源:国内站主体、个人信息存储于中国境内"
 [[product.processing_region.point]]
 text_zh = "订阅档未见独立的处理地说明"
 
+[[product.processing_region.point]]
+text = "Exception inside the same paragraph as the CN anchor: right after the no-overseas-transfer commitment comes \"如七牛云因涉及跨境业务，需向境外机构传输境内收集的相关个人信息的，我们会按照法律法规和相关监管部门的规定执行\". The commitment not to transfer overseas is therefore not absolute; the exception does not change codes=[\"CN\"], it limits how that code is read."
+text_zh = "CN 锚点同段自带的例外:紧随「不会向境外传输」之后写『如七牛云因涉及跨境业务，需向境外机构传输境内收集的相关个人信息的，我们会按照法律法规和相关监管部门的规定执行』。故「不会向境外传输」并非绝对;该例外不改变 codes=[\"CN\"],但限定了它的读法。"
+anchor = "qiniu-pp-cn-cross-border-exception"
+
+[[product.processing_region.point]]
+text = "Upstream boundary: this tier resells international models (Claude, GPT-OSS and others in the FAQ model list) and §9.3.1 provides that the model's computation, inference and content generation are supplied directly by the third-party suppliers, who have \"完整的独立控制权\". The per-model location of the actual inference capacity is not disclosed, so this row covers the Qiniu layer and the account/log data only — it is not a conclusion that all inference happens inside China."
+text_zh = "上游边界:本档转售国际模型(FAQ 模型表含 Claude、GPT-OSS 等),§9.3.1 写明模型的计算、推理与内容生成由各模型供应商直接提供、供应商拥有「完整的独立控制权」。逐模型的实际算力所在地没有披露,故本条只覆盖七牛自身层与账号/日志数据,不构成「全部推理在中国境内完成」的结论。"
+anchor = "qiniu-ua-cn-upstream-models"
+
 [product.role]
 kind = "processor"
 anchor = "qiniu-pp-cn-processor"
 
 [[product.role.point]]
 text_zh = "同源:受托处理客户数据 + 网关层由模型供应商直接提供推理(用户协议 §9.3.1)"
+
+[[product.role.point]]
+text = "Two roles, recorded separately: for customer data and end-user personal information Qiniu is the processor (\"我们将按照您的指令、委托处理您的客户数据。\"), while for account registration and business-contact personal information it collects and uses that information for its own purposes — privacy policy §2 opens with \"我们仅会出于本政策所述的以下目的，收集和使用您的个人信息：\", i.e. it is the controller for that data. The kind field records the customer-data side (processor)."
+text_zh = "双角色,分开记:对客户数据/最终用户个人信息,七牛是受托处理者(『我们将按照您的指令、委托处理您的客户数据。』);对账号注册与业务联系类个人信息,它是以自身目的收集使用——隐私政策 §2 开篇即『我们仅会出于本政策所述的以下目的，收集和使用您的个人信息：』,这部分它是控制者。kind 字段按客户数据这一面记 processor。"
+anchor = "qiniu-pp-cn-account-controller"
 
 [[product.role.point]]
 text_zh = "订阅档产品说明未改变角色约定"
@@ -167,3 +239,149 @@ prefix = """
 七牛云会按照法律法规的规定，**"""
 exact = "将在境内运营过程中收集和产生的个人信息存储于中华人民共和国境内，且不会将该等信息向境外进行传输"
 suffix = "。如七牛云因涉及跨境业务，需向境外机构传输境内收集的相关个人信息的，我们会按照法律法规和相关监管部门的规定执行**， 向"
+
+[[anchor]]
+id = "qiniu-ua-cn-ops-data"
+source_id = "afd5a7500c671112"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "中，**您确认并同意，七牛云可能会收集或产生某些技术和运营数据，例如系统日志、账单数据、客服信息等（下称“运营数据”），"
+exact = "七牛云有权自行决定利用该等运营数据优化和改善七牛云服务。"
+suffix = """
+**
+
+4.5 除依据适用法律法规或为了提供服务所需，未经您授权同意，七牛云不会擅自使用用户数据。**您确认并同意，如果"""
+
+[[anchor]]
+id = "qiniu-ua-cn-upstream-models"
+source_id = "afd5a7500c671112"
+topics = ["role", "training"]
+
+[anchor.selector]
+prefix = "，七牛云在本协议项下提供的AI服务，系通过公开渠道集成第三方大模型供应商（以下简称“模型供应商”）的服务能力后向您提供。"
+exact = "七牛云的主要义务在于提供稳定的技术接入、计费与服务平台，而模型的计算、推理与内容生成能力由各模型供应商直接提供"
+suffix = "。您知悉并同意，各模型供应商对其服务拥有完整的独立控制权。七牛云不就任何模型服务的连续性、特定输出结果的准确性、完整性、"
+
+[[anchor]]
+id = "qiniu-apidocs-no-training"
+source_id = "fadef147b1ac20f0"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+用都有详细日志，可追溯查询
+
+**⚖️ 合规认证**
+
+符合数据安全和隐私保护相关法律法规
+
+危险
+
+**明确承诺**："""
+exact = "您通过七牛云 AI 服务提交的数据 **不会被用于训练模型**！"
+suffix = """
+
+
+* * *
+
+### API 密钥泄露了怎么办？[#](https://apidocs.qnaigc.com/792"""
+
+[[anchor]]
+id = "qiniu-apidocs-audit-log"
+source_id = "fadef147b1ac20f0"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+密，防止中间人攻击
+
+**🚫 不存储敏感数据**
+
+七牛云不会存储您的对话内容和敏感信息
+
+**📝 完整审计日志**
+
+"""
+exact = "所有 API 调用都有详细日志，可追溯查询"
+suffix = """
+
+
+**⚖️ 合规认证**
+
+符合数据安全和隐私保护相关法律法规
+
+危险
+
+**明确承诺**：您通过七牛云 AI 服务提"""
+
+[[anchor]]
+id = "qiniu-log-retention-30d"
+source_id = "bba5a1025b1c5672"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = """
+两个接口的**查询参数、鉴权方式、过滤与排序逻辑完全相同**，**仅返回结构不同**（见下方各接口的响应说明）。
+
+> """
+exact = "日志保留周期约为 30 天（以实际配置为准），请及时下载所需数据。"
+suffix = """
+
+
+* * *
+
+## 认证方式
+
+支持两种鉴权方式：
+
+1.   **APIKey 认证**：使用 APIKey 进行"""
+
+[[anchor]]
+id = "qiniu-pp-cn-improve-anonymized"
+source_id = "adfec6638df86b7c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = """
+，告知您账号实名认证结果反馈、权利人或用户的投诉举报通知以及解决您反馈的问题等。
+
+2.2.2 改善我们的产品或服务
+
+"""
+exact = "为了改善我们的产品、服务并开发给您更好的服务，我们将会使用您的个人信息。"
+suffix = " 但您应当知悉的是，一般情况下，我们为此目的仅使用采用匿名化处理后的综合信息和统计性信息，并不会识别到您个人，我们将会利"
+
+[[anchor]]
+id = "qiniu-pp-cn-retention-min"
+source_id = "adfec6638df86b7c"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "保存期限内（如为了实现争议解决并满足诉讼时效和举证之需要，或为履行网络在线交易/互联网服务对于身份及交易信息的保存义务，"
+exact = "您提供的个人信息将至少保存3年"
+suffix = "），我们将不再对您的个人信息进行商业化使用。当您的个人信息超出上述保存期限，我们将会对其进行源数据及备份数据的删除或匿名"
+
+[[anchor]]
+id = "qiniu-pp-cn-cross-border-exception"
+source_id = "adfec6638df86b7c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "且不会将该等信息向境外进行传输。"
+exact = "如七牛云因涉及跨境业务，需向境外机构传输境内收集的相关个人信息的，我们会按照法律法规和相关监管部门的规定执行"
+suffix = "**， 向您说明境外接收方的名称、联系方式、处理方式、个人信息出镜的目的、涉及到个人信息类型以及您向境外接收方行使个人信息主体权利的方式和程序并征得您的同意。"
+
+[[anchor]]
+id = "qiniu-pp-cn-account-controller"
+source_id = "adfec6638df86b7c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = """
+### 2. 我们如何收集和使用您的个人信息
+
+"""
+exact = "我们仅会出于本政策所述的以下目的，收集和使用您的个人信息："
+suffix = """
+2.1 为了更好地为您服务，七牛云将遵循现行有效的国家相关法律法规的规定和您的同意，收集您的个人信息，主要包括："""

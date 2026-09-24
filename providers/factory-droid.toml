@@ -22,7 +22,7 @@ note = "BYOK、自托管及本地模型配置；API key 只留本地，并披露
 url = "https://factory.ai/privacy-policy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Factory 通用隐私政策；改善服务、美国处理与控制者口径。"
+note = "Factory 通用隐私政策；改善服务、美国处理、档案中个人数据 10 年删除上限与控制者口径。"
 
 [[source]]
 url = "https://docs.factory.ai/pricing/individuals.md"
@@ -34,7 +34,7 @@ note = "个人 Pro/Plus/Max 档位依据。"
 url = "https://docs.factory.ai/pricing/organizations.md"
 channel = "developer_data"
 tier = "core"
-note = "Teams/Business/Enterprise 档位依据。"
+note = "Teams/Business/Enterprise 档位依据；对照表把 ZDR 只列给 Business 与 Enterprise，Teams 一列为「—」。"
 
 [[product]]
 id = "individual-hosted"
@@ -47,42 +47,175 @@ mark = "no"
 anchor = "factory-improve-services"
 [[product.training.point]]
 text_zh = "通用隐私政策允许为改善服务处理数据，未明确排除模型训练，按口径 training=no。"
+[[product.training.point]]
+text = "Context, not a reversal: the same processing-purpose paragraph keeps a consent gate open for other purposes — \"We may also process your information for other purposes with your consent.\" The training verdict still follows the improvement clause."
+text_zh = "语境补充、不改变结论：同段处理目的还留了经同意开启其他用途的开口——「We may also process your information for other purposes with your consent.」training 结论仍按改善服务条款取保守值。"
+anchor = "training-consent-other-purposes"
 [product.zdr]
 mark = "unknown"
 searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://factory.ai/privacy-policy", "https://docs.factory.ai/pricing/individuals.md"]
+[[product.zdr.point]]
+text = "Why unknown, with the zero-retention wording that does exist in this source set kept visible: it is tied to enterprise-grade endpoints and to contracts — \"By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls.\" Neither individuals.md nor the privacy policy offers a ZDR arrangement for the individual tiers."
+text_zh = "维持 unknown 的理由，并标出本来源集里确实存在的零保留表述：它绑定企业级端点与合同——「By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls.」individuals.md 与隐私政策都没有给个人档 ZDR 安排。"
+anchor = "enterprise-endpoints-zdr"
 [product.retention]
 object = "mixed"
-basis = "undisclosed"
+basis = "fixed_period"
+days = 3650
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: account-related personal data in Factory's archives — default, upper bound: \"We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract\"; the same section archives PII for the duration of the account, and a separate contract may set another term. This is the only quantified retention period in this source set, and it is not a period for request inputs and outputs."
+text_zh = "对象：Factory 档案中的账户相关个人数据——默认、上限：「We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract」；同节写明 PII 在账户存续期间归档使用，可另行合同约定其他期限。这是本快照集里唯一量化的保留期限，不是请求输入输出正文的期限。"
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: Factory-hosted operational logs in cloud-managed mode (authentication and administrative actions, service health and debugging). The public text quantifies nothing — \"Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement\" — which is an unquantified public text, not a statement that nothing is kept."
+text_zh = "对象：云托管模式下 Factory 侧运行日志（认证与管理操作、服务健康与排障）。公开文本未量化——「Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement」——属公开文本未量化，不等于厂商未表态。"
 anchor = "factory-cloud-logs-retention"
+[[product.retention.point]]
+text = "Object: request inputs and outputs. Neither individuals.md nor the privacy policy gives a retention period for prompt or response content."
+text_zh = "对象：请求输入输出正文。individuals.md 与隐私政策都没有给出 prompt/response 内容的保留期限。"
+[[product.retention.point]]
+text = "Object: prompt cache. On BYOK and custom-model paths caching is not governed by Factory — \"Caching behavior follows each provider's implementation and requirements.\""
+text_zh = "对象：prompt 缓存。BYOK 与自定义模型路径下缓存不受 Factory 控制——「Caching behavior follows each provider's implementation and requirements.」"
+anchor = "byok-caching-upstream"
 [product.processing_region]
 codes = ["US"]
 anchor = "factory-us-processing"
 [product.role]
 kind = "controller"
-anchor = "factory-privacy-entity"
+anchor = "privacy-legitimate-interests"
+[[product.role.point]]
+text = "No sentence in this source set calls Factory a controller or a processor. The nearest identity evidence is that Factory processes on its own legal bases for its own purposes — \"Processing your data is necessary for our legitimate interests or the legitimate interests of a third party, provided those interests are not outweighed by your rights and interests.\" — the controller stance of a consumer notice. No DPA or contract source is registered in this file."
+text_zh = "本来源集里没有一句把 Factory 写成 controller 或 processor。最接近身份判断的是它以自身合法利益、为自身目的处理数据——「Processing your data is necessary for our legitimate interests or the legitimate interests of a third party, provided those interests are not outweighed by your rights and interests.」——即消费级通知的控制者口径。本文件没有登记任何 DPA 或合同来源。"
+anchor = "privacy-legitimate-interests"
 
 [[product]]
-id = "teams-business-hosted"
-badge = "团队/商业版"
+id = "teams-hosted"
+badge = "Teams"
 category = "coding_plan"
 plan_level = "team"
-label = "Teams / Business，托管链路"
+label = "Teams 自助团队档，Factory 托管链路"
 [product.training]
 mark = "no"
 anchor = "factory-improve-services"
+[[product.training.point]]
+text_zh = "通用隐私政策允许为改善服务处理数据，未明确排除模型训练，按口径 training=no；Teams 档无单独的培训条款。"
+[[product.training.point]]
+text = "Context, not a reversal: the same processing-purpose paragraph keeps a consent gate open for other purposes — \"We may also process your information for other purposes with your consent.\" The training verdict still follows the improvement clause."
+text_zh = "语境补充、不改变结论：同段处理目的还留了经同意开启其他用途的开口——「We may also process your information for other purposes with your consent.」training 结论仍按改善服务条款取保守值。"
+anchor = "training-consent-other-purposes"
 [product.zdr]
 mark = "unknown"
-searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://docs.factory.ai/pricing/organizations.md"]
+searched = ["https://docs.factory.ai/pricing/organizations.md", "https://docs.factory.ai/enterprise/privacy-and-data-flows.md"]
+[[product.zdr.point]]
+text = "Teams has no ZDR in the vendor's own comparison: the Data controls row reads \"| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |\" — the Teams column is \"—\", only Business and Enterprise list ZDR. The zero-retention wording in privacy-and-data-flows is scoped to enterprise-grade endpoints and to contracts, so this tier stays unknown."
+text_zh = "厂商自己的对照表里 Teams 没有 ZDR：Data controls 行为「| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |」——Teams 一列是「—」，只有 Business 与 Enterprise 列了 ZDR。privacy-and-data-flows 的零保留表述限定在企业级端点与合同，故本档维持 unknown。"
+anchor = "org-data-controls-row"
 [product.retention]
 object = "mixed"
-basis = "undisclosed"
+basis = "fixed_period"
+days = 3650
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: account-related personal data in Factory's archives — default, upper bound: \"We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract\"; the same section archives PII for the duration of the account, and a separate contract may set another term. Not a period for request inputs and outputs."
+text_zh = "对象：Factory 档案中的账户相关个人数据——默认、上限：「We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract」；同节写明 PII 在账户存续期间归档使用，可另行合同约定其他期限。不是请求输入输出正文的期限。"
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: Factory-hosted operational logs in cloud-managed mode (authentication and administrative actions, service health and debugging). The public text quantifies nothing — \"Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement\" — which is an unquantified public text, not a statement that nothing is kept."
+text_zh = "对象：云托管模式下 Factory 侧运行日志（认证与管理操作、服务健康与排障）。公开文本未量化——「Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement」——属公开文本未量化，不等于厂商未表态。"
 anchor = "factory-cloud-logs-retention"
+[[product.retention.point]]
+text = "Object: request inputs and outputs. Neither organizations.md nor the privacy policy gives a retention period for prompt or response content."
+text_zh = "对象：请求输入输出正文。organizations.md 与隐私政策都没有给出 prompt/response 内容的保留期限。"
+[[product.retention.point]]
+text = "Object: prompt cache. On BYOK and custom-model paths caching is not governed by Factory — \"Caching behavior follows each provider's implementation and requirements.\""
+text_zh = "对象：prompt 缓存。BYOK 与自定义模型路径下缓存不受 Factory 控制——「Caching behavior follows each provider's implementation and requirements.」"
+anchor = "byok-caching-upstream"
 [product.processing_region]
 codes = ["US"]
 anchor = "factory-us-processing"
 [product.role]
 kind = "controller"
-anchor = "factory-privacy-entity"
+anchor = "privacy-legitimate-interests"
+[[product.role.point]]
+text = "No sentence in this source set calls Factory a controller or a processor; the consumer privacy notice states the purposes and the legal bases on which Factory itself processes — \"Processing your data is necessary for our legitimate interests or the legitimate interests of a third party, provided those interests are not outweighed by your rights and interests.\" Teams is self-serve with no contract terms in organizations.md, and no DPA or contract source is registered in this file."
+text_zh = "本来源集里没有一句把 Factory 写成 controller 或 processor；消费级隐私通知写的是 Factory 自身处理的目的与法律依据——「Processing your data is necessary for our legitimate interests or the legitimate interests of a third party, provided those interests are not outweighed by your rights and interests.」Teams 是自助档、organizations.md 里没有合同条款，且本文件没有登记任何 DPA 或合同来源。"
+anchor = "privacy-legitimate-interests"
+
+[[product]]
+id = "business-hosted"
+badge = "Business"
+category = "coding_plan"
+plan_level = "team"
+label = "Business 组织档，Factory 托管链路；ZDR 等数据控制能力随合同开通"
+[product.training]
+mark = "no"
+anchor = "factory-improve-services"
+[[product.training.point]]
+text_zh = "通用隐私政策允许为改善服务处理数据，未明确排除模型训练，按口径 training=no；organizations.md 未给 Business 档单独的训练条款。"
+[[product.training.point]]
+text = "Context, not a reversal: the same processing-purpose paragraph keeps a consent gate open for other purposes — \"We may also process your information for other purposes with your consent.\" The training verdict still follows the improvement clause."
+text_zh = "语境补充、不改变结论：同段处理目的还留了经同意开启其他用途的开口——「We may also process your information for other purposes with your consent.」training 结论仍按改善服务条款取保守值。"
+anchor = "training-consent-other-purposes"
+[product.zdr]
+mark = "yes"
+mode = "by_agreement"
+anchor = "org-business-zdr"
+[[product.zdr.point]]
+text = "Business lists ZDR as a plan capability, alongside identity and audit controls — \"SSO, SAML/SCIM provisioning, and ZDR\" in the Business card and the Data controls row \"| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |\". It is a capability of a custom-priced plan sold through sales (the same card reads \"Business · Custom pricing\" / \"Contact Sales\"), not a self-serve switch, hence by_agreement rather than a default."
+text_zh = "Business 把 ZDR 列为套餐能力，与身份和审计控制并列——Business 卡片条目「SSO, SAML/SCIM provisioning, and ZDR」，对照表 Data controls 行「| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |」。它属于按需报价、经销售开通的套餐能力（同一卡片写「Business · Custom pricing」「Contact Sales」），不是自助开关，故记 by_agreement 而非默认。"
+anchor = "org-data-controls-row"
+[[product.zdr.point]]
+text = "What the ZDR is attached to, and on what conditions: \"By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls. In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.\" In high-security settings the docs add: \"Prefer the direct enterprise endpoints described above to get first-party zero-retention guarantees.\" The guarantee therefore covers the direct enterprise-endpoint configuration; it does not cover gateways or self-hosted models (see the next point)."
+text_zh = "这条 ZDR 挂在什么上、什么条件下：文档「By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls. In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.」高安全场景另写「Prefer the direct enterprise endpoints described above to get first-party zero-retention guarantees.」即承诺覆盖直连企业级端点的配置，不覆盖网关或自建模型（见下一条）。"
+anchor = "factory-no-store-prompts"
+[[product.zdr.point]]
+text = "Scope limit — own endpoints are excluded: \"If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.\" On those paths retention, training and ZDR are decided by the upstream hop."
+text_zh = "适用范围限定——自建端点被排除：「If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.」走这些路径时保留、训练与 ZDR 都由上游那一跳决定。"
+anchor = "byok-own-endpoints-disclaimer"
+[product.retention]
+object = "mixed"
+basis = "fixed_period"
+days = 3650
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: account-related personal data in Factory's archives — default, upper bound: \"We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract\"; a separate contract may set another term. Not a period for request inputs and outputs."
+text_zh = "对象：Factory 档案中的账户相关个人数据——默认、上限：「We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract」；可另行合同约定其他期限。不是请求输入输出正文的期限。"
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: Factory-hosted operational logs in cloud-managed mode (authentication and administrative actions, service health and debugging). The public text quantifies nothing — \"Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement\" — which is an unquantified public text, not a statement that nothing is kept."
+text_zh = "对象：云托管模式下 Factory 侧运行日志（认证与管理操作、服务健康与排障）。公开文本未量化——「Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement」——属公开文本未量化，不等于厂商未表态。"
+anchor = "factory-cloud-logs-retention"
+[[product.retention.point]]
+text = "Object: request inputs and outputs on the default enterprise-endpoint configuration — Factory states it does not keep them: \"In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.\" This is scoped to the direct enterprise endpoints; the prompt/response content still reaches the upstream provider, whose own retention terms apply, and organizations.md gives no period of its own."
+text_zh = "对象：默认企业级端点配置下的请求输入输出正文——Factory 明说不留：「In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.」这条只覆盖直连企业级端点；prompt/response 仍到达上游厂商，其保留条款另算，organizations.md 自身没有给出期限。"
+anchor = "factory-no-store-prompts"
+[[product.retention.point]]
+text = "Object: request inputs and outputs on BYOK / gateway / self-hosted paths — out of Factory's hands: \"If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.\""
+text_zh = "对象：BYOK／网关／自建模型路径下的请求输入输出正文——不在 Factory 手里：「If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.」"
+anchor = "byok-own-endpoints-disclaimer"
+[[product.retention.point]]
+text = "Object: telemetry, including the optional message-content trace spans — they stay on the customer's side: \"Spans never reach Factory's collector, in any configuration.\" This is a boundary on telemetry, not a commitment about Factory-hosted operational logs in cloud-managed mode (those are covered by the Trust Center sentence above)."
+text_zh = "对象：遥测，含可选的消息内容 trace span——只留在客户侧：「Spans never reach Factory's collector, in any configuration.」这是遥测侧的边界，不是对云托管模式 Factory 侧运行日志的承诺（后者见上一条 Trust Center 句）。"
+anchor = "spans-never-reach-factory"
+[[product.retention.point]]
+text = "Object: prompt cache. On BYOK and custom-model paths caching is not governed by Factory — \"Caching behavior follows each provider's implementation and requirements.\""
+text_zh = "对象：prompt 缓存。BYOK 与自定义模型路径下缓存不受 Factory 控制——「Caching behavior follows each provider's implementation and requirements.」"
+anchor = "byok-caching-upstream"
+[product.processing_region]
+codes = ["US"]
+anchor = "factory-us-processing"
+[[product.processing_region.point]]
+text = "Scope note: data residency is not listed for Business. In the same Data controls row, Business is \"ZDR, audit logging and activity trails\" while Enterprise is \"ZDR, audit logging, data residency\"."
+text_zh = "适用范围说明：Business 未列 data residency。同一 Data controls 行里 Business 是「ZDR, audit logging and activity trails」，Enterprise 才是「ZDR, audit logging, data residency」。"
+anchor = "org-data-controls-row"
+[product.role]
+kind = "unknown"
+searched = ["https://docs.factory.ai/pricing/organizations.md", "https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://factory.ai/privacy-policy"]
+[[product.role.point]]
+text = "No role is stated for this tier. organizations.md describes the Business plan, its controls and its contract-based pricing but names no controller/processor role; privacy-and-data-flows describes deployment and data flow, not a role; the consumer privacy policy is a notice to individuals and its preamble defines the scope of the notice, not the role. No DPA or contract text is registered as a source in this file, so the role has to be confirmed from the signed agreement before procurement."
+text_zh = "本档没有角色表述。organizations.md 讲的是 Business 档的套餐、控制能力与按合同的定价，没有给 controller/processor 角色；privacy-and-data-flows 讲部署与数据流，不涉及角色；消费级隐私政策是面向个人的通知，其前言界定的是通知适用范围而非角色。本文件没有登记任何 DPA 或合同文本来源，采购前需从签署的协议确认角色。"
+anchor = "org-data-controls-row"
 
 [[product]]
 id = "enterprise-hosted"
@@ -93,19 +226,87 @@ label = "Enterprise，托管链路；隔离部署或 BYOK 的数据路径需按�
 [product.training]
 mark = "no"
 anchor = "factory-improve-services"
+[[product.training.point]]
+text_zh = "通用隐私政策允许为改善服务处理数据，未明确排除模型训练，按口径 training=no；organizations.md 未给 Enterprise 档单独的训练条款。"
+[[product.training.point]]
+text = "Context, not a reversal: the same processing-purpose paragraph keeps a consent gate open for other purposes — \"We may also process your information for other purposes with your consent.\" The training verdict still follows the improvement clause."
+text_zh = "语境补充、不改变结论：同段处理目的还留了经同意开启其他用途的开口——「We may also process your information for other purposes with your consent.」training 结论仍按改善服务条款取保守值。"
+anchor = "training-consent-other-purposes"
 [product.zdr]
-mark = "unknown"
-searched = ["https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://docs.factory.ai/pricing/organizations.md"]
+mark = "yes"
+mode = "by_agreement"
+anchor = "org-enterprise-data-controls"
+[[product.zdr.point]]
+text = "Enterprise lists ZDR as a plan capability in the vendor's own comparison — \"| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |\". It is a capability of a custom-priced plan sold through sales (the Enterprise card reads \"Enterprise · Custom pricing\" / \"Contact Sales\"), not a self-serve switch, hence by_agreement rather than a default."
+text_zh = "厂商自己的对照表把 ZDR 列为 Enterprise 的套餐能力——「| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |」。它属于按需报价、经销售开通的套餐能力（Enterprise 卡片写「Enterprise · Custom pricing」「Contact Sales」），不是自助开关，故记 by_agreement 而非默认。"
+anchor = "org-data-controls-row"
+[[product.zdr.point]]
+text = "What the ZDR is attached to: \"By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls. In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.\" In high-security settings: \"Prefer the direct enterprise endpoints described above to get first-party zero-retention guarantees.\" The guarantee covers the direct enterprise-endpoint configuration, not gateways or self-hosted models."
+text_zh = "这条 ZDR 挂在什么上：「By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls. In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.」高安全场景另写「Prefer the direct enterprise endpoints described above to get first-party zero-retention guarantees.」承诺覆盖直连企业级端点的配置，不覆盖网关或自建模型。"
+anchor = "first-party-zdr-guarantees"
+[[product.zdr.point]]
+text = "Scope limit — own endpoints are excluded: \"If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.\""
+text_zh = "适用范围限定——自建端点被排除：「If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.」"
+anchor = "byok-own-endpoints-disclaimer"
 [product.retention]
 object = "mixed"
-basis = "undisclosed"
+basis = "fixed_period"
+days = 3650
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: account-related personal data in Factory's archives — default, upper bound: \"We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract\"; a separate contract may set another term. Not a period for request inputs and outputs."
+text_zh = "对象：Factory 档案中的账户相关个人数据——默认、上限：「We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract」；可另行合同约定其他期限。不是请求输入输出正文的期限。"
+anchor = "retention-archive-10y"
+[[product.retention.point]]
+text = "Object: Factory-hosted operational logs in cloud-managed mode (authentication and administrative actions, service health and debugging). Public text quantifies nothing but says the period is negotiable — \"Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement\"."
+text_zh = "对象：云托管模式下 Factory 侧运行日志（认证与管理操作、服务健康与排障）。公开文本未量化，但写明可按客户协商调整——「Retention and residency for these logs are documented in the Trust Center and can be tuned per customer engagement」。"
 anchor = "factory-cloud-logs-retention"
+[[product.retention.point]]
+text = "Object: request inputs and outputs on the default enterprise-endpoint configuration — Factory states it does not keep them: \"In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.\" Scoped to the direct enterprise endpoints; the content still reaches the upstream provider, whose own terms govern its retention."
+text_zh = "对象：默认企业级端点配置下的请求输入输出正文——Factory 明说不留：「In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud.」只覆盖直连企业级端点；内容仍到达上游厂商，其保留由上游条款决定。"
+anchor = "factory-no-store-prompts"
+[[product.retention.point]]
+text = "Object: request inputs and outputs on BYOK / gateway / self-hosted paths — out of Factory's hands: \"If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.\""
+text_zh = "对象：BYOK／网关／自建模型路径下的请求输入输出正文——不在 Factory 手里：「If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top.」"
+anchor = "byok-own-endpoints-disclaimer"
+[[product.retention.point]]
+text = "Object: telemetry, including the optional message-content trace spans — they stay on the customer's side: \"Spans never reach Factory's collector, in any configuration.\" This is a boundary on telemetry, not a commitment about Factory-hosted operational logs in cloud-managed mode (those are covered by the Trust Center sentence above)."
+text_zh = "对象：遥测，含可选的消息内容 trace span——只留在客户侧：「Spans never reach Factory's collector, in any configuration.」这是遥测侧的边界，不是对云托管模式 Factory 侧运行日志的承诺（后者见上一条 Trust Center 句）。"
+anchor = "spans-never-reach-factory"
+[[product.retention.point]]
+text = "Object: fully airgapped deployments — no Factory-side retention at all, the customer decides: \"In fully airgapped environments, Factory never receives any runtime data; you are responsible for all retention and residency decisions.\""
+text_zh = "对象：全隔离部署——Factory 侧不保留，由客户决定：「In fully airgapped environments, Factory never receives any runtime data; you are responsible for all retention and residency decisions.」"
+anchor = "airgapped-runtime-retention"
+[[product.retention.point]]
+text = "Object: prompt cache. On BYOK and custom-model paths caching is not governed by Factory — \"Caching behavior follows each provider's implementation and requirements.\""
+text_zh = "对象：prompt 缓存。BYOK 与自定义模型路径下缓存不受 Factory 控制——「Caching behavior follows each provider's implementation and requirements.」"
+anchor = "byok-caching-upstream"
 [product.processing_region]
-codes = ["US"]
+codes = ["US", "selected"]
+anchor = "org-enterprise-residency"
+[[product.processing_region.point]]
+text = "Default processing is in the United States — the consumer privacy policy states \"We process all data in the United States and in any data processing facilities operated by the third parties identified below\", with data primarily stored in AWS US West."
+text_zh = "默认处理地在美国——消费级隐私政策写「We process all data in the United States and in any data processing facilities operated by the third parties identified below」，数据主要存于 AWS US West。"
 anchor = "factory-us-processing"
+[[product.processing_region.point]]
+text = "Enterprise is the tier that can change the region, per the developer_data source: \"Choose Enterprise when you need unlimited seats, dedicated compute, partitioned inference, on-premise deployment, sub-organizations, data residency, or priority support commitments.\" Hence codes US + customer-selected rather than US alone."
+text_zh = "能改变处理地的是 Enterprise 档，依据 developer_data 来源：「Choose Enterprise when you need unlimited seats, dedicated compute, partitioned inference, on-premise deployment, sub-organizations, data residency, or priority support commitments.」故记 US + 可选地域，而不是单一的 US。"
+anchor = "org-enterprise-residency"
+[[product.processing_region.point]]
+text = "Deployment patterns that move or remove the region: hybrid — \"LLM and OTEL traffic terminate in your network\"; fully airgapped — \"no traffic leaves the environment\" and \"In fully airgapped environments, Factory never receives any runtime data; you are responsible for all retention and residency decisions.\""
+text_zh = "会改变或移除处理地的部署形态：混合部署——「LLM and OTEL traffic terminate in your network」；全隔离部署——「no traffic leaves the environment」以及「In fully airgapped environments, Factory never receives any runtime data; you are responsible for all retention and residency decisions.」"
+anchor = "airgapped-no-traffic"
+[[product.processing_region.point]]
+text = "Hybrid deployments keep the LLM and telemetry traffic inside the customer's network: \"LLM and OTEL traffic terminate in your network\"; Factory cloud may only see minimal metadata if the customer enables it."
+text_zh = "混合部署下 LLM 与遥测流量终止在客户网络内：「LLM and OTEL traffic terminate in your network」；只有客户主动开启时 Factory 云才可能看到最少的元数据。"
+anchor = "hybrid-traffic-terminates"
 [product.role]
-kind = "controller"
-anchor = "factory-privacy-entity"
+kind = "unknown"
+searched = ["https://docs.factory.ai/pricing/organizations.md", "https://docs.factory.ai/enterprise/privacy-and-data-flows.md", "https://factory.ai/privacy-policy"]
+[[product.role.point]]
+text = "No role is stated for this tier. organizations.md describes the Enterprise plan and its controls but names no controller/processor role; privacy-and-data-flows covers deployment and data flow, not a role; the consumer privacy policy is a notice to individuals and its preamble defines the scope of the notice, not the role. No DPA or contract text is registered as a source in this file, so the role has to be confirmed from the signed agreement before procurement."
+text_zh = "本档没有角色表述。organizations.md 讲的是 Enterprise 档的套餐与控制能力，没有给 controller/processor 角色；privacy-and-data-flows 讲部署与数据流，不涉及角色；消费级隐私政策是面向个人的通知，其前言界定的是通知适用范围而非角色。本文件没有登记任何 DPA 或合同文本来源，采购前需从签署的协议确认角色。"
+anchor = "org-data-controls-row"
 
 [[anchor]]
 id = "factory-improve-services"
@@ -116,6 +317,22 @@ prefix = ""
 exact = "We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law."
 suffix = ""
 [[anchor]]
+id = "training-consent-other-purposes"
+source_id = "dfc578c3d8065452"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "We may also process your information for other purposes with your consent."
+suffix = ""
+[[anchor]]
+id = "retention-archive-10y"
+source_id = "dfc578c3d8065452"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "We will archive and use any personal identifiable information about you for the duration you have an account with Factory. We will delete your personal data from our archives no later than 10 years from the last time you used Factory or as agreed with you in a separate contract."
+suffix = ""
+[[anchor]]
 id = "factory-us-processing"
 source_id = "dfc578c3d8065452"
 topics = ["processing_region"]
@@ -124,12 +341,12 @@ prefix = ""
 exact = "We process all data in the United States and in any data processing facilities operated by the third parties identified below."
 suffix = ""
 [[anchor]]
-id = "factory-privacy-entity"
+id = "privacy-legitimate-interests"
 source_id = "dfc578c3d8065452"
 topics = ["role"]
 [anchor.selector]
 prefix = ""
-exact = "This privacy notice for The San Francisco AI Factory Inc. (doing business as Factory) (\"Factory,\" \"we,\" \"us,\" or \"our\"), describes how and why we might collect, store, use, and/or share (\"process\") your information when you use our services (\"Services\")"
+exact = "Processing your data is necessary for our legitimate interests or the legitimate interests of a third party, provided those interests are not outweighed by your rights and interests."
 suffix = ""
 [[anchor]]
 id = "factory-cloud-logs-retention"
@@ -138,4 +355,108 @@ topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "Retention and residency for these logs are documented in the <a href=\"https://trust.factory.ai\">Trust Center</a> and can be tuned per customer engagement."
+suffix = ""
+[[anchor]]
+id = "enterprise-endpoints-zdr"
+source_id = "6d98e2d21b368abb"
+topics = ["zdr", "training"]
+[anchor.selector]
+prefix = ""
+exact = "By default, Droid can target enterprise-grade endpoints for providers like Azure OpenAI, AWS Bedrock, Google Vertex AI, OpenAI, Anthropic, and Gemini, using contracts that support zero data retention and enterprise privacy controls."
+suffix = ""
+[[anchor]]
+id = "factory-no-store-prompts"
+source_id = "6d98e2d21b368abb"
+topics = ["zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "In these configurations, Factory routes traffic directly to the provider's official APIs; we do not proxy this traffic through third-party services or store prompts and responses in Factory cloud."
+suffix = ""
+[[anchor]]
+id = "first-party-zdr-guarantees"
+source_id = "6d98e2d21b368abb"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "Prefer the direct enterprise endpoints described above to get first-party zero-retention guarantees."
+suffix = ""
+[[anchor]]
+id = "byok-own-endpoints-disclaimer"
+source_id = "6d98e2d21b368abb"
+topics = ["zdr", "retention", "training"]
+[anchor.selector]
+prefix = ""
+exact = "If you instead configure your own endpoints - LLM gateways, self-hosted models, or generic HTTP APIs - the privacy guarantees are entirely determined by those systems and your agreements with them; Factory does not add additional protections on top."
+suffix = ""
+[[anchor]]
+id = "spans-never-reach-factory"
+source_id = "6d98e2d21b368abb"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Spans never reach Factory's collector, in any configuration."
+suffix = ""
+[[anchor]]
+id = "airgapped-runtime-retention"
+source_id = "6d98e2d21b368abb"
+topics = ["retention", "processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "In fully airgapped environments, Factory never receives any runtime data; you are responsible for all retention and residency decisions."
+suffix = ""
+[[anchor]]
+id = "hybrid-traffic-terminates"
+source_id = "6d98e2d21b368abb"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "LLM and OTEL traffic terminate in your network"
+suffix = ""
+[[anchor]]
+id = "airgapped-no-traffic"
+source_id = "6d98e2d21b368abb"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "no traffic leaves the environment"
+suffix = ""
+[[anchor]]
+id = "byok-caching-upstream"
+source_id = "e4ddc61fa2c49824"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "Caching behavior follows each provider's implementation and requirements."
+suffix = ""
+[[anchor]]
+id = "org-business-zdr"
+source_id = "50948caf97ba5de3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "SSO, SAML/SCIM provisioning, and ZDR"
+suffix = ""
+[[anchor]]
+id = "org-data-controls-row"
+source_id = "50948caf97ba5de3"
+topics = ["zdr", "role"]
+[anchor.selector]
+prefix = ""
+exact = "| Data controls | — | ZDR, audit logging and activity trails | ZDR, audit logging, data residency |"
+suffix = ""
+[[anchor]]
+id = "org-enterprise-data-controls"
+source_id = "50948caf97ba5de3"
+topics = ["zdr"]
+[anchor.selector]
+prefix = ""
+exact = "ZDR, audit logging, data residency"
+suffix = ""
+[[anchor]]
+id = "org-enterprise-residency"
+source_id = "50948caf97ba5de3"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "Choose Enterprise when you need unlimited seats, dedicated compute, partitioned inference, on-premise deployment, sub-organizations, data residency, or priority support commitments."
 suffix = ""

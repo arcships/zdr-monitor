@@ -85,6 +85,16 @@ anchor = "cursor-privacy-off-train"
 [[product.training.point]]
 text_zh = "Privacy Mode 关闭时，Cursor 明确可存储并使用代码库数据、prompt、编辑器操作、代码片段等来改进 AI 功能并训练自有模型；这不是“未披露”，而是明确否定不训练。"
 
+[[product.training.point]]
+text = "The Privacy Policy that governs individual plans states the general rule — Inputs and Suggestions are not used to train our models — together with three exceptions: security review flags, explicit reports (Feedback), and explicit agreement. Turning Privacy Mode off is the act that falls under exception (3), so this tier is recorded as training-permitted on the vendor's own text, not by reading against it."
+text_zh = "个人档适用的 Privacy Policy §2 给的是「原则不训练 + 三项例外」：安全审查标记、用户主动上报（如 Feedback）、用户明确同意。关闭 Privacy Mode 正是落入例外 (3) 的那个动作——本档记「会训练」不是对厂商文本的反读，政策原文本身就留了这条口子。"
+anchor = "cursor-privacy-training-exceptions"
+
+[[product.training.point]]
+text = "The contract layer is the highest authority for this tier, and its only clause authorizing Anysphere to process data to enhance the Service covers Usage Data — technical logs, data, and learnings about your use of the Service — and states that it excludes Content. It therefore neither rebuts nor reinforces the Content-training verdict; a buyer asking whether technical logs and learnings feed model improvement has to read this clause, not the training column."
+text_zh = "合同层是本档最高权威。ToS §5.4 是其中唯一授权 Anysphere 为「enhance the Service」处理数据的条款，对象是 Usage Data（技术日志、data、learnings），且该条自己写明 excludes Content——所以它既不推翻也不加码 Content 的训练结论（本维度问的是输入输出是否进模型）。采购若要问「技术日志和 learnings 会不会进模型改进」，看的是这一条，不是 training 列。"
+anchor = "cursor-tos-usage-data"
+
 [product.zdr]
 mark = "no"
 anchor = "cursor-privacy-off-train"
@@ -95,10 +105,15 @@ text_zh = "Privacy Mode 关闭时，Cursor 和部分推理提供商可存储输�
 [product.retention]
 basis = "undisclosed"
 object = "input_output"
-searched = ["https://cursor.com/data-use", "https://cursor.com/privacy"]
+searched = ["https://cursor.com/data-use", "https://cursor.com/privacy", "https://cursor.com/terms-of-service"]
 
 [[product.retention.point]]
-text_zh = "已查 Data Use 与 Privacy Policy。前者只说部分推理提供商的数据在使用后删除，后者只说按必要时间保留，均未量化代码、prompt、代码片段或输入输出期限。"
+text_zh = "已查 Data Use、Privacy Policy 与消费档 ToS。前者只说部分推理提供商的数据在使用后删除，Privacy Policy 只说按必要时间保留，ToS 只给终止后的可选删除；三者均未量化代码、prompt、代码片段或输入输出期限。"
+
+[[product.retention.point]]
+text = "The consumer contract's only clause touching deletion of Content makes it discretionary: upon termination Anysphere may at our option delete any Content or other data associated with your account. That is a permission, not a deletion commitment, and it sets no period — it neither establishes a retention deadline nor rebuts the undisclosed basis."
+text_zh = "消费档合同里唯一涉及 Content 删除的条款是 ToS §9：服务终止时 we may at our option delete any Content or other data associated with your account——删除由厂商自行决定，是许可而非承诺，也不给期限。它不构成保留期限，因此不改变本档 basis；只说明终止后数据去向没有任何保证。"
+anchor = "cursor-tos-termination-deletion"
 
 [[product.retention.point]]
 text_zh = "遥测/数据分享：Privacy Mode 关闭即允许收集 editor actions、code snippets 等用于改进与训练；用户可用 Privacy Mode 关闭这类训练数据分享。Privacy Policy 仍披露 device/log/usage data 的自动收集，现行官方页未提供关闭全部运行遥测的开关。"
@@ -125,6 +140,16 @@ plan_level = "individual"
 mark = "no"
 anchor = "cursor-privacy-off-train"
 
+[[product.training.point]]
+text = "The Privacy Policy that governs individual plans states the general rule — Inputs and Suggestions are not used to train our models — together with three exceptions: security review flags, explicit reports (Feedback), and explicit agreement. Turning Privacy Mode off is the act that falls under exception (3), so this tier is recorded as training-permitted on the vendor's own text, not by reading against it."
+text_zh = "个人档适用的 Privacy Policy §2 给的是「原则不训练 + 三项例外」：安全审查标记、用户主动上报（如 Feedback）、用户明确同意。关闭 Privacy Mode 正是落入例外 (3) 的那个动作——本档记「会训练」不是对厂商文本的反读，政策原文本身就留了这条口子。"
+anchor = "cursor-privacy-training-exceptions"
+
+[[product.training.point]]
+text = "The contract layer is the highest authority for this tier, and its only clause authorizing Anysphere to process data to enhance the Service covers Usage Data — technical logs, data, and learnings about your use of the Service — and states that it excludes Content. It therefore neither rebuts nor reinforces the Content-training verdict; a buyer asking whether technical logs and learnings feed model improvement has to read this clause, not the training column."
+text_zh = "合同层是本档最高权威。ToS §5.4 是其中唯一授权 Anysphere 为「enhance the Service」处理数据的条款，对象是 Usage Data（技术日志、data、learnings），且该条自己写明 excludes Content——所以它既不推翻也不加码 Content 的训练结论（本维度问的是输入输出是否进模型）。采购若要问「技术日志和 learnings 会不会进模型改进」，看的是这一条，不是 training 列。"
+anchor = "cursor-tos-usage-data"
+
 [product.zdr]
 mark = "no"
 anchor = "cursor-privacy-off-train"
@@ -132,10 +157,15 @@ anchor = "cursor-privacy-off-train"
 [product.retention]
 basis = "undisclosed"
 object = "input_output"
-searched = ["https://cursor.com/data-use", "https://cursor.com/privacy"]
+searched = ["https://cursor.com/data-use", "https://cursor.com/privacy", "https://cursor.com/terms-of-service"]
 
 [[product.retention.point]]
-text_zh = "同 Free 的 Privacy Mode 关闭姿态：代码与遥测类内容可被存储用于改进/训练；官方未给输入输出、代码片段或服务端缓存的量化期限。"
+text_zh = "同 Free 的 Privacy Mode 关闭姿态：代码与遥测类内容可被存储用于改进/训练；官方未给输入输出、代码片段或服务端缓存的量化期限。已查 Data Use、Privacy Policy 与消费档 ToS。"
+
+[[product.retention.point]]
+text = "The consumer contract's only clause touching deletion of Content makes it discretionary: upon termination Anysphere may at our option delete any Content or other data associated with your account. That is a permission, not a deletion commitment, and it sets no period — it neither establishes a retention deadline nor rebuts the undisclosed basis."
+text_zh = "消费档合同里唯一涉及 Content 删除的条款是 ToS §9：服务终止时 we may at our option delete any Content or other data associated with your account——删除由厂商自行决定，是许可而非承诺，也不给期限。它不构成保留期限，因此不改变本档 basis；只说明终止后数据去向没有任何保证。"
+anchor = "cursor-tos-termination-deletion"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -175,6 +205,7 @@ text_zh = "Cursor 称与所有提供商维持 ZDR 协议；但非 ZDR 模型须�
 basis = "none"
 object = "input_output"
 anchor = "cursor-temp-cache"
+searched = ["https://cursor.com/data-use", "https://cursor.com/privacy", "https://cursor.com/terms-of-service"]
 
 [[product.retention.point]]
 text_zh = "常规模型请求按 ZDR；Cursor 仍会把文件内容加密临时缓存于服务器，密钥只在单次请求期间存在，官方仅承诺不永久保存而未给墙钟期限。滥用调查和非 ZDR 模型是例外。"
@@ -186,6 +217,11 @@ anchor = "cursor-search-local-no-embeddings"
 [[product.retention.point]]
 text_zh = "代码库索引其实有两条并存的数据流，官方从未澄清二者关系：docs 的 Instant Grep 在本机建索引、不上传代码；官方 blog 描述的服务端语义索引则会在新代码库上 uploads every file，把变更文件切成 syntactic chunks 转成 embeddings 存入服务端索引，并可在同团队内复用他人的索引。该服务端索引的保留期限官方未公布。因此「不留存」这个结论只覆盖模型请求路径，不覆盖代码库索引——采购若在意整库上传，必须单独谈这一条。"
 anchor = "cursor-index-uploads-every-file"
+
+[[product.retention.point]]
+text = "The consumer contract's only clause touching deletion of Content makes it discretionary: upon termination Anysphere may at our option delete any Content or other data associated with your account. That is a permission, not a deletion commitment, and it sets no period — it does not extend or undercut the no-retention basis recorded for model requests, it only shows that post-termination data handling carries no guarantee."
+text_zh = "消费档合同里唯一涉及 Content 删除的条款是 ToS §9：服务终止时 we may at our option delete any Content or other data associated with your account——删除由厂商自行决定，是许可而非承诺，也不给期限。它不构成保留期限，既不扩大也不推翻本档 basis；只说明终止后数据去向没有任何保证。"
+anchor = "cursor-tos-termination-deletion"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -312,8 +348,18 @@ anchor = "cursor-cloud-agent-retention"
 [[product.retention.point]]
 text_zh = "含克隆代码的 VM snapshot 按不活动滚动 90 日，每次启动或恢复都重置；对话状态默认无限期，可用 Delete Agent API 按需删除。个人档没有 Enterprise 那套对话保留策略。"
 
+[[product.retention.point]]
+text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 90 天」不能同时成立。本档按安全文档记 90 天上限（对采购是较保守的一侧），同时保留治理文档的表述。"
+anchor = "cursor-governance-cloud-agents-repo-copy"
+
 [product.processing_region]
-codes = ["global"]
+codes = ["US", "global"]
+anchor = "cursor-privacy-global-processing"
+
+[[product.processing_region.point]]
+text = "The account-separation sentence on the Cloud Agent security page describes the execution environment only: Cloud Agent VMs run in a separate AWS account from the rest of Cursor's production infrastructure. It carries no country or region information. This tier's region verdict therefore rests on the Privacy Policy that governs individual plans, which discloses processing on servers in various jurisdictions including the United States. US-only residency is offered to Enterprise teams only."
+text_zh = "Cloud Agent 安全文档那句「独立 AWS account」是隔离性描述（执行环境与 Cursor 其他生产设施隔开），不含国家或区域信息，不能当处理地证据。个人档适用 Privacy Policy：处理发生在 various jurisdictions, including in the United States 的服务器上；US-only 驻留只对 Enterprise 团队开放，本档不在其中。"
 anchor = "cursor-cloud-agent-aws"
 
 [product.role]
@@ -351,12 +397,19 @@ anchor = "cursor-cloud-agent-retention"
 [[product.retention.point]]
 text_zh = "运行 workspace 在空闲后回收；含克隆代码的 VM snapshots 按不活动滚动 90 日，每次启动/恢复重置；对话状态默认无限期，可按需删除；凭据保留至用户删除。Enterprise 另可设置对话保留策略。"
 
+[[product.retention.point]]
+text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 90 天」不能同时成立。本档按安全文档记 90 天上限，同时保留治理文档的表述。"
+anchor = "cursor-governance-cloud-agents-repo-copy"
+
 [product.processing_region]
 codes = ["global"]
-anchor = "cursor-cloud-agent-aws"
+anchor = "cursor-dpa-third-country"
 
 [[product.processing_region.point]]
-text_zh = "官方只披露 Cloud Agent VM 位于独立 AWS account，未对一般档位承诺具体国家；Enterprise US-only 数据驻留另见 Enterprise 档。"
+text = "Teams is a commercial tier under the MSA, so the DPA governs the region question: it contemplates processing of Personal Data in a Third Country under the Controller to Processor Clauses and makes no residency commitment. US-only data residency is offered to Enterprise teams only, so this tier has no in-region option to point to. The separate-AWS-account sentence on the Cloud Agent security page describes isolation of the execution environment and carries no country or region information."
+text_zh = "Teams 属商业档，处理地看 DPA：DPA §13 承认在第三国处理个人数据（按 Controller to Processor Clauses 承担 data importer 义务），未承诺具体处理地；US-only 驻留只对 Enterprise 团队开放，本档没有可指的在境选项。Cloud Agent 安全文档那句独立 AWS account 只是隔离性描述，不含国家或区域信息。"
+anchor = "cursor-dpa-third-country"
 
 [product.role]
 kind = "processor"
@@ -389,6 +442,11 @@ anchor = "cursor-cloud-agent-retention"
 
 [[product.retention.point]]
 text_zh = "同托管 Cloud Agents：snapshot 最长滚动 90 日不活动；默认对话无限期。Enterprise 可用 retention policy 限制对话窗口，但 snapshot 不能按需删除。"
+
+[[product.retention.point]]
+text = "Two official documents disagree about the same object. The Enterprise data governance overview — the page that also carries this tier's US residency and Privacy Mode defaults — says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand, which the Enterprise retention policy option does not cover either. Both texts are current and official and they cannot both hold; the divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（本档 US 驻留与 Privacy Mode 默认值也出自这一页）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand——Enterprise 的 retention policy 选项也盖不住 snapshot。两句都是现行官方文本，分歧无法调和，本档按安全文档记 90 天上限，同时保留治理文档的表述。"
+anchor = "cursor-governance-cloud-agents-repo-copy"
 
 [product.processing_region]
 codes = ["US", "global", "selected"]
@@ -587,3 +645,45 @@ topics = ["retention"]
 prefix = "With the tree, Cursor walks only the branches where hashes differ."
 exact = "When a file changes, Cursor splits it into syntactic chunks. These chunks are converted into the embeddings that enable semantic search."
 suffix = "Creating embeddings is the expensive step, which is why Cursor does it asynchronously in the background."
+
+[[anchor]]
+id = "cursor-governance-cloud-agents-repo-copy"
+source_id = "bef6bc0f45f77258"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**What gets stored:**"
+exact = """- Encrypted copies of repositories that Cloud Agents work on
+- Stored temporarily while the agent runs
+- Deleted after the agent completes"""
+suffix = "Cloud Agents are optional."
+
+[[anchor]]
+id = "cursor-privacy-training-exceptions"
+source_id = "9f05aa4e4aedbcb5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "To enforce our Terms of Service and other applicable agreements."
+exact = "We do not use Inputs or Suggestions to train our models, or permit third parties to use them for training, unless: (1) they are flagged for security review (in which case we may analyze them to improve our ability to detect and enforce our Terms of Service), (2) you explicitly report them to us (for example, as Feedback), or (3) you’ve explicitly agreed to their use for such training purposes."
+suffix = "You can find instructions in the Service on how to manage your preferences"
+
+[[anchor]]
+id = "cursor-tos-usage-data"
+source_id = "28385b3bdb6b4832"
+topics = ["training", "retention"]
+
+[anchor.selector]
+prefix = "**5.4. Usage Data.**"
+exact = "Anysphere may: (i) collect, analyze, and otherwise process Usage Data internally for its business purposes, including for security and analytics, to enhance the Service, and for other development and corrective purposes; and (ii) disclose Usage Data to third parties only in an aggregated and/or de-identified form and in a manner that does not identify you. “Usage Data” means technical logs, data, and learnings about Customer’s use of and interactions with the Service, but excludes Content."
+suffix = "**6. Third-Party Services.**"
+
+[[anchor]]
+id = "cursor-tos-termination-deletion"
+source_id = "28385b3bdb6b4832"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "If we do, we will provide you with advance notice."
+exact = "Upon termination of these Terms, a Subscription Service, or your access to the Service, we may at our option delete any Content or other data associated with your account."
+suffix = "Sections 1.5, 4"

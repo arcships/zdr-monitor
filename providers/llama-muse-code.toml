@@ -10,9 +10,17 @@ plan_levels = ["individual"]
 
 [[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
+fetch = "jina"
 channel = "contract"
 tier = "core"
 note = "《Meta Model API Terms of Service》(Last updated: September 18, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+
+[[source]]
+url = "https://dev.meta.ai/legal/geographic-use-policy"
+fetch = "jina"
+channel = "contract"
+tier = "core"
+note = "《Meta Model API Model Designation and Geographic Use Policy》(Last updated: September 18, 2026)，ToS 的组成部分。§1 列出 Standard Models(Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1)与 Discounted Models(Muse Spark 1.2 Contributor、Muse Spark 1.3 Contributor)，用于界定本档『选 Standard 模型』具体指哪些模型。§2/§3 是服务访问地域限制(Restricted Territories)，不是处理地或驻留披露，故本文件只把它当作模型档位归属的证据。"
 
 [[product]]
 id = "muse-code-subscription"
@@ -22,20 +30,33 @@ plan_level = "individual"
 
 [product.training]
 mark = "yes"
-anchor = "llama-tos-13-4-subscription-model-determines"
+anchor = "llama-tos-5-1-no-train-standard"
 mode = "by_tier"
 
 [[product.training.point]]
-text = "§13.4, \"The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.\" — which tier a subscription falls under depends on the model selected: choose a Standard model (muse-spark-1.2 by default) → not used for training"
-text_zh = "§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』——订阅档走哪一档取决于所选模型：选 Standard 模型(默认 muse-spark-1.2)→ 不用于训练"
+anchor = "llama-tos-5-1-no-train-standard"
+text = "§13.4: \"The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.\" When a Standard model is selected, §5.1 applies and Meta \"will not use Content from Standard Services to train Meta Models.\""
+text_zh = "§13.4『The Models you select determine how Meta may use your Content, as described in Sections 5 and 6.』选 Standard 模型时适用 §5.1，Meta『will not use Content from Standard Services to train Meta Models』。"
 
 [[product.training.point]]
-text = "Choose a Contributor model → may be used for training. §13.4 also states that a subscription gives no discount for selecting Discounted Models, which implies a Discounted Model can also be selected under a subscription"
-text_zh = "选 Contributor 模型 → 可用于训练。§13.4 同时说明订阅不因选择 Discounted 模型而给折扣，暗示订阅下也可能选中 Discounted 模型"
+anchor = "llama-tos-13-4-subscription-model-determines"
+text = "§13.4 also states that a Coding Harness Subscription \"does not provide any discount, fee reduction, or increased per-period allowance based on the Models you select, including Discounted Models.\" That a subscription can therefore select a Discounted model is our inference from that sentence, not Meta's wording."
+text_zh = "§13.4 同时写明订阅『does not provide any discount, fee reduction, or increased per-period allowance based on the Models you select, including Discounted Models』。由此推断订阅下也可能选中 Discounted 模型——这是我们的推论，不是原文措辞。"
 
 [[product.training.point]]
-text = "The Muse Code docs likewise mention the Standard and Contributor tiers. Uncertainty: the subscription help page says only \"Access to the latest Muse models\", does not enumerate which models a subscription can select, and does not state whether subscribers can select the Contributor tier — this point is unverified, so confidence is medium."
-text_zh = "Muse Code 文档亦提到 Standard 与 Contributor 两档。不确定性：订阅帮助页只写『Access to the latest Muse models』，没有枚举订阅可选哪些模型，也未说明订阅用户能否选 Contributor 档——此点未核清，故置信度 medium。"
+anchor = "llama-tos-6-1-train-discounted"
+text = "Choose a Contributor (Discounted) model → §6.1 applies: Meta may use your Content \"to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services.\" §6.2 adds that the Discounted Services offer no mechanism to exclude specific traffic from training, so traffic that must not be trained has to use the Standard Services."
+text_zh = "选 Contributor(Discounted) 模型 → 适用 §6.1：Meta 可用你的 Content『to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services』。§6.2 另写明 Discounted Services 没有按流量排除训练的机制，不能被训练的流量只能改用 Standard Services。"
+
+[[product.training.point]]
+anchor = "llama-tos-6-2-no-confidential-to-discounted"
+text = "When a subscription falls under §6 (a Contributor model is selected), §6.2 makes this a condition of use: \"You must not submit sensitive, confidential, or personal information to the Discounted Services\", and anyone who needs information such as software code kept confidential must not submit it to the Discounted Services. It applies only to runs on the Discounted tier, not to subscriptions generally."
+text_zh = "订阅落到 §6(选到 Contributor 模型)时，§6.2 把这一点写成使用条件：『You must not submit sensitive, confidential, or personal information to the Discounted Services』，需要将软件代码等信息保密者不得将其提交给 Discounted Services。它只适用于走 Discounted 档的调用，不是对所有订阅档生效。"
+
+[[product.training.point]]
+anchor = "llama-model-designation-standard"
+text = "Which models are \"Standard\" is fixed by §1 of the Model Designation and Geographic Use Policy (Muse Spark 1.2 and Muse Spark 1.3 are Standard Models; Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor are Discounted Models). Which models a Coding Harness Subscription may select, and whether it defaults to a Standard model, is not verifiable from any source registered in this file — that gap is ours, not a Meta statement, so no default model is asserted here."
+text_zh = "『Standard』具体指哪些模型由《Model Designation and Geographic Use Policy》§1 界定(Muse Spark 1.2、Muse Spark 1.3 为 Standard Models，Muse Spark 1.2/1.3 Contributor 为 Discounted Models)。订阅可选哪些模型、是否默认给 Standard 模型，在本文件已登记的来源里无法核实——这是我方证据缺口、不是 Meta 的表态，故此处不写默认模型。"
 
 [product.zdr]
 mark = "unknown"
@@ -63,6 +84,36 @@ text_zh = "与底层档位一致(§4.4 按需保留、无量化期限)。另需�
 text = "The docs do not say whether that log lives in the local workspace or on the server, so it is not counted in the retention conclusion."
 text_zh = "文档没有说明该日志存在本地工作区还是服务端，故未计入 retention 结论。"
 
+[[product.retention.point]]
+anchor = "llama-tos-4-2-usage-data"
+text = "Content not being used for training is not the same as technical logs not being used for improvement: §4.2 defines Usage Data (tool call sequences, API request metadata, error or other logs, timestamps, token counts, latency measurements, operational metrics and telemetry) and lets Meta use it \"to test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services\" — \"Subject to restrictions in Section 5.1\", and that restriction only keeps Content out of training. Object = technical logs, not Inputs/Outputs; it applies under both tiers."
+text_zh = "Content 不训练 ≠ 技术日志不用于改进：§4.2 定义 Usage Data(工具调用序列、API 请求元数据、错误或其他日志、时间戳、token 计数、延迟测量、运营指标)并允许 Meta 将其用于『test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services』，且注明『Subject to restrictions in Section 5.1』——而 §5.1 的限制只把 Content 挡在训练之外。对象是技术日志而非输入输出正文，两档都适用。"
+
+[[product.retention.point]]
+anchor = "llama-tos-4-1-instruct-retain-aup"
+text = "Separate from §4.4, §4.1 has the customer instruct Meta \"to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services.\" It applies to both tiers and sits on the training/retention boundary: an instruction to retain and process Content, not a licence to train models — so \"Content is not used for training\" must not be read as \"no data is ever used to improve anything\"."
+text_zh = "§4.1 在 §4.4 之外另有一条：客户指示 Meta『to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms and to develop, evaluate, and improve systems for the safety and the security of Meta products and services』。该句对两档都适用，压在 training 与 retention 的边界上——是保留与处理 Content 的指示，不是训练模型的授权，因此『Content 不训练』不能读成『任何数据都不用于改进』。"
+
+[[product.retention.point]]
+anchor = "llama-tos-6-1-retain-discounted"
+text = "Only when a subscription falls under §6 (a Contributor model is selected) does that tier add a retention ground: §6.1 permits Meta to retain and process Content \"(i) to the extent necessary for compliance with applicable laws; (ii) in connection with the exercise of Meta’s rights to use your Content under this Section 6; and (iii) when our systems flag data for a potential policy violation\" — the training use itself is a ground for retention, on top of the five purposes in §4.4."
+text_zh = "只有订阅落到 §6(选到 Contributor 模型)时，该档才在 §4.4 五项目的外另加保留依据：§6.1 允许 Meta 保留并处理 Content『(i) to the extent necessary for compliance with applicable laws; (ii) in connection with the exercise of Meta’s rights to use your Content under this Section 6; and (iii) when our systems flag data for a potential policy violation』——即训练用途本身构成保留理由。"
+
+[[product.retention.point]]
+anchor = "llama-tos-6-2-no-confidential-to-discounted"
+text = "Also only when the subscription falls under §6: §6.2 states \"You must not submit sensitive, confidential, or personal information to the Discounted Services\", and that anyone who needs information such as software code kept confidential must not submit it to the Discounted Services. This is a condition on using the Discounted tier, not a retention commitment, and it does not apply to runs that stay on Standard models."
+text_zh = "同样只在订阅落到 §6 时适用：§6.2 写明『You must not submit sensitive, confidential, or personal information to the Discounted Services』，且需要将软件代码等信息保密者不得将其提交给 Discounted Services。这是使用 Discounted 档的条件，不是保留承诺，也不适用于仍走 Standard 模型的调用。"
+
+[[product.retention.point]]
+anchor = "llama-tos-12-confidentiality-not-limiting-retention"
+text = "Confidentiality does not cut down the data terms: §12 states that \"Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.\" Procurement can misread §12 as protective deletion of confidential content; it is not."
+text_zh = "保密条款不削减数据条款：§12 写明『Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12.』采购容易把 §12 读成机密内容会被保护性删除，实际不是。"
+
+[[product.retention.point]]
+anchor = "llama-tos-15-4-data-sections-survive-termination"
+text = "And the data sections survive termination: §15.4(iii) lists the sections that survive, including 4, 5, 6 and 12. The public terms therefore carry no \"deleted on termination\" commitment — what survives is the clauses' force and Meta's rights, which is not a commitment to keep the content."
+text_zh = "且数据条款在协议终止后存续：§15.4(iii) 列出的存续条款包含 4、5、6、12。公开条款因此没有『终止即删除』的承诺——存续的是条款效力与 Meta 的权利，不等于厂商承诺保留内容。"
+
 [product.processing_region]
 mark = "unknown"
 codes = ["unknown"]
@@ -76,8 +127,7 @@ searched = [
   "https://dev.meta.ai/help/accounts-and-login/supported-countries",
   "https://dev.meta.ai/help/policies-and-privacy/policies-and-terms",
   "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
-  "https://forwork.meta.com/legal/mfw-subprocessor-list/",
-  "https://www.facebook.com/legal/meta-for-work/subprocessor-list/",
+  "https://www.meta.com/legal/meta-for-work/subprocessor-list/",
   "https://www.facebook.com/privacy/policy/",
   "https://dev.meta.ai/docs/muse-code.md",
   "https://dev.meta.ai/llms.txt",
@@ -85,16 +135,27 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "Same as top-level processing_region."
-text_zh = "同顶层 processing_region。"
+text = "No processing-location or data-residency wording covers this tier: §5.1 only authorizes subprocessors \"included in the list located here\", and §20 is the general section (assignment, notices, contracting-entity addresses, sanctions). The subprocessor list we checked — the current Meta Horizon Managed Solutions list, previously published at forwork.meta.com/legal/mfw-subprocessor-list/ — is branded for a different product line and discloses only where the subprocessors themselves are located; it says nothing about where inference runs for this tier and gives no residency commitment, so it is not read as a statement about this tier's processing region. Recorded as not found."
+text_zh = "本档没有任何处理地或数据驻留表述：§5.1 只授权使用『included in the list located here』所列的子处理者，§20 是总则(转让、通知、签约实体地址、制裁)。我们查阅的子处理者清单——现行 Meta Horizon Managed Solutions 清单，旧地址为 forwork.meta.com/legal/mfw-subprocessor-list/——冠名另一条产品线，只披露子处理者自身的所在地，没有说明本档的推理在哪里发生，也没有驻留承诺，故不读作对本档处理地的表述。记 not_found。"
 
 [product.role]
-kind = "processor"
-anchor = "llama-tos-13-4-subscription-model-determines"
+kind = "unknown"
+searched = [
+  "https://dev.meta.ai/legal/terms-of-service",
+  "https://dev.meta.ai/help/subscriptions/what-is-a-muse-code-subscription",
+  "https://dev.meta.ai/docs/muse-code.md",
+  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
+]
 
 [[product.role.point]]
-text = "The subscription tier produces no separate role clause of its own: depending on the model selected it falls under §5 (processor) or §6 (no processor statement)."
-text_zh = "订阅档本身不产生独立的角色条款：随所选模型落到 §5(processor)或 §6(无 processor 声明)。"
+anchor = "llama-tos-5-1-processor-standard"
+text = "The only role wording in the ToS is §5.1: under Standard Services, \"Meta will collect, use, process, and share such data as a “Service Provider” or “Processor” (each as defined in the MGPT)\". It sits under §5, so it holds when a Standard model is selected; §6 contains no Service Provider or Processor wording at all."
+text_zh = "ToS 里唯一的角色表述在 §5.1：Standard Services 项下『Meta will collect, use, process, and share such data as a “Service Provider” or “Processor” (each as defined in the MGPT)』。该句挂在 §5 项下，选 Standard 模型时成立；§6 全文没有任何 Service Provider / Processor 表述。"
+
+[[product.role.point]]
+anchor = "llama-tos-13-4-subscription-model-determines"
+text = "The subscription tier produces no role clause of its own: per §13.4 which section applies depends on the model selected. Whether a Coding Harness Subscription defaults to a Standard model, and which models it may select, cannot be verified from any source registered in this file, so an unconditional processor determination is not supportable and the role is recorded as not specified — the same treatment as the api-contributor tier, whose section carries no processor statement."
+text_zh = "订阅档本身不产生独立的角色条款：按 §13.4，适用哪一节取决于所选模型。订阅是否默认给 Standard 模型、可选哪些模型，在本文件已登记的来源里无法核实，因此无法作无条件的 processor 判定，角色记未约定——与 api-contributor 档(其所属章节无 processor 声明)同一口径。"
 
 [[anchor]]
 id = "llama-tos-4-4-retention-purposes"
@@ -112,9 +173,118 @@ suffix = " (i) to provide the Services under these Terms; (ii) to the "
 [[anchor]]
 id = "llama-tos-13-4-subscription-model-determines"
 source_id = "2b8f11f85d9c850f"
-topics = ["training"]
+topics = ["training", "role"]
 
 [anchor.selector]
 prefix = "ased on the Models you select, including Discounted Models. "
 exact = "The Models you select determine how Meta may use your Content, as described in Sections 5 and 6."
 suffix = " Any use of the Services that is not covered by a Coding Har"
+
+[[anchor]]
+id = "llama-tos-5-1-no-train-standard"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "n the MGPT) to you in relation to your use of the Services, "
+exact = "and will not use Content from Standard Services to train Meta Models."
+suffix = " You agree to comply with the MGPT when Meta acts as your Se"
+
+[[anchor]]
+id = "llama-tos-5-1-processor-standard"
+source_id = "2b8f11f85d9c850f"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Meta will process applicable data as described in the MGPT. "
+exact = "Meta will collect, use, process, and share such data as a “**Service Provider**” or “**Processor**”"
+suffix = " (each as defined in the MGPT) to you in relation to your us"
+
+[[anchor]]
+id = "llama-tos-6-1-train-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "[Privacy Policy](https://www.facebook.com/privacy/policy/). "
+exact = "You agree that Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services."
+suffix = " Before using Content from Discounted Services to train arti"
+
+[[anchor]]
+id = "llama-tos-6-1-retain-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ntent may be used by Meta for the above-described purposes. "
+exact = "Meta may also retain and process your Content: (i) to the extent necessary for compliance with applicable laws;"
+suffix = " (ii) in connection with the exercise of Meta’s rights to us"
+
+[[anchor]]
+id = "llama-tos-6-2-no-confidential-to-discounted"
+source_id = "2b8f11f85d9c850f"
+topics = ["training", "retention"]
+
+[anchor.selector]
+prefix = """
+a potential policy violation.
+
+6.2 Your Responsibilities. **"""
+exact = "You must not submit sensitive, confidential, or personal information to the Discounted Services."
+suffix = "** If you intend, or are required (including by contract), t"
+
+[[anchor]]
+id = "llama-tos-4-1-instruct-retain-aup"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "at Meta may use the Content to provide the Services to you. "
+exact = "You instruct Meta to retain and process Content as necessary to detect, prevent, and respond to violations of our Model API AUP (defined below) or these Terms"
+suffix = " and to develop, evaluate, and improve systems for the safet"
+
+[[anchor]]
+id = "llama-tos-4-2-usage-data"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention", "training"]
+
+[anchor.selector]
+prefix = "atency measurements, and operational metrics and telemetry. "
+exact = "Subject to restrictions in Section 5.1, Meta may use Usage Data to test, support, develop, evaluate, and improve the Meta Model API and other technologies, products and services."
+suffix = """
+
+
+4.3 Third-Party Features. Our Services may use or be used """
+
+[[anchor]]
+id = "llama-tos-12-confidentiality-not-limiting-retention"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "e confidential (including information related to Accounts). "
+exact = "Your Content constitutes your Confidential Information; however, Meta's rights to use, process, and retain Content as described in Sections 4, 5, and 6 are not restricted by this Section 12."
+suffix = " Except as expressly permitted in these Terms, during and af"
+
+[[anchor]]
+id = "llama-tos-15-4-data-sections-survive-termination"
+source_id = "2b8f11f85d9c850f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "ms that apply to your use of Integrated Products; and (iii) "
+exact = "the following Sections will survive: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, Exhibit A, and Exhibit B."
+suffix = """
+
+
+15.5 Modification. We may modify these Terms from time to """
+
+[[anchor]]
+id = "llama-model-designation-standard"
+source_id = "1dfdfc073bb93de1"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "* Muse Spark 1.1"
+exact = "Muse Spark 1.2"
+suffix = "* Muse Spark 1.3"

@@ -14,12 +14,14 @@ note = "《隐私政策》(发布时间/生效时间均为 2023-09-25，页内�
 
 [[source]]
 url = "https://www.baichuan-ai.com/article/privacy-agreement"
+fetch = "browser"
 channel = "consumer_privacy"
 tier = "core"
 note = "《百川隐私政策》(发布时间/生效时间 2023-08-31)，主站消费档(百川大模型/百小应)政策。与平台档政策的关系：两份是同一模板的两个版本，§1.4 那段匿名化研究/统计的文字逐字相同；但差异对判定很关键——本档 §1.1.2/§1.1.3 写的是「您与百川进行交互」(单人)，平台档写的是「您与您的最终用户」(开发者+终端用户)；本档 §1.1.3「问答历史」有「为履行网络信息安全义务，我们会在法律规定的时间内保留您的问答历史及对话主题」的留存条款，平台档没有；本档 §5 多一句「在本政策下所收集及处理的个人信息不存在出境的情况」，平台档没有。因此两份不可互相引用。本档用于给 products[consumer_app] 行定结论，并作为「§1.4 的『会写』括号是跨档复制的模板噪声」的对照证据。"
 
 [[source]]
 url = "https://www.baichuan-ai.com/article/user-agreement"
+fetch = "browser"
 channel = "contract"
 tier = "core"
 note = "《百川用户协议》(发布时间/生效时间 2025-09-28，主站现行版)，本档的合同层来源。之所以把它算进 API 档：平台文档站的每一页页脚都把「用户协议」指向本 URL（见 sources 中 https://platform.baichuan-ai.com/docs-v2/api 的 anchor baichuan-docs-footer-governing-documents），平台自站的《使用、分享与传播指引》也把《用户协议》链到本 URL。要点：§四.5 是唯一出现「训练」字样的授权条款，但对象限定为「您…公开发布、传播、分享」的内容（第(4)项「使用该内容训练模型和改进相关服务的权利」），API 请求正文不属于公开发布，故该条不直接覆盖 API 档；§六.1 另有一条覆盖「您在使用本产品过程中产生的所有数据、信息或内容」的全球免费可转许可，措辞是「任何形式地使用」，未点名训练；§五.1 自称「作为中立的网络服务提供者」（针对搜索链接）；§四.10 保留按监管机关要求查询个人信息与限制账户的义务；§十二.4 把使用地限为中国大陆。全文无「不用于训练」承诺、无 ZDR、无 DPA。注意本协议 §四.1 仍写「仅限于以非商业性目的使用本产品」，与开放平台 API 的商业使用场景相冲突——即百川没有一个为 API 档定制的合同文本。"
@@ -50,8 +52,15 @@ text_zh = "合同层唯一含「训练」的授权（www 用户协议 §四.5(4)
 text = "The \"use in any form\" in §6.1 is a broad catch-all. There is no training authorization as such, but there is no prohibition either — and §1.1.3 does state that API input is used to improve response speed and quality, which under the house rule (\"used to improve service/quality\" counts as training unless model training is expressly excluded) is recorded as mark=no"
 text_zh = "§六.1 的「任何形式地使用」是宽泛兜底。没有点名「训练」的授权，也没有禁止训练的表述——但 §1.1.3 明示输入会被用于提高响应速度和质量，按判定口径（未排除模型训练就不能替厂商排除）记 mark=no"
 
+[[product.training.point]]
+anchor = "baichuan-platform-privacy-1-1-5-2-commercial-use"
+text = "§1.1.5(2) separately grants a broad right to \"analyse and carry out commercial exploitation of\" all data collected from you, including your personal information. It names neither training nor an exclusion of training, so it points the same way as mark=no — recorded as a broad commercial-use authorization, not upgraded to \"the vendor says it trains on your data\""
+text_zh = "§1.1.5(2) 另授予对「所收集的您的各项数据（包括您的个人信息）」的宽泛权利——「进行分析并开展商业化利用」。既未点名训练、也未排除训练，方向与 mark=no 一致；记作宽泛的商业化利用授权，不升级为「厂商明示会用于训练」"
+
 [product.zdr]
-mark = "unknown"
+mark = "no"
+mode = "not_disclosed"
+anchor = "baichuan-platform-privacy-1-2-2-api-call-logs"
 searched = [
   "https://platform.baichuan-ai.com/article/privacy-agreement",
   "https://platform.baichuan-ai.com/article/user-agreement",
@@ -65,12 +74,12 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "Same as the top-level zdr entry. None of the platform's terms pages or its documentation site contains a zero-retention commitment, switch or application method"
-text_zh = "同顶层 zdr。平台侧全部条款页与文档站均无零保留承诺、开关或申请方式"
+text = "Same as the top-level zdr entry. The platform privacy policy contains no zero-retention commitment, switch or application method, and the retention clauses below point the other way. Coverage caveat: of the nine URLs in searched[], only this policy has a snapshot in this repo — the other eight (platform article/user-agreement, secure-agreement, share-agreement, consume-agreement, docs, docs-v2/api, docs-v2/knowledgeBase, docs-v2/file) are recorded as search scope only and cannot be re-checked against a snapshot, so no claim is made about the terms set or the documentation site as a whole"
+text_zh = "同顶层 zdr。平台隐私政策无零保留承诺、开关或申请方式，且下列留存条款指向相反方向。覆盖面说明：searched 的九个 URL 里只有本政策在仓库中有快照，其余八个（platform 的 user-agreement、secure-agreement、share-agreement、consume-agreement、docs、docs-v2/api、docs-v2/knowledgeBase、docs-v2/file）仅作查阅范围记录、无法用快照复核，故不对「全部条款页与文档站」作整体断言"
 
 [[product.zdr.point]]
-text = "Observations to the contrary: §1.1.2 states expressly that API call logs are collected, which is the clause that bears on retention. The improvement clause §1.1.3 is not a statement about this dimension (it says inputs are used to improve the service, not how long anything is kept), so it is no longer bound here — see the training entry for that clause"
-text_zh = "反向观察：§1.2.2 明示收集 API 调用日志——这才是与留存相关的条款。§1.1.3 的服务改进条款不构成对 zdr 维度的表述（它说输入被用于改进服务，不涉及留存多久），故不再绑在本条，该引文见 training 条目"
+text = "Observations to the contrary: §1.2.2 states expressly that API call logs are collected, which is the clause that bears on retention; read together with §5's shortest-necessary time these are retention statements, not a zero-retention option, so this dimension is recorded as mark=no / mode=not_disclosed (no ZDR scheme published) rather than unknown — under the house rule that a row which quotes the record cannot also say no wording was found. The improvement clause §1.1.3 is not a statement about this dimension (it says inputs are used to improve the service, not how long anything is kept), so it is not bound here — see the training entry for that clause"
+text_zh = "反向观察：§1.2.2 明示收集 API 调用日志——这才是与留存相关的条款；与 §5 的「最短必要时间」合看，两者都是留存口径而非零保留方案，故本维度记 mark=no / mode=not_disclosed（厂商未公开零保留方案），不再记 unknown——按判定口径，绑了引文就不能同时说「没找到表述」。§1.1.3 的服务改进条款不构成对 zdr 维度的表述（它说输入被用于改进服务，不涉及留存多久），故不绑在本条，该引文见 training 条目"
 
 [product.retention]
 object = "input_output"
@@ -96,6 +105,11 @@ text_zh = "④注销后及时删除或匿名化（§4.4）"
 [[product.retention.point]]
 text = "(5) Deleted or anonymized if operations cease (§5)."
 text_zh = "⑤停止运营时删除或匿名化（§5）。"
+
+[[product.retention.point]]
+anchor = "baichuan-tos-4-10-regulator-access"
+text = "(6) Statutory exception: on a request from a state regulator (public security, procuratorate, court, customs, tax, security authorities and so on) Baichuan is obliged to query your personal information and to place restrictive operations on your account (User Agreement §4.10) — a legal exception to retention and deletion, not a role self-designation"
+text_zh = "⑥法定例外：收到国家监管机关（公安、检察机关、法院、海关、税务机关、安全部门等）要求时，百川有义务查询您的个人信息并对您的账户进行限制性操作（用户协议 §四.10）——属留存/删除的法定例外，不构成角色自认"
 
 [product.processing_region]
 codes = ["CN"]
@@ -140,6 +154,11 @@ text = "§6.1 separately grants a worldwide, free, sublicensable license coverin
 text_zh = "§六.1 另授予覆盖「您在使用本产品过程中产生的所有数据、信息或内容」的全球免费可转许可，措辞「任何形式地使用」。对话输入侧：主站隐私政策 §1.1.2「您的文本对话信息还会被用来提高百川的响应速度和质量」，§1.4 匿名化后用于学术研究/统计分析以「不断改进算法模型」。反向证据：用户协议 §五.5 只禁止用户用百川数据训练「其他」AI 产品"
 
 [[product.training.point]]
+anchor = "baichuan-consumer-privacy-1-1-4-2-commercial-use"
+text = "§1.1.4(2) is the consumer-tier counterpart of the same broad authorization: a right to \"analyse and carry out commercial exploitation of\" all data generated in the course of your use of this product, including your personal information. It is written in the same direction as the §6.1 broad licence in the User Agreement — neither names training nor excludes it, so it is recorded as a broad commercial-use authorization rather than a training authorization"
+text_zh = "§1.1.4(2) 是消费档的同类宽泛授权：对「您在使用本产品的过程中，所产生的各项数据（包括您的个人信息）」有「进行分析并开展商业化利用」的权利。与用户协议 §六.1 的宽泛许可同向——两处都没点名训练、也没排除训练，故记作宽泛的商业化利用授权，而非训练授权"
+
+[[product.training.point]]
 text = "There is no \"not used for training\" commitment and no description of an opt-out switch. Uncertainty: whether \"improving response speed and quality\" amounts to training has not been clarified by the vendor."
 text_zh = "无「不用于训练」承诺、无退出开关说明。不确定性：「提高响应速度和质量」是否等同训练，厂商未澄清。"
 
@@ -181,6 +200,16 @@ text_zh = "注销后及时删除或匿名化（§4.4）"
 text = "Deleted or anonymized if operations cease (§5). No quantified number of days anywhere. Note that the platform-tier policy has no Q&A history retention sentence; the two are not interchangeable."
 text_zh = "停止运营时删除或匿名化（§5）。无任何量化天数。注意平台档政策没有问答历史留存句，两份不可互换。"
 
+[[product.retention.point]]
+anchor = "baichuan-consumer-privacy-1-2-1-log-ip"
+text = "(6) Access logs — main-site privacy policy §1.2.1 (\"Log information\"): the IP address is collected in order to improve the products and services, and no period is disclosed. This sentence states a collection purpose only and cannot be read as a retention-period commitment. The API tier lists the §1.2.2 API call logs as its own object; this point removes that asymmetry between the two tiers"
+text_zh = "(6) 访问日志——主站隐私政策 §1.2.1「日志信息」：为改善产品与服务收集 IP 地址信息，期限未披露。该句只说明收集目的，不能读成期限承诺。API 档把 §1.2.2 的 API 调用日志单列为对象，本条补齐两档的对齐"
+
+[[product.retention.point]]
+anchor = "baichuan-tos-4-10-regulator-access"
+text = "(7) Statutory exception: on a request from a state regulator (public security, procuratorate, court, customs, tax, security authorities and so on) Baichuan is obliged to query your personal information and to place restrictive operations on your account (User Agreement §4.10) — a legal exception to retention and deletion, not a role self-designation"
+text_zh = "(7) 法定例外：收到国家监管机关（公安、检察机关、法院、海关、税务机关、安全部门等）要求时，百川有义务查询您的个人信息并对您的账户进行限制性操作（用户协议 §四.10）——属留存/删除的法定例外，不构成角色自认"
+
 [product.processing_region]
 codes = ["CN"]
 anchor = "baichuan-consumer-privacy-5-no-cross-border"
@@ -191,7 +220,12 @@ text_zh = "主站隐私政策 §5「我们会将在中国境内运营所收集�
 
 [product.role]
 kind = "controller"
-anchor = "baichuan-consumer-privacy-5-no-cross-border"
+anchor = "baichuan-consumer-privacy-1-1-2-collects-conversation-input"
+
+[[product.role.point]]
+anchor = "baichuan-consumer-privacy-1-1-2-collects-conversation-input"
+text = "Basis for the controller classification: main-site privacy policy §1.1.2 — \"when you use Baichuan's services, we will collect the text conversation information you input in the course of interacting with Baichuan, use this information to output content to you, and thereby provide the human-machine interaction service\" — Baichuan collects in its own name and decides the purpose itself. The quote previously bound to this row (\"the personal information collected and processed under this policy is not transferred outside the territory\") is a processing-region statement and is no longer used here"
+text_zh = "控制者判定的依据：主站隐私政策 §1.1.2——「在您使用百川的服务时，我们将收集您与百川进行交互过程中所输入的文本对话信息，使用这些信息向您输出内容，以提供人机交互服务。」百川以自己的名义收集并自行决定处理目的。原先绑在本行的「在本政策下所收集及处理的个人信息不存在出境的情况」是处理地表述，不再用于本行"
 
 [[product.role.point]]
 text = "On the consumer tier Baichuan provides the service directly to individual users and collects their personal information for its own purposes (§1.1.1 account, §1.1.2 human-machine conversation, §1.2.1 logs), which makes it an independent controller. The User Agreement §5.1 description of itself as \"a neutral network service provider\" only disclaims liability for third-party content behind search links and is not a PIPL role self-designation. No DPA and no entrusted-processing scenario. Confidence low: this tier has no role clause of any kind, the classification is inferred from the processing structure, and this row is not the provider's main tier."
@@ -405,7 +439,7 @@ suffix = "，本平台根据您输入的关键字自动生成可跳转至第三�
 [[anchor]]
 id = "baichuan-tos-4-10-regulator-access"
 source_id = "af145b85f5680a6c"
-topics = ["retention", "role"]
+topics = ["retention"]
 
 [anchor.selector]
 prefix = "充分了解并同意，如果我们收到国家监管机关（包括但不限于公安机关、检察机关、法院、海关、税务机关、安全部门等）的相关要求，"
@@ -525,3 +559,38 @@ prefix = """
 根据适用的法律法规，我们可能会对您的个人信息进行技术处理，使得根据该信息无法精确识别到用户个人，"""
 exact = "并对技术处理后的信息进行匿名化的学术研究或统计分析（包括使用您在使用会写功能时输入的对话信息）"
 suffix = "，以便不断改进算法模型的识别和响应的速度和质量、提高会服务的智能性和对您输入内容的理解能力，但我们不会根据您输入的对话内"
+
+[[anchor]]
+id = "baichuan-platform-privacy-1-1-5-2-commercial-use"
+source_id = "c430ca74f024695c"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（1）我们通过技术手段对个人信息进行匿名化处理后，匿名化处理的信息将无法识别主体。请您了解并同意，在此情况下我们有权使用已经匿名化的信息。"
+exact = "在不透露您个人信息的前提下，您同意授权我们对所收集的您的各项数据（包括您的个人信息）进行分析并开展商业化利用的权利。"
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-1-4-2-commercial-use"
+source_id = "a868e5cbd24eb2a5"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "（1）我们通过技术手段对个人信息进行匿名化处理后，匿名化处理的信息将无法识别主体。请您了解并同意，在此情况下我们有权使用已经匿名化的信息。"
+exact = "在不透露您个人信息的前提下，您同意授权我们对您在使用本产品的过程中，所产生的各项数据（包括您的个人信息）进行分析并开展商业化利用的权利。"
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-2-1-log-ip"
+source_id = "a868e5cbd24eb2a5"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "##### 1.2.1 日志信息"
+exact = "当您使用百川的产品与服务时，我们会收集您的IP地址信息，以便于我们改善产品与服务，给您更好的服务体验。"
+
+[[anchor]]
+id = "baichuan-consumer-privacy-1-1-2-collects-conversation-input"
+source_id = "a868e5cbd24eb2a5"
+topics = ["role"]
+
+[anchor.selector]
+exact = "在您使用百川的服务时，我们将收集您与百川进行交互过程中所输入的文本对话信息，使用这些信息向您输出内容，以提供人机交互服务。"

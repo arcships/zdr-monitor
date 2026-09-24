@@ -36,12 +36,22 @@ text_zh = "个人档（Lite/Pro/Max）没有『不训练』承诺。ToU §IV.3(a
 [[product.training.point]]
 text_zh = "§IV.5 再授予 unconditional/irrevocable/perpetual/worldwide 许可。§IV.7 与 Additional Terms §3(b) 的『We will not use End User Content to develop or improve Services』只写给『enterprises and developers using API Services』，而本档被 subscription-terms §4.3 定义为仅授权自然人的个人订阅。隐私政策 §3 的『train and improve our models』一行只把 Account/Communication/Log/Usage/Device/Cookies 列为处理对象，未列 User Content，与 ToU §IV.3(a) 的授权不一致——两文并存时合同层（ToU）优先，故按 ToU 判。ZCode（官方支持工具第一名）的隐私政策反其道：训练 opt-in 且默认关闭，说明 Z.AI 生态内不同产品口径不同，不能互推。"
 
+[[product.training.point]]
+text = "Qualification that is not limited to individual users: ToU §IV.3(b) 『We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services … We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies.』 Unlike §IV.3(a) in the same paragraph it carries no 『For individual users』 limiter, so on its face it covers ToU users generally; its object is performance/usage metrics and technical data rather than User Content, which is why it does not by itself decide a tier's verdict."
+text_zh = "一条不限 individual users 的限定：ToU §IV.3(b)『We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services … We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies.』同段 §IV.3(a) 有『For individual users』限定而 b) 没有，文面上对 ToU 用户普遍成立；对象是性能/使用指标与技术数据而非 User Content，故它本身不决定某一档的结论。"
+anchor = "tou-training-metrics-improve"
+
 [product.zdr]
 mark = "no"
 anchor = "pp-retention-input-account"
 
 [[product.zdr.point]]
 text_zh = "个人档既无 ZDR 产品能力也无 ZDR 承诺：隐私政策 §7 明示 input 随账户保留，ToU §IV.3(a)(i) 明文授权『utilization and storage of User Content that does not constitute personal data』，§IV.5 还授予永久存储许可。厂商公开文档（含 llms.txt 全量索引、WebSearch 中英文）里不存在面向 Coding Plan 的零保留页面或申请入口。DPA §4(b) 的『不存服务器』只对 business/enterprises API Customers 成立，scope 不覆盖个人订阅。"
+
+[[product.zdr.point]]
+text = "Related conditional exception: ToU §IV.3(c) 『notwithstanding any other provision within these Terms, any individual or entity with whom you have shared such content shall have the unrestricted right to access, use, save, reproduce, distribute, display, and transmit such content without limitation』. It is user-side feature triggered (public sharing), not the default state, and it makes 「content stays only with the vendor until the account is deleted」 an incomplete description."
+text_zh = "相关条件例外：ToU §IV.3(c)『notwithstanding any other provision within these Terms, any individual or entity with whom you have shared such content shall have the unrestricted right to access, use, save, reproduce, distribute, display, and transmit such content without limitation』。由用户侧功能（公开分享）触发，非默认状态；它使「内容只存在厂商处直到注销」这一描述不完整。"
+anchor = "tou-public-sharing-unrestricted"
 
 [product.retention]
 object = "mixed"
@@ -51,12 +61,27 @@ anchor = "pp-retention-input-account"
 [[product.retention.point]]
 text_zh = "对象=用户输入/User Content。隐私政策 §7：『when we process your personal data to provide you with the Services, we retain it as long as you have an account. This includes your account information, input.』——期限类型是『账户存续期』（非下限也非固定上限），账户删除或违约时另行处理（违约时仍按需保留）。§2.1 对 User Content 另有『processed in real-time』措辞，但那是处理方式，不回答留存，与 §7 不冲突。上下文/KV 缓存是另一对象：help/faq 明说缓存保留时长『has not yet been announced』，cache.md 只有『reasonable time limits』。企业/API 档口径完全不同（DPA §4(b) 内容不落盘、§4(c) 终止后删除），不可套到个人档。"
 
+[[product.retention.point]]
+text = "A deletion trigger that exists on top of 「account lifetime」: privacy policy §5 『You also are able to delete individual conversations, which will be removed immediately from your conversation history and automatically deleted from our back-end.』 Context = user-initiated deletion, so it is not a default zero-retention configuration; basis stays as_needed because this sentence describes a deletion trigger, not a period type."
+text_zh = "「账户存续」之外还有一条删除通道：隐私政策 §5『You also are able to delete individual conversations, which will be removed immediately from your conversation history and automatically deleted from our back-end.』语境=用户主动删除（非默认零保留），故不改变 basis=as_needed——该句讲的是删除触发，不是期限类型。"
+anchor = "pp-delete-individual-conversations"
+
+[[product.retention.point]]
+text = "Conditional exception that goes beyond account lifetime: ToU §IV.3(c) 『notwithstanding any other provision within these Terms, any individual or entity with whom you have shared such content shall have the unrestricted right to access, use, save, reproduce, distribute, display, and transmit such content without limitation』. Triggered by the user turning on a public-sharing feature (not the default state); the clause says so itself with notwithstanding any other provision."
+text_zh = "超出「账户存续期」的条件例外：ToU §IV.3(c)『notwithstanding any other provision within these Terms, any individual or entity with whom you have shared such content shall have the unrestricted right to access, use, save, reproduce, distribute, display, and transmit such content without limitation』——触发条件是用户启用公开分享功能（非默认状态），条款自述 notwithstanding any other provision。"
+anchor = "tou-public-sharing-unrestricted"
+
 [product.processing_region]
 codes = ["SG"]
 anchor = "pp-region-singapore"
 
 [[product.processing_region.point]]
 text_zh = "隐私政策 §8：『We generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』ToU §IV.3(a)(ii) 对 individual users 另行取得『processing and storage of such User Content in locations outside of the jurisdiction where you access or use the Services』的同意，即个人档存在跨境存储的合同授权（具体地点未列明）。企业/API 档同一结论，依据 DPA §3(a)。"
+
+[[product.processing_region.point]]
+text = "The same section's own safeguard sentence, which is the exit from a hard residency reading: privacy policy §8 『We implement appropriate safeguards to ensure that your personal data remains protected in line with this Privacy Policy and applicable laws, and we only transfer your data abroad in compliance with applicable laws and legally recognized transfer mechanisms.』 Singapore is stated as 「generally」, not as an exclusive processing location."
+text_zh = "同一节的保障句，说明新加坡不是硬性驻留：隐私政策 §8『We implement appropriate safeguards to ensure that your personal data remains protected in line with this Privacy Policy and applicable laws, and we only transfer your data abroad in compliance with applicable laws and legally recognized transfer mechanisms.』§8 自述是 generally，不是排他处理地。"
+anchor = "pp-region-safeguards-transfer-abroad"
 
 [product.role]
 kind = "controller"
@@ -72,12 +97,26 @@ category = "coding_plan"
 plan_level = "team"
 
 [product.training]
-mark = "yes"
-anchor = "tou-api-no-train"
-mode = "by_contract"
+mark = "unknown"
+searched = [
+  "https://docs.z.ai/legal-agreement/terms-of-use",
+  "https://docs.z.ai/legal-agreement/privacy-policy",
+  "docs.z.ai/legal-agreement 第三份文件（订阅套餐专用条款）：未纳入本 provider 快照，本轮无从引",
+  "docs.z.ai/devpack 全站（含 teamplan.md 权益页）：未纳入本 provider 快照，classify 判 not_policy，不作依据",
+  "https://docs.z.ai/legal-agreement/team-plan-terms（探测无此页）",
+]
 
 [[product.training.point]]
-text_zh = "厂商唯一的 Team 档明文在 devpack/teamplan.md 的 Exclusive Capabilities：『Data is not used for model training by default: Code, prompts, conversations, and related content are excluded from model training by default』（该页是产品权益页，classify 判 not_policy，锚点 teamplan-no-training-by-default 已登记在该来源条目里，只作旁证）。合同层能挂的只有 Additional Terms §3(b)/ToU §IV.7（『For enterprises and developers using API Services, we will not use your User Content for developing or improving Services unless you explicitly agree to such use』）——Team 档购买方是企业且流量走 api.z.ai，但套餐是否构成 Additional Terms 意义上的 API Services，厂商无明文，故 confidence=low。反向证据：个人档 subscription-terms §4.3 是 Personal-Use Only，而 teamplan.md 把『不训练』列为 Team 档专属能力，说明个人档没有同等承诺。"
+text = "The only two no-train sentences in the public text are scoped to API Services: Additional Terms §3(b) 『We will not use End User Content to develop or improve Services, unless you explicitly agree to such use.』 and the same-purpose sentence in ToU §IV.7, which is addressed to 『For enterprises and developers using API Services』. Additional Terms self-describes its scope as 『The use of API services (“API Services”) by business and developers on Z.ai platform』. The Team tier is a seat subscription of the Coding Plan; the vendor never states that this subscription is an API Services use under the Additional Terms or the DPA. No sentence in either snapshot therefore promises this tier that its content is not used for training, so the verdict is unknown, not yes."
+text_zh = "厂商公开文本里仅有的两句「不训练」都自限在 API Services 上：Additional Terms §3(b)『We will not use End User Content to develop or improve Services, unless you explicitly agree to such use.』与 ToU §IV.7 的同旨句（写给『For enterprises and developers using API Services』）；Additional Terms 的 scope 句自述为『The use of API services (“API Services”) by business and developers on Z.ai platform』。Team 档是 Coding Plan 的席位订阅，厂商没有一句把该订阅写成 Additional Terms 或 DPA 意义上的 API Services 使用，故两份快照里都没有一句为本档承诺「不训练」，结论按保守假设记 unknown，不记 yes。"
+
+[[product.training.point]]
+text = "A clause that is not limited to individual users, recorded as a qualification: ToU §IV.3(b) 『We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services … We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies.』 Unlike §IV.3(a) in the same paragraph it carries no 『For individual users』 limiter, so on its face it covers ToU users generally. Its object is performance/usage metrics and technical data rather than User Content, so it is not an independent finding on this tier either way; whether it reaches the Team tier rests on the same unconfirmed tier mapping."
+text_zh = "一条不限 individual users、作为限定记录的条款：ToU §IV.3(b)『We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services … We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies.』同段 §IV.3(a) 有『For individual users』限定而 b) 没有，文面上对 ToU 用户普遍成立。其对象是性能/使用指标与技术数据而非 User Content，故不构成本档训练与否的独立结论；它是否落到本档，同样依赖那个未获厂商确认的档位映射。"
+
+[[product.training.point]]
+text = "Why nothing is bound here: the only quotable no-train sentences are the API Services ones above, and binding one to this dimension would present the unconfirmed tier mapping as the vendor's own wording. The auxiliary material also has no snapshot to quote — the devpack/teamplan.md entitlement page (which lists 『Data is not used for model training by default』 as a Team-tier feature) is not part of this provider's snapshots, and neither is the subscription-terms document whose §4.3 makes the individual tier Personal-Use Only."
+text_zh = "本档为什么没有绑引文：可引的「不训练」只有上面那两句 API Services 口径，绑到本维度等于把未获厂商确认的档位映射写成厂商原话。旁证也没有快照可引——devpack/teamplan.md 权益页（把『Data is not used for model training by default』列为 Team 档能力）未纳入本 provider 快照；把个人档定为 Personal-Use Only 的订阅套餐专用条款 §4.3 同样未纳入本 provider 快照。"
 
 [product.zdr]
 mark = "yes"
@@ -85,38 +124,73 @@ mode = "default"
 anchor = "dpa-no-store-realtime"
 
 [[product.zdr.point]]
-text_zh = "同 retention 的 scope 推断：DPA §4(b)『The Company do not store any of the content the Customer or its End Users provide or generate while using our Services … is not saved on our servers』对 API 企业客户是默认行为而非申请制功能"
+text = "The clause itself, for the record: DPA §4(b) 『The Company do not store any of the content the Customer or its End Users provide or generate while using our Services. This includes any texts, or other data you input. This information is processed in real-time to provide the Customer and End Users with the API Service and is not saved on our servers.』 For API business customers this is the default behaviour, not an application-based feature — there is no request form and no switch, hence mode=default."
+text_zh = "条款原文（备查）：DPA §4(b)『The Company do not store any of the content the Customer or its End Users provide or generate while using our Services. This includes any texts, or other data you input. This information is processed in real-time to provide the Customer and End Users with the API Service and is not saved on our servers.』对 API 企业客户是默认行为而非申请制功能——没有申请入口、没有开关，故 mode=default。"
 
 [[product.zdr.point]]
-text_zh = "Z.AI 没有 ZDR 申请入口或 ZDR 文档页。Team 档是否自动继承该口径无厂商明文，confidence=medium。"
+text = "Scope chain, step by step: the DPA states 『This Data Processing Addendum (“DPA”) governs the processing of the data provided by business and enterprises users (“Customers”) through API Services』, and what brings it in is Additional Terms §2(a) 『We will collect and process data you provide as set forth in the Data Processing Addendum for API Services.』 That is the first ring of the tier inference this cell rests on."
+text_zh = "Scope 链条逐环看：DPA 自述『This Data Processing Addendum (“DPA”) governs the processing of the data provided by business and enterprises users (“Customers”) through API Services』，而把它引入的是 Additional Terms §2(a)『We will collect and process data you provide as set forth in the Data Processing Addendum for API Services.』——这是本格所依赖的档位推断的第一环。"
+
+[[product.zdr.point]]
+text = "Explicit premise rather than a footnote: the vendor nowhere writes that a Coding Plan Team seat subscription is an API Services use or a DPA “Customer”. Whether §4(b) reaches this tier is this ledger's inference from the fact that the DPA is the only business-facing data-processing annex Z.AI publishes and the Team tier is the self-serve business subscription. If that mapping fails, this cell falls back to the personal-tier reading (input kept for the life of the account, privacy policy §7) and the verdict becomes no. Z.AI publishes no ZDR application page and no ZDR document."
+text_zh = "这是显式前提，不是脚注：厂商从未写过 Coding Plan 的 Team 席位订阅构成 API Services 使用或 DPA 意义上的 Customer。§4(b) 是否落到本档，是本台账据「DPA 是 Z.AI 公开文档里唯一面向企业客户的数据处理附件、Team 档是面向企业的自助订阅」所作的推断。若该映射不成立，本格退回个人档口径（隐私政策 §7：input 随账户存续）并记为 no。Z.AI 没有 ZDR 申请入口，也没有 ZDR 文档页。"
 
 [product.retention]
-object = "mixed"
+object = "input_output"
 basis = "none"
 anchor = "dpa-no-store-realtime"
 
 [[product.retention.point]]
-text_zh = "推断依据：DPA 自限 scope 为『business and enterprises users（“Customers”）through API Services』，Team 档是面向企业的自助订阅且走 api.z.ai 端点，是 Z.AI 公开文档中唯一面向企业客户的数据处理附件"
+text = "Object = the request content itself (User Content / End User Content): DPA §4(b) says the content the Customer or its End Users provide or generate while using the Services is processed in real-time and is not saved on our servers, so basis=none. This cell answers only how long the request content is kept; the other object is the next point."
+text_zh = "对象=请求内容本身（User Content / End User Content）：DPA §4(b) 写明 Customer 及其 End User 使用服务时提供或生成的内容实时处理、不存服务器，故 basis=none。本格只回答请求内容留多久，另一类对象见下一条。"
 
 [[product.retention.point]]
-text_zh = "teamplan.md 也把『enterprise-grade data security』列为 Team 档卖点。DPA §4(b) 内容不存服务器、§4(c) 其他 Customer Data 临时存储并在协议终止后删除。若厂商不认 Team 档属于 DPA 的 Customer，则退回个人档口径（input 随账户存续），故 confidence=medium。"
+text = "The second object is not covered by 「not retained」: DPA §4(c) 『For Customer Data other than those provided under Section 4(b), Company will temporarily store such data for the purposes of providing the API Services or in compliance with applicable laws.』 followed by 『The Company will delete such data after the termination of the Terms unless otherwise required by applicable laws.』 That is an event-triggered rule — temporary storage, deletion on termination, with a legal carve-out. Neither a fixed number of days nor a lower bound."
+text_zh = "第二类对象不适用「不留存」：DPA §4(c)『For Customer Data other than those provided under Section 4(b), Company will temporarily store such data for the purposes of providing the API Services or in compliance with applicable laws.』接着写『The Company will delete such data after the termination of the Terms unless otherwise required by applicable laws.』——事件触发：临时存储、协议终止后删除、法律要求例外；既非固定天数，也非下限。"
+anchor = "dpa-delete-after-termination"
+
+[[product.retention.point]]
+text = "Scope chain for this cell: the DPA is brought in by Additional Terms §2(a) 『We will collect and process data you provide as set forth in the Data Processing Addendum for API Services.』 and self-limits to 『business and enterprises users (“Customers”) through API Services』."
+text_zh = "本格的 scope 链条：DPA 借 Additional Terms §2(a)『We will collect and process data you provide as set forth in the Data Processing Addendum for API Services.』引入，并自限为『business and enterprises users (“Customers”) through API Services』。"
+anchor = "tou-additional-dpa"
+
+[[product.retention.point]]
+text = "Explicit premise: whether a Coding Plan Team seat subscription counts as an API Services use and a DPA “Customer” is not stated by the vendor — that mapping is this ledger's inference (the DPA is the only business-facing data-processing annex Z.AI publishes, and the Team tier is the self-serve business subscription). If the mapping fails, this cell falls back to the personal-tier reading: input retained for as long as the account exists (privacy policy §7), basis=as_needed."
+text_zh = "显式前提：Coding Plan 的 Team 席位订阅是否算 API Services 使用、是否算 DPA 的 Customer，厂商无明文，该映射是本台账的推断（DPA 是 Z.AI 公开文档里唯一面向企业客户的数据处理附件，Team 档是面向企业的自助订阅）。映射不成立时本格退回个人档口径：input 随账户存续（隐私政策 §7），basis=as_needed。"
 
 [product.processing_region]
 codes = ["SG"]
 anchor = "dpa-region-singapore"
 
 [[product.processing_region.point]]
-text_zh = "DPA §3(a)：『Company generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』与个人档隐私政策 §8 同结论"
+text = "DPA §3(a): 『Company generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』 Same conclusion as §8 of the personal-tier privacy policy, on a different clause."
+text_zh = "DPA §3(a)：『Company generally provide the Services from Singapore, and our group companies and their designated service providers are typically located in Singapore.』与个人档隐私政策 §8 同结论，依据条款不同。"
 
 [[product.processing_region.point]]
-text_zh = "两档处理地一致，仅依据条款不同。"
+text = "Singapore is 「generally」, not an exclusive commitment, and the next subsection opens the exit: DPA §3(b) 『Company implements appropriate safeguards to ensure that the Customer Data will only transfer Customer Data abroad in compliance with applicable Data Protection Laws and legally recognized transfer mechanisms.』 Transfer abroad is therefore permitted under safeguards — the codes cell records the disclosed processing location, not a residency guarantee."
+text_zh = "新加坡是 generally 而非排他约定，紧接的 §3(b) 就留了出口：『Company implements appropriate safeguards to ensure that the Customer Data will only transfer Customer Data abroad in compliance with applicable Data Protection Laws and legally recognized transfer mechanisms.』——在合规保障与合法传输机制下可向境外传输。codes 记的是已披露的处理地，不是驻留承诺。"
+anchor = "dpa-region-transfer-abroad"
+
+[[product.processing_region.point]]
+text = "Explicit premise: §3(a)/(b) speak of the Company's processing of Customer Data under the DPA, which self-limits to 『business and enterprises users (“Customers”) through API Services』. Whether the Team seat subscription falls inside that scope is not stated by the vendor; the mapping is this ledger's inference."
+text_zh = "显式前提：§3(a)/(b) 讲的是 Company 在 DPA 下对 Customer Data 的处理，而 DPA 自限为『business and enterprises users (“Customers”) through API Services』。Team 席位订阅是否落在这个 scope 里厂商无明文，该映射是本台账的推断。"
 
 [product.role]
 kind = "processor"
 anchor = "dpa-role-processor"
 
 [[product.role.point]]
-text_zh = "DPA §1：『Customer is the person that determines the purposes and means … (a “Data Controller”), whereas Company processes Customer Data … on behalf of the Data Controller (as a “Data Processor”)』。该角色同样以『Team 档属于 DPA 的 Customer』为前提，故 confidence=medium"
+text = "DPA preamble: 『Customer is the person that determines the purposes and means for which Customer Data (as defined below) is processed (a “Data Controller”), whereas Company processes Customer Data in accordance with the Data Controller’s instructions and on behalf of the Data Controller (as a “Data Processor”).』"
+text_zh = "DPA 前言：『Customer is the person that determines the purposes and means for which Customer Data (as defined below) is processed (a “Data Controller”), whereas Company processes Customer Data in accordance with the Data Controller’s instructions and on behalf of the Data Controller (as a “Data Processor”).』"
+
+[[product.role.point]]
+text = "Same direction in the operative clause: DPA §1(a) 『Process Customer Data only 1) on Customer’s behalf for the purpose of providing and supporting API Services』 (the 「1)」 is verbatim in the source, where the list mixes 1) and (ii))."
+text_zh = "同一方向的义务条款：DPA §1(a)『Process Customer Data only 1) on Customer’s behalf for the purpose of providing and supporting API Services』（原文此处即写作「1)」，同一列表里混用了 1) 与 (ii)，照录）。"
+anchor = "dpa-processor-obligation"
+
+[[product.role.point]]
+text = "Explicit premise: this role is stated for DPA “Customers” — 『business and enterprises users (“Customers”) through API Services』 — and the vendor nowhere says a Coding Plan Team seat subscription is such a Customer; that mapping is this ledger's inference. If it fails, this cell falls back to the personal-tier reading: the privacy policy §1 makes JINGSHENG HENGXING TECHNOLOGY PTE.LTD the controller of the user's Personal Data."
+text_zh = "显式前提：该角色是写给 DPA 的 Customer（『business and enterprises users (“Customers”) through API Services』）的，厂商没有一句说 Coding Plan 的 Team 席位订阅就是这种 Customer，该映射是本台账的推断。映射不成立时本格退回个人档口径：隐私政策 §1 由 JINGSHENG HENGXING TECHNOLOGY PTE.LTD 作为个人数据的 controller。"
 
 [[product.role.point]]
 text_zh = "个人档恰相反（隐私政策 §1 公司为 controller）。"
@@ -392,6 +466,66 @@ topics = ["retention", "zdr"]
 prefix = " Customer’s behalf or until the termination of the Terms.b) "
 exact = "The Company do not store any of the content the Customer or its End Users provide or generate while using our Services. This includes any texts, or other data you input. This information is processed in real-time to provide the Customer and End Users with the API Service and is not saved on our servers."
 suffix = "c) For Customer Data other than those provided under Section"
+
+[[anchor]]
+id = "pp-delete-individual-conversations"
+source_id = "75c8212bfb23dbb5"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "the right to request that we delete personal data collected from you when you use our Services, subject to certain exceptions. "
+exact = "You also are able to delete individual conversations, which will be removed immediately from your conversation history and automatically deleted from our back-end."
+suffix = " **Correction:**"
+
+[[anchor]]
+id = "pp-region-safeguards-transfer-abroad"
+source_id = "75c8212bfb23dbb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "As a result, your personal data is generally processed in Singapore. "
+exact = "We implement appropriate safeguards to ensure that your personal data remains protected in line with this Privacy Policy and applicable laws, and we only transfer your data abroad in compliance with applicable laws and legally recognized transfer mechanisms."
+suffix = ""
+
+[[anchor]]
+id = "dpa-region-transfer-abroad"
+source_id = "75c8212bfb23dbb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "As a result, Customer Data is generally processed in Singapore. b) "
+exact = "Company implements appropriate safeguards to ensure that the Customer Data will only transfer Customer Data abroad in compliance with applicable Data Protection Laws and legally recognized transfer mechanisms."
+suffix = ""
+
+[[anchor]]
+id = "dpa-processor-obligation"
+source_id = "75c8212bfb23dbb5"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "As a Data Processor, the Company agrees to: a) "
+exact = "Process Customer Data only 1) on Customer’s behalf for the purpose of providing and supporting API Services"
+suffix = "; (ii) in compliance with the written instructions received"
+
+[[anchor]]
+id = "tou-training-metrics-improve"
+source_id = "e2783173cd2583ac"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Data Collection and Usage. "
+exact = "We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services, which may include, but is not limited to, model versions, inferences, upload times, as well as processing, diagnostic, and other technical data. We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies."
+suffix = " c) Public Sharing of User Content."
+
+[[anchor]]
+id = "tou-public-sharing-unrestricted"
+source_id = "e2783173cd2583ac"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "you hereby agree and acknowledge that, "
+exact = "notwithstanding any other provision within these Terms, any individual or entity with whom you have shared such content shall have the unrestricted right to access, use, save, reproduce, distribute, display, and transmit such content without limitation"
+suffix = ". You further agree that we shall not be held liable"
 
 [[anchor]]
 id = "dpa-delete-after-termination"

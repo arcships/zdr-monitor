@@ -33,19 +33,44 @@ anchor = "training-additional-terms-3b-no-train"
 text_zh = "例外是你自己明确同意：条款写的是 unless you explicitly agree to such use。"
 mode = "by_contract"
 
+[[product.training.point]]
+text = "Scope of this cell: the no-training commitment rests on Additional Terms §3(b) and Terms of Use §IV.7, both addressed to enterprises and developers using API Services; the Additional Terms govern business and developers’ use of API Services and prevail over the Terms in case of inconsistency. The opposite positions are written for individual users — §IV.3(a) reserves the right to process any User Content to improve existing Services and/or to develop new products and services, and §IV.5 grants an unconditional, irrevocable, perpetual license over User Content. The vendor does not define which side an individual (non-enterprise) API user falls on, so this cell does not cover individual (non-enterprise) use."
+text_zh = "本格适用范围:不训练承诺出自 Additional Terms §3(b) 与 ToU §IV.7,两者自述对象都是 enterprises and developers using API Services;Additional Terms 约束 business and developers 的 API 使用,冲突时优先于 ToU。相反口径写给 individual users——§IV.3(a) 保留将任何 User Content 用于改进现有服务和/或开发新产品与服务的权利,§IV.5 授予对 User Content 的无条件、不可撤销、永久许可。厂商未定义个人(非企业)API 用户归哪一侧,故本格不覆盖个人(非企业)用法"
+anchor = "consumer-training-tou-3a-reserve-right"
+
+[[product.training.point]]
+text = "Object: performance and usage metrics and technical data (model versions, inferences, upload times, processing, diagnostic and other technical data) — not End User Content. Context: default, and unlike §IV.3(a) this paragraph carries no individual users limitation, so it also applies to API use. Period type: not applicable, since it is a right of use rather than a retention period. The vendor retains the right to use such metrics and data to enhance the quality, functionality and other aspects of the Services and their underlying technologies — a service-improvement use that our judgment rules treat as training — but the object is telemetry rather than input/output content, so Additional Terms §3(b)’s no-training commitment over End User Content still stands."
+text_zh = "对象=性能与使用指标及技术数据(model versions、inferences、upload times、processing、diagnostic 等技术数据),不是 End User Content;语境=默认,且与 §IV.3(a) 不同、这一段没有 individual users 的限定,故对 API 档同样成立;期限类型=不适用(这是使用权,不是保留期限)。厂商保留将这些指标与数据用于改善服务及底层技术的权利——按判定口径算训练——但对象是遥测/技术数据而非输入输出正文,Additional Terms §3(b) 对 End User Content 的不训练承诺仍然有效"
+anchor = "training-tou-iv-3b-usage-metrics"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "zdr-dpa-4b-no-store"
 
 [product.retention]
-object = "mixed"
+object = "input_output"
 basis = "none"
 anchor = "retention-dpa-4b-realtime-no-save"
+
+[[product.retention.point]]
+text = "Object: input and output content, i.e. the Customer Data covered by DPA §4(b). Context: default. Period type: no retention — the Company does not store the content the Customer or its End Users provide or generate, and that information is processed in real-time to provide the API Service and is not saved on the Company servers. No retention period means there is no period for this object, not a zero-day window."
+text_zh = "对象=输入输出正文,即 DPA §4(b) 覆盖的那部分 Customer Data;语境=默认;期限类型=不留存——公司不存储客户或终端用户提供/生成的内容,该信息为提供 API 服务而实时处理、不保存在服务器上。「不留存」指该对象没有保留期可言,不是「0 天」"
+anchor = "retention-dpa-4b-realtime-no-save"
+
+[[product.retention.point]]
+text = "Object: Customer Data other than the content covered by Section 4(b) — per the DPA definition, Customer Data is the Personal Data the Customer provides to the Company for the Company to process on the Customer behalf in order to provide the Services. Context: default. Period type: event-triggered — the Company temporarily stores such data for the purposes of providing the API Services or in compliance with applicable laws, and deletes it after the termination of the Terms unless otherwise required by applicable laws. That is neither a floor nor a fixed number of days, and it is a different object from the input/output content above, so this cell basis=none does not cover it."
+text_zh = "对象=§4(b) 之外的其他 Customer Data(按 DPA 定义,Customer Data 是客户为让公司代其提供服务而提供给公司的 Personal Data);语境=默认;期限类型=事件触发——公司为提供 API 服务或遵守适用法律而临时存储该类数据,协议终止后删除,除非适用法律另有要求。既不是下限也不是固定天数;对象与上面那格的输入输出正文不同,故本格的 basis=none 不覆盖它"
+anchor = "retention-dpa-4c-other-customer-data"
 
 [product.processing_region]
 codes = ["SG"]
 anchor = "region-dpa-3a-singapore"
+
+[[product.processing_region.point]]
+text = "Object: Customer Data. Context: the default place of processing, not an exclusive one. DPA §3(a) is worded as generally — the Company generally provides the Services from Singapore and Customer Data is generally processed in Singapore — while §3(b) adds that the Company implements appropriate safeguards to ensure Customer Data is transferred abroad only in compliance with applicable Data Protection Laws and legally recognized transfer mechanisms. Singapore is therefore the default processing location rather than a hard limit on where Customer Data may be processed, and codes stays [\"SG\"] on that reading."
+text_zh = "对象=Customer Data;语境=默认处理地而非唯一处理地。DPA §3(a) 的措辞是 generally(通常):公司通常自新加坡提供服务、Customer Data 通常在新加坡处理;§3(b) 紧接着写明公司实施适当保障,确保仅在遵守适用数据保护法与合法传输机制的前提下向境外传输 Customer Data。故新加坡是默认处理地、不是处理地的绝对限定,codes 仍记 [\"SG\"]"
+anchor = "region-dpa-3b-international-transfer"
 
 [product.role]
 kind = "processor"
@@ -184,26 +209,6 @@ exact = "This information is processed in real-time to provide the Customer and 
 suffix = "c) For Customer Data other than those provided under Section"
 
 [[anchor]]
-id = "retention-dpa-4c-temporary-store-delete-on-termination"
-source_id = "75c8212bfb23dbb5"
-topics = ["retention"]
-
-[anchor.selector]
-prefix = "Customer Data other than those provided under Section 4(b), "
-exact = "Company will temporarily store such data for the purposes of providing the API Services or in compliance with applicable laws."
-suffix = " The Company will delete such data after the termination of "
-
-[[anchor]]
-id = "region-dpa-3a-singapore"
-source_id = "75c8212bfb23dbb5"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "nated service providers are typically located in Singapore. "
-exact = "As a result, Customer Data is generally processed in Singapore."
-suffix = "b) Company implements appropriate safeguards to ensure that "
-
-[[anchor]]
 id = "role-dpa-preamble-processor"
 source_id = "75c8212bfb23dbb5"
 topics = ["role"]
@@ -315,3 +320,23 @@ topics = ["role"]
 prefix = "ANSON ROAD, #26-03, INTERNATIONAL PLAZA, SINGAPORE 0759903. "
 exact = "JINGSHENG HENGXING TECHNOLOGY PTE.LTD is the controller and is responsible for the processing of your Personal Data as described in this Privacy Policy."
 suffix = " If you have any questions about how we use your personal da"
+
+[[anchor]]
+id = "training-tou-iv-3b-usage-metrics"
+source_id = "e2783173cd2583ac"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Data Collection and Usage. "
+exact = "We may collect performance and usage metrics and data pertaining to your access and/or utilization of the Services, which may include, but is not limited to, model versions, inferences, upload times, as well as processing, diagnostic, and other technical data. We retain the right to use such metrics and data to enhance the quality, functionality, and other aspects of the Services and their underlying technologies."
+suffix = " c) Public Sharing of User Content."
+
+[[anchor]]
+id = "region-dpa-3b-international-transfer"
+source_id = "75c8212bfb23dbb5"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "As a result, Customer Data is generally processed in Singapore. b) "
+exact = "Company implements appropriate safeguards to ensure that the Customer Data will only transfer Customer Data abroad in compliance with applicable Data Protection Laws and legally recognized transfer mechanisms."
+suffix = ""

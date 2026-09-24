@@ -84,6 +84,11 @@ text_zh = "Commercial Terms §B 禁止用 Customer Content 训练"
 text = "Privacy Center article 7996868 for the commercial tier says the same (inputs and outputs are not used for training by default)."
 text_zh = "商业档隐私中心 7996868 同口径(默认不使用输入输出训练)。"
 
+[[product.training.point]]
+text = "Exception to the default prohibition, limited to material the customer chooses to submit: \"If you explicitly opt in to methods to provide us with materials to train on, such as via the Development Partner Program, we may use those materials provided to train our models. An organization admin can expressly opt-in to the Development Partner Program for their organization.\" The programme is first-party API only (\"available only for Anthropic first-party API, and not for Amazon Bedrock or Google Cloud’s Agent Platform users\"). Object = materials the customer submits for training; context = an organization admin opts the organization in. It does not weaken the §B prohibition on ordinary API traffic, so mark stays yes."
+text_zh = "默认禁止之外的例外,只限客户主动提交的材料:客户显式 opt-in(如通过 Development Partner Program)后,其提交的材料可被用于训练模型;组织管理员可为组织 opt-in。对象=客户主动提交用于训练的材料;语境=组织管理员主动加入,且该计划仅第一方 API 可用(Bedrock 与 Google Cloud Agent Platform 明示不适用)。本条不削弱 §B 对一般 API 流量的禁止,mark 仍为 yes。"
+anchor = "training-dev-partner-optin"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
@@ -97,6 +102,11 @@ text_zh = "依据为 8956058(文章日期 June 9, 2026):合格 Claude API(Claude
 text = "ZDR requests are approved organization by organization (\"ZDR is enabled per organization; each new organization requires ZDR to be enabled separately by your account team\"), and Claude Platform users can confirm it under Settings > Privacy Controls > Data retention period. The same article states expressly that these arrangements \"are distinct from Anthropic's default approach to data retention\" (= the 30-day rule in 7996866). For the feature-level scope (which endpoints are eligible, and that stateful features such as Batch, Files and code execution are not), see api-and-data-retention — that page was marked contradiction this round because its retention statement conflicts with 7996866, so it is no longer used as a basis for this dimension (the anchor is kept and fetched daily)."
 text_zh = "ZDR 请求按 organization 逐一审批,Claude Platform 用户可在 Settings > Privacy Controls > Data retention period 确认。该文并把 ZDR 安排与「Anthropic’s default approach to data retention」(=7996866 的 30 天口径)明确区分。功能级适用范围(哪些 endpoint 合格、Batch/Files/Code execution 等有状态功能不适用)见 api-and-data-retention——该页本轮因 retention 口径与 7996866 冲突已标 contradiction,故不再作为本维度的依据(锚点保留、每天抓)。"
 
+[[product.zdr.point]]
+text = "Model-level limit on ZDR: \"Additionally, for Covered Models, we require limited data retention and review as a part of our safety work.\" The models concerned are Claude Fable 5 / Fable 5.1 and Claude Mythos 5 / Mythos 5.1; the api-and-data-retention page spells out that they require 30-day data retention and are \"not available under ZDR unless expressly authorized by Anthropic\", and that requests from an organization whose retention configuration does not meet the requirement are rejected. That page is marked contradiction this round, so it is cited here only as the source of the specific figure — the anchor on this point is the core privacy-centre sentence. Organizations that already have a ZDR arrangement can still make these models available in a single workspace by enabling 30-day retention for that workspace only."
+text_zh = "ZDR 的模型级限定:Covered Models(Claude Fable 5 / Fable 5.1 与 Claude Mythos 5 / Mythos 5.1)强制有限期保留与安全审查;据 api-and-data-retention 页,即强制 30 天保留,未获 Anthropic 明确授权时不适用 ZDR,保留配置不满足要求的组织调用会被拒绝。该页本轮已标 contradiction,此处仅作具体数字的出处,本 point 的锚点仍是隐私中心的核心句。已有 ZDR 安排的组织仍可只为某个 workspace 开启 30 天保留来放行这些模型。"
+anchor = "covered-models-limited-retention"
+
 [product.retention]
 days = 30
 object = "input_output"
@@ -104,8 +114,8 @@ basis = "fixed_period"
 anchor = "retention-api-30d"
 
 [[product.retention.point]]
-text = "Standard retention on the commercial tier: \"we automatically delete inputs and outputs on our backend within 30 days of receipt or generation\" (exceptions: services where you control longer retention such as the Files API, a separate agreement with us such as a ZDR arrangement, what is needed to enforce the Usage Policy, and legal requirements; that exception list is lost in the r.jina.ai rendering, see notes)"
-text_zh = "商业档标准保留:API 输入输出在后端 30 天内自动删除(例外:你自控更长保留的服务如 Files API、你与我们另有约定如 ZDR 协议、执行 Usage Policy 所需、法律要求;该例外列表在 r.jina.ai 渲染中丢失,见 notes)"
+text = "Standard retention on the commercial tier: \"we automatically delete inputs and outputs on our backend within 30 days of receipt or generation\" (exceptions: services where you control longer retention such as the Files API, a separate agreement with us such as a ZDR arrangement, what is needed to enforce the Usage Policy, and legal requirements)"
+text_zh = "商业档标准保留:API 输入输出在后端 30 天内自动删除(例外:你自控更长保留的服务如 Files API、你与我们另有约定如 ZDR 协议、执行 Usage Policy 所需、法律要求)"
 
 [[product.retention.point]]
 text = "Violative content up to 2 years, trust and safety classification scores up to 7 years"
@@ -118,6 +128,34 @@ text_zh = "Feedback 5 年。开发者文档 api-and-data-retention 另有「Conv
 [[product.retention.point]]
 text = "See that source's contradiction_note for details."
 text_zh = "详见该源 contradiction_note。"
+
+[[product.retention.point]]
+text = "A separate object and context inside the same commercial policy — conversations kept inside the products: \"If you use our other commercial products (e.g. Claude for Work, Claude for Enterprise, Anthropic Console, etc.) that allow you to save and continue conversations with Claude, we retain your chats and coding sessions in the product to provide you with a consistent product experience.\" Object = chats and coding sessions saved in those products (including a customer's own use of the Claude Console); context = default; control = the user (\"You control your conversations and can delete your chats anytime from your dashboard\"): a deleted conversation is \"Removed from your chat history immediately\" and \"Deleted from our back-end storage systems within 30 days\", and Incognito chats are automatically deleted within 30 days unless flagged as a Usage Policy violation. This does not apply to API request bodies, which follow the 30-day inputs/outputs rule above."
+text_zh = "同一篇商业档政策内的另一套对象与语境——留在产品里的会话:可续聊的商业产品(Claude for Work / Claude for Enterprise / Anthropic Console 等)中的 chats 与 coding sessions 默认保留在产品中,以提供一致的体验。对象=这些产品内保存的会话与编码会话(含客户自己在 Claude Console 里的使用);语境=默认;控制权=用户(随时可在 dashboard 删除,删除后立即移出历史、后端 30 天内清除;Incognito 会话 30 天内自动删除,被标为违反 Usage Policy 的除外)。本条不适用于 API 请求正文,后者适用上文输入输出 30 天口径。"
+
+[[product.retention.point]]
+text = "Model-level exception to the 30-day default: Covered Models \"require limited data retention and review as a part of our safety work\" — per the api-and-data-retention page that means a mandatory 30-day retention for Claude Fable 5 / Fable 5.1 and Claude Mythos 5 / Mythos 5.1, so those models cannot be used under ZDR unless Anthropic expressly authorizes it. Object = inputs and outputs of those models; context = requests to Covered Models; type = mandatory lower bound of 30 days, not an optional extension."
+text_zh = "30 天默认之外的模型级例外:Covered Models 强制有限期保留与安全审查;据 api-and-data-retention 页,即 Claude Fable 5 / Fable 5.1 与 Claude Mythos 5 / Mythos 5.1 强制 30 天保留,未获 Anthropic 明确授权时不能跑在 ZDR 下。对象=这些模型的输入输出;语境=调用 Covered Models 的请求;期限类型=强制下限 30 天,不是可选延长。"
+anchor = "covered-models-limited-retention"
+
+[[product.retention.point]]
+text = "ZDR and the 30-day default do not mean that nothing in this tier is kept longer. Several retention models sit outside those arrangements: the Activity Feed (a Compliance API feature) retains data for 6 years; local session transcripts (sessions on users' machines, in apps such as Cowork and Claude Code) are stored for 6 years by default, or for the organization's custom conversation retention period when a finite one is set; remote session transcripts (Cowork in the cloud) are retained for 6 years unless the user deletes the session sooner; and chat, file and project content from claude.ai follows the organization's retention policy set in claude.ai > Organization settings > Data and privacy, unless a user deletes it sooner. The claude.ai content and the session transcripts belong to those product and client surfaces rather than to API request bodies. Source: api-and-data-retention, whose retention statement is marked contradiction this round; this paragraph is recorded as context only and carries no anchor."
+text_zh = "ZDR 与 30 天默认都不等于本档什么都不会留更久。多套保留模型在这些安排之外:Activity Feed(Compliance API 功能)保留 6 年;本地会话转写(用户机器上、Cowork 与 Claude Code 等 app 的会话)默认存 6 年,组织设置了有限的会话保留期时按该期限;远端会话转写(Cowork 云端)保留 6 年,用户提前删除除外;claude.ai 的 chat / file / project 内容随 claude.ai > Organization settings > Data and privacy 中组织的保留策略,用户提前删除除外。后两类属产品与客户端界面,不是 API 请求正文。出处为 api-and-data-retention 页(其 retention 表述本轮标 contradiction),本段仅作语境记录、不承载锚点。"
+
+[[product.retention.point]]
+text = "Contract layer, DPA Schedule 1 (the SCC description of processing): \"B.7. **Storage Limitation**: The duration is the term of the Agreement.\" Object = Customer Data; the duration given is the processing duration, i.e. the term of the Agreement, not a content TTL — it layers on top of, and does not replace, the 30-day in-service inputs/outputs rule above."
+text_zh = "合同层,DPA Schedule 1(SCC 处理描述):处理期限=协议期限。对象=Customer Data;这里给的是处理期限(合同期限),不是内容 TTL,与上文在役 30 天输入输出口径并存、不替代它。"
+anchor = "retention-dpa-storage-limitation"
+
+[[product.retention.point]]
+text = "Termination layer, DPA §H.1.b: within thirty (30) days of the date of termination or expiration of the Agreement Anthropic deletes \"all copies of Customer Data (including Customer Personal Data) processed by Anthropic or any Subprocessors\", except to the extent (i) Applicable Data Protection Laws or other legal or regulatory requirements require storage, (ii) retention is necessary to resolve a dispute between the parties, or (iii) retention is necessary to combat harmful use of the Services. Object = all Customer Data; context = after termination or expiration; type = upper bound, with three exceptions."
+text_zh = "终止层,DPA §H.1.b:协议终止或到期后 30 天内删除全部 Customer Data(含 Customer Personal Data,含 Subprocessor 处理的),例外三类:法律/监管要求留存、解决双方争议所需、打击服务有害使用所需。对象=全部 Customer Data;语境=协议终止或到期后;期限类型=上限,带三条例外。"
+anchor = "retention-dpa-termination-deletion"
+
+[[product.retention.point]]
+text = "DPA Schedule 2 I.5: \"Security-related logs are retained for appropriate timeframes to aid in the investigation of security incidents.\" Object = security-related logs; no fixed number and no stated upper bound."
+text_zh = "DPA Schedule 2 I.5:安全类日志保留「适当期限」以便调查安全事件。对象=安全类日志;未给具体数字,也没有明确上限。"
+anchor = "retention-dpa-security-logs"
 
 [product.processing_region]
 codes = ["global", "US"]
@@ -301,7 +339,7 @@ source_id = "6bc4022c8696d7c6"
 topics = ["role"]
 
 [anchor.selector]
-prefix = "com/docs/en/build-with-claude/claude-in-microsoft-foundry), "
+prefix = "Claude Platform on AWS, and Claude in Microsoft Foundry, "
 exact = "where Anthropic is the data processor"
 suffix = ". On Amazon Bedrock and Google Cloud's Agent Platform, the c"
 
@@ -415,3 +453,53 @@ g scope, disabled features, and how to request enablement.
 """
 exact = "Zero Data Retention (ZDR) for Claude Code is available to qualified accounts on Claude for Enterprise."
 suffix = " When ZDR is enabled, prompts and model responses generated "
+
+[[anchor]]
+id = "training-dev-partner-optin"
+source_id = "06b2864aaa7d8bc3"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Development Partner Program"
+exact = "If you explicitly opt in to methods to provide us with materials to train on, such as via the Development Partner Program, we may use those materials provided to train our models. An organization admin can expressly opt-in to the Development Partner Program for their organization. Note that this program is available only for Anthropic first-party API, and not for Amazon Bedrock or Google Cloud’s Agent Platform users."
+suffix = "Feedback using the"
+
+[[anchor]]
+id = "covered-models-limited-retention"
+source_id = "6c31e6bc0ff3a496"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "## **Covered Models**"
+exact = "Additionally, for Covered Models, we require limited data retention and review as a part of our safety work."
+suffix = "To learn more about Covered Models"
+
+[[anchor]]
+id = "retention-dpa-storage-limitation"
+source_id = "200243637a38e41f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "as may be further agreed upon by Customer and Anthropic."
+exact = "B.7. **Storage Limitation**: The duration is the term of the Agreement."
+suffix = "B.8. **Subprocessors (where applicable)**"
+
+[[anchor]]
+id = "retention-dpa-termination-deletion"
+source_id = "200243637a38e41f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "provide a self-service functionality allowing Customer to do the same; and"
+exact = "delete all copies of Customer Data (including Customer Personal Data) processed by Anthropic or any Subprocessors, except to the extent (i) Applicable Data Protection Laws or other applicable legal or regulatory requirements requires storage of the Customer Data, (ii) retention of the Customer Data by Anthropic is necessary to resolve a dispute between the parties, or (iii) retention of the Customer Data is necessary to combat harmful use of the Services."
+suffix = "## I. Standard Contractual Clauses"
+
+[[anchor]]
+id = "retention-dpa-security-logs"
+source_id = "200243637a38e41f"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "suspicious activities for review."
+exact = "I.5. Security-related logs are retained for appropriate timeframes to aid in the investigation of security incidents."
+suffix = "## J. Third Party Vendors"
