@@ -9,16 +9,17 @@
     "test": "bun test",
     "typecheck": "bun run site:generate && bunx tsc --noEmit -p packages/core/tsconfig.json && bunx vue-tsc --noEmit -p packages/web/tsconfig.json",
     "validate": "bun ./packages/core/script/validate.ts",
-    "fetch": "bun ./packages/core/script/fetch.ts",
-    "verify:anchors": "bun ./packages/core/script/verify-anchors.ts",
-    "issues:open": "bun ./packages/core/script/open-issues.ts",
+    "lint:verdicts": "bun ./packages/core/script/lint-verdicts.ts",
     "site:generate": "bun ./packages/core/script/generate-site.ts",
-    "research:fetch": "bun ./packages/core/script/fetch-research.ts",
-    "research:import": "bun ./packages/core/script/import-research.ts",
-    "gc": "bun ./packages/core/script/gc.ts",
     "dev": "bun run site:generate && cd packages/web && bun x vite",
     "build": "bun run site:generate && cd packages/web && bun x vite build",
-    "import:baseline": "bun ./packages/core/script/import-baseline.ts"
+    "snapshot": "bun ./packages/core/script/snapshot.ts",
+    "check:quotes": "bun ./packages/core/script/check-quotes.ts",
+    "calibrate": "bun ./packages/core/script/calibrate.ts",
+    "snapshot:auto-merge": "bun ./packages/core/script/check-snapshot-auto-merge.ts",
+    "review:issues": "bun ./packages/core/script/open-review-issues.ts",
+    "diff:sources": "bun ./packages/core/script/diff-sources.ts",
+    "audit": "bun ./packages/core/script/audit.ts"
   },
   "workspaces": {
     "packages": [

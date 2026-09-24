@@ -1,0 +1,60 @@
+name: "Setup DimCode"
+description: "安装 DimCode CLI，用 OAuth 登录态作为 agent 凭证（对应 models.dev 的 Install opencode + OPENCODE_API_KEY）"
+inputs:
+  auth-json:
+    description: "~/.dimcode/v2/auth.json 的内容（secrets.DIMCODE_AUTH_JSON）"
+    required: true
+  models-json:
+    description: "~/.dimcode/v2/dim-oauth-models.json 的内容（secrets.DIMCODE_MODELS_JSON）"
+    required: true
+  min-hours:
+    description: "访问令牌至少还剩几小时才继续；续期由 dimcode-auth.yml 负责，agent job 不自己续"
+    required: false
+    default: "6"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: 恢复登录态
+      shell: bash
+      env:
+        AUTH_JSON: ${{ inputs.auth-json }}
+        MODELS_JSON: ${{ inputs.models-json }}
+        MIN_HOURS: ${{ inputs.min-hours }}
+      run: |
+        set -euo pipefail
+        if [ -z "$AUTH_JSON" ] || [ -z "$MODELS_JSON" ]; then
+          echo "::error::缺少 DIMCODE_AUTH_JSON 或 DIMCODE_MODELS_JSON secret，见 docs/maintenance.md「仓库配置」"
+          exit 1
+        fi
+        # 不设 DIMCODE_HOME：它会让 OAuth 存储和其余配置落在不同层级，用默认的 ~/.dimcode/v2
+        dir="$HOME/.dimcode/v2"
+        install -d -m 700 "$dir"
+        printf '%s' "$AUTH_JSON" > "$dir/auth.json"
+        printf '%s' "$MODELS_JSON" > "$dir/dim-oauth-models.json"
+        chmod 600 "$dir/auth.json"
+        left="$(jq -r '((.nextApiOauth.expires // 0) / 1000 - now) | floor' "$dir/auth.json")"
+        echo "访问令牌还剩 $((left / 3600)) 小时"
+        # 令牌快过期时 dim 会自己用 refresh token 续期，而 runner 上续出来的新令牌写不回 secret；
+        # 刷新令牌会轮换，旧的那份随后可能失效。所以这里宁可失败，也不让 agent job 去续。
+        if [ "$left" -lt $((MIN_HOURS * 3600)) ]; then
+          echo "::error::DimCode 访问令牌 $((left / 60)) 分钟后过期。手动运行「DimCode 登录态续期」workflow，或按 docs/maintenance.md 重新登录并更新 secret"
+          exit 1
+        fi
+
+    - name: 安装 DimCode
+      shell: bash
+      env:
+        DIMCODE_DISABLE_AUTOUPDATE: "1"
+      run: |
+        set -euo pipefail
+        npm install --global dimcode@0.5.11
+        # 新环境里 provider 默认是 disabled；auth refresh 按缓存的模型目录注册它，
+        # 令牌没到期时不会换发新令牌
+        dim auth refresh
+        dim provider list | grep -qE $'^dimcode-api-oauth\tconnected\t[1-9]' || {
+          echo "::error::dimcode-api-oauth 没有连上"; dim provider list | grep dimcode-api-oauth; exit 1; }
+        echo "DIMCODE_DISABLE_AUTOUPDATE=1" >> "$GITHUB_ENV"

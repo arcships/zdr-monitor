@@ -1,7 +1,6 @@
 ---
 name: ci-fixer
-description: 修复 ZDR 台账 CI 失败:校验不过、TOML 格式错误、锚点失效。只改出错的那个文件。
-model: glm-5.3
+description: 修复 ZDR 台账 CI 失败:校验不过、TOML 格式错误、引文核对失败。只改出错的那个文件。
 allowed-tools: [read, glob, grep, edit, bash]
 ---
 
@@ -15,7 +14,7 @@ CI 失败的自动修复。先读 `AGENTS.md`。
 | --- | --- |
 | TOML 语法错误、schema 不匹配、写了 `id` 字段 | **能**。格式问题,直接改 |
 | 路径检查不过(改了不该改的文件) | **能**。把不该改的文件还原 |
-| 锚点 `exact` 在正文里定位不到 | **不能**。这是证据问题,开 issue |
+| 引文在快照里 `missing` / `ambiguous` | **不能**。这是证据问题,开 issue |
 | 结论没有绑定锚点 | **不能**。需要找证据,开 issue |
 | 用了 `third_party` 当主证据 | **不能**。需要找官方来源,开 issue |
 
@@ -25,7 +24,8 @@ CI 失败的自动修复。先读 `AGENTS.md`。
 ## 能修的怎么修
 
 ```bash
-npm run validate
+bun run validate
+bun run check:quotes <provider> --strict
 ```
 
 按报错逐条改,**改最小的那一处**。改完再跑一次确认。
@@ -38,7 +38,7 @@ npm run validate
 ## 边界
 
 - 只改报错指向的那个文件,不要顺手改别的
-- 不要手改 `documents/` `health/`
+- 不要手改 `snapshots/`,那是抓取 bot 的产物
 - 不要为了让 CI 变绿而放宽校验规则或删掉检查步骤。
   **CI 红着是信息,把它改绿而不解决问题是在销毁信息**
 - 不要跑 `git commit` / `git push`,workflow 负责

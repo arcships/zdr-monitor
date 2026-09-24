@@ -1,0 +1,120 @@
+name: 快照
+
+# 对应 models.dev 的 sync-models.yml：每个 provider 一个 job，抓它引用的来源，
+# 有变化就推到固定分支 automation/snapshot-<provider>、原地更新同一个 PR。
+# 快照是观察记录，默认自动合并；合并后 review-issues.yml 给这个 provider 开复核 issue。
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+    inputs:
+      providers:
+        description: 只抓哪些 provider（空格分隔，留空 = 全部）
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  providers:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.providers.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - id: providers
+        env:
+          ONLY: ${{ inputs.providers }}
+        run: |
+          set -euo pipefail
+          matrix="$(bun run --silent snapshot --list-providers)"
+          if [ -n "$ONLY" ]; then
+            matrix="$(jq -c --arg only "$ONLY" '($only | split(" ") | map(select(. != ""))) as $o
+              | .include |= map(select(.provider as $p | $o | index($p)))' <<<"$matrix")"
+          fi
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  snapshot:
+    needs: providers
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix: ${{ fromJSON(needs.providers.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - id: committer
+        uses: ./.github/actions/setup-git-committer
+        with:
+          app-id: ${{ vars.ZDR_APP_ID }}
+          private-key: ${{ secrets.ZDR_APP_PRIVATE_KEY }}
+          token: ${{ secrets.ZDR_BOT_TOKEN }}
+
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-1.49.1
+      - run: bunx playwright-core@1.49.1 install --with-deps chromium
+
+      - name: 抓取
+        env:
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: bun run snapshot "${{ matrix.provider }}"
+
+      - name: 汇报并更新 PR
+        env:
+          GH_TOKEN: ${{ steps.committer.outputs.token }}
+          PROVIDER: ${{ matrix.provider }}
+          BRANCH: automation/snapshot-${{ matrix.provider }}
+          TITLE: "snapshot: ${{ matrix.provider }}"
+        run: |
+          set -euo pipefail
+          tee -a "$GITHUB_STEP_SUMMARY" < .sync/snapshot-report.md >/dev/null
+
+          if [ -z "$(git status --porcelain --untracked-files=all -- snapshots)" ]; then
+            echo "没有快照变化"
+            exit 0
+          fi
+          while IFS= read -r line; do
+            case "${line:3}" in snapshots/*) ;; *) echo "抓取不应修改 ${line:3}" >&2; exit 1 ;; esac
+          done < <(git status --porcelain --untracked-files=all)
+
+          gh label create snapshot --color 1d76db --description "抓取 bot 带来的快照变化" --force >/dev/null
+          git fetch --no-tags --depth=1 origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH" || true
+          git checkout -B "$BRANCH"
+          git add snapshots
+          git commit -m "$TITLE"
+          bun run snapshot:auto-merge "$PROVIDER" HEAD^ HEAD
+          safe="$(sed -n 's/^safe=//p' "$GITHUB_OUTPUT" | tail -1)"
+          git push --force-with-lease origin "$BRANCH"
+
+          pr="$(gh pr list --head "$BRANCH" --base main --json number --jq '.[0].number')"
+          if [ -n "$pr" ]; then
+            gh pr edit "$pr" --title "$TITLE" --body-file .sync/snapshot-report.md
+          else
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file .sync/snapshot-report.md --label snapshot
+            pr="$(gh pr list --head "$BRANCH" --base main --json number --jq '.[0].number')"
+          fi
+
+          if [ "$safe" = "true" ]; then
+            # 没配 required checks 时 --auto 会被拒，退回直接合并
+            gh pr merge "$pr" --auto --squash || gh pr merge "$pr" --squash
+          else
+            gh pr merge "$pr" --disable-auto >/dev/null 2>&1 || true
+          fi

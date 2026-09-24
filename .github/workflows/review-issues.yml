@@ -1,0 +1,47 @@
+name: 派发复核
+
+# 快照 PR 合并后，给这个 provider 开一个 [policy-review] issue 交给 issue-fixer。
+# 手动触发时开 [full-review]：每个 provider 一个 issue、一个 agent。
+# 对应 models.dev 同步时开 [missing-model] issue 再派发 issue-fixer。
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      providers:
+        description: 全量复核哪些 provider（空格分隔，留空 = 全部）
+        required: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: read
+
+jobs:
+  open:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged && startsWith(github.head_ref, 'automation/snapshot-'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: 开 issue 并派发
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ github.head_ref }}
+          PR: ${{ github.event.pull_request.number }}
+          PROVIDERS: ${{ inputs.providers }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            # shellcheck disable=SC2086
+            bun run review:issues --full $PROVIDERS
+          else
+            bun run review:issues "${HEAD_REF#automation/snapshot-}" --pr "$PR"
+          fi

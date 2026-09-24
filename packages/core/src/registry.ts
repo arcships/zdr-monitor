@@ -15,6 +15,9 @@ export interface Source {
   tier: "core" | "contradiction"
   note?: string
   note_en?: string
+  /** 抓取方式。默认 direct；JS 渲染页用 browser；数据中心 IP 被挡的用 jina。
+   *  由校准结果决定，不是按域名猜。 */
+  fetch?: "direct" | "browser" | "jina"
 }
 
 export interface Anchor {

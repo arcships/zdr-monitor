@@ -10,8 +10,7 @@
 import { loadAll, type Anchor, type Product } from "../registry"
 import { loadSources } from "../sources"
 import { loadChanges, type PolicyChange } from "../changes"
-import { readHealth } from "../sync/health"
-import { currentVersion } from "../sync/store"
+import { snapshotDates } from "../snapshot"
 import { badgeEn, composeBadge, normalizeCodes, summarize, terse } from "./vocabulary"
 
 export const DIMENSIONS = ["training", "zdr", "retention", "processing_region", "role"] as const
@@ -84,10 +83,9 @@ export interface Detail {
     channel: string
     note: string
     tier: string
-    current_version: string | null
-    version_observed_at: string | null
-    version_origin: "fetch" | "import" | null
-    failure: { failed_at: string; consecutive_failures: number; verdict: string } | null
+    /** 快照正文最后一次变化的日期（来自 git 历史）。抓取失败不动快照，
+     *  所以这里始终是最后一份成功抓到的原文的日期；还没有快照是 null。 */
+    snapshot_at: string | null
   }>
   changes: PolicyChange[]
   /** 这一档来自哪个 provider 文件。同一家公司拆成多个文件时，
@@ -123,7 +121,7 @@ export interface Catalog {
   /** provider id → 聚合后的 detail id。没配 company 的指向自己。 */
   aliases: Map<string, string>
   changes: PolicyChange[]
-  monitoring: { sources: number; with_snapshot: number; failing: number }
+  monitoring: { sources: number; with_snapshot: number }
   /** 没有任何可展示结论的格子。界面上不该出现占位符,
    *  缺了是数据的问题,由这里暴露出来 */
   missing: string[]
@@ -155,6 +153,7 @@ export function compile(root: string): Catalog {
   const sourceList = loadSources(root)
   const byId = new Map(sourceList.map((s) => [s.id, s]))
   const changes = loadChanges(root)
+  const snapshotAt = snapshotDates(root)
   const changesByProvider = new Map<string, PolicyChange[]>()
   for (const change of changes)
     changesByProvider.set(change.provider, [...(changesByProvider.get(change.provider) || []), change])
@@ -251,28 +250,18 @@ export function compile(root: string): Catalog {
     // 这家全部被监控的文档。判定只引用其中几份,但证据条目里会提到别的
     // （「产品协议 §12.8」「通用条款 §6.6」）,不列出来就没法查证。
     const docs = sources
-      .map((x) => {
-        const version = currentVersion(root, x.id)
-        const failure = readHealth(root, x.id)
-        return {
-          source_id: x.id,
-          line_id: provider.id,
-          line,
-          line_en,
-          url: x.url,
-          channel: x.channel,
-          note: x.note || "",
-          note_en: x.note_en || "",
-          tier: x.tier,
-          current_version: version?.version_id ?? null,
-          version_observed_at: version?.first_seen_at ?? null,
-          // 搬来的基线和本管线抓的要能分辨——前者还没被本管线亲自抓过一次
-          version_origin: version?.origin ?? null,
-          failure: failure
-            ? { failed_at: failure.failed_at, consecutive_failures: failure.consecutive_failures, verdict: failure.verdict }
-            : null,
-        }
-      })
+      .map((x) => ({
+        source_id: x.id,
+        line_id: provider.id,
+        line,
+        line_en,
+        url: x.url,
+        channel: x.channel,
+        note: x.note || "",
+        note_en: x.note_en || "",
+        tier: x.tier,
+        snapshot_at: snapshotAt.get(x.id) ?? null,
+      }))
       .sort((a, b) => a.channel.localeCompare(b.channel) || a.url.localeCompare(b.url))
 
     details.set(provider.id, {
@@ -321,8 +310,7 @@ export function compile(root: string): Catalog {
   }
 
   rows.sort((a, b) => a.name.localeCompare(b.name, "zh") || a.id.localeCompare(b.id))
-  const withSnapshot = sourceList.filter((source) => currentVersion(root, source.id)).length
-  const failing = sourceList.filter((source) => readHealth(root, source.id)).length
+  const withSnapshot = sourceList.filter((source) => snapshotAt.has(source.id)).length
   return {
     generated_at: new Date().toISOString(),
     dimensions: DIMENSIONS,
@@ -330,7 +318,7 @@ export function compile(root: string): Catalog {
     details: merged,
     aliases,
     changes,
-    monitoring: { sources: sourceList.length, with_snapshot: withSnapshot, failing },
+    monitoring: { sources: sourceList.length, with_snapshot: withSnapshot },
     missing,
   }
 }

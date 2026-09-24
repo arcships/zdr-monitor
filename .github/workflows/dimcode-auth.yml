@@ -1,0 +1,68 @@
+name: DimCode 登录态续期
+
+# agent job 用的是 secrets.DIMCODE_AUTH_JSON 里的 OAuth 登录态。访问令牌 7 天过期，刷新令牌会轮换，
+# runner 上续出来的新令牌不写回就丢了。所以续期只在这里做：串行、写回 secret，
+# 其余 job 只读 secret、令牌不够新就失败（见 .github/actions/setup-dimcode）。
+
+on:
+  schedule:
+    - cron: "23 */12 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 不管还剩多久都续期
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dimcode-auth
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # GITHUB_TOKEN 不能写 secret：用 GitHub App（需要 Secrets: Read and write 权限）或 ZDR_BOT_TOKEN
+      - id: app
+        uses: ./.github/actions/setup-git-committer
+        with:
+          app-id: ${{ vars.ZDR_APP_ID }}
+          private-key: ${{ secrets.ZDR_APP_PRIVATE_KEY }}
+          token: ${{ secrets.ZDR_BOT_TOKEN }}
+          permission-secrets: write
+
+      - uses: ./.github/actions/setup-dimcode
+        with:
+          auth-json: ${{ secrets.DIMCODE_AUTH_JSON }}
+          models-json: ${{ secrets.DIMCODE_MODELS_JSON }}
+          min-hours: "0"
+
+      - name: 续期并写回 secret
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          FORCE: ${{ inputs.force || false }}
+        run: |
+          set -euo pipefail
+          dir="$HOME/.dimcode/v2"
+          left="$(jq -r '((.nextApiOauth.expires // 0) / 1000 - now) | floor' "$dir/auth.json")"
+          if [ "$FORCE" != "true" ] && [ "$left" -gt $((3 * 86400)) ]; then
+            echo "还剩 $((left / 3600)) 小时，不续"
+            exit 0
+          fi
+          before="$(jq -r .dimAccountState.credentialRevision "$dir/auth.json")"
+          # 已登录时 auth login 用刷新令牌换发新令牌；登录态失效时它会等浏览器授权，用 timeout 兜住
+          timeout 120 dim auth login < /dev/null
+          after="$(jq -r .dimAccountState.credentialRevision "$dir/auth.json")"
+          if [ "$after" = "$before" ]; then
+            echo "::error::令牌没有换发，登录态可能已失效，需要按 docs/maintenance.md 重新登录"
+            exit 1
+          fi
+          dim auth status
+          gh secret set DIMCODE_AUTH_JSON --repo "$GITHUB_REPOSITORY" < "$dir/auth.json"
+          gh secret set DIMCODE_MODELS_JSON --repo "$GITHUB_REPOSITORY" < "$dir/dim-oauth-models.json"
+          echo "已续期到 $(jq -r '.nextApiOauth.expires / 1000 | todate' "$dir/auth.json")"

@@ -5,8 +5,8 @@
 There is no single place to compare these policies across providers and plans. We built zdr so every explicit verdict can be checked against the vendor's own words, and those source documents can be monitored for change.
 
 ```
-83 companies · 307 plans · 1535 verdicts · 2591 anchored quotes
-558 source documents, re-fetched daily and diffed against the stored snapshot
+83 companies · 313 plans · 1565 verdicts · 3373 anchored quotes
+558 source documents, re-fetched daily; changes arrive as snapshot pull requests
 ```
 
 A `✗` means the vendor makes no explicit public commitment on that dimension.
@@ -42,7 +42,7 @@ Plan IDs are the stable lookup key. Do not merge plans by company name: individu
 | [`/_catalog.json`](https://arcships.github.io/zdr-monitor/_catalog.json) | Compact catalog with one row per plan; start here for one-off queries |
 | [`/p/<company>.json`](https://arcships.github.io/zdr-monitor/p/cursor.json) | One company's plans, evidence, sources, and confirmed changes |
 | [`/_changes.json`](https://arcships.github.io/zdr-monitor/_changes.json) | Agent-confirmed policy changes |
-| [`/_meta.json`](https://arcships.github.io/zdr-monitor/_meta.json) | Generation time, dimensions, and source-monitoring health |
+| [`/_meta.json`](https://arcships.github.io/zdr-monitor/_meta.json) | Generation time, dimensions, snapshot coverage, and confirmed changes |
 | [`/llms.txt`](https://arcships.github.io/zdr-monitor/llms.txt) | Field schema, interpretation rules, and scope for agents |
 
 ### Reading verdicts
@@ -85,40 +85,18 @@ See [`docs/scope.md`](docs/scope.md) for the full inclusion rules.
 
 ### Adding or updating a provider
 
-Research artifacts live in `.verify/`, a gitignored staging area. A source is
-only registered in `providers/` once its baseline snapshot exists and every
-quote resolves against it — otherwise the ledger fills up with citations that
-were never verifiable.
-
-**A new provider:**
-
-1. Find the current official contracts, privacy policies, data-use
-   documentation, and plan-specific terms.
-2. Curate those URLs and the draft verdicts into `.verify/<provider-id>/`.
-3. Build the baseline snapshots, then import once every `exact` resolves:
-
-   ```bash
-   bun run research:fetch -- <provider-id> --dry-run
-   bun run research:fetch -- <provider-id>
-   bun run research:import -- <provider-id> --dry-run
-   bun run research:import -- <provider-id>
-   ```
-
-   `research:import` fails as a whole if a baseline is missing or a quote does
-   not resolve, so a provider cannot land half-verified.
-
-**An existing provider** is edited directly in `providers/<provider-id>.toml`.
-Add sources, add one `[[product]]` per distinct plan, record all five
-dimensions, then refresh and verify:
+Edit `providers/<provider-id>.toml` directly. Add the official sources as
+`[[source]]` entries, one `[[product]]` per distinct plan, and all five
+dimensions. Quotes only count once they resolve against the bot-fetched snapshot
+in `snapshots/<source_id>.md`, so fetch before you cite:
 
 ```bash
-bun run fetch -- <provider-id>        # expands to every source it declares
-bun run verify:anchors
+bun run snapshot <provider-id>          # fetch every source the provider declares
+bun run check:quotes <provider-id>      # every exact must resolve to exactly one place
 ```
 
-Bind explicit conclusions to verbatim `[[anchor]]` excerpts from the saved
-snapshot. For an `unknown` verdict, record the official pages checked in
-`searched`. Then:
+Bind explicit conclusions to verbatim `[[anchor]]` excerpts from the snapshot.
+For an `unknown` verdict, record the official pages checked in `searched`. Then:
 
 ```bash
 bun run validate
@@ -127,7 +105,8 @@ bun run typecheck
 bun run build
 ```
 
-Do not edit `documents/` or `health/` by hand. They are generated monitoring artifacts; `documents/` contains immutable, content-addressed snapshots.
+Do not edit `snapshots/` by hand. It is written only by the fetch bot, and CI
+rejects snapshot changes on other branches; version history is the git history.
 
 ### Provider schema
 
@@ -181,8 +160,7 @@ Open an issue with the official URL, affected plan, dimension, and exact source 
 
 Maintenance and monitoring details are documented in:
 
-- [`sync.md`](sync.md) — initial research, daily fetching, anchor verification, and change confirmation
-- [`docs/maintenance.md`](docs/maintenance.md) — CI and agent maintenance workflow
+- [`docs/maintenance.md`](docs/maintenance.md) — daily fetching, snapshot PRs, DimCode agent review, and full audits
 - [`AGENTS.md`](AGENTS.md) — mandatory evidence rules for contributors and agents
 
 ## License
