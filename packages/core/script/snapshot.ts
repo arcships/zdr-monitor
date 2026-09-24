@@ -4,7 +4,7 @@
  *    bun run snapshot --list-providers    输出 CI matrix
  *    bun run snapshot <provider>          只抓这个 provider 引用的来源（CI 每个 job 一个）
  *    bun run snapshot                     全部来源（本地用）
- *    bun run snapshot <provider> --dry-run
+ *    bun run snapshot <provider> --dry-run   不写快照；跟快照不一样的正文留在 .sync/fetched/
  *
  *  报告写到 .sync/snapshot-report.md，CI 拿它当 PR 正文和运行摘要。
  *  抓取失败不写快照，只进报告——失败是关于我们的事实，不是关于厂商的。 */
