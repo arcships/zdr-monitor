@@ -42,7 +42,16 @@ const lines = [
   "| --- | ---: |",
   ...Object.entries(counts).map(([k, v]) => `| ${k} | ${v} |`),
 ]
-if (changed.length) lines.push("", "### 正文变化", "", ...changed.map((r) => `- ${r.outcome}: ${r.url} → \`snapshots/${r.source_id}.md\``))
+if (changed.length)
+  lines.push(
+    "",
+    "### 正文变化",
+    "",
+    ...changed.flatMap((r) => [
+      `- ${r.outcome}: ${r.url} → \`snapshots/${r.source_id}.md\``,
+      ...(r.reasons ?? []).slice(0, 8).map((x) => `  - ${x}`),
+    ]),
+  )
 if (quotes.length)
   lines.push("", "### 变化来源上需要处理的引文", "", ...quotes.map((c) => `- ${c.state} \`${c.provider_id}/${c.anchor_id}\`：${clip(c.exact)}`))
 if (failed.length)

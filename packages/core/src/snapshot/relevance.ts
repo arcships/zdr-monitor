@@ -1,12 +1,13 @@
-/** 快照变化值不值得叫 agent 复核。
+/** 快照 diff 的门槛：新抓回的正文跟上一版比，变化跟我们引用过的内容有关才算变化、才重写快照。
  *
- *  快照总是照常更新；这里只决定要不要开 [policy-review] issue。门槛是变化的正文行
- *  碰到了跟五个维度有关的内容。页面装修（相关文章换了推荐、时间戳、标题、侧栏）不算，
- *  同一句话换个缩写（Zero Data Retention → ZDR）也不算。 */
-import { spawnSync } from "node:child_process"
-import path from "node:path"
-import { loadProvider } from "../registry"
-import { fold, locate } from "./quote"
+ *  一个 provider 当天只要有一份快照被重写，就会走一轮快照 PR → CI → 复核 issue → agent
+ *  （按 provider 合并，每天最多一轮）。页面装修（相关文章换了推荐、时间戳、标题、侧栏、
+ *  cookie 横幅）和同一句话换个缩写（Zero Data Retention → ZDR）不该触发这一轮。
+ *  这类变化不写快照，快照停在上一版有意义的正文上。 */
+import type { Anchor } from "../registry"
+import { fold, locate, occurrences, quoteKey } from "./quote"
+
+type Selector = Anchor["selector"]
 
 /** 跟五个维度有关的词。英文按词边界匹配，免得 log 命中 blog、login */
 export const POLICY = new RegExp(
@@ -118,33 +119,61 @@ export function policyChanges(before: string, after: string) {
     .map(({ shown }) => shown)
 }
 
-export interface Assessment {
-  /** 原本能定位、这次失效的引文 */
-  lost: string[]
-  /** 碰到五个维度的变化行 */
-  hits: string[]
+/** 这个来源上我们关心什么：绑在它上面的引文，以及它是不是某条 unknown 结论查过的页面 */
+export interface Watch {
+  anchors: Selector[]
+  searched: boolean
 }
 
-/** 比较 base..head 之间这个 provider 的快照变化。新来源的第一份快照不算变化：
- *  它的引文由加来源的那次复核负责。 */
-export function assess(root: string, provider: string, base: string, head: string): Assessment {
-  const git = (...args: string[]) => spawnSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 })
-  const show = (rev: string, file: string) => {
-    const r = git("show", `${rev}:${file}`)
-    return r.status === 0 ? r.stdout.replace(/^<!--.*?-->\n/, "") : null
+/** 引文在折叠正文里的起点；定位不到唯一一处就是 -1。跟 locate 同一套规则 */
+function position(folded: string, selector: Selector) {
+  const key = quoteKey(selector.exact)
+  const n = locate(folded, selector)
+  if (!key || n !== 1) return -1
+  if (occurrences(folded, selector.exact) === 1) return folded.indexOf(key)
+  const prefix = quoteKey(selector.prefix ?? "")
+  if (prefix) {
+    const i = folded.indexOf(prefix + key)
+    if (i >= 0 && folded.indexOf(prefix + key, i + 1) < 0) return i + prefix.length
   }
-  const { anchors } = loadProvider(root, provider)
-  const files = git("diff", "--name-only", "--no-renames", base, head, "--", "snapshots").stdout.split("\n").filter(Boolean)
-  const lost: string[] = []
-  const hits: string[] = []
-  for (const file of files) {
-    const id = path.basename(file, ".md")
-    const [before, after] = [show(base, file), show(head, file)]
-    if (before === null || after === null) continue
-    for (const a of anchors.filter((a) => a.source_id === id))
-      if (locate(fold(before), a.selector) === 1 && locate(fold(after), a.selector) !== 1)
-        lost.push(`\`${file}\` 引文失效：「${a.selector.exact.slice(0, 120)}」`)
-    for (const line of policyChanges(before, after)) hits.push(`\`${file}\` ${line.slice(0, 240)}`)
+  return folded.indexOf(key + quoteKey(selector.suffix ?? ""))
+}
+
+/** 引文前后各几段算它的上下文 */
+const CONTEXT = 3
+
+/** 引文所在的那几段：同一小节里（不跨标题），引文所在段前后各 CONTEXT 段，折叠后拼起来。
+ *  「We do not train on your data」后面加一句「unless you opt in」，引文还在，上下文变了。 */
+function context(text: string, selector: Selector) {
+  const lines = text.split("\n").filter((l) => fold(l))
+  const folded = lines.map(fold)
+  const at = position(folded.join(""), selector)
+  if (at < 0) return null
+  let line = 0
+  for (let offset = 0; line < folded.length && offset + folded[line]!.length <= at; line++) offset += folded[line]!.length
+  const heading = (i: number) => /^#{1,6}\s/.test(lines[i]!)
+  let from = line
+  while (from > 0 && line - from < CONTEXT && !heading(from)) from--
+  let to = line
+  while (to < lines.length - 1 && to - line < CONTEXT && !heading(to + 1)) to++
+  return folded.slice(from, to + 1).join("")
+}
+
+/** 新旧两版之间的变化跟我们引用过的内容有没有关系，返回理由；空数组就是无关（cosmetic）：
+ *    - 引文失效：原本能唯一定位，现在找不到或变成多处
+ *    - 引文上下文变了：引文还在，但它所在的那几段改了
+ *    - 查过的页面有新表述：某条 unknown 结论的 searched 里有这个页面，新增了碰到五个维度的句子 */
+export function relevantChanges(before: string, after: string, watch: Watch): string[] {
+  const reasons: string[] = []
+  for (const a of watch.anchors) {
+    const [was, now] = [context(before, a), context(after, a)]
+    if (was === null) continue
+    const quote = a.exact.slice(0, 100)
+    if (now === null) reasons.push(`引文失效：「${quote}」`)
+    else if (was !== now) reasons.push(`引文上下文变了：「${quote}」`)
   }
-  return { lost, hits }
+  if (watch.searched)
+    for (const line of policyChanges(before, after).filter((l) => l.startsWith("+ ")))
+      reasons.push(`查过的页面新增：${line.slice(2, 200)}`)
+  return reasons
 }

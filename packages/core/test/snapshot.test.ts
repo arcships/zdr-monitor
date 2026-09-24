@@ -118,3 +118,64 @@ test("只有短行（导航、时间戳）变化不算正文变化；长句变�
   expect(sameMaterial(`${clause}\n${other}`, `${other}\n${clause}`)).toBe(false)
   expect(sameMaterial(clause, clause.replace("不会", "会"))).toBe(false)
 })
+
+test("快照 diff：只有跟引文或查过的页面有关的变化才重写快照", async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "zdr-snapshot-"))
+  let body = ""
+  const server = Bun.serve({ port: 0, fetch: () => new Response(body, { headers: { "content-type": "text/html" } }) })
+  const quote = "We do not use data submitted through the API to train our models."
+  const filler = (n: number) => `This paragraph number ${n} explains billing and invoices for the platform in detail.`
+  const page = (opts: { related?: string; after?: string; retention?: string } = {}) =>
+    [
+      "<main>",
+      "<h2>Training</h2>",
+      `<p>${filler(1)}</p>`,
+      `<p>${quote}${opts.after ?? ""}</p>`,
+      `<p>${filler(2)}</p>`,
+      "<h2>Billing</h2>",
+      ...[3, 4, 5, 6, 7].map((n) => `<p>${filler(n)}</p>`),
+      `<p>${opts.retention ?? "Invoices are emailed to the billing contact at the start of each month."}</p>`,
+      `<p>${opts.related ?? "* Using Codex with your plan Learn how to connect Codex to your workspace."}</p>`,
+      "</main>",
+    ].join("")
+  try {
+    const url = `http://localhost:${server.port}/policy`
+    const src = { id: sourceId(url), url }
+    const cited = { anchors: [{ prefix: "", exact: quote, suffix: "" }], searched: false }
+    body = page()
+    expect((await capture(root, src, false, cited)).outcome).toBe("created")
+    const saved = readSnapshot(root, src.id)
+
+    // 离引文很远的小节里换了推荐文章、改了一句话：跟我们引用的无关
+    body = page({ related: "* Data residency Learn how data residency affects storage and regions.", retention: "Invoices are sent to the billing contact on the first business day of each month." })
+    expect((await capture(root, src, false, cited)).outcome).toBe("cosmetic")
+    expect(readSnapshot(root, src.id)).toBe(saved)
+
+    // 引文还在，但它后面多了一句限定：上下文变了
+    body = page({ after: " Unless you opt in to sharing." })
+    const ctx = await capture(root, src, false, cited)
+    expect(ctx.outcome).toBe("changed")
+    expect(ctx.reasons?.[0]).toStartWith("引文上下文变了")
+
+    // 引文本身改了
+    body = page().replace("do not use", "may use")
+    const lost = await capture(root, src, false, cited)
+    expect(lost.outcome).toBe("changed")
+    expect(lost.reasons?.[0]).toStartWith("引文失效")
+
+    // 没有引文、但是 unknown 结论查过的页面：远处新增了保留期限的句子，算新表述
+    body = page()
+    await capture(root, src, false, cited)
+    const searched = { anchors: [], searched: true }
+    body = page({ retention: "API inputs and outputs are retained for up to 30 days to identify abuse, then deleted." })
+    const found = await capture(root, src, false, searched)
+    expect(found.outcome).toBe("changed")
+    expect(found.reasons?.[0]).toStartWith("查过的页面新增")
+
+    // 什么都不关心的来源：正文怎么变都不重写
+    body = page({ retention: "API inputs and outputs are retained for up to 90 days to identify abuse, then deleted." })
+    expect((await capture(root, src)).outcome).toBe("cosmetic")
+  } finally {
+    server.stop(true)
+  }
+})

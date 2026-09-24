@@ -7,10 +7,11 @@
 import { spawnSync } from "node:child_process"
 import fs from "node:fs"
 import path from "node:path"
-import { loadAll, type Source } from "../registry"
+import { loadAll, sourceId, type Source } from "../registry"
 import { closeBrowser, fetchWith, type Method } from "./fetch"
 import { toText, unusable } from "./extract"
 import { fold, locate } from "./quote"
+import { relevantChanges, type Watch } from "./relevance"
 
 export { METHODS, type Method } from "./fetch"
 
@@ -67,13 +68,23 @@ export interface Capture {
   url: string
   method: Method
   status: number
-  /** created = 第一次有快照；changed = 正文变了；same = 没变；failed = 没抓到可用正文 */
-  outcome: "created" | "changed" | "same" | "failed"
+  /** created = 第一次有快照；changed = 正文变了且跟我们引用的内容有关；same = 没变；
+   *  cosmetic = 正文变了但跟引文、查过的页面都无关，不重写快照；failed = 没抓到可用正文 */
+  outcome: "created" | "changed" | "same" | "cosmetic" | "failed"
+  /** changed 的理由：哪条引文失效、哪条引文的上下文变了、查过的页面新增了什么 */
+  reasons?: string[]
   error?: string
   chars?: number
 }
 
-export async function capture(root: string, source: Pick<Source, "id" | "url" | "fetch">, dryRun = false): Promise<Capture> {
+/** watch 是所有 provider 在这个来源上关心的东西，用来判断变化跟我们有没有关系。
+ *  不传就是什么都不关心：正文变了也只记 cosmetic */
+export async function capture(
+  root: string,
+  source: Pick<Source, "id" | "url" | "fetch">,
+  dryRun = false,
+  watch: Watch = { anchors: [], searched: false },
+): Promise<Capture> {
   const method = source.fetch ?? "direct"
   const base = { source_id: source.id, url: source.url, method }
   const raw = await fetchWith(method, source.url)
@@ -88,12 +99,16 @@ export async function capture(root: string, source: Pick<Source, "id" | "url" | 
   if (reason) return { ...base, status: raw.status, outcome: "failed", error: reason }
 
   const previous = readSnapshot(root, source.id)
-  const outcome = previous === null ? "created" : sameMaterial(previous, text) ? "same" : "changed"
-  if (outcome !== "same" && !dryRun) {
-    fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })
-    fs.writeFileSync(snapshotPath(root, source.id), header(source.url) + text + "\n")
+  const reasons = previous === null || sameMaterial(previous, text) ? [] : relevantChanges(previous, text, watch)
+  const outcome =
+    previous === null ? "created" : sameMaterial(previous, text) ? "same" : reasons.length ? "changed" : "cosmetic"
+  if (outcome === "created" || outcome === "changed") {
+    if (!dryRun) {
+      fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })
+      fs.writeFileSync(snapshotPath(root, source.id), header(source.url) + text + "\n")
+    }
   }
-  return { ...base, status: raw.status, outcome, chars: text.length }
+  return { ...base, status: raw.status, outcome, chars: text.length, ...(reasons.length ? { reasons } : {}) }
 }
 
 /** 全部 provider 引用的来源，按 URL 去重。同一 URL 在不同 provider 里声明了不同的
@@ -108,8 +123,23 @@ const CONCURRENCY: Record<Method, number> = { direct: 8, browser: 4, jina: 1 }
 /** jina 免费额度每分钟 20 次。有 key 时额度高得多，但仍然不必抢。 */
 const GAP: Record<Method, number> = { direct: 0, browser: 0, jina: 3200 }
 
+/** 每个来源上各 provider 关心的东西：绑的引文，以及它是否出现在 unknown 结论的 searched 里 */
+export function watches(root: string) {
+  const out = new Map<string, Watch>()
+  const get = (id: string) => out.get(id) ?? out.set(id, { anchors: [], searched: false }).get(id)!
+  for (const { products, anchors } of loadAll(root)) {
+    for (const a of anchors) get(a.source_id).anchors.push(a.selector)
+    for (const product of products)
+      for (const v of Object.values(product as Record<string, any>))
+        for (const url of (v && typeof v === "object" && Array.isArray(v.searched) ? v.searched : []) as string[])
+          get(sourceId(url)).searched = true
+  }
+  return out
+}
+
 export async function snapshotAll(root: string, sources: Source[], options: { dryRun?: boolean; log?: (s: string) => void } = {}) {
   const results: Capture[] = []
+  const watch = watches(root)
   for (const method of ["direct", "browser", "jina"] as Method[]) {
     const queue = sources.filter((s) => (s.fetch ?? "direct") === method)
     let next = 0
@@ -117,9 +147,9 @@ export async function snapshotAll(root: string, sources: Source[], options: { dr
       Array.from({ length: Math.min(CONCURRENCY[method], queue.length) }, async () => {
         while (next < queue.length) {
           const source = queue[next++]!
-          const result = await capture(root, source, options.dryRun)
+          const result = await capture(root, source, options.dryRun, watch.get(source.id))
           results.push(result)
-          options.log?.(`${result.outcome.padEnd(7)} ${method.padEnd(7)} ${source.url}${result.error ? "  " + result.error : ""}`)
+          options.log?.(`${result.outcome.padEnd(8)} ${method.padEnd(7)} ${source.url}${result.error ? "  " + result.error : ""}`)
           if (GAP[method]) await new Promise((r) => setTimeout(r, GAP[method]))
         }
       }),

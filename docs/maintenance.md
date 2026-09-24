@@ -12,7 +12,7 @@ snapshot.yml（每天，按 provider 展开 matrix）
         → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人）
         ↓ 合并
 review-issues.yml
-  变化碰到五个维度才开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
+  开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
         ↓
 issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
   只能改 providers/<provider>.toml 和 changes/<provider>/
@@ -61,10 +61,12 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 revi
 重复长行只留一份。只有短行（菜单、按钮、「Updated 5 minutes ago」）变化不算正文变化，
 不重写快照。抓取失败不写快照，只进 `.sync/snapshot-report.md`。
 
-快照更新不等于叫 agent。`review:issues` 用 `src/snapshot/relevance.ts` 判断，只在变化碰到五个维度时才开复核：
-原本能定位的引文失效，或者变化的句子里出现训练、保留、删除、角色、数据驻留、期限这类词。
-相关文章推荐、页面标题、目录项、侧栏、cookie 横幅、示例代码不算；同一句话换缩写不算；
-「do not use … to train」改成「may use … to train」这种只变了否定/情态词的算。
+只要一个 provider 当天有一份快照被重写，就会走一轮快照 PR → CI → 复核 issue → agent
+（按 provider 合并，每天最多一轮）。为了不让纯装修的变化触发这一轮，diff 本身设了门槛
+（`src/snapshot/relevance.ts`）：新正文跟上一版比，只有这个来源上的引文失效了，或者变化的句子里
+出现训练、保留、删除、角色、数据驻留、期限这类词，才算变化、才重写快照。相关文章推荐、页面标题、
+目录项、侧栏、cookie 横幅、示例代码、同一句话换缩写都记为 `cosmetic`，不写快照；
+「do not use … to train」改成「may use … to train」这种只变了否定/情态词的算变化。
 
 `bun run calibrate` 对每个来源三种方式各抓一次、按引文命中数给出建议，用于新增来源
 或换运行环境（本机和 GitHub runner 的出口 IP 不同）时重新确定 `fetch`。
