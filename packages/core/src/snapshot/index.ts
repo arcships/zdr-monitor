@@ -110,6 +110,11 @@ export async function capture(
       fs.writeFileSync(snapshotPath(root, source.id), header(source.url) + text + "\n")
     }
   }
+  // dry-run 不动快照，但把跟快照不一样的正文留在 .sync/fetched/，供对比哪些站点、哪些行在抖
+  if (dryRun && outcome !== "same") {
+    fs.mkdirSync(path.join(root, ".sync", "fetched"), { recursive: true })
+    fs.writeFileSync(path.join(root, ".sync", "fetched", `${source.id}.md`), header(source.url) + text + "\n")
+  }
   return { ...base, status: raw.status, outcome, chars: text.length, ...(reasons.length ? { reasons } : {}) }
 }
 

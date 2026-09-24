@@ -12,6 +12,10 @@ on:
       providers:
         description: 只抓哪些 provider（空格分隔，留空 = 全部）
         required: false
+      dry_run:
+        description: 只抓不写：不动快照、不开 PR，抓到的正文作为 artifact 上传（校准抽取规则用）
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -75,9 +79,27 @@ jobs:
       - name: 抓取
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
-        run: bun run snapshot "${{ matrix.provider }}"
+          DRY_RUN: ${{ inputs.dry_run && 'true' || '' }}
+        run: |
+          if [ -n "$DRY_RUN" ]; then
+            bun run snapshot "${{ matrix.provider }}" --dry-run
+          else
+            bun run snapshot "${{ matrix.provider }}"
+          fi
+
+      - name: 上传抓到的正文
+        if: inputs.dry_run
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetched-${{ matrix.provider }}
+          path: |
+            .sync/fetched/
+            .sync/snapshot-report.md
+          include-hidden-files: true
+          if-no-files-found: ignore
 
       - name: 汇报并更新 PR
+        if: ${{ !inputs.dry_run }}
         env:
           GH_TOKEN: ${{ steps.committer.outputs.token }}
           PROVIDER: ${{ matrix.provider }}
