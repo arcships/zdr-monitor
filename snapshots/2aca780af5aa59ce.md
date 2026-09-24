@@ -548,11 +548,11 @@ Showcase Blog Cookbook Learn Community
 ShowcaseBlogCookbookLearnCommunityDocsSelect...
 - All posts
 ### Recent
+- Bringing my LED display to life with GPT-Live-1 and Codex
 - Rethinking skills and prompts for GPT-6 Astra
 - Architectural visualization with Astra
 - Building games with Astra
 - Meet Rosalind Workbench: Empowering every scientist to be their own research team
-- Automating repetitive work at OpenAI with Codex
 ### Topics
 - General
 - API
@@ -625,9 +625,9 @@ Modified Abuse Monitoring excludes customer content (other than image and file i
 Zero Data Retention excludes customer content from abuse monitoring logs in the same way as Modified Abuse Monitoring.
 Additionally, Zero Data Retention changes some endpoint behavior: the `store` parameter for `/v1/responses` and `v1/chat/completions` will always be treated as `false`, even if the request attempts to set the value to `true`.
 Besides those specific behavior changes, the endpoints and capabilities listed as No for Zero Data Retention Eligible in the table below may still store application state, even if Zero Data Retention is enabled.
-### Zero Data Retention with Private Safety Processing
+### ZDR with Private Safety Processing
 Zero Data Retention with Private Safety Processing enables OpenAI to perform automated safety monitoring while preserving Zero Data Retention protections. Endpoint and feature limitations listed on this page still apply.
-Customers using Zero Data Retention with Private Safety Processing must configure customer-controlled storage and meet additional technical and operational requirements described in the Zero Data Retention with Private Safety Processing (PSP) guide.
+Customers using ZDR with PSP must configure customer-controlled storage and meet additional technical and operational requirements described in the ZDR with Private Safety Processing guide.
 ### Private Retention with Private Safety Processing (fka Eyes Off)
 For customers approved for Zero Data Retention or Modified Abuse Monitoring, we reserve the right to make models ineligible for Zero Data Retention or Modified Abuse Monitoring for specific customers, as notified in advance to the impacted customers in writing. In this instance, customer content will be retained in encrypted abuse monitoring logs in OpenAI-managed infrastructure, but such content will be excluded from human review unless required by applicable law. For additional information, see Appendix A of the Private Safety Processing technical whitepaper.
 For customers who have executed an OpenAI Business Associate and Healthcare Addendum, once your org ID is provisioned with Private Retention with Private Safety Processing, BAA-eligible endpoints can be used for processing PHI, even if data is retained. Endpoint and feature limitations listed on this page still apply.
