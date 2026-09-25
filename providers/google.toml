@@ -10,7 +10,7 @@ url = "https://ai.google.dev/gemini-api/docs/feedback-policies"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "Gemini API 文档站 Policies › Feedback information(AI Studio Inline Preference Voting,Last updated 2026-04-28)。api 档辅助:反馈路径会记录 prompts/responses 并用于 provide/improve/develop 产品与 ML 技术。verify.py 启发式判 not_policy(行数=2),人工复核为可用正文。"
+note = "Gemini API 文档站 Policies › Feedback(AI Studio 反馈政策,Last updated 2026-09-25)。api 档辅助:反馈路径会记录 prompts/responses(含上传文件或媒体)并用于 provide/improve/develop 产品与 ML 技术;按 surface 分列 Playground / Build(含 Build Arena) / Gemini API Logs。verify.py 启发式判 not_policy(行数=2),人工复核为可用正文。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/logs-policy"
@@ -109,8 +109,8 @@ text_zh = "同一路径上,人工审阅者可读取、标注、处理你分享�
 anchor = "training-optin-human-review"
 
 [[product.training.point]]
-text = "Opt-in path 2 (AI Studio Inline Preference Voting): \"We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about\", and that feedback is used to provide, improve and develop Google products and services and machine learning technologies (docs/feedback-policies). The vote can be skipped when it appears, but that page does not distinguish Paid from Unpaid AI Studio — so the disclosed opt-in paths are two, not one."
-text_zh = "opt-in 路径二(AI Studio 的 Inline Preference Voting):「We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about」,该反馈用于 provide/improve/develop Google 产品、服务与 ML 技术(docs/feedback-policies)。投票出现时可跳过,但该页未按 Paid/Unpaid 区分 AI Studio——故已披露的 opt-in 路径有两条,不是一条。"
+text = "Opt-in path 2 (AI Studio feedback, including Inline Preference Voting): \"We record the prompts and responses, including any uploaded files or media, from the interaction or conversation you submitted feedback about\", and that feedback is used to provide, improve and develop Google products and services and machine learning technologies (docs/feedback-policies). The page lists the feedback surfaces separately — Playground, Build (including Build Arena) and Gemini API Logs, the last being feedback on a single API request log, where the recorded data is that log entry itself (request payload, model response, parameters, metadata). The vote can be skipped when it appears, but that page does not distinguish Paid from Unpaid AI Studio — so the disclosed opt-in paths are two, not one."
+text_zh = "opt-in 路径二(AI Studio 的反馈,含 Inline Preference Voting):「We record the prompts and responses, including any uploaded files or media, from the interaction or conversation you submitted feedback about」,该反馈用于 provide/improve/develop Google 产品、服务与 ML 技术(docs/feedback-policies)。该页按 surface 分列 Playground、Build(含 Build Arena)与 Gemini API Logs——后者是对单条 API 请求日志的反馈,记录内容即该日志条目(请求 payload、模型回复、参数、元数据)。投票出现时可跳过,但该页未按 Paid/Unpaid 区分 AI Studio——故已披露的 opt-in 路径有两条,不是一条。"
 anchor = "training-feedback-records"
 
 [product.zdr]
@@ -929,13 +929,7 @@ source_id = "85310dbc7a6ba1e6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-icipate in Inline Preference Voting:
-Prompts and Responses: """
-exact = "We record all prompts and responses, including any"
-suffix = """
-
-uploaded content, in the conversation you submitted feedbac"""
+exact = "We record the prompts and responses, including any uploaded files or media, from the interaction or conversation you submitted feedback about"
 
 [[anchor]]
 id = "role-gemini-api-paid-processor-service"
@@ -1051,11 +1045,7 @@ source_id = "caee9d2256b1a97d"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-Google Antigravity Additional
-Terms of Service"""
-exact = "If you are accessing the Service through [Gemini Enterprise (Google Cloud)](https://cloud.google.com/terms), [Gemini Enterprise for Business](https://cloud.google.com/terms/gemini-enterprise/business) or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise Agent Platform API Key"
-suffix = ", then you are subject to the terms of use accepted or signed by your administrator applicable to such service"
+exact = "If you are accessing the Service through Gemini Enterprise (Google Cloud), Gemini Enterprise for Business or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise API Key, then you are subject to the terms of use accepted or signed by your administrator applicable to such service (including its applicable terms for downloadable software) and the terms below do not apply to you"
 
 [[anchor]]
 id = "retention-datasets-no-period"
