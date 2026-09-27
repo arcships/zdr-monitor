@@ -119,7 +119,7 @@ test("只有短行（导航、时间戳）变化不算正文变化；长句变�
   expect(sameMaterial(clause, clause.replace("不会", "会"))).toBe(false)
 })
 
-test("快照 diff：只有跟引文有关、或页面新增相关表述的变化才重写快照", async () => {
+test("快照 diff：只有引文失效、或关心的页面上有涉及五个维度的改动才重写快照", async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "zdr-snapshot-"))
   let body = ""
   const server = Bun.serve({ port: 0, fetch: () => new Response(body, { headers: { "content-type": "text/html" } }) })
@@ -151,11 +151,11 @@ test("快照 diff：只有跟引文有关、或页面新增相关表述的变化
     expect((await capture(root, src, false, cited)).outcome).toBe("cosmetic")
     expect(readSnapshot(root, src.id)).toBe(saved)
 
-    // 引文还在，但它后面多了一句限定：上下文变了
+    // 引文还在，但同一句后面多了一句限定：改写里变的词是「unless … opt in」
     body = page({ after: " Unless you opt in to sharing." })
     const ctx = await capture(root, src, false, cited)
     expect(ctx.outcome).toBe("changed")
-    expect(ctx.reasons?.[0]).toStartWith("引文上下文变了")
+    expect(ctx.reasons?.join()).toContain("Unless you opt in")
 
     // 引文本身改了
     body = page().replace("do not use", "may use")
@@ -169,7 +169,7 @@ test("快照 diff：只有跟引文有关、或页面新增相关表述的变化
     body = page({ retention: "API inputs and outputs are retained for up to 30 days to identify abuse, then deleted." })
     const far = await capture(root, src, false, cited)
     expect(far.outcome).toBe("changed")
-    expect(far.reasons?.[0]).toStartWith("页面新增")
+    expect(far.reasons?.[0]).toStartWith("新增")
 
     // 没有引文、但是 unknown 结论查过的页面：同样算
     const other = { id: sourceId(`${url}/faq`), url: `${url}/faq` }
@@ -179,7 +179,7 @@ test("快照 diff：只有跟引文有关、或页面新增相关表述的变化
     body = page({ retention: "API inputs and outputs are retained for up to 30 days to identify abuse, then deleted." })
     const found = await capture(root, other, false, searched)
     expect(found.outcome).toBe("changed")
-    expect(found.reasons?.[0]).toStartWith("页面新增")
+    expect(found.reasons?.[0]).toStartWith("新增")
 
     // 什么都不关心的来源：正文怎么变都不重写
     body = page({ retention: "API inputs and outputs are retained for up to 90 days to identify abuse, then deleted." })

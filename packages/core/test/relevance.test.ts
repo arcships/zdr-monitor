@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { policyChanges } from "../src/snapshot/relevance"
+import { languageFlipped, policyChanges } from "../src/snapshot/relevance"
 
 const page = (...lines: string[]) =>
   ["# Data controls", "Some unrelated paragraph that stays exactly the same across both versions.", ...lines].join("\n")
@@ -61,4 +61,13 @@ test("新增一整节训练条款要复核", () => {
 test("挪位置不算变化", () => {
   const clause = "We will not retain any Content for longer than is necessary to provide the Service."
   expect(policyChanges(page(clause, "Another long paragraph about billing and invoices."), page("Another long paragraph about billing and invoices.", clause))).toEqual([])
+})
+
+test("抓到另一个地区的版本（中文页变全英文）算抓取失败", () => {
+  const cn = "本协议适用于您在中华人民共和国境内使用本服务。本部分数据保护条款所覆盖的地域为中国大陆。".repeat(5)
+  const en = "This Agreement applies to your use of the services outside the territory of the PRC. ".repeat(5)
+  expect(languageFlipped(cn, en)).toBe(true)
+  expect(languageFlipped(en, cn)).toBe(true)
+  expect(languageFlipped(cn, cn + "第二节：API Key 与 Token 计费说明。")).toBe(false)
+  expect(languageFlipped(en, en + " Updated on 2026-09-27.")).toBe(false)
 })

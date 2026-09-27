@@ -5,18 +5,20 @@
  *  cookie 横幅）和同一句话换个缩写（Zero Data Retention → ZDR）不该触发这一轮。
  *  这类变化不写快照，快照停在上一版有意义的正文上。 */
 import type { Anchor } from "../registry"
-import { fold, locate, occurrences, quoteKey } from "./quote"
+import { fold, locate } from "./quote"
 
 type Selector = Anchor["selector"]
 
 /** 跟五个维度有关的词。英文按词边界匹配，免得 log 命中 blog、login */
 export const POLICY = new RegExp(
   [
-    String.raw`\b(train(s|ed|ing)?|retain(s|ed|ing)?|retention|delet(e|es|ed|ion)|purg(e|es|ed)|stored|logs?|logging)\b`,
+    String.raw`\b(train(s|ed|ing)?|retain(s|ed|ing)?|retention|delet(e|es|ed|ion)|purg(e|es|ed)|stored|stores|storing|persist(s|ed|ent|ence)?|logging)\b|\blogs?\b(?!\s*(in|out|into)\b)`,
     String.raw`\b(zero[- ]data[- ]retention|zdr|abuse monitoring|opt[- ]?(out|in)|(sub-?)?processors?|controllers?)\b`,
-    String.raw`\b(data residency|residency|data (center|centre)s?|transfer(s|red)?|region(s|al)?)\b`,
+    String.raw`\b(data residency|residency|data (center|centre)s?|transfer(s|red)?)\b`,
+    // region 单独出现太常见（「Availability varies by region」），要跟处理、存储放在一起才算
+    String.raw`\b(process(ed|ing)?|stor(ed|age)|host(ed|ing)?|resid(e|es|ency))\b[^.]{0,60}\bregions?\b|\bregions?\b[^.]{0,60}\b(process(ed|ing)?|stor(ed|age)|host(ed|ing)?)\b`,
     String.raw`\b\d+\s*(days?|months?|years?|hours?)\b`,
-    String.raw`训练|改进模型|优化模型|保留|留存|保存|存储|删除|日志|零数据|零保留|处理者|控制者|受托|委托处理|境内|境外|出境|跨境|数据中心|\d+\s*(天|日|个月|年)`,
+    String.raw`训练|改进模型|优化模型|保留|留存|保存|存储|持久化|删除|日志|零数据|零保留|处理者|控制者|受托|委托处理|境内|境外|出境|跨境|数据中心|\d+\s*(天|日|个月|年)`,
   ].join("|"),
   "i",
 )
@@ -125,40 +127,6 @@ export interface Watch {
   searched: boolean
 }
 
-/** 引文在折叠正文里的起点；定位不到唯一一处就是 -1。跟 locate 同一套规则 */
-function position(folded: string, selector: Selector) {
-  const key = quoteKey(selector.exact)
-  const n = locate(folded, selector)
-  if (!key || n !== 1) return -1
-  if (occurrences(folded, selector.exact) === 1) return folded.indexOf(key)
-  const prefix = quoteKey(selector.prefix ?? "")
-  if (prefix) {
-    const i = folded.indexOf(prefix + key)
-    if (i >= 0 && folded.indexOf(prefix + key, i + 1) < 0) return i + prefix.length
-  }
-  return folded.indexOf(key + quoteKey(selector.suffix ?? ""))
-}
-
-/** 引文前后各几段算它的上下文 */
-const CONTEXT = 3
-
-/** 引文所在的那几段：同一小节里（不跨标题），引文所在段前后各 CONTEXT 段，折叠后拼起来。
- *  「We do not train on your data」后面加一句「unless you opt in」，引文还在，上下文变了。 */
-function context(text: string, selector: Selector) {
-  const lines = text.split("\n").filter((l) => fold(l))
-  const folded = lines.map(fold)
-  const at = position(folded.join(""), selector)
-  if (at < 0) return null
-  let line = 0
-  for (let offset = 0; line < folded.length && offset + folded[line]!.length <= at; line++) offset += folded[line]!.length
-  const heading = (i: number) => /^#{1,6}\s/.test(lines[i]!)
-  let from = line
-  while (from > 0 && line - from < CONTEXT && !heading(from)) from--
-  let to = line
-  while (to < lines.length - 1 && to - line < CONTEXT && !heading(to + 1)) to++
-  return folded.slice(from, to + 1).join("")
-}
-
 /** 原本能唯一定位、新正文里定位不到的引文。只看引文本身，不管所在行多短——
  *  「本服务不会使用您的数据训练模型。」这种短句改一个字，正文长行可能一行都没变 */
 export function lostAnchors(before: string, after: string, anchors: Selector[]) {
@@ -166,23 +134,28 @@ export function lostAnchors(before: string, after: string, anchors: Selector[]) 
   return anchors.filter((x) => locate(a, x) === 1 && locate(b, x) !== 1).map((x) => `引文失效：「${x.exact.slice(0, 100)}」`)
 }
 
-/** 新旧两版之间的变化跟我们引用过的内容有没有关系，返回理由；空数组就是无关（cosmetic）：
- *    - 引文失效：原本能唯一定位，现在找不到或变成多处
- *    - 引文上下文变了：引文还在，但它所在的那几段改了
- *    - 页面有新表述：我们引用过、或某条 unknown 结论查过的页面，新增了碰到五个维度的句子。
- *      新句子离引文再远也算——「默认情况下每个请求的输入和回复都会持久化存储」这种新披露
- *      不在任何引文旁边，却直接关系到保留期 */
-export function relevantChanges(before: string, after: string, watch: Watch): string[] {
-  const reasons: string[] = []
-  for (const a of watch.anchors) {
-    const [was, now] = [context(before, a), context(after, a)]
-    if (was === null) continue
-    const quote = a.exact.slice(0, 100)
-    if (now === null) reasons.push(`引文失效：「${quote}」`)
-    else if (was !== now) reasons.push(`引文上下文变了：「${quote}」`)
+/** 抓回的正文整体换了语种：中文页突然变成全英文（或反过来）。多半是按 IP 返回了另一个地区的
+ *  版本——runner 在境外时，境内协议页会给境外版。这不是厂商改了条款，是我们没抓到对的页面，
+ *  按抓取失败处理，快照保持上一次成功的内容。 */
+export function languageFlipped(before: string, after: string) {
+  const ratio = (t: string) => {
+    const cjk = t.match(/[\u4e00-\u9fff]/g)?.length ?? 0
+    const latin = t.match(/[a-z]/gi)?.length ?? 0
+    return cjk + latin ? cjk / (cjk + latin / 4) : 0
   }
+  return Math.abs(ratio(before) - ratio(after)) > 0.5
+}
+
+/** 新旧两版之间的变化跟我们有没有关系，返回理由；空数组就是无关（cosmetic）：
+ *    - 引文失效：原本能唯一定位，现在找不到或变成多处
+ *    - 页面上涉及五个维度的改动：只看我们引用过、或某条 unknown 结论查过的页面。新增、删除、改写都算；
+ *      改写只看真正变了的词（policyChanges），所以引文旁边加一句「unless you opt in」会算，
+ *      同一行里换了个 URL、导航改了名、页脚促销提到 region 都不算
+ *  没人关心的来源返回空：正文怎么变都不触发。 */
+export function relevantChanges(before: string, after: string, watch: Watch): string[] {
+  const reasons = lostAnchors(before, after, watch.anchors)
   if (watch.searched || watch.anchors.length)
-    for (const line of policyChanges(before, after).filter((l) => l.startsWith("+ ")))
-      reasons.push(`页面新增：${line.slice(2, 200)}`)
+    for (const line of policyChanges(before, after))
+      reasons.push(`${line.startsWith("+ ") ? "新增" : "删除"}：${line.slice(2, 200)}`)
   return reasons
 }
