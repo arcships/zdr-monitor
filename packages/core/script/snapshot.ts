@@ -25,6 +25,7 @@ const target = args.find((a) => !a.startsWith("-"))
 const sources = target ? loadProvider(root, target).sources : allSources(root)
 const results = await snapshotAll(root, sources, {
   dryRun: args.includes("--dry-run"),
+  provider: target,
   log: (line) => console.error(line),
 })
 

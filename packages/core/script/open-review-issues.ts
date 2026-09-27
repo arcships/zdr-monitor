@@ -82,12 +82,20 @@ for (const provider of providers) {
   await $`gh label create ${`provider:${provider}`} --color c5def5 --force`.quiet()
   // 失败即停：拿不到完整列表就不开，免得重复开同一个 issue。
   const existing = JSON.parse(
-    await $`gh issue list --state all --label ${kind} --label ${`provider:${provider}`} --limit ${LIMIT} --json number,title`.quiet().text(),
-  ) as { number: number; title: string }[]
+    await $`gh issue list --state all --label ${kind} --label ${`provider:${provider}`} --limit ${LIMIT} --json number,title,state`.quiet().text(),
+  ) as { number: number; title: string; state: string }[]
   if (existing.length >= LIMIT) throw new Error(`issue 列表达到上限 ${LIMIT}，拒绝在不完整的去重列表上开 issue`)
   const found = existing.find((i) => i.title === issue.title)
   if (found) {
     console.log(`已有 #${found.number}：${issue.title}`)
+    continue
+  }
+  // 这家上一次的复核还开着（agent 在跑，或者它的 PR 在等人合）：不再开第二个 issue、派第二个 agent，
+  // 把这次的快照 PR 记在那个 issue 下，复核和合并时一起看。否则同一家会叠出好几个互相冲突的 PR。
+  const pending = kind === "policy-review" ? existing.find((i) => i.state === "OPEN") : undefined
+  if (pending) {
+    await $`gh issue comment ${pending.number} --body ${`又一次快照变化：${issue.title.replace(/^.*snapshot /, "")}，复核和合并时一并确认。\n\n${issue.body}`}`.quiet()
+    console.log(`#${pending.number} 还开着，记到它下面：${issue.title}`)
     continue
   }
   const url = (

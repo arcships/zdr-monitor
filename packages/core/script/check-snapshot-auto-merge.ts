@@ -9,7 +9,7 @@
 import { $ } from "bun"
 import { appendFile } from "node:fs/promises"
 import path from "node:path"
-import { loadProvider } from "../src/registry"
+import { loadAll } from "../src/registry"
 import { fold, locate } from "../src/snapshot/quote"
 
 const root = path.join(import.meta.dirname, "..", "..", "..")
@@ -27,22 +27,26 @@ const show = async (rev: string, file: string) => {
   return r.exitCode === 0 ? fold(r.stdout.toString().replace(/^<!--.*?-->\n/, "")) : null
 }
 
-const { anchors } = loadProvider(root, provider)
-let broken = 0
-let watched = 0
+// 快照是多家共用的：同一份快照上所有 provider 的引文一起算，按来源判断。
+// 只数本家会漏——#293 里 xiaomi-token-plan-cn 自己只丢了 3 条、没过阈值，
+// 同一份快照上 xiaomi 的 5 条也一起丢了，合并后两家的引文都坏了。
+const anchorsBySource = new Map<string, { provider: string; selector: { prefix?: string; exact: string; suffix?: string } }[]>()
+for (const { provider: p, anchors } of loadAll(root))
+  for (const a of anchors) anchorsBySource.set(a.source_id, [...(anchorsBySource.get(a.source_id) ?? []), { provider: p.id, selector: a.selector }])
 for (const file of files.filter((f) => f.startsWith("snapshots/"))) {
   const id = path.basename(file, ".md")
   const [before, after] = await Promise.all([show(base, file), show(head, file)])
   if (before === null || after === null) continue
-  for (const a of anchors.filter((a) => a.source_id === id)) {
-    watched++
-    if (locate(before, a.selector) === 1 && locate(after, a.selector) !== 1) broken++
+  const anchors = anchorsBySource.get(id) ?? []
+  const broken = anchors.filter((a) => locate(before, a.selector) === 1 && locate(after, a.selector) !== 1)
+  // 一两条引文失效是正常的政策变化，交给 issue-fixer；成片失效更可能是抽取坏了、或抓到了别的地区版本。
+  if (broken.length > Math.max(3, anchors.length / 2)) {
+    const owners = [...new Set(broken.map((a) => a.provider))].join("、")
+    reasons.push(`\`${file}\` 上 ${broken.length}/${anchors.length} 条原本能定位的引文失效（${owners}），疑似抽取出错`)
   }
 }
-// 一两条引文失效是正常的政策变化，交给 issue-fixer；成片失效更可能是抽取坏了。
-if (broken > Math.max(3, watched / 2)) reasons.push(`${broken}/${watched} 条原本能定位的引文失效，疑似抽取出错`)
 
 const safe = reasons.length === 0
-const summary = safe ? `可以自动合并：${files.length} 个快照，${broken} 条引文失效。` : `需要人工确认：${reasons.join("；")}。`
+const summary = safe ? `可以自动合并：${files.length} 个快照。` : `需要人工确认：${reasons.join("；")}。`
 console.log(summary)
 if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `safe=${safe}\nsummary=${summary}\n`)

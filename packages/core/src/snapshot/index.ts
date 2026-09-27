@@ -11,7 +11,7 @@ import { loadAll, sourceId, type Source } from "../registry"
 import { closeBrowser, fetchWith, type Method } from "./fetch"
 import { toText, unusable } from "./extract"
 import { fold, locate } from "./quote"
-import { lostAnchors, relevantChanges, type Watch } from "./relevance"
+import { languageFlipped, lostAnchors, relevantChanges, type Watch } from "./relevance"
 
 export { METHODS, type Method } from "./fetch"
 
@@ -77,6 +77,22 @@ export interface Capture {
   chars?: number
 }
 
+/** 新抓回的正文跟上一版快照比，该怎么处理。纯函数，回放历史用的也是它。 */
+export function judge(
+  previous: string | null,
+  text: string,
+  watch: Watch,
+): { outcome: "created" | "changed" | "same" | "cosmetic"; reasons: string[] } | { outcome: "failed"; error: string } {
+  if (previous === null) return { outcome: "created", reasons: [] }
+  if (languageFlipped(previous, text)) return { outcome: "failed", error: "language_flipped" }
+  // 引文失效先查、单独查：它不受「只有短行变了不算变化」的约束，短行上的引文改了也要重写快照
+  const lost = lostAnchors(previous, text, watch.anchors)
+  const material = !sameMaterial(previous, text)
+  if (!lost.length && !material) return { outcome: "same", reasons: [] }
+  const reasons = material ? relevantChanges(previous, text, watch) : lost
+  return { outcome: reasons.length ? "changed" : "cosmetic", reasons }
+}
+
 /** watch 是所有 provider 在这个来源上关心的东西，用来判断变化跟我们有没有关系。
  *  不传就是什么都不关心：正文变了也只记 cosmetic */
 export async function capture(
@@ -99,11 +115,9 @@ export async function capture(
   if (reason) return { ...base, status: raw.status, outcome: "failed", error: reason }
 
   const previous = readSnapshot(root, source.id)
-  // 引文失效先查、单独查：它不受「只有短行变了不算变化」的约束，短行上的引文改了也要重写快照
-  const lost = previous === null ? [] : lostAnchors(previous, text, watch.anchors)
-  const same = previous !== null && !lost.length && sameMaterial(previous, text)
-  const reasons = previous === null || same ? [] : lost.length && sameMaterial(previous, text) ? lost : relevantChanges(previous, text, watch)
-  const outcome = previous === null ? "created" : same ? "same" : reasons.length ? "changed" : "cosmetic"
+  const verdict = judge(previous, text, watch)
+  if (verdict.outcome === "failed") return { ...base, status: raw.status, outcome: "failed", error: verdict.error }
+  const { outcome, reasons } = verdict
   if (outcome === "created" || outcome === "changed") {
     if (!dryRun) {
       fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })
@@ -131,10 +145,13 @@ const CONCURRENCY: Record<Method, number> = { direct: 8, browser: 4, jina: 1 }
 const GAP: Record<Method, number> = { direct: 0, browser: 0, jina: 3200 }
 
 /** 每个来源上各 provider 关心的东西：绑的引文，以及它是否出现在 unknown 结论的 searched 里 */
-export function watches(root: string) {
+export function watches(root: string, only?: string) {
   const out = new Map<string, Watch>()
   const get = (id: string) => out.get(id) ?? out.set(id, { anchors: [], searched: false }).get(id)!
-  for (const { products, anchors } of loadAll(root)) {
+  for (const { provider, products, anchors } of loadAll(root)) {
+    // 每个 matrix job 只按本 provider 关心的内容判断要不要写快照、开 PR：
+    // 多家共用一份快照时，一次改动不会给每家都开一个复核 issue
+    if (only && provider.id !== only) continue
     for (const a of anchors) get(a.source_id).anchors.push(a.selector)
     for (const product of products)
       for (const v of Object.values(product as Record<string, any>))
@@ -144,9 +161,13 @@ export function watches(root: string) {
   return out
 }
 
-export async function snapshotAll(root: string, sources: Source[], options: { dryRun?: boolean; log?: (s: string) => void } = {}) {
+export async function snapshotAll(
+  root: string,
+  sources: Source[],
+  options: { dryRun?: boolean; provider?: string; log?: (s: string) => void } = {},
+) {
   const results: Capture[] = []
-  const watch = watches(root)
+  const watch = watches(root, options.provider)
   for (const method of ["direct", "browser", "jina"] as Method[]) {
     const queue = sources.filter((s) => (s.fetch ?? "direct") === method)
     let next = 0
