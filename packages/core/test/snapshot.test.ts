@@ -33,6 +33,8 @@ test("规范化：零宽字符、多余空白、纯符号行、相邻重复行",
 test("太短、挑战页、404 不算正文", () => {
   expect(unusable("hello")).toBe("too_short")
   expect(unusable("Just a moment...\n" + "x".repeat(300))).toBe("challenge_page")
+  // Cloudflare 新版验证页（poe 引用的 quora 隐私政策抓回过这个）
+  expect(unusable("# www.quora.com\n## Performing security verification\nThis website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.\n" + "z".repeat(300))).toBe("challenge_page")
   expect(unusable("Page not found\n" + "y".repeat(300))).toBe("not_found_page")
   expect(unusable("正文".repeat(200))).toBeNull()
 })

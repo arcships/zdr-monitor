@@ -12,7 +12,7 @@ type Selector = Anchor["selector"]
 /** 跟五个维度有关的词。英文按词边界匹配，免得 log 命中 blog、login */
 export const POLICY = new RegExp(
   [
-    String.raw`\b(train(s|ed|ing)?|retain(s|ed|ing)?|retention|delet(e|es|ed|ion)|purg(e|es|ed)|stored|stores|storing|persist(s|ed|ent|ence)?|logging)\b|\blogs?\b(?!\s*(in|out|into)\b)`,
+    String.raw`\b(retain(s|ed|ing)?|retention|delet(e|es|ed|ion)|purg(e|es|ed)|stored|stores|storing|logging)\b|\blogs?\b(?!\s*(in|out|into)\b)`,
     String.raw`\b(zero[- ]data[- ]retention|zdr|abuse monitoring|opt[- ]?(out|in)|(sub-?)?processors?|controllers?)\b`,
     String.raw`\b(data residency|residency|data (center|centre)s?|transfer(s|red)?)\b`,
     // region 单独出现太常见（「Availability varies by region」），要跟处理、存储放在一起才算
@@ -22,6 +22,23 @@ export const POLICY = new RegExp(
   ].join("|"),
   "i",
 )
+/** 这两个词在条款以外也常见：「training or technical assistance」是培训，
+ *  「CLI choices persist」是界面设置。同一句里有数据、内容、模型这类对象才算 */
+const WEAK = [
+  {
+    term: /\btrain(s|ed|ing)?\b/i,
+    object: /\b(models?|ai|ml|llms?|machine learning|data|datasets?|content|inputs?|outputs?|prompts?|completions?|improv\w*|fine-?tun\w*)\b/i,
+  },
+  {
+    term: /\bpersist(s|ed|ent|ently|ence)?\b/i,
+    object: /\b(data|content|inputs?|outputs?|prompts?|responses?|requests?|conversations?|messages?|files?|code|history|logs?|stor\w*|disk|information)\b/i,
+  },
+]
+const sentences = (line: string) => line.split(/(?<=[.;!?])\s+|(?<=[。；！？])/)
+/** text 里有没有跟五个维度有关的词。弱词要到 whole（text 所在的整行）里找它所在的句子看对象 */
+export const mentionsPolicy = (text: string, whole = text) =>
+  POLICY.test(text) || WEAK.some(({ term, object }) => term.test(text) && sentences(whole).some((s) => term.test(s) && object.test(s)))
+
 /** 帮助中心、文档站侧栏的推荐条目：「* 标题 Learn how …」。标题里常有 data、storage，
  *  但它是导航，不是条款 */
 export const TEASER = /^[*-]\s.{3,160}?\s(Learn|Understand|Review|See|Read|Find out|Discover|Explore|了解|查看)\b/i
@@ -115,8 +132,8 @@ export function policyChanges(before: string, after: string) {
     .filter(({ shown, probe, bare, whole }) => {
       if (TEASER.test(whole) || NOISE.test(whole)) return false
       if (bare === whole && !isSentence(whole)) return false
-      if (POLICY.test(probe)) return true
-      return bare !== whole && POLICY.test(canon(whole)) && POLARITY.test(bare)
+      if (mentionsPolicy(probe, whole)) return true
+      return bare !== whole && mentionsPolicy(canon(whole)) && POLARITY.test(bare)
     })
     .map(({ shown }) => shown)
 }

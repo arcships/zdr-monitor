@@ -8,6 +8,7 @@
  *    bun run snapshot:auto-merge <provider> [base] [head]   写 safe=true|false 到 GITHUB_OUTPUT */
 import { $ } from "bun"
 import { appendFile } from "node:fs/promises"
+import fs from "node:fs"
 import path from "node:path"
 import { loadAll } from "../src/registry"
 import { fold, locate } from "../src/snapshot/quote"
@@ -50,3 +51,20 @@ const safe = reasons.length === 0
 const summary = safe ? `可以自动合并：${files.length} 个快照。` : `需要人工确认：${reasons.join("；")}。`
 console.log(summary)
 if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `safe=${safe}\nsummary=${summary}\n`)
+// 拦下来的 PR 不会合并，也就不会开复核 issue、不会派 agent：把原因和该怎么处理写进 PR 正文，
+// 否则它每天被重抓刷新一次，却没人知道要看（#248、#282 就这样挂了好几天）
+const report = path.join(root, ".sync", "snapshot-report.md")
+if (!safe && fs.existsSync(report))
+  await appendFile(
+    report,
+    [
+      "",
+      "### 未自动合并，需要人判断",
+      "",
+      ...reasons.map((r) => `- ${r}`),
+      "",
+      "- 厂商真的改了条款（看 Files changed）：直接合并，合并后照常开复核 issue、派 agent 改结论和引文",
+      "- 抓错了页面（验证页、外壳页、别的地区版本）：关掉这个 PR，修来源的抓取方式；快照保持上一版",
+      "",
+    ].join("\n"),
+  )
