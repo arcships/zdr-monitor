@@ -32,6 +32,19 @@ function quoteSection(provider: string) {
   ]
 }
 
+let files: { url: string; files: { path: string }[] } | undefined
+const prFiles = async () =>
+  (files ??= JSON.parse(await $`gh pr view ${pr} --json files,url`.quiet().text()) as { url: string; files: { path: string }[] })
+
+/** 快照多家共用，快照 PR 却只属于抓到它的那一家。同一份快照上别家的引文也坏了，就也给它派活：
+ *  它自己的抓取 job 之后读到的已经是合并进来的新快照，判为 same，不会再开 PR、也就不会有人复核
+ *  （#342 合并后 xiaomi-token-plan-sgp 就会这样）。引文都还好的共用方不开，免得一处改动给每家都派一个 agent */
+async function coOwners(provider: string) {
+  const changed = new Set((await prFiles()).files.map((f) => path.basename(f.path, ".md")))
+  const broken = checkQuotes(root).filter((c) => c.provider_id !== provider && c.state !== "ok" && changed.has(c.source_id))
+  return [...new Set(broken.map((c) => c.provider_id))].sort()
+}
+
 async function issueFor(provider: string) {
   if (full)
     return {
@@ -45,7 +58,7 @@ async function issueFor(provider: string) {
         ...quoteSection(provider),
       ].join("\n"),
     }
-  const files = JSON.parse(await $`gh pr view ${pr} --json files,url`.quiet().text()) as { url: string; files: { path: string }[] }
+  const files = await prFiles()
   const urls = new Map(loadProvider(root, provider).sources.map((s) => [s.id, s.url]))
   const changed = files.files.map((f) => path.basename(f.path, ".md")).filter((id) => urls.has(id))
   return {
@@ -67,6 +80,7 @@ if (!providers.length || (!full && !pr)) {
   console.error("用法: review:issues <provider> --pr <n> | review:issues --full [provider...]")
   process.exit(2)
 }
+if (!full) providers.push(...(await coOwners(providers[0]!)))
 
 const kind = full ? "full-review" : "policy-review"
 if (!dryRun)
@@ -96,6 +110,15 @@ for (const provider of providers) {
   if (pending) {
     await $`gh issue comment ${pending.number} --body ${`又一次快照变化：${issue.title.replace(/^.*snapshot /, "")}，复核和合并时一并确认。\n\n${issue.body}`}`.quiet()
     console.log(`#${pending.number} 还开着，记到它下面：${issue.title}`)
+    // agent 的 PR 已经开出来、在等人合：它是按旧快照写的，合并的人要知道快照又变了
+    const [fix] = JSON.parse(
+      await $`gh pr list --state open --head ${`dim/issue-${pending.number}`} --json number`.quiet().text(),
+    ) as { number: number }[]
+    if (fix) {
+      const body = `这个 PR 开出之后快照又变了：${issue.title.replace(/^.*snapshot /, "")}。PR 里的结论和引文是按旧快照写的，合并前对照新快照再核一遍，引文失效的要改绑。\n\n${quoteSection(provider).join("\n")}`
+      await $`gh api ${`repos/${process.env.GITHUB_REPOSITORY}/issues/${fix.number}/comments`} -f ${`body=${body}`}`.quiet()
+      console.log(`提醒 #${fix.number}：快照在它之后又变了`)
+    }
     continue
   }
   const url = (

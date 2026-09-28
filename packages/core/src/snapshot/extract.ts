@@ -129,7 +129,7 @@ export async function toText(kind: Kind, body: Buffer, extractor: Extractor = "b
 
 const NOT_FOUND = /^(?:.{0,300})(?:Page not found|This page could not be found|404 Not Found|页面不存在|页面找不到)/is
 const CHALLENGE =
-  /^(?:.{0,300})(?:Just a moment|Checking your browser|Attention Required|Access denied|verify (?:that )?you are human|enable javascript and cookies to continue)/is
+  /^(?:.{0,300})(?:Just a moment|Checking your browser|Attention Required|Access denied|verify (?:that )?you are human|enable javascript and cookies to continue|Performing security verification|verifies you are not a bot)/is
 
 /** 抓到的东西能不能当正文。只拦技术上的失败，不判断「像不像政策」。 */
 export function unusable(text: string): string | null {

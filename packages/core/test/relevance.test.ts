@@ -71,3 +71,19 @@ test("抓到另一个地区的版本（中文页变全英文）算抓取失败",
   expect(languageFlipped(cn, cn + "第二节：API Key 与 Token 计费说明。")).toBe(false)
   expect(languageFlipped(en, en + " Updated on 2026-09-27.")).toBe(false)
 })
+
+test("training 是培训、persist 是界面设置时不叫复核（ovhcloud、kiro 实例）", () => {
+  const ovh = "If you need training or technical assistance to implement our solutions, contact your sales representative or visit the Professional Services page to get a quote and ask our Professional Services experts for a custom analysis of your project."
+  expect(policyChanges(page(ovh), page())).toEqual([])
+  const kiro = [
+    "Set the level from the model selector's **Effort** panel in the IDE, or with `/effort` (or the `--effort` launch flag) in the CLI. Your choice persists, and the picker only shows levels supported by your current model.",
+    "Set the level from the model selector's **Effort** panel in the IDE, by opening `/model` and choosing **Effort** in Kiro CLI, or from the reasoning effort selector in Kiro Web. You can also use the `--effort` launch flag in the CLI. In the IDE, the choice applies to subsequent messages in the conversation. CLI choices persist, while Web choices apply to the current session. Each picker only shows levels supported by your current model.",
+  ]
+  expect(policyChanges(page(kiro[0]!), page(kiro[1]!))).toEqual([])
+})
+
+test("training、persist 讲的是数据和模型时照样复核", () => {
+  const codebuff = "Using a model or feature labeled “May use data for AI training” authorizes Codebase Evaluation of code, files, and repository context submitted to or generated through a model."
+  expect(policyChanges(page(codebuff), page()).length).toBe(1)
+  expect(policyChanges(page(), page("By default, your prompts and responses persist on our servers until you delete the conversation manually.")).length).toBe(1)
+})

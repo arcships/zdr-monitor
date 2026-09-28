@@ -9,10 +9,12 @@
 snapshot.yml（每天，按 provider 展开 matrix）
   抓这个 provider 引用的来源 → 规范化 → 写 snapshots/<source_id>.md
   有变化 → 固定分支 automation/snapshot-<provider>，原地更新同一个 PR
-        → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人）
+        → snapshot:auto-merge 判定安全就自动合并（引文成片失效时留给人，原因和处理办法写在 PR 正文）
         ↓ 合并
 review-issues.yml
   开 [policy-review] <provider>: snapshot #<PR>，派发 issue-fixer
+  共用这份快照、引文也坏了的其他 provider 各开一个；这家上一个复核还开着就记到它下面，
+  它的 agent PR 已经开出来的，在 PR 上提醒快照又变了
         ↓
 issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
   只能改 providers/<provider>.toml 和 changes/<provider>/
@@ -65,9 +67,10 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 revi
 （按 provider 合并，每天最多一轮）。所以 diff 只认跟我们有关的变化（`src/snapshot/relevance.ts`）：
 
 - 引文失效：原本能唯一定位的 `exact` 现在找不到或变成多处
-- 引文上下文变了：引文所在小节里、前后各 3 段有改动
-- 页面有新表述：我们引用过、或某条 unknown 结论查过的页面，新增了碰到五个维度的句子
-  （离引文再远也算）
+- 页面有涉及五个维度的改动：我们引用过、或某条 unknown 结论查过的页面上，新增、删除或改写了
+  碰到五个维度的句子（离引文再远也算）。改写只看真正变了的词；否定、情态、数字变了而整句讲的是
+  这些维度，也算。`training`、`persist` 要同一句里有数据、内容、模型之类的对象才算
+  （「training or technical assistance」是培训，「CLI choices persist」是界面设置）
 
 都不沾的记为 `cosmetic`，不写快照：相关文章推荐、标题、目录、侧栏、cookie 横幅、示例代码、
 同一句话换缩写都属于这一类。没有引文、也不在任何 `searched` 里的来源，正文怎么变都不触发。
