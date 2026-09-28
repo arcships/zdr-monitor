@@ -34,6 +34,9 @@ issue 正文列出了相关来源对应的 `snapshots/<source_id>.md`，以及�
    - retention 写没写清对象、语境、期限类型。
 3. 变化影响结论 → 改结论和锚点，并在 `changes/<id>/` 记一条（见 `docs/maintenance.md`）。
    不影响 → 不改文件，说明理由。
+   结论字段（mark、mode、basis、days、object、codes、kind）或档位增删了却没有新的变化记录，
+   PR 会被 `check:change-record` 打回——网站的政策变化时间线只读 `changes/`。
+4. 提示里带着「上一版 PR 被打回」时：逐条回应打回意见，上一版对的部分照样保留。
 
 ## 锚点
 
