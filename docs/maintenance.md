@@ -21,8 +21,19 @@ issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
   → workflow 为新来源抓快照 → validate + check:quotes --strict → PR dim/issue-<n>
   → 无需改动：评论理由并关闭 issue；证据不足：打 blocked
         ↓
-pr-reviewer.yml（DimCode 只读，跳过快照 PR）→ 评论待办或打 reviewer: ready → 人合并
+pr-reviewer.yml（DimCode 只读，跳过快照 PR）
+  agent PR：reviewer 没有待办，且合进最新 main 后 validate、check:quotes --strict、
+  check:change-record 都过 → bot 自动合并，评论写明依据 → Pages 重新部署，时间线更新
+  否则评论原因（打回）→ 重新派发 issue-fixer，带上打回意见和上一版 diff，原地更新同一个 PR
+  打回两轮仍不过、或删改了已有来源（sources-changed）→ needs-human，等人
 ```
+
+结论（mark、mode、basis、days、object、codes、kind 或档位增删）变了，agent 必须二选一表态，
+否则 `check:change-record` 不过、PR 被打回：
+
+- 厂商改了条款 → 在 `changes/<provider>/` 记一条。网站的政策变化时间线只读这里。
+- 我们补证据、换来源、改正旧判断 → 在 PR 描述里写「非厂商变化」并说明理由，不进时间线
+  （`docs/judgment.md`「判定不是政策变化」），由 reviewer 核实这个说法。
 
 `retry-issue-fixer.yml` 每六小时重新派发创建超过一小时、还没有 PR 的 issue，每轮最多三条。
 `dimcode-auth.yml` 每十二小时检查 DimCode 登录态，剩不到三天就续期并写回 secret（见「仓库配置」）。

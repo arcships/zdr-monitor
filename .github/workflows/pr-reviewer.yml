@@ -2,6 +2,8 @@ name: PR Reviewer
 
 # 只读 agent 审人和 issue fixer 提的 PR。对应 models.dev 的 pr-reviewer.yml：
 # 检出的是可信的 base 版本，PR 内容只作为数据读；快照 PR 跳过。
+# issue fixer 的 PR（dim/issue-*）审完不等人：确定性检查和 reviewer 都过就自动合并，
+# 否则写明原因打回给 issue fixer 重做，两轮不过打 needs-human（packages/core/script/agent-pr.ts）。
 
 on:
   pull_request_target:
@@ -38,6 +40,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           persist-credentials: false
+          # 自动合并前要把 PR 合进最新的 main 再检查，需要完整历史
+          fetch-depth: 0
 
       - name: 准备 PR 上下文
         run: |
@@ -74,9 +78,36 @@ jobs:
           test -s "$RUNNER_TEMP/response.md"
 
       - name: 发评论
+        id: verdict
+        env:
+          AGENT_PR: ${{ startsWith(github.event.pull_request.head.ref, 'dim/issue-') }}
         run: |
           if head -1 "$RUNNER_TEMP/response.md" | grep -qx 'READY'; then
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --add-label "$READY_LABEL"
+            echo "ready=--ready" >> "$GITHUB_OUTPUT"
           else
-            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/response.md"
+            echo "ready=--not-ready" >> "$GITHUB_OUTPUT"
+            # agent PR 的待办并进下一步的打回评论里，不单独发
+            [ "$AGENT_PR" = true ] || gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/response.md"
           fi
+
+      # reviewer 跑完之后才配推送凭证，跟 issue-fixer 一样
+      - id: committer
+        if: startsWith(github.event.pull_request.head.ref, 'dim/issue-')
+        uses: ./.github/actions/setup-git-committer
+        with:
+          app-id: ${{ vars.ZDR_APP_ID }}
+          private-key: ${{ secrets.ZDR_APP_PRIVATE_KEY }}
+          token: ${{ secrets.ZDR_BOT_TOKEN }}
+
+      - uses: oven-sh/setup-bun@v2
+        if: startsWith(github.event.pull_request.head.ref, 'dim/issue-')
+
+      - name: 自动合并或打回
+        if: startsWith(github.event.pull_request.head.ref, 'dim/issue-')
+        env:
+          # bot 凭证合并才会触发 main 上的 Pages 部署，时间线才会更新
+          GH_TOKEN: ${{ steps.committer.outputs.token }}
+        run: |
+          bun install --frozen-lockfile
+          bun run agent:pr "$PR_NUMBER" ${{ steps.verdict.outputs.ready }} --review "$RUNNER_TEMP/response.md"
