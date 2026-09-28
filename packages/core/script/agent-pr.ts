@@ -30,13 +30,13 @@ const MAX_ROUNDS = 2
 const repo = process.env.GITHUB_REPOSITORY
 
 const info = JSON.parse(
-  await $`gh pr view ${pr} --json headRefName,headRefOid,labels,files,comments,state`.quiet().text(),
+  await $`gh pr view ${pr} --json headRefName,headRefOid,labels,comments,state,body`.quiet().text(),
 ) as {
   headRefName: string
   headRefOid: string
   state: string
+  body: string
   labels: { name: string }[]
-  files: { path: string }[]
   comments: { body: string }[]
 }
 const issue = info.headRefName.match(/^dim\/issue-(\d+)$/)?.[1]
@@ -46,11 +46,8 @@ if (!issue || info.state !== "OPEN") {
 }
 
 const problems: string[] = []
-const providers = [...new Set(info.files.map((f) => f.path.match(/^providers\/([^/]+)\.toml$/)?.[1]).filter(Boolean))] as string[]
-const provider = providers[0]
-if (providers.length !== 1) problems.push(`PR 应该只改一家的 providers/<id>.toml，实际是：${providers.join("、") || "没有"}`)
-const outside = info.files.map((f) => f.path).filter((p) => !(p === `providers/${provider}.toml` || p.startsWith(`changes/${provider}/`) || /^snapshots\/[0-9a-f]{16}\.md$/.test(p)))
-if (outside.length) problems.push(`改了不该改的文件：${outside.join("、")}`)
+let provider: string | undefined
+let files: string[] = []
 
 // PR 上的 test 检查。reviewer 自己也是一个 check，不能 --watch 全部
 async function testCheck() {
@@ -66,9 +63,9 @@ async function testCheck() {
 const log = (name: string, r: { exitCode: number; stdout: Buffer; stderr: Buffer }) =>
   (r.stdout.toString() + r.stderr.toString()).trim().split("\n").slice(-15).join("\n").replace(/^/, `${name}：\n`)
 
-// 在一个临时工作区里把 PR 合进最新的 main，再跑确定性检查。
-// 前面已经确认 PR 只改了数据文件，这里跑的脚本都来自 main
-async function gate() {
+// 在一个临时工作区里把 PR 合进最新的 main，先确认 PR 只改了一家的数据文件，再跑确定性检查。
+// 文件清单取合并后的 git diff，不用分页的 API：这一关漏了，下面就会以 bot 身份跑 PR 里的脚本
+async function gate(): Promise<string[]> {
   const dir = path.join(root, ".sync", "gate")
   fs.rmSync(dir, { recursive: true, force: true })
   await $`git worktree prune`.quiet()
@@ -77,12 +74,21 @@ async function gate() {
   try {
     const merged = await $`git -C ${dir} merge --no-edit ${`refs/remotes/pr/${pr}`}`.nothrow().quiet()
     if (merged.exitCode !== 0) return [`和当前 main 合并有冲突，要在最新的 main 上重做`]
+    files = (await $`git -C ${dir} diff --name-only --no-renames origin/main HEAD`.quiet().text()).split("\n").filter(Boolean)
+    const providers = [...new Set(files.map((f) => f.match(/^providers\/([^/]+)\.toml$/)?.[1]).filter(Boolean))] as string[]
+    provider = providers.length === 1 ? providers[0] : undefined
+    if (!provider) return [`PR 应该只改一家的 providers/<id>.toml，实际是：${providers.join("、") || "没有"}`]
+    const outside = files.filter((f) => !(f === `providers/${provider}.toml` || f.startsWith(`changes/${provider}/`) || /^snapshots\/[0-9a-f]{16}\.md$/.test(f)))
+    if (outside.length) {
+      provider = undefined
+      return [`改了不该改的文件：${outside.join("、")}`]
+    }
     await $`bun install --frozen-lockfile`.cwd(dir).quiet()
     const out: string[] = []
     for (const [name, cmd] of [
       ["validate", ["run", "validate"]],
-      ["check:quotes", ["run", "check:quotes", provider!, "--strict"]],
-      ["check:change-record", ["run", "check:change-record", provider!, "origin/main"]],
+      ["check:quotes", ["run", "check:quotes", provider, "--strict"]],
+      ["check:change-record", ["run", "check:change-record", provider, "origin/main", ...(correction ? ["--correction"] : [])]],
     ] as const) {
       const r = await $`bun ${cmd}`.cwd(dir).nothrow().quiet()
       if (r.exitCode !== 0) out.push("```\n" + log(name, r) + "\n```")
@@ -93,11 +99,11 @@ async function gate() {
   }
 }
 
-if (!problems.length) {
-  const test = await testCheck()
-  if (test !== "pass") problems.push(`PR 上的校验（test）没有通过：${test}`)
-  problems.push(...(await gate()))
-}
+// agent 声明结论变化是我们的改正（补证据、换来源、改正旧判断），不进时间线；reviewer 核实这个说法
+const correction = (info.body ?? "").includes("非厂商变化")
+const test = await testCheck()
+if (test !== "pass") problems.push(`PR 上的校验（test）没有通过：${test}`)
+problems.push(...(await gate()))
 const review = reviewFile && fs.existsSync(reviewFile) ? fs.readFileSync(reviewFile, "utf8").trim() : ""
 if (!ready) problems.push(`reviewer 的待办：\n\n${review || "（没有拿到 reviewer 输出）"}`)
 
@@ -120,9 +126,9 @@ if (!problems.length) {
     [
       "**自动合并**：",
       "",
-      `- 只改了 \`providers/${provider}.toml\`${info.files.some((f) => f.path.startsWith("changes/")) ? `、\`changes/${provider}/\`` : ""}${info.files.some((f) => f.path.startsWith("snapshots/")) ? " 和新来源的快照" : ""}`,
+      `- 只改了 \`providers/${provider}.toml\`${files.some((f) => f.startsWith("changes/")) ? `、\`changes/${provider}/\`` : ""}${files.some((f) => f.startsWith("snapshots/")) ? " 和新来源的快照" : ""}`,
       "- PR 校验（test）通过",
-      "- 合进当前 main 后 validate、check:quotes --strict、check:change-record 通过",
+      `- 合进当前 main 后 validate、check:quotes --strict、check:change-record 通过${correction ? "（PR 声明结论变化是我们的改正，非厂商变化，不进时间线）" : ""}`,
       "- reviewer 没有待办",
       "- 没有删除或替换已有来源",
     ].join("\n"),
