@@ -5,13 +5,15 @@
  *    bun run snapshot <provider>          只抓这个 provider 引用的来源（CI 每个 job 一个）
  *    bun run snapshot                     全部来源（本地用）
  *    bun run snapshot <provider> --dry-run   不写快照；跟快照不一样的正文留在 .sync/fetched/
+ *    bun run snapshot <provider> --new-only  只抓还没有快照的来源（issue-fixer 给新加的来源抓快照用，
+ *                                            不能顺手把已有快照重抓一遍带进 agent 的 PR）
  *
  *  报告写到 .sync/snapshot-report.md，CI 拿它当 PR 正文和运行摘要。
  *  抓取失败不写快照，只进报告——失败是关于我们的事实，不是关于厂商的。 */
 import fs from "node:fs"
 import path from "node:path"
 import { loadProvider, providerIds } from "../src/registry"
-import { allSources, checkQuotes, snapshotAll } from "../src/snapshot"
+import { allSources, checkQuotes, readSnapshot, snapshotAll } from "../src/snapshot"
 
 const root = path.join(import.meta.dirname, "..", "..", "..")
 const args = process.argv.slice(2)
@@ -22,7 +24,9 @@ if (args.includes("--list-providers")) {
 }
 
 const target = args.find((a) => !a.startsWith("-"))
-const sources = target ? loadProvider(root, target).sources : allSources(root)
+const sources = (target ? loadProvider(root, target).sources : allSources(root)).filter(
+  (s) => !args.includes("--new-only") || readSnapshot(root, s.id) === null,
+)
 const results = await snapshotAll(root, sources, {
   dryRun: args.includes("--dry-run"),
   provider: target,

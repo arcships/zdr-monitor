@@ -78,7 +78,9 @@ async function gate(): Promise<string[]> {
     const providers = [...new Set(files.map((f) => f.match(/^providers\/([^/]+)\.toml$/)?.[1]).filter(Boolean))] as string[]
     provider = providers.length === 1 ? providers[0] : undefined
     if (!provider) return [`PR 应该只改一家的 providers/<id>.toml，实际是：${providers.join("、") || "没有"}`]
-    const outside = files.filter((f) => !(f === `providers/${provider}.toml` || f.startsWith(`changes/${provider}/`) || /^snapshots\/[0-9a-f]{16}\.md$/.test(f)))
+    // 快照只允许新增（workflow 给新加的来源抓的），已有快照只有抓取 bot 的快照 PR 能改
+    const added = new Set((await $`git -C ${dir} diff --name-only --no-renames --diff-filter=A origin/main HEAD`.quiet().text()).split("\n"))
+    const outside = files.filter((f) => !(f === `providers/${provider}.toml` || f.startsWith(`changes/${provider}/`) || (/^snapshots\/[0-9a-f]{16}\.md$/.test(f) && added.has(f))))
     if (outside.length) {
       provider = undefined
       return [`改了不该改的文件：${outside.join("、")}`]

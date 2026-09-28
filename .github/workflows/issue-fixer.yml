@@ -136,7 +136,7 @@ jobs:
         run: |
           set -euo pipefail
           [ -z "$(git status --porcelain)" ] && exit 0
-          bun run snapshot "$PROVIDER"
+          bun run snapshot "$PROVIDER" --new-only
           bun run validate
           bun run lint:verdicts
           bun run check:quotes "$PROVIDER" --strict
