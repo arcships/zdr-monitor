@@ -34,10 +34,16 @@ issue 正文列出了相关来源对应的 `snapshots/<source_id>.md`，以及�
    - retention 写没写清对象、语境、期限类型。
 3. 变化影响结论 → 改结论和锚点，并在 `changes/<id>/` 记一条（见 `docs/maintenance.md`）。
    不影响 → 不改文件，说明理由。
-   结论字段（mark、mode、basis、days、object、codes、kind）或档位增删了，必须二选一表态，
-   否则 PR 会被 `check:change-record` 打回：厂商改了条款就记 `changes/`（网站的政策变化时间线
-   只读这里）；是我们补证据、换来源、改正旧判断，就在 `## Review notes` 里写「非厂商变化」
-   并说明理由——这种不进时间线，别为了过检查硬写一条变化记录。
+   **变化记录看的是厂商的原文有没有变，不是我们的结论有没有变**：
+   - 厂商删了、改了、新增了跟五个维度有关的条款句子 → 记一条 `changes/`，**结论值没变也要记**
+     （先例 `changes/deepinfra/2026-09-25-logs-debug-exception-removed.toml`）。旧引文被厂商删掉、
+     只好改绑到别的句子，也属于这种。
+   - 我们补证据、换来源、改正旧判断，厂商原文没动 → 不记，在 `## Review notes` 里写「非厂商变化」
+     并说明理由。**「非厂商变化」只能用在厂商原文没动的部分**，不能拿来跳过厂商确实改了的条款。
+   - 一个 PR 里两种可以并存：厂商改的那部分记 `changes/`，我们顺手改正的部分在 Review notes 里说明。
+   - 厂商改了措辞但跟五个维度无关（改产品名、调格式）→ 不记，在 Review notes 里说明为什么无关。
+   结论字段（mark、mode、basis、days、object、codes、kind）或档位增删了却既没有记录、也没有
+   「非厂商变化」的说明，PR 会被 `check:change-record` 打回。
 4. 提示里带着「上一版 PR 被打回」时：逐条回应打回意见，上一版对的部分照样保留。
 
 ## 锚点
