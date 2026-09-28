@@ -54,6 +54,7 @@ jobs:
           # 上一步又因为已经有 PR 而跳过它。最后一条打回评论比 PR 最新提交还新、且超过一小时，就再派一次
           cutoff="$(date -u -d '1 hour ago' +%s)"
           # 同时要 comments 和 commits，GraphQL 节点数有上限，一次只取 30 个开着的 PR
+          # shellcheck disable=SC2016 # $c 是 jq 变量，不是 shell 变量
           gh pr list --repo "$REPO" --state open --limit 30 --json number,headRefName,labels,comments,commits \
             --jq '.[] | select(.headRefName | startswith("dim/issue-"))
                   | select([.labels[].name] | index("needs-human") | not)
