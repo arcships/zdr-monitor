@@ -109,6 +109,7 @@ jobs:
         env:
           # bot 凭证合并才会触发 main 上的 Pages 部署，时间线才会更新
           GH_TOKEN: ${{ steps.committer.outputs.token }}
+          STRONG_MODEL: ${{ vars.DIMCODE_STRONG_MODEL || 'gpt-6-sol' }}
         run: |
           bun install --frozen-lockfile
           bun run agent:pr "$PR_NUMBER" ${{ steps.verdict.outputs.ready }} --review "$RUNNER_TEMP/response.md"

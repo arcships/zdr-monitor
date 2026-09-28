@@ -28,7 +28,8 @@ jobs:
     timeout-minutes: 45
     env:
       ISSUE_NUMBER: ${{ github.event.issue.number || github.event.client_payload.issue_number }}
-      DIMCODE_MODEL: ${{ vars.DIMCODE_MODEL || 'deepseek-v4.1-flash' }}
+      # 打回的最后一轮由 agent:pr 指定更强的模型
+      DIMCODE_MODEL: ${{ github.event.client_payload.model || vars.DIMCODE_MODEL || 'deepseek-v4.1-flash' }}
     steps:
       - uses: actions/checkout@v4
         with:
