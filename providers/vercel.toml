@@ -10,7 +10,7 @@ url = "https://security.vercel.com"
 fetch = "jina"
 channel = "contract"
 tier = "core"
-note = "Vercel Trust Center 首页，subprocessor 清单（公司/职能/所在地三列）的落点。该页是 DPA §7.2 明文指定的清单落点（「including their functions and locations, is available at https://security.vercel.com」），因此按并入的合同文件对待。**本轮快照不含清单表**：全文只有「## Subprocessors」标题、表格内容缺失（表格很可能只在渲染后可见），所以各家 subprocessor 的所在地本轮未复核，不再断言 United States。快照内可逐字引用的是 2026-08-21「Subprocessor Update」公告：新增 SpaceXAI LLC (fka xAI)「to provide Generative AI services」；Baseten Labs Inc / Cerebras Systems Inc / Fireworks AI / Groq LLC 更新描述为「to provide Generative AI services and AI model inference services」；另有 v0 侧新增 Cerebras Systems Inc. / Baseten Labs Inc. / Invisible Tools Inc. (dba Raindrop.ai) 与 Groq, Inc.。"
+note = "Vercel Trust Center 首页，subprocessor 清单（公司/职能/所在地三列）的落点。该页是 DPA §7.2 明文指定的清单落点（「including their functions and locations, is available at https://security.vercel.com」），因此按并入的合同文件对待。本轮快照含该三列表格：AI 服务相关行（OpenAI、Anthropic、Fireworks AI、Exa.ai、SpaceX、Invisible Tools Inc (dba Raindrop.ai)，以及表内 purpose 留空、但属 2026-08-21 公告所列 AI 服务的 Groq / Cerebras Systems Inc / Baseten Labs Inc）与云/托管行（AWS、Google、Microsoft）所在地均记 United States；非美国条目只有 Tinybird（Spain，analytics）与 Plain（United Kingdom，customer support），与 DPA §13.1「anywhere else in the world where Vercel or its Subprocessors maintain data processing operations」一致。上一轮快照只有「## Subprocessors」标题、表格内容缺失（表格很可能只在渲染后可见），本轮已抓到，subprocessor 所在地恢复为可复核。快照内另可逐字引用 2026-08-21「Subprocessor Update」公告：新增 SpaceXAI LLC (fka xAI)「to provide Generative AI services」；Baseten Labs Inc / Cerebras Systems Inc / Fireworks AI / Groq LLC 更新描述为「to provide Generative AI services and AI model inference services」；另有 v0 侧新增 Cerebras Systems Inc. / Baseten Labs Inc. / Invisible Tools Inc. (dba Raindrop.ai) 与 Groq, Inc.。"
 
 [[source]]
 url = "https://vercel.com/docs/ai-gateway/security-and-compliance/disallow-prompt-training"
@@ -165,8 +165,13 @@ text_zh = "可按请求 pin 到 us 或 eu（仅这两个），钉不住则 400 �
 text_zh = "BYOK 同样受 inferenceRegion 约束。网关自身的终止与处理不受 pin 约束（可在任意 Vercel 区域）。合同层声明 AI Products and Services 在美国控制与运营（AI Product Terms §12），DPA §13.1 主要处理设施在美国但允许全球转移"
 
 [[product.processing_region.point]]
-text = "DPA §7.2 points the subprocessor list (with functions and locations) at the trust center. The 2026-08-21 update there adds SpaceXAI LLC (fka xAI) and updates Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC to \"Generative AI services and AI model inference services\". This round's snapshot has only the \"## Subprocessors\" heading with no table, so locations are not re-verified here."
-text_zh = "DPA §7.2 把 subprocessor 清单（含职能与所在地）指向 trust center；2026-08-21 更新新增 SpaceXAI LLC (fka xAI)、并把 Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC 的职能更新为 generative AI 与 model inference 服务。本轮快照只有「## Subprocessors」标题、表格内容缺失，所在地未复核（该锚点只证明职能，不证明所在地）。"
+text = "DPA §7.2 points the subprocessor list (with functions and locations) at the trust center. This round's snapshot contains that three-column table, so locations are verifiable again: the generative-AI rows (OpenAI, Fireworks AI, Anthropic, Exa.ai) list United States, and the only non-US entries in the table are Tinybird (Spain, analytics) and Plain (United Kingdom, customer support)."
+text_zh = "DPA §7.2 把 subprocessor 清单（含职能与所在地）指向 trust center；本轮快照含该三列表格，所在地恢复可复核：生成式 AI 行（OpenAI、Fireworks AI、Anthropic、Exa.ai）记 United States，全表非美国条目只有 Tinybird（Spain，analytics）与 Plain（United Kingdom，customer support）。"
+anchor = "vercel-trust-subprocessor-table-ai-rows-united-states"
+
+[[product.processing_region.point]]
+text = "The 2026-08-21 \"Subprocessor Update\" on the same page adds SpaceXAI LLC (fka xAI) and updates Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC to \"Generative AI services and AI model inference services\"."
+text_zh = "同一页 2026-08-21 的「Subprocessor Update」新增 SpaceXAI LLC (fka xAI)，并把 Fireworks AI / Baseten Labs Inc / Cerebras Systems Inc / Groq LLC 的职能更新为 generative AI 与 model inference 服务。"
 anchor = "vercel-trust-subprocessor-fireworks-function"
 
 [product.role]
@@ -535,6 +540,46 @@ list:
 
 *   """
 exact = "**SpaceXAI LLC (fka xAI)** to provide Generative AI services"
+suffix = ""
+
+[[anchor]]
+id = "vercel-trust-subprocessor-table-header"
+source_id = "d3c43d70ccbcc655"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Subprocessors Company Purpose Location"
+suffix = ""
+
+[[anchor]]
+id = "vercel-trust-subprocessor-table-ai-rows-united-states"
+source_id = "d3c43d70ccbcc655"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "OpenAI Generative AI services United States Fireworks AI Generative AI services and AI model inference services United States Anthropic Generative AI services United States Exa.ai AI search services United States"
+suffix = ""
+
+[[anchor]]
+id = "vercel-trust-subprocessor-table-tinybird-spain"
+source_id = "d3c43d70ccbcc655"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Tinybird Analytics services Spain"
+suffix = ""
+
+[[anchor]]
+id = "vercel-trust-subprocessor-table-plain-united-kingdom"
+source_id = "d3c43d70ccbcc655"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Plain Customer support services United Kingdom"
 suffix = ""
 
 [[anchor]]
