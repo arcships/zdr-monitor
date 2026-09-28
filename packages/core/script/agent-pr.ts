@@ -8,8 +8,9 @@
  *      （agent 是按开 PR 时的快照写的，之后快照可能又变了，所以按合并后的结果算）
  *    - reviewer 没有待办
  *    - 没有删除或替换已有来源（sources-changed 留给人）
- *  不满足就把原因写成一条评论，再派一次 issue-fixer 按意见重做。最后一轮换更强的模型
- *  （STRONG_MODEL，默认 gpt-6-sol）；三轮都不过才打 needs-human。
+ *  不满足就把原因写成一条评论，再派一次 issue-fixer 按意见重做。前两轮用默认模型，之后换更强的
+ *  模型（STRONG_MODEL，默认 gpt-6-sol）；五轮都不过才打 needs-human。实跑下来 reviewer 的意见
+ *  一轮比一轮窄（先是归类错，再是缺引文、方向没依据），三轮常常差一点。
  *
  *    bun run agent:pr <pr> --ready|--not-ready [--review <file>] [--dry-run]
  *  需要 GH_TOKEN 能推送和合并（bot 凭证：用 GITHUB_TOKEN 合并不会触发 Pages 部署）。 */
@@ -27,7 +28,8 @@ if (!pr || (!ready && !args.includes("--not-ready"))) throw new Error("用法: a
 $.cwd(root)
 
 const MARK = "<!-- zdr-agent-pr -->"
-const MAX_ROUNDS = 3
+const MAX_ROUNDS = 5
+const STRONG_FROM = 3
 const STRONG_MODEL = process.env.STRONG_MODEL || "gpt-6-sol"
 const repo = process.env.GITHUB_REPOSITORY
 
@@ -154,11 +156,11 @@ if (rounds >= MAX_ROUNDS) {
   console.log(`#${pr} 打回 ${rounds} 轮仍未通过，交给人`)
   process.exit(0)
 }
-// 最后一轮换更强的模型：前几轮同一个模型两次都没改对，再用它多半还是一样
-const last = rounds + 1 === MAX_ROUNDS
+// 后几轮换更强的模型：默认模型两次都没改对，再用它多半还是一样
+const strong = rounds + 1 >= STRONG_FROM
 await comment(
-  `**打回**（第 ${rounds + 1}/${MAX_ROUNDS} 轮${last ? `，最后一轮换用 \`${STRONG_MODEL}\`` : ""}），issue-fixer 会按下面的问题在最新的 main 上重做：\n\n${problems.map((p) => `- ${p}`).join("\n")}`,
+  `**打回**（第 ${rounds + 1}/${MAX_ROUNDS} 轮${strong ? `，换用 \`${STRONG_MODEL}\`` : ""}），issue-fixer 会按下面的问题在最新的 main 上重做：\n\n${problems.map((p) => `- ${p}`).join("\n")}`,
 )
-const model = last ? ["-f", `client_payload[model]=${STRONG_MODEL}`] : []
+const model = strong ? ["-f", `client_payload[model]=${STRONG_MODEL}`] : []
 if (!dryRun) await $`gh api ${`repos/${repo}/dispatches`} --method POST -f event_type=policy-review -f ${`client_payload[provider]=${provider}`} -F ${`client_payload[issue_number]=${issue}`} ${model}`.quiet()
 console.log(`#${pr} 打回，重新派发 issue #${issue}`)
