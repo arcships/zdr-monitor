@@ -111,6 +111,15 @@ jobs:
             | sed -n '/^STATUS:/,$p' > "$RUNNER_TEMP/response.md"
           test -s "$RUNNER_TEMP/response.md"
 
+      # agent 跑失败时留下事件流，才知道是模型报错、超时还是没给出 STATUS
+      - name: 上传 agent 事件流
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dimcode-events-${{ github.run_id }}
+          path: ${{ runner.temp }}/events.jsonl
+          if-no-files-found: ignore
+
       - name: 检查改动范围
         run: |
           while IFS= read -r line; do

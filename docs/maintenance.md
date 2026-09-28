@@ -25,8 +25,8 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）
   agent PR：reviewer 没有待办，且合进最新 main 后 validate、check:quotes --strict、
   check:change-record 都过 → bot 自动合并，评论写明依据 → Pages 重新部署，时间线更新
   否则评论原因（打回）→ 重新派发 issue-fixer，带上打回意见和上一版 diff，原地更新同一个 PR
-  打回的第三轮换更强的模型（`vars.DIMCODE_STRONG_MODEL`，默认 gpt-6-sol）
-  三轮都不过、或删改了已有来源（sources-changed）→ needs-human，等人
+  打回从第三轮起换更强的模型（`vars.DIMCODE_STRONG_MODEL`，默认 gpt-6-sol）
+  五轮都不过、或删改了已有来源（sources-changed）→ needs-human，等人
 ```
 
 结论（mark、mode、basis、days、object、codes、kind 或档位增删）变了，agent 必须二选一表态，
