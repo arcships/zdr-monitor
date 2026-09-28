@@ -21,7 +21,7 @@ note = "《DeepInfra Terms of Service》(Last modified: August 17th, 2026)，签
 url = "https://docs.deepinfra.com/account/data-privacy"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Data Privacy》页，标题即「How DeepInfra handles your data during inference — what's stored, what's not」，是 retention 维度的权威来源，也是全站唯一点名 Google / Anthropic 上游存储与训练政策例外、批量推理落盘、图片生成输出存储、以及「保留记录一小部分请求的权利」的地方。隐私政策 §Data submitted... 直接以链接指向本页。该页的四项例外在合同 §7(b) 的例外清单中都没有对应文字，构成本家最大的冲突面。同时抓了 .md 直连通道（https://docs.deepinfra.com/account/data-privacy.md），正文与渲染版一致（仅「deleted from memory.The same applies」等处空格差异），锚点以渲染版为准。"
+note = "文档站《Data Privacy》页，标题即「How DeepInfra handles your data during inference — what's stored, what's not」，是 retention 维度的权威来源，也是全站唯一点名 Google / Anthropic 上游存储与训练政策例外、批量推理落盘、图片生成输出存储、以及日志只记元数据、不记请求正文的地方。隐私政策 §Data submitted... 直接以链接指向本页。该页的四项例外在合同 §7(b) 的例外清单中都没有对应文字，构成本家最大的冲突面。同时抓了 .md 直连通道（https://docs.deepinfra.com/account/data-privacy.md），正文与渲染版一致（仅「deleted from memory.The same applies」等处空格差异），锚点以渲染版为准。"
 
 [[source]]
 url = "https://docs.deepinfra.com/gpu-instances/overview.md"
@@ -89,18 +89,18 @@ text_zh = "例外②批量推理：可能「store data for a longer period, pote
 anchor = "deepinfra-docs-dataprivacy-bulk-inference-disk-storage"
 
 [[product.retention.point]]
-text = "Exception 3 — logs: DeepInfra generally does not log the content of requests and logs only metadata, but reserves the right to log a small portion of requests for debugging or security."
-text_zh = "例外③日志：默认只记元数据（request ID、cost、sampling parameters），但「reserve the right to log a small portion of requests when necessary for debugging or security purposes」——对象是访问日志、不是输入输出正文，上限未量化。"
+text = "Logs: DeepInfra does not log the content of requests and logs only metadata useful for debugging (request ID, cost, sampling parameters). Object: access logs, not request content. The page no longer reserves the right to log a small portion of requests for debugging or security, so this is no longer an exception to the retention commitment."
+text_zh = "日志口径：「We do not log the content of your requests. We log only metadata useful for debugging: request ID、cost、sampling parameters」——对象是访问日志、不是输入输出正文。原先的例外表述「We reserve the right to log a small portion of requests when necessary for debugging or security purposes」已从现行页面删除，本档例外因此只剩四项。"
 anchor = "deepinfra-docs-dataprivacy-logs-metadata-debug-exception"
 
 [[product.retention.point]]
-text = "Exception 4 — Google / Anthropic models: the output is stored by the receiving company under its own policy, and DeepInfra quantifies no period."
-text_zh = "例外④上游一跳（Google/Anthropic 模型）：输出由上游存储，期限适用上游政策，DeepInfra 未量化。"
+text = "Exception 3 — Google / Anthropic models: the output is stored by the receiving company under its own policy, and DeepInfra quantifies no period."
+text_zh = "例外③上游一跳（Google/Anthropic 模型）：输出由上游存储，期限适用上游政策，DeepInfra 未量化。"
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.retention.point]]
-text = "Exception 5 — Google models: Google logs prompts and responses for a limited period solely to detect violations of its Prohibited Use Policy, so the input side is recorded upstream as well."
-text_zh = "例外⑤上游记录输入侧（Google 模型）：「Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy」。"
+text = "Exception 4 — Google models: Google logs prompts and responses for a limited period solely to detect violations of its Prohibited Use Policy, so the input side is recorded upstream as well."
+text_zh = "例外④上游记录输入侧（Google 模型）：「Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy」。"
 anchor = "deepinfra-docs-dataprivacy-google-logs-prompts-and-responses"
 
 [[product.retention.point]]
@@ -473,7 +473,7 @@ r data to those endpoints to fulfill the request.
 ## Logs
 
 """
-exact = "We generally do not log the content of your requests. We log metadata useful for debugging: request ID, cost, sampling parameters. We reserve the right to log a small portion of requests when necessary for debugging or security purposes"
+exact = "We do not log the content of your requests. We log only metadata useful for debugging: request ID, cost, sampling parameters"
 suffix = ".When using the Google model, Google logs prompts and respon"
 
 [[anchor]]
@@ -602,6 +602,6 @@ source_id = "18f12f8ea42656ad"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "We reserve the right to log a small portion of requests when necessary for debugging or security purposes. "
+prefix = "We do not log the content of your requests. We log only metadata useful for debugging: request ID, cost, sampling parameters. "
 exact = "When using the Google model, Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy"
 suffix = "\nPersonal information and data provided"
