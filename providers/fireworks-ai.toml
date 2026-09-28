@@ -21,7 +21,7 @@ note = "《Regions》页：默认多区域（GLOBAL/US/EUROPE/APAC），并列�
 url = "https://docs.fireworks.ai/ecosystem/firerouter/overview"
 channel = "developer_data"
 tier = "core"
-note = "《FireRouter》产品文档：托管路由服务，默认在 Fireworks 开源模型与闭源模型之间选路，pass-through 默认目标是 Claude Opus 5（Anthropic），用客户自己的 provider key 计费。这是本家唯一把请求实际转给第三方的功能，构成多跳链路，因此单列 products 行。"
+note = "《FireRouter》产品文档：逐轮在 Fireworks serverless 开源模型与客户自有 Anthropic/OpenAI 或 Amazon Bedrock 账号的闭源模型之间选路。凭据可用账号级 Provider Keys，Anthropic/OpenAI 也可逐请求发送；Bedrock 映射模型 ID 和区域。账号开启 data residency 后不能使用 FireRouter；闭源模型构成第三方跳，因此单列 products 行。"
 
 [[source]]
 url = "https://docs.fireworks.ai/guides/prompt-caching"
@@ -373,10 +373,10 @@ searched = [
 ]
 
 [[product.training.point]]
-text_zh = "FireRouter 文档只描述路由、计费与鉴权，没有就「pass-through 到第三方后数据如何被使用」作任何承诺"
+text_zh = "FireRouter 文档描述路由、凭据与计费，没有就「闭源模型转给第三方后数据如何被用于训练」作任何承诺。"
 
 [[product.training.point]]
-text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束 Anthropic/OpenAI。多跳判定：本跳（Fireworks 侧）无明确承诺，上游跳（Anthropic/OpenAI）的条款不在本台账本家范围内，因此按「任一跳明确为否则全链为否」+ 保守假设处理，不在本家记 training 的正面结论。"
+text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束客户自有账号的 Anthropic/OpenAI/Bedrock 上游。多跳判定：Fireworks 本身受合同禁令约束，但上游跳的训练承诺不在本台账本家范围内；不能将 Fireworks 单跳的正面承诺推广到全链，故本档 training 保持 unknown。"
 
 [[product.training.point]]
 text_zh = "原先绑在本条的引文（「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，既不涉及训练，也不涉及保留，故不再绑在本条；该引文现绑在本档 processing_region 条目。"
@@ -391,12 +391,12 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "Fireworks' own Zero Data Retention wording (ToS §3.6 and the Zero Data Retention page) is written for the inference path Fireworks itself serves. The FireRouter docs cover routing, billing and authentication only, and neither page states a zero-retention position for the pass-through hop, whose executor is a third-party provider."
-text_zh = "Fireworks 自己的零保留表述（ToS §3.6 与《Zero Data Retention》页）针对的是 Fireworks 自己提供推理的那条路径。FireRouter 文档只写路由、计费与鉴权，两处都没有就 pass-through 这一跳（执行方是第三方 provider）给出零保留方案。"
+text = "Fireworks' own Zero Data Retention wording (ToS §3.6 and the Zero Data Retention page) is written for the inference path Fireworks itself serves. The FireRouter docs cover routing, billing and credentials, but do not state a zero-retention position for the closed-model hop served by a third-party provider."
+text_zh = "Fireworks 自己的零保留表述（ToS §3.6 与《Zero Data Retention》页）针对的是 Fireworks 自己提供推理的路径。FireRouter 文档写选路、计费与凭据，没有就第三方执行的闭源模型这一跳给出零保留方案。"
 
 [[product.zdr.point]]
-text = "Contrary reading, kept side by side: DPA §4.5 says Company shall not retain prompt inputs or model outputs beyond the lifecycle of the applicable request, and DPA Schedule 4 lists Anthropic as an authorised sub-processor — read at contract level, the pass-through hop may already be covered. The verdict stays at no because Fireworks' ZDR documentation does not extend the commitment to the third-party hop, and the upstream hop's own retention policy is not part of this provider's scope."
-text_zh = "相反口径并列保留：DPA §4.5 承诺 Company 不保留 prompt inputs / model outputs 超过请求生命周期，Schedule 4 又把 Anthropic 列为授权子处理者——按合同层读，pass-through 这一跳可能已被 DPA 覆盖。结论仍记否：Fireworks 的 ZDR 文档没有把承诺延伸到第三方跳，上游跳（Anthropic）自己的保留政策不在本台账本家范围内。"
+text = "Contrary reading, kept side by side: DPA §4.5 says Company shall not retain prompt inputs or model outputs beyond the lifecycle of the applicable request, and DPA Schedule 4 lists Anthropic as an authorised sub-processor — read at contract level, the Anthropic closed-model hop may already be covered. The verdict stays at no because Fireworks' ZDR documentation does not extend the commitment to every third-party hop, and the upstream providers' own retention policies are not part of this provider's scope."
+text_zh = "相反口径并列保留：DPA §4.5 承诺 Company 不保留 prompt inputs / model outputs 超过请求生命周期，Schedule 4 又把 Anthropic 列为授权子处理者——按合同层读，Anthropic 闭源模型这一跳可能已被 DPA 覆盖。结论仍记否：Fireworks 的 ZDR 文档没有把承诺延伸到所有第三方跳，上游 provider 自己的保留政策不在本台账本家范围内。"
 anchor = "fireworks-dpa-4-5-request-lifecycle"
 
 [product.retention]
@@ -409,12 +409,18 @@ searched = [
 ]
 
 [[product.retention.point]]
-text = "The only retention-adjacent disclosure FireRouter makes is about credentials: \"Provider keys sent on individual requests are not persisted by FireRouter.\" (a per-request provider key is not stored; when workspace BYOK is provisioned by Fireworks the credential lives in the customer workspace and is supplied server-side). It says nothing about the retention period of request/response content on the pass-through path, which is why this row is recorded as undisclosed instead of being anchored to that sentence."
-text_zh = "FireRouter 唯一与保留沾边的披露是凭据侧：「Provider keys sent on individual requests are not persisted by FireRouter.」（逐请求携带的 provider key 不落库；若由 Fireworks 侧开通 workspace BYOK，则凭据存在客户 workspace 里、由服务端注入）。它没有说 pass-through 路径上请求/响应正文的保留期，故本行按「未披露」记 searched[]，不把这条句子当依据。"
-anchor = "fireworks-firerouter-third-party-provider-key"
+text = "The revised FireRouter page no longer assures that provider keys sent per request are not persisted. It distinguishes admin-stored Provider Keys from per-request headers, and says the latter can appear in client configurations and gateway request logs. These disclosures concern credentials and logs, not the retention period of request/response content across the closed-model path."
+text_zh = "改版后的 FireRouter 页不再保证逐请求 provider key 不持久化，而是区分管理员存入 Fireworks 账号的 Provider Keys 与可能出现在客户端配置和网关请求日志中的逐请求头。它们讲的是凭据和日志，不是闭源模型路径请求/响应正文的全链保留期限。"
 
 [[product.retention.point]]
-text_zh = "Fireworks 侧的 ZDR（ToS §3.6）只承诺 inference，而 pass-through 的执行方是第三方，故不能把 Fireworks 的 ZDR 结论直接套到本档。"
+text = "Anthropic serves Claude Fable only to organizations with data retention enabled. This is an upstream eligibility condition for that model, not a content-retention period for all FireRouter traffic."
+text_zh = "Claude Fable 仅供已启用 data retention 的 Anthropic 组织使用；这是该模型上游的使用条件，并非全部 FireRouter 请求正文的保留期限。"
+anchor = "fireworks-firerouter-fable-retention-required"
+
+[[product.retention.point]]
+text = "Fireworks' own hop has a DPA §4.5 promise not to retain prompt inputs or model outputs beyond the applicable request lifecycle (subject to its ZDR configuration and feature exceptions). The undisclosed input_output basis describes the entire closed-model path: the customer-owned upstreams' request-body retention period is not established here, and cannot be inferred from Fireworks' single-hop commitment."
+text_zh = "Fireworks 自身一跳有 DPA §4.5 的承诺：不保留 prompt 输入或模型输出超过请求生命周期（受 ZDR 配置与功能例外约束）。本档 input_output 未披露指闭源模型的全链期限：此处尚无客户自有上游的请求正文保留期限，不能由 Fireworks 单跳承诺推出。"
+anchor = "fireworks-dpa-4-5-request-lifecycle"
 
 [[product.retention.point]]
 text = "Contract-layer termination deletion: under DPA §11.2(b) Company deletes all copies of Covered Data on expiry of the Retention Period (§11.2(a): thirty (30) days from expiry of the Agreement), other than Administration Data and Usage Data."
@@ -427,25 +433,49 @@ text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services fo
 anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
-codes = ["US"]
-anchor = "fireworks-firerouter-pass-through-anthropic"
+codes = ["global", "selected"]
+anchor = "fireworks-firerouter-closed-model-upstream-account"
 
 [[product.processing_region.point]]
-text_zh = "pass-through 路径由客户自己的 provider key 直连上游（默认 Anthropic），处理地由上游决定"
+text = "Open-model turns use Fireworks serverless, whose account default permits any model and region; closed-model turns use customer-owned upstream accounts. Here global refers to Fireworks' unrestricted serving, while selected refers only to customer-controlled upstream account/Bedrock region configuration. Neither code promises FireRouter-wide residency or a single processing country."
+text_zh = "开源模型轮次使用 Fireworks serverless（账号默认不限制模型和区域）；闭源模型轮次使用客户自有上游账号。这里 global 仅指 Fireworks 默认不限区域，selected 仅指客户控制上游账号／Bedrock 区域配置；两者均不承诺 FireRouter 全链数据驻留或单一处理国家。"
+anchor = "fireworks-dataresidency-default-none"
 
 [[product.processing_region.point]]
-text_zh = "Fireworks 声明无法约束（data_residency 页）。Redirect 路径仍走 Fireworks 开源模型，此时适用 api 档结论。"
+text = "Bedrock is another customer-owned upstream. Its model ID maps to a Bedrock region, but that mapping does not establish a common processing country for every FireRouter account."
+text_zh = "Bedrock 也是客户自有上游；模型 ID 须映射到 Bedrock 区域，但不能推成所有 FireRouter 账号共有的处理国家。"
+anchor = "fireworks-firerouter-bedrock-account-region"
+
+[[product.processing_region.point]]
+text = "Fireworks cannot constrain a third-party provider to a region when a firerouter/... request passes through."
+text_zh = "Fireworks 明示 firerouter/... 请求经过第三方时无法约束其区域；因此不可把 api 档可选的驻留区域推广为全链保证。"
 anchor = "fireworks-dataresidency-firerouter-third-party"
+
+[[product.processing_region.point]]
+text = "Accounts with data residency enabled cannot use FireRouter."
+text_zh = "已启用 data residency 的账号不能使用 FireRouter；这进一步排除了将账号级区域锁定视为路由保证。"
+anchor = "fireworks-firerouter-residency-incompatible"
+
+[[product.processing_region.point]]
+text = "Contract layer, kept side by side: DPA Schedule 4 lists Anthropic in the United States as an authorised sub-processor. That entry cannot establish a US-only location for all customer-owned Anthropic/OpenAI or Bedrock configurations."
+text_zh = "合同层并列保留：DPA Schedule 4 将 Anthropic 授权子处理者列在美国；但无法推成客户自有 Anthropic/OpenAI 或 Bedrock 账号的所有路由配置均只在美国。"
+anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
 
 [product.role]
 kind = "processor"
+anchor = "fireworks-dpa-3-a-processor"
+
+[[product.role.point]]
+text_zh = "FireRouter 页说明闭源模型使用客户自己的 Anthropic/OpenAI 账号；但客户自有账号并不单独界定 Fireworks 在 DPA 下的角色，也不能证明上游在每种 BYOK 配置中的合同身份。"
+anchor = "fireworks-firerouter-closed-model-upstream-account"
+
+[[product.role.point]]
+text_zh = "Bedrock 也是客户自有账号，须映射模型与区域；这仍不单独界定 Fireworks 与 Bedrock 在每种配置下的协议角色。"
+anchor = "fireworks-firerouter-bedrock-account-region"
+
+[[product.role.point]]
+text_zh = "DPA §3(a) 将 Fireworks 履约时定为 processor/service provider；Schedule 4 把 Anthropic 列为授权子处理者。本档仅沿用 Fireworks 自身的 processor 角色，不把 Anthropic 子处理者条目推广到 OpenAI/Bedrock 或每种 BYOK 配置；客户账号闭源跳的角色适用范围仍需澄清。"
 anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
-
-[[product.role.point]]
-text_zh = "适用范围分歧（(a)）：firerouter_overview 页把第三方描述为「provider」，用客户自己的 key 计费，读起来像客户与上游的直接关系；即 BYOK 直连时 Fireworks 是 conduit 还是 processor，本轮不选边。"
-
-[[product.role.point]]
-text_zh = "(b) DPA Schedule 4 把「Anthropic / United States / AI services」列为 Fireworks 的授权子处理者，读起来像 Fireworks 以 processor 身份再委托——合同层据此把 FireRouter 这一跳记为 processor，Anthropic 记为 subprocessor。两条事实并列保留、不取平均；「pass-through 时 Fireworks 是 conduit 还是 processor」仍需人工澄清。"
 
 [[product]]
 id = "self_managed"
@@ -602,7 +632,7 @@ suffix = """
 [[anchor]]
 id = "fireworks-dpa-sched4-anthropic-subprocessor"
 source_id = "809a8c0c397358d0"
-topics = ["role"]
+topics = ["role", "processing_region"]
 
 [anchor.selector]
 prefix = """
@@ -658,12 +688,15 @@ source_id = "5b91be97039b3320"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-inference for your Enterprise account to a selected region
-
-"""
 exact = "Data residency restricts inference on your account to a single region."
-suffix = " Once a region is set, every request must use that region’s "
+
+[[anchor]]
+id = "fireworks-dataresidency-default-none"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "| None | `api.fireworks.ai` | Any model | Any region | | US | `us.api.fireworks.ai` | US-only Serverless | `US` multi-region, or a single US region such as `US_IOWA_1` | **None** is the default."
 
 [[anchor]]
 id = "fireworks-dataresidency-firerouter-third-party"
@@ -671,11 +704,7 @@ source_id = "5b91be97039b3320"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-prefix = "r](https://docs.fireworks.ai/ecosystem/firerouter/overview) "
-exact = "can pass a request through to a third-party provider, which Fireworks cannot constrain to a region."
-suffix = """
-
-*   **BYOC.**[BYOC](https://docs.fireworks.ai/ecosystem/int"""
+exact = "A `firerouter/...` id can pass a request through to a third-party provider, which Fireworks cannot constrain to a region."
 
 [[anchor]]
 id = "fireworks-dataresidency-byoc-not-enforceable"
@@ -683,12 +712,7 @@ source_id = "5b91be97039b3320"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "s://docs.fireworks.ai/ecosystem/integrations/byoc/overview) "
-exact = "deployments run in your own cloud account, so Fireworks cannot enforce where they run."
-suffix = """
-
-
-*   [US-only Serverless](https://docs.fireworks.ai/serverl"""
+exact = "BYOC deployments run in your own cloud account, so Fireworks cannot enforce where they run."
 
 [[anchor]]
 id = "fireworks-regions-multi-region-default"
@@ -706,31 +730,36 @@ exact = "By default, deployments are multi-region: Fireworks can move and spread
 suffix = " Multi-regions (**GLOBAL**, **US**, **EUROPE**, **APAC**) ar"
 
 [[anchor]]
-id = "fireworks-firerouter-pass-through-anthropic"
+id = "fireworks-firerouter-closed-model-upstream-account"
 source_id = "71f0c175ad418ee9"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-prefix = """
- open model (by default GLM 5.3) | Your Fireworks API key |
-"""
-exact = "| **Pass-through** | More likely when the closed-source model’s predicted success justifies its cost | A closed-source model (by default Claude Opus 5) | Your provider API key (Anthropic) |"
-suffix = """
-
-
-FireRouter uses a bring-your-own-key (BYOK) model:
-
-*   Yo"""
+exact = "Fireworks open models run on Fireworks serverless. Closed models run on your own Anthropic or OpenAI account, using a credential you provide."
 
 [[anchor]]
-id = "fireworks-firerouter-third-party-provider-key"
+id = "fireworks-firerouter-bedrock-account-region"
+source_id = "71f0c175ad418ee9"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+exact = "FireRouter calls closed models through your own Anthropic, OpenAI, or Amazon Bedrock account. Your Fireworks API key is always required. Each closed provider in the route also needs a credential. For Anthropic and OpenAI, there are two ways to provide one. Bedrock uses Provider Keys only, with each model mapped to a Bedrock model ID and region."
+
+[[anchor]]
+id = "fireworks-firerouter-fable-retention-required"
 source_id = "71f0c175ad418ee9"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "A third-party **provider API key** pays for calls to that provider’s models."
-exact = "Provider keys sent on individual requests are not persisted by FireRouter."
-suffix = "If workspace BYOK is provisioned on your Fireworks account, Fireworks stores the credential in your workspace"
+exact = "Anthropic serves Claude Fable only to organizations with data retention enabled."
+
+[[anchor]]
+id = "fireworks-firerouter-residency-incompatible"
+source_id = "71f0c175ad418ee9"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Accounts with data residency enabled cannot use FireRouter."
 
 [[anchor]]
 id = "fireworks-tos-10-1-us-processing"
