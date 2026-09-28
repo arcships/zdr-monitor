@@ -38,7 +38,8 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          # base 分支的最新提交（仍是可信代码）。base.sha 是 PR 开出时记下的，老 PR 上会缺后来加的脚本
+          ref: ${{ github.event.pull_request.base.ref }}
           persist-credentials: false
           # 自动合并前要把 PR 合进最新的 main 再检查，需要完整历史
           fetch-depth: 0
