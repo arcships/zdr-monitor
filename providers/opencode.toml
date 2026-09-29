@@ -59,6 +59,11 @@ text = "Additional data flow: session content is also sent to low-cost models �
 text_zh = "额外数据流：会话内容还会被送往低成本模型生成会话标题——「You may notice low-cost models, such as Haiku, Nano, or Flash, in your usage history. OpenCode uses these models to generate session titles.」。这些模型本身就在 Zen 端点表内；官方未就标题这类派生数据单独给出保留期限。"
 anchor = "opencode-zen-session-titles"
 
+[[product.zdr.point]]
+text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev 1.13 and Jev 1.13 Free are listed in this tier's own endpoint and pricing tables, and the docs state no retention period of their own — the period is deferred to a third party's policy."
+text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 1.13 与 Jev 1.13 Free 都列在本档端点表与价目表内；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
+anchor = "opencode-zen-jev-exception"
+
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -67,6 +72,11 @@ anchor = "opencode-zen-privacy"
 [[product.retention.point]]
 text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
+text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
+anchor = "opencode-zen-jev-exception"
 
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" OpenCode itself claims not to retain Content; the sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
@@ -161,6 +171,11 @@ anchor = "opencode-zen-privacy"
 text = "Exceptions in the same privacy section take part of this tier's models out of zero retention: \"OpenAI APIs: Requests are retained for 30 days in accordance with OpenAI’s Data Policies\" (identical for Anthropic APIs), and the data-collecting free models a workspace can enable are collected from and logged. mark=yes / mode=default therefore holds only for models outside that exception list."
 text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外：走 OpenAI APIs / Anthropic APIs 的请求保留 30 天；工作区可启用的数据收集类免费模型会被收集数据并记录使用。因此 mark=yes / mode=default 只对例外清单以外的模型成立。"
 anchor = "opencode-zen-30-days"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev models are Zen endpoints a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
+text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 模型是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
+anchor = "opencode-zen-jev-exception"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -168,6 +183,11 @@ anchor = "opencode-zen-privacy"
 [[product.retention.point]]
 text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
+text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
+anchor = "opencode-zen-jev-exception"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -210,6 +230,11 @@ anchor = "opencode-zen-privacy"
 text = "Exceptions in the same privacy section take part of this tier's models out of zero retention: \"OpenAI APIs: Requests are retained for 30 days in accordance with OpenAI’s Data Policies\" (identical for Anthropic APIs), and the data-collecting free models a workspace can enable are collected from and logged. mark=yes / mode=default therefore holds only for models outside that exception list."
 text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外：走 OpenAI APIs / Anthropic APIs 的请求保留 30 天；工作区可启用的数据收集类免费模型会被收集数据并记录使用。因此 mark=yes / mode=default 只对例外清单以外的模型成立。"
 anchor = "opencode-zen-30-days"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev models are Zen endpoints a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
+text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 模型是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
+anchor = "opencode-zen-jev-exception"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -217,6 +242,11 @@ anchor = "opencode-zen-privacy"
 [[product.retention.point]]
 text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
+text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
+anchor = "opencode-zen-jev-exception"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -335,6 +365,15 @@ topics = ["zdr"]
 [anchor.selector]
 prefix = ""
 exact = "You may notice low-cost models, such as Haiku, Nano, or Flash, in your usage history. OpenCode uses these models to generate session titles."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-jev-exception"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "- Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy."
 suffix = ""
 
 [[anchor]]
