@@ -54,15 +54,16 @@ jobs:
             echo "还剩 $((left / 3600)) 小时，不续"
             exit 0
           fi
-          before="$(jq -r .dimAccountState.credentialRevision "$dir/auth.json")"
-          # 已登录时 auth login 用刷新令牌换发新令牌；登录态失效时它会等浏览器授权，用 timeout 兜住
-          timeout 120 dim auth login < /dev/null
-          after="$(jq -r .dimAccountState.credentialRevision "$dir/auth.json")"
-          if [ "$after" = "$before" ]; then
-            echo "::error::令牌没有换发，登录态可能已失效，需要按 docs/maintenance.md 重新登录"
-            exit 1
-          fi
+          # 用刷新令牌换发（dim auth login 在 runner 上会等浏览器授权，见 refresh.mjs）
+          node .github/actions/setup-dimcode/refresh.mjs "$dir/auth.json"
+          # 刷新令牌可能已经轮换，旧的就作废了：先写回 secret，写不回就重试，再验证
+          for i in 1 2 3; do
+            gh secret set DIMCODE_AUTH_JSON --repo "$GITHUB_REPOSITORY" < "$dir/auth.json" && break
+            [ "$i" = 3 ] && { echo "::error::新令牌写不回 secret，需要按 docs/maintenance.md 重新登录"; exit 1; }
+            sleep 10
+          done
           dim auth status
-          gh secret set DIMCODE_AUTH_JSON --repo "$GITHUB_REPOSITORY" < "$dir/auth.json"
-          gh secret set DIMCODE_MODELS_JSON --repo "$GITHUB_REPOSITORY" < "$dir/dim-oauth-models.json"
+          echo "只回复 OK" | dim exec --stdin --json --policy read-only --provider dimcode-api-oauth \
+            --model "${DIMCODE_MODEL:-deepseek-v4.1-flash}" --no-hooks \
+            | jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' >/dev/null
           echo "已续期到 $(jq -r '.nextApiOauth.expires / 1000 | todate' "$dir/auth.json")"
