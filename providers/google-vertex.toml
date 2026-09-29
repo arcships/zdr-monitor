@@ -71,6 +71,11 @@ text = """Which models the exception can hit: the models and features designated
 text_zh = """例外可能落在哪些模型上：被指定为「Advanced AI」的模型与特性包括 Claude Mythos（全部版本）、Claude Fable（全部版本），以及为 Anthropic Cyber Verification Program 开启 `advanced_ai_enabled` 时的 Claude Opus >=4.7 与 Sonnet >=5；这些 Claude 模型的其余用法不在 Advanced AI Safety Addendum 范围内。"""
 anchor = "zdr-advanced-ai-model-scope"
 
+[[product.zdr.point]]
+text = """Not every agent surface can reach ZDR: Deep Research agent session data is kept for a fixed seven days, and "This feature cannot be disabled when using the Deep Research agent." Using the Deep Research agent therefore means accepting that session retention, so the ZDR path listed on this page excludes that surface (see the matching retention point)."""
+text_zh = """并非每个 agent 场景都能达成 ZDR：Deep Research agent 的会话数据固定保留 7 天，且原文「This feature cannot be disabled when using the Deep Research agent.」使用 Deep Research agent 即意味着接受该会话留存，因此本页所列的 ZDR 路径不含该场景（见对应的 retention 依据条目）。"""
+anchor = "zdr-deep-research-cannot-be-disabled"
+
 [product.retention]
 object = "input_output"
 basis = "as_needed"
@@ -135,6 +140,11 @@ anchor = "retention-live-session-resumption-24h"
 text = """CodeMender session data (developer doc, agent products): object = session state including target source code snippets, diffs, configuration, and analysis checkpoints; context = while a find-and-fix scan is in progress; period type = up to seven (7) days from session creation (encrypted), with source code cleared within seconds of a terminal state and the remaining session record deleted at the seven-day TTL; customers can delete a session earlier."""
 text_zh = """CodeMender 会话数据（开发者文档，agent 产品）：对象=会话状态，含目标源码片段、diff、配置与分析检查点；语境=find-and-fix 扫描进行期间；期限类型=自会话创建起最长 7 天（加密存储），会话进入终态后源码在数秒内清除、剩余会话记录在 7 天 TTL 时自动删除；客户可提前删除会话。"""
 anchor = "retention-codemender-7d"
+
+[[product.retention.point]]
+text = """Deep Research agent session data (developer doc, agent products): object = prompts and session data including search results and generated images, stored via the Interactions API; context = using the Deep Research agent, where this retention cannot be turned off — "This feature cannot be disabled when using the Deep Research agent"; period type = a fixed seven (7) days from creation — "Google stores prompts and session data - including search results and generated images - via the Interactions API for a period of seven (7) days". This session data is encrypted at rest and deleted automatically at the end of the seven-day TTL; customers can delete a session earlier, removing all associated data."""
+text_zh = """Deep Research agent 会话数据（开发者文档，agent 产品）：对象=prompt 与会话数据（含搜索结果与生成的图片），经 Interactions API 存储；语境=使用 Deep Research agent 时，且该留存无法关闭——原文「This feature cannot be disabled when using the Deep Research agent」；期限类型=自创建起固定 7 天——原文「Google stores prompts and session data - including search results and generated images - via the Interactions API for a period of seven (7) days」。该会话数据静态加密，并在 7 天 TTL 到期时自动删除；客户可提前删除会话并移除全部关联数据。"""
+anchor = "retention-deep-research-agent-7d"
 
 [product.processing_region]
 codes = ["selected"]
@@ -438,3 +448,23 @@ Claude Fable (all versions)
 
 Claude Opus >=4.7 and Sonnet >=5 when `advanced_ai_enabled` is set to `true` for use within Anthropic's Cyber Verification Program (CVP)."""
 suffix = " All other usage of these models is out of scope"
+
+[[anchor]]
+id = "retention-deep-research-agent-7d"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "- **Deep Research agent session data** — "
+exact = "Google stores prompts and session data - including search results and generated images - via the Interactions API for a period of seven (7) days. This session data is encrypted at rest, and is deleted automatically at the end of the seven-day TTL. Customers can delete a session (removing all associated data) before the TTL expires. This feature cannot be disabled when using the Deep Research agent."
+suffix = ""
+
+[[anchor]]
+id = "zdr-deep-research-cannot-be-disabled"
+source_id = "89852246e77a9205"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "before the TTL expires. "
+exact = "This feature cannot be disabled when using the Deep Research agent."
+suffix = ""
