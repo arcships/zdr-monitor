@@ -10,7 +10,7 @@ url = "https://ai.google.dev/gemini-api/docs/feedback-policies"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "Gemini API 文档站 Policies › Feedback information(AI Studio Inline Preference Voting,Last updated 2026-04-28)。api 档辅助:反馈路径会记录 prompts/responses 并用于 provide/improve/develop 产品与 ML 技术。verify.py 启发式判 not_policy(行数=2),人工复核为可用正文。"
+note = "Gemini API 文档站 Policies › Feedback(Last updated 2026-09-25)。api 档辅助:主动提交 Google AI Studio 反馈时记录被反馈交互的 prompts/responses(含上传文件或媒体);可通过 Playground、Build(含 Build Arena)及 Gemini API Logs 提交。反馈用于改进产品及机器学习技术;此页不区分 Paid/Unpaid,不表示默认付费 API 请求用于改进。旧页审阅前断开账号、API key、Cloud 项目关联的承诺未见于现行反馈页;分享 dataset 的相应承诺仍见 logs-policy。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/logs-policy"
@@ -109,9 +109,29 @@ text_zh = "同一路径上,人工审阅者可读取、标注、处理你分享�
 anchor = "training-optin-human-review"
 
 [[product.training.point]]
-text = "Opt-in path 2 (AI Studio Inline Preference Voting): \"We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about\", and that feedback is used to provide, improve and develop Google products and services and machine learning technologies (docs/feedback-policies). The vote can be skipped when it appears, but that page does not distinguish Paid from Unpaid AI Studio — so the disclosed opt-in paths are two, not one."
-text_zh = "opt-in 路径二(AI Studio 的 Inline Preference Voting):「We record all prompts and responses, including any uploaded content, in the conversation you submitted feedback about」,该反馈用于 provide/improve/develop Google 产品、服务与 ML 技术(docs/feedback-policies)。投票出现时可跳过,但该页未按 Paid/Unpaid 区分 AI Studio——故已披露的 opt-in 路径有两条,不是一条。"
+text = "Opt-in path 2 (voluntary feedback in Google AI Studio): Google records the prompts and responses, including uploaded files or media, from the interaction or conversation submitted for feedback (docs/feedback-policies). The page does not distinguish Paid from Unpaid AI Studio. This voluntary feedback is not default use of paid API traffic; the paid-tier contractual no-improvement promise remains in force."
+text_zh = "opt-in 路径二(在 Google AI Studio 主动提交反馈):Google 记录被反馈交互或会话的 prompts、responses 和上传文件或媒体(docs/feedback-policies)。该页未按 Paid/Unpaid AI Studio 区分;主动反馈不表示默认付费 API 请求用于改进,付费档的合同承诺仍有效。"
 anchor = "training-feedback-records"
+
+[[product.training.point]]
+text = "Feedback in AI Studio covers response ratings, written comments and preference voting (including Inline Preference Voting and Build Arena), not just Inline Preference Voting."
+text_zh = "AI Studio 反馈涵盖回复评分、书面评论、偏好投票(包括 Inline Preference Voting 与 Build Arena),不限于 Inline Preference Voting。"
+anchor = "training-feedback-scope"
+
+[[product.training.point]]
+text = "When feedback is submitted on an individual Gemini API request log in the Logs and Datasets viewer, the recorded data includes the request payload, model response, parameters and metadata, plus feedback and usage details; this is not a claim that API logs are used by default for improvement."
+text_zh = "在 Logs and Datasets viewer 对单条 Gemini API 请求日志提交反馈时,记录相应请求 payload、模型回复、参数、元数据以及反馈和使用详情;不表示默认 API 日志用于改进。"
+anchor = "training-feedback-api-log"
+
+[[product.training.point]]
+text = "Submitted feedback helps Google provide, improve and develop products, services and machine learning technologies (docs/feedback-policies)."
+text_zh = "所提交的反馈用于提供、改进和开发 Google 产品、服务及机器学习技术(docs/feedback-policies)。"
+anchor = "training-feedback-improve"
+
+[[product.training.point]]
+text = "The current feedback page says that providing feedback is always voluntary; the previous explicit skip option for Inline Preference Voting is no longer separately stated on this page."
+text_zh = "现行反馈页称反馈始终为自愿;旧版针对 Inline Preference Voting 的明确跳过选项不再单独写出。"
+anchor = "training-feedback-voluntary"
 
 [product.zdr]
 mark = "yes"
@@ -346,10 +366,15 @@ kind = "controller"
 anchor = "role-google-llc-service-provider"
 
 [[product.role.point]]
-text_zh = "消费者档:Antigravity 条款把 Google 通用条款列为上位条款,合同相对方 Google LLC"
+text_zh = "此 controller 结论仅限 Antigravity 消费者附加条款覆盖的访问:该条款把 Google 通用条款列为上位条款,合同相对方为 Google LLC。"
 
 [[product.role.point]]
-text_zh = "隐私政策按所在地指定控制者(EEA/瑞士=Google Ireland Limited)。属消费者 controller 定位,非 processor。"
+text = "These Antigravity Additional Terms do not apply to access through Gemini Enterprise (Google Cloud), Gemini Enterprise for Business, a Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise API Key. The administrator's accepted or signed terms govern those routes; this consumer controller verdict does not determine their roles."
+text_zh = "现行 Antigravity 附加条款排除通过 Gemini Enterprise (Google Cloud)、Gemini Enterprise for Business、适用 Google Cloud Pre-GA Offering Terms 的 Workspace 订阅,或使用 Gemini Enterprise API Key 的访问;这些路径适用管理员接受或签署的条款,本消费档 controller 结论不能套用到它们。"
+anchor = "scope-enterprise-carveout"
+
+[[product.role.point]]
+text_zh = "在上述消费者条款适用范围内,隐私政策按所在地指定控制者(EEA/瑞士=Google Ireland Limited),属消费者 controller 定位,非 processor。"
 
 [[product.role.point]]
 text = "Multi-hop: if you select a third party or open source model as your main agent model, you become subject to that model's own terms (for Anthropic the terms point at its commercial terms), so that configuration adds a hop which Google's terms do not cover. This row's conclusions describe the Google hop only; the upstream hop must be assessed separately (see the anthropic entry)."
@@ -929,13 +954,39 @@ source_id = "85310dbc7a6ba1e6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-icipate in Inline Preference Voting:
-Prompts and Responses: """
-exact = "We record all prompts and responses, including any"
-suffix = """
+exact = "We record the prompts and responses, including any uploaded files or media, from the interaction or conversation you submitted feedback about"
 
-uploaded content, in the conversation you submitted feedbac"""
+[[anchor]]
+id = "training-feedback-scope"
+source_id = "85310dbc7a6ba1e6"
+topics = ["training"]
+
+[anchor.selector]
+exact = "This policy applies to all feedback submitted across Google AI Studio - including response ratings (such as thumbs up and thumbs down), written comments, and preference voting (such as Inline Preference Voting and Build Arena mode)"
+
+[[anchor]]
+id = "training-feedback-api-log"
+source_id = "85310dbc7a6ba1e6"
+topics = ["training"]
+
+[anchor.selector]
+exact = "In the Logs and Datasets viewer, feedback can be submitted on individual Gemini API request logs. Recorded data includes the specific API log entry (including request payload, model response, parameters, and metadata) along with any feedback and usage details"
+
+[[anchor]]
+id = "training-feedback-improve"
+source_id = "85310dbc7a6ba1e6"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Your feedback helps us provide, improve, and develop Google products and services and machine learning technologies, including Google's enterprise features, products, and services"
+
+[[anchor]]
+id = "training-feedback-voluntary"
+source_id = "85310dbc7a6ba1e6"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Providing feedback is always voluntary"
 
 [[anchor]]
 id = "role-gemini-api-paid-processor-service"
@@ -1051,11 +1102,7 @@ source_id = "caee9d2256b1a97d"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-Google Antigravity Additional
-Terms of Service"""
-exact = "If you are accessing the Service through [Gemini Enterprise (Google Cloud)](https://cloud.google.com/terms), [Gemini Enterprise for Business](https://cloud.google.com/terms/gemini-enterprise/business) or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise Agent Platform API Key"
-suffix = ", then you are subject to the terms of use accepted or signed by your administrator applicable to such service"
+exact = "If you are accessing the Service through Gemini Enterprise (Google Cloud), Gemini Enterprise for Business or a Google Workspace subscription on the Google Cloud Pre-GA Offering Terms, or with a Gemini Enterprise API Key, then you are subject to the terms of use accepted or signed by your administrator applicable to such service (including its applicable terms for downloadable software) and the terms below do not apply to you"
 
 [[anchor]]
 id = "retention-datasets-no-period"
