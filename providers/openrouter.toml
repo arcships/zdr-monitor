@@ -336,8 +336,13 @@ basis = "undisclosed"
 anchor = "openrouter-byok-region-declaration-region"
 
 [[product.processing_region.point]]
-text = "Region rests on a declaration: \"On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI account processes requests, so you tell OpenRouter.\" The Data region setting on a key offers Global / European Union / United States, and the declaration is the customer's attestation — \"OpenRouter does not verify it\"."
-text_zh = "区域靠声明：「On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI account processes requests, so you tell OpenRouter.」key 上的 Data region 有 Global / European Union / United States 三档，声明是客户自述——「OpenRouter does not verify it」。"
+text = "Region rests on a declaration: \"On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter.\" The Data region setting on a key offers Global / European Union / United States, and the declaration is the customer's attestation — \"OpenRouter does not verify it\"."
+text_zh = "区域靠声明：「On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter.」key 上的 Data region 有 Global / European Union / United States 三档，声明是客户自述——「OpenRouter does not verify it」。"
+
+[[product.processing_region.point]]
+anchor = "openrouter-byok-region-openai-azure-declaration-region"
+text = "The declaration governs the OpenRouter→upstream hop for OpenAI and Azure keys on regional domains, not just the routing pool: \"An OpenAI or Azure key without a declaration matching the request's region is never used on `eu.openrouter.ai` or `us.openrouter.ai`, even when the provider's shared endpoint is in-region.\" OpenRouter still does not disclose where that upstream host actually processes requests."
+text_zh = "区域声明管的是 OpenRouter→上游那一跳本身，不只是可路由池：区域域名下 OpenAI 与 Azure key 若没有匹配的声明就「never used」，即使该 provider 的共享端点本身在区域内。OpenRouter 仍未披露那个上游主机实际在哪里处理请求。"
 
 [[product.processing_region.point]]
 text = "A region declaration does not change the key's retention policy (\"A region declaration does not change your key's retention policy.\")."
@@ -1173,7 +1178,15 @@ source_id = "87bcd6bb8730937e"
 topics = ["processing_region"]
 
 [anchor.selector]
-exact = "On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI account processes requests, so you tell OpenRouter."
+exact = "On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter."
+
+[[anchor]]
+id = "openrouter-byok-region-openai-azure-declaration-region"
+source_id = "87bcd6bb8730937e"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "OpenAI and Azure keys need a declaration on a regional domain. An OpenAI or Azure key without a declaration matching the request’s region is never used on `eu.openrouter.ai` or `us.openrouter.ai`, even when the provider’s shared endpoint is in-region."
 
 [[anchor]]
 id = "openrouter-terms-6-2-optin-perpetual-license-retention"
