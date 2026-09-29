@@ -118,10 +118,11 @@ jobs:
 
           jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/events.jsonl" >/dev/null
           # 只取最后一条消息：前面几条是 agent 边干边说的旁白，拼在一起 STATUS 就不在行首了
-          # （对应 models.dev 取 text part 的 last）
+          # （对应 models.dev 取 text part 的 last）。模型有时把状态行写成 `STATUS: changed` 或加粗，
+          # 去掉包裹的反引号和星号（#376 因此被判失败）
           jq -sr '[.[] | select(.eventType == "text:delta")] as $d | ($d | last | .payload.messageId) as $m
             | [$d[] | select(.payload.messageId == $m) | .payload.delta] | join("")' "$RUNNER_TEMP/events.jsonl" \
-            | sed -n '/^STATUS:/,$p' > "$RUNNER_TEMP/response.md"
+            | sed -n '/^[`*]*STATUS:/,$p' | sed '1s/[`*]//g' > "$RUNNER_TEMP/response.md"
           test -s "$RUNNER_TEMP/response.md"
 
       # agent 跑失败时留下事件流，才知道是模型报错、超时还是没给出 STATUS
