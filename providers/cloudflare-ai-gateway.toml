@@ -10,13 +10,31 @@ doc = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
 url = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway 官方文档 Unified Billing 页(页面 dateModified 2026-09-17)。覆盖 Unified Billing 档(Cloudflare 托管凭据、预付费转售);同时给出凭据解析顺序(请求内 provider key → BYOK → Unified Billing)与 ZDR 章节(网关级 zdr 设置 + 逐请求 cf-aig-zdr 头)。本家 ZDR 结论的权威来源。"
+note = "AI Gateway 官方 Unified Billing 文档(Last updated Sep 23, 2026):覆盖托管凭据及上游 ZDR 路由;已删除开通步骤、支持名单、非 ZDR 回退和逐请求覆盖的说明。"
 
 [[source]]
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway Logging 文档(dateModified 2026-06-15)。日志是 gateway 级行为,与凭据来源无关,故覆盖 api 与 unified-billing 两档。retention 维度主来源:默认开启、含 prompt/response 正文、『These logs persist』、按条数上限而非时间上限、自动删除可开关、逐请求头可跳过正文或整条。"
+note = "AI Gateway Logging 文档(Last updated Sep 24, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs。"
+
+[[source]]
+url = "https://developers.cloudflare.com/workers/observability/logs/workers-logs/"
+channel = "developer_data"
+tier = "core"
+note = "Workers Logs 官方文档:新客户分支 Workers Free 日志保留 3 天、Workers Paid 日志保留 7 天。"
+
+[[source]]
+url = "https://developers.cloudflare.com/ai-gateway/observability/logging/legacy-logs/"
+channel = "developer_data"
+tier = "core"
+note = "AI Gateway Legacy Logs 官方文档:旧客户分支已存日志留至客户删除;到达存储条数上限可停止记录或自动删除最旧日志。"
+
+[[source]]
+url = "https://developers.cloudflare.com/api/resources/ai_gateway/methods/update/"
+channel = "developer_data"
+tier = "core"
+note = "Cloudflare Update a gateway API:请求体中的 zdr 可选布尔字段,用于核实网关级 ZDR 配置仍可用。"
 
 [[source]]
 url = "https://developers.cloudflare.com/data-localization/compatibility/"
@@ -61,11 +79,11 @@ tier = "core"
 note = "Cloudflare Service-Specific Terms → Developer Platform(页面标注 Last updated June 02, 2026),含独立小节「Cloudflare Workers AI; AI Gateway」——点名 AI Gateway 的合同层条款。该页声明补充 applicable master agreement(s),即同时补充自助订阅协议与企业订阅协议。AI Gateway 小节第 1 条是不训练承诺(『Unless otherwise agreed, Cloudflare does not use any Customer Content to train generative AI tools』)、第 9 条保留『except as needed to provide and improve the Services』的使用口子、第 4 条明文规定经 AI Gateway 访问的第三方产品不适用 Cloudflare DPA 与 Information Security Exhibit。training/role 的合同层来源。**抓取通道注意**:r.jina.ai 对 www.cloudflare.com 本页抓取不稳定,缓存里曾存广告追踪像素壳(match.adsrvr.org);页面 HTML 本身逐字完整,坏 baseline 是闸门上线前写入的,不得据此改结论。"
 
 [[product]]
-id = "api"
-badge = "BYOK 转发"
+id = "api-legacy-logs"
+badge = "BYOK 转发·旧客户"
 category = "api"
 plan_level = "any"
-label = "AI Gateway 默认档(请求自带 provider key 或 BYOK;Cloudflare 仅代理转发)"
+label = "BYOK / 自带密钥;客户在 2026-09-24 前创建过 gateway (Legacy Logs)"
 
 [product.training]
 mark = "yes"
@@ -107,33 +125,38 @@ mark = "no"
 anchor = "cf-aigw-ub-zdr-scope-managed-creds"
 
 [[product.zdr.point]]
-text = "BYOK / bring-your-own provider key tier: no ZDR option, and this is an express denial rather than a non-disclosure — the Unified Billing page states verbatim that the ZDR setting \"only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.\" All this tier can do is switch logging or caching off; there is no request-level zero-retention commitment. Two further notes: (1) the AI Gateway Header Glossary calls itself a \"complete list of all supported headers\" yet omits cf-aig-zdr, while the Unified Billing page documents that header — on re-check this was judged a completeness problem of the reference page (not updated for the new header), not a contrary statement about the same tier and dimension, so it is not a contradiction and that source has been dropped. (2) Even with ZDR enabled on the Unified Billing tier, the vendor states that \"ZDR does not control AI Gateway logging\"."
-text_zh = "BYOK / 请求自带 provider key 档:没有 ZDR 选项,且这是明确否定而非未披露——Unified Billing 页逐字写 ZDR 设置『only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.』该档能做的只有关日志/关缓存,没有任何请求级零保留承诺。另记两处:①AI Gateway Header Glossary 自称是『complete list of all supported headers』,清单里却没有 cf-aig-zdr,而 Unified Billing 页明确文档了该头——重查后判为参考页文档完备性问题(参考页未随新头更新),不是对同一档位、同一维度的相反表述,不构成 contradiction,该 source 已 drop。②即便在 Unified Billing 档开了 ZDR,官方也说『ZDR does not control AI Gateway logging』。"
+text = "BYOK and other non-Unified-Billing requests are expressly outside upstream ZDR routing: 'ZDR only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.' Turning off gateway logging does not establish upstream zero retention."
+text_zh = "BYOK 等非统一计费请求明确不适用上游 ZDR 路由:『ZDR only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests.』单独关闭网关日志不能证明上游零保留。"
 
 [product.retention]
 object = "logs"
-basis = "undisclosed"
-anchor = "cf-aigw-logging-persist-no-time-limit"
+basis = "as_needed"
+anchor = "cf-aigw-legacy-logs-until-deleted"
 
 [[product.retention.point]]
-text = "Gateway hop conclusion: there is no time commitment at request level; content is persisted by default until the storage cap triggers deletion or logging is switched off. (1) Content kept by default: \"Logs, which include metrics as well as request and response data, are enabled by default for each gateway\", and the content includes the user prompt and the model response themselves"
-text_zh = "网关跳结论:请求级没有任何时限承诺,正文默认被持久保存,直到触顶删除或被主动关闭。①默认留正文:日志对每个 gateway 默认开启(『Logs, which include metrics as well as request and response data, are enabled by default for each gateway』),内容含 user prompt 与 model response 正文"
+text = "Legacy Logs for customers who created a gateway before September 24, 2026 persists stored logs until customer deletion; the count-based limit may instead stop logging or delete oldest logs. This is not a fixed period."
+text_zh = "2026-09-24 前已创建 gateway 的客户使用 Legacy Logs:已存日志留至客户删除;达到条数上限可能停止写入或删除最旧日志,不是固定天数。"
+anchor = "cf-aigw-legacy-logs-until-deleted"
 
 [[product.retention.point]]
-text = "Official wording: \"These logs persist, giving you the flexibility to store them for your preferred duration\" — only an entry-count cap is given (free 100,000 per account, paid 10,000,000 per gateway, 10 MB per entry), with no limit in days. (2) How to switch it off: disable logging as a whole in the settings"
-text_zh = "官方措辞『These logs persist, giving you the flexibility to store them for your preferred duration』——只给条数上限(免费 100,000 条/账号、付费 10,000,000 条/gateway、单条 10 MB),没有天数上限。②关闭方式:设置里整体关闭日志"
+text = "At capacity Legacy Logs can stop saving or automatically delete oldest logs; this is not a time-based deadline."
+text_zh = "Legacy Logs 达到上限可停止写入或自动删除最旧日志,不是按时间删除的期限。"
+anchor = "cf-aigw-legacy-logs-capacity-behavior"
 
 [[product.retention.point]]
-text = "Per request, cf-aig-collect-log: false skips the entire log entry"
-text_zh = "逐请求 cf-aig-collect-log: false 跳过整条日志"
+text = "Gateway logs are on by default and each log can include prompt and response payloads."
+text_zh = "网关日志默认开启,每条日志可能含 prompt 和 response 正文。"
+anchor = "cf-aigw-logging-fields-include-prompt-response"
 
 [[product.retention.point]]
-text = "cf-aig-collect-log-payload: false skips only the payload and keeps the metadata (\"Payload storage is skipped. Metadata-only log entries are still saved.\"). (3) Behaviour at the cap: Automatic Log Deletion can be switched on to delete the oldest logs automatically, or new logs stop being written. (4) Cache: off by default"
-text_zh = "cf-aig-collect-log-payload: false 只跳过正文而保留 metadata(『Payload storage is skipped. Metadata-only log entries are still saved.』)。③触顶行为:可开 Automatic Log Deletion 自动删最旧,或停止写入新日志。④缓存:默认关闭"
+text = "Per-request cf-aig-collect-log: false skips the entire log including metadata; cf-aig-collect-log-payload: false skips payload but retains metadata."
+text_zh = "逐请求 cf-aig-collect-log: false 跳过整条日志含元数据;cf-aig-collect-log-payload: false 仅跳过正文。"
+anchor = "cf-aigw-logging-collect-log-false-skips-entry"
 
 [[product.retention.point]]
-text = "Once enabled, responses are cached by Cloudflare with a TTL of at least 60 seconds and at most 1 month. (5) Export: on paid tiers, Workers Logpush can push logs to the customer's own external storage. Contract-level comparison: Enterprise §5.2 says of Customer Data not stored on the customer's behalf as described in the documentation that Cloudflare \"may delete Customer Data at any time after seventy-two (72) hours\", but AI Gateway logs are content stored on the customer's behalf as documented, so that 72-hour floor does not apply — and \"logs are deleted after 72 hours\" cannot be inferred from it"
-text_zh = "开启后响应由 Cloudflare 缓存,TTL 最短 60 秒、最长 1 个月。⑤导出:付费档 Workers Logpush 可把日志推送到客户自己的外部存储。合同层对照:企业档 §5.2 对『未按文档约定代客户存储』的 Customer Data 写『may delete Customer Data at any time after seventy-two (72) hours』,但 AI Gateway 日志属于文档约定代客户存储的内容,不适用该 72 小时下限——不能反推『日志 72 小时后删除』"
+text = "Enterprise §5.2's permission to delete data not documented as stored for the customer after 72 hours does not mean gateway logs are deleted after 72 hours."
+text_zh = "企业条款 §5.2 对未约定代存数据的 72 小时后删除许可,不能推出网关日志 72 小时后删除。"
+anchor = "cf-aigw-enterprise-72h-delete-unstored-data"
 
 [[product.retention.point]]
 text = "The retention period in the DPA Annex is written as \"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\", a contract-level retention criterion rather than a request-level period. Also: §2.5.5 gives Cloudflare the right to inspect network traffic and related logs, but no retention commitment for abuse-monitoring logs."
@@ -200,11 +223,11 @@ text_zh = "合同自身写明的范围限定:《服务专用条款》AI Gateway 
 anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
 
 [[product]]
-id = "unified-billing"
-badge = "统一计费"
+id = "unified-billing-legacy-logs"
+badge = "统一计费·旧客户"
 category = "api"
 plan_level = "any"
-label = "AI Gateway Unified Billing(Cloudflare 托管凭据、预付费转售;唯一可开 ZDR 的档)"
+label = "统一计费 / Cloudflare 托管凭据;客户在 2026-09-24 前创建过 gateway (Legacy Logs)"
 
 [product.training]
 mark = "yes"
@@ -235,21 +258,39 @@ mode = "opt_in"
 anchor = "cf-aigw-ub-zdr-routes-upstream"
 
 [[product.zdr.point]]
-text = "Unified Billing tier: there is a ZDR switch, but with three layers of qualification, and the commitment lands on the upstream endpoint side. (1) The wording is verbatim \"Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses\" — the party not retaining prompts or responses is the provider endpoints (upstream), while what Cloudflare provides is the routing and the setting (\"maps to ZDR-capable upstream provider configurations\"). (2) Scope: only Unified Billing requests that use Cloudflare-managed credentials; BYOK and other AI Gateway requests are out of scope"
-text_zh = "Unified Billing 档:有 ZDR 开关,但有三层限定,且承诺落在上游端点一侧。①逐字表述是『Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses』——不保留 prompt/response 的主体是 provider endpoints(上游),Cloudflare 侧提供的是路由与设置(『maps to ZDR-capable upstream provider configurations』)。②适用范围:仅使用 Cloudflare 托管凭据的 Unified Billing 请求,BYOK 与其他 AI Gateway 请求不适用"
+text = "The upstream no-retention routing remains the same: 'Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses.'"
+text_zh = "上游零保留路由承诺未变:『Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses.』"
+anchor = "cf-aigw-ub-zdr-routes-upstream"
 
 [[product.zdr.point]]
-text = "The documentation at the time listed only two supported upstreams, OpenAI and Anthropic; enabling it for a provider that does not support ZDR means AI Gateway \"falls back to the standard (non-ZDR) Unified Billing configuration\". (3) \"ZDR does not control AI Gateway logging.\" — with ZDR on, logging still has to be switched off separately, or the gateway side still keeps the prompt and response content. How to enable: the gateway-level zdr setting (off by default) or cf-aig-zdr: true per request. For the model-by-model view see the AI model catalog page (90 of 226 entries carry a Zero data retention marker, and the same page also has entries without it). This tier's ZDR must not be read as \"Cloudflare commits to zero retention\": it is a mapping onto upstream endpoint configurations and does not cover the gateway's own logs."
-text_zh = "文档当时只列 OpenAI 与 Anthropic 两个上游支持,给不支持 ZDR 的 provider 开启会『falls back to the standard (non-ZDR) Unified Billing configuration』。③『ZDR does not control AI Gateway logging.』——开了 ZDR 仍要单独关日志,否则网关侧仍留 prompt/response 正文。开启方式:网关级 zdr 设置(默认未开启)或逐请求 cf-aig-zdr: true。逐模型对照见 AI 模型目录页(226 条中 90 条带 Zero data retention 标记,同页也有不带该标记的条目)。不能把本档的 ZDR 当成『Cloudflare 承诺零保留』:它是对上游端点配置的映射,且不覆盖网关自身日志。"
+text = "Only Cloudflare-managed-credential Unified Billing requests qualify; BYOK is excluded."
+text_zh = "仅 Cloudflare 托管凭据的统一计费请求适用,BYOK 被排除。"
+anchor = "cf-aigw-ub-zdr-scope-managed-creds"
+
+[[product.zdr.point]]
+text = "The Update a gateway API still exposes a configurable 'zdr: optional boolean' field; the Unified Billing page no longer explains activation or per-request overrides."
+text_zh = "Update a gateway API 仍列可配置的『zdr: optional boolean』字段;统一计费页已不再说明开启步骤或逐请求覆盖。"
+anchor = "cf-aigw-api-zdr-optional-boolean"
+
+[[product.zdr.point]]
+text = "ZDR does not control gateway logging; disable logging separately to avoid gateway-side payload logs. The former provider list and non-ZDR fallback sentence are no longer presented as current rules."
+text_zh = "ZDR 不控制网关日志,避免网关留存正文需单独关闭日志。旧版上游名单与非 ZDR 回退句不再作为现行规则。"
+anchor = "cf-aigw-ub-zdr-does-not-control-logging"
+
+[[product.zdr.point]]
+text = "Check ZDR support per model in the model catalog rather than using the deleted provider list."
+text_zh = "逐模型查目录核对 ZDR 支持情况,不沿用被删的上游名单。"
+anchor = "cf-aigw-ub-zdr-model-catalog"
 
 [product.retention]
 object = "logs"
-basis = "undisclosed"
-anchor = "cf-aigw-logging-persist-no-time-limit"
+basis = "as_needed"
+anchor = "cf-aigw-legacy-logs-until-deleted"
 
 [[product.retention.point]]
-text = "Same as the api tier: logging is a gateway-level behaviour, on by default, containing prompt and response content, persisted, and bounded by an entry-count cap. One official qualification must be recorded alongside on this tier: \"ZDR does not control AI Gateway logging\" — with ZDR on, logging still has to be switched off separately before nothing is written on the gateway side."
-text_zh = "与 api 档相同:日志是 gateway 级行为,默认开、含 prompt/response 正文、持久保存、按条数上限。该档另有一处必须并列的官方限定:『ZDR does not control AI Gateway logging』——开了 ZDR 仍要单独关日志才算网关侧不落盘。"
+text = "Legacy Logs for customers who created a gateway before September 24, 2026 persists stored logs until customer deletion; at a count-based storage limit it may delete the oldest entries or stop writing. Logging is on by default and can include prompt/response; ZDR does not control gateway logging."
+text_zh = "2026-09-24 前已创建 gateway 的客户使用 Legacy Logs:已存日志留至客户删除;条数触顶可删最旧日志或停止写入。日志默认开启,可含 prompt/response;ZDR 不控制网关日志。"
+anchor = "cf-aigw-legacy-logs-until-deleted"
 
 [[product.retention.point]]
 text = "Object boundary of the DPA retention criteria on this tier: the Annex criterion (\"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\") covers the gateway hop only — the AI Gateway section of the Service-Specific Terms says the Cloudflare DPA and Information Security Exhibit \"do not apply to your use of such Third-Party Products accessed via AI Gateway\", so how long the upstream provider keeps the request is governed by that provider's own policy. Even a ZDR-mapped configuration is a mapping onto upstream endpoints, not a Cloudflare retention commitment"
@@ -306,18 +347,161 @@ text = "Scope limit written into the contract itself, and it bites hardest on th
 text_zh = "合同自身写明的范围限定,在本档影响最大:《服务专用条款》AI Gateway 节规定,对于跑在第三方基础设施上的第三方产品,『you (i) direct Cloudflare to send certain of your Customer Data to the relevant Third-Party Product provider in order to provide the Service and (ii) understand and agree that the Cloudflare Data Processing Addendum and Information Security Exhibit do not apply to your use of such Third-Party Products accessed via AI Gateway.』——Cloudflare 的 processor 角色(以及体现它的 DPA)只覆盖网关跳;本档请求虽由 Cloudflare 托管凭据发出,上游跳的角色仍由上游 provider 自己的条款决定"
 anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
 
+[[product]]
+id = "api-workers-logs"
+badge = "BYOK 转发·新客户"
+category = "api"
+plan_level = "any"
+label = "BYOK / 自带密钥;客户在 2026-09-24 及以后首次创建 gateway (Workers Logs)"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "The AI Gateway contract prohibits using Customer Content to train generative AI unless otherwise agreed, but separately permits use as needed to improve Services; upstream terms are separate."
+text_zh = "AI Gateway 合同除另约外禁止以客户内容训练生成式 AI,但另留服务改进口子;上游依各家条款。"
+anchor = "cf-aigw-sst-dp-improve-the-services"
+
+[product.zdr]
+mark = "no"
+anchor = "cf-aigw-ub-zdr-scope-managed-creds"
+
+[[product.zdr.point]]
+text = "Unified Billing ZDR expressly excludes BYOK; disabling gateway logs does not establish upstream ZDR."
+text_zh = "统一计费 ZDR 明确排除 BYOK;关闭网关日志不证明上游 ZDR。"
+anchor = "cf-aigw-ub-zdr-scope-managed-creds"
+
+[product.retention]
+object = "logs"
+basis = "fixed_period"
+days = 7
+anchor = "cf-aigw-workers-logs-paid-retention"
+
+[[product.retention.point]]
+text = "For customers first creating a gateway on or after September 24, 2026, gateway logs follow Workers Logs retention: Workers Free 3 days, Workers Paid 7 days maximum. These are not upstream request-retention periods."
+text_zh = "2026-09-24 及以后首次创建 gateway 的客户:网关日志遵循 Workers Logs 保留期,Free 3 天、Paid 最多 7 天;并非上游请求的保留期限。"
+anchor = "cf-aigw-logging-retention-eligibility"
+
+[[product.retention.point]]
+text = "Workers Free has 3-day retention; the 7-day maximum in the verdict represents Workers Paid, not a universal minimum."
+text_zh = "Workers Free 保留 3 天;结论中的 7 天代表 Workers Paid 上限,不是各档最低期限。"
+anchor = "cf-aigw-workers-logs-free-retention"
+
+[[product.retention.point]]
+text = "Gateway logs are on by default and can include prompts and responses; request headers may suppress the full log or only the payload."
+text_zh = "网关日志默认开启且可含提示词与响应;逐请求可跳过整条日志或仅跳过正文。"
+anchor = "cf-aigw-logging-fields-include-prompt-response"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cf-aigw-dls-compat-ai-gateway-row"
+
+[[product.processing_region.point]]
+text = "No default regional gateway processing boundary; upstream region depends on the provider."
+text_zh = "默认无网关处理地域边界;上游处理地依 provider 而定。"
+anchor = "cf-aigw-cmb-default-no-boundary-global"
+
+[product.role]
+kind = "processor"
+anchor = "cf-aigw-dpa-cloudflare-is-processor"
+
+[[product.role.point]]
+text = "Cloudflare is processor for the gateway hop; third-party upstream products fall outside its DPA."
+text_zh = "Cloudflare 对网关跳为受托处理方;第三方上游不受其 DPA 覆盖。"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+
+[[product]]
+id = "unified-billing-workers-logs"
+badge = "统一计费·新客户"
+category = "api"
+plan_level = "any"
+label = "统一计费 / 托管凭据;客户在 2026-09-24 及以后首次创建 gateway (Workers Logs)"
+
+[product.training]
+mark = "yes"
+mode = "by_contract"
+anchor = "cf-aigw-sst-dp-no-train-generative-ai"
+
+[[product.training.point]]
+text = "Cloudflare contractually excludes generative-AI training unless otherwise agreed while retaining a service-improvement exception; upstream provider terms are separate."
+text_zh = "Cloudflare 合同除另约外排除生成式 AI 训练,但保留服务改进口子;上游条款另算。"
+anchor = "cf-aigw-sst-dp-improve-the-services"
+
+[product.zdr]
+mark = "yes"
+mode = "opt_in"
+anchor = "cf-aigw-ub-zdr-routes-upstream"
+
+[[product.zdr.point]]
+text = "ZDR routes Unified Billing traffic through upstream endpoints that do not retain prompts or responses."
+text_zh = "ZDR 将统一计费请求路由至不留存提示词或响应的上游端点。"
+anchor = "cf-aigw-ub-zdr-routes-upstream"
+
+[[product.zdr.point]]
+text = "Only Unified Billing requests with Cloudflare-managed credentials qualify; BYOK is excluded."
+text_zh = "仅使用 Cloudflare 托管凭据的统一计费请求适用,BYOK 不适用。"
+anchor = "cf-aigw-ub-zdr-scope-managed-creds"
+
+[[product.zdr.point]]
+text = "The Update a gateway API still exposes an optional boolean zdr field."
+text_zh = "网关更新 API 仍列可选布尔 zdr 字段。"
+anchor = "cf-aigw-api-zdr-optional-boolean"
+
+[[product.zdr.point]]
+text = "ZDR does not control AI Gateway logging; disable it separately if gateway payload logs must be avoided."
+text_zh = "ZDR 不控制 AI Gateway 日志;避免网关保存正文须单独关闭日志。"
+anchor = "cf-aigw-ub-zdr-does-not-control-logging"
+
+[[product.zdr.point]]
+text = "Check ZDR support per model in the model catalog rather than relying on the removed provider list."
+text_zh = "按模型目录逐模型核对 ZDR 支持情况,不沿用已删除的名单。"
+anchor = "cf-aigw-ub-zdr-model-catalog"
+
+[product.retention]
+object = "logs"
+basis = "fixed_period"
+days = 7
+anchor = "cf-aigw-workers-logs-paid-retention"
+
+[[product.retention.point]]
+text = "Customers first creating a gateway on or after September 24, 2026 follow Workers Logs: Workers Paid logs have a seven-day maximum, Workers Free logs three days. ZDR does not change gateway logging or upstream policy."
+text_zh = "2026-09-24 及以后首次创建 gateway 的客户按 Workers Logs:Paid 网关日志最多 7 天、Free 3 天;ZDR 不改变网关日志或上游政策。"
+anchor = "cf-aigw-logging-retention-eligibility"
+
+[[product.retention.point]]
+text = "Gateway logs are on by default and can contain prompt/response payloads; per-request headers can suppress an entire log or only its payload."
+text_zh = "网关日志默认开启且可含提示词/响应正文;逐请求可跳过整条或仅正文。"
+anchor = "cf-aigw-logging-fields-include-prompt-response"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "cf-aigw-dls-compat-ai-gateway-row"
+
+[[product.processing_region.point]]
+text = "No default regional processing boundary at the gateway; upstream regions depend on providers."
+text_zh = "网关默认无处理地域边界;上游地域依 provider 而定。"
+anchor = "cf-aigw-cmb-default-no-boundary-global"
+
+[product.role]
+kind = "processor"
+anchor = "cf-aigw-dpa-cloudflare-is-processor"
+
+[[product.role.point]]
+text = "Cloudflare is processor for the gateway hop; upstream third-party products remain outside its DPA even when Cloudflare manages credentials."
+text_zh = "Cloudflare 对网关跳是受托处理方;即使托管凭据,第三方上游仍不受其 DPA 覆盖。"
+anchor = "cf-aigw-sst-dp-thirdparty-dpa-not-applicable"
+
 [[anchor]]
 id = "cf-aigw-ub-zdr-routes-upstream"
 source_id = "20c300b67d5fc5ff"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-provider, or custom metadata dimensions like user or team.
-
-"""
+prefix = ""
 exact = "Zero Data Retention (ZDR) routes Unified Billing traffic through provider endpoints that do not retain prompts or responses."
-suffix = " Enable it with the gateway-level `zdr` setting, which maps "
+suffix = " ZDR only applies to Unified Billing requests"
 
 [[anchor]]
 id = "cf-aigw-ub-zdr-scope-managed-creds"
@@ -325,12 +509,9 @@ source_id = "20c300b67d5fc5ff"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "which maps to ZDR-capable upstream provider configurations. "
-exact = "This setting only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests."
-suffix = """
-
-
-ZDR does not control AI Gateway logging. To disable reques"""
+prefix = "that do not retain prompts or responses. "
+exact = "ZDR only applies to Unified Billing requests that use Cloudflare-managed credentials. It does not apply to BYOK or other AI Gateway requests."
+suffix = " ZDR does not control AI Gateway logging."
 
 [[anchor]]
 id = "cf-aigw-ub-zdr-does-not-control-logging"
@@ -338,57 +519,29 @@ source_id = "20c300b67d5fc5ff"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = """
-s. It does not apply to BYOK or other AI Gateway requests.
-
-"""
+prefix = ""
 exact = "ZDR does not control AI Gateway logging."
-suffix = " To disable request/response logging in AI Gateway, update t"
+suffix = " To disable request/response logging in AI Gateway"
 
 [[anchor]]
-id = "cf-aigw-ub-zdr-supported-providers"
+id = "cf-aigw-ub-zdr-model-catalog"
 source_id = "20c300b67d5fc5ff"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-elopers.cloudflare.com/ai-gateway/observability/logging/).
-
-"""
-exact = "ZDR is currently supported for:"
-suffix = """
-
-
-*   [OpenAI](https://developers.cloudflare.com/ai-gateway/"""
+prefix = ""
+exact = "Refer to the model catalog to check whether a model supports Zero Data Retention (ZDR)."
+suffix = ""
 
 [[anchor]]
-id = "cf-aigw-ub-zdr-fallback-non-zdr"
-source_id = "20c300b67d5fc5ff"
+id = "cf-aigw-api-zdr-optional-boolean"
+source_id = "26ae865c45c7c0a1"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-pers.cloudflare.com/ai-gateway/usage/providers/anthropic/)
-
-"""
-exact = "If ZDR is enabled for a provider that does not support it, AI Gateway falls back to the standard (non-ZDR) Unified Billing configuration."
-suffix = """
-
-
-To set ZDR as the default for Unified Billing in the dashb"""
-
-[[anchor]]
-id = "cf-aigw-ub-zdr-per-request-header"
-source_id = "20c300b67d5fc5ff"
-topics = ["zdr"]
-
-[anchor.selector]
-prefix = """
- to **Settings** and toggle **Zero Data Retention (ZDR)**.
-
-"""
-exact = "Use the `cf-aig-zdr` header to override the gateway default for a single Unified Billing request."
-suffix = " Set it to `true` to force ZDR, or `false` to disable ZDR fo"
+prefix = "One of the following: \"postpaid\" \"unified\""
+exact = "zdr: optional boolean"
+suffix = "##### Returns"
 
 [[anchor]]
 id = "cf-aigw-ub-credential-resolution-order"
@@ -396,14 +549,9 @@ source_id = "20c300b67d5fc5ff"
 topics = ["role", "zdr"]
 
 [anchor.selector]
-prefix = """
-efault` alias, that key is used.
-3.   **Unified Billing** — """
+prefix = ""
 exact = "if neither of the above applies, the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance."
-suffix = """
-
-
-Turn on **Require provider credentials** to prevent Unifie"""
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-ub-pass-through-no-markup"
@@ -411,12 +559,9 @@ source_id = "20c300b67d5fc5ff"
 topics = ["role"]
 
 [anchor.selector]
-prefix = "ample, a $100 credit purchase will result in a $105 charge. "
+prefix = ""
 exact = "Inference pricing from providers is passed through with no markup — you pay the same per-token rates as you would directly with the provider."
-suffix = """
-
-
-*   Ensure your Cloudflare account has [sufficient credits"""
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-logging-fields-include-prompt-response"
@@ -424,22 +569,19 @@ source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "our AI Gateway dashboard shows logs of individual requests, "
-exact = "including the user prompt, model response, provider, timestamp, request status, token usage, cost, duration, and the user agent of the client that made the request"
-suffix = ". When [DLP](https://developers.cloudflare.com/ai-gateway/fe"
+prefix = ""
+exact = "Each log can include the prompt, response, provider, timestamp, status, token usage, cost, duration, and user agent."
+suffix = ""
 
 [[anchor]]
-id = "cf-aigw-logging-persist-no-time-limit"
+id = "cf-aigw-logging-retention-eligibility"
 source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "Ds, and the specific detection entries that were triggered. "
-exact = "These logs persist, giving you the flexibility to store them for your preferred duration and do more with valuable request data."
-suffix = """
-
-
-Each gateway has a storage limit based on your plan. You c"""
+prefix = ""
+exact = "New AI Gateway customers who create their first gateway on or after September 24, 2026 follow Workers Logs pricing and retention. AI Gateway customers who created a gateway before September 24, 2026 use Legacy Logs."
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-logging-enabled-by-default"
@@ -447,12 +589,9 @@ source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-.cloudflare.com/ai-gateway/configuration/authentication/).
-
-"""
-exact = "Logs, which include metrics as well as request and response data, are enabled by default for each gateway."
-suffix = " This logging behavior will be uniformly applied to all requ"
+prefix = ""
+exact = "Logs are enabled by default for each gateway."
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-logging-collect-log-header"
@@ -460,12 +599,9 @@ source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-ttings tab, you can define headers on a per-request basis.
-
-"""
+prefix = ""
 exact = "The `cf-aig-collect-log` header allows you to bypass the default log setting for the gateway."
-suffix = " If the gateway is configured to save logs, the header will "
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-logging-collect-log-payload-metadata-kept"
@@ -473,12 +609,9 @@ source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = " `cf-aig-collect-log`, which controls the entire log entry, "
+prefix = ""
 exact = "this header only affects payload storage — metadata such as token counts, model, provider, status code, cost, and duration will still be logged."
-suffix = """
-
-
-This is useful when you want to maintain visibility into u"""
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-logging-payload-false-metadata-only"
@@ -486,52 +619,59 @@ source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-` | Request and response payloads are stored. |
-| `false` | """
+prefix = ""
 exact = "Payload storage is skipped. Metadata-only log entries are still saved."
-suffix = """
- |
-
-In the example below, we use `cf-aig-collect-log-payload"""
+suffix = ""
 
 [[anchor]]
-id = "cf-aigw-logging-storage-limit-per-plan"
+id = "cf-aigw-logging-collect-log-false-skips-entry"
 source_id = "a010df22132f478a"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-preferred duration and do more with valuable request data.
-
-"""
-exact = "Each gateway has a storage limit based on your plan."
-suffix = " You can customize this limit per gateway in your gateway se"
+prefix = ""
+exact = "If `cf-aig-collect-log` is set to `false`, the entire log entry (including metadata) is skipped regardless of the `cf-aig-collect-log-payload` value."
+suffix = ""
 
 [[anchor]]
-id = "cf-aigw-logging-automatic-deletion"
-source_id = "a010df22132f478a"
+id = "cf-aigw-workers-logs-free-retention"
+source_id = "208518e1b78cded2"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-y pay for what you need.
-*   Enable Automatic Log Deletion: """
-exact = "Activate the Automatic Log Deletion feature in your gateway settings to automatically delete the oldest logs once the storage limit for your account is reached."
-suffix = " This ensures new logs are always saved without manual inter"
+prefix = ""
+exact = "Workers Free | 200,000 per day | 3 Days"
+suffix = ""
 
 [[anchor]]
-id = "cf-aigw-logging-api-deletion"
-source_id = "a010df22132f478a"
+id = "cf-aigw-workers-logs-paid-retention"
+source_id = "208518e1b78cded2"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-ns | the user agent of the client that made the request. |
+prefix = ""
+exact = "Workers Paid | 20 million included per month +$0.60 per additional million | 7 Days"
+suffix = ""
 
-"""
-exact = "You can programmatically delete logs using the AI Gateway API."
-suffix = " For more comprehensive information on the `DELETE` logs end"
+[[anchor]]
+id = "cf-aigw-legacy-logs-until-deleted"
+source_id = "da846a8f11173097"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Legacy Logs persists stored logs until you delete them."
+suffix = ""
+
+[[anchor]]
+id = "cf-aigw-legacy-logs-capacity-behavior"
+source_id = "da846a8f11173097"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "When you reach a storage limit, Legacy Logs can stop saving logs or automatically delete the oldest logs."
+suffix = ""
 
 [[anchor]]
 id = "cf-aigw-dpa-cloudflare-is-processor"
