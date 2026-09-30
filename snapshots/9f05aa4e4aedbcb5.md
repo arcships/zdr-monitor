@@ -5,7 +5,7 @@ Sign inContactContact salesDownload
 - Terms of Service
 - Privacy Policy
 # Privacy Policy
-Last updated October 6, 2025
+Last updated September 29, 2026
 Note: For information about how we collect and use training information to develop our models that power the Service, and your choices with respect to that information, please see our Privacy Overview.
 ## #Introduction
 We at Anysphere, Inc. (“**Anysphere**”, “**we**” or “**us**”) are strongly committed to respecting your privacy and keeping secure any information you share with us. This privacy policy (“**Privacy Policy**”) explains how we collect, use, disclose, and process your personal data when you use Anysphere's software, platform, APIs, Documentation, and related tools, including at the website at www.cursor.com, and all related software made available by Anysphere to build, deploy, host, and manage software projects (“**Service**”). It also tells you how you can access and update your personal information and describes the data protection rights that may be available under your country's or state's laws. Please read this Privacy Policy carefully. By accessing or using the Service, you acknowledge you have been informed of and consent to our practices with regard to your personal information and data.
@@ -69,13 +69,11 @@ The rights available to you may include:
 - Restriction of our processing of your personal data in limited circumstances, such as while a correction request is pending.
 - Withdrawal of consent, where the legal basis for our processing is based on your consent. Withdrawal does not affect the lawfulness of prior processing.
 - No automated decisions: Anysphere does not make decisions based solely on automated processing that impact your legal rights or has similarly significant effects (e.g. your healthcare or financial circumstances).
-- No sale or targeted advertising: We do not “sell” or “share” personal data for cross-contextual behavioral advertising, and we do not process personal data for “targeted advertising” purposes (as those terms are defined under applicable US state privacy laws). We also do not process sensitive personal data for the purposes of inferring characteristics about a consumer.
+- We do not process sensitive personal data for the purposes of inferring characteristics about a consumer.
 Anysphere processes your personal data for the purposes described in this Privacy Policy on servers located in various jurisdictions, including in the United States. While data protection laws vary by country, we apply the protections outlined in this policy to your personal data regardless of where it is processed, and we only transfer data in accordance with legally valid transfer mechanisms. For users in the European Economic Area, (“EEA”), when you access our Service, your personal data may be transferred to our United States servers to other countries outside the EEA and the UK. Where information is transferred outside the EEA or the UK, we require an adequate level of data protection.
-## #7. Jurisdiction-Specific Disclosures
-Some jurisdictions require specific disclosures regarding how we handle your personal data. The table below supplements this Privacy Policy by providing additional details about the purpose of data collection, type of data collected, and legal basis. For more information, see “Personal data we collect,” “How we use personal data,” and “Retention” above.
-## #8. Privacy policy changes
+## #7. Privacy policy changes
 We may update this Privacy Policy from time to time. When we do, we will publish an updated version and effective date at the top of this page, unless another type of notice is legally required. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.
-## #9. Contacting us
+## #8. Contacting us
 We encourage you to contact us at hi@cursor.com if you have any questions about this Privacy Policy.
 Skip to content
 Cursor
@@ -83,7 +81,7 @@ Sign inContactContact salesDownload
 - Terms of Service
 - Privacy Policy
 # Privacy Policy
-Last updated October 6, 2025
+Last updated September 29, 2026
 ## #Introduction
 ## #1. Personal data we collect
 C. **Information We Do Not Collect**
@@ -92,5 +90,5 @@ C. **Information We Do Not Collect**
 ## #4. Retention
 ## #5. Security
 ## #6. Your rights and choices
-## #8. Privacy policy changes
-## #9. Contacting us
+## #7. Privacy policy changes
+## #8. Contacting us
