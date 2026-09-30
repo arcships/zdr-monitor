@@ -15,19 +15,19 @@ note = "Serverless Inference 前缀缓存文档：默认情况下相同 prompt �
 url = "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated_regions"
 channel = "developer_data"
 tier = "core"
-note = "Dedicated Cloud 支持区域清单：AWS/GCP/Azure 各自列出的具体 region（含美国、加拿大、欧洲多区、东京/首尔/新加坡/悉尼/孟买）。是「专属云可选区域」的证据，不代表多租户 SaaS 可选区域。经 .md 直连通道核对。"
+note = "Dedicated Cloud 支持区域清单：AWS/GCP/Azure 各自列出的具体 region（含美国、加拿大、欧洲多区、东京/首尔/新加坡/悉尼/孟买）。是「专属云可选区域」的证据，不代表多租户 SaaS 可选区域。经 .md 直连通道核对。2026-09-30 抓取起页面随品牌统一改写（W&B→Weights & Biases、公司名→CoreWeave），区域表本身未变。"
 
 [[source]]
 url = "https://docs.wandb.ai/platform/hosting/hosting-options/dedicated-cloud"
 channel = "developer_data"
 tier = "core"
-note = "W&B Dedicated Cloud 部署文档：专属隔离基础设施、跨 AWS/GCP/Azure 多区域、删除后默认保留 7 天可恢复且可用 GORILLA_DATA_RETENTION_PERIOD 或 Helm env.dataRetentionPeriod 调整；HIPAA 需签 BAA。经 .md 直连通道核对。"
+note = "W&B Dedicated Cloud 部署文档：专属隔离基础设施、跨 AWS/GCP/Azure 多区域、删除后默认保留 7 天可恢复且可用 GORILLA_DATA_RETENTION_PERIOD 或 Helm env.dataRetentionPeriod 调整；HIPAA 需签 BAA。经 .md 直连通道核对。2026-09-30 抓取起文中 W&B 改写为 Weights & Biases、公司名出现 CoreWeave，HIPAA 那条由「shared responsibility」改为「Compliance is shared between...」的等义改写，条款实质未变。"
 
 [[source]]
 url = "https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud"
 channel = "developer_data"
 tier = "core"
-note = "W&B Multi-tenant Cloud 部署文档（SaaS 档）：区域（W&B 自有 Google Cloud 账户、Google Cloud North America 区域）、Data retention policy（Runs and history / 非 artifact run 文件 / artifacts 删除后保留 7 天可恢复）、Free 与 Pro 计划共用共享存储与共享算力、Enterprise 可 BYOB。经 docs.wandb.ai 的 .md 直连通道核对。"
+note = "W&B Multi-tenant Cloud 部署文档（SaaS 档）：区域（W&B 自有 Google Cloud 账户、Google Cloud North America 区域）、Data retention policy（Runs and history / 非 artifact run 文件 / artifacts 删除后保留 7 天可恢复）、Free 与 Pro 计划共用共享存储与共享算力、Enterprise 可 BYOB。经 docs.wandb.ai 的 .md 直连通道核对。2026-09-30 抓取起页面标题与产品名由 Multi-tenant Cloud 改为 Forge（随 CoreWeave 品牌统一，URL 未变），W&B→Weights & Biases/CoreWeave，条款实质未变。"
 
 [[source]]
 url = "https://docs.wandb.ai/platform/hosting/hosting-options/self-managed"
@@ -1119,12 +1119,9 @@ source_id = "d54fc93e9c611f52"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
- whether it fits your organization's hosting requirements.
-
-"""
-exact = "W\\&B Multi-tenant Cloud is a fully managed platform deployed in W\\&B's Google Cloud account in [Google Cloud's North America regions"
-suffix = "](https://cloud.google.com/compute/docs/regions-zones). W\\&B"
+prefix = "This page describes Forge, including its architecture, compliance posture, data security options, and identity and access management capabilities, so you can decide whether it fits your organization’s hosting requirements."
+exact = "CoreWeave Forge is a fully managed platform deployed in CoreWeave’s Google Cloud account in Google Cloud’s North America regions"
+suffix = ". Forge uses autoscaling in Google Cloud to scale the platform based on changes in traffic."
 
 [[anchor]]
 id = "mtc-retention-7-days-after-deletion"
@@ -1132,18 +1129,9 @@ source_id = "d54fc93e9c611f52"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-mentation_Guide), if applicable.
-
-## Data retention policy
-
-"""
-exact = "Multi-tenant Cloud retains the following items for 7 days after deletion:"
-suffix = """
-
-
-* Runs and history.
-* Non-artifact run files, such as medi"""
+prefix = "Data retention policy"
+exact = "Forge retains the following items for 7 days after deletion:"
+suffix = "Runs and history."
 
 [[anchor]]
 id = "mtc-free-pro-shared-storage"
@@ -1151,14 +1139,9 @@ source_id = "d54fc93e9c611f52"
 topics = ["processing_region", "retention"]
 
 [anchor.selector]
-prefix = """
--options/dedicated-cloud) instead.</Tip>
-
-## Data security
-
-"""
-exact = "For users on Free or Pro plans, W\\&B stores all data only in the shared cloud storage and processes it with shared cloud compute services"
-suffix = ". Depending on your pricing plan, you may be subject to stor"
+prefix = "Data security"
+exact = "For users on Free or Pro plans, Weights & Biases stores all data only in the shared cloud storage and processes it with shared cloud compute services"
+suffix = ". Depending on your pricing plan, you may be subject to storage limits."
 
 [[anchor]]
 id = "dc-retention-7-days-after-deletion"
@@ -1216,9 +1199,9 @@ source_id = "01a7188887a0cbbd"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "s data residency, compliance, latency, and cost efficiency. "
-exact = "W\\&B supports many of the available global regions for Dedicated Cloud"
-suffix = ". The following sections list the supported regions for each"
+prefix = "Global regions help ensure that you satisfy requirements such as data residency, compliance, latency, and cost efficiency."
+exact = "Weights & Biases supports many of the available global regions for Dedicated Cloud"
+suffix = ". The following sections list the supported regions for each cloud provider."
 
 [[anchor]]
 id = "sm-run-in-infrastructure-you-control"
