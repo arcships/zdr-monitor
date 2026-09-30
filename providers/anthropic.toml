@@ -143,6 +143,11 @@ text = "ZDR and the 30-day default do not mean that nothing in this tier is kept
 text_zh = "ZDR 与 30 天默认都不等于本档什么都不会留更久。多套保留模型在这些安排之外:Activity Feed(Compliance API 功能)保留 6 年;本地会话转写(用户机器上、Cowork 与 Claude Code 等 app 的会话)默认存 6 年,组织设置了有限的会话保留期时按该期限;远端会话转写(Cowork 云端)保留 6 年,用户提前删除除外;claude.ai 的 chat / file / project 内容随 claude.ai > Organization settings > Data and privacy 中组织的保留策略,用户提前删除除外。后两类属产品与客户端界面,不是 API 请求正文。出处为 api-and-data-retention 页(其 retention 表述本轮标 contradiction),本段仅作语境记录、不承载锚点。"
 
 [[product.retention.point]]
+text = "Same page, same paragraph, the HIPAA half of the Compliance API's treatment of local sessions — the vendor's own sentence: \"The Compliance API does not capture local sessions for which ZDR is in effect. For organizations with HIPAA readiness enabled, it captures Cowork and Claude Code local sessions only and stores their transcripts for 30 days.\" Object = Cowork and Claude Code local session transcripts; context = organizations with HIPAA readiness enabled (local sessions of organizations under ZDR are still not captured); duration = 30 days. Source = api-and-data-retention, whose retention statement is marked contradiction this round; this point records that sentence as published and does not restate the tier default."
+text_zh = "同一页同一段里 Compliance API 对本地会话处理的 HIPAA 部分,厂商原句:「The Compliance API does not capture local sessions for which ZDR is in effect. For organizations with HIPAA readiness enabled, it captures Cowork and Claude Code local sessions only and stores their transcripts for 30 days.」(Compliance API 不采集处于 ZDR 下的本地会话;对启用 HIPAA readiness 的组织,只采集 Cowork 与 Claude Code 的本地会话,并把转写保存 30 天。)对象=Cowork/Claude Code 本地会话转写;语境=启用 HIPAA readiness 的组织(处于 ZDR 下的组织其本地会话仍不被采集);期限=30 天。出处为 api-and-data-retention 页(其 retention 表述本轮标 contradiction),本 point 记录厂商已发布的该句,不改写本档默认口径。"
+anchor = "retention-hipaa-local-session-transcripts"
+
+[[product.retention.point]]
 text = "Contract layer, DPA Schedule 1 (the SCC description of processing): \"B.7. **Storage Limitation**: The duration is the term of the Agreement.\" Object = Customer Data; the duration given is the processing duration, i.e. the term of the Agreement, not a content TTL — it layers on top of, and does not replace, the 30-day in-service inputs/outputs rule above."
 text_zh = "合同层,DPA Schedule 1(SCC 处理描述):处理期限=协议期限。对象=Customer Data;这里给的是处理期限(合同期限),不是内容 TTL,与上文在役 30 天输入输出口径并存、不替代它。"
 anchor = "retention-dpa-storage-limitation"
@@ -503,3 +508,13 @@ topics = ["retention"]
 prefix = "suspicious activities for review."
 exact = "I.5. Security-related logs are retained for appropriate timeframes to aid in the investigation of security incidents."
 suffix = "## J. Third Party Vendors"
+
+[[anchor]]
+id = "retention-hipaa-local-session-transcripts"
+source_id = "6bc4022c8696d7c6"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "The Compliance API does not capture local sessions for which ZDR is in effect. "
+exact = "For organizations with HIPAA readiness enabled, it captures Cowork and Claude Code local sessions only and stores their transcripts for 30 days."
+suffix = "## Zero data retention (ZDR)"
