@@ -23,9 +23,17 @@ const reasons: string[] = []
 const outside = files.filter((f) => !/^snapshots\/[0-9a-f]{16}\.md$/.test(f))
 if (outside.length) reasons.push(`改动了快照以外的文件：${outside.join(", ")}`)
 
+/** 旧快照的长句有多少原样出现在新快照里。长句的门槛跟快照层一致：短行是菜单、按钮、时间戳 */
+const MIN_RETAINED = 0.4
+const retained = (before: string, after: string) => {
+  const lines = (text: string) => new Set(text.split("\n").map((l) => fold(l)).filter((l) => l.length >= 25))
+  const [x, y] = [lines(before), lines(after)]
+  return x.size ? [...x].filter((l) => y.has(l)).length / x.size : 1
+}
+
 const show = async (rev: string, file: string) => {
   const r = await $`git show ${`${rev}:${file}`}`.nothrow().quiet()
-  return r.exitCode === 0 ? fold(r.stdout.toString().replace(/^<!--.*?-->\n/, "")) : null
+  return r.exitCode === 0 ? r.stdout.toString().replace(/^<!--.*?-->\n/, "") : null
 }
 
 // 快照是多家共用的：同一份快照上所有 provider 的引文一起算，按来源判断。
@@ -36,14 +44,20 @@ for (const { provider: p, anchors } of loadAll(root))
   for (const a of anchors) anchorsBySource.set(a.source_id, [...(anchorsBySource.get(a.source_id) ?? []), { provider: p.id, selector: a.selector }])
 for (const file of files.filter((f) => f.startsWith("snapshots/"))) {
   const id = path.basename(file, ".md")
-  const [before, after] = await Promise.all([show(base, file), show(head, file)])
-  if (before === null || after === null) continue
+  const [rawBefore, rawAfter] = await Promise.all([show(base, file), show(head, file)])
+  if (rawBefore === null || rawAfter === null) continue
+  const [before, after] = [fold(rawBefore), fold(rawAfter)]
   const anchors = anchorsBySource.get(id) ?? []
   const broken = anchors.filter((a) => locate(before, a.selector) === 1 && locate(after, a.selector) !== 1)
-  // 一两条引文失效是正常的政策变化，交给 issue-fixer；成片失效更可能是抽取坏了、或抓到了别的地区版本。
-  if (broken.length > Math.max(3, anchors.length / 2)) {
+  // 一两条引文失效是正常的政策变化，交给 issue-fixer。成片失效有两种：厂商改写了条款（#389 IBM 改了
+  // Data Sheet），或者我们抓错了页面（验证页、别的地区版本）。区分靠旧正文还剩多少：改写时大部分句子
+  // 还在（实测 0.49–0.90），抓错页面时几乎一句不剩（0–0.14）。只拦后一种
+  const kept = retained(rawBefore, rawAfter)
+  if (broken.length > Math.max(3, anchors.length / 2) && kept < MIN_RETAINED) {
     const owners = [...new Set(broken.map((a) => a.provider))].join("、")
-    reasons.push(`\`${file}\` 上 ${broken.length}/${anchors.length} 条原本能定位的引文失效（${owners}），疑似抽取出错`)
+    reasons.push(
+      `\`${file}\` 上 ${broken.length}/${anchors.length} 条原本能定位的引文失效（${owners}），旧正文的长句只剩 ${Math.round(kept * 100)}%，疑似抓错了页面`,
+    )
   }
 }
 
