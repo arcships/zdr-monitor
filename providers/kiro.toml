@@ -89,8 +89,8 @@ text_zh = "代码索引与缓存期限未披露。"
 codes = ["US"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the US."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国服务。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the commercial US geography."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国商业 geography 服务。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
 text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
@@ -157,8 +157,8 @@ anchor = "aws-kiro-50-14-2"
 codes = ["US"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the US."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国服务。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the commercial US geography."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国商业 geography 服务。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
 text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
@@ -425,15 +425,15 @@ source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = "## Inference endpoint regions\n\n"
-exact = "The geography that serves your request depends on both the model you select and the region of your Kiro profile. GPT-5.6 models are served from the US regardless of your profile region. Claude Fable 5.1 is currently available only in US East (N. Virginia). Every other model is served from the geography that matches your profile."
-suffix = " Profile region applies to enterprise users"
+exact = "The geography that serves requests from commercial profiles depends on both the model and the Kiro profile Region. GPT-5.6 models are served from the US regardless of profile Region, Claude Fable 5.1 is available only in US East (N. Virginia), and every other model is served from the geography that matches the profile."
+suffix = " Profile Region applies to enterprise users"
 [[anchor]]
 id = "kiro-models-us-default"
 source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "Profile region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers are always served from the US."
+exact = "Profile Region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers are always served from the commercial US geography."
 suffix = "\n| Model | Kiro profile in US East (N. Virginia)"
 [[anchor]]
 id = "kiro-models-experimental-global"
