@@ -87,6 +87,11 @@ text_zh = "文档层把「不记录」的范围限定在 open models：「Firewo
 anchor = "fireworks-datahandling-open-models-limit"
 
 [[product.zdr.point]]
+text = "The same section adds an account-level enforcement switch right after the bullet list: \"Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.\" The default ZDR statement above is unchanged; this is an additional enterprise-admin control that rejects, rather than merely promises not to persist, requests and jobs that would persist or log customer content."
+text_zh = "同页同一节在要点列表之后新增账号级强制开关：「Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.」——上面那句默认 ZDR 表述未变；这是企业管理员可额外开启的控制项：对会持久化或记录客户内容的请求与任务予以拒绝，而不只是一句不落盘的承诺。"
+anchor = "fireworks-datahandling-enterprise-zdr-enforcement"
+
+[[product.zdr.point]]
 text = "Two limits sit inside the very ToS §3.6 sentence this verdict is anchored to: the promise does not apply where \"otherwise required by Applicable Law (or to provide the Service or support to you)\", and \"you agree that we have the right to use safety screening tools on the Content as we deem appropriate\" — the one opening in the no-logging promise that lets the vendor keep processing Content."
 text_zh = "结论所绑的 ToS §3.6 同一句里自带两处限定：依适用法律要求（或为向你提供服务/支持所必需）时不适用，以及「you agree that we have the right to use safety screening tools on the Content as we deem appropriate」（厂商保留对 Content 使用安全审查工具的权利）——这是「不记录、不留存」承诺里唯一允许继续处理 Content 的口子。"
 anchor = "fireworks-tos-3-6-safety-screening"
@@ -928,6 +933,14 @@ topics = ["retention", "zdr"]
 prefix = "Fireworks has Zero Data Retention by default. Specifically, this means"
 exact = "Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in."
 suffix = " More technically: prompt and generation data exist only in volatil"
+
+[[anchor]]
+id = "fireworks-datahandling-enterprise-zdr-enforcement"
+source_id = "9e4b92eacd199a46"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content."
 
 [[anchor]]
 id = "fireworks-dpa-sched4-gcp-us"
