@@ -134,6 +134,8 @@ for (let attempt = 1; attempt <= 5; attempt++) {
 
 const comment = async (body: string) =>
   dryRun ? console.log(`[dry-run] 评论：\n${body}`) : $`gh pr comment ${pr} --body ${`${MARK}\n${body}`}`.quiet()
+// 合并之后评论失败不算失败：PR 已经合上了
+const note = (body: string) => comment(body).catch((e) => console.log(`评论没发出去：${e.stderr ?? e}`))
 const label = async (name: string, color: string) => {
   if (dryRun) return console.log(`[dry-run] 标签：${name}`)
   await $`gh label create ${name} --color ${color} --force`.quiet()
@@ -147,7 +149,7 @@ if (!problems.length) {
     console.log(`#${pr} 检查通过，删改了来源，留给人`)
     process.exit(0)
   }
-  await comment(
+  await (merged ? note : comment)(
     [
       dryRun ? "**自动合并**（dry-run，未合并）：" : "**自动合并**：",
       "",
