@@ -116,6 +116,11 @@ jobs:
             --no-hooks \
             < "$RUNNER_TEMP/prompt.md" > "$RUNNER_TEMP/events.jsonl"
 
+          # 额度用完时 agent 第一次调模型就失败，日志里只有一大段 AI SDK 报错，单独点明
+          if grep -q insufficient_balance "$RUNNER_TEMP/events.jsonl"; then
+            echo "::error::DimCode 账户额度用完（insufficient_balance）。充值或额度恢复后不用手动处理：「重试停滞的 DimCode 任务」会自动重新派发"
+            exit 1
+          fi
           jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/events.jsonl" >/dev/null
           # 只取最后一条消息：前面几条是 agent 边干边说的旁白，拼在一起 STATUS 就不在行首了
           # （对应 models.dev 取 text part 的 last）。模型有时把状态行写成 `STATUS: changed` 或加粗，

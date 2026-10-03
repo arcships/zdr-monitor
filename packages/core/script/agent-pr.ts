@@ -2,7 +2,7 @@
 /** agent PR 的闭环：reviewer 看完之后，合并或者打回，不等人。
  *
  *  合并要同时满足：
- *    - 只改了一家的 providers/<p>.toml、changes/<p>/，以及 workflow 为新来源抓的 snapshots/
+ *    - 只改了一家的 providers/<p>.toml、changes/<p>/（可以只有变化记录），以及 workflow 为新来源抓的 snapshots/
  *    - PR 上的校验（test）通过
  *    - 合进当前 main 之后：validate、check:quotes --strict、check:change-record 都过
  *      （agent 是按开 PR 时的快照写的，之后快照可能又变了，所以按合并后的结果算）
@@ -79,9 +79,10 @@ async function gate(): Promise<string[]> {
     const merged = await $`git -C ${dir} merge --no-edit ${`refs/remotes/pr/${pr}`}`.nothrow().quiet()
     if (merged.exitCode !== 0) return [`和当前 main 合并有冲突，要在最新的 main 上重做`]
     files = (await $`git -C ${dir} diff --name-only --no-renames origin/main HEAD`.quiet().text()).split("\n").filter(Boolean)
-    const providers = [...new Set(files.map((f) => f.match(/^providers\/([^/]+)\.toml$/)?.[1]).filter(Boolean))] as string[]
+    // 厂商改了条款但结论没变时，PR 只有一条变化记录，不动 providers/
+    const providers = [...new Set(files.map((f) => f.match(/^(?:providers\/([^/]+)\.toml|changes\/([^/]+)\/)/)?.slice(1).find(Boolean)).filter(Boolean))] as string[]
     provider = providers.length === 1 ? providers[0] : undefined
-    if (!provider) return [`PR 应该只改一家的 providers/<id>.toml，实际是：${providers.join("、") || "没有"}`]
+    if (!provider) return [`PR 应该只改一家的 providers/<id>.toml 或 changes/<id>/，实际是：${providers.join("、") || "没有"}`]
     // 快照只允许新增（workflow 给新加的来源抓的），已有快照只有抓取 bot 的快照 PR 能改
     const added = new Set((await $`git -C ${dir} diff --name-only --no-renames --diff-filter=A origin/main HEAD`.quiet().text()).split("\n"))
     const outside = files.filter((f) => !(f === `providers/${provider}.toml` || f.startsWith(`changes/${provider}/`) || (/^snapshots\/[0-9a-f]{16}\.md$/.test(f) && added.has(f))))
@@ -109,9 +110,27 @@ async function gate(): Promise<string[]> {
 const correction = (info.body ?? "").includes("非厂商变化")
 const test = await testCheck()
 if (test !== "pass") problems.push(`PR 上的校验（test）没有通过：${test}`)
-problems.push(...(await gate()))
 const review = reviewFile && fs.existsSync(reviewFile) ? fs.readFileSync(reviewFile, "utf8").trim() : ""
 if (!ready) problems.push(`reviewer 的待办：\n\n${review || "（没有拿到 reviewer 输出）"}`)
+// 合并前 main 又动了（每天抓完一批 PR 会同时合并），GitHub 会拒绝这次合并：重新合进最新的 main 再检查一遍
+const BASE_MOVED = /Base branch was modified|is not mergeable|merge commit cannot be cleanly created/i
+let merged = false
+for (let attempt = 1; attempt <= 5; attempt++) {
+  const gated = await gate()
+  if (gated.length || problems.length || dryRun || info.labels.some((l) => l.name === "sources-changed")) {
+    problems.push(...gated)
+    break
+  }
+  const r = await $`gh pr merge ${pr} --squash --delete-branch --match-head-commit ${info.headRefOid}`.nothrow().quiet()
+  if (r.exitCode === 0) {
+    merged = true
+    break
+  }
+  const err = r.stderr.toString().trim()
+  if (!BASE_MOVED.test(err) || attempt === 5) throw new Error(`#${pr} 合并失败：${err}`)
+  console.log(`#${pr} 合并时 main 变了（${err}），第 ${attempt} 次重试`)
+  await Bun.sleep(attempt * 20000)
+}
 
 const comment = async (body: string) =>
   dryRun ? console.log(`[dry-run] 评论：\n${body}`) : $`gh pr comment ${pr} --body ${`${MARK}\n${body}`}`.quiet()
@@ -130,17 +149,20 @@ if (!problems.length) {
   }
   await comment(
     [
-      "**自动合并**：",
+      dryRun ? "**自动合并**（dry-run，未合并）：" : "**自动合并**：",
       "",
-      `- 只改了 \`providers/${provider}.toml\`${files.some((f) => f.startsWith("changes/")) ? `、\`changes/${provider}/\`` : ""}${files.some((f) => f.startsWith("snapshots/")) ? " 和新来源的快照" : ""}`,
+      `- 只改了 ${[
+        files.includes(`providers/${provider}.toml`) && `\`providers/${provider}.toml\``,
+        files.some((f) => f.startsWith("changes/")) && `\`changes/${provider}/\``,
+        files.some((f) => f.startsWith("snapshots/")) && "新来源的快照",
+      ].filter(Boolean).join("、")}`,
       "- PR 校验（test）通过",
       `- 合进当前 main 后 validate、check:quotes --strict、check:change-record 通过${correction ? "（PR 声明结论变化是我们的改正，非厂商变化，不进时间线）" : ""}`,
       "- reviewer 没有待办",
       "- 没有删除或替换已有来源",
     ].join("\n"),
   )
-  if (!dryRun) await $`gh pr merge ${pr} --squash --delete-branch --match-head-commit ${info.headRefOid}`.quiet()
-  console.log(`#${pr} 已自动合并`)
+  console.log(merged ? `#${pr} 已自动合并` : `#${pr} 检查通过（dry-run，未合并）`)
   process.exit(0)
 }
 

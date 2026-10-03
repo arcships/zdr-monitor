@@ -24,6 +24,7 @@ issue-fixer.yml（DimCode，一个 issue = 一个 provider = 一个 agent）
 pr-reviewer.yml（DimCode 只读，跳过快照 PR）
   agent PR：reviewer 没有待办，且合进最新 main 后 validate、check:quotes --strict、
   check:change-record 都过 → bot 自动合并，评论写明依据 → Pages 重新部署，时间线更新
+  （只有变化记录、没动 providers/ 的 PR 也照常合并；合并时 main 变了就重新合进再查，最多五次）
   否则评论原因（打回）→ 重新派发 issue-fixer，带上打回意见和上一版 diff，原地更新同一个 PR
   打回从第三轮起换更强的模型（`vars.DIMCODE_STRONG_MODEL`，默认 gpt-6-sol）
   五轮都不过、或删改了已有来源（sources-changed）→ needs-human，等人
