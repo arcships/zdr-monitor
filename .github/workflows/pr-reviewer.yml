@@ -3,7 +3,7 @@ name: PR Reviewer
 # 只读 agent 审人和 issue fixer 提的 PR。对应 models.dev 的 pr-reviewer.yml：
 # 检出的是可信的 base 版本，PR 内容只作为数据读；快照 PR 跳过。
 # issue fixer 的 PR（dim/issue-*）审完不等人：确定性检查和 reviewer 都过就自动合并，
-# 否则写明原因打回给 issue fixer 重做，两轮不过打 needs-human（packages/core/script/agent-pr.ts）。
+# 否则写明原因打回给 issue fixer 重做，五轮不过打 needs-human（packages/core/script/agent-pr.ts）。
 
 on:
   pull_request_target:

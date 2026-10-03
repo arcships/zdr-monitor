@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
   issues: read
   pull-requests: read
@@ -69,4 +70,31 @@ jobs:
               [ -z "$model" ] || args+=(-f "client_payload[model]=$model")
               gh api --method POST "repos/$REPO/dispatches" "${args[@]}"
               echo "重新派发 #$issue（$provider${model:+，$model}）"
+            done
+
+      - name: 重跑没跑完的 reviewer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # reviewer 中途失败（比如 DimCode 额度用完，#451）：PR 上没有任何闭环评论，上面两步都不管它。
+          # 最新提交之后还没有闭环评论、提交超过一小时、该分支最近一次 reviewer 失败了，就重跑那次 reviewer
+          #（pull_request_target 检出的是最新 main，重跑也用最新的门禁脚本）
+          cutoff="$(date -u -d '1 hour ago' +%s)"
+          # shellcheck disable=SC2016 # $c 是 jq 变量，不是 shell 变量
+          gh pr list --repo "$REPO" --state open --limit 30 --json headRefName,labels,comments,commits \
+            --jq '.[] | select(.headRefName | startswith("dim/issue-"))
+                  | select([.labels[].name] | index("needs-human") | not)
+                  | (.commits | last | .committedDate) as $at
+                  | ([.comments[] | select(.body | startswith("<!-- zdr-agent-pr -->"))] | last) as $c
+                  | select($c == null or $c.createdAt < $at)
+                  | [.headRefName, $at] | @tsv' \
+          | while IFS=$'\t' read -r branch at; do
+              [ "$(date -u -d "$at" +%s)" -le "$cutoff" ] || continue
+              run="$(gh run list --repo "$REPO" --workflow pr-reviewer.yml --branch "$branch" --limit 1 \
+                --json databaseId,conclusion --jq '.[0] | select(.conclusion == "failure") | .databaseId')"
+              [ -n "$run" ] || continue
+              gh run rerun "$run" --repo "$REPO" --failed
+              echo "重跑 $branch 的 reviewer（run $run）"
             done
