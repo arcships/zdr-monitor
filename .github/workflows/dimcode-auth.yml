@@ -64,6 +64,11 @@ jobs:
           done
           dim auth status
           echo "只回复 OK" | dim exec --stdin --json --policy read-only --provider dimcode-api-oauth \
-            --model "${DIMCODE_MODEL:-deepseek-v4.1-flash}" --no-hooks \
-            | jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' >/dev/null
+            --model "${DIMCODE_MODEL:-deepseek-v4.1-flash}" --no-hooks > "$RUNNER_TEMP/check.jsonl" || true
+          # 令牌已经续上、写回了 secret；调不通模型如果是额度问题，跟登录态无关
+          if grep -q insufficient_balance "$RUNNER_TEMP/check.jsonl"; then
+            echo "::error::令牌已续期，但 DimCode 账户额度用完（insufficient_balance），agent 暂时都跑不了，需要充值"
+            exit 1
+          fi
+          jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/check.jsonl" >/dev/null
           echo "已续期到 $(jq -r '.nextApiOauth.expires / 1000 | todate' "$dir/auth.json")"

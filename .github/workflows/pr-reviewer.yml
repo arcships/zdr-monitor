@@ -84,6 +84,11 @@ jobs:
           不要再要求改回去，除非给出前几轮没看到的新原文证据。
           没有待办时，回复第一行必须是 READY，之后不写任何内容。有待办时只输出 Action items 列表。
           PROMPT
+          # 额度用完时 agent 第一次调模型就失败，日志里只有一大段 AI SDK 报错，单独点明
+          if grep -q insufficient_balance "$RUNNER_TEMP/events.jsonl"; then
+            echo "::error::DimCode 账户额度用完（insufficient_balance）。充值或额度恢复后不用手动处理：「重试停滞的 DimCode 任务」会自动重新派发"
+            exit 1
+          fi
           jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/events.jsonl" >/dev/null
           # 只取最后一条消息，READY 才会在第一行
           jq -sr '[.[] | select(.eventType == "text:delta")] as $d | ($d | last | .payload.messageId) as $m
@@ -95,7 +100,9 @@ jobs:
         env:
           AGENT_PR: ${{ startsWith(github.event.pull_request.head.ref, 'dim/issue-') }}
         run: |
-          if head -1 "$RUNNER_TEMP/response.md" | grep -qx 'READY'; then
+          # 模型有时先写一段开场白再写 READY（#445）：没有 Action items、最后一行是 READY 就算
+          last="$(grep -v '^[[:space:]]*$' "$RUNNER_TEMP/response.md" | tail -1 | tr -d '*`[:space:]')"
+          if [ "$last" = READY ] && ! grep -qi '^#* *action items' "$RUNNER_TEMP/response.md"; then
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --add-label "$READY_LABEL"
             echo "ready=--ready" >> "$GITHUB_OUTPUT"
           else
