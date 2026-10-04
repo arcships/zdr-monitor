@@ -28,7 +28,7 @@ note = "Agent Platform「客户数据保留与达成零数据保留」官方清�
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring"
 channel = "developer_data"
 tier = "core"
-note = "Agent Platform 滥用监控页（Last updated 2026-09-22）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（可申请豁免；仅受 GCP ToS 约束的客户在范围内，持 Google Cloud Master Agreement 的客户默认豁免）、Advanced AI 模型 prompt+response 强制 30 天且部分特性可能无法 opt-out；含 Advanced AI 范围清单与 Anthropic 段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。用于 api 档 retention 的日志对象与 zdr 的适用边界。"
+note = "Agent Platform 滥用监控页（Last updated 2026-10-02）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（仅受 GCP ToS 约束的客户在范围内，持 Google Cloud Master Agreement 的客户默认豁免；2026-10-02 版删去了标准滥用监控的 Customer opt-out 条目与「可申请退出」一句，申请豁免的说法现只见于 zero-data-retention 页）、Advanced AI 模型 prompt+response 强制 30 天且部分特性可能无法 opt-out；含 Advanced AI 范围清单与 Anthropic 段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。用于 api 档 retention 的日志对象与 zdr 的适用边界。"
 
 [[product]]
 id = "api"
@@ -57,8 +57,8 @@ text_zh = """达成 ZDR 的路径：原文「If you are in scope for prompt logg
 anchor = "zdr-abuse-monitoring-exception"
 
 [[product.zdr.point]]
-text = """Who that agreement path applies to: only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service are subject to prompt logging for abuse monitoring, and "customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default". The exception is granted only if the opt-out form is approved, after which "Google won't store any prompts associated with the approved Google Cloud account"."""
-text_zh = """这条申请路径对谁成立：只有使用受 Google Cloud Platform Terms of Service 约束的客户才在滥用监控范围内，「customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default」；豁免须填表并经批准，批准后「Google won't store any prompts associated with the approved Google Cloud account」。"""
+text = """Who that agreement path applies to: only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service are subject to prompt logging for abuse monitoring, and "customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default". The abuse-monitoring page itself (revision of 2026-10-02) no longer lists a customer opt-out for standard prompt logging — no request form and no statement of what an approved exception guarantees. The only official statement of the exception path is now the zero-data-retention page's "you can request an exception for abuse monitoring", whose "See Abuse monitoring" pointer leads to a page that no longer describes it. How to apply, and what approval means for stored prompts, is currently not documented."""
+text_zh = """这条申请路径对谁成立：只有使用受 Google Cloud Platform Terms of Service 约束的客户才在滥用监控范围内，「customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default」。滥用监控页本身（2026-10-02 版）已不再列出标准 prompt 日志的客户退出条目——既没有申请表，也没有获批后有何保证的说明。申请豁免的官方说法现在只剩 zero-data-retention 页的「you can request an exception for abuse monitoring」，而它所指向的「See Abuse monitoring」页面已不再描述这条路径。如何申请、获批后已存储的 prompt 如何处理，目前均无文档说明。"""
 anchor = "zdr-abuse-scope-gcp-tos-only"
 
 [[product.zdr.point]]
@@ -97,8 +97,8 @@ text_zh = """服务终止时（合同层）：对象=全部剩余 Customer Data�
 anchor = "retention-deletion-6-2-term-end"
 
 [[product.retention.point]]
-text = """Abuse-monitoring prompt logs (developer doc): object = logged customer prompts (logs, not encrypted with Customer-managed encryption keys); context = only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service, and only when automated safety classifiers flag suspicious activity needing investigation; period type = upper bound — "This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project". Customers may request an opt-out."""
-text_zh = """滥用监控 prompt 日志（开发者文档）：对象=被记录的客户 prompt（日志，不用 CMEK 加密）；语境=仅限使用受 Google Cloud Platform Terms of Service 约束的客户，且仅当自动安全分类器标记出需要调查的可疑活动时；期限类型=上限——原文「This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project」。客户可申请豁免。"""
+text = """Abuse-monitoring prompt logs (developer doc): object = logged customer prompts (logs, not encrypted with Customer-managed encryption keys); context = only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service, and only when automated safety classifiers flag suspicious activity needing investigation; period type = upper bound — "This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project". Since the page's 2026-10-02 revision it no longer offers an opt-out from this logging; the exception route survives only as a sentence on the zero-data-retention page (see the zdr points)."""
+text_zh = """滥用监控 prompt 日志（开发者文档）：对象=被记录的客户 prompt（日志，不用 CMEK 加密）；语境=仅限使用受 Google Cloud Platform Terms of Service 约束的客户，且仅当自动安全分类器标记出需要调查的可疑活动时；期限类型=上限——原文「This data is stored securely for up to 90 days in the same region or multi-region selected by the customer for their project」。该页 2026-10-02 版起不再提供退出这项记录的选项；申请豁免的说法只剩 zero-data-retention 页上的一句（见 zdr 依据条目）。"""
 anchor = "retention-abuse-prompt-log-90d"
 
 [[product.retention.point]]
