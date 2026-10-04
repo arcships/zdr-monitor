@@ -22,7 +22,7 @@ note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-09-2
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring"
 channel = "developer_data"
 tier = "core"
-note = "Agent Platform 滥用监控页（Last updated 2026-09-18）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（可申请豁免）、Advanced AI 模型 prompt+response 强制 30 天且可能无法 opt-out；含 Anthropic 专属段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。覆盖 api 档（Vertex/Agent Platform 上的 Claude）。"
+note = "Agent Platform 滥用监控页（Last updated 2026-10-02）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（2026-10-02 版删去了标准滥用监控的 Customer opt-out 条目与「可申请退出」一句，申请豁免的说法现只见于 zero-data-retention 页）、Advanced AI 模型 prompt+response 强制 30 天且可能无法 opt-out；含 Anthropic 专属段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。覆盖 api 档（Vertex/Agent Platform 上的 Claude）。"
 
 [[source]]
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/fable-5"
@@ -95,8 +95,8 @@ text_zh = "request-response logging 是按型号、按项目的开关，默认�
 anchor = "zdr-request-response-logging-off"
 
 [[product.zdr.point]]
-text = "Prompt logging for abuse monitoring only binds customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service; those customers can request an exception in order to reach zero data retention."
-text_zh = "滥用监控的 prompt 记录只约束受 Google Cloud Platform Terms of Service 管辖的客户；这些客户可提交申请获得豁免，以达成零数据保留。"
+text = "Prompt logging for abuse monitoring only binds customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service; those customers can request an exception in order to reach zero data retention. That sentence on the zero-data-retention page is now the only official statement of the exception path: the abuse-monitoring page it points to (revision of 2026-10-02) no longer lists a customer opt-out, a request form, or what an approved exception guarantees."
+text_zh = "滥用监控的 prompt 记录只约束受 Google Cloud Platform Terms of Service 管辖的客户；这些客户可提交申请获得豁免，以达成零数据保留。这句（zero-data-retention 页）现在是申请豁免路径唯一的官方表述：它所指向的滥用监控页（2026-10-02 版）已不再列出客户退出条目、申请表，也不再说明获批后有何保证。"
 anchor = "zdr-abuse-monitoring-exception"
 
 [[product.zdr.point]]
@@ -136,9 +136,9 @@ text_zh = "该记录的适用范围：只有受 Google Cloud Platform Terms of S
 anchor = "abuse-master-agreement-exempt"
 
 [[product.retention.point]]
-text = "Other customers can request an exception, and if it is approved Google will not store any prompts associated with the approved account."
-text_zh = "其他客户可提交表单申请豁免；获批后 Google 不再为获批账户存储任何 prompt。"
-anchor = "abuse-customer-opt-out-form"
+text = "Opting out of that 90-day logging: since its 2026-10-02 revision the abuse-monitoring page no longer offers a customer opt-out for standard prompt logging. The only remaining official statement is on the zero-data-retention page — customers in scope can request an exception for abuse monitoring — and no page now says how to apply or what happens to prompts once an exception is approved."
+text_zh = "退出这项 90 天记录：滥用监控页自 2026-10-02 版起不再为标准 prompt 日志提供客户退出选项。仅剩的官方表述在 zero-data-retention 页——在范围内的客户可申请滥用监控豁免；如何申请、获批后 prompt 如何处理，目前没有任何页面说明。"
+anchor = "zdr-abuse-monitoring-exception"
 
 [[product.retention.point]]
 text = "Second clock, for models inside the Advanced AI scope: Claude Mythos and Claude Fable (all versions, listed on this product line's Covered Models row) plus Claude Opus >= 4.7 and Sonnet >= 5 when advanced_ai_enabled = true for use within Anthropic's Cyber Verification Program. All other usage of these models is out of scope of the Advanced AI Safety Addendum."
@@ -677,7 +677,7 @@ suffix = """
 [[anchor]]
 id = "zdr-abuse-monitoring-exception"
 source_id = "89852246e77a9205"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 exact = "If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring."
@@ -721,14 +721,6 @@ topics = ["retention"]
 
 [anchor.selector]
 exact = "This means that customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default."
-
-[[anchor]]
-id = "abuse-customer-opt-out-form"
-source_id = "72542f8ee80026c3"
-topics = ["retention"]
-
-[anchor.selector]
-exact = "If approved, Google won't store any prompts associated with the approved Google Cloud account."
 
 [[anchor]]
 id = "dr-doc-global-endpoint-no-guarantee"
