@@ -107,8 +107,13 @@ text = "Unverified endpoints: \"If OpenRouter is not able to establish or ascert
 text_zh = "未核实端点：「If OpenRouter is not able to establish or ascertain a clear policy for a provider or endpoint, we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such.」故 ZDR 的实际效果取决于端点是否在 ZDR 名单内。"
 
 [[product.zdr.point]]
-text = "\"ZDR enforcement only applies to provider routing for inference requests.\" — it does not cover plugins or web search."
-text_zh = "只覆盖推理路由，不含 plugins 与 web search。"
+text = "\"ZDR enforcement only applies to provider routing for inference requests.\" — it does not cover plugins or web search, apart from the one tool-level rule below."
+text_zh = "只覆盖推理路由，不含 plugins 与 web search（下一条的工具级规则除外）。"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-tools-reject-firecrawl-zdr"
+text = "One tool-level exception to that boundary: \"when ZDR is enforced in your account privacy settings or a guardrail, the Web Search and Web Fetch server tools and the Web Search plugin reject the Firecrawl engine.\" The rule is triggered only by account privacy settings or a guardrail (the sentence does not mention request-level `provider.zdr`), and it only blocks the Firecrawl engine. Other plugins and tools remain outside ZDR enforcement under the preceding sentence; the rule says nothing about the other backends of these tools, which the page points to a per-tool privacy page (\"See Privacy and regional availability for each server tool's execution path and backend policy\")."
+text_zh = "上述边界有一条工具级例外：「when ZDR is enforced in your account privacy settings or a guardrail, the Web Search and Web Fetch server tools and the Web Search plugin reject the Firecrawl engine.」触发条件只写了账户隐私设置或 guardrail（未提请求级 `provider.zdr`），效果只是拒用 Firecrawl 引擎。其余 plugins 与工具按上一句仍不在 ZDR 强制范围内；这几个工具的其他后端，本句未表态，页面指向逐工具的隐私说明（「See Privacy and regional availability for each server tool's execution path and backend policy」）。"
 
 [product.retention]
 object = "mixed"
@@ -951,6 +956,14 @@ ives you controls over both of these policies.
   """
 exact = "ZDR enforcement only applies to provider routing for inference requests."
 suffix = " It does not apply to [plugins](/docs/guides/features/plugin"
+
+[[anchor]]
+id = "openrouter-zdr-tools-reject-firecrawl-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "when ZDR is enforced in your account privacy settings or a guardrail, the Web Search and Web Fetch server tools and the Web Search plugin reject the Firecrawl engine"
 
 [[anchor]]
 id = "openrouter-zdr-conservative-stance-zdr"
