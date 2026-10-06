@@ -77,7 +77,7 @@ note = "《Data Processing Agreement for Oracle Services》Version 14 August, 20
 url = "https://www.oracle.com/contracts/docs/ocloud_hosting_delivery_policies_3089853.pdf"
 channel = "contract"
 tier = "core"
-note = "《Oracle Cloud Hosting and Delivery Policies》Effective Date May 2026, Version 3.12（19 页 PDF）。CSA §5.1 与 DPA §7.1 指定它为 Cloud Services 的安全与交付政策。量化期限：§1.14 安全日志在线保留至少 1 年；§2.2 备份通常在线/离线保留至少 60 天；§4.1.2 数据中心迁移限于同一 Data Center Region（提前 30 天通知）；§6.1 服务期结束后 60 天取回期、试用/试点 30 天、取回期届满删除 Your Content。注意 §2.2 已被 PaaS/IaaS Pillar Document §2.1 取代，§4.1.2 对试用/免费档被 Pillar §2.2 取代。"
+note = "《Oracle Cloud Hosting and Delivery Policies》Effective Date September 2026, Version 3.13（19 页 PDF）。CSA §5.1 与 DPA §7.1 指定它为 Cloud Services 的安全与交付政策。量化期限：§1.13 安全日志在线保留至少 1 年（3.13 起由 §1.14 重编号，原文未变）；§2.2 备份通常在线/离线保留至少 60 天；§4.1.2 数据中心迁移限于同一 Data Center Region（提前 30 天通知）；§6.1 服务期结束后 60 天取回期、试用/试点 30 天、取回期届满删除 Your Content。3.13 在概览段新增 AI Functionality 条款：为提供 AI Functionality，Oracle 可能用位于所选 Data Center Region 之外或第三方基础设施上的 AI 模型处理 Your Content，该处理是临时的、Your Content 仍存储于所选 Data Center Region（见锚点 oci-hdp-ai-functionality-outside-region）。注意 §2.2 已被 PaaS/IaaS Pillar Document §2.1 取代，§4.1.2 对试用/免费档被 Pillar §2.2 取代。"
 
 [[source]]
 url = "https://www.oracle.com/legal/privacy/privacy-policy.html"
@@ -194,6 +194,11 @@ text_zh = "限定二：HDP『Your Content will be stored in the Data Center Regi
 anchor = "oci-regions-cross-region-call"
 text_zh = "限定三：服务并未覆盖所有商业 Region，『if the Calling Region and Destination Region are not the same, then a cross-region call will be made』——跨 Region 调用是对「选定 region」的限定，不是全球处理。"
 
+[[product.processing_region.point]]
+anchor = "oci-hdp-ai-functionality-outside-region"
+text = "Contract-layer carve-out added in HDP v3.13 (Overview): for AI Functionality, \"Oracle may process Your Content using AI models located outside the Data Center Region applicable to such Services or on third-party infrastructure\", and \"Any such processing of Your Content is temporary, and Your Content remains stored in the Data Center Region applicable to such Services.\" Storage stays in the customer-selected Data Center Region, but AI processing is no longer confined to it and may run on third-party infrastructure; the clause names no specific location. codes stays selected (the storage region) with this exception recorded alongside, not folded into it."
+text_zh = "合同层新增例外（HDP v3.13 概览段）：为提供 AI Functionality，『Oracle may process Your Content using AI models located outside the Data Center Region applicable to such Services or on third-party infrastructure』，且『Any such processing of Your Content is temporary, and Your Content remains stored in the Data Center Region applicable to such Services』。**存储**仍在客户选定的 Data Center Region，但 **AI 处理不再限于该 Region**、可能落在第三方基础设施上；条款未指明具体处理地。字段层 codes 维持 selected（指存储地），本例外并列保留、不并入其中。"
+
 [product.role]
 kind = "processor"
 anchor = "oci-dpa-2-1-controller-processor"
@@ -284,6 +289,11 @@ anchor = "oci-pillar-uksc-3-3-third-party-llm"
 text_zh = "同一条款在 UKSC 侧（Appendix B §3.3）：『…Your data may be processed outside of the selected UKSC data center region(s) and may be subject to additional terms from the applicable third-party LLM provider(s).』——与 EUSC 并列，适用范围同样限于该主权 Region 附加条款。"
 
 [[product.processing_region.point]]
+anchor = "oci-hdp-ai-functionality-outside-region"
+text = "General contract-layer counterpart (HDP v3.13, Overview): for AI Functionality, \"Oracle may process Your Content using AI models located outside the Data Center Region applicable to such Services or on third-party infrastructure\", while \"Your Content remains stored in the Data Center Region applicable to such Services.\" Unlike the EUSC/UKSC §3.3 clauses this sits in the general HDP and is not confined to a sovereign annex, so it now states provider-wide that AI processing may leave the selected Data Center Region and may run on third-party infrastructure. It still does not say which side (OCI or xAI) or which Region handles the commercial xAI tier, so this tier's verdict stays undisclosed; the clause is recorded as the general contract basis for the out-of-region possibility."
+text_zh = "一般合同层对应条款（HDP v3.13 概览段）：为提供 AI Functionality，『Oracle may process Your Content using AI models located outside the Data Center Region applicable to such Services or on third-party infrastructure』，而『Your Content remains stored in the Data Center Region applicable to such Services』。与 EUSC/UKSC §3.3 不同，该条位于通用 HDP、不限主权附加条款，因此在全 provider 层面表明 AI 处理可能离开所选 Data Center Region、可能落在第三方基础设施上。但它仍未说明 xAI 商业档由哪一方（OCI 还是 xAI）、在哪个 Region 处理，故本档结论维持未披露；该条作为「出区/第三方基础设施」可能性的一般合同依据并列保留。"
+
+[[product.processing_region.point]]
 text_zh = "结论维持未披露（basis=undisclosed）：分类云部署的托管表述不能当商业档事实，商业档的『in-region』未说明是哪一侧的 Region，xAI 侧的 Region 也未披露。查阅范围见 searched。"
 
 [product.role]
@@ -351,8 +361,8 @@ basis = "none"
 anchor = "oci-genai-dh-no-store-io"
 
 [[product.retention.point]]
-text = "Field-level scope: object = input_output, basis = none covers the inference path (\"Both input and output are not stored inside OCI Generative AI\"). Retention on this tier has to be listed object by object; the remaining objects are in the points below. The former days=365 / basis=fixed_period reading has been removed — 365 came from the security-log floor in HDP §1.14, not from any content retention period."
-text_zh = "字段层适用范围：object=input_output、basis=none 覆盖推理路径（『Both input and output are not stored inside OCI Generative AI』）。本档 retention 按对象分列，其余对象见下列各条。原 days=365 / basis=fixed_period 的记法已删除——365 出自 HDP §1.14 的安全日志下限，不是任何内容保留期。"
+text = "Field-level scope: object = input_output, basis = none covers the inference path (\"Both input and output are not stored inside OCI Generative AI\"). Retention on this tier has to be listed object by object; the remaining objects are in the points below. The former days=365 / basis=fixed_period reading has been removed — 365 came from the security-log floor in HDP §1.13 (renumbered from §1.14 in v3.13), not from any content retention period."
+text_zh = "字段层适用范围：object=input_output、basis=none 覆盖推理路径（『Both input and output are not stored inside OCI Generative AI』）。本档 retention 按对象分列，其余对象见下列各条。原 days=365 / basis=fixed_period 的记法已删除——365 出自 HDP §1.13 的安全日志下限（v3.13 起由 §1.14 重编号），不是任何内容保留期。"
 
 [[product.retention.point]]
 anchor = "oci-genai-dh-finetune-deleted-from-cluster"
@@ -367,7 +377,7 @@ text_zh = "③服务期结束后 60 天取回期，取回期届满删除 Your Co
 
 [[product.retention.point]]
 anchor = "oci-hdp-security-logs-1-year"
-text_zh = "④安全日志在线至少 1 年（HDP §1.14）——**下限**，对象是 Oracle 内部安全运营日志，不是请求内容保留期。"
+text_zh = "④安全日志在线至少 1 年（HDP §1.13，v3.13 起由 §1.14 重编号）——**下限**，对象是 Oracle 内部安全运营日志，不是请求内容保留期。"
 
 [product.processing_region]
 codes = ["selected"]
@@ -383,6 +393,10 @@ text_zh = "HDP 限定在所选 Data Center Region 内复制（『Oracle may repl
 [[product.processing_region.point]]
 anchor = "oci-dpa-6-2-global-access"
 text_zh = "Oracle 未单独承诺专用集群的数据不跨 Region 访问；DPA §6.2 的全球**支持访问**（support / incident management / data recovery）仍适用，但它是访问权，不是处理地，支撑不了「全球处理」。"
+
+[[product.processing_region.point]]
+anchor = "oci-hdp-ai-functionality-outside-region"
+text_zh = "合同层新增例外（HDP v3.13 概览段）：为提供 AI Functionality，Oracle 可能用位于所选 Data Center Region 之外或第三方基础设施上的 AI 模型处理 Your Content，处理是临时的、Your Content 仍存储在所选 Data Center Region。本档既用于微调、也用于『host endpoints for the pretrained base models, custom models, and imported models』，属 AI Functionality，故该例外适用；存储仍为选定 Region。"
 
 [product.role]
 kind = "processor"
@@ -491,6 +505,10 @@ text_zh = "合同层：DPA §6.1 的按订单指定/开通时选定 Region 存�
 [[product.processing_region.point]]
 text_zh = "未披露部分：project 产物（files/vector stores/containers）是否严格留在开通 Region、长期记忆的存储位置，官方都未说明；regions 页的跨 Region 调用（oci-regions-cross-region-call）是对「选定 region」的限定。"
 
+[[product.processing_region.point]]
+anchor = "oci-hdp-ai-functionality-outside-region"
+text_zh = "合同层新增例外（HDP v3.13 概览段）：为提供 AI Functionality，Oracle 可能用位于所选 Data Center Region 之外或第三方基础设施上的 AI 模型处理 Your Content，处理是临时的、Your Content 仍存储在所选 Data Center Region。本档（Responses / Conversations / Projects）同属 AI Functionality，故该例外一并适用；具体处理地仍未披露。"
+
 [product.role]
 kind = "processor"
 anchor = "oci-dpa-2-1-controller-processor"
@@ -543,6 +561,10 @@ text_zh = "本服务自己的 data-handling 页不提地域，只能沿用 DPA �
 
 [[product.processing_region.point]]
 text_zh = "限制说明：本服务未单列地域条款、结论沿用通用合同条款；regions 页的 Destination Region 表是为「调用 OCI Generative AI Service 的服务」列的，未逐项确认是否覆盖 Agents 服务，且该表只说明调用 Region 与目标 Region 不一致时会发生跨 Region 调用。confidence=low。"
+
+[[product.processing_region.point]]
+anchor = "oci-hdp-ai-functionality-outside-region"
+text_zh = "合同层新增例外（HDP v3.13 概览段）：为提供 AI Functionality，Oracle 可能用位于所选 Data Center Region 之外或第三方基础设施上的 AI 模型处理 Your Content，处理是临时的、Your Content 仍存储在所选 Data Center Region。本服务未单列地域条款、沿用通用合同条款，该例外一并适用。"
 
 [product.role]
 kind = "processor"
@@ -1151,6 +1173,16 @@ topics = ["processing_region"]
 [anchor.selector]
 prefix = "Your Content will be stored in the Data Center\nRegion applicable to such Services. "
 exact = "Oracle may replicate Your Content to other locations within the identified Data Center Region in support of data redundancy."
+suffix = " To provide AI Functionality in the Oracle Cloud Services, Oracle may process"
+
+[[anchor]]
+id = "oci-hdp-ai-functionality-outside-region"
+source_id = "08969734e24824e9"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "identified Data Center Region in support of data redundancy. "
+exact = "To provide AI Functionality in the Oracle Cloud Services, Oracle may process Your Content using AI models located outside the Data Center Region applicable to such Services or on third-party infrastructure. Any such processing of Your Content is temporary, and Your Content remains stored in the Data Center Region applicable to such Services."
 suffix = " Capitalized terms that are not otherwise defined in thes"
 
 [[anchor]]
