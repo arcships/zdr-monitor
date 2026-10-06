@@ -9,7 +9,7 @@ doc = "https://developers.openai.com/api/docs/guides/your-data"
 url = "https://developers.openai.com/api/docs/guides/your-data"
 channel = "developer_data"
 tier = "core"
-note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。2026-09-24 停机的 /v1/videos 已从现行端点表移除,原 48 小时下载窗口和随后 30 天滥用监测改列为历史说明,原 MAM/ZDR 限制句也随之移除;不据此推断该退役端点现在可用 ZDR。2026-09-30 快照重写 Data residency 逐模型/逐处理模式资格说明:Data residency 自由文本段与 /v1/batches 的 Notes 是两处各自改写(旧句分别为带 for Responses and Chat Completions 与不带),新增 GPT-6.1 Sol 与 Ultrafast 模式,并为 Fast/Ultrafast 模式与 GPT-6.1 Sol 新增各自区域限制说明(Fast 不适用于 EU 驻留、Ultrafast 仅 US 驻留与全局处理、GPT-6.1 Sol 仅 US/EU;侧栏旧正文本来就有 Fast mode,本次上移位置、非新模式),GPT-6 Sol/Luna 的 EU 驻留处理模式由仅 Standard 扩为 Standard/Flex/Batch,逐端点表 EU「Standard processing only」例外删除;api 档 processing_region 结论字段与锚点未变(changes/openai/2026-09-30-data-residency-model-processing-eligibility.toml)。不覆盖 ChatGPT/Codex 消费档"
+note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。2026-09-24 停机的 /v1/videos 已从现行端点表移除,原 48 小时下载窗口和随后 30 天滥用监测改列为历史说明,原 MAM/ZDR 限制句也随之移除;不据此推断该退役端点现在可用 ZDR。2026-09-30 快照重写 Data residency 逐模型/逐处理模式资格说明:Data residency 自由文本段与 /v1/batches 的 Notes 是两处各自改写(旧句分别为带 for Responses and Chat Completions 与不带),新增 GPT-6.1 Sol 与 Ultrafast 模式,并为 Fast/Ultrafast 模式与 GPT-6.1 Sol 新增各自区域限制说明(Fast 不适用于 EU 驻留、Ultrafast 仅 US 驻留与全局处理、GPT-6.1 Sol 仅 US/EU;侧栏旧正文本来就有 Fast mode,本次上移位置、非新模式),GPT-6 Sol/Luna 的 EU 驻留处理模式由仅 Standard 扩为 Standard/Flex/Batch,逐端点表 EU「Standard processing only」例外删除;api 档 processing_region 结论字段与锚点未变(changes/openai/2026-09-30-data-residency-model-processing-eligibility.toml)。2026-10-07 快照新增 Decisions API(/v1/decisions)的逐端点数据条款、区域支持与限制说明:逐端点表新增一行(训练 No、滥用监测 30 天、应用状态 None 见例外、ZDR eligible 见限制、Private Retention with PSP 与 Safety Retention=Pending confirmation);端点说明新增 /v1/decisions 小节,复用与 /v1/chat/completions 相同的滥用监测 30 天与 prompt caching 24 小时两句,该 prompt caching 句因此在快照内出现两次,原锚点补 suffix 定位(语义未改);Endpoint limitations 把原属 /v1/chat/completions 的 extended prompt caching 越区处理句移入 /v1/decisions。api 档五维结论字段未变(changes/openai/2026-10-07-decisions-api-endpoint-added.toml)。不覆盖 ChatGPT/Codex 消费档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
@@ -568,6 +568,7 @@ topics = ["retention"]
 
 [anchor.selector]
 exact = "Prompt caching may store encrypted key/value tensors in GPU-local storage as application state. This data is stored on the local GPU machines and is not retained after the 24-hour expiration"
+suffix = "For `gpt-5.5` and `gpt-5.5-pro`"
 
 [[anchor]]
 id = "openai-api-videos-shutdown-historical"
