@@ -20,6 +20,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Key concepts
 ### Core concepts
 - Responses API
+- Decisions API
 - Conversation state
 - Background mode
 - Streaming
@@ -122,6 +123,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Observability and usage
 - Tracing
 - Errors and recovery
+- API reference
 - Bedrock Managed Agents
 ### Agents SDK
 - Overview
@@ -179,6 +181,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Tools and MCP
 ### Build with voice
 - Voice agents
+- Connect voice to Decisions
 - Custom voices
 - Cost optimization
 ### Connections
@@ -216,6 +219,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Safety classifiers
 - Cybersecurity checks
 - Misalignment monitoring
+- Enforcement notifications
 - Under-18 guidance
 - CSAM guidance
 - Content provenance
@@ -338,6 +342,7 @@ OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex us
 - Bidding & Budgets
 - Targeting
 - Product Feeds
+- Hotel Feeds (limited beta)
 - Conversion Tracking
 - Reporting
 - Troubleshooting
@@ -345,6 +350,7 @@ OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex us
 ### API Reference
 - Authentication
 - Ad Account
+- Audit Logs
 - Campaigns
 - Ad Groups
 - Ads
@@ -373,7 +379,7 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Glossary
 ### Available on
 - ChatGPT desktop app
-- Remote
+- ChatGPT mobile app
 - ChatGPT on the web
 - Codex CLI
 - Codex IDE extension
@@ -539,6 +545,11 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Remote connections
 - Workspace model availability
 - Amazon Bedrock
+- Bedrock GovCloud configuration
+- Connect to a gateway
+- Deploy Codex through a gateway
+- Gateway compatibility
+- Bedrock through LiteLLM
 ### ChatGPT Work
 - Overview
 - Cloud security
@@ -691,6 +702,7 @@ The table below indicates when application state is stored for each endpoint. Ze
 | Endpoint | Data used for training | Abuse monitoring retention | Application state retention | Zero Data Retention eligible | Private Retention with PSP and Safety Retention eligible |
 | `/v1/chat/completions` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Yes, see below for limitations |
 | `/v1/responses` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Yes, see below for limitations |
+| `/v1/decisions` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Pending confirmation |
 | `/v1/conversations` | No | Until deleted | Until deleted | No | No |
 | `/v1/conversations/items` | No | Until deleted | Until deleted | No | No |
 | `/v1/chatkit/threads` | No | Until deleted | Until deleted | No | No |
@@ -730,6 +742,11 @@ The table below indicates when application state is stored for each endpoint. Ze
 - For server-side compaction, no data is retained when `store="false"`.
 - We support Skills in two form factors, both local execution and hosted container-based execution. Hosted skills follow the same container lifecycle as hosted shell: mounted skills and container files remain available while the container is active and are discarded when the container expires or is deleted.
 - Data transmitted to third-party services over network connections is subject to their data retention policies.
+#### `/v1/decisions`
+By default, abuse monitoring logs are retained for up to 30 days. Eligible customers can use Zero Data Retention, subject to the limitations below.
+- Prompt caching may store encrypted key/value tensors in GPU-local storage as application state. This data is stored on the local GPU machines and is not retained after the 24-hour expiration. To learn more, see the prompt caching guide.
+- See image and file inputs for the CSAM retention exception for image inputs.
+The Decisions API is eligible for HIPAA use under an executed OpenAI Business Associate and Healthcare Addendum, subject to the applicable account configuration requirements.
 #### `/v1/assistants`, `/v1/threads`, and `/v1/vector_stores`
 - Objects related to the Assistants API are deleted from our servers 30 days after you delete them via the API or the dashboard. Objects that are not deleted via the API or dashboard are retained indefinitely.
 #### `/v1/images`
@@ -739,7 +756,7 @@ The table below indicates when application state is stored for each endpoint. Ze
 #### Historical Videos API retention
 Before the September 24, 2026 shutdown, the Videos API documentation specified 48 hours for downloading generated videos, followed by 30 days of retention for abuse monitoring. These periods describe the policy documented before shutdown; they do not promise download access after shutdown. See the Videos API shutdown notice.
 #### Image and file inputs
-Images and files may be uploaded as inputs to `/v1/responses` (including when using the Computer Use tool), `/v1/chat/completions`, and `/v1/images`. Image and file inputs are scanned for CSAM content upon submission. If the classifier detects potential CSAM content, the image will be retained for manual review, even if Zero Data Retention, Modified Abuse Monitoring, or Private Retention with PSP is enabled.
+Images and files may be uploaded as inputs to `/v1/responses` (including when using the Computer Use tool), `/v1/chat/completions`, and `/v1/images`. Images may also be uploaded to `/v1/decisions`. Image and file inputs are scanned for CSAM content upon submission. If the classifier detects potential CSAM content, the image will be retained for manual review, even if Zero Data Retention, Modified Abuse Monitoring, or Private Retention with PSP is enabled.
 #### Web Search
 Web Search with live internet access is not HIPAA eligible and is not covered by a BAA. Web Search in offline/cache-only mode (`external_web_access: false`) is eligible to be covered by a BAA when used with an API key from a ZDR-enabled project within a ZDR organization. This HIPAA/BAA guidance applies only to the Responses API `web_search` tool. Note: Preview variants (`web_search_preview`) ignore this parameter and behave as if `external_web_access` is `true`. We recommend using `web_search`.
 ## Data residency controls
@@ -866,7 +883,7 @@ Yes
 /v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorageProcessing
 /v1/batchesStorageProcessing
 /v1/chat/completionsStorageProcessing
-Show 22 more services
+Show 23 more services
 Europe (EEA + Switzerland)
 `eu.api.openai.com`
 Text, Audio, Voice, Image*
@@ -877,7 +894,7 @@ Yes
 Requires MAM or ZDR**
 /v1/batchesStorageProcessing
 /v1/chat/completionsStorageProcessing
-Show 22 more services
+Show 23 more services
 Australia
 `au.api.openai.com`
 Text, Audio, Voice, Image*
@@ -889,7 +906,7 @@ Requires MAM or ZDR
 /v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 Canada
 `ca.api.openai.com`
 Text, Audio, Voice, Image*
@@ -900,7 +917,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 Japan
 `jp.api.openai.com`
 Text, Audio, Voice, Image*
@@ -911,7 +928,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 India
 `in.api.openai.com`
 Text, Audio, Voice, Image*
@@ -922,7 +939,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 Singapore
 `sg.api.openai.com`
 Text, Audio, Voice, Image*
@@ -933,7 +950,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 South Korea
 `kr.api.openai.com`
 Text, Audio, Voice, Image*
@@ -944,7 +961,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 United Kingdom
 `gb.api.openai.com`
 Text, Audio, Voice, Image*
@@ -955,7 +972,7 @@ No
 Requires MAM or ZDR
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 United Arab Emirates
 `ae.api.openai.com`
 Text, Audio, Voice, Image*
@@ -968,7 +985,7 @@ Requires MAM or ZDR
 /v1/chat/completionsStorageProcessing
 `gpt-5.6-luna``gpt-5.5-2026-04-23`+1 snapshot
 `gpt-5.2-2025-12-11`
-Show 17 more services
+Show 18 more services
 ##### United States
 `us.api.openai.com`
 StorageProcessing
@@ -980,7 +997,7 @@ Modes: Text, Audio, Voice, Image
 Supported services
 /v1/batchesStorageProcessing
 /v1/chat/completionsStorageProcessing
-Show 22 more services
+Show 23 more services
 ##### Europe (EEA + Switzerland)
 `eu.api.openai.com`
 StorageProcessing
@@ -993,7 +1010,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorageProcessing
 /v1/chat/completionsStorageProcessing
-Show 22 more services
+Show 23 more services
 ##### Australia
 `au.api.openai.com`
 Storage
@@ -1005,7 +1022,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### Canada
 `ca.api.openai.com`
 Storage
@@ -1017,7 +1034,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### Japan
 `jp.api.openai.com`
 Storage
@@ -1029,7 +1046,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### India
 `in.api.openai.com`
 Storage
@@ -1041,7 +1058,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### Singapore
 `sg.api.openai.com`
 Storage
@@ -1053,7 +1070,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### South Korea
 `kr.api.openai.com`
 Storage
@@ -1065,7 +1082,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### United Kingdom
 `gb.api.openai.com`
 Storage
@@ -1077,7 +1094,7 @@ Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorage
-Show 17 more services
+Show 18 more services
 ##### United Arab Emirates
 `ae.api.openai.com`
 StorageProcessing
@@ -1091,14 +1108,14 @@ Supported services
 /v1/batchesStorage
 /v1/chat/completionsStorageProcessing
 `gpt-5.2-2025-12-11`
-Show 17 more services
+Show 18 more services
 * Image support in these regions requires approval for enhanced Zero Data Retention or enhanced Modified Abuse Monitoring.
 ** Requires Zero Data Retention, Modified Abuse Monitoring, Private Retention with PSP, or Safety Retention.
 #### API Endpoint, tool and model support
 Filter by service, endpoint, tool, or model snapshot.
 Filter endpoint support by serviceAll services
 Search supported endpoints, tools, and models
-25 supported services
+26 supported services
 /v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech
 Audio
 Supported models
@@ -1118,6 +1135,12 @@ Supported models
 `gpt-6-luna``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-2025-08-07``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-mini-2025-01-31``o3-2025-04-16``o4-mini-2025-04-16``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
 Notes
 Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency.
+/v1/decisions
+Decisions
+Supported models
+`gpt-6-luna`
+Notes
+Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below.
 /v1/embeddings
 Embeddings
 Supported models
@@ -1219,6 +1242,9 @@ Supported models
 | GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
 | /v1/chat/completions | Chat Completions |
 | Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency. |
+| /v1/decisions | Decisions |
+`gpt-6-luna`
+| Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
 | /v1/embeddings | Embeddings |
 | /v1/evals | Evals | Supported | — |
 | /v1/files | Files | Supported | — |
@@ -1254,6 +1280,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | United States | `us.api.openai.com` | Yes | Yes | No | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/evals`
 `/v1/files`
@@ -1278,6 +1305,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Supported input modalities` | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/evals`
 `/v1/fine_tuning/jobs`
@@ -1300,6 +1328,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Europe (EEA + Switzerland) | `eu.api.openai.com` | Yes | Yes | Yes** | Text, Audio, Voice, Image* | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/evals`
 `/v1/files`
@@ -1323,6 +1352,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Structured Outputs (excluding schema)`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/evals`
 `/v1/fine_tuning/jobs`
@@ -1345,6 +1375,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Australia* | `au.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1365,6 +1396,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Canada* | `ca.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1385,6 +1417,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Japan* | `jp.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1405,6 +1438,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | India* | `in.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1425,6 +1459,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Singapore* | `sg.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1445,6 +1480,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | South Korea* | `kr.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1465,6 +1501,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | United Kingdom* | `gb.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1485,6 +1522,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | United Arab Emirates* | `ae.api.openai.com` | Yes | Yes | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
+`/v1/decisions`
 `/v1/embeddings`
 `/v1/files`
 `/v1/fine_tuning/jobs`
@@ -1508,6 +1546,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech` | Audio | All listed regions | United States, Europe (EEA + Switzerland) | `tts-1`, `whisper-1`, `gpt-4o-tts`, `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/batches` | Batches | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | None | GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
 | `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency. |
+| `/v1/decisions` | Decisions | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-luna` | None | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
 | `/v1/embeddings` | Embeddings | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002` | United Arab Emirates: `text-embedding-3-large` | — |
 | `/v1/evals` | Evals | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/files` | Files | All listed regions | None | Service-level support | None | — |
@@ -1531,9 +1570,11 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | `Structured Outputs (excluding schema)` | Other | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `Supported input modalities` | Other | All listed regions | United States, Europe (EEA + Switzerland) | `Text`, `Image`, `Audio/Voice` | None | — |
 ### Endpoint limitations
+#### /v1/decisions
+The Decisions API is available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Availability in a region does not imply that inference is performed in that region.
+- Extended prompt caching in regions that do not support Regional processing may require that OpenAI process and temporarily store Customer Content outside of the Region to deliver the services.
 #### /v1/chat/completions
 - Cannot set store=true in non-US regions.
-- Extended prompt caching in regions that do not support Regional processing may require that OpenAI process and temporarily store Customer Content outside of the Region to deliver the services.
 #### /v1/responses
 #### /v1/live/sessions
 GPT-Live sessions are eligible for Zero Data Retention. With Zero Data Retention enabled, `store` is treated as `false`, even if a request sets it to `true`.
