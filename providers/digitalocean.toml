@@ -57,7 +57,7 @@ note = "主服务协议(TOS)。§4.1 Services Content 定义与处理;§4.6 不�
 url = "https://www.digitalocean.com/legal/tos-service-specific-terms"
 channel = "contract"
 tier = "core"
-note = "服务专用条款(Service Terms),TOS §4.2 下的合同文本。§1.3.5/§1.3.6 通用条款;§2 Gradient AI Platform 与 Playground;§4 AI Model Terms(第三方模型、Service Models、AI Safeguards);§5 Batch Inferencing;§7 Evaluations。合同层保留权(§4.5.2)与不训练承诺(§7.2.2,仅 Evaluations)的权威来源。"
+note = "服务专用条款(Service Terms),TOS §4.2 下的合同文本。§1.3.5/§1.3.6 通用条款;§2 Gradient AI Platform 与 Playground;§4 AI Model Terms(第三方模型、Service Models、AI Safeguards);§5 Batch Inferencing;§7 Evaluations;§9 Prompt Caching(缓存内容处理、短暂性、路由)。合同层保留权(§4.5.2)与不训练承诺(§7.2.2 仅 Evaluations;§9.1 仅 prompt-cache 条目)的权威来源。"
 
 [[source]]
 url = "https://www.digitalocean.com/trust/subprocessors"
@@ -77,8 +77,8 @@ anchor = "do-hosted-no-training"
 mode = "default"
 
 [[product.training.point]]
-text = "DigitalOcean-hosted models: \"DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.\" and \"Customer data submitted to the model is never sent back to the original model creator, so the creator cannot use it for training.\" At the contract layer there is only a narrow no-training commitment (Service Terms §7.2.2 covers Evaluation Datasets and Evaluation Outputs only), with no clause covering all inference content — recorded as such."
-text_zh = "DO 自托管模型:「DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.」且「Customer data submitted to the model is never sent back to the original model creator」。合同层只有窄口径不训练承诺(Service Terms §7.2.2 仅覆盖 Evaluation Datasets/Outputs),无覆盖全部推理内容的合同条款 —— 已如实标注。"
+text = "DigitalOcean-hosted models: \"DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.\" and \"Customer data submitted to the model is never sent back to the original model creator, so the creator cannot use it for training.\" At the contract layer there are only narrow no-training commitments (Service Terms §7.2.2 covers Evaluation Datasets and Evaluation Outputs only, and §9.1 covers prompt-cache entries only), with no clause covering all inference content — recorded as such."
+text_zh = "DO 自托管模型:「DigitalOcean does not use this data to train, retrain, or fine-tune any model, and does not share it with any third parties for training or fine-tuning.」且「Customer data submitted to the model is never sent back to the original model creator」。合同层只有窄口径不训练承诺(Service Terms §7.2.2 仅覆盖 Evaluation Datasets/Outputs;§9.1 仅覆盖 prompt-cache 条目),无覆盖全部推理内容的合同条款 —— 已如实标注。"
 
 [[product.training.point]]
 text = "Contract-layer boundary (TOS §4.3): \"We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.\" Under docs/judgment.md (using data to improve the service counts as training) this is the contract layer's service-improvement opening, and the same sentence carves Usage Data (resource identifiers, metadata, access controls, rules, usage policies, permissions, system logs, metrics, configurations and similar items) out of Services Content, so it does not overturn mark=yes. Whether \"other information about how you use and interact with the Services\" reaches prompt bodies is not defined in the text — recorded as stated, not narrowed on the vendor's behalf"
@@ -94,6 +94,11 @@ anchor = "do-st-eval-telemetry-improve"
 text = "Third-party model hop: \"Data sent to other third-party model providers is handled according to the applicable provider's policies.\" The no-training mark covers DigitalOcean-hosted models; on the third-party path DigitalOcean makes no commitment of its own and the outcome is decided by the upstream provider (see this product's zdr points for the upstream regimes)"
 text_zh = "第三方模型跳:「Data sent to other third-party model providers is handled according to the applicable provider's policies.」不训练的 mark 只覆盖 DO 托管模型;走第三方模型时 DO 不作承诺,结果由上游 provider 的政策决定(上游各自的口径见本档 zdr 的 point)"
 anchor = "do-third-party-upstream-policies"
+
+[[product.training.point]]
+text = "Contract-layer no-training commitment scoped to cache content: Service Terms §9.1 (Prompt Caching) says cache entries are \"derived from your Services Content and are treated as your Services Content under the TOS\" and \"We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model\". It is a second narrow contract clause, scoped to prompt-cache entries, that still does not cover all inference content; mark=yes continues to rest on the DigitalOcean-hosted-model commitment above."
+text_zh = "合同层针对缓存内容的不训练承诺:Service Terms §9.1(Prompt Caching)写明缓存条目「derived from your Services Content and are treated as your Services Content under the TOS」,且「We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model」。这是第二条窄口径合同条款,范围仅限 prompt-cache 条目,仍不覆盖全部推理内容;mark=yes 仍以上面 DO 托管模型的承诺为依据。"
+anchor = "do-st-prompt-cache-no-training"
 
 [product.zdr]
 mark = "yes"
@@ -158,6 +163,11 @@ text_zh = "(2b) 退出限制——自动缓存只能用 X-Model-Affinity: none �
 anchor = "do-prompt-cache-optout-limits"
 
 [[product.retention.point]]
+text = "(2c) contract layer, §9 (Prompt Caching): §9.3 — \"Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.\", \"Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.\", \"We do not guarantee that any cache entry will persist or be available for any period.\"; §9.2 restates the same disclaimer (\"We do not guarantee any cache hit rate, retention outcome, or level of savings\"), so it is not anchored separately; §9.5 lets the customer disable Prompt Caching and request that cache entries be flushed. The object is the prompt cache; the period is deferred to the Documentation (points (2)/(2b) above) and the contract layer explicitly refuses to bound or guarantee it, so it does not change the composite tier figure"
+text_zh = "(2c) 合同层 §9(Prompt Caching):§9.3「Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.」「Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.」「We do not guarantee that any cache entry will persist or be available for any period.」;§9.2 重复同一不保证口径(「We do not guarantee any cache hit rate, retention outcome, or level of savings」),故未单独锚定;§9.5 允许客户关闭 Prompt Caching 并请求 flush。对象是 prompt 缓存;期限交给 Documentation(见上面 (2)/(2b)),合同层明确不作保证、不设上限,故不改变档位级拼出的期限"
+anchor = "do-st-prompt-cache-ephemeral"
+
+[[product.retention.point]]
 text = "(3) Batch — output and error result files 29-30 days from job completion (the how-to says up to 30 days), prompts and request content \"Not stored for training or any purpose beyond the current batch job\", policy-violating content kept as evidence for up to 1 year. The 29-30 days is the window for this sub-object and starts at job completion, not a tier-wide period"
 text_zh = "③Batch——输出与错误文件 29-30 天(how-to 写 up to 30 days,起算点是批次任务完成),prompts/请求内容仅为当前批次任务不存储,违规内容证据最多 1 年。29-30 天是这个子对象的窗口,不是档位级期限"
 anchor = "do-batch-output-29-30d"
@@ -209,6 +219,11 @@ text = "Customer-selected region is not a lock: \"When purchasing Services, you 
 text_zh = "客户自选地域不等于锁定:「When purchasing Services, you may specify the geographic region and jurisdiction in which your Services Content will be stored」,但「Unless otherwise agreed in writing between you and DigitalOcean, you agree that DigitalOcean may transfer and store your Services Content in other geographic regions or jurisdictions at its sole discretion.」。故 codes=[selected] 只表示「可选」,不等于处理地由客户锁定"
 anchor = "do-tos-transfer-store-other-regions"
 
+[[product.processing_region.point]]
+text = "Prompt caching routing, §9.6: \"To provide Prompt Caching, we may route requests to, and store or process cache entries on, infrastructure and storage tiers we select, consistent with Section 4.7 of the TOS\", and where Prompt Caching is used with a Third Party AI Model \"caching and retention may also be subject to that provider's terms and data-retention settings, which we do not control\". Consistent with the §4.7 and subprocessor positions above; it names no region and adds no location commitment"
+text_zh = "Prompt 缓存路由 §9.6:「To provide Prompt Caching, we may route requests to, and store or process cache entries on, infrastructure and storage tiers we select, consistent with Section 4.7 of the TOS」;与第三方 AI 模型同用时「caching and retention may also be subject to that provider's terms and data-retention settings, which we do not control」。与上面的 §4.7 和子处理者口径一致;未点名任何区域,也未新增处理地承诺"
+anchor = "do-st-prompt-cache-routing"
+
 [product.role]
 kind = "processor"
 anchor = "do-dpa-schedule1-do-is-processor"
@@ -237,8 +252,9 @@ text = "The same AI data privacy page covers the agent scenario (including \"We 
 text_zh = "同一份 AI 数据隐私页覆盖 agent 场景(含「We do not store agent input or output when using third-party model providers.」),不训练表述同样适用"
 
 [[product.training.point]]
-text = "There is no separate contract-layer no-training clause on the knowledge base or agent side."
-text_zh = "知识库/agent 侧无单独的合同层不训练条款。"
+text = "Contract-layer no-training commitment on the agent side, scoped to cache content: Service Terms §9.1 (Prompt Caching) provides that cache entries are \"derived from your Services Content and are treated as your Services Content under the TOS\" and \"We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model\". §9 is a Service Term for the Prompt Caching feature with no product carve-out, and this tier runs on the shared inference path (the same path whose cache exception this file already records against the tier), so §9.1 covers prompt-cache entries on that path. It is nonetheless scoped to prompt-cache entries and does not cover knowledge base or agent session content — there is still no contract-layer no-training clause for those objects."
+text_zh = "合同层在 agent 侧的窄口径不训练承诺:Service Terms §9.1(Prompt Caching)写明缓存条目「derived from your Services Content and are treated as your Services Content under the TOS」,且「We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model」。§9 是 Prompt Caching 功能的 Service Term、无产品排除条款,而本档运行在共用推理路径上(即本文件已把缓存例外记在该档名下的同一条路径),故 §9.1 覆盖该路径上的 prompt-cache 条目。但它仍仅限 prompt-cache 条目,不覆盖知识库或 agent 会话内容 —— 后两者依旧没有合同层不训练条款。"
+anchor = "do-st-prompt-cache-no-training"
 
 [[product.training.point]]
 text = "Contract-layer boundary (TOS §4.3), the same as the API tier: \"We may use Usage Data and other information about how you use and interact with the Services to provide, maintain, and improve our Services.\" Under docs/judgment.md this is a service-improvement opening, but the same sentence carves Usage Data out of Services Content, so mark=yes stands. Whether \"other information about how you use and interact with the Services\" reaches agent prompts or knowledge base content is not defined in the text"
@@ -266,8 +282,8 @@ text = "Multi-hop boundary, recorded without an anchor because it does not answe
 text_zh = "多跳边界,本条不绑锚点,因为这些话没有回答本维度的问题:走第三方模型时适用上游 provider 的政策(「Data sent to other third-party model providers is handled according to the applicable provider's policies.」,已绑在本档 training 维度),且 DO 可把不含 Services Content 的使用信息交给该 provider。这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
 
 [[product.zdr.point]]
-text = "Scope note on the shared inference path (clause bound in this file's api-tier retention points, not here): the cache exception is not uniformly bounded — for open-source models prompt caches are \"held for an unbounded period of time\" and cannot be switched off. Recorded as scope information only; it is not a statement about the knowledge base or agent session storage"
-text_zh = "共用推理路径上的范围说明(该句锚点绑在本文件的 api 档 retention,不在本条):缓存例外并非统一有界 —— 开源模型的 prompt 缓存「held for an unbounded period of time」且无法关闭。此处只作范围说明,不是关于知识库或 agent 会话存储的表述"
+text = "Scope note on the shared inference path (the developer-data cache clauses are anchored in this file's api-tier points, and the contract text for Prompt Caching — Service Terms §9 — is bound to the training/retention points of the api and platform tiers, not here): the cache exception is not uniformly bounded — for open-source models prompt caches are \"held for an unbounded period of time\" and cannot be switched off, while at the contract layer §9.3 calls cache entries \"ephemeral\", defers their retention to the Documentation and guarantees no persistence, and §9.5 lets the customer disable Prompt Caching and request a flush. Recorded as scope information only; none of it says whether ZDR applies to the knowledge base or agent session storage, which is what this verdict leaves undisclosed"
+text_zh = "共用推理路径上的范围说明(开发者文档缓存条款的锚点在本文件的 api 档;Prompt Caching 的合同文本 Service Terms §9 绑在 api 与平台档的 training/retention 条目,不在本条):缓存例外并非统一有界 —— 开源模型的 prompt 缓存「held for an unbounded period of time」且无法关闭,而合同层 §9.3 称缓存条目「ephemeral」、把期限交给 Documentation 且不保证存续,§9.5 允许客户关闭 Prompt Caching 并请求 flush。此处只作范围说明;这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
 
 [product.retention]
 object = "mixed"
@@ -285,6 +301,11 @@ text_zh = "索引任务日志只留最近 15 条"
 [[product.retention.point]]
 text = "Agent conversation context is read by the agent from browser storage (data privacy page). The retention period for agent run logs and traces is not disclosed — nothing is inferred in reverse."
 text_zh = "agent 对话上下文由 agent 从浏览器存储读取(数据隐私页)。agent 运行日志与 traces 的保留期限未披露 —— 不反推。"
+
+[[product.retention.point]]
+text = "Prompt caching on the shared inference path (contract layer, Service Terms §9.3): \"Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.\", \"Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.\", and \"We do not guarantee that any cache entry will persist or be available for any period.\"; §9.5 lets the customer disable Prompt Caching and request that cache entries be flushed. The object is the prompt cache (not the knowledge base); the period is deferred to the Documentation and the contract layer refuses to bound or guarantee it, so it sets no period for this tier and does not change basis=undisclosed"
+text_zh = "共用推理路径上的 prompt 缓存(合同层 Service Terms §9.3):「Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.」「Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.」「We do not guarantee that any cache entry will persist or be available for any period.」;§9.5 允许客户关闭 Prompt Caching 并请求 flush。对象是 prompt 缓存(不是知识库);期限交给 Documentation,合同层拒绝设上限或作保证,故不为本档设定期限,也不改变 basis=undisclosed"
+anchor = "do-st-prompt-cache-ephemeral"
 
 [product.processing_region]
 codes = ["US", "CA"]
@@ -749,6 +770,30 @@ te with the Service platform (“Third Party AI Model”).
 4.2 """
 exact = "Third Party AI Models are deemed Third Party Services and are subject to the following terms"
 suffix = " (unless you have other terms in place with the Third-Party "
+
+[[anchor]]
+id = "do-st-prompt-cache-no-training"
+source_id = "a7c5321da63a84f6"
+topics = ["training"]
+
+[anchor.selector]
+exact = "We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model."
+
+[[anchor]]
+id = "do-st-prompt-cache-ephemeral"
+source_id = "a7c5321da63a84f6"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change."
+
+[[anchor]]
+id = "do-st-prompt-cache-routing"
+source_id = "a7c5321da63a84f6"
+topics = ["processing_region", "zdr"]
+
+[anchor.selector]
+exact = "To provide Prompt Caching, we may route requests to, and store or process cache entries on, infrastructure and storage tiers we select, consistent with Section 4.7 of the TOS."
 
 [[anchor]]
 id = "do-dpa-processor-obligations-scope"
