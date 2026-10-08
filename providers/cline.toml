@@ -10,7 +10,7 @@ doc = "https://docs.cline.bot/enterprise-solutions/overview.md"
 url = "https://docs.cline.bot/enterprise-solutions/overview.md"
 channel = "developer_data"
 tier = "core"
-note = "Cline Enterprise 官方架构页。只适用于企业自带推理（BYO）档：扩展在客户环境本地执行、推理走客户自有云合同，明确本地处理、不上传、不索引缓存、不训练。该档承诺与 cline-managed（使用 Cline 提供的 API key）方向相反，不得用于 cline-managed 的任何维度；上游模型条款仍由客户所选 provider 决定。"
+note = "Cline Enterprise 官方架构页。只适用于企业自带推理（BYO）档：agent 与工具在客户选择的环境执行、推理走客户自有云合同，prompt 与代码上下文发往客户配置的模型提供方。2026-10 改版删去了「Your code never leaves your environment…no uploads, no indexing, no training on your data」及 Client-side execution / No data exfiltration / No model training 三张卡片，故本页只剩「在客户选择的环境运行 + 正文发往客户配置的 provider」这一架构事实，不得再由本页读出「正文不出客户环境」。该档与 cline-managed（使用 Cline 提供的 API key）方向不同，不得用于 cline-managed 的任何维度；上游模型条款仍由客户所选 provider 决定。"
 
 [[source]]
 url = "https://docs.cline.bot/more-info/telemetry"
@@ -46,8 +46,9 @@ text_zh = "辅助依据：Cline 对自行收集的个人数据（本档包含 Us
 anchor = "cline-managed-additional-uses"
 
 [[product.training.point]]
-text = "Scope note: the no training on your data promise on docs.cline.bot/enterprise-solutions/overview.md belongs to the enterprise BYO tier (local execution) and must not be cited for this managed tier."
-text_zh = "适用范围：docs.cline.bot/enterprise-solutions/overview.md 的「no training on your data」属企业自带推理（BYO）档（本地执行），不得用于本托管档。"
+text = "Scope note: the no-training result on docs.cline.bot/enterprise-solutions/overview.md belongs to the enterprise BYO tier and is architectural, not a hosted commitment — on that tier the agent runs in the environment the customer chooses and prompts go to the customer's own configured provider. The same page scopes Cline's telemetry exclusion with 'except for requests to the Cline and ClinePass providers', i.e. this managed tier is exactly what the enterprise page's statements carve out, so nothing on that page may be cited for this tier."
+text_zh = "适用范围：docs.cline.bot/enterprise-solutions/overview.md 的不训练结论属企业自带推理（BYO）档，且是架构性的、不是托管承诺——该档 agent 在客户选择的环境运行、prompt 发往客户自配的 provider。同页把 Cline 遥测不含代码/file contents/prompt 的例外限定为「except for requests to the Cline and ClinePass providers」，即本托管档正是该页表述被排除的那一种，不得引用该页任何表述。"
+anchor = "cline-enterprise-scoped-telemetry"
 
 [product.zdr]
 mark = "unknown"
@@ -93,22 +94,21 @@ id = "enterprise-byo"
 badge = "企业版自带模型"
 category = "self_host"
 plan_level = "enterprise"
-label = "Cline Enterprise：扩展在客户环境本地执行、推理走客户自有云合同（BYO），Cline 不在内容链路上；不涵盖使用 Cline 提供 API key 的托管档（见 cline-managed）"
+label = "Cline Enterprise：agent 与工具在客户选择的环境执行、推理走客户自有云合同（BYO），prompt 与代码上下文发往客户配置的模型提供方；Cline 不在内容链路上，不涵盖使用 Cline 提供 API key 的托管档（见 cline-managed）"
 
 [product.training]
 mark = "yes"
 mode = "by_deployment"
-anchor = "cline-enterprise-local"
+anchor = "cline-privacy-byok-not-collected"
 
 [[product.training.point]]
-text = "The no-training result comes from the deployment shape, not from a hosted commitment: your code never leaves your environment, Cline processes everything locally, with no uploads, no indexing and no training on your data."
-text_zh = "不训练来自部署形态而非托管承诺：官方架构页写明「Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data.」，即内容不出客户环境，Cline 拿不到内容做训练。"
-anchor = "cline-enterprise-local"
+text = "The no-training result is architectural, not a vendor commitment: on this tier the customer brings its own inference (its existing cloud contracts and negotiated rates), the agent and its tools run in the environment the customer chooses, and prompts and code context go to the model provider the customer configures. The privacy notice adds that where you use your own API keys the user content goes directly to the third-party provider and Cline does not collect it — Cline holds nothing it could train on."
+text_zh = "不训练来自部署形态、不是厂商承诺：本档客户自带推理（用自己的既有云合同与议定价），agent 与工具在客户选择的环境运行，prompt 与代码上下文发往客户配置的模型提供方。隐私通知补充：使用自有 API key 时 User Content 直接给第三方提供方、Cline 不收集——Cline 手里没有可以用来训练的内容。"
+anchor = "cline-enterprise-prompts-to-provider"
 
 [[product.training.point]]
-text = "The Security by Design card on the same page restates it: no model training, your code and prompts are not used for training."
-text_zh = "同一页 Security by Design 卡片复述：「No model training：Your code and prompts aren't used for training」。"
-anchor = "cline-enterprise-no-training"
+text = "Basis narrowed by the 2026-10 rewrite: the page deleted 'Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data.' and the 'No model training' card ('Your code and prompts aren't used for training'), so those sentences may no longer be quoted. What survives on the page (Cline runs in the environment you choose, prompts and code context go to the provider you configure, Cline connects directly to your providers) still shows Cline is not in the content path, which is where the by_deployment result comes from."
+text_zh = "依据收窄（2026-10 改版）：页面删去了「Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data.」与 No model training 卡片（「Your code and prompts aren't used for training」），这两句从此不得引用。页面存留的表述（Cline runs in the environment you choose、prompts and code context go to the provider you configure、Cline connects directly to your providers）仍表明 Cline 不在内容链路上，by_deployment 的结论即来自这一点。"
 
 [[product.training.point]]
 text = "Upstream hop: inference runs on the customer's own cloud contracts and negotiated rates, so whether the chosen provider trains on the content is governed by that provider's terms; Cline makes no commitment about it."
@@ -118,22 +118,27 @@ anchor = "cline-enterprise-byo"
 [product.zdr]
 mark = "yes"
 mode = "by_deployment"
-anchor = "cline-enterprise-local"
+anchor = "cline-privacy-byok-not-collected"
 
 [[product.zdr.point]]
-text = "Zero retention of content on this tier is architectural (code and context never leave the customer's environment), not a vendor ZDR commitment."
-text_zh = "本档内容零保留是架构性的（代码与上下文不出客户环境），不是厂商的 ZDR 承诺。"
-anchor = "cline-enterprise-local"
+text = "Zero retention on Cline's side is architectural, not a vendor ZDR commitment: where customers use their own API keys the privacy notice says the content goes directly to the third-party provider and Cline does not collect it, and the overview page says prompts and code context go to the model provider the customer configures."
+text_zh = "Cline 侧的零保留是架构性的，不是厂商 ZDR 承诺：隐私通知写明客户使用自有 API key 时正文直接给第三方提供方、Cline 不收集；概览页写明 prompt 与代码上下文发往客户配置的模型提供方。"
+anchor = "cline-enterprise-prompts-to-provider"
+
+[[product.zdr.point]]
+text = "Scope limit: this no longer means the content stays inside the customer's environment. The 2026-10 rewrite removed 'Your code never leaves your environment' and 'Code and context never transmitted externally', and the surviving text sends the content to the customer's configured provider. Whether that upstream hop retains anything follows the chosen provider's terms and is not a Cline ZDR commitment; Cline's own telemetry still excludes code, file contents and prompts, except for requests to the Cline and ClinePass providers."
+text_zh = "适用边界：这已不等于「正文不出客户环境」。2026-10 改版删去「Your code never leaves your environment」与「Code and context never transmitted externally」，存留表述把正文发往客户配置的 provider。该上游跳是否保留取决于客户所选 provider 的条款，不是 Cline 的 ZDR 承诺；Cline 自家遥测仍不含代码、文件内容与 prompt（requests to the Cline and ClinePass providers 除外）。"
+anchor = "cline-enterprise-scoped-telemetry"
 
 [product.retention]
 object = "input_output"
 basis = "undisclosed"
-anchor = "cline-enterprise-local"
+anchor = "cline-enterprise-prompts-to-provider"
 
 [[product.retention.point]]
-text = "Object = code, prompts and context: they never leave the customer's environment, so no Cline-side retention period applies."
-text_zh = "对象=代码、prompt 与上下文：不出客户环境，Cline 侧保留期不适用。"
-anchor = "cline-enterprise-local"
+text = "Object = input and output content (code, prompts and context); context = this BYO tier. The page states these go to the model provider the customer configures, and the privacy notice states Cline does not collect them where the customer uses its own API keys, so no Cline-side period applies; neither document sets a Cline-side period or deletion point, and retention on the upstream hop is not addressed here. This anchor only shows that the tier transmits the content to the customer's provider; it is not evidence of a period."
+text_zh = "对象=输入输出正文（代码、prompt 与上下文）；语境=本 BYO 档。页面写明正文发往客户配置的模型提供方，隐私通知写明客户使用自有 API key 时 Cline 不收集，故 Cline 侧无保留期可言；两份文档都没有 Cline 侧的期限或删除时点，上游跳的保留也不在此列。本锚点只证明该档位把正文发往客户所选 provider，不含期限或删除时点。"
+anchor = "cline-enterprise-prompts-to-provider"
 
 [[product.retention.point]]
 text = "Object = conversation history when the enterprise Prompt Storage feature is enabled: backed up to AWS S3 or Cloudflare R2, with ownership and period not stated in the snapshot, so no period can be given for this tier."
@@ -142,11 +147,16 @@ anchor = "cline-prompt-storage"
 
 [product.processing_region]
 codes = ["selected"]
-anchor = "cline-enterprise-local"
+anchor = "cline-enterprise-runs-where-you-choose"
 
 [[product.processing_region.point]]
-text = "Processing location = the customer's own environment: the page describes client-side execution and connecting directly to the customer's own providers, and gives no region list of its own."
-text_zh = "处理地=客户自建环境：官方页写的是客户端执行、直连客户自己的 provider，未给自家的区域清单，故记「可选地域」。"
+text = "Processing location = the environment the customer chooses: the page says Cline runs in the environment you choose, on developers' computers or on remote hosts they connect it to, and gives no region list of its own."
+text_zh = "处理地=客户选择的环境：页面写明 Cline runs in the environment you choose，是开发者的电脑或客户自行连接的远端主机，未给自家的区域清单，故记「可选地域」。"
+anchor = "cline-enterprise-runs-where-you-choose"
+
+[[product.processing_region.point]]
+text = "The inference hop is likewise the customer's own: the page says the customer brings its own inference on its existing cloud contracts and negotiated rates and that Cline connects directly to the customer's providers, so that hop's region is set by the customer's own provider account."
+text_zh = "推理那一跳同样是客户自己的：页面写明客户自带推理、用自己的既有云合同与议定价，且 Cline 直连客户自己的 provider，故该跳区域由客户自己的 provider 账号决定。"
 anchor = "cline-enterprise-byo"
 
 [product.role]
@@ -205,6 +215,15 @@ exact = "This Privacy Notice is not a contract and does not create any legal rig
 suffix = ""
 
 [[anchor]]
+id = "cline-privacy-byok-not-collected"
+source_id = "f81871f1482ce250"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "If you use your own API keys to access the AI model, you provide this information directly to the third-party provider, and we do not collect it."
+suffix = ""
+
+[[anchor]]
 id = "cline-prompt-storage"
 source_id = "2a2700006c7c2742"
 topics = ["retention"]
@@ -214,21 +233,30 @@ exact = "Automatically backup conversation history to AWS S3 or Cloudflare R2 fo
 suffix = "\n- Compliance and audit trails"
 
 [[anchor]]
-id = "cline-enterprise-local"
+id = "cline-enterprise-runs-where-you-choose"
 source_id = "918890f2033b56b8"
-topics = ["training", "zdr", "retention", "processing_region"]
+topics = ["training", "zdr", "processing_region"]
 [anchor.selector]
-prefix = "Security by Design\n"
-exact = "Your code never leaves your environment. Cline processes everything locally - no uploads, no indexing, no training on your data."
+prefix = ""
+exact = "Cline runs in the environment you choose: on developers' computers, or on remote hosts they connect it to."
 suffix = ""
 
 [[anchor]]
-id = "cline-enterprise-no-training"
+id = "cline-enterprise-prompts-to-provider"
 source_id = "918890f2033b56b8"
-topics = ["training"]
+topics = ["training", "zdr", "retention", "processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "Your code and prompts aren't used for training"
+exact = "Prompts and code context go to the model provider you configure"
+suffix = ""
+
+[[anchor]]
+id = "cline-enterprise-scoped-telemetry"
+source_id = "918890f2033b56b8"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "Cline's telemetry doesn't include your code, file contents or prompts, except for requests to the Cline and ClinePass providers"
 suffix = ""
 
 [[anchor]]
