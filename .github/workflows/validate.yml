@@ -13,7 +13,22 @@ jobs:
         with:
           fetch-depth: 0
       - name: 校验 GitHub Actions 工作流
-        run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+        env:
+          GOBIN: ${{ runner.temp }}/actionlint-bin
+        run: |
+          # 工具链或模块下载偶尔失败；只重试安装，实际 lint 失败不能靠重试掩盖。
+          for attempt in 1 2 3; do
+            if go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "::error::actionlint 安装重试三次仍失败"
+              exit 1
+            fi
+            echo "::warning::actionlint 安装失败，准备第 $((attempt + 1)) 次尝试"
+            sleep "$((attempt * 5))"
+          done
+          "$GOBIN/actionlint"
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: bun run validate

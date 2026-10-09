@@ -73,7 +73,8 @@ async function gate(): Promise<string[]> {
   const dir = path.join(root, ".sync", "gate")
   fs.rmSync(dir, { recursive: true, force: true })
   await $`git worktree prune`.quiet()
-  await $`git fetch --no-tags origin main ${`+refs/pull/${pr}/head:refs/remotes/pr/${pr}`}`.quiet()
+  // 有些 Git 端点不暴露 refs/pull/<n>/head；按 API 返回的 SHA 抓取，也保证检查的是待合并的同一个提交。
+  await $`git fetch --no-tags origin main ${`+${info.headRefOid}:refs/remotes/pr/${pr}`}`.quiet()
   await $`git worktree add --detach ${dir} origin/main`.quiet()
   try {
     const merged = await $`git -C ${dir} merge --no-edit ${`refs/remotes/pr/${pr}`}`.nothrow().quiet()
