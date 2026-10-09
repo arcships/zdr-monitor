@@ -93,7 +93,10 @@ jobs:
           models-json: ${{ secrets.DIMCODE_MODELS_JSON }}
 
       - name: 记录本次模型价格与套餐倍率
-        run: node packages/core/script/dim-usage.mjs snapshot "$RUNNER_TEMP/dim-pricing.json"
+        run: |
+          # Agent 有工作区写权限；计量必须执行运行前保存的可信脚本，不能执行它改过的代码。
+          cp packages/core/script/dim-usage.mjs "$RUNNER_TEMP/dim-usage.mjs"
+          node "$RUNNER_TEMP/dim-usage.mjs" snapshot "$RUNNER_TEMP/dim-pricing.json"
 
       - name: 运行 issue fixer
         run: |
@@ -144,10 +147,20 @@ jobs:
 
       - name: 保存本次 Dim 用量
         if: always()
-        uses: ./.github/actions/record-dim-usage
+        env:
+          DIM_USAGE_SUBJECT: issue:${{ env.ISSUE_NUMBER }}
+        run: |
+          node "$RUNNER_TEMP/dim-usage.mjs" record \
+            "$RUNNER_TEMP/events.jsonl" "$RUNNER_TEMP/dim-pricing.json" "$RUNNER_TEMP/dim-usage"
+
+      - name: 上传本次 Dim 用量
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          events: ${{ runner.temp }}/events.jsonl
-          subject: issue:${{ env.ISSUE_NUMBER }}
+          name: dim-usage-record-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          path: ${{ runner.temp }}/dim-usage/*.json
+          retention-days: 90
+          if-no-files-found: warn
 
       - name: 检查改动范围
         run: |
