@@ -34,7 +34,7 @@ url = "https://www.alibabacloud.com/help/en/model-studio/model-telemetry"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "国际站 Model Studio「Model monitoring」(2026-09-11 更新)。提供 retention 维度的官方分层证据:平台默认存储 monitoring metrics 与 audit logs(无期限披露);控制台日志查询窗口默认 7 天、最长 30 天;inference logs 默认关闭、开启后存到客户自己的 SLS Logstore。注意区分:查询窗口 ≠ 保留期。"
+note = "国际站 Model Studio「Model monitoring」(2026-10-09 更新)。提供 retention 维度的官方分层证据:平台默认存储 monitoring metrics 与 audit logs(无期限披露);控制台日志查询窗口默认 7 天、最长 30 天;inference logs 默认关闭、开启后存到客户自己的 SLS Logstore,且目前仅在「北京」「新加坡」地域支持(2026-10-09 新增限定)。注意区分:查询窗口 ≠ 保留期。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/en/model-studio/privacy-notice"
@@ -134,6 +134,11 @@ text = "The \"Last 7 days by default; supports querying logs for up to 30 days\"
 text_zh = "同页「Last 7 days by default; supports querying logs for up to 30 days」是控制台查询窗口，不是保留期。"
 anchor = "retention-log-query-window-30d"
 
+[[product.retention.point]]
+text = "Scope limit on the content-bearing log: inference logs record the complete Prompt and Response but \"are currently supported only in the Beijing and Singapore regions; other regions are not yet supported.\" Both tiers of this provider are served from the Singapore region, so the feature is available here; recorded as scope, with no verdict change."
+text_zh = "内容日志的范围限定：推理日志记录完整 Prompt/Response，但「目前仅在 Beijing 与 Singapore 地域支持，其他地域尚未支持」。本 provider 两档均在新加坡地域提供，功能可用；按范围事实记录，不改变任何结论。"
+anchor = "retention-inference-logs-region-scope"
+
 [product.processing_region]
 codes = ["SG", "global"]
 anchor = "region-personal-global-inference"
@@ -206,6 +211,11 @@ anchor = "retention-inference-logs-own-logstore"
 text = "The \"Last 7 days by default; supports querying logs for up to 30 days\" on the same page is the console query window, not a retention period."
 text_zh = "同页「Last 7 days by default; supports querying logs for up to 30 days」是控制台查询窗口，不是保留期。"
 anchor = "retention-log-query-window-30d"
+
+[[product.retention.point]]
+text = "Scope limit on the content-bearing log: inference logs record the complete Prompt and Response but \"are currently supported only in the Beijing and Singapore regions; other regions are not yet supported.\" Both tiers of this provider are served from the Singapore region, so the feature is available here; recorded as scope, with no verdict change."
+text_zh = "内容日志的范围限定：推理日志记录完整 Prompt/Response，但「目前仅在 Beijing 与 Singapore 地域支持，其他地域尚未支持」。本 provider 两档均在新加坡地域提供，功能可用；按范围事实记录，不改变任何结论。"
+anchor = "retention-inference-logs-region-scope"
 
 [product.processing_region]
 codes = ["SG"]
@@ -533,3 +543,13 @@ topics = ["retention"]
 prefix = "(g) "
 exact = "at Your choice, delete or return all Data in Alibaba Cloud’s possession or control following the termination of the Agreement. This requirement shall not apply to the extent that Alibaba Cloud is required or permitted by applicable law to retain some or all of the Data, or Data archived on back-up systems"
 suffix = ", in which event Alibaba Cloud shall securely isolate and protect such Data from any further processing except:"
+
+[[anchor]]
+id = "retention-inference-logs-region-scope"
+source_id = "740c2545f129e8cc"
+topics = ["retention", "processing_region"]
+
+[anchor.selector]
+prefix = "**Note**"
+exact = "Inference logs are currently supported only in the Beijing and Singapore regions; other regions are not yet supported."
+suffix = "#### Log list and details"
