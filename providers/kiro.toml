@@ -89,13 +89,17 @@ text_zh = "代码索引与缓存期限未披露。"
 codes = ["US"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the commercial US geography."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国商业 geography 服务。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers use the US endpoint."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者使用 US endpoint。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
-text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
-text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
+text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
 anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Why this tier still reads US: the only models marked Global scope are GPT-5.6 Sol/Terra/Luna, and the models page's Quick comparison lists none of them on Free; every model offered on Free is Geography scope, so requests stay within the US endpoint geography."
+text_zh = "本档为何仍记 US：标为 Global scope 的只有 GPT-5.6 Sol/Terra/Luna，而 models 页 Quick comparison 在 Free 一列没有任何一个；Free 可用的模型都是 Geography scope，请求因此留在 US endpoint geography 内。"
+anchor = "kiro-models-gpt56-availability"
 [[product.processing_region.point]]
 text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro Free Tier in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
 text_zh = "与 codes=[\"US\"] 并列阅读的合同层张力：§50.3(c) 允许 AWS 把 Kiro Free Tier 的 AI Content 存到使用地以外的 AWS Region，但仅限于 §50.3(a)-(b) 所述的开发与改进目的。"
@@ -154,16 +158,20 @@ text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detec
 text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查；§50.12.2 只对「特定模型」的输入输出给出 30 天上限，并带「unless otherwise required by law」例外。"
 anchor = "aws-kiro-50-14-2"
 [product.processing_region]
-codes = ["US"]
+codes = ["US", "global"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page adds that Free Tier users and individual subscribers are always served from the commercial US geography."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页补充 Free Tier 与 individual 订阅者一律从美国商业 geography 服务。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers use the US endpoint."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者使用 US endpoint。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
-text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
-text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
+text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
 anchor = "kiro-experimental-global"
+[[product.processing_region.point]]
+text = "Why codes also carries global for this tier: the models page marks the three GPT-5.6 models (Sol/Terra/Luna) Global scope, and its Quick comparison offers them on Pro, Pro+, Pro Max and Power — the paid individual subscription tiers — so requests on those models may be processed across commercial AWS Regions worldwide, outside the US endpoint geography."
+text_zh = "本档 codes 另记 global 的原因：models 页把三个 GPT-5.6 模型（Sol/Terra/Luna）标为 Global scope，且 Quick comparison 把它们列在 Pro、Pro+、Pro Max、Power（付费 individual 订阅档），因此这些模型的请求可能在美国 endpoint geography 之外的全球商业 AWS Region 处理。"
+anchor = "kiro-models-gpt56-availability"
 [[product.processing_region.point]]
 text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro individual subscribers in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
 text_zh = "与 codes=[\"US\"] 并列阅读的合同层张力：§50.3(c) 允许 AWS 把 Kiro individual 订阅者的 AI Content 存到使用地以外的 AWS Region，但仅限于 §50.3(a)-(b) 所述的开发与改进目的。"
@@ -217,18 +225,18 @@ anchor = "kiro-fable-abuse"
 codes = ["selected", "global"]
 anchor = "kiro-enterprise-storage"
 [[product.processing_region.point]]
-text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，experimental 可在全球商业 AWS Regions 推理。"
+text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，标记为 Global inference scope 的模型可在全球商业 AWS Regions 推理。"
 [[product.processing_region.point]]
-text = "Which geography serves a request depends on the model and the profile region: GPT-5.6 models are served from the US regardless of profile region, Claude Fable 5.1 (Preview) only in US East (N. Virginia), and every other model from the geography that matches the profile."
-text_zh = "由哪个 geography 服务取决于模型与 profile region：GPT-5.6 一律从美国服务（与 profile region 无关），Claude Fable 5.1 (Preview) 仅 US East (N. Virginia)，其余模型按 profile 所在的 geography。"
+text = "Which endpoint serves a request depends on the model's inference scope and the Kiro profile Region: GPT-5.6 Sol/Terra/Luna are marked Global scope (requests may route across commercial AWS Regions worldwide) with US listed as the endpoint for both the US and EU profiles; Claude Fable 5.1 is Geography scope with US only and no entry for the EU profile; every other listed model is Geography scope and served from the geography that matches the profile."
+text_zh = "由哪个 endpoint 服务取决于模型的 inference scope 与 Kiro profile Region：GPT-5.6 Sol/Terra/Luna 标记为 Global scope（请求可能路由到全球商业 AWS Region），US/EU 两个 profile 的 endpoint 都列为 US；Claude Fable 5.1 为 Geography scope，仅 US，EU profile 无条目；其余模型为 Geography scope，按 profile 所在的 geography 服务。"
 anchor = "kiro-models-geography"
 [[product.processing_region.point]]
-text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
-text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
+text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Models page states the same exception: experimental models may be processed in commercial AWS Regions worldwide, including outside the profile's geography, and cross-region inference does not change where data is stored."
-text_zh = "models 页同旨：experimental 模型可能在全球商业 AWS Regions 处理，包括 profile geography 之外；跨区推理不改变数据存储地。"
+text = "Models page states the same scope: its Inference scope legend defines Global as covering supported commercial AWS Regions worldwide, including outside the endpoint geography, and it notes that cross-region inference, including global routing, does not change where Kiro stores your data."
+text_zh = "models 页同旨：其 Inference scope 图例把 Global 定义为覆盖全球商业 AWS Regions（包括 endpoint geography 之外），并说明跨区推理（含 global routing）不改变 Kiro 的数据存储地。"
 anchor = "kiro-models-experimental-global"
 [product.role]
 kind = "processor"
@@ -281,16 +289,16 @@ anchor = "aws-kiro-50-14-2"
 codes = ["selected", "global"]
 anchor = "kiro-bedrock"
 [[product.processing_region.point]]
-text = "Which geography serves a request depends on the model and the profile region: GPT-5.6 models are served from the US regardless of profile region, Claude Fable 5.1 (Preview) only in US East (N. Virginia), and every other model from the geography that matches the profile."
-text_zh = "由哪个 geography 服务取决于模型与 profile region：GPT-5.6 一律从美国服务（与 profile region 无关），Claude Fable 5.1 (Preview) 仅 US East (N. Virginia)，其余模型按 profile 所在的 geography。"
+text = "Which endpoint serves a request depends on the model's inference scope and the Kiro profile Region: GPT-5.6 Sol/Terra/Luna are marked Global scope (requests may route across commercial AWS Regions worldwide) with US listed as the endpoint for both the US and EU profiles; Claude Fable 5.1 is Geography scope with US only and no entry for the EU profile; every other listed model is Geography scope and served from the geography that matches the profile."
+text_zh = "由哪个 endpoint 服务取决于模型的 inference scope 与 Kiro profile Region：GPT-5.6 Sol/Terra/Luna 标记为 Global scope（请求可能路由到全球商业 AWS Region），US/EU 两个 profile 的 endpoint 都列为 US；Claude Fable 5.1 为 Geography scope，仅 US，EU profile 无条目；其余模型为 Geography scope，按 profile 所在的 geography 服务。"
 anchor = "kiro-models-geography"
 [[product.processing_region.point]]
-text = "Exception that follows the model, not the tier: global cross-region inference applies only to models explicitly designated as experimental; their inference requests may be processed in multiple AWS Regions worldwide, including Regions outside the one associated with the Kiro profile, while the storage Region is unaffected."
-text_zh = "按模型而非按档位的例外：全球跨区推理只适用于明确标注 experimental 的模型，其推理请求可能在多个 AWS Region 处理，包括与 Kiro profile 无关的 Region；存储地不受影响。"
+text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
+text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Models page states the same exception: experimental models may be processed in commercial AWS Regions worldwide, including outside the profile's geography, and cross-region inference does not change where data is stored."
-text_zh = "models 页同旨：experimental 模型可能在全球商业 AWS Regions 处理，包括 profile geography 之外；跨区推理不改变数据存储地。"
+text = "Models page states the same scope: its Inference scope legend defines Global as covering supported commercial AWS Regions worldwide, including outside the endpoint geography, and it notes that cross-region inference, including global routing, does not change where Kiro stores your data."
+text_zh = "models 页同旨：其 Inference scope 图例把 Global 定义为覆盖全球商业 AWS Regions（包括 endpoint geography 之外），并说明跨区推理（含 global routing）不改变 Kiro 的数据存储地。"
 anchor = "kiro-models-experimental-global"
 [[product.processing_region.point]]
 text = "Downstream constraint: model availability varies by country or region, and Kiro's model offerings align with each provider's usage and geographic requirements (OpenAI, Anthropic, MiniMax, Zhipu AI, DeepSeek, Qwen)."
@@ -300,8 +308,8 @@ anchor = "kiro-models-availability"
 kind = "unknown"
 searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/models", "https://aws.amazon.com/service-terms/"]
 [[product.role.point]]
-text = "No official text assigns a role to this hop: the Bedrock sentence describes the inference path only (cross-region inference within a geography) and does not characterise Kiro or its model suppliers as processor, controller or subprocessor."
-text_zh = "没有官方原文给这一跳定性：Bedrock 那句只讲推理路径（geography 内的跨区推理），没有把 Kiro 或其模型供给方写成 processor、controller 或 subprocessor。"
+text = "No official text assigns a role to this hop: the Bedrock sentence describes the inference path only (Kiro is powered by Amazon Bedrock and routes requests among supported AWS Regions) and does not characterise Kiro or its model suppliers as processor, controller or subprocessor."
+text_zh = "没有官方原文给这一跳定性：Bedrock 那句只讲推理路径（Kiro 由 Amazon Bedrock 支撑，在受支持的 AWS Region 之间路由请求），没有把 Kiro 或其模型供给方写成 processor、controller 或 subprocessor。"
 anchor = "kiro-bedrock"
 [[product.role.point]]
 text = "Third-party model providers are a separate, separately contracted hop: §50.12.1 supplies third-party models as \"Third-Party Content\", applies Section 20 (AWS Marketplace) to models sold by third parties, and makes Amazon Web Services, Inc. the invoicing party — independent contracting rather than a sub-processor relationship."
@@ -365,12 +373,12 @@ exact = "For OpenAI GPT models, classifier-flagged traffic will be retained for 
 suffix = "\n*   For Anthropic Claude Fable"
 [[anchor]]
 id = "kiro-bedrock"
-source_id = "eeda603304a3f3c4"
+source_id = "1b5e1c583b858fd5"
 topics = ["processing_region", "role"]
 [anchor.selector]
-prefix = "## Inference endpoint regions\n\n"
-exact = "Kiro is powered by Amazon Bedrock, which uses cross-region inference to distribute requests across the Regions within a geography."
-suffix = " Your request can be processed"
+prefix = ""
+exact = "Kiro is powered by Amazon Bedrock and uses cross-region inference to route requests among supported AWS Regions."
+suffix = ""
 [[anchor]]
 id = "aws-dpa-chain"
 source_id = "e50c57a33d690ba0"
@@ -416,33 +424,41 @@ id = "kiro-experimental-global"
 source_id = "1b5e1c583b858fd5"
 topics = ["processing_region"]
 [anchor.selector]
-prefix = "For models and capabilities marked as experimental:\n\n- "
-exact = "Inference requests may be processed in multiple AWS Regions globally, including Regions outside the one associated with your Kiro profile."
-suffix = "\n- The Region where your data is stored"
+prefix = ""
+exact = "Some Kiro models and capabilities use global cross-region inference. When Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside your Kiro profile's geography."
+suffix = ""
 [[anchor]]
 id = "kiro-models-geography"
 source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
-prefix = "## Inference endpoint regions\n\n"
-exact = "The geography that serves requests from commercial profiles depends on both the model and the Kiro profile Region. GPT-5.6 models are served from the US regardless of profile Region, Claude Fable 5.1 is available only in US East (N. Virginia), and every other model is served from the geography that matches the profile."
-suffix = " Profile Region applies to enterprise users"
+prefix = ""
+exact = "The table below is the source of truth for model routing. **Inference scope** shows whether requests stay within the listed endpoint location or may route globally. The profile columns show the endpoint used for each Kiro profile Region. Lifecycle status and inference routing are independent."
+suffix = ""
 [[anchor]]
 id = "kiro-models-us-default"
 source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "Profile Region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers are always served from the commercial US geography."
-suffix = "\n| Model | Kiro profile in US East (N. Virginia)"
+exact = "Profile Region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers use the US endpoint."
+suffix = ""
 [[anchor]]
 id = "kiro-models-experimental-global"
 source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
-prefix = "Cross-region inference does not change where your data is stored. "
-exact = "Models marked experimental are an exception to the table above: they may be processed in commercial AWS Regions worldwide, including outside your profile's geography."
-suffix = " See data protection for the full reference"
+prefix = ""
+exact = "Across supported commercial AWS Regions worldwide, including outside the endpoint geography."
+suffix = ""
+[[anchor]]
+id = "kiro-models-gpt56-availability"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "| **GPT-5.6 Sol** | 1M | 4.4x* | US, EU | | ✓ | ✓ | ✓ | ✓ |"
+suffix = ""
 [[anchor]]
 id = "kiro-models-availability"
 source_id = "eeda603304a3f3c4"
