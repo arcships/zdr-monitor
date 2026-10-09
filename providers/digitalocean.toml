@@ -106,8 +106,8 @@ mode = "default"
 anchor = "do-infra-no-store-inputs-outputs"
 
 [[product.zdr.point]]
-text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch, Files and Claude Fable exceptions (the cache exception is not uniformly bounded: the automatic cache for open-source models has no stated ceiling). It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
-text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files/Claude Fable 例外(缓存例外并非统一有界:开源模型的自动缓存无公布上限)。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch, Files and Claude Fable exceptions (the cache exception is not uniformly bounded: for DigitalOcean-hosted models the cache is automatic and its entries have no configured expiry time). It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
+text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files/Claude Fable 例外(缓存例外并非统一有界:DO 托管模型的自动缓存无配置的到期时间)。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
 
 [[product.zdr.point]]
 text = "Exception — Claude Fable 5.1 and Claude Fable 5: \"access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews\", and DigitalOcean routes such traffic upstream to a compliant workspace automatically. It is a model-level precondition of access that the customer cannot switch off, carried by the upstream compliant workspace, so the \"nothing stored on the DigitalOcean side by default\" position does not hold for these models"
@@ -153,8 +153,8 @@ text = "Object × period: (1) default — \"We do not store inputs or outputs on
 text_zh = "对象×期限:①默认——DO 自有基础设施不存输入输出(架构性表述)"
 
 [[product.retention.point]]
-text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are isolated per customer account. The cache object is not uniformly bounded: on the same page \"Prompt caches are held for an unbounded period of time.\" sits under Open-Source Models (public), where caching is automatic for models such as DeepSeek V3.2 and needs no cache_control or prompt_cache_retention, and the only opt-out is X-Model-Affinity: none — \"You can’t opt out for older OpenAI models or DigitalOcean-hosted models.\""
-text_zh = "②前缀/KV 缓存——OpenAI 模型 24h 或内存内,Anthropic 模型 5m(默认)/1h,缓存按账户隔离。缓存对象并非统一有界:同页「Prompt caches are held for an unbounded period of time.」位于开源模型(public)段,该处 DeepSeek V3.2 一类模型自动缓存、无需 cache_control/prompt_cache_retention,唯一退出方式是 X-Model-Affinity: none,而「You can’t opt out for older OpenAI models or DigitalOcean-hosted models.」"
+text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are always isolated per customer account. The cache object is the model's internal state for a matched prefix, not the prompt text: \"The cache stores the model's internal state, known as the key-value (KV) cache, for a matched prefix. It does not store your prompt text.\" The cache object is not uniformly bounded: under DigitalOcean-Hosted Models (Cache Retention and Eviction), \"Cached entries have no configured expiry time. They are evicted on a least-recently-used basis as capacity is needed\", and \"prompt_cache_retention is not supported for DigitalOcean-hosted models\", where caching is automatic and needs no cache_control or prompt_cache_retention; the only opt-out is X-Model-Affinity: none — \"You can’t opt out for older OpenAI models or DigitalOcean-hosted models.\""
+text_zh = "②前缀/KV 缓存——OpenAI 模型 24h 或内存内,Anthropic 模型 5m(默认)/1h,缓存始终按客户账户隔离。对象是模型对匹配前缀的内部状态,不是 prompt 正文:「The cache stores the model's internal state, known as the key-value (KV) cache, for a matched prefix. It does not store your prompt text.」。缓存对象并非统一有界:位于 DigitalOcean-Hosted Models 段的「Cache Retention and Eviction」写「Cached entries have no configured expiry time. They are evicted on a least-recently-used basis as capacity is needed」,该处模型自动缓存、无需 cache_control/prompt_cache_retention;唯一退出方式是 X-Model-Affinity: none,而「You can’t opt out for older OpenAI models or DigitalOcean-hosted models.」"
 anchor = "do-prompt-cache-unbounded"
 
 [[product.retention.point]]
@@ -282,8 +282,8 @@ text = "Multi-hop boundary, recorded without an anchor because it does not answe
 text_zh = "多跳边界,本条不绑锚点,因为这些话没有回答本维度的问题:走第三方模型时适用上游 provider 的政策(「Data sent to other third-party model providers is handled according to the applicable provider's policies.」,已绑在本档 training 维度),且 DO 可把不含 Services Content 的使用信息交给该 provider。这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
 
 [[product.zdr.point]]
-text = "Scope note on the shared inference path (the developer-data cache clauses are anchored in this file's api-tier points, and the contract text for Prompt Caching — Service Terms §9 — is bound to the training/retention points of the api and platform tiers, not here): the cache exception is not uniformly bounded — for open-source models prompt caches are \"held for an unbounded period of time\" and cannot be switched off, while at the contract layer §9.3 calls cache entries \"ephemeral\", defers their retention to the Documentation and guarantees no persistence, and §9.5 lets the customer disable Prompt Caching and request a flush. Recorded as scope information only; none of it says whether ZDR applies to the knowledge base or agent session storage, which is what this verdict leaves undisclosed"
-text_zh = "共用推理路径上的范围说明(开发者文档缓存条款的锚点在本文件的 api 档;Prompt Caching 的合同文本 Service Terms §9 绑在 api 与平台档的 training/retention 条目,不在本条):缓存例外并非统一有界 —— 开源模型的 prompt 缓存「held for an unbounded period of time」且无法关闭,而合同层 §9.3 称缓存条目「ephemeral」、把期限交给 Documentation 且不保证存续,§9.5 允许客户关闭 Prompt Caching 并请求 flush。此处只作范围说明;这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
+text = "Scope note on the shared inference path (the developer-data cache clauses are anchored in this file's api-tier points, and the contract text for Prompt Caching — Service Terms §9 — is bound to the training/retention points of the api and platform tiers, not here): the cache exception is not uniformly bounded — for DigitalOcean-hosted models the cache is automatic and its entries have \"no configured expiry time\", and it cannot be switched off, while at the contract layer §9.3 calls cache entries \"ephemeral\", defers their retention to the Documentation and guarantees no persistence, and §9.5 lets the customer disable Prompt Caching and request a flush. Recorded as scope information only; none of it says whether ZDR applies to the knowledge base or agent session storage, which is what this verdict leaves undisclosed"
+text_zh = "共用推理路径上的范围说明(开发者文档缓存条款的锚点在本文件的 api 档;Prompt Caching 的合同文本 Service Terms §9 绑在 api 与平台档的 training/retention 条目,不在本条):缓存例外并非统一有界 —— DO 托管模型自动缓存、缓存条目「no configured expiry time」且无法关闭,而合同层 §9.3 称缓存条目「ephemeral」、把期限交给 Documentation 且不保证存续,§9.5 允许客户关闭 Prompt Caching 并请求 flush。此处只作范围说明;这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
 
 [product.retention]
 object = "mixed"
@@ -1039,11 +1039,11 @@ topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
-t need to set `cache_control` or `prompt_cache_retention`.
+### Caching with `prompt_cache_key`
 
 """
-exact = "Caches are isolated per customer account."
-suffix = " The platform derives cache entries from a per-account key, "
+exact = "Caches are always isolated per customer account."
+suffix = " Use the optional `prompt_cache_key` field"
 
 [[anchor]]
 id = "do-prompt-cache-unbounded"
@@ -1051,9 +1051,9 @@ source_id = "043233a73e648203"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "near the beginning of the prompt. **Note**: "
-exact = "Prompt caches are held for an unbounded period of time."
-suffix = " Treat prompt caching as opportunistic; do not depend on it for predictable cost savings."
+prefix = "It does not store your prompt text. "
+exact = "Cached entries have no configured expiry time."
+suffix = " They are evicted on a least-recently-used basis as capacity is needed"
 
 [[anchor]]
 id = "do-prompt-cache-optout-limits"
