@@ -1,0 +1,27 @@
+name: Record Dim usage
+description: 保存本次 CI 的脱敏用量，成功、失败及重跑分别计量
+inputs:
+  events:
+    description: Dim JSONL 事件文件
+    required: true
+  subject:
+    description: 对应 issue/PR 或凭证检查
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: 汇总本任务的 Dim 用量
+      shell: bash
+      env:
+        DIM_USAGE_EVENTS: ${{ inputs.events }}
+        DIM_USAGE_SUBJECT: ${{ inputs.subject }}
+      run: |
+        node packages/core/script/dim-usage.mjs record \
+          "$DIM_USAGE_EVENTS" "$RUNNER_TEMP/dim-pricing.json" "$RUNNER_TEMP/dim-usage"
+    - name: 保存用量记录
+      uses: actions/upload-artifact@v4
+      with:
+        name: dim-usage-record-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+        path: ${{ runner.temp }}/dim-usage/*.json
+        retention-days: 90
+        if-no-files-found: error

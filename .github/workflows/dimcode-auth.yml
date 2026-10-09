@@ -24,6 +24,8 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    env:
+      DIMCODE_MODEL: ${{ vars.DIMCODE_MODEL || 'deepseek-v4.1-flash' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -63,6 +65,7 @@ jobs:
             sleep 10
           done
           dim auth status
+          node packages/core/script/dim-usage.mjs snapshot "$RUNNER_TEMP/dim-pricing.json"
           echo "只回复 OK" | dim exec --stdin --json --policy read-only --provider dimcode-api-oauth \
             --model "${DIMCODE_MODEL:-deepseek-v4.1-flash}" --no-hooks > "$RUNNER_TEMP/check.jsonl" || true
           # 令牌已经续上、写回了 secret；调不通模型如果是额度问题，跟登录态无关
@@ -72,3 +75,10 @@ jobs:
           fi
           jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/check.jsonl" >/dev/null
           echo "已续期到 $(jq -r '.nextApiOauth.expires / 1000 | todate' "$dir/auth.json")"
+
+      - name: 保存凭证检查的 Dim 用量
+        if: always()
+        uses: ./.github/actions/record-dim-usage
+        with:
+          events: ${{ runner.temp }}/check.jsonl
+          subject: auth-check

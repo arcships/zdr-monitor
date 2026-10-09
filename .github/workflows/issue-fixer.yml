@@ -92,6 +92,9 @@ jobs:
           auth-json: ${{ secrets.DIMCODE_AUTH_JSON }}
           models-json: ${{ secrets.DIMCODE_MODELS_JSON }}
 
+      - name: 记录本次模型价格与套餐倍率
+        run: node packages/core/script/dim-usage.mjs snapshot "$RUNNER_TEMP/dim-pricing.json"
+
       - name: 运行 issue fixer
         run: |
           set -euo pipefail
@@ -138,6 +141,13 @@ jobs:
           name: dimcode-events-${{ github.run_id }}
           path: ${{ runner.temp }}/events.jsonl
           if-no-files-found: ignore
+
+      - name: 保存本次 Dim 用量
+        if: always()
+        uses: ./.github/actions/record-dim-usage
+        with:
+          events: ${{ runner.temp }}/events.jsonl
+          subject: issue:${{ env.ISSUE_NUMBER }}
 
       - name: 检查改动范围
         run: |

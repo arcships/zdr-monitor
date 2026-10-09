@@ -67,6 +67,9 @@ jobs:
           auth-json: ${{ secrets.DIMCODE_AUTH_JSON }}
           models-json: ${{ secrets.DIMCODE_MODELS_JSON }}
 
+      - name: 记录本次模型价格与套餐倍率
+        run: node packages/core/script/dim-usage.mjs snapshot "$RUNNER_TEMP/dim-pricing.json"
+
       - name: 运行 reviewer
         run: |
           set -euo pipefail
@@ -94,6 +97,13 @@ jobs:
           jq -sr '[.[] | select(.eventType == "text:delta")] as $d | ($d | last | .payload.messageId) as $m
             | [$d[] | select(.payload.messageId == $m) | .payload.delta] | join("")' "$RUNNER_TEMP/events.jsonl" > "$RUNNER_TEMP/response.md"
           test -s "$RUNNER_TEMP/response.md"
+
+      - name: 保存本次 Dim 用量
+        if: always()
+        uses: ./.github/actions/record-dim-usage
+        with:
+          events: ${{ runner.temp }}/events.jsonl
+          subject: pr:${{ env.PR_NUMBER }}
 
       - name: 发评论
         id: verdict

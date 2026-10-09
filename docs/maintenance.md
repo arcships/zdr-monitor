@@ -129,6 +129,31 @@ bun run validate                     # 数据结构
 - `secrets.JINA_API_KEY`（可选）：提高 jina 方式的限额。
 - Actions 设置里开启「Allow GitHub Actions to create and approve pull requests」和 auto-merge。
 
+## Dim 项目用量
+
+Issue Fixer、PR Reviewer 和登录态续期的模型检查都会保存本任务的用量，即使任务失败。
+每次 run/attempt/job 独立保存 `dim-usage-record-<run>-<attempt>-<job>` artifact，保留 90 天。
+记录只含调用时间、模型、输入/输出及缓存 token 和价格快照，不保存 prompts、模型输出、
+工具参数或 OAuth 凭证。成功任务也会保存，重跑不会覆盖上一轮。
+
+Actions → **Dim 每日用量** 的 Summary 查看按北京时间汇总的表；默认每天 00:17 生成
+最近 7 个完整日及今天的记录，也可手动运行并选择 1～90 天。
+手动运行时勾选 `check` 会发起一次「只回复 OK」的真实模型调用，验证采集、上传和汇总；
+该检查的少量用量也会作为 `metering-check` 计入项目，默认和定时运行均不发起模型调用。
+`dim-usage-report-*` artifact 中的 `daily.md` / `daily.json` 是汇总，`records.json` 保留任务明细。
+还可在每次 agent 任务的 Summary 查看当次用量。
+
+Token 来自本任务的 Dim 事件，**不使用共享账号余额差**。Credits 是当次 `/v1/models?type=dim`
+目录价格乘套餐倍率的估算，缓存命中按缓存单价计，按调用开始时刻应用北京时间分时倍率，
+再按 `/api/status` 的 Credits 换算配置换算；**不是实际扣账**。目录价格可能与结算价、
+渠道阶梯价、长上下文价格、额外模型倍率或计费取整有差异。缺价格、倍率或换算配置时显示
+「未知」，不按零消耗处理。调用跨日按开始日期归属。
+
+任务被强制中断、模型未返回 usage 时可能漏计，汇总会标出已识别的不完整任务。
+下载失败的 artifact 会显示缺口数量；无事件的任务保留在明细但不视作已确认零消耗。
+安装计量之前、已过保留期、或未能上传 artifact 的任务不在记录里；无记录的日期不代表零消耗。
+历史失败任务的事件只能支持局部复核，不能补成完整历史日账单。
+
 ## 变化历史
 
 快照的 git diff 只是线索。站点变化历史只来自 agent 确认记录

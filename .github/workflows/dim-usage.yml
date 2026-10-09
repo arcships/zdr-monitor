@@ -1,0 +1,62 @@
+name: Dim 每日用量
+
+on:
+  schedule:
+    # 北京时间每天 00:17，包含上一完整日及最近一周。
+    - cron: "17 16 * * *"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 统计天数（含今天，1～90）
+        type: string
+        default: "8"
+      check:
+        description: 发起一次只回复 OK 的模型调用，验证计量与上传链路
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DIMCODE_MODEL: ${{ vars.DIMCODE_MODEL || 'deepseek-v4.1-flash' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: ./.github/actions/setup-dimcode
+        if: inputs.check == true
+        with:
+          auth-json: ${{ secrets.DIMCODE_AUTH_JSON }}
+          models-json: ${{ secrets.DIMCODE_MODELS_JSON }}
+      - name: 验证真实调用计量
+        if: inputs.check == true
+        run: |
+          node packages/core/script/dim-usage.mjs snapshot "$RUNNER_TEMP/dim-pricing.json"
+          echo "只回复 OK" | dim exec --stdin --json --policy read-only --disallowed-tools exec \
+            --provider dimcode-api-oauth --model "$DIMCODE_MODEL" --no-hooks > "$RUNNER_TEMP/events.jsonl"
+          jq -e 'select(.eventType == "run:ended" and .payload.status == "completed")' "$RUNNER_TEMP/events.jsonl" >/dev/null
+      - name: 保存计量检查的用量
+        if: always() && inputs.check == true
+        uses: ./.github/actions/record-dim-usage
+        with:
+          events: ${{ runner.temp }}/events.jsonl
+          subject: metering-check
+      - name: 汇总本项目的 Dim 调用
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIM_USAGE_DAYS: ${{ inputs.days || '8' }}
+        run: node packages/core/script/dim-usage.mjs report "$RUNNER_TEMP/dim-usage-report" "$DIM_USAGE_DAYS"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dim-usage-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/dim-usage-report/
+          retention-days: 90
+          if-no-files-found: error
