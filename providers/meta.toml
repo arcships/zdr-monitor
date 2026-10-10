@@ -10,14 +10,14 @@ url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Discounted 档，只说『ZDR support may vary by model』。"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Contributor 档，只说『ZDR support may vary by model』。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/commitments"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Meta Model API Data Commitments（法律中心四份文档之一）。按档位写明训练政策：Standard Services 不用 Content 训练；Discounted Services 可用 Content（含 Inputs/Outputs）训练、开发、评估、改进（训练前做去关联处理，评估/安全/质量/政策审查不去关联）；Customer Data 一律不用于训练。含 Data Retention 小节（保留方式以 Terms 与 Privacy Policy 为准，用户可在账户内查看与删除）。作 api 档 training/retention 的同级佐证。"
+note = "Meta Model API Data Commitments（法律中心四份文档之一）。按档位写明训练政策：Standard Services 不用 Content 训练；Discounted Services（该页 2026-10 仍用这个旧称呼，即 ToS 现称的 Contributor Services）可用 Content（含 Inputs/Outputs）训练、开发、评估、改进（训练前做去关联处理，评估/安全/质量/政策审查不去关联）；Customer Data 一律不用于训练。含 Data Retention 小节（保留方式以 Terms 与 Privacy Policy 为准，用户可在账户内查看与删除）。作 api 档 training/retention 的同级佐证。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/geographic-use-policy"
@@ -31,7 +31,7 @@ url = "https://dev.meta.ai/legal/terms-of-service"
 fetch = "jina"
 channel = "contract"
 tier = "core"
-note = "《Meta Model API Terms of Service》(Last updated: October 2, 2026；页首自述 These Terms govern your access to and use of the Services for a limited preview period)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且不用 Standard Services 的 Content 训练 Meta Models)与 Discounted Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你所选的模型决定，与它内部是否调用别的 Meta 模型无关』。§3.2 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)也纳入本 ToS，并说明订阅档的数据处理同样由所选模型决定适用 §5 还是 §6。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。本文件是 training / retention / role 三个维度的权威来源。"
+note = "《Meta Model API Terms of Service》(Last updated: October 9, 2026；页首 limited preview 提示已删除)。签约主体是 Meta Platforms, Inc. 或 Meta Platforms Ireland Limited(欧洲区)。本文件覆盖 Meta Model API 的两个档位，且两档数据条款方向相反：Standard Services(§5，§5.1 明确 Meta 以 Service Provider/Processor 身份处理、且『will not use Content submitted in a request to the Standard Services to train Meta Models』)与 Contributor Services(§6，§6.1 明确 Meta 可用 Content 训练自有 AI 模型)。§1 规定档位『由你正在使用的模型决定，与它内部是否调用别的 Meta 模型无关』；经 Coding Harness Subscription 访问时例外，档位改由账户设置决定(§3.3)，且系统可能把你路由到 Contributor Model。§3.2、§3.3 与 §13.4 把 Muse Code 的 Coding Harness Subscription(订阅档)纳入本 ToS：默认走 Contributor Services(Section 6)，须在账户设置里改为 Standard 才适用 §5，且改动只向将来生效、不影响已提交给 Contributor Services 的 Content。§6.1 另规定：先前提交给 Standard Services 的 Content，只要被纳入任何发往 Contributor Services 的请求，即转为 Contributor Services 的 Content。§4.2 单独定义 Usage Data 并允许用于改进(与 Content 训练是两件事)；§4.4 是保留条款；§12 与 §15.4 说明数据条款在协议终止后仍存续。§2 以引用方式并入 MGPT、Supplemental Managed Accounts Terms、Data Security Terms。2026-10-09 版把旧的 Discounted Models/Services 一律改称 Contributor Models/Services(同一档)。本文件是 training / retention / role 三个维度的权威来源。"
 
 [[source]]
 url = "https://www.meta.com/legal/meta-for-work/subprocessor-list/"
@@ -59,9 +59,14 @@ mode = "by_tier"
 anchor = "training-standard-5-1"
 
 [[product.training.point]]
-text = "The commitment is a Standard Services clause: §5.1 reads \"will not use Content from Standard Services to train Meta Models\", and the section it sits in applies only \"When you use Standard Services\". It says nothing about the Discounted Services, which carry the opposite rule in §6.1 (see the Contributor tier)."
-text_zh = "该承诺是 Standard Services 的条款：§5.1 原文为『will not use Content from Standard Services to train Meta Models』，而整节只在『When you use Standard Services』时适用。它对 Discounted Services 只字未提，后者在 §6.1 有相反规定（见 Contributor 档）。"
+text = "The commitment is a Standard Services clause: §5.1 reads \"will not use Content submitted in a request to the Standard Services to train Meta Models\", and the section it sits in applies only \"When you use Standard Services\". It says nothing about the Contributor Services, which carry the opposite rule in §6.1 (see the Contributor tier)."
+text_zh = "该承诺是 Standard Services 的条款：§5.1 原文为『will not use Content submitted in a request to the Standard Services to train Meta Models』，而整节只在『When you use Standard Services』时适用。它对 Contributor Services 只字未提，后者在 §6.1 有相反规定（见 Contributor 档）。"
 anchor = "training-standard-5-1"
+
+[[product.training.point]]
+text = "The commitment is bounded at the edge: §6.1 provides that \"Content previously submitted to the Standard Services becomes Content submitted to the Contributor Services if it is included in any request to the Contributor Services, whether directly or as context or background for your prompts or instructions.\" So Content that once sat on this tier loses its no-training protection as soon as it is passed into any Contributor Services request and is treated under §6.1, which lets Meta train on it."
+text_zh = "本档的『不用于训练』承诺有一条边界：§6.1 规定『Content previously submitted to the Standard Services becomes Content submitted to the Contributor Services if it is included in any request to the Contributor Services, whether directly or as context or background for your prompts or instructions.』即先前提交给 Standard Services 的 Content，一旦此后被纳入任一 Contributor Services 请求（直接发送，或作为提示词/指令的上下文或背景），就不再享有本档的不训练保护，而按 §6.1 处理——该节允许 Meta 用它训练。"
+anchor = "tos-6-1-standard-becomes-contributor"
 
 [[product.training.point]]
 text = "Corroborated tier by tier on the Data Commitments page, the one page of this vendor that states the training policy per tier: \"Meta does not use your Content from Standard Services to train Meta Models\", and model training is confined to the other tier — \"To train and improve Meta's AI models (Discounted Services Content only, as described above)\"."
@@ -148,8 +153,8 @@ text_zh = "这份清单进入证据的唯一依据是 §5.1：『You authorize M
 anchor = "subprocessor-authorization-5-1"
 
 [[product.processing_region.point]]
-text = "Two mismatches to keep in view: the list is headed \"Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors\" — another product line's list — and it is \"Effective November 13, 2023\", nearly three years older than the current Terms of Service (October 2, 2026)."
-text_zh = "需要留意的两处错位：该清单冠名『Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors』，属于另一条产品线；其生效日为『Effective November 13, 2023』，比现行 ToS（October 2, 2026）早近三年。"
+text = "Two mismatches to keep in view: the list is headed \"Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors\" — another product line's list — and it is \"Effective November 13, 2023\", nearly three years older than the current Terms of Service (October 9, 2026)."
+text_zh = "需要留意的两处错位：该清单冠名『Meta Horizon Managed Solutions List of Sub-Processors and Subcontractors』，属于另一条产品线；其生效日为『Effective November 13, 2023』，比现行 ToS（October 9, 2026）早近三年。"
 anchor = "region-list-title-effective-date"
 
 [[product.processing_region.point]]
@@ -192,23 +197,23 @@ text_zh = "§6.1：『Meta may use your Content to train, develop, evaluate, and
 anchor = "training-discounted-6-1"
 
 [[product.training.point]]
-text = "Which tier applies is decided by the model you select, not by how you call it: \"The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes.\""
-text_zh = "适用哪一档由所选模型决定，不由接入方式决定：『The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes.』"
+text = "Which tier applies is decided by the model you are using, not by what it invokes internally: \"The designation of the Services as Contributor Services or Standard Services is determined by the designation of the Model you are using, regardless of any other Meta Model invoked.\" Two qualifications are new in the October 9, 2026 version: for Coding Harness Subscriptions the tier \"is instead determined by your Account setting, as described in Section 3.3\" — §3.3 makes Contributor Services the default and requires an Account change to reach Standard Services (§5) — and \"the system may route you to a Contributor Model, and you are responsible for ensuring that you are accessing and using a Standard or Contributor Model as you intend\", so Meta does not guarantee you land on the tier you selected."
+text_zh = "适用哪一档由你正在使用的模型决定，与它内部是否调用别的 Meta 模型无关：『The designation of the Services as Contributor Services or Standard Services is determined by the designation of the Model you are using, regardless of any other Meta Model invoked.』2026-10-09 版新增两点限定：经 Coding Harness Subscription 访问时，档位『is instead determined by your Account setting, as described in Section 3.3』——§3.3 规定默认走 Contributor Services，须在账户设置里改动才进入 Standard Services(§5)；且『the system may route you to a Contributor Model, and you are responsible for ensuring that you are accessing and using a Standard or Contributor Model as you intend』，即 Meta 不保证你会落到所选档位。"
 anchor = "tos-1-tier-by-model"
 
 [[product.training.point]]
-text = "The Geographic Use Policy designates Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor as Discounted Models; every other model on its list (Muse Image, Muse Spark 1.1/1.2/1.3, Muse Voice Transcribe, SAM 3.1) is a Standard Model."
-text_zh = "Geographic Use Policy 把 Muse Spark 1.2 Contributor 与 Muse Spark 1.3 Contributor 指定为 Discounted Models；清单里其余模型（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）都是 Standard Models。"
+text = "The Geographic Use Policy designates Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor as Discounted Models; every other model on its list (Muse Image, Muse Spark 1.1/1.2/1.3, Muse Voice Transcribe, SAM 3.1) is a Standard Model. Note the two documents now name this same tier differently: the October 9, 2026 Terms call it Contributor Models/Services, while the Geographic Use Policy (still) says Discounted Models/Services."
+text_zh = "Geographic Use Policy 把 Muse Spark 1.2 Contributor 与 Muse Spark 1.3 Contributor 指定为 Discounted Models；清单里其余模型（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）都是 Standard Models。注意两份文件现在对同一档用了不同名字：2026-10-09 版 Terms 称 Contributor Models/Services，而 Geographic Use Policy 仍写 Discounted Models/Services。"
 anchor = "model-designation-discounted"
 
 [[product.training.point]]
-text = "§6.2 caps what may be sent to this tier at all: \"You must not submit sensitive, confidential, or personal information to the Discounted Services\", and where you are required to keep software code confidential you must not submit that either. Personal or confidential traffic has to use the Standard Services."
-text_zh = "§6.2 对本档可提交的内容设了硬限制：『You must not submit sensitive, confidential, or personal information to the Discounted Services』；若软件代码依约需保密，同样不得提交。个人信息与机密内容只能走 Standard Services。"
+text = "§6.2 caps what may be sent to this tier at all: \"You must not submit sensitive, confidential, or personal information to the Contributor Services\", and where you are required to keep software code confidential you must not submit that either. Personal or confidential traffic has to use the Standard Services."
+text_zh = "§6.2 对本档可提交的内容设了硬限制：『You must not submit sensitive, confidential, or personal information to the Contributor Services』；若软件代码依约需保密，同样不得提交。个人信息与机密内容只能走 Standard Services。"
 anchor = "tos-6-2-no-confidential"
 
 [[product.training.point]]
-text = "No way out of training on this tier: \"the Discounted Services do not offer a mechanism to exclude specific traffic from training\"."
-text_zh = "本档没有退出训练的开关：『the Discounted Services do not offer a mechanism to exclude specific traffic from training』。"
+text = "No way out of training on this tier: \"the Contributor Services do not offer a mechanism to exclude specific traffic from training\"."
+text_zh = "本档没有退出训练的开关：『the Contributor Services do not offer a mechanism to exclude specific traffic from training』。"
 anchor = "tos-6-2-no-training-exclusion"
 
 [[product.training.point]]
@@ -221,6 +226,11 @@ text = "Beyond Content, §4.2 lets Meta use Usage Data (tool call sequences, API
 text_zh = "除 Content 外，§4.2 还允许 Meta 把 Usage Data（工具调用序列、API 请求元数据、错误或其他日志、时间戳、token 计数、延迟测量）用于 test/support/develop/evaluate/improve Meta Model API 等，但受 §5.1 限制。§4.2 不因档位而不同，原文也未写明该限制对本档如何适用。"
 anchor = "tos-4-2-usage-data"
 
+[[product.training.point]]
+text = "New on 2026-10-09: §6.1 makes the boundary explicit — Content originally submitted to the Standard Services is treated as Contributor Services Content once it is included in any Contributor request, \"whether directly or as context or background for your prompts or instructions\" — so Standard-tier Content loses its no-training protection as soon as it is passed into a Contributor request, and §6.1's training use applies to it."
+text_zh = "2026-10-09 新增：§6.1 明确了边界——原提交给 Standard Services 的 Content，一旦被纳入任一 Contributor 请求（『whether directly or as context or background for your prompts or instructions』），即按 Contributor Services 的 Content 处理；即 Standard 档 Content 一旦进入 Contributor 请求，就不再享有不训练保护，转而适用 §6.1 的训练用途。"
+anchor = "tos-6-1-standard-becomes-contributor"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -232,8 +242,8 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\"; it does not state whether the Contributor/Discounted tier can enable ZDR. This tier rests on Meta being able to use Content for training, which sits badly with request-level zero retention, but Meta has taken no position — recorded as not found, and not to be read in reverse as the vendor declining to offer it."
-text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor/Discounted 档能否启用 ZDR。本档的前提是 Meta 可用 Content 训练，与请求级零保留相斥，但官方未表态——如实记未找到，不得反推为厂商拒绝提供。"
+text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\"; it does not state whether the Contributor tier can enable ZDR. This tier rests on Meta being able to use Content for training, which sits badly with request-level zero retention, but Meta has taken no position — recorded as not found, and not to be read in reverse as the vendor declining to offer it."
+text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor 档能否启用 ZDR。本档的前提是 Meta 可用 Content 训练，与请求级零保留相斥，但官方未表态——如实记未找到，不得反推为厂商拒绝提供。"
 
 [product.retention]
 object = "input_output"
@@ -268,8 +278,8 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "§6 sets no subprocessor or processing-location clause, and the §5.1 authorization for the subprocessor list is a Standard Services clause, so the list does not speak for this tier. No inference location, data residency option or selectable region is disclosed for the Discounted Services."
-text_zh = "§6 未设子处理者或处理地条款，而 §5.1 对子处理者清单的授权属 Standard Services 条款，故该清单对本档不构成表述。Discounted Services 未披露推理发生地、数据驻留选项或可选区域。"
+text = "§6 sets no subprocessor or processing-location clause, and the §5.1 authorization for the subprocessor list is a Standard Services clause, so the list does not speak for this tier. No inference location, data residency option or selectable region is disclosed for the Contributor Services."
+text_zh = "§6 未设子处理者或处理地条款，而 §5.1 对子处理者清单的授权属 Standard Services 条款，故该清单对本档不构成表述。Contributor Services 未披露推理发生地、数据驻留选项或可选区域。"
 
 [product.role]
 kind = "unknown"
@@ -305,7 +315,7 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = "e MGPT) to you in relation to your use of the Services, and "
-exact = "will not use Content from Standard Services to train Meta Models"
+exact = "will not use Content submitted in a request to the Standard Services to train Meta Models"
 suffix = ". You agree to comply with the MGPT when Meta acts as your S"
 
 [[anchor]]
@@ -356,9 +366,9 @@ source_id = "2b8f11f85d9c850f"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "](https://www.facebook.com/privacy/policy/). You agree that "
+prefix = "Meta will process Content from Contributor Services as described in these Terms and Privacy Policy. You agree that "
 exact = "Meta may use your Content to train, develop, evaluate, and improve Meta’s artificial intelligence models, products, and services"
-suffix = ". Before using Content from Discounted Services to train art"
+suffix = ". Before using Content from Contributor Services to train art"
 
 [[anchor]]
 id = "subprocessor-authorization-5-1"
@@ -557,12 +567,9 @@ source_id = "2b8f11f85d9c850f"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "er Meta Models in connection with your use of the Services. "
-exact = "The designation of the Services as Discounted Services or Standard Services is determined solely by the designation of the Model you select, regardless of any other Meta Model it invokes."
-suffix = """
-
-
-You agree to be bound by these Terms by: (i) clicking to a"""
+prefix = "A Meta Model may invoke other Meta Models in connection with your use of the Services. "
+exact = "The designation of the Services as Contributor Services or Standard Services is determined by the designation of the Model you are using, regardless of any other Meta Model invoked."
+suffix = ". If you access the Services through a Coding Harness Subscription, the designation"
 
 [[anchor]]
 id = "tos-4-2-usage-data"
@@ -588,16 +595,25 @@ exact = "Meta may also retain and process your Content: (i) to the extent necess
 suffix = " (ii) in connection with the exercise of Meta’s rights to us"
 
 [[anchor]]
+id = "tos-6-1-standard-becomes-contributor"
+source_id = "2b8f11f85d9c850f"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "when our systems flag data for a potential policy violation. "
+exact = "Content previously submitted to the Standard Services becomes Content submitted to the Contributor Services if it is included in any request to the Contributor Services, whether directly or as context or background for your prompts or instructions."
+
+[[anchor]]
 id = "tos-6-2-no-confidential"
 source_id = "2b8f11f85d9c850f"
 topics = ["training"]
 
 [anchor.selector]
 prefix = """
-a potential policy violation.
+instructions.
 
 6.2 Your Responsibilities. **"""
-exact = "You must not submit sensitive, confidential, or personal information to the Discounted Services."
+exact = "You must not submit sensitive, confidential, or personal information to the Contributor Services."
 suffix = "** If you intend, or are required (including by contract), t"
 
 [[anchor]]
@@ -607,7 +623,7 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = "route traffic based on location of your End Users, and "
-exact = "the Discounted Services do not offer a mechanism to exclude specific traffic from training"
+exact = "the Contributor Services do not offer a mechanism to exclude specific traffic from training"
 suffix = ". If your End Users are located in a jurisdiction"
 
 [[anchor]]
