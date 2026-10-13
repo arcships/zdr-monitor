@@ -10,6 +10,7 @@ Welcome
 Quickstart
 Models & Pricing
 Changelog
+Release Notes
 ## Agent
 Overview
 Agents Window
@@ -47,6 +48,7 @@ Automations
 Bugbot
 Security Agents
 PR Routing & Approval
+Rollouts
 Mobile
 Security
 Overview
@@ -60,14 +62,14 @@ API
 Overview
 CLI
 Create a repository
+Mirror GitHub
 Clone, Push & Pull
 CloneKit in CI
-Mirror GitHub
 Pull requests
 Browse & Search
+Agents and Automations
+Apps
 Settings
-Codebase settings
-Integrations
 ## Integrations
 Slack
 Microsoft Teams
@@ -86,6 +88,13 @@ TypeScript
 Python
 Bridge
 Changelog
+## BDK
+Getting started
+Integrations
+Extensions
+Guides
+Templates
+Reference
 ## CLI
 Overview
 Installation
@@ -117,7 +126,7 @@ Cloud Agents reach your code through the Cursor GitHub or GitLab App, not throug
 - **Admins install the app.** Enabling Cloud Agents takes admin privileges on both Cursor and your Git provider. An admin installs the Cursor app on your Git organization and grants access only to the repositories you choose.
 - **Users connect their own account.** Once the app is installed, each user who wants to start an agent connects their own Git account. This is a second, per-user layer on top of the org-level install.
 - **Access is inherited, never widened.** A Cloud Agent can only reach repositories the triggering user could already reach. Starting an agent never grants access to a repository the user didn't already have.
-Team admins can go further and lock a Git organization to your Cursor organization with Protected Git Scopes, so only your teams can start Cloud Agents on its repositories. You can also keep sensitive repositories out entirely with a repository blocklist.
+Team admins can go further and lock a Git organization to your Cursor organization with Protected Git Scopes, so only your teams can start Cloud Agents on its repositories.
 Cursor employees do not have access to the code inside Cloud Agent VMs. Access attempts are monitored by Cursor's security team.
 ## Isolation and infrastructure
 Each agent runs in its own VM boundary, not a shared process sandbox. One agent cannot see another agent's code, environment, or state.
@@ -133,10 +142,10 @@ Cursor encrypts Cloud Agent data in transit and at rest.
 A Cloud Agent touches four kinds of data. Each is stored in a different place and follows its own retention rule.
 | Data | What it holds | Where it lives | Retention |
 | **Runtime workspace** | The checked-out repository, build artifacts, and tool-execution context for a live run | The isolated Cloud Agent VM | Recycled automatically after the run goes idle; the timer refreshes when you send follow-up prompts |
-| **VM snapshots** | Point-in-time copies of the VM disk (including cloned code) used to start and resume without recloning | Snapshot and cache layer outside the active VM, encrypted | Rolling 90 days of inactivity; each start or resume extends it, then automatic deletion |
+| **VM snapshots** | Point-in-time copies of the VM disk (including cloned code) used to start and resume without recloning | Snapshot and cache layer outside the active VM, encrypted | Rolling 30 days of inactivity; each start or resume extends it, then automatic deletion |
 | **Conversation state** | Prompts, model responses, tool calls, diff context, and demo artifacts that make up the transcript | Cursor backend, encrypted with per-agent keys | Kept indefinitely by default so you can revisit and resume runs; deletable on demand |
 | **Secrets and tokens** | Cloud Agent secrets, OAuth tokens, and API credentials you configure | Encrypted credential stores in Cursor's backend | Kept until you delete or remove them |
-The Delete Agent API removes an agent's conversation transcript and artifacts on demand. Snapshots can't be deleted on demand; they follow the 90-day inactivity window above. Enterprise teams can also cap conversation retention with retention policies. For the full detail on retention and deletion, see Data retention.
+The Delete Agent API removes an agent's conversation transcript and artifacts on demand. Snapshots can't be deleted on demand; they follow the 30-day inactivity window above. Enterprise teams can also cap conversation retention with retention policies. For the full detail on retention and deletion, see Data retention.
 ## Privacy and model data
 Cloud Agents run in Privacy Mode. With Privacy Mode on, Cursor never trains on code accessed by Cloud Agents or on the prompts and responses their runs generate. Most models also run under Cursor's zero-data-retention agreements, so providers don't store or train on requests and responses. See Privacy and Data Governance for the model-by-model detail and the exceptions.
 Legacy Privacy Mode is not supported for Cloud Agents, because agents need to store code and environment data in the cloud while they run. Enforce standard Privacy Mode org-wide so every run inherits its zero-data-retention guarantees.
@@ -166,18 +175,18 @@ Cloud Agent activity is logged and attributable.
 | Mechanism | What it removes | How |
 | **Archive** | Hides an agent from the dashboard | Archive from the dashboard |
 | **Delete Agent API** | An agent's conversation transcript and artifacts | Delete Agent API |
-| **Snapshot expiry** | VM snapshots and cached code | Automatic after 90 days of inactivity |
+| **Snapshot expiry** | VM snapshots and cached code | Automatic after 30 days of inactivity |
 | **Retention policy (Enterprise)** | Conversations older than your chosen window | Retention policies |
 | **Account deletion** | The account and its associated data | Delete account |
 ## FAQ
 Are Cloud Agents less secure than local agents?
 They carry a different risk profile, not a worse one. Running an agent unattended in an isolated sandbox with egress restrictions and minimal permissions can be tighter than a developer's laptop, which usually has full internet access and elevated privileges.
 Does Cursor store an entire repository permanently?
-No. Cursor clones the repository to run the agent, and that clone can live in VM snapshots to speed up future starts, but it isn't kept indefinitely. Snapshots are deleted after 90 days of inactivity.
+No. Cursor clones the repository to run the agent, and that clone can live in VM snapshots to speed up future starts, but it isn't kept indefinitely. Snapshots are deleted after 30 days of inactivity.
 Can a Cloud Agent access repositories the developer can't?
 No. Access is gated by the triggering developer's Git access. A Cloud Agent can't reach a repository the developer didn't already have access to.
 Can we restrict which repositories Cloud Agents reach?
-Yes. Cloud Agents can only reach repositories you authorize through your Git provider connection. You control which repositories are available, and admins can lock scopes with Protected Git Scopes or exclude repositories with a blocklist.
+Yes. Cloud Agents can only reach repositories you authorize through your Git provider connection. You control which repositories are available, and admins can lock scopes with Protected Git Scopes.
 Can a Cloud Agent read secrets and credentials?
 Configure secrets through the Secrets tab in your dashboard. They're encrypted at rest with KMS, encrypted in transit, and injected as environment variables at runtime. Mark sensitive values as Runtime Secrets to keep them out of the transcript, tool output, and commits. As a matter of practice, keep secrets out of the repository; if sensitive files must live there, add them to `.cursorignore`. For cloud roles, mint OIDC tokens from the VM instead of storing long-lived access keys.
 Can we audit Cloud Agent activity?
@@ -209,6 +218,7 @@ Welcome
 Quickstart
 Models & Pricing
 Changelog
+Release Notes
 ## Agent
 Overview
 Agents Window
@@ -246,6 +256,7 @@ Automations
 Bugbot
 Security Agents
 PR Routing & Approval
+Rollouts
 Mobile
 Security
 Overview
@@ -259,14 +270,14 @@ API
 Overview
 CLI
 Create a repository
+Mirror GitHub
 Clone, Push & Pull
 CloneKit in CI
-Mirror GitHub
 Pull requests
 Browse & Search
+Agents and Automations
+Apps
 Settings
-Codebase settings
-Integrations
 ## Integrations
 Slack
 Microsoft Teams
@@ -285,6 +296,13 @@ TypeScript
 Python
 Bridge
 Changelog
+## BDK
+Getting started
+Integrations
+Extensions
+Guides
+Templates
+Reference
 ## CLI
 Overview
 Installation
