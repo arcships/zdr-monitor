@@ -1,35 +1,38 @@
 <!-- https://dev.meta.ai/legal/geographic-use-policy -->
 Meta
-Contact us
+StatusContact us
 Menu
-Contact us
+StatusContact us
 Close popover
 Back to Legal
 # Meta Model API Model Designation and Geographic Use Policy
-Last updated: September 18, 2026
-This Meta Model API Model Designation and Geographic Use Policy (“**Policy**”) describes where you may use the Services and where you may deploy your Integrated Products. This Policy is part of, and subject to the Meta Model API Terms of Service (“**Terms**”). Capitalized terms not defined here have the meanings given in the Terms.
+Last updated: October 12, 2026
+This Meta Model API Model Designation and Geographic Use Policy (**“Policy”**) describes where you may use the Services and where you may deploy your Integrated Products. This Policy is part of, and subject to the Meta Model API Terms of Service (**“Terms”**). Capitalized terms not defined here have the meanings given in the Terms.
 **1. Model Designations.**
-As used in the Terms and all policies incorporated therein, the following Meta Models are designated as Standard Models or Discounted Models:
-Standard Models (use constitutes “Standard Services”):
+As used in the Terms and all policies incorporated therein, the following Meta Models are designated as Standard Models or Contributor Models:
+Standard Models (use constitutes use of "Standard Services"):
 * Muse Image
 * Muse Spark 1.1
 * Muse Spark 1.2
 * Muse Spark 1.3
 * Muse Voice Transcribe
-* Segment Anything Model 3.1 (SAM 3.1)
-Discounted Models (use constitutes “Discounted Services”):
+* SAM 3.1
+* Muse Wonder
+* Muse Wonder Full
+Contributor Models (use constitutes use of “Contributor Services"):
 * Muse Spark 1.2 Contributor
 * Muse Spark 1.3 Contributor
+If you access the Services through a Coding Harness Subscription, you are considered to be using the Contributor Services by default regardless of which Meta Model you select. If you want to access the Standard Services through a Coding Harness Subscription, you must change the applicable setting in your Account.
 Meta may update these designations, and add or remove models, at any time by updating this Policy.
 **2. Availability.**
 2.1 General Availability. The Services are not available in all jurisdictions. Meta controls where the Services are available through technical and other means, and may enable or restrict access in any jurisdiction at any time in its sole discretion.
 You may access the Services only in jurisdictions where Meta has enabled access. You may not use technical measures to circumvent, bypass, or otherwise evade geographic access controls.
 Meta may publish informational resources indicating current availability. Any such resource is provided for convenience only, is not part of this Policy or the Terms, does not guarantee continued access in any jurisdiction, and may not reflect real-time availability.
-2.2 Model-Specific Availability. Certain Meta Models are not available in all jurisdictions where the Services are otherwise available. For each Meta Model listed below, you may not access that Meta Model from, and you may not make Integrated Products that use that Meta Model available to or knowingly permit access by End Users located in, the jurisdictions identified below:
+2.2 Model-Specific Availability. Certain Meta Models are not available in all jurisdictions where the Services are otherwise available. For each Meta Model listed below, you may not access that Meta Model from, and you may not make the Meta Model or Integrated Products that use that Meta Model available to or permit access by End Users located in, the jurisdictions identified below:
 * Muse Image: India
 Meta may update these restrictions, and add or remove models or jurisdictions, at any time by updating this Policy.
 **3. Restricted Territories.**
-You may not access the Services from, and you may not make Integrated Products available to or knowingly permit access by End Users located in, any of the following territories (“**Restricted Territories**”):
+You may not access the Services from, and you may not make Integrated Products available to or knowingly permit access by End Users located in, any of the following territories (**"Restricted Territories"**):
 * Afghanistan
 * Belarus
 * Cambodia
@@ -70,4 +73,3 @@ Terms of ServiceAcceptable Use Policy
 ## Please confirm your identity
 For added security, you need to confirm your identity. You will be taken to your single sign-on provider, where you can enter your password.
 Cancel Continue
-Legal
