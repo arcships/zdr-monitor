@@ -33,7 +33,7 @@ Pricing and fees
 What are the fees for using OpenRouter?
 OpenRouter charges a fee when you purchase credits. We pass through the pricing of the underlying model providers without any markup, so you pay the same rate as you would directly with the provider.Crypto payments are charged a fee of .
 Is there a fee for using my own provider keys (BYOK)?
-Yes. BYOK has a plan-dependent free allowance measured by list-price inference cost, not request count. Pay-as-you-go includes per month with no BYOK fee, while Enterprise includes . Usage above the allowance has a fee of % of what the same model and provider would normally cost on OpenRouter. This fee is deducted from your OpenRouter credits. This allows you to manage your rate limits and costs directly with the provider while still using OpenRouter’s unified interface. See the pricing page for details.Learn more about BYOK.
+Yes. BYOK has a plan-dependent free allowance measured by list-price inference cost, not request count. Pay-as-you-go includes $25,000 per month with no BYOK fee, while Enterprise allowances are custom. Usage above the allowance has a fee of 5% of what the same model and provider would normally cost on OpenRouter. This fee is deducted from your OpenRouter credits. This allows you to manage your rate limits and costs directly with the provider while still using OpenRouter’s unified interface. See the pricing page for details.Learn more about BYOK.
 Models and providers
 What LLM models does OpenRouter support?
 OpenRouter provides access to a wide variety of LLM models, including frontier models from major AI labs. For a complete list of models you can visit the models browser or fetch the list through the models api.
@@ -79,6 +79,8 @@ What data is logged during Chatroom use?
 The same data privacy applies to the chatroom as the API. All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices. It is possible to export and import conversations using the settings menu in the chatroom.
 What third-party sharing occurs?
 OpenRouter is a proxy that sends your requests to the model provider for it to be completed. We work with all providers to, when possible, ensure that prompts and completions are not logged or used for training. Providers that do log, or where we have been unable to confirm their policy, will not be routed to unless the model training toggle is switched on in the privacy settings tab.If you specify provider routing in your request, but none of the providers match the level of privacy specified in your account settings, you will get an error and your request will not complete.Learn more about provider logging policies.
+Does OpenRouter support EU data residency?
+Yes, for prompts and completions. Requests to `eu.openrouter.ai` are decrypted in the EU and routed only to shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland). BYOK requests go to your own deployment’s region. Account and billing data may be stored or processed in the US. DPA Exhibit A covers API payloads when elected in writing.Business is self-serve, with no contract, and the DPA includes SCCs. See EU in-region routing on Business for the live EU model list and the full data boundary.
 Credit and billing systems
 What purchase options exist?
 OpenRouter uses a credit system where the base currency is US dollars. All of the pricing on our site and API is denoted in dollars. Users can top up their balance manually or set up auto top up so that the balance is replenished when it gets below the set threshold.
@@ -109,5 +111,7 @@ How can I contact support?
 For account and billing questions, please contact us at support@openrouter.ai.
 How can I file a bug report or change request for OpenRouter?
 You can file bug reports or change requests by posting in our Discord.
+Was this page helpful?
+YesNo
 Assistant
 Responses are generated using AI and may contain mistakes.
