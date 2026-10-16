@@ -27,7 +27,7 @@ note = "Inference 区域可用性表(Dedicated Inference / BYOM / Agent Platform
 url = "https://docs.digitalocean.com/products/inference/details/data-privacy/"
 channel = "developer_data"
 tier = "core"
-note = "DigitalOcean Inference(原 Gradient AI Platform)AI 数据隐私页,正文标注 Last verified 1 Sep 2026;覆盖 Serverless/Dedicated Inference、Batch Inferencing、Model Synthesis Tool、Files API 与 Agent 场景。API 档(含 DO 托管模型与第三方模型透传)的训练/保留/零保留权威来源。"
+note = "DigitalOcean Inference(原 Gradient AI Platform)AI 数据隐私页,正文标注 Last verified 12 Oct 2026;覆盖 Serverless/Dedicated Inference、Batch Inferencing、Model Synthesis Tool、Files API、DigitalOcean Signals(Public Preview)与 Agent 场景。API 档(含 DO 托管模型与第三方模型透传)的训练/保留/零保留权威来源。"
 
 [[source]]
 url = "https://docs.digitalocean.com/products/inference/how-to/create-manage-agent-knowledge-bases/index.html.md"
@@ -100,14 +100,29 @@ text = "Contract-layer no-training commitment scoped to cache content: Service T
 text_zh = "合同层针对缓存内容的不训练承诺:Service Terms §9.1(Prompt Caching)写明缓存条目「derived from your Services Content and are treated as your Services Content under the TOS」,且「We process cache entries solely to provide the Services to you and do not use them to train, fine-tune, or improve any DigitalOcean model」。这是第二条窄口径合同条款,范围仅限 prompt-cache 条目,仍不覆盖全部推理内容;mark=yes 仍以上面 DO 托管模型的承诺为依据。"
 anchor = "do-st-prompt-cache-no-training"
 
+[[product.training.point]]
+text = "DigitalOcean Signals (Public Preview), which covers Serverless Inference, carries the broadest no-training statement on the page: \"DigitalOcean does not use your Trace content, Signals, inference inputs and outputs, agent inputs, or agent outputs to train, fine-tune, or improve any generalized artificial-intelligence or machine-learning model, including any foundation model offered to other customers. We process that data only to provide Signals to you or as required by law.\" Its object list names inference inputs and outputs explicitly and is not limited to DigitalOcean-hosted models, so it adds evidence behind mark=yes; the verdict itself stays anchored to the DigitalOcean-hosted-model commitment above."
+text_zh = "DigitalOcean Signals(Public Preview,覆盖 Serverless Inference)带有本页口径最宽的反训练表述:「DigitalOcean does not use your Trace content, Signals, inference inputs and outputs, agent inputs, or agent outputs to train, fine-tune, or improve any generalized artificial-intelligence or machine-learning model, including any foundation model offered to other customers. We process that data only to provide Signals to you or as required by law.」其对象列表明确点名 inference inputs and outputs,且不限于 DO 托管模型,为 mark=yes 增加依据;结论本身仍锚在上面的 DO 托管模型承诺。"
+anchor = "do-signals-no-training"
+
+[[product.training.point]]
+text = "The Signals section keeps a service-improvement opening, but only for aggregated usage data: \"We may use anonymized, aggregated Usage Data to improve the Service.\" The object is anonymized, aggregated Usage Data (the same carve-out shape as TOS §4.3), not Trace content or inference inputs and outputs, and the Signals section's own no-training commitment above bars training on that content, so it does not overturn mark=yes — recorded as stated"
+text_zh = "Signals 段保留了服务改进口子,但仅限聚合用量数据:「We may use anonymized, aggregated Usage Data to improve the Service.」对象是匿名聚合的 Usage Data(与 TOS §4.3 同一种排除形态),不是 Trace 内容或推理输入输出,且该段自身的反训练承诺(见上一条)已排除对这些内容做训练,故不推翻 mark=yes —— 如实记录"
+anchor = "do-signals-usage-data-improve"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
 anchor = "do-infra-no-store-inputs-outputs"
 
 [[product.zdr.point]]
-text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural: \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch, Files and Claude Fable exceptions (the cache exception is not uniformly bounded: for DigitalOcean-hosted models the cache is automatic and its entries have no configured expiry time). It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
-text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的「We do not store inputs or outputs on DigitalOcean infrastructure for any models.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files/Claude Fable 例外(缓存例外并非统一有界:DO 托管模型的自动缓存无配置的到期时间)。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+text = "DigitalOcean has no ZDR program, application path or contractual commitment. The source text uses the term ZDR only in an exclusion context (the Files API \"does not qualify for Zero Data Retention (ZDR) frameworks\"). What is verifiable is architectural, and as of the 12 Oct 2026 revision expressly conditional: \"We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it.\" plus, for third-party models, \"We do not store agent input or output when using third-party model providers.\", overlaid with the cache, Batch, Files, Claude Fable and Signals exceptions (the cache exception is not uniformly bounded: for DigitalOcean-hosted models the cache is automatic and its entries have no configured expiry time; the Signals exception applies only after the customer enables that feature). It is therefore recorded as \"inputs and outputs are not stored on the DigitalOcean side by default\", which is not a ZDR service that can be applied for"
+text_zh = "DO 没有 ZDR 计划/申请入口/合同承诺。原文只在排除语境使用 ZDR 术语(Files API「does not qualify for Zero Data Retention (ZDR) frameworks」)。可核实的表述是架构性的,且自 12 Oct 2026 版起明文带条件:「We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it.」+ 第三方模型「We do not store agent input or output when using third-party model providers.」,再叠加缓存/Batch/Files/Claude Fable/Signals 例外(缓存例外并非统一有界:DO 托管模型的自动缓存无配置的到期时间;Signals 例外仅在客户启用该功能后适用)。因此记为「DO 侧默认不存输入输出」,不等于可申请的 ZDR 服务"
+
+[[product.zdr.point]]
+text = "Exception — DigitalOcean Signals (Public Preview): once you enable it, \"we process the Trace content generated, including the text of End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, and reasoning or intermediate steps\", and that content is stored (see this product's processing_region point: a DigitalOcean United States data center region). The feature is opt-in and customer-controlled (the enable/disable text is anchored in the Agent Platform tier's zdr points), but for the data it captures the \"nothing stored on the DigitalOcean side\" position does not hold, and DigitalOcean states no ZDR arrangement for it — the page's only express ZDR exclusion remains the Files API"
+text_zh = "例外——DigitalOcean Signals(Public Preview):一旦启用,「we process the Trace content generated, including the text of End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, and reasoning or intermediate steps」,且这些内容会被存储(见本档 processing_region 条目:DO 美国数据中心区域)。该功能是客户自选、可关闭(开关原文见 Agent 平台档的 zdr 条目),但就其采集的数据而言「DO 侧不存」不成立;DO 也未就它声明任何 ZDR 安排 —— 页面上明文的 ZDR 排除仍只有 Files API"
+anchor = "do-signals-consent-and-capture"
 
 [[product.zdr.point]]
 text = "Exception — Claude Fable 5.1 and Claude Fable 5: \"access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews\", and DigitalOcean routes such traffic upstream to a compliant workspace automatically. It is a model-level precondition of access that the customer cannot switch off, carried by the upstream compliant workspace, so the \"nothing stored on the DigitalOcean side by default\" position does not hold for these models"
@@ -149,8 +164,13 @@ text = "The tier-level \"30 days\" is composite, not one uniform rule: it is the
 text_zh = "档位级的「30 天」是拼出来的,不是单一规则:Batch 输出/错误文件窗口(批次完成起算 29-30 天)、Claude Fable 5/5.1 附带的强制 30 天、账户停用后删除 Personal Data 的 30 天上限(DPA §7.6)。默认口径仍是 DO 自有基础设施不存输入输出,故「30 天」不得读成「所有内容都留 30 天」"
 
 [[product.retention.point]]
-text = "Object × period: (1) default — \"We do not store inputs or outputs on DigitalOcean infrastructure for any models.\" (an architectural statement)"
-text_zh = "对象×期限:①默认——DO 自有基础设施不存输入输出(架构性表述)"
+text = "Object × period: (1) default — \"We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it.\" (an architectural statement that now carries an express opt-in exception)"
+text_zh = "对象×期限:①默认——「We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it.」(架构性表述,现带一个明文的自选例外)"
+
+[[product.retention.point]]
+text = "(1b) Signals — when you enable DigitalOcean Signals, the captured Trace content (\"the text of End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, and reasoning or intermediate steps\") is stored, and \"Traces collected for Signals are retained in accordance with DigitalOcean’s standard retention practices and the applicable documentation.\" Object: Signals Trace content. Context: only after you enable the opt-in Public Preview feature (disabling it stops further capture; deletion is on request through the Signals data deletion API). Period type: deferred to the vendor's standard practices, with no number given and no upper bound stated. It therefore sets no period for this tier and does not change days=30 / basis=fixed_period, which remain the composite described above for the paths that do not go through Signals"
+text_zh = "(1b) Signals——启用 DigitalOcean Signals 后,被采集的 Trace 内容(「the text of End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, and reasoning or intermediate steps」)会被存储,且「Traces collected for Signals are retained in accordance with DigitalOcean’s standard retention practices and the applicable documentation.」。对象:Signals 的 Trace 内容。语境:仅在自选启用该 Public Preview 功能之后(关闭即停止继续采集;删除需通过 Signals data deletion API 申请)。期限类型:交给厂商的标准做法,原文未给数字、也未设上限。故不为本档设定期限,也不改变 days=30 / basis=fixed_period —— 后者仍是上面描述的那组拼出值,适用于不经 Signals 的路径。"
+anchor = "do-signals-retention"
 
 [[product.retention.point]]
 text = "(2) prefix / KV cache — for OpenAI models prompt_cache_retention is in_memory or 24h, for Anthropic models ttl is 5m (default) or 1h, and caches are always isolated per customer account. The cache object is the model's internal state for a matched prefix, not the prompt text: \"The cache stores the model's internal state, known as the key-value (KV) cache, for a matched prefix. It does not store your prompt text.\" The cache object is not uniformly bounded: under DigitalOcean-Hosted Models (Cache Retention and Eviction), \"Cached entries have no configured expiry time. They are evicted on a least-recently-used basis as capacity is needed\", and \"prompt_cache_retention is not supported for DigitalOcean-hosted models\", where caching is automatic and needs no cache_control or prompt_cache_retention; the only opt-out is X-Model-Affinity: none — \"You can’t opt out for older OpenAI models or DigitalOcean-hosted models.\""
@@ -224,6 +244,11 @@ text = "Prompt caching routing, §9.6: \"To provide Prompt Caching, we may route
 text_zh = "Prompt 缓存路由 §9.6:「To provide Prompt Caching, we may route requests to, and store or process cache entries on, infrastructure and storage tiers we select, consistent with Section 4.7 of the TOS」;与第三方 AI 模型同用时「caching and retention may also be subject to that provider's terms and data-retention settings, which we do not control」。与上面的 §4.7 和子处理者口径一致;未点名任何区域,也未新增处理地承诺"
 anchor = "do-st-prompt-cache-routing"
 
+[[product.processing_region.point]]
+text = "Signals (Public Preview) is the one place this page names a location for stored request content: \"Trace content and Signals are processed and stored in a DigitalOcean United States data center region. Signals does not offer regional data storage or data localization at this time.\" The object is Signals-collected Trace content only, so it does not turn codes=[selected] into a US-only statement for the tier; the Serverless Inference position recorded above (not in the regional availability table, specific processing location not disclosed) still stands for inference traffic that Signals does not capture"
+text_zh = "Signals(Public Preview)是本页唯一点名「已存储的请求内容在哪里」的地方:「Trace content and Signals are processed and stored in a DigitalOcean United States data center region. Signals does not offer regional data storage or data localization at this time.」对象仅限 Signals 采集的 Trace 内容,故不把 codes=[selected] 变成全档 US-only;上面记录的 Serverless Inference 口径(不在区域可用性表内、具体处理地未披露)对未被 Signals 采集的推理流量仍然成立"
+anchor = "do-signals-region-us"
+
 [product.role]
 kind = "processor"
 anchor = "do-dpa-schedule1-do-is-processor"
@@ -235,6 +260,11 @@ text_zh = "DPA §7.1:仅当 DO 以 Customer's Processor/Service Provider 身份�
 [[product.role.point]]
 text = "Schedule 1 lists the scenarios one by one: \"Customer stores end-user data on DigitalOcean Services. → DigitalOcean is a Processor. Customer is a Controller or processor to a controller.\" §7.2.1 processes Personal Data only in accordance with the customer's instructions. Note: DigitalOcean is itself a Controller for account, billing and telemetry data (the first three rows of Schedule 1), so the role cannot be recorded as processor across the board."
 text_zh = "Schedule 1 逐场景列明「Customer stores end-user data on DigitalOcean Services. → DigitalOcean is a Processor. Customer is a Controller or processor to a controller.」§7.2.1 仅按客户指示处理。注意:DO 对账户/账单/遥测数据自身是 Controller(Schedule 1 前三行),不能一律记成 processor。"
+
+[[product.role.point]]
+text = "Signals adds an express role statement for the agent/inference content path: \"For personal data contained in Trace content, you are the Controller and determine the purposes and means of processing your End Users’ data, and DigitalOcean is the Processor, processing Trace data to deliver Signals and on your instruction to enable the feature data.\" It is consistent with DPA Schedule 1 (kind=processor) and is scoped to personal data contained in Trace content the customer has consented to have captured"
+text_zh = "Signals 为 agent/推理内容路径补了一条明文的角色表述:「For personal data contained in Trace content, you are the Controller and determine the purposes and means of processing your End Users’ data, and DigitalOcean is the Processor, processing Trace data to deliver Signals and on your instruction to enable the feature data.」与 DPA Schedule 1 一致(kind=processor),范围限于客户同意被采集的 Trace 内容中的个人数据"
+anchor = "do-signals-controller-processor"
 
 [[product]]
 id = "agent-platform"
@@ -262,6 +292,11 @@ text_zh = "合同层边界(TOS §4.3),同 API 档:「We may use Usage Data and o
 anchor = "do-tos-usage-data-improve-services"
 
 [[product.training.point]]
+text = "The same Signals section applies to this tier's runtime (\"When you consent to Signals for Harness Runtime agent or for Serverless Inference, or use it with Simulations or Evaluations, ...\"), and its no-training commitment names agent content explicitly: \"DigitalOcean does not use your Trace content, Signals, inference inputs and outputs, agent inputs, or agent outputs to train, fine-tune, or improve any generalized artificial-intelligence or machine-learning model, including any foundation model offered to other customers.\" Note the scope: it covers Trace content, Signals and agent inputs/outputs, but not the knowledge base objects the point above says are still uncovered"
+text_zh = "同一 Signals 段适用于本档运行时(「When you consent to Signals for Harness Runtime agent or for Serverless Inference, or use it with Simulations or Evaluations, ...」),其反训练承诺明确点名 agent 内容:「DigitalOcean does not use your Trace content, Signals, inference inputs and outputs, agent inputs, or agent outputs to train, fine-tune, or improve any generalized artificial-intelligence or machine-learning model, including any foundation model offered to other customers.」注意范围:它覆盖 Trace 内容、Signals 与 agent 输入输出,但仍不覆盖上一条所述未被覆盖的知识库对象"
+anchor = "do-signals-no-training"
+
+[[product.training.point]]
 text = "Third-party model hop: \"Data sent to other third-party model providers is handled according to the applicable provider's policies.\" The no-training mark covers DigitalOcean-hosted models; on the third-party path the outcome is decided by the upstream provider and DigitalOcean commits to nothing itself"
 text_zh = "第三方模型跳:「Data sent to other third-party model providers is handled according to the applicable provider's policies.」不训练的 mark 只覆盖 DO 托管模型;走第三方模型时结果由上游 provider 的政策决定,DO 自己不作承诺"
 anchor = "do-third-party-upstream-policies"
@@ -270,8 +305,8 @@ anchor = "do-third-party-upstream-policies"
 mark = "unknown"
 
 [[product.zdr.point]]
-text = "DigitalOcean expressly excludes only the Files API from ZDR eligibility and takes no position on whether ZDR applies to the knowledge base or to agent session storage. The knowledge base is cross-request persistent storage (the same shape as the Files API), but the vendor makes no corresponding statement, so this is recorded with low confidence and marked undisclosed rather than concluded on the vendor's behalf."
-text_zh = "DO 只明确排除 Files API 的 ZDR 资格,对知识库/agent 会话存储是否适用 ZDR 未表态。知识库属跨请求持久化存储(与 Files API 同类形态),但厂商未作对应声明,故记低置信并标注未披露,不代替厂商下结论。"
+text = "DigitalOcean expressly excludes only the Files API from ZDR eligibility and takes no position on whether ZDR applies to the knowledge base or to agent session storage. The Signals section (Public Preview) added in the 12 Oct 2026 revision does disclose that, once enabled, agent Trace content (End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, intermediate steps) is processed and stored in a US data center region and retained under DigitalOcean's standard retention practices with deletion available through the Signals data deletion API — but it still says nothing about ZDR for that content, and the knowledge base remains unaddressed. The knowledge base is cross-request persistent storage (the same shape as the Files API), but the vendor makes no corresponding statement, so this is recorded with low confidence and marked undisclosed rather than concluded on the vendor's behalf."
+text_zh = "DO 只明确排除 Files API 的 ZDR 资格,对知识库/agent 会话存储是否适用 ZDR 未表态。12 Oct 2026 版新增的 Signals 段(Public Preview)确实披露:一旦启用,agent 的 Trace 内容(End User prompts and inputs、tool/database 调用与参数、retrieved content、model responses、intermediate steps)会在美国数据中心区域被处理与存储,并按 DO 的标准保留做法留存、可通过 Signals data deletion API 申请删除 —— 但对这些内容的 ZDR 仍未置一词,知识库也依旧未表态。知识库属跨请求持久化存储(与 Files API 同类形态),但厂商未作对应声明,故记低置信并标注未披露,不代替厂商下结论。"
 
 [[product.zdr.point]]
 text = "The clause previously bound here (\"We do not store agent input or output when using third-party model providers.\") covers only third-party-model-provider agent traffic, while this product's knowledge base is cross-request persistent storage that the vendor leaves unaddressed (and whose shape matches the Files API it does exclude from ZDR), so the clause is not a statement covering this tier and is no longer bound. The clause itself is still cited in this product's training points, whose verdict carries a different anchor."
@@ -284,6 +319,11 @@ text_zh = "多跳边界,本条不绑锚点,因为这些话没有回答本维度�
 [[product.zdr.point]]
 text = "Scope note on the shared inference path (the developer-data cache clauses are anchored in this file's api-tier points, and the contract text for Prompt Caching — Service Terms §9 — is bound to the training/retention points of the api and platform tiers, not here): the cache exception is not uniformly bounded — for DigitalOcean-hosted models the cache is automatic and its entries have \"no configured expiry time\", and it cannot be switched off, while at the contract layer §9.3 calls cache entries \"ephemeral\", defers their retention to the Documentation and guarantees no persistence, and §9.5 lets the customer disable Prompt Caching and request a flush. Recorded as scope information only; none of it says whether ZDR applies to the knowledge base or agent session storage, which is what this verdict leaves undisclosed"
 text_zh = "共用推理路径上的范围说明(开发者文档缓存条款的锚点在本文件的 api 档;Prompt Caching 的合同文本 Service Terms §9 绑在 api 与平台档的 training/retention 条目,不在本条):缓存例外并非统一有界 —— DO 托管模型自动缓存、缓存条目「no configured expiry time」且无法关闭,而合同层 §9.3 称缓存条目「ephemeral」、把期限交给 Documentation 且不保证存续,§9.5 允许客户关闭 Prompt Caching 并请求 flush。此处只作范围说明;这些都没有说明 ZDR 是否适用于知识库或 agent 会话存储 —— 那正是本判定留作未披露的问题"
+
+[[product.zdr.point]]
+text = "Signals controls, recorded as scope information: capture is customer-controlled — \"For Harness Runtime, you can enable or disable Signals through the DigitalOcean Control Panel, CLI, or API. For Serverless Inference, you can enable or disable Signals through the API. Disabling Signals stops further Trace capture for that agent or model.\" — and the page makes no statement that captured Signals data can be kept out of retention (no ZDR arrangement is mentioned for it; the page's express ZDR exclusion is the Files API only). It does not answer whether ZDR applies to Signals Trace content, which is part of what this verdict leaves undisclosed"
+text_zh = "Signals 的控制开关,记为范围信息:采集由客户控制 —— 「For Harness Runtime, you can enable or disable Signals through the DigitalOcean Control Panel, CLI, or API. For Serverless Inference, you can enable or disable Signals through the API. Disabling Signals stops further Trace capture for that agent or model.」—— 且页面未给出「已采集的 Signals 数据可免于保留」的表述(未提及任何 ZDR 安排;页面上明文的 ZDR 排除只有 Files API)。它没有回答 ZDR 是否适用于 Signals 的 Trace 内容 —— 那正是本判定留作未披露的问题之一"
+anchor = "do-signals-enable-disable"
 
 [product.retention]
 object = "mixed"
@@ -303,6 +343,11 @@ text = "Agent conversation context is read by the agent from browser storage (da
 text_zh = "agent 对话上下文由 agent 从浏览器存储读取(数据隐私页)。agent 运行日志与 traces 的保留期限未披露 —— 不反推。"
 
 [[product.retention.point]]
+text = "Signals exception — when the customer enables Signals, agent Trace content is stored, and \"Traces collected for Signals are retained in accordance with DigitalOcean’s standard retention practices and the applicable documentation.\" Object: Signals Trace content (agent inputs, tool calls, retrieved content, model responses, intermediate steps). Context: only after opting in to the Public Preview feature; deletion is on request through the Signals data deletion API. No bounded period is stated, so it sets no period for this tier and does not change basis=undisclosed"
+text_zh = "Signals 例外——客户启用 Signals 后 agent 的 Trace 内容会被存储,且「Traces collected for Signals are retained in accordance with DigitalOcean’s standard retention practices and the applicable documentation.」。对象:Signals 的 Trace 内容(agent 输入、tool 调用、retrieved content、model responses、intermediate steps)。语境:仅在自选启用该 Public Preview 功能之后;删除需通过 Signals data deletion API 申请。原文未给出有界期限,故不为本档设定期限,也不改变 basis=undisclosed"
+anchor = "do-signals-retention"
+
+[[product.retention.point]]
 text = "Prompt caching on the shared inference path (contract layer, Service Terms §9.3): \"Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.\", \"Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.\", and \"We do not guarantee that any cache entry will persist or be available for any period.\"; §9.5 lets the customer disable Prompt Caching and request that cache entries be flushed. The object is the prompt cache (not the knowledge base); the period is deferred to the Documentation and the contract layer refuses to bound or guarantee it, so it sets no period for this tier and does not change basis=undisclosed"
 text_zh = "共用推理路径上的 prompt 缓存(合同层 Service Terms §9.3):「Cache entries are ephemeral and subject to eviction and retention windows described in the Documentation, including any in-memory and persistent (tiered-storage) retention behavior, which we may change.」「Prompt Caching is not a storage or backup feature, and Section 4.6 of the TOS applies.」「We do not guarantee that any cache entry will persist or be available for any period.」;§9.5 允许客户关闭 Prompt Caching 并请求 flush。对象是 prompt 缓存(不是知识库);期限交给 Documentation,合同层拒绝设上限或作保证,故不为本档设定期限,也不改变 basis=undisclosed"
 anchor = "do-st-prompt-cache-ephemeral"
@@ -319,6 +364,11 @@ text_zh = "区域可用性表:Agent Platform 仅 TOR1(多伦多)、ATL1(亚特�
 text = "Dedicated Inference/BYOM additionally includes NYC2."
 text_zh = "Dedicated Inference/BYOM 另含 NYC2。"
 
+[[product.processing_region.point]]
+text = "Signals exception: \"Trace content and Signals are processed and stored in a DigitalOcean United States data center region. Signals does not offer regional data storage or data localization at this time.\" The object is Signals-collected Trace content only, so codes=[US, CA] — which comes from the Agent Platform regional availability table above — is not made US-only by this sentence"
+text_zh = "Signals 例外:「Trace content and Signals are processed and stored in a DigitalOcean United States data center region. Signals does not offer regional data storage or data localization at this time.」对象仅限 Signals 采集的 Trace 内容,故来自上面 Agent Platform 区域可用性表的 codes=[US, CA] 不因此变成 US-only"
+anchor = "do-signals-region-us"
+
 [product.role]
 kind = "processor"
 anchor = "do-dpa-schedule1-do-is-processor"
@@ -326,6 +376,11 @@ anchor = "do-dpa-schedule1-do-is-processor"
 [[product.role.point]]
 text = "Same as the API tier: when the customer stores end-user data, DigitalOcean is a Processor (DPA Schedule 1)."
 text_zh = "同 API 档:客户存 end-user 数据时 DO 为 Processor(DPA Schedule 1)。"
+
+[[product.role.point]]
+text = "Signals adds an express role statement covering this tier's trace content: \"For personal data contained in Trace content, you are the Controller and determine the purposes and means of processing your End Users’ data, and DigitalOcean is the Processor, processing Trace data to deliver Signals and on your instruction to enable the feature data.\" Consistent with DPA Schedule 1 (kind=processor); scoped to personal data in Trace content captured with the customer's consent"
+text_zh = "Signals 补了一条覆盖本档 trace 内容的角色表述:「For personal data contained in Trace content, you are the Controller and determine the purposes and means of processing your End Users’ data, and DigitalOcean is the Processor, processing Trace data to deliver Signals and on your instruction to enable the feature data.」与 DPA Schedule 1 一致(kind=processor);范围限于经客户同意采集的 Trace 内容中的个人数据"
+anchor = "do-signals-controller-processor"
 
 [[product]]
 id = "gpu-droplets"
@@ -420,12 +475,12 @@ topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
-d run inference using serverless or dedicated deployments.
+run inference using serverless or dedicated deployments.
 
 """
-exact = "We do not store inputs or outputs on DigitalOcean infrastructure for any models."
+exact = "We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it."
 suffix = """
-
+ For details, see DigitalOcean Signals.
 
 For more information about DigitalOcean’s security practic"""
 
@@ -652,6 +707,74 @@ topics = ["processing_region"]
 prefix = "n.com/products/inference/details/models/#foundation-models) "
 exact = "run entirely within DigitalOcean’s infrastructure"
 suffix = ". Input is stored in the local browser and sent to the model"
+
+[[anchor]]
+id = "do-signals-no-training"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "### We do not use your content to train generalized AI models"
+exact = "DigitalOcean does not use your Trace content, Signals, inference inputs and outputs, agent inputs, or agent outputs to train, fine-tune, or improve any generalized artificial-intelligence or machine-learning model, including any foundation model offered to other customers."
+suffix = " We process that data only to provide Signals to you or as required by law."
+
+[[anchor]]
+id = "do-signals-usage-data-improve"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "to operate, secure, troubleshoot, and improve the feature for you. "
+exact = "We may use anonymized, aggregated Usage Data to improve the Service."
+
+[[anchor]]
+id = "do-signals-consent-and-capture"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "or use it with Simulations or Evaluations, "
+exact = "we process the Trace content generated, including the text of End User prompts and inputs, tool and database calls and their parameters, retrieved content, model responses, and reasoning or intermediate steps"
+suffix = "; the Session groupings and metadata associated with those Traces"
+
+[[anchor]]
+id = "do-signals-enable-disable"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "For Harness Runtime, you can enable or disable Signals through the DigitalOcean Control Panel, CLI, or API. For Serverless Inference, you can enable or disable Signals through the API. Disabling Signals stops further Trace capture for that agent or model."
+
+[[anchor]]
+id = "do-signals-retention"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "You may request deletion of collected data through the Signals data deletion API. "
+exact = "Traces collected for Signals are retained in accordance with DigitalOcean’s standard retention practices and the applicable documentation."
+suffix = " You may request deletion of collected data through the Signals data deletion API. For how the models"
+
+[[anchor]]
+id = "do-signals-region-us"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Trace content and Signals are processed and stored in a DigitalOcean United States data center region."
+
+[[anchor]]
+id = "do-signals-controller-processor"
+source_id = "6cb3fb5ca8f584f8"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "For personal data contained in Trace content, "
+exact = "you are the Controller and determine the purposes and means of processing your End Users’ data, and DigitalOcean is the Processor, processing Trace data to deliver Signals and on your instruction to enable the feature data"
+suffix = """
+
+
+### Data residency and regions"""
 
 [[anchor]]
 id = "do-eval-no-training-commitment"
