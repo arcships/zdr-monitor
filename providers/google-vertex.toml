@@ -16,7 +16,7 @@ note = "Google Cloud Data Processing Addendum（合同层）。§4.1 角色：Go
 url = "https://cloud.google.com/terms/service-terms"
 channel = "contract"
 tier = "core"
-note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-09-21）。§18 Training Restriction、§16 AI/ML Data Location、§20.h Handling of Prompts and Generated Output。Google 文档说明 partner model 请求仍发往 Agent Platform 端点、Claude 属 Agent Platform 上的托管模型，故 Google 与客户的这份合同覆盖 Vertex 上的 Claude 常规流量。"
+note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-10-13，页面 Last modified 2026-10-12）。§18 Training Restriction、§16 AI/ML Data Location、§20.h Handling of Prompts and Generated Output、§34 Google Frontier Models（2026-10-12 版新增：使用被指定为 Frontier 模型时，客户被视为指示 Google 在客户账户内最多保存 30 天；§31(b) 把 Agent Platform API 上的 Google Frontier Cyber Models 纳入 §34）。Google 文档说明 partner model 请求仍发往 Agent Platform 端点、Claude 属 Agent Platform 上的托管模型，故 Google 与客户的这份合同覆盖 Vertex 上的 Claude 常规流量。"
 
 [[source]]
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention"
@@ -42,8 +42,8 @@ mode = "by_contract"
 anchor = "training-restriction-s18"
 
 [[product.training.point]]
-text = """Not a training permission. The in-memory caching paragraph says cached data "is used only for improving service performance"; under this ledger's rule that "service improvement" wording counts as training, that sentence is examined here and does not overturn mark = yes. The contract layer (Service Specific Terms §18) expressly bars Google from using Customer Data to train or fine-tune AI/ML models, and the sentence describes a latency-reduction performance cache — in-memory only, not at-rest, 24-hour TTL — so it ranks below the contract."""
-text_zh = """不构成训练授权。内存缓存段写缓存数据「is used only for improving service performance」；按本台账「用来改进服务算训练」的口径，这句须在训练维度被审视，但它不推翻 mark = yes：合同层（Service Specific Terms §18）已明确禁止用 Customer Data 训练或微调 AI/ML 模型，而该句描述的是降低延迟的性能缓存（仅内存、不落盘、24 小时 TTL），权威性低于合同。"""
+text = """Not a training permission. The caching section is examined here because it is the only passage in that section that touches model training, and since the page's 2026-10-13 revision it states an exclusion rather than a permission: in-memory cached data "is used only to serve your requests faster, and is never used to train or fine-tune models". The page's own "Training restriction" section restates the same bar, and the mark itself rests on the contract layer (Service Specific Terms §18), which expressly bars Google from using Customer Data to train or fine-tune AI/ML models without the customer's prior permission or instruction."""
+text_zh = """不构成训练授权。缓存一节之所以在训练维度被审视，是因为它是该节里唯一触及模型训练的表述；该页 2026-10-13 版起这句话是排除而非授权：内存缓存数据「is used only to serve your requests faster, and is never used to train or fine-tune models」。该页自身的「Training restriction」一节重述了同一条底线；mark 本身仍以合同层为准——Service Specific Terms §18 明确禁止未经客户事先许可或指示用 Customer Data 训练或微调 AI/ML 模型。"""
 anchor = "retention-in-memory-cache-24h"
 
 [product.zdr]
@@ -76,6 +76,16 @@ text = """Not every agent surface can reach ZDR: Deep Research agent session dat
 text_zh = """并非每个 agent 场景都能达成 ZDR：Deep Research agent 的会话数据固定保留 7 天，且原文「This feature cannot be disabled when using the Deep Research agent.」使用 Deep Research agent 即意味着接受该会话留存，因此本页所列的 ZDR 路径不含该场景（见对应的 retention 依据条目）。"""
 anchor = "zdr-deep-research-cannot-be-disabled"
 
+[[product.zdr.point]]
+text = """Not an opt-out on the new Frontier Models surface: §34.2 makes the storage it imposes override customer instructions — “This Instruction is in addition to, and prevails to the extent of any conflict with, any other permission or Instruction made or given by Customer under the Agreement, including if applicable under “Generative AI Safety and Abuse for GCP Services” (Section 4.3 of the Google Cloud Terms of Service).” A customer cannot switch this thirty-day prompt and Generated Output storage off by instructing otherwise while using a Google Frontier Model; the storage sits inside Customer's Account, which the Section 20.h default does not cover (it speaks to storage outside Customer's Account). The clause itself does not address zero data retention; the ZDR actions listed for this tier are on the customer data retention page and the abuse-monitoring page (both sources of this provider)."""
+text_zh = """新的 Frontier Models 场景不是可选项：§34.2 让它施加的存储指示压过客户的指示——原文「This Instruction is in addition to, and prevails to the extent of any conflict with, any other permission or Instruction made or given by Customer under the Agreement, including if applicable under “Generative AI Safety and Abuse for GCP Services” (Section 4.3 of the Google Cloud Terms of Service).」客户在使用 Google Frontier Model 时无法用相反的指示关掉这项 30 天的 prompt 与 Generated Output 存储；该存储位于客户账户内，不在 §20.h 默认口径的覆盖范围内（§20.h 讲的是客户账户之外的存储）。该条款本身不涉及零数据保留；本档所列的 ZDR 动作写在客户数据保留页与滥用监控页上（均为本 provider 的来源）。"""
+anchor = "zdr-frontier-models-instruction-prevails"
+
+[[product.zdr.point]]
+text = """Caching surface (developer doc, page's 2026-10-13 revision): the page no longer states that caching "does not violate zero data retention", and implicit caching is now two-tier with durable caching "Enabled by default for supported Gemini models" and stored at rest. Reaching ZDR on this surface therefore takes an extra action on top of the areas listed above — "you can disable durable caching on a per-project basis and maintain in-memory caching. Alternatively, you can disable caching entirely." — and the page directs customers whose policy does not permit Customer Data at rest to do exactly that."""
+text_zh = """缓存场景（开发者文档，该页 2026-10-13 版）：该页不再写缓存「does not violate zero data retention」，且隐式缓存现为两层，durable caching「Enabled by default for supported Gemini models」并静态存储。因此该场景的 ZDR 比上面所列领域多需要一步动作——原文「you can disable durable caching on a per-project basis and maintain in-memory caching. Alternatively, you can disable caching entirely.」——该页也正是要求不接受静态存储 Customer Data 的客户这么做。"""
+anchor = "zdr-durable-cache-disable-action"
+
 [product.retention]
 object = "input_output"
 basis = "as_needed"
@@ -85,6 +95,16 @@ anchor = "retention-handling-prompts-s20h"
 text = """Default (contract layer, highest authority): object = prompts and Generated Output; context = default, outside Customer's Account; period type = as needed — "Absent Customer's prior permission or instruction, Google will not store outside Customer's Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output." The "Absent Customer's prior permission or instruction" clause makes it a default, not an absolute: traffic governed by the Google Cloud Platform Terms of Service is still logged for abuse monitoring (see the 90-day point below), and the Service Specific Terms repeat the same logging permission for Partners and Non-TOS Customers."""
 text_zh = """默认口径（合同层，权威最高）：对象=prompt 与 Generated Output；语境=默认、客户账户之外；期限类型=按需——原文「Absent Customer's prior permission or instruction, Google will not store outside Customer's Account (i) Customer Data prompted to a Generative AI Service for longer than is reasonably necessary to create the Generated Output, or (ii) the Generated Output.」前置条件「Absent Customer's prior permission or instruction」说明它是默认而非绝对：受 GCP ToS 约束的流量仍会被滥用监控记录（见下面 90 天一条），SST 对 Partner 与 Non-TOS 客户也重述了同一项记录授权。"""
 anchor = "retention-handling-prompts-s20h"
+
+[[product.retention.point]]
+text = """Scope of that default (contract layer): the 2026-10-12 revision widened it to agent traffic — “For the purposes of subsections (b) through (h) below, “Generative AI Services” includes Agentic AI Services.” Subsection (h) sits inside that range, so prompts and Generated Output going to Agentic AI Services now fall under the same no-storage-beyond-the-output default; the Grounding subsections (k) Grounding with Google Search and (m) Grounding with Google Maps sit outside (b) through (h) and are unaffected."""
+text_zh = """该默认口径的范围（合同层）：2026-10-12 版把它扩展到 agent 流量——原文「For the purposes of subsections (b) through (h) below, “Generative AI Services” includes Agentic AI Services.」(h) 正在该区间内，因此发往 Agentic AI Services 的 prompt 与 Generated Output 现在也受同一条「不超出生成所需时长存储」的默认约束；Grounding 的两小节 (k) Grounding with Google Search 与 (m) Grounding with Google Maps 在 (b)–(h) 之外，不受影响。"""
+anchor = "retention-s20-agentic-ai-scope"
+
+[[product.retention.point]]
+text = """Google Frontier Models (contract layer, new in the 2026-10-12 revision): object = certain Customer Data such as prompts and Generated Output; context = using a model or feature designated a “Google Frontier Model”, and it is a condition of that use rather than an option — the customer is deemed to instruct the storage; period type = upper bound of thirty (30) days, then deletion — “When using a Google Frontier Model in a Service, Customer instructs Google to: (a) store for up to thirty (30) days in Customer’s Account certain Customer Data, such as prompts and Generated Output, in order to use automated tools to review that Customer Data solely for the Purpose, and then (b) delete that Customer Data.” The storage is inside Customer's Account, so Section 20.h (which speaks to storage outside Customer's Account) does not address it; the Purpose is limited to “ensuring safe use of the Google Frontier Models and compliance with the Agreement”, so the storage is authorized for safety review, not for model training. §31(b) (Google Frontier Cyber Models) brings the Gemini Enterprise Agent Platform API under §34, so the api tier is in scope."""
+text_zh = """Google Frontier Models（合同层，2026-10-12 版新增）：对象=prompts 与 Generated Output 等某些 Customer Data；语境=使用被指定为「Google Frontier Model」的模型或特性，且这是使用它的条件而非可选项——客户被视为已作出该存储指示；期限类型=上限 30 天、随后删除——原文「When using a Google Frontier Model in a Service, Customer instructs Google to: (a) store for up to thirty (30) days in Customer’s Account certain Customer Data, such as prompts and Generated Output, in order to use automated tools to review that Customer Data solely for the Purpose, and then (b) delete that Customer Data.」该存储位于客户账户内，故 §20.h（讲客户账户之外的存储）不覆盖它；Purpose 仅限于「ensuring safe use of the Google Frontier Models and compliance with the Agreement」，故该存储被授权的用途是安全审查，不是模型训练。§31(b)（Google Frontier Cyber Models）把 Gemini Enterprise Agent Platform API 纳入 §34，api 档在适用范围内。"""
+anchor = "retention-frontier-models-30d"
 
 [[product.retention.point]]
 text = """Deletion on customer instruction (contract layer): object = Customer Data content; context = during the Term, after the customer deletes data that cannot be recovered by the customer; period type = upper bound — "Google will comply with this Instruction as soon as reasonably practicable and within a maximum period of 180 days", with the proviso "unless European Law requires storage" (or applicable law requires storage, under any other Applicable Privacy Law). The 180 days is the compliance ceiling for completing deletion, not a statement that content is kept for 180 days."""
@@ -107,9 +127,14 @@ text_zh = """Advanced AI 模型（开发者文档）：对象=prompt 与 respons
 anchor = "retention-advai-30d"
 
 [[product.retention.point]]
-text = """In-memory data caching (developer doc): object = Customer Data (inputs, outputs, and derived data); context = on by default for Google's published Gemini models; period type = 24-hour TTL, and "This data is stored only in-memory (not at-rest), is isolated at the project level". The feature can be disabled at the project level and "does not violate zero data retention"."""
-text_zh = """内存缓存（开发者文档）：对象=Customer Data（输入、输出与派生数据）；语境=Google 已发布 Gemini 模型的默认行为；期限类型=24 小时 TTL，且「This data is stored only in-memory (not at-rest), is isolated at the project level」。该特性可按项目关闭，且「does not violate zero data retention」。"""
+text = """In-memory data caching (developer doc): object = Customer Data (inputs, outputs, and derived data); context = implicit caching is on by default for Google's published Gemini models, and this point covers its in-memory tier (the page's 2026-10-13 revision makes implicit caching two-tier; the at-rest tier is the next point); period type = upper bound of 24 hours — that tier "is stored only in memory, not at rest", is scoped to the project, and "is deleted no later than 24 hours after it's written". The same revision dropped the older sentences that in-memory caching "does not violate zero data retention" and that cached data "is used only for improving service performance"; all caching can still be turned off at the project level."""
+text_zh = """内存缓存（开发者文档）：对象=Customer Data（输入、输出与派生数据）；语境=Google 已发布 Gemini 模型的隐式缓存默认开启，本条只覆盖其中的内存层（2026-10-13 版把隐式缓存改成两层，落盘层见下一条）；期限类型=上限 24 小时——该层「is stored only in memory, not at rest」、按项目隔离，且「is deleted no later than 24 hours after it's written」。同一次改版删去了原先「does not violate zero data retention」与缓存数据「is used only for improving service performance」两句；全部缓存仍可按项目整体关闭。"""
 anchor = "retention-in-memory-cache-24h"
+
+[[product.retention.point]]
+text = """Durable data caching (developer doc, added in the page's 2026-10-13 revision): object = derived cache data (key-value representations computed from the customer's inputs) — Customer Data under this page — stored at rest; context = default, not opt-in — implicit caching uses two tiers and durable caching is "Enabled by default for supported Gemini models", engaged when in-memory cache capacity is exhausted; period type = upper bound of 24 hours ("deleted no later than 24 hours after it's written, and is often evicted sooner"). It stays within the selected location only with a regional or multi-regional endpoint; with the global endpoint "requests and their cached data can be served from any region". CMEK is not supported for durable caching, and it can be turned off per project, or organisation-wide via the account team, while keeping in-memory caching."""
+text_zh = """落盘缓存（开发者文档，2026-10-13 版新增）：对象=派生缓存数据（由客户输入算出的 key-value 表示），按该页口径属 Customer Data，静态存储；语境=默认而非可选——隐式缓存分两层，durable caching「Enabled by default for supported Gemini models」，在内存缓存容量用尽时启用；期限类型=上限 24 小时（「deleted no later than 24 hours after it's written, and is often evicted sooner」）。只有用 regional/multi-regional 端点时才留在所选地域；用 global 端点时「requests and their cached data can be served from any region」。durable caching 不支持 CMEK，可按项目关闭，或通过客户团队在组织级关闭，同时保留内存缓存。"""
+anchor = "retention-durable-cache-24h"
 
 [[product.retention.point]]
 text = """Request-response logging (developer doc): "This feature is disabled by default. It can be enabled using a configuration setting on a per-model, per-project basis." Once enabled it writes certain requests and responses to a designated BigQuery table, so it is an opt-in retention path."""
@@ -154,6 +179,11 @@ anchor = "processing-region-data-location-s1b"
 text = """Default when no region is selected, or when the service is not on the data-residency list (DPA §10.1, contract layer): "Customer Data may be processed in any country where Google or its Subprocessors maintain facilities", subject to Google's data location commitments under the Service Specific Terms and the data transfer commitments under Appendix 3. codes = ["selected"] therefore holds only where the service is listed at the data-residency page (Service Specific Terms §1.b) and the customer actually configures a Region or Multi-Region (or the AI/ML Multi-Region under §16); otherwise this default applies."""
 text_zh = """未选地域、或所用服务不在 data-residency 列表内时的默认口径（DPA §10.1，合同层）：原文「Customer Data may be processed in any country where Google or its Subprocessors maintain facilities」，并受 Service Specific Terms 的数据位置承诺与附录 3 的数据传输承诺约束。因此 codes = ["selected"] 只在服务列入 data-residency 页（SST §1.b）、且客户实际配置了 Region/Multi-Region（AI/ML 场景见 §16）时成立；否则回落本句的默认。"""
 anchor = "processing-region-cdpa-10-1"
+
+[[product.processing_region.point]]
+text = """Caching surface (developer doc, page's 2026-10-13 revision): the caching section's older sentence that cached data "adheres to all Data Residency requirements for the selected location" is gone, replaced by per-tier wording — in-memory cached data "is processed in the region that serves the request", and durable cached data "stays within the selected location and adheres to its Data Residency requirements when you use a regional or multi-regional endpoint. When you use the global endpoint, requests and their cached data can be served from any region." On this surface the selected-location commitment therefore holds only with a regional or multi-regional endpoint; codes = ["selected"] should not be read as covering cached data when the global endpoint is used."""
+text_zh = """缓存场景（开发者文档，该页 2026-10-13 版）：缓存一节原先「adheres to all Data Residency requirements for the selected location」的说法已不在，改为分层表述——内存缓存「is processed in the region that serves the request」，落盘缓存「stays within the selected location and adheres to its Data Residency requirements when you use a regional or multi-regional endpoint. When you use the global endpoint, requests and their cached data can be served from any region.」因此该场景的「留在所选地域」只在用 regional/multi-regional 端点时成立；用 global 端点时不能把 codes = ["selected"] 读作覆盖缓存数据。"""
+anchor = "processing-region-durable-cache-endpoint"
 
 [product.role]
 kind = "processor"
@@ -313,9 +343,14 @@ source_id = "89852246e77a9205"
 topics = ["retention", "training"]
 
 [anchor.selector]
-prefix = "data) in-memory to reduce latency and accelerate responses. "
-exact = "This data is stored only in-memory (not at-rest), is isolated at the project level, and has a 24-hour TTL."
-suffix = " Cached data is used only for improving service performance "
+prefix = "Implicit caching stores Customer Data (inputs, outputs, and derived data) in memory. "
+exact = """In-memory cached data has the following properties:
+- It's stored only in memory, not at rest.
+- It's scoped to your project and is never served to another project.
+- It's deleted no later than 24 hours after it's written.
+- It's processed in the region that serves the request.
+- It's used only to serve your requests faster, and is never used to train or fine-tune models."""
+suffix = ""
 
 [[anchor]]
 id = "retention-grounding-search-3d"
@@ -468,3 +503,63 @@ topics = ["zdr", "retention"]
 prefix = "before the TTL expires. "
 exact = "This feature cannot be disabled when using the Deep Research agent."
 suffix = ""
+
+[[anchor]]
+id = "retention-frontier-models-30d"
+source_id = "0bf19b892a084958"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "2. *Google Frontier Model Instructions*. "
+exact = "When using a Google Frontier Model in a Service, Customer instructs Google to: (a) store for up to thirty (30) days in Customer’s Account certain Customer Data, such as prompts and Generated Output, in order to use automated tools to review that Customer Data solely for the Purpose, and then (b) delete that Customer Data."
+suffix = " This Instruction is in addition to"
+
+[[anchor]]
+id = "retention-s20-agentic-ai-scope"
+source_id = "0bf19b892a084958"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "For the purposes of subsections (b) through (h) below, “Generative AI Services” includes Agentic AI Services."
+suffix = " b. *Disclaimer"
+
+[[anchor]]
+id = "zdr-frontier-models-instruction-prevails"
+source_id = "0bf19b892a084958"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "and then (b) delete that Customer Data. "
+exact = "This Instruction is in addition to, and prevails to the extent of any conflict with, any other permission or Instruction made or given by Customer under the Agreement, including if applicable under “Generative AI Safety and Abuse for GCP Services” (Section 4.3 of the Google Cloud Terms of Service)."
+suffix = ""
+
+[[anchor]]
+id = "retention-durable-cache-24h"
+source_id = "89852246e77a9205"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "#### Durable data caching"
+exact = "On models that support durable caching, when in-memory cache capacity is exhausted, Google stores derived cache data (key-value representations computed from your inputs) in durable storage within the Agent Platform serving environment."
+suffix = " Durable cached data has the following properties"
+
+[[anchor]]
+id = "zdr-durable-cache-disable-action"
+source_id = "89852246e77a9205"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "#### Control data caching"
+exact = "If your organization's policy does not permit Customer Data to be stored at rest, you can disable durable caching on a per-project basis and maintain in-memory caching. Alternatively, you can disable caching entirely."
+suffix = " To disable durable caching across your organization rather than on a project level"
+
+[[anchor]]
+id = "processing-region-durable-cache-endpoint"
+source_id = "89852246e77a9205"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "It stays within the selected location and adheres to its Data Residency requirements when you use a regional or multi-regional endpoint. When you use the global endpoint, requests and their cached data can be served from any region."
+suffix = " Customer-managed encryption keys (CMEK) aren't supported"
