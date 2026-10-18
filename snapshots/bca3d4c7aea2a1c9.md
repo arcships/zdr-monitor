@@ -3,10 +3,12 @@
 All Pages
 Skip to main content
 # Generative AI Regions
-Oracle hosts its OCI services in regions and availability domains. A region is a localized geographic area, and an availability domain is one or more data centers in that region. This page provides a list of regions where OCI Generative AI models are available.
+Learn where OCI Generative AI hosts models and how to access the service from CPU-only regions.
+Oracle hosts its OCI services in regions and availability domains. A region is a localized geographic area, and an availability domain is one or more data centers in that region.
 **Important**
-See Generative AI Models by Region to find out which models are available in a region near you.
-## Commercial Regions (OC1)
+See Generative AI Models by Region for model availability in the regions that serve inference requests. .
+## Commercial Regions (OC1) with Model Hosting
+The following table lists the OC1 regions where Generative AI hosts models. Available models and serving modes vary by region. To use an on-demand model that isn't available locally, create a routing profile for that model and select regions where it is available. Use the profile from your current region in the Playground or through a supported inference API.
 | Region Name | Location | Region Identifier | Region Key |
 | **Brazil East (Sao Paulo)** | Sao Paulo | `sa-saopaulo-1` | `GRU` |
 | **Germany Central (Frankfurt)** | Frankfurt | `eu-frankfurt-1` | `FRA` |
@@ -27,7 +29,7 @@ Learn about Oracle UK Sovereign Cloud.
 | **EU Sovereign Central (Frankfurt)** | Frankfurt | `eu-frankfurt-2` | `STR` |
 Learn about Oracle EU Sovereign Cloud.
 ## Services that Call into the Generative AI Service
-Currently, the Oracle Cloud Infrastructure (OCI) Generative AI Service is not offered in every OCI commercial region. See the column below titled “Destination Region:” for a list of OCI commercial regions offering the OCI Generative AI Service.
+Some OCI services call the Generative AI service. The following table lists the calling and destination regions for those service integrations.
 There are OCI services which document (in the “*Oracle PaaS and IaaS Universal Credits Service Descriptions*”) that they make calls into the OCI Generative AI Service. For a given call into the OCI Generative AI Service, if the Calling Region and Destination Region are not the same, then a cross-region call will be made.
 Area
 | Calling Regions:
@@ -43,7 +45,7 @@ OCI region offering OCI Generative AI Service
 | UK | `CWL`, `LHR` | `LHR` |
 | USA | `PHX`, `IAD`, `SJC`, `ORD` | `ORD` |
 - Generative AI Regions
-- Commercial Regions (OC1)
+- Commercial Regions (OC1) with Model Hosting
 - Government Region (OC4)
 - Sovereign Region (OC19)
 - Services that Call into the Generative AI Service
