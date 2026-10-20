@@ -177,6 +177,96 @@ text = "(2) That sentence appears 4 times on the legal page (the four embedded v
 text_zh = "(2) 该句在 legal 页面内出现 4 次（DPST v1.0–v1.3 四份内嵌版本逐字相同），无法唯一定位，见 notes。"
 
 [[product]]
+id = "preview-services"
+badge = "pre-GA 预览服务"
+category = "api"
+plan_level = "any"
+label = "Crusoe pre-GA Preview Services（按 Crusoe 的 designation：alpha / beta / private preview / preview / early access / experimental 或类似 pre-GA 状态；不枚举具体服务）"
+label_en = "Crusoe pre-GA Preview Services (any product, service, feature, API, model, tool, integration or functionality Crusoe designates alpha, beta, private preview, preview, early access, experimental or similar pre-GA; specific services are not enumerated)"
+
+[product.training]
+mark = "yes"
+anchor = "preview-agreement-license-to-process"
+mode = "default"
+
+[[product.training.point]]
+text = "Scope: this tier covers only services that Crusoe designates as alpha, beta, private preview, preview, early access, experimental or similar pre-GA. The snapshot does not designate the existing Managed Inference direct, OpenRouter resale or GPU cloud tiers as Preview Services, and it does not establish that those tiers are generally available; their GA status remains unconfirmed."
+text_zh = "适用范围：本档只覆盖 Crusoe 指定为 alpha、beta、private preview、preview、early access、experimental 或类似 pre-GA 状态的服务。快照没有把已有的 Managed Inference 直连、经 OpenRouter 转售或 GPU 云三个档位指定为 Preview Service，也没有证明这三个档位已 GA；其 GA 状态未确认。"
+anchor = "preview-agreement-preview-service-definition"
+
+[[product.training.point]]
+text = "Pre-GA Preview Services conclusion: not used to train Crusoe's own models. The Preview Services Agreement v1.0 limits Crusoe's license to access, store, copy, execute and process Customer Inputs and Customer Outputs \"solely to\" provide the Preview Services (including performing Jobs submitted by the Customer and storing Customer Outputs as directed), troubleshoot and support at the Customer's request, and comply with applicable law. Performing a Customer-submitted training or fine-tuning Job is part of providing the Preview Service to the Customer; the agreement contains no license for Crusoe to train its own models on Customer Inputs or Outputs."
+text_zh = "pre-GA Preview Services 档结论：不用于训练 Crusoe 自己的模型。Preview Services Agreement v1.0 把 Crusoe 访问、存储、复制、执行和处理 Customer Inputs/Outputs 的许可限定为「solely to」提供 Preview Services（含执行客户提交的 Job、按客户指示存储 Outputs）、应客户请求排障与支持、遵守适用法律。执行客户提交的训练或微调 Job 属于向客户提供 Preview Service；协议没有授权 Crusoe 用 Customer Inputs/Outputs 训练自己模型的条款。"
+anchor = "preview-agreement-license-to-process"
+
+[[product.training.point]]
+text = "The ownership clause reinforces the limit: Crusoe retains rights in the Preview Services, including improvements and aggregated, de-identified usage and performance data, but that retained data expressly \"does not include Customer Inputs or Customer Outputs\"."
+text_zh = "Ownership 节进一步限定：Crusoe 保留 Preview Services 及其改进、聚合与去标识使用/性能数据的权利，但这些保留数据明文「does not include Customer Inputs or Customer Outputs」。"
+anchor = "preview-agreement-ownership-inputs-outputs-excluded"
+
+[[product.training.point]]
+text = "The Cloud ToS platform-level \"Protection of Customer Data\" clause remains part of the precedence chain: Crusoe will only access or use Customer Data to provide the Services and TSS or as instructed by the customer and will not use it for any other Crusoe products, services, or advertising."
+text_zh = "Cloud ToS 平台层的「Protection of Customer Data」条款仍在优先顺序链中：Crusoe 只会为提供服务/TSS 或依客户指示访问或使用 Customer Data，不会用于其他 Crusoe 产品或广告。"
+anchor = "cloud-tos-protection-of-customer-data"
+
+[product.zdr]
+mark = "no"
+anchor = "preview-agreement-end-of-preview"
+
+[[product.zdr.point]]
+text = "Pre-GA Preview Services tier: no zero-retention commitment. The agreement contains no ZDR or zero-retention wording, and it expressly authorizes Crusoe to store Customer Inputs and Customer Outputs while providing the Preview Services and speaks of data \"stored in that Preview Service\"; this is not a request-level non-persistence design."
+text_zh = "pre-GA Preview Services 档：没有零保留承诺。协议全文没有 ZDR / 零保留字样，并明文授权 Crusoe 在提供 Preview Services 时存储 Customer Inputs/Outputs，还直接称数据「stored in that Preview Service」；这不是请求级非持久化设计。"
+anchor = "preview-agreement-license-to-process"
+
+[[product.zdr.point]]
+text = "At the end of the Preview Period, Crusoe will make reasonable efforts to let the customer retrieve Customer Outputs for thirty (30) days and will thereafter delete Customer Inputs and Customer Outputs stored in that Preview Service under the DPST and applicable Preview Service Terms, unless the service became generally available and the customer continues to use it. The thirty days is a retrieval window, not a zero-retention commitment or a deletion deadline."
+text_zh = "Preview Period 结束后，Crusoe 会尽力让客户在三十 (30) 天内取回 Customer Outputs，其后按 DPST 与适用的 Preview Service Terms 删除该 Preview Service 中存储的 Customer Inputs 与 Outputs（若服务转为 GA 且客户继续使用则除外）。三十天是取回窗口，不是零保留承诺，也不是删除截止期限。"
+anchor = "preview-agreement-end-of-preview"
+
+[product.retention]
+object = "input_output"
+basis = "until_termination"
+anchor = "preview-agreement-end-of-preview"
+
+[[product.retention.point]]
+text = "Pre-GA Preview Services tier, by object: Customer Inputs and Customer Outputs are stored in the Preview Service during the Preview Period. After the Preview Period ends, unless Crusoe terminates for the customer's breach, Crusoe will make reasonable efforts to let the customer retrieve Customer Outputs for thirty (30) days; thereafter it will delete Customer Inputs and Customer Outputs stored in that Preview Service in accordance with the DPST and applicable Preview Service Terms, unless the service became generally available and the customer continues to use it."
+text_zh = "pre-GA Preview Services 档，按对象分记：Customer Inputs/Outputs 在 Preview Period 内存放在该 Preview Service。Preview Period 结束后，除因客户违约终止外，Crusoe 会尽力让客户在三十 (30) 天内取回 Customer Outputs；其后按 DPST 与适用的 Preview Service Terms 删除该 Preview Service 中存储的 Customer Inputs 与 Outputs（若服务转为 GA 且客户继续使用则除外）。"
+anchor = "preview-agreement-end-of-preview"
+
+[[product.retention.point]]
+text = "Period type: the thirty days is a retrieval window, not a deletion deadline or a retention ceiling. The agreement gives no fixed day count for the deletion itself; it points to the DPST and any applicable Preview Service Terms, and it makes the customer responsible for exporting Customer Outputs before the Preview Period ends."
+text_zh = "期限类型：三十天是取回窗口，不是删除截止期限，也不是保留上限。协议本身没有给删除动作一个固定天数，而是指向 DPST 与适用的 Preview Service Terms，并要求客户在 Preview Period 结束前自行导出 Customer Outputs。"
+anchor = "preview-agreement-end-of-preview"
+
+[product.processing_region]
+codes = ["global"]
+anchor = "preview-agreement-data-location-warranty"
+
+[[product.processing_region.point]]
+text = "Pre-GA Preview Services tier: no data-residency commitment. The warranty states that preview services may not be in scope for Crusoe's security certifications or audit reports (such as SOC 2) or any data location commitments."
+text_zh = "pre-GA Preview Services 档：没有数据驻留承诺。保证条款写明预览服务可能不在 Crusoe 的安全认证或审计报告（如 SOC 2）或任何 data location commitments 的覆盖范围内。"
+anchor = "preview-agreement-data-location-warranty"
+
+[[product.processing_region.point]]
+text = "The precedence clause puts the DPST first, but carves out Section 6 of the Preview Services Agreement for whether a Preview Service is within the scope of Crusoe's audits, certifications or data location commitments. No country or region is promised for preview processing."
+text_zh = "优先顺序条款把 DPST 放在第一位，但把「Preview Service 是否属于 Crusoe 审计、认证或数据位置承诺范围」交给协议第 6 节控制。协议没有承诺预览服务在哪个国家或区域处理。"
+anchor = "preview-agreement-dpst-precedence"
+
+[product.role]
+kind = "processor"
+anchor = "dpst-processor-and-controller-roles"
+
+[[product.role.point]]
+text = "Pre-GA Preview Services tier: the Preview Services Agreement's order of precedence places the Data Processing and Security Terms first, except that Section 6 controls whether a Preview Service is within the scope of audits, certifications or data location commitments."
+text_zh = "pre-GA Preview Services 档：Preview Services Agreement 的优先顺序把 Data Processing and Security Terms 列为第一优先；仅「Preview Service 是否属于审计、认证或数据位置承诺范围」由协议第 6 节控制。"
+anchor = "preview-agreement-dpst-precedence"
+
+[[product.role.point]]
+text = "The DPST's role allocation therefore continues to apply: under European Data Protection Law, Crusoe is a processor of Customer Personal Data and the customer is a controller or processor, as applicable."
+text_zh = "因此 DPST 的角色划分继续适用：在欧洲数据保护法适用时，Crusoe 对 Customer Personal Data 是 processor，客户是 controller 或 processor。"
+anchor = "dpst-processor-and-controller-roles"
+
+[[product]]
 id = "openrouter-resale"
 badge = "经 OpenRouter 转售"
 category = "api"
@@ -997,3 +1087,63 @@ suffix = """
 
 
 ## Limitations[​](https://docs.crusoecloud.com/storage/dis"""
+
+[[anchor]]
+id = "preview-agreement-preview-service-definition"
+source_id = "c941dab60e225f14"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "“**Preview Service**” means any product, service, feature, API, model, tool, integration, or functionality (including any related software) that Crusoe makes available to Customer under this Agreement and designates as “alpha,” “beta,” “private preview,” “preview,” “early access,” “experimental,” or with a similar pre-general availability designation."
+suffix = ""
+
+[[anchor]]
+id = "preview-agreement-license-to-process"
+source_id = "c941dab60e225f14"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Customer grants Crusoe a limited, royalty-free, non-exclusive, worldwide, sublicensable license to access, store, copy, execute, and process Customer Inputs and Customer Outputs solely to: (a) provide the Preview Services to Customer, including to perform Jobs submitted by Customer and store Customer Outputs as directed by Customer; (b) troubleshoot and support the Preview Services at Customer’s request; and (c) comply with applicable law."
+suffix = ""
+
+[[anchor]]
+id = "preview-agreement-ownership-inputs-outputs-excluded"
+source_id = "c941dab60e225f14"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Crusoe retains all rights in the Preview Services, including improvements to them and aggregated, de-identified usage and performance data that does not include Customer Inputs or Customer Outputs."
+suffix = ""
+
+[[anchor]]
+id = "preview-agreement-end-of-preview"
+source_id = "c941dab60e225f14"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Unless Crusoe terminates for Customer’s breach, Crusoe will make reasonable efforts to allow Customer to retrieve Customer Outputs for thirty (30) days after the Preview Period ends. Thereafter, Crusoe will delete Customer Inputs and Customer Outputs stored in that Preview Service in accordance with the Data Processing and Security Terms and any applicable Preview Service Terms, unless that Preview Service became generally available and Customer continues to use it."
+suffix = ""
+
+[[anchor]]
+id = "preview-agreement-data-location-warranty"
+source_id = "c941dab60e225f14"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "UNLESS OTHERWISE STATED IN THE APPLICABLE PREVIEW SERVICE TERMS, PREVIEW SERVICES ARE NOT SUBJECT TO ANY SERVICE LEVEL AGREEMENT OR SUPPORT COMMITMENT, AND MAY NOT BE IN SCOPE FOR CRUSOE’S SECURITY CERTIFICATIONS OR AUDIT REPORTS (SUCH AS SOC 2) OR ANY DATA LOCATION COMMITMENTS."
+suffix = ""
+
+[[anchor]]
+id = "preview-agreement-dpst-precedence"
+source_id = "c941dab60e225f14"
+topics = ["processing_region", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "In the event of a conflict, the following order of precedence applies with respect to a Preview Service, notwithstanding the “Entire Agreement,” “Amendments,” and “Conflicting Terms” sections of the Cloud ToS: (a) the Data Processing and Security Terms, except that Section 6 of this Agreement controls as to whether a Preview Service is within the scope of Crusoe’s audits, certifications, or data location commitments; (b) the applicable Preview Service Terms; (c) this Agreement; and (d) the remainder of the Cloud ToS and Service Terms."
+suffix = ""
