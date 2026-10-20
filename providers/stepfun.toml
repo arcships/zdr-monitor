@@ -64,7 +64,7 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text_zh = "不支持零保留（value=no，复核轮重写判断链）：①决定性＝官方 API 文档《Prompt 缓存最佳实践》——平台缓存「每次请求过程中的输入」，「完整的对话数组…System Prompt、User Message 以及 Assistant Message」进入缓存系统（图片、视频、工具调用及其结果同列）"
+text_zh = "不支持零保留（value=no，复核轮重写判断链）：①决定性＝官方 API 文档《Prompt 缓存最佳实践》——未命中缓存时平台会在处理完成后『将 Prompt 前缀进行缓存，以供下次请求使用』，且『完整的对话数组会进入到缓存系统当中，其中包含 System Prompt、User Message 以及 Assistant Message』（图片、视频、工具调用及其结果同列）"
 
 [[product.zdr.point]]
 text_zh = "请求 >256 Token 自动启用、LRU 淘汰、生命周期随系统高低峰浮动、「目前不提供手动清除缓存的能力」，唯一规避手段是改 Prompt，全页无 TTL、无豁免、无开关 → 客户无法把请求正文做成零保留"
@@ -322,9 +322,9 @@ source_id = "57440802de2d7378"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "，而随着对话轮次增加，整个对话过程中的重复内容也会逐渐增多。阶跃星辰为开发者提供了上下文缓存技术，"
-exact = "将每次请求过程中的输入进行缓存"
-suffix = "，当开发者重复请求时，将会自动命中缓存，帮助开发者提升推理速度（在特定场景，推理首字速度最大可提升90%），降低推理成本。"
+prefix = "3. **缓存未命中**：如果未命中系统的缓存，"
+exact = "系统将会进行正常的推理并在处理完成后，将 Prompt 前缀进行缓存，以供下次请求使用"
+suffix = "。"
 
 [[anchor]]
 id = "stepfun-prompt-cache-conversation-array-stored"
