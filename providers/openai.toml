@@ -16,7 +16,7 @@ url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-impr
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Services for businesses」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。本轮重抓(7004B,仅页脚差异)确认正文未变。对 API 档无权威性"
+note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Business services and managed workspaces」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。2026-10-13 快照改写个人档训练句:旧句「services for individuals, such as ChatGPT and Codex」改为「services for individuals (Free, Plus, Pro)」,FAQ 的反馈训练段按个人档与企业档拆分;语义未改(changes/openai/2026-10-13-individual-training-scope-rewording.toml)。对 API 档无权威性"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
@@ -162,8 +162,8 @@ anchor = "openai-consumer-training-may-train"
 mode = "opt_out"
 
 [[product.training.point]]
-text = "May be used for training by default (opt-out structure): \"When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models\""
-text_zh = "默认可用于训练(opt-out 结构):个人服务(ChatGPT 与 Codex)可能用你的内容训练模型"
+text = "May be used for training by default (opt-out structure): \"When you use our services for individuals (Free, Plus, Pro), we may use your content to train our models\""
+text_zh = "默认可用于训练(opt-out 结构):个人服务(Free、Plus、Pro)可能用你的内容训练模型"
 
 [[product.training.point]]
 text = "To opt out, turn off \"Improve the model for everyone\" in ChatGPT under Settings → Data Controls, or choose \"Do not train on my content\" in the privacy portal; either one is enough, and it applies to both ChatGPT conversations and Codex tasks"
@@ -335,12 +335,12 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = """
-).
+For more on how we handle data, please see our Privacy Policy, Terms of Use, and Enterprise Privacy page.
 
-## Services for individuals, such as ChatGPT and Codex
+# Services for individuals
 
 """
-exact = "When you use our services for individuals such as ChatGPT and Codex, we may use your content to train our models"
+exact = "When you use our services for individuals (Free, Plus, Pro), we may use your content to train our models"
 suffix = ". You can choose whether your conversations help improve our models."
 
 [[anchor]]
