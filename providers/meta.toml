@@ -24,7 +24,7 @@ url = "https://dev.meta.ai/legal/geographic-use-policy"
 fetch = "jina"
 channel = "contract"
 tier = "core"
-note = "Meta Model API Model Designation and Geographic Use Policy，Last updated: September 18, 2026，是 ToS 的组成部分。§1 指定 Standard Models（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）与 Discounted Models（Muse Spark 1.2/1.3 Contributor）；§3 Restricted Territories 含中国大陆及香港、澳门特别行政区。这是服务访问地域限制，不是处理地/存储地/推理地披露，故 authoritative_for 为空，仅用于界定模型档位与访问范围。"
+note = "Meta Model API Model Designation and Geographic Use Policy，Last updated: October 12, 2026，是 ToS 的组成部分。§1 指定 Standard Models（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1、Muse Wonder、Muse Wonder Full）与 Contributor Models（Muse Spark 1.2/1.3 Contributor），并沿用 ToS 2026-10-09 版的新档名（旧称 Discounted Models）；同节另规定经 Coding Harness Subscription 访问默认即 Contributor Services，须改账户设置才进入 Standard Services。§3 Restricted Territories 含中国大陆及香港、澳门特别行政区。这是服务访问地域限制，不是处理地/存储地/推理地披露，故 authoritative_for 为空，仅用于界定模型档位与访问范围。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
@@ -202,8 +202,8 @@ text_zh = "适用哪一档由你正在使用的模型决定，与它内部是否
 anchor = "tos-1-tier-by-model"
 
 [[product.training.point]]
-text = "The Geographic Use Policy designates Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor as Discounted Models; every other model on its list (Muse Image, Muse Spark 1.1/1.2/1.3, Muse Voice Transcribe, SAM 3.1) is a Standard Model. Note the two documents now name this same tier differently: the October 9, 2026 Terms call it Contributor Models/Services, while the Geographic Use Policy (still) says Discounted Models/Services."
-text_zh = "Geographic Use Policy 把 Muse Spark 1.2 Contributor 与 Muse Spark 1.3 Contributor 指定为 Discounted Models；清单里其余模型（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1）都是 Standard Models。注意两份文件现在对同一档用了不同名字：2026-10-09 版 Terms 称 Contributor Models/Services，而 Geographic Use Policy 仍写 Discounted Models/Services。"
+text = "The Geographic Use Policy (Last updated October 12, 2026) designates Muse Spark 1.2 Contributor and Muse Spark 1.3 Contributor as Contributor Models; every other model on its list (Muse Image, Muse Spark 1.1/1.2/1.3, Muse Voice Transcribe, SAM 3.1, Muse Wonder, Muse Wonder Full) is a Standard Model. As of this version the two documents use the same tier name: the October 9, 2026 Terms and this Policy both say Contributor Models/Services, whereas the September 18, 2026 Policy still said Discounted Models. The Policy also repeats the subscription default: \"If you access the Services through a Coding Harness Subscription, you are considered to be using the Contributor Services by default regardless of which Meta Model you select. If you want to access the Standard Services through a Coding Harness Subscription, you must change the applicable setting in your Account.\""
+text_zh = "Geographic Use Policy（Last updated October 12, 2026）把 Muse Spark 1.2 Contributor 与 Muse Spark 1.3 Contributor 指定为 Contributor Models；清单里其余模型（Muse Image、Muse Spark 1.1/1.2/1.3、Muse Voice Transcribe、SAM 3.1、Muse Wonder、Muse Wonder Full）都是 Standard Models。自此版起两份文件对同一档使用同一名称：2026-10-09 版 Terms 与本 Policy 均称 Contributor Models/Services，而 2026-09-18 版 Policy 仍写 Discounted Models。该 Policy 还重申订阅默认档：『If you access the Services through a Coding Harness Subscription, you are considered to be using the Contributor Services by default regardless of which Meta Model you select. If you want to access the Standard Services through a Coding Harness Subscription, you must change the applicable setting in your Account.』"
 anchor = "model-designation-discounted"
 
 [[product.training.point]]
@@ -536,15 +536,16 @@ topics = ["training"]
 [anchor.selector]
 prefix = """
  Voice Transcribe
-*   Segment Anything Model 3.1 (SAM 3.1)
+*   SAM 3.1
+*   Muse Wonder
+*   Muse Wonder Full
 
 """
-exact = "Discounted Models (use constitutes"
+exact = "Contributor Models (use constitutes use of “Contributor Services\"):"
 suffix = """
- “Discounted Services”):
-
 *   Muse Spark 1.2 Contributor
-*  """
+*   Muse Spark 1.3 Contributor
+"""
 
 [[anchor]]
 id = "access-restricted-territories"
