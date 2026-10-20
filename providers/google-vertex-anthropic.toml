@@ -22,7 +22,7 @@ note = "Google Cloud Service Specific Terms（合同层，本次重抓 2026-09-2
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring"
 channel = "developer_data"
 tier = "core"
-note = "Agent Platform 滥用监控页（Last updated 2026-10-02）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（2026-10-02 版删去了标准滥用监控的 Customer opt-out 条目与「可申请退出」一句，申请豁免的说法现只见于 zero-data-retention 页）、Advanced AI 模型 prompt+response 强制 30 天且可能无法 opt-out；含 Anthropic 专属段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。覆盖 api 档（Vertex/Agent Platform 上的 Claude）。"
+note = "Agent Platform 滥用监控页（页脚 Last updated 2026-10-13）。给出保留期限：标准滥用监控 prompt 日志最长 90 天（仅受 GCP ToS 约束的客户在范围内，持 Google Cloud Master Agreement 的客户默认豁免；当前版本未列出标准滥用监控的 Customer opt-out 条目或申请表）、Advanced AI 模型 prompt+response 强制 30 天且可能无法 opt-out；含 Anthropic 专属段落（Claude Fable 5/Mythos 5 保留 30 天、须开启与 Anthropic 共享）。覆盖 api 档（Vertex/Agent Platform 上的 Claude）。"
 
 [[source]]
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/fable-5"
@@ -40,7 +40,7 @@ note = "Agent Platform 数据驻留文档。at-rest 数据留在客户选定位�
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "Agent Platform「客户数据保留与达成零数据保留」官方清单（canonical；旧 Vertex AI data-governance URL 301 到此）。范围用 MaaS 口径，逐项列出达成 ZDR 所需动作（不开启 request-response logging、Interactions API store=false、滥用监控豁免、不用 Sandbox API 等），并声明部分 Advanced AI 特性可能无法达成 ZDR。覆盖 api 档。"
+note = "Agent Platform「客户数据保留与达成零数据保留」官方清单（canonical；旧 Vertex AI data-governance URL 301 到此）。范围用 MaaS 口径，逐项列出达成 ZDR 所需动作（不开启 request-response logging、Interactions API store=false、不用 Sandbox API 等）；滥用监控一项只写受 GCP ToS 约束的客户在范围内，未给这些客户任何动作。并声明部分 Advanced AI 特性可能无法达成 ZDR。覆盖 api 档。"
 
 [[source]]
 url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
@@ -80,13 +80,20 @@ mode = "by_contract"
 anchor = "sst-18-training-restriction"
 
 [product.zdr]
-mark = "yes"
-mode = "by_agreement"
+mark = "unknown"
+searched = [
+  "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention",
+  "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring",
+]
+
+[[product.zdr.point]]
+text = "ZDR here is a checklist to work through, not a default: the page says customers must take specific actions within each of the listed areas to achieve zero data retention."
+text_zh = "这里的 ZDR 是一份要逐项执行的清单，不是默认状态：该页写明客户须在每个所列领域采取具体动作才能达成零保留。"
 anchor = "zdr-actions-required"
 
 [[product.zdr.point]]
-text = "ZDR here is a checklist to work through, not a default. To reach zero data retention the customer must leave request-response logging off, pass store = false explicitly on the Interactions API (store defaults to true for all models), request an abuse-monitoring exception where prompt logging applies, and not use the Sandbox API. The page does not state whether the Interactions API is open to partner models such as Claude, so that item is recorded as part of the checklist rather than as a Claude-specific rule."
-text_zh = "这里的 ZDR 是一份要逐项执行的清单，不是默认状态：不开启 request-response logging、Interactions API 显式 store=false（不指定时对所有模型默认 true）、适用滥用监控时申请豁免、不使用 Sandbox API。该页未说明 Interactions API 是否对 Claude 这类 partner model 开放，故此项按清单的一部分记录，不当作 Claude 专属规则。"
+text = "One checklist item: the Interactions API stores user data when store = true, store defaults to true for all models when unspecified, and reaching ZDR requires explicitly setting store = false. The page does not state whether the Interactions API is open to partner models such as Claude, so that item is recorded as part of the checklist rather than as a Claude-specific rule."
+text_zh = "清单中的一项：Interactions API 在 store = true 时存储用户数据，不指定时对所有模型默认 true，要达成零保留须显式设置 store = false。该页未说明 Interactions API 是否对 Claude 这类 partner model 开放，故此项按清单的一部分记录，不当作 Claude 专属规则。"
 anchor = "zdr-interactions-api-store-default-true"
 
 [[product.zdr.point]]
@@ -95,9 +102,14 @@ text_zh = "request-response logging 是按型号、按项目的开关，默认�
 anchor = "zdr-request-response-logging-off"
 
 [[product.zdr.point]]
-text = "Prompt logging for abuse monitoring only binds customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service; those customers can request an exception in order to reach zero data retention. That sentence on the zero-data-retention page is now the only official statement of the exception path: the abuse-monitoring page it points to (revision of 2026-10-02) no longer lists a customer opt-out, a request form, or what an approved exception guarantees."
-text_zh = "滥用监控的 prompt 记录只约束受 Google Cloud Platform Terms of Service 管辖的客户；这些客户可提交申请获得豁免，以达成零数据保留。这句（zero-data-retention 页）现在是申请豁免路径唯一的官方表述：它所指向的滥用监控页（2026-10-02 版）已不再列出客户退出条目、申请表，也不再说明获批后有何保证。"
-anchor = "zdr-abuse-monitoring-exception"
+text = "Prompt logging for abuse monitoring only binds customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service. On the two Google pages that describe this logging and the ZDR checklist — the zero-data-retention page and the abuse-monitoring page — no route is described for those in-scope customers to request an exception: the zero-data-retention item states the scope rule but gives no action, and the current abuse-monitoring page lists no customer opt-out for standard prompt logging, no request form, and no description of what an approved exception would guarantee."
+text_zh = "滥用监控的 prompt 记录只约束受 Google Cloud Platform Terms of Service 管辖的客户。就描述这项记录与 ZDR 清单的两个 Google 页面（zero-data-retention 与滥用监控页）而言，在范围内的客户没有已披露的申请途径：zero-data-retention 条目只写范围规则、不给动作，滥用监控页当前版本也未列出标准 prompt 日志的客户退出条目、申请表，或获批后有何保证。"
+anchor = "zdr-abuse-monitoring-scope"
+
+[[product.zdr.point]]
+text = "The remaining documented exemption from that prompt logging is contractual rather than an exception request: customers with a Google Cloud Master Agreement are exempt from prompt logging for this abuse monitoring by default. That removes the abuse-monitoring item from the checklist for those customers; the other items on the page are configuration steps (leave request-response logging off, set store = false, don't use the Sandbox API) or features they can avoid. That exemption is why this tier's ZDR is conditional: the tier-wide verdict stays undisclosed because it must also cover customers under the Google Cloud Platform Terms of Service, for whom no ZDR path is described."
+text_zh = "这项 prompt 记录仍有据可依的豁免是合同层面的，而非申请：持 Google Cloud Master Agreement 的客户默认豁免该滥用监控的 prompt 记录。对这些客户，清单中的滥用监控项因此不再适用；其余各项要么是配置动作（不开启 request-response logging、设置 store = false、不使用 Sandbox API），要么是可以选择不使用的功能。也正因如此本档的 ZDR 是有条件的：档位级结论仍记为未披露，因为它还必须覆盖受 Google Cloud Platform Terms of Service 管辖、文档未描述任何 ZDR 路径的客户。"
+anchor = "abuse-master-agreement-exempt"
 
 [[product.zdr.point]]
 text = "Sandbox snapshots persist for the duration of the Sandbox TTL, so the page tells customers not to use the Sandbox API if they need zero retention."
@@ -115,8 +127,8 @@ text_zh = "滥用监控页从另一侧写了同一条限定：某些 Advanced AI
 anchor = "abuse-zdr-may-not-be-possible"
 
 [[product.zdr.point]]
-text = "This row's yes does not extend to the Covered Models subset (Claude Fable 5 / Fable 5.1, Claude Mythos 5 / Mythos 5.1), which is a separate row of this product line: for those models Anthropic's retention and safety review supersedes modified retention commitments such as ZDR."
-text_zh = "本行的 yes 不覆盖 Covered Models 子集（Claude Fable 5 / Fable 5.1、Claude Mythos 5 / Mythos 5.1）——它们在本产品线单列一行：对它们，Anthropic 的保留与安全审查优先于 ZDR 等修改后的保留承诺。"
+text = "The Covered Models subset (Claude Fable 5 / Fable 5.1, Claude Mythos 5 / Mythos 5.1) is a separate row of this product line with its own negative ZDR verdict: for those models Anthropic's retention and safety review supersedes modified retention commitments such as ZDR."
+text_zh = "Covered Models 子集（Claude Fable 5 / Fable 5.1、Claude Mythos 5 / Mythos 5.1）在本产品线单列一行，ZDR 结论为否：对它们，Anthropic 的保留与安全审查优先于 ZDR 等修改后的保留承诺。"
 anchor = "anth-sst-f-covered-models-supersedes-zdr"
 
 [product.retention]
@@ -136,9 +148,9 @@ text_zh = "该记录的适用范围：只有受 Google Cloud Platform Terms of S
 anchor = "abuse-master-agreement-exempt"
 
 [[product.retention.point]]
-text = "Opting out of that 90-day logging: since its 2026-10-02 revision the abuse-monitoring page no longer offers a customer opt-out for standard prompt logging. The only remaining official statement is on the zero-data-retention page — customers in scope can request an exception for abuse monitoring — and no page now says how to apply or what happens to prompts once an exception is approved."
-text_zh = "退出这项 90 天记录：滥用监控页自 2026-10-02 版起不再为标准 prompt 日志提供客户退出选项。仅剩的官方表述在 zero-data-retention 页——在范围内的客户可申请滥用监控豁免；如何申请、获批后 prompt 如何处理，目前没有任何页面说明。"
-anchor = "zdr-abuse-monitoring-exception"
+text = "Opting out of that 90-day logging: on the two Google pages that describe this logging and the ZDR checklist — the zero-data-retention page and the abuse-monitoring page — no route is described for an in-scope customer. The zero-data-retention item states only who is subject to the logging and gives no action; the current abuse-monitoring page lists no customer opt-out for standard prompt logging, no request form, and no description of what an approved exception would guarantee. How to apply, and what approval would mean for already stored prompts, are therefore not described on either page."
+text_zh = "退出这项 90 天记录：在描述这项记录与 ZDR 清单的两个 Google 页面（zero-data-retention 与滥用监控页）上，没有描述在范围内客户可用的途径。zero-data-retention 条目只写谁受该记录约束、不给动作；滥用监控页当前版本未列出标准 prompt 日志的客户退出条目、申请表，也未说明获批后有何保证。因此如何申请、获批后已存储的 prompt 如何处理，这两页都没有描述。"
+anchor = "zdr-abuse-monitoring-scope"
 
 [[product.retention.point]]
 text = "Second clock, for models inside the Advanced AI scope: Claude Mythos and Claude Fable (all versions, listed on this product line's Covered Models row) plus Claude Opus >= 4.7 and Sonnet >= 5 when advanced_ai_enabled = true for use within Anthropic's Cyber Verification Program. All other usage of these models is out of scope of the Advanced AI Safety Addendum."
@@ -675,12 +687,12 @@ suffix = """
 *   **Eligibility.**Some Covered Models (such as Claude My"""
 
 [[anchor]]
-id = "zdr-abuse-monitoring-exception"
+id = "zdr-abuse-monitoring-scope"
 source_id = "89852246e77a9205"
 topics = ["zdr", "retention"]
 
 [anchor.selector]
-exact = "If you are in scope for prompt logging for abuse monitoring and want zero data retention, you can request an exception for abuse monitoring."
+exact = "Only customers whose use of Google Cloud is governed by the Google Cloud Platform Terms of Service are subject to prompt logging for abuse monitoring."
 
 [[anchor]]
 id = "zdr-request-response-logging-off"
