@@ -24,7 +24,7 @@ note = "百炼国内站《合规资质与隐私说明》（更新时间 2026-08-
 url = "https://help.aliyun.com/zh/model-studio/regions"
 channel = "developer_data"
 tier = "core"
-note = "百炼国内站《选择地域、服务部署范围和接入域名》（更新 2026-09-17）。平台级机制：地域决定接入点与数据存储位置；服务部署范围决定推理执行位置（可选全球池）；请求数据与推理结果存于所选地域。processing_region 的落地细节佐证，合同级依据仍为服务协议 §6.2.8。"
+note = "百炼国内站《选择地域、服务部署范围和接入域名》（更新 2026-09-17）。平台级机制：地域决定接入点与数据存储位置；服务部署范围决定推理执行位置（可选全球池）；请求数据与推理结果存于所选地域。processing_region 的落地细节佐证，合同级依据仍为服务协议 §6.2.8。2026-10-14 快照把「完整的地域与服务部署范围对应关系，请前往控制台查看」改为指向六个地域子页，并删除「华北2（北京）和新加坡地域各仅支持一种服务部署范围，无需选择」；子页未纳入来源，本页不再单独说明北京的服务部署范围，推理处理地依据以协议 §6.2.8 为准。"
 
 [[source]]
 url = "https://help.aliyun.com/zh/model-studio/what-is-model-studio"
@@ -87,7 +87,7 @@ anchor = "retention-backup-may-lag"
 
 [product.processing_region]
 codes = ["CN"]
-anchor = "regions-cn-beijing-domain"
+anchor = "region-chosen-country-or-region"
 
 [[product.processing_region.point]]
 text = "Both Base URLs of this plan are fixed to coding.dashscope.aliyuncs.com (one path for the OpenAI-compatible protocol, one for the Anthropic-compatible one), i.e. a plan-specific sub-domain of the DashScope domain family."
@@ -95,9 +95,39 @@ text_zh = "档位 Base URL 固定为 coding.dashscope.aliyuncs.com（OpenAI / An
 anchor = "cp-base-url-openai-cn"
 
 [[product.processing_region.point]]
-text = "The region is inferred by one step the plan document does not spell out: the region page lists dashscope.aliyuncs.com as the DashScope domain of the China North 2 (Beijing) region, and that region supports only one deployment scope. coding.* is a plan-specific sub-domain of that domain family, hence CN."
-text_zh = "地域归属靠地域文档的域名对照表推出（Coding Plan 文档本身没有地域表述）：dashscope.aliyuncs.com 被列为华北 2（北京）地域的 DashScope 域名，该地域仅支持一种服务部署范围；coding.* 是该域名体系下的套餐专用子域名，故本档记 CN。"
+text = "The plan's selected region requires one inferential step the plan document does not spell out: the region page lists dashscope.aliyuncs.com as the DashScope domain of the China North 2 (Beijing) region, and coding.* is a plan-specific sub-domain of that domain family, so this plan is accessed through the China North 2 (Beijing) region."
+text_zh = "本档选定地域需靠地域文档的域名对照表推一步（Coding Plan 文档本身没有地域表述）：dashscope.aliyuncs.com 被列为华北 2（北京）地域的 DashScope 域名，coding.* 是该域名体系下的套餐专用子域名，故本档经华北 2（北京）地域接入。"
 anchor = "regions-cn-beijing-domain"
+
+[[product.processing_region.point]]
+text = "Processing location, contract basis: §6.2.8 states that Alibaba Cloud processes customer business data in the country or region where the selected Alibaba Cloud Model Studio service and model service are located. With the plan's selected region being China North 2 (Beijing) (see the domain mapping above), the processing region is mainland China, hence CN."
+text_zh = "处理地（合同依据）：协议 §6.2.8 约定「阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据」。本档选定地域为华北 2（北京）（见上一条域名对照），故处理地记中国大陆，codes = [CN]。"
+anchor = "region-chosen-country-or-region"
+
+[[product.processing_region.point]]
+text = "Storage detail: the region determines the access point and the data-storage location."
+text_zh = "存储细节：地域决定接入点和数据存储位置。"
+anchor = "regions-region-determines-storage"
+
+[[product.processing_region.point]]
+text = "Request data: an application sends the request through the access domain to the selected region, and the request data is stored in that region."
+text_zh = "请求数据：应用经接入域名把请求发送到所选地域，请求数据存于该地域。"
+anchor = "regions-request-data-stored-in-region"
+
+[[product.processing_region.point]]
+text = "Inference results are stored back in the access region before the response is returned, and user static data always resides in the selected region."
+text_zh = "推理结果回到接入地域存储后再响应给应用；用户静态数据始终存于所选地域。"
+anchor = "regions-static-data-in-region"
+
+[[product.processing_region.point]]
+text = "Deployment scope determines where inference runs: with data-compliance needs the scope has a specific geographic boundary, otherwise the global scope is used (larger inference resource pool)."
+text_zh = "服务部署范围决定推理执行位置：有数据合规需求时选择特定地理边界的部署范围，无合规需求时选择全球部署范围（推理资源池更大）。"
+anchor = "regions-deployment-scope-inference"
+
+[[product.processing_region.point]]
+text = "Current scope mapping: different regions support different deployment scopes, and Model Studio schedules inference within the selected scope; the page now directs readers to the China North 2 (Beijing), Singapore, US (Virginia), Germany (Frankfurt), Japan (Tokyo) and China Hong Kong pages for each region's supported deployment scopes and access methods."
+text_zh = "服务部署范围现状：不同地域支持不同的服务部署范围，百炼将在所选范围内进行推理调度；各地域支持的服务部署范围和接入方式，本页改为指向华北2（北京）、新加坡、美国（弗吉尼亚）、德国（法兰克福）、日本（东京）、中国香港各地域子页。"
+anchor = "regions-scope-access-per-region-pages"
 
 [[product.processing_region.point]]
 text = "Tier boundary: the Coding Plan API Key and Base URL are not interchangeable with the pay-as-you-go ones, so this plan cannot be treated as the pay-as-you-go API tier."
@@ -630,21 +660,22 @@ exact = "| 新加坡 | `ap-southeast-1` | `{WorkspaceId}.ap-southeast-1.maas.ali
 suffix = " `trial.ap-southeast-1.maas.aliyuncs.com` | [API Key](https:"
 
 [[anchor]]
-id = "regions-cn-beijing-single-scope"
+id = "regions-request-data-stored-in-region"
 source_id = "ba6e789c65526c53"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-onsole.aliyun.com/us-east-1/settings/workspace)（全球/美国）。
-*   """
-exact = "**华北 2（北京）**和**新加坡地域**各仅支持一种服务部署范围，无需选择。"
-suffix = """
+exact = "应用经接入域名将请求发送到所选**地域**，请求数据存于该地域；"
 
+[[anchor]]
+id = "regions-scope-access-per-region-pages"
+source_id = "ba6e789c65526c53"
+topics = ["processing_region"]
 
-**说明**
-
-美国（弗吉尼亚）地域的部署模式已升级。如果正在使用带 `-us` 后缀的模型，请尽快完成切换升级，详"""
+[anchor.selector]
+prefix = "## 选择地域和服务部署范围"
+exact = "不同地域支持不同的服务部署范围，百炼将在所选范围内进行推理调度。例如美国（弗吉尼亚）支持全球和美国，德国（法兰克福）支持全球和欧盟等。各地域支持的服务部署范围和接入方式，请参见华北2（北京）、新加坡、美国（弗吉尼亚）、德国（法兰克福）、日本（东京）、中国香港。"
+suffix = "## 选择接入域名"
 
 [[anchor]]
 id = "pn-platform-no-training"
