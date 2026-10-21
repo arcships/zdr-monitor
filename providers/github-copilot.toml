@@ -262,6 +262,10 @@ anchor = "ghcopilot-trust-other-access-28-days"
 text_zh = "其他对象：User Engagement Data 保留两年；Feedback Data 按目的所需保留。"
 anchor = "ghcopilot-trust-engagement-data-2-years"
 [[product.retention.point]]
+text = "Gemini path, cache object: 「GitHub uses Google's Durable Caching. Cached data is encrypted and held for up to 24 hours. Cached data is never used to train or fine-tune models.」 Object = cached data (the durable prompt cache); context = Gemini models in the page's 'Google models' section, hosted on Google Cloud Platform; period = upper bound of 24 hours. This bounds the cache object on the Gemini path only — it is not a retention period for request bodies, and does not cover prompt caching for Anthropic models on Anthropic PBC, Amazon Bedrock, or Google Cloud."
+text_zh = "Gemini 路径的缓存对象：Google 的 Durable Caching 把缓存数据加密后最多保留 24 小时(上限)，并明确不用于训练或微调模型。对象=缓存数据(非输入输出正文)，语境=页面「Google models」一节的 Gemini 模型(托管在 Google Cloud Platform)。该期限只约束 Gemini 路径的缓存，不能当作请求正文的保留期，也不覆盖 Anthropic 模型在 Anthropic PBC / Amazon Bedrock / Google Cloud 上的 prompt caching。"
+anchor = "ghcopilot-model-hosting-google-durable-caching-24h"
+[[product.retention.point]]
 text_zh = "合同层边界：DPA §2.A.ii 把 Previews 排除在覆盖之外(除 GitHub 明确指定)，preview 特性另由 Pre-Release License Terms 管辖，客户不应在其中处理受合规要求约束的数据。"
 anchor = "ghcopilot-dpa-2a-previews-excluded"
 [product.processing_region]
@@ -367,7 +371,12 @@ text_zh = "Copilot Vision 图片 48 小时内从活动系统删除(被标记者 
 anchor = "ghcopilot-trust-copilot-vision-48h"
 
 [[product.retention.point]]
-text_zh = "DPA §8 规定服务结束后删除或返还。冲突机制：prompt caching 为降延迟而存在，缓存保留期未披露。"
+text = "Gemini path, cache object: 「GitHub uses Google's Durable Caching. Cached data is encrypted and held for up to 24 hours. Cached data is never used to train or fine-tune models.」 Object = cached data (the durable prompt cache); context = Gemini models in the page's 'Google models' section, hosted on Google Cloud Platform; period = upper bound of 24 hours. This bounds the cache object on the Gemini path only — it is not a retention period for request bodies, and does not cover prompt caching for Anthropic models on Anthropic PBC, Amazon Bedrock, or Google Cloud."
+text_zh = "Gemini 路径的缓存对象：Google 的 Durable Caching 把缓存数据加密后最多保留 24 小时(上限)，并明确不用于训练或微调模型。对象=缓存数据(非输入输出正文)，语境=页面「Google models」一节的 Gemini 模型(托管在 Google Cloud Platform)。该期限只约束 Gemini 路径的缓存，不能当作请求正文的保留期，也不覆盖 Anthropic 模型在 Anthropic PBC / Amazon Bedrock / Google Cloud 上的 prompt caching。"
+anchor = "ghcopilot-model-hosting-google-durable-caching-24h"
+
+[[product.retention.point]]
+text_zh = "DPA §8 规定服务结束后删除或返还。冲突机制：Anthropic 模型的 prompt caching(Anthropic PBC / Amazon Bedrock / Google Cloud)为降延迟而存在，缓存保留期未披露；Google models 一节的 Gemini Durable Caching 已披露缓存数据上限 24 小时(见上条)，该上限仅适用于 Gemini，不及于 Anthropic-on-GCP。"
 anchor = "ghcopilot-dpa-8-retention-deletion"
 
 [[product.retention.point]]
@@ -424,6 +433,11 @@ anchor = "ghcopilot-model-hosting-bedrock-no-train"
 [[product.training.point]]
 text = "Google Cloud「Google commits to not training on GitHub data as part of their service terms」"
 anchor = "ghcopilot-model-hosting-gcp-no-training"
+
+[[product.training.point]]
+text = "Cache-layer commitment on the same Gemini path: 「Cached data is never used to train or fine-tune models.」"
+text_zh = "Gemini 路径的缓存层同样承诺「Cached data is never used to train or fine-tune models.」，缓存数据不参与训练或微调。该句出自「Google models」一节的 Gemini Durable Caching，不覆盖 Anthropic 模型的 prompt caching。"
+anchor = "ghcopilot-model-hosting-google-durable-caching-24h"
 
 [[product.training.point]]
 text_zh = "xAI 的 ZDR API policy 含「Used for model training」在 not 列表内"
@@ -488,11 +502,16 @@ text_zh = "Kimi K3 的托管方 Fireworks AI 有 ZDR 协议(「Kimi K3 is covere
 anchor = "ghcopilot-model-hosting-kimi-zdr"
 
 [[product.retention.point]]
-text_zh = "GCP/Gemini 与 AWS Bedrock 一跳的保留期未在 GitHub 页披露(GitHub 只转述「不存储/不记录」并链接各自文档)；Google Cloud 明确不受滥用监控的 prompt logging"
+text_zh = "GCP/Gemini 与 AWS Bedrock 一跳的请求正文保留期未在 GitHub 页披露(GitHub 只转述「不存储/不记录」并链接各自文档)；Gemini 的 Durable Caching 缓存对象另披露上限 24 小时(见下条)，Google Cloud 明确不受滥用监控的 prompt logging"
 anchor = "ghcopilot-model-hosting-gcp-no-abuse-logging"
 
 [[product.retention.point]]
-text_zh = "prompt caching 会在上游留下缓存条目，保留期未在 GitHub 文档披露。按「任一跳明确为否，则全链为否」，启用 Fable 5/5.1 时全链保留状态为「明确保留」，故本行不写 basis=none 覆盖整条链路。"
+text = "Gemini path, cache object: 「GitHub uses Google's Durable Caching. Cached data is encrypted and held for up to 24 hours. Cached data is never used to train or fine-tune models.」 Object = cached data (the durable prompt cache); context = Gemini models in the page's 'Google models' section, hosted on Google Cloud Platform; period = upper bound of 24 hours. This bounds the cache object on the Gemini path only — it is not a retention period for request bodies, and does not cover prompt caching for Anthropic models on Anthropic PBC, Amazon Bedrock, or Google Cloud."
+text_zh = "Gemini 路径的缓存对象：Google 的 Durable Caching 把缓存数据加密后最多保留 24 小时(上限)，并明确不用于训练或微调模型。对象=缓存数据(非输入输出正文)，语境=页面「Google models」一节的 Gemini 模型(托管在 Google Cloud Platform)。该期限只约束 Gemini 路径的缓存，不能当作请求正文的保留期，也不覆盖 Anthropic 模型在 Anthropic PBC / Amazon Bedrock / Google Cloud 上的 prompt caching。"
+anchor = "ghcopilot-model-hosting-google-durable-caching-24h"
+
+[[product.retention.point]]
+text_zh = "Anthropic 模型的 prompt caching(Anthropic PBC / Amazon Bedrock / Google Cloud)会在上游留下缓存条目，保留期未在 GitHub 文档披露；Google models 一节的 Gemini Durable Caching 另披露缓存数据上限 24 小时(见上条)，但仅适用于 Gemini，不覆盖 Anthropic-on-GCP。按「任一跳明确为否，则全链为否」，启用 Fable 5/5.1 时全链保留状态为「明确保留」，故本行不写 basis=none 覆盖整条链路。"
 anchor = "ghcopilot-model-hosting-prompt-caching"
 
 [product.processing_region]
@@ -1021,6 +1040,14 @@ onally not subject to prompt logging for abuse monitoring.
 """
 exact = "To provide better service quality and reduce latency, GitHub uses [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)."
 suffix = " You can read more about prompt caching on [Anthropic PBC](h"
+
+[[anchor]]
+id = "ghcopilot-model-hosting-google-durable-caching-24h"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["retention", "training"]
+
+[anchor.selector]
+exact = "To provide better service quality and reduce latency, GitHub uses Google's Durable Caching. Cached data is encrypted and held for up to 24 hours. Cached data is never used to train or fine-tune models."
 
 [[anchor]]
 id = "ghcopilot-model-hosting-gcp-no-abuse-logging"
