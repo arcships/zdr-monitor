@@ -18,7 +18,7 @@ note = "Claude Code 数据处理页:分消费档(Free/Pro/Max)与商业档(Team/
 url = "https://code.claude.com/docs/en/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(Free/Pro/Max)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。启用 ZDR 会禁用需要服务端存储的功能(云会话含 Desktop 启动的会话、Claude Tag、Artifacts、/feedback 与 /bug、/share、Remote Control);Covered Models(Fable 5.1/Fable 5)默认要求保留,违规会话输入输出最多仍保留 2 年。"
+note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(Free/Pro/Max)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。启用 ZDR 会禁用需要服务端存储的功能(云会话含 Desktop 启动的会话、Chat and Cowork unified、Claude Tag、Artifacts、/feedback 与 /bug、/share、Remote Control);Covered Models(Fable 5.1/Fable 5)默认要求保留,违规会话输入输出最多仍保留 2 年。"
 
 [[source]]
 url = "https://www.anthropic.com/legal/consumer-terms"
@@ -250,8 +250,8 @@ anchor = "cc-zdr-enterprise-only"
 [[product.zdr.point]]
 text_zh = "ZDR 仅适用于合格 Enterprise 账号，不包含在标准 Enterprise 套餐中，须由账号团队确认资格并按组织启用。启用后提示与响应实时处理、响应返回后不存储，但法律与反滥用例外仍适用。"
 [[product.zdr.point]]
-text = "Enabling ZDR disables features that require storing prompts or completions at the backend level: cloud sessions (including those started from the Desktop app), Claude Tag, Artifacts, /feedback (with /bug and /share on the same path) and Remote Control."
-text_zh = "启用 ZDR 会在后端禁用需要存储提示或响应的功能:云会话(含从 Desktop 启动的会话)、Claude Tag、Artifacts、/feedback(与 /bug、/share 同路径)以及 Remote Control。"
+text = "Enabling ZDR disables features that require storing prompts or completions at the backend level: cloud sessions (including those started from the Desktop app), Chat and Cowork unified (which requires cloud sessions), Claude Tag, Artifacts, /feedback (with /bug and /share on the same path) and Remote Control."
+text_zh = "启用 ZDR 会在后端禁用需要存储提示或响应的功能:云会话(含从 Desktop 启动的会话)、Chat and Cowork unified(依赖云会话)、Claude Tag、Artifacts、/feedback(与 /bug、/share 同路径)以及 Remote Control。"
 anchor = "cc-zdr-disabled-features"
 [[product.zdr.point]]
 text = "Covered Models are an exception to ZDR: \"Claude Fable 5.1 and Fable 5 are Covered Models that require data retention by default, and whether a ZDR organization or workspace can use them is governed by the Covered Models policies rather than by Claude Code.\" Where they cannot be used they are absent from the /model picker or shown as disabled."
@@ -535,6 +535,7 @@ prefix = """
 """
 exact = """
 | Cloud sessions, including those started from the Desktop app | Requires server-side storage of session data, including conversation history with prompts and completions. |
+| Chat and Cowork unified | Requires cloud sessions. |
 | Claude Tag | Retains channel memory and session transcripts. |
 | Artifacts | Requires storing published page content on Anthropic-operated infrastructure. |
 | Feedback submission (`/feedback`, `/bug`, `/share`) | Submitting feedback sends conversation data to Anthropic. |
