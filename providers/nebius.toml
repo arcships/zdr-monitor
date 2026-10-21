@@ -39,7 +39,7 @@ note = "《Nebius Token Factory Supplemental Terms》(Effective 2026-09-15)，�
 url = "https://docs.tokenfactory.nebius.com/data-lab/data-processing"
 channel = "developer_data"
 tier = "core"
-note = "Token Factory 文档站《Data Lab → Data Processing》页，明确 Data Lab(推理日志、数据集、批量输出、微调产物)全部只在 EU-North1(芬兰)处理，且「Nebius Token Factory acts as a Data Processor under the terms of our DPA」。processing_region 与 role 的产品层依据。"
+note = "Token Factory 文档站《Data Lab → Data Processing》页。明确 Data Lab(推理日志、数据集、批量输出、训练数据)全部只在 EU-North1(芬兰)处理，且「Nebius Token Factory acts as a Data Processor under the terms of our DPA」。当前版本新增 Data retention 表：未导出为数据集的 raw completions 1 年后自动删除；上传、导出生成、批量任务生成的数据集留至客户删除、无自动过期。页面开头仍把 fine-tuning results 列为 Data Lab 数据类型，但「For all data ... including」清单已删去该项。processing_region、role 与 post-training-data-lab 档 retention 的产品层依据。"
 
 [[source]]
 url = "https://docs.tokenfactory.nebius.com/legal/legal-quick-guide"
@@ -258,6 +258,11 @@ text_zh = "已撤锚：DPA Annex 3 把 ZDR 的对象定义为「supported chat-c
 text_zh = "ZDR 的覆盖对象在 DPA Annex 3 被写成「supported chat-completion request and response content」，微调数据集/产物/批量输出不在其中"
 
 [[product.zdr.point]]
+text = "The Data Lab page's object list puts the ZDR carve-out only on inference logs: \"Inference logs - inputs and outputs (unless you enable Zero Data Retention)\"; uploaded/filtered datasets and batch inference outputs are listed without any ZDR qualifier. This matches the scope limit in DPA Annex 3 and does not state zero retention for this tier's datasets or artefacts."
+text_zh = "Data Lab 页的对象清单把 ZDR 括注只放在推理日志上：「Inference logs - inputs and outputs (unless you enable Zero Data Retention)」；上传/筛选数据集与批量推理输出列在同一清单里但没有 ZDR 括注。与 DPA Annex 3 的范围限定一致，也没有对本档数据集或产物作出零保留表述。"
+anchor = "datalab-inference-logs-unless-zdr"
+
+[[product.zdr.point]]
 text_zh = "官方没有说这些数据可享零保留，故记 not_found(未披露)，不外推。"
 
 [product.retention]
@@ -273,14 +278,23 @@ searched = [
 ]
 
 [[product.retention.point]]
-text = "Contract-layer statement covering this tier, DPA Annex 3: \"Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations\" — no quantified period for datasets, batch outputs or fine-tuning artefacts. Object: Customer Personal Data (incl. datasets, outputs, artefacts); context: default; type: not quantified."
-text_zh = "覆盖本档的合同层表述，DPA Annex 3：「Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations」——对数据集、批量输出与微调产物都没有量化期限。对象＝Customer Personal Data(含数据集/输出/产物)；语境＝默认；期限类型＝未量化。"
+text = "Contract-layer statement covering this tier, DPA Annex 3: \"Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations\" — the DPA itself sets no quantified period. Object: Customer Personal Data (incl. datasets, outputs, artefacts); context: default; type: not quantified. The Data Lab page below supplies object-level periods for some of these objects, but not for fine-tuning artefacts."
+text_zh = "覆盖本档的合同层表述，DPA Annex 3：「Nebius retains Customer Personal Data only for as long as necessary to provide the applicable Services or meet applicable legal obligations」——DPA 本身没有量化期限。对象＝Customer Personal Data(含数据集/输出/产物)；语境＝默认；期限类型＝未量化。下文 Data Lab 页给出其中部分对象的期限，但不包括微调产物。"
 anchor = "dpa-annex3-retention-necessary-only"
 
 [[product.retention.point]]
-text = "What the Data Lab page does state is the object list: \"Inference logs - inputs and outputs (unless you enable Zero Data Retention)\", uploaded/filtered datasets, batch inference outputs, fine-tuning results. It gives no retention period for any of them — its only period-like statement is about processing location (EU-North1), which is recorded under processing_region, not here."
-text_zh = "Data Lab 页实际给出的是对象清单：「Inference logs - inputs and outputs (unless you enable Zero Data Retention)」、上传/筛选数据集、批量推理输出、微调结果；对其中任何一类都没有给保留期限，该页唯一像期限的表述是处理地(EU-North1)，记在 processing_region，不记在本维度。"
-anchor = "datalab-inference-logs-unless-zdr"
+text = "Data Lab retention table (\"Data Lab retains your data as follows:\"): \"Raw completions not exported to a dataset | Deleted automatically after 1 year\". Object: raw completions (inference-log outputs); context: default, not exported to a dataset; type: fixed one-year deletion. The table states no retention period for the input side of inference logs."
+text_zh = "Data Lab 保留表(表头「Data Lab retains your data as follows:」)：「Raw completions not exported to a dataset | Deleted automatically after 1 year」。对象＝raw completions(推理日志的输出)；语境＝默认、未导出为数据集；期限类型＝固定 1 年后删除。该表没有给推理日志输入侧的保留期限。"
+anchor = "datalab-retention-raw-completions-1y"
+
+[[product.retention.point]]
+text = "Data Lab retention table: \"Datasets you upload | Kept until you delete them\"; \"Datasets created by exporting completions | Kept until you delete them\"; \"Datasets created from completed batch jobs | Kept until you delete them\"; and \"Datasets have no automatic expiration, so you can delete them at any time.\" Object: datasets; context: default; type: no automatic expiry — retained until the customer deletes them. Because this tier covers several objects with different periods, the verdict stays object=mixed, basis=undisclosed, with the object-level periods recorded in these points."
+text_zh = "Data Lab 保留表：「Datasets you upload | Kept until you delete them」「Datasets created by exporting completions | Kept until you delete them」「Datasets created from completed batch jobs | Kept until you delete them」，并写明「Datasets have no automatic expiration, so you can delete them at any time」。对象＝数据集；语境＝默认；期限类型＝无自动过期，留至客户删除。本档包含多个期限不同的对象，故 verdict 仍为 object=mixed、basis=undisclosed，逐对象期限记录在本批 point 中。"
+anchor = "datalab-retention-datasets-until-deletion"
+
+[[product.retention.point]]
+text = "Fine-tuning results: the page introduction still names them as a Data Lab data type (\"batch inference outputs, and fine-tuning results\"), but the previous list item \"Fine-tuning results\" was removed from the \"For all data you submit or generate through Data Lab, including\" list and does not appear in the new retention table. This source states no retention period for fine-tuning results; the DPA's \"only for as long as necessary\" remains the only statement covering them."
+text_zh = "微调结果：页面开头仍把 fine-tuning results 列为 Data Lab 数据类型(「batch inference outputs, and fine-tuning results」)，但原先的清单项「Fine-tuning results」已从「For all data you submit or generate through Data Lab, including」清单中删去，也不在新的 retention 表中。该来源没有给微调结果的保留期限；DPA 的「only for as long as necessary」仍是唯一覆盖它们的表述。"
 
 [[product.retention.point]]
 text = "Search scope is recorded in searched. The Data Lab chat-completions page cited in an earlier revision is not among this provider's monitored sources, so its content (logs produced while ZDR is on are not stored and cannot be imported) is not machine-checkable and is no longer used as a basis here."
@@ -982,16 +996,16 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = """
-actory.nebius.com/legal/dpa).
+Datasets have no automatic expiration, so you can delete them at any time.
 
-### **Processing Location**
+**Processing Location**
 
 """
 exact = "All Data Lab processing activities, including handling of logs, datasets, batch outputs, and training data, are performed exclusively in the EU-North1 (Finland) data center"
 suffix = """
 .
 
-### **Future Changes**
+**Future Changes**
 
 If hosting locations change, we c"""
 
@@ -1002,13 +1016,11 @@ topics = ["role"]
 
 [anchor.selector]
 prefix = """
-tasets
-*   Batch inference outputs
-*   Fine-tuning results
+Batch inference outputs
 
 """
 exact = "Nebius Token Factory acts as a **Data Processor** under the terms of our"
-suffix = " [Data Processing Agreement (DPA)](https://docs.tokenfactory"
+suffix = " Data Processing Agreement (DPA)."
 
 [[anchor]]
 id = "dpa-6-1-ai-cloud-region"
@@ -1041,12 +1053,28 @@ exact = "The period for which the personal data will be retained is for the dura
 [[anchor]]
 id = "datalab-inference-logs-unless-zdr"
 source_id = "8b321c003887f470"
-topics = ["retention"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = "For all data you submit or generate through Data Lab, including:"
 exact = "Inference logs - inputs and outputs (unless you enable Zero Data Retention)"
 suffix = "Uploaded datasets"
+
+[[anchor]]
+id = "datalab-retention-raw-completions-1y"
+source_id = "8b321c003887f470"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Raw completions not exported to a dataset | Deleted automatically after 1 year"
+
+[[anchor]]
+id = "datalab-retention-datasets-until-deletion"
+source_id = "8b321c003887f470"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Datasets have no automatic expiration, so you can delete them at any time"
 
 [[anchor]]
 id = "agreement-10-1-3-customer-data-use"
