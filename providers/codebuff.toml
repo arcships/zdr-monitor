@@ -38,12 +38,27 @@ category = "coding_plan"
 plan_level = "individual"
 
 [product.training]
-mark = "yes"
-mode = "default"
+mark = "no"
 anchor = "codebuff-training-default"
 
 [[product.training.point]]
-text_zh = "只有明确标注“May use data for AI training”的模型/功能例外；使用该例外时训练结论反转。连接 Freebuff Cloud 仓库还允许有限 Codebase Evaluation，但该行为本身不授权训练。"
+text = "Except to train the models used to select and measure advertising, Company does not use Prompt and Project Data to train its or third-party AI models unless the applicable model or feature is clearly labelled before use as permitting AI training."
+text_zh = "除训练用于选择和衡量广告的模型外，公司不会用 Prompt and Project Data 训练自研或第三方 AI 模型，除非在使用前明确标注适用模型或功能允许 AI 训练。"
+anchor = "codebuff-training-default"
+
+[[product.training.point]]
+text = "Connecting a GitHub repository to Freebuff Cloud authorizes Codebase Evaluation only of code, files, and other content in that connected repository."
+text_zh = "连接 GitHub 仓库到 Freebuff Cloud 只授权对该连接仓库中的代码、文件及其他内容进行 Codebase Evaluation。"
+anchor = "codebuff-codebase-evaluation-scope"
+
+[[product.training.point]]
+text = "Connecting a repository does not permit us or a partner to train AI models on it."
+text_zh = "连接仓库并不允许公司或合作伙伴在其上训练 AI 模型。"
+anchor = "codebuff-codebase-evaluation-no-training"
+
+[[product.training.point]]
+text = "Scope conflict kept explicit: the Codebase Evaluation prohibition applies to training AI models on the connected repository's code, files, and other content, while the AI Training exception expressly permits training models used to select and measure advertising from the broader Prompt and Project Data. The policy does not expressly reconcile whether that advertising exception can reach connected-repository content, so these statements are not treated as a blanket permission or blanket prohibition."
+text_zh = "明确保留适用范围冲突：Codebase Evaluation 的禁训句适用于连接仓库中的代码、文件及其他内容；AI Training 例外则明确允许用更广义 Prompt and Project Data 训练用于选择和衡量广告的模型。政策没有明确说明广告例外是否能覆盖连接仓库内容，因此不把两句合并解读为全面许可或全面禁止。"
 anchor = "codebuff-training-default"
 
 [product.zdr]
@@ -58,6 +73,21 @@ anchor = "codebuff-retention"
 [[product.retention.point]]
 text_zh = "输入、代码、文件、agent traces 与项目数据可被收集；只给按目的合理必要的泛化期限。账号删除请求完成后，不再仅为 Codebase Evaluation 保留 raw source code/agent traces，但断开 GitHub 或 Delete project 本身不会删除已收集数据。"
 anchor = "codebuff-retention"
+
+[[product.retention.point]]
+text = "Agents in Freebuff Desktop and CLI can read files, run commands, and access environment variables and other data that the device account can access, including outside the project; anything an agent reads becomes Prompt and Project Data."
+text_zh = "Freebuff Desktop 与 CLI 中的 agent 可读取文件、运行命令，并访问设备账号可访问的环境变量及其他数据，包括项目之外的数据；agent 读取的任何内容都会成为 Prompt and Project Data。"
+anchor = "codebuff-agent-data-scope"
+
+[[product.retention.point]]
+text = "When you delete your account, Company keeps keyed hashes of identifiers such as email address, phone number, identity document, and device identifiers, together with suspension, limit, and reward status, so deletion does not reset a suspension, limit, or reward."
+text_zh = "删除账号时，公司会保留邮箱、手机号、身份证件和设备标识等标识符的 keyed hash，以及停权、限制和奖励状态，使删除账号不会重置停权、限制或奖励。"
+anchor = "codebuff-account-deletion-identifiers"
+
+[[product.retention.point]]
+text = "AI agents may access files, credentials, environment variables, and other data available to them, including outside the project, and include that data in requests to model providers; this expands the potential Prompt and Project Data scope but does not publish a retention period."
+text_zh = "AI agent 可访问文件、凭据、环境变量及其可访问的其他数据，包括项目之外的数据，并将这些数据包含在发给模型商的请求中；这扩大了潜在 Prompt and Project Data 范围，但没有公布保留期限。"
+anchor = "codebuff-terms-agent-data-scope"
 
 [[product.retention.point]]
 text_zh = "Tree-sitter 在本地建立 code map，但官方未披露该本地索引/缓存的清理期限。"
@@ -97,9 +127,19 @@ text_zh = "政策把处理建立在自身合法依据上（履行合同、遵守
 anchor = "codebuff-legal-bases"
 
 [[product.role.point]]
-text = "Prompt and Project Data are also used to personalize advertising inside the Service, including by deriving general interest categories — again processing for the company's own purposes, and no retention period is published for those derived interest categories."
-text_zh = "提示词与项目数据还被用于站内广告个性化，包括派生一般兴趣类别，同样是为自身目的处理，且政策未公布这些派生兴趣类别的保留期限。"
+text = "Prompt and Project Data are used to personalize advertising inside the Service, including by deriving general interest categories and a general profile of the projects a user works on; the applications may automatically review project files to build these profiles."
+text_zh = "提示词与项目数据被用于站内广告个性化，包括派生一般兴趣类别与用户项目概况；应用可能自动审阅项目文件来建立这些概况。"
 anchor = "codebuff-ad-personalization"
+
+[[product.role.point]]
+text = "Company and service providers acting on its behalf, including AI model providers, analyze advertising data to select, deliver, measure, and prevent fraud in advertising, and to train the models that do so."
+text_zh = "公司及代表公司行事的服务商（包括 AI 模型商）会分析广告数据，用于选择、投放、衡量广告、防止广告欺诈及训练执行这些工作的模型。"
+anchor = "codebuff-ad-training"
+
+[[product.role.point]]
+text = "A sponsor of a survey or task a user chooses to take part in may receive the user's responses with general profile details or a task record, including agent messages that may quote the user's code; with permission, Company may also share the user's email address."
+text_zh = "用户选择参加的问卷或任务的赞助方可能收到用户的回答及一般资料（如职务或团队规模），或任务记录（包括可能引用用户代码的 agent messages）；经用户许可，公司还可分享用户的电子邮件地址。"
+anchor = "codebuff-sponsored-disclosure"
 
 [[product]]
 id = "training-labeled"
@@ -110,6 +150,17 @@ plan_level = "free"
 [product.training]
 mark = "no"
 anchor = "codebuff-training-exception"
+
+[[product.training.point]]
+text = "Data submitted through a model or feature labeled for AI training may also be shared, licensed, or sold, including agent traces, to third parties such as researchers and companies for AI training, research, and other commercial purposes."
+text_zh = "通过标注可用于 AI 训练的模型或功能提交的数据还可被分享、许可或出售（包括 agent traces）给研究机构和企业等第三方，供其用于 AI 训练、研究及其他商业用途。"
+anchor = "codebuff-training-sale"
+
+[[product.training.point]]
+text = "For Content submitted through a model or feature labeled for AI training, the Terms make the license sublicensable, so Company may share, license, or sell that Content to third parties."
+text_zh = "对于通过标注可用于 AI 训练的模型或功能提交的 Content，服务条款将许可设为可转授，因此公司可将该 Content 分享、许可或出售给第三方。"
+anchor = "codebuff-terms-sublicense"
+
 [product.zdr]
 mark = "no"
 anchor = "codebuff-training-exception"
@@ -119,8 +170,8 @@ basis = "undisclosed"
 anchor = "codebuff-training-exception"
 
 [[product.retention.point]]
-text = "Data submitted through a model or feature labeled for AI training may be retained for the permitted development and improvement uses and may not be removable once it has been deidentified or incorporated into a model — an authorised retention with no deletion ceiling."
-text_zh = "带 AI 训练标注的模型或功能所提交的数据可按已授权的开发与改进用途留存，且在去标识或并入模型后可能不可移除——属授权性留存，没有删除上限。"
+text = "Data submitted through a model or feature labeled for AI training may be retained for the permitted uses and may not be removable once it has been deidentified, incorporated into a model, or provided to a third party — an authorised retention with no deletion ceiling, where transfer to a third party also ends removability."
+text_zh = "带 AI 训练标注的模型或功能所提交的数据可按已授权用途留存，且在去标识、并入模型或提供给第三方后可能不可移除——属授权性留存，没有删除上限，向第三方提供同样会使数据不可移除。"
 anchor = "codebuff-training-retention"
 
 [product.processing_region]
@@ -132,9 +183,24 @@ kind = "unknown"
 searched = ["https://www.codebuff.com/privacy-policy", "https://www.codebuff.com/terms-of-service"]
 
 [[product.role.point]]
-text = "In jurisdictions where these advertising choices are not legally required, certain advertising processing may be necessary to use the free Service — advertising the provider runs for its own purposes rather than on a customer's instruction. The policy still names no role for Codebuff."
-text_zh = "在未强制提供广告选择的辖区，部分广告处理是使用免费服务的必要条件，即厂商为自身广告目的而非按客户指示进行的处理；但政策仍未指明 Codebuff 的角色。"
+text = "In jurisdictions where these choices are not legally required, certain advertising processing may be necessary to use the free Service."
+text_zh = "在未强制提供广告选择的辖区，部分广告处理可能是使用免费服务的必要条件。"
 anchor = "codebuff-ad-necessity"
+
+[[product.role.point]]
+text = "For labelled data, Company may share, license, or sell Content including agent traces to third parties for AI training, research, and other commercial uses."
+text_zh = "对于标注可训练的数据，公司可将包括 agent traces 在内的 Content 分享、许可或出售给第三方，供其用于 AI 训练、研究及其他商业用途。"
+anchor = "codebuff-training-sale"
+
+[[product.role.point]]
+text = "The Terms make the Content licence sublicensable for labelled data, so Company may share, license, or sell that Content to third parties as described in the Privacy Policy."
+text_zh = "服务条款还把标注可训练数据的 Content 许可设为可转授，允许公司按隐私政策所述将这类内容分享、许可或出售给第三方。"
+anchor = "codebuff-terms-sublicense"
+
+[[product.role.point]]
+text = "A sponsor of a survey or task a user chooses to take part in may receive responses with general profile details or a task record, including agent messages that may quote code; with permission, Company may also share the user's email address."
+text_zh = "用户选择参加的问卷或任务的赞助方可能收到回答及一般资料或任务记录（包括可能引用代码的 agent messages）；经用户许可，公司还可分享用户的电子邮件地址。"
+anchor = "codebuff-sponsored-disclosure"
 
 [[anchor]]
 id = "codebuff-local-map"
@@ -160,7 +226,7 @@ source_id = "56524e038896a2bf"
 topics = ["training"]
 [anchor.selector]
 prefix = "## AI Training\n\n"
-exact = "We do not use Prompt and Project Data to train our or third-party AI models unless, before you use the applicable model or feature, we clearly state that the data may be used for AI training."
+exact = "Except to train the models we use to select and measure advertising, as described in Personalized Advertising, we do not use Prompt and Project Data to train our or third-party AI models unless, before you use the applicable model or feature, we clearly state that the data may be used for AI training."
 suffix = " A label or notice"
 
 [[anchor]]
@@ -169,8 +235,8 @@ source_id = "56524e038896a2bf"
 topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
-exact = "A label or notice such as May use data for AI training means that Prompt and Project Data submitted through that model or feature may be retained and used by Company or the applicable third-party provider for AI training, development, evaluation, testing, fine-tuning, quality improvement, safety research, and related model or product improvement."
-suffix = " A general notice"
+exact = "A label or notice such as May use data for AI training means that Prompt and Project Data submitted through that model or feature may be retained and used by Company or the applicable provider to train, evaluate, and improve AI models and products."
+suffix = " We may also share"
 
 [[anchor]]
 id = "codebuff-training-retention"
@@ -178,7 +244,7 @@ source_id = "56524e038896a2bf"
 topics = ["retention"]
 [anchor.selector]
 prefix = ""
-exact = "Data submitted through a model or feature labeled for AI training may be retained for the permitted development and improvement uses above and may not be removable after it is deidentified or incorporated into a model."
+exact = "Data submitted through a model or feature labeled for AI training may be retained for the permitted uses above and may not be removable after it is deidentified, incorporated into a model, or provided to a third party."
 suffix = ""
 
 [[anchor]]
@@ -193,11 +259,65 @@ suffix = " Where required"
 [[anchor]]
 id = "codebuff-ad-personalization"
 source_id = "56524e038896a2bf"
-topics = ["role", "retention"]
+topics = ["role"]
 [anchor.selector]
 prefix = "## Personalized Advertising\n\n"
-exact = "We may use Prompt and Project Data to personalize advertising shown within Service, including by deriving general interest categories."
+exact = "We may use Prompt and Project Data to personalize advertising shown within Service, including by deriving general interest categories and a general profile of the projects you work on, such as the languages, frameworks, tools, and services they use. To build these profiles, our applications may automatically review project files, such as configuration and documentation files, without a separate prompt from you."
 suffix = ""
+
+[[anchor]]
+id = "codebuff-codebase-evaluation-scope"
+source_id = "56524e038896a2bf"
+topics = ["training"]
+[anchor.selector]
+prefix = "## Limited Codebase Evaluation\n\n"
+exact = "Connecting a GitHub repository to Freebuff Cloud authorizes Codebase Evaluation only of code, files, and other content in that connected repository."
+suffix = " Agent traces are not eligible"
+
+[[anchor]]
+id = "codebuff-codebase-evaluation-no-training"
+source_id = "56524e038896a2bf"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "Connecting a repository does not permit us or a partner to train AI models on it."
+suffix = ""
+
+[[anchor]]
+id = "codebuff-ad-training"
+source_id = "56524e038896a2bf"
+topics = ["training", "role"]
+[anchor.selector]
+prefix = ""
+exact = "We and service providers acting on our behalf, including AI model providers, analyze this data to select, deliver, measure, and prevent fraud in advertising, and to train the models that do so."
+suffix = " These providers may not use it"
+
+[[anchor]]
+id = "codebuff-sponsored-disclosure"
+source_id = "56524e038896a2bf"
+topics = ["role", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "If you take part in a sponsored survey or sponsored task, its sponsor may receive your responses with general profile details, such as your role or team size, or a record of the task, including agent messages that may quote your code. With your permission, we may also share your email address with a sponsor."
+suffix = " Where required"
+
+[[anchor]]
+id = "codebuff-training-sale"
+source_id = "56524e038896a2bf"
+topics = ["training", "retention", "role"]
+[anchor.selector]
+prefix = ""
+exact = "We may also share, license, or sell that data, including agent traces, to third parties, such as researchers and companies, who may use it for AI training, research, and other commercial purposes."
+suffix = " A general notice"
+
+[[anchor]]
+id = "codebuff-terms-sublicense"
+source_id = "63758b88db24f120"
+topics = ["training", "retention", "role"]
+[anchor.selector]
+prefix = ""
+exact = "For Content submitted through a model or feature labeled for AI training, this license is also sublicensable, so Company may share, license, or sell that Content to third parties as described in our Privacy Policy."
+suffix = " Restricted evaluation partners"
 
 [[anchor]]
 id = "codebuff-ad-necessity"
@@ -243,6 +363,33 @@ topics = ["retention"]
 prefix = ""
 exact = "Our products also send bounded usage, performance, and diagnostic events to analytics and observability providers."
 suffix = ""
+
+[[anchor]]
+id = "codebuff-agent-data-scope"
+source_id = "56524e038896a2bf"
+topics = ["retention", "role"]
+[anchor.selector]
+prefix = "## Agents on Your Device\n\n"
+exact = "Agents in Freebuff Desktop and CLI run with the permissions of your device account. They can read files, run commands, and access environment variables and other data that account can access, including outside your project. We do not design agents to seek out credentials or unrelated personal data, but AI agents can act unpredictably, for example by taking steps unrelated to your request or following instructions found in files or web content, and we cannot guarantee what an agent will access. Anything an agent reads becomes Prompt and Project Data."
+suffix = " To limit exposure"
+
+[[anchor]]
+id = "codebuff-account-deletion-identifiers"
+source_id = "56524e038896a2bf"
+topics = ["retention"]
+[anchor.selector]
+prefix = ""
+exact = "When you delete your account, we keep keyed hashes of its identifiers, such as email address, phone number, identity document, and device identifiers, with its suspension, limit, and reward status, so that deleting an account does not reset a suspension, limit, or reward."
+suffix = " Deleted information may remain"
+
+[[anchor]]
+id = "codebuff-terms-agent-data-scope"
+source_id = "63758b88db24f120"
+topics = ["retention", "processing_region"]
+[anchor.selector]
+prefix = "## AI Output and Actions\n\n"
+exact = "AI output may be false, insecure, incomplete, or infringing, and may introduce vulnerabilities. AI agents act autonomously and may take actions you did not request or expect, including executing commands, deleting or corrupting data, interacting with external systems, and accessing files, credentials, environment variables, or other data available to them, including outside your project, and including that data in requests to model providers. Malicious repository content or prompt injection may affect output or actions. We cannot guarantee what an agent will do."
+suffix = " You are responsible"
 
 [[anchor]]
 id = "codebuff-identity-processor"
