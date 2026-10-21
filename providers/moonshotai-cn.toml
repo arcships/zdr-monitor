@@ -67,8 +67,8 @@ text_zh = "企业客户按需开放、需联系销售申请评估，不是自助
 anchor = "zdr-enterprise-on-request"
 
 [[product.zdr.point]]
-text = "Once enabled, request content is cleared as soon as the response is returned. Excluded: images and videos submitted by direct file upload, Kimi Hosted Agents data, operational data such as security logs and billing records, and third-party models, connectors and plugins."
-text_zh = "开通后请求内容响应返回即清除。排除：直接文件上传的图像/视频、Kimi Hosted Agents 数据、安全日志与账单等运营数据、第三方模型/连接器/插件。"
+text = "Once enabled, request content is cleared as soon as the response is returned. Excluded: Batch API batch jobs (which \"do not support ZDR\"), images and videos submitted by direct file upload, Kimi Hosted Agents data, operational data such as security logs and billing records, and third-party models, connectors and plugins."
+text_zh = "开通后请求内容响应返回即清除。排除：Batch API 提交的批处理任务（「不支持 ZDR」）、直接上传的图像/视频、Kimi Hosted Agents 数据、安全日志与账单等运营数据、第三方模型/连接器/插件。"
 anchor = "zdr-scope-exclusions"
 
 [product.retention]
@@ -408,14 +408,13 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
-留请求内容，无法对单次请求的内容做回溯排查，请在你自己的系统中留存请求日志。
-
-### ZDR 适用所有数据类型吗？
-
+ZDR 模式下还能排查问题吗？
+平台不保留请求内容，无法对单次请求的内容做回溯排查，请在你自己的系统中留存请求日志。
+ZDR 适用所有数据类型吗？
 """
-exact = "通过直接文件上传方式提交的图像或视频，使用 Kimi Hosted Agents 托管智能体的数据，零数据留存无法保证。安全日志、账单记录等运营数据不属于零留存范围；第三方模型、连接器、插件等不受本协议约束。"
+exact = "不是。以下服务和数据类型需要特别注意：1. **Batch Job 服务**：通过 Batch API 提交的批处理任务不支持 ZDR。2. **直接上传的图像或视频**：通过文件上传接口直接提交的图像或视频，无法保证零数据留存。3. **Kimi Hosted Agents 托管智能体**：使用 Kimi Hosted Agents 托管智能体处理的数据，无法保证零数据留存。4. **运营数据**：安全日志、账单记录等运营数据，不属于零数据留存范围。5. **第三方服务**：第三方模型、连接器、插件等第三方服务处理的数据，不受本 ZDR 政策约束。"
 suffix = """
-
+此页面对您有帮助吗？
 """
 
 [[anchor]]
