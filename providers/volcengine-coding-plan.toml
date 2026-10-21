@@ -41,7 +41,14 @@ url = "https://www.volcengine.com/docs/ark/subscription-package-service-terms-co
 fetch = "browser"
 channel = "contract"
 tier = "core"
-note = "火山方舟大模型订阅套餐服务专用条款:一份文档同时覆盖 Coding Plan / Agent Plan 的个人版(§1.3)与企业版(§1.4),§1.1 明确本服务「各分别包括个人版和企业版」;§1.2 把《火山引擎服务条款》《火山引擎隐私政策》《产品和服务协议》并入完整协议。两档数据处理条款完全相反(§1.4 不留存/不用于服务优化 vs §1.3 授权存储并使用输入输出),本条目全部档位结论的档位权威都在此文档"
+note = "火山方舟大模型订阅套餐服务专用条款:一份文档同时覆盖 Coding Plan / Agent Plan 的个人版(§1.3)与企业版(§1.4),§1.1 明确本服务「各分别包括个人版和企业版」且本专用条款有特别约定时优先;§1.2(2026-10-20 版)把《火山引擎服务条款》《火山引擎隐私政策》《产品和服务协议》《火山方舟大模型服务平台专用条款》《火山引擎AI服务规则及免责声明》及订购协议/服务订单、《服务等级协议》(如有)、服务规则并入完整协议。两档数据处理条款完全相反(§1.4 不留存/不用于服务优化 vs §1.3 授权存储并使用输入输出),本条目全部档位结论的档位权威都在此文档"
+
+[[source]]
+url = "https://www.volcengine.com/docs/82379/1104498"
+fetch = "browser"
+channel = "contract"
+tier = "core"
+note = "火山方舟大模型服务平台专用条款(发布 2026-08-05,生效 2026-08-11),订阅套餐条款 §1.2(2026-10-20 版)已把本协议增列为完整协议第(3)项:§3.7.7 明确未经单独同意不存储、不使用数据训练或优化模型,但(1)允许为法律法规合规要求对提交和输出内容自动化过滤审核并建立、改进风险特征库,(2)允许为排障在合理时间内存储主动提供的数据,(3)允许存储和审查异常告警数据直至解除告警;§3.7.11 说明使用缓存存储、日志记录、AI 应用监控与调试、可观测性平台、加标识、Managed Agents 托管等功能时数据会存入方舟存储空间,但未经授权不访问或使用。其训练/优化限制及未授权访问限制与订阅套餐条款 §1.4 同向,上述功能例外单独登记;订阅套餐 §1.1 规定其有特别约定时优先。同一文档另有别名 URL https://www.volcengine.com/docs/ark/volcengine-ark-platform-terms"
 
 [[source]]
 url = "https://www.volcengine.com/docs/ark/zhipu-ai-model-service-agreement?lang=zh"
@@ -95,8 +102,24 @@ text_zh = "射程边界:经 §1.2 并入的《产品和服务协议》§6.7 允�
 anchor = "volcengine-cp-generic-operational-data"
 
 [[product.training.point]]
-text = "The plan overview page adds \"does not record user requests or model response data\"; platform terms §3.7.7 points the same way, but that is the pay-as-you-go API tier's authority and counts only as a cross-tier reference"
-text_zh = "套餐概览页另有「不记录用户请求与模型返回数据」佐证;平台专用条款 §3.7.7 同向,但那属按量 API 档的档位权威,只能算跨档位旁证"
+text = "Platform terms §3.7.7: \"without your separate consent, Volcengine will not store or use your data to train or optimize models\""
+text_zh = "平台专用条款 §3.7.7:「未经您的单独同意，火山引擎不会存储和使用您的数据来训练或优化模型」"
+anchor = "volcengine-cp-platform-terms-3-7-7"
+
+[[product.training.point]]
+text = "Platform terms §3.7.7(1) permit vendor-side automated filtering and review of submitted and generated content, and building or improving risk filters and infringement-content feature libraries to meet legal and regulatory compliance requirements; this is a processing exception to the platform clause and is not a training authorization"
+text_zh = "平台条款 §3.7.7(1) 允许火山引擎为履行法律法规合规要求,对提交给服务或使用服务输出的内容进行自动化过滤审核,并建立和改进风险过滤机制及违法违规侵权内容特征库;这是平台条款的厂商侧处理例外,不是训练授权"
+anchor = "volcengine-cp-platform-terms-3-7-7-compliance-review"
+
+[[product.training.point]]
+text = "Subscription terms §1.2 (2026-10-20 version) adds the Ark platform-specific terms as item (3) of the documents that together form the complete agreement, so §3.7.7 is no longer merely a cross-tier reference"
+text_zh = "订阅条款 §1.2(2026-10-20 版)把《火山方舟大模型服务平台专用条款》增列为完整协议第(3)项,§3.7.7 不再只是跨档位旁证"
+anchor = "volcengine-cp-full-agreement-incorporation"
+
+[[product.training.point]]
+text = "Subscription terms §1.1: where these plan-specific terms specially provide, they apply"
+text_zh = "订阅条款 §1.1:本专用条款有特别约定时适用本专用条款"
+anchor = "volcengine-cp-plan-terms-prevail"
 
 [product.zdr]
 mark = "yes"
@@ -107,6 +130,31 @@ anchor = "volcengine-cp-enterprise-no-retention"
 text = "§1.4 is a clause-level zero-retention commitment: \"your data (the data you exchange with this service) will not be retained by this service, please store and back it up yourself\" — stronger than the pay-as-you-go API tier's \"not stored by default plus four listed exception scenarios\", with no application or extra configuration needed: it applies as soon as the enterprise edition is ordered"
 text_zh = "§1.4 条款级零留存:「您的数据(您与本服务交互的数据)将不会被本服务留存,请您自行存储和备份」——强于按量 API 档的「默认不存储 + 四类列明场景例外」,无需申请或额外配置,订购企业版即适用"
 anchor = "volcengine-cp-enterprise-no-retention"
+
+[[product.zdr.point]]
+text = "Platform terms §3.7.7(1) allow automated filtering and review of submitted and generated content, and building or improving risk filters and infringement-content feature libraries to meet legal and regulatory compliance requirements; this is a vendor-side processing scenario, but it does not state that the enterprise tier's data is retained and does not displace the specific §1.4 zero-retention commitment"
+text_zh = "平台条款 §3.7.7(1) 允许为履行法律法规合规要求,对提交给服务或使用服务输出的内容进行自动化过滤审核,并建立和改进风险过滤机制及违法违规侵权内容特征库;这是厂商侧处理场景,但未约定企业版数据因此留存,也不取代 §1.4 的特别零留存承诺"
+anchor = "volcengine-cp-platform-terms-3-7-7-compliance-review"
+
+[[product.zdr.point]]
+text = "Platform terms §3.7.7(2) allow storage for a reasonable time when the user requests troubleshooting"
+text_zh = "平台条款 §3.7.7(2) 允许用户申请排障时在合理时间内存储数据"
+anchor = "volcengine-cp-platform-terms-3-7-7-troubleshooting"
+
+[[product.zdr.point]]
+text = "Platform terms §3.7.7(3) allow storage and review of data triggering model-abnormality alerts until the alert is lifted"
+text_zh = "平台条款 §3.7.7(3) 允许存储和审查触发模型异常告警的数据直至解除告警"
+anchor = "volcengine-cp-platform-terms-3-7-7-anomaly-alert"
+
+[[product.zdr.point]]
+text = "Platform terms §3.7.11 describe feature-triggered storage in Ark storage space, with access or use prohibited without authorization"
+text_zh = "平台条款 §3.7.11 描述功能触发时数据存入方舟存储空间,未经授权不会访问或使用"
+anchor = "volcengine-cp-platform-terms-3-7-11"
+
+[[product.zdr.point]]
+text = "The enterprise tier's specific §1.4 non-retention provision applies where the plan terms specially provide under §1.1"
+text_zh = "企业版特别的 §1.4 不留存约定依 §1.1 在本专用条款有特别约定时适用"
+anchor = "volcengine-cp-plan-terms-prevail"
 
 [[product.zdr.point]]
 text = "Scope limit — multi-hop chain, hop 2 (Moonshot; the plan model list includes Kimi-K2.7-Code / K2.8-Preview / K3): the Moonshot Model Service Agreement discloses that after termination it may \"continue to store the information you kept on the Moonshot platform, on the premise of anonymizing your user information\", with no period given. That does not overturn this hop's zero-retention commitment, but the chain as a whole cannot be read as \"nothing is retained at any hop\""
@@ -129,13 +177,28 @@ text_zh = "分对象登记:(1) 输入输出正文/交互数据——§1.4「您�
 anchor = "volcengine-cp-enterprise-no-retention"
 
 [[product.retention.point]]
-text = "(2) Client system and device information — §2.11: recorded, and deleted after the service expires (the only expressly stated period in this tier; the object is device information, not request content)"
-text_zh = "(2) 客户端系统与设备信息——§2.11 会被记录,「服务到期后删除」(本档唯一明示期限,对象是设备信息不是请求内容)"
+text = "(2) Feature-triggered stored data — platform terms §3.7.11: when the user enables cache storage, logging, AI application monitoring and debugging, observability, labeling or Managed Agents hosting, data is stored in Ark storage space for those purposes; the clause gives no retention period or deletion deadline, so the period is undisclosed and the context is use of those features, not default input/output handling"
+text_zh = "(2) 功能触发的数据存储——平台条款 §3.7.11:使用缓存存储、日志记录、AI 应用监控与调试、可观测性、加标识或 Managed Agents 托管时,数据会为这些目的存入方舟存储空间;条款未给保留期限或删除截止时间,故期限未披露,语境是启用这些功能而非默认输入输出处理"
+anchor = "volcengine-cp-platform-terms-3-7-11"
+
+[[product.retention.point]]
+text = "(3) Limited troubleshooting storage — platform terms §3.7.7(2): when the user provides data for troubleshooting, Volcengine stores it for a reasonable time; no numeric retention period is stated. This is a platform-term exception context, not default input/output handling"
+text_zh = "(3) 有限排障存储——平台条款 §3.7.7(2):用户提供数据进行排障时,火山引擎会在合理时间内存储;未给出数字化保留期限。这是平台条款例外语境而非默认输入输出处理"
+anchor = "volcengine-cp-platform-terms-3-7-7-troubleshooting"
+
+[[product.retention.point]]
+text = "(4) Model-anomaly-alert storage and review — platform terms §3.7.7(3): data triggering a model-abnormality alert is stored and reviewed until the alert is lifted; no numeric retention period is stated. This is a limited alert context, not default input/output handling"
+text_zh = "(4) 模型异常告警数据的存储和审查——平台条款 §3.7.7(3):触发模型异常告警的数据会被存储和审查直至解除告警;未给出数字化保留期限。这是有限告警语境而非默认输入输出处理"
+anchor = "volcengine-cp-platform-terms-3-7-7-anomaly-alert"
+
+[[product.retention.point]]
+text = "(5) Client system and device information — §2.11: recorded, and deleted after the service expires (the only expressly stated period in this tier; the object is device information, not request content)"
+text_zh = "(5) 客户端系统与设备信息——§2.11 会被记录,「服务到期后删除」(本档唯一明示期限,对象是设备信息不是请求内容)"
 anchor = "volcengine-cp-device-info-deleted-after-expiry"
 
 [[product.retention.point]]
-text = "(3) Service termination — Products and Services Agreement §12.8 (incorporated via §1.2): all customer data in your Volcengine account is kept for fifteen (15) days (the \"retention period\")"
-text_zh = "(3) 服务终止场景——经 §1.2 并入的《产品和服务协议》§12.8:账号内全部客户数据保留十五(15)天(「保留期限」)"
+text = "(6) Service termination — Products and Services Agreement §12.8 (incorporated via §1.2): all customer data in your Volcengine account is kept for fifteen (15) days (the \"retention period\")"
+text_zh = "(6) 服务终止场景——经 §1.2 并入的《产品和服务协议》§12.8:账号内全部客户数据保留十五(15)天(「保留期限」)"
 anchor = "volcengine-cp-generic-termination-retention-15d"
 
 [[product.retention.point]]
@@ -445,15 +508,66 @@ suffix = """
 [[anchor]]
 id = "volcengine-cp-full-agreement-incorporation"
 source_id = "9fa678c2f42aae99"
-topics = ["retention", "role"]
+topics = ["training", "retention", "zdr", "role"]
 
 [anchor.selector]
-prefix = "》](https://www.volcengine.com/docs/6256/68938)，（3）订购协议/服务订单，"
-exact = "（4）《服务等级协议》（如有）和（5）服务规则等所适用的其他协议共同构成您与火山引擎之间就订购或（和）使用本服务的完整协议。"
-suffix = """
-​
+prefix = "1.2 一旦您订购或使用了本服务，本专用条款将与（1）火山引擎官网公示的 《火山引擎服务条款》 与 《火山引擎隐私政策》，（2）《产品和服务协议》，"
+exact = "（3）《火山方舟大模型服务平台专用条款》，（4）《火山引擎AI服务规则及免责声明》，（5）订购协议/服务订单，（6）《服务等级协议》（如有）和（7）服务规则等所适用的其他协议共同构成您与火山引擎之间就订购或（和）使用本服务的完整协议。"
+suffix = "1.3 如您使用本服务个人版，包括Coding Plan个人版和Agent Plan个人版，所适用的服务条款除本服"
 
-1.3 如您使用本服务个人版，包括Coding Plan个人版和Agent Plan个人版，所适用的服务条款除本服"""
+[[anchor]]
+id = "volcengine-cp-platform-terms-3-7-7"
+source_id = "e58c4503a9accfe4"
+topics = ["training"]
+
+[anchor.selector]
+exact = "未经您的单独同意，火山引擎不会存储和使用您的数据来训练或优化模型。"
+
+[[anchor]]
+id = "volcengine-cp-platform-terms-3-7-7-compliance-review"
+source_id = "e58c4503a9accfe4"
+topics = ["training", "zdr"]
+
+[anchor.selector]
+prefix = "- 3.7.7 未经您的单独同意，火山引擎不会存储和使用您的数据来训练或优化模型。火山引擎仅在下述场景对您的数据进行相应处理："
+exact = "（1）为履行法律法规合规要求，火山引擎有权采取技术手段对您使用本服务的行为及信息进行审查，包括但不限于对您提交给服务或使用服务输出的内容进行自动化过滤审核，建立和改进风险过滤机制、违法违规侵权内容特征库等。"
+suffix = "- （2）您使用火山引擎平台提供的排障工具、产物查询验证工具或您通过其他方式主动将您的数据提供给火山引擎。"
+
+[[anchor]]
+id = "volcengine-cp-platform-terms-3-7-7-troubleshooting"
+source_id = "e58c4503a9accfe4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "- （1）为履行法律法规合规要求，火山引擎有权采取技术手段对您使用本服务的行为及信息进行审查，包括但不限于对您提交给服务或使用服务输出的内容进行自动化过滤审核，建立和改进风险过滤机制、违法违规侵权内容特征库等。"
+exact = "（2）您使用火山引擎平台提供的排障工具、产物查询验证工具或您通过其他方式主动将您的数据提供给火山引擎。您理解并同意，为了向您提供排障服务，火山引擎会在合理时间内存储您的数据，且仅在您申请排障或模型生成内容效果、产物查询等问题咨询时依据您的委托处理您的数据。"
+suffix = "- （3） 为了防范模型异常调用等行为，给模型提供方和方舟平台造成安全合规风险，火山引擎会对触发模型异常告警的数据进行存储和审查，解除告警后平台将不会继续存储和审查您的数据。"
+
+[[anchor]]
+id = "volcengine-cp-platform-terms-3-7-7-anomaly-alert"
+source_id = "e58c4503a9accfe4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "（2）您使用火山引擎平台提供的排障工具、产物查询验证工具或您通过其他方式主动将您的数据提供给火山引擎。您理解并同意，为了向您提供排障服务，火山引擎会在合理时间内存储您的数据，且仅在您申请排障或模型生成内容效果、产物查询等问题咨询时依据您的委托处理您的数据。"
+exact = "（3） 为了防范模型异常调用等行为，给模型提供方和方舟平台造成安全合规风险，火山引擎会对触发模型异常告警的数据进行存储和审查，解除告警后平台将不会继续存储和审查您的数据。"
+suffix = "- 为了优化平台服务体验，火山引擎会对提供服务形成的聚合数据进行统计分析，这里不会存储和使用任何原始的您的数据。"
+
+[[anchor]]
+id = "volcengine-cp-platform-terms-3-7-11"
+source_id = "e58c4503a9accfe4"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "特别提示您，您试（使）用火山引擎为您提供的缓存存储功能、日志记录、AI 应用监控与调试、可观测性平台、加标识、Managed Agents 托管服务等产品功能或服务时，您理解您的数据将会存储在火山方舟平台为您提供的存储空间中以实现您对数据缓存存储、监控观测、加标识、Agents 托管等目的。火山引擎将按不低于行业标准的技术安全手段保护您的数据传输安全，您理解并同意，如因超出当前技术安全能力造成的您的数据安全风险，火山引擎免责。未经您授权，火山引擎不会访问或使用您的数据。"
+
+[[anchor]]
+id = "volcengine-cp-plan-terms-prevail"
+source_id = "9fa678c2f42aae99"
+topics = ["training", "retention", "zdr"]
+
+[anchor.selector]
+exact = "本专用条款有特别约定的，适用本专用条款。"
 
 [[anchor]]
 id = "volcengine-cp-model-rules-2-12"
