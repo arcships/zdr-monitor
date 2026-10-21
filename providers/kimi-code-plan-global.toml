@@ -31,7 +31,7 @@ note = "开放平台文档《Compare with Other Kimi Products》(非政策正文
 url = "https://platform.kimi.ai/docs/guide/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含图片/视频直传、安全日志与计费记录等运营数据、第三方模型与插件;内容安全审核对全部流量照常生效。本档(Kimi Code 订阅)不适用,收录作档位对照,authoritative_for 为空。"
+note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含 Batch Job、经 File Upload API 直传的图片/视频、安全日志与计费记录等运营数据、第三方模型与插件;内容安全审核对全部流量照常生效。本档(Kimi Code 订阅)不适用,收录作档位对照,authoritative_for 为空。"
 
 [[source]]
 url = "https://www.kimi.ai/help/kimi-api/api-data-security"
@@ -106,19 +106,24 @@ text = "ZDR is not \"nobody touches the content\": it changes only how content i
 text_zh = "ZDR ≠「无人接触内容」:它只改变内容的保留方式、不改变平台的使用政策;内容安全审核等自动保障对全部流量照常生效,发现滥用行为可依使用政策处理,包括终止 ZDR 服务。"
 
 [[product.zdr.point]]
+anchor = "zdr-batch-exclusion"
+text = "Scope exclusion (1 of 4): the Batch API does not support ZDR for batch jobs."
+text_zh = "范围除外(四类之一):Batch API 的批处理作业不支持 ZDR。"
+
+[[product.zdr.point]]
 anchor = "zdr-upload-exclusion"
-text = "Scope exclusion (1 of 3): ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
-text_zh = "范围除外(三类之一):通过文件直传提交的图片或视频不能保证 ZDR。"
+text = "Scope exclusion (2 of 4): ZDR cannot be guaranteed for images or videos submitted directly through the File Upload API."
+text_zh = "范围除外(四类之二):通过 File Upload API 直接提交的图片或视频不能保证 ZDR。"
 
 [[product.zdr.point]]
 anchor = "zdr-operational-out-of-scope"
-text = "Scope exclusion (2 of 3): operational data, such as security logs and billing records, is outside the scope of zero data retention."
-text_zh = "范围除外(三类之二):安全日志与计费记录等运营数据不在零数据保留范围内。"
+text = "Scope exclusion (3 of 4): operational data, such as security logs and billing records, is outside the scope of zero data retention."
+text_zh = "范围除外(四类之三):安全日志与计费记录等运营数据不在零数据保留范围内。"
 
 [[product.zdr.point]]
 anchor = "zdr-thirdparty-exclusion"
-text = "Scope exclusion (3 of 3): third-party models, connectors, and plugins are not covered by this policy."
-text_zh = "范围除外(三类之三):第三方模型、连接器与插件不在本政策覆盖范围内。"
+text = "Scope exclusion (4 of 4): data processed by third-party models, connectors, or plugins is not covered by this ZDR policy."
+text_zh = "范围除外(四类之四):第三方模型、连接器或插件处理的数据不在本 ZDR 政策覆盖范围内。"
 
 [product.retention]
 object = "input_output"
@@ -608,9 +613,8 @@ source_id = "3bbe87200150e9bf"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "for images or videos submitted through direct file uploads. "
+prefix = "Operational data"
 exact = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
-suffix = " Third-party models, connectors, and plugins are not covered"
 
 [[anchor]]
 id = "zdr-training-no-train"
@@ -636,14 +640,22 @@ exact = "ZDR changes only how content is retained; it does not change the platfo
 suffix = "Who can enable ZDR?"
 
 [[anchor]]
+id = "zdr-batch-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "Batch Job service"
+exact = "The Batch API does not support ZDR for batch jobs."
+
+[[anchor]]
 id = "zdr-upload-exclusion"
 source_id = "3bbe87200150e9bf"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "Does ZDR apply to all data types?"
-exact = "ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
-suffix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+prefix = "Directly uploaded images and videos"
+exact = "ZDR cannot be guaranteed for images or videos submitted directly through the File Upload API."
 
 [[anchor]]
 id = "zdr-thirdparty-exclusion"
@@ -651,8 +663,8 @@ source_id = "3bbe87200150e9bf"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
-exact = "Third-party models, connectors, and plugins are not covered by this policy."
+prefix = "Third-party services"
+exact = "Data processed by third-party models, connectors, or plugins is not covered by this ZDR policy."
 suffix = "Was this page helpful?"
 
 [[anchor]]
