@@ -340,17 +340,17 @@ anchor = "cursor-cloud-agent-retention"
 text_zh = "托管 Agent 必须把整个仓库放进 Cursor 云 VM，并在后端保存对话状态、元数据与 artifacts，端到端不是零保留。"
 
 [product.retention]
-days = 90
+days = 30
 object = "repository_snapshot"
 basis = "fixed_period"
 anchor = "cursor-cloud-agent-retention"
 
 [[product.retention.point]]
-text_zh = "含克隆代码的 VM snapshot 按不活动滚动 90 日，每次启动或恢复都重置；对话状态默认无限期，可用 Delete Agent API 按需删除。个人档没有 Enterprise 那套对话保留策略。"
+text_zh = "含克隆代码的 VM snapshot 按不活动滚动 30 日，每次启动或恢复都重置；对话状态默认无限期，可用 Delete Agent API 按需删除。个人档没有 Enterprise 那套对话保留策略。"
 
 [[product.retention.point]]
-text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
-text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 90 天」不能同时成立。本档按安全文档记 90 天上限（对采购是较保守的一侧），同时保留治理文档的表述。"
+text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 30-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 30-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 30 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 30 天」不能同时成立。本档按安全文档记 30 天上限（对采购是较保守的一侧），同时保留治理文档的表述。"
 anchor = "cursor-governance-cloud-agents-repo-copy"
 
 [product.processing_region]
@@ -389,17 +389,17 @@ anchor = "cursor-cloud-agent-retention"
 text_zh = "模型提供商多数走 ZDR，但托管 Agent 本身必须把完整仓库放入 Cursor 云 VM，并在 Cursor 后端保存对话状态、元数据与 artifacts，因此端到端不是零保留。"
 
 [product.retention]
-days = 90
+days = 30
 object = "repository_snapshot"
 basis = "fixed_period"
 anchor = "cursor-cloud-agent-retention"
 
 [[product.retention.point]]
-text_zh = "运行 workspace 在空闲后回收；含克隆代码的 VM snapshots 按不活动滚动 90 日，每次启动/恢复重置；对话状态默认无限期，可按需删除；凭据保留至用户删除。Enterprise 另可设置对话保留策略。"
+text_zh = "运行 workspace 在空闲后回收；含克隆代码的 VM snapshots 按不活动滚动 30 日，每次启动/恢复重置；对话状态默认无限期，可按需删除；凭据保留至用户删除。Enterprise 另可设置对话保留策略。"
 
 [[product.retention.point]]
-text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
-text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 90 天」不能同时成立。本档按安全文档记 90 天上限，同时保留治理文档的表述。"
+text = "Two official documents disagree about the same object. The Enterprise data governance overview says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 30-day inactivity window and adds that snapshots cannot be deleted on demand. Both texts are current and official — the governance page is an Enterprise-facing overview, the security page a per-object table — and they cannot both hold. The divergence is unresolved, so the 30-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（面向 Enterprise 的概述）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 30 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand。两句都是现行官方文本，「agent 跑完即删」与「不活动滚动 30 天」不能同时成立。本档按安全文档记 30 天上限，同时保留治理文档的表述。"
 anchor = "cursor-governance-cloud-agents-repo-copy"
 
 [product.processing_region]
@@ -435,17 +435,17 @@ mark = "no"
 anchor = "cursor-cloud-agent-retention"
 
 [product.retention]
-days = 90
+days = 30
 object = "repository_snapshot"
 basis = "fixed_period"
 anchor = "cursor-cloud-agent-retention"
 
 [[product.retention.point]]
-text_zh = "同托管 Cloud Agents：snapshot 最长滚动 90 日不活动；默认对话无限期。Enterprise 可用 retention policy 限制对话窗口，但 snapshot 不能按需删除。"
+text_zh = "同托管 Cloud Agents：snapshot 最长滚动 30 日不活动；默认对话无限期。Enterprise 可用 retention policy 限制对话窗口，但 snapshot 不能按需删除。"
 
 [[product.retention.point]]
-text = "Two official documents disagree about the same object. The Enterprise data governance overview — the page that also carries this tier's US residency and Privacy Mode defaults — says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 90-day inactivity window and adds that snapshots cannot be deleted on demand, which the Enterprise retention policy option does not cover either. Both texts are current and official and they cannot both hold; the divergence is unresolved, so the 90-day figure is kept as the outer bound and the governance statement is recorded alongside it."
-text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（本档 US 驻留与 Privacy Mode 默认值也出自这一页）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 90 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand——Enterprise 的 retention policy 选项也盖不住 snapshot。两句都是现行官方文本，分歧无法调和，本档按安全文档记 90 天上限，同时保留治理文档的表述。"
+text = "Two official documents disagree about the same object. The Enterprise data governance overview — the page that also carries this tier's US residency and Privacy Mode defaults — says encrypted copies of repositories that Cloud Agents work on are stored temporarily while the agent runs and deleted after the agent completes; the Cloud Agent security page instead puts VM snapshots (including cloned code) on a rolling 30-day inactivity window and adds that snapshots cannot be deleted on demand, which the Enterprise retention policy option does not cover either. Both texts are current and official and they cannot both hold; the divergence is unresolved, so the 30-day figure is kept as the outer bound and the governance statement is recorded alongside it."
+text_zh = "官方两份文档对同一对象给出相反说法，并列保留：企业数据治理文档（本档 US 驻留与 Privacy Mode 默认值也出自这一页）称 Cloud Agents 的仓库加密副本「Stored temporarily while the agent runs / Deleted after the agent completes」；Cloud Agent 安全文档的逐对象表则给 VM 快照（含克隆代码）「Rolling 30 days of inactivity … then automatic deletion」，并明说 snapshots can't be deleted on demand——Enterprise 的 retention policy 选项也盖不住 snapshot。两句都是现行官方文本，分歧无法调和，本档按安全文档记 30 天上限，同时保留治理文档的表述。"
 anchor = "cursor-governance-cloud-agents-repo-copy"
 
 [product.processing_region]
@@ -553,7 +553,7 @@ topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = "A Cloud Agent touches four kinds of data. Each is stored in a different place and follows its own retention rule."
-exact = "VM snapshots | Point-in-time copies of the VM disk (including cloned code) used to start and resume without recloning | Snapshot and cache layer outside the active VM, encrypted | Rolling 90 days of inactivity; each start or resume extends it, then automatic deletion"
+exact = "VM snapshots | Point-in-time copies of the VM disk (including cloned code) used to start and resume without recloning | Snapshot and cache layer outside the active VM, encrypted | Rolling 30 days of inactivity; each start or resume extends it, then automatic deletion"
 suffix = "Conversation state | Prompts, model responses, tool calls, diff context"
 
 [[anchor]]
