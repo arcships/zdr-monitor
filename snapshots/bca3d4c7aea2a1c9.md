@@ -3,12 +3,12 @@
 All Pages
 Skip to main content
 # Generative AI Regions
-Learn where OCI Generative AI hosts models and how to access the service from CPU-only regions.
+Learn where OCI Generative AI provides local model processing and how to access the service from regions with no local model processing.
 Oracle hosts its OCI services in regions and availability domains. A region is a localized geographic area, and an availability domain is one or more data centers in that region.
 **Important**
-See Generative AI Models by Region for model availability in the regions that serve inference requests. .
-## Commercial Regions (OC1) with Model Hosting
-The following table lists the OC1 regions where Generative AI hosts models. Available models and serving modes vary by region. To use an on-demand model that isn't available locally, create a routing profile for that model and select regions where it is available. Use the profile from your current region in the Playground or through a supported inference API.
+See Generative AI Models by Region for model availability in the regions that serve inference requests. For regions with no local model processing, see Commercial Regions (OC1) Without Local Model Processing.
+## Commercial Regions (OC1) with Local Model Processing
+The following table lists the OC1 regions with local model processing in Generative AI. Available models and serving modes vary by region. To use an on-demand model that isn't available locally, create a routing profile for that model and select regions where it is available. Use the profile from your current region in the Playground or through a supported inference API.
 | Region Name | Location | Region Identifier | Region Key |
 | **Brazil East (Sao Paulo)** | Sao Paulo | `sa-saopaulo-1` | `GRU` |
 | **Germany Central (Frankfurt)** | Frankfurt | `eu-frankfurt-1` | `FRA` |
@@ -22,6 +22,10 @@ The following table lists the OC1 regions where Generative AI hosts models. Avai
 | **US Midwest (Chicago)** | Chicago | `us-chicago-1` | `ORD` |
 | **US West (Phoenix)** | Phoenix | `us-phoenix-1` | `PHX` |
 Learn About Regions and Availability Domains.
+## Commercial Regions (OC1) Without Local Model Processing
+For the OC1 regions with no local model processing in Generative AI, see Commercial Regions (OC1) Without Local Model Processing. For on-demand inference, this list includes UAE Central (Abu Dhabi). Abu Dhabi also provides local model processing for dedicated AI clusters. For all OCI commercial regions, see the OCI regions table and see entries with the realm key `OC1`.
+In a region with no local model processing, create a routing profile for the on-demand model you want to use and select target regions where it is available. Select the profile in your region's Playground or reference it in an API request to run the model in a selected target region. The Chat API, OCI Chat Completions API, and OCI Responses API are supported when the selected model supports the API. Regional API endpoints support IPv6.
+For supported features, limitations, and routing instructions, see Regions with no Local Model Processing.
 ## Government Region (OC4)
 | **UK Gov South (London)** | London | `uk-gov-london-1` | `LTN` |
 Learn about Oracle UK Sovereign Cloud.
@@ -45,7 +49,8 @@ OCI region offering OCI Generative AI Service
 | UK | `CWL`, `LHR` | `LHR` |
 | USA | `PHX`, `IAD`, `SJC`, `ORD` | `ORD` |
 - Generative AI Regions
-- Commercial Regions (OC1) with Model Hosting
+- Commercial Regions (OC1) with Local Model Processing
+- Commercial Regions (OC1) Without Local Model Processing
 - Government Region (OC4)
 - Sovereign Region (OC19)
 - Services that Call into the Generative AI Service
