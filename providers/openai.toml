@@ -30,14 +30,14 @@ url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data Controls FAQ(Updated yesterday)。现行正文含专节「Manage model training for Codex tasks」(原「How do I turn off training for Codex tasks?」),Codex 训练开关与「Include environments」独立设置都还在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
+note = "Data Controls FAQ(Updated 27 minutes ago)。现行正文含专节「Manage model training for Codex tasks」(原「How do I turn off training for Codex tasks?」),Codex 训练开关与「Include environments」独立设置都还在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。主要覆盖消费档。2026-10-23 快照(#814)新增四句与五维有关的正文:个人工作区默认开启数据共享、语音模式有独立的训练数据共享开关、锁定对话仍保存但隐藏,以及 Managed workspaces 节的「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」(API 训练口径旁证,api 档 training 的主证据仍是 developer_data)。同轮其余变化是标题层级、Updated 时间戳、Related articles、状态横幅,以及「this setting applies to your account across devices」改为「Improve the model for everyone applies to your account across web and mobile devices」(同义改写),与五维无关。语音模式、锁定对话与 API 训练三句已补进对应维度的说明点,默认共享句由既有 training 说明点覆盖;五维结论字段未变(changes/openai/2026-10-23-data-controls-disclosure-additions.toml)"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性"
+note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。对 API 档无权威性。2026-10-23 快照(#814)只更换了状态横幅、Updated 时间戳与 Related articles(Codex 归档文章标题由「How to archive and delete Codex chats in the ChatGPT app」改为「Archiving and deleting Codex chats in the ChatGPT app」并调整顺序),留存条款正文未变。"
 
 [[source]]
 url = "https://openai.com/policies/data-processing-addendum/"
@@ -74,6 +74,11 @@ mode = "default"
 [[product.training.point]]
 text = "By default \"data sent to the OpenAI API is not used to train or improve OpenAI models\", unless you explicitly opt in to share data"
 text_zh = "默认不用于训练或改进模型,除非显式 opt-in 共享数据"
+
+[[product.training.point]]
+text = "The Data Controls FAQ independently states a no-training default for the API Platform: \"By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models\". This is corroboration at the enterprise_privacy_faq tier; the developer_data page remains the primary anchor"
+text_zh = "Data Controls FAQ 独立写明 API Platform 的默认不训练口径:「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」。这是 enterprise_privacy_faq 层的旁证,主证据仍是 developer_data 页"
+anchor = "openai-api-training-not-used-faq-corroboration"
 
 [product.zdr]
 mark = "yes"
@@ -173,6 +178,11 @@ text_zh = "退出方式为 ChatGPT Settings → Data Controls 关掉「Improve t
 text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments, and changing the ChatGPT or Privacy Portal settings does not change it. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
 text_zh = "Codex 全环境(full environments)训练是独立开关「Include environments」,在 Codex settings 里,改 ChatGPT 或隐私门户的设置都不影响它。退出后仅对新内容生效,不回溯。即使退出,主动点赞/点踩所关联的整段对话仍可能被用于训练"
 
+[[product.training.point]]
+text = "Improve the model for everyone does not cover voice: \"Voice mode has a separate control for sharing data for model training\""
+text_zh = "Improve the model for everyone 不覆盖语音:「Voice mode has a separate control for sharing data for model training」,语音模式另有独立的训练数据共享开关"
+anchor = "openai-consumer-training-voice-separate-control"
+
 [product.zdr]
 mark = "unknown"
 searched = [
@@ -206,6 +216,11 @@ anchor = "openai-consumer-retention-chats"
 [[product.retention.point]]
 text = "No fixed cap: regular and archived chats remain saved to the account until the user deletes them (or until a workspace retention policy applies)"
 text_zh = "无固定上限:常规/归档对话保存至用户删除(或工作区留存策略生效)"
+
+[[product.retention.point]]
+text = "Locked chats are saved rather than removed: when the feature is available, they \"remain saved but are hidden from the regular sidebar\", Search, recents, notifications and previews, and the account's Improve the model for everyone setting and applicable workspace policies continue to apply"
+text_zh = "锁定对话仍是保存而非删除:功能可用时,它们「remain saved but are hidden from the regular sidebar」,并从 Search、最近会话、通知与预览中隐藏;账号的 Improve the model for everyone 设置与适用的工作区策略继续生效"
+anchor = "openai-consumer-retention-locked-chats"
 
 [[product.retention.point]]
 text = "Once deleted, OpenAI schedules the content for permanent deletion from its systems within 30 days, except where it has been de-identified and disassociated from the account, or where security or legal obligations require keeping it longer"
@@ -577,3 +592,29 @@ topics = ["retention"]
 
 [anchor.selector]
 exact = "Before the September 24, 2026 shutdown, the Videos API documentation specified 48 hours for downloading generated videos, followed by 30 days of retention for abuse monitoring. These periods describe the policy documented before shutdown; they do not promise download access after shutdown"
+
+[[anchor]]
+id = "openai-api-training-not-used-faq-corroboration"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+exact = "By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models"
+
+[[anchor]]
+id = "openai-consumer-training-voice-separate-control"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Voice mode has a separate control for sharing data for model training"
+
+[[anchor]]
+id = "openai-consumer-retention-locked-chats"
+source_id = "c5bdc32bca931e70"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "When **Locked chats** is available for your account, "
+exact = "locked chats remain saved but are hidden from the regular sidebar"
+suffix = ", **Search**, recents, notifications, and previews."
