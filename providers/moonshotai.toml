@@ -11,19 +11,19 @@ doc = "https://platform.kimi.ai/docs/agreement/modeluse"
 url = "https://platform.kimi.ai/docs/agreement/modeluse"
 channel = "contract"
 tier = "core"
-note = "Kimi 开放平台《Terms of Service》(platform.kimi.ai,Last Updated: July 30th, 2026;主体 Moonshot AI PTE. LTD.)。第 2 节写「Customer Content may be used for the foregoing purposes」,需限制训练/改进的客户须另洽企业安排——说明「默认可用内容训练」是该集团合同的常态表述;本档不适用,收录作反向佐证,authoritative_for 为空。"
+note = "Kimi 开放平台《Terms of Service》(platform.kimi.ai,Last Updated: July 30th, 2026;主体 Moonshot AI PTE. LTD.)。第 2 节写「Customer Content may be used for the foregoing purposes」,需限制训练/改进的客户须另洽企业安排——说明「默认可用内容训练」是该集团合同的常态表述;本文件 api 档(国际开放平台,按量 API + 企业方案)唯一档位的 training、role 与部分 retention 结论绑在此来源。"
 
 [[source]]
 url = "https://platform.kimi.ai/docs/agreement/userprivacy"
 channel = "developer_data"
 tier = "core"
-note = "Kimi 开放平台《Privacy Policy》(platform.kimi.ai 文档站,Last Update: April 30, 2025)。主体 MOONSHOT AI PTE. LTD.(新加坡),服务器位于新加坡,账号/输入/支付信息在账号存续期间保留,违规信息保留至违规解决。这是与本档 NOVASCENT 不同的另一个新加坡主体、另一条产品线,故 authoritative_for 为空,仅用于证明「开放平台的 Singapore 处理地披露不能套到本档」。"
+note = "Kimi 开放平台《Privacy Policy》(platform.kimi.ai 文档站,Last Update: April 30, 2025)。主体 MOONSHOT AI PTE. LTD.(新加坡),服务器位于新加坡,账号/输入/支付信息在账号存续期间保留,违规信息保留至违规解决。本文件 api 档即该开放平台(platform.kimi.ai)的按量 API,同一签约主体、同一产品线,故作为本档 retention、processing_region 与 training 的证据来源。"
 
 [[source]]
 url = "https://platform.kimi.ai/docs/guide/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含图片/视频直传、安全日志与计费记录等运营数据、第三方模型与插件;内容安全审核对全部流量照常生效。本档(Kimi Code 订阅)不适用,收录作档位对照,authoritative_for 为空。"
+note = "Kimi 开放平台(platform.kimi.ai,按量 API / 企业客户)文档《What is Zero Data Retention (ZDR)?》全文。ZDR 面向开放平台企业客户按申请开通;开通后请求内容仅在生成响应期间存在、返回即删(法律要求除外);范围不含 Batch API 批处理任务、图片/视频直传、安全日志与计费记录等运营数据、第三方模型与插件所处理的数据;内容安全审核对全部流量照常生效。本文件 api 档(plan_level=any,按量自助 + 企业方案)的 zdr 结论绑在此来源;其中 ZDR 本身仅面向开放平台企业客户、按申请开通,不对按量自助用户默认开放。"
 
 [[source]]
 url = "https://www.kimi.ai/help/kimi-api/api-data-security"
@@ -74,8 +74,8 @@ anchor = "zdr-enterprise-request"
 
 [[product.zdr.point]]
 anchor = "zdr-delete-on-response"
-text = "Object and context: ZDR covers request content (prompts and model responses) only. When ZDR is enabled, request content is processed only while the response is being generated and is deleted as soon as the response is returned; the only stated exception is where retention is required by applicable laws and regulations."
-text_zh = "对象与语境:ZDR 只覆盖请求内容(提示与模型响应)。开通后请求内容仅在生成响应期间被处理、响应返回即删除;唯一明示例外是适用法律法规要求保留。"
+text = "Object and context: ZDR covers request content (prompts and model responses) only. When ZDR is enabled, request content is processed only while the response is being generated and is deleted as soon as the response is returned; for content within scope, the only stated exception is where retention is required by applicable laws and regulations."
+text_zh = "对象与语境:ZDR 只覆盖请求内容(提示与模型响应)。开通后请求内容仅在生成响应期间被处理、响应返回即删除;就覆盖范围内的内容而言,唯一明示例外是适用法律法规要求保留。"
 
 [[product.zdr.point]]
 anchor = "zdr-safety-review"
@@ -83,19 +83,24 @@ text = "ZDR is not \"nobody touches the content\": it changes only how content i
 text_zh = "ZDR ≠「无人接触内容」:它只改变内容的保留方式、不改变平台的使用政策;内容安全审核等自动保障对全部流量照常生效,发现滥用行为可依使用政策处理,包括终止 ZDR 服务。"
 
 [[product.zdr.point]]
+anchor = "zdr-batch-exclusion"
+text = "Scope exclusion (1 of 4): the Batch API does not support ZDR for batch jobs — this exception is absent from the previous snapshot and is first observed in the 2026-10-14 snapshot of the page."
+text_zh = "范围除外(四类之一):Batch API 提交的批处理任务不支持 ZDR——该例外在上一版快照中没有,于 2026-10-14 快照中首次观察到。"
+
+[[product.zdr.point]]
 anchor = "zdr-upload-exclusion"
-text = "Scope exclusion (1 of 3): ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
-text_zh = "范围除外(三类之一):通过文件直传提交的图片或视频不能保证 ZDR。"
+text = "Scope exclusion (2 of 4): ZDR cannot be guaranteed for images or videos submitted directly through the File Upload API."
+text_zh = "范围除外(四类之二):通过文件上传 API 直接提交的图片或视频不能保证 ZDR。"
 
 [[product.zdr.point]]
 anchor = "zdr-operational-out-of-scope"
-text = "Scope exclusion (2 of 3): operational data, such as security logs and billing records, is outside the scope of zero data retention."
-text_zh = "范围除外(三类之二):安全日志与计费记录等运营数据不在零数据保留范围内。"
+text = "Scope exclusion (3 of 4): operational data, such as security logs and billing records, is outside the scope of zero data retention."
+text_zh = "范围除外(四类之三):安全日志与计费记录等运营数据不在零数据保留范围内。"
 
 [[product.zdr.point]]
 anchor = "zdr-thirdparty-exclusion"
-text = "Scope exclusion (3 of 3): third-party models, connectors, and plugins are not covered by this policy."
-text_zh = "范围除外(三类之三):第三方模型、连接器与插件不在本政策覆盖范围内。"
+text = "Scope exclusion (4 of 4): data processed by third-party models, connectors, or plugins is not covered by this ZDR policy."
+text_zh = "范围除外(四类之四):第三方模型、连接器或插件处理的数据不在本 ZDR 政策覆盖范围内。"
 
 [product.retention]
 object = "input_output"
@@ -375,14 +380,24 @@ exact = "ZDR changes only how content is retained; it does not change the platfo
 suffix = "Who can enable ZDR?"
 
 [[anchor]]
+id = "zdr-batch-exclusion"
+source_id = "3bbe87200150e9bf"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "No. Please note the following exceptions: 1. **Batch Job service**: "
+exact = "The Batch API does not support ZDR for batch jobs."
+suffix = "2. **Directly uploaded images and videos**:"
+
+[[anchor]]
 id = "zdr-upload-exclusion"
 source_id = "3bbe87200150e9bf"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "Does ZDR apply to all data types?"
-exact = "ZDR cannot be guaranteed for images or videos submitted through direct file uploads."
-suffix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
+prefix = "2. **Directly uploaded images and videos**: "
+exact = "ZDR cannot be guaranteed for images or videos submitted directly through the File Upload API."
+suffix = "3. **Operational data**:"
 
 [[anchor]]
 id = "zdr-operational-out-of-scope"
@@ -390,9 +405,9 @@ source_id = "3bbe87200150e9bf"
 topics = ["zdr", "retention"]
 
 [anchor.selector]
-prefix = "for images or videos submitted through direct file uploads. "
+prefix = "3. **Operational data**: "
 exact = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
-suffix = " Third-party models, connectors, and plugins are not covered"
+suffix = "4. **Third-party services**:"
 
 [[anchor]]
 id = "zdr-thirdparty-exclusion"
@@ -400,8 +415,8 @@ source_id = "3bbe87200150e9bf"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "Operational data, such as security logs and billing records, is outside the scope of zero data retention."
-exact = "Third-party models, connectors, and plugins are not covered by this policy."
+prefix = "4. **Third-party services**: "
+exact = "Data processed by third-party models, connectors, or plugins is not covered by this ZDR policy."
 suffix = "Was this page helpful?"
 
 [[anchor]]
