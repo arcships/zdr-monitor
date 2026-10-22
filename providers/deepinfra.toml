@@ -15,13 +15,13 @@ note = "《DeepInfra Privacy Policy》(Last modified: August 15th 2026)，主体
 url = "https://deepinfra.com/terms"
 channel = "contract"
 tier = "core"
-note = "《DeepInfra Terms of Service》(Last modified: August 17th, 2026)，签约主体 Deep Infra Inc.（Delaware）。形式上是 Order Form 制企业合同（§1「Provider has no obligation to provide any Services until a Service Order is executed」），但开头写明「By executing a Service Order that references these Terms, or by accessing or using the Services, Customer agrees to these Terms」，故自助注册使用 API 同样受约束——本台账按 contract 通道、覆盖 API 档全部档位。§7(b) 是 training 与 zdr 的权威条款（含术语「Zero Data Retention」）；§5(a) 是优先性声明（ZDR 优先于隐私政策及任何网页/文档）；§5(a)/§5(b)/§6(a) 是 role 的依据；§7(b)(i) 是 retention 的支持工单例外；§18 是第三方模型子集的依据。全文无 DPA 正文、无 controller/processor 字样、无处理地条款。"
+note = "《DeepInfra Terms of Service》(Last modified: October 15th, 2026)，签约主体 Deep Infra Inc.（Delaware）。形式上是 Order Form 制企业合同（§1「Provider has no obligation to provide any Services until a Service Order is executed」），但开头写明「By executing a Service Order that references these Terms, or by accessing or using the Services, Customer agrees to these Terms」，故自助注册使用 API 同样受约束——本台账按 contract 通道、覆盖 API 档全部档位。§7(b) 是 training 与 zdr 的权威条款（含术语「Zero Data Retention」）；§5(a) 是优先性声明（ZDR 优先于隐私政策及任何网页/文档），并把 https://trust.deepinfra.com 的 DPA 并入引用；§5(a)/§5(b)/§6(a) 是 role 的依据；§7(b)(i) 是 retention 的支持工单例外，§7(b)(iv) 是客户自选功能的保留例外（batch requests / asynchronous media outputs / third-party integrations / paid cache retention，期限以文档所述为上限）；§7(b) 段末把提交给第三方模型的数据划归 §18 与第三方条款；§18 是第三方模型子集的依据。合同正文不含 DPA 内容、无 controller/processor 字样、无处理地条款。"
 
 [[source]]
 url = "https://docs.deepinfra.com/account/data-privacy"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Data Privacy》页，标题即「How DeepInfra handles your data during inference — what's stored, what's not」，是 retention 维度的权威来源，也是全站唯一点名 Google / Anthropic 上游存储与训练政策例外、批量推理落盘、图片生成输出存储、以及日志只记元数据、不记请求正文的地方。隐私政策 §Data submitted... 直接以链接指向本页。该页的四项例外在合同 §7(b) 的例外清单中都没有对应文字，构成本家最大的冲突面。同时抓了 .md 直连通道（https://docs.deepinfra.com/account/data-privacy.md），正文与渲染版一致（仅「deleted from memory.The same applies」等处空格差异），锚点以渲染版为准。"
+note = "文档站《Data Privacy》页，标题即「How DeepInfra handles your data during inference — what's stored, what's not」，是 retention 维度的权威来源，也是全站唯一点名 Google / Anthropic 上游存储与训练政策例外、批量推理落盘、图片生成输出存储、以及日志只记元数据、不记请求正文的地方。隐私政策 §Data submitted... 直接以链接指向本页。该页的四项例外原先在合同 §7(b) 的例外清单中没有对应文字；2026-10-15 版 §7(b) 新增例外 (iv)，点名 batch requests、asynchronous media outputs、third-party integrations、paid cache retention，并把期限上限设为文档所述，段末又把第三方模型数据划归 §18，冲突面因此从「有无合同依据」缩小为「期限未量化」（文档多写「a short period」「a longer period」）。同时抓了 .md 直连通道（https://docs.deepinfra.com/account/data-privacy.md），正文与渲染版一致（仅「deleted from memory.The same applies」等处空格差异），锚点以渲染版为准。"
 
 [[source]]
 url = "https://docs.deepinfra.com/gpu-instances/overview.md"
@@ -61,12 +61,21 @@ anchor = "deepinfra-tos-7b-zdr-commitment"
 
 [[product.zdr.point]]
 text_zh = "同顶层 zdr：合同 §7(b) 的「Zero Data Retention」为默认承诺，§5(a) 声明其优先于隐私政策及任何网页/文档"
+anchor = "deepinfra-tos-5a-zdr-controls-over-other-policies"
 
 [[product.zdr.point]]
-text_zh = "例外 (i)(ii)(iii)"
+text = "Scope: Section 7(b) closes by limiting Zero Data Retention to models hosted by Provider; Customer Data that the Customer elects to submit to a third-party model is governed by Section 18 and that third party's terms. The third-party-model tier is split out below for that reason."
+text_zh = "范围：§7(b) 段末把 Zero Data Retention 限定为 Provider 自托管模型；客户选择提交给第三方模型的数据受 §18 与第三方条款约束。第三方模型因此另立档位（见「第三方模型」档）。"
+anchor = "deepinfra-tos-7b-zdr-scope-third-party-models"
 
 [[product.zdr.point]]
-text_zh = "与 docs 页的四项例外冲突，两条并列。"
+text_zh = "例外 (i)–(iv)：(i) 客户书面要求用于诊断支持工单的数据，问题解决后 30 天内删除；(ii) 不含请求正文的运营元数据；(iii) 法定留存及反欺诈/安全事件记录；(iv) 客户自选功能的数据（batch requests、asynchronous media outputs、third-party integrations、paid cache retention），期限以该功能文档所述为上限。"
+anchor = "deepinfra-tos-7b-exception-iv-feature-retention"
+
+[[product.zdr.point]]
+text = "The docs page's exception list now has a contract-level counterpart in Section 7(b)(iv), which names batch requests, asynchronous media outputs, third-party integrations, and paid cache retention, capped at 'the retention period stated in the documentation for that feature or Service'. The remaining gap is quantification, not scope: the docs page states only 'a short period of time' (image outputs) and 'a longer period' / 'a short retention period' (bulk inference), and states no period at all for 'paid cache retention'."
+text_zh = "docs 页的例外清单现在在合同层有对应：§7(b)(iv) 点名 batch requests、asynchronous media outputs、third-party integrations、paid cache retention，并把期限上限设为「the retention period stated in the documentation for that feature or Service」。剩下的分歧是期限没有量化，不再是「合同没有对应文字」：docs 页对图片生成只写「a short period of time」，对批量推理只写「a longer period」「a short retention period」，对「paid cache retention」则没有给出任何期限。"
+anchor = "deepinfra-tos-7b-exception-iv-feature-retention"
 
 [product.retention]
 object = "input_output"
@@ -79,23 +88,33 @@ text_zh = "语境=默认在线推理。主证据用合同 §7(b) 的 Zero Data R
 anchor = "deepinfra-docs-dataprivacy-input-not-stored-on-disk"
 
 [[product.retention.point]]
-text = "Exception 1 — outputs of image generation models are stored for a short period of time to allow easy access; no length is quantified."
-text_zh = "例外①图片生成输出：「Outputs of image generation models are stored for a short period of time to allow easy access」——短期存储，具体期限未量化。"
+text = "Exception 1 — outputs of image generation models are stored for a short period of time to allow easy access; no length is quantified. The contract's exception (iv) covers 'asynchronous media outputs' and caps retention at the period stated in the documentation for that feature."
+text_zh = "例外①图片生成输出：「Outputs of image generation models are stored for a short period of time to allow easy access」——短期存储，具体期限未量化。合同 §7(b)(iv) 把「asynchronous media outputs」列为客户自选功能的保留例外，期限以该功能文档所述为上限。"
 anchor = "deepinfra-docs-dataprivacy-image-outputs-stored"
 
 [[product.retention.point]]
-text = "Exception 2 — bulk inference (several requests in one call): data may be stored for a longer period, potentially on disk in encrypted form, and is deleted from disk and memory after a short retention period once results are returned."
-text_zh = "例外②批量推理：可能「store data for a longer period, potentially on disk in encrypted form」，结果返回后「deleted from disk and memory after a short retention period」——加密落盘 + 短期，期限未量化。"
+text = "Exception 2 — bulk inference (several requests in one call): data may be stored for a longer period, potentially on disk in encrypted form, and is deleted from disk and memory after a short retention period once results are returned. The contract's exception (iv) names 'batch requests' and caps retention at the period stated in the documentation for that feature."
+text_zh = "例外②批量推理：可能「store data for a longer period, potentially on disk in encrypted form」，结果返回后「deleted from disk and memory after a short retention period」——加密落盘 + 短期，期限未量化。合同 §7(b)(iv) 点名「batch requests」，期限以该功能文档所述为上限。"
 anchor = "deepinfra-docs-dataprivacy-bulk-inference-disk-storage"
 
 [[product.retention.point]]
+text = "Contract-level exception (iv): Customer Data retained for a feature or Service the Customer elects to use — batch requests, asynchronous media outputs, third-party integrations, or paid cache retention — is kept no longer than the retention period stated in the documentation for that feature or Service. This is the contractual basis for the docs page's feature exceptions. The docs page quantifies the image-output and bulk-inference periods only as 'a short period' / 'a longer period' and says nothing about paid cache retention, so for that feature the cap refers to documentation we did not find."
+text_zh = "合同层例外 (iv)：客户自选功能/服务（batch requests、asynchronous media outputs、third-party integrations、paid cache retention）的数据可保留，但「for no longer than the retention period stated in the documentation for that feature or Service」。这是 docs 页各功能例外的合同依据。docs 页对图片生成与批量推理只写「a short period」「a longer period」，对「paid cache retention」则未提及任何期限，故该功能的期限上限指向我们未找到的文档。"
+anchor = "deepinfra-tos-7b-exception-iv-feature-retention"
+
+[[product.retention.point]]
+text = "KV cache: key-value and prefix cache state derived from Customer Data is held temporarily in memory solely to serve requests and is not used for any other purpose. The same Section 7(b) separately lists 'paid cache retention' as an electable feature whose period is to be set by the feature documentation; the docs page does not mention that feature or any period for it."
+text_zh = "KV 缓存：合同 §7(b) 新增「Key-value and prefix cache state derived from Customer Data is held temporarily in memory solely to serve requests and is not used for any other purpose」——对象是 KV / prefix 缓存，语境=默认，仅推理期驻留内存；同条 (iv) 另把「paid cache retention」列为客户可选的保留功能，期限应由该功能文档规定，但 docs /account/data-privacy 未提及该功能，也未给出期限。"
+anchor = "deepinfra-tos-7b-kv-cache-in-memory"
+
+[[product.retention.point]]
 text = "Logs: DeepInfra does not log the content of requests and logs only metadata useful for debugging (request ID, cost, sampling parameters). Object: access logs, not request content. The page no longer reserves the right to log a small portion of requests for debugging or security, so this is no longer an exception to the retention commitment."
-text_zh = "日志口径：「We do not log the content of your requests. We log only metadata useful for debugging: request ID、cost、sampling parameters」——对象是访问日志、不是输入输出正文。原先的例外表述「We reserve the right to log a small portion of requests when necessary for debugging or security purposes」已从现行页面删除，本档例外因此只剩四项。"
+text_zh = "日志口径：「We do not log the content of your requests. We log only metadata useful for debugging: request ID、cost、sampling parameters」——对象是访问日志、不是输入输出正文。原先的例外表述「We reserve the right to log a small portion of requests when necessary for debugging or security purposes」已从现行页面删除，docs 页的例外因此仍为四项；合同层另有 §7(b)(iv) 的总括例外（见前文「合同层例外 (iv)」条）。"
 anchor = "deepinfra-docs-dataprivacy-logs-metadata-debug-exception"
 
 [[product.retention.point]]
-text = "Exception 3 — Google / Anthropic models: the output is stored by the receiving company under its own policy, and DeepInfra quantifies no period."
-text_zh = "例外③上游一跳（Google/Anthropic 模型）：输出由上游存储，期限适用上游政策，DeepInfra 未量化。"
+text = "Exception 3 — Google / Anthropic models: the output is stored by the receiving company under its own policy, and DeepInfra quantifies no period. The contract now addresses the same boundary: exception (iv) names 'third-party integrations', and the closing sentence of Section 7(b) sends Customer Data submitted to a third-party model to Section 18 and that third party's terms."
+text_zh = "例外③上游一跳（Google/Anthropic 模型）：输出由上游存储，期限适用上游政策，DeepInfra 未量化。合同现在处理同一边界：例外 (iv) 点名「third-party integrations」，§7(b) 段末句把提交给第三方模型的数据划归 §18 与第三方条款。"
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.retention.point]]
@@ -128,6 +147,11 @@ anchor = "deepinfra-tos-5a-processes-on-behalf-of-customer"
 text_zh = "同顶层 role：合同 §5(a)「on behalf of Customer」+ §5(b) 客户合法性基础义务 + §6(a) 子处理方受托，构成 processor 定位"
 
 [[product.role.point]]
+text = "Section 5(a) now incorporates by reference the DPA made available at https://trust.deepinfra.com and says it applies to Provider's processing of personal data included in Customer Data, governing over the Privacy Policy and the Agreement as to its subject matter. The Terms do not reproduce the DPA, and the DPA page was not fetched in this round, so it is not used as a verdict anchor."
+text_zh = "合同 §5(a) 现在把 https://trust.deepinfra.com 上的 DPA 并入合同，适用于「Provider's processing of personal data included in Customer Data」，并声明冲突时 DPA 就该主题优先于隐私政策与本协议。合同不含 DPA 正文，本轮也未抓取该页快照，故不作为结论锚点。"
+anchor = "deepinfra-tos-5a-dpa-incorporated"
+
+[[product.role.point]]
 text_zh = "隐私政策部分对象为自身网站/账号数据，属独立控制方，两层对象不同。"
 
 [[product]]
@@ -153,9 +177,9 @@ text_zh = "本档请求必须转到上游端点才能完成，而 docs /account/
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.zdr.point]]
-text = "The contract points the other way and is kept alongside: Section 5(a) says the Section 7(b) Zero Data Retention commitment controls over the Privacy Policy and any other Provider policy, webpage, or documentation and applies to all Customer Data, and the Section 7(b) exception list does not name Google or Anthropic. The docs page's upstream exceptions have no counterpart in the contract, so the conflict is unresolved in the public documents."
-text_zh = "合同方向相反，两条并列保留：§5(a) 称 §7(b) 的 Zero Data Retention 承诺优先于隐私政策及任何 Provider 政策/网页/文档，且「applies to all Customer Data」，§7(b) 的例外清单 (i)(ii)(iii) 也未点名 Google / Anthropic；docs 页的上游存储例外在合同层没有对应文字。冲突在公开文件中未解，本维度按全链最弱一跳记。置信度 medium。"
-anchor = "deepinfra-tos-5a-zdr-applies-to-all-customer-data"
+text = "The contract now points the same way. Section 7(b) was amended to say 'Zero Data Retention applies to models hosted by Provider; Customer Data that Customer elects to submit to a third-party model made available through the Services is governed by Section 18 and the applicable third party's terms', and its exception (iv) lists 'third-party integrations'. Section 5(a) still describes the Section 7(b) commitment as one that 'applies to all Customer Data', but the closing scope sentence of Section 7(b) now limits ZDR to Provider-hosted models, so that phrase no longer extends end-to-end retention to the upstream hop."
+text_zh = "合同现在与 docs 同向：§7(b) 新增「Zero Data Retention applies to models hosted by Provider; Customer Data that Customer elects to submit to a third-party model made available through the Services is governed by Section 18 and the applicable third party's terms」，例外 (iv) 也点名「third-party integrations」。§5(a) 仍称 §7(b) 的承诺「applies to all Customer Data」，但 §7(b) 段末的范围句已把 ZDR 限定为 Provider 自托管模型，不能再据此认为上游一跳也零保留。本维度按全链最弱一跳记，置信度 medium。"
+anchor = "deepinfra-tos-7b-zdr-scope-third-party-models"
 
 [[product.zdr.point]]
 text_zh = "§18 那句「第三方内容受第三方许可、使用条款与隐私政策专属管辖」是风险与准据法分配条款，没有说上游这一跳能否零保留，不构成对 zdr 维度的表述，故不再绑在本条；该 anchor 定义仍保留在本文件中（现无维度引用它）。它也未指名 Google / Anthropic，也未把它们列为子处理方（docs /account/subprocessors 同样未列）。"
@@ -166,8 +190,8 @@ basis = "undisclosed"
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.retention.point]]
-text = "Output side: the docs page says Google stores the output of Google models under its Privacy Notice, and Anthropic stores the output of Anthropic models under its Trust Center — the output is stored upstream, period set by the upstream policy. The contract's ZDR text has no such exception and Section 5(a) says ZDR controls over any other Provider policy, webpage, or documentation; both are kept."
-text_zh = "输出侧：docs /account/data-privacy 明示「If you opt to use a Google model, Google will store the output as outlined in their Privacy Notice」——输出由上游存储，期限适用上游政策。合同 §7(b) 的 ZDR 文本没有这一例外，且 §5(a) 称 ZDR 优先于「any other Provider policy, webpage, or documentation」，两条并列。"
+text = "Output side: the docs page says Google stores the output of Google models under its Privacy Notice, and Anthropic stores the output of Anthropic models under its Trust Center — the output is stored upstream, period set by the upstream policy. The contract now addresses the same boundary: Section 7(b) sends Customer Data submitted to a third-party model to Section 18 and that third party's terms, and exception (iv) lists 'third-party integrations', with retention capped at the period stated in the documentation. The docs page states no period of its own."
+text_zh = "输出侧：docs /account/data-privacy 明示「If you opt to use a Google model, Google will store the output as outlined in their Privacy Notice」——输出由上游存储，期限适用上游政策。合同现在处理同一边界：§7(b) 段末句把提交给第三方模型的数据划归 §18 与第三方条款，例外 (iv) 也点名「third-party integrations」，期限以文档所述为上限；docs 页本身未给出期限。"
 anchor = "deepinfra-docs-dataprivacy-google-stores-output"
 
 [[product.retention.point]]
@@ -235,7 +259,7 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text_zh = "该档能否适用合同 §7(b) 的 Zero Data Retention 承诺未披露，理由同上（Customer Data 的定义边界）。/dpa 404，无公开 DPA 可查该档的角色与保留约定。记 not_found，不等于厂商不提供。"
+text_zh = "该档能否适用合同 §7(b) 的 Zero Data Retention 承诺未披露，理由同上（Customer Data 的定义边界）。此前查过的 https://deepinfra.com/dpa 无公开 DPA；现行 §5(a) 已把 https://trust.deepinfra.com 的 DPA 并入合同，但本轮未抓该页快照，无法据此判断该档。记 not_found，不等于厂商不提供。"
 
 [product.retention]
 object = "mixed"
@@ -262,7 +286,7 @@ text_zh = "合同 §5(a) 又把数据处理整体指向这份隐私政策（「s
 text_zh = "创建容器的接口请求体只有 name、gpu_config、container_image、cloud_init_user_data 四个字段，没有区域参数——即文档层既未披露具体机房，也未提供区域选择能力。(c) 反向的口子：合同 §6(b) 允许 Provider 随时「substitute, reconfigure, upgrade, maintain, replace, relocate, or use alternate Provider-controlled infrastructure」，未限定地域。(d) 不确定性（本条为承接推断，非本档单独表态）：官方没有针对专属部署 / GPU 租用的区域声明，这里是「公司级隐私政策未排除本档」的读法"
 
 [[product.processing_region.point]]
-text_zh = "deepinfra.com/dpa 为 404，无公开 DPA 可核对数据所在地条款。"
+text_zh = "此前查过的 deepinfra.com/dpa 无公开 DPA；现行 §5(a) 把 https://trust.deepinfra.com 的 DPA 并入合同，但本轮未抓该页快照，无 DPA 正文可核对数据所在地条款。"
 
 [product.role]
 kind = "processor"
@@ -275,7 +299,7 @@ text_zh = "结论：受托处理方（processor），但比 api 档弱一档。(
 text_zh = "§5(b) 要求客户自备提供数据的「rights, consents, notices, and lawful bases」，是控制方侧义务，与 processor 定位配套。(c) 不确定性：合同全文不出现 processor / controller 字样，未引用 GDPR Art.28，也未附 SCC"
 
 [[product.role.point]]
-text_zh = "deepinfra.com/dpa 为 404，没有公开 DPA 可核对本档的角色条款与子处理方安排。(d) 边界：GPU 实例租用档客户对容器内环境有 root / SSH 控制权，客户在容器里自行处理第三方个人数据时的角色分层（客户是否成为该场景下的控制方），公开条款未作区分。"
+text_zh = "此前查过的 deepinfra.com/dpa 无公开 DPA；现行 §5(a) 把 https://trust.deepinfra.com 的 DPA 并入合同，但本轮未抓该页快照，无 DPA 正文可核对本档的角色条款与子处理方安排。(d) 边界：GPU 实例租用档客户对容器内环境有 root / SSH 控制权，客户在容器里自行处理第三方个人数据时的角色分层（客户是否成为该场景下的控制方），公开条款未作区分。"
 
 [[anchor]]
 id = "deepinfra-tos-7b-zdr-commitment"
@@ -305,7 +329,7 @@ topics = ["zdr"]
 [anchor.selector]
 prefix = "ly as to its subject matter. Notwithstanding the foregoing, "
 exact = "the Zero Data Retention commitment in Section 7(b) controls over the Privacy Policy and any other Provider policy, webpage, or documentation"
-suffix = ", and an executed DPA supplements, and does not narrow, that"
+suffix = ", and the DPA supplements, and does not narrow, that"
 
 [[anchor]]
 id = "deepinfra-tos-5a-processes-on-behalf-of-customer"
@@ -580,7 +604,7 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = ", and "
-exact = "an executed DPA supplements, and does not narrow, that commitment, which applies to all Customer Data"
+exact = "the DPA supplements, and does not narrow, that commitment, which applies to all Customer Data"
 suffix = "\n**(b) Customer Data Compliance"
 
 [[anchor]]
@@ -605,3 +629,43 @@ topics = ["retention"]
 prefix = "We do not log the content of your requests. We log only metadata useful for debugging: request ID, cost, sampling parameters. "
 exact = "When using the Google model, Google logs prompts and responses for a limited period solely to detect violations of their Prohibited Use Policy"
 suffix = "\nPersonal information and data provided"
+
+[[anchor]]
+id = "deepinfra-tos-7b-zdr-scope-third-party-models"
+source_id = "07d09ce3d7911532"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = "is not used for any other purpose. "
+exact = "Zero Data Retention applies to models hosted by Provider; Customer Data that Customer elects to submit to a third-party model made available through the Services is governed by Section 18 and the applicable third party's terms"
+suffix = "\n**(c) Customer Data Warranties"
+
+[[anchor]]
+id = "deepinfra-tos-7b-exception-iv-feature-retention"
+source_id = "07d09ce3d7911532"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "abuse of the Services; and (iv) "
+exact = "Customer Data that Provider retains for a feature or Service that Customer elects to use, such as batch requests, asynchronous media outputs, third-party integrations, or paid cache retention, for no longer than the retention period stated in the documentation for that feature or Service"
+suffix = ". Key-value and prefix cache state derived from Customer Data"
+
+[[anchor]]
+id = "deepinfra-tos-7b-kv-cache-in-memory"
+source_id = "07d09ce3d7911532"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "stated in the documentation for that feature or Service. "
+exact = "Key-value and prefix cache state derived from Customer Data is held temporarily in memory solely to serve requests and is not used for any other purpose"
+suffix = " Zero Data Retention applies to models hosted by Provider"
+
+[[anchor]]
+id = "deepinfra-tos-5a-dpa-incorporated"
+source_id = "07d09ce3d7911532"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "Privacy Policy\"), incorporated by reference. "
+exact = "Provider's data processing agreement made available at https://trust.deepinfra.com (as updated from time to time in accordance with this Agreement, the DPA) is incorporated by reference and applies to Provider's processing of personal data included in Customer Data"
+suffix = ", and the DPA governs and, to the extent of any conflict, supersedes the Privacy Policy"
