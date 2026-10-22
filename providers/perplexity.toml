@@ -15,13 +15,13 @@ note = "Agent API 文档「Conversation state」页。这是本档唯一直接�
 url = "https://docs.perplexity.ai/docs/resources/faq"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点：不保留 query data、不训练、默认零日保留 prompt 数据，并给出计算托管地(AWS 北美)。与 privacy-security 的 Chat Completions 限定并存，范围待澄清——两句都保留。"
+note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点：不保留 query data、不训练、默认零日保留 prompt 数据，并给出计算托管地(AWS 北美)。与 privacy-security 新版「ZDR is not default」并存：FAQ 讲默认零日保留 prompt 数据，privacy-security 讲正式 ZDR 配置需符合条件的客户书面协议；两者的关系厂商未调和，两句都保留。"
 
 [[source]]
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Privacy & Security》页。它把 ZDR 承诺明确限定在 **Chat Completions API**，并列出仅收集计费元数据。该页不覆盖 Agent API：Agent API 走 responses 语义(/v1/agent)，且其文档明说会服务端持久化会话状态。因此本页在本档只作「Chat Completions 档」的依据与对照来源，**不能支撑 Agent API 的 zdr 结论**。"
+note = "文档站《Privacy & Security》页（2026-10-15 快照改版）。新版把 ZDR 明确为**非默认**：只有合格客户通过 account-level configuration 与书面协议才能启用；并非所有模型支持 ZDR，第三方模型提供方可能要求有限期保留。训练口径为「No training by default… Certain APIs may be subject to product-specific terms」；计费/账户数据一节只列 request/token counts、model、timestamps、duration、API key 与账户信息，不再声明不含 prompt/response 内容。该页现在也提到 Agent API 的 ZDR 仅限支持 ZDR 的模型；本档只把它作 Sonar / Chat Completions 档的依据，Agent API 的结论在其独立产品线文件。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/dpa"
@@ -97,22 +97,27 @@ anchor = "perplexity-dpa-6c-role"
 
 [product.zdr]
 mark = "yes"
-mode = "default"
+mode = "by_agreement"
 anchor = "perplexity-docs-privacy-security-zdr"
 
 [[product.zdr.point]]
-text = "Structured conclusion: zero retention by default, and the cited sentence is limited to the Chat Completions API. The same page adds that the only data collected through that API is billable metadata (\"This billing metadata does not include any content from your prompts, responses, or other user data.\")."
-text_zh = "结构化结论：默认零保留，且所引句子限定 Chat Completions API。同页说明该 API 只收集计费元数据（「This billing metadata does not include any content from your prompts, responses, or other user data.」）。"
+text = "Structured conclusion: the page now states that ZDR is not default — it is available only to eligible customers through an account-level configuration under a written agreement with Perplexity. This row is therefore recorded as by_agreement rather than default. The same page adds model-level limits (not every model supports ZDR) and that third-party model providers may require limited retention."
+text_zh = "结构化结论：新版页面明确 ZDR 非默认——只有合格客户通过 account-level configuration 与 Perplexity 的书面协议才能启用，故本行记 by_agreement 而非 default。同页还给出模型级限制（并非所有模型支持 ZDR），以及第三方模型提供方可能要求有限期保留。"
+anchor = "perplexity-docs-privacy-security-zdr"
+
+[[product.zdr.point]]
+text = "The page also describes the usage metadata collected (request and token counts, model used, timestamps, duration, API key, plus account information such as name and email) but no longer states that billing metadata excludes prompt/response content."
+text_zh = "页面也描述所收集的使用元数据（request/token counts、model、timestamps、duration、API key，以及 name、email 等账户信息），但不再声明计费元数据不含 prompt/response 内容。"
 anchor = "perplexity-docs-privacy-security-retention"
 
 [[product.zdr.point]]
-text = "The platform-level FAQ says the same without naming an endpoint (\"By default, the API has zero day retention of user prompt data, which is never used for AI training.\"). Both wordings are kept side by side; the vendor does not clarify the scope difference."
-text_zh = "平台级 FAQ 同向但未点名端点（「By default, the API has zero day retention of user prompt data, which is never used for AI training.」）。两种措辞并列保留，范围差异厂商未澄清。"
+text = "The platform-level FAQ still states (\"By default, the API has zero day retention of user prompt data, which is never used for AI training.\"), while the privacy-security page now says ZDR is not default and warns not to assume zero retention unless it has been enabled. The vendor does not reconcile the two; both statements are official and current, and both are kept side by side."
+text_zh = "平台级 FAQ 仍写「By default, the API has zero day retention of user prompt data, which is never used for AI training.」，而 privacy-security 新版说 ZDR 非默认，并警告未启用前不要假定零保留。厂商未调和两者；两句都是现行官方表述，并列保留。"
 anchor = "perplexity-docs-faq-zdr"
 
 [[product.zdr.point]]
-text = "Scope note: this row records the Sonar / Chat Completions pay-as-you-go endpoints, so this zdr verdict is not a statement about the Agent API. The Agent API is a separate product line in this ledger (Perplexity Agent), where its server-side conversation state and the ZDR-by-agreement wording are recorded; the source note in this file also says that page cannot support an Agent API zdr verdict."
-text_zh = "范围说明：本行记 Sonar / Chat Completions 按量端点，故本行 zdr 结论不涉及 Agent API。Agent API 在台账里是独立产品线（Perplexity Agent），服务端会话状态与「ZDR 需协议」的措辞记在那里；本文件的来源注亦声明该页不能支撑 Agent API 的 zdr 结论。"
+text = "Scope note: this row records the Sonar / Chat Completions pay-as-you-go endpoints, so this zdr verdict is not a statement about the Agent API. The Agent API is a separate product line in this ledger (Perplexity Agent), where its server-side conversation state is recorded. The new page mentions Agent API only to say that, where ZDR is enabled for an Agent API account, only models whose providers support ZDR may be used; that sentence is not used for this row."
+text_zh = "范围说明：本行记 Sonar / Chat Completions 按量端点，故本行 zdr 结论不涉及 Agent API。Agent API 在台账里是独立产品线（Perplexity Agent），服务端会话状态记在那里。新版页面提到 Agent API 只是说明：Agent API 账户启用 ZDR 时只能使用其提供方支持 ZDR 的模型；该句不用于本行。"
 
 [product.retention]
 object = "input_output"
@@ -120,8 +125,8 @@ basis = "none"
 anchor = "perplexity-docs-faq-training"
 
 [[product.retention.point]]
-text = "Structured conclusion: the FAQ states that the API does not retain query data (\"We do not retain any query data sent through the API and do not train on any of your data.\"), so Input/Output is recorded as not retained. The FAQ does not name an endpoint; the privacy-security page limits the same commitment to the Chat Completions API."
-text_zh = "结构化结论：FAQ 明说 API 不保留 query data（「We do not retain any query data sent through the API and do not train on any of your data.」），故输入输出记不留存。FAQ 未点名端点，privacy-security 页把同一承诺限定在 Chat Completions API。"
+text = "Structured conclusion: the FAQ states that the API does not retain query data (\"We do not retain any query data sent through the API and do not train on any of your data.\"), so Input/Output is recorded as not retained. The FAQ does not name an endpoint. The privacy-security page no longer limits this commitment to Chat Completions; it now says ZDR is not default and warns not to assume zero retention unless enabled (recorded on the zdr row). The vendor does not reconcile the two, so this verdict rests on the FAQ sentence and the tension is kept visible."
+text_zh = "结构化结论：FAQ 明说 API 不保留 query data（「We do not retain any query data sent through the API and do not train on any of your data.」），故输入输出记不留存。FAQ 未点名端点。privacy-security 新版不再把该承诺限定在 Chat Completions，而是说 ZDR 非默认、未启用前不要假定零保留（记在 zdr 行）。厂商未调和两者，故本结论依据 FAQ 该句，同时保留这一张力。"
 
 [[product.retention.point]]
 text = "Personal Data contained in Input is a different object and is not covered by that sentence: DPA Annex 1 stores it until the earlier of (a) the date it is deleted by Customer through the Services' interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer — a termination-anchored rule, not a retention period for non-personal Input/Output."
@@ -280,8 +285,8 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "The zero-retention commitment in Privacy & Security names only the Chat Completions API, and the FAQ says only \"the API\"; neither names Embeddings"
-text_zh = "Privacy & Security 的零保留承诺只写 Chat Completions API，FAQ 只写「the API」，均未点名 Embeddings"
+text = "Privacy & Security now makes a platform-level statement (ZDR is not default and is available only to eligible customers under a written agreement) and mentions Agent API in its model limits, but it still does not name Embeddings; the FAQ says only \"the API\". Neither source establishes ZDR for this tier."
+text_zh = "Privacy & Security 新版改为平台级表述（ZDR 非默认，只有合格客户按书面协议才能启用），并在模型限制里提到 Agent API，但仍未点名 Embeddings；FAQ 只写「the API」。两个来源都没有确认本档的 ZDR。"
 
 [[product.zdr.point]]
 text = "The DPA preamble instead carves Embeddings out of the main posture. ZDR for this tier is therefore recorded as undisclosed."
@@ -681,19 +686,12 @@ suffix = ", and with respect to those Services and the treatment of data process
 [[anchor]]
 id = "perplexity-docs-privacy-security-zdr"
 source_id = "1cfb3d54b8658b70"
-topics = ["retention", "training", "zdr"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = """
-acy-security#zero-data-retention-policy)
-
-Zero Data Retention Policy
-
-"""
-exact = "Perplexity maintains a strict **Zero Data Retention Policy** for the Chat Completions API. We do not retain data sent through the Chat Completions API, and we do not use customer data to train our models or for any purpose beyond processing the immediate request."
-suffix = """
-
-### [​](https://docs.perplexity.ai/docs/resources/privacy-security#da"""
+prefix = "any written agreement between you and Perplexity."
+exact = "Zero Data Retention is not default: ZDR is available only to eligible customers through an account-level configuration under a written agreement with Perplexity. If ZDR has not been enabled for your account, do not assume that Perplexity or its model providers apply zero data retention to your requests."
+suffix = "Model-specific limitations:"
 
 [[anchor]]
 id = "perplexity-docs-privacy-security-retention"
@@ -701,15 +699,9 @@ source_id = "1cfb3d54b8658b70"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-stamp and duration
-*   API key identification (for billing purposes)
-
-"""
-exact = "This billing metadata does not include any content from your prompts, responses, or other user data."
-suffix = """
-
-## [​](https://docs.perplexity.ai/docs/resources/privacy-security#sec"""
+prefix = "Service and account data:"
+exact = "Perplexity collects limited usage metadata—such as request and token counts, model used, timestamps, duration, and API key—to operate and bill the service, along with account information such as name and email address."
+suffix = "Personal data:"
 
 [[anchor]]
 id = "perplexity-docs-faq-training"
