@@ -15,7 +15,7 @@ note = "Agent API 文档「Conversation state」页。这是本档唯一直接�
 url = "https://docs.perplexity.ai/docs/resources/faq"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点：不保留 query data、不训练、默认零日保留 prompt 数据，并给出计算托管地(AWS 北美)。2026-10-15 privacy-security 改版后不再有 Chat Completions 限定，且明确写「Zero Data Retention is not default」、未开通协议时不得假设零保留——与本页「By default, the API has zero day retention of user prompt data」字面冲突。本页仍为 processing_region 的 core 依据，training 也与合同同向；其 no-retention / zero-day 两句是 api-sonar-chat-completions 档 retention 的输入侧依据，输出侧本页没有对应表述。"
+note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点。2026-10-24 快照改版后，原先的「We do not retain any query data sent through the API and do not train on any of your data」与「By default, the API has zero day retention of user prompt data」两句已被删除：训练句改为以合同为依据的「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models」，保留句改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default」，与 privacy-security 页一致，2026-10-15 记录的两页字面冲突随之消失。本页仍为 processing_region 的 core 依据(AWS 北美)；training 与合同同向；retention 在本页只剩「按 API/model/account 配置而异、ZDR 非默认」的定性表述，不再给任何期限，也不再有「不保留」表述。"
 
 [[source]]
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
@@ -72,8 +72,8 @@ text = "Same as top-level zdr: ZDR requires an agreement to enable"
 text_zh = "同顶层 zdr：ZDR 需协议开通"
 
 [[product.zdr.point]]
-text = "The rewritten privacy page states platform-wide that ZDR is not default: \"Zero Data Retention is not default: ZDR is available only to eligible customers through an account-level configuration under a written agreement with Perplexity\". The FAQ still carries a conflicting default zero-day-retention sentence for user prompt data; that conflict is recorded on the api-sonar-chat-completions row."
-text_zh = "改版后的隐私页已在平台级写明 ZDR 不是默认，只向合格客户按账户级书面协议开通。FAQ 仍保留与之冲突的「默认零日保留」一句；该冲突记在 api-sonar-chat-completions 档。"
+text = "The rewritten privacy page states platform-wide that ZDR is not default: \"Zero Data Retention is not default: ZDR is available only to eligible customers through an account-level configuration under a written agreement with Perplexity\". The FAQ now says the same (\"Zero Data Retention (ZDR) is not the default\"), so the literal conflict previously recorded on the api-sonar-chat-completions row no longer exists."
+text_zh = "改版后的隐私页已在平台级写明 ZDR 不是默认，只向合格客户按账户级书面协议开通。FAQ 现在与之一致（「Zero Data Retention (ZDR) is not the default」），原先记在 api-sonar-chat-completions 档的两页字面冲突已消失。"
 anchor = "perplexity-agent-privacy-security-zdr-not-default"
 
 [product.retention]
@@ -103,12 +103,12 @@ text_zh = "终止后仍可能留存：API ToS §10.5 要求双方在终止时销
 anchor = "perplexity-agent-api-tos-10-5-backup-exception"
 
 [[product.retention.point]]
-text = "Output has no retention clause at the contract layer (the DPA governs Personal Data, and Annex 1's storage rule is written for Input), which is why this row reads \"varies by object\"; the platform-level \"no retention / zero day retention\" wording in the FAQ is recorded alongside it, while the rewritten privacy-security page now says ZDR is not default and no longer contains a no-retention statement."
-text_zh = "Output 在合同层没有保留期限条款(DPA 只约束 Personal Data，Annex 1 的存储规则是为 Input 写的)，本行故记「按对象分列」；FAQ 的平台级「不保留/零日保留」与之并列保留，而改版后的 privacy-security 页已改为「ZDR 非默认」，不再含不保留表述。"
+text = "Output has no retention clause at the contract layer (the DPA governs Personal Data, and Annex 1's storage rule is written for Input), which is why this row reads \"varies by object\"; the FAQ no longer states \"no retention / zero day retention\" — it now says retention depends on the API, model, and account configuration and that ZDR is not the default, matching the privacy-security page."
+text_zh = "Output 在合同层没有保留期限条款(DPA 只约束 Personal Data，Annex 1 的存储规则是为 Input 写的)，本行故记「按对象分列」；FAQ 已不再写「不保留/零日保留」，而改为保留随 API、模型与账户配置而异、ZDR 非默认，与 privacy-security 页一致。"
 
 [product.processing_region]
 codes = ["US"]
-anchor = "perplexity-agent-faq-zero-day-retention-and-aws-na"
+anchor = "perplexity-agent-faq-aws-na-region"
 
 [[product.processing_region.point]]
 text = "Same as top-level processing_region: one FAQ sentence, \"Our compute is hosted via Amazon Web Services in North America\""
@@ -195,12 +195,12 @@ text_zh = "合同层另一支：API ToS §10.5 要求双方在终止时销毁或
 anchor = "perplexity-agent-api-tos-10-5-backup-exception"
 
 [[product.retention.point]]
-text = "The FAQ still says \"We do not retain any query data sent through the API\" and \"By default, the API has zero day retention of user prompt data\", which coexists with — and literally contradicts — that persistence. The rewritten privacy-security page no longer says no retention; it now says ZDR is not default and that some third-party providers require limited retention. All are recorded side by side without picking a side."
-text_zh = "FAQ 仍写「We do not retain any query data sent through the API」与「By default, the API has zero day retention of user prompt data」，与上述持久化并存且字面冲突。改版后的 privacy-security 页不再写不保留，而写 ZDR 非默认、部分第三方提供方要求有限保留。三者并列保留、不选边。"
+text = "The FAQ no longer says \"We do not retain any query data sent through the API\" or \"By default, the API has zero day retention of user prompt data\"; it now says retention depends on the API, model, and account configuration and that ZDR is not the default. The former literal contradiction with server-side persistence is therefore gone, but the persistence statement remains the only direct description of conversation-state handling and still gives no period; the rewritten privacy-security page likewise states no retention period."
+text_zh = "FAQ 已不再写「We do not retain any query data sent through the API」或「By default, the API has zero day retention of user prompt data」，而改为保留随 API、模型与账户配置而异、ZDR 非默认。原先与「服务端持久化」的字面冲突因此消失，但持久化一句仍是会话状态处理方式的唯一直接描述，且仍未给期限；改版后的 privacy-security 页同样没有给出保留期限。"
 
 [product.processing_region]
 codes = ["US"]
-anchor = "perplexity-agent-faq-zero-day-retention-and-aws-na"
+anchor = "perplexity-agent-faq-aws-na-region"
 
 [[product.processing_region.point]]
 text = "Same as top-level processing_region. The storage location of conversation state is not separately disclosed; there is only the platform-level sentence that compute is hosted via AWS in North America."
@@ -235,9 +235,9 @@ text_zh = "合同层依据是 API ToS §2.3.3：Perplexity 不得使用（或授
 anchor = "perplexity-agent-api-tos-2-3-3-no-training"
 
 [[product.training.point]]
-text = "The FAQ is consistent on training: \"We do not retain any query data sent through the API and do not train on any of your data\"."
-text_zh = "FAQ 在训练维度同向：「We do not retain any query data sent through the API and do not train on any of your data」。"
-anchor = "perplexity-agent-faq-no-retention-no-training"
+text = "The FAQ is consistent on training and now expressly rests it on the contract: \"Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models\"."
+text_zh = "FAQ 在训练维度同向，且现在明确以合同为依据：「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models」。"
+anchor = "perplexity-agent-faq-no-training-under-tos"
 
 [product.zdr]
 mark = "yes"
@@ -254,8 +254,9 @@ text_zh = "模型级限制：「Not every model supports ZDR」；同页还警�
 anchor = "perplexity-agent-privacy-security-model-specific-zdr"
 
 [[product.zdr.point]]
-text = "Conflicting official statement: the FAQ still says \"By default, the API has zero day retention of user prompt data\", which conflicts literally with the rewritten privacy page. Both facts are kept side by side. The verdict's mode comes from the Privacy & Security page because that is the dedicated page on API privacy, retention and ZDR — the only one that describes ZDR as a program — and the page itself says it \"should be read together with the API Terms of Service, applicable product-specific terms, the Data Processing Addendum, and any written agreement between you and Perplexity\", with those documents controlling where they differ. The FAQ is a general Q&A answer: it states a default zero-day retention for user prompt data but does not describe ZDR as a program or any eligibility/agreement path, so its sentence is recorded here as contradicting/auxiliary evidence rather than used to set mode."
-text_zh = "冲突的另一半：FAQ 仍写「By default, the API has zero day retention of user prompt data」，与改版后的隐私页字面冲突。两条事实并列保留。mode 取 Privacy & Security 页，因为它是专门讲 API 隐私、保留与 ZDR 的页面，也是唯一把 ZDR 作为一项机制来描述的地方；该页自己写明应「should be read together with the API Terms of Service, applicable product-specific terms, the Data Processing Addendum, and any written agreement between you and Perplexity」，且这些文件不一致时以它们为准。FAQ 是一般性问答：它给出默认零日保留的表述，但没有把 ZDR 作为一项机制来描述，也没有资格/协议开通路径，故这句在此仅作冲突/辅助证据，不用来决定 mode。"
+text = "The FAQ now agrees with the dedicated privacy page: \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default\". The former conflicting \"By default, the API has zero day retention of user prompt data\" sentence has been removed. The verdict's mode still comes from the Privacy & Security page because that is the dedicated page on API privacy, retention and ZDR — the only one that describes ZDR as a program — and the page itself says it \"should be read together with the API Terms of Service, applicable product-specific terms, the Data Processing Addendum, and any written agreement between you and Perplexity\", with those documents controlling where they differ. The FAQ states only that ZDR is not the default and gives no eligibility/agreement path, so it is recorded as supporting evidence rather than used to set mode."
+text_zh = "FAQ 现在与专门的隐私页一致：「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default」。原先冲突的「By default, the API has zero day retention of user prompt data」一句已被删除。mode 仍取 Privacy & Security 页，因为它是专门讲 API 隐私、保留与 ZDR 的页面，也是唯一把 ZDR 作为一项机制来描述的地方；该页自己写明应「should be read together with the API Terms of Service, applicable product-specific terms, the Data Processing Addendum, and any written agreement between you and Perplexity」，且这些文件不一致时以它们为准。FAQ 只说明 ZDR 非默认，没有给出资格/协议开通路径，故在此仅作辅助证据，不用来决定 mode。"
+anchor = "perplexity-agent-faq-retention-varies-zdr-not-default"
 
 [product.retention]
 object = "mixed"
@@ -270,14 +271,9 @@ searched = [
 ]
 
 [[product.retention.point]]
-text = "Object = user prompt data (input); context = default. The FAQ states \"By default, the API has zero day retention of user prompt data, which is never used for AI training\" — a zero-day default for input, i.e. under the FAQ the input-side period is 0 days, not \"undisclosed\"."
-text_zh = "对象=user prompt data（输入）；语境=默认。FAQ 写「By default, the API has zero day retention of user prompt data, which is never used for AI training」——输入侧默认零日保留，即在 FAQ 口径下输入期限为 0 天，而不是「未公布」。"
-anchor = "perplexity-agent-faq-zero-day-retention-and-aws-na"
-
-[[product.retention.point]]
-text = "Same source, broader input wording: \"We do not retain any query data sent through the API and do not train on any of your data\"."
-text_zh = "同源、更宽的输入表述：「We do not retain any query data sent through the API and do not train on any of your data」。"
-anchor = "perplexity-agent-faq-no-retention-no-training"
+text = "Object = data submitted through the API; context = default. The FAQ no longer gives a period and does not distinguish input from output: it now says \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default\". The former \"By default, the API has zero day retention of user prompt data\" and \"We do not retain any query data sent through the API\" sentences have been removed, so this source no longer supports a 0-day input period."
+text_zh = "对象=经 API 提交的数据；语境=默认。FAQ 不再给期限，也不区分输入与输出：现在写「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default」。原先的「By default, the API has zero day retention of user prompt data」与「We do not retain any query data sent through the API」两句已被删除，故本来源不再支持输入侧 0 天的说法。"
+anchor = "perplexity-agent-faq-retention-varies-zdr-not-default"
 
 [[product.retention.point]]
 text = "Object = response content (output); context = default. The rewritten page gives no period: \"Retention, use, and security practices vary by API, model, and account configuration\", and \"If ZDR has not been enabled for your account, do not assume that Perplexity or its model providers apply zero data retention to your requests\". The former \"We do not retain data sent through the Chat Completions API\" sentence is gone, so output is recorded as undisclosed rather than none."
@@ -295,16 +291,16 @@ text_zh = "用量元数据被收集但未给期限：「Perplexity collects limi
 anchor = "perplexity-agent-privacy-security-usage-metadata"
 
 [[product.retention.point]]
-text = "Conflict and authority: the FAQ (developer_data) still gives input-side zero-day/no retention, while the dedicated Privacy & Security page (developer_data) gives no period and says ZDR is not default. Both are kept side by side. Output is recorded as undisclosed because only the privacy page speaks to it and states no period; the FAQ sentences are used for input only and are not stretched to cover output. The row-level label therefore reads \"varies by object, period undisclosed\": the \"undisclosed\" half describes output, not input — input carries the FAQ's zero-day sentence above."
-text_zh = "冲突与权威性：FAQ（developer_data）仍给出输入侧零日/不保留，而专门的 Privacy & Security 页（developer_data）不给期限并写 ZDR 非默认。两条事实并列保留。输出侧记「未公布」，因为只有隐私页涉及它且未给期限；FAQ 两句只用于输入侧，不外推到输出。故行级标签读作「按对象分列未公布期限」——「未公布」指的是输出，不是输入；输入按上一条 FAQ 零日句记录。"
+text = "Authority: the FAQ and the dedicated Privacy & Security page now agree — both say retention depends on the API/model/account configuration and that ZDR is not the default, and neither gives a period. The row-level label therefore reads \"varies by object, period undisclosed\": input is covered by the DPA's Personal Data rules (which set no period during the term) and output has no retention clause at the contract layer, so the objects remain recorded separately, but no source gives a numeric period for either."
+text_zh = "权威性：FAQ 与专门的 Privacy & Security 页现已一致——两者都写保留随 API/模型/账户配置而异、ZDR 非默认，且都不给期限。故行级标签读作「按对象分列未公布期限」：输入受 DPA 的 Personal Data 规则约束(存续期间无期限)，输出在合同层没有保留条款，对象仍分开记录，但两边的来源都没有给出数字期限。"
 
 [product.processing_region]
 codes = ["US"]
-anchor = "perplexity-agent-faq-zero-day-retention-and-aws-na"
+anchor = "perplexity-agent-faq-aws-na-region"
 
 [[product.processing_region.point]]
-text = "Same source and same conclusion as the top level and the api tier: one FAQ sentence, \"Our compute is hosted via Amazon Web Services in North America. By default, the API has zero day retention of user prompt data...\" — the first half takes \"our compute\" as its object, which is a platform-level statement not split by endpoint, so it covers the Chat Completions tier as well. Perplexity provides no region selection or data residency option, and does not disclose the specific AWS region (only North America). This row is a boundary marker: region and role agreeing across the tiers does not mean the other dimensions agree — on zdr, Sonar has an account-level ZDR path while the Agent API stateful configuration remains unconfirmed; on retention, this row records input per the FAQ's zero-day sentence and output as undisclosed, while the stateful row records server-side persistence with no period. The tiers are not interchangeable. Uncertainty: the sentence comes from the FAQ (developer_data layer), the contract layer (API ToS and DPA) has no data-location clause, and the DPA's cross-border transfer mechanism is not given in the public text."
-text_zh = "与顶层及 api 档同源、同结论：FAQ 一句「Our compute is hosted via Amazon Web Services in North America. By default, the API has zero day retention of user prompt data...」——前半句以「our compute」为对象，是平台级表述，不按端点分档，故同样覆盖 Chat Completions 档。官方未提供任何区域选择或数据驻留选项，也没有披露具体 AWS 区域（只说 North America）。本行是边界标注行：region 与 role 两维各档一致，并不意味着其他维度一致——zdr 维 Sonar 有账户级协议路径而 Agent API 有状态配置仍未确认；retention 维本行输入按 FAQ 的零日句记录、输出记未公布，而有状态行记录的是服务端持久化且无期限。两档不能互换。不确定性：该句出自 FAQ（developer_data 层），合同层（API ToS 与 DPA）没有数据所在地条款，DPA 的跨境传输机制未在公开文本中给出。"
+text = "Same source and same conclusion as the top level and the api tier: one FAQ sentence, \"Our compute is hosted via Amazon Web Services in North America\", which takes \"our compute\" as its object — a platform-level statement not split by endpoint, so it covers the Chat Completions tier as well. The same answer now defers retention and ZDR to the Privacy & Security page instead of asserting zero-day retention. Perplexity provides no region selection or data residency option, and does not disclose the specific AWS region (only North America). This row is a boundary marker: region and role agreeing across the tiers does not mean the other dimensions agree — on zdr, Sonar has an account-level ZDR path while the Agent API stateful configuration remains unconfirmed; on retention, both this row and the stateful row now record no stated period (this row per the privacy page and the rewritten FAQ; the stateful row per server-side persistence with no period). The tiers are not interchangeable. Uncertainty: the sentence comes from the FAQ (developer_data layer), the contract layer (API ToS and DPA) has no data-location clause, and the DPA's cross-border transfer mechanism is not given in the public text."
+text_zh = "与顶层及 api 档同源、同结论：FAQ 一句「Our compute is hosted via Amazon Web Services in North America」，以「our compute」为对象，是平台级表述，不按端点分档，故同样覆盖 Chat Completions 档。同一答案现在把保留与 ZDR 指向 Privacy & Security 页，而不再声称零日保留。官方未提供任何区域选择或数据驻留选项，也没有披露具体 AWS 区域（只说 North America）。本行是边界标注行：region 与 role 两维各档一致，并不意味着其他维度一致——zdr 维 Sonar 有账户级协议路径而 Agent API 有状态配置仍未确认；retention 维本行与有状态行现在都记「未给期限」（本行依据隐私页与改写后的 FAQ；有状态行依据服务端持久化且无期限）。两档不能互换。不确定性：该句出自 FAQ（developer_data 层），合同层（API ToS 与 DPA）没有数据所在地条款，DPA 的跨境传输机制未在公开文本中给出。"
 
 [product.role]
 kind = "processor"
@@ -559,37 +555,34 @@ exact = "Perplexity collects limited usage metadata—such as request and token 
 suffix = ""
 
 [[anchor]]
-id = "perplexity-agent-faq-no-retention-no-training"
+id = "perplexity-agent-faq-no-training-under-tos"
 source_id = "23f1f66914c32643"
-topics = ["retention", "training"]
+topics = ["training"]
 
 [anchor.selector]
 prefix = "name, email address, and other relevant contact information."
-exact = "We do not retain any query data sent through the API and do not train on any of your data"
-suffix = """
-.
-
-Where Are Perplexity's Language Models Hosted?
-
-Our compu"""
+exact = "Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models"
+suffix = ". Retention depends on the API, model, and account configuration"
 
 [[anchor]]
-id = "perplexity-agent-faq-zero-day-retention-and-aws-na"
+id = "perplexity-agent-faq-retention-varies-zdr-not-default"
 source_id = "23f1f66914c32643"
-topics = ["processing_region", "retention", "zdr"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = """
-your data.
+prefix = "does not use Customer Content to train generative AI models. "
+exact = "Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default"
+suffix = ". See Privacy & Security for details."
 
-Where Are Perplexity's Language Models Hosted?
+[[anchor]]
+id = "perplexity-agent-faq-aws-na-region"
+source_id = "23f1f66914c32643"
+topics = ["processing_region"]
 
-"""
-exact = "Our compute is hosted via Amazon Web Services in North America. By default, the API has zero day retention of user prompt data, which is never used for AI training"
-suffix = """
-.
-
-What Security and Compliance Certifications Does the API """
+[anchor.selector]
+prefix = "Where Are Perplexity's Language Models Hosted?"
+exact = "Our compute is hosted via Amazon Web Services in North America"
+suffix = ". For how API data is retained, including when Zero Data Retention (ZDR) is available, see Privacy & Security."
 
 [[anchor]]
 id = "perplexity-agent-api-tos-3-3-usage-data"
