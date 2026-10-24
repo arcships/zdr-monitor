@@ -9,7 +9,7 @@ doc = "https://fireworks.ai/terms-of-service"
 url = "https://docs.fireworks.ai/accounts/data-residency"
 channel = "developer_data"
 tier = "core"
-note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；列出 residency 开启后被拒的功能（训练、FireRouter、BYOC）。既是处理地维度的主要来源，也是 FireRouter/BYOC 多跳与自管档的官方披露点。"
+note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；列出 residency 开启后被拒的功能（训练、Nexus Auto、BYOC）。既是处理地维度的主要来源，也是 Nexus Auto/BYOC 多跳与自管档的官方披露点。"
 
 [[source]]
 url = "https://docs.fireworks.ai/deployments/regions"
@@ -21,7 +21,7 @@ note = "《Regions》页：默认多区域（GLOBAL/US/EUROPE/APAC），并列�
 url = "https://docs.fireworks.ai/ecosystem/firerouter/overview"
 channel = "developer_data"
 tier = "core"
-note = "《FireRouter》产品文档：逐轮在 Fireworks serverless 开源模型与客户自有 Anthropic/OpenAI 或 Amazon Bedrock 账号的闭源模型之间选路。凭据可用账号级 Provider Keys，Anthropic/OpenAI 也可逐请求发送；Bedrock 映射模型 ID 和区域。账号开启 data residency 后不能使用 FireRouter；闭源模型构成第三方跳，因此单列 products 行。"
+note = "《Nexus Auto》产品文档（原名 FireRouter；`firerouter` 模型 ID 与 `firerouter/...` 自定义路由已下线）：逐轮在 Fireworks serverless 开源模型与客户自有 Anthropic/OpenAI 或 Amazon Bedrock 账号的闭源模型之间选路。凭据可用账号级 Provider Keys，Anthropic/OpenAI 也可逐请求发送；Bedrock 映射模型 ID 和区域。账号开启 data residency 后不能使用 Nexus Auto；闭源模型构成第三方跳，因此单列 products 行。"
 
 [[source]]
 url = "https://docs.fireworks.ai/guides/prompt-caching"
@@ -45,7 +45,7 @@ note = "文档站《Secure Training》页：按 Managed Training / Managed Train
 url = "https://fireworks.ai/dpa"
 channel = "contract"
 tier = "core"
-note = "《Data Processing Addendum (v3.2)》，jina 抓回的是 22 页 PDF/DOCX 渲染（页面 URL 为 fireworks.ai/dpa，由 ToS §2.4 并入）。这是 role / retention / training / processing_region 的合同层权威：§3 角色、§4.3(f) 禁止训练、§4.5 请求生命周期保留、§11 终止后删除、Schedule 2「limited data retention」、Schedule 4 授权子处理者及其处理地。适用对象是「business customer」签署的 Agreement（含自服务条款）。"
+note = "《Data Processing Addendum (v3.2)》，jina 抓回的是 21 页 PDF/DOCX 渲染（页面 URL 为 fireworks.ai/dpa，由 ToS §2.4 并入）。这是 role / retention / training / processing_region 的合同层权威：§3 角色、§4.3(f) 禁止训练、§4.5 请求生命周期保留、§6.1 处理地范围、§11 终止后删除。2026-10-17 版删除了内嵌的 Schedule 4 子处理者清单，§6.2 改为指向 https://trust.fireworks.ai/subprocessors（本快照不含该页）。适用对象是「business customer」签署的 Agreement（含自服务条款）。"
 
 [[source]]
 url = "https://fireworks.ai/terms-of-service"
@@ -172,19 +172,19 @@ text_zh = "同顶层 processing_region：默认 None（多区域，可跨 GLOBAL
 text_zh = "residency 只约束推理且不搬迁已有部署。"
 
 [[product.processing_region.point]]
-text = "Contract layer supports the global code: DPA Schedule 4 lists authorised sub-processors outside the United States — Oracle Cloud Infrastructure (United States, Japan, United Kingdom, Germany), with AWS (United States, Japan), Crusoe (United States, Iceland) and Cloudflare (closest data center to End User, global) on the same table."
-text_zh = "合同层支撑 codes 里的 global：DPA Schedule 4 的授权子处理者不限于美国——Oracle Cloud Infrastructure「United States, Japan, United Kingdom, Germany」，同一张表里 AWS 为「United States, Japan」、Crusoe 为「United States, Iceland」、Cloudflare 为「Closest data center to End User (global)」。"
-anchor = "fireworks-dpa-sched4-oracle-multi"
+text = "Contract layer supports the global code: DPA §6.1 states that \"Company may Process Covered Data anywhere that Company, its Affiliates or its Sub-processors maintain facilities, subject to the remainder of this clause 6.\""
+text_zh = "合同层支撑 codes 里的 global：DPA §6.1 明示「Company may Process Covered Data anywhere that Company, its Affiliates or its Sub-processors maintain facilities, subject to the remainder of this clause 6.」"
+anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [[product.processing_region.point]]
-text = "One row of that schedule is explicitly global: Cloudflare is listed at the \"Closest data center to End User (global)\", i.e. processing follows the end user's location rather than a fixed country."
-text_zh = "该表里有一行的处理地是明文的 global：Cloudflare 记为「Closest data center to End User (global)」，即按终端用户位置就近处理，而非固定国家。"
-anchor = "fireworks-dpa-sched4-cloudflare-global"
+text = "The former Schedule 4 country table is no longer embedded in the DPA: §6.2 authorises the sub-processors listed at https://trust.fireworks.ai/subprocessors, a list this snapshot does not contain. Earlier statements about specific sub-processor countries are therefore not re-verified here."
+text_zh = "原内嵌于 DPA 的 Schedule 4 国别表已删除：§6.2 改为授权 https://trust.fireworks.ai/subprocessors 上的名单，本快照不含该页。此前关于具体子处理者国家的表述因此不再在本轮复核。"
+anchor = "fireworks-dpa-6-2-subprocessors-list"
 
 [[product.processing_region.point]]
-text = "Schedule 2 of the same DPA adds that \"All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud\" — the contract layer describes multi-country infrastructure, not a single-country default."
-text_zh = "同一 DPA 的 Schedule 2 另写「All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud.」——合同层描述的是多国基础设施，不是单国默认。"
-anchor = "fireworks-dpa-sched2-aws-gcp-oracle-datacenters"
+text = "Schedule 2 of the same DPA now says \"All Company processing occurs in physical data centers that are managed by the cloud service providers\" — the contract layer describes multi-cloud infrastructure without naming a country, so it does not support a single-country default."
+text_zh = "同一 DPA 的 Schedule 2 现写「All Company processing occurs in physical data centers that are managed by the cloud service providers」——合同层描述多云基础设施、未指定国家，不构成单国默认。"
+anchor = "fireworks-dpa-sched2-cloud-service-providers"
 
 [[product.processing_region.point]]
 text = "ToS §10.1 is the contract-layer US wording — \"your personal information may be transferred to, and/or processed in, the United States\". It sits alongside the developer_data page (default None, lockable to US) without changing the codes; its object is personal information in the Privacy Notice / DPA sense (Covered Data counts as Personal Data), not the processing location of the request body itself."
@@ -273,14 +273,14 @@ text_zh = "新账号只有 GLOBAL 配额，其他 placement 需授予"
 text_zh = "开启 data residency 后每个专用部署必须落在该区域，区域外的已有部署不会被搬迁但请求会被拒。"
 
 [[product.processing_region.point]]
-text = "Contract layer is consistent with the multi-region default: DPA Schedule 4 puts AWS at \"United States, Japan\", Oracle Cloud Infrastructure at \"United States, Japan, United Kingdom, Germany\", Crusoe at \"United States, Iceland\", and Cloudflare at the closest data center to the End User (global)."
-text_zh = "合同层与「默认多区域」一致：DPA Schedule 4 里 AWS 为「United States, Japan」、Oracle Cloud Infrastructure 为「United States, Japan, United Kingdom, Germany」、Crusoe 为「United States, Iceland」、Cloudflare 为「Closest data center to End User (global)」。"
-anchor = "fireworks-dpa-sched4-crusoe-us-iceland"
+text = "Clause 6.1 permits Company to process Covered Data anywhere it, its Affiliates or its Sub-processors maintain facilities, which supports the global code for dedicated capacity as well."
+text_zh = "DPA §6.1 允许 Company 在其自身、关联公司或子处理者设有设施的任何地方处理 Covered Data，同样支撑专属部署档的 global。"
+anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [[product.processing_region.point]]
-text = "The same schedule puts AWS at \"United States, Japan\" — one more contract-layer data point that dedicated capacity is not confined to a single country."
-text_zh = "同一 Schedule 里 AWS 的处理地是「United States, Japan」——合同层再次说明专用算力不限于单一国家。"
-anchor = "fireworks-dpa-sched4-aws-us-japan"
+text = "The former Schedule 4 country entries (AWS, Crusoe and others) are no longer embedded in the DPA; §6.2 now points the authorised sub-processor list to https://trust.fireworks.ai/subprocessors, which this snapshot does not contain. Dedicated capacity is therefore not tied to a single country by the current contract text."
+text_zh = "原 Schedule 4 的国别条目（AWS、Crusoe 等）已不在 DPA 正文中；§6.2 改为指向 https://trust.fireworks.ai/subprocessors 的授权子处理者名单，本快照不含该页。当前合同文本因此不把专属算力绑定到单一国家。"
+anchor = "fireworks-dpa-6-2-subprocessors-list"
 
 [product.role]
 kind = "processor"
@@ -336,21 +336,21 @@ text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services fo
 anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
-codes = ["US"]
-anchor = "fireworks-securetraining-gcs-managed-storage"
+codes = ["global"]
+anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [[product.processing_region.point]]
 text_zh = "data_residency 页 Limitations：「**Training.** Fine-tuning and training jobs are blocked. Support is coming soon.」即开启数据驻留的账号不能跑训练"
 
 [[product.processing_region.point]]
-text = "When training runs on Fireworks-managed storage, \"training data is stored in Google Cloud Storage (GCS) with only a reference link retained in our database.\" The US code refers to where the training dataset and checkpoints are stored, not to the whole training path."
-text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure_training 页：training data is stored in Google Cloud Storage (GCS)）。codes=[\"US\"] 的对象是训练数据集与 checkpoint 的存储地，不是训练全链路。"
+text = "When training runs on Fireworks-managed storage, \"training data is stored in Google Cloud Storage (GCS) with only a reference link retained in our database.\" The page does not state the bucket's region."
+text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure_training 页：training data is stored in Google Cloud Storage (GCS)）。该页未说明 bucket 的区域。"
 anchor = "fireworks-securetraining-gcs-managed-storage"
 
 [[product.processing_region.point]]
-text = "The contract layer puts that storage in the United States — DPA Schedule 4 lists Google Cloud Platform / \"United States\" — but the same table also carries Japan, the United Kingdom, Germany and Iceland for other infrastructure (AWS: United States, Japan; Oracle: United States, Japan, United Kingdom, Germany; Crusoe: United States, Iceland), so \"US\" must not be read as \"training infrastructure only in the US\"."
-text_zh = "合同层把该存储地记为美国——DPA Schedule 4 的 Google Cloud Platform 处理地是「United States」；但同一张表里其他基础设施还列了 Japan / United Kingdom / Germany / Iceland（AWS：United States, Japan；Oracle：United States, Japan, United Kingdom, Germany；Crusoe：United States, Iceland），所以 US 不能读成「训练基础设施只在美国」。"
-anchor = "fireworks-dpa-sched4-gcp-us"
+text = "The previous \"US\" code rested on DPA Schedule 4 listing Google Cloud Platform / \"United States\". The 2026-10-17 DPA removed the embedded Schedule 4 table and §6.2 now points to https://trust.fireworks.ai/subprocessors, a list this snapshot does not contain, so that country evidence is no longer in the snapshot. DPA §6.1 permits processing anywhere Company, its Affiliates or Sub-processors maintain facilities; the code is therefore changed from US to global rather than carried forward unverified."
+text_zh = "原 codes=[\"US\"] 依据的是 DPA Schedule 4 把 Google Cloud Platform 列在「United States」。2026-10-17 版 DPA 删除了内嵌的 Schedule 4，§6.2 改为指向 https://trust.fireworks.ai/subprocessors（本快照不含该页），该国家依据已不在快照中。DPA §6.1 允许在其自身、关联公司或子处理者设有设施的任何地方处理，故 codes 由 US 改为 global，而不是保留未复核的 US。"
+anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [product.role]
 kind = "processor"
@@ -378,7 +378,7 @@ searched = [
 ]
 
 [[product.training.point]]
-text_zh = "FireRouter 文档描述路由、凭据与计费，没有就「闭源模型转给第三方后数据如何被用于训练」作任何承诺。"
+text_zh = "Nexus Auto（原名 FireRouter）文档描述路由、凭据与计费，没有就「闭源模型转给第三方后数据如何被用于训练」作任何承诺。"
 
 [[product.training.point]]
 text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束客户自有账号的 Anthropic/OpenAI/Bedrock 上游。多跳判定：Fireworks 本身受合同禁令约束，但上游跳的训练承诺不在本台账本家范围内；不能将 Fireworks 单跳的正面承诺推广到全链，故本档 training 保持 unknown。"
@@ -396,12 +396,12 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "Fireworks' own Zero Data Retention wording (ToS §3.6 and the Zero Data Retention page) is written for the inference path Fireworks itself serves. The FireRouter docs cover routing, billing and credentials, but do not state a zero-retention position for the closed-model hop served by a third-party provider."
-text_zh = "Fireworks 自己的零保留表述（ToS §3.6 与《Zero Data Retention》页）针对的是 Fireworks 自己提供推理的路径。FireRouter 文档写选路、计费与凭据，没有就第三方执行的闭源模型这一跳给出零保留方案。"
+text = "Fireworks' own Zero Data Retention wording (ToS §3.6 and the Zero Data Retention page) is written for the inference path Fireworks itself serves. The Nexus Auto docs (formerly FireRouter) cover routing, billing and credentials, but do not state a zero-retention position for the closed-model hop served by a third-party provider."
+text_zh = "Fireworks 自己的零保留表述（ToS §3.6 与《Zero Data Retention》页）针对的是 Fireworks 自己提供推理的路径。Nexus Auto（原名 FireRouter）文档写选路、计费与凭据，没有就第三方执行的闭源模型这一跳给出零保留方案。"
 
 [[product.zdr.point]]
-text = "Contrary reading, kept side by side: DPA §4.5 says Company shall not retain prompt inputs or model outputs beyond the lifecycle of the applicable request, and DPA Schedule 4 lists Anthropic as an authorised sub-processor — read at contract level, the Anthropic closed-model hop may already be covered. The verdict stays at no because Fireworks' ZDR documentation does not extend the commitment to every third-party hop, and the upstream providers' own retention policies are not part of this provider's scope."
-text_zh = "相反口径并列保留：DPA §4.5 承诺 Company 不保留 prompt inputs / model outputs 超过请求生命周期，Schedule 4 又把 Anthropic 列为授权子处理者——按合同层读，Anthropic 闭源模型这一跳可能已被 DPA 覆盖。结论仍记否：Fireworks 的 ZDR 文档没有把承诺延伸到所有第三方跳，上游 provider 自己的保留政策不在本台账本家范围内。"
+text = "Contrary reading, kept side by side: DPA §4.5 says Company shall not retain prompt inputs or model outputs beyond the lifecycle of the applicable request. The current DPA no longer embeds the Schedule 4 sub-processor table — §6.2 instead authorises the sub-processors listed at https://trust.fireworks.ai/subprocessors — so the earlier supporting point that the DPA lists Anthropic as a sub-processor can no longer be verified from this snapshot. The verdict stays at no because Fireworks' ZDR documentation does not extend the commitment to every third-party hop, and the upstream providers' own retention policies are not part of this provider's scope."
+text_zh = "相反口径并列保留：DPA §4.5 承诺 Company 不保留 prompt inputs / model outputs 超过请求生命周期。现行 DPA 不再内嵌 Schedule 4 子处理者表——§6.2 改为授权 https://trust.fireworks.ai/subprocessors 上的名单——故「DPA 把 Anthropic 列为子处理者」这条旧依据已无法从本快照核实。结论仍记否：Fireworks 的 ZDR 文档没有把承诺延伸到所有第三方跳，上游 provider 自己的保留政策不在本台账本家范围内。"
 anchor = "fireworks-dpa-4-5-request-lifecycle"
 
 [product.retention]
@@ -414,12 +414,12 @@ searched = [
 ]
 
 [[product.retention.point]]
-text = "The revised FireRouter page no longer assures that provider keys sent per request are not persisted. It distinguishes admin-stored Provider Keys from per-request headers, and says the latter can appear in client configurations and gateway request logs. These disclosures concern credentials and logs, not the retention period of request/response content across the closed-model path."
-text_zh = "改版后的 FireRouter 页不再保证逐请求 provider key 不持久化，而是区分管理员存入 Fireworks 账号的 Provider Keys 与可能出现在客户端配置和网关请求日志中的逐请求头。它们讲的是凭据和日志，不是闭源模型路径请求/响应正文的全链保留期限。"
+text = "The revised Nexus Auto page (formerly FireRouter) no longer assures that provider keys sent per request are not persisted. It distinguishes admin-stored Provider Keys from per-request headers, and says the latter can appear in client configurations and gateway request logs. These disclosures concern credentials and logs, not the retention period of request/response content across the closed-model path."
+text_zh = "改版后的 Nexus Auto 页（原名 FireRouter）不再保证逐请求 provider key 不持久化，而是区分管理员存入 Fireworks 账号的 Provider Keys 与可能出现在客户端配置和网关请求日志中的逐请求头。它们讲的是凭据和日志，不是闭源模型路径请求/响应正文的全链保留期限。"
 
 [[product.retention.point]]
-text = "Anthropic serves Claude Fable only to organizations with data retention enabled. This is an upstream eligibility condition for that model, not a content-retention period for all FireRouter traffic."
-text_zh = "Claude Fable 仅供已启用 data retention 的 Anthropic 组织使用；这是该模型上游的使用条件，并非全部 FireRouter 请求正文的保留期限。"
+text = "Anthropic serves Claude Fable only to organizations with data retention enabled. This is an upstream eligibility condition for that model, not a content-retention period for all Nexus Auto traffic."
+text_zh = "Claude Fable 仅供已启用 data retention 的 Anthropic 组织使用；这是该模型上游的使用条件，并非全部 Nexus Auto 请求正文的保留期限。"
 anchor = "fireworks-firerouter-fable-retention-required"
 
 [[product.retention.point]]
@@ -442,36 +442,36 @@ codes = ["global", "selected"]
 anchor = "fireworks-firerouter-closed-model-upstream-account"
 
 [[product.processing_region.point]]
-text = "Open-model turns use Fireworks serverless, whose account default permits any model and region; closed-model turns use customer-owned upstream accounts. Here global refers to Fireworks' unrestricted serving, while selected refers only to customer-controlled upstream account/Bedrock region configuration. Neither code promises FireRouter-wide residency or a single processing country."
-text_zh = "开源模型轮次使用 Fireworks serverless（账号默认不限制模型和区域）；闭源模型轮次使用客户自有上游账号。这里 global 仅指 Fireworks 默认不限区域，selected 仅指客户控制上游账号／Bedrock 区域配置；两者均不承诺 FireRouter 全链数据驻留或单一处理国家。"
+text = "Open-model turns use Fireworks serverless, whose account default permits any model and region; closed-model turns use customer-owned upstream accounts. Here global refers to Fireworks' unrestricted serving, while selected refers only to customer-controlled upstream account/Bedrock region configuration. Neither code promises Nexus Auto-wide residency or a single processing country."
+text_zh = "开源模型轮次使用 Fireworks serverless（账号默认不限制模型和区域）；闭源模型轮次使用客户自有上游账号。这里 global 仅指 Fireworks 默认不限区域，selected 仅指客户控制上游账号／Bedrock 区域配置；两者均不承诺 Nexus Auto 全链数据驻留或单一处理国家。"
 anchor = "fireworks-dataresidency-default-none"
 
 [[product.processing_region.point]]
-text = "Bedrock is another customer-owned upstream. Its model ID maps to a Bedrock region, but that mapping does not establish a common processing country for every FireRouter account."
-text_zh = "Bedrock 也是客户自有上游；模型 ID 须映射到 Bedrock 区域，但不能推成所有 FireRouter 账号共有的处理国家。"
+text = "Bedrock is another customer-owned upstream. Its model ID maps to a Bedrock region, but that mapping does not establish a common processing country for every Nexus Auto account."
+text_zh = "Bedrock 也是客户自有上游；模型 ID 须映射到 Bedrock 区域，但不能推成所有 Nexus Auto 账号共有的处理国家。"
 anchor = "fireworks-firerouter-bedrock-account-region"
 
 [[product.processing_region.point]]
-text = "Fireworks cannot constrain a third-party provider to a region when a firerouter/... request passes through."
-text_zh = "Fireworks 明示 firerouter/... 请求经过第三方时无法约束其区域；因此不可把 api 档可选的驻留区域推广为全链保证。"
+text = "Fireworks cannot constrain a third-party provider to a region when a Nexus Auto (`auto`) request passes through."
+text_zh = "Fireworks 明示 Nexus Auto（`auto`）请求经过第三方时无法约束其区域；因此不可把 api 档可选的驻留区域推广为全链保证。"
 anchor = "fireworks-dataresidency-firerouter-third-party"
 
 [[product.processing_region.point]]
-text = "Accounts with data residency enabled cannot use FireRouter."
-text_zh = "已启用 data residency 的账号不能使用 FireRouter；这进一步排除了将账号级区域锁定视为路由保证。"
+text = "Accounts with data residency enabled cannot use Nexus Auto."
+text_zh = "已启用 data residency 的账号不能使用 Nexus Auto；这进一步排除了将账号级区域锁定视为路由保证。"
 anchor = "fireworks-firerouter-residency-incompatible"
 
 [[product.processing_region.point]]
-text = "Contract layer, kept side by side: DPA Schedule 4 lists Anthropic in the United States as an authorised sub-processor. That entry cannot establish a US-only location for all customer-owned Anthropic/OpenAI or Bedrock configurations."
-text_zh = "合同层并列保留：DPA Schedule 4 将 Anthropic 授权子处理者列在美国；但无法推成客户自有 Anthropic/OpenAI 或 Bedrock 账号的所有路由配置均只在美国。"
-anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
+text = "Contract layer changed on 2026-10-17: the DPA no longer embeds Schedule 4. §6.2 authorises the sub-processors listed at https://trust.fireworks.ai/subprocessors, a list this snapshot does not contain, so the former \"Anthropic in the United States\" entry can no longer be verified here. §6.1 still permits Company to process Covered Data anywhere it, its Affiliates or its Sub-processors maintain facilities."
+text_zh = "合同层于 2026-10-17 变化：DPA 不再内嵌 Schedule 4。§6.2 改为授权 https://trust.fireworks.ai/subprocessors 上的子处理者名单，本快照不含该页，故原「Anthropic 在美国」条目已无法在此核实。§6.1 仍允许 Company 在其自身、关联公司或子处理者设有设施的任何地方处理 Covered Data。"
+anchor = "fireworks-dpa-6-2-subprocessors-list"
 
 [product.role]
 kind = "processor"
 anchor = "fireworks-dpa-3-a-processor"
 
 [[product.role.point]]
-text_zh = "FireRouter 页说明闭源模型使用客户自己的 Anthropic/OpenAI 账号；但客户自有账号并不单独界定 Fireworks 在 DPA 下的角色，也不能证明上游在每种 BYOK 配置中的合同身份。"
+text_zh = "Nexus Auto（原名 FireRouter）页说明闭源模型使用客户自己的 Anthropic/OpenAI 账号；但客户自有账号并不单独界定 Fireworks 在 DPA 下的角色，也不能证明上游在每种 BYOK 配置中的合同身份。"
 anchor = "fireworks-firerouter-closed-model-upstream-account"
 
 [[product.role.point]]
@@ -479,8 +479,8 @@ text_zh = "Bedrock 也是客户自有账号，须映射模型与区域；这仍�
 anchor = "fireworks-firerouter-bedrock-account-region"
 
 [[product.role.point]]
-text_zh = "DPA §3(a) 将 Fireworks 履约时定为 processor/service provider；Schedule 4 把 Anthropic 列为授权子处理者。本档仅沿用 Fireworks 自身的 processor 角色，不把 Anthropic 子处理者条目推广到 OpenAI/Bedrock 或每种 BYOK 配置；客户账号闭源跳的角色适用范围仍需澄清。"
-anchor = "fireworks-dpa-sched4-anthropic-subprocessor"
+text_zh = "DPA §3(a) 将 Fireworks 履约时定为 processor/service provider。2026-10-17 版 DPA 不再内嵌 Schedule 4 子处理者清单，§6.2 改为授权 https://trust.fireworks.ai/subprocessors 上的名单（本快照不含该页），故不再从 DPA 原文断言 Anthropic 的子处理者身份与地点。本档仅沿用 Fireworks 自身的 processor 角色，不把任何上游条目推广到 OpenAI/Bedrock 或每种 BYOK 配置；客户账号闭源跳的角色适用范围仍需澄清。"
+anchor = "fireworks-dpa-6-2-subprocessors-list"
 
 [[product]]
 id = "self_managed"
@@ -635,23 +635,20 @@ suffix = """
 (a)  provide Customer with reasonabl"""
 
 [[anchor]]
-id = "fireworks-dpa-sched4-anthropic-subprocessor"
+id = "fireworks-dpa-6-1-process-anywhere"
+source_id = "809a8c0c397358d0"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Company may Process Covered Data anywhere that Company, its Affiliates or its Sub-processors maintain facilities, subject to the remainder of this clause 6."
+
+[[anchor]]
+id = "fireworks-dpa-6-2-subprocessors-list"
 source_id = "809a8c0c397358d0"
 topics = ["role", "processing_region"]
 
 [anchor.selector]
-prefix = """
-vider 
-
-CoreWeave  United States  Infrastructure provider 
-
-"""
-exact = "Anthropic  United States  AI services"
-suffix = """
- 
-
-22
-"""
+exact = "Customer grants Company general authorisation to engage any of its Affiliates and/or Sub-processors listed at https://trust.fireworks.ai/subprocessors, as amended from time to time in accordance with clause 6.4 (the \"Authorised Sub-processors\"), to Process Covered Data."
 
 [[anchor]]
 id = "fireworks-securetraining-job-artifacts-30-days"
@@ -709,7 +706,7 @@ source_id = "5b91be97039b3320"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-exact = "A `firerouter/...` id can pass a request through to a third-party provider, which Fireworks cannot constrain to a region."
+exact = "The `auto` model ID can pass a request through to a third-party provider, which Fireworks cannot constrain to a region."
 
 [[anchor]]
 id = "fireworks-dataresidency-byoc-not-enforceable"
@@ -740,7 +737,7 @@ source_id = "71f0c175ad418ee9"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-exact = "Fireworks open models run on Fireworks serverless. Closed models run on your own Anthropic or OpenAI account, using a credential you provide."
+exact = "Open models run on Fireworks serverless. Closed models run on your own Anthropic or OpenAI account."
 
 [[anchor]]
 id = "fireworks-firerouter-bedrock-account-region"
@@ -748,7 +745,7 @@ source_id = "71f0c175ad418ee9"
 topics = ["processing_region", "role"]
 
 [anchor.selector]
-exact = "FireRouter calls closed models through your own Anthropic, OpenAI, or Amazon Bedrock account. Your Fireworks API key is always required. Each closed provider in the route also needs a credential. For Anthropic and OpenAI, there are two ways to provide one. Bedrock uses Provider Keys only, with each model mapped to a Bedrock model ID and region."
+exact = "Nexus Auto calls closed models through your own Anthropic, OpenAI, or Amazon Bedrock account. For Anthropic and OpenAI, store the key once as a Provider Key or send it with each request. Bedrock uses Provider Keys only, with each model mapped to a Bedrock model ID and region."
 
 [[anchor]]
 id = "fireworks-firerouter-fable-retention-required"
@@ -764,7 +761,7 @@ source_id = "71f0c175ad418ee9"
 topics = ["processing_region"]
 
 [anchor.selector]
-exact = "Accounts with data residency enabled cannot use FireRouter."
+exact = "Accounts with data residency enabled cannot use Nexus Auto."
 
 [[anchor]]
 id = "fireworks-tos-10-1-us-processing"
@@ -854,75 +851,12 @@ Measures for ensuring accountability
 Company has adopte"""
 
 [[anchor]]
-id = "fireworks-dpa-sched2-aws-gcp-oracle-datacenters"
+id = "fireworks-dpa-sched2-cloud-service-providers"
 source_id = "809a8c0c397358d0"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-ecurity of locations at which personal data are processed 
-
-"""
-exact = "All Company processing occurs in physical data centers that are managed by AWS, GCP, Oracle Cloud."
-suffix = """
- https://aws.amazon.com/compliance/data-center/controls/ 
-
-M"""
-
-[[anchor]]
-id = "fireworks-dpa-sched4-aws-us-japan"
-source_id = "809a8c0c397358d0"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = """
-
-Sub-processor  Processing Location(s)  Service / Purpose 
-
-"""
-exact = "Amazon Web Services  United States, Japan  Cloud infrastructure and service provider"
-suffix = """
- 
-
-Google Cloud Platform  United States  Cloud infrastructur"""
-
-[[anchor]]
-id = "fireworks-dpa-sched4-oracle-multi"
-source_id = "809a8c0c397358d0"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = """
- United States  Cloud infrastructure and service provider 
-
-"""
-exact = "Oracle Cloud Infrastructure  United States, Japan, United Kingdom, Germany"
-suffix = """
- 
-
-Cloud infrastructure and service provider 
-
-Cloudflare  C"""
-
-[[anchor]]
-id = "fireworks-dpa-sched4-cloudflare-global"
-source_id = "809a8c0c397358d0"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = """
-gdom, Germany 
-
-Cloud infrastructure and service provider 
-
-"""
-exact = "Cloudflare  Closest data center to End User (global)"
-suffix = """
- 
-
-Content delivery network provider 
-
-Vercel  United States"""
+exact = "All Company processing occurs in physical data centers that are managed by the cloud service providers."
 
 [[anchor]]
 id = "fireworks-datahandling-open-models-limit"
@@ -941,26 +875,6 @@ topics = ["zdr", "retention"]
 
 [anchor.selector]
 exact = "Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content."
-
-[[anchor]]
-id = "fireworks-dpa-sched4-gcp-us"
-source_id = "809a8c0c397358d0"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "Amazon Web Services  United States, Japan  Cloud infrastructure and service provider"
-exact = "Google Cloud Platform  United States  Cloud infrastructure and service provider"
-suffix = "Oracle Cloud Infrastructure  United States, Japan, United Kingdom, Germany"
-
-[[anchor]]
-id = "fireworks-dpa-sched4-crusoe-us-iceland"
-source_id = "809a8c0c397358d0"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "Lambda Labs  United States  Infrastructure provider"
-exact = "Crusoe  United States, Iceland  Infrastructure provider"
-suffix = "Voltage Park  United States  Infrastructure provider"
 
 [[anchor]]
 id = "fireworks-datahandling-volatile-memory"
