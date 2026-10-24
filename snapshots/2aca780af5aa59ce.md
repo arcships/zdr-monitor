@@ -12,7 +12,7 @@ Primary navigation
 Search docs
 ### Suggested
 Overview Models Agents Tools Audio & voice Production API reference
-OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
+DocsProduction
 - Home
 ### Get started
 - Quickstart
@@ -51,7 +51,6 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Working with evals
 - Prompt optimizer
 - External models
-- Best practices
 - Graders
 - Fine-tuning
 - Optimization cycle
@@ -105,11 +104,13 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Run and continue sessions
 - Events and items
 - Manage sessions
+- Scheduled automations
 - Webhooks
 - Environments and sandboxes
 - OpenAI-hosted sandboxes
 - Self-hosted sandboxes
 - Sandbox lifecycle
+- Pre-warm sandboxes
 - Sandbox security
 - Files and artifacts
 - Tools and integrations
@@ -160,6 +161,8 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 ### Computer and code
 - Shell
 - Computer use
+- Integration recipes
+- Driver reference
 - Apply Patch
 - Local shell
 - Code interpreter
@@ -205,6 +208,9 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Latency optimization
 - Predicted Outputs
 - Accuracy optimization
+### Evaluation
+- Evaluation best practices
+- Promptfoo
 ### Cost and throughput
 - Cost optimization
 - Prompt caching
@@ -248,6 +254,7 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Oracle Cloud Infrastructure
 - GitHub Actions
 - SPIFFE
+- Idira
 - IP egress ranges
 - Amazon Bedrock
 ### Operations
@@ -255,25 +262,8 @@ OverviewModelsAgentsToolsAudio & voiceProductionAPI referenceDocsProduction
 - Spend limits
 - Admin APIs
 - Error codes
-Overview Sign in with ChatGPT Plugins Workspace Agents Commerce Ads ChatGPT + Codex user docs Use cases
-OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex user docsUse casesDocsOverview
-- Home
-- Quickstart
-- Request a client ID
-### Identity
-- On your website
-- In your ChatGPT plugin
-### ChatGPT plan usage
-- Overview
-- UI/UX guidelines
-- Registration and sign-in
-- Accounts and sessions
-- Models and inference
-- Codex app-server
-- Self-hosted VMs
-- Token reference
-- Errors and recovery
-- Preview limitations
+Overview Plugins Sign in with ChatGPT Commerce Ads Workspace Agents ChatGPT + Codex user docs Use cases
+DocsOverview
 - Home
 - Quickstart
 ### Core concepts
@@ -295,6 +285,7 @@ OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex us
 ### Test and publish
 - Connect and test your plugin
 - Submit and publish
+- Submit desktop-only plugins
 - Submission error reference
 ### Conversion specs
 - Restaurant reservation spec
@@ -313,9 +304,22 @@ OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex us
 - Plugin UI reference
 - Checkout API reference
 - Home
-### Get started
-- Trigger workspace agent runs
-- Authenticate with Workspace Agent access tokens
+- Quickstart
+- Request a client ID
+### Identity
+- On your website
+- In your ChatGPT plugin
+### ChatGPT plan usage
+- Overview
+- UI/UX guidelines
+- Registration and sign-in
+- Accounts and sessions
+- Models and inference
+- Codex app-server
+- Self-hosted VMs
+- Token reference
+- Errors and recovery
+- Preview limitations
 - Home
 ### Guides
 - Get started
@@ -357,8 +361,12 @@ OverviewSign in with ChatGPTPluginsWorkspace AgentsCommerceAdsChatGPT + Codex us
 - Insights
 - Files
 - Conversion Setup
+- Home
+### Get started
+- Trigger workspace agent runs
+- Authenticate with Workspace Agent access tokens
 Overview Features Configuration Developers Security Administration Use Cases Resources
-OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesDocsOverview
+DocsOverview
 - Home
 ### Get started
 - Quickstart
@@ -391,7 +399,6 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Overview
 ### Workflows
 - Projects and chats
-- Sites
 - Build plugins
 - Visualizations
 - Scheduled tasks
@@ -403,6 +410,7 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Browser
 - Computer use
 - Voice
+- Composer Predictions
 - Plugins
 - Sign in with ChatGPT
 - Web search
@@ -411,6 +419,12 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Appshots
 - Browser extension
 - Work with files
+### Sites
+- Overview
+- Create a site
+- Data and connections
+- Publish and share
+- Manage a site
 ### dots
 - Meet dots
 - Getting started
@@ -472,6 +486,7 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 ### Build with Codex
 - Codex SDK
 - App Server
+- Model catalogs
 - GitHub Action
 - Non-interactive mode
 ### Third-party integrations
@@ -491,6 +506,11 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Agent approvals & security
 ### Codex Security
 - Overview
+- Codex Security Cloud
+- Setup
+- Security Review
+- Improving the threat model
+- FAQ
 - Codex Security plugin
 - Quickstart
 - Run a security scan
@@ -506,16 +526,13 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Codex Security CLI
 - Quickstart
 - Run bulk scans
-- Run scans in CI
+- CI/CD
+- Overview
+- GitHub Actions
 - GitLab CI/CD
 - Reference
 - FAQ
-- TypeScript SDK
-- Codex Security Cloud
-- Setup
-- Security Review
-- Improving the threat model
-- FAQ
+- Codex Security SDK
 ### Cyber safety
 - Models & Trusted Access
 - Recommended configuration
@@ -523,33 +540,40 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 ### Getting started
 - Admin rollout guide
 - Admin plugin
-- Feature setup
+### Feature Configuration
 - Dots
 - Space
+- Sites
 - Teams and Team Tasks
 - ChatGPT in Slack and Teams
 - Workspace connections
 - Local computer access for Work Cloud and dots
-- Sites
 ### Identity and access
 - Authentication overview
 - Groups and provisioning
+- Dynamic groups
 - User lifecycle management
 - Roles and workspace permissions
 - Personal access tokens
 - Service accounts
 ### Deployment and configuration
-- Windows app deployment
+- Windows app and CLI deployment
 - Manage app updates
 - Managed configuration
+- Codex security cookbook
 - Remote connections
 - Workspace model availability
 - Amazon Bedrock
 - Bedrock GovCloud configuration
 - Connect to a gateway
-- Deploy Codex through a gateway
+- Sign in with ChatGPT
+- Use API/provider credentials
+- Roll out a gateway
 - Gateway compatibility
 - Bedrock through LiteLLM
+### ChatGPT EDU
+- Education plans
+- Higher education setup
 ### ChatGPT Work
 - Overview
 - Cloud security
@@ -604,14 +628,14 @@ OverviewFeaturesConfigurationDevelopersSecurityAdministrationUse CasesResourcesD
 - Company blog
 - Developer blog
 Showcase Blog Cookbook Learn Community
-ShowcaseBlogCookbookLearnCommunityDocsSelect...
+DocsShowcase
 - All posts
 ### Recent
+- Designing failover across OpenAI model providers
+- Maintaining software with the GPT-6 family
 - Bringing my LED display to life with GPT-Live-1 and Codex
 - Rethinking skills and prompts for GPT-6 Astra
 - Architectural visualization with Astra
-- Building games with Astra
-- Meet Rosalind Workbench: Empowering every scientist to be their own research team
 ### Topics
 - General
 - API
@@ -654,6 +678,7 @@ ShowcaseBlogCookbookLearnCommunityDocsSelect...
 - Community
 ### Programs
 - Codex Ambassadors
+- Meet the ambassadors
 - Codex for Students
 - Codex for Open Source
 - OpenAI for Startups
@@ -667,8 +692,8 @@ API Dashboard
 Try ChatGPT
 Copy Page
 # Data controls in the OpenAI platform
-Understand how OpenAI uses your data, and how you can control it.
 Copy Page
+Understand how OpenAI uses your data, and how you can control it.
 Your data is your data. As of March 1, 2023, data sent to the OpenAI API is not used to train or improve OpenAI models (unless you explicitly opt in to share data with us).
 ## Types of data stored with the OpenAI API
 When using the OpenAI API, data may be stored as:
@@ -719,6 +744,7 @@ The table below indicates when application state is stored for each endpoint. Ze
 | `/v1/audio/transcriptions` | No | None | None | Yes | No |
 | `/v1/audio/translations` | No | None | None | Yes | No |
 | `/v1/audio/speech` | No | 30 days | None | Yes | No |
+| `/v1/audio/voices` | No | 30 days | Until deleted | No | No |
 | `/v1/files` | No | 30 days | Until deleted* | No | No |
 | `/v1/fine_tuning/jobs` | No | 30 days | Until deleted | No | No |
 | `/v1/evals` | No | 30 days | Until deleted | No | No |
@@ -738,7 +764,6 @@ The table below indicates when application state is stored for each endpoint. Ze
 - See image and file inputs.
 - MCP servers (used with the remote MCP server tool) are third-party services, and data sent to an MCP server is subject to their data retention policies.
 - Hosted containers used by Hosted Shell and Code Interpreter may write temporary application state to the container filesystem (backed by ephemeral block storage) while the container is active. Container data is deleted when the container expires or is explicitly deleted.
-- When Zero Data Retention is not enabled for an organization, all queries use extended prompt caching for all supported models.
 - For server-side compaction, no data is retained when `store="false"`.
 - We support Skills in two form factors, both local execution and hosted container-based execution. Hosted skills follow the same container lifecycle as hosted shell: mounted skills and container files remain available while the container is active and are discarded when the container expires or is deleted.
 - Data transmitted to third-party services over network connections is subject to their data retention policies.
@@ -750,7 +775,7 @@ The Decisions API is eligible for HIPAA use under an executed OpenAI Business As
 #### `/v1/assistants`, `/v1/threads`, and `/v1/vector_stores`
 - Objects related to the Assistants API are deleted from our servers 30 days after you delete them via the API or the dashboard. Objects that are not deleted via the API or dashboard are retained indefinitely.
 #### `/v1/images`
-- Image generation is Zero Data Retention compatible when using `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`.
+- Image generation is Zero Data Retention compatible when using `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1.5`, and `gpt-image-1-mini`.
 #### `/v1/files`
 - Files can be manually deleted via the API or the dashboard, or can be automatically deleted by setting the `expires_after` parameter. See here for more information.
 #### Historical Videos API retention
@@ -868,7 +893,7 @@ puts(response.output_text)
 ### Which models and features are eligible for data residency?
 The following models and API services are eligible for data residency today for the regions specified below.
 Use **Support by region** to compare regional capabilities and expand the services available in each region. Use **API Endpoint, tool and model support** for complete model lists and a detailed service view. Support for regional storage does not imply support for regional processing.
-Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. Ultrafast mode supports US data residency and global processing only. It does not support EU or other non-US regional processing endpoints.
+EU data residency is not available for every model in Fast mode. Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. Ultrafast mode for GPT-6.1 Sol supports US and EU data residency and global processing. GPT-6 Astra Ultrafast supports US data residency and global processing only.
 #### Support by region
 Compare regional capabilities and services.
 Filter support by regionAll regions
@@ -1134,7 +1159,7 @@ Supported models
 `gpt-6-astra``gpt-6.1-sol``gpt-6-sol`+ 26 model snapshots
 `gpt-6-luna``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-2025-08-07``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-mini-2025-01-31``o3-2025-04-16``o4-mini-2025-04-16``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
 Notes
-Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency.
+Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency.
 /v1/decisions
 Decisions
 Supported models
@@ -1161,12 +1186,10 @@ Supported models
 /v1/images/edits
 Images
 Supported models
-`gpt-image-2``gpt-image-1``gpt-image-1.5`+ 1 model snapshot
-`gpt-image-1-mini`
+`gpt-image-2``gpt-image-1.5``gpt-image-1-mini`
 /v1/images/generations
 Images
 Supported models
-`gpt-image-1-mini`
 /v1/moderations
 Moderation
 Supported models
@@ -1241,7 +1264,7 @@ Supported models
 | /v1/batches | Batches |
 | GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
 | /v1/chat/completions | Chat Completions |
-| Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency. |
+| Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
 | /v1/decisions | Decisions |
 `gpt-6-luna`
 | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
@@ -1251,9 +1274,7 @@ Supported models
 | /v1/fine_tuning/jobs | Fine-tuning |
 `gpt-4.1-mini-2025-04-14`
 | /v1/images/edits | Images |
-`gpt-image-1-mini`
 | /v1/images/generations | Images |
-`gpt-image-1-mini`
 | /v1/moderations | Moderation |
 `omni-moderation-latest`
 | /v1/live/sessions | GPT-Live |
@@ -1545,20 +1566,20 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Endpoint or feature | Service | Storage regions | Processing regions | Supported models and snapshots | Regional processing snapshot exceptions | Notes |
 | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech` | Audio | All listed regions | United States, Europe (EEA + Switzerland) | `tts-1`, `whisper-1`, `gpt-4o-tts`, `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/batches` | Batches | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | None | GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
-| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency. |
+| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
 | `/v1/decisions` | Decisions | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-luna` | None | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
 | `/v1/embeddings` | Embeddings | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002` | United Arab Emirates: `text-embedding-3-large` | — |
 | `/v1/evals` | Evals | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/files` | Files | All listed regions | None | Service-level support | None | — |
 | `/v1/fine_tuning/jobs` | Fine-tuning | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14` | None | — |
-| `/v1/images/edits` | Images | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-1-mini` | None | — |
-| `/v1/images/generations` | Images | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-1-mini` | None | — |
+| `/v1/images/edits` | Images | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1-mini` | None | — |
+| `/v1/images/generations` | Images | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2`, `gpt-image-1.5`, `gpt-image-1-mini` | None | — |
 | `/v1/moderations` | Moderation | All listed regions | United States, Europe (EEA + Switzerland) | `omni-moderation-latest` | None | — |
 | `/v1/live/sessions` | GPT-Live | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-live-1` | None | — |
 | `/v1/realtime` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime`, `gpt-realtime-1.5`, `gpt-realtime-mini`, `gpt-realtime-2`, `gpt-realtime-2.1`, `gpt-realtime-2.1-mini` | None | — |
 | `/v1/realtime/transcription_sessions` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-whisper`, `gpt-live-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/realtime/translations` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-translate` | None | — |
-| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode is not available with EU data residency for GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, or GPT-6 Luna. GPT-6.1 Sol supports only US and EU data residency. |
+| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
 | `/v1/responses File Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/responses Web Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/vector_stores` | Vector stores | All listed regions | None | Service-level support | None | — |
