@@ -12,7 +12,7 @@ doc = "https://opencode.ai/docs/enterprise/"
 url = "https://opencode.ai/docs/enterprise/"
 channel = "developer_data"
 tier = "core"
-note = "OpenCode Enterprise 官方文档；本地/直连数据路径、企业集中配置、内部网关及可选分享功能。"
+note = "OpenCode Enterprise 官方文档；本地/直连数据路径、企业集中配置、内部网关。"
 
 [[source]]
 url = "https://opencode.ai/docs/share"
@@ -24,7 +24,7 @@ note = "分享默认是手动触发，可彻底关闭；已分享会话保留到
 url = "https://opencode.ai/docs/zen"
 channel = "developer_data"
 tier = "core"
-note = "Zen 托管网关、美欧处理地、上游零保留/不训练口径、30 天与训练例外、团队和 BYOK。"
+note = "OpenCode Console（原 Zen）托管网关、美欧处理地、上游零保留/不训练口径、30 天与训练例外、团队工作区。"
 
 [[source]]
 url = "https://opencode.ai/legal/terms-of-service"
@@ -60,14 +60,14 @@ text_zh = "额外数据流：会话内容还会被送往低成本模型生成会
 anchor = "opencode-zen-session-titles"
 
 [[product.zdr.point]]
-text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev 1.13 and Jev 1.13 Free are listed in this tier's own endpoint and pricing tables, and the docs state no retention period of their own — the period is deferred to a third party's policy."
-text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 1.13 与 Jev 1.13 Free 都列在本档端点表与价目表内；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
-anchor = "opencode-zen-jev-exception"
-
-[[product.zdr.point]]
 text = "A further exception in the same privacy section defers the Mistral models' retention to the provider: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" Mistral Large 4 is listed in this tier's own endpoint and pricing tables, and the docs state no retention period of their own — the period is deferred to a third party's policy."
 text_zh = "同一隐私段的另一条例外把 Mistral 模型的保留期限指向上游：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」Mistral Large 4 已列入本档端点表与价目表；官方未自行给出保留期限，而是把期限指向第三方（Mistral）的政策。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Beam Free requests for 30 days rather than zero retention: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Beam Free is listed in this tier's own endpoint and pricing tables, so mark=yes / mode=default does not hold for that model."
+text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 已列入本档端点表与价目表，因此选择该模型时本档不是零保留。"
+anchor = "opencode-zen-beam-30-days"
 
 [product.retention]
 object = "input_output"
@@ -79,14 +79,14 @@ text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明
 anchor = "opencode-zen-30-days"
 
 [[product.retention.point]]
-text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
-text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
-anchor = "opencode-zen-jev-exception"
-
-[[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
 text_zh = "Mistral 例外：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」——Mistral 请求没有给出期限或删除承诺，期限指向 Mistral 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.retention.point]]
+text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
+text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
+anchor = "opencode-zen-beam-30-days"
 
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" OpenCode itself claims not to retain Content; the sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
@@ -126,6 +126,11 @@ text = "Free NVIDIA endpoints: \"Nemotron 3 Ultra Free (NVIDIA free endpoints): 
 text_zh = "免费 NVIDIA 端点：「Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」——使用会被记录且未给期限，本档没有零保留方案；同段还禁止提交个人或机密数据，对采购是硬约束。"
 anchor = "opencode-zen-nvidia-free"
 
+[[product.zdr.point]]
+text = "The same NVIDIA free-endpoint group also includes Nemotron 3.5 Super VL Free, added in the 2026-10-16 snapshot: \"Nemotron 3.5 Super VL Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.\" It carries the same logging/no-zero-retention posture and is a Console free model a workspace can enable."
+text_zh = "同一 NVIDIA 免费端点组还包含 2026-10-16 快照新增的 Nemotron 3.5 Super VL Free：「Nemotron 3.5 Super VL Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」。它与既有 NVIDIA 免费端点同样是记录使用、无零保留，并且是工作区可启用的 Console 免费模型。"
+anchor = "opencode-zen-nemotron-super-vl"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -133,13 +138,23 @@ anchor = "opencode-zen-nvidia-free"
 searched = ["https://opencode.ai/docs/zen", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/legal/privacy-policy"]
 
 [[product.retention.point]]
-text = "Objects and context: the data-collecting free models say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment, so the duration is recorded as undisclosed rather than as any fixed term."
-text_zh = "对象与语境：数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）。两处都没有期限或删除承诺，因此按「期限未公布」记，而不是任何固定期限；查阅范围见本档 searched。"
+text = "Objects and context: the data-collecting free models other than Flint 40B Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment."
+text_zh = "对象与语境：除 Flint 40B Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。"
 anchor = "opencode-zen-exceptions"
 
 [[product.retention.point]]
-text = "Contract layer: \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" For this tier the Zen privacy exceptions (collected data used for improvement, NVIDIA use logged) are the more specific statement."
-text_zh = "合同层：OpenCode 自称不保留 Content，但明说控制不了第三方模型商的保留实践——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。本档更具体的依据是 Zen 隐私段的例外清单（收集数据用于改进、NVIDIA 端点记录使用）。"
+text = "Beam Free is not part of this tier: its exception bullet says it is not used for training and is retained for 30 days, and that posture is recorded in the zdr and retention points of zen-standard, zen-team and zen-enterprise, not here."
+text_zh = "Beam Free 不属于本档：其例外条目写的是不用于训练、保留 30 天，这一姿态记在 zen-standard、zen-team、zen-enterprise 三档的 zdr 与 retention 依据中，不在这里。"
+anchor = "opencode-zen-beam-30-days"
+
+[[product.retention.point]]
+text = "Flint 40B Free adds an explicit period: \"Flint 40B Free: During its free period, collected data may be used to improve the model. Data is retained for 30 days.\" Because the tier groups models with different terms, retention is recorded as object=mixed / basis=undisclosed, with this 30-day carve-out stated separately."
+text_zh = "Flint 40B Free 另给出明确期限：「Flint 40B Free: During its free period, collected data may be used to improve the model. Data is retained for 30 days.」。由于本档聚合了期限不同的模型，保留仍记为 object=mixed / basis=undisclosed，并单独列出这条例外。"
+anchor = "opencode-zen-flint-30-days"
+
+[[product.retention.point]]
+text = "Contract layer: \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" For this tier the Console privacy exceptions (collected data used for improvement, Flint's 30-day retention, NVIDIA use logged) are the more specific statement."
+text_zh = "合同层：OpenCode 自称不保留 Content，但明说控制不了第三方模型商的保留实践——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。本档更具体的依据是 Console 隐私段的例外清单（收集数据用于改进、Flint 保留 30 天、NVIDIA 端点记录使用）。"
 anchor = "opencode-tos-retention"
 
 [product.processing_region]
@@ -162,16 +177,16 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Exo Free, MiMo-V2.6-Flash Free, MiMo-V2.5 Free, Ling 3.1 Flash Free, Ling 3.0 Flash Fin Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Muse Spark 1.3 Contributor Free) are Zen models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Exo Free、MiMo-V2.6-Flash Free、MiMo-V2.5 Free、Ling 3.1 Flash Free、Ling 3.0 Flash Fin Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Muse Spark 1.3 Contributor Free）都是团队工作区可启用的 Zen 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Flint 40B Free, Exo Free, MiMo-V2.6-Flash Free, MiMo-V2.5 Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、Exo Free、MiMo-V2.6-Flash Free、MiMo-V2.5 Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
-text = "The team docs themselves treat data-collecting models as part of a workspace's model list: \"This is useful for cases where you want to disable the use of a model that collects data.\" Admins can switch them off, but nothing makes that the default, so this row's conclusion is stated for a workspace model list excluding those models."
-text_zh = "团队文档自己就把「会收集数据的模型」当成工作区模型清单里可能存在的一项：「This is useful for cases where you want to disable the use of a model that collects data.」——管理员可以关掉，但不是默认关闭；因此本行结论只对不含这些模型的工作区模型清单成立。"
+text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models."
+text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。"
 anchor = "opencode-zen-model-access"
 [[product.training.point]]
-text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts, and the Zen docs say \"Workspaces are currently free for teams as a part of the beta.\" No official text defines whether a beta-free team workspace is an \"unpaid account\", so this row is not re-judged on that clause — it is recorded as an open question."
-text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务，而 Zen 文档写「Workspaces are currently free for teams as a part of the beta」。beta 期免费的团队工作区是否算 unpaid account，官方文本没有界定，因此本行不据此改写结论，只记为待澄清项。"
+text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Console docs describe workspace model selection and budgets but no longer state whether a team workspace is free or paid, and no official text defines whether a team workspace is an \"unpaid account\", so this row is not re-judged on that clause — it is recorded as an open question."
+text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务。Console 文档只写工作区模型选择与预算，已不再说明团队工作区是免费还是付费；官方文本也没有界定团队工作区是否算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
 anchor = "opencode-tos-unpaid-training"
 [product.zdr]
 mark = "yes"
@@ -183,13 +198,14 @@ text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外
 anchor = "opencode-zen-30-days"
 
 [[product.zdr.point]]
-text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev models are Zen endpoints a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
-text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 模型是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
-anchor = "opencode-zen-jev-exception"
-[[product.zdr.point]]
 text = "A further exception in the same privacy section defers the Mistral models' retention to the provider: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" Mistral Large 4 is a Zen endpoint a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
 text_zh = "同一隐私段的另一条例外把 Mistral 模型的保留期限指向上游：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」Mistral Large 4 是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（Mistral）的政策。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Beam Free requests for 30 days rather than zero retention: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Beam Free is a Console free model a workspace can enable, so mark=yes / mode=default does not hold for that model either."
+text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 是工作区可启用的 Console 免费模型，因此选择该模型时也不是零保留。"
+anchor = "opencode-zen-beam-30-days"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -199,14 +215,14 @@ text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明
 anchor = "opencode-zen-30-days"
 
 [[product.retention.point]]
-text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
-text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
-anchor = "opencode-zen-jev-exception"
-
-[[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
 text_zh = "Mistral 例外：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」——Mistral 请求没有给出期限或删除承诺，期限指向 Mistral 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.retention.point]]
+text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
+text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
+anchor = "opencode-zen-beam-30-days"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -230,12 +246,12 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Exo Free, MiMo-V2.6-Flash Free, MiMo-V2.5 Free, Ling 3.1 Flash Free, Ling 3.0 Flash Fin Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Muse Spark 1.3 Contributor Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Exo Free、MiMo-V2.6-Flash Free、MiMo-V2.5 Free、Ling 3.1 Flash Free、Ling 3.0 Flash Fin Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Muse Spark 1.3 Contributor Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Flint 40B Free, Exo Free, MiMo-V2.6-Flash Free, MiMo-V2.5 Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、Exo Free、MiMo-V2.6-Flash Free、MiMo-V2.5 Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
-text = "The Zen docs treat data-collecting models as part of a workspace's model list: \"This is useful for cases where you want to disable the use of a model that collects data.\" Admins can switch them off, but nothing makes that the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc's own line — \"OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.\" — describes the local / internal-gateway path this row excludes, and is not used as evidence for the Zen-hosted path."
-text_zh = "Zen 文档把「会收集数据的模型」当成工作区模型清单里可能存在的一项：「This is useful for cases where you want to disable the use of a model that collects data.」——管理员可以关掉，但不是默认关闭；因此本行结论只对不含这些模型的工作区模型清单成立。企业文档那句「OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.」说的是本行已排除的本地/内部网关路径，不作为 Zen 托管路径的证据。"
+text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc's own line — \"OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.\" — describes the local / internal-gateway path this row excludes, and is not used as evidence for the Zen-hosted path."
+text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。企业文档那句「OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.」说的是本行已排除的本地/内部网关路径，不作为 Zen 托管路径的证据。"
 anchor = "opencode-zen-model-access"
 [[product.training.point]]
 text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Enterprise docs describe per-seat paid pricing and do not define \"unpaid account\" for this product, so this row is not re-judged on that clause — it is recorded as an open question."
@@ -251,13 +267,14 @@ text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外
 anchor = "opencode-zen-30-days"
 
 [[product.zdr.point]]
-text = "A further exception in the same privacy section carves the Jev models out of the zero-retention default: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" Jev models are Zen endpoints a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
-text_zh = "同一隐私段的另一条例外把 Jev 模型排除在零保留默认之外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」Jev 模型是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（TypeSafe AI）的政策。"
-anchor = "opencode-zen-jev-exception"
-[[product.zdr.point]]
 text = "A further exception in the same privacy section defers the Mistral models' retention to the provider: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" Mistral Large 4 is a Zen endpoint a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
 text_zh = "同一隐私段的另一条例外把 Mistral 模型的保留期限指向上游：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」Mistral Large 4 是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（Mistral）的政策。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Beam Free requests for 30 days rather than zero retention: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Beam Free is a Console free model a workspace can enable, so mark=yes / mode=default does not hold for that model either."
+text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 是工作区可启用的 Console 免费模型，因此选择该模型时也不是零保留。"
+anchor = "opencode-zen-beam-30-days"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -267,14 +284,14 @@ text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明
 anchor = "opencode-zen-30-days"
 
 [[product.retention.point]]
-text = "Jev exception: \"Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.\" No period or deletion commitment is stated for Jev requests — the period is deferred to TypeSafe AI's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
-text_zh = "Jev 例外：「Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy.」——Jev 请求没有给出期限或删除承诺，期限指向 TypeSafe AI 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
-anchor = "opencode-zen-jev-exception"
-
-[[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
 text_zh = "Mistral 例外：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」——Mistral 请求没有给出期限或删除承诺，期限指向 Mistral 的政策，因此记为上游零保留默认之外的 carve-out，而不是任何固定期限。"
 anchor = "opencode-zen-mistral-exception"
+
+[[product.retention.point]]
+text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
+text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
+anchor = "opencode-zen-beam-30-days"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -292,7 +309,7 @@ id = "shared-conversations"
 badge = "已分享会话"
 category = "web"
 plan_level = "any"
-label = "可选 /share 功能开启后，整段会话同步到 opencode.ai 托管的公开分享页（默认手动分享，也可整体关闭）；未分享的会话不经过这条路径"
+label = "可选 /share 功能开启后，整段会话同步到 OpenCode 的公开分享页（opncd.ai/s/ 链接，默认手动分享，也可整体关闭）；未分享的会话不经过这条路径"
 
 [product.training]
 mark = "no"
@@ -318,9 +335,9 @@ basis = "until_termination"
 anchor = "opencode-share-retention"
 
 [[product.retention.point]]
-text = "Object and context: once the optional /share feature is on (manual by default, or auto-share), the whole conversation is synced to the pages hosted at opencode.ai — \"If a user enables the /share feature, the conversation and the data associated with it are sent to the service we use to host these share pages at opencode.ai.\" The retention rule covers full conversation history, all messages and responses, and session metadata."
-text_zh = "对象与语境：开启可选的 /share（默认手动，也可设为 auto-share）后，整段会话被同步到 opencode.ai 托管的分享页——「If a user enables the /share feature, the conversation and the data associated with it are sent to the service we use to host these share pages at opencode.ai.」。保留的对象是完整会话历史、全部消息与回复、会话元数据。"
-anchor = "opencode-enterprise-share"
+text = "Object and context: once the optional /share feature is on (manual by default, or auto-share), the whole conversation is synced to OpenCode's servers — \"Syncs your conversation history to our servers\" — and published at a shareable `opncd.ai/s/<share-id>` link. The retention rule covers full conversation history, all messages and responses, and session metadata."
+text_zh = "对象与语境：开启可选的 /share（默认手动，也可设为 auto-share）后，整段会话被同步到 OpenCode 的服务器——「Syncs your conversation history to our servers」——并生成 `opncd.ai/s/<share-id>` 公开链接。保留的对象是完整会话历史、全部消息与回复、会话元数据。"
+anchor = "opencode-share-sync"
 
 [[product.retention.point]]
 text = "Period type: there is no fixed term — retention lasts until the user revokes the share, and the revocation deletes the data: \"This will remove the share link and delete the data related to the conversation.\" until_termination here means until the user unshares, not until the service ends."
@@ -328,13 +345,13 @@ text_zh = "期限类型：没有固定期限——保留持续到用户撤销分
 anchor = "opencode-share-unshare-delete"
 
 [product.processing_region]
-codes = ["global"]
-anchor = "opencode-enterprise-share-cdn"
+mark = "unknown"
+codes = ["unknown"]
+searched = ["https://opencode.ai/docs/share", "https://opencode.ai/docs/enterprise/"]
 
 [[product.processing_region.point]]
-text = "The region follows the CDN rather than the US-and-EU statement that covers Zen inference: \"The data is currently served through our CDN’s edge network, and is cached on the edge near your users.\" The enterprise docs also offer self-hosting these pages on the customer's own infrastructure."
-text_zh = "处理地随 CDN 边缘、不限于 US/EU（各 Zen 档的 US/EU 只覆盖推理路径）：「The data is currently served through our CDN’s edge network, and is cached on the edge near your users.」企业文档另提供把分享页自托管在客户自有基础设施上的选项。"
-anchor = "opencode-enterprise-share-cdn"
+text = "The share docs say conversations are synced to \"our servers\" and published at `opncd.ai/s/<share-id>`, but give no processing location. The enterprise docs no longer describe where the share pages are served; they only offer self-hosting them on the customer's own infrastructure. The region is therefore recorded as undisclosed."
+text_zh = "分享文档只写会话同步到「our servers」并生成 `opncd.ai/s/<share-id>` 公开链接，没有给出处理地；企业文档也不再说明分享页的提供位置，只保留把分享页自托管在客户自有基础设施上的选项。因此处理地记为未披露。"
 
 [product.role]
 mark = "unknown"
@@ -346,9 +363,9 @@ id = "opencode-zen-privacy"
 source_id = "81c406603eb0c1a6"
 topics = ["training", "zdr", "retention", "processing_region"]
 [anchor.selector]
-prefix = "## [Privacy]"
+prefix = "## Privacy"
 exact = "All our models are hosted in the US and EU. Our providers follow a zero-retention policy and do not use your data for model training, with the following exceptions:"
-suffix = "\n\n*   Big Pickle"
+suffix = "\n- Big Pickle"
 
 [[anchor]]
 id = "opencode-zen-30-days"
@@ -356,7 +373,7 @@ source_id = "81c406603eb0c1a6"
 topics = ["retention", "zdr"]
 [anchor.selector]
 prefix = ""
-exact = "*   OpenAI APIs: Requests are retained for 30 days in accordance with [OpenAI’s Data Policies](https://platform.openai.com/docs/guides/your-data).\n*   Anthropic APIs: Requests are retained for 30 days in accordance with [Anthropic’s Data Policies](https://docs.anthropic.com/en/docs/claude-code/data-usage)."
+exact = "- OpenAI APIs: Requests are retained for 30 days in accordance with OpenAI’s Data Policies.\n- Anthropic APIs: Requests are retained for 30 days in accordance with Anthropic’s Data Policies."
 suffix = ""
 
 [[anchor]]
@@ -365,16 +382,16 @@ source_id = "81c406603eb0c1a6"
 topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
-exact = "*   Big Pickle: During its free period, collected data may be used to improve the model."
-suffix = "\n*   MiMo-V2.6-Flash Free"
+exact = "- Big Pickle: During its free period, collected data may be used to improve the model."
+suffix = "\n- Flint 40B Free"
 
 [[anchor]]
 id = "opencode-zen-model-access"
 source_id = "81c406603eb0c1a6"
 topics = ["training"]
 [anchor.selector]
-prefix = "Admins can enable or disable specific models for the workspace. Requests made to a disabled model will return an error."
-exact = "This is useful for cases where you want to disable the use of a model that collects data."
+prefix = ""
+exact = "Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers."
 suffix = ""
 
 [[anchor]]
@@ -383,7 +400,16 @@ source_id = "81c406603eb0c1a6"
 topics = ["zdr", "retention"]
 [anchor.selector]
 prefix = ""
-exact = "-   Nemotron 3 Ultra Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services."
+exact = "- Nemotron 3 Ultra Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-nemotron-super-vl"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "- Nemotron 3.5 Super VL Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services."
 suffix = ""
 
 [[anchor]]
@@ -396,12 +422,21 @@ exact = "You may notice low-cost models, such as Haiku, Nano, or Flash, in your 
 suffix = ""
 
 [[anchor]]
-id = "opencode-zen-jev-exception"
+id = "opencode-zen-flint-30-days"
+source_id = "81c406603eb0c1a6"
+topics = ["retention", "training"]
+[anchor.selector]
+prefix = ""
+exact = "- Flint 40B Free: During its free period, collected data may be used to improve the model. Data is retained for 30 days."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-beam-30-days"
 source_id = "81c406603eb0c1a6"
 topics = ["training", "retention", "zdr"]
 [anchor.selector]
 prefix = ""
-exact = "- Jev APIs: Prompts and other inputs are not used for training. Data is retained in accordance with TypeSafe AI’s Privacy Policy."
+exact = "- Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons."
 suffix = ""
 
 [[anchor]]
@@ -432,21 +467,12 @@ exact = "Although we will not retain your Content, we cannot and do not control 
 suffix = ""
 
 [[anchor]]
-id = "opencode-enterprise-share"
-source_id = "d826064c0b65a7da"
+id = "opencode-share-sync"
+source_id = "efe2beaaf89e4910"
 topics = ["retention"]
 [anchor.selector]
-prefix = "The only caveat here is the optional `/share` feature."
-exact = "If a user enables the `/share` feature, the conversation and the data associated with it are sent to the service we use to host these share pages at opencode.ai."
-suffix = ""
-
-[[anchor]]
-id = "opencode-enterprise-share-cdn"
-source_id = "d826064c0b65a7da"
-topics = ["processing_region"]
-[anchor.selector]
 prefix = ""
-exact = "The data is currently served through our CDN’s edge network, and is cached on the edge near your users."
+exact = "Syncs your conversation history to our servers"
 suffix = ""
 
 [[anchor]]
