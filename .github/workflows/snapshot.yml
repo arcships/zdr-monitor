@@ -79,6 +79,12 @@ jobs:
       - name: 抓取
         env:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+          # 没配就不调用 Jev，变化判断退回关键词规则
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+          JEV_BASE_URL: ${{ vars.JEV_BASE_URL }}
+          JEV_MODEL: ${{ vars.JEV_MODEL }}
+          JEV_POLICY_THRESHOLD: ${{ vars.JEV_POLICY_THRESHOLD }}
+          JEV_REBIND_THRESHOLD: ${{ vars.JEV_REBIND_THRESHOLD }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || '' }}
         run: |
           if [ -n "$DRY_RUN" ]; then
@@ -102,6 +108,10 @@ jobs:
         if: ${{ !inputs.dry_run }}
         env:
           GH_TOKEN: ${{ steps.committer.outputs.token }}
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+          JEV_BASE_URL: ${{ vars.JEV_BASE_URL }}
+          JEV_MODEL: ${{ vars.JEV_MODEL }}
+          JEV_SAME_PAGE_THRESHOLD: ${{ vars.JEV_SAME_PAGE_THRESHOLD }}
           PROVIDER: ${{ matrix.provider }}
           BRANCH: automation/snapshot-${{ matrix.provider }}
           TITLE: "snapshot: ${{ matrix.provider }}"
@@ -113,14 +123,15 @@ jobs:
             echo "没有快照变化"
             exit 0
           fi
+          # Jev 自动改绑会改本家的 provider 文件（只改锚点 selector，snapshot:auto-merge 会核对）
           while IFS= read -r line; do
-            case "${line:3}" in snapshots/*) ;; *) echo "抓取不应修改 ${line:3}" >&2; exit 1 ;; esac
+            case "${line:3}" in snapshots/*|"providers/$PROVIDER.toml") ;; *) echo "抓取不应修改 ${line:3}" >&2; exit 1 ;; esac
           done < <(git status --porcelain --untracked-files=all)
 
           gh label create snapshot --color 1d76db --description "抓取 bot 带来的快照变化" --force >/dev/null
           git fetch --no-tags --depth=1 origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH" || true
           git checkout -B "$BRANCH"
-          git add snapshots
+          git add snapshots "providers/$PROVIDER.toml"
           git commit -m "$TITLE"
           bun run snapshot:auto-merge "$PROVIDER" HEAD^ HEAD
           safe="$(sed -n 's/^safe=//p' "$GITHUB_OUTPUT" | tail -1)"

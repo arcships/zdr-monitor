@@ -12,6 +12,10 @@ import { closeBrowser, fetchWith, type Method } from "./fetch"
 import { toText, unusable } from "./extract"
 import { fold, locate } from "./quote"
 import { languageFlipped, lostAnchors, relevantChanges, type Watch } from "./relevance"
+import { jevEnabled, type Ask } from "../jev"
+import { judgeBatch, type JevJudgment } from "./jev"
+
+export type { JevJudgment } from "./jev"
 
 export { METHODS, type Method } from "./fetch"
 
@@ -73,6 +77,8 @@ export interface Capture {
   outcome: "created" | "changed" | "same" | "cosmetic" | "failed"
   /** changed 的理由：哪条引文失效、哪条引文的上下文变了、页面新增了什么相关表述 */
   reasons?: string[]
+  /** Jev 的判断；没问 Jev 时没有 */
+  jev?: JevJudgment
   error?: string
   chars?: number
 }
@@ -93,6 +99,53 @@ export function judge(
   return { outcome: reasons.length ? "changed" : "cosmetic", reasons }
 }
 
+export type Verdict = ReturnType<typeof judge>
+
+/** 单页判断，回放和测试用；抓取时走 snapshotAll 里的批量判断 */
+export async function judgeWithJev(previous: string | null, text: string, url: string, watch: Watch, verdict: Verdict, ask?: Ask) {
+  return (await judgeBatch([{ url, previous, text, watch, verdict }], ask))[0]!
+}
+
+/** 抓取并按规则初判，不写文件。配了 Jev 时，snapshotAll 把一批初判一起交给 Jev 复判再写 */
+async function fetchAndJudge(root: string, source: Pick<Source, "id" | "url" | "fetch">, watch: Watch) {
+  const method = source.fetch ?? "direct"
+  const base = { source_id: source.id, url: source.url, method }
+  const raw = await fetchWith(method, source.url)
+  if (!raw.ok) return { capture: { ...base, status: raw.status, outcome: "failed", error: raw.error ?? `http_${raw.status}` } as Capture }
+  let text: string
+  try {
+    text = await toText(raw.kind, raw.body)
+  } catch (e: any) {
+    return { capture: { ...base, status: raw.status, outcome: "failed", error: "extract: " + String(e?.message || e) } as Capture }
+  }
+  const reason = unusable(text)
+  if (reason) return { capture: { ...base, status: raw.status, outcome: "failed", error: reason } as Capture }
+  const previous = readSnapshot(root, source.id)
+  return { base: { ...base, status: raw.status }, previous, text, verdict: judge(previous, text, watch) }
+}
+
+function persist(
+  root: string,
+  base: Omit<Capture, "outcome">,
+  text: string,
+  verdict: Verdict,
+  dryRun: boolean,
+  jev?: JevJudgment,
+): Capture {
+  if (verdict.outcome === "failed") return { ...base, outcome: "failed", error: verdict.error }
+  const { outcome, reasons } = verdict
+  if ((outcome === "created" || outcome === "changed") && !dryRun) {
+    fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })
+    fs.writeFileSync(snapshotPath(root, base.source_id), header(base.url) + text + "\n")
+  }
+  // dry-run 不动快照，但把跟快照不一样的正文留在 .sync/fetched/，供对比哪些站点、哪些行在抖
+  if (dryRun && outcome !== "same") {
+    fs.mkdirSync(path.join(root, ".sync", "fetched"), { recursive: true })
+    fs.writeFileSync(path.join(root, ".sync", "fetched", `${base.source_id}.md`), header(base.url) + text + "\n")
+  }
+  return { ...base, outcome, chars: text.length, ...(reasons.length ? { reasons } : {}), ...(jev ? { jev } : {}) }
+}
+
 /** watch 是所有 provider 在这个来源上关心的东西，用来判断变化跟我们有没有关系。
  *  不传就是什么都不关心：正文变了也只记 cosmetic */
 export async function capture(
@@ -101,35 +154,12 @@ export async function capture(
   dryRun = false,
   watch: Watch = { anchors: [], searched: false },
 ): Promise<Capture> {
-  const method = source.fetch ?? "direct"
-  const base = { source_id: source.id, url: source.url, method }
-  const raw = await fetchWith(method, source.url)
-  if (!raw.ok) return { ...base, status: raw.status, outcome: "failed", error: raw.error ?? `http_${raw.status}` }
-  let text: string
-  try {
-    text = await toText(raw.kind, raw.body)
-  } catch (e: any) {
-    return { ...base, status: raw.status, outcome: "failed", error: "extract: " + String(e?.message || e) }
-  }
-  const reason = unusable(text)
-  if (reason) return { ...base, status: raw.status, outcome: "failed", error: reason }
-
-  const previous = readSnapshot(root, source.id)
-  const verdict = judge(previous, text, watch)
-  if (verdict.outcome === "failed") return { ...base, status: raw.status, outcome: "failed", error: verdict.error }
-  const { outcome, reasons } = verdict
-  if (outcome === "created" || outcome === "changed") {
-    if (!dryRun) {
-      fs.mkdirSync(path.join(root, "snapshots"), { recursive: true })
-      fs.writeFileSync(snapshotPath(root, source.id), header(source.url) + text + "\n")
-    }
-  }
-  // dry-run 不动快照，但把跟快照不一样的正文留在 .sync/fetched/，供对比哪些站点、哪些行在抖
-  if (dryRun && outcome !== "same") {
-    fs.mkdirSync(path.join(root, ".sync", "fetched"), { recursive: true })
-    fs.writeFileSync(path.join(root, ".sync", "fetched", `${source.id}.md`), header(source.url) + text + "\n")
-  }
-  return { ...base, status: raw.status, outcome, chars: text.length, ...(reasons.length ? { reasons } : {}) }
+  const r = await fetchAndJudge(root, source, watch)
+  if ("capture" in r) return r.capture!
+  let verdict = r.verdict
+  let jev: JevJudgment | undefined
+  if (jevEnabled()) ({ verdict, jev } = await judgeWithJev(r.previous, r.text, source.url, watch, verdict))
+  return persist(root, r.base, r.text, verdict, dryRun, jev)
 }
 
 /** 全部 provider 引用的来源，按 URL 去重。同一 URL 在不同 provider 里声明了不同的
@@ -168,6 +198,9 @@ export async function snapshotAll(
 ) {
   const results: Capture[] = []
   const watch = watches(root, options.provider)
+  // 配了 Jev：先全部抓完，再把这批页面一起交给 Jev（通常一次调用），最后写快照
+  const batched = jevEnabled()
+  const pending: { base: Omit<Capture, "outcome">; previous: string | null; text: string; verdict: Verdict; watch: Watch }[] = []
   for (const method of ["direct", "browser", "jina"] as Method[]) {
     const queue = sources.filter((s) => (s.fetch ?? "direct") === method)
     let next = 0
@@ -175,14 +208,22 @@ export async function snapshotAll(
       Array.from({ length: Math.min(CONCURRENCY[method], queue.length) }, async () => {
         while (next < queue.length) {
           const source = queue[next++]!
-          const result = await capture(root, source, options.dryRun, watch.get(source.id))
-          results.push(result)
-          options.log?.(`${result.outcome.padEnd(8)} ${method.padEnd(7)} ${source.url}${result.error ? "  " + result.error : ""}`)
+          const w = watch.get(source.id) ?? { anchors: [], searched: false }
+          const r = await fetchAndJudge(root, source, w)
+          if ("capture" in r) results.push(r.capture!)
+          else if (batched) pending.push({ ...r, watch: w })
+          else results.push(persist(root, r.base, r.text, r.verdict, !!options.dryRun))
+          const last = "capture" in r ? r.capture! : { outcome: r.verdict.outcome, error: undefined }
+          options.log?.(`${last.outcome.padEnd(8)} ${method.padEnd(7)} ${source.url}${last.error ? "  " + last.error : ""}`)
           if (GAP[method]) await new Promise((r) => setTimeout(r, GAP[method]))
         }
       }),
     )
     if (method === "browser") await closeBrowser()
+  }
+  if (pending.length) {
+    const judged = await judgeBatch(pending.map((p) => ({ url: p.base.url, previous: p.previous, text: p.text, watch: p.watch, verdict: p.verdict })))
+    pending.forEach((p, i) => results.push(persist(root, p.base, p.text, judged[i]!.verdict, !!options.dryRun, judged[i]!.jev)))
   }
   return results.sort((a, b) => a.url.localeCompare(b.url))
 }

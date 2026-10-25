@@ -1,0 +1,60 @@
+name: Jev 回放校准
+
+# 用历史快照 PR 回放变化判断，对照 agent 当时的结论（无实质变化 / 有变化 / 抓错页面），
+# 看加上 Jev 之后误报少了多少、真变化有没有被漏掉。改 Jev 阈值或问题措辞之前先跑一遍。
+
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 回放哪天以来合并的快照 PR
+        default: "2026-09-24"
+      limit:
+        description: 最多回放多少个快照 PR（一个 PR 约一次 Jev 调用）
+        default: "100"
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: 只用规则
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SINCE: ${{ inputs.since }}
+          LIMIT: ${{ inputs.limit }}
+        run: bun run snapshot:replay --since "$SINCE" --limit "$LIMIT" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: 规则 + Jev
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SINCE: ${{ inputs.since }}
+          LIMIT: ${{ inputs.limit }}
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+          JEV_BASE_URL: ${{ vars.JEV_BASE_URL }}
+          JEV_MODEL: ${{ vars.JEV_MODEL }}
+          JEV_POLICY_THRESHOLD: ${{ vars.JEV_POLICY_THRESHOLD }}
+          JEV_REBIND_THRESHOLD: ${{ vars.JEV_REBIND_THRESHOLD }}
+        run: |
+          if [ -z "$JEV_API_KEY" ]; then
+            echo "::error::仓库还没有配置 JEV_API_KEY secret"
+            exit 1
+          fi
+          bun run snapshot:replay --since "$SINCE" --limit "$LIMIT" --jev | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: 上传 Jev 原始概率
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jev-replay
+          path: .sync/jev-replay.json
+          include-hidden-files: true
+          if-no-files-found: ignore
