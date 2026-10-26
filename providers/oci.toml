@@ -53,7 +53,7 @@ note = "『Projects』（Updated 2026-04-17）。OCI Generative AI 的 agentic �
 url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/regions.htm"
 channel = "developer_data"
 tier = "core"
-note = "『Generative AI Regions』（Updated 2026-05-06）。列出 OCI Generative AI 可用的商业/政府/主权 Region，并说明该服务并未覆盖所有 OCI 商业 Region：调用 Region 与目标 Region 不一致时会发生跨 Region 调用（EU 的 AMS/MRS/LIN/ARN/CDG/MAD/ZRH/FRA 一律落到 FRA）。"
+note = "『Generative AI Regions』（Updated 2026-05-06）。列出 OCI Generative AI 可用的商业/政府/主权 Region，并区分「有本地模型处理」与「无本地模型处理」的商业 Region：无本地处理的 Region 需创建 routing profile 指定可用的目标 Region 运行模型；调用 Region 与目标 Region 不一致时会发生跨 Region 调用（EU 的 AMS/MRS/LIN/ARN/CDG/MAD/ZRH/FRA 一律落到 FRA）。"
 
 [[source]]
 url = "https://docs.oracle.com/en-us/iaas/Content/generative-ai/responses-api.htm"
@@ -191,8 +191,14 @@ anchor = "oci-hdp-replicate-within-dc-region"
 text_zh = "限定二：HDP『Your Content will be stored in the Data Center Region applicable to such Services. Oracle may replicate Your Content to other locations within the identified Data Center Region in support of data redundancy.』——复制限于同一 Data Center Region 内，仍属「选定 region」。"
 
 [[product.processing_region.point]]
+anchor = "oci-regions-destination-region"
+text = "Limit (local processing): local model processing is not available in every commercial region; for those regions the page directs you to create a routing profile and select target regions where the model is available — \"In a region with no local model processing, create a routing profile for the on-demand model you want to use and select target regions where it is available. Select the profile in your region's Playground or reference it in an API request to run the model in a selected target region.\" Processing still runs in a target region selected for the request, not globally."
+text_zh = "限定三：并非每个商业 Region 都有本地模型处理；对这些 Region，页面要求创建 routing profile 并选择模型可用的目标 Region——『In a region with no local model processing, create a routing profile for the on-demand model you want to use and select target regions where it is available. Select the profile in your region's Playground or reference it in an API request to run the model in a selected target region.』处理仍在为请求选定的目标 Region 运行，不是全球处理。"
+
+[[product.processing_region.point]]
 anchor = "oci-regions-cross-region-call"
-text_zh = "限定三：服务并未覆盖所有商业 Region，『if the Calling Region and Destination Region are not the same, then a cross-region call will be made』——跨 Region 调用是对「选定 region」的限定，不是全球处理。"
+text = "Limit (cross-region call): \"For a given call into the OCI Generative AI Service, if the Calling Region and Destination Region are not the same, then a cross-region call will be made.\" A cross-region call qualifies the selected region; it is not global processing."
+text_zh = "限定四：调用 Region 与目标 Region 不一致时，『For a given call into the OCI Generative AI Service, if the Calling Region and Destination Region are not the same, then a cross-region call will be made.』——跨 Region 调用是对「选定 region」的限定，不是全球处理。"
 
 [[product.processing_region.point]]
 anchor = "oci-hdp-ai-functionality-outside-region"
@@ -1048,14 +1054,9 @@ source_id = "bca3d4c7aea2a1c9"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-m).
-
-## Services that Call into the Generative AI Service🔗
-
-"""
-exact = "Currently, the Oracle Cloud Infrastructure (OCI) Generative AI Service is not offered in every OCI commercial region."
-suffix = " See the column below titled “Destination Region:” for a lis"
+prefix = ""
+exact = "In a region with no local model processing, create a routing profile for the on-demand model you want to use and select target regions where it is available. Select the profile in your region's Playground or reference it in an API request to run the model in a selected target region."
+suffix = ""
 
 [[anchor]]
 id = "oci-regions-cross-region-call"
