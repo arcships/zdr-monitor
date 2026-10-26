@@ -16,7 +16,7 @@ note = "AI Gateway 官方 Unified Billing 文档(Last updated Sep 23, 2026):覆�
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway Logging 文档(Last updated Sep 24, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs。"
+note = "AI Gateway Logging 文档(Last updated Oct 26, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs;逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出。"
 
 [[source]]
 url = "https://developers.cloudflare.com/workers/observability/logs/workers-logs/"
@@ -152,6 +152,11 @@ anchor = "cf-aigw-logging-fields-include-prompt-response"
 text = "Per-request cf-aig-collect-log: false skips the entire log including metadata; cf-aig-collect-log-payload: false skips payload but retains metadata."
 text_zh = "逐请求 cf-aig-collect-log: false 跳过整条日志含元数据;cf-aig-collect-log-payload: false 仅跳过正文。"
 anchor = "cf-aigw-logging-collect-log-false-skips-entry"
+
+[[product.retention.point]]
+text = "Per-request logging headers only control the logs that AI Gateway stores; they do not change what Logpush exports."
+text_zh = "逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出的内容。"
+anchor = "cf-aigw-logging-headers-not-logpush"
 
 [[product.retention.point]]
 text = "Enterprise §5.2's permission to delete data not documented as stored for the customer after 72 hours does not mean gateway logs are deleted after 72 hours."
@@ -394,6 +399,11 @@ text = "Gateway logs are on by default and can include prompts and responses; re
 text_zh = "网关日志默认开启且可含提示词与响应;逐请求可跳过整条日志或仅跳过正文。"
 anchor = "cf-aigw-logging-fields-include-prompt-response"
 
+[[product.retention.point]]
+text = "Per-request logging headers only control the logs that AI Gateway stores; they do not change what Logpush exports."
+text_zh = "逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出的内容。"
+anchor = "cf-aigw-logging-headers-not-logpush"
+
 [product.processing_region]
 codes = ["global"]
 anchor = "cf-aigw-dls-compat-ai-gateway-row"
@@ -474,6 +484,11 @@ anchor = "cf-aigw-logging-retention-eligibility"
 text = "Gateway logs are on by default and can contain prompt/response payloads; per-request headers can suppress an entire log or only its payload."
 text_zh = "网关日志默认开启且可含提示词/响应正文;逐请求可跳过整条或仅正文。"
 anchor = "cf-aigw-logging-fields-include-prompt-response"
+
+[[product.retention.point]]
+text = "Per-request logging headers only control the logs that AI Gateway stores; they do not change what Logpush exports."
+text_zh = "逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出的内容。"
+anchor = "cf-aigw-logging-headers-not-logpush"
 
 [product.processing_region]
 codes = ["global"]
@@ -631,6 +646,16 @@ topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "If `cf-aig-collect-log` is set to `false`, the entire log entry (including metadata) is skipped regardless of the `cf-aig-collect-log-payload` value."
+suffix = ""
+
+[[anchor]]
+id = "cf-aigw-logging-headers-not-logpush"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "These headers only control the logs that AI Gateway stores. They do not change what Logpush exports."
 suffix = ""
 
 [[anchor]]
