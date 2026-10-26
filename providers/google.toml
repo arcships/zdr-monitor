@@ -17,7 +17,7 @@ url = "https://ai.google.dev/gemini-api/docs/logs-policy"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "Gemini API 文档站「Data logging and sharing」(Last updated 2026-09-04)。api 档付费服务的 opt-in 日志(AI Studio Logs & Datasets):默认 55 天可调 7/14/28/55,默认不用于产品改进,主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练。与滥用监控 55 天是两套。"
+note = "Gemini API 文档站「Data logging and sharing」(Last updated 2026-10-26)。api 档付费服务:日志对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启(可在 AI Studio 关闭),默认最长 55 天可调 7/14/28/55,默认不用于产品改进;主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练。新增邀请制 Contributor Tier:开启后参与模型的数据按 Unpaid 条款用于改进产品与 ML 技术。与滥用监控 55 天是两套。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/usage-policies"
@@ -99,14 +99,19 @@ text_zh = "EEA/瑞士/UK 例外:当地的免费额度也适用 Paid Services 的
 anchor = "training-eea-ch-uk-paid-applies"
 
 [[product.training.point]]
-text = "Opt-in path 1 (logs contributed as datasets): with logging enabled, logs (requests, responses, metadata) put into a dataset and shared with Google are processed under the Unpaid Services data-use terms and \"may be used to improve model quality, and inform the training and evaluation of future models and services\" (docs/logs-policy). Logging is only available for billing-enabled projects, i.e. this tier."
-text_zh = "opt-in 路径一(日志放进 dataset 分享给 Google):开启日志后,在 AI Studio 的 Logs and Datasets 里把日志(请求/响应/元数据)放进 dataset 并分享给 Google,该数据按 Unpaid Services 的数据使用条款处理,「may be used to improve model quality, and inform the training and evaluation of future models and services」(docs/logs-policy)。日志功能只对付费项目开放,故这条路径属本档。"
+text = "Opt-in path 1 (logs contributed as datasets): logging itself is now on by default for Interactions API calls and for Generate Content API calls in projects created on or after October 26, 2026 (project owners can turn it off in AI Studio). Choosing to log is therefore no longer the opt-in; putting logs (requests, responses, metadata) into a dataset and sharing that dataset with Google is still a separate opt-in, and those logs are processed under the Unpaid Services data-use terms and \"may be used to improve model quality, and inform the training and evaluation of future models and services\" (docs/logs-policy). Logging is only available for billing-enabled projects, i.e. this tier."
+text_zh = "opt-in 路径一(日志放进 dataset 分享给 Google):日志本身现在对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启(可在 AI Studio 关闭),故「开启日志」不再是 opt-in;真正的 opt-in 是把日志(请求/响应/元数据)放进 dataset 并分享给 Google,该数据按 Unpaid Services 的数据使用条款处理,「may be used to improve model quality, and inform the training and evaluation of future models and services」(docs/logs-policy)。日志功能只对付费项目开放,故这条路径属本档。"
 anchor = "training-optin-dataset"
 
 [[product.training.point]]
 text = "On the same path, human reviewers may read, annotate and process the API inputs and outputs you share, after the data is disconnected from your Google Account, API key and Cloud project (docs/logs-policy)."
 text_zh = "同一路径上,人工审阅者可读取、标注、处理你分享的 API 输入输出(审阅前会与账号、API key、Cloud 项目断开)(docs/logs-policy)。"
 anchor = "training-optin-human-review"
+
+[[product.training.point]]
+text = "New opt-in path (Gemini API Contributor Tier): an invite-only private preview that gives up to 50% off token costs on select models \"in exchange for permission to use data from those models to provide, improve, and develop Google products and services and machine learning technologies\". Enabling it for a project applies the Unpaid Services terms to data from participating model use, and the page says \"your data will be used to improve Google products and machine learning technologies\" (docs/logs-policy). This is a separate, project-level opt-in and does not change the paid tier's default no-improvement promise; projects that enable the tier fall under the Unpaid Services training terms for participating model use."
+text_zh = "新增 opt-in 路径(Gemini API Contributor Tier):邀请制 private preview,以降低选定模型 token 费用(最高 50%)换取「permission to use data from those models to provide, improve, and develop Google products and services and machine learning technologies」。为项目开启后,参与模型的数据按 Unpaid Services 条款处理,页面明写「your data will be used to improve Google products and machine learning technologies」(docs/logs-policy)。这是项目级的独立 opt-in,不改变付费档默认不用于改进的承诺;开启该档的项目在参与模型上的数据适用 Unpaid Services 的训练条款。"
+anchor = "training-contributor-tier"
 
 [[product.training.point]]
 text = "Opt-in path 2 (voluntary feedback in Google AI Studio): Google records the prompts and responses, including uploaded files or media, from the interaction or conversation submitted for feedback (docs/feedback-policies). The page does not distinguish Paid from Unpaid AI Studio. This voluntary feedback is not default use of paid API traffic; the paid-tier contractual no-improvement promise remains in force."
@@ -142,6 +147,11 @@ anchor = "zdr-requires-actions"
 text_zh = "付费档可达成零保留但须逐项规避:Interactions API 显式 store=false、不配 SessionResumptionConfig、手动删 File API 文件、不用 cached_content、避开 Grounding(30 天且不可关闭)"
 
 [[product.zdr.point]]
+text = "The logs-policy page adds another default retention surface: API logging is on by default for Interactions API calls and for Generate Content API calls in projects created on or after October 26, 2026, and logs are retained for a default maximum of 55 days. Project owners can turn logging off in AI Studio, so zero retention remains achievable, but doing nothing now leaves logs retained. The ZDR page itself does not list this logging among the areas it covers."
+text_zh = "docs/logs-policy 又增加了一层默认保留:日志对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启,默认最长保留 55 天。项目所有者可在 AI Studio 关闭日志,故零保留仍可达成;但不做任何操作就会留下日志。ZDR 专页本身没有把这项日志列入其覆盖范围。"
+anchor = "retention-logs-default-on"
+
+[[product.zdr.point]]
 text = "For guaranteed zero data retention or enterprise data processing agreements the docs point to Vertex AI (Gemini Enterprise Agent Platform) rather than the Gemini Developer API. The free quota has none of the mechanisms above; see api-unpaid."
 text_zh = "保证式 ZDR/企业 DPA 需改用 Vertex AI(Gemini Enterprise Agent Platform),不是 Gemini Developer API。本行=付费档;免费额度档没有这套机制,见 api-unpaid。"
 anchor = "zdr-guaranteed-needs-vertex"
@@ -158,8 +168,8 @@ text_zh = "滥用监控日志(prompts/上下文/输出)保留 55 天(usage-polic
 anchor = "scope-gemini-api-and-ai-studio"
 
 [[product.retention.point]]
-text = "Do not read the \"automatically marked for deletion\" mechanism into these abuse-monitoring logs: that wording describes the AI Studio opt-in logs on docs/logs-policy, which the same page says are \"separate from any logs held solely for abuse monitoring purposes\"."
-text_zh = "不要把「自动标记删除」这一机制套到滥用监控日志上:该措辞讲的是 docs/logs-policy 里 AI Studio 的 opt-in 日志,而该页明说两套日志是分开的:「separate from any logs held solely for abuse monitoring purposes」。"
+text = "Do not read the \"automatically marked for deletion\" mechanism into these abuse-monitoring logs: that wording describes the AI Studio logs on docs/logs-policy, which the same page says are \"separate from any logs held solely for abuse monitoring purposes\"."
+text_zh = "不要把「自动标记删除」这一机制套到滥用监控日志上:该措辞讲的是 docs/logs-policy 里 AI Studio 的日志,而该页明说两套日志是分开的:「separate from any logs held solely for abuse monitoring purposes」。"
 anchor = "retention-logs-separate-from-abuse"
 
 [[product.retention.point]]
@@ -178,9 +188,14 @@ text_zh = "合同层只写 a limited period of time(terms,Paid Services 一节),
 anchor = "retention-paid-limited-period"
 
 [[product.retention.point]]
-text = "Opt-in logs (AI Studio Logs & Datasets) are retained for a default maximum of 55 days, after which they are automatically marked for deletion."
-text_zh = "付费档 opt-in 日志(AI Studio Logs & Datasets)默认最长 55 天,之后自动标记删除(docs/logs-policy)"
+text = "API logs (AI Studio Logs & Datasets) are retained for a default maximum of 55 days, after which they are automatically marked for deletion."
+text_zh = "API 日志(AI Studio Logs & Datasets)默认最长 55 天,之后自动标记删除(docs/logs-policy)"
 anchor = "retention-logs-default-55"
+
+[[product.retention.point]]
+text = "Logging is on by default for Interactions API calls, and for Generate Content API calls in projects created on or after October 26, 2026; project owners can turn it on or off at any time from the Logs and Datasets page in AI Studio."
+text_zh = "日志对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启;项目所有者可随时在 AI Studio 的 Logs and Datasets 页面开关(docs/logs-policy)"
+anchor = "retention-logs-default-on"
 
 [[product.retention.point]]
 text = "That window can be updated in AI Studio to mark logs for deletion after 7, 14, 28 or 55 days."
@@ -891,6 +906,27 @@ topics = ["retention"]
 
 [anchor.selector]
 exact = "are separate from any logs held solely for abuse monitoring purposes"
+
+[[anchor]]
+id = "retention-logs-default-on"
+source_id = "ae7b03cd1d30111a"
+topics = ["retention", "training", "zdr"]
+
+[anchor.selector]
+exact = "Logging is on by default for Interactions API calls, and for Generate Content API calls in projects created on or after October 26, 2026"
+
+[[anchor]]
+id = "training-contributor-tier"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+exact = """
+By enabling the Contributor Tier for a project, your data from participating model use
+in your project will be used in accordance with our terms for "Unpaid Services."
+Because your data will be used to improve Google products and machine learning
+technologies, please don't submit sensitive or personal information
+"""
 
 [[anchor]]
 id = "training-logs-default-not-improve"
