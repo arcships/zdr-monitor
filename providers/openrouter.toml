@@ -16,7 +16,7 @@ note = "《OpenRouter 数据处理协议》(DPA，页首标 Last Updated: August
 url = "https://openrouter.ai/docs/faq"
 channel = "developer_data"
 tier = "core"
-note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Chatroom 两档的日志口径、以及「OpenRouter 是 proxy」的自认。注意此页与 provider-selection 文档对「会训练的 provider 默认是否路由」说法不一致，两条并列见 training 维度 note。"
+note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Chatroom 两档的日志口径、以及「OpenRouter 是 proxy」的自认。另有「Does OpenRouter support EU data residency?」一节，给出 eu.openrouter.ai 的 EU 处理边界（prompt/completion 在欧盟解密、只路由到欧洲共享端点，含 EU/EEA、英国、瑞士）、BYOK 请求去自身部署区域、账户/账单数据可能在美存储或处理、DPA Exhibit A 覆盖书面选定的 API payload，以及 Business 自助无合同但 DPA 含 SCC。注意此页与 provider-selection 文档对「会训练的 provider 默认是否路由」说法不一致，两条并列见 training 维度 note。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/features/zdr.md"
@@ -28,7 +28,7 @@ note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
 channel = "developer_data"
 tier = "core"
-note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。BYOK 档的 ZDR 与区域结论都以此为准。"
+note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。BYOK 档的 ZDR 与区域结论都以此为准。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/privacy/data-collection"
@@ -171,6 +171,11 @@ text_zh = "见顶层 processing_region。默认 GCP US regions"
 text = "In-region routing (EU/US) is a paid Business/Enterprise feature, and EU-only processing has its own DPA Exhibit A."
 text_zh = "in-region（EU/US）是 Business/Enterprise 付费功能，EU-only 另有 DPA Exhibit A。"
 
+[[product.processing_region.point]]
+anchor = "openrouter-faq-eu-residency-region"
+text = "The FAQ states the boundary of EU residency: \"Yes, for prompts and completions. Requests to `eu.openrouter.ai` are decrypted in the EU and routed only to shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland).\" So \"EU\" routing is not EU-only — the shared endpoints may be in the UK or Switzerland — and the promise covers prompts and completions only (\"Account and billing data may be stored or processed in the US.\"). The stricter EU-only option for API payloads remains DPA Exhibit A, elected in writing."
+text_zh = "FAQ 给出 EU residency 的边界：「Yes, for prompts and completions. Requests to `eu.openrouter.ai` are decrypted in the EU and routed only to shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland).」故「EU」路由并非 EU-only——共享端点可能在英国或瑞士——且只覆盖 prompt 与 completion（「Account and billing data may be stored or processed in the US.」）。API payload 的更严选项仍是书面选定的 DPA Exhibit A。"
+
 [product.role]
 kind = "processor"
 anchor = "openrouter-dpa-2-1-roles-role"
@@ -182,6 +187,11 @@ text_zh = "见顶层 role。对客户个人数据 OpenRouter 是 Processor"
 [[product.role.point]]
 text = "For site and account data it uses the data in its own right as a controller (marketing, analytics)."
 text_zh = "对站点/账户数据它自己以控制者身份使用（营销、分析）。"
+
+[[product.role.point]]
+anchor = "openrouter-faq-business-dpa-scope-role"
+text = "The same FAQ confirms the DPA reaches Business even without a negotiated contract: \"Business is self-serve, with no contract, and the DPA includes SCCs.\" That is consistent with the DPA-based Processor role above and does not change it."
+text_zh = "同一 FAQ 确认即使没有另行谈判合同，Business 也适用 DPA：「Business is self-serve, with no contract, and the DPA includes SCCs.」这与上面以 DPA 为依据的 Processor 角色一致，不改变结论。"
 
 [[product]]
 id = "free-tier"
@@ -341,8 +351,8 @@ basis = "undisclosed"
 anchor = "openrouter-byok-region-declaration-region"
 
 [[product.processing_region.point]]
-text = "Region rests on a declaration: \"On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter.\" The Data region setting on a key offers Global / European Union / United States, and the declaration is the customer's attestation — \"OpenRouter does not verify it\"."
-text_zh = "区域靠声明：「On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter.」key 上的 Data region 有 Global / European Union / United States 三档，声明是客户自述——「OpenRouter does not verify it」。"
+text = "Region rests on a declaration: \"On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter.\" The Data region setting offers Global / European Union / United States on OpenAI and Azure keys, and only Global / United States on Anthropic keys; the declaration is the customer's attestation — \"OpenRouter does not verify it\"."
+text_zh = "区域靠声明：「On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter.」OpenAI 与 Azure key 的 Data region 有 Global / European Union / United States 三档，Anthropic key 只有 Global / United States；声明是客户自述——「OpenRouter does not verify it」。"
 
 [[product.processing_region.point]]
 anchor = "openrouter-byok-region-openai-azure-declaration-region"
@@ -357,6 +367,11 @@ text_zh = "区域设置另有 API 入口及配套约束：「The BYOK management
 [[product.processing_region.point]]
 text = "A region declaration does not change the key's retention policy (\"A region declaration does not change your key's retention policy.\")."
 text_zh = "区域声明不改变 key 的保留政策（「A region declaration does not change your key's retention policy.」）。"
+
+[[product.processing_region.point]]
+anchor = "openrouter-faq-byok-deployment-region-region"
+text = "The FAQ states where BYOK requests go: \"BYOK requests go to your own deployment’s region.\" That does not make the region disclosed or verified: OpenRouter still \"cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter\", and it does not verify the declaration, so this tier stays basis=undisclosed with no coded region."
+text_zh = "FAQ 说明 BYOK 请求的去向：「BYOK requests go to your own deployment’s region.」但这不使区域成为已披露或已核验：OpenRouter 仍「cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter」，且不核验声明，故本档仍为 basis=undisclosed、不编码区域。"
 
 [product.role]
 kind = "processor"
@@ -1110,6 +1125,36 @@ exact = "OpenRouter is a proxy that sends your requests to the model provider fo
 suffix = " We work with all providers to, when possible, ensure that p"
 
 [[anchor]]
+id = "openrouter-faq-eu-residency-region"
+source_id = "606aefabac4f404c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Does OpenRouter support EU data residency?"
+exact = "Yes, for prompts and completions. Requests to `eu.openrouter.ai` are decrypted in the EU and routed only to shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland)."
+suffix = "BYOK requests go to your own deployment’s region."
+
+[[anchor]]
+id = "openrouter-faq-byok-deployment-region-region"
+source_id = "606aefabac4f404c"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland)."
+exact = "BYOK requests go to your own deployment’s region."
+suffix = "Account and billing data may be stored or processed in the US."
+
+[[anchor]]
+id = "openrouter-faq-business-dpa-scope-role"
+source_id = "606aefabac4f404c"
+topics = ["role"]
+
+[anchor.selector]
+prefix = "DPA Exhibit A covers API payloads when elected in writing."
+exact = "Business is self-serve, with no contract, and the DPA includes SCCs."
+suffix = "See EU in-region routing on Business for the live EU model list and the full data boundary."
+
+[[anchor]]
 id = "openrouter-byok-policies-apply-zdr"
 source_id = "87bcd6bb8730937e"
 topics = ["retention", "zdr"]
@@ -1196,7 +1241,7 @@ source_id = "87bcd6bb8730937e"
 topics = ["processing_region"]
 
 [anchor.selector]
-exact = "On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI or Azure account processes requests, so you tell OpenRouter."
+exact = "On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter."
 
 [[anchor]]
 id = "openrouter-byok-region-openai-azure-declaration-region"
