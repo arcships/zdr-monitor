@@ -40,6 +40,10 @@ const limit = Number(args[args.indexOf("--limit") + 1]) || Infinity
 let calls = 0
 const dump: unknown[] = []
 let tokens = 0
+// Jev 出错时 judgeBatch 会退回关键词规则，结果看起来正常：单独计数，免得把规则的结果当成 Jev 的
+let jevPages = 0
+let jevErrors = 0
+let firstError = ""
 const counted: Ask = async (state, questions) => {
   calls++
   const r = await ask(state, questions)
@@ -76,6 +80,14 @@ for (const pr of snaps.filter((p) => issues.some((i) => i.title.endsWith(`snapsh
   // 跟抓取时一样：一个快照 PR 里所有页面一起问 Jev，通常一次调用
   const judged = useJev ? await judgeBatch(items, counted) : []
   // 每个页面 Jev 给的原始概率留档：调阈值时离线重算，不用再花一次调用
+  for (const { jev } of judged) {
+    if (!jev) continue
+    jevPages++
+    if (jev.error) {
+      jevErrors++
+      firstError ||= jev.error
+    }
+  }
   if (useJev) dump.push({ pr: pr.number, provider, expected, pages: judged.map((j, i) => ({ url: items[i]!.url, jev: j.jev })) })
   const verdicts = useJev
     ? judged.map(({ verdict, jev }) =>
@@ -102,7 +114,13 @@ for (const r of rows.sort((a, b) => a.pr - b.pr))
 const count = (e: string) => `${rows.filter((r) => r.expected === e && ok(r)).length}/${rows.filter((r) => r.expected === e).length}`
 console.log(`\n无实质变化不再触发 ${count("no-change")} · 有变化仍触发 ${count("changed")} · 抓错页面判失败 ${count("failed")}`)
 if (useJev) console.log(`Jev 调用 ${calls} 次，计费输入 ${tokens} tokens`)
+if (useJev && jevErrors) console.log(`⚠ Jev 出错 ${jevErrors}/${jevPages} 个页面（这些页面退回关键词规则）：${firstError.slice(0, 300)}`)
 if (useJev) {
   fs.mkdirSync(path.join(root, ".sync"), { recursive: true })
   fs.writeFileSync(path.join(root, ".sync", "jev-replay.json"), JSON.stringify(dump, null, 2))
+}
+// 全部出错时上面的数字只是规则的结果，不能拿来校准
+if (useJev && jevPages > 0 && jevErrors === jevPages) {
+  console.error("Jev 调用全部失败，回放结果无效")
+  process.exit(1)
 }
