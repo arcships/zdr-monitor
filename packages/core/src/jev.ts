@@ -28,8 +28,25 @@ export type Ask = (state: unknown, questions: Record<string, Question>) => Promi
 
 export const jevEnabled = () => Boolean(process.env.JEV_API_KEY)
 
-/** state 加问题总共 32k token 以内（再长要开 long-context 头）。按字符粗截，中文一个字约一个 token */
-export const STATE_CHARS = 60_000
+/** Jev 的上下文按 token 算：每个请求 64k、state 加任意一道题 32k（再长要开 long-context 头，官方说更慢也更不准）。
+ *  粗估：中日韩一个字约一个 token，其他字符约四个一 token。英文是 Jev 的主训练语言，中文页面准确率会低一些 */
+export const QUESTION_TOKENS = 32_000
+export const estimateTokens = (s: string) => {
+  const cjk = s.match(/[\u3000-\u9fff\uac00-\ud7af\uff00-\uffef]/g)?.length ?? 0
+  return cjk + Math.ceil((s.length - cjk) / 4)
+}
+/** 按 token 预算截断：从头取，装不下就停 */
+export const clipTokens = (s: string, budget: number) => {
+  if (estimateTokens(s) <= budget) return s
+  let lo = 0
+  let hi = s.length
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1
+    if (estimateTokens(s.slice(0, mid)) <= budget) lo = mid
+    else hi = mid - 1
+  }
+  return s.slice(0, lo)
+}
 
 export const ask: Ask = async (state, questions) => {
   const key = process.env.JEV_API_KEY

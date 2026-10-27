@@ -8,14 +8,12 @@ import { parse } from "../src/toml"
 const page = (...lines: string[]) =>
   ["# Data controls", "Some unrelated paragraph that stays exactly the same across both versions.", ...lines].join("\n")
 
-/** 假的 Jev：页面题按 policy 给「none」以外的概率，引文题选 choice */
+/** 假的 Jev：政策题和维度题都给 policy，引文候选题里 choice 指的那句给 p、其他句给 0.02 */
 const fake = (policy: number, choice = "none", p = 0.95, seen: any[] = []): Ask => async (state, questions) => {
   seen.push({ state, questions })
   const answers: JevResult["answers"] = {}
   for (const id of Object.keys(questions))
-    answers[id] = id.startsWith("p")
-      ? { type: "choice", choice: policy >= 0.5 ? "retention" : "none", confidence: 1, probabilities: { retention: policy, none: 1 - policy } }
-      : { type: "choice", choice, confidence: p, probabilities: { [choice]: p } }
+    answers[id] = { type: "noul", noul: id.startsWith("q") ? (choice === `candidate_${Number(id.split("_")[1]) + 1}` ? p : 0.02) : policy }
   return { model: "jev-test", answers }
 }
 
@@ -33,8 +31,10 @@ test("Jev 五个维度都判没改承诺 → cosmetic", async () => {
   const r = await judgeWithJev(before, after, "https://example.com/privacy", watch, v, fake(0.05, "none", 0.95, seen))
   expect(r.verdict.outcome).toBe("cosmetic")
   expect(Object.keys(r.jev!.dims!)).toEqual(["training", "retention", "zdr", "processing_region", "role", "none"])
-  expect(seen[0].state.pages.p0.added.join("\n")).toContain("export or delete your data")
-  expect(seen[0].state.pages.p0.tracked_quotes).toEqual([watch.anchors[0]!.exact])
+  expect(Object.keys(seen[0].questions)).toEqual(["policy", "dim_training", "dim_retention", "dim_zdr", "dim_processing_region", "dim_role"])
+  expect(Object.values(seen[0].questions).every((q: any) => q.type === "noul")).toBe(true)
+  expect(seen[0].state.added.join("\n")).toContain("export or delete your data")
+  expect(seen[0].state.tracked_quotes).toEqual([watch.anchors[0]!.exact])
 })
 
 test("Jev 判任一维度改了承诺 → changed，即使规则没看出来", async () => {
@@ -76,7 +76,7 @@ test("Jev 说没有同义句或没把握 → 留给 agent", async () => {
   }
 })
 
-test("一批页面和失效引文只发一次请求", async () => {
+test("每个页面一个请求，state 里只有这个页面", async () => {
   const seen: any[] = []
   const items = [
     { url: "a", previous: before, text: after, watch, verdict: judge(before, after, watch) },
@@ -84,10 +84,24 @@ test("一批页面和失效引文只发一次请求", async () => {
     { url: "c", previous: before, text: before, watch, verdict: judge(before, before, watch) },
   ]
   const out = await judgeBatch(items, fake(0.05, "candidate_1", 0.95, seen))
-  expect(seen.length).toBe(1)
-  expect(Object.keys(seen[0].questions).sort()).toEqual(["p0", "p1", "q1_0"])
+  expect(seen.map((s) => s.state.url).sort()).toEqual(["a", "b"])
+  const b = seen.find((s) => s.state.url === "b")!
+  expect(Object.keys(b.questions)).toContain("q0_0")
+  expect(b.state.lost_quotes[0].candidates[0]).toContain("We keep API inputs")
   expect(out.map((o) => o.verdict.outcome)).toEqual(["cosmetic", "changed", "same"])
   expect(out[1]!.jev!.rebinds.length).toBe(1)
+})
+
+test("两个候选句都像 → 不改绑", async () => {
+  const both: Ask = async (_s, questions) => ({
+    model: "jev-test",
+    answers: Object.fromEntries(Object.keys(questions).map((id) => [id, { type: "noul" as const, noul: id.startsWith("q") ? 0.95 : 0.05 }])),
+  })
+  const b3 = page("We retain API inputs and outputs for up to 30 days to monitor for abuse.")
+  const a3 = page("We keep API inputs and outputs for no longer than 30 days to monitor for abuse.", "We keep API inputs and outputs for at most 30 days to monitor for abuse.")
+  const r = await judgeWithJev(b3, a3, "u", quoted, judge(b3, a3, quoted), both)
+  expect(r.jev!.rebinds).toEqual([])
+  expect(r.jev!.unresolved).toBe(1)
 })
 
 test("rebindAnchor 只改这一条锚点的 selector", () => {

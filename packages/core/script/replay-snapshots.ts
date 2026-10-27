@@ -6,7 +6,7 @@
  *  judge() 之后跑一遍，看无实质变化的有多少不再触发、有变化的是否仍然触发。
  *
  *    bun run snapshot:replay [--since 2026-09-24]    需要 GH_TOKEN 或 gh 已登录
- *    bun run snapshot:replay --jev [--limit 100]     由 Jev 判断（需要 JEV_API_KEY），校准阈值用。一个 PR 约一次调用。
+ *    bun run snapshot:replay --jev [--limit 100]     由 Jev 判断（需要 JEV_API_KEY），校准阈值用。一个变了的页面一次调用。
  *                                                    引文失效但全部能自动改绑的算 cosmetic：不会派 agent */
 import { $ } from "bun"
 import fs from "node:fs"
@@ -51,7 +51,7 @@ const counted: Ask = async (state, questions) => {
   return r
 }
 const rows: { pr: number; provider: string; expected: string; got: string; why: string }[] = []
-// 只回放有结论（agent 判过）的 PR，最近的优先；--limit 控制 Jev 调用量（大约一个 PR 一次）
+// 只回放有结论（agent 判过）的 PR，最近的优先；--limit 控制 Jev 调用量（一个变了的页面一次）
 for (const pr of snaps.filter((p) => issues.some((i) => i.title.endsWith(`snapshot #${p.number}`))).slice(0, limit)) {
   const provider = pr.title.slice("snapshot: ".length)
   const issue = issues.find((i) => i.title.endsWith(`snapshot #${pr.number}`))
@@ -77,7 +77,7 @@ for (const pr of snaps.filter((p) => issues.some((i) => i.title.endsWith(`snapsh
       const url = git("show", `${head}:${f}`).stdout.match(/^<!-- (.*?) -->/)?.[1] ?? f
       return [{ url, previous, text: after, watch, verdict: judge(previous, after, watch) }]
     })
-  // 跟抓取时一样：一个快照 PR 里所有页面一起问 Jev，通常一次调用
+  // 跟抓取时一样：每个变了的页面问 Jev 一次
   const judged = useJev ? await judgeBatch(items, counted) : []
   // 每个页面 Jev 给的原始概率留档：调阈值时离线重算，不用再花一次调用
   for (const { jev } of judged) {

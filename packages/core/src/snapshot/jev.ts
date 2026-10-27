@@ -1,16 +1,17 @@
 /** 用 Jev 做快照层的语义判断。关键词规则（relevance.ts）只看变了的词里有没有「retention」
  *  「region」「删除」，召回高、误报也高：推荐文章换了一条、账号删除步骤改写、条款换了国家版本、
- *  价格表调价，都会走一轮快照 PR → 复核 issue → agent。配了 JEV_API_KEY 时由 Jev 判断：
+ *  价格表调价，都会走一轮快照 PR → 复核 issue → agent。配了 JEV_API_KEY 时由 Jev 判断。
  *
- *    - 每个变了的页面一道单选题：改的是哪个维度的承诺，或者「none」（不是政策变化）。
- *      1 − P(none) 就是政策变化的概率，各维度的概率顺带给复核 issue 分流
- *    - 每条失效引文一道单选题：新正文的候选句里哪句跟它同义，或者「none」。有就自动改绑，不用派 agent
- *
- *  调用量压到最低：一个 provider 一天里所有变了的页面和失效引文放进同一个请求（state 里按 id 分开，
- *  每道题只看自己那一份），装不下才拆成几个请求。一个 provider 通常一天最多一次调用。
+ *  按官方用法（https://docs.typesafe.ai/skill.md）：
+ *    - 一个页面一个请求，state 只放这个页面的改动和它的引文。不把几个页面塞进一个 state 再让题目
+ *      「只看某一段」：无关内容会拉低准确率。同一个 state 的题都放进同一个请求，并行、几乎不加时间
+ *    - 每个问题一个原子判断，用 Noul（是非概率）：「改没改任何数据承诺」一道，五个维度各一道
+ *      （一次改动可能同时动几个维度，不是互斥的单选）。不用带「none」选项的单选题
+ *    - 失效引文的每个候选句一道 Noul：「跟原引文是不是同一个承诺」。最高的那句够高、且只有它够高才改绑
+ *    - 答案在代码里组合：政策变化的概率取总题和五个维度里的最大值，阈值偏低（宁可多派 agent）
  *
  *  Jev 调用失败一律退回原规则（宁可多叫一次 agent，不能漏掉一次真变化）。 */
-import { ask as defaultAsk, noul, STATE_CHARS, type Ask, type JevResult, type Question } from "../jev"
+import { ask as defaultAsk, clipTokens, estimateTokens, noul, QUESTION_TOKENS, type Ask, type JevResult, type Question } from "../jev"
 import { fold, locate } from "./quote"
 import { changedLines, relevantChanges, type Watch } from "./relevance"
 
@@ -18,57 +19,63 @@ const num = (v: string | undefined, fallback: number) => {
   const n = Number(v)
   return v && Number.isFinite(n) ? n : fallback
 }
-/** 1 − P(none) 达到它就算政策变化。偏低：漏判一次真变化的代价远大于多派一次 agent */
+/** 政策变化的概率（几道 Noul 的最大值）达到它就算政策变化。偏低：漏判一次真变化的代价远大于多派一次 agent */
 export const policyThreshold = () => num(process.env.JEV_POLICY_THRESHOLD, 0.3)
 /** 改绑和「同一份文档」都会替掉现有证据，要很有把握 */
 export const rebindThreshold = () => num(process.env.JEV_REBIND_THRESHOLD, 0.9)
 export const samePageThreshold = () => num(process.env.JEV_SAME_PAGE_THRESHOLD, 0.9)
+/** 同时在跑的 Jev 请求数 */
+const CONCURRENCY = 4
 
 const clipAll = (lines: string[], budget: number) => {
   const out: string[] = []
   let used = 0
   for (const line of lines) {
-    if (used + line.length > budget) break
+    const n = estimateTokens(line)
+    if (used + n > budget) break
     out.push(line)
-    used += line.length
+    used += n
   }
   return out
 }
 
 export const DIMENSIONS = {
-  training: "Whether customer prompts, inputs, outputs or files are used to train or improve models.",
-  retention: "How long customer prompts, inputs, outputs, files or logs are retained, or when they are deleted.",
-  zdr: "Whether zero data retention is offered, its scope, eligibility or exceptions.",
-  processing_region: "Where customer data is processed or stored.",
-  role: "Whether the vendor acts as processor, sub-processor or controller of customer data, or who its sub-processors are.",
+  training: "whether customer prompts, inputs, outputs or files are used to train or improve models",
+  retention: "how long customer prompts, inputs, outputs, files or logs are retained, or when they are deleted",
+  zdr: "whether zero data retention is offered, and its scope, eligibility or exceptions",
+  processing_region: "where customer data is processed or stored",
+  role: "whether the vendor acts as processor, sub-processor or controller of customer data, or who its sub-processors are",
 } as const
 export type Dimensions = Record<keyof typeof DIMENSIONS, number>
 
-const pageQuestion = (id: string): Question => ({
-  type: "choice",
+const CHANGED =
+  "The edit adds, removes, reverses, narrows or widens such a commitment, or changes its period, scope, region, plan, model or exception."
+const NOT_CHANGED =
+  "Only navigation, menus, related-article teasers, headings, dates, prices, model or feature lists without data-handling terms, " +
+  "formatting, typo fixes, links, rewording that keeps the same meaning, or account how-to steps changed."
+
+const policyQuestion: Question = {
+  type: "noul",
   instructions:
-    `Look only at \`pages.${id}\`: an edit to an official vendor page about an AI/LLM service (\`removed\` = old lines, \`added\` = new lines, ` +
-    "`tracked_quotes` = sentences we already cite from it). Which vendor commitment about customer data does the edit change? " +
-    "A commitment counts as changed when it is added, removed, reversed, narrowed, widened, or its period, scope, region, plan, model or exception changes.",
-  criteria: {
-    ...DIMENSIONS,
-    none:
-      "No commitment changes: only navigation, menus, related-article teasers, headings, dates, prices, model or feature lists without data-handling terms, " +
-      "formatting, typo fixes, links, rewording that keeps the same meaning, or account how-to steps.",
-  },
+    "`removed` and `added` are the old and new lines of an edit to an official vendor page about an AI/LLM service " +
+    "(`tracked_quotes` are sentences we already cite from it). Does the edit change any vendor commitment about how customer data is handled?",
+  criteria: { true: CHANGED, false: NOT_CHANGED },
+}
+
+const dimensionQuestion = (what: string): Question => ({
+  type: "noul",
+  instructions: `\`removed\` and \`added\` are the old and new lines of an edit to an official vendor page about an AI/LLM service. Does the edit change the vendor's commitment about ${what}?`,
+  criteria: { true: CHANGED, false: `The edit does not touch ${what}, or only rewords it with the same meaning.` },
 })
 
-const quoteQuestion = (id: string, candidates: number): Question => ({
-  type: "choice",
+const quoteQuestion = (j: number, k: number): Question => ({
+  type: "noul",
   instructions:
-    `Look only at \`quotes.${id}\`: \`quoted_sentence\` is a vendor commitment we cite from the old version of a page; the candidates come from the new version. ` +
-    "Which candidate states the same commitment with the same meaning — same data, same plan or product scope, same period, same conditions and exceptions? " +
-    "Choose none if every candidate differs in any of these, even slightly.",
+    `\`lost_quotes[${j}].quoted_sentence\` is a vendor commitment we cite from the old version of the page (\`old_context\` is the text around it). ` +
+    `Does \`lost_quotes[${j}].candidates[${k}]\`, from the new version, state the same commitment with the same meaning?`,
   criteria: {
-    ...Object.fromEntries(
-      Array.from({ length: candidates }, (_, i) => [`candidate_${i + 1}`, `quotes.${id}.candidate_${i + 1} says the same thing as quoted_sentence.`]),
-    ),
-    none: "No candidate states the same commitment with the same meaning.",
+    true: "Same data, same plan or product scope, same period, same conditions and exceptions; only the wording differs.",
+    false: "Any of the data, scope, period, conditions or exceptions differs, even slightly, or it is a different statement.",
   },
 })
 
@@ -103,7 +110,7 @@ type Verdict = { outcome: Outcome; reasons: string[] } | { outcome: "failed"; er
 
 /** Jev 的判断，跟着 Capture 进报告；rebinds 由 snapshot 脚本写回 provider 文件 */
 export interface JevJudgment {
-  /** 各维度被改的概率与 none 的概率。正文长句没变（只有引文所在的短行变了）时没问 */
+  /** 五个维度各自被改的概率；none = 1 − 政策变化的概率。正文长句没变（只有引文所在的短行变了）时没问 */
   dims?: Dimensions & { none: number }
   policy: boolean
   /** 失效引文里 Jev 找到同义改写的：旧 selector → 新 exact */
@@ -121,12 +128,13 @@ export interface Item {
   verdict: Verdict
 }
 
-/** 一批页面一起判断：配了 Jev 时由它做语义判断，关键词规则只在 Jev 不可用时兜底。
- *    - 正文变化：Jev 说改了某个维度 → changed；none → cosmetic（规则说有变化也算 cosmetic）
+type Prepared = { i: number; lines: string[]; lost: Selector[]; candidates: string[][] }
+
+/** 一批页面逐个判断（每个页面一个请求，并发 CONCURRENCY 个）：配了 Jev 时由它做语义判断，关键词规则只在 Jev 不可用时兜底。
+ *    - 正文变化：Jev 说改了数据承诺 → changed；没改 → cosmetic（规则说有变化也算 cosmetic）
  *    - 引文失效：快照必须重写。Jev 找到同义改写的记下改绑，找不到的留给 agent
- *  没人关心的来源（没有引文、也不在 searched 里）不问。某个请求失败 → 那一批按规则 */
+ *  没人关心的来源（没有引文、也不在 searched 里）不问。某个请求失败 → 那个页面按规则 */
 export async function judgeBatch(items: Item[], ask: Ask = defaultAsk): Promise<{ verdict: Verdict; jev?: JevJudgment }[]> {
-  type Prepared = { i: number; lines: string[]; lost: Selector[]; candidates: string[][]; size: number }
   const prepared: Prepared[] = []
   const out: { verdict: Verdict; jev?: JevJudgment }[] = items.map((it) => ({ verdict: it.verdict }))
   items.forEach((it, i) => {
@@ -134,75 +142,60 @@ export async function judgeBatch(items: Item[], ask: Ask = defaultAsk): Promise<
     if (!it.watch.anchors.length && !it.watch.searched) return
     const [a, b] = [fold(it.previous), fold(it.text)]
     const lost = it.watch.anchors.filter((x) => locate(a, x) === 1 && locate(b, x) !== 1)
+    // 题目、引文、候选句留出余量，剩下的给改动行；装不下的行截掉（宁可少看几行，也不超上下文报错）
     const lines = clipAll(
       changedLines(it.previous, it.text).map((l) => l.shown),
-      STATE_CHARS * 0.5,
+      QUESTION_TOKENS * 0.6,
     )
-    const candidates = lost.map((x) => rebindCandidates(x.exact, it.text))
-    const size = lines.join("").length + lost.reduce((n, x, j) => n + x.exact.length * 3 + candidates[j]!.join("").length, 0)
-    prepared.push({ i, lines, lost, candidates, size })
+    prepared.push({ i, lines, lost, candidates: lost.map((x) => rebindCandidates(x.exact, it.text)) })
   })
-
-  // 按 state 大小装箱：一个请求装得下就只发一个
-  const batches: Prepared[][] = []
-  let used = Infinity
-  for (const p of prepared) {
-    if (used + p.size > STATE_CHARS * 0.8) batches.push([]), (used = 0)
-    batches.at(-1)!.push(p)
-    used += p.size
-  }
-
-  for (const batch of batches) {
-    const pages: Record<string, unknown> = {}
-    const quotes: Record<string, unknown> = {}
-    const questions: Record<string, Question> = {}
-    for (const p of batch) {
-      const it = items[p.i]!
-      if (p.lines.length) {
-        pages[`p${p.i}`] = {
-          url: it.url,
-          removed: p.lines.filter((l) => l.startsWith("- ")).map((l) => l.slice(2)),
-          added: p.lines.filter((l) => l.startsWith("+ ")).map((l) => l.slice(2)),
-          tracked_quotes: clipAll(
-            it.watch.anchors.map((x) => x.exact),
-            4000,
-          ),
-        }
-        questions[`p${p.i}`] = pageQuestion(`p${p.i}`)
-      }
-      p.lost.forEach((x, j) => {
-        const c = p.candidates[j]!
-        if (!c.length) return
-        const id = `q${p.i}_${j}`
-        const at = it.previous!.indexOf(x.exact.slice(0, 40))
-        quotes[id] = {
-          url: it.url,
-          quoted_sentence: x.exact,
-          old_context: at < 0 ? "" : it.previous!.slice(Math.max(0, at - 300), at + x.exact.length + 300),
-          ...Object.fromEntries(c.map((s, k) => [`candidate_${k + 1}`, s])),
-        }
-        questions[id] = quoteQuestion(id, c.length)
-      })
+  let next = 0
+  const worker = async () => {
+    while (next < prepared.length) {
+      const p = prepared[next++]!
+      out[p.i] = await judgePage(items[p.i]!, p, ask)
     }
-    let result: JevResult | undefined
-    let error: string | undefined
-    if (Object.keys(questions).length)
-      try {
-        result = await ask({ pages, quotes }, questions)
-      } catch (e: any) {
-        error = String(e?.message || e).slice(0, 200)
-      }
-    for (const p of batch) out[p.i] = interpret(items[p.i]!, p, result, error)
   }
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, prepared.length) }, worker))
   return out
 }
 
-function interpret(
-  it: Item,
-  p: { i: number; lines: string[]; lost: Selector[]; candidates: string[][] },
-  result: JevResult | undefined,
-  error: string | undefined,
-): { verdict: Verdict; jev?: JevJudgment } {
+async function judgePage(it: Item, p: Prepared, ask: Ask) {
+  const questions: Record<string, Question> = {}
+  const state: Record<string, unknown> = { url: it.url }
+  if (p.lines.length) {
+    state.removed = p.lines.filter((l) => l.startsWith("- ")).map((l) => l.slice(2))
+    state.added = p.lines.filter((l) => l.startsWith("+ ")).map((l) => l.slice(2))
+    state.tracked_quotes = clipAll(
+      it.watch.anchors.map((x) => x.exact),
+      QUESTION_TOKENS * 0.1,
+    )
+    questions.policy = policyQuestion
+    for (const [k, what] of Object.entries(DIMENSIONS)) questions[`dim_${k}`] = dimensionQuestion(what)
+  }
+  // 题号 q{j}_{k} 对应 lost_quotes[j].candidates[k]；没有候选句的引文不出题，直接留给 agent
+  if (p.lost.length)
+    state.lost_quotes = p.lost.map((x, j) => {
+      const at = it.previous!.indexOf(x.exact.slice(0, 40))
+      p.candidates[j]!.forEach((_, k) => (questions[`q${j}_${k}`] = quoteQuestion(j, k)))
+      return {
+        quoted_sentence: x.exact,
+        old_context: at < 0 ? "" : it.previous!.slice(Math.max(0, at - 300), at + x.exact.length + 300),
+        candidates: p.candidates[j]!,
+      }
+    })
+  let result: JevResult | undefined
+  let error: string | undefined
+  if (Object.keys(questions).length)
+    try {
+      result = await ask(state, questions)
+    } catch (e: any) {
+      error = String(e?.message || e).slice(0, 200)
+    }
+  return interpret(it, p, result, error)
+}
+
+function interpret(it: Item, p: Prepared, result: JevResult | undefined, error: string | undefined): { verdict: Verdict; jev?: JevJudgment } {
   if (error || (!result && p.lines.length)) {
     const reasons = it.verdict.outcome === "changed" ? [...it.verdict.reasons, `Jev 未能判断，按规则处理：${error}`] : (it.verdict as any).reasons
     return { verdict: { ...it.verdict, reasons } as Verdict, jev: { policy: true, rebinds: [], unresolved: p.lost.length, error } }
@@ -210,26 +203,39 @@ function interpret(
   const reasons: string[] = []
   let dims: JevJudgment["dims"]
   if (p.lines.length) {
-    const a = result!.answers[`p${p.i}`]
-    if (a?.type !== "choice") return interpret(it, p, undefined, `没有回答 p${p.i}`)
-    dims = Object.fromEntries([...Object.keys(DIMENSIONS), "none"].map((k) => [k, a.probabilities?.[k] ?? 0])) as JevJudgment["dims"]
+    let any: number
+    let each: Dimensions
+    try {
+      any = noul(result!, "policy")
+      each = Object.fromEntries(Object.keys(DIMENSIONS).map((k) => [k, noul(result!, `dim_${k}`)])) as Dimensions
+    } catch (e: any) {
+      return interpret(it, p, undefined, String(e?.message || e))
+    }
+    dims = { ...each, none: 1 - Math.max(any, ...Object.values(each)) }
   }
   const policy = !!dims && 1 - dims.none >= policyThreshold()
   if (dims)
     reasons.push(
       `Jev ${policy ? "判为政策变化" : "判为非政策变化"}：` +
         Object.entries(dims)
+          .filter(([k]) => k !== "none")
           .map(([k, v]) => `${k} ${v.toFixed(2)}`)
-          .join("、"),
+          .join("、") +
+        `（任一承诺 ${(1 - dims.none).toFixed(2)}）`,
     )
   if (policy) reasons.push(...relevantChanges(it.previous!, it.text, { anchors: [], searched: true }))
   const rebinds: JevJudgment["rebinds"] = []
   p.lost.forEach((x, j) => {
-    const a = result?.answers[`q${p.i}_${j}`]
-    const k = a?.type === "choice" && a.choice !== "none" ? Number(a.choice.replace("candidate_", "")) - 1 : -1
-    const prob = a?.type === "choice" ? (a.probabilities?.[a.choice] ?? a.confidence) : 0
-    const exact = p.candidates[j]![k]
-    if (exact && prob >= rebindThreshold()) {
+    const scores = p.candidates[j]!.map((_, k) => {
+      const a = result?.answers[`q${j}_${k}`] as { noul?: unknown } | undefined
+      return typeof a?.noul === "number" ? a.noul : 0
+    })
+    const best = scores.length ? scores.indexOf(Math.max(...scores)) : -1
+    const prob = best < 0 ? 0 : scores[best]!
+    // 只有一句够像才改绑：两句都像说明拿不准是哪句
+    const unique = scores.filter((v) => v >= 0.5).length <= 1
+    const exact = p.candidates[j]![best]
+    if (exact && prob >= rebindThreshold() && unique) {
       rebinds.push({ from: x, exact, p: prob })
       reasons.push(`引文改写，自动改绑（${prob.toFixed(2)}）：「${x.exact.slice(0, 80)}」→「${exact.slice(0, 80)}」`)
     } else reasons.push(`引文失效：「${x.exact.slice(0, 100)}」`)
@@ -253,6 +259,7 @@ export const SAME_PAGE_QUESTION = {
 
 /** 新正文是不是同一份文档的改版，返回 Jev 说「是」的概率 */
 export async function samePage(url: string, before: string, after: string, ask: Ask = defaultAsk): Promise<number> {
-  const state = { url, before: before.slice(0, STATE_CHARS * 0.45), after: after.slice(0, STATE_CHARS * 0.45) }
+  const half = (QUESTION_TOKENS - 2000) / 2
+  const state = { url, before: clipTokens(before, half), after: clipTokens(after, half) }
   return noul(await ask(state, { same_page: SAME_PAGE_QUESTION }), "same_page")
 }

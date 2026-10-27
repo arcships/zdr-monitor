@@ -198,7 +198,7 @@ export async function snapshotAll(
 ) {
   const results: Capture[] = []
   const watch = watches(root, options.provider)
-  // 配了 Jev：先全部抓完，再把这批页面一起交给 Jev（通常一次调用），最后写快照
+  // 配了 Jev：先全部抓完，再把变了的页面交给 Jev（每页一个请求，并发），最后写快照
   const batched = jevEnabled()
   const pending: { base: Omit<Capture, "outcome">; previous: string | null; text: string; verdict: Verdict; watch: Watch }[] = []
   for (const method of ["direct", "browser", "jina"] as Method[]) {
