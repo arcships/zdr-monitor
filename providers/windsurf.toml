@@ -30,7 +30,7 @@ note = "Cognition DPA（2026-07-23），覆盖其 enterprise or software service
 url = "https://cognition.com/legal/privacy-policy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Cognition Privacy Policy（2026-03-09），正文明确 Services 包括 Devin 与 Windsurf。用于全球处理地点及个人数据的一般保留口径。"
+note = "Cognition Privacy Policy（2026-10-26），Services 定义为面向个人与企业客户的 SaaS 产品（例示 Devin；更名后的 Devin Desktop 属同一产品线，正文不再单列 Windsurf）。新增句子：通过 enterprise agreement 使用 Services 的组织所提交个人信息由该协议管辖；app.devin.eu 的 Devin EU 另适用 EU Privacy Notice。该句不把隐私政策整体移出 Enterprise 档：DPA §2(b) 规定 Account Data 仍依本政策处理，故全球传输条款继续覆盖该档 Account Data。用于个人数据的一般保留口径及 Account Data 的全球处理地点。"
 
 [[source]]
 url = "https://docs.windsurf.com/windsurf/accounts/usage.md"
@@ -299,8 +299,18 @@ text_zh = "合同层：DPA Appendix C 把核心处理、日志与索引列在美
 anchor = "windsurf-dpa-subprocessor-india"
 
 [[product.processing_region.point]]
-text = "The global code rests on a lower-authority layer: the privacy policy (consumer_privacy) states that Cognition, its third-party partners and service providers may transfer, store and process personal information throughout the world, including the EU, UK and the US. No current public contract offers a region-selection commitment."
-text_zh = "global 一码依据的是较低权威层：隐私政策（consumer_privacy）声明 Cognition、其第三方伙伴与服务提供商可在全球（包括 EU、UK、US）传输、存储和处理个人信息。未见当前公开合同提供区域选择承诺。"
+text = "Scope: the privacy policy's Services definition now adds that personal information an organization submits to the Services under an enterprise agreement is governed by that agreement. For Customer Data this points to the enterprise agreement and the DPA, whose Appendix C puts core processing in the United States. The sentence carves out organization-submitted data; it does not say the privacy policy stops applying to the Enterprise tier, since the same policy still describes the Services as offerings 'we make available to individuals and enterprise customers'."
+text_zh = "适用范围：隐私政策在 Services 定义中新增，组织依企业协议向 Services 提交的个人信息由该协议管辖。对 Customer Data 而言，这一层指向企业协议与 DPA，其 Appendix C 把核心处理列在美国。该句只把「组织提交的个人信息」划归协议管辖，并未说明隐私政策不再适用于 Enterprise 档——同一份政策仍写明 Services 是面向「individuals and enterprise customers」提供的产品。"
+anchor = "windsurf-privacy-enterprise-scope"
+
+[[product.processing_region.point]]
+text = "Account Data stays under this privacy policy even in the Enterprise tier: DPA §2(b) lets Cognition process Account Data as an independent controller in accordance with 'applicable Data Protection Law, this DPA, the Agreement, and the Licensor Privacy Policy as in effect at the time of processing'. Its worldwide processing therefore still rests on the policy's §7 transfer clause, so the global code remains alongside US."
+text_zh = "即便在 Enterprise 档，Account Data 仍落在本隐私政策范围内：DPA §2(b) 允许 Cognition 作为独立控制方处理 Account Data，但须依「applicable Data Protection Law, this DPA, the Agreement, and the Licensor Privacy Policy as in effect at the time of processing」进行。因此其全球处理仍以隐私政策 §7 的传输条款为依据，global 一码与 US 并列保留。"
+anchor = "windsurf-dpa-account-data-privacy-policy"
+
+[[product.processing_region.point]]
+text = "The privacy policy (consumer_privacy) states that Cognition, its third-party partners and service providers may transfer, store and process personal information throughout the world, including the EU, UK and the US. In this tier that now supports the global code through Account Data (and any personal information not submitted by the organization under the enterprise agreement). No current public contract offers a region-selection commitment."
+text_zh = "隐私政策（consumer_privacy）声明 Cognition、其第三方伙伴与服务提供商可在全球（包括 EU、UK、US）传输、存储和处理个人信息。在本档，该句现在通过 Account Data（以及非由组织依企业协议提交的个人信息）支撑 global 一码。未见当前公开合同提供区域选择承诺。"
 anchor = "windsurf-privacy-global-processing"
 
 [product.role]
@@ -381,6 +391,15 @@ topics = ["processing_region"]
 prefix = "7. International transfers To facilitate our operations, "
 exact = "Cognition, our third-party partners, and service providers may transfer, store, and process your personal information throughout the world, including the EU, UK and the US."
 suffix = " If you reside in the EEA, Switzerland, or the United Kingdom"
+
+[[anchor]]
+id = "windsurf-privacy-enterprise-scope"
+source_id = "2259fa08d86037b8"
+topics = ["role", "processing_region"]
+[anchor.selector]
+prefix = "along with any associated software, apps and websites (collectively, the “Services”). "
+exact = "If you use the Services through an organization that has an enterprise agreement with us, such as your employer, the personal information that the organization submits to the Services is governed by our agreement with that organization."
+suffix = " If you use Devin EU at app.devin.eu"
 
 [[anchor]]
 id = "windsurf-plan-tiers"
@@ -480,6 +499,13 @@ topics = ["processing_region"]
 prefix = "Decagon Support Chatbot United States "
 exact = "Agumbe (Cognition India) Support Workflow India"
 suffix = " The following entities to the extent Personal Data is submitted as Input to the Services"
+
+[[anchor]]
+id = "windsurf-dpa-account-data-privacy-policy"
+source_id = "c7345437a9dd5fa6"
+topics = ["role", "processing_region"]
+[anchor.selector]
+exact = "In each case in accordance with applicable Data Protection Law, this DPA, the Agreement, and the Licensor Privacy Policy as in effect at the time of processing."
 
 [[anchor]]
 id = "windsurf-enterprise-finetuning"
