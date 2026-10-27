@@ -8,19 +8,30 @@
  *    - 每个问题一个原子判断，用 Noul（是非概率）：「改没改任何数据承诺」一道，五个维度各一道
  *      （一次改动可能同时动几个维度，不是互斥的单选）。不用带「none」选项的单选题
  *    - 失效引文的每个候选句一道 Noul：「跟原引文是不是同一个承诺」。最高的那句够高、且只有它够高才改绑
- *    - 答案在代码里组合：政策变化的概率取总题和五个维度里的最大值，阈值偏低（宁可多派 agent）
+ *    - 答案在代码里组合：政策变化的概率取总题和五个维度里的最大值
+ *
+ *  关键词规则和 Jev 合成一个判断（见 policyThresholds）：规则不再单独决定，而是决定 Jev 要过哪道线。
+ *  回放 81 个有标注的快照 PR（33 个无实质变化、48 个有变化）：只用规则放过 8/33、漏 11/48；
+ *  只用 Jev（0.2）放过 18/33、漏 5/48；合起来放过 18/33、漏 2/48（漏的两个快照 diff 里没有能判的页面）。
+ *  规则漏掉的真变化（没有关键词命中）Jev 给的概率也偏低（0.13–0.18），所以没命中的那道线更低。
  *
  *  Jev 调用失败一律退回原规则（宁可多叫一次 agent，不能漏掉一次真变化）。 */
 import { ask as defaultAsk, clipTokens, estimateTokens, noul, QUESTION_TOKENS, type Ask, type JevResult, type Question } from "../jev"
 import { fold, locate } from "./quote"
-import { changedLines, relevantChanges, type Watch } from "./relevance"
+import { changedLines, policyChanges, relevantChanges, type Watch } from "./relevance"
 
 const num = (v: string | undefined, fallback: number) => {
   const n = Number(v)
   return v && Number.isFinite(n) ? n : fallback
 }
-/** 政策变化的概率（几道 Noul 的最大值）达到它就算政策变化。偏低：漏判一次真变化的代价远大于多派一次 agent */
-export const policyThreshold = () => num(process.env.JEV_POLICY_THRESHOLD, 0.3)
+/** 政策变化的概率（几道 Noul 的最大值）达到这道线就算政策变化。线按关键词规则分两档，都偏低：
+ *  漏判一次真变化的代价远大于多派一次 agent。
+ *    JEV_POLICY_THRESHOLD             改动里有关键词命中（规则说有变化）时的线，默认 0.2
+ *    JEV_POLICY_THRESHOLD_NO_KEYWORD  没有关键词命中时的线，默认 0.1：规则看不出来的改动往往措辞含蓄，Jev 的概率也低 */
+export const policyThresholds = () => ({
+  keyword: num(process.env.JEV_POLICY_THRESHOLD, 0.2),
+  noKeyword: num(process.env.JEV_POLICY_THRESHOLD_NO_KEYWORD, 0.1),
+})
 /** 改绑和「同一份文档」都会替掉现有证据，要很有把握 */
 export const rebindThreshold = () => num(process.env.JEV_REBIND_THRESHOLD, 0.9)
 export const samePageThreshold = () => num(process.env.JEV_SAME_PAGE_THRESHOLD, 0.9)
@@ -128,7 +139,8 @@ export interface Item {
   verdict: Verdict
 }
 
-type Prepared = { i: number; lines: string[]; lost: Selector[]; candidates: string[][] }
+/** keyword：关键词规则在改动里有没有命中，决定 Jev 要过哪道线 */
+type Prepared = { i: number; lines: string[]; lost: Selector[]; candidates: string[][]; keyword: boolean }
 
 /** 一批页面逐个判断（每个页面一个请求，并发 CONCURRENCY 个）：配了 Jev 时由它做语义判断，关键词规则只在 Jev 不可用时兜底。
  *    - 正文变化：Jev 说改了数据承诺 → changed；没改 → cosmetic（规则说有变化也算 cosmetic）
@@ -147,7 +159,7 @@ export async function judgeBatch(items: Item[], ask: Ask = defaultAsk): Promise<
       changedLines(it.previous, it.text).map((l) => l.shown),
       QUESTION_TOKENS * 0.6,
     )
-    prepared.push({ i, lines, lost, candidates: lost.map((x) => rebindCandidates(x.exact, it.text)) })
+    prepared.push({ i, lines, lost, candidates: lost.map((x) => rebindCandidates(x.exact, it.text)), keyword: policyChanges(it.previous, it.text).length > 0 })
   })
   let next = 0
   const worker = async () => {
@@ -213,7 +225,8 @@ function interpret(it: Item, p: Prepared, result: JevResult | undefined, error: 
     }
     dims = { ...each, none: 1 - Math.max(any, ...Object.values(each)) }
   }
-  const policy = !!dims && 1 - dims.none >= policyThreshold()
+  const t = policyThresholds()
+  const policy = !!dims && 1 - dims.none >= (p.keyword ? t.keyword : t.noKeyword)
   if (dims)
     reasons.push(
       `Jev ${policy ? "判为政策变化" : "判为非政策变化"}：` +
@@ -221,7 +234,7 @@ function interpret(it: Item, p: Prepared, result: JevResult | undefined, error: 
           .filter(([k]) => k !== "none")
           .map(([k, v]) => `${k} ${v.toFixed(2)}`)
           .join("、") +
-        `（任一承诺 ${(1 - dims.none).toFixed(2)}）`,
+        `（任一承诺 ${(1 - dims.none).toFixed(2)}，${p.keyword ? "有" : "无"}关键词命中，线 ${p.keyword ? t.keyword : t.noKeyword}）`,
     )
   if (policy) reasons.push(...relevantChanges(it.previous!, it.text, { anchors: [], searched: true }))
   const rebinds: JevJudgment["rebinds"] = []

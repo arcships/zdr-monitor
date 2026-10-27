@@ -45,6 +45,15 @@ test("Jev 判任一维度改了承诺 → changed，即使规则没看出来", a
   expect(r.jev!.policy).toBe(true)
 })
 
+test("关键词规则决定 Jev 要过哪道线：有命中 0.2，没命中 0.1", async () => {
+  // before → after 删掉的那句有 data/delete，是关键词命中；b → a 只改了支持时效，没有命中
+  const b = page("Our support team answers most questions about the product within one business day.")
+  const a = page("Our support team answers most questions about the product within two business days, always.")
+  expect((await judgeWithJev(before, after, "u", watch, judge(before, after, watch), fake(0.15))).verdict.outcome).toBe("cosmetic")
+  expect((await judgeWithJev(b, a, "u", watch, judge(b, a, watch), fake(0.15))).verdict.outcome).toBe("changed")
+  expect((await judgeWithJev(b, a, "u", watch, judge(b, a, watch), fake(0.05))).verdict.outcome).toBe("cosmetic")
+})
+
 test("Jev 调用失败 → 按规则", async () => {
   const fail: Ask = async () => {
     throw new Error("http_500")
