@@ -10,7 +10,7 @@ doc = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
 url = "https://developers.cloudflare.com/ai-gateway/features/unified-billing/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway 官方 Unified Billing 文档(Last updated Sep 23, 2026):覆盖托管凭据及上游 ZDR 路由;已删除开通步骤、支持名单、非 ZDR 回退和逐请求覆盖的说明。"
+note = "AI Gateway 官方 Unified Billing 文档(Last updated Oct 27, 2026):覆盖托管凭据及上游 ZDR 路由;凭据优先序改为只认 AI Gateway 对特定 provider/endpoint 识别的请求凭据,并要求『Unified Billing fallback is allowed』,另新增识别凭据表、错误码 2044 与 Machine Payments;已删除开通步骤、支持名单、非 ZDR 回退和逐请求覆盖的说明。"
 
 [[source]]
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
@@ -565,7 +565,7 @@ topics = ["role", "zdr"]
 
 [anchor.selector]
 prefix = ""
-exact = "if neither of the above applies, the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance."
+exact = "if neither of the above applies and Unified Billing fallback is allowed, the request is served with Cloudflare-managed credentials and billed against your Cloudflare credit balance."
 suffix = ""
 
 [[anchor]]
