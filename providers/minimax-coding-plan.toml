@@ -17,7 +17,7 @@ note = "Files API 上传接口参考文档。保留它是因为它是本档 rete
 url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
 channel = "developer_data"
 tier = "core"
-note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它是本档 retention 维度的**对象级**证据——显式提示缓存(Anthropic 兼容)『5-minute expiration, automatically renewed with continued use』,被动缓存『Expiration time automatically adjusted based on system load』。不单独承载维度权威,只补充「缓存对象保留多久」。抓取通道:r.jina.ai 渲染版(3602B);同页的 .md 直连版(10052B)含相同表格行。"
+note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。人工判读后保留:它只提供本档 retention 的**对象级**线索——缓存默认自动开启、无需改动 API 调用(『Automatically identifies repeated context content without changing API call methods』),适用于 512 及以上输入 token 的 API 调用(『Caching applies to API calls with 512 or more input tokens』)。2026-10-20 抓取版(快照 PR #729)删除了整节 Explicit Prompt Caching 与 Cache Comparison 到期表,页面已不再给出任何缓存到期时间,故不再承载「缓存保留多久」的证据;不单独承载维度权威。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/paid-agreement"
@@ -93,14 +93,9 @@ text = "Same as top level: no quantified period (necessary / permitted by law / 
 text_zh = "同顶层:无量化期限(必要/法律允许/实现收集目的所需),到期删除或匿名化"
 
 [[product.retention.point]]
-text = "Object level, explicit path: prompt cache entries expire after 5 minutes and the lifetime is automatically renewed with continued use (Anthropic-compatible explicit caching only)."
-text_zh = "对象级、显式路径:提示缓存 5 分钟到期,持续使用自动续期(仅 Anthropic 兼容显式缓存)。"
-anchor = "retention-cache-expiration"
-
-[[product.retention.point]]
-text = "Object level, default path: caching is on by default (\"Passive caching that automatically identifies repeated context content without changing API call methods\", applied to API calls with 512 or more input tokens) and its \"Expiration time automatically adjusted based on system load\" — request content left in that server-side cache has no fixed period."
-text_zh = "对象级、默认路径:缓存默认开启(「Passive caching that automatically identifies repeated context content without changing API call methods」,适用于 512 及以上输入 token 的 API 调用),其「Expiration time automatically adjusted based on system load」——留在该服务端缓存里的请求内容没有固定期限。"
-anchor = "retention-cache-expiration-passive"
+text = "Object level, default automatic prompt cache: it is on by default and needs no change to the API call (\"Automatically identifies repeated context content without changing API call methods\"); the same page says \"Caching applies to API calls with 512 or more input tokens\". It states no expiry time for cached entries, so this object has no separately disclosed period and falls under the general as-needed retention term."
+text_zh = "对象级、默认自动提示缓存:默认开启、无需改动 API 调用(「Automatically identifies repeated context content without changing API call methods」);同页说明「Caching applies to API calls with 512 or more input tokens」。页面未给出缓存条目的到期时间,故该对象无单独披露的期限,归入一般「按需保留」条款。"
+anchor = "retention-cache-automatic-default"
 
 [[product.retention.point]]
 text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
@@ -197,14 +192,9 @@ text = "Same as the individual tier: no quantified period"
 text_zh = "同个人档:无量化期限"
 
 [[product.retention.point]]
-text = "Object level, same platform behaviour as the individual tier — explicit path: prompt cache entries expire after 5 minutes and the lifetime is automatically renewed with continued use (Anthropic-compatible explicit caching only)."
-text_zh = "对象级、与个人档同一平台行为——显式路径:提示缓存 5 分钟到期,持续使用自动续期(仅 Anthropic 兼容显式缓存)。"
-anchor = "retention-cache-expiration"
-
-[[product.retention.point]]
-text = "Object level, same platform behaviour as the individual tier — default path: caching is on by default (\"Passive caching that automatically identifies repeated context content without changing API call methods\", applied to API calls with 512 or more input tokens) and its \"Expiration time automatically adjusted based on system load\" — request content left in that server-side cache has no fixed period."
-text_zh = "对象级、与个人档同一平台行为——默认路径:缓存默认开启(「Passive caching that automatically identifies repeated context content without changing API call methods」,适用于 512 及以上输入 token 的 API 调用),其「Expiration time automatically adjusted based on system load」——留在该服务端缓存里的请求内容没有固定期限。"
-anchor = "retention-cache-expiration-passive"
+text = "Object level, same platform behaviour as the individual tier — default automatic prompt cache: it is on by default and needs no change to the API call (\"Automatically identifies repeated context content without changing API call methods\"); the same page says \"Caching applies to API calls with 512 or more input tokens\". It states no expiry time for cached entries, so this object has no separately disclosed period and falls under the general as-needed retention term."
+text_zh = "对象级、与个人档同一平台行为——默认自动提示缓存:默认开启、无需改动 API 调用(「Automatically identifies repeated context content without changing API call methods」);同页说明「Caching applies to API calls with 512 or more input tokens」。页面未给出缓存条目的到期时间,故该对象无单独披露的期限,归入一般「按需保留」条款。"
+anchor = "retention-cache-automatic-default"
 
 [[product.retention.point]]
 text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
@@ -580,26 +570,12 @@ suffix = """
 8.4 Following termination, MiniMax has no obligation to co"""
 
 [[anchor]]
-id = "retention-cache-expiration"
+id = "retention-cache-automatic-default"
 source_id = "2d4ef29441b12d09"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = " adjusted based on system load                            | "
-exact = "5-minute expiration, automatically renewed with continued use"
-suffix = """
-                                     |
-| Supported Models | """
-
-[[anchor]]
-id = "retention-cache-expiration-passive"
-source_id = "2d4ef29441b12d09"
-topics = ["retention"]
-
-[anchor.selector]
-prefix = "| Expiration | "
-exact = "Expiration time automatically adjusted based on system load"
-suffix = " | 5-minute expiration"
+exact = "Automatically identifies repeated context content without changing API call methods"
 
 [[anchor]]
 id = "retention-uploaded-file-7-days"
