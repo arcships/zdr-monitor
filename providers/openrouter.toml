@@ -22,7 +22,7 @@ note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Cha
 url = "https://openrouter.ai/docs/guides/features/zdr.md"
 channel = "developer_data"
 tier = "core"
-note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR 政策的原句、ZDR 定义、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、BYOK 与私有部署的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
+note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR/保留政策的原句（本轮快照（2026-10-27）改写为：对受 OpenRouter ZDR 政策覆盖的推理内容，处理完成即不保留 prompt/response，例外为显式选择存储与 CSAM 复核、上报及相关法定留存；页首另有一则 Planned update (October 27, 2026) 提示，称 OpenRouter will screen all inference requests, including ZDR traffic, for CSAM，并注明 We're updating this page and our related terms，故筛查本身按计划中记录）、ZDR 定义、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、BYOK 与私有端点的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
@@ -34,7 +34,7 @@ note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声
 url = "https://openrouter.ai/docs/guides/privacy/data-collection"
 channel = "developer_data"
 tier = "core"
-note = "「Data Collection」文档页，覆盖 OpenRouter 自身对 prompt/response 的处理：默认不存储、两个 opt-in 开关（私有日志、以及以 1% 折扣换取 OpenRouter 使用输入输出）、匿名分类、以及始终保留的请求元数据。注意 jina 渲染的这版正文里没有页首 <Note> 块（「Any prompt retention on OpenRouter is always opt-in.」只存在于 .md 通道），故该句未作锚点。"
+note = "「Data Collection」文档页，覆盖 OpenRouter 自身对 prompt/response 的处理：默认不存储、两个 opt-in 开关（私有日志、以及以 1% 折扣换取 OpenRouter 使用输入输出）、对被标记为疑似 CSAM 的内容保留（页首「OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation.」与默认不存储句均为现在时；同页 CSAM screening 段仍写 will screen）、匿名分类、以及始终保留的请求元数据。"
 
 [[source]]
 url = "https://openrouter.ai/openrouter/free"
@@ -115,14 +115,29 @@ anchor = "openrouter-zdr-tools-reject-firecrawl-zdr"
 text = "One tool-level exception to that boundary: \"when ZDR is enforced in your account privacy settings or a guardrail, the Web Search and Web Fetch server tools and the Web Search plugin reject the Firecrawl engine.\" The rule is triggered only by account privacy settings or a guardrail (the sentence does not mention request-level `provider.zdr`), and it only blocks the Firecrawl engine. Other plugins and tools remain outside ZDR enforcement under the preceding sentence; the rule says nothing about the other backends of these tools, which the page points to a per-tool privacy page (\"See Privacy and regional availability for each server tool's execution path and backend policy\")."
 text_zh = "上述边界有一条工具级例外：「when ZDR is enforced in your account privacy settings or a guardrail, the Web Search and Web Fetch server tools and the Web Search plugin reject the Firecrawl engine.」触发条件只写了账户隐私设置或 guardrail（未提请求级 `provider.zdr`），效果只是拒用 Firecrawl 引擎。其余 plugins 与工具按上一句仍不在 ZDR 强制范围内；这几个工具的其他后端，本句未表态，页面指向逐工具的隐私说明（「See Privacy and regional availability for each server tool's execution path and backend policy」）。"
 
+[[product.zdr.point]]
+anchor = "openrouter-zdr-own-retention-policy-zdr"
+text = "OpenRouter's own retention policy is conditional on the content being covered by its ZDR policy: \"For inference content covered by OpenRouter's ZDR policy, we do not retain prompts or responses after processing, except when you explicitly choose to have us store them or when retention is needed for CSAM review, reporting, and related legal preservation.\""
+text_zh = "OpenRouter 自身的保留政策以内容受其 ZDR 政策覆盖为前提：「For inference content covered by OpenRouter's ZDR policy, we do not retain prompts or responses after processing, except when you explicitly choose to have us store them or when retention is needed for CSAM review, reporting, and related legal preservation.」"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-csam-screening-exception-zdr"
+text = "Announced, not yet in force: a \"Planned update (October 27, 2026)\" note says OpenRouter \"will screen all inference requests, including ZDR traffic\" for CSAM in flight, and content flagged as potential CSAM \"may be retained for human review, reporting, and preservation where required by law\"; it adds that this \"does not permit general retention or use for model training\" and that \"We're updating this page and our related terms.\""
+text_zh = "已公告、尚未生效：页首「Planned update (October 27, 2026)」提示称 OpenRouter「will screen all inference requests, including ZDR traffic」以筛查 CSAM，被标记为疑似 CSAM 的内容「may be retained for human review, reporting, and preservation where required by law」；并写明这「does not permit general retention or use for model training」，且「We're updating this page and our related terms.」"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
 anchor = "openrouter-datacollection-no-store-unless-optin-retention"
 
 [[product.retention.point]]
-text = "Object and context — inputs and outputs: by default \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following\" (private input & output logging, or letting OpenRouter use your inputs/outputs for a 1% discount). Periods for content stored after opting in vary by feature and are only pointed at feature documentation (terms §6.3(c): \"Retention periods for User Content stored under this Section 6.3 vary by feature and are described in the applicable feature documentation\"), so no period is published either by default or after opt-in."
-text_zh = "对象与语境——输入输出：默认「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following」（私有日志，或以 1% 折扣换取 OpenRouter 使用输入输出）。opt-in 后所存内容的期限按功能而定、只指向功能文档（terms §6.3(c)：「Retention periods for User Content stored under this Section 6.3 vary by feature and are described in the applicable feature documentation」），故默认与 opt-in 两种情形都没有公布期限。"
+text = "Object and context — inputs and outputs: by default \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM\" (private input & output logging, letting OpenRouter use your inputs/outputs for a 1% discount, or a CSAM flag). Periods for content stored after opting in vary by feature and are only pointed at feature documentation (terms §6.3(c): \"Retention periods for User Content stored under this Section 6.3 vary by feature and are described in the applicable feature documentation\"), so no period is published for opt-in content; no period is given for CSAM-flagged content either."
+text_zh = "对象与语境——输入输出：默认「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM」（私有日志、以 1% 折扣换取 OpenRouter 使用输入输出，或被标记为疑似 CSAM）。opt-in 后所存内容的期限按功能而定、只指向功能文档（terms §6.3(c)：「Retention periods for User Content stored under this Section 6.3 vary by feature and are described in the applicable feature documentation」），故 opt-in 内容没有公布期限；CSAM 标记内容的期限同样未给。"
+
+[[product.retention.point]]
+anchor = "openrouter-datacollection-csam-retention-retention"
+text = "Context — CSAM exception: \"OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation.\" The same page also says flagged content \"may be retained for human review, reporting, and preservation where required by law\", with no retention period stated for it; the screening paragraph itself is still worded as a planned update (\"Planned update (October 27, 2026)\", \"will screen\")."
+text_zh = "语境——CSAM 例外：「OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation.」同页还写明被标记的内容「may be retained for human review, reporting, and preservation where required by law」，未给出该内容的保留期限；筛查段本身仍是计划语气（「Planned update (October 27, 2026)」「will screen」）。"
 
 [[product.retention.point]]
 anchor = "openrouter-terms-6-2-optin-perpetual-license-retention"
@@ -217,9 +232,9 @@ text = "Whole-chain verdict. OpenRouter's own hop has a ZDR policy, but on the f
 text_zh = "全链判定。OpenRouter 自身这一跳有 ZDR 政策，但免费档的弱跳在上游：模型目录页对当时列出的免费/匿名模型披露「All prompts and completions for this model are logged by the provider and may be used to improve the model.」。强制 ZDR 会把这些端点排除，故「免费档 + ZDR」只在免费端点位于 ZDR 名单内时成立，公开页面无法预先确认（清单是动态表格）。"
 
 [[product.zdr.point]]
-anchor = "openrouter-zdr-own-retention-policy-zdr"
-text = "OpenRouter's own hop: \"OpenRouter itself has a ZDR policy; your prompts are not retained unless you specifically opt in to prompt logging.\" The same policy applies to the free tier, but it says nothing about the upstream hop."
-text_zh = "OpenRouter 自身这一跳：「OpenRouter itself has a ZDR policy; your prompts are not retained unless you specifically opt in to prompt logging.」同一条政策适用于免费档，但对上游那一跳没有表态。"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+text = "OpenRouter's own hop (API side): the Data Collection page states its scope as \"whether via the chat interface or the API\", then says \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM\". This is the page's default statement for API traffic; the free tier is an API tier, so it covers the free tier's OpenRouter hop. The present-tense CSAM exception applies. The page says nothing about the upstream hop, which is why this tier's verdict is still no."
+text_zh = "OpenRouter 自身这一跳（API 侧）：Data Collection 页把范围写成「whether via the chat interface or the API」，随后写明「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM」。这是该页对 API 流量的默认口径；免费档属于 API 档，故适用于免费档的 OpenRouter 这一跳。现在时的 CSAM 例外同样适用。该页对上游那一跳没有表态，故本档结论仍为否。"
 
 [[product.zdr.point]]
 anchor = "openrouter-zdr-conservative-stance-zdr"
@@ -232,8 +247,9 @@ basis = "undisclosed"
 anchor = "openrouter-datacollection-no-store-unless-optin-retention"
 
 [[product.retention.point]]
-text = "Object and context kept apart: on OpenRouter's own hop prompts and responses are likewise not written to disk on the free tier (the same policy clause), but the **upstream** retention period for free/anonymous models is not disclosed on OpenRouter's public pages (in the dynamic provider-logging table most upstreams show \"Prompts are retained for unknown period\"). So the content retention period for the free tier is unspecified overall."
-text_zh = "对象与语境分开：OpenRouter 自身这一跳对免费档同样不落盘 prompt/response（同一条政策），但**上游**对免费/匿名模型的保留期在 OpenRouter 公开页面上未披露（provider-logging 的动态表里多数上游显示「Prompts are retained for unknown period」）。故免费档的正文保留期整体为 unspecified。"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+text = "Object and context kept apart: on OpenRouter's own hop prompts and responses are likewise not written to disk on the free tier under the same Data Collection default (\"unless you opt in to one or both of the following, or content is flagged as potential CSAM\"), but the **upstream** retention period for free/anonymous models is not disclosed on OpenRouter's public pages (in the dynamic provider-logging table most upstreams show \"Prompts are retained for unknown period\"). So the content retention period for the free tier is unspecified overall."
+text_zh = "对象与语境分开：OpenRouter 自身这一跳对免费档同样按 Data Collection 的默认不存储句处理（「unless you opt in to one or both of the following, or content is flagged as potential CSAM」），但**上游**对免费/匿名模型的保留期在 OpenRouter 公开页面上未披露（provider-logging 的动态表里多数上游显示「Prompts are retained for unknown period」）。故免费档的正文保留期整体为 unspecified。"
 
 [[product.retention.point]]
 anchor = "openrouter-privacy-files-api-retention-retention"
@@ -308,14 +324,19 @@ anchor = "openrouter-zdr-conservative-stance-zdr"
 text = "Even with a declaration in place, endpoints whose policy cannot be confirmed count as retaining: \"If OpenRouter is not able to establish or ascertain a clear policy for a provider or endpoint, we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such.\""
 text_zh = "即便有声明，政策无法确认的端点仍按保留计：「If OpenRouter is not able to establish or ascertain a clear policy for a provider or endpoint, we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such.」"
 
+[[product.zdr.point]]
+anchor = "openrouter-zdr-csam-screening-exception-zdr"
+text = "Announced, not yet in force: the \"Planned update (October 27, 2026)\" CSAM screening note says it will cover \"all inference requests, including ZDR traffic\" and that flagged content may be retained for review, reporting, and legal preservation. The note does not carve out keys whose account is declared as having ZDR. Because it is worded as a planned update (\"will screen\", \"We're updating this page and our related terms\"), it does not yet change this tier's verdict."
+text_zh = "已公告、尚未生效：「Planned update (October 27, 2026)」CSAM 筛查提示称将覆盖「all inference requests, including ZDR traffic」，被标记的内容可为复核、上报与法定留存而保留。该提示没有为声明 ZDR 的 key 留例外。由于原文仍是计划语气（「will screen」「We're updating this page and our related terms」），目前不改变本档结论。"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
 anchor = "openrouter-datacollection-no-store-unless-optin-retention"
 
 [[product.retention.point]]
-text = "OpenRouter's own hop is the same as the default tier: \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following\", and once you opt in the period varies by feature and is only pointed at feature documentation (terms §6.3(c))."
-text_zh = "OpenRouter 这一跳同默认档：「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following」；opt-in 后的期限按功能而定、只指向功能文档（terms §6.3(c)）。"
+text = "OpenRouter's own hop is the same as the default tier: \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM\", and once you opt in the period varies by feature and is only pointed at feature documentation (terms §6.3(c)). A CSAM flag likewise permits retention without opt-in, with no stated period."
+text_zh = "OpenRouter 这一跳同默认档：「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM」；opt-in 后的期限按功能而定、只指向功能文档（terms §6.3(c)）。CSAM 标记同样可在未 opt-in 时触发保留，且未给出期限。"
 
 [[product.retention.point]]
 anchor = "openrouter-terms-6-2-optin-perpetual-license-retention"
@@ -429,6 +450,11 @@ anchor = "openrouter-zdr-conservative-stance-zdr"
 text = "Endpoints whose policy cannot be confirmed count as retaining: \"we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such\"."
 text_zh = "政策无法确认的端点按保留计：「we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such」。"
 
+[[product.zdr.point]]
+anchor = "openrouter-zdr-csam-screening-exception-zdr"
+text = "Announced, not yet in force: the \"Planned update (October 27, 2026)\" CSAM screening note says OpenRouter \"will screen all inference requests, including ZDR traffic\" and that flagged content may be retained. The note does not carve out EU API or enterprise traffic; the DPA's ZDR definition already excepts \"records required by law\". Because the screening is announced rather than in force and the note says \"We're updating this page and our related terms\", this tier's DPA-based verdict is unchanged."
+text_zh = "已公告、尚未生效：「Planned update (October 27, 2026)」CSAM 筛查提示称 OpenRouter「will screen all inference requests, including ZDR traffic」，被标记的内容可被保留。该提示没有为 EU API 或企业流量留例外；DPA 的 ZDR 定义本身已排除「records required by law」。由于筛查仍是公告而非生效条款，且提示写明「We're updating this page and our related terms」，本档基于 DPA 的结论不变。"
+
 [product.retention]
 object = "mixed"
 basis = "as_needed"
@@ -472,6 +498,11 @@ text_zh = "另一类对象——Files API 上传文件：「Uploaded Files are r
 anchor = "openrouter-privacy-media-ephemeral-retention"
 text = "Other object — image/audio/video inputs: \"We do not persist image, audio or video files beyond the duration necessary to route the request, except as required for abuse detection, security, billing, or legal compliance.\""
 text_zh = "另一类对象——图片/音频/视频输入：「We do not persist image, audio or video files beyond the duration necessary to route the request, except as required for abuse detection, security, billing, or legal compliance.」"
+
+[[product.retention.point]]
+anchor = "openrouter-zdr-csam-screening-exception-zdr"
+text = "Context — CSAM, announced: the \"Planned update (October 27, 2026)\" screening note says content flagged as potential CSAM may be retained \"for human review, reporting, and preservation where required by law\", including ZDR traffic. The DPA's own exceptions for law and abuse investigations are unchanged in this snapshot round; because the note is still announced and says \"We're updating this page and our related terms\", it does not yet add an operative enterprise term, so this tier's retention basis remains as needed."
+text_zh = "语境——CSAM（已公告）：「Planned update (October 27, 2026)」筛查提示称被标记为疑似 CSAM 的内容可「for human review, reporting, and preservation where required by law」而保留，且包含 ZDR 流量。DPA 中关于法律要求与恶意使用调查的例外在本轮快照里未改；由于该提示仍是公告，并写明「We're updating this page and our related terms」，尚未新增生效的企业条款，故本档 retention 仍以 as_needed 为判据。"
 
 [product.processing_region]
 codes = ["US", "EU"]
@@ -524,11 +555,22 @@ text_zh = "上游仍按其自身政策，隐私政策「Model Provider Data Prac
 [product.zdr]
 mark = "yes"
 mode = "default"
-anchor = "openrouter-zdr-own-retention-policy-zdr"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
 
 [[product.zdr.point]]
-text = "OpenRouter's own \"your prompts are not retained unless you specifically opt in to prompt logging\" holds for the Chatroom as well"
-text_zh = "OpenRouter 自身的「prompts are not retained unless you specifically opt in to prompt logging」对 Chatroom 同样成立"
+anchor = "openrouter-datacollection-chat-interface-scope-zdr"
+text = "The Data Collection page states that its scope includes the Chatroom: \"When using AI through OpenRouter, whether via the chat interface or the API, your prompts and responses go through multiple touchpoints.\""
+text_zh = "Data Collection 页明确把 Chatroom 纳入范围：「When using AI through OpenRouter, whether via the chat interface or the API, your prompts and responses go through multiple touchpoints.」"
+
+[[product.zdr.point]]
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+text = "The substantive default on the same page is \"OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM\". The present-tense CSAM exception therefore also applies to the Chatroom; the separate CSAM screening paragraph is still worded as a planned update (\"Planned update (October 27, 2026)\", \"will screen\", \"We're updating this page and our related terms\")."
+text_zh = "同页的实质默认口径是「OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM」。故现在时的 CSAM 例外同样适用于 Chatroom；同页单独的 CSAM screening 段仍是计划语气（「Planned update (October 27, 2026)」「will screen」「We're updating this page and our related terms」）。"
+
+[[product.zdr.point]]
+anchor = "openrouter-faq-chatroom-same-privacy-training"
+text = "The FAQ confirms the same policy applies to the chatroom: \"The same data privacy applies to the chatroom as the API.\""
+text_zh = "FAQ 确认聊天界面适用同一口径：「The same data privacy applies to the chatroom as the API.」"
 
 [[product.zdr.point]]
 text = "But the ZDR enforcement switches sit on the API routing side (`provider.zdr` / guardrail) and the Chatroom has no equivalent parameter, so this is recorded as a policy-layer statement only."
@@ -544,8 +586,9 @@ text = "FAQ \"What data is logged during Chatroom use?\": \"The same data privac
 text_zh = "FAQ「What data is logged during Chatroom use?」：『The same data privacy applies to the chatroom as the API. All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices.』即会话历史不上云"
 
 [[product.retention.point]]
-text = "Logging on the request side is the same as the API (prompts and completions are not logged by default)."
-text_zh = "请求侧日志口径同 API（默认不记录 prompt/completion）。"
+anchor = "openrouter-datacollection-no-store-unless-optin-retention"
+text = "Logging on the request side is the same as the API: the Data Collection page covers the chat interface and says prompts and responses are not stored by default, except when you opt in or content is flagged as potential CSAM."
+text_zh = "请求侧日志口径同 API：Data Collection 页覆盖聊天界面，并写明默认不存储 prompt/response，除非你 opt-in 或内容被标记为疑似 CSAM。"
 
 [[product.retention.point]]
 anchor = "openrouter-privacy-media-ephemeral-retention"
@@ -929,19 +972,21 @@ topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
-actual behavior.
-</Note>
-
 ## OpenRouter's Retention Policy
 
 """
-exact = "OpenRouter itself has a ZDR policy; your prompts are not retained unless you specifically opt in to prompt logging."
+exact = "For inference content covered by OpenRouter's ZDR policy, we do not retain prompts or responses after processing, except when you explicitly choose to have us store them or when retention is needed for CSAM review, reporting, and related legal preservation."
 suffix = """
+CSAM screening will also apply to requests covered by OpenRouter's ZDR policy.
+"""
 
+[[anchor]]
+id = "openrouter-zdr-csam-screening-exception-zdr"
+source_id = "87e9e177299657ea"
+topics = ["training", "retention", "zdr"]
 
-## Zero Retention Endpoints
-
-The following endpoints have """
+[anchor.selector]
+exact = "**Planned update (October 27, 2026):** OpenRouter will screen all inference requests, including ZDR traffic, for child sexual abuse material (CSAM) in flight. Content flagged as potential CSAM may be retained for human review, reporting, and preservation where required by law. This does not permit general retention or use for model training. Read the announcement. We're updating this page and our related terms."
 
 [[anchor]]
 id = "openrouter-zdr-definition-zdr"
@@ -1038,20 +1083,34 @@ suffix = " See [Declaring ZDR on a Key](/docs/guides/overview/auth/byo"
 [[anchor]]
 id = "openrouter-datacollection-no-store-unless-optin-retention"
 source_id = "237f6dbe16a04ad1"
-topics = ["retention", "training"]
+topics = ["retention", "training", "zdr"]
 
 [anchor.selector]
 prefix = """
-rvice](https://openrouter.ai/terms).
-
-## Within OpenRouter
+Within OpenRouter
 
 """
-exact = "OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following"
+exact = "OpenRouter does not store your prompts or responses, _unless_ you opt in to one or both of the following, or content is flagged as potential CSAM"
 suffix = """
 :
 
-*   **Private Input & Output Logging:** Make your prompts"""
+- **Private Input & Output Logging:** Make your prompts"""
+
+[[anchor]]
+id = "openrouter-datacollection-csam-retention-retention"
+source_id = "237f6dbe16a04ad1"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation."
+
+[[anchor]]
+id = "openrouter-datacollection-chat-interface-scope-zdr"
+source_id = "237f6dbe16a04ad1"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "When using AI through OpenRouter, whether via the chat interface or the API, your prompts and responses go through multiple touchpoints."
 
 [[anchor]]
 id = "openrouter-datacollection-anonymous-categorization-retention"
@@ -1280,7 +1339,7 @@ exact = "license or sell your User Content in anonymized form, where your User C
 [[anchor]]
 id = "openrouter-faq-chatroom-same-privacy-training"
 source_id = "606aefabac4f404c"
-topics = ["training"]
+topics = ["training", "retention", "zdr"]
 
 [anchor.selector]
 exact = "The same data privacy applies to the chatroom as the API."
