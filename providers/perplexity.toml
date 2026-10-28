@@ -15,7 +15,7 @@ note = "Agent API 文档「Conversation state」页。这是本档唯一直接�
 url = "https://docs.perplexity.ai/docs/resources/faq"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点：不保留 query data、不训练、默认零日保留 prompt 数据，并给出计算托管地(AWS 北美)。与 privacy-security 新版「ZDR is not default」并存：FAQ 讲默认零日保留 prompt 数据，privacy-security 讲正式 ZDR 配置需符合条件的客户书面协议；两者的关系厂商未调和，两句都保留。"
+note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点。2026-10-24 快照(#827)改版：删去旧句「We do not retain any query data sent through the API and do not train on any of your data.」与「By default, the API has zero day retention of user prompt data, which is never used for AI training.」；训练改为以合同为依据的「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models.」，保留改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default. See Privacy & Security for details.」；计算托管地(AWS 北美)一句未变。改版后 FAQ 与 privacy-security 口径一致（ZDR 非默认、保留随配置而异），原先两页的字面冲突消失。"
 
 [[source]]
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
@@ -95,6 +95,11 @@ text = "Obligations are flowed down rather than erased: DPA §6c–e treats Mode
 text_zh = "义务是流下而非消失：DPA §6c–e 把 Model Provider 作为分包方，要求其书面义务不低于 DPA，并保留 Perplexity 对其履约的责任。此处只描述链路——不得据此推断某一跳能否访问内容，也不得推断各跳 ZDR 可在同一配置下同时开通。"
 anchor = "perplexity-dpa-6c-role"
 
+[[product.training.point]]
+text = "The documentation-side FAQ repeats the same posture, but now derives it from the contract: \"Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models.\" The old standalone wording (\"do not train on any of your data\") was removed in the 2026-10-24 snapshot; the verdict still rests on §2.3.3."
+text_zh = "文档侧 FAQ 重述同一姿态，但改为以合同为依据：「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models.」。旧版独立的「do not train on any of your data」在 2026-10-24 快照中被删除；结论仍以 §2.3.3 为准。"
+anchor = "perplexity-docs-faq-training"
+
 [product.zdr]
 mark = "yes"
 mode = "by_agreement"
@@ -111,8 +116,8 @@ text_zh = "页面也描述所收集的使用元数据（request/token counts、m
 anchor = "perplexity-docs-privacy-security-retention"
 
 [[product.zdr.point]]
-text = "The platform-level FAQ still states (\"By default, the API has zero day retention of user prompt data, which is never used for AI training.\"), while the privacy-security page now says ZDR is not default and warns not to assume zero retention unless it has been enabled. The vendor does not reconcile the two; both statements are official and current, and both are kept side by side."
-text_zh = "平台级 FAQ 仍写「By default, the API has zero day retention of user prompt data, which is never used for AI training.」，而 privacy-security 新版说 ZDR 非默认，并警告未启用前不要假定零保留。厂商未调和两者；两句都是现行官方表述，并列保留。"
+text = "The FAQ previously stated the opposite (\"By default, the API has zero day retention of user prompt data, which is never used for AI training.\"); in the 2026-10-24 snapshot the vendor replaced that sentence with \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.\" The documentation and the privacy-security page now agree, so the literal conflict recorded earlier is gone."
+text_zh = "FAQ 旧句曾写「By default, the API has zero day retention of user prompt data, which is never used for AI training.」；2026-10-24 快照中厂商改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.」。文档与 privacy-security 页现已一致，此前记录的字面冲突消失。"
 anchor = "perplexity-docs-faq-zdr"
 
 [[product.zdr.point]]
@@ -121,12 +126,22 @@ text_zh = "范围说明：本行记 Sonar / Chat Completions 按量端点，故�
 
 [product.retention]
 object = "input_output"
-basis = "none"
-anchor = "perplexity-docs-faq-training"
+basis = "undisclosed"
+anchor = "perplexity-docs-faq-zdr"
+searched = [
+  "https://docs.perplexity.ai/docs/resources/faq",
+  "https://docs.perplexity.ai/docs/resources/privacy-security",
+  "https://perplexity.ai/hub/legal/dpa",
+  "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service",
+]
 
 [[product.retention.point]]
-text = "Structured conclusion: the FAQ states that the API does not retain query data (\"We do not retain any query data sent through the API and do not train on any of your data.\"), so Input/Output is recorded as not retained. The FAQ does not name an endpoint. The privacy-security page no longer limits this commitment to Chat Completions; it now says ZDR is not default and warns not to assume zero retention unless enabled (recorded on the zdr row). The vendor does not reconcile the two, so this verdict rests on the FAQ sentence and the tension is kept visible."
-text_zh = "结构化结论：FAQ 明说 API 不保留 query data（「We do not retain any query data sent through the API and do not train on any of your data.」），故输入输出记不留存。FAQ 未点名端点。privacy-security 新版不再把该承诺限定在 Chat Completions，而是说 ZDR 非默认、未启用前不要假定零保留（记在 zdr 行）。厂商未调和两者，故本结论依据 FAQ 该句，同时保留这一张力。"
+text = "Structured conclusion: since the 2026-10-24 snapshot the FAQ no longer states that the API does not retain query data. The sentence was replaced with \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.\", and Privacy & Security likewise says retention varies by API, model, and account configuration; the API ToS gives no period. No first-party source now gives a retention period or a non-retention commitment for non-personal Input/Output on this tier, so basis=undisclosed. This is non-disclosure, not a vendor statement that data is retained."
+text_zh = "结构化结论：2026-10-24 快照起，FAQ 不再写 API 不保留 query data，该句改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.」；privacy-security 页同样写保留随 API、模型与账户配置而异，API ToS 未给期限。现行官方来源都没有对本档非个人输入输出给出保留期限或不留存承诺，故记 basis=undisclosed——这是「未披露」，不是厂商声明会留存。"
+
+[[product.retention.point]]
+text = "The previous snapshot (see the 2026-10-24 diff) read \"We do not retain any query data sent through the API and do not train on any of your data.\" and, under the hosting question, \"By default, the API has zero day retention of user prompt data, which is never used for AI training.\" The vendor deleted both; this is not a fetch failure — the snapshot is the bot's successful capture of the current page."
+text_zh = "上一版快照（见 2026-10-24 diff）曾写「We do not retain any query data sent through the API and do not train on any of your data.」，并在托管地一问下写「By default, the API has zero day retention of user prompt data, which is never used for AI training.」。两句是厂商删除的；这不是抓取失败——本快照是 bot 成功抓到的现行页面正文。"
 
 [[product.retention.point]]
 text = "Personal Data contained in Input is a different object and is not covered by that sentence: DPA Annex 1 stores it until the earlier of (a) the date it is deleted by Customer through the Services' interface and (b) the date that is thirty days after Perplexity is no longer providing the Services to Customer — a termination-anchored rule, not a retention period for non-personal Input/Output."
@@ -706,17 +721,12 @@ suffix = "Personal data:"
 [[anchor]]
 id = "perplexity-docs-faq-training"
 source_id = "23f1f66914c32643"
-topics = ["retention", "training"]
+topics = ["training"]
 
 [anchor.selector]
-prefix = "lect your name, email address, and other relevant contact information."
-exact = "We do not retain any query data sent through the API and do not train on any of your data."
-suffix = """
-
-
-Where Are Perplexity's Language Models Hosted?
-
-Our compute is hoste"""
+prefix = "lect your name, email address, and other relevant contact information. "
+exact = "Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models."
+suffix = " Retention depends on the API, model, and account configuration"
 
 [[anchor]]
 id = "perplexity-docs-faq-zdr"
@@ -724,17 +734,9 @@ source_id = "23f1f66914c32643"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = """
-ted?
-
-Our compute is hosted via Amazon Web Services in North America. """
-exact = "By default, the API has zero day retention of user prompt data, which is never used for AI training."
-suffix = """
-
-
-What Security and Compliance Certifications Does the API Have?
-
-Perp"""
+prefix = "Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models. "
+exact = "Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default."
+suffix = " See Privacy & Security for details."
 
 [[anchor]]
 id = "perplexity-docs-faq-processing-region"
@@ -743,13 +745,11 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = """
-on any of your data.
-
 Where Are Perplexity's Language Models Hosted?
 
 """
 exact = "Our compute is hosted via Amazon Web Services in North America."
-suffix = " By default, the API has zero day retention of user prompt data, which"
+suffix = " For how API data is retained, including when Zero Data Retention (ZDR) is available"
 
 [[anchor]]
 id = "perplexity-search-addendum-1-2-2-zdr"
