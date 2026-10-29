@@ -120,12 +120,12 @@ text_zh = "prompt cache 内存保留数分钟~数小时"
 anchor = "fireworks-promptcaching-cache-lifetime"
 
 [[product.retention.point]]
-text_zh = "Response API store=True 默认 30 天"
+text_zh = "Response API store=True 默认保留：期限为上限 30 天，缓存中可能更早清除"
 anchor = "fireworks-datahandling-response-api-store-default"
 
 [[product.retention.point]]
-text = "Stored conversation data is deleted automatically after 30 days, and can be deleted immediately through the DELETE API endpoint with the response_id."
-text_zh = "已存储的会话数据 30 天后自动删除，也可用 DELETE API + response_id 立即删除。"
+text = "Period type is an upper bound, not a fixed 30-day window: \"Stored conversation data is kept for up to 30 days and is automatically deleted no later than that.\" The same bullet adds that stored responses are held in a cache and \"can be evicted earlier, often within about an hour, so they are not guaranteed to be retrievable for the full period.\" Data can also be deleted immediately through the DELETE API endpoint with the response_id."
+text_zh = "期限类型是上限，不是固定的 30 天窗口：「Stored conversation data is kept for up to 30 days and is automatically deleted no later than that.」同一要点补充这些响应存放在缓存中，「can be evicted earlier, often within about an hour, so they are not guaranteed to be retrievable for the full period」——不保证整段 30 天都可取回。也可用 DELETE API + response_id 立即删除。"
 anchor = "fireworks-datahandling-response-api-30-days"
 
 [[product.retention.point]]
@@ -937,13 +937,9 @@ source_id = "9e4b92eacd199a46"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-rsation data from being retained.
-*   **Retention period**: """
-exact = "All stored conversation data is automatically deleted after 30 days."
-suffix = """
-
-*   **Immediate deletion**: You can immediately delete stor"""
+prefix = "**Retention period**: "
+exact = "Stored conversation data is kept for up to 30 days and is automatically deleted no later than that."
+suffix = "Stored responses are held in a cache and can be evicted earlier, often within about an hour, so they are not guaranteed to be retrievable for the full period."
 
 [[anchor]]
 id = "fireworks-datahandling-response-api-store-default"
