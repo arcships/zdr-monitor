@@ -81,7 +81,7 @@ text_zh = "对象=输入输出正文（默认推理路径）：prompt and genera
 anchor = "fireworks-datahandling-volatile-memory"
 
 [[product.retention.point]]
-text_zh = "对象=对话数据（语境=启用 Response API 后）：store=True（默认）时完整对话数据落盘，30 天后自动删除；可用 store=False 关闭，或按 response_id 立即删除。"
+text_zh = "对象=对话数据（语境=启用 Response API 且 store=True，即默认）：完整对话数据落盘，保留期限为上限 30 天，最晚届时自动删除；存入缓存的响应可能更早被逐出，文档称常见约 1 小时内，因此不保证整个期限内都可检索。可用 store=False 关闭，或按 response_id 立即删除。"
 anchor = "fireworks-datahandling-response-api-30-days"
 
 [[product.retention.point]]
@@ -297,7 +297,7 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = "**Retention period**: "
-exact = "All stored conversation data is automatically deleted after 30 days."
+exact = "Stored conversation data is kept for up to 30 days and is automatically deleted no later than that. Stored responses are held in a cache and can be evicted earlier, often within about an hour, so they are not guaranteed to be retrievable for the full period."
 suffix = " **Immediate deletion**: You can immediately delete stored conversation data"
 
 [[anchor]]
