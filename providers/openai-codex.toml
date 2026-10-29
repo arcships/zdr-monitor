@@ -43,7 +43,7 @@ url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retain
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Chat and file retention in ChatGPT(Updated 3 days ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓(3508B,仅页脚差异)确认正文未变。对 API 档无权威性。同页也含工作区口径(overview 的 any workspace retention policy that applies、Enterprise/Edu/Healthcare 的 Library 文件按工作区留存策略、临时文件 48 小时、备份最多再留 30 天),故 Business/Enterprise 的留存证据也取自本页,适用档位以各 point 标注为准"
+note = "Chat and file retention in ChatGPT(Updated 7 hours ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓时 Library 一节改名为「Files saved to Library or Space」,Enterprise/Edu/Healthcare 条款由「Library files」改为「these saved files」,其余留存条款未变。对 API 档无权威性。同页也含工作区口径(overview 的 any workspace retention policy that applies、Enterprise/Edu/Healthcare 存入 Library 或 Space 的文件按工作区留存策略、临时文件 48 小时、备份最多再留 30 天),故 Business/Enterprise 的留存证据也取自本页,适用档位以各 point 标注为准"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
@@ -263,8 +263,8 @@ text_zh = "Enterprise/Edu 提供留存控制，但该矩阵未给固定期限；
 anchor = "openai-codex-enterprise-controls"
 
 [[product.retention.point]]
-text = "Disclosed mechanism for this tier: for Enterprise, Edu and Healthcare workspaces, Library files follow the workspace retention policy — the period is set by the customer's own policy rather than a vendor default (object: Library files; context: default; period type: customer-configured)"
-text_zh = "本档已披露的机制：Enterprise、Edu、Healthcare 工作区的 Library 文件保留期由工作区留存策略决定，即期限由客户策略设定而非厂商默认值（对象=Library 文件；语境=默认；期限类型=由客户策略决定）"
+text = "Disclosed mechanism for this tier: for Enterprise, Edu and Healthcare workspaces, these saved files (files saved in Library or Space) follow the workspace retention policy — the period is set by the customer's own policy rather than a vendor default (object: files saved to Library or Space; context: default; period type: customer-configured)"
+text_zh = "本档已披露的机制：Enterprise、Edu、Healthcare 工作区中存入 Library 或 Space 的文件保留期由工作区留存策略决定，即期限由客户策略设定而非厂商默认值（对象=存入 Library 或 Space 的文件；语境=默认；期限类型=由客户策略决定）"
 anchor = "openai-codex-enterprise-workspace-retention"
 
 [[product.retention.point]]
@@ -278,8 +278,8 @@ text_zh = "已量化期限之二：Library 文件被删除、按工作区留存�
 anchor = "openai-codex-enterprise-backup-30d"
 
 [[product.retention.point]]
-text = "Scope note: these three file and backup periods cover Library files, transient files and backups — not the body of Codex cloud-task content — so object stays input_output"
-text_zh = "范围说明：以上三条的对象是 Library 文件、临时文件与备份，不是 Codex 云任务正文，故 object 维持 input_output"
+text = "Scope note: these three file and backup periods cover saved files in Library or Space, transient files and backups — not the body of Codex cloud-task content — so object stays input_output"
+text_zh = "范围说明：以上三条的对象是存入 Library 或 Space 的文件、临时文件与备份，不是 Codex 云任务正文，故 object 维持 input_output"
 
 [[product.retention.point]]
 text = "Codex usage, including local clients such as the CLI and IDE extension as well as web or cloud-delegated usage, is available in the Compliance API — a log surface separate from cloud-task-specific endpoints (object: usage logs / access surface; context: admin audit)"
@@ -465,7 +465,7 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = ""
-exact = "For Enterprise, Edu, and Healthcare workspaces, Library files follow the workspace retention policy."
+exact = "For Enterprise, Edu, and Healthcare workspaces, these saved files follow the workspace retention policy."
 suffix = ""
 
 [[anchor]]
