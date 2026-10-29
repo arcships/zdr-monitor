@@ -21,7 +21,7 @@ note = "平台架构文档：control plane 在 Databricks 账户（不是客户�
 url = "https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/compliance"
 channel = "developer_data"
 tier = "core"
-note = "Foundation Model APIs compliance and security 页。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须开启跨 Geo 处理。另有 US-only / EU+US 模型的区域清单（Anthropic、OpenAI、Google 模型）。"
+note = "Foundation Model APIs compliance and security 页。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须开启跨 Geo 处理。Regional model availability 节分 US-only / EU+US / EU+US+APAC 三档：EU+US 档中「部分模型」也在亚太区域提供且无需跨 Geo（未点名）；新增的 EU+US+APAC 档列 Anthropic Claude Opus 5，在 ap-northeast-2 / ap-south-1 / ap-southeast-1 / ap-southeast-2 提供，工作区在 EU/US 或这些区域时无需跨 Geo。"
 
 [[source]]
 url = "https://docs.databricks.com/aws/en/machine-learning/model-serving/"
@@ -250,7 +250,22 @@ codes = ["selected"]
 anchor = "fmapi-compliance-outside-region"
 
 [[product.processing_region.point]]
-text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Sonnet 5、Claude Opus 4.1、BGE Large）、EU+US（多数 GPT 与 Claude）、以及需跨 Geo 才能访问的情形"
+text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Opus 4.1、Claude Sonnet 5、BGE Large）、EU+US（多数 GPT 与 Claude，含新增的 OpenAI GPT-6.1 Terra / GPT-6.1 Sol；Claude Sonnet 4 已移除）、以及新增的「EU, US, and Asia Pacific models」档（Anthropic Claude Opus 5，见下条）。"
+
+[[product.processing_region.point]]
+text = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-2`, `ap-south-1`, `ap-southeast-1`, and `ap-southeast-2`"
+text_zh = "新增的「EU, US, and Asia Pacific models」档：Anthropic Claude Opus 5 在 pay-per-token EU/US supported regions 之外，也在 ap-northeast-2、ap-south-1、ap-southeast-1、ap-southeast-2 四个亚太区域提供。"
+anchor = "fmapi-compliance-apac-model-regions"
+
+[[product.processing_region.point]]
+text = "Some of these models are also available in Asia Pacific regions without cross-Geo data processing"
+text_zh = "EU+US 档另新增说明：「这些模型中的一些」也在亚太区域提供且无需跨 Geo。该句位于 EU+US 档说明中，未点名具体模型；Claude Opus 5 已移出该档、单列在下一档，故这句不构成对 Opus 5 的直接依据。"
+anchor = "fmapi-compliance-apac-no-cross-geo"
+
+[[product.processing_region.point]]
+text = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access this model"
+text_zh = "Opus 5 所在亚太档的跨 Geo 条件：仅当工作区不在 EU/US 或所列亚太区域、但位于受支持的 Model Serving region 时才需开启跨 Geo；据此，工作区位于 EU/US 或四个亚太区域时无需跨 Geo 处理。"
+anchor = "fmapi-compliance-apac-cross-geo"
 
 [[product.processing_region.point]]
 text_zh = "非 US/EU 工作区须开启跨 Geo 处理。Kimi K3 初期 US hosting。存储仍在工作区 Geo 内（designated-services 页），处理地可能跨 Geo。"
@@ -1026,6 +1041,36 @@ topics = ["processing_region"]
 prefix = "Databricks might process your data outside of the region and cloud provider where your data originated."
 exact = "If your workspace is in a Model Serving region but not a US or EU region, your workspace must be enabled for cross-Geo data processing"
 suffix = "See Designated Services for geographic areas that process pay-per-token and provisioned throughput workloads"
+
+[[anchor]]
+id = "fmapi-compliance-apac-model-regions"
+source_id = "1a56438448bd9279"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-2`, `ap-south-1`, `ap-southeast-1`, and `ap-southeast-2`"
+suffix = ":"
+
+[[anchor]]
+id = "fmapi-compliance-apac-no-cross-geo"
+source_id = "1a56438448bd9279"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "you can enable cross-Geo data processing to access these models. "
+exact = "Some of these models are also available in Asia Pacific regions without cross-Geo data processing"
+suffix = " See Foundation models hosted on Databricks."
+
+[[anchor]]
+id = "fmapi-compliance-apac-cross-geo"
+source_id = "1a56438448bd9279"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access this model"
+suffix = ""
 
 [[anchor]]
 id = "arch-control-plane-not-your-cloud"
