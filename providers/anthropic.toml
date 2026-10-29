@@ -27,7 +27,7 @@ note = "与 core 文档 https://privacy.claude.com/en/articles/7996866-how-long-
 url = "https://platform.claude.com/docs/en/manage-claude/data-residency"
 channel = "developer_data"
 tier = "core"
-note = "Claude API 数据驻留:inference geo 默认 global、可选 us(4.6 起 1.1x 计费);workspace geo 目前仅 us 且创建后不可改。仅商业/API 档(Claude Console 配置),消费档与 Claude Code 消费档无驻留选项。"
+note = "Claude API 数据驻留:inference geo 默认 global、可选 us(4.6 起 1.1x 计费),适用于 Claude API(第一方)、Claude Platform on AWS 与 Anthropic 托管的 Claude Models on Google Cloud;Amazon Bedrock 与 Google 托管的 Google Cloud 由 endpoint/inference profile 决定区域,Claude in Microsoft Foundry 不适用(托管在 Azure 的部署可用 US Data Zone Standard)。workspace geo 目前仅 us 且创建后不可改,Anthropic 托管的 Google Cloud 上不可配置、所有 workspace 固定为 us。页面结尾 Availability 段:data residency 适用 `/v1/messages` 的 `inference_geo`,ZDR eligible(不含 Covered Models)且 HIPAA eligible。仅商业/API 档(Claude Console 配置),消费档与 Claude Code 消费档无驻留选项。"
 
 [[source]]
 url = "https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data"
@@ -167,12 +167,24 @@ codes = ["global", "US"]
 anchor = "region-inference-default-global"
 
 [[product.processing_region.point]]
-text = "Inference geo defaults to global, with us available as an option (billed at 1.1x)"
-text_zh = "inference geo 默认 global、可选 us(1.1x 计费)"
+text = "Inference geo defaults to global, with us available as an option (billed at 1.1x). The parameter is available on the Claude API (first-party), Claude Platform on AWS and Claude Models on Google Cloud (Anthropic managed); on Amazon Bedrock and Google-managed Google Cloud the region follows the endpoint or inference profile, and on Claude in Microsoft Foundry it is not applicable (Azure-hosted deployments can use the US Data Zone Standard type)."
+text_zh = "inference geo 默认 global、可选 us(1.1x 计费)。参数适用于 Claude API(第一方)、Claude Platform on AWS 与 Anthropic 托管的 Claude Models on Google Cloud;Amazon Bedrock 与 Google 托管的 Google Cloud 由 endpoint/inference profile 决定区域;Claude in Microsoft Foundry 不适用(托管在 Azure 的部署可用 US Data Zone Standard)。"
+anchor = "region-inference-availability"
 
 [[product.processing_region.point]]
-text = "Workspace geo is us only and cannot be changed. DPA §I.1 separately provides the cross-border mechanism through SCC Module Two / Module Three."
-text_zh = "workspace geo 仅 us 且不可改。DPA §I.1 另有 SCC Module Two/Three 跨境机制。"
+text = "Workspace geo is us only and cannot be changed after workspace creation."
+text_zh = "workspace geo 仅 us 且创建后不可改。"
+anchor = "region-workspace-us-only"
+
+[[product.processing_region.point]]
+text = "On Claude Models on Google Cloud (Anthropic managed), workspace geo is not configurable and every workspace uses us."
+text_zh = "Anthropic 托管的 Claude Models on Google Cloud 上 workspace geo 不可配置,所有 workspace 固定为 us。"
+anchor = "region-cloud-workspace-geo-fixed"
+
+[[product.processing_region.point]]
+text = "DPA §I.1 separately provides the cross-border mechanism through SCC Module Two / Module Three."
+text_zh = "DPA §I.1 另有 SCC Module Two/Three 跨境机制。"
+anchor = "region-scc-modules"
 
 [product.role]
 kind = "processor"
@@ -518,3 +530,20 @@ topics = ["retention"]
 prefix = "The Compliance API does not capture local sessions for which ZDR is in effect. "
 exact = "For organizations with HIPAA readiness enabled, it captures Cowork and Claude Code local sessions only and stores their transcripts for 30 days."
 suffix = "## Zero data retention (ZDR)"
+
+[[anchor]]
+id = "region-inference-availability"
+source_id = "86972328a91132da"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "The `inference_geo` parameter is available on the Claude API (first-party), Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed)."
+
+[[anchor]]
+id = "region-cloud-workspace-geo-fixed"
+source_id = "86972328a91132da"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "**Claude Models on Google Cloud (Anthropic managed):** "
+exact = "Workspace geo is not configurable. Every workspace uses `\"us\"` as its workspace geo, and the **Workspace geo** field doesn’t appear in the Claude Console."
