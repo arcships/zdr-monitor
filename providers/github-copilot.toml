@@ -17,7 +17,7 @@ note = "GitHub Copilot Trust Center FAQ(页面标题「github.com Trust Center�
 url = "https://docs.github.com/en/copilot/reference/ai-models/model-hosting"
 channel = "developer_data"
 tier = "core"
-note = "GitHub Docs 参考页《Hosting of models for GitHub Copilot》。逐模型族说明由谁托管、数据流向谁、ZDR 覆盖与例外，是本家 zdr 与 processing_region 的主来源，也是「个人档 vs 商业档」分档表述最直接的官方页(同一段里先写「GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models」，紧接着写个人订阅档「GitHub may use Copilot interaction data…to train and improve AI models」，并给出退出开关的文档入口)。覆盖 OpenAI / Anthropic / Google / xAI / Microsoft(MAI) / 开源权重(Kimi) 六类托管，含 Azure、AWS、GCP、xAI、Fireworks AI 等上游。"
+note = "GitHub Docs 参考页《Hosting of models for GitHub Copilot》。逐模型族说明由谁托管、数据流向谁、ZDR 覆盖与例外，是本家 zdr 与 processing_region 的主来源，也是「个人档 vs 商业档」分档表述最直接的官方页(Microsoft models 段先写商业档「GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models」，再写个人订阅档「When the model is cloud hosted, GitHub may use Copilot interaction data…to train and improve AI models」，并说明同一模型「can also be hosted locally on a user's own machine」；Moonshot AI models 段另有一段无托管条件的个人档可训练、可退出表述，并给出退出开关的文档入口)。两段的个人档句式并不相同：云托管条件只出现在 Microsoft 段，Moonshot 段仍是无条件授权，不能把前者当作整页口径。覆盖 OpenAI / Anthropic / Google / xAI / Microsoft(MAI) / 开源权重(Kimi) 六类托管，含 Azure、AWS、GCP、xAI、Fireworks AI 等上游；本地托管路径未给区域或数据处理承诺。"
 
 [[source]]
 url = "https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-github"
@@ -73,6 +73,16 @@ text_zh = "私有仓库内容一旦作为 AI Feature 的 Input 提交，E.2 允�
 text = "Official limit on the scope of that licence: 「We do not train on the contents from any paid organization’s repos, regardless of whether a user is working in that repo with a Copilot Free, Pro, Pro+ or Max subscription.」 If a user’s GitHub ID is a member of, or an outside collaborator with, a paid organization, GitHub excludes their interaction data from model training. This is the case procurement cares about most — an employee opening an employer’s repository while on a personal subscription — and it is an official qualification of what Section J.3 authorises. It does not change this tier’s mark=no."
 text_zh = "§J.3 授权范围的官方限定：付费组织仓库的内容不参与训练，即使用户是以 Copilot Free/Pro/Pro+/Max 个人订阅在该仓库里工作；若用户 GitHub ID 是付费组织的成员或 outside collaborator，其交互数据被排除在模型训练之外。这条恰好覆盖采购最关心的场景(员工用个人订阅打开公司仓库)，不改变本档 mark=no 的值。"
 anchor = "ghcopilot-trust-paid-org-repo-no-training"
+
+[[product.training.point]]
+text = "Microsoft models section, cloud-hosting condition: the individual-subscriber permission is expressly conditioned on cloud hosting — 「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — while the same model 「can also be hosted locally on a user's own machine」. The page states no training permission and no data-handling detail for that local path. This condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section keeps the older unconditional wording (next point). The tier's mark=no still comes from Section J.3."
+text_zh = "Microsoft models 段的云托管条件：个人订阅档的训练授权被明确限定为云托管——「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同一模型「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理。该条件只适用于 Microsoft 段的这个模型，不是整页口径：Moonshot AI models 段仍是无条件的旧句式(见下条)。本档 mark=no 仍来自 ToS §J.3，结论值不变。"
+anchor = "ghcopilot-model-hosting-individual-may-train"
+
+[[product.training.point]]
+text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」, followed by the same opt-out sentence. So the page does not restrict individual-tier training to cloud-hosted paths; the 「When the model is cloud hosted」 wording added in the Microsoft section applies to that model only."
+text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」，其后仍是同一句退出条款。因此整页并未把个人档训练统一收窄为云托管；Microsoft 段新增的「When the model is cloud hosted」只适用于该段的模型。"
+anchor = "ghcopilot-model-hosting-moonshot-individual-may-train"
 
 [[product.training.point]]
 text = "Platform-level layer, recorded alongside: 「Personal Data may be shared with GitHub affiliates, including Microsoft, to facilitate … product development and improvement (including training and improving artificial intelligence and machine learning technologies) …」. The same statement lists code, inputs and AI outputs as Personal Data, and its 「Product Development and Improvement」 purpose likewise covers 「… and training models」. How this platform-level sharing sits with the account-setting opt-out in Section J.3 is not clarified by GitHub; both statements are kept side by side."
@@ -159,6 +169,16 @@ text_zh = "Free 属个人许可档：默认授权 GitHub 使用输入输出训�
 text = "Official limit on the scope of that licence: 「We do not train on the contents from any paid organization’s repos, regardless of whether a user is working in that repo with a Copilot Free, Pro, Pro+ or Max subscription.」 If a user’s GitHub ID is a member of, or an outside collaborator with, a paid organization, GitHub excludes their interaction data from model training. It covers exactly the Copilot Free case named in the sentence, and does not change this tier’s mark=no."
 text_zh = "§J.3 授权范围的官方限定：付费组织仓库的内容不参与训练，即使用户是以 Copilot Free/Pro/Pro+/Max 个人订阅在该仓库里工作；若用户 GitHub ID 是付费组织的成员或 outside collaborator，其交互数据被排除在模型训练之外。该句点名的正是 Copilot Free，不改变本档 mark=no 的值。"
 anchor = "ghcopilot-trust-paid-org-repo-no-training"
+
+[[product.training.point]]
+text = "Microsoft models section, cloud-hosting condition: the sentence names Copilot Free explicitly — 「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — and the page also says the same model 「can also be hosted locally on a user's own machine」, with no training permission and no data-handling detail stated for that local path. The condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section stays unconditional (next point). This tier's mark=no is unchanged."
+text_zh = "Microsoft models 段的云托管条件：该句点名 Copilot Free——「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同一模型「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理。该条件只适用于 Microsoft 段的这个模型，不是整页口径：Moonshot AI models 段仍是无条件授权(见下条)。本档 mark=no 不变。"
+anchor = "ghcopilot-model-hosting-individual-may-train"
+
+[[product.training.point]]
+text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: the individual-subscriber sentence names Copilot Free and reads 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」. The page therefore does not restrict the free tier's training permission to cloud-hosted paths; the cloud-hosting condition added in the Microsoft section applies to that model only."
+text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件，其个人订阅句点名 Copilot Free：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」。因此整页没有把免费档的训练授权统一收窄为云托管；Microsoft 段新增的云托管条件只适用于该段的模型。"
+anchor = "ghcopilot-model-hosting-moonshot-individual-may-train"
 
 [[product.training.point]]
 text = "Platform-level layer, recorded alongside: 「Personal Data may be shared with GitHub affiliates, including Microsoft, to facilitate … product development and improvement (including training and improving artificial intelligence and machine learning technologies) …」. The statement lists code, inputs and AI outputs as Personal Data, and its 「Product Development and Improvement」 purpose likewise covers 「… and training models」. How this sits with the account-setting opt-out in Section J.3 is not clarified by GitHub."
@@ -259,6 +279,10 @@ text = "Other access and use: 「Inputs and Outputs: Retained for up to 28 days 
 text_zh = "其他访问与使用路径：输入输出默认最多 28 天(默认上限)。同段例外：为调查已确认的 AUP/ToS 违规或保护服务安全，GitHub 可保留超过该期限，或在原本不留存处启用保留，且须定向、限时并遵守 DPA。"
 anchor = "ghcopilot-trust-other-access-28-days"
 [[product.retention.point]]
+text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's 28-day default ceiling for other access paths."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径的 28 天上限。"
+anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
+[[product.retention.point]]
 text_zh = "其他对象：User Engagement Data 保留两年；Feedback Data 按目的所需保留。"
 anchor = "ghcopilot-trust-engagement-data-2-years"
 [[product.retention.point]]
@@ -357,6 +381,11 @@ text_zh = "其他访问与使用——输入输出默认最多 28 天(默认上�
 anchor = "ghcopilot-trust-other-access-28-days"
 
 [[product.retention.point]]
+text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's 28-day default ceiling for other access paths."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径的 28 天上限。"
+anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
+
+[[product.retention.point]]
 text_zh = "其他对象：User Engagement Data 两年"
 anchor = "ghcopilot-trust-engagement-data-2-years"
 
@@ -391,7 +420,22 @@ anchor = "ghcopilot-dpa-7-transfers-location"
 text_zh = "DPA §7 让客户同意把 Customer Personal Data 转移到美国或 GitHub/子处理者运营的任何国家，并规定选了特定地域存储则按指示存储"
 
 [[product.processing_region.point]]
-text_zh = "Trust Center FAQ 补充「On GitHub.com, data may be processed anywhere in the world」，即未开通 data residency 时处理地不锁定。推理地由上游托管方决定(OpenAI+Azure / AWS+Anthropic PBC+GCP / xAI / Azure AI Foundry / Fireworks AI)，逐模型见 model-hosting 页。"
+text_zh = "Trust Center FAQ 补充「On GitHub.com, data may be processed anywhere in the world」，即未开通 data residency 时处理地不锁定。"
+
+[[product.processing_region.point]]
+text = "Cloud-hosting path: inference is handled by the upstream host named per model family on the model-hosting page (OpenAI + GitHub's Azure infrastructure, AWS / Anthropic PBC / Google Cloud for Claude, xAI, Microsoft Azure AI Foundry for MAI, Fireworks AI for Kimi K3). The page names the hosts but no specific country or region."
+text_zh = "云托管路径：推理由 model-hosting 页逐模型族点名的上游托管方处理(OpenAI+Azure / AWS+Anthropic PBC+GCP / xAI / MAI 走 Microsoft Azure AI Foundry / Kimi K3 走 Fireworks AI)；页面只点名托管方，未给出具体国家或区域。"
+anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
+
+[[product.processing_region.point]]
+text = "MAI model, cloud path: 「MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant.」"
+text_zh = "MAI 模型的云托管路径：「MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant.」"
+anchor = "ghcopilot-model-hosting-mai-azure-tenant"
+
+[[product.processing_region.point]]
+text = "MAI model, local path: 「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page gives no region and no data-processing commitment for this path; the Azure AI Foundry data-handling paragraph and the content-filter sentence are expressly cloud-only (「When cloud hosted」 / 「When MAI Code 1.1 Flash is cloud hosted」)."
+text_zh = "MAI 模型的本地托管路径：「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」页面未给出该路径的区域，也未说明其数据处理；Azure AI Foundry 的数据处理段与内容过滤句都明确只适用于云托管(「When cloud hosted」/「When MAI Code 1.1 Flash is cloud hosted」)。"
+anchor = "ghcopilot-model-hosting-mai-local"
 
 [product.role]
 kind = "processor"
@@ -519,7 +563,12 @@ codes = ["unknown"]
 anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
 
 [[product.processing_region.point]]
-text_zh = "页面只披露托管方(OpenAI/Azure、AWS、Anthropic PBC、GCP、xAI、Fireworks AI)，未披露任何具体区域或国家，因此只能记到「云厂商 + 美国为主的推断」。具体国家未披露即不猜。"
+text_zh = "云托管路径：页面只披露托管方(OpenAI/Azure、AWS、Anthropic PBC、GCP、xAI、Fireworks AI)，未披露任何具体区域或国家，因此只能记到「云厂商 + 美国为主的推断」。具体国家未披露即不猜。本地托管路径见下条。"
+
+[[product.processing_region.point]]
+text = "Local-hosting path: for MAI Code 1.1 Flash 「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page discloses no region and no data-processing, retention or security commitment for this path; the Azure AI Foundry paragraph is limited to 「When cloud hosted」."
+text_zh = "本地托管路径：MAI Code 1.1 Flash「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」。页面未披露该路径的区域，也未给出数据处理、保留或安全承诺；Azure AI Foundry 段以「When cloud hosted」限定。"
+anchor = "ghcopilot-model-hosting-mai-local"
 
 [product.role]
 kind = "subprocessor"
@@ -879,12 +928,9 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
--party Microsoft model hosted on Azure in GitHub's tenant.
-
-"""
+prefix = "This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met. See Adding LLM models to the GitHub Copilot app and Adding LLM models to GitHub Copilot CLI. "
 exact = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models."
-suffix = " For individual subscribers—Copilot Free, Copilot Pro, Copil"
+suffix = " When the model is cloud hosted"
 
 [[anchor]]
 id = "ghcopilot-model-hosting-individual-may-train"
@@ -892,12 +938,19 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = """
-hosted on Azure in GitHub's tenant.
+prefix = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models. "
+exact = "When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models"
+suffix = ", in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. This may include prompts"
 
-GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models. For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—"""
-exact = "GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models"
-suffix = ", in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. Individual subscribers can opt out of ha"
+[[anchor]]
+id = "ghcopilot-model-hosting-moonshot-individual-may-train"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models. "
+exact = "For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models"
+suffix = ", in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings."
 
 [[anchor]]
 id = "ghcopilot-model-hosting-individual-optout"
@@ -905,12 +958,8 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = " sessions to train and improve AI models, in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. "
+prefix = "This may include prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions. "
 exact = "Individual subscribers can opt out of having their data used for AI model training."
-suffix = """
- To manage this setting, see [Managing GitHub Copilot policies as an individual subscriber](https://docs.github.com/en/copilot/how-tos/manage-your-account/manage-policies#model-training-and-improvements).
-
-MAI-Code-1.1-F"""
 
 [[anchor]]
 id = "ghcopilot-model-hosting-openai-zdr"
@@ -1014,19 +1063,27 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-sting#microsoft-models)
+prefix = "Microsoft models Used for: MAI Code 1.1 Flash "
+exact = "MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant."
+suffix = " This model can also be hosted locally"
 
-Used for:
+[[anchor]]
+id = "ghcopilot-model-hosting-mai-local"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["processing_region"]
 
-*   MAI-Code-1.1-Flash
+[anchor.selector]
+exact = "This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met."
+suffix = " See Adding LLM models to the GitHub Copilot app and Adding LLM models to GitHub Copilot CLI."
 
-"""
-exact = "MAI-Code-1.1-Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant."
-suffix = """
+[[anchor]]
+id = "ghcopilot-model-hosting-mai-azure-data-handling"
+source_id = "ee2f39c2dc69d4f6"
+topics = ["processing_region", "retention"]
 
-
-GitHub does not use Copilot Business or Copilot Enterprise"""
+[anchor.selector]
+exact = "When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment."
+suffix = " For details about how data is processed, retained, and secured for models served on Azure AI Foundry, see"
 
 [[anchor]]
 id = "ghcopilot-model-hosting-prompt-caching"
@@ -1166,9 +1223,7 @@ topics = ["training"]
 [anchor.selector]
 prefix = "Kimi K3 is covered by a zero data retention agreement with the hosting provider. "
 exact = "Fireworks AI does not use prompts or completions to train models, and prompts and completions are not sent to Moonshot AI."
-suffix = """
-
-When using Kimi K3,"""
+suffix = " GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models."
 
 [[anchor]]
 id = "ghcopilot-model-hosting-kimi-zdr"
