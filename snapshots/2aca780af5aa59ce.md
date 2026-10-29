@@ -18,6 +18,7 @@ DocsProduction
 - Quickstart
 - Using GPT-6
 - Key concepts
+- API credits for ChatGPT subscribers
 ### Core concepts
 - Responses API
 - Decisions API
@@ -309,6 +310,7 @@ DocsOverview
 ### Identity
 - On your website
 - In your ChatGPT plugin
+- Account security notification
 ### ChatGPT plan usage
 - Overview
 - UI/UX guidelines
@@ -566,8 +568,6 @@ DocsOverview
 - Amazon Bedrock
 - Bedrock GovCloud configuration
 - Connect to a gateway
-- Sign in with ChatGPT
-- Use API/provider credentials
 - Roll out a gateway
 - Gateway compatibility
 - Bedrock through LiteLLM
@@ -727,7 +727,7 @@ The table below indicates when application state is stored for each endpoint. Ze
 | Endpoint | Data used for training | Abuse monitoring retention | Application state retention | Zero Data Retention eligible | Private Retention with PSP and Safety Retention eligible |
 | `/v1/chat/completions` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Yes, see below for limitations |
 | `/v1/responses` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Yes, see below for limitations |
-| `/v1/decisions` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Pending confirmation |
+| `/v1/decisions` | No | 30 days | None, see below for exceptions | Yes, see below for limitations | Yes, see below for limitations |
 | `/v1/conversations` | No | Until deleted | Until deleted | No | No |
 | `/v1/conversations/items` | No | Until deleted | Until deleted | No | No |
 | `/v1/chatkit/threads` | No | Until deleted | Until deleted | No | No |
@@ -768,7 +768,10 @@ The table below indicates when application state is stored for each endpoint. Ze
 - We support Skills in two form factors, both local execution and hosted container-based execution. Hosted skills follow the same container lifecycle as hosted shell: mounted skills and container files remain available while the container is active and are discarded when the container expires or is deleted.
 - Data transmitted to third-party services over network connections is subject to their data retention policies.
 #### `/v1/decisions`
-By default, abuse monitoring logs are retained for up to 30 days. Eligible customers can use Zero Data Retention, subject to the limitations below.
+By default, abuse monitoring logs are retained for up to 30 days.
+The Decisions API supports Zero Data Retention, Private Retention with PSP, and Safety Retention, subject to the eligibility and account configuration requirements described above.
+The Decisions API follows the same Private Retention with PSP policy as the Responses API. Flagged content and a sample of requests may be retained for automated safety review. See Private Retention with PSP for details.
+The following limitations apply:
 - Prompt caching may store encrypted key/value tensors in GPU-local storage as application state. This data is stored on the local GPU machines and is not retained after the 24-hour expiration. To learn more, see the prompt caching guide.
 - See image and file inputs for the CSAM retention exception for image inputs.
 The Decisions API is eligible for HIPAA use under an executed OpenAI Business Associate and Healthcare Addendum, subject to the applicable account configuration requirements.
@@ -876,7 +879,8 @@ print(response.output_text)
 18
 19
 20
-21require "openai"
+21
+22require "openai"
 client = OpenAI::Client.new
 response = client.responses.create(
 model: "gpt-5.6-terra",
@@ -886,14 +890,15 @@ response = client.with_options(data_residency: :us).responses.create(
 model: "gpt-5.6-terra",
 input: "Reply with OK."
 puts(response.output_text)
-response = client.with_options(data_residency: :eu).responses.create(
+# EU processing requires a key from an EU-region project.
+response = client.with_options(data_residency: :eu, api_key: ENV.fetch("OPENAI_EU_API_KEY"), organization: nil, project: nil).responses.create(
 model: "gpt-5.6-terra",
 input: "Reply with OK."
 puts(response.output_text)
 ### Which models and features are eligible for data residency?
 The following models and API services are eligible for data residency today for the regions specified below.
 Use **Support by region** to compare regional capabilities and expand the services available in each region. Use **API Endpoint, tool and model support** for complete model lists and a detailed service view. Support for regional storage does not imply support for regional processing.
-EU data residency is not available for every model in Fast mode. Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. Ultrafast mode for GPT-6.1 Sol supports US and EU data residency and global processing. GPT-6 Astra Ultrafast supports US data residency and global processing only.
+Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. Ultrafast mode for GPT-6.1 Sol supports US and EU data residency and global processing. GPT-6 Astra Ultrafast supports US data residency and global processing only.
 #### Support by region
 Compare regional capabilities and services.
 Filter support by regionAll regions
@@ -1149,17 +1154,17 @@ Supported models
 /v1/batches
 Batches
 Supported models
-`gpt-6-astra``gpt-6.1-sol``gpt-6-sol`+ 32 model snapshots
-`gpt-6-luna``gpt-5.5-pro-2026-04-23``gpt-5.4-pro-2026-03-05``gpt-5.2-pro-2025-12-11``gpt-5-pro-2025-10-06``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5-2025-08-07``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-2025-04-16``o4-mini-2025-04-16``o1-pro``o1-pro-2025-03-19``o3-mini-2025-01-31``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
+`gpt-6-astra``gpt-6.1-sol``gpt-6.1-terra`+ 33 model snapshots
+`gpt-6-sol``gpt-6-luna``gpt-5.5-pro-2026-04-23``gpt-5.4-pro-2026-03-05``gpt-5.2-pro-2025-12-11``gpt-5-pro-2025-10-06``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5-2025-08-07``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-2025-04-16``o4-mini-2025-04-16``o1-pro``o1-pro-2025-03-19``o3-mini-2025-01-31``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
 Notes
-GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency.
+GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency.
 /v1/chat/completions
 Chat Completions
 Supported models
-`gpt-6-astra``gpt-6.1-sol``gpt-6-sol`+ 26 model snapshots
-`gpt-6-luna``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-2025-08-07``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-mini-2025-01-31``o3-2025-04-16``o4-mini-2025-04-16``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
+`gpt-6-astra``gpt-6.1-sol``gpt-6.1-terra`+ 27 model snapshots
+`gpt-6-sol``gpt-6-luna``gpt-5.6-sol``gpt-5.6-terra``gpt-5.6-luna``gpt-5.5-2026-04-23``gpt-5.4-2026-03-05``gpt-5.4-mini-2026-03-17``gpt-5.4-nano-2026-03-17``gpt-5.2-2025-12-11``gpt-5.1-2025-11-13``gpt-5-2025-08-07``gpt-5-mini-2025-08-07``gpt-5-nano-2025-08-07``gpt-4.1-2025-04-14``gpt-4.1-mini-2025-04-14``gpt-4.1-nano-2025-04-14``o3-mini-2025-01-31``o3-2025-04-16``o4-mini-2025-04-16``o1-2024-12-17``gpt-4o-2024-11-20``gpt-4o-2024-08-06``gpt-4o-mini-2024-07-18``gpt-4-turbo-2024-04-09``gpt-4-0613``gpt-3.5-turbo-0125`
 Notes
-Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency.
+Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency.
 /v1/decisions
 Decisions
 Supported models
@@ -1262,9 +1267,9 @@ Supported models
 | Endpoint or feature | Service | Supported models | Notes |
 | /v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech | Audio |
 | /v1/batches | Batches |
-| GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
+| GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
 | /v1/chat/completions | Chat Completions |
-| Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
+| Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
 | /v1/decisions | Decisions |
 `gpt-6-luna`
 | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
@@ -1565,8 +1570,8 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `/v1/responses` (`gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11`) |
 | Endpoint or feature | Service | Storage regions | Processing regions | Supported models and snapshots | Regional processing snapshot exceptions | Notes |
 | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech` | Audio | All listed regions | United States, Europe (EEA + Switzerland) | `tts-1`, `whisper-1`, `gpt-4o-tts`, `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `gpt-transcribe` | None | — |
-| `/v1/batches` | Batches | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | None | GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol supports only US and EU data residency. |
-| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
+| `/v1/batches` | Batches | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | None | GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
+| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
 | `/v1/decisions` | Decisions | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-luna` | None | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
 | `/v1/embeddings` | Embeddings | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002` | United Arab Emirates: `text-embedding-3-large` | — |
 | `/v1/evals` | Evals | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
@@ -1579,7 +1584,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | `/v1/realtime` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime`, `gpt-realtime-1.5`, `gpt-realtime-mini`, `gpt-realtime-2`, `gpt-realtime-2.1`, `gpt-realtime-2.1-mini` | None | — |
 | `/v1/realtime/transcription_sessions` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-whisper`, `gpt-live-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/realtime/translations` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-translate` | None | — |
-| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol supports only US and EU data residency. |
+| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
 | `/v1/responses File Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/responses Web Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/vector_stores` | Vector stores | All listed regions | None | Service-level support | None | — |
