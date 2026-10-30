@@ -123,7 +123,7 @@ text_zh = "该 Usage Data 的用途＝改进/维护/安全/开发新功能/滥�
 anchor = "togetherai-tos-7-4-usage-data-purposes"
 
 [product.processing_region]
-codes = ["US", "CA"]
+codes = ["US"]
 anchor = "togetherai-privsec-geo-specific-inference"
 searched = [
   "https://docs.together.ai/docs/privacy-and-security",
@@ -133,12 +133,12 @@ searched = [
 ]
 
 [[product.processing_region.point]]
-text = "For select serverless models, geo-specific inference keeps inference processing in the United States or Canada, with no GPUs to provision. The guarantee applies to the geography whose endpoint you use: us-api.together.ai for the United States or ca-api.together.ai for Canada. It covers only where those requests are processed, not where data is stored, logged, or routed."
-text_zh = "部分 serverless 模型可选地理专用端点：走 us-api.together.ai 时推理在美国处理，走 ca-api.together.ai 时在加拿大处理。codes 记 US/CA 表示这两个可选处理地，不是默认 serverless 端点的处理地承诺；官方明说该保证只覆盖请求处理地，不覆盖存储、日志与路由。"
+text = "For select serverless models, geo-specific inference keeps inference processing in the United States, with no GPUs to provision. The guarantee applies to requests sent to us-api.together.ai. It covers only where those requests are processed, not where data is stored, logged, or routed."
+text_zh = "部分 serverless 模型支持 geo-specific inference：文档写明推理在美国处理，保证适用于发往 us-api.together.ai 的请求。codes 记 US 只表示这一保证覆盖的处理地，不是默认 serverless 端点的处理地承诺；官方明说该保证只覆盖请求处理地，不覆盖存储、日志与路由。2026-10-30 快照起文档不再列出加拿大端点（ca-api.together.ai），保证范围收窄到 us-api.together.ai；文档未说明该端点是否已停用。"
 anchor = "togetherai-privsec-geo-specific-inference"
 
 [[product.processing_region.point]]
-text = "For other data-residency, regulatory, or compliance requirements, such as GDPR, Together supports private networking and virtual private cloud (VPC) deployments, including in EU regions. Use a dedicated endpoint, or contact us to discuss the right setup for your workload."
+text = "For other data-residency, regulatory, or compliance requirements, such as GDPR, Together supports private networking and virtual private cloud (VPC) deployments, including in EU regions. Use a dedicated endpoint, or contact sales to discuss the right setup for your workload."
 text_zh = "EU 不在 serverless 的可选区域内：同段把 GDPR 等需求引向 private networking / VPC 部署，并要求改用 dedicated endpoint。"
 anchor = "togetherai-privsec-eu-vpc-dedicated"
 
@@ -149,7 +149,7 @@ anchor = "togetherai-privsec-north-america-dc"
 
 [[product.processing_region.point]]
 text = "Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located."
-text_zh = "《Privacy Policy》§2.5 另写明数据在公司的运营办公室及处理各方所在地处理，不限定美国。故该句不能推出默认 serverless 端点的处理地；codes 的 US/CA 只来自可选的 geo-specific 端点，不是默认承诺。"
+text_zh = "《Privacy Policy》§2.5 另写明数据在公司的运营办公室及处理各方所在地处理，不限定美国。故该句不能推出默认 serverless 端点的处理地；codes 的 US 只来自 geo-specific 端点，不是默认承诺。"
 anchor = "togetherai-privacy-2-5-processing-locations"
 
 [product.role]
@@ -233,7 +233,7 @@ anchor = "togetherai-zdr-doc-eu-dedicated"
 
 [[product.processing_region.point]]
 text = "For data-residency, regulatory, or compliance requirements, Together supports private networking and virtual private cloud (VPC) deployments on dedicated endpoints, including in EU regions."
-text_zh = "本档的 EU 披露来自此句：private networking / VPC 部署通过 dedicated endpoints 提供，包含 EU regions。privacy-and-security 页同段（Enterprise data residency and private networking）也有同向披露，并把 serverless 的地理专用推理限定在 US/CA、把 EU 需求引向 dedicated endpoint。"
+text_zh = "本档的 EU 披露来自此句：private networking / VPC 部署通过 dedicated endpoints 提供，包含 EU regions。privacy-and-security 页同段（Enterprise data residency and private networking）也有同向披露，并把 serverless 的地理专用推理限定在 US、把 EU 需求引向 dedicated endpoint。"
 anchor = "togetherai-zdr-doc-eu-dedicated"
 
 [[product.processing_region.point]]
@@ -550,7 +550,7 @@ prefix = """
 Enterprise data residency and private networking
 
 """
-exact = "For select serverless models, geo-specific inference keeps inference processing in the United States or Canada, with no GPUs to provision. The guarantee applies to the geography whose endpoint you use: us-api.together.ai for the United States or ca-api.together.ai for Canada. It covers only where those requests are processed, not where data is stored, logged, or routed."
+exact = "For select serverless models, geo-specific inference keeps inference processing in the United States, with no GPUs to provision. The guarantee applies to requests sent to `us-api.together.ai`. It covers only where those requests are processed, not where data is stored, logged, or routed."
 suffix = " For other data-residency, regulatory, or compliance requirements"
 
 [[anchor]]
@@ -560,8 +560,7 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = "not where data is stored, logged, or routed. "
-exact = "For other data-residency, regulatory, or compliance requirements, such as GDPR, Together supports private networking and virtual private cloud (VPC) deployments, including in EU regions. Use a dedicated endpoint, or contact us to discuss the right setup for your workload."
-suffix = " For the full legal picture, see the privacy policy."
+exact = "For other data-residency, regulatory, or compliance requirements, such as GDPR, Together supports private networking and virtual private cloud (VPC) deployments, including in EU regions. Use a dedicated endpoint, or contact sales to discuss the right setup for your workload."
 
 [[anchor]]
 id = "togetherai-privsec-north-america-dc"
