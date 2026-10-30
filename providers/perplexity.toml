@@ -15,7 +15,7 @@ note = "Agent API 文档「Conversation state」页。这是本档唯一直接�
 url = "https://docs.perplexity.ai/docs/resources/faq"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(共 3 问)。措辞是平台级的「the API」，未限定端点。2026-10-24 快照(#827)改版：删去旧句「We do not retain any query data sent through the API and do not train on any of your data.」与「By default, the API has zero day retention of user prompt data, which is never used for AI training.」；训练改为以合同为依据的「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models.」，保留改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default. See Privacy & Security for details.」；计算托管地(AWS 北美)一句未变。改版后 FAQ 与 privacy-security 口径一致（ZDR 非默认、保留随配置而异），原先两页的字面冲突消失。"
+note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security 段(现为 2 问)。措辞是平台级的「the API」，未限定端点。2026-10-24 快照(#827)改版：删去旧句「We do not retain any query data sent through the API and do not train on any of your data.」与「By default, the API has zero day retention of user prompt data, which is never used for AI training.」；训练改为以合同为依据的「Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models.」，保留改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default. See Privacy & Security for details.」。2026-10-31 快照(#969)又删除了整段「Where Are Perplexity's Language Models Hosted?」问答，包括「Our compute is hosted via Amazon Web Services in North America.」及指向 Privacy & Security 的保留说明；api 档 processing_region 因此失去唯一依据。改版后 FAQ 与 privacy-security 口径一致（ZDR 非默认、保留随配置而异），原先两页的字面冲突消失。"
 
 [[source]]
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
@@ -159,12 +159,27 @@ text_zh = "合同层未给非个人输入输出的保留期限；API ToS 里唯�
 anchor = "perplexity-api-tos-10-5-retention"
 
 [product.processing_region]
-codes = ["US"]
-anchor = "perplexity-docs-faq-processing-region"
+mark = "unknown"
+basis = "undisclosed"
+searched = [
+  "https://docs.perplexity.ai/docs/resources/faq",
+  "https://docs.perplexity.ai/docs/resources/privacy-security",
+  "https://perplexity.ai/hub/legal/perplexity-api-terms-of-service",
+  "https://perplexity.ai/hub/legal/dpa",
+  "https://trust.perplexity.ai/subprocessors",
+]
 
 [[product.processing_region.point]]
-text = "See the top-level processing_region entry: no processing-location clause at contract level; it rests on the documentation site and the trust center."
-text_zh = "见顶层 processing_region：合同层无处理地条款，靠文档站与 trust center。"
+text = "Structured conclusion: no region code can be assigned. The only first-party sentence stating where compute runs — \"Our compute is hosted via Amazon Web Services in North America.\" — was deleted by the vendor in the 2026-10-31 snapshot (#969), together with the whole \"Where Are Perplexity's Language Models Hosted?\" question. The other sources for this tier carry no processing-location clause: Privacy & Security does not mention hosting, and DPA §11 is a transfer mechanism only (the finding already recorded on the enterprise tier)."
+text_zh = "结构化结论：无法给出区域码。唯一说明计算托管地的第一方句子「Our compute is hosted via Amazon Web Services in North America.」已由厂商在 2026-10-31 快照(#969)中连同整个「Where Are Perplexity's Language Models Hosted?」问答删除。本档其他来源均无处理地条款：Privacy & Security 不提托管地，DPA §11 只是传输机制（企业档已记同一结论）。"
+
+[[product.processing_region.point]]
+text = "The trust-center subprocessor list marks every vendor US, but that column is the vendor company's location, not the processing location — the consumer, enterprise, search and embeddings tiers are judged on the same reasoning, so it cannot support a region code here either. Search scope is recorded in searched."
+text_zh = "trust center 子处理者清单全标 US，但那是厂商公司所在地，不是处理地——消费者、企业、Search、Embeddings 档按同一理由判定，故也不能支撑本档的区域码。查阅范围见 searched。"
+
+[[product.processing_region.point]]
+text = "This is non-disclosure of the current text, not a vendor statement that data is retained or processed outside any named region: the page was captured successfully and the hosting question is simply gone from it."
+text_zh = "这是「现行正文未披露」，不是厂商声明数据会留存或在某地区处理：本快照是成功抓取的现行页面，托管地一问确实已不在页面上。"
 
 [product.role]
 kind = "processor"
@@ -737,19 +752,6 @@ topics = ["retention", "zdr"]
 prefix = "Under the API Terms of Service, Perplexity does not use Customer Content to train generative AI models. "
 exact = "Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default."
 suffix = " See Privacy & Security for details."
-
-[[anchor]]
-id = "perplexity-docs-faq-processing-region"
-source_id = "23f1f66914c32643"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = """
-Where Are Perplexity's Language Models Hosted?
-
-"""
-exact = "Our compute is hosted via Amazon Web Services in North America."
-suffix = " For how API data is retained, including when Zero Data Retention (ZDR) is available"
 
 [[anchor]]
 id = "perplexity-search-addendum-1-2-2-zdr"
