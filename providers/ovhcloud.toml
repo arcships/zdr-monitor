@@ -38,7 +38,7 @@ note = "官方文档「AI Endpoints - Using Batch mode」。附录 10 明文列�
 url = "https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-capabilities"
 channel = "developer_data"
 tier = "core"
-note = "官方文档「AI Endpoints - Features, Capabilities and Limitations」。两处关键：①Info 栏逐字指定管辖条款「AI Endpoints is covered by the OVHcloud Public Cloud Special Conditions (see Appendix 10 – \"Specific Conditions – AI Endpoints\")」——这是把产品与合同串起来的唯一官方文字（同一句还出现在 getting-started、billing、catalog-api、virtual-models 等页的 Info 栏）；②特性表「Data Privacy and Sovereignty」行给出处理地（Gravelines, France）与「Data is not stored or shared during or after model use」。作 api-eu 档 processing_region 的主权威，zdr/retention 的文档层佐证。"
+note = "官方文档「AI Endpoints - Features, Capabilities and Limitations」。两处关键：①Info 栏逐字指定管辖条款「AI Endpoints is covered by the OVHcloud Public Cloud Special Conditions (see Appendix 10 – \"Specific Conditions – AI Endpoints\")」——这是把产品与合同串起来的唯一官方文字（同一句还出现在 getting-started、billing、catalog-api、virtual-models 等页的 Info 栏）；②特性表「Data Privacy and Sovereignty」行给出处理地表述（当前快照为「hosted in Europe」；上一版快照为「located in Gravelines, France」）与「Data is not stored or shared during or after model use」。作 api-eu 档 processing_region 的主权威，zdr/retention 的文档层佐证。"
 
 [[source]]
 url = "https://us.ovhcloud.com/legal/data-processing-agreement/"
@@ -57,7 +57,7 @@ id = "api-eu"
 badge = "按量 API"
 category = "api"
 plan_level = "any"
-label = "OVHcloud AI Endpoints（serverless 按量 API，EU/IE 合同，部署于法国 Gravelines）"
+label = "OVHcloud AI Endpoints（serverless 按量 API，EU/IE 合同，官方文档称处理地 hosted in Europe）"
 site = "eu"
 
 [product.training]
@@ -113,23 +113,23 @@ text_zh = "EU DPA §10.1 服务到期后按合同删除全部 Content。⑤本�
 text_zh = "OVHcloud 作为 controller 的量化保留期（如会计凭证 10 年）针对账号/账单数据，不是请求内容；这部分由 OVHcloud Data Usage Policy 管辖（见 role 维度的边界说明），该政策尚未纳入本文件 [[source]]，机器不可复核。本维度结构化字段只描述请求内容：同步推理＝不含存储（basis=none），Batch 输出/错误文件的 15 天上限见前条 point。"
 
 [product.processing_region]
-codes = ["FR"]
-anchor = "caps-gravelines-france-infrastructure"
+codes = ["EU"]
+anchor = "caps-hosted-in-europe"
 
 [[product.processing_region.point]]
-text_zh = "API 档结论：文档与营销层一致指向法国 Gravelines，但条款层没有 AI Endpoints 专用地点条款，故 confidence=medium。①文档层（主权威）：capabilities「Our infrastructure, located in Gravelines, France, adheres to European data protection regulations.」"
+text_zh = "API 档结论：官方文档只把处理地说到「Europe」，没有指名法国 Gravelines，也没有把 AI Endpoints 固定到某个具体数据中心；条款层同样没有 AI Endpoints 专用地点条款，故 confidence=medium。①文档层（主权威）：capabilities「Our infrastructure, hosted in Europe, adheres to European data protection regulations.」——2026-10 快照中该句由「located in Gravelines, France」改为「hosted in Europe」，厂商不再逐字承诺法国，故结构化 codes 由 FR 改为 EU。注意 codes=EU 是宽泛归类：原文写的是 Europe，词表没有 Europe 代码，EU 只是最接近的可筛选值，不能读成厂商逐字承诺「欧盟」。"
 
 [[product.processing_region.point]]
-text_zh = "产品页「Hosted by OVHcloud, a leading European provider of sovereign cloud services since 1999.」"
+text_zh = "②产品页与新闻稿均未纳入本文件 [[source]]，没有快照可供核对，故本维度不以它们的措辞作为证据；可机器复核的处理地表述只有 capabilities 的「hosted in Europe」。若以后要引用产品页，需先把它加进 [[source]] 并等 bot 抓回快照。"
 
 [[product.processing_region.point]]
-text_zh = "官方新闻稿（2025-04-29）「It is available now in APAC, Canada and Europe and deployed from the Gravelines datacenter.」——商业可用范围（APAC/加拿大/欧洲）与部署地（法国）是两件事。②条款层：附录 10 全文无地点条款"
+text_zh = "③条款层：附录 10 全文无地点条款。另，官方新闻稿（2025-04-29）「It is available now in APAC, Canada and Europe and deployed from the Gravelines datacenter.」是发布时点的部署地表述，不能当作现行承诺（现行文档已改为 hosted in Europe）；商业可用范围（APAC/加拿大/欧洲）与处理地也是两件事。"
 
 [[product.processing_region.point]]
-text_zh = "AI Endpoints 是 serverless，文档示例只有单一全局端点 oai.endpoints.kepler.ai.cloud.ovh.net，客户无法选择处理地（与 AI Tools 档「地点由客户创建时选择」正相反）。EU DPA §6.1 的「客户选择 Datacenter」以「Service allows the Client to store Content」为前提，§6.2 反而允许 OVHcloud 及其子处理者为安全与运维目的远程处理 Content，§6.3/6.4 规定非充分性国家数据中心与关联方传输的适用条件。③子处理者清单（IE 版）中 OVH Hebergement Inc.（Canada）对「All Services, regardless of their location, except SecNumCloud and Trusted Cloud」承担处理——AI Endpoints 既非 SecNumCloud 也非 Trusted Cloud，故加拿大关联方在清单范围内可远程介入"
+text_zh = "AI Endpoints 是 serverless，文档示例只有单一全局端点 oai.endpoints.kepler.ai.cloud.ovh.net，客户无法选择处理地（与 AI Tools 档「地点由客户创建时选择」正相反）。EU DPA §6.1 的「客户选择 Datacenter」以「Service allows the Client to store Content」为前提，§6.2 反而允许 OVHcloud 及其子处理者为安全与运维目的远程处理 Content，§6.3/6.4 规定非充分性国家数据中心与关联方传输的适用条件。④子处理者清单（IE 版）中 OVH Hebergement Inc.（Canada）对「All Services, regardless of their location, except SecNumCloud and Trusted Cloud」承担处理——AI Endpoints 既非 SecNumCloud 也非 Trusted Cloud，故加拿大关联方在清单范围内可远程介入"
 
 [[product.processing_region.point]]
-text_zh = "平台页 data sovereignty 称只有 EU 实体或充分性认定国家（特别是加拿大）实体可介入欧洲客户服务，两处方向一致，但都不构成对请求内容处理地的量化承诺。④EU 站区域可用性表在 FRANCE 区块给 AI Endpoints 一个 ✓，Canada/USA 区块无 ✓（markdown 表格列被压平，列位不作强断言）。"
+text_zh = "平台页 data sovereignty 称只有 EU 实体或充分性认定国家（特别是加拿大）实体可介入欧洲客户服务，两处方向一致，但都不构成对请求内容处理地的量化承诺。⑤EU 站区域可用性表在 FRANCE 区块给 AI Endpoints 一个 ✓，Canada/USA 区块无 ✓（markdown 表格列被压平，列位不作强断言）。"
 
 [product.role]
 kind = "processor"
@@ -222,7 +222,7 @@ text_zh = "AI Tools 档的处理地由客户在创建时选择：附录 7 §2.3�
 text_zh = "EU DPA §6.1 同旨（允许客户存储 Content 的服务，可用 Datacenter 位置在官网/控制台标明，OVHcloud 未经客户事先同意不得变更），§6.2 允许关联方为安全与运维目的远程处理。即本档没有「固定在某地」的承诺，处理地＝客户所选区域"
 
 [[product.processing_region.point]]
-text_zh = "OVHcloud 及关联方的远程运维是例外路径。对照：AI Endpoints 档无区域选择、固定 Gravelines。"
+text_zh = "OVHcloud 及关联方的远程运维是例外路径。对照：AI Endpoints 档无区域选择、官方文档称 hosted in Europe（不再逐字写 Gravelines）。"
 
 [product.role]
 kind = "processor"
@@ -732,13 +732,13 @@ Introduction
 AI Endpoints is a serverless platform prov"""
 
 [[anchor]]
-id = "caps-gravelines-france-infrastructure"
+id = "caps-hosted-in-europe"
 source_id = "dd9a86a7f37555fd"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "oints are fully compliant with strict European regulations. "
-exact = "Our infrastructure, located in Gravelines, France, adheres to European data protection regulations."
+prefix = "AI Endpoints are fully compliant with strict European regulations. "
+exact = "Our infrastructure, hosted in Europe, adheres to European data protection regulations."
 suffix = " Data is not stored or shared during or after model use, pro"
 
 [[anchor]]
@@ -747,7 +747,7 @@ source_id = "dd9a86a7f37555fd"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "s, France, adheres to European data protection regulations. "
+prefix = "hosted in Europe, adheres to European data protection regulations. "
 exact = "Data is not stored or shared during or after model use, providing users with peace of mind that their data is secure and protected."
 suffix = """
 
