@@ -11,7 +11,7 @@ doc = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20
 url = "https://help.aliyun.com/zh/model-studio/confidential-maas-best-practice"
 channel = "developer_data"
 tier = "core"
-note = "百炼国内站《机密推理（Confidential MaaS）最佳实践》。为 zdr 维度的适用范围与开通条件作证：定向邀请、需签署特别规则、当前仅华北 2（北京）、平台不留存明文提示词/输出/密钥。不覆盖默认按量 API。"
+note = "百炼国内站《机密推理（Confidential MaaS）最佳实践》。为 zdr 维度的适用范围与开通条件作证：目前为邀测功能（需联系阿里云商务申请开通）、需签署特别规则、当前仅华北 2（北京）、平台不留存明文提示词/输出/密钥。不覆盖默认按量 API。"
 
 [[source]]
 url = "https://help.aliyun.com/zh/model-studio/privacy-notice"
@@ -35,7 +35,7 @@ note = "《阿里云百炼服务协议》国内站（生效日期 2026-09-02，�
 url = "https://terms.alicdn.com/legal-agreement/terms/common_product_agreement/20260529140548196/20260529140548196.html"
 channel = "contract"
 tier = "core"
-note = "《阿里云百炼机密推理服务特别规则》（发布 2026-07-17，生效 2026-07-24）。仅覆盖阿里云百炼机密推理服务（CMaaS，TEE 硬件机密计算，定向邀请开通、需单独签署、当前仅华北 2（北京）），不覆盖按量付费 API 默认路径。它只是 CMaaS 自己的条款级依据；api 档的 zdr 结论按服务协议 §6.2.5 判，本来源只作「唯一零明文路径属邀请制另一档」的补充说明，不构成 api 档的依据。"
+note = "《阿里云百炼机密推理服务特别规则》（发布 2026-07-17，生效 2026-07-24）。仅覆盖阿里云百炼机密推理服务（CMaaS，TEE 硬件机密计算，邀测开通、需单独签署、当前仅华北 2（北京）），不覆盖按量付费 API 默认路径。它只是 CMaaS 自己的条款级依据；api 档的 zdr 结论按服务协议 §6.2.5 判，本来源只作「唯一零明文路径属邀请制另一档」的补充说明，不构成 api 档的依据。"
 
 [[product]]
 id = "api"
@@ -89,8 +89,8 @@ text_zh = "另一条平台人员可接触明文的路径：§4.3.1(1)「我们�
 
 [[product.zdr.point]]
 anchor = "zdr-cmas-no-plaintext-recorded"
-text = "The only clause-level zero-plaintext path belongs to a different tier: the standalone Confidential MaaS (CMaaS) product, whose Special Rules state that in the course of providing the service we do not record plaintext prompts, model outputs or the corresponding encryption keys, and that the prompts, outputs and keys are held by the customer. CMaaS is invite-only, requires signing the Special Rules separately and currently runs only in China North 2 (Beijing); the Special Rules are themselves scoped to the CMaaS service, so they do not cover the default pay-as-you-go API. \"A zero-retention path exists but is bound to an invite-only sub-product\" is the fact for this tier; it is not a default capability of it."
-text_zh = "唯一条款级的零明文路径属另一档：独立产品「阿里云百炼机密推理服务（CMaaS）」的《特别规则》第 2 条写「为您提供本服务的过程中，我们不会记录明文提示词和模型输出内容以及对应的加密密钥」，第 3 条写密钥与内容由客户掌握。但该产品定向邀请开通、需单独签署特别规则、当前仅华北 2（北京）地域，且《特别规则》开篇即限定「本规则适用于您或您代表的企业使用阿里云CMaaS服务」，不覆盖默认按量付费 API 档。本档的事实是「有零保留路径但绑定在一个邀请制子产品上」，不能等同于本档的默认能力。"
+text = "The only clause-level zero-plaintext path belongs to a different tier: the standalone Confidential MaaS (CMaaS) product, whose Special Rules state that in the course of providing the service we do not record plaintext prompts, model outputs or the corresponding encryption keys, and that the prompts, outputs and keys are held by the customer. CMaaS is currently an invite-only beta (邀测) that requires applying through Alibaba Cloud sales, requires signing the Special Rules separately and currently runs only in China North 2 (Beijing); the Special Rules are themselves scoped to the CMaaS service, so they do not cover the default pay-as-you-go API. \"A zero-retention path exists but is bound to a sub-product that must be applied for\" is the fact for this tier; it is not a default capability of it."
+text_zh = "唯一条款级的零明文路径属另一档：独立产品「阿里云百炼机密推理服务（CMaaS）」的《特别规则》第 2 条写「为您提供本服务的过程中，我们不会记录明文提示词和模型输出内容以及对应的加密密钥」，第 3 条写密钥与内容由客户掌握。但该产品目前为邀测功能、需联系阿里云商务申请开通、需单独签署特别规则、当前仅华北 2（北京）地域，且《特别规则》开篇即限定「本规则适用于您或您代表的企业使用阿里云CMaaS服务」，不覆盖默认按量付费 API 档。本档的事实是「有零保留路径但绑定在一个需申请开通的邀测子产品上」，不能等同于本档的默认能力。"
 
 [product.retention]
 object = "input_output"
@@ -496,21 +496,14 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
- 1,000,000
-```
+开通机密推理需满足以下前提：
 
-## 4 开通与使用前提
-
-开通机密推理需满足定向邀请、地域支持与合规签署三项前提。
-
-"""
-exact = "机密推理为定向邀请使用，需联系阿里云商务申请开通。"
+1. **邀测功能**："""
+exact = "机密推理目前为邀测功能，需联系阿里云商务申请开通。"
 suffix = """
 
 
-当前支持华北 2（北京）地域。
-
-部署前须签署[《阿里云百炼机密推理服务特别规则》](https://terms.a"""
+2. **地域**：当前支持华北2（北京）地域。"""
 
 [[anchor]]
 id = "zdr-cmas-no-plaintext-kept"
