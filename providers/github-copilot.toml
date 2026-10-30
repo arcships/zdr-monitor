@@ -11,7 +11,7 @@ url = "https://copilot.github.trust.page/faq"
 fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "GitHub Copilot Trust Center FAQ(页面标题「github.com Trust Center」，站点为 GitHub 官方 trust.page 域，导航含 Overview/Resources/FAQ/Updates/Media)。主体是面向 Copilot Business / Enterprise 客户的问答，同时含个人订阅档的专门段落(如「In addition,for Individual subscribers only:GitHub may use Copilot interaction data…」)。本家唯一给出量化保留期限的官方页：IDE 路径输入输出默认不留存、其他访问路径默认最多 28 天、User Engagement Data 两年、Copilot Vision 图片 48 小时(被标记 30 天)、Coding Agent 会话日志随账户存续。也是 role(「GitHub acts primarily as a data processor」)与上游模型商(Anthropic/Google 不训练不留存)的官方依据。注意该页「Does GitHub use Copilot Individual data to train AI models?」一条的答案文本被渲染成商业档答案(与个人档段落自相矛盾)，属页面自身缺陷，见 notes。"
+note = "GitHub Copilot Trust Center FAQ(页面标题「github.com Trust Center」，站点为 GitHub 官方 trust.page 域，导航含 Overview/Resources/FAQ/Updates/Media)。主体是面向 Copilot Business / Enterprise 客户的问答，同时含个人订阅档的专门段落(如「In addition,for Individual subscribers only:GitHub may use Copilot interaction data…」)。本家唯一给出保留期限的官方页：IDE 路径(含 Copilot App)输入输出默认不留存、其他访问路径输入输出留至账户存续、User Engagement Data 两年、Copilot Vision 图片 48 小时(被标记 30 天)。2026-10-31 快照把其他访问路径从「最多 28 天」改为「留至账户存续」，并删去 Coding Agent 会话日志单列句。也是 role(「GitHub acts primarily as a data processor」)与上游模型商(Anthropic/Google 不训练不留存)的官方依据。注意该页「Does GitHub use Copilot Individual data to train AI models?」一条的答案文本被渲染成商业档答案(与个人档段落自相矛盾)，属页面自身缺陷，见 notes。"
 
 [[source]]
 url = "https://docs.github.com/en/copilot/reference/ai-models/model-hosting"
@@ -119,8 +119,8 @@ text_zh = "例外：GitHub 在执法与安全运营中，以 DPA 下的独立控
 anchor = "ghcopilot-trust-independent-controller-targeted-logging"
 
 [[product.retention.point]]
-text_zh = "对照：同一家商业档有明确量化(IDE 路径默认不留存 / 其他访问路径最多 28 天，且该量化写在 Trust Center FAQ 的「The default settings for Copilot Business and Enterprise Customers are as follows」之下)，个人档没有对应条款，不能把商业档的 28 天外推到个人档。"
-anchor = "ghcopilot-trust-other-access-28-days"
+text_zh = "对照：同一家商业档在 Trust Center FAQ 的「The default settings for Copilot Business and Enterprise Customers are as follows」之下列出两条路径：IDE 的 Chat / Code Completions / Copilot App / Copilot CLI 输入输出默认不留存；其他访问路径的输入输出「Retained for the life of the account」(留至账户存续)。个人档没有对应条款，不能把商业档口径外推到个人档。"
+anchor = "ghcopilot-trust-other-access-account-life"
 
 [product.processing_region]
 codes = ["US", "global"]
@@ -198,8 +198,8 @@ text = "The only quantified figure for this tier has a different object: 「Copi
 text_zh = "本档唯一可量化的口径对象不是请求正文：github.com Copilot Chat 最多保留 100 个最近对话，单条对话内消息保留 28 天后永久删除，对象是「对话历史/Chat 消息」。"
 anchor = "ghcopilot-ask-questions-chat-history-28-days"
 [[product.retention.point]]
-text = "Request bodies (inputs and outputs) have no quantified period on this tier: the platform-level statement only says 「We’ll retain your Personal Data as long as your account is active and as needed to fulfill contractual obligations…」 (unquantified); the Terms of Service add deletion of repository content 「within 90 days of cancellation or termination (though some information may remain in encrypted backups)」. The Business/Enterprise default of up to 28 days sits under 「The default settings for Copilot Business and Enterprise Customers are as follows」 and must not be used to fill this tier’s request-body period."
-text_zh = "请求正文没有个人档统一期限：平台级只有「We’ll retain your Personal Data as long as your account is active…」(未量化)，ToS 另补注销后 90 天内删除仓库内容(仍可能留在加密备份)。商业档的「最多 28 天」写在 Trust Center FAQ 的「The default settings for Copilot Business and Enterprise Customers are as follows」之下，只覆盖商业档，不能用来填免费档的请求正文期限。"
+text = "Request bodies (inputs and outputs) have no quantified period on this tier: the platform-level statement only says 「We’ll retain your Personal Data as long as your account is active and as needed to fulfill contractual obligations…」 (unquantified); the Terms of Service add deletion of repository content 「within 90 days of cancellation or termination (though some information may remain in encrypted backups)」. The Business/Enterprise defaults — IDE inputs and outputs not retained, other access retained 「for the life of the account」 — sit under 「The default settings for Copilot Business and Enterprise Customers are as follows」 and must not be used to fill this tier’s request-body period."
+text_zh = "请求正文没有个人档统一期限：平台级只有「We’ll retain your Personal Data as long as your account is active…」(未量化)，ToS 另补注销后 90 天内删除仓库内容(仍可能留在加密备份)。商业档的按路径口径(IDE 输入输出默认不留存 / 其他访问路径「Retained for the life of the account」)写在 Trust Center FAQ 的「The default settings for Copilot Business and Enterprise Customers are as follows」之下，只覆盖商业档，不能用来填免费档的请求正文期限。"
 anchor = "ghcopilot-privacy-retention-account-active"
 [[product.retention.point]]
 text = "Exception, unquantified: 「acting as an independent data controller under the GitHub Data Protection Agreement, GitHub may enable targeted logging of input and output data associated with confirmed policy-violating accounts for a limited period.」"
@@ -267,20 +267,19 @@ text = "Contract boundary: the DPA that carries the processor commitments 「app
 text_zh = "合同层边界：本档的 ZDR/处理承诺都挂在 DPA 上，而 DPA §2.A.ii 把 Previews 排除在覆盖之外(除 GitHub 明确指定受 DPA 管辖)；preview 的隐私与安全措施可能不同、按 Preview Terms 提供，客户不应在其中处理受法律或监管合规要求约束的数据；GenAI Terms §7 进一步把 preview 功能改由 GitHub Pre-Release License Terms 管辖。"
 anchor = "ghcopilot-dpa-2a-previews-excluded"
 [product.retention]
-days = 28
 object = "mixed"
-basis = "fixed_period"
-anchor = "ghcopilot-trust-other-access-28-days"
+basis = "until_termination"
+anchor = "ghcopilot-trust-other-access-account-life"
 [[product.retention.point]]
-text_zh = "按访问路径分列(对象不同)：IDE 的 Chat / Code Completions / Copilot CLI——输入输出默认不留存。"
+text_zh = "按访问路径分列(对象不同)：IDE 的 Chat / Code Completions / Copilot App / Copilot CLI——输入输出默认不留存；例外为调查已确认的 AUP/ToS 违规或保护服务安全，须定向、限时并遵守 DPA。"
 anchor = "ghcopilot-trust-biz-ide-inputs-outputs-not-retained"
 [[product.retention.point]]
-text = "Other access and use: 「Inputs and Outputs: Retained for up to 28 days by default.」 This is a default ceiling with an exception attached in the same paragraph — GitHub 「may retain input and output data beyond this period, or enable retention where it would not otherwise occur, where necessary to investigate confirmed violations of GitHub’s Acceptable Use Policies or Terms of Service, or to protect the security and integrity of the Online Services」, and such retention must be targeted, time-limited and DPA-compliant."
-text_zh = "其他访问与使用路径：输入输出默认最多 28 天(默认上限)。同段例外：为调查已确认的 AUP/ToS 违规或保护服务安全，GitHub 可保留超过该期限，或在原本不留存处启用保留，且须定向、限时并遵守 DPA。"
-anchor = "ghcopilot-trust-other-access-28-days"
+text = "Other access and use: 「Inputs and Outputs: Retained for the life of the account.」 The previous default ceiling of up to 28 days is no longer in the text. The same paragraph keeps an exception — GitHub 「may enable retention where it would not otherwise occur, where necessary to investigate confirmed violations of GitHub’s Acceptable Use Policies or Terms of Service, or to protect the security and integrity of the Online Services」 — and such retention must be targeted, time-limited and DPA-compliant."
+text_zh = "其他访问与使用路径：输入输出「Retained for the life of the account」(留至账户存续，无固定天数上限)。此前「最多 28 天」的默认上限已不在现行正文中。同段例外保留：为调查已确认的 AUP/ToS 违规或保护服务安全，GitHub 可在原本不留存处启用保留，且须定向、限时并遵守 DPA。"
+anchor = "ghcopilot-trust-other-access-account-life"
 [[product.retention.point]]
-text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's 28-day default ceiling for other access paths."
-text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径的 28 天上限。"
+text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
 anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
 [[product.retention.point]]
 text_zh = "其他对象：User Engagement Data 保留两年；Feedback Data 按目的所需保留。"
@@ -366,23 +365,22 @@ text_zh = "合同层边界：本档 ZDR/处理承诺都挂在 DPA 上，而 DPA 
 anchor = "ghcopilot-dpa-2a-previews-excluded"
 
 [product.retention]
-days = 28
 object = "mixed"
-basis = "fixed_period"
-anchor = "ghcopilot-trust-other-access-28-days"
+basis = "until_termination"
+anchor = "ghcopilot-trust-other-access-account-life"
 
 [[product.retention.point]]
-text_zh = "按访问路径分裂：IDE 的 Chat / Code Completions / Copilot CLI——输入输出默认不留存，例外为调查已确认的 AUP/ToS 违反或保护服务安全，且须「targeted, time-limited」并遵守 DPA"
+text_zh = "按访问路径分裂：IDE 的 Chat / Code Completions / Copilot App / Copilot CLI——输入输出默认不留存，例外为调查已确认的 AUP/ToS 违反或保护服务安全，且须「targeted, time-limited」并遵守 DPA"
 anchor = "ghcopilot-trust-biz-ide-inputs-outputs-not-retained"
 
 [[product.retention.point]]
-text = "Other access and use: 「Inputs and Outputs: Retained for up to 28 days by default.」 The same paragraph attaches the exception: GitHub 「may retain input and output data beyond this period, or enable retention where it would not otherwise occur, where necessary to investigate confirmed violations of GitHub’s Acceptable Use Policies or Terms of Service, or to protect the security and integrity of the Online Services」, and such retention must be targeted, time-limited and DPA-compliant."
-text_zh = "其他访问与使用——输入输出默认最多 28 天(默认上限)，非无条件固定期。同段例外：为调查已确认的 AUP/ToS 违规或保护服务安全，可保留超过该期限或在原本不留存处启用保留，须定向、限时并遵守 DPA。"
-anchor = "ghcopilot-trust-other-access-28-days"
+text = "Other access and use: 「Inputs and Outputs: Retained for the life of the account.」 The previous default ceiling of up to 28 days is no longer in the text. The same paragraph keeps an exception — GitHub 「may enable retention where it would not otherwise occur, where necessary to investigate confirmed violations of GitHub’s Acceptable Use Policies or Terms of Service, or to protect the security and integrity of the Online Services」 — and such retention must be targeted, time-limited and DPA-compliant."
+text_zh = "其他访问与使用——输入输出「Retained for the life of the account」(留至账户存续，无固定天数上限)。此前「最多 28 天」的默认上限已不在现行正文中。同段例外保留：为调查已确认的 AUP/ToS 违规或保护服务安全，可在原本不留存处启用保留，须定向、限时并遵守 DPA。"
+anchor = "ghcopilot-trust-other-access-account-life"
 
 [[product.retention.point]]
-text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's 28-day default ceiling for other access paths."
-text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径的 28 天上限。"
+text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
 anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
 
 [[product.retention.point]]
@@ -393,7 +391,8 @@ anchor = "ghcopilot-trust-engagement-data-2-years"
 text_zh = "Feedback Data 按目的所需"
 
 [[product.retention.point]]
-text_zh = "Copilot Coding Agent 会话日志随账户存续"
+text_zh = "旧正文单列的「Copilot Coding Agent: Session logs are retained for the life of the account in order to provide the service.」本次快照已删去；现行正文只保留「Other GitHub Copilot access and use: Inputs and Outputs: Retained for the life of the account」，不再单列 Coding Agent 会话日志。"
+anchor = "ghcopilot-trust-other-access-account-life"
 
 [[product.retention.point]]
 text_zh = "Copilot Vision 图片 48 小时内从活动系统删除(被标记者 30 天内)。合同层：GenAI Terms §6 只说明「某些 Generative AI Services 会为提供服务而保留输入输出…保留细节见各服务产品文档」，不写期限"
@@ -745,18 +744,18 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = "r Copilot Business and Enterprise Customers are as follows: "
-exact = "**Access through IDE for Chat, Code Completions, and Copilot CLI:** - Inputs and Outputs: Not retained by default."
+exact = "**Access through IDE for Chat, Code Completions, **Copilot App,** and Copilot CLI:** - Inputs and Outputs: Not retained by default."
 suffix = " GitHub may retain input and output data for a limited perio"
 
 [[anchor]]
-id = "ghcopilot-trust-other-access-28-days"
+id = "ghcopilot-trust-other-access-account-life"
 source_id = "e19b41c0f34eae13"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "lot/reference/copilot-cli-reference/cli-command-reference). "
-exact = "**Other GitHub Copilot access and use:** - Inputs and Outputs: Retained for up to 28 days by default."
-suffix = " GitHub may retain input and output data beyond this period,"
+prefix = "Learn more about Copilot CLI commands here. "
+exact = "**Other GitHub Copilot access and use:** - Inputs and Outputs: Retained for the life of the account."
+suffix = " GitHub may enable retention where it would not otherwise occur"
 
 [[anchor]]
 id = "ghcopilot-trust-engagement-data-2-years"
