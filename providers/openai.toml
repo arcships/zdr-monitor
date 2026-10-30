@@ -30,7 +30,7 @@ url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data Controls FAQ(Updated 27 minutes ago)。现行正文含专节「Manage model training for Codex tasks」(原「How do I turn off training for Codex tasks?」),Codex 训练开关与「Include environments」独立设置都还在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。主要覆盖消费档。2026-10-23 快照(#814)新增四句与五维有关的正文:个人工作区默认开启数据共享、语音模式有独立的训练数据共享开关、锁定对话仍保存但隐藏,以及 Managed workspaces 节的「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」(API 训练口径旁证,api 档 training 的主证据仍是 developer_data)。同轮其余变化是标题层级、Updated 时间戳、Related articles、状态横幅,以及「this setting applies to your account across devices」改为「Improve the model for everyone applies to your account across web and mobile devices」(同义改写),与五维无关。语音模式、锁定对话与 API 训练三句已补进对应维度的说明点,默认共享句由既有 training 说明点覆盖;五维结论字段未变(changes/openai/2026-10-23-data-controls-disclosure-additions.toml)"
+note = "Data Controls FAQ(Updated 5 hours ago)。现行正文含专节「Manage model training for Codex tasks」,其中「Include environments」独立设置段仍在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。主要覆盖消费档。2026-10-23 快照(#814)新增四句与五维有关的正文:个人工作区默认开启数据共享、语音模式有独立的训练数据共享开关、锁定对话仍保存但隐藏,以及 Managed workspaces 节的「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」(API 训练口径旁证,api 档 training 的主证据仍是 developer_data)。同轮其余变化是标题层级、Updated 时间戳、Related articles、状态横幅,以及「this setting applies to your account across devices」改为「Improve the model for everyone applies to your account across web and mobile devices」(同义改写),与五维无关。语音模式、锁定对话与 API 训练三句已补进对应维度的说明点,默认共享句由既有 training 说明点覆盖;五维结论字段未变(changes/openai/2026-10-23-data-controls-disclosure-additions.toml)。2026-10-31 快照(#968)删除三处与训练有关的正文:其一,「Turn off Improve the model for everyone」节内的「When Improve the model for everyone is off, your new conversations won’t be used to train OpenAI models. They can still appear in your chat history.」被删;其二,「Manage model training for Codex tasks」节内「If you use Codex on a personal ChatGPT plan, Improve the model for everyone also applies to your Codex tasks. … After you opt out, new conversations and tasks won’t be used to train OpenAI models.」整段被删(即 openai-consumer-codex-optout-applies 的原锚点句),该页只剩「Include environments」独立开关段;其三,FAQ「What happens if I previously opted out through OpenAI Support or a privacy request?」连同「OpenAI continues to honor the opt-out associated with the account.」被删。新增「Trusted Access on personal accounts」段:Daybreak 等 Trusted Access 会话期间,「we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」。该页不再写 ChatGPT 退出设置适用于 Codex 任务,但同一表述仍见于 5722486 快照「Either option is sufficient for ChatGPT conversations and Codex tasks.」,该锚点改绑 df535f59df9ad959;该 Trusted Access 句已补为消费档 training 说明点。消费档 training 结论字段未变(mark=no、mode=opt_out)(changes/openai/2026-10-31-data-controls-codex-optout-removed-trusted-access-added.toml)。同轮其余变化为状态横幅、Updated 时间戳、Related articles 与侧栏,与五维无关。"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
@@ -173,6 +173,7 @@ text_zh = "默认可用于训练(opt-out 结构):个人服务(Free、Plus、Pro)
 [[product.training.point]]
 text = "To opt out, turn off \"Improve the model for everyone\" in ChatGPT under Settings → Data Controls, or choose \"Do not train on my content\" in the privacy portal; either one is enough, and it applies to both ChatGPT conversations and Codex tasks"
 text_zh = "退出方式为 ChatGPT Settings → Data Controls 关掉「Improve the model for everyone」或在隐私门户选「Do not train on my content」,任一即可,对 ChatGPT 对话与 Codex 任务同时生效"
+anchor = "openai-consumer-codex-optout-applies"
 
 [[product.training.point]]
 text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments, and changing the ChatGPT or Privacy Portal settings does not change it. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
@@ -182,6 +183,11 @@ text_zh = "Codex 全环境(full environments)训练是独立开关「Include env
 text = "Improve the model for everyone does not cover voice: \"Voice mode has a separate control for sharing data for model training\""
 text_zh = "Improve the model for everyone 不覆盖语音:「Voice mode has a separate control for sharing data for model training」,语音模式另有独立的训练数据共享开关"
 anchor = "openai-consumer-training-voice-separate-control"
+
+[[product.training.point]]
+text = "The opt-out is not absolute: for Trusted Access programs such as Daybreak Blue, \"During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off\". Outside a Trusted Access session the setting still applies to the account’s other activity"
+text_zh = "退出并非绝对:对 Daybreak Blue 等 Trusted Access 项目,厂商写明「During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」;非该类会话期间,该设置仍适用于账号的其他活动"
+anchor = "openai-consumer-training-trusted-access-exception"
 
 [product.zdr]
 mark = "unknown"
@@ -380,13 +386,13 @@ suffix = ". Changing your settings in ChatGPT or the Privacy Portal does not cha
 
 [[anchor]]
 id = "openai-consumer-codex-optout-applies"
-source_id = "c5bdc32bca931e70"
+source_id = "df535f59df9ad959"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "Manage model training for Codex tasks\nIf you use Codex on a personal ChatGPT plan, "
-exact = "Improve the model for everyone also applies to your Codex tasks"
-suffix = ". Turn it off in ChatGPT, or select Do not train on my content in the Privacy Portal."
+prefix = "in our Privacy Portal."
+exact = "Either option is sufficient for ChatGPT conversations and Codex tasks"
+suffix = ". You don’t need to do both."
 
 [[anchor]]
 id = "openai-consumer-temp-chat-30d"
@@ -618,3 +624,13 @@ topics = ["retention"]
 prefix = "When **Locked chats** is available for your account, "
 exact = "locked chats remain saved but are hidden from the regular sidebar"
 suffix = ", **Search**, recents, notifications, and previews."
+
+[[anchor]]
+id = "openai-consumer-training-trusted-access-exception"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "During Daybreak sessions on your personal account, "
+exact = "we may use content from your interactions to improve our models even when “Improve the model for everyone” is off"
+suffix = ". This helps us to strengthen safeguards against cyber misuse."
