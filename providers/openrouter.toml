@@ -22,7 +22,7 @@ note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Cha
 url = "https://openrouter.ai/docs/guides/features/zdr.md"
 channel = "developer_data"
 tier = "core"
-note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR/保留政策的原句（本轮快照（2026-10-27）改写为：对受 OpenRouter ZDR 政策覆盖的推理内容，处理完成即不保留 prompt/response，例外为显式选择存储与 CSAM 复核、上报及相关法定留存；页首另有一则 Planned update (October 27, 2026) 提示，称 OpenRouter will screen all inference requests, including ZDR traffic, for CSAM，并注明 We're updating this page and our related terms，故筛查本身按计划中记录）、ZDR 定义、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、BYOK 与私有端点的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
+note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR/保留政策的原句（对受 OpenRouter ZDR 政策覆盖的推理内容，处理完成即不保留 prompt/response，例外为显式选择存储与 CSAM 复核、上报及相关法定留存；页首另有一则 Planned update (October 27, 2026) 提示，称 OpenRouter will screen all inference requests, including ZDR traffic, for CSAM，并注明 We're updating this page and our related terms，故筛查本身按计划中记录）、ZDR 定义、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、Google Safety Retention（Google Vertex 模型被分类器标记的 prompt 最多留存 90 天且不用于训练，此类端点不满足严格 ZDR；开关还覆盖其他使用 Safety Retention 的模型，其期限未披露；企业默认 Zero retention only，其他账户默认 Safety retention allowed）、BYOK 与私有端点的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
@@ -125,6 +125,21 @@ anchor = "openrouter-zdr-csam-screening-exception-zdr"
 text = "Announced, not yet in force: a \"Planned update (October 27, 2026)\" note says OpenRouter \"will screen all inference requests, including ZDR traffic\" for CSAM in flight, and content flagged as potential CSAM \"may be retained for human review, reporting, and preservation where required by law\"; it adds that this \"does not permit general retention or use for model training\" and that \"We're updating this page and our related terms.\""
 text_zh = "已公告、尚未生效：页首「Planned update (October 27, 2026)」提示称 OpenRouter「will screen all inference requests, including ZDR traffic」以筛查 CSAM，被标记为疑似 CSAM 的内容「may be retained for human review, reporting, and preservation where required by law」；并写明这「does not permit general retention or use for model training」，且「We're updating this page and our related terms.」"
 
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-zdr"
+text = "Google models served through Vertex now have a retention boundary: with Safety Retention, Google may retain classifier-flagged prompts for up to 90 days for abuse monitoring, and these endpoints do not meet strict ZDR. Choosing Zero retention only excludes Safety Retention endpoints, making most Google models unavailable."
+text_zh = "经 Vertex 提供的 Google 模型新增保留边界：使用 Safety Retention 时，Google 可将分类器标记的 prompt 最多保留 90 天用于滥用监测，此类端点不满足严格 ZDR。选 Zero retention only 可排除这些端点，但多数 Google 模型随之不可用。"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-other-models-zdr"
+text = "The gate also covers other models that use Safety Retention, such as open-weight models on Vertex: guardrails use `allow_safety_retention_google` for Google models and `allow_safety_retention_other` for the others. The page states no retention period for those other models."
+text_zh = "该开关也覆盖使用 Safety Retention 的其他模型，例如 Vertex 上的 open-weight 模型；guardrail 对 Google 模型使用 `allow_safety_retention_google`，对其他模型使用 `allow_safety_retention_other`。页面未给这些其他模型写保留期限。"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-defaults-zdr"
+text = "Enterprise accounts default to Zero retention only; other accounts default to Safety retention allowed if no choice is made. Thus ZDR enforcement alone on a non-enterprise account can admit Safety Retention endpoints; strict ZDR requires choosing Zero retention only. Request-level `zdr: true` includes Safety Retention endpoints only when allowed by account or guardrail settings."
+text_zh = "未显式选择时，企业账户默认 Zero retention only，其他账户默认 Safety retention allowed。因此非企业账户仅启用 ZDR 强制仍可能放行使用 Safety Retention 的端点；严格 ZDR 须选择 Zero retention only。请求级 `zdr: true` 也仅在账户或 guardrail 允许时放行这些端点。"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -138,6 +153,11 @@ text_zh = "对象与语境——输入输出：默认「OpenRouter does not stor
 anchor = "openrouter-datacollection-csam-retention-retention"
 text = "Context — CSAM exception: \"OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation.\" The same page also says flagged content \"may be retained for human review, reporting, and preservation where required by law\", with no retention period stated for it; the screening paragraph itself is still worded as a planned update (\"Planned update (October 27, 2026)\", \"will screen\")."
 text_zh = "语境——CSAM 例外：「OpenRouter retains prompts only when you opt in, or when retention is needed for CSAM review, reporting, and related legal preservation.」同页还写明被标记的内容「may be retained for human review, reporting, and preservation where required by law」，未给出该内容的保留期限；筛查段本身仍是计划语气（「Planned update (October 27, 2026)」「will screen」）。"
+
+[[product.retention.point]]
+anchor = "openrouter-retention-google-safety-retention-90-days-retention"
+text = "Object, context and period type — on Google models served through Vertex with Safety Retention allowed, Google may retain only safety-classifier-flagged prompts for abuse monitoring for up to 90 days (an upper bound); it does not use retained prompts for training. Other models that use Safety Retention may also be admitted, but this page gives them no separate period. For other API content the retention period remains unspecified, so the tier-wide basis stays undisclosed."
+text_zh = "对象、语境与期限类型——允许 Safety Retention 时，经 Vertex 提供的 Google 模型只可能将安全分类器标记的 prompt 留存用于滥用监测，最多 90 天（上限）；Google 不用被留存的 prompt 训练。其他使用 Safety Retention 的模型也可能被放行，但页面未另写其期限。API 档其他内容仍无统一期限，故整体 basis 仍为 undisclosed。"
 
 [[product.retention.point]]
 anchor = "openrouter-terms-6-2-optin-perpetual-license-retention"
@@ -455,6 +475,16 @@ anchor = "openrouter-zdr-csam-screening-exception-zdr"
 text = "Announced, not yet in force: the \"Planned update (October 27, 2026)\" CSAM screening note says OpenRouter \"will screen all inference requests, including ZDR traffic\" and that flagged content may be retained. The note does not carve out EU API or enterprise traffic; the DPA's ZDR definition already excepts \"records required by law\". Because the screening is announced rather than in force and the note says \"We're updating this page and our related terms\", this tier's DPA-based verdict is unchanged."
 text_zh = "已公告、尚未生效：「Planned update (October 27, 2026)」CSAM 筛查提示称 OpenRouter「will screen all inference requests, including ZDR traffic」，被标记的内容可被保留。该提示没有为 EU API 或企业流量留例外；DPA 的 ZDR 定义本身已排除「records required by law」。由于筛查仍是公告而非生效条款，且提示写明「We're updating this page and our related terms」，本档基于 DPA 的结论不变。"
 
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-defaults-zdr"
+text = "Enterprise accounts default to Zero retention only for the Google Safety Retention choice, excluding such endpoints under ZDR enforcement unless account settings allow them. A guardrail cannot allow Safety Retention while the account setting is Zero retention only. This routing default does not alter the DPA-based verdict for OpenRouter's own hop."
+text_zh = "Google Safety Retention 选择中，企业账户默认 Zero retention only，ZDR 强制下排除这些端点，除非账户设置允许；账户设置为 Zero retention only 时 guardrail 不可放开。该路由默认值不改变 OpenRouter 自身一跳的 DPA 结论。"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-other-models-zdr"
+text = "Safety Retention gating is not restricted to Google models: guardrails use `allow_safety_retention_other` for other models that use it, such as open-weight models on Vertex. The page does not give these models a separate retention period."
+text_zh = "Safety Retention 开关不限于 Google 模型：guardrail 对其他使用该机制的模型（如 Vertex 上的 open-weight 模型）使用 `allow_safety_retention_other`。页面没有给这些模型单独写保留期限。"
+
 [product.retention]
 object = "mixed"
 basis = "as_needed"
@@ -503,6 +533,11 @@ text_zh = "另一类对象——图片/音频/视频输入：「We do not persis
 anchor = "openrouter-zdr-csam-screening-exception-zdr"
 text = "Context — CSAM, announced: the \"Planned update (October 27, 2026)\" screening note says content flagged as potential CSAM may be retained \"for human review, reporting, and preservation where required by law\", including ZDR traffic. The DPA's own exceptions for law and abuse investigations are unchanged in this snapshot round; because the note is still announced and says \"We're updating this page and our related terms\", it does not yet add an operative enterprise term, so this tier's retention basis remains as needed."
 text_zh = "语境——CSAM（已公告）：「Planned update (October 27, 2026)」筛查提示称被标记为疑似 CSAM 的内容可「for human review, reporting, and preservation where required by law」而保留，且包含 ZDR 流量。DPA 中关于法律要求与恶意使用调查的例外在本轮快照里未改；由于该提示仍是公告，并写明「We're updating this page and our related terms」，尚未新增生效的企业条款，故本档 retention 仍以 as_needed 为判据。"
+
+[[product.retention.point]]
+anchor = "openrouter-retention-google-safety-retention-90-days-retention"
+text = "Object and period — when an enterprise account opts to allow Safety Retention, Google may retain safety-classifier-flagged prompts for abuse monitoring for up to 90 days (an upper bound), and does not use them for training. The enterprise default Zero retention only excludes these endpoints under ZDR enforcement. Other Safety Retention models, such as open-weight models on Vertex, have no separately stated period; the DPA-based tier-wide basis stays as_needed."
+text_zh = "对象与期限——企业账户选择允许 Safety Retention 时，Google 可将被安全分类器标记的 prompt 最多保留 90 天（上限）用于滥用监测，不用于训练；企业默认 Zero retention only 会在 ZDR 强制时排除这些端点。其他使用 Safety Retention 的模型（如 Vertex 上的 open-weight 模型）没有单独披露期限；本档以 DPA 为依据的整体 basis 仍为 as_needed。"
 
 [product.processing_region]
 codes = ["US", "EU"]
@@ -989,24 +1024,44 @@ topics = ["training", "retention", "zdr"]
 exact = "**Planned update (October 27, 2026):** OpenRouter will screen all inference requests, including ZDR traffic, for child sexual abuse material (CSAM) in flight. Content flagged as potential CSAM may be retained for human review, reporting, and preservation where required by law. This does not permit general retention or use for model training. Read the announcement. We're updating this page and our related terms."
 
 [[anchor]]
+id = "openrouter-zdr-google-safety-retention-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "These endpoints don't meet a strict Zero Data Retention requirement."
+
+[[anchor]]
+id = "openrouter-zdr-google-safety-retention-other-models-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "On guardrails, use `allow_safety_retention_google` for Google models and `allow_safety_retention_other` for other models that use Safety Retention, such as open-weight models on Vertex."
+
+[[anchor]]
+id = "openrouter-zdr-google-safety-retention-defaults-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "If you don't choose, enterprise accounts default to **Zero retention only** and all other accounts default to **Safety retention allowed**."
+
+[[anchor]]
+id = "openrouter-retention-google-safety-retention-90-days-retention"
+source_id = "87e9e177299657ea"
+topics = ["retention", "training"]
+
+[anchor.selector]
+exact = "With Safety Retention, Google doesn't retain prompts by default, but it may retain prompts that its safety classifiers flag, for up to 90 days, for abuse monitoring."
+
+[[anchor]]
 id = "openrouter-zdr-definition-zdr"
 source_id = "87e9e177299657ea"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-o"}</td>
-          </tr>)}
-      </tbody>
-    </table>;
-};
-
-"""
 exact = "Zero Data Retention (ZDR) means that a provider will not store your data for any period of time."
-suffix = """
-
-
-OpenRouter has [privacy settings](https://openrouter.ai/se"""
 
 [[anchor]]
 id = "openrouter-zdr-not-plugins-zdr"
@@ -1014,13 +1069,7 @@ source_id = "87e9e177299657ea"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-ives you controls over both of these policies.
-
-<Warning>
-  """
 exact = "ZDR enforcement only applies to provider routing for inference requests."
-suffix = " It does not apply to [plugins](/docs/guides/features/plugin"
 
 [[anchor]]
 id = "openrouter-zdr-tools-reject-firecrawl-zdr"
@@ -1036,13 +1085,7 @@ source_id = "87e9e177299657ea"
 topics = ["training", "zdr"]
 
 [anchor.selector]
-prefix = "ish or ascertain a clear policy for a provider or endpoint, "
 exact = "we take a conservative stance and assume that the endpoint both retains and trains on data and mark it as such"
-suffix = """
-.
-</Note>
-
-A full list of providers and their data policies """
 
 [[anchor]]
 id = "openrouter-zdr-implicit-caching-not-retention-retention"
@@ -1063,12 +1106,8 @@ source_id = "87e9e177299657ea"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = """
-icy decides eligibility regardless of what you declared.
-
-  """
-exact = "A declaration is your attestation about your agreement with the upstream. OpenRouter records it and routes on it."
-suffix = " It is not independent verification by OpenRouter of the ups"
+exact = "A declaration is your attestation about your agreement with the upstream. OpenRouter records it and routes on it"
+suffix = ", and does not independently verify the upstream's contractual behavior."
 
 [[anchor]]
 id = "openrouter-zdr-byok-no-video-zdr"
@@ -1076,9 +1115,7 @@ source_id = "87e9e177299657ea"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "ugh that key even when the shared endpoint retains prompts. "
 exact = "The declaration does not cover video generation."
-suffix = " See [Declaring ZDR on a Key](/docs/guides/overview/auth/byo"
 
 [[anchor]]
 id = "openrouter-datacollection-no-store-unless-optin-retention"
