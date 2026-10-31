@@ -36,7 +36,7 @@ url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data Controls FAQ(Updated 5 days ago)。现行正文含专节「How do I turn off training for Codex tasks?」,Codex 训练开关与全环境独立设置都还在;另含临时会话 30 天删除。本轮重抓正文与缓存逐字一致。覆盖消费档,不覆盖 API 档"
+note = "Data controls in ChatGPT(Updated 5 hours ago)。本轮正文有三处训练相关变化:①删除「Turn off Improve the model for everyone」下「When Improve the model for everyone is off, your new conversations won't be used to train OpenAI models.」这句退出后不训练的承诺;②「Manage model training for Codex tasks」只剩「Include environments」独立开关一段,说明 ChatGPT 开关适用于 Codex 任务的首段被删除;③新增「Trusted Access on personal accounts」一节,Daybreak 等 Trusted Access 个人账号会话期间即使关闭训练开关仍可能用内容改进模型,并删除「previously opted out through OpenAI Support」的 FAQ。Codex 个人档受 ChatGPT 训练开关覆盖仍由 5722486 的「Either option is sufficient for ChatGPT conversations and Codex tasks」与 Codex 档位页的「Your ChatGPT training data controls apply to content processed through Codex」支撑。临时会话 30 天删除未变。覆盖消费档,不覆盖 API 档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
@@ -89,6 +89,11 @@ anchor = "openai-codex-consumer-training-feedback-exception"
 text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
 text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
 anchor = "openai-codex-training-include-environments"
+
+[[product.training.point]]
+text = "The opt-out is not absolute: for Trusted Access programs such as Daybreak Blue, \"During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off\". Outside a Trusted Access session the setting still applies to the account’s other activity"
+text_zh = "退出并非绝对:对 Daybreak Blue 等 Trusted Access 项目,厂商写明「During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」;非该类会话期间,该设置仍适用于账号的其他活动"
+anchor = "openai-codex-personal-trusted-access-exception"
 
 [product.zdr]
 mark = "unknown"
@@ -152,6 +157,11 @@ anchor = "openai-codex-consumer-training-feedback-exception"
 text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
 text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
 anchor = "openai-codex-training-include-environments"
+
+[[product.training.point]]
+text = "The opt-out is not absolute: for Trusted Access programs such as Daybreak Blue, \"During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off\". Outside a Trusted Access session the setting still applies to the account’s other activity"
+text_zh = "退出并非绝对:对 Daybreak Blue 等 Trusted Access 项目,厂商写明「During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」;非该类会话期间,该设置仍适用于账号的其他活动"
+anchor = "openai-codex-personal-trusted-access-exception"
 
 [product.zdr]
 mark = "unknown"
@@ -426,6 +436,16 @@ topics = ["training"]
 [anchor.selector]
 prefix = ""
 exact = "Codex has a separate **Include environments** setting in Codex settings for allowing training on full environments. Changing your settings in ChatGPT or the Privacy Portal does not change that setting."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-personal-trusted-access-exception"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off."
 suffix = ""
 
 [[anchor]]
