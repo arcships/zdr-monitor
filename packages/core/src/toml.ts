@@ -40,7 +40,7 @@ function multiline(value: string) {
   return '"""\n' + body + '"""'
 }
 
-const str = (value: string) => (value.includes("\n") ? multiline(value) : basic(value))
+export const str = (value: string) => (value.includes("\n") ? multiline(value) : basic(value))
 
 function scalar(value: unknown): string {
   if (typeof value === "string") return str(value)
