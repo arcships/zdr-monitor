@@ -64,7 +64,7 @@ Learn more about API authentication.
 How are rate limits calculated?
 For free models, rate limits are determined by the credits that you have purchased. If you have purchased at least credits, your free model rate limit will be requests per day. Otherwise, you will be rate limited to free model API requests per day.You can learn more about how rate limits work for paid accounts in our rate limits documentation.
 What API endpoints are available?
-OpenRouter implements the OpenAI API specification for /completions and /chat/completions endpoints, allowing you to use any model with the same request/response format. Additional endpoints like /api/v1/models are also available. See our API documentation for detailed specifications.
+OpenRouter implements the OpenAI API specification for the /responses, /chat/completions, and /completions endpoints, allowing you to use any model with the same request/response format. Additional endpoints like /api/v1/models are also available. See our API documentation for detailed specifications.
 What are the supported formats?
 The API supports text, images, and PDFs. Images can be passed as URLs or base64 encoded images. PDFs can also be sent as URLs or base64 encoded data, and work with any model on OpenRouter.
 How does streaming work?
@@ -79,6 +79,8 @@ What data is logged during Chatroom use?
 The same data privacy applies to the chatroom as the API. All conversations in the chatroom are stored locally on your device. Conversations will not sync across devices. It is possible to export and import conversations using the settings menu in the chatroom.
 What third-party sharing occurs?
 OpenRouter is a proxy that sends your requests to the model provider for it to be completed. We work with all providers to, when possible, ensure that prompts and completions are not logged or used for training. Providers that do log, or where we have been unable to confirm their policy, will not be routed to unless the model training toggle is switched on in the privacy settings tab.If you specify provider routing in your request, but none of the providers match the level of privacy specified in your account settings, you will get an error and your request will not complete.Learn more about provider logging policies.
+What are ZDR, Safety Retention, and Retention and Training?
+They’re the three data policy tiers OpenRouter uses for endpoints. ZDR means no routine storage of prompts or responses after processing, apart from a CSAM exception. Safety Retention means OpenRouter or a provider may retain prompts and responses from any request, only to prevent abuse; it’s not used for training. Retention and Training means data may be stored and used for training under the provider’s policy.When you enforce ZDR, you can choose **ZDR only** or **Allow Safety Retention** in your privacy settings or guardrails. Learn more.
 Does OpenRouter support EU data residency?
 Yes, for prompts and completions. Requests to `eu.openrouter.ai` are decrypted in the EU and routed only to shared provider endpoints in Europe (the EU/EEA, the UK, and Switzerland). BYOK requests go to your own deployment’s region. Account and billing data may be stored or processed in the US. DPA Exhibit A covers API payloads when elected in writing.Business is self-serve, with no contract, and the DPA includes SCCs. See EU in-region routing on Business for the live EU model list and the full data boundary.
 Credit and billing systems
@@ -115,3 +117,5 @@ Was this page helpful?
 YesNo
 Assistant
 Responses are generated using AI and may contain mistakes.
+Suggestions
+How do I get started using decision models like Jev?
