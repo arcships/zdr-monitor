@@ -30,7 +30,7 @@ note = "百炼国内站《选择地域、服务部署范围和接入域名》（
 url = "https://help.aliyun.com/zh/model-studio/what-is-model-studio"
 channel = "developer_data"
 tier = "core"
-note = "百炼产品简介（国内站，正文含 cn-beijing / maas.aliyuncs.com 示例）。FAQ「阿里云百炼会用我的数据进行训练吗」把口径拆开：按量付费 API 与 Token Plan 团队版不用于训练；其后加粗「重要」提示点名 Token Plan 个人版与 Coding Plan 的条款与上述承诺不同。这是本档档位例外最直接的产品文档表述（旧记录误称此例外出自「官方 FAQ」页）。本页不单独作为本档权威，只作档位对照与 API 档口径的佐证。"
+note = "百炼《模型服务概览》（国内站，正文含 trial.cn-beijing.maas.aliyuncs.com 示例）。2026-11-03 快照（#990）整页改版：原标题《什么是阿里云百炼》改为《模型服务概览》，正文重写为快速开始、模型卡片与开始构建，原有 FAQ 整段删除，包括「使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练」与加粗「重要」提示「Token Plan 个人版和 Coding Plan 的数据使用条款与上述承诺不同……」两句。现正文不再涉及数据处理，不再支撑档位例外或按量档训练口径；原 `wms-tier-carveout` / `wms-payg-no-training` 两个锚点已移除，相应结论改绑服务协议 §5.2.2 / §6.2.5 与隐私说明。来源保留仅为记录页面变动，本档权威依据不在此页。"
 
 [[source]]
 url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
@@ -60,7 +60,8 @@ anchor = "training-subscription-authorization"
 text_zh = "协议 5.2.2 授权存储并使用本档输入输出用于服务改进与模型优化"
 
 [[product.training.point]]
-text_zh = "产品文档「数据使用授权」与产品简介页加粗「重要」提示同口径。停止使用仅终止后续授权，不涵盖已授权数据。"
+text_zh = "产品文档「数据使用授权」同口径。产品简介页原有的加粗「重要」提示已在 2026-11-03 快照（#990）改版中随 FAQ 整段删除，不再作为佐证。停止使用仅终止后续授权，不涵盖已授权数据。"
+anchor = "cp-data-usage-authorization"
 
 [product.zdr]
 mark = "no"
@@ -179,13 +180,14 @@ label = "对照行：百炼国内站按量付费 API 档（本 provider 不跟�
 [product.training]
 mark = "yes"
 mode = "by_tier"
-anchor = "wms-payg-no-training"
+anchor = "training-no-unauthorized"
 
 [[product.training.point]]
-text_zh = "产品简介 FAQ：使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练"
+text_zh = "协议 §6.2.5 后半句「我们不会在未获您授权的情况下使用您的对话数据训练我们的模型」，配合 §6.2.4「除执行您的服务要求外，我们不会进行任何未获授权的使用及披露」。仅作对照，权威见 alibaba-cn。"
 
 [[product.training.point]]
 text_zh = "隐私说明另有平台级「绝不会将您的数据用于模型训练」。仅作对照，未按 alibaba-cn 的完整证据链复核。"
+anchor = "pn-platform-no-training"
 
 [product.zdr]
 mark = "no"
@@ -542,38 +544,6 @@ suffix = """
 
 
 更多问题请参考[常见问题](https://help.aliyun.com/zh/model-studio/codi"""
-
-[[anchor]]
-id = "wms-tier-carveout"
-source_id = "fd3a476f244dd846"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-//help.aliyun.com/zh/model-studio/privacy-notice)。
-
-**重要**
-
-"""
-exact = "**Token Plan 个人版**和 **Coding Plan** 的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化"
-suffix = "；Token Plan 个人版不包含团队版的\"不使用数据训练模型\"承诺。具体条款请参见[Token Plan 概述](h"
-
-[[anchor]]
-id = "wms-payg-no-training"
-source_id = "fd3a476f244dd846"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-nt-without-coding)
-
-## 常见问题
-
-Q：我的数据安全吗？阿里云百炼会用我的数据进行训练吗？
-
-A："""
-exact = "阿里云严格保护数据隐私，使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练。"
-suffix = "构建应用或训练模型时传输的所有数据均经过加密处理。详情请参见[合规资质与隐私说明](https://help.aliyu"
 
 [[anchor]]
 id = "regions-region-determines-storage"
