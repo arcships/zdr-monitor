@@ -53,15 +53,15 @@ note = "国际站百炼『Regions and endpoints』（2026-09-17 更新）。三�
 url = "https://www.alibabacloud.com/help/en/model-studio/what-is-model-studio"
 fetch = "browser"
 channel = "developer_data"
-tier = "contradiction"
-note = "与 core 文档《国际站中文产品简介》(https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio) 及《阿里云百炼服务协议》5.2.2(https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html) 在**同一档位（国际站 Coding Plan 个人版）× training** 上表述相反。本文件（英文页）同一问答答『Alibaba Cloud protects data privacy and will never use your data for model training.』，全页无 Token Plan 字样、无 Coding Plan 例外；中文同页同问答答『阿里云严格保护数据隐私，使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练』，并以『重要』段补明『Token Plan 个人版和 Coding Plan 的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化……《阿里云百炼服务协议》第 5.2 条』，该协议 5.2.2 逐字授权『存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化』。四种解释逐条排除：①范围——两份是**同一文档的两个语系**（同一 URL 路径 /help/{en,zh}/model-studio/what-is-model-studio），且英文页自身在计费段与 FAQ 段直链 Coding Plan 概述（快照内为「See Coding Plan overview」文字；控制台订阅页 URL 不在快照内，不作为证据），其覆盖范围包含 Coding Plan，不能读成「英文页只管按量 API、中文页管订阅档」；②档位——国际站 Coding Plan 只有个人版（无企业版/团队版），两份针对同一档；③站点——同一站点同一文档，非国内站/国际站之分；④时效——两份均为现行版本且更新日期相同（英文页 Last Updated: Sep 16, 2026；中文页 更新时间：2026-09-16；繁体页 2026-09-09，本轮直连原始 HTML 复核），排除「英文页是旧版未更新」。ja/id/pt-BR 三语系同为无例外口径（上一轮直连 HTML 复核 Token Plan 命中 0），说明不是单页笔误。需厂商澄清英文口径是否遗漏该例外。"
+tier = "core"
+note = "国际站英文产品简介页。2026-11-02 起该 URL 改为《Model service overview》（Updated at 2026-11-02 09:36:50）：原 Product introduction 的 FAQ 整段删除，连同『Alibaba Cloud protects data privacy and will never use your data for model training.』一句；快照现只剩产品概览、快速开始、模型卡片与开始构建，全篇没有关于使用或训练用户数据、数据保留或零保留的表述。该句在 2026-09-22 版中与中文页的 Coding Plan 例外口径相反，曾作为 training 的 contradiction 来源；该页现已不承载该句，tier 由 contradiction 改为 core，仅作为已查阅页面保留。"
 
 [[source]]
 url = "https://www.alibabacloud.com/help/zh/model-studio/what-is-model-studio"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "国际站中文产品简介页（百炼「产品简介」，「常见问题」含数据训练问答）。本页是国际站自有文档中唯一把 Coding Plan 排除在「不训练」承诺之外并直链《阿里云百炼服务协议》第 5.2 条的页面：『使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练』+ 加粗「重要」提示 Coding Plan 例外。快照正文里 Coding Plan 相关链接只以「Coding Plan概述」文字形式出现，控制台订阅页 URL（modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan）**不在快照内**，不作为证据。原始 HTML 复核（r2/wis-zh.html）确认例外段落存在于服务端渲染正文中。"
+note = "国际站中文产品简介页。2026-11-02 起该 URL 改为《模型服务概览》（更新时间 2026-11-02 09:36:59）：原「我的数据安全吗？阿里云百炼会用我的数据进行训练吗？」问答整段删除，连同『使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练』与『Token Plan 个人版和 Coding Plan 的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化』两句；快照现只剩产品概览、快速开始、模型卡片与开始构建，全篇没有关于使用或训练用户数据、数据保留或零保留的表述，故本来源不再绑定任何锚点。Coding Plan 个人版的 training=no 仍由《阿里云百炼服务协议》5.2.2 支撑（锚点 agr-training-codingplan-authorization），按量 API 档仍由国际站 Product Terms 4.48.1(e) 支撑。"
 
 [[product]]
 id = "api"
@@ -79,7 +79,7 @@ anchor = "pt-training-no-improve-unless-consent"
 text_zh = "本 provider 自身没有按量 API 档（Coding Plan 专属 base URL 与 API Key 前缀 sk-sp- 之外调用按按量计费，归 alibaba 台账）。按统一 products[] 结构保留本行：国际站 Product Terms 4.48.1(e) 默认不用于 develop/improve，除非另行同意"
 
 [[product.training.point]]
-text_zh = "国际站产品简介（zh/en）与隐私说明页对按量付费 API 均承诺不使用数据训练"
+text_zh = "国际站英文隐私说明页（锚点 pn-intl-en-training-never-train）承诺『Alibaba Cloud strictly protects your data privacy and will never use your data for model training.』；产品简介页（zh/en）在 2026-11-02 改版为《模型服务概览》，原训练问答已删除，本行不再以该页为据（见 changes/alibaba-coding-plan/2026-11-03-product-intro-replaced-model-service-overview.toml）"
 
 [[product.training.point]]
 text_zh = "Membership Agreement 4.1 亦限制为「维护或提供服务所必需」。本行不重复主张按量档归属。"
@@ -191,13 +191,13 @@ mode = "opt_out"
 anchor = "agr-training-codingplan-authorization"
 
 [[product.training.point]]
-text_zh = "本档结论：Coding Plan 的模型输入与模型输出被授权用于「服务改进与模型优化」（即训练/优化用途），value=yes。两层证据各自独立成立：(1) **国际站自有文档层**——国际站中文与繁体产品简介页在「我的数据安全吗？阿里云百炼会用我的数据进行训练吗？」问答下，把按量付费 API 与 Token Plan 团队版的不训练承诺与 Coding Plan 明确切开，写明『使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化』，并直链《阿里云百炼服务协议》第 5.2 条"
+text_zh = "本档结论：Coding Plan 的模型输入与模型输出被授权用于「服务改进与模型优化」（即训练/优化用途），value=yes。(1) **文档层（仅作历史记录，不构成本结论的现行依据）**——2026-11-02 前，国际站中文产品简介页在「我的数据安全吗？阿里云百炼会用我的数据进行训练吗？」问答下，把按量付费 API 与 Token Plan 团队版的不训练承诺与 Coding Plan 明确切开，写明『使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化』，并直链《阿里云百炼服务协议》第 5.2 条；2026-11-02 起 zh/en 两页均改为《模型服务概览》，该问答整段删除（旧句逐字见 changes/alibaba-coding-plan/2026-11-03-product-intro-replaced-model-service-overview.toml，原始快照正文见 snapshots/a9e8c78845a90255.md 与 snapshots/ae3759bb82edf763.md 的 git 历史），故这一层现在没有快照佐证"
 
 [[product.training.point]]
 text_zh = "这一层不依赖该协议本身是否列入 related-agreements。(2) **合同层**——该协议 5.2.2 原文『您同意并授权我们和我们的关联公司存储并使用您使用Token Plan个人版（不包括Token Plan团队版）和/或Coding Plan服务期间因调用模型而输入以及模型输出的内容以实现我们的服务改进与模型优化』，且终止授权不涵盖已授权数据（5.2.2 后半句）。国际站 Product Terms 4.48.1(e) 的默认『不用于 develop 或 improve』由 1.2 条的「Additional Agreement 优先」规则处理：若百炼协议构成 Additional Agreement，则 4.48.1(e) 让位于 5.2.2"
 
 [[product.training.point]]
-text_zh = "订阅 Coding Plan 即构成 4.48.1(e) 所称的『另行同意』。反向证据（不掩盖）：①国际站英文、日文、印尼文、葡文产品简介页均只有无例外的『never use your data for model training』，例外只存在于 zh 与 tc"
+text_zh = "订阅 Coding Plan 即构成 4.48.1(e) 所称的『另行同意』。反向证据（不掩盖）：①2026-11-02 前，国际站英文产品简介页的同一 FAQ 只有无例外的『Alibaba Cloud protects data privacy and will never use your data for model training.』（旧句逐字见 changes/alibaba-coding-plan/2026-11-03-product-intro-replaced-model-service-overview.toml，原始快照正文见 snapshots/ae3759bb82edf763.md 的 git 历史），中文页则把 Coding Plan 排除在不训练承诺之外（中文页旧句亦见同一 changes 记录）；2026-11-02 起 zh/en 两页均改为《模型服务概览》并删除该问答，产品简介页上的这一反向证据在本轮快照中已不存在。国际站英文隐私说明页（https://www.alibabacloud.com/help/en/model-studio/privacy-notice，锚点 pn-intl-en-training-never-train）仍有『Alibaba Cloud strictly protects your data privacy and will never use your data for model training.』，同样没有 Coding Plan 例外"
 
 [[product.training.point]]
 text_zh = "②国际站 Coding Plan 概述与 FAQ（中英文）都没有『数据使用授权』条目，该条目只在国内站页面"
@@ -310,8 +310,8 @@ text_zh = "④**边界**（国际站 Product Terms 4.48.1(viii)）：「the Memb
 anchor = "pt-region-facilities-country"
 
 [[product.processing_region.point]]
-text = "**Observation without a snapshot (not written into codes)**: the international-site Coding Plan console subscription page is reported to be pinned to ap-southeast-1 (modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan, linked from the zh product-intro page) and the tier's base URL is reported as coding-intl.dashscope.aliyuncs.com / {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com — but no snapshot in this ledger covers a Coding Plan page (the Regions snapshot contains no \"Coding Plan\" string and binds ap-southeast-1 only in generic endpoint examples), so \"this tier actually lands in Singapore\" is recorded here as an unverified observation, not as a code"
-text_zh = "⑤**未取到快照的观察（不写进 codes）**：据国际站产品简介页链接，Coding Plan 控制台订阅页为 modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan，专属 base URL 据称是 coding-intl.dashscope.aliyuncs.com（工作区域端点 {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com）——但本台账没有任何 Coding Plan 页面的快照（regions 快照全篇无「Coding Plan」字样，ap-southeast-1 只出现在通用端点示例与地域表中），故「本档实际落新加坡」只能作为未取到快照的观察记在这里，不能写成 SG code。要写进 codes 须先把国际站 Coding Plan 概述页或控制台订阅页加入 [[source]]、等 bot 抓回快照。"
+text = "**Historical observation without a current snapshot (not written into codes)**: before the 2026-11-02 rewrite, the zh product-introduction page linked to the international-site Coding Plan console subscription page at modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan, and the tier's base URL was reported as coding-intl.dashscope.aliyuncs.com / {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com. The current zh/en product-overview snapshots no longer contain that link or any Coding Plan/subscription wording; no Coding Plan page is captured in this ledger, and the Regions snapshot binds ap-southeast-1 only in generic endpoint examples. This historical observation therefore remains unverified and is not written into codes."
+text_zh = "⑤**历史观察（不写进 codes）**：2026-11-02 改版前，国际站中文产品简介页曾链接 Coding Plan 控制台订阅页 modelstudio.console.alibabacloud.com/ap-southeast-1/subscription/coding-plan，专属 base URL 据称是 coding-intl.dashscope.aliyuncs.com（工作区域端点 {WorkspaceId}.ap-southeast-1.maas.aliyuncs.com）。当前 zh/en《模型服务概览》快照已不含该链接，也没有「Coding Plan」或「subscription」字样；本台账仍没有任何 Coding Plan 页面的快照，regions 快照中的 ap-southeast-1 只出现在通用端点示例与地域表中。故该历史观察仍未核实，不能写成 SG code；要写进 codes 须先把国际站 Coding Plan 概述页或控制台订阅页加入 [[source]]、等 bot 抓回快照。"
 
 [[product.processing_region.point]]
 text = "China-site agreement §6.2.8 says the same thing in its own words: \"阿里云将在您选定的阿里云百炼服务及模型服务所在国家或地区处理客户业务数据\" (China-site agreement; applicability caveat as in the training dimension)"
@@ -488,51 +488,6 @@ suffix = """
 七、知识产权
 
 7.1. 您和我们在本协议签订前享有的知识产权，仍归各方所有；除非另有约定，并不会因为双方签订或者履"""
-
-[[anchor]]
-id = "wms-zh-training-codingplan-exception"
-source_id = "a9e8c78845a90255"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-ivacy-notice)。
-
-**重要**
-
-**Token Plan 个人版**和 **Coding Plan** """
-exact = "的数据使用条款与上述承诺不同。使用 Coding Plan 期间，模型输入及模型生成的内容将用于服务改进与模型优化"
-suffix = "；Token Plan 个人版不包含团队版的\"不使用数据训练模型\"承诺。具体条款请参见[Token Plan 概述](h"
-
-[[anchor]]
-id = "wms-zh-training-baseline-scope"
-source_id = "a9e8c78845a90255"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
--qwen)
-
-## 常见问题
-
-Q：我的数据安全吗？阿里云百炼会用我的数据进行训练吗？
-
-A：阿里云严格保护数据隐私，"""
-exact = "使用百炼按量付费 API 和 Token Plan 团队版时，不会将您的数据用于模型训练"
-suffix = "。构建应用或训练模型时传输的所有数据均经过加密处理。详情请参见[合规资质与隐私说明](https://www.aliba"
-
-[[anchor]]
-id = "wms-en-training-baseline-no-exception"
-source_id = "ae3759bb82edf763"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-ll Alibaba Cloud Model Studio use my data for training?
-
-A: """
-exact = "Alibaba Cloud protects data privacy and will never use your data for model training."
-suffix = " All data transmitted when building applications or training"
 
 [[anchor]]
 id = "pn-intl-en-zdr-stores-call-data"
