@@ -46,11 +46,11 @@ anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
 text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
-text_zh = "并列保留的反向事实：默认档（未开 ZDR）会存储 prompt/output 且可能用于产品改进，退出方式是组织级 Store prompts and model responses 开关。按本仓口径「改进服务」算训练，但在 Together 这里「模型训练」与「产品改进」是明写的两个独立设置——本维度 mark=yes 的依据只是 Training 条那句把模型训练明确挡在同意之外的表述。"
+text_zh = "并列保留的反向事实：默认档（未开 ZDR）会存储 prompt/output 且可能用于产品改进，退出方式是组织级 Prompt storage 开关（2026-11-03 快照起由 Store prompts and model responses 改名）。按本仓口径「改进服务」算训练，但在 Together 这里「模型训练」与「产品改进」是明写的两个独立设置——本维度 mark=yes 的依据只是 Training 条那句把模型训练明确挡在同意之外的表述。"
 anchor = "togetherai-zdr-doc-default-storage"
 
 [[product.training.point]]
-text = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+text = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
 text_zh = "组织级存储开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR（同时连带关闭 passthrough 模型）。"
 anchor = "togetherai-privsec-store-toggle-default-on"
 
@@ -76,7 +76,7 @@ anchor = "togetherai-zdr-doc-org-level-zdr"
 text_zh = "同顶层 zdr。自助开关、默认关闭、覆盖请求内容不覆盖元数据与上传文件"
 
 [[product.zdr.point]]
-text = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+text = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
 text_zh = "开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR——zdr=opt_in 的「默认非零保留」这一侧。"
 anchor = "togetherai-privsec-store-toggle-default-on"
 
@@ -268,7 +268,7 @@ text_zh = "训练是独立的组织级 opt-in 且默认关闭；这句是无条�
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text = "**Allow organization’s data for training**: off by default. Opt in to using your organization’s data for training models released by Together AI and partners."
+text = "**Model training:** Off by default. Allows your organization’s data to be used for training models released by Together AI and partners."
 text_zh = "训练 opt-in 开关的对象是「your organization’s data」用于「models released by Together AI and partners」，语义上覆盖客户上传的数据。即：默认不用于训练，opt-in 后可用于训练 Together 及合作方发布的模型。公开文档没有说 Together 会用客户上传的微调数据去训练自家的基础模型；此处 confidence 记 medium，因为「上传的微调数据在 opt-in 后的具体用途边界」没有专门条款。"
 anchor = "togetherai-privsec-org-toggle-training"
 
@@ -518,12 +518,12 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = """
-passthrough models because they require prompt storage.
-*   """
-exact = "**Allow organization’s data for training**: off by default. Opt in to using your organization’s data for training models released by Together AI and partners."
+- **Passthrough models:** On by default. Allows your organization to use models that forward prompts and responses to third-party providers. Passthrough requires prompt storage, so you can’t turn this toggle on while prompt storage is off.
+"""
+exact = "**Model training:** Off by default. Allows your organization’s data to be used for training models released by Together AI and partners."
 suffix = """
 
-*   **Allow passthrough models**: on by default. Allows mod"""
+If your organization is on the Limited tier, add a payment method before you change these settings."""
 
 [[anchor]]
 id = "togetherai-privsec-passthrough-upstream"
@@ -537,8 +537,8 @@ prefix = """
 ## Passthrough third-party models
 
 """
-exact = "Some models are offered as **passthrough**, meaning that Together forwards your prompts and responses directly to the upstream provider, and data is handled under that provider’s own data policy."
-suffix = " Passthrough is controlled by a separate organization-level "
+exact = "Some models are offered as *passthrough*, which means Together forwards your prompts and responses directly to the upstream provider. The provider handles that data under its own data policy."
+suffix = " The **Passthrough models** toggle in organization privacy settings controls whether your organization can use these models, independent of the training opt-in."
 
 [[anchor]]
 id = "togetherai-privsec-geo-specific-inference"
@@ -594,14 +594,14 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
-rompts and responses to third-party providers (see below).
+- **Model training:** Off by default. Allows your organization’s data to be used for training models released by Together AI and partners.
 
 """
-exact = "If your organization is on the Limited tier, add a payment method before updating these settings."
+exact = "If your organization is on the Limited tier, add a payment method before you change these settings."
 suffix = """
 
 
-## Account vs. organization settings
+Account vs. organization settings
 
 You may see a privac"""
 
@@ -611,11 +611,11 @@ source_id = "a8bf24d0415e4675"
 topics = ["zdr", "retention", "training"]
 
 [anchor.selector]
-prefix = "Only organization admins can change them:\n\n*   "
-exact = "**Store prompts and model responses**: on by default. Stores prompts and outputs for product improvements. Turn it off to enable zero data retention, which also turns off passthrough models because they require prompt storage."
+prefix = "Only organization admins can change the three toggles in the **Privacy** section of Organization Settings:\n\n- "
+exact = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
 suffix = """
 
-*   **Allow organization’s data for training**: off by default."""
+- **Passthrough models:** On by default."""
 
 [[anchor]]
 id = "togetherai-privsec-account-vs-org-scope"
