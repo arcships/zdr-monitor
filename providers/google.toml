@@ -17,7 +17,7 @@ url = "https://ai.google.dev/gemini-api/docs/logs-policy"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "Gemini API 文档站「Data logging and sharing」(Last updated 2026-10-26)。api 档付费服务:日志对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启(可在 AI Studio 关闭),默认最长 55 天可调 7/14/28/55,默认不用于产品改进;主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练。新增邀请制 Contributor Tier:开启后参与模型的数据按 Unpaid 条款用于改进产品与 ML 技术。与滥用监控 55 天是两套。"
+note = "Gemini API 文档站「Data logging and sharing」(页面原标 Last updated 2026-10-26,2026-11 改版后现行快照不再显示)。api 档付费服务:日志对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启(可在 AI Studio 关闭),默认最长 55 天可调 7/14/28/55,默认不用于产品改进;主动把 dataset 分享给 Google 后按 Unpaid 条款可用于训练,但页面禁止捐赠 EEA/瑞士/UK 用户可用的 API client 数据,也禁止捐赠个人/敏感/机密数据。新增邀请制 Contributor Tier:开启后参与模型的数据按 Unpaid 条款用于改进产品与 ML 技术。与滥用监控 55 天是两套。"
 
 [[source]]
 url = "https://ai.google.dev/gemini-api/docs/usage-policies"
@@ -38,7 +38,7 @@ url = "https://ai.google.dev/gemini-api/terms"
 fetch = "browser"
 channel = "contract"
 tier = "core"
-note = "Gemini API Additional Terms of Service(Effective March 23, 2026 / Last updated 2026-04-28)。覆盖 api 档:Gemini Developer API 与 Google AI Studio;Paid=经有效 Cloud Billing 的 Cloud Project 或企业 Workspace 账号,Unpaid=AI Studio 直连与 API 免费额度;EEA/瑞士/UK 一律按 Paid 处理。Google Cloud/Vertex 由另一套条款管辖,不并入本条。"
+note = "Gemini API Additional Terms of Service(Effective March 23, 2026;现行快照不再显示旧版的 Last updated 2026-04-28)。覆盖 api 档:Gemini Developer API 与 Google AI Studio;Paid=经有效 Cloud Billing 的 Cloud Project 或企业 Workspace 账号,Unpaid=AI Studio 直连与 API 免费额度;EEA/瑞士/UK 一律按 Paid 处理。Google Cloud/Vertex 由另一套条款管辖,不并入本条。"
 
 [[source]]
 url = "https://antigravity.google/terms"
@@ -102,6 +102,11 @@ anchor = "training-eea-ch-uk-paid-applies"
 text = "Opt-in path 1 (logs contributed as datasets): logging itself is now on by default for Interactions API calls and for Generate Content API calls in projects created on or after October 26, 2026 (project owners can turn it off in AI Studio). Choosing to log is therefore no longer the opt-in; putting logs (requests, responses, metadata) into a dataset and sharing that dataset with Google is still a separate opt-in, and those logs are processed under the Unpaid Services data-use terms and \"may be used to improve model quality, and inform the training and evaluation of future models and services\" (docs/logs-policy). Logging is only available for billing-enabled projects, i.e. this tier."
 text_zh = "opt-in 路径一(日志放进 dataset 分享给 Google):日志本身现在对 Interactions API 调用、以及 2026-10-26 及以后创建的项目中的 Generate Content API 调用默认开启(可在 AI Studio 关闭),故「开启日志」不再是 opt-in;真正的 opt-in 是把日志(请求/响应/元数据)放进 dataset 并分享给 Google,该数据按 Unpaid Services 的数据使用条款处理,「may be used to improve model quality, and inform the training and evaluation of future models and services」(docs/logs-policy)。日志功能只对付费项目开放,故这条路径属本档。"
 anchor = "training-optin-dataset"
+
+[[product.training.point]]
+text = "The page instructs developers not to donate data from API clients available to users in the EEA, Switzerland or the UK: \"Do not donate data from API clients available to users in the European Economic Area, Switzerland, or the United Kingdom, and do not donate data that is personal, sensitive, or confidential\" (docs/logs-policy). This narrows who may use the dataset opt-in path above; it does not change the paid tier's default no-improvement promise."
+text_zh = "页面要求不得捐赠 EEA/瑞士/UK 用户可用的 API client 数据:docs/logs-policy 写明「Do not donate data from API clients available to users in the European Economic Area, Switzerland, or the United Kingdom, and do not donate data that is personal, sensitive, or confidential」。这缩小了上述 dataset opt-in 路径的适用范围;付费档默认不用于改进的承诺不变。"
+anchor = "training-dataset-donation-restricted"
 
 [[product.training.point]]
 text = "On the same path, human reviewers may read, annotate and process the API inputs and outputs you share, after the data is disconnected from your Google Account, API key and Cloud project (docs/logs-policy)."
@@ -962,6 +967,14 @@ models and services"""
 suffix = """
 . This data is processed in accordance with our data use
 ter"""
+
+[[anchor]]
+id = "training-dataset-donation-restricted"
+source_id = "ae7b03cd1d30111a"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Do not donate data from API clients available to users in the European Economic Area, Switzerland, or the United Kingdom, and do not donate data that is personal, sensitive, or confidential"
 
 [[anchor]]
 id = "training-optin-human-review"
