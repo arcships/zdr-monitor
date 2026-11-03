@@ -9,7 +9,7 @@ doc = "https://legal.mistral.ai/terms/commercial-terms-of-service"
 url = "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "官方开发者文档 Zero data retention 页(2026-09-21 现行有效)。覆盖按量付费的无状态 API;明确排除 stateful API / Agents / Batch / Conversations / Libraries / /v1/files / Vibe Work / Chat 与 Labs 模型。只覆盖 zdr 维度(及 zdr 与训练 opt-out 相互独立这一点),不含保留期限、处理地、角色条款。"
+note = "官方开发者文档 Zero data retention 页(2026-11-03 现行有效)。覆盖按量付费的无状态 API;明确排除 stateful API / Agents / Batch / Conversations / Libraries / /v1/files / Vibe Work / Chat / Traces sent to Studio Observability 与 Labs 模型。覆盖 zdr 维度(及 zdr 与训练 opt-out 相互独立这一点),并提供 Studio Observability traces 在启用后会被存储的事实(retention 的对象与语境,页面未给期限);不含 API 输入输出的固定保留期限、处理地、角色条款。"
 
 [[source]]
 url = "https://docs.mistral.ai/inference/regional-inference"
@@ -94,12 +94,17 @@ mode = "by_agreement"
 anchor = "mistral-zdr-paid-stateless"
 
 [[product.zdr.point]]
-text = "Official developer documentation, ZDR page (current this round, 2026-09-21): \"ZDR is available on paid plans for supported stateless API calls\", and once enabled Mistral \"does not store or log inputs and outputs for supported API requests\" beyond what is needed to generate the output. It covers stateless endpoints such as /v1/chat/completions, /v1/fim/completions, /v1/embeddings, moderations, classifications, ocr and audio, and does not apply to stateful APIs or products (Agents, Batch, Conversations, Libraries, /v1/files, Vibe Work, Chat) or to Labs models. Application-based: a justification must be submitted to support, \"We review each request and may approve or deny it.\", and once approved it appears in Admin privacy settings"
-text_zh = "官方开发者文档 ZDR 页(本轮 2026-09-21 现行):ZDR 在付费计划上对受支持的无状态 API 调用可用,启用后 Mistral 不会为受支持的 API 请求存储或记录输入输出(超出生成输出所需)。覆盖 /v1/chat/completions、/v1/fim/completions、/v1/embeddings、moderations、classifications、ocr、audio 等无状态端点,不覆盖 stateful API 与产品(Agents、Batch、Conversations、Libraries、/v1/files、Vibe Work、Chat)与 Labs 模型。申请制:需向支持提交正当理由,逐案审核,可批准或拒绝,批准后出现在 Admin privacy settings"
+text = "Official developer documentation, ZDR page (current this round, 2026-11-03): \"ZDR is available on paid plans for supported stateless API calls\", and once enabled Mistral \"does not store or log inputs and outputs for supported API requests\" beyond what is needed to generate the output. It covers stateless endpoints such as /v1/chat/completions, /v1/fim/completions, /v1/embeddings, moderations, classifications, ocr and audio, and does not apply to stateful APIs or products (Agents, Batch, Conversations, Libraries, /v1/files, Vibe Work, Chat, Traces sent to Studio Observability) or to Labs models. Application-based: a justification must be submitted to support, \"We review each request and may approve or deny it.\", and once approved it appears in Admin privacy settings"
+text_zh = "官方开发者文档 ZDR 页(本轮 2026-11-03 现行):ZDR 在付费计划上对受支持的无状态 API 调用可用,启用后 Mistral 不会为受支持的 API 请求存储或记录输入输出(超出生成输出所需)。覆盖 /v1/chat/completions、/v1/fim/completions、/v1/embeddings、moderations、classifications、ocr、audio 等无状态端点,不覆盖 stateful API 与产品(Agents、Batch、Conversations、Libraries、/v1/files、Vibe Work、Chat、Traces sent to Studio Observability)与 Labs 模型。申请制:需向支持提交正当理由,逐案审核,可批准或拒绝,批准后出现在 Admin privacy settings"
 
 [[product.zdr.point]]
 text = "ZDR and training opt-out are two separate controls. Help Center 347612 (updated 2026-08-12) is stricter in wording: pay-as-you-go only (Free mode must first enable pay-as-you-go), stateless APIs only. At contract level, DPA §2.3 excludes abuse monitoring as a processing purpose \"when zero data retention has been activated\", so ZDR is recognized in the DPA."
 text_zh = "ZDR 与训练 opt-out 是两个独立控制。Help Center 347612(2026-08-12 更新)措辞更严:仅 pay-as-you-go(Free mode 需先开通按量付费)、仅无状态 API。合同层另有 DPA §2.3:滥用监测这一处理目的在『zero data retention has been activated』时被排除,即 ZDR 在 DPA 里被承认。"
+
+[[product.zdr.point]]
+text = "New in the 2026-11-03 snapshot: the ZDR exclusion list now also names \"Traces sent to Studio Observability\", and the page explains that \"When enabled, Studio Observability stores the traces your applications send so you can explore them later.\" An Org Admin can disable Observability for the organization, after which \"Traces sent from any workspace in the organization are then no longer ingested.\" No retention period is given for traces — the page only puts them outside ZDR."
+text_zh = "2026-11-03 快照新增:ZDR 排除清单增加『Traces sent to Studio Observability』,页面并说明『When enabled, Studio Observability stores the traces your applications send so you can explore them later.』Org Admin 可为整个组织关闭 Observability,关闭后『Traces sent from any workspace in the organization are then no longer ingested.』页面没有给出 traces 的保留期限,只说明不在 ZDR 覆盖范围内。"
+anchor = "mistral-zdr-excludes-observability-traces"
 
 [product.retention]
 days = 30
@@ -119,6 +124,11 @@ text_zh = "Fine-Tuning API 的微调数据保留至主动删除或销户。DPA �
 text = "Contract layer for Personal Data processed as a Processor — DPA Exhibit 1 (Description of the Processing, incorporated into the Agreement by §11.2; contract outranks consumer_privacy in the global priority order) states the retention period as \"the duration of the Agreement\": \"The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period: the duration of the Agreement.\" The object differs from this row's headline figure: Exhibit 1 covers Personal Data (per DPA §1(f), Customer Data that is personal data and which Mistral AI processes as a Processor), not API input and output bodies. The two are kept side by side, not averaged: cleanup after termination is governed by DPA §10.1 (no longer accessible 30 days after termination), while API Input and Output bodies are governed by Privacy Policy §5 (30 rolling days)."
 text_zh = "以 Processor 身份处理的 Personal Data 的合同层口径——DPA Exhibit 1(Description of the Processing,经 §11.2 并入协议;按全局优先级 contract 高于 consumer_privacy)把保留期写作『the duration of the Agreement』:『The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period: the duration of the Agreement.』对象与本行头条数字不同:Exhibit 1 讲的是 Personal Data(按 DPA §1(f) 定义,即客户数据中属个人数据、且 Mistral 以 Processor 身份处理的部分),不是 API 输入输出正文。两条口径并列保留、不取平均:终止后的清理由 DPA §10.1 管(终止后 30 天不再可访问),API 输入输出正文由隐私政策 §5 管(滚动 30 天)。"
 anchor = "mistral-retention-exhibit-1-duration"
+
+[[product.retention.point]]
+text = "Studio Observability traces (object: traces your applications send; context: Observability enabled): the ZDR page states \"When enabled, Studio Observability stores the traces your applications send so you can explore them later.\" It gives no retention period for these traces (undisclosed), only that an Org Admin can disable Observability for the organization, after which \"Traces sent from any workspace in the organization are then no longer ingested.\" This is separate from the 30 rolling days that Privacy Policy §5 applies to API Input and Output."
+text_zh = "Studio Observability traces(对象:应用发送的 traces;语境:启用 Observability 后):ZDR 页写明『When enabled, Studio Observability stores the traces your applications send so you can explore them later.』页面未给出这些 traces 的保留期限(未披露),只说明 Org Admin 可为整个组织关闭 Observability,关闭后『Traces sent from any workspace in the organization are then no longer ingested.』这与隐私政策 §5 对 API Input / Output 的滚动 30 天是两回事。"
+anchor = "mistral-retention-observability-traces"
 
 [product.processing_region]
 codes = ["global", "selected"]
@@ -445,6 +455,26 @@ supported endpoints across models, **except Labs models**.
 """
 exact = "ZDR **does not apply to stateful APIs or products"
 suffix = "**. These services must store data to work, for example to s"
+
+[[anchor]]
+id = "mistral-zdr-excludes-observability-traces"
+source_id = "0e909cdd599f3682"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "- Traces sent to Studio Observability For example, the Files API stores uploaded files and is **outside the scope of ZDR**. Vibe Work and Chat store conversation data so you can access previous work and conversation history. When enabled, Studio Observability stores the traces your applications send so you can explore them later. As a reminder, if you do not want traces to be stored anymore, an Org Admin can disable Observability for the organization. Traces sent from any workspace in the organization are then no longer ingested."
+suffix = ""
+
+[[anchor]]
+id = "mistral-retention-observability-traces"
+source_id = "0e909cdd599f3682"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "When enabled, Studio Observability stores the traces your applications send so you can explore them later."
+suffix = ""
 
 [[anchor]]
 id = "mistral-zdr-vs-training-separate"
