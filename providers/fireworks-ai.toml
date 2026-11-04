@@ -9,7 +9,7 @@ doc = "https://fireworks.ai/terms-of-service"
 url = "https://docs.fireworks.ai/accounts/data-residency"
 channel = "developer_data"
 tier = "core"
-note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；列出 residency 开启后受限的功能（训练、BYOC；Nexus Auto 在 2026-11-03 快照中写明 US residency 下 `auto` 可用——开源轮次走 US-only Serverless、Anthropic/OpenAI 轮次走客户自有 provider 账号，其他区域仍拒绝）。既是处理地维度的主要来源，也是 Nexus Auto/BYOC 多跳与自管档的官方披露点。"
+note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；residency 同时约束推理与 dedicated 训练，但不搬迁已有流量与部署。列出 residency 开启后受限的功能（serverless 训练、BYOC；Nexus Auto 在 2026-11-03 快照中写明 US residency 下 `auto` 可用——开源轮次走 US-only Serverless、Anthropic/OpenAI 轮次走客户自有 provider 账号，其他区域仍拒绝）。既是处理地维度的主要来源，也是 Nexus Auto/BYOC 多跳与自管档的官方披露点。"
 
 [[source]]
 url = "https://docs.fireworks.ai/deployments/regions"
@@ -169,7 +169,8 @@ anchor = "fireworks-dataresidency-restricts-region"
 text_zh = "同顶层 processing_region：默认 None（多区域，可跨 GLOBAL/US/EUROPE/APAC），可账号级锁 US，EU-only 需联系销售"
 
 [[product.processing_region.point]]
-text_zh = "residency 只约束推理且不搬迁已有部署。"
+text = "Residency covers both inference and dedicated training, and still does not move existing traffic or deployments into the region: \"Turning it on will not move existing traffic into the region.\""
+text_zh = "residency 同时约束推理与 dedicated 训练，且不搬迁已有流量与部署：「Turning it on will not move existing traffic into the region.」"
 
 [[product.processing_region.point]]
 text = "Contract layer supports the global code: DPA §6.1 states that \"Company may Process Covered Data anywhere that Company, its Affiliates or its Sub-processors maintain facilities, subject to the remainder of this clause 6.\""
@@ -336,11 +337,23 @@ text_zh = "DPA Schedule 2：「All Personal Data is deleted from the Services fo
 anchor = "fireworks-dpa-sched2-all-personal-data-deleted-on-termination"
 
 [product.processing_region]
-codes = ["global"]
+codes = ["global", "selected"]
 anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [[product.processing_region.point]]
-text_zh = "data_residency 页 Limitations：「**Training.** Fine-tuning and training jobs are blocked. Support is coming soon.」即开启数据驻留的账号不能跑训练"
+text = "The residency page now blocks only serverless training: \"Serverless Training sessions, runs, and their samplers are blocked. Support is coming soon. Dedicated training is supported.\" The previous bullet read \"Training. Fine-tuning and training jobs are blocked.\""
+text_zh = "data_residency 页 Limitations 现只限制 serverless 训练：「Serverless Training sessions, runs, and their samplers are blocked. Support is coming soon. Dedicated training is supported.」此前该条写的是「Training. Fine-tuning and training jobs are blocked.」，即开启驻留后一律不能训练；现改为 serverless 训练仍被拒、dedicated 训练可用。"
+anchor = "fireworks-dataresidency-serverless-training-blocked"
+
+[[product.processing_region.point]]
+text = "Dedicated training must run inside the selected region: \"Supervised fine-tuning, DPO, reinforcement fine-tuning, and RLOR trainer jobs must set an explicit training region inside the selected region\"; jobs without a region or with one outside it are rejected. This is the basis for adding the selected code to this tier."
+text_zh = "dedicated 训练必须落在所选区域内：Supervised fine-tuning、DPO、reinforcement fine-tuning 与 RLOR trainer 作业须显式指定所选区域内的训练区域；未指定或超出该区域的作业会被拒绝。这是本档 codes 增加 selected 的依据。"
+anchor = "fireworks-dataresidency-dedicated-training-region"
+
+[[product.processing_region.point]]
+text = "Scope limit on that guarantee: \"Only where the job runs is enforced. Where its checkpoints and outputs are stored is not.\""
+text_zh = "该区域保证的范围有限：「Only where the job runs is enforced. Where its checkpoints and outputs are stored is not.」——只强制作业运行地，checkpoint 与产物的存储地不受约束。"
+anchor = "fireworks-dataresidency-dedicated-training-storage-not-enforced"
 
 [[product.processing_region.point]]
 text = "When training runs on Fireworks-managed storage, \"training data is stored in Google Cloud Storage (GCS) with only a reference link retained in our database.\" The page does not state the bucket's region."
@@ -348,8 +361,8 @@ text_zh = "未开启驻留时，训练数据落在 Google Cloud Storage（secure
 anchor = "fireworks-securetraining-gcs-managed-storage"
 
 [[product.processing_region.point]]
-text = "The previous \"US\" code rested on DPA Schedule 4 listing Google Cloud Platform / \"United States\". The 2026-10-17 DPA removed the embedded Schedule 4 table and §6.2 now points to https://trust.fireworks.ai/subprocessors, a list this snapshot does not contain, so that country evidence is no longer in the snapshot. DPA §6.1 permits processing anywhere Company, its Affiliates or Sub-processors maintain facilities; the code is therefore changed from US to global rather than carried forward unverified."
-text_zh = "原 codes=[\"US\"] 依据的是 DPA Schedule 4 把 Google Cloud Platform 列在「United States」。2026-10-17 版 DPA 删除了内嵌的 Schedule 4，§6.2 改为指向 https://trust.fireworks.ai/subprocessors（本快照不含该页），该国家依据已不在快照中。DPA §6.1 允许在其自身、关联公司或子处理者设有设施的任何地方处理，故 codes 由 US 改为 global，而不是保留未复核的 US。"
+text = "The previous \"US\" code rested on DPA Schedule 4 listing Google Cloud Platform / \"United States\". The 2026-10-17 DPA removed the embedded Schedule 4 table and §6.2 now points to https://trust.fireworks.ai/subprocessors, a list this snapshot does not contain, so that country evidence is no longer in the snapshot. DPA §6.1 permits processing anywhere Company, its Affiliates or Sub-processors maintain facilities; the US code was therefore dropped rather than carried forward unverified, leaving global as the default (selected comes from the dedicated-training residency control above)."
+text_zh = "原 codes=[\"US\"] 依据的是 DPA Schedule 4 把 Google Cloud Platform 列在「United States」。2026-10-17 版 DPA 删除了内嵌的 Schedule 4，§6.2 改为指向 https://trust.fireworks.ai/subprocessors（本快照不含该页），该国家依据已不在快照中。DPA §6.1 允许在其自身、关联公司或子处理者设有设施的任何地方处理，故不再保留未复核的 US，默认仍为 global（selected 来自上面的 dedicated 训练驻留控制）。"
 anchor = "fireworks-dpa-6-1-process-anywhere"
 
 [product.role]
@@ -690,7 +703,31 @@ source_id = "5b91be97039b3320"
 topics = ["processing_region"]
 
 [anchor.selector]
-exact = "Data residency restricts inference on your account to a single region."
+exact = "Data residency restricts inference and dedicated training on your account to a single region."
+
+[[anchor]]
+id = "fireworks-dataresidency-serverless-training-blocked"
+source_id = "5b91be97039b3320"
+topics = ["processing_region", "training"]
+
+[anchor.selector]
+exact = "Serverless Training sessions, runs, and their samplers are blocked. Support is coming soon. Dedicated training is supported."
+
+[[anchor]]
+id = "fireworks-dataresidency-dedicated-training-region"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Supervised fine-tuning, DPO, reinforcement fine-tuning, and RLOR trainer jobs must set an explicit training region inside the selected region"
+
+[[anchor]]
+id = "fireworks-dataresidency-dedicated-training-storage-not-enforced"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Only where the job runs is enforced. Where its checkpoints and outputs are stored is not."
 
 [[anchor]]
 id = "fireworks-dataresidency-default-none"
