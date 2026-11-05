@@ -44,6 +44,16 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 
+[[product.training.point]]
+text = "Scope and unresolved conflict for Crouton Alpha Free, which is listed in this tier's endpoint and pricing tables: the Free models list says \"Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.\" Under this ledger's rule that using data to improve the model counts as training, that sentence is a training-use statement. The same page's Privacy exception for the same model says the data is not used for model training (quoted in the next point). These two current first-party statements conflict; both are kept with their own scope and the divergence is not resolved here, so mark=yes / mode=default does not extend to Crouton Alpha Free."
+text_zh = "Crouton Alpha Free 列在本档端点表与价目表内，其训练口径存在未裁定的冲突：免费模型列表写「Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.」，按本台账「用于改进模型算训练」的口径，这是一句训练用途表述；同一页 Privacy 例外清单又写该数据不用于模型训练（原文见下一条）。两句均为同一页的官方现行表述，各自有适用范围；本轮并列保留、不选边，因此 mark=yes / mode=default 不延伸到 Crouton Alpha Free。"
+anchor = "opencode-zen-crouton-free-models"
+
+[[product.training.point]]
+text = "The Privacy half of that conflict, in full: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Its scope is the Privacy exception list and data collected during the free period; it says the data is not used for model training, directly contradicting the Free models entry above, so Crouton's training posture is recorded as a conflict rather than resolved in either direction."
+text_zh = "上述冲突的 Privacy 一侧原文：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。其适用范围是 Privacy 例外清单与免费期内收集的数据；它明确说不用于模型训练，与上面的免费模型条目直接冲突，因此 Crouton 的训练口径记为冲突并列，而不是向任何一侧裁定。"
+anchor = "opencode-zen-crouton-30-days"
+
 [product.zdr]
 mark = "yes"
 mode = "default"
@@ -69,6 +79,11 @@ text = "A further exception in the same privacy section keeps Beam Free requests
 text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 已列入本档端点表与价目表，因此选择该模型时本档不是零保留。"
 anchor = "opencode-zen-beam-30-days"
 
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Crouton Alpha Free's collected data for 30 days, so it is not zero-retention: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Crouton Alpha Free is listed in this tier's own endpoint and pricing tables. Its training statement conflicts with the Free models entry (see the training points); that conflict does not affect the fixed 30-day retention, which keeps mark=yes / mode=default from holding for this model's retention posture."
+text_zh = "同一隐私段的另一条例外把 Crouton Alpha Free 收集的数据保留 30 天，因此不是零保留：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。Crouton Alpha Free 已列入本档端点表与价目表。其训练表述与免费模型条目冲突（见 training 依据）；该冲突不影响固定的 30 天保留，故选择该模型时本档的零保留默认不成立。"
+anchor = "opencode-zen-crouton-30-days"
+
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -87,6 +102,11 @@ anchor = "opencode-zen-mistral-exception"
 text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
 text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
 anchor = "opencode-zen-beam-30-days"
+
+[[product.retention.point]]
+text = "Crouton Alpha Free exception: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Collected data is kept for a fixed 30-day period during the free period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model; no further period or post-free-period deletion commitment is stated. Its training statement conflicts with the Free models entry (see the training points); that does not change the fixed 30-day retention."
+text_zh = "Crouton Alpha Free 例外：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」——免费期内收集的数据固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型；文档没有给出更长期限，也没有说明免费期结束后是否删除。其训练表述与免费模型条目冲突（见 training 依据），不影响固定的 30 天保留。"
+anchor = "opencode-zen-crouton-30-days"
 
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" OpenCode itself claims not to retain Content; the sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
@@ -163,6 +183,11 @@ text_zh = "Beam Free 不属于本档：其例外条目写的是不用于训练�
 anchor = "opencode-zen-beam-30-days"
 
 [[product.retention.point]]
+text = "Crouton Alpha Free is not assigned to this data-collecting tier: its Free models entry says the team is using the free period to collect feedback and improve the model, while its Privacy exception says collected data is retained for 30 days and is not used for model training. Those two current first-party statements conflict, so its training posture is left unresolved in the training points of zen-standard, zen-team and zen-enterprise rather than being counted as a data-collecting model here or treated as confirmed no-training. Its fixed 30-day retention is recorded in those tiers' zdr and retention points."
+text_zh = "Crouton Alpha Free 不归入本档：其免费模型条目写团队会利用免费期收集反馈并改进模型，其 Privacy 例外则写收集的数据保留 30 天且不用于模型训练。两句官方现行表述互相冲突，因此其训练口径在 zen-standard、zen-team、zen-enterprise 的 training 依据中并列保留、未裁定；本档既不把它计为数据收集模型，也不把它当作已确认的不训练模型。其固定 30 天保留记在上述三档的 zdr 与 retention 依据中。"
+anchor = "opencode-zen-crouton-30-days"
+
+[[product.retention.point]]
 text = "Flint 40B Free adds an explicit period: \"Flint 40B Free: During its free period, collected data may be used to improve the model. Data is retained for 30 days.\" Because the tier groups models with different terms, retention is recorded as object=mixed / basis=undisclosed, with this 30-day carve-out stated separately."
 text_zh = "Flint 40B Free 另给出明确期限：「Flint 40B Free: During its free period, collected data may be used to improve the model. Data is retained for 30 days.」。由于本档聚合了期限不同的模型，保留仍记为 object=mixed / basis=undisclosed，并单独列出这条例外。"
 anchor = "opencode-zen-flint-30-days"
@@ -196,6 +221,14 @@ text = "Scope limit: mark=yes / mode=default holds only for models outside the e
 text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
+text = "Crouton Alpha Free is an exception with an unresolved training-position conflict, so it is neither added to the settled data-collecting list above nor treated as covered by the no-training default. The Free models list says \"Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.\" — a training-use statement under this ledger's rule — while the Privacy exception says the data \"is not used for model training\" (quoted in the next point). Both current first-party statements are kept with their own scope; mark=yes / mode=default does not extend to Crouton Alpha Free."
+text_zh = "Crouton Alpha Free 是训练口径存在未裁定冲突的例外，因此既不加入上面的已确认数据收集模型清单，也不视为落在不训练的默认口径内。免费模型列表写「Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.」——按本台账口径属于训练用途表述；Privacy 例外清单则说该数据「is not used for model training」（原文见下一条）。两句官方现行表述各自保留适用范围；mark=yes / mode=default 不延伸到 Crouton Alpha Free。"
+anchor = "opencode-zen-crouton-free-models"
+[[product.training.point]]
+text = "The Privacy half of that conflict: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Its scope is the Privacy exception list and free-period data; it directly contradicts the Free models entry above, so the conflict is left visible rather than resolved by preferring one sentence."
+text_zh = "上述冲突的 Privacy 一侧：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。其适用范围是 Privacy 例外清单与免费期数据；它与上面的免费模型条目直接冲突，因此并列保留冲突，而不是选用其中一句来裁定。"
+anchor = "opencode-zen-crouton-30-days"
+[[product.training.point]]
 text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models."
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。"
 anchor = "opencode-zen-model-access"
@@ -221,6 +254,11 @@ anchor = "opencode-zen-mistral-exception"
 text = "A further exception in the same privacy section keeps Beam Free requests for 30 days rather than zero retention: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Beam Free is a Console free model a workspace can enable, so mark=yes / mode=default does not hold for that model either."
 text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 是工作区可启用的 Console 免费模型，因此选择该模型时也不是零保留。"
 anchor = "opencode-zen-beam-30-days"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Crouton Alpha Free's collected data for 30 days, so it is not zero-retention: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Crouton Alpha Free is a Console free model a workspace can enable. Its training statement conflicts with the Free models entry (see the training points); that conflict does not affect the fixed 30-day retention, which keeps mark=yes / mode=default from holding for this model's retention posture either."
+text_zh = "同一隐私段的另一条例外把 Crouton Alpha Free 收集的数据保留 30 天，因此不是零保留：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。Crouton Alpha Free 是工作区可启用的 Console 免费模型。其训练表述与免费模型条目冲突（见 training 依据）；该冲突不影响固定的 30 天保留，故选择该模型时本档的零保留默认也不成立。"
+anchor = "opencode-zen-crouton-30-days"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -238,6 +276,11 @@ anchor = "opencode-zen-mistral-exception"
 text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
 text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
 anchor = "opencode-zen-beam-30-days"
+
+[[product.retention.point]]
+text = "Crouton Alpha Free exception: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Collected data is kept for a fixed 30-day period during the free period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model; no further period or post-free-period deletion commitment is stated. Its training statement conflicts with the Free models entry (see the training points); that does not change the fixed 30-day retention."
+text_zh = "Crouton Alpha Free 例外：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」——免费期内收集的数据固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型；文档没有给出更长期限，也没有说明免费期结束后是否删除。其训练表述与免费模型条目冲突（见 training 依据），不影响固定的 30 天保留。"
+anchor = "opencode-zen-crouton-30-days"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -265,6 +308,14 @@ text = "Scope limit: mark=yes / mode=default holds only for models outside the e
 text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
+text = "Crouton Alpha Free is an exception with an unresolved training-position conflict, so it is neither added to the settled data-collecting list above nor treated as covered by the no-training default. The Free models list says \"Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.\" — a training-use statement under this ledger's rule — while the Privacy exception says the data \"is not used for model training\" (quoted in the next point). Both current first-party statements are kept with their own scope; mark=yes / mode=default does not extend to Crouton Alpha Free."
+text_zh = "Crouton Alpha Free 是训练口径存在未裁定冲突的例外，因此既不加入上面的已确认数据收集模型清单，也不视为落在不训练的默认口径内。免费模型列表写「Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.」——按本台账口径属于训练用途表述；Privacy 例外清单则说该数据「is not used for model training」（原文见下一条）。两句官方现行表述各自保留适用范围；mark=yes / mode=default 不延伸到 Crouton Alpha Free。"
+anchor = "opencode-zen-crouton-free-models"
+[[product.training.point]]
+text = "The Privacy half of that conflict: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Its scope is the Privacy exception list and free-period data; it directly contradicts the Free models entry above, so the conflict is left visible rather than resolved by preferring one sentence."
+text_zh = "上述冲突的 Privacy 一侧：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。其适用范围是 Privacy 例外清单与免费期数据；它与上面的免费模型条目直接冲突，因此并列保留冲突，而不是选用其中一句来裁定。"
+anchor = "opencode-zen-crouton-30-days"
+[[product.training.point]]
 text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc's own line — \"OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.\" — describes the local / internal-gateway path this row excludes, and is not used as evidence for the Zen-hosted path."
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。企业文档那句「OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.」说的是本行已排除的本地/内部网关路径，不作为 Zen 托管路径的证据。"
 anchor = "opencode-zen-model-access"
@@ -290,6 +341,11 @@ anchor = "opencode-zen-mistral-exception"
 text = "A further exception in the same privacy section keeps Beam Free requests for 30 days rather than zero retention: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Beam Free is a Console free model a workspace can enable, so mark=yes / mode=default does not hold for that model either."
 text_zh = "同一隐私段的另一条例外把 Beam Free 的请求保留 30 天，而不是零保留：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」Beam Free 是工作区可启用的 Console 免费模型，因此选择该模型时也不是零保留。"
 anchor = "opencode-zen-beam-30-days"
+
+[[product.zdr.point]]
+text = "A further exception in the same privacy section keeps Crouton Alpha Free's collected data for 30 days, so it is not zero-retention: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Crouton Alpha Free is a Console free model a workspace can enable. Its training statement conflicts with the Free models entry (see the training points); that conflict does not affect the fixed 30-day retention, which keeps mark=yes / mode=default from holding for this model's retention posture either."
+text_zh = "同一隐私段的另一条例外把 Crouton Alpha Free 收集的数据保留 30 天，因此不是零保留：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」。Crouton Alpha Free 是工作区可启用的 Console 免费模型。其训练表述与免费模型条目冲突（见 training 依据）；该冲突不影响固定的 30 天保留，故选择该模型时本档的零保留默认也不成立。"
+anchor = "opencode-zen-crouton-30-days"
 [product.retention]
 object = "input_output"
 basis = "none"
@@ -307,6 +363,11 @@ anchor = "opencode-zen-mistral-exception"
 text = "Beam Free exception: \"Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.\" Requests are kept for a fixed 30-day safety period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model."
 text_zh = "Beam Free 例外：「Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons.」——请求因安全目的固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型。"
 anchor = "opencode-zen-beam-30-days"
+
+[[product.retention.point]]
+text = "Crouton Alpha Free exception: \"Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.\" Collected data is kept for a fixed 30-day period during the free period, so this is a carve-out from the upstream zero-retention default rather than a zero-retention model; no further period or post-free-period deletion commitment is stated. Its training statement conflicts with the Free models entry (see the training points); that does not change the fixed 30-day retention."
+text_zh = "Crouton Alpha Free 例外：「Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training.」——免费期内收集的数据固定保留 30 天，是上游零保留默认之外的一条例外，而不是零保留模型；文档没有给出更长期限，也没有说明免费期结束后是否删除。其训练表述与免费模型条目冲突（见 training 依据），不影响固定的 30 天保留。"
+anchor = "opencode-zen-crouton-30-days"
 [[product.retention.point]]
 text = "Contract layer (higher authority than the Zen docs): \"Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.\" The sentence is aimed at Third Party Model providers, so it does not settle retention on the Zen-hosted path."
 text_zh = "合同层（权威性高于 Zen 文档）：OpenCode 自称不保留你的 Content，同时把保留责任推给第三方模型商——「Although we will not retain your Content, we cannot and do not control the retention practices of Third Party Model providers.」。该句针对 Third Party Models（BYOK/直连）路径，不覆盖 Zen 自身托管路径的保留。"
@@ -461,6 +522,24 @@ topics = ["training", "retention", "zdr"]
 [anchor.selector]
 prefix = ""
 exact = "- Beam Free: Prompts and other inputs are not used for training. Data is retained for 30 days for safety reasons."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-crouton-free-models"
+source_id = "81c406603eb0c1a6"
+topics = ["training"]
+[anchor.selector]
+prefix = ""
+exact = "- Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-crouton-30-days"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "- Crouton Alpha Free: During its free period, collected data is retained for 30 days and is not used for model training."
 suffix = ""
 
 [[anchor]]
