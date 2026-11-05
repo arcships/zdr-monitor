@@ -17,7 +17,7 @@ note = "《Xiaomi MiMo 服务协议》（页面自述「版本生效日期：202
 url = "https://privacy.mi.com/XiaomiMiMoPlatform-s/zh_CN/"
 channel = "consumer_privacy"
 tier = "core"
-note = "《Xiaomi MiMo 第三方数据共享说明》（版本号 v20260420），境内档。只有两条共享：捷付睿通（内蒙古）支付股份有限公司（实名认证，共享姓名/身份证号/小米账号）与上海小宿科技有限公司（共享目的「用于提供联网搜索功能」，共享数据类型「基于用户输入内容生成的关键词」）。后者是 role 与多跳链路的实证：一旦用户启用平台联网搜索，由输入内容派生的关键词会经 API 流出到第三方。清单里**没有**任何大模型推理上游/模型原厂，即平台未披露推理环节是否有其他处理方。"
+note = "《Xiaomi MiMo 第三方数据共享说明》，境内档。页首原有的「版本号：v20260420」一行在 2026-11-05 抓取中已被移除，当前正文不含版本号。只有两条共享：捷付睿通（内蒙古）支付股份有限公司（共享目的「核验用户实名认证状态、完成身份核验及充值支付相关流程」，共享数据类型「姓名、居民身份证号码、小米账号、充值相关信息（订单编号、交易金额、支付方式）」）与上海小宿科技有限公司（共享目的「用于提供联网搜索功能」，共享数据类型「基于用户输入内容生成的关键词」）。后者是 role 与多跳链路的实证：一旦用户启用平台联网搜索，由输入内容派生的关键词会经 API 流出到第三方。清单里**没有**任何大模型推理上游/模型原厂，即平台未披露推理环节是否有其他处理方。"
 
 [[source]]
 url = "https://privacy.mi.com/XiaomiMiMoPlatform/zh_CN/"
@@ -138,7 +138,7 @@ text_zh = "账号/实名/发票/交易记录部分小米自主决定目的，属
 [[product.role.point]]
 anchor = "mimo-cn-share-list-search-keywords"
 text = "Multi-hop fact, only when the user enables the platform's web search: keywords derived from user input leave via API to 上海小宿科技有限公司, for the purpose of providing the web-search function. The disclosed shared data type is keywords generated from user input, not the full input content."
-text_zh = "多跳事实（仅当用户启用联网搜索功能时）：《第三方数据共享说明》列上海小宿科技有限公司，共享方式 API、共享目的「用于提供联网搜索功能」、共享数据类型「基于用户输入内容生成的关键词」——流出的是由输入派生的关键词，不扩大成输入正文全量外流。该清单只有捷付睿通（实名认证）与上海小宿两条，未披露任何大模型推理上游/模型原厂。"
+text_zh = "多跳事实（仅当用户启用联网搜索功能时）：《第三方数据共享说明》列上海小宿科技有限公司，共享方式 API、共享目的「用于提供联网搜索功能」、共享数据类型「基于用户输入内容生成的关键词」——流出的是由输入派生的关键词，不扩大成输入正文全量外流。该清单只有捷付睿通（实名认证及充值支付）与上海小宿两条，未披露任何大模型推理上游/模型原厂。"
 
 [[product.role.point]]
 anchor = "mimo-cn-ua-third-party-read"
@@ -638,22 +638,3 @@ exact = "共享数据类型： 基于用户输入内容生成的关键词"
 suffix = """
 
 *   隐私政策链接： [https://docs.cloudsway.net/zh/policy/Cloudsway"""
-
-[[anchor]]
-id = "mimo-cn-share-list-version"
-source_id = "c9e5d55b37f6dca5"
-topics = ["role"]
-
-[anchor.selector]
-prefix = """
-ivacy.mi.com/XiaomiMiMoPlatform-s/zh_CN/
-
-Markdown Content:
-"""
-exact = "版本号：v20260420"
-suffix = """
-
-
-## Xiaomi MiMo 第三方数据共享说明
-
-为保障产品和服务的稳定运行或实现相关功能，您的个人信息可能会在各"""
