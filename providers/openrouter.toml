@@ -22,13 +22,13 @@ note = "OpenRouter FAQ 的「Privacy and data logging」节。给出 API 与 Cha
 url = "https://openrouter.ai/docs/guides/features/zdr.md"
 channel = "developer_data"
 tier = "core"
-note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR/保留政策的原句（对受 OpenRouter ZDR 政策覆盖的推理内容，处理完成即不保留 prompt/response，例外为显式选择存储与 CSAM 复核、上报及相关法定留存；页首另有一则 Planned update (October 27, 2026) 提示，称 OpenRouter will screen all inference requests, including ZDR traffic, for CSAM，并注明 We're updating this page and our related terms，故筛查本身按计划中记录）、ZDR 定义（改为「no routine storage of prompts or responses after processing, apart from the CSAM exception」）、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、新增的 Data policy tiers（ZDR / Safety Retention / Retention and Training；Safety Retention 可从任何请求保留 prompt/response，whether flagged or not，仅用于防滥用且不训练）与 Allowing or excluding Safety Retention 两节（选择分为 Google 与 All other models；企业默认 ZDR only，其他账户默认 Allow Safety Retention）、Google Safety Retention（Google Vertex 模型被分类器标记的 prompt 最多留存 90 天且不用于训练，此类端点不满足严格 ZDR；开关还覆盖其他使用 Safety Retention 的模型，其期限未披露）、BYOK 与私有端点的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
+note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址经 jina 渲染后正文丢失，见下一条）。给出 OpenRouter 自身 ZDR/保留政策的原句（对受 OpenRouter ZDR 政策覆盖的推理内容，处理完成即不保留 prompt/response，例外为显式选择存储与 CSAM 复核、上报及相关法定留存；页首另有一则 Planned update (October 27, 2026) 提示，称 OpenRouter will screen all inference requests, including ZDR traffic, for CSAM，并注明 We're updating this page and our related terms，故筛查本身按计划中记录）、ZDR 定义（改为「no routine storage of prompts or responses after processing, apart from the CSAM exception」）、强制方式（账户/模型组/guardrail/请求级）、覆盖边界（不含 plugins 与工具）、新增的 Data policy tiers（ZDR / Safety Retention / Retention and Training；Safety Retention 可从任何请求保留 prompt/response，whether flagged or not，仅用于防滥用且不训练）与 Allowing or excluding Safety Retention 两节（选择分为 Google 与 All other models；企业默认 ZDR only，其他账户默认 Allow Safety Retention）、Google Safety Retention（Google Vertex 模型被分类器标记的 prompt 最多留存 90 天且不用于训练，此类端点不满足严格 ZDR；开关还覆盖其他使用 Safety Retention 的模型，其期限未披露；另写明自有 Google Cloud 协议含零保留时，可用自有 key 在 ZDR only 下使用 Vertex，声明 ZDR 后即按 ZDR 处理）、BYOK 与私有端点的声明机制、隐式缓存不算保留、以及对无法确认政策的端点取保守假设。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
 channel = "developer_data"
 tier = "core"
-note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。BYOK 档的 ZDR 与区域结论都以此为准。"
+note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。ZDR 声明可经钥匙卡或 BYOK 管理 API 的 declared_zdr 字段设置，并明确同样覆盖 Safety Retention：声明为 My account has ZDR 的 key 即使账户选 ZDR only 也按 ZDR 处理，前提是客户自有协议排除该上游的 safety retention。BYOK 档的 ZDR 与区域结论都以此为准。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/privacy/data-collection"
@@ -356,8 +356,18 @@ mode = "by_agreement"
 anchor = "openrouter-byok-zdr-declaration-zdr"
 
 [[product.zdr.point]]
-text = "By default a BYOK key does not exempt you from ZDR restrictions: an endpoint that retains prompts stays blocked (\"When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.\"). The exception is a key whose \"Provider agreement → Zero data retention\" is declared as \"My account has ZDR\", which is let through; the declaration **does not cover video generation**, and OpenRouter says plainly that \"OpenRouter cannot see your provider agreement\", i.e. it is the customer's own attestation, not verification by OpenRouter."
-text_zh = "默认情况下 BYOK 键不豁免 ZDR 限制：端点会保留 prompt 时仍被拦（「When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.」）。例外是 key 上「Provider agreement → Zero data retention」声明为「My account has ZDR」时放行，声明**不覆盖视频生成**，且 OpenRouter 明说「OpenRouter cannot see your provider agreement」，即这只是客户自述、不是 OpenRouter 的核验。"
+text = "By default a BYOK key does not exempt you from ZDR restrictions: an endpoint that retains prompts stays blocked (\"When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.\"). The exception is a key whose \"Provider agreement → Zero data retention\" is declared as \"My account has ZDR\", which is let through; the declaration **does not cover video generation**, and OpenRouter says plainly that \"OpenRouter cannot see your provider agreement\", i.e. it is the customer's own attestation, not verification by OpenRouter. The same declaration also covers Safety Retention: requests through such a key \"are treated as ZDR even when you choose **ZDR only**\", so the **ZDR only** gate no longer excludes Safety Retention endpoints for a declared key, on the condition that the customer's own agreement excludes the provider's safety retention."
+text_zh = "默认情况下 BYOK 键不豁免 ZDR 限制：端点会保留 prompt 时仍被拦（「When you do, an endpoint that retains prompts stays blocked. Your own key does not change that.」）。例外是 key 上「Provider agreement → Zero data retention」声明为「My account has ZDR」时放行，声明**不覆盖视频生成**，且 OpenRouter 明说「OpenRouter cannot see your provider agreement」，即这只是客户自述、不是 OpenRouter 的核验。同一声明也覆盖 Safety Retention：此类 key 的请求「are treated as ZDR even when you choose **ZDR only**」，故对已声明的 key，**ZDR only** 不再排除 Safety Retention 端点；前提是客户自有协议已排除该上游的 safety retention。"
+
+[[product.zdr.point]]
+anchor = "openrouter-byok-declared-zdr-api-zdr"
+text = "The setting is also exposed on the BYOK management API: \"You can also set it with the `declared_zdr` field in the BYOK management API: `true` for **My account has ZDR**, `false` for **My account does not have ZDR**, and `null` for **Use OpenRouter’s default**.\" The API field is the same customer attestation; it does not make OpenRouter verify the provider agreement."
+text_zh = "该设置也经 BYOK 管理 API 暴露：「You can also set it with the `declared_zdr` field in the BYOK management API: `true` for **My account has ZDR**, `false` for **My account does not have ZDR**, and `null` for **Use OpenRouter’s default**.」API 字段仍是同一条客户自述，并不使 OpenRouter 去核验上游协议。"
+
+[[product.zdr.point]]
+anchor = "openrouter-zdr-google-safety-retention-byok-zdr"
+text = "The ZDR page names the Google Vertex case: \"If your own Google Cloud agreement includes zero data retention, you can use Vertex through your own key with **ZDR only**. Declare ZDR on your BYOK key. Requests through that key are treated as ZDR.\" This is the same customer-attestation mechanism applied to Vertex endpoints that would otherwise be excluded under the **ZDR only** choice; the page does not say OpenRouter verifies the Google Cloud agreement."
+text_zh = "ZDR 文档给出了 Google Vertex 的具体场景：「If your own Google Cloud agreement includes zero data retention, you can use Vertex through your own key with **ZDR only**. Declare ZDR on your BYOK key. Requests through that key are treated as ZDR.」这仍是同一套客户自述机制，用于本会被 **ZDR only** 排除的 Vertex 端点；页面没有说 OpenRouter 会核验该 Google Cloud 协议。"
 
 [[product.zdr.point]]
 anchor = "openrouter-zdr-conservative-stance-zdr"
@@ -380,8 +390,13 @@ text_zh = "OpenRouter 这一跳同默认档：「OpenRouter does not store your 
 
 [[product.retention.point]]
 anchor = "openrouter-datacollection-safety-retention-exception-retention"
-text = "Safety Retention endpoints are a further retention context: \"Requests to Safety Retention endpoints are the exception: OpenRouter or the provider may retain prompts and responses from any request, only to prevent abuse, and not for training.\" No period is stated for that retention; they can be excluded with **ZDR only** in privacy settings, and the upstream retention remains governed by the customer's own agreement."
-text_zh = "Safety Retention 端点是另一类保留语境：「Requests to Safety Retention endpoints are the exception: OpenRouter or the provider may retain prompts and responses from any request, only to prevent abuse, and not for training.」该保留未给期限；BYOK key 可用 **ZDR only** 排除这些端点，上游保留仍由客户自有协议决定。"
+text = "Safety Retention endpoints are a further retention context: \"Requests to Safety Retention endpoints are the exception: OpenRouter or the provider may retain prompts and responses from any request, only to prevent abuse, and not for training.\" No period is stated for that retention; they can be excluded with **ZDR only** in privacy settings except for a declared BYOK key (next point), and the upstream retention remains governed by the customer's own agreement."
+text_zh = "Safety Retention 端点是另一类保留语境：「Requests to Safety Retention endpoints are the exception: OpenRouter or the provider may retain prompts and responses from any request, only to prevent abuse, and not for training.」该保留未给期限；除已声明的 BYOK key 外（见下一条），可在隐私设置中用 **ZDR only** 排除这些端点，上游保留仍由客户自有协议决定。"
+
+[[product.retention.point]]
+anchor = "openrouter-byok-zdr-covers-safety-retention-zdr"
+text = "Exception to that gate for declared keys: \"A ZDR declaration also covers Safety Retention. Requests through a key with **My account has ZDR** are treated as ZDR even when you choose **ZDR only**.\" For such a key, Safety Retention endpoints stay eligible under ZDR enforcement, and the retention outcome rests on the customer's own agreement (\"Declare ZDR only if your own provider agreement excludes the provider’s safety retention.\"), which OpenRouter does not verify."
+text_zh = "该开关对已声明的 key 有一条例外：「A ZDR declaration also covers Safety Retention. Requests through a key with **My account has ZDR** are treated as ZDR even when you choose **ZDR only**.」对此类 key，Safety Retention 端点在 ZDR 强制下仍可被路由，保留结果取决于客户自有协议（「Declare ZDR only if your own provider agreement excludes the provider’s safety retention.」），而 OpenRouter 不核验该协议。"
 
 [[product.retention.point]]
 anchor = "openrouter-terms-6-2-optin-perpetual-license-retention"
@@ -1083,6 +1098,14 @@ topics = ["zdr", "retention"]
 exact = "If you don't choose, enterprise accounts default to **ZDR only** and all other accounts default to **Allow Safety Retention**."
 
 [[anchor]]
+id = "openrouter-zdr-google-safety-retention-byok-zdr"
+source_id = "87e9e177299657ea"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "If your own Google Cloud agreement includes zero data retention, you can use Vertex through your own key with **ZDR only**. Declare ZDR on your BYOK key. Requests through that key are treated as ZDR. See Declaring ZDR on a Key."
+
+[[anchor]]
 id = "openrouter-retention-google-safety-retention-90-days-retention"
 source_id = "87e9e177299657ea"
 topics = ["retention", "training"]
@@ -1328,6 +1351,22 @@ exact = "OpenRouter treats requests through this key as zero data retention. The
 suffix = """
  |
 | **My account does not have ZDR** | OpenRouter treats re"""
+
+[[anchor]]
+id = "openrouter-byok-declared-zdr-api-zdr"
+source_id = "87bcd6bb8730937e"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "You can also set it with the `declared_zdr` field in the BYOK management API: `true` for **My account has ZDR**, `false` for **My account does not have ZDR**, and `null` for **Use OpenRouter’s default**."
+
+[[anchor]]
+id = "openrouter-byok-zdr-covers-safety-retention-zdr"
+source_id = "87bcd6bb8730937e"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "A ZDR declaration also covers Safety Retention. Requests through a key with **My account has ZDR** are treated as ZDR even when you choose **ZDR only**. Declare ZDR only if your own provider agreement excludes the provider’s safety retention."
 
 [[anchor]]
 id = "openrouter-freemodels-provider-logs-training"
