@@ -54,7 +54,7 @@ note = "商业档(Claude for Work / Anthropic API)标准保留政策:API 输入�
 url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
 channel = "developer_data"
 tier = "contradiction"
-note = "本文件只把它当矛盾的另一半证据与补充引用:①『Local session transcripts (from sessions on users' machines, in apps such as Cowork and Claude Code) are stored for 6 years by default』与 data-usage 页『本地明文缓存 30 天(cleanupPeriodDays 可调)』口径不一致(疑为厂商侧保留 vs 客户端本地副本,厂商未澄清),两条并列保留、不选边;②『Conversation content … is not retained by default』与 7996866 的 30 天自动删除冲突(同 providers/anthropic.toml 的同源条目)。本页另有正面排除 Free/Pro/Max/Ultra、Teams/Enterprise 界面不 ZDR-eligible 等与核心文档同向的表述,可作佐证。"
+note = "本文件只把它当矛盾的另一半证据与补充引用:①『Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default』与 data-usage 页『本地明文缓存 30 天(cleanupPeriodDays 可调)』口径不一致(疑为厂商侧保留 vs 客户端本地副本,厂商未澄清),两条并列保留、不选边;②『Conversation content … is not retained by default』与 7996866 的 30 天自动删除冲突(同 providers/anthropic.toml 的同源条目)。本页另有正面排除 Free/Pro/Max/Ultra、Teams/Enterprise 界面不 ZDR-eligible 等与核心文档同向的表述,可作佐证。"
 
 [[product]]
 id = "claude-code"
@@ -199,7 +199,7 @@ text = "Exception to that local limit: \"Transcripts of sessions started or most
 text_zh = "该本地期限的例外:在 Claude Desktop 或 Cowork 中开始或最近继续的会话 transcript 默认不受该期限约束。"
 anchor = "cc-local-cache-exempt"
 [[product.retention.point]]
-text = "Conflicting figure from the platform page (kept side by side, not resolved): \"Local session transcripts (from sessions on users' machines, in apps such as Cowork and Claude Code) are stored for 6 years by default\". Anthropic does not clarify whether that is a vendor-side copy of the same object as the 30-day client-side cache."
+text = "Conflicting figure from the platform page (kept side by side, not resolved): \"Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default\". Anthropic does not clarify whether that is a vendor-side copy of the same object as the 30-day client-side cache."
 text_zh = "平台页给出的另一口径(并列保留、不选边):本地会话 transcript(用户机器上的会话,如 Cowork 与 Claude Code)默认存储 6 年。厂商未澄清它是否就是那 30 天客户端副本的厂商侧对应物。"
 anchor = "cc-local-transcripts-6y"
 
@@ -306,7 +306,7 @@ text = "Exception to that local limit: \"Transcripts of sessions started or most
 text_zh = "该本地期限的例外:在 Claude Desktop 或 Cowork 中开始或最近继续的会话 transcript 默认不受该期限约束。"
 anchor = "cc-local-cache-exempt"
 [[product.retention.point]]
-text = "Conflicting figure from the platform page (kept side by side, not resolved): \"Local session transcripts (from sessions on users' machines, in apps such as Cowork and Claude Code) are stored for 6 years by default\". Anthropic does not clarify whether that is a vendor-side copy of the same object as the 30-day client-side cache."
+text = "Conflicting figure from the platform page (kept side by side, not resolved): \"Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default\". Anthropic does not clarify whether that is a vendor-side copy of the same object as the 30-day client-side cache."
 text_zh = "平台页给出的另一口径(并列保留、不选边):本地会话 transcript(用户机器上的会话,如 Cowork 与 Claude Code)默认存储 6 年。厂商未澄清它是否就是那 30 天客户端副本的厂商侧对应物。"
 anchor = "cc-local-transcripts-6y"
 
@@ -599,9 +599,9 @@ source_id = "6bc4022c8696d7c6"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "unless a user deletes it sooner. "
-exact = "Local session transcripts (from sessions on users' machines, in apps such as Cowork and Claude Code) are stored for 6 years by default"
-suffix = ", or for your organization's custom conversation retention period when a finite one is set"
+prefix = ""
+exact = "Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default"
+suffix = ""
 
 [[anchor]]
 id = "cc-role-dpa-processor"
