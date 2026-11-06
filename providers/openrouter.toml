@@ -28,7 +28,7 @@ note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
 channel = "developer_data"
 tier = "core"
-note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。ZDR 声明可经钥匙卡或 BYOK 管理 API 的 declared_zdr 字段设置，并明确同样覆盖 Safety Retention：声明为 My account has ZDR 的 key 即使账户选 ZDR only 也按 ZDR 处理，前提是客户自有协议排除该上游的 safety retention。BYOK 档的 ZDR 与区域结论都以此为准。"
+note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。ZDR 声明可经钥匙卡或 BYOK 管理 API 的 declared_zdr 字段设置，并明确同样覆盖 Safety Retention：声明为 My account has ZDR 的 key 即使账户选 ZDR only 也按 ZDR 处理，前提是客户自有协议排除该上游的 safety retention。BYOK 档的 ZDR 与区域结论都以此为准。另区分 closed-weight 与 open-weight 模型：global API 默认跳过 closed-weight 模型的 region-pinned 端点（除非显式指定），但 open-weight 模型（带 Hugging Face id）的区域端点留在默认路由并与其他端点按价格竞争，BYOK key 可像其他端点一样使用。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/privacy/data-collection"
@@ -40,7 +40,7 @@ note = "「Data Collection」文档页，覆盖 OpenRouter 自身对 prompt/resp
 url = "https://openrouter.ai/openrouter/free"
 channel = "developer_data"
 tier = "core"
-note = "Free Models Router（openrouter/free）的模型目录页，不是政策文档：它的「Related models」逐条列出当时的免费/匿名(cloaked)模型，其中绝大多数带一句上游数据披露『**Note:** All prompts and completions for this model are logged by the provider and may be used to improve the model.』（个别条目写作『It's free to use during this testing period, and prompts and completions are logged by the model creator for feedback and training』）。只用于免费档 products 行的上游那一跳，不作为 OpenRouter 自身政策的依据；该页模型清单是动态的。"
+note = "Free Models Router（openrouter/free）的模型目录页，不是政策文档：列出当前路由的免费模型（清单与数量是动态的），并在「More models from OpenRouter」逐条披露上游数据做法，其中多条带一句『**Note:** All prompts and completions for this model are logged by the provider and may be used to improve the model.』（个别条目写作『It's free to use during this testing period, and prompts and completions are logged by the model creator for feedback and training』）。上游披露只用于免费档 products 行的上游那一跳，不作为 OpenRouter 自身政策的依据。页面另有『Not currently available through EU in-region routing.』一句，用作免费档 processing_region 的 EU in-region 不可用说明。"
 
 [[source]]
 url = "https://openrouter.ai/privacy"
@@ -313,6 +313,11 @@ text_zh = "同 API 档：默认 GCP US regions"
 text = "In-region routing is a paid Business/Enterprise feature that the free tier usually does not have. The actual processing location of an upstream endpoint is decided by each vendor, and OpenRouter does not disclose it model by model for free models."
 text_zh = "in-region 是 Business/Enterprise 付费功能，免费档通常不具备。上游端点的实际处理地由各厂商决定，OpenRouter 未按免费模型逐条披露。"
 
+[[product.processing_region.point]]
+anchor = "openrouter-freemodels-eu-in-region-unavailable-region"
+text = "The openrouter/free router page states it is not currently available through EU in-region routing: \"Not currently available through EU in-region routing.\" This confirms that the free router cannot be placed in the EU in-region path; it does not disclose where an upstream endpoint actually processes the request, so the tier stays coded US (default GCP US regions) with no EU option."
+text_zh = "openrouter/free 路由器页明确当前不提供 EU in-region routing：「Not currently available through EU in-region routing.」这确认免费路由器无法走欧盟区域内路径；该句没有披露上游端点实际在哪里处理请求，故本档仍按默认 GCP US regions 编码为 US，没有 EU 选项。"
+
 [product.role]
 kind = "processor"
 anchor = "openrouter-dpa-2-1-roles-role"
@@ -434,6 +439,11 @@ anchor = "openrouter-byok-region-declaration-region"
 [[product.processing_region.point]]
 text = "Region rests on a declaration: \"On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter.\" The Data region setting offers Global / European Union / United States on OpenAI and Azure keys, and only Global / United States on Anthropic keys; the declaration is the customer's attestation — \"OpenRouter does not verify it\"."
 text_zh = "区域靠声明：「On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter.」OpenAI 与 Azure key 的 Data region 有 Global / European Union / United States 三档，Anthropic key 只有 Global / United States；声明是客户自述——「OpenRouter does not verify it」。"
+
+[[product.processing_region.point]]
+anchor = "openrouter-byok-open-weight-regional-endpoints-region"
+text = "Routing to region-pinned endpoints now depends on model weight: \"Regional endpoints of open-weight models (models with a Hugging Face id) are not skipped: they stay in default routing and compete on price with the model’s other endpoints, so a BYOK key for that provider can be used on them like on any other endpoint.\" The same paragraph says closed-weight models' regional endpoints are still skipped by default and fallback keys never unlock them. So an open-weight BYOK request can reach a region-pinned endpoint even on the global API; the page still does not disclose the actual processing region, so this tier remains basis=undisclosed with no coded region."
+text_zh = "区域端点路由现在按模型权重区分：「Regional endpoints of open-weight models (models with a Hugging Face id) are not skipped: they stay in default routing and compete on price with the model’s other endpoints, so a BYOK key for that provider can be used on them like on any other endpoint.」同段还写明 closed-weight 模型的区域端点仍默认跳过，fallback key 不会解锁这些端点。因此 open-weight 模型的 BYOK 请求即使走 global API 也可能到达 region-pinned 端点；页面仍未披露实际处理地，故本档仍为 basis=undisclosed、不编码区域。"
 
 [[product.processing_region.point]]
 anchor = "openrouter-byok-region-openai-azure-declaration-region"
@@ -1382,6 +1392,14 @@ suffix = """
 [Healer Alpha Healer Alpha is a frontier omni-modal """
 
 [[anchor]]
+id = "openrouter-freemodels-eu-in-region-unavailable-region"
+source_id = "c2cf14226e6f89c8"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Not currently available through EU in-region routing."
+
+[[anchor]]
 id = "openrouter-zdr-enforcement-modes-zdr"
 source_id = "87e9e177299657ea"
 topics = ["zdr"]
@@ -1412,6 +1430,14 @@ topics = ["processing_region"]
 
 [anchor.selector]
 exact = "On a regional domain, OpenRouter routes only to endpoints it has onboarded for that region (see In-Region Routing). OpenRouter cannot see where your own OpenAI, Azure, or Anthropic account processes requests, so you tell OpenRouter."
+
+[[anchor]]
+id = "openrouter-byok-open-weight-regional-endpoints-region"
+source_id = "87bcd6bb8730937e"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Regional endpoints of open-weight models (models with a Hugging Face id) are not skipped: they stay in default routing and compete on price with the model’s other endpoints, so a BYOK key for that provider can be used on them like on any other endpoint."
 
 [[anchor]]
 id = "openrouter-byok-region-openai-azure-declaration-region"
