@@ -16,7 +16,7 @@ note = "AI Gateway 官方 Unified Billing 文档(Last updated Oct 27, 2026):覆�
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway Logging 文档(Last updated Oct 26, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs;逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出。"
+note = "AI Gateway Logging 文档(Last updated Nov 5, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs;逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出;cf-aig-collect-log 关闭时跳过日志条目其余部分,但统一计费请求仍会记录请求计费明细(不含请求/响应正文)。"
 
 [[source]]
 url = "https://developers.cloudflare.com/workers/observability/logs/workers-logs/"
@@ -149,8 +149,8 @@ text_zh = "网关日志默认开启,每条日志可能含 prompt 和 response �
 anchor = "cf-aigw-logging-fields-include-prompt-response"
 
 [[product.retention.point]]
-text = "Per-request cf-aig-collect-log: false skips the entire log including metadata; cf-aig-collect-log-payload: false skips payload but retains metadata."
-text_zh = "逐请求 cf-aig-collect-log: false 跳过整条日志含元数据;cf-aig-collect-log-payload: false 仅跳过正文。"
+text = "For BYOK requests, per-request cf-aig-collect-log: false makes AI Gateway skip the rest of the log entry, so metadata is not stored either, regardless of the cf-aig-collect-log-payload value; cf-aig-collect-log-payload: false skips only the payload and retains metadata. The Unified Billing billing-details exception on the same page does not apply to this BYOK tier."
+text_zh = "BYOK 请求下,逐请求 cf-aig-collect-log: false 会让 AI Gateway 跳过日志条目的其余部分,连元数据也不存,且不受 cf-aig-collect-log-payload 取值影响;cf-aig-collect-log-payload: false 只跳过正文、保留元数据。同页新增的统一计费计费明细例外不适用于本档。"
 anchor = "cf-aigw-logging-collect-log-false-skips-entry"
 
 [[product.retention.point]]
@@ -296,6 +296,11 @@ anchor = "cf-aigw-legacy-logs-until-deleted"
 text = "Legacy Logs for customers who created a gateway before September 24, 2026 persists stored logs until customer deletion; at a count-based storage limit it may delete the oldest entries or stop writing. Logging is on by default and can include prompt/response; ZDR does not control gateway logging."
 text_zh = "2026-09-24 前已创建 gateway 的客户使用 Legacy Logs:已存日志留至客户删除;条数触顶可删最旧日志或停止写入。日志默认开启,可含 prompt/response;ZDR 不控制网关日志。"
 anchor = "cf-aigw-legacy-logs-until-deleted"
+
+[[product.retention.point]]
+text = "On Unified Billing, per-request logging headers cannot fully suppress the log entry: 'For Unified Billing requests, AI Gateway always logs the request billing details.' With the collect-log headers set to false, the entry is stored without request and response bodies; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
+text_zh = "统一计费档下,逐请求日志 header 不能完全抑制日志条目:『For Unified Billing requests, AI Gateway always logs the request billing details.』collect-log 系列 header 设为 false 时条目仍会记录,只是不含请求/响应正文;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
+anchor = "cf-aigw-logging-collect-log-unified-billing-billing-details"
 
 [[product.retention.point]]
 text = "Object boundary of the DPA retention criteria on this tier: the Annex criterion (\"Until the earliest of (i) expiry/termination of the Main Agreement, or (ii) the date upon which processing is no longer necessary...\") covers the gateway hop only — the AI Gateway section of the Service-Specific Terms says the Cloudflare DPA and Information Security Exhibit \"do not apply to your use of such Third-Party Products accessed via AI Gateway\", so how long the upstream provider keeps the request is governed by that provider's own policy. Even a ZDR-mapped configuration is a mapping onto upstream endpoints, not a Cloudflare retention commitment"
@@ -481,9 +486,14 @@ text_zh = "2026-09-24 及以后首次创建 gateway 的客户按 Workers Logs:Pa
 anchor = "cf-aigw-logging-retention-eligibility"
 
 [[product.retention.point]]
-text = "Gateway logs are on by default and can contain prompt/response payloads; per-request headers can suppress an entire log or only its payload."
-text_zh = "网关日志默认开启且可含提示词/响应正文;逐请求可跳过整条或仅正文。"
+text = "Gateway logs are on by default and can contain prompt/response payloads."
+text_zh = "网关日志默认开启且可含提示词/响应正文。"
 anchor = "cf-aigw-logging-fields-include-prompt-response"
+
+[[product.retention.point]]
+text = "On Unified Billing, per-request logging headers cannot fully suppress the log entry: 'For Unified Billing requests, AI Gateway always logs the request billing details.' With the collect-log headers set to false, the entry is stored without request and response bodies; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
+text_zh = "统一计费档下,逐请求日志 header 不能完全抑制日志条目:『For Unified Billing requests, AI Gateway always logs the request billing details.』collect-log 系列 header 设为 false 时条目仍会记录,只是不含请求/响应正文;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
+anchor = "cf-aigw-logging-collect-log-unified-billing-billing-details"
 
 [[product.retention.point]]
 text = "Per-request logging headers only control the logs that AI Gateway stores; they do not change what Logpush exports."
@@ -645,7 +655,17 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = ""
-exact = "If `cf-aig-collect-log` is set to `false`, the entire log entry (including metadata) is skipped regardless of the `cf-aig-collect-log-payload` value."
+exact = "If `cf-aig-collect-log` is set to `false`, AI Gateway does not store the request and response bodies, regardless of the `cf-aig-collect-log-payload` value, and skips the rest of the log entry."
+suffix = ""
+
+[[anchor]]
+id = "cf-aigw-logging-collect-log-unified-billing-billing-details"
+source_id = "a010df22132f478a"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "For Unified Billing requests, AI Gateway always logs the request billing details. If the collect logs headers are set to `false`, the entry is logged without the request and response bodies."
 suffix = ""
 
 [[anchor]]
