@@ -114,9 +114,9 @@ text_zh = "对需要保留的模型,ZDR 不是自助可得:ZDR 访问按账号�
 anchor = "zdr-eligibility-per-account-model"
 
 [[product.zdr.point]]
-text = "For Claude models the ZDR eligibility decision sits with Anthropic: \"ZDR eligibility for Claude models is managed by Anthropic.\" Contact your Anthropic account representative for support."
-text_zh = "Claude 系列的 ZDR 资格由 Anthropic 管理,须联系 Anthropic 客户代表。"
-anchor = "zdr-claude-eligibility-managed-by-anthropic"
+text = "For Claude models that require data retention, ZDR eligibility runs through the Enterprise Frontier Safeguards program: \"ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support.\" This replaces the previous direction to contact an Anthropic account representative."
+text_zh = "对需要保留的 Claude 模型,ZDR 资格走 Enterprise Frontier Safeguards 计划:「ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support.」这取代了原先「联系 Anthropic 客户代表」的说法。"
+anchor = "zdr-claude-eligibility-frontier-safeguards"
 
 [[product.zdr.point]]
 text = "Operator access is still zero, but the abuse-detection page now qualifies it: \"Amazon Bedrock uses a zero operator access (ZOA) data security model, subject to the model-specific abuse and CSAM detection detailed below.\""
@@ -129,8 +129,8 @@ text_zh = "`store=false` 不保证零保留:部分模型即使 `store=false` 仍
 anchor = "retention-store-false-not-guarantee"
 
 [[product.zdr.point]]
-text = "Model-level exception that makes the approval path mandatory: for Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. ZDR for these models therefore requires the per-account, per-model approval described above (for Claude, managed by Anthropic)."
-text_zh = "使审批路径成为必需的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 的全部流量都会为自动化离线滥用检测保留最多 30 天,被分类器标记的流量还可能由 AWS 人工审查。因此这两个模型的 ZDR 须走上述按账号、按模型审批(Claude 由 Anthropic 管理)。"
+text = "Model-level exception that makes the approval path mandatory: for Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. ZDR for these models therefore requires the per-account, per-model approval described above (for Claude, granted through the Enterprise Frontier Safeguards program)."
+text_zh = "使审批路径成为必需的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 的全部流量都会为自动化离线滥用检测保留最多 30 天,被分类器标记的流量还可能由 AWS 人工审查。因此这两个模型的 ZDR 须走上述按账号、按模型审批(Claude 走 Enterprise Frontier Safeguards 计划)。"
 anchor = "retention-claude-fable-all-traffic-30d"
 
 [[product.zdr.point]]
@@ -350,13 +350,13 @@ exact = "Setting `store=false` does not guarantee zero data retention. Some mode
 suffix = "| `aws_review` |"
 
 [[anchor]]
-id = "zdr-claude-eligibility-managed-by-anthropic"
+id = "zdr-claude-eligibility-frontier-safeguards"
 source_id = "45084a6538d274c1"
 topics = ["zdr"]
 
 [anchor.selector]
 prefix = "###### Anthropic Claude models"
-exact = "ZDR eligibility for Claude models is managed by Anthropic. Contact your Anthropic account representative for support."
+exact = "ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support."
 
 [[anchor]]
 id = "zoa-zero-operator-access"
