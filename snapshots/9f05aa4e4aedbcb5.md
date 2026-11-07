@@ -5,7 +5,7 @@ Sign inContactContact salesDownload
 - Terms of Service
 - Privacy Policy
 # Privacy Policy
-Last updated September 29, 2026
+Last updated November 6, 2026
 Note: For information about how we collect and use training information to develop our models that power the Service, and your choices with respect to that information, please see our Privacy Overview.
 ## #Introduction
 We at Anysphere, Inc. (“**Anysphere**”, “**we**” or “**us**”) are strongly committed to respecting your privacy and keeping secure any information you share with us. This privacy policy (“**Privacy Policy**”) explains how we collect, use, disclose, and process your personal data when you use Anysphere's software, platform, APIs, Documentation, and related tools, including at the website at www.cursor.com, and all related software made available by Anysphere to build, deploy, host, and manage software projects (“**Service**”). It also tells you how you can access and update your personal information and describes the data protection rights that may be available under your country's or state's laws. Please read this Privacy Policy carefully. By accessing or using the Service, you acknowledge you have been informed of and consent to our practices with regard to your personal information and data.
@@ -15,7 +15,7 @@ We collect the following categories of personal data:
 A. **Personal data you provide to us directly**
 We collect personal data if you create an account to use our Service or communicate with us. This includes:
 - **Account Information:** Anysphere collects identifiers, such as your name and email address, when you sign up for an Anysphere account or to receive information about our Service.
-- **Payment Information:** We collect your payment information if you seek to access any paid Anysphere products and services.
+- **Payment Information:** We collect your payment information if you seek to access any paid products and services, or initiate payment for products and services.
 - **Inputs and Suggestions:** The Service allows you to submit content ("**Inputs**"), which generate responses ("**Suggestions**") based on your Inputs. If you include personal data or reference external content in your Inputs, we will collect that information and it may be reproduced in the Suggestions we provide.
 - **Communication Information:** If you communicate with us, we collect your name, contact information, and the contents of any messages you send.
 - **Feedback:** While using the Service, you may provide feedback, including ideas and suggestions for improvement or rating a Suggestion in response to an Input ("**Feedback**"). If you provide Feedback on the Service, we may store the entire exchange as part of your Feedback.
@@ -71,9 +71,21 @@ The rights available to you may include:
 - No automated decisions: Anysphere does not make decisions based solely on automated processing that impact your legal rights or has similarly significant effects (e.g. your healthcare or financial circumstances).
 - We do not process sensitive personal data for the purposes of inferring characteristics about a consumer.
 Anysphere processes your personal data for the purposes described in this Privacy Policy on servers located in various jurisdictions, including in the United States. While data protection laws vary by country, we apply the protections outlined in this policy to your personal data regardless of where it is processed, and we only transfer data in accordance with legally valid transfer mechanisms. For users in the European Economic Area, (“EEA”), when you access our Service, your personal data may be transferred to our United States servers to other countries outside the EEA and the UK. Where information is transferred outside the EEA or the UK, we require an adequate level of data protection.
-## #7. Privacy policy changes
+## #7. Google user data in Grok Bot
+When you connect a Google account to Grok Bot, it accesses only the Google data needed for the features you turn on:
+- **Gmail:** to read, search and label your email, and to draft or send email when you ask.
+- **Google Calendar:** to read your calendars and availability, and to create or update events when you ask.
+- **Google Drive:** to find, read, create and edit the files you ask Grok Bot to work with.
+- **Google Docs, Sheets and Slides:** to read and edit the documents, spreadsheets and presentations you ask Grok Bot to work with.
+- **Your Google account email:** to identify the connected account.
+**How we use it.** Grok Bot uses Google user data only to provide the features you request. We don't use it for advertising and we don't sell it. We share it only as needed to provide those features, for security, or to comply with the law.
+**AI training.** For users who opt to connect to Google Apps via Google OAuth, we shall not use any Google Apps content for any of our internal AI or other training purposes (such as training our machine learning models), including developing new products or services based on such content.
+**People.** Our staff don't read your Google data unless you ask us to (for example, for support), for security investigations, or to comply with the law.
+**Storage and deletion.** Grok Bot keeps conversations, including any Google data in them, until you delete the bot or your account. Team admins can set a retention period of 30 to 365 days, after which messages and attachments are deleted automatically. You can disconnect Google at any time in Grok Bot or in your Google Account settings, and disconnecting immediately deletes the Google tokens we hold.
+**Limited Use.** Grok Bot's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.
+## #8. Privacy policy changes
 We may update this Privacy Policy from time to time. When we do, we will publish an updated version and effective date at the top of this page, unless another type of notice is legally required. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.
-## #8. Contacting us
+## #9. Contacting us
 We encourage you to contact us at hi@cursor.com if you have any questions about this Privacy Policy.
 Skip to content
 Cursor
@@ -81,7 +93,7 @@ Sign inContactContact salesDownload
 - Terms of Service
 - Privacy Policy
 # Privacy Policy
-Last updated September 29, 2026
+Last updated November 6, 2026
 ## #Introduction
 ## #1. Personal data we collect
 C. **Information We Do Not Collect**
@@ -90,5 +102,6 @@ C. **Information We Do Not Collect**
 ## #4. Retention
 ## #5. Security
 ## #6. Your rights and choices
-## #7. Privacy policy changes
-## #8. Contacting us
+## #7. Google user data in Grok Bot
+## #8. Privacy policy changes
+## #9. Contacting us
