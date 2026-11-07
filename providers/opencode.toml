@@ -138,9 +138,14 @@ text_zh = "合同层（本文件权威性最高的来源）：厂商明文授权
 anchor = "opencode-tos-unpaid-training"
 
 [[product.training.point]]
-text = "Pulse Alpha Free is the newest exception to the Zen privacy statement, and it allows collected data to be used to improve the model: \"Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.\" Under this ledger's rule that using content to improve the service counts as training, this is a data-collecting free model, not a no-training one."
-text_zh = "Pulse Alpha Free 是 Zen 隐私声明的最新例外，允许把收集的数据用于改进模型：「Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.」。按本台账「用于改进服务算训练」的口径，这是数据收集型免费模型，而不是不训练模型。"
+text = "Pulse Alpha Free is an exception to the Console privacy statement, and it allows collected data to be used to improve the model: \"Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.\" Under this ledger's rule that using content to improve the service counts as training, this is a data-collecting free model, not a no-training one."
+text_zh = "Pulse Alpha Free 是 Console 隐私声明的例外之一，允许把收集的数据用于改进模型：「Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.」。按本台账「用于改进服务算训练」的口径，这是数据收集型免费模型，而不是不训练模型。"
 anchor = "opencode-zen-pulse-alpha-exception"
+
+[[product.training.point]]
+text = "Iceman Free was added in the 2026-11-07 snapshot, and its privacy exception says the collected data is retained and used to improve the model: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The Free models list describes the same model as a stealth model whose free period is used \"to collect feedback and improve the model.\" Both statements point the same way, so unlike Crouton Alpha Free there is no conflict: under this ledger's rule this is a data-collecting free model, not a no-training one."
+text_zh = "Iceman Free 在 2026-11-07 快照新增，其隐私例外写明收集的数据会被保留并用于改进模型：「Iceman Free: During its free period, collected data is retained and used to improve the model.」免费模型列表对同一模型的描述也是团队利用免费期「to collect feedback and improve the model」。两句方向一致，因此不像 Crouton Alpha Free 那样存在冲突：按本台账口径，这是数据收集型免费模型，而不是不训练模型。"
+anchor = "opencode-zen-iceman-exception"
 
 [product.zdr]
 mark = "no"
@@ -161,6 +166,11 @@ text = "Pulse Alpha Free adds an explicit retention permission to the same excep
 text_zh = "Pulse Alpha Free 在同一例外清单里新增了明确的保留授权：「Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
 anchor = "opencode-zen-pulse-alpha-exception"
 
+[[product.zdr.point]]
+text = "Iceman Free adds another explicit retention-and-use permission to the same exception list: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The docs state no zero-retention option for this model, so it reinforces zdr=no for this tier."
+text_zh = "Iceman Free 在同一例外清单里新增了又一条明确的保留与使用授权：「Iceman Free: During its free period, collected data is retained and used to improve the model.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
+anchor = "opencode-zen-iceman-exception"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -168,14 +178,19 @@ anchor = "opencode-zen-nvidia-free"
 searched = ["https://opencode.ai/docs/zen", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/legal/privacy-policy"]
 
 [[product.retention.point]]
-text = "Objects and context: the data-collecting free models other than Flint 40B Free and Pulse Alpha Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Flint 40B Free and Pulse Alpha Free are stated separately below because their bullets add retention language."
-text_zh = "对象与语境：除 Flint 40B Free 与 Pulse Alpha Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Flint 40B Free 与 Pulse Alpha Free 另叙于下，因为它们的条目额外写了保留相关表述。"
+text = "Objects and context: the data-collecting free models other than Iceman Free, Flint 40B Free and Pulse Alpha Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Iceman Free, Flint 40B Free and Pulse Alpha Free are stated separately below because their bullets add retention language."
+text_zh = "对象与语境：除 Iceman Free、Flint 40B Free 与 Pulse Alpha Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Iceman Free、Flint 40B Free 与 Pulse Alpha Free 另叙于下，因为它们的条目额外写了保留相关表述。"
 anchor = "opencode-zen-exceptions"
 
 [[product.retention.point]]
 text = "Pulse Alpha Free exception: \"Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
 text_zh = "Pulse Alpha Free 例外：「Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
 anchor = "opencode-zen-pulse-alpha-exception"
+
+[[product.retention.point]]
+text = "Iceman Free exception: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
+text_zh = "Iceman Free 例外：「Iceman Free: During its free period, collected data is retained and used to improve the model.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
+anchor = "opencode-zen-iceman-exception"
 
 [[product.retention.point]]
 text = "Beam Free is not part of this tier: its exception bullet says it is not used for training and is retained for 30 days, and that posture is recorded in the zdr and retention points of zen-standard, zen-team and zen-enterprise, not here."
@@ -217,8 +232,8 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Pulse Alpha Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Pulse Alpha Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Iceman Free、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
 text = "Crouton Alpha Free is an exception with an unresolved training-position conflict, so it is neither added to the settled data-collecting list above nor treated as covered by the no-training default. The Free models list says \"Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.\" — a training-use statement under this ledger's rule — while the Privacy exception says the data \"is not used for model training\" (quoted in the next point). Both current first-party statements are kept with their own scope; mark=yes / mode=default does not extend to Crouton Alpha Free."
@@ -304,8 +319,8 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Pulse Alpha Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Pulse Alpha Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Iceman Free、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Pulse Alpha Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 [[product.training.point]]
 text = "Crouton Alpha Free is an exception with an unresolved training-position conflict, so it is neither added to the settled data-collecting list above nor treated as covered by the no-training default. The Free models list says \"Crouton Alpha Free is a stealth model that’s free on OpenCode for a limited time. The team is using this time to collect feedback and improve the model.\" — a training-use statement under this ledger's rule — while the Privacy exception says the data \"is not used for model training\" (quoted in the next point). Both current first-party statements are kept with their own scope; mark=yes / mode=default does not extend to Crouton Alpha Free."
@@ -459,7 +474,7 @@ topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
 exact = "- Big Pickle: During its free period, collected data may be used to improve the model."
-suffix = "\n- Pulse Alpha Free"
+suffix = "\n- Iceman Free"
 
 [[anchor]]
 id = "opencode-zen-model-access"
@@ -495,6 +510,15 @@ topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
 exact = "- Pulse Alpha Free: During its free period, collected data may be retained and used to improve the model."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-iceman-exception"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "- Iceman Free: During its free period, collected data is retained and used to improve the model."
 suffix = ""
 
 [[anchor]]
