@@ -47,7 +47,7 @@ url = "https://www.alibabacloud.com/help/en/model-studio/regions/"
 fetch = "browser"
 channel = "developer_data"
 tier = "core"
-note = "国际站 Model Studio 地域与接入点文档。覆盖 Singapore(ap-southeast-1)、Frankfurt(eu-central-1)、Tokyo(ap-northeast-1)、Hong Kong(cn-hongkong)、US Virginia(us-east-1)与 China (Beijing) 各 region 的接入点、数据存放与推理执行范围(service deployment scope)"
+note = "国际站 Model Studio《Regions and service deployment scopes》（原《Regions and endpoints》，2026-11-06 快照改名；Updated at 2026-11-06 14:06:41）。覆盖 Singapore(ap-southeast-1)、Frankfurt(eu-central-1)、Tokyo(ap-northeast-1)、Hong Kong(cn-hongkong)、US Virginia(us-east-1)与 China (Beijing) 各 region 的接入点与数据存放位置；推理执行范围由 service deployment scope 决定的机制仍写明。2026-11-06 快照把 scope 对应关系从「For a complete list of regions and their supported service deployment scopes, go to the console.」改为指向六个地域子页：「For the service deployment scopes and access information for each region, see China (Beijing), Singapore, US (Virginia), Germany (Frankfurt), Japan (Tokyo), China (Hong Kong).」；并删除「China (Beijing) 和 Singapore 各仅支持一种服务部署范围，无需选择」一句，现只列 Germany (Frankfurt)、Japan (Tokyo)、China (Hong Kong)、US (Virginia) 通过 Workspaces 区分 scope。地域子页未纳入来源，本页不再单独说明 China (Beijing) 与 Singapore 的服务部署范围（推理执行地）。"
 
 [[product]]
 id = "api"
@@ -181,8 +181,8 @@ text = "developer_data (high): the Regions documentation — \"Regions determine
 text_zh = "developer_data(高):地域文档「Regions determine the access point and data storage location」「Request data is stored in that region.」「Your static data always remains in the selected region.」——数据存放地与接入点由所选 region 决定"
 
 [[product.processing_region.point]]
-text = "Where inference runs is set by the service deployment scope (Global or a geographic-boundary scope, one or the other; Singapore has only International, China (Beijing) has only mainland China). Contractual support: Product ToS §4.48.1(g)(viii) \"Member Content … will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service\", plus the customer's designation"
-text_zh = "推理执行地由 service deployment scope 决定(Global 与地理边界 scope 二选一,Singapore 只有 International、China (Beijing) 只有中国大陆)。合同佐证:Product ToS §4.48.1(g)(viii)「Member Content … will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service」+ 客户指定"
+text = "Where inference runs is set by the service deployment scope: \"Service deployment scope: Determines the **inference execution location**. If you have data compliance requirements, select a scope with specific geographic boundaries. Otherwise, select the Global scope for a larger inference resource pool.\" **Boundary (2026-11-06 update)**: the page no longer states which scope Singapore and China (Beijing) use — the sentence saying each supports only one service deployment scope (Chinese mainland for China (Beijing), International for Singapore) was removed; it now names only Germany (Frankfurt), Japan (Tokyo), China (Hong Kong) and US (Virginia) as regions that separate scopes through Workspaces. Contractual support: Product ToS §4.48.1(g)(viii) \"Member Content … will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service\", plus the customer's designation"
+text_zh = "推理执行地由 service deployment scope 决定:「Service deployment scope: Determines the **inference execution location**. If you have data compliance requirements, select a scope with specific geographic boundaries. Otherwise, select the Global scope for a larger inference resource pool.」**边界(2026-11-06 更新)**:页面不再说明 Singapore 与 China (Beijing) 使用哪种 scope——原「两地域各仅支持一种服务部署范围(Beijing 为中国大陆、Singapore 为 International),无需选择」的句子已删除;现只列 Germany (Frankfurt)、Japan (Tokyo)、China (Hong Kong)、US (Virginia) 通过 Workspaces 区分 scope。合同佐证:Product ToS §4.48.1(g)(viii)「Member Content … will be transferred to, stored, and processed in the country where Alibaba Cloud, its affiliates, or its sub-contractors maintain facilities for Model Studio Service」+ 客户指定"
 
 [[product.processing_region.point]]
 text = "DPA §6.1「You decide where to store Data (Selected Region)」"
@@ -641,9 +641,9 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = """
-to meet different access requirements.
+that meet your data storage and inference location requirements. Then choose an endpoint for that region.
 
-## Region overview
+## How regions and service deployment scopes differ
 
 """
 exact = "Regions determine the **access point and data storage location**."
