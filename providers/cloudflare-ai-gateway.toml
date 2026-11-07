@@ -40,7 +40,7 @@ note = "Cloudflare Update a gateway API:请求体中的 zdr 可选布尔字段,�
 url = "https://developers.cloudflare.com/data-localization/compatibility/"
 channel = "developer_data"
 tier = "core"
-note = "Data Localization Suite 兼容性表(dateModified 2026-07-23)。AI Gateway 一行:Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(脚注 15 为『有条件兼容』)。processing_region 维度权威。注意:jina 通道把整页脚注全部丢掉,脚注 15 原文只在 docs 站的 .md 直连通道可读(原文见 notes),故此处只对表格行加锚点。"
+note = "Data Localization Suite 兼容性表(Last updated 2026-11-06)。AI Gateway 一行:Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(脚注 14 为『有条件兼容』)。processing_region 维度权威。注意:jina 通道把整页脚注全部丢掉,脚注 14 原文只在 docs 站的 .md 直连通道可读(原文见 notes),故此处只对表格行加锚点。"
 
 [[source]]
 url = "https://developers.cloudflare.com/data-localization/metadata-boundary/"
@@ -190,12 +190,12 @@ text = "DPA §6.1: \"the parties anticipate that Cloudflare (and its sub-Process
 text_zh = "DPA §6.1『the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area』,§7.1 承认会在 Originating Country 之外处理。②DLS 兼容性表里 AI Gateway 一行是 Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(有条件)"
 
 [[product.processing_region.point]]
-text = "Footnote 15, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
-text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
+text = "Footnote 14, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
+text_zh = "docs 的 .md 直连通道给出的脚注 14 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
 
 [[product.processing_region.point]]
-text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
-text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
+text = "Footnote 14 is readable only through the direct channel (jina drops footnotes)."
+text_zh = "脚注 14 只在 direct 通道可读(jina 丢脚注)。"
 
 [[product.processing_region.point]]
 text = "Exception to the boundary: CMB has an \"Allow out-of-region access\" setting — \"When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.\" CMB therefore constrains where logs are stored, not who may read them. Object caveat: the same document defines CMB's Customer Logs as traffic metadata (\"request URLs, timestamps, and firewall events\"), and Cloudflare does not state whether AI Gateway prompt/response content falls inside that definition"
@@ -320,12 +320,12 @@ text = "DPA §6.1: \"the parties anticipate that Cloudflare (and its sub-Process
 text_zh = "DPA §6.1『the parties anticipate that Cloudflare (and its sub-Processors) may process outside of the European Economic Area』,§7.1 承认会在 Originating Country 之外处理。②DLS 兼容性表里 AI Gateway 一行是 Geo Key Manager ✘ / Regional Services ✘ / Customer Metadata Boundary 🚧(有条件)"
 
 [[product.processing_region.point]]
-text = "Footnote 15, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
-text_zh = "docs 的 .md 直连通道给出的脚注 15 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
+text = "Footnote 14, as rendered by the direct .md channel of the docs, reads \"Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.\" — i.e. AI Gateway can be placed under CMB, but CMB supports only the eu and us regions. (3) The contractual CMB commitment is \"Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services\", and DLS is sold only for Enterprise-plan zones at an extra 30% fee (Data Localization Suite section of the Service-Specific Terms). (4) Upstream hop: which provider processes the request in which region is governed by each provider's own policy; Cloudflare neither commits to nor discloses the target region of per-request routing. (5) Unverified / uncertain: whether AI Gateway is on CMB's \"Covered Services\" list is not itemized in the public documentation"
+text_zh = "docs 的 .md 直连通道给出的脚注 14 原文为『Jurisdictional Restrictions (storage) options for Logs are not supported today. All other features are available to all CMB regions.』——即 AI Gateway 可配 CMB,但 CMB 只支持 eu / us 两区。③CMB 的合同承诺是『Cloudflare will not transfer outside the configured region(s) any End User Customer Logs arising from Covered Services』,且 DLS 只对企业版 zone 销售、额外收 30% 费用(《服务专用条款》Data Localization Suite 一节)。④上游跳:请求最终由哪家 provider 在哪个区域处理,由各家自己的政策决定,Cloudflare 不承诺、也不披露逐请求路由的目标区域。⑤未核/不确定:AI Gateway 是否被列入 CMB 的『Covered Services』清单,公开文档没有逐项列名"
 
 [[product.processing_region.point]]
-text = "Footnote 15 is readable only through the direct channel (jina drops footnotes)."
-text_zh = "脚注 15 只在 direct 通道可读(jina 丢脚注)。"
+text = "Footnote 14 is readable only through the direct channel (jina drops footnotes)."
+text_zh = "脚注 14 只在 direct 通道可读(jina 丢脚注)。"
 
 [[product.processing_region.point]]
 text = "Exception to the boundary: CMB has an \"Allow out-of-region access\" setting — \"When enabled, Customer Logs will still be stored in the configured regions but will be accessible to authorized users on your account, regardless of physical location.\" CMB therefore constrains where logs are stored, not who may read them. Object caveat: the same document defines CMB's Customer Logs as traffic metadata (\"request URLs, timestamps, and firewall events\"), and Cloudflare does not state whether AI Gateway prompt/response content falls inside that definition"
@@ -909,9 +909,9 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = """
-| Cloudflare Images | ⚫️ | ✅ 13 | 🚧 14 |
+| Cloudflare Images | ⚫️ | ✅ 12 | 🚧 13 |
 """
-exact = "| AI Gateway | ✘ | ✘ | 🚧 15 |"
+exact = "| AI Gateway | ✘ | ✘ | 🚧 14 |"
 suffix = """
 | AI Search |
 """
