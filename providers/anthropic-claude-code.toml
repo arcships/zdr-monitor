@@ -18,7 +18,7 @@ note = "Claude Code 数据处理页:分消费档(Free/Pro/Max/Ultra)与商业档
 url = "https://code.claude.com/docs/en/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(消费档 Free/Pro/Max/Ultra;该页原文只写 personal account,未列具体档位)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。启用 ZDR 会禁用需要服务端存储的功能(云会话含 Desktop 启动的会话、Chat and Cowork unified、Claude Tag、Artifacts、/feedback 与 /bug、/share、Remote Control);Covered Models(Fable 5.1/Fable 5)默认要求保留,违规会话输入输出最多仍保留 2 年。"
+note = "Claude Code 的 ZDR:仅合格 Claude for Enterprise 账号,个人账号(消费档 Free/Pro/Max/Ultra;该页原文只写 personal account,未列具体档位)登录的会话明确不在覆盖范围;不覆盖 claude.ai Chat/Cowork,也不覆盖 Bedrock/Google Cloud/Foundry 部署。启用 ZDR 会禁用需要服务端存储的功能(云会话含 Desktop 启动的会话、Chat and Cowork unified、Claude Tag、Artifacts、/feedback 与 /bug、/share、Remote Control);Covered Models(Fable 5.2/Fable 5.1/Fable 5)默认要求保留,违规会话输入输出最多仍保留 2 年。"
 
 [[source]]
 url = "https://www.anthropic.com/legal/consumer-terms"
@@ -54,7 +54,7 @@ note = "商业档(Claude for Work / Anthropic API)标准保留政策:API 输入�
 url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
 channel = "developer_data"
 tier = "contradiction"
-note = "本文件只把它当矛盾的另一半证据与补充引用:①『Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default』与 data-usage 页『本地明文缓存 30 天(cleanupPeriodDays 可调)』口径不一致(疑为厂商侧保留 vs 客户端本地副本,厂商未澄清),两条并列保留、不选边;②『Conversation content … is not retained by default』与 7996866 的 30 天自动删除冲突(同 providers/anthropic.toml 的同源条目)。本页另有正面排除 Free/Pro/Max/Ultra、Teams/Enterprise 界面不 ZDR-eligible 等与核心文档同向的表述,可作佐证。"
+note = "本文件只把它当矛盾的另一半证据与补充引用:①『Local session transcripts come from sessions on users’ machines, in apps such as Cowork and Claude Code. These transcripts are stored for 6 years by default』与 data-usage 页『本地明文缓存 30 天(cleanupPeriodDays 可调)』口径不一致(疑为厂商侧保留 vs 客户端本地副本,厂商未澄清),两条并列保留、不选边;②『Conversation content … is not retained by default』与 7996866 的 30 天自动删除冲突(同 providers/anthropic.toml 的同源条目)。本页另有正面排除 Free/Pro/Max/Ultra、Teams/Enterprise 界面不 ZDR-eligible 等与核心文档同向的表述,可作佐证;另把 Fable/Mythos 5.2、5.1、5 列为 Covered Models、要求 30 天保留(API 口径)。"
 
 [[product]]
 id = "claude-code"
@@ -254,8 +254,8 @@ text = "Enabling ZDR disables features that require storing prompts or completio
 text_zh = "启用 ZDR 会在后端禁用需要存储提示或响应的功能:云会话(含从 Desktop 启动的会话)、Chat and Cowork unified(依赖云会话)、Claude Tag、Artifacts、/feedback(与 /bug、/share 同路径)以及 Remote Control。"
 anchor = "cc-zdr-disabled-features"
 [[product.zdr.point]]
-text = "Covered Models are an exception to ZDR: \"Claude Fable 5.1 and Fable 5 are Covered Models that require data retention by default, and whether a ZDR organization or workspace can use them is governed by the Covered Models policies rather than by Claude Code.\" Where they cannot be used they are absent from the /model picker or shown as disabled."
-text_zh = "Covered Models 是 ZDR 的例外:Fable 5.1/Fable 5 默认要求保留数据,ZDR 组织或工作区能否使用由 Covered Models 政策而非 Claude Code 决定;不能用时在 /model 选择器里直接缺席或显示为禁用。"
+text = "Covered Models are an exception to ZDR: \"Claude Fable 5.2, Fable 5.1, and Fable 5 are Covered Models that require data retention by default, and whether a ZDR organization or workspace can use them is governed by the Covered Models policies rather than by Claude Code.\" Where they cannot be used they are absent from the /model picker or shown as disabled."
+text_zh = "Covered Models 是 ZDR 的例外:Fable 5.2/Fable 5.1/Fable 5 默认要求保留数据,ZDR 组织或工作区能否使用由 Covered Models 政策而非 Claude Code 决定;不能用时在 /model 选择器里直接缺席或显示为禁用。"
 anchor = "cc-zdr-covered-models"
 [[product.zdr.point]]
 text = "Even with ZDR enabled, flagged sessions are an exception: \"If a session is flagged for a policy violation, Anthropic may retain the associated inputs and outputs for up to 2 years, consistent with Anthropic's standard ZDR policy.\""
@@ -511,7 +511,7 @@ topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = ""
-exact = "Claude Fable 5.1 and Fable 5 are Covered Models that require data retention by default, and whether a ZDR organization or workspace can use them is governed by the Covered Models policies rather than by Claude Code."
+exact = "Claude Fable 5.2, Fable 5.1, and Fable 5 are Covered Models that require data retention by default, and whether a ZDR organization or workspace can use them is governed by the Covered Models policies rather than by Claude Code."
 suffix = " Where your organization can’t use them, the models are either absent from the"
 
 [[anchor]]
