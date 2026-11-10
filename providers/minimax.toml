@@ -10,13 +10,13 @@ doc = "https://platform.minimax.io/protocol/terms-of-service"
 url = "https://platform.minimax.io/docs/api-reference/anthropic-api-compatible-cache"
 channel = "developer_data"
 tier = "core"
-note = "《Prompt Caching》API 文档（docs 站渲染通道抓取）。2026-10-20 抓取时该 URL 已不再返回原来的《Explicit Prompt Caching (Anthropic API)》页，正文与 text-prompt-caching 页一致，只剩 Automatic Caching、512 token 阈值和 prefix 顺序。原页的 `cache_control` 用法、『Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.』以及 What Can Be Cached 清单（含 user 与 assistant 两向的 messages.content）均已删除，故本来源不再承载 retention 的对象级期限/对象证据，只作为缓存行为的重复背景，不承载 zdr 维度权威。"
+note = "《Prompt Caching》API 文档（docs 站渲染通道抓取）。2026-10-20 抓取时该 URL 已不再返回原来的《Explicit Prompt Caching (Anthropic API)》页，正文与 text-prompt-caching 页基本一致（截至本快照 prefix 顺序仍为『tool list → system prompts → user messages』，与 text-prompt-caching 2026-11-10 版的『system prompts → tool list → user messages』不同；本 issue 未涉及重抓本来源），只剩 Automatic Caching、512 token 阈值和 prefix 顺序。原页的 `cache_control` 用法、『Cached content has a **lifetime of 5 minutes**. Each time the cached content is hit, the cache lifetime is automatically refreshed at no additional cost.』以及 What Can Be Cached 清单（含 user 与 assistant 两向的 messages.content）均已删除，故本来源不再承载 retention 的对象级期限/对象证据，只作为缓存行为的重复背景，不承载 zdr 维度权威。"
 
 [[source]]
 url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
 channel = "developer_data"
 tier = "core"
-note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。2026-10-20 抓取时 Features 由『Passive caching that automatically identifies repeated context content without changing API call methods』改为『Automatically identifies repeated context content without changing API call methods』，页尾原来的 Passive/Explicit 对比表（含『Expiration time automatically adjusted based on system load』与『5-minute expiration, automatically renewed with continued use』）整段删除；512 token 阈值与 prefix 顺序仍在。该页只补充缓存行为事实，不承载零保留结论。"
+note = "API 参考文档(Prompt Caching),非隐私政策正文(classify 自动判定为 not_policy)。2026-10-20 抓取时 Features 由『Passive caching that automatically identifies repeated context content without changing API call methods』改为『Automatically identifies repeated context content without changing API call methods』，页尾原来的 Passive/Explicit 对比表（含『Expiration time automatically adjusted based on system load』与『5-minute expiration, automatically renewed with continued use』）整段删除；512 token 阈值与 prefix 顺序仍在。2026-11-10 抓取时 prefix 顺序由『tool list → system prompts → user messages』改为『system prompts → tool list → user messages』，Best Practices 的并列顺序同步调整，支持模型清单收窄为 MiniMax-M3.1-Flash、MiniMax-M3；其余改动为代码示例与计价公式。该页只补充缓存行为事实，不承载零保留结论。"
 
 [[source]]
 url = "https://platform.minimax.io/protocol/privacy-policy"
@@ -94,8 +94,8 @@ text_zh = "该默认缓存的适用范围：「Caching applies to API calls with
 anchor = "minimax-zdr-prompt-cache-passive-512-token-threshold"
 
 [[product.zdr.point]]
-text = "What the default cache covers: prefix matching in the order tools → system prompts → user messages — \"Caching uses prefix matching, constructed in the order of “tool list → system prompts → user messages”. Changes to any module’s content may affect caching effectiveness\"."
-text_zh = "默认缓存覆盖什么：按 tool list → system prompts → user messages 的顺序做前缀匹配——「Caching uses prefix matching, constructed in the order of “tool list → system prompts → user messages”. Changes to any module’s content may affect caching effectiveness」。"
+text = "What the default cache covers: prefix matching across system prompts, tool list and user messages, in the order the page currently documents as system prompts → tool list → user messages — \"Caching uses prefix matching, constructed in the order of “system prompts → tool list → user messages”. Changes to any module’s content may affect caching effectiveness\"."
+text_zh = "默认缓存覆盖什么：对 system prompts、tool list、user messages 做前缀匹配，当前页面的顺序为 system prompts → tool list → user messages——「Caching uses prefix matching, constructed in the order of “system prompts → tool list → user messages”. Changes to any module’s content may affect caching effectiveness」。"
 anchor = "minimax-zdr-prompt-cache-what-can-be-cached"
 
 [product.retention]
@@ -124,8 +124,8 @@ text_zh = "对象级、默认自动提示缓存：开启无需改动 API 调用�
 anchor = "minimax-zdr-prompt-cache-passive-automatic-default"
 
 [[product.retention.point]]
-text = "Object level, what the automatic cache covers: prefix content in the order tools → system prompts → user messages — \"Caching uses prefix matching, constructed in the order of “tool list → system prompts → user messages”. Changes to any module’s content may affect caching effectiveness\"."
-text_zh = "对象级、自动缓存覆盖什么：按 tool list → system prompts → user messages 的顺序做前缀匹配——「Caching uses prefix matching, constructed in the order of “tool list → system prompts → user messages”. Changes to any module’s content may affect caching effectiveness」。"
+text = "Object level, what the automatic cache covers: prefix content across system prompts, tool list and user messages, in the order the page currently documents as system prompts → tool list → user messages — \"Caching uses prefix matching, constructed in the order of “system prompts → tool list → user messages”. Changes to any module’s content may affect caching effectiveness\"."
+text_zh = "对象级、自动缓存覆盖什么：对 system prompts、tool list、user messages 做前缀匹配，当前页面的顺序为 system prompts → tool list → user messages——「Caching uses prefix matching, constructed in the order of “system prompts → tool list → user messages”. Changes to any module’s content may affect caching effectiveness」。"
 anchor = "minimax-zdr-prompt-cache-what-can-be-cached"
 
 [[product.retention.point]]
@@ -476,5 +476,5 @@ topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = "Important Notes"
-exact = "Caching uses prefix matching, constructed in the order of “tool list → system prompts → user messages”. Changes to any module’s content may affect caching effectiveness"
+exact = "Caching uses prefix matching, constructed in the order of “system prompts → tool list → user messages”. Changes to any module’s content may affect caching effectiveness"
 suffix = "\nBest Practices"
