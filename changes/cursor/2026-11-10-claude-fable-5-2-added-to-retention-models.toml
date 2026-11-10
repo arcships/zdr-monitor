@@ -1,0 +1,12 @@
+provider = "cursor"
+dimensions = ["zdr", "retention"]
+direction = "clarified"
+observed_at = "2026-11-10"
+source_id = "bef6bc0f45f77258"
+summary_zh = """
+企业数据治理文档更新（快照 PR #1152）。与五个维度相关的是「Models with data retention」小节：「Claude Fable 5.1 and Claude Fable 5 work this way.」改为「Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5 work this way.」——需要提供商侧数据保留、不在 Cursor ZDR 协议覆盖范围内的模型清单新增 Claude Fable 5.2。同段其余句子一字未动：「Anthropic stores their inputs and outputs to run automatic and human harm-prevention reviews. This data is not used for training or product improvement.」，以及 Enterprise、开启 Privacy Mode 的 Teams 和开启 Privacy Mode 的个人客户须管理员批准后才能使用这些模型的要求，均未改变。这是模型清单随新产品扩充，不是规则改写：非 ZDR 模型须批准的规则未变，也没有新增保留期限或训练例外。providers/cursor.toml 各档位结论不变（zdr 的 mark/mode、retention 的 basis/object/days 都不依赖具体模型清单），本来源现有两个锚点 cursor-enterprise-us-residency 与 cursor-governance-cloud-agents-repo-copy 的 exact 都不在这段话里，仍可唯一定位。同次快照的导航新增 Voice Chat、Apps 属页面结构变化，与五个维度无关。
+"""
+summary_en = """
+The enterprise data governance page was updated (snapshot PR #1152). The five-dimension-relevant change is in the "Models with data retention" section: "Claude Fable 5.1 and Claude Fable 5 work this way." became "Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5 work this way." — Claude Fable 5.2 was added to the list of models that require provider-side data retention and fall outside Cursor's ZDR agreements. The rest of the passage is word-for-word unchanged: "Anthropic stores their inputs and outputs to run automatic and human harm-prevention reviews. This data is not used for training or product improvement.", as is the requirement that Enterprise customers, Teams with Privacy Mode enabled, and individual customers with Privacy Mode enabled must obtain admin approval before use. This is the model list expanding with a new product, not a rule rewrite: the rule that non-ZDR models require approval is unchanged, and no retention period or training exception was added. No tier verdict in providers/cursor.toml changes (the zdr mark/mode and the retention basis/object/days do not depend on a model list), and the two existing anchors on this source, cursor-enterprise-us-residency and cursor-governance-cloud-agents-repo-copy, do not quote this passage and still resolve uniquely. The same snapshot's navigation additions (Voice Chat, Apps) are page structure changes unrelated to the five dimensions.
+"""
+issue = "https://github.com/arcships/zdr-monitor/issues/1154"
