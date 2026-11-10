@@ -104,8 +104,8 @@ text_zh = "在 `default` 模式下,AWS「may retain the data for safety and abus
 anchor = "retention-default-mode-aws-may-retain"
 
 [[product.zdr.point]]
-text = "Model-level exception: a model whose minimum requirement is `aws_review` (currently Claude Fable 5 and Claude Fable 5.1) is unavailable when the effective mode is `none` or `default` — on the bedrock-mantle endpoint it shows as unavailable, and requests to it on the bedrock-runtime endpoint return a `ValidationException`. Using such a model means accepting retention and possible AWS human review; ZDR for it is not available without the per-account, per-model approval described below."
-text_zh = "模型级例外:最低要求为 `aws_review` 的模型(当前为 Claude Fable 5 与 Claude Fable 5.1)在有效模式为 `none` 或 `default` 时不可用——bedrock-mantle 上显示为不可用,bedrock-runtime 上的请求返回 `ValidationException`。用这类模型即等于接受保留与可能的 AWS 人工审查;ZDR 对它们须按下文的按账号、按模型审批获得。"
+text = "Model-level exception: a model whose minimum requirement is `aws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2) is unavailable when the effective mode is `none` or `default` — on the bedrock-mantle endpoint it shows as unavailable, and requests to it on the bedrock-runtime endpoint return a `ValidationException`. Using such a model means accepting retention and possible AWS human review; ZDR for it is not available without the per-account, per-model approval described below."
+text_zh = "模型级例外:最低要求为 `aws_review` 的模型(当前为 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2)在有效模式为 `none` 或 `default` 时不可用——bedrock-mantle 上显示为不可用,bedrock-runtime 上的请求返回 `ValidationException`。用这类模型即等于接受保留与可能的 AWS 人工审查;ZDR 对它们须按下文的按账号、按模型审批获得。"
 anchor = "zdr-block-model-requiring-retention"
 
 [[product.zdr.point]]
@@ -129,14 +129,14 @@ text_zh = "`store=false` 不保证零保留:部分模型即使 `store=false` 仍
 anchor = "retention-store-false-not-guarantee"
 
 [[product.zdr.point]]
-text = "Model-level exception that makes the approval path mandatory: for Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. ZDR for these models therefore requires the per-account, per-model approval described above (for Claude, granted through the Enterprise Frontier Safeguards program)."
-text_zh = "使审批路径成为必需的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 的全部流量都会为自动化离线滥用检测保留最多 30 天,被分类器标记的流量还可能由 AWS 人工审查。因此这两个模型的 ZDR 须走上述按账号、按模型审批(Claude 走 Enterprise Frontier Safeguards 计划)。"
+text = "Model-level exception that makes the approval path mandatory: for Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, all traffic is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. ZDR for these models therefore requires the per-account, per-model approval described above (for Claude, granted through the Enterprise Frontier Safeguards program)."
+text_zh = "使审批路径成为必需的模型级例外:Anthropic Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2 的全部流量都会为自动化离线滥用检测保留最多 30 天,被分类器标记的流量还可能由 AWS 人工审查。因此这些模型的 ZDR 须走上述按账号、按模型审批(Claude 走 Enterprise Frontier Safeguards 计划)。"
 anchor = "retention-claude-fable-all-traffic-30d"
 
 [[product.zdr.point]]
-text = "ZDR for the Enterprise Frontier Safeguards program has a stated end date: eligible customers receive ZDR only through December 31, 2026, and after ZDR ends all traffic is retained for up to 30 days for automated offline abuse detection."
-text_zh = "Enterprise Frontier Safeguards 的 ZDR 有明确截止日:合格客户只到 2026-12-31;ZDR 结束后全部流量会为自动化离线滥用检测保留最多 30 天。"
-anchor = "zdr-frontier-safeguards-until-2026-12-31"
+text = "ZDR for the Enterprise Frontier Safeguards program has a stated end date: eligible customers receive ZDR only through June 30, 2027, and after ZDR ends all traffic is retained for up to 30 days for automated offline abuse detection."
+text_zh = "Enterprise Frontier Safeguards 的 ZDR 有明确截止日:合格客户只到 2027-06-30;ZDR 结束后全部流量会为自动化离线滥用检测保留最多 30 天。"
+anchor = "zdr-frontier-safeguards-until-2027-06-30"
 
 [product.retention]
 object = "input_output"
@@ -145,8 +145,8 @@ days = 30
 anchor = "retention-abuse-detection-30d-50-12-2"
 
 [[product.retention.point]]
-text = "Object: Bedrock Service inputs and outputs, i.e. request and response bodies. Context: only \"certain models identified on the Bedrock abuse detection page\" — the models listed there for abuse-detection retention (all OpenAI models other than GPT OSS Safeguard 120B, GPT OSS Safeguard 20B, gpt-oss-120b, and gpt-oss-20b; Anthropic Claude Fable 5 and Claude Fable 5.1; Enterprise Frontier Safeguards participants after their ZDR ends on 2026-12-31). Period type: an upper bound of 30 days, with the contract's own carve-out \"unless otherwise required by law\". This is the contract layer (AWS Service Terms §50.12.2), so it governs the api tier."
-text_zh = "对象=Bedrock 服务输入输出正文(请求与响应正文);语境=仅 abuse detection 页所列的特定模型(GPT OSS Safeguard 与 gpt-oss 排除项之外的所有 OpenAI 模型、Anthropic Claude Fable 5 与 Claude Fable 5.1、ZDR 于 2026-12-31 结束后的 Enterprise Frontier Safeguards 参与者);期限类型=上限 30 天,并带合同自带的例外「除法律另有要求」。这是合同层(AWS Service Terms §50.12.2),对 api 档有约束力。"
+text = "Object: Bedrock Service inputs and outputs, i.e. request and response bodies. Context: only \"certain models identified on the Bedrock abuse detection page\" — the models listed there for abuse-detection retention (all OpenAI models other than GPT OSS Safeguard 120B, GPT OSS Safeguard 20B, gpt-oss-120b, and gpt-oss-20b; Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2; Enterprise Frontier Safeguards participants after their ZDR ends on 2027-06-30). Period type: an upper bound of 30 days, with the contract's own carve-out \"unless otherwise required by law\". This is the contract layer (AWS Service Terms §50.12.2), so it governs the api tier."
+text_zh = "对象=Bedrock 服务输入输出正文(请求与响应正文);语境=仅 abuse detection 页所列的特定模型(GPT OSS Safeguard 与 gpt-oss 排除项之外的所有 OpenAI 模型、Anthropic Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2、ZDR 于 2027-06-30 结束后的 Enterprise Frontier Safeguards 参与者);期限类型=上限 30 天,并带合同自带的例外「除法律另有要求」。这是合同层(AWS Service Terms §50.12.2),对 api 档有约束力。"
 anchor = "retention-abuse-detection-30d-50-12-2"
 
 [[product.retention.point]]
@@ -160,8 +160,8 @@ text_zh = "在 `default` 模式下,AWS「may retain the data for safety and abus
 anchor = "retention-default-mode-aws-may-retain"
 
 [[product.retention.point]]
-text = "Mandatory model-level exception: for Anthropic Claude Fable 5 and Claude Fable 5.1 all traffic (not only classifier-flagged traffic) is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. These models require `aws_review`, so this retention applies unless ZDR is approved for the model through the per-account, per-model process."
-text_zh = "强制性的模型级例外:Anthropic Claude Fable 5 与 Claude Fable 5.1 是全量流量(不只被分类器标记的流量)为自动化离线滥用检测保留最多 30 天,被标记的流量还可能由 AWS 人工审查。这两个模型要求 `aws_review`,所以在未按账号、按模型获批 ZDR 时,这项保留无法退出。"
+text = "Mandatory model-level exception: for Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 all traffic (not only classifier-flagged traffic) is retained for up to 30 days for automated offline abuse detection, and classifier-flagged traffic is subject to potential human review performed by AWS. These models require `aws_review`, so this retention applies unless ZDR is approved for the model through the per-account, per-model process."
+text_zh = "强制性的模型级例外:Anthropic Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2 是全量流量(不只被分类器标记的流量)为自动化离线滥用检测保留最多 30 天,被标记的流量还可能由 AWS 人工审查。这些模型要求 `aws_review`,所以在未按账号、按模型获批 ZDR 时,这项保留无法退出。"
 anchor = "retention-claude-fable-all-traffic-30d"
 
 [[product.retention.point]]
@@ -170,8 +170,8 @@ text_zh = "范围更广的模型级例外:除 GPT OSS Safeguard 120B、GPT OSS S
 anchor = "retention-openai-classifier-30d"
 
 [[product.retention.point]]
-text = "Restated on the product-documentation side for the models requiring `aws_review` (currently Claude Fable 5 and Claude Fable 5.1): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. The content is not shared with the model provider."
-text_zh = "产品文档侧对需 `aws_review` 的模型(当前为 Claude Fable 5 与 Claude Fable 5.1)的重述:用户 prompt 与 completion 在 AWS 边界内保留最多 30 天,并可能由 AWS 审查,以满足模型商作为访问条件提出的人工审查要求;内容不与模型商共享。"
+text = "Restated on the product-documentation side for the models requiring `aws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. The content is not shared with the model provider."
+text_zh = "产品文档侧对需 `aws_review` 的模型(当前为 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2)的重述:用户 prompt 与 completion 在 AWS 边界内保留最多 30 天,并可能由 AWS 审查,以满足模型商作为访问条件提出的人工审查要求;内容不与模型商共享。"
 anchor = "retention-aws-review-30d"
 
 [[product.retention.point]]
@@ -316,7 +316,7 @@ source_id = "45084a6538d274c1"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "ws_review` (currently Claude Fable 5 and Claude Fable 5.1): "
+prefix = "ws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2): "
 exact = "user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access."
 suffix = """
  Your content is not shared with the model provider.
@@ -387,11 +387,11 @@ prefix = """
 s may request full ZDR through their AWS account team.
 
 *   """
-exact = "For Anthropic Claude Fable 5 and Claude Fable 5.1, all traffic will be retained for up to 30 days for automated offline abuse detection."
+exact = "For Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, all traffic will be retained for up to 30 days for automated offline abuse detection."
 suffix = " Classifier-flagged traffic will be subject to potential hum"
 
 [[anchor]]
-id = "zdr-frontier-safeguards-until-2026-12-31"
+id = "zdr-frontier-safeguards-until-2027-06-30"
 source_id = "4db2307f55ee261d"
 topics = ["zdr"]
 
@@ -400,7 +400,7 @@ prefix = """
 ubject to potential human review performed by AWS.
 
     *   """
-exact = "Customers that are eligible for the Enterprise Frontier Safeguards program will receive ZDR through December 31, 2026."
+exact = "Customers that are eligible for the Enterprise Frontier Safeguards program will receive ZDR through June 30, 2027."
 suffix = " After ZDR ends, all traffic will be retained for up to 30 d"
 
 [[anchor]]
