@@ -96,7 +96,7 @@ mark = "unknown"
 text_zh = "同顶层 zdr：ZDR 由 GitHub 与上游托管方的协议决定(OpenAI / Anthropic GA 功能 / xAI / Kimi 托管方)，不是个人账户可开关的选项"
 
 [[product.zdr.point]]
-text_zh = "官方未按档位区分这些协议的适用性，也未说明个人档可申请 ZDR。例外：启用 Claude Fable 5 / Fable 5.1 时 Anthropic 默认保留数据，限时 ZDR 豁免只面向通过审批并配置的企业。"
+text_zh = "官方未按档位区分这些协议的适用性，也未说明个人档可申请 ZDR。例外：启用 Claude Fable 5 / Fable 5.1 / Fable 5.2 时 Anthropic 默认保留数据，限时 ZDR 豁免只面向通过审批并配置的企业。"
 
 [product.retention]
 object = "input_output"
@@ -247,7 +247,7 @@ anchor = "ghcopilot-model-hosting-openai-zdr"
 text_zh = "OpenAI 一跳：「GitHub maintains a zero data retention agreement with OpenAI.」"
 anchor = "ghcopilot-model-hosting-openai-zdr"
 [[product.zdr.point]]
-text_zh = "Anthropic 一跳：GA 功能走 ZDR 协议，Fable 5/5.1 默认不在协议内。"
+text_zh = "Anthropic 一跳：GA 功能走 ZDR 协议，Fable 5/5.1/5.2 默认不在协议内。"
 anchor = "ghcopilot-model-hosting-anthropic-zdr-except-fable"
 [[product.zdr.point]]
 text_zh = "xAI 一跳：按 ZDR API policy 运营。"
@@ -256,8 +256,8 @@ anchor = "ghcopilot-model-hosting-xai-zdr"
 text_zh = "Kimi(开源权重)一跳：Kimi K3 由 GitHub 托管在 Fireworks AI 上，「Kimi K3 is covered by a zero data retention agreement with the hosting provider.」(页面已不再列 Kimi K2.7 Code 及其 Azure AI Foundry 托管)。"
 anchor = "ghcopilot-model-hosting-kimi-zdr"
 [[product.zdr.point]]
-text = "Exception: 「When Claude Fable 5 or Claude Fable 5.1 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use.」 Customers can request the ZDR endpoint 「through the end of 2026 under a time-bound exemption while Anthropic rolls out Enterprise Frontier Safeguards (EFS)」; approval does not enable the model by itself — 「An enterprise or organization administrator must still enable each model before users can access it」, and after that point continued use would require EFS. So default here is not unconditional."
-text_zh = "例外：启用 Claude Fable 5 / Fable 5.1 时 Anthropic 默认保留 prompts 与 outputs(安全分类器)。企业可申请限时豁免走 ZDR 端点，豁免到 2026 年底(Anthropic 推进 EFS 期间)，需资格审批且管理员逐个显式启用；2026 年底后继续使用需 Enterprise Frontier Safeguards。故 default 不等于所有配置无条件零保留。"
+text = "Exception: 「When Claude Fable 5, Claude Fable 5.1, or Claude Fable 5.2 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use.」 Customers can request the ZDR endpoint 「through the end of 2026 under a time-bound exemption while Anthropic rolls out Enterprise Frontier Safeguards (EFS)」; approval does not enable the model by itself — 「An enterprise or organization administrator must still enable each model before users can access it」, and after that point continued use would require EFS. So default here is not unconditional."
+text_zh = "例外：启用 Claude Fable 5 / Fable 5.1 / Fable 5.2 时 Anthropic 默认保留 prompts 与 outputs(安全分类器)。企业可申请限时豁免走 ZDR 端点，豁免到 2026 年底(Anthropic 推进 EFS 期间)，需资格审批且管理员逐个显式启用；2026 年底后继续使用需 Enterprise Frontier Safeguards。故 default 不等于所有配置无条件零保留。"
 anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
 [[product.zdr.point]]
 text_zh = "Anthropic beta/public preview 功能(如经 Messages API 的 tool search)不在该 ZDR 协议覆盖内，数据可能按 Anthropic 的 ZDR 文档保留。"
@@ -335,7 +335,7 @@ text_zh = "OpenAI 一跳：「GitHub maintains a zero data retention agreement w
 anchor = "ghcopilot-model-hosting-openai-zdr"
 
 [[product.zdr.point]]
-text_zh = "Anthropic 一跳：GA 功能走 ZDR 协议(「Other Claude models, except for Claude Fable 5 and Claude Fable 5.1, continue to operate under ZDR.」)。"
+text_zh = "Anthropic 一跳：GA 功能走 ZDR 协议(「Other Claude models, except for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, continue to operate under ZDR.」)。"
 anchor = "ghcopilot-model-hosting-anthropic-zdr-except-fable"
 
 [[product.zdr.point]]
@@ -347,8 +347,8 @@ text_zh = "Kimi(开源权重)一跳：Kimi K3 由 GitHub 托管在 Fireworks AI 
 anchor = "ghcopilot-model-hosting-kimi-zdr"
 
 [[product.zdr.point]]
-text = "Exception: 「When Claude Fable 5 or Claude Fable 5.1 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use.」 Customers can request the ZDR endpoint 「through the end of 2026 under a time-bound exemption while Anthropic rolls out Enterprise Frontier Safeguards (EFS)」; 「Approval for access does not automatically enable Claude Fable 5 or Claude Fable 5.1. An enterprise or organization administrator must still enable each model before users can access it」, and after that point continued use would require EFS."
-text_zh = "例外：Claude Fable 5 / Fable 5.1 默认由 Anthropic 保留数据(安全分类器)。企业可在 2026 年底前申请限时豁免走 ZDR 端点(Anthropic 推进 EFS 期间)，需资格审批且管理员逐个显式启用，2026 年底后继续使用需 Enterprise Frontier Safeguards。"
+text = "Exception: 「When Claude Fable 5, Claude Fable 5.1, or Claude Fable 5.2 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use.」 Customers can request the ZDR endpoint 「through the end of 2026 under a time-bound exemption while Anthropic rolls out Enterprise Frontier Safeguards (EFS)」; 「Approval for access does not automatically enable Claude Fable 5, Claude Fable 5.1, or Claude Fable 5.2. An enterprise or organization administrator must still enable each model before users can access it」, and after that point continued use would require EFS."
+text_zh = "例外：Claude Fable 5 / Fable 5.1 / Fable 5.2 默认由 Anthropic 保留数据(安全分类器)。企业可在 2026 年底前申请限时豁免走 ZDR 端点(Anthropic 推进 EFS 期间)，需资格审批且管理员逐个显式启用，2026 年底后继续使用需 Enterprise Frontier Safeguards。"
 anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
 
 [[product.zdr.point]]
@@ -356,7 +356,7 @@ text_zh = "Anthropic beta/public preview 功能(如经 Messages API 的 tool sea
 anchor = "ghcopilot-model-hosting-anthropic-preview-not-covered"
 
 [[product.zdr.point]]
-text_zh = "Gemini/GCP 只给「不训练 + 不受滥用监控的 prompt logging」承诺，未声明 ZDR 已开通。多跳结论：默认配置下多数模型族可满足 ZDR，但启用 Fable 5/5.1 的配置下 Anthropic 一跳明确保留，全链不构成 ZDR。"
+text_zh = "Gemini/GCP 只给「不训练 + 不受滥用监控的 prompt logging」承诺，未声明 ZDR 已开通。多跳结论：默认配置下多数模型族可满足 ZDR，但启用 Fable 5/5.1/5.2 的配置下 Anthropic 一跳明确保留，全链不构成 ZDR。"
 anchor = "ghcopilot-model-hosting-gcp-no-abuse-logging"
 
 [[product.zdr.point]]
@@ -500,7 +500,7 @@ text_zh = "逐家：OpenAI 有 ZDR 协议"
 anchor = "ghcopilot-model-hosting-openai-zdr"
 
 [[product.zdr.point]]
-text_zh = "Anthropic GA 功能有 ZDR 协议(Fable 5/5.1 与 beta/preview 功能除外)"
+text_zh = "Anthropic GA 功能有 ZDR 协议(Fable 5/5.1/5.2 与 beta/preview 功能除外)"
 anchor = "ghcopilot-model-hosting-anthropic-zdr-except-fable"
 
 [[product.zdr.point]]
@@ -529,11 +529,11 @@ text_zh = "分裂的一跳：xAI 承诺不落盘、只在内存中存留处理�
 anchor = "ghcopilot-model-hosting-xai-zdr"
 
 [[product.retention.point]]
-text_zh = "Anthropic 在 GA 功能上走 ZDR 协议(「Other Claude models, except for Claude Fable 5 and Claude Fable 5.1, continue to operate under ZDR.」)"
+text_zh = "Anthropic 在 GA 功能上走 ZDR 协议(「Other Claude models, except for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, continue to operate under ZDR.」)"
 anchor = "ghcopilot-model-hosting-anthropic-zdr-except-fable"
 
 [[product.retention.point]]
-text_zh = "Anthropic 例外一跳：Claude Fable 5 / Fable 5.1 默认保留 prompts 与 outputs 用于安全分类器；beta/public preview 功能同样不在 ZDR 覆盖内，数据可能按 Anthropic 的 ZDR 文档保留"
+text_zh = "Anthropic 例外一跳：Claude Fable 5 / Fable 5.1 / Fable 5.2 默认保留 prompts 与 outputs 用于安全分类器；beta/public preview 功能同样不在 ZDR 覆盖内，数据可能按 Anthropic 的 ZDR 文档保留"
 anchor = "ghcopilot-model-hosting-anthropic-fable-retains"
 
 [[product.retention.point]]
@@ -554,7 +554,7 @@ text_zh = "Gemini 路径的缓存对象：Google 的 Durable Caching 把缓存�
 anchor = "ghcopilot-model-hosting-google-durable-caching-24h"
 
 [[product.retention.point]]
-text_zh = "Anthropic 模型的 prompt caching(Anthropic PBC / Amazon Bedrock / Google Cloud)会在上游留下缓存条目，保留期未在 GitHub 文档披露；Google models 一节的 Gemini Durable Caching 另披露缓存数据上限 24 小时(见上条)，但仅适用于 Gemini，不覆盖 Anthropic-on-GCP。按「任一跳明确为否，则全链为否」，启用 Fable 5/5.1 时全链保留状态为「明确保留」，故本行不写 basis=none 覆盖整条链路。"
+text_zh = "Anthropic 模型的 prompt caching(Anthropic PBC / Amazon Bedrock / Google Cloud)会在上游留下缓存条目，保留期未在 GitHub 文档披露；Google models 一节的 Gemini Durable Caching 另披露缓存数据上限 24 小时(见上条)，但仅适用于 Gemini，不覆盖 Anthropic-on-GCP。按「任一跳明确为否，则全链为否」，启用 Fable 5/5.1/5.2 时全链保留状态为「明确保留」，故本行不写 basis=none 覆盖整条链路。"
 anchor = "ghcopilot-model-hosting-prompt-caching"
 
 [product.processing_region]
@@ -983,7 +983,7 @@ topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = "or must still enable each model before users can access it. "
-exact = "Other Claude models, except for Claude Fable 5 and Claude Fable 5.1, continue to operate under ZDR."
+exact = "Other Claude models, except for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, continue to operate under ZDR."
 suffix = """
 
 
@@ -999,15 +999,16 @@ prefix = """
 de Opus 5
 *   Claude Fable 5
 *   Claude Fable 5.1
+*   Claude Fable 5.2
 
 Warning
 
 """
-exact = "When Claude Fable 5 or Claude Fable 5.1 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use."
+exact = "When Claude Fable 5, Claude Fable 5.1, or Claude Fable 5.2 is used, Anthropic retains data, including prompts and outputs, by default to operate safety classifiers that detect harmful use."
 suffix = """
 
 
-Customers can request to use Claude Fable 5 or Claude Fabl"""
+Customers can request to use Claude Fable 5, Claude Fable 5.1, or Claude Fable 5.2 with zero data retention (ZDR)"""
 
 [[anchor]]
 id = "ghcopilot-model-hosting-xai-zdr"
@@ -1239,7 +1240,7 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "Enterprises that meet eligibility requirements can use Claude Fable 5 and Claude Fable 5.1 with zero data retention through the end of 2026 under a separate time-bound exemption; contact your account manager to learn more. "
+prefix = "Enterprises that meet eligibility requirements can use Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 with zero data retention through the end of 2026 under a separate time-bound exemption; contact your account manager to learn more. "
 exact = "Some Anthropic features in beta or public preview—including tool search via the Messages API—are also not covered by this agreement."
 suffix = " For these features, data may be retained by Anthropic in accor"
 
