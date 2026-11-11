@@ -27,7 +27,7 @@ note = "Inference 区域可用性表(Dedicated Inference / BYOM / Agent Platform
 url = "https://docs.digitalocean.com/products/inference/details/data-privacy/"
 channel = "developer_data"
 tier = "core"
-note = "DigitalOcean Inference(原 Gradient AI Platform)AI 数据隐私页,正文标注 Last verified 12 Oct 2026;覆盖 Serverless/Dedicated Inference、Batch Inferencing、Model Synthesis Tool、Files API、DigitalOcean Signals(Public Preview)与 Agent 场景。API 档(含 DO 托管模型与第三方模型透传)的训练/保留/零保留权威来源。"
+note = "DigitalOcean Inference(原 Gradient AI Platform)AI 数据隐私页,正文标注 Last verified 10 Nov 2026;覆盖 Serverless/Dedicated Inference、Batch Inferencing、Model Synthesis Tool、Files API、DigitalOcean Signals(Public Preview)与 Agent 场景。API 档(含 DO 托管模型与第三方模型透传)的训练/保留/零保留权威来源。"
 
 [[source]]
 url = "https://docs.digitalocean.com/products/inference/how-to/create-manage-agent-knowledge-bases/index.html.md"
@@ -125,8 +125,8 @@ text_zh = "例外——DigitalOcean Signals(Public Preview):一旦启用,「we p
 anchor = "do-signals-consent-and-capture"
 
 [[product.zdr.point]]
-text = "Exception — Claude Fable 5.1 and Claude Fable 5: \"access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews\", and DigitalOcean routes such traffic upstream to a compliant workspace automatically. It is a model-level precondition of access that the customer cannot switch off, carried by the upstream compliant workspace, so the \"nothing stored on the DigitalOcean side by default\" position does not hold for these models"
-text_zh = "例外——Claude Fable 5.1 / Fable 5:「access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews」,且 DO 自动把这类流量路由到上游合规 workspace。这是模型级的访问前置条件、客户无法关闭,由上游合规 workspace 承担,故「DO 侧默认不存输入输出」对这些模型不成立"
+text = "Exception — Claude Fable 5, 5.1 and 5.2: \"access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews\", and DigitalOcean routes such traffic upstream to a compliant workspace automatically. It is a model-level precondition of access that the customer cannot switch off, carried by the upstream compliant workspace, so the \"nothing stored on the DigitalOcean side by default\" position does not hold for these models"
+text_zh = "例外——Claude Fable 5 / 5.1 / 5.2:「access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews」,且 DO 自动把这类流量路由到上游合规 workspace。这是模型级的访问前置条件、客户无法关闭,由上游合规 workspace 承担,故「DO 侧默认不存输入输出」对这些模型不成立"
 anchor = "do-fable-mandatory-30d"
 
 [[product.zdr.point]]
@@ -160,8 +160,8 @@ basis = "fixed_period"
 anchor = "do-batch-output-29-30d"
 
 [[product.retention.point]]
-text = "The tier-level \"30 days\" is composite, not one uniform rule: it is the Batch output/error file window (29-30 days from job completion), the mandatory 30-day retention that comes with Claude Fable 5/5.1, and the upper limit for deleting Personal Data after account de-activation (DPA §7.6). The default position is still that inputs and outputs are not stored on DigitalOcean infrastructure, so \"30 days\" must not be read as \"everything is kept for 30 days\""
-text_zh = "档位级的「30 天」是拼出来的,不是单一规则:Batch 输出/错误文件窗口(批次完成起算 29-30 天)、Claude Fable 5/5.1 附带的强制 30 天、账户停用后删除 Personal Data 的 30 天上限(DPA §7.6)。默认口径仍是 DO 自有基础设施不存输入输出,故「30 天」不得读成「所有内容都留 30 天」"
+text = "The tier-level \"30 days\" is composite, not one uniform rule: it is the Batch output/error file window (29-30 days from job completion), the mandatory 30-day retention that comes with Claude Fable 5/5.1/5.2, and the upper limit for deleting Personal Data after account de-activation (DPA §7.6). The default position is still that inputs and outputs are not stored on DigitalOcean infrastructure, so \"30 days\" must not be read as \"everything is kept for 30 days\""
+text_zh = "档位级的「30 天」是拼出来的,不是单一规则:Batch 输出/错误文件窗口(批次完成起算 29-30 天)、Claude Fable 5/5.1/5.2 附带的强制 30 天、账户停用后删除 Personal Data 的 30 天上限(DPA §7.6)。默认口径仍是 DO 自有基础设施不存输入输出,故「30 天」不得读成「所有内容都留 30 天」"
 
 [[product.retention.point]]
 text = "Object × period: (1) default — \"We do not store model inputs or outputs on DigitalOcean infrastructure, except for conversation data that DigitalOcean Signals collects after you enable it.\" (an architectural statement that now carries an express opt-in exception)"
@@ -198,8 +198,8 @@ text_zh = "④Files API(/v1/files)——跨请求持久保存至显式 DELETE"
 anchor = "do-files-api-stateful-until-delete"
 
 [[product.retention.point]]
-text = "(5) Claude Fable 5/5.1 — access requires a mandatory 30-day data retention of prompts and completions; it is a model-level condition of access rather than a storage option the customer picks, and DigitalOcean routes it upstream to a compliant workspace, so it is not a DigitalOcean-side retention rule"
-text_zh = "⑤Claude Fable 5/5.1——访问需强制 30 天保留 prompts/completions;这是模型级访问前置条件而非客户可选的存储设置,且由 DO 自动路由到上游合规 workspace,不属 DO 侧留存口径"
+text = "(5) Claude Fable 5/5.1/5.2 — access requires a mandatory 30-day data retention of prompts and completions; it is a model-level condition of access rather than a storage option the customer picks, and DigitalOcean routes it upstream to a compliant workspace, so it is not a DigitalOcean-side retention rule"
+text_zh = "⑤Claude Fable 5/5.1/5.2——访问需强制 30 天保留 prompts/completions;这是模型级访问前置条件而非客户可选的存储设置,且由 DO 自动路由到上游合规 workspace,不属 DO 侧留存口径"
 anchor = "do-fable-mandatory-30d"
 
 [[product.retention.point]]
@@ -554,7 +554,7 @@ topics = ["retention", "zdr"]
 prefix = """
 ement violations.
 
-For Claude Fable 5.1 and Claude Fable 5, """
+For Claude Fable 5, 5.1, and 5.2, """
 exact = "access requires a mandatory 30-day data retention of prompts and completions for trust and safety reviews"
 suffix = ". You do not need to configure workspace routing. DigitalOce"
 
