@@ -4,11 +4,13 @@ ChatGPT
 Start searching
 API Dashboard
 Try ChatGPT
+Theme Light Dark System
 ## Search the API docs
 Search docs
 ### Suggested
 responses createreasoning_effortrealtimeprompt caching
 Primary navigation
+Theme Light Dark System
 Search docs
 ### Suggested
 Overview Models Agents Tools Audio & voice Production API reference
@@ -35,6 +37,9 @@ DocsProduction
 ### SDKs and CLI
 - OpenAI SDK
 - OpenAI CLI
+### Cloud providers
+- Amazon Bedrock
+- Google Cloud
 ### Resources
 - Changelog
 - Deprecations
@@ -58,8 +63,6 @@ DocsProduction
 - Supervised fine-tuning
 - Vision fine-tuning
 - Direct preference optimization
-- Reinforcement fine-tuning
-- RFT use cases
 - Best practices
 - Assistants API
 - Migration guide
@@ -92,7 +95,6 @@ DocsProduction
 - Getting started
 - Voice agents
 ### Specialized models
-- Deep research
 - Embeddings
 - Moderation
 - Overview
@@ -106,6 +108,7 @@ DocsProduction
 - Events and items
 - Manage sessions
 - Scheduled automations
+- Automatic review
 - Webhooks
 - Environments and sandboxes
 - OpenAI-hosted sandboxes
@@ -165,7 +168,6 @@ DocsProduction
 - Integration recipes
 - Driver reference
 - Apply Patch
-- Local shell
 - Code interpreter
 ### Media
 - Image generation
@@ -202,8 +204,10 @@ DocsProduction
 - Audio in Chat Completions
 ### Go live
 - Production best practices
+- API keys and service accounts
 - Deployment checklist
 ### Performance and quality
+- Keep the prefix unchanged
 - Fast mode
 - Ultrafast mode
 - Latency optimization
@@ -257,7 +261,6 @@ DocsProduction
 - SPIFFE
 - Idira
 - IP egress ranges
-- Amazon Bedrock
 ### Operations
 - Rate limits
 - Spend limits
@@ -378,6 +381,7 @@ DocsOverview
 - Import from another agent
 ### Foundations
 - Prompting
+- Working with agents
 - Model selection
 - Personalize ChatGPT
 - Skills & Plugins
@@ -488,7 +492,6 @@ DocsOverview
 ### Build with Codex
 - Codex SDK
 - App Server
-- Model catalogs
 - GitHub Action
 - Non-interactive mode
 ### Third-party integrations
@@ -558,19 +561,20 @@ DocsOverview
 - Roles and workspace permissions
 - Personal access tokens
 - Service accounts
-### Deployment and configuration
+### Configuration
 - Windows app and CLI deployment
+- NFS home directories
 - Manage app updates
 - Managed configuration
+- Self-host configuration
 - Codex security cookbook
 - Remote connections
 - Workspace model availability
+### Advanced deployment
 - Amazon Bedrock
-- Bedrock GovCloud configuration
+- GovCloud deployment
 - Connect to a gateway
 - Roll out a gateway
-- Gateway compatibility
-- Bedrock through LiteLLM
 ### ChatGPT EDU
 - Education plans
 - Higher education setup
@@ -584,7 +588,7 @@ DocsOverview
 - GPTs and sharing
 ### Plugins and connections
 - Plugin controls
-- Plugin management
+- Import and sync plugins from GitHub
 - Skill controls
 - Migrate custom GPTs to plugins
 ### Usage and analytics
@@ -594,6 +598,7 @@ DocsOverview
 ### Security and compliance
 - Governance
 - Agent security
+- Safety and security in dots
 - Prisma AIRS
 - HIPAA configuration
 - Compliance API and audit events
@@ -631,11 +636,11 @@ Showcase Blog Cookbook Learn Community
 DocsShowcase
 - All posts
 ### Recent
+- Pushing voice agents further: inside four GPT-Live builds
+- Building a retro handheld game with Codex and ModRetro Chromatic
 - Designing failover across OpenAI model providers
 - Maintaining software with the GPT-6 family
 - Bringing my LED display to life with GPT-Live-1 and Codex
-- Rethinking skills and prompts for GPT-6 Astra
-- Architectural visualization with Astra
 ### Topics
 - General
 - API
@@ -898,6 +903,7 @@ puts(response.output_text)
 ### Which models and features are eligible for data residency?
 The following models and API services are eligible for data residency today for the regions specified below.
 Use **Support by region** to compare regional capabilities and expand the services available in each region. Use **API Endpoint, tool and model support** for complete model lists and a detailed service view. Support for regional storage does not imply support for regional processing.
+In Australia, India, and Japan, organizations with active Zero Data Retention can use `gpt-6-luna` for regional processing. These regions support Standard pay-as-you-go only. Use a project in the selected region. The Responses and Chat Completions APIs support text and image inputs and text output. Hosted tools are unavailable for regional processing in these three regions.
 Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. Ultrafast mode for GPT-6.1 Sol supports US and EU data residency and global processing. GPT-6 Astra Ultrafast supports US data residency and global processing only.
 #### Support by region
 Compare regional capabilities and services.
@@ -931,11 +937,12 @@ Text, Audio, Voice, Image*
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 /v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 Canada
 `ca.api.openai.com`
@@ -954,10 +961,11 @@ Text, Audio, Voice, Image*
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 India
 `in.api.openai.com`
@@ -965,10 +973,11 @@ Text, Audio, Voice, Image*
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 Singapore
 `sg.api.openai.com`
@@ -1043,15 +1052,17 @@ Supported services
 Show 23 more services
 ##### Australia
 `au.api.openai.com`
+StorageProcessing
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 ##### Canada
 `ca.api.openai.com`
@@ -1067,27 +1078,31 @@ Supported services
 Show 18 more services
 ##### Japan
 `jp.api.openai.com`
+StorageProcessing
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 ##### India
 `in.api.openai.com`
+StorageProcessing
 Storage
 Yes
 Processing
-No
-Requires MAM or ZDR
+Yes
+Requires MAM or ZDR***
 Modes: Text, Audio, Voice, Image*
 Supported services
 /v1/batchesStorage
-/v1/chat/completionsStorage
+/v1/chat/completionsStorageProcessing
+`gpt-6-luna`
 Show 18 more services
 ##### Singapore
 `sg.api.openai.com`
@@ -1141,6 +1156,7 @@ Supported services
 Show 18 more services
 * Image support in these regions requires approval for enhanced Zero Data Retention or enhanced Modified Abuse Monitoring.
 ** Requires Zero Data Retention, Modified Abuse Monitoring, Private Retention with PSP, or Safety Retention.
+*** Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.
 #### API Endpoint, tool and model support
 Filter by service, endpoint, tool, or model snapshot.
 Filter endpoint support by serviceAll services
@@ -1398,7 +1414,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Scale Tier`
 `Structured Outputs (excluding schema)`
 `Supported input modalities` |
-| Australia* | `au.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
+| Australia* | `au.api.openai.com` | Yes | Yes | Yes*** | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
 `/v1/decisions`
@@ -1418,7 +1434,8 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Remote MCP server tool`
 `Scale Tier`
 `Structured Outputs (excluding schema)`
-`Supported input modalities` | None |
+`Supported input modalities` | `/v1/chat/completions` (`gpt-6-luna`)
+`/v1/responses` (`gpt-6-luna`) |
 | Canada* | `ca.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
@@ -1440,7 +1457,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Scale Tier`
 `Structured Outputs (excluding schema)`
 `Supported input modalities` | None |
-| Japan* | `jp.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
+| Japan* | `jp.api.openai.com` | Yes | Yes | Yes*** | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
 `/v1/decisions`
@@ -1460,8 +1477,8 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Remote MCP server tool`
 `Scale Tier`
 `Structured Outputs (excluding schema)`
-`Supported input modalities` | None |
-| India* | `in.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
+`/v1/responses` (`gpt-6-luna`) |
+| India* | `in.api.openai.com` | Yes | Yes | Yes*** | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
 `/v1/decisions`
@@ -1481,7 +1498,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 `Remote MCP server tool`
 `Scale Tier`
 `Structured Outputs (excluding schema)`
-`Supported input modalities` | None |
+`/v1/responses` (`gpt-6-luna`) |
 | Singapore* | `sg.api.openai.com` | Yes | No | Yes | Text, Audio, Voice, Image | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech`
 `/v1/batches`
 `/v1/chat/completions`
@@ -1571,7 +1588,8 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | Endpoint or feature | Service | Storage regions | Processing regions | Supported models and snapshots | Regional processing snapshot exceptions | Notes |
 | `/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech` | Audio | All listed regions | United States, Europe (EEA + Switzerland) | `tts-1`, `whisper-1`, `gpt-4o-tts`, `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/batches` | Batches | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | None | GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
-| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
+| `/v1/chat/completions` | Chat Completions | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates, Australia, India, Japan | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-mini-2025-01-31`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11`
+Australia, India, Japan: `gpt-6-luna` | Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
 | `/v1/decisions` | Decisions | All listed regions | United States, Europe (EEA + Switzerland) | `gpt-6-luna` | None | Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below. |
 | `/v1/embeddings` | Embeddings | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002` | United Arab Emirates: `text-embedding-3-large` | — |
 | `/v1/evals` | Evals | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
@@ -1584,7 +1602,7 @@ The complete, unfiltered regional support table follows. Model snapshots for eac
 | `/v1/realtime` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime`, `gpt-realtime-1.5`, `gpt-realtime-mini`, `gpt-realtime-2`, `gpt-realtime-2.1`, `gpt-realtime-2.1-mini` | None | — |
 | `/v1/realtime/transcription_sessions` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-whisper`, `gpt-live-transcribe`, `gpt-transcribe` | None | — |
 | `/v1/realtime/translations` | Realtime | United States, Europe (EEA + Switzerland) | United States, Europe (EEA + Switzerland) | `gpt-realtime-translate` | None | — |
-| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11` | Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency. |
+| `/v1/responses` | Responses | All listed regions | United States, Europe (EEA + Switzerland), United Arab Emirates, Australia, India, Japan | `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-5.5-pro-2026-04-23`, `gpt-5.4-pro-2026-03-05`, `gpt-5.2-pro-2025-12-11`, `gpt-5-pro-2025-10-06`, `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.4-2026-03-05`, `gpt-5-2025-08-07`, `gpt-5.4-mini-2026-03-17`, `gpt-5.4-nano-2026-03-17`, `gpt-5.2-2025-12-11`, `gpt-5.1-2025-11-13`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano-2025-04-14`, `o3-2025-04-16`, `o4-mini-2025-04-16`, `o1-pro`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o1-2024-12-17`, `gpt-4o-2024-11-20`, `gpt-4o-2024-08-06`, `gpt-4o-mini-2024-07-18`, `gpt-4-turbo-2024-04-09`, `gpt-4-0613`, `gpt-3.5-turbo-0125` | United Arab Emirates: `gpt-5.5-pro-2026-04-23`, `gpt-5.6-luna`, `gpt-5.5-2026-04-23`, `gpt-5.2-2025-12-11`
 | `/v1/responses File Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/responses Web Search` | Responses | All listed regions | United States, Europe (EEA + Switzerland) | Service-level support | None | — |
 | `/v1/vector_stores` | Vector stores | All listed regions | None | Service-level support | None | — |
