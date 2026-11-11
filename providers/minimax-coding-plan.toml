@@ -11,7 +11,7 @@ doc = "https://platform.minimax.io/protocol/terms-of-service"
 url = "https://platform.minimax.io/docs/api-reference/file-management-upload"
 channel = "developer_data"
 tier = "core"
-note = "Files API 上传接口参考文档。保留它是因为它是本档 retention 的对象级证据:上传文件在平台侧的期限——video_understanding 的视频文件『retained for up to 7 days』,video_generation_input 材料『valid for 7 days (after expiry, generation returns file expired and you must re-upload)』。不单独承载维度权威。"
+note = "Files API 上传接口参考文档。保留它是因为它是本档 retention 的对象级证据:上传文件在平台侧的期限——video_understanding 的视频文件『retained for up to 7 days』,video_generation_input 材料『valid for 7 days (after expiry, generation returns file expired and you must re-upload)』,image_generation_input 参考图『valid for 7 days (after expiry, the request returns file expired and you must re-upload)』(2026-11-11 抓取版新增该用途及 64 MB 限制表)。不单独承载维度权威。"
 
 [[source]]
 url = "https://platform.minimax.io/docs/api-reference/text-prompt-caching"
@@ -98,9 +98,14 @@ text_zh = "对象级、默认自动提示缓存:默认开启、无需改动 API 
 anchor = "retention-cache-automatic-default"
 
 [[product.retention.point]]
-text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
+text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the remaining upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
 text_zh = "对象级、上传物:Files API 的 video_understanding 视频文件最长 7 天、video_generation_input 材料 7 天内有效;其余上传用途(voice_clone / prompt_audio / t2a_async_input)未给期限。"
 anchor = "retention-uploaded-file-7-days"
+
+[[product.retention.point]]
+text = "Object level, uploads: image_generation_input reference images for MiniMax-H3-Image image editing are \"valid for 7 days (after expiry, the request returns file expired and you must re-upload)\"; files rejected at upload (400) are not retained."
+text_zh = "对象级、上传物:image_generation_input 的 MiniMax-H3-Image 图像编辑参考图「valid for 7 days (after expiry, the request returns file expired and you must re-upload)」;上传时校验不通过(400)的文件不保留。"
+anchor = "retention-image-generation-input-7-days"
 
 [[product.retention.point]]
 text = "Exception, EEA/UK/Switzerland addendum only: \"If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.\" This is a statutory carve-out from the deletion promise (\"in accordance with the applicable laws\"), not a contradicting commitment; retention lasts as long as applicable law requires."
@@ -197,9 +202,14 @@ text_zh = "对象级、与个人档同一平台行为——默认自动提示缓
 anchor = "retention-cache-automatic-default"
 
 [[product.retention.point]]
-text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the other upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
+text = "Object level, uploads: Files API video_understanding video files are retained for up to 7 days and video_generation_input materials are valid for 7 days; the remaining upload purposes (voice_clone / prompt_audio / t2a_async_input) are given no period."
 text_zh = "对象级、上传物:Files API 的 video_understanding 视频文件最长 7 天、video_generation_input 材料 7 天内有效;其余上传用途(voice_clone / prompt_audio / t2a_async_input)未给期限。"
 anchor = "retention-uploaded-file-7-days"
+
+[[product.retention.point]]
+text = "Object level, uploads: image_generation_input reference images for MiniMax-H3-Image image editing are \"valid for 7 days (after expiry, the request returns file expired and you must re-upload)\"; files rejected at upload (400) are not retained."
+text_zh = "对象级、上传物:image_generation_input 的 MiniMax-H3-Image 图像编辑参考图「valid for 7 days (after expiry, the request returns file expired and you must re-upload)」;上传时校验不通过(400)的文件不保留。"
+anchor = "retention-image-generation-input-7-days"
 
 [[product.retention.point]]
 text = "Exception, EEA/UK/Switzerland addendum only: \"If applicable law requires us to retain copies of your updated, modified, or deleted information, copies of that information will be retained on our systems.\" This is a statutory carve-out from the deletion promise, not a contradicting commitment; retention lasts as long as applicable law requires."
@@ -590,3 +600,11 @@ exact = "Video file for multimodal understanding, referenced in chat requests as
 suffix = """
  (supports MP4, AVI, MOV, MKV formats).
 5.   video_generatio"""
+
+[[anchor]]
+id = "retention-image-generation-input-7-days"
+source_id = "4adc9c1d043a7783"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Reference images for MiniMax-H3-Image image editing, referenced in the request's `images[].image_url` field as `mm_file://{file_id}`, valid for 7 days (after expiry, the request returns file expired and you must re-upload); files are validated on upload against the Image Edit reference image limits, and invalid files are rejected with 400 and not retained."
