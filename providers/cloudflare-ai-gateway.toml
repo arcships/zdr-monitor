@@ -22,7 +22,7 @@ note = "AI Gateway Logging 文档(Last updated Nov 5, 2026):网关日志默认�
 url = "https://developers.cloudflare.com/workers/observability/logs/workers-logs/"
 channel = "developer_data"
 tier = "core"
-note = "Workers Logs 官方文档:新客户分支 Workers Free 日志保留 3 天、Workers Paid 日志保留 7 天。"
+note = "Workers Logs 官方文档(Last updated Nov 12, 2026):新客户分支 Workers Free 日志保留 3 天、Workers Paid 日志保留 7 天;新增 Data location 节——Cloudflare 存储的 Workers Logs(含 invocation logs)在账号配置了 Customer Metadata Boundary 时遵循该边界,未配置时日志可能存放于 Cloudflare 全球核心数据中心。"
 
 [[source]]
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/legacy-logs/"
@@ -418,6 +418,11 @@ text = "No default regional gateway processing boundary; upstream region depends
 text_zh = "默认无网关处理地域边界;上游处理地依 provider 而定。"
 anchor = "cf-aigw-cmb-default-no-boundary-global"
 
+[[product.processing_region.point]]
+text = "Workers Logs adds a Data location section specific to this tier: \"Cloudflare-stored Workers Logs, including invocation logs, follow your account's Customer Metadata Boundary setting when one is configured. If no boundary is configured, logs may be stored in Cloudflare's core data centers globally.\" This keeps the default global and ties Workers Logs storage to the account's CMB setting when present; it does not create a per-gateway region choice, and the DLS compatibility table still lists AI Gateway's CMB as conditional (footnote 14: jurisdictional storage restrictions for Logs are not supported today). Upstream processing region remains provider-specific."
+text_zh = "Workers Logs 新增针对本档的『Data location』节:『Cloudflare-stored Workers Logs, including invocation logs, follow your account's Customer Metadata Boundary setting when one is configured. If no boundary is configured, logs may be stored in Cloudflare's core data centers globally.』默认仍为全球;账号配置了 CMB 时,Workers Logs 存储遵循该边界。这不构成网关级的区域选择,且 DLS 兼容性表仍把 AI Gateway 的 CMB 标为有条件(脚注 14:Jurisdictional Restrictions (storage) options for Logs are not supported today)。上游处理地仍依 provider。"
+anchor = "cf-aigw-workers-logs-data-location"
+
 [product.role]
 kind = "processor"
 anchor = "cf-aigw-dpa-cloudflare-is-processor"
@@ -508,6 +513,11 @@ anchor = "cf-aigw-dls-compat-ai-gateway-row"
 text = "No default regional processing boundary at the gateway; upstream regions depend on providers."
 text_zh = "网关默认无处理地域边界;上游地域依 provider 而定。"
 anchor = "cf-aigw-cmb-default-no-boundary-global"
+
+[[product.processing_region.point]]
+text = "Workers Logs adds a Data location section specific to this tier: \"Cloudflare-stored Workers Logs, including invocation logs, follow your account's Customer Metadata Boundary setting when one is configured. If no boundary is configured, logs may be stored in Cloudflare's core data centers globally.\" This keeps the default global and ties Workers Logs storage to the account's CMB setting when present; it does not create a per-gateway region choice, and the DLS compatibility table still lists AI Gateway's CMB as conditional (footnote 14: jurisdictional storage restrictions for Logs are not supported today). Upstream processing region remains provider-specific."
+text_zh = "Workers Logs 新增针对本档的『Data location』节:『Cloudflare-stored Workers Logs, including invocation logs, follow your account's Customer Metadata Boundary setting when one is configured. If no boundary is configured, logs may be stored in Cloudflare's core data centers globally.』默认仍为全球;账号配置了 CMB 时,Workers Logs 存储遵循该边界。这不构成网关级的区域选择,且 DLS 兼容性表仍把 AI Gateway 的 CMB 标为有条件(脚注 14:Jurisdictional Restrictions (storage) options for Logs are not supported today)。上游处理地仍依 provider。"
+anchor = "cf-aigw-workers-logs-data-location"
 
 [product.role]
 kind = "processor"
@@ -696,6 +706,16 @@ topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "Workers Paid | 20 million included per month +$0.60 per additional million | 7 Days"
+suffix = ""
+
+[[anchor]]
+id = "cf-aigw-workers-logs-data-location"
+source_id = "208518e1b78cded2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Cloudflare-stored Workers Logs, including invocation logs, follow your account's Customer Metadata Boundary setting when one is configured. If no boundary is configured, logs may be stored in Cloudflare's core data centers globally."
 suffix = ""
 
 [[anchor]]
