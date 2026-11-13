@@ -14,6 +14,7 @@ import fs from "node:fs"
 import path from "node:path"
 import { loadProvider, providerIds } from "../src/registry"
 import { allSources, checkQuotes, readSnapshot, snapshotAll } from "../src/snapshot"
+import { rebindAnchor } from "../src/snapshot/rebind"
 
 const root = path.join(import.meta.dirname, "..", "..", "..")
 const args = process.argv.slice(2)
@@ -33,11 +34,31 @@ const results = await snapshotAll(root, sources, {
   log: (line) => console.error(line),
 })
 
+// Jev 认定只是改写的引文直接改绑，不用为它派 agent。只改本 provider 的文件：
+// 每个 matrix job 只按本家的引文判断（watches 按 provider 过滤）
+const rebound: string[] = []
+if (target && !args.includes("--dry-run")) {
+  const file = path.join(root, "providers", `${target}.toml`)
+  const anchors = loadProvider(root, target).anchors
+  let toml = fs.readFileSync(file, "utf8")
+  for (const r of results)
+    for (const b of r.jev?.rebinds ?? []) {
+      const a = anchors.find(
+        (x) => x.source_id === r.source_id && x.selector.exact === b.from.exact && x.selector.prefix === b.from.prefix && x.selector.suffix === b.from.suffix,
+      )
+      if (!a) continue
+      toml = rebindAnchor(toml, a.id, b.exact)
+      rebound.push(a.id)
+    }
+  if (rebound.length) fs.writeFileSync(file, toml)
+}
+
 const counts = results.reduce<Record<string, number>>((m, r) => ((m[r.outcome] = (m[r.outcome] || 0) + 1), m), {})
 const changed = results.filter((r) => r.outcome === "created" || r.outcome === "changed")
 const failed = results.filter((r) => r.outcome === "failed")
 const touched = new Set(changed.map((r) => r.source_id))
 const quotes = target ? checkQuotes(root, [target]).filter((c) => touched.has(c.source_id) && c.state !== "ok") : []
+const NO_REVIEW = "<!-- jev:no-review -->"
 const clip = (s: string) => s.replace(/\s+/g, " ").slice(0, 160)
 
 const lines = [
@@ -57,6 +78,22 @@ if (changed.length)
       ...(r.reasons ?? []).slice(0, 8).map((x) => `  - ${x}`),
     ]),
   )
+// Jev 拦下的不写快照，也就不进 PR 的 Files changed；列在报告里，误拦了能看出来
+const vetoed = results.filter((r) => r.outcome === "cosmetic" && r.jev?.dims)
+if (vetoed.length)
+  lines.push(
+    "",
+    "### Jev 判为非政策变化（未重写快照）",
+    "",
+    ...vetoed.flatMap((r) => [`- ${r.url}`, ...(r.reasons ?? []).slice(0, 4).map((x) => `  - ${x}`)]),
+  )
+if (rebound.length) lines.push("", "### Jev 自动改绑的引文", "", ...rebound.map((id) => `- \`${target}/${id}\``))
+// 这次变化全都是 Jev 判过的非政策变化和已改绑的改写：合并后不开复核 issue（open-review-issues.ts 认这个标记）
+const quiet =
+  changed.length > 0 &&
+  changed.every((r) => r.outcome === "changed" && r.jev && !r.jev.error && !r.jev.policy && r.jev.unresolved === 0) &&
+  !quotes.length
+if (quiet) lines.push("", NO_REVIEW, "本次变化经 Jev 判断不涉及五个维度上的承诺，失效引文已自动改绑；合并后不派 agent 复核。")
 if (quotes.length)
   lines.push("", "### 变化来源上需要处理的引文", "", ...quotes.map((c) => `- ${c.state} \`${c.provider_id}/${c.anchor_id}\`：${clip(c.exact)}`))
 if (failed.length)
