@@ -27,7 +27,7 @@ note = "《Baseten Data Processing Addendum》（页内 Last Updated: September 
 url = "https://www.baseten.co/security-practices/"
 channel = "contract"
 tier = "core"
-note = "《Baseten Security Practices》，页内标注 Last Updated: September 15, 2026，§首段自述「incorporated into the Baseten Terms and Conditions」，Terms §2.5 与 §12.9 亦将其纳入协议并优先于正文——因此与合同同级，不是营销页。这是 zdr 与 retention 的权威来源：CUSTOMER CONTENT PROCESSING AND DATA RETENTION 一节按产品线分列 Model APIs / Dedicated Inference / Asynchronous Inference / Customer Model Weights，另给出审计日志留存、终止后 30 天取回期、备份残余、部署形态与区域约束。"
+note = "《Baseten Security Practices》，页内标注 Last Updated: November 5, 2026，§首段自述「incorporated into the Baseten Terms and Conditions」，Terms §2.5 与 §12.9 亦将其纳入协议并优先于正文——因此与合同同级，不是营销页。这是 zdr 与 retention 的权威来源：CUSTOMER CONTENT PROCESSING AND DATA RETENTION 一节的 ZDR 范围句指向其下列表，按产品线分列 Model APIs / Dedicated Inference / Asynchronous Inference / Customer Model Weights，另给出审计日志留存、终止后 30 天取回期、备份残余、部署形态与区域约束。DATA RETENTION FOR OTHER PRODUCTS 单列 Training（含 Loops 与 Serverless Loops，写明请求/输出/checkpoint 的保留）与 Baseten Sandboxes。"
 
 [[source]]
 url = "https://www.baseten.co/terms-and-conditions/"
@@ -258,19 +258,28 @@ mark = "no"
 anchor = "baseten-security-practices-post-term-30-days"
 
 [[product.zdr.point]]
-text = "The scope of the ZDR posture in the Security Practices is worded as \"across all inference products\"; training data and checkpoints are storage-type data (retrievable until 30 days after the end of the subscription term) and fall outside zero retention of inference inputs and outputs. Request-level ZDR therefore does not apply to this tier — only the 30-day post-term retrieval window and the deletion commitment do."
-text_zh = "ZDR 姿态的适用范围是 all inference products；训练数据与 checkpoint 属存储型数据（订阅期结束后 30 天内可取回），不在推理输入输出的请求级零保留范围内。即本档不适用请求级 ZDR，只有终止后 30 天取回期与删除承诺。"
+text = "The scope of the ZDR posture in the Security Practices is now worded as \"across the below inference products\"; the list that follows covers Model APIs, Dedicated Inference, Asynchronous Inference and Customer Model Weights. Training (including Loops and Serverless Loops) sits in the separate \"DATA RETENTION FOR OTHER PRODUCTS\" section instead of that list, and that section describes storage-type data (requests queued until processed, outputs held temporarily for retrieval, and checkpoints retained until the customer deletes them). Request-level ZDR therefore does not apply to this tier — only the post-term retrieval window and the deletion commitment do."
+text_zh = "Security Practices 的 ZDR 姿态现表述为「across the below inference products」；其后的清单包括 Model APIs、Dedicated Inference、Asynchronous Inference 与 Customer Model Weights。Training（含 Loops 与 Serverless Loops）不在该清单内，而是单列在「DATA RETENTION FOR OTHER PRODUCTS」一节，该节描述的是存储型数据（请求排队至处理、输出临时保存以便取回、checkpoint 保留至客户删除）。即本档不适用请求级 ZDR，只有终止后取回期与删除承诺。"
 anchor = "baseten-security-practices-zdr-products"
 
 [product.retention]
-days = 30
 object = "mixed"
-basis = "fixed_period"
+basis = "until_termination"
 anchor = "baseten-security-practices-post-term-30-days"
 
 [[product.retention.point]]
-text = "Security Practices \"DATA RETENTION FOR OTHER PRODUCTS / Training\": \"For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession.\" — the object is Customer Content (training data and checkpoints included)"
-text_zh = "Security Practices「DATA RETENTION FOR OTHER PRODUCTS / Training」：For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession. —— 对象是 Customer Content（含训练数据与 checkpoint）"
+text = "Security Practices \"DATA RETENTION FOR OTHER PRODUCTS / Training (including Loops and Serverless Loops)\": training and sampling operations run asynchronously; requests (including training data and prompts) are temporarily queued until processed, and outputs are held temporarily for retrieval. The page says \"Each is deleted once a request is processed\" — most directly the requests; outputs are only described as temporarily held for retrieval, with no separate deletion deadline stated for them."
+text_zh = "Security Practices「DATA RETENTION FOR OTHER PRODUCTS / Training (including Loops and Serverless Loops)」：训练与采样异步运行；请求（含训练数据与 prompt）在处理前临时排队，输出临时保存以便取回。原文说「Each is deleted once a request is processed」——最直接指请求；输出只被描述为临时保存以便取回，原文未单列输出的删除期限。"
+anchor = "baseten-security-practices-training-queue-deleted"
+
+[[product.retention.point]]
+text = "\"Checkpoints and other Customer Models created through Loops and Serverless Loops are retained until the customer deletes them\" during the subscription, so their during-term retention is customer-controlled rather than a fixed 30 days. They are then subject to the post-termination retrieval and deletion terms below."
+text_zh = "「Checkpoints and other Customer Models created through Loops and Serverless Loops are retained until the customer deletes them」：订阅期内 checkpoint/模型的保留由客户控制，不是固定 30 天；其后适用下文的终止后取回与删除条款。"
+anchor = "baseten-security-practices-training-checkpoints-until-delete"
+
+[[product.retention.point]]
+text = "Post-termination: \"For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession.\" — the object is the remaining Customer Content (training data and checkpoints included)."
+text_zh = "终止后：For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content. After such thirty (30) day period, Baseten will promptly delete all remaining Customer Content in its possession. —— 对象是剩余 Customer Content（含训练数据与 checkpoint）。"
 
 [[product.retention.point]]
 text = "Residual backup copies are separately covered by a \"limited period\" (not quantified)."
@@ -317,12 +326,12 @@ text = "On this tier \"no retention\" is guaranteed by the architecture (payload
 text_zh = "本档的「不保留」由架构保证（payload 不出客户环境）而非仅靠承诺"
 
 [[product.zdr.point]]
-text = "The ZDR posture in the Security Practices, being \"across all inference products\", covers this tier too."
-text_zh = "Security Practices 的 ZDR 姿态对 all inference products 同样覆盖本档。"
+text = "The Security Practices now describe the ZDR posture as covering the inference products listed below (Model APIs, Dedicated Inference, Asynchronous Inference and Customer Model Weights); Self-Hosted is not in that list, and it was not in the pre-change list either — what changed is the scope sentence (from \"all inference products\" to \"the below inference products\"). On this tier the basis is therefore the self-hosted documentation and the architecture (payloads stay in the customer's environment), not the Security Practices' ZDR product list."
+text_zh = "Security Practices 现把 ZDR 姿态表述为覆盖其下列出的推理产品（Model APIs、Dedicated Inference、Asynchronous Inference、Customer Model Weights）；Self-Hosted 不在该清单内，改动前的清单也不含它——变化的是范围句（由 all inference products 改为 below inference products）。故本档的依据是自托管文档与架构（payload 留在客户环境），不是 Security Practices 的 ZDR 产品清单。"
 
 [[product.zdr.point]]
-text = "Scope limit on the ZDR commitment (the Security Practices clause is worded generally and covers this tier as well): Baseten is not in breach of these Security Practices (including the ZDR commitments) where logging, retention, storage, access, use or disclosure of Customer Content arises from (a) configurations, settings or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring or any Third-Party Product; or (d) actions taken at a customer's written direction. This is an exception defining the scope of the commitment, not a withdrawal of it; mark stays yes."
-text_zh = "ZDR 承诺的适用边界（该条措辞是一般性的，同样覆盖本档；属例外而非撤销）：若 Customer Content 的 logging、retention、storage、access、use 或 disclosure 源于 (a) 客户或其授权用户所作的配置、设置或部署选择；(b) 客户提供或选用的 model runtime code、packages、dependencies 等软件（含 Customer Model 或其供应链中的潜在漏洞）；(c) 客户自行开启 logging、retention、abuse monitoring 或任何 Third-Party Product；或 (d) 按客户书面指示采取的行动，则不构成 Baseten 违反 Security Practices（含 ZDR 承诺）。mark 仍为 yes。"
+text = "Scope limit on the ZDR commitment (the Security Practices clause is worded generally and is not restricted to the products listed under Zero Data Retention Products): Baseten is not in breach of these Security Practices (including the ZDR commitments) where logging, retention, storage, access, use or disclosure of Customer Content arises from (a) configurations, settings or deployment choices made by a customer or its authorized users; (b) model runtime code, packages, dependencies or other software provided or selected by a customer, including any vulnerability or compromise latent in a Customer Model or its supply chain; (c) a customer's election to enable logging, retention, abuse monitoring or any Third-Party Product; or (d) actions taken at a customer's written direction. This is an exception defining the scope of the commitment, not a withdrawal of it; mark stays yes."
+text_zh = "ZDR 承诺的适用边界（该条措辞是一般性的，未限定于 Zero Data Retention Products 清单内的产品；属例外而非撤销）：若 Customer Content 的 logging、retention、storage、access、use 或 disclosure 源于 (a) 客户或其授权用户所作的配置、设置或部署选择；(b) 客户提供或选用的 model runtime code、packages、dependencies 等软件（含 Customer Model 或其供应链中的潜在漏洞）；(c) 客户自行开启 logging、retention、abuse monitoring 或任何 Third-Party Product；或 (d) 按客户书面指示采取的行动，则不构成 Baseten 违反 Security Practices（含 ZDR 承诺）。mark 仍为 yes。"
 anchor = "baseten-security-practices-customer-controlled-factors"
 
 [product.retention]
@@ -433,7 +442,7 @@ prefix = """
 ement of any algorithms.
 
 **Zero Data Retention Products.** """
-exact = "Baseten adheres to a Zero Data Retention posture across all inference products."
+exact = "Baseten adheres to a Zero Data Retention posture across the below inference products."
 suffix = " Product-specific details are set forth below."
 
 [[anchor]]
@@ -552,14 +561,29 @@ source_id = "27db51c160a382cc"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-t.
-
-## **DATA RETENTION FOR OTHER PRODUCTS**
-
-**Training.** """
+prefix = "Checkpoints and other Customer Models created through Loops and Serverless Loops are retained until the customer deletes them and are subject to the following post-termination retrieval and deletion terms. "
 exact = "For thirty (30) days after the end of a customer's subscription term, Baseten will provide the customer access to the Services to allow retrieval of Customer Content."
 suffix = " After such thirty (30) day period, Baseten will promptly de"
+
+[[anchor]]
+id = "baseten-security-practices-training-queue-deleted"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "**Training (including Loops and Serverless Loops).** "
+exact = "Training and sampling operations run asynchronously and requests are temporarily queued (including training data and prompts) until processed, and outputs are held temporarily for retrieval. Each is deleted once a request is processed."
+suffix = " Checkpoints and other Customer Models created through Loops and Serverless Loops are retained"
+
+[[anchor]]
+id = "baseten-security-practices-training-checkpoints-until-delete"
+source_id = "27db51c160a382cc"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = " Each is deleted once a request is processed. "
+exact = "Checkpoints and other Customer Models created through Loops and Serverless Loops are retained until the customer deletes them and are subject to the following post-termination retrieval and deletion terms."
+suffix = " For thirty (30) days after the end of a customer's subscription term, Baseten will"
 
 [[anchor]]
 id = "baseten-security-practices-backup-residual"
