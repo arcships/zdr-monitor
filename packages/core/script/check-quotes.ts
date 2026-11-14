@@ -2,7 +2,7 @@
 /** 引文核对：每条引文必须能在 bot 抓回的快照里找到。离线、确定。
  *
  *    bun run check:quotes [provider...]   默认全部
- *    --strict                             有 missing 就退出 1（PR 关卡用）
+ *    --strict                             有 missing 或 ambiguous 就退出 1（PR 关卡用）
  *    --md                                 输出 markdown（PR 正文用）
  *
  *  no_snapshot 不算失败：来源还没抓到时无从核对，那是抓取的事，不是引文的事。 */
@@ -32,5 +32,6 @@ if (args.includes("--md")) {
 } else {
   console.log(`${checks.length} 条引文:` + Object.entries(counts).map(([k, v]) => ` ${k} ${v}`).join(""))
   for (const c of missing) console.log(`  missing  ${c.provider_id}/${c.anchor_id}  ${c.url}`)
+  for (const c of ambiguous) console.log(`  ambiguous  ${c.provider_id}/${c.anchor_id}  ${c.url}`)
 }
-if (args.includes("--strict") && missing.length) process.exit(1)
+if (args.includes("--strict") && (missing.length || ambiguous.length)) process.exit(1)
