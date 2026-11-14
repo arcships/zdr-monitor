@@ -172,6 +172,14 @@ export function providerIds(root: string) {
 
 export function loadProvider(root: string, id: string) {
   const raw = toml.parse(fs.readFileSync(path.join(root, "providers", `${id}.toml`), "utf8")) as any
+  // 呈现层按 id 建索引；重复值会覆盖前面的证据或档位，必须在读取时拒绝。
+  for (const kind of ["anchor", "product"] as const) {
+    const seen = new Set<string>()
+    for (const entry of raw[kind] || []) {
+      if (seen.has(entry.id)) throw new Error(`providers/${id}.toml: 重复的 ${kind} id ${entry.id}`)
+      seen.add(entry.id)
+    }
+  }
   return {
     provider: {
       id,
