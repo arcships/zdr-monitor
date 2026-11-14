@@ -27,13 +27,13 @@ note = "Crusoe Cloud 磁盘类型文档（Ephemeral / Persistent / Shared）。�
 url = "https://legal.crusoe.ai/"
 channel = "contract"
 tier = "core"
-note = "Crusoe Legal Center 现行版全文（PactSafe/Ironclad 托管的静态页，把全部契约的**所有历史版本内嵌在同一 HTML**里）。本轮以它作为 Managed Inference、Fine-Tuning 直连档与 Infrastructure Cloud 档的合同层权威，涵盖：Crusoe Cloud Platform Terms of Service v1.11（2026-11-05 生效）、Acceptable Use Policy v1.1（2026-08-07）、Crusoe Cloud Platform Privacy Notice v1.3（2026-03-12）、Data Processing and Security Terms v1.4（2026-11-09 生效，新增 Zero Data Retention 节）、Service Specific Terms v5.1（2026-11-09 生效，其中 Crusoe Intelligence Foundry Terms 是 Managed Inference / Fine-Tuning 的专门条款）、Crusoe Website Privacy Notice v2.3、Website Terms of Use v1.0、Preview Services Agreement（2026-11-05 生效，取代 2026-10-20 版）、SLA v8.0、TSS Guidelines v2.1 等。子文档的官方锚点 URL 形如 https://legal.crusoe.ai/#data-processing、#service-specific-terms、#terms-of-service（同一页面，靠 hash 定位）。⚠ 锚点定位局限：页面内嵌 12 个版本 Cloud TOS、5 个版本 DPST、4 个版本 Cloud Platform Privacy Notice，规范化快照会去重重复长行；仅个别跨版本条款仍需以上下文消歧。"
+note = "Crusoe Legal Center 现行版全文（PactSafe/Ironclad 托管的静态页，把全部契约的**所有历史版本内嵌在同一 HTML**里）。本轮以它作为 Managed Inference、Fine-Tuning 直连档与 Infrastructure Cloud 档的合同层权威，涵盖：Crusoe Cloud Platform Terms of Service v1.11（2026-11-05 生效）、Acceptable Use Policy v1.1（2026-08-07）、Crusoe Cloud Platform Privacy Notice v1.4（2026-11-13 生效，取代 2026-03-12 生效的 v1.3）、Data Processing and Security Terms v1.4（2026-11-09 生效，新增 Zero Data Retention 节）、Service Specific Terms v5.1（2026-11-09 生效，其中 Crusoe Intelligence Foundry Terms 是 Managed Inference / Fine-Tuning 的专门条款）、Crusoe Website Privacy Notice v2.5（2026-11-13 生效）、Website Terms of Use v1.0、Preview Services Agreement（2026-11-05 生效，取代 2026-10-20 版）、SLA v8.0、TSS Guidelines v2.1 等。子文档的官方锚点 URL 形如 https://legal.crusoe.ai/#data-processing、#service-specific-terms、#terms-of-service（同一页面，靠 hash 定位）。⚠ 锚点定位局限：页面内嵌 12 个版本 Cloud TOS、5 个版本 DPST、5 个版本 Cloud Platform Privacy Notice，规范化快照会去重重复长行；仅个别跨版本条款仍需以上下文消歧。"
 
 [[source]]
 url = "https://legal.crusoe.ai/open-router"
 channel = "contract"
 tier = "core"
-note = "Terms of Service for OpenRouter Customers v4.6（2026-07-23 生效，当前版本）——只覆盖「经 OpenRouter 转售」这一跳的 Crusoe 侧义务；同一页面另内嵌现行 AUP v1.1、DPST v1.4、Cloud Platform Privacy Notice v1.3、Service Specific Terms v5.1。v4.6 相对 v4.5 是整节改写：v4.5 的「Protection of Customer Data; No Training」在 v4.6 变为「Processing and Storage of Customer Data」，v4.5 原有三句被删（only access or use Customer Data…will not use it for any other Crusoe products；Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk…；日志披露句 Crusoe generally does not log Customer Data…），新增的是带 opt-in 条件的不训练句「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」。这是实质条款变化，不是「只新增一句」；是否记一次 changes 记录留人工确认，本轮不自动记。本档 Customer 是 OpenRouter 的客户，Customer Data 定义为「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。链路另一跳（OpenRouter 自身的政策）不在本家台账范围内，本轮只取 openrouter.ai/privacy 作链路线索、不作 Crusoe 侧证据。"
+note = "Terms of Service for OpenRouter Customers v4.6（2026-07-23 生效，当前版本）——只覆盖「经 OpenRouter 转售」这一跳的 Crusoe 侧义务；同一页面另内嵌现行 AUP v1.1、DPST v1.4、Cloud Platform Privacy Notice v1.4、Service Specific Terms v5.1。v4.6 相对 v4.5 是整节改写：v4.5 的「Protection of Customer Data; No Training」在 v4.6 变为「Processing and Storage of Customer Data」，v4.5 原有三句被删（only access or use Customer Data…will not use it for any other Crusoe products；Specifically, Crusoe will only use Customer Data for inference - we will not use it for training Models, and we will not store it on disk…；日志披露句 Crusoe generally does not log Customer Data…），新增的是带 opt-in 条件的不训练句「We do not use Inputs or Outputs to train Models or improve our Services without Customer's explicit opt-in consent.」。这是实质条款变化，不是「只新增一句」；是否记一次 changes 记录留人工确认，本轮不自动记。本档 Customer 是 OpenRouter 的客户，Customer Data 定义为「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。链路另一跳（OpenRouter 自身的政策）不在本家台账范围内，本轮只取 openrouter.ai/privacy 作链路线索、不作 Crusoe 侧证据。"
 
 [[source]]
 url = "https://trust.crusoe.ai"
@@ -93,8 +93,8 @@ text = "There is no \"deleted after N days\" commitment of any kind; the period 
 text_zh = "没有任何「N 天后删除」的天数承诺，期限类型为非持久化。(2) KV 缓存＝官方产品页与文档站都描述为集群级内存缓存（cluster-wide KV cache / cluster-aware routing），属内存态"
 
 [[product.retention.point]]
-text = "The terms describe only the eviction mechanism and give no lifetime for the cache. Fine-Tuning Service Training Data and Checkpoints are covered by the separate fine-tuning tier. (3) Termination = all Customer Data (including existing copies) remaining in Crusoe's systems at the end of the Term is deleted unless European Law requires storage. (4) Service Data (account, billing, technical and operational logs and so on) = Cloud Platform Privacy Notice v1.3 says retention periods are set separately by data type and use, and that data is deleted or anonymized once no longer needed, with no number of days"
-text_zh = "条款只说明淘汰机制，未给缓存存活时限。微调服务的 Training Data 与 Checkpoints 另见 fine-tuning 档。(3) 服务终止＝Term 结束时 Crusoe 系统内的 Customer Data（含既有副本）全部删除，除非欧洲法要求保存。(4) Service Data（账号、计费、技术/运营日志等）＝Cloud Platform Privacy Notice v1.3 称按数据类型与用途分别设定保留期、不再需要即删除或匿名化，未给天数"
+text = "The terms describe only the eviction mechanism and give no lifetime for the cache. Fine-Tuning Service Training Data and Checkpoints are covered by the separate fine-tuning tier. (3) Termination = all Customer Data (including existing copies) remaining in Crusoe's systems at the end of the Term is deleted unless European Law requires storage. (4) Service Data (account, billing, technical and operational logs and so on) = Cloud Platform Privacy Notice v1.4 says retention periods are set separately by data type and use, and that data is deleted or anonymized once no longer needed, with no number of days"
+text_zh = "条款只说明淘汰机制，未给缓存存活时限。微调服务的 Training Data 与 Checkpoints 另见 fine-tuning 档。(3) 服务终止＝Term 结束时 Crusoe 系统内的 Customer Data（含既有副本）全部删除，除非欧洲法要求保存。(4) Service Data（账号、计费、技术/运营日志等）＝Cloud Platform Privacy Notice v1.4 称按数据类型与用途分别设定保留期、不再需要即删除或匿名化，未给天数"
 
 [[product.retention.point]]
 text = "That notice states expressly that it does not apply to Customer Data. (5) Exception = DPST v1.4 \"Law Enforcement Requests\" permits Inputs/Outputs/Training Data/Checkpoints/Customer Models to be provided in response to law enforcement requests (Crusoe must challenge any request that is not binding and valid, notify the customer, and request a waiver where notice is prohibited by law). There is no \"retained for at least N months\" floor anywhere in the texts, and no fixed ceiling."
@@ -112,9 +112,14 @@ text_zh = "合同层的处理持续期（DPST 附录 1「Duration of the Process
 anchor = "dpst-duration-of-the-processing"
 
 [[product.retention.point]]
-text = "Exception and backup fact (Cloud Platform Privacy Notice v1.3): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\" — so Service Data copies can persist in backups. This is the notice's own statement about Service Data, and it is an exception to the \"deleted once no longer needed\" wording above, not a number of days"
-text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.3）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删——即 Service Data 副本可能长期留在备份里。这是通知本身对 Service Data 的表述，是上面「不再需要即删除」的例外，不是天数"
+text = "Exception and backup fact (Cloud Platform Privacy Notice v1.4): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\" — so Service Data copies can persist in backups. This is the notice's own statement about Service Data, and it is an exception to the \"deleted once no longer needed\" wording above, not a number of days"
+text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.4）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删——即 Service Data 副本可能长期留在备份里。这是通知本身对 Service Data 的表述，是上面「不再需要即删除」的例外，不是天数"
 anchor = "cloud-privacy-extended-retention-and-backup"
+
+[[product.retention.point]]
+text = "Cloud Platform Privacy Notice v1.4 adds a marketing-specific retention detail: to have information deleted from marketing systems, the customer emails privacy@crusoe.ai; this does not delete the Account or the Service Data needed to provide the Services, and Crusoe may keep the email address on a suppression list to continue honoring the request. The notice applies solely to Service Data and not Customer Data, so this does not alter the Inputs/Outputs non-persistence verdict or the DPST deletion obligations."
+text_zh = "Cloud Platform Privacy Notice v1.4 新增营销场景的保留细节：客户可发邮件至 privacy@crusoe.ai 要求从营销系统删除信息；这不删除账号或提供服务所需的 Service Data，且 Crusoe 可能在退出名单中保留邮箱地址以继续执行该请求。该通知明文仅适用于 Service Data、不适用于 Customer Data，因此不改变输入输出非持久化结论或 DPST 删除义务。"
+anchor = "cloud-privacy-marketing-suppression-list"
 
 [product.processing_region]
 codes = ["global"]
@@ -133,8 +138,8 @@ text = "(c) DPST Appendix 1 — a multi-tenant environment on Crusoe-owned serve
 text_zh = "(c) DPST 附录 1——多租户环境、Crusoe 自有服务器，除客户另有指示（例如 data location selection）外会在多个数据中心之间复制 Customer Data"
 
 [[product.processing_region.point]]
-text = "The \"data location selection\" mechanism is mentioned in the terms, but the public documentation gives no list of available locations, no scope, and no statement of whether it applies to Managed Inference. (d) Service Data side: Cloud Platform Privacy Notice v1.3 says Service Data may be processed on servers outside the user's own country (centralized or regionalized billing, support and security operations). Infrastructure facts (developer_data): the documentation site lists data centers in Iceland / Houston, TX / Virginia / Sparks, NV / Norway (Norway coming soon)"
-text_zh = "「按指令选择数据位置」的机制在条款里被提到，但公开文档未给出可选位置清单、适用范围或是否适用于 Managed Inference。(d) Service Data 侧：Cloud Platform Privacy Notice v1.3 称 Service Data 可能在用户所在国以外的服务器上处理（集中式或区域化的计费、支持、安全运营）。基础设施事实（developer_data）：文档站列出数据中心 Iceland / Houston, TX / Virginia / Sparks, NV / Norway（Norway 即将上线）"
+text = "The \"data location selection\" mechanism is mentioned in the terms, but the public documentation gives no list of available locations, no scope, and no statement of whether it applies to Managed Inference. (d) Service Data side: Cloud Platform Privacy Notice v1.4 says Service Data may be processed on servers outside the user's own country (centralized or regionalized billing, support and security operations). Infrastructure facts (developer_data): the documentation site lists data centers in Iceland / Houston, TX / Virginia / Sparks, NV / Norway (Norway coming soon)"
+text_zh = "「按指令选择数据位置」的机制在条款里被提到，但公开文档未给出可选位置清单、适用范围或是否适用于 Managed Inference。(d) Service Data 侧：Cloud Platform Privacy Notice v1.4 称 Service Data 可能在用户所在国以外的服务器上处理（集中式或区域化的计费、支持、安全运营）。基础设施事实（developer_data）：文档站列出数据中心 Iceland / Houston, TX / Virginia / Sparks, NV / Norway（Norway 即将上线）"
 
 [[product.processing_region.point]]
 text = "Subprocessor locations (contract + enterprise_privacy_faq): DPST v1.4 says information about Subprocessors, including their functions and locations, is available at the Crusoe Cloud Subprocessors page, and the published Trust Center list (Google Cloud Platform / Mailgun / Stripe / Zendesk) marks every entry United States"
@@ -385,8 +390,8 @@ text_zh = "Crusoe 这一跳的 OpenRouter TOS v4.6 仍写输入输出不落盘�
 anchor = "dpst-v14-zero-data-retention-scope-exclusion"
 
 [[product.retention.point]]
-text = "No number of days. Customer Data is defined as \"Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter\". The post-termination deletion obligation, the Service Data retention periods and the law-enforcement exception all come from the DPST v1.4 / Cloud Platform Privacy Notice v1.3 embedded in the same page and match the direct tier. v4.6 also has a \"Required Disclosure\" clause permitting disclosure of Confidential Information (Customer Data being the customer's confidential information) to comply with Legal Process; that sentence appears 12 times on the page (12 TOS versions, word for word identical), so no anchor is given and it is noted here only."
-text_zh = "无天数。Customer Data 定义＝「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。服务终止后删除义务、Service Data 保留期、执法请求例外均来自同一页面内嵌的 DPST v1.4 / Cloud Platform Privacy Notice v1.3，与直连档一致。v4.6 另有一条「Required Disclosure」允许为遵守 Legal Process 披露 Confidential Information（Customer Data 属客户保密信息），该句在页面内出现 12 次（12 个 TOS 版本逐字相同），故未提锚点，仅在此说明。"
+text = "No number of days. Customer Data is defined as \"Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter\". The post-termination deletion obligation, the Service Data retention periods and the law-enforcement exception all come from the DPST v1.4 / Cloud Platform Privacy Notice v1.4 embedded in the same page and match the direct tier. v4.6 also has a \"Required Disclosure\" clause permitting disclosure of Confidential Information (Customer Data being the customer's confidential information) to comply with Legal Process; that sentence appears 12 times on the page (12 TOS versions, word for word identical), so no anchor is given and it is noted here only."
+text_zh = "无天数。Customer Data 定义＝「Input, Output, and any personal data about Customer that Crusoe may receive from OpenRouter」。服务终止后删除义务、Service Data 保留期、执法请求例外均来自同一页面内嵌的 DPST v1.4 / Cloud Platform Privacy Notice v1.4，与直连档一致。v4.6 另有一条「Required Disclosure」允许为遵守 Legal Process 披露 Confidential Information（Customer Data 属客户保密信息），该句在页面内出现 12 次（12 个 TOS 版本逐字相同），故未提锚点，仅在此说明。"
 anchor = "tos-or-customer-data-definition"
 
 [[product.retention.point]]
@@ -502,8 +507,8 @@ text_zh = "合同层的处理持续期（DPST 附录 1「Duration of the Process
 anchor = "dpst-duration-of-the-processing"
 
 [[product.retention.point]]
-text = "Exception and backup fact (Cloud Platform Privacy Notice v1.3): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\". This is the notice's own statement and is separate from the storage-cluster soft-delete clearing time recorded below, which stays undisclosed"
-text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.3）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删。这是通知本身的表述，与下面存储集群软删除数据的清除时限是两件事，后者仍未披露"
+text = "Exception and backup fact (Cloud Platform Privacy Notice v1.4): \"Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes\" (tax or accounting, security, fraud and abuse prevention, continuity, legal or regulatory requirements), and when Crusoe deletes data it takes \"measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems\". This is the notice's own statement and is separate from the storage-cluster soft-delete clearing time recorded below, which stays undisclosed"
+text_zh = "例外与备份事实（Cloud Platform Privacy Notice v1.4）：「Sometimes we need to retain certain information for an extended period of time for legitimate business or legal purposes」（税务/会计、安全、反欺诈、业务连续性、法律或监管要求），且删除时用备份系统防止误删。这是通知本身的表述，与下面存储集群软删除数据的清除时限是两件事，后者仍未披露"
 anchor = "cloud-privacy-extended-retention-and-backup"
 
 [[product.retention.point]]
@@ -935,6 +940,16 @@ Sometimes we need to retain certain information for an extended period of time f
 
 When we delete data, we follow detailed steps to make sure that the data is securely and completely removed from our active systems or retained only in anonymized form. We take measures to ensure that our Services protect information from accidental or malicious deletion through the use of backup systems."""
 suffix = "Using Crusoe Accounts and Products"
+
+[[anchor]]
+id = "cloud-privacy-marketing-suppression-list"
+source_id = "c941dab60e225f14"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "In the rare case where this is not possible, you can email your request to privacy@crusoe.ai. "
+exact = "To request that we delete your information from our marketing systems, you can email your request to privacy@crusoe.ai. This will not delete your Account or the Service Data we need to provide the Services. We may keep your email address on a suppression list so that we can continue to honor your request."
+suffix = " For more information about how we handle personal information used for marketing"
 
 [[anchor]]
 id = "cloud-tos-protection-of-customer-data"
