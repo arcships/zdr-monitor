@@ -79,7 +79,12 @@ anchor = "fireworks-tos-3-6-zdr-policy"
 text_zh = "同顶层 zdr：默认开启、无需申请"
 
 [[product.zdr.point]]
-text_zh = "例外为 Response API、prompt caching、training/fine-tuning/agent 功能"
+text = "The current text names the services outside ZDR explicitly: \"Zero Data Retention does not apply to certain services that require data storage, including Batch API and Responses API.\" The bullet list separately lists Batch API (requires dataset storage) and Responses API when `store=True` (the default)."
+text_zh = "现行正文明确点名 ZDR 之外的服务：「Zero Data Retention does not apply to certain services that require data storage, including Batch API and Responses API.」要点列表新增 Batch API（需存储数据集）与 `store=True`（默认）时的 Responses API。"
+anchor = "fireworks-datahandling-zdr-service-exceptions"
+
+[[product.zdr.point]]
+text_zh = "其余例外见 ToS §3.6（training/fine-tuning/agent 功能）与本页的内存要点（prompt caching）。"
 
 [[product.zdr.point]]
 text = "Documentation layer narrows the no-logging statement to open models: \"Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in.\""
@@ -87,8 +92,8 @@ text_zh = "文档层把「不记录」的范围限定在 open models：「Firewo
 anchor = "fireworks-datahandling-open-models-limit"
 
 [[product.zdr.point]]
-text = "The same section adds an account-level enforcement switch right after the bullet list: \"Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.\" The default ZDR statement above is unchanged; this is an additional enterprise-admin control that rejects, rather than merely promises not to persist, requests and jobs that would persist or log customer content."
-text_zh = "同页同一节在要点列表之后新增账号级强制开关：「Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.」——上面那句默认 ZDR 表述未变；这是企业管理员可额外开启的控制项：对会持久化或记录客户内容的请求与任务予以拒绝，而不只是一句不落盘的承诺。"
+text = "The same section adds an account-level enforcement switch right after the bullet list: \"Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.\" This is an additional enterprise-admin control that rejects, rather than merely promises not to persist, requests and jobs that would persist or log customer content."
+text_zh = "同页同一节在要点列表之后保留账号级强制开关：「Enterprise account admins can additionally turn on the Zero Data Retention policy to reject requests and jobs that would persist or log customer content.」——这是企业管理员可额外开启的控制项：对会持久化或记录客户内容的请求与任务予以拒绝，而不只是一句不落盘的承诺。"
 anchor = "fireworks-datahandling-enterprise-zdr-enforcement"
 
 [[product.zdr.point]]
@@ -129,11 +134,13 @@ text_zh = "期限类型是上限，不是固定的 30 天窗口：「Stored conv
 anchor = "fireworks-datahandling-response-api-30-days"
 
 [[product.retention.point]]
-text_zh = "Batch API 上传的数据集保留期未披露。"
+text = "Batch API is explicitly outside ZDR because it \"requires dataset storage\"; the page states no retention period for the uploaded dataset."
+text_zh = "Batch API 因「requires dataset storage」被明确排除在 ZDR 之外；该页未给出上传数据集的保留期限。"
+anchor = "fireworks-datahandling-batch-api-no-zdr"
 
 [[product.retention.point]]
-text = "Feature-level exception: prompt and generation data can be logged when the user explicitly opts in (e.g. FireOptimizer) — the one path on that page where prompt content is recorded, and only on the user's choice."
-text_zh = "功能级例外：用户显式 opt-in 后可记录 prompt 与 generation 数据（如 FireOptimizer）——该页里唯一一条记录 prompt 正文的路径，且以用户选择为前提。"
+text = "The no-logging statement is conditional on the absence of user consent: \"Fireworks does not log or store prompt or generation data for open models, without explicit user opt-in.\" The earlier bullet naming advanced features (e.g. FireOptimizer) as the opt-in path was removed in this revision; the page no longer identifies which features can log prompt content."
+text_zh = "「不记录」表述以用户未明确 opt-in 为前提：「Fireworks does not log or store prompt or generation data for open models, without explicit user opt-in.」旧版点名 advanced features（如 FireOptimizer）作为 opt-in 记录路径的那条要点已在本轮删除；该页不再说明哪些功能会记录 prompt 正文。"
 anchor = "fireworks-datahandling-optin-logging"
 
 [[product.retention.point]]
@@ -901,9 +908,17 @@ source_id = "9e4b92eacd199a46"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "Fireworks has Zero Data Retention by default. Specifically, this means"
+prefix = "Zero Data Retention does not apply to certain services that require data storage, including Batch API and Responses API. Specifically, this means"
 exact = "Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in."
 suffix = " More technically: prompt and generation data exist only in volatil"
+
+[[anchor]]
+id = "fireworks-datahandling-zdr-service-exceptions"
+source_id = "9e4b92eacd199a46"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "Zero Data Retention does not apply to certain services that require data storage, including Batch API and Responses API."
 
 [[anchor]]
 id = "fireworks-datahandling-enterprise-zdr-enforcement"
@@ -950,23 +965,23 @@ ation data are not logged into any persistent storage.
 *   """
 exact = "Fireworks logs metadata (e.g. number of tokens in a request) as required to deliver the service."
 suffix = """
+*   Zero Data Retention does not apply to Batch API, which requires dataset storage"""
 
-*   Users can explicitly opt-in to log prompt and generatio"""
+[[anchor]]
+id = "fireworks-datahandling-batch-api-no-zdr"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "Zero Data Retention does not apply to Batch API, which requires dataset storage"
 
 [[anchor]]
 id = "fireworks-datahandling-optin-logging"
 source_id = "9e4b92eacd199a46"
-topics = ["retention", "training"]
+topics = ["retention"]
 
 [anchor.selector]
-prefix = """
-okens in a request) as required to deliver the service.
-*   """
-exact = "Users can explicitly opt-in to log prompt and generation data for certain advanced features (e.g. FireOptimizer)."
-suffix = """
-
-
-## [​](https://docs.fireworks.ai/guides/security_complianc"""
+exact = "Fireworks does not log or store prompt or generation data for open models, without explicit user opt-in."
 
 [[anchor]]
 id = "fireworks-datahandling-response-api-30-days"
