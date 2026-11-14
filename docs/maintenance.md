@@ -95,7 +95,7 @@ pr-reviewer.yml（DimCode 只读，跳过快照 PR）
 
 ```bash
 bun run snapshot [provider]          # 抓取，写 snapshots/ 和 .sync/snapshot-report.md
-bun run check:quotes [provider...]   # 引文核对；--strict 有 missing 即失败，--md 输出 markdown
+bun run check:quotes [provider...]   # 引文核对；--strict 有 missing 或 ambiguous 即失败，--md 输出 markdown
 bun run review:issues --full [p...]  # 开全量复核 issue（需要 GH_TOKEN）；--dry-run 只打印
 bun run audit run [provider...]      # 只读审核 + 复核，结果在 .sync/audit/
 bun run validate                     # 数据结构
