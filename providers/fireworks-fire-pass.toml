@@ -18,7 +18,7 @@ note = "《Data residency》企业功能页：默认 None（不限制区域）�
 url = "https://docs.fireworks.ai/guides/security_compliance/data_handling"
 channel = "developer_data"
 tier = "core"
-note = "文档站 Security & Compliance 下的《Zero Data Retention》页（页面标题即 Zero Data Retention），覆盖推理档的默认保留策略与 Response API 例外。旧记录唯一一条候选，本轮四步验证通过（HTTP 200 / 12820B / 有主体×动作条款 / 可定位原句）。"
+note = "文档站 Security & Compliance 下的《Zero Data Retention》页（页面标题即 Zero Data Retention），覆盖推理档的默认保留策略，以及 Batch API 与 Response API（store=True）例外。旧记录唯一一条候选，本轮四步验证通过（HTTP 200 / 12820B / 有主体×动作条款 / 可定位原句）。"
 
 [[source]]
 url = "https://fireworks.ai/dpa"
@@ -63,6 +63,10 @@ anchor = "fireworks-tos-3-6-inference-scope"
 text_zh = "文档层（developer_data）同口径但把范围写死为「for any open models, without explicit user opt-in」；权威性低于 contract 层，作为细节保留。原先用来做档位适配的 Fire Pass 产品页说法（「only works for open weight models」）没有来源登记也没有快照，本轮不作为证据。"
 anchor = "fireworks-datahandling-open-models-scope"
 
+[[product.zdr.point]]
+text_zh = "文档层 2026-11-13 起把段首从无条件的「Fireworks has Zero Data Retention by default.」改写为按 open models 限定，并新增两条明文排除：ZDR 不适用于 Batch API（需存储数据集）与 Responses API（store=True 时，也是默认）。这收窄了文档层 ZDR 表述的范围，但 contract 层 ToS §3.6 的结论未变，故本档 zdr 仍记 yes / default。"
+anchor = "fireworks-datahandling-zdr-default"
+
 [product.retention]
 object = "mixed"
 basis = "none"
@@ -73,12 +77,16 @@ text_zh = "主证据用 contract 层 ToS §3.6 的 ZDR 政策：不记录 Conten
 anchor = "fireworks-tos-3-6-zdr-policy"
 
 [[product.retention.point]]
-text_zh = "文档层细节补充（developer_data）：「Fireworks has Zero Data Retention by default.」同页写明 prompt/generation 数据只在请求期间存在于易失内存、不写入任何持久存储。"
+text_zh = "文档层默认表述（developer_data）：open models 在无显式 opt-in 时不记录、不存储 prompt 与 generation 数据；同段明确 ZDR 不适用于需要存储数据的服务（Batch API、store=True 的 Responses API）。同页写明 prompt/generation 数据只在请求期间存在于易失内存、不写入任何持久存储。"
 anchor = "fireworks-datahandling-zdr-default"
 
 [[product.retention.point]]
 text_zh = "对象=输入输出正文（默认推理路径）：prompt and generation data exist only in volatile memory for the duration of the request。语境=例外：prompt caching 生效时，部分 prompt 数据与关联 KV 缓存可在内存中驻留数分钟，期间仍不落盘。"
 anchor = "fireworks-datahandling-volatile-memory"
+
+[[product.retention.point]]
+text_zh = "对象=输入输出正文/数据集（语境=使用 Batch API）：文档明确 ZDR 不适用于 Batch API，因为它需要存储数据集；即批处理请求的数据会被持久化，但本页没有给出保留期限。"
+anchor = "fireworks-datahandling-batch-api-no-zdr"
 
 [[product.retention.point]]
 text_zh = "对象=对话数据（语境=启用 Response API 且 store=True，即默认）：完整对话数据落盘，保留期限为上限 30 天，最晚届时自动删除；存入缓存的响应可能更早被逐出，文档称常见约 1 小时内，因此不保证整个期限内都可检索。可用 store=False 关闭，或按 response_id 立即删除。"
@@ -89,7 +97,7 @@ text_zh = "对象=元数据日志（语境=默认）：Fireworks 记录投递服
 anchor = "fireworks-datahandling-metadata-logs"
 
 [[product.retention.point]]
-text_zh = "对象=输入输出正文（语境=显式 opt-in 后）：用户显式 opt-in 时，某些高级功能（如 FireOptimizer）会记录 prompt 与 generation 数据；本档是否提供这类功能，文档未明示。"
+text_zh = "对象=输入输出正文（语境=显式 opt-in 后）：文档仍以「without explicit user opt-in」限定 open models 的不记录/不存储承诺，即用户显式 opt-in 后本页不再承诺不记录，也未给保留期限。原条目所举的某些高级功能（如 FireOptimizer）已从本页删除，页面不再说明哪些功能会记录；本档是否提供这类功能，文档未明示。"
 anchor = "fireworks-datahandling-optin-logging"
 
 [[product.retention.point]]
@@ -169,16 +177,14 @@ suffix = """
 [[anchor]]
 id = "fireworks-datahandling-zdr-default"
 source_id = "9e4b92eacd199a46"
-topics = ["zdr"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
-ce/data_handling#zero-data-retention)
-
 Zero data retention
 
 """
-exact = "Fireworks has Zero Data Retention by default."
+exact = "Fireworks does not log or store prompt or generation data for open models, without explicit user opt-in. Zero Data Retention does not apply to certain services that require data storage, including Batch API and Responses API."
 suffix = """
  Specifically, this means
 *   Fireworks does not log or stor"""
@@ -190,7 +196,8 @@ topics = ["retention", "training", "zdr"]
 
 [anchor.selector]
 prefix = """
-ero Data Retention by default. Specifically, this means
+Specifically, this means
+
 *   """
 exact = "Fireworks does not log or store prompt or generation data for any open models, without explicit user opt-in."
 suffix = """
@@ -278,17 +285,30 @@ topics = ["retention"]
 [anchor.selector]
 prefix = "In either case, prompt and generation data are not logged into any persistent storage. "
 exact = "Fireworks logs metadata (e.g. number of tokens in a request) as required to deliver the service."
-suffix = " Users can explicitly opt-in to log prompt and generation data"
+suffix = " Zero Data Retention does not apply to Batch API, which requires dataset storage"
+
+[[anchor]]
+id = "fireworks-datahandling-batch-api-no-zdr"
+source_id = "9e4b92eacd199a46"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "Fireworks logs metadata (e.g. number of tokens in a request) as required to deliver the service. "
+exact = "Zero Data Retention does not apply to Batch API, which requires dataset storage"
+suffix = " Zero Data Retention does not apply to Responses API"
 
 [[anchor]]
 id = "fireworks-datahandling-optin-logging"
 source_id = "9e4b92eacd199a46"
-topics = ["retention", "training"]
+topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "as required to deliver the service. "
-exact = "Users can explicitly opt-in to log prompt and generation data for certain advanced features (e.g. FireOptimizer)."
-suffix = ""
+prefix = """
+Zero data retention
+
+"""
+exact = "Fireworks does not log or store prompt or generation data for open models, without explicit user opt-in."
+suffix = " Zero Data Retention does not apply to certain services"
 
 [[anchor]]
 id = "fireworks-datahandling-response-api-30-days"
