@@ -9,7 +9,13 @@ doc = "https://developers.openai.com/api/docs/guides/your-data"
 url = "https://developers.openai.com/api/docs/guides/your-data"
 channel = "developer_data"
 tier = "core"
-note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 training / retention / zdr / processing_region 四维;含 Data Residency 章节与逐端点留存表。2026-09-24 停机的 /v1/videos 已从现行端点表移除,原 48 小时下载窗口和随后 30 天滥用监测改列为历史说明,原 MAM/ZDR 限制句也随之移除;不据此推断该退役端点现在可用 ZDR。2026-09-30 快照重写 Data residency 逐模型/逐处理模式资格说明:Data residency 自由文本段与 /v1/batches 的 Notes 是两处各自改写(旧句分别为带 for Responses and Chat Completions 与不带),新增 GPT-6.1 Sol 与 Ultrafast 模式,并为 Fast/Ultrafast 模式与 GPT-6.1 Sol 新增各自区域限制说明(Fast 不适用于 EU 驻留、Ultrafast 仅 US 驻留与全局处理、GPT-6.1 Sol 仅 US/EU;侧栏旧正文本来就有 Fast mode,本次上移位置、非新模式),GPT-6 Sol/Luna 的 EU 驻留处理模式由仅 Standard 扩为 Standard/Flex/Batch,逐端点表 EU「Standard processing only」例外删除;api 档 processing_region 结论字段与锚点未变(changes/openai/2026-09-30-data-residency-model-processing-eligibility.toml)。2026-10-07 快照新增 Decisions API(/v1/decisions)的逐端点数据条款、区域支持与限制说明:逐端点表新增一行(训练 No、滥用监测 30 天、应用状态 None 见例外、ZDR eligible 见限制、Private Retention with PSP 与 Safety Retention=Pending confirmation);端点说明新增 /v1/decisions 小节,复用与 /v1/chat/completions 相同的滥用监测 30 天与 prompt caching 24 小时两句,该 prompt caching 句因此在快照内出现两次,原锚点补 suffix 定位(语义未改);Endpoint limitations 把原属 /v1/chat/completions 的 extended prompt caching 越区处理句移入 /v1/decisions。api 档五维结论字段未变(changes/openai/2026-10-07-decisions-api-endpoint-added.toml)。2026-10-25 快照(#834)改写 Fast/Ultrafast 模式的 EU 驻留资格:Fast 模式由四个模型均不适用 EU 驻留改为 GPT-6.1 Sol 与 GPT-6 Luna 适用(仍不适用 GPT-6 Astra、GPT-6 Sol),Ultrafast 由一律仅 US 驻留与全局处理改为 GPT-6.1 Sol 支持 US 与 EU 驻留及全局处理、GPT-6 Astra 仍仅 US/全局;逐端点表新增 /v1/audio/voices(训练 No、滥用监测 30 天、应用状态 Until deleted、ZDR eligible No、Private Retention with PSP 与 Safety Retention No);/v1/responses Notes 删除「When Zero Data Retention is not enabled for an organization, all queries use extended prompt caching for all supported models.」;/v1/images 的 ZDR 兼容模型名单删除 gpt-image-1,Data residency 支持模型与 Supported models 列表同步不再列 gpt-image-1。api 档五维结论字段与锚点均未变(changes/openai/2026-10-25-fast-ultrafast-eu-residency-audio-voices-zdr-image-list.toml)。2026-10-29 快照(#915)两处与五维有关的正文变化:(1) 逐端点表 /v1/decisions 的 Private Retention with PSP and Safety Retention eligible 由「Pending confirmation」改为「Yes, see below for limitations」;端点说明由「By default, abuse monitoring logs are retained for up to 30 days. Eligible customers can use Zero Data Retention, subject to the limitations below.」改写为保留前一句并新增「The Decisions API supports Zero Data Retention, Private Retention with PSP, and Safety Retention, subject to the eligibility and account configuration requirements described above.」「The Decisions API follows the same Private Retention with PSP policy as the Responses API. Flagged content and a sample of requests may be retained for automated safety review. See Private Retention with PSP for details.」「The following limitations apply:」,ZDR eligible 列仍为 Yes、原有滥用监测 30 天与 prompt caching 24 小时两条限制未变。(2) Data residency 新增 GPT-6.1 Terra:Fast 模式的 EU 驻留名单由 GPT-6.1 Sol、GPT-6 Luna 扩为再加 GPT-6.1 Terra,Standard/Flex/Batch 的 EU 驻留名单同样加入 GPT-6.1 Terra,GPT-6.1 Sol 与 GPT-6.1 Terra 限定仅 US/EU;/v1/batches、/v1/chat/completions、/v1/responses 的 Notes 与区域支持表同步更新,Supported models 与模型快照计数(32→33、26→27)随新增模型变化。api 档五维结论字段与既有锚点句均未变(changes/openai/2026-10-29-decisions-psp-eligibility-gpt-6-1-terra-eu-residency.toml)。同轮其余变化为侧栏(新增 API credits for ChatGPT subscribers、Account security notification,删去 Sign in with ChatGPT、Use API/provider credentials)、代码示例与 Copy Page 顺序,与五维无关。2026-11-11 快照(#970)新增澳大利亚、印度、日本的区域处理资格:Data residency 资格说明新增「In Australia, India, and Japan, organizations with active Zero Data Retention can use `gpt-6-luna` for regional processing. These regions support Standard pay-as-you-go only. Use a project in the selected region. The Responses and Chat Completions APIs support text and image inputs and text output. Hosted tools are unavailable for regional processing in these three regions.」;Support by region 卡片与完整区域支持表三地(au/in/jp)的 Processing 由 No 改为 Yes:卡片的要求行由「Requires MAM or ZDR」改为「Requires MAM or ZDR***」,完整区域支持表的「MAM or ZDR required」列由「Yes」改为「Yes***」,并新增脚注「*** Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.」。同一个页面对三地模型例外有三处不同显示,按冲突并列记录:完整区域支持表的 Processing services 单元格在 Australia 行列 `/v1/chat/completions` (`gpt-6-luna`) 与 `/v1/responses` (`gpt-6-luna`),在 Japan、India 行列 `/v1/responses` (`gpt-6-luna`);筛选视图的 Support by region 卡片只在 `/v1/chat/completions` 下显示 `gpt-6-luna`(其余服务折叠在 Show 18 more services 之后);逐端点表 /v1/chat/completions 与 /v1/responses 的 Processing regions 均加入 Australia、India、Japan,但只有 /v1/chat/completions 行的 Regional processing snapshot exceptions 列写「Australia, India, Japan: `gpt-6-luna`」,/v1/responses 行该列仍只有 UAE。缺该例外记录的只是逐端点表的 exceptions 列,不能据此说快照未显示 /v1/responses 的三地模型例外。判定:三地由不支持区域处理变为支持,属区域处理资格扩大;同时该资格要求 active ZDR、MAM 单独不足,比欧洲的「Requires MAM or ZDR**」更严,故变化记录同时覆盖 zdr 维度,方向按放宽与收紧并存记 clarified。api 档 processing_region 与 zdr 结论字段均未变(processing_region 仍 codes=[GLOBAL],zdr 仍 mark=yes/mode=opt_in),既有锚点句均未动,processing_region 新增两条说明点与两个锚点(changes/openai/2026-11-11-au-in-jp-regional-processing-zdr.toml)。同轮其余变化为侧栏与目录(新增 Cloud providers、Automatic review、API keys and service accounts、Keep the prefix unchanged 等,删去 Reinforcement fine-tuning、RFT use cases、Deep research、Local shell 等)、主题切换及最新博客条目,与五维无关。不覆盖 ChatGPT/Codex 消费档"
+note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 training / retention / zdr 三维;含逐端点留存表;processing_region 自 2026-11-14 起由独立的 Data residency 页覆盖。2026-09-24 停机的 /v1/videos 已从现行端点表移除,原 48 小时下载窗口和随后 30 天滥用监测改列为历史说明,原 MAM/ZDR 限制句也随之移除;不据此推断该退役端点现在可用 ZDR。2026-09-30 快照重写 Data residency 逐模型/逐处理模式资格说明:Data residency 自由文本段与 /v1/batches 的 Notes 是两处各自改写(旧句分别为带 for Responses and Chat Completions 与不带),新增 GPT-6.1 Sol 与 Ultrafast 模式,并为 Fast/Ultrafast 模式与 GPT-6.1 Sol 新增各自区域限制说明(Fast 不适用于 EU 驻留、Ultrafast 仅 US 驻留与全局处理、GPT-6.1 Sol 仅 US/EU;侧栏旧正文本来就有 Fast mode,本次上移位置、非新模式),GPT-6 Sol/Luna 的 EU 驻留处理模式由仅 Standard 扩为 Standard/Flex/Batch,逐端点表 EU「Standard processing only」例外删除;api 档 processing_region 结论字段与锚点未变(changes/openai/2026-09-30-data-residency-model-processing-eligibility.toml)。2026-10-07 快照新增 Decisions API(/v1/decisions)的逐端点数据条款、区域支持与限制说明:逐端点表新增一行(训练 No、滥用监测 30 天、应用状态 None 见例外、ZDR eligible 见限制、Private Retention with PSP 与 Safety Retention=Pending confirmation);端点说明新增 /v1/decisions 小节,复用与 /v1/chat/completions 相同的滥用监测 30 天与 prompt caching 24 小时两句,该 prompt caching 句因此在快照内出现两次,原锚点补 suffix 定位(语义未改);Endpoint limitations 把原属 /v1/chat/completions 的 extended prompt caching 越区处理句移入 /v1/decisions。api 档五维结论字段未变(changes/openai/2026-10-07-decisions-api-endpoint-added.toml)。2026-10-25 快照(#834)改写 Fast/Ultrafast 模式的 EU 驻留资格:Fast 模式由四个模型均不适用 EU 驻留改为 GPT-6.1 Sol 与 GPT-6 Luna 适用(仍不适用 GPT-6 Astra、GPT-6 Sol),Ultrafast 由一律仅 US 驻留与全局处理改为 GPT-6.1 Sol 支持 US 与 EU 驻留及全局处理、GPT-6 Astra 仍仅 US/全局;逐端点表新增 /v1/audio/voices(训练 No、滥用监测 30 天、应用状态 Until deleted、ZDR eligible No、Private Retention with PSP 与 Safety Retention No);/v1/responses Notes 删除「When Zero Data Retention is not enabled for an organization, all queries use extended prompt caching for all supported models.」;/v1/images 的 ZDR 兼容模型名单删除 gpt-image-1,Data residency 支持模型与 Supported models 列表同步不再列 gpt-image-1。api 档五维结论字段与锚点均未变(changes/openai/2026-10-25-fast-ultrafast-eu-residency-audio-voices-zdr-image-list.toml)。2026-10-29 快照(#915)两处与五维有关的正文变化:(1) 逐端点表 /v1/decisions 的 Private Retention with PSP and Safety Retention eligible 由「Pending confirmation」改为「Yes, see below for limitations」;端点说明由「By default, abuse monitoring logs are retained for up to 30 days. Eligible customers can use Zero Data Retention, subject to the limitations below.」改写为保留前一句并新增「The Decisions API supports Zero Data Retention, Private Retention with PSP, and Safety Retention, subject to the eligibility and account configuration requirements described above.」「The Decisions API follows the same Private Retention with PSP policy as the Responses API. Flagged content and a sample of requests may be retained for automated safety review. See Private Retention with PSP for details.」「The following limitations apply:」,ZDR eligible 列仍为 Yes、原有滥用监测 30 天与 prompt caching 24 小时两条限制未变。(2) Data residency 新增 GPT-6.1 Terra:Fast 模式的 EU 驻留名单由 GPT-6.1 Sol、GPT-6 Luna 扩为再加 GPT-6.1 Terra,Standard/Flex/Batch 的 EU 驻留名单同样加入 GPT-6.1 Terra,GPT-6.1 Sol 与 GPT-6.1 Terra 限定仅 US/EU;/v1/batches、/v1/chat/completions、/v1/responses 的 Notes 与区域支持表同步更新,Supported models 与模型快照计数(32→33、26→27)随新增模型变化。api 档五维结论字段与既有锚点句均未变(changes/openai/2026-10-29-decisions-psp-eligibility-gpt-6-1-terra-eu-residency.toml)。同轮其余变化为侧栏(新增 API credits for ChatGPT subscribers、Account security notification,删去 Sign in with ChatGPT、Use API/provider credentials)、代码示例与 Copy Page 顺序,与五维无关。2026-11-11 快照(#970)新增澳大利亚、印度、日本的区域处理资格:Data residency 资格说明新增「In Australia, India, and Japan, organizations with active Zero Data Retention can use `gpt-6-luna` for regional processing. These regions support Standard pay-as-you-go only. Use a project in the selected region. The Responses and Chat Completions APIs support text and image inputs and text output. Hosted tools are unavailable for regional processing in these three regions.」;Support by region 卡片与完整区域支持表三地(au/in/jp)的 Processing 由 No 改为 Yes:卡片的要求行由「Requires MAM or ZDR」改为「Requires MAM or ZDR***」,完整区域支持表的「MAM or ZDR required」列由「Yes」改为「Yes***」,并新增脚注「*** Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.」。同一个页面对三地模型例外有三处不同显示,按冲突并列记录:完整区域支持表的 Processing services 单元格在 Australia 行列 `/v1/chat/completions` (`gpt-6-luna`) 与 `/v1/responses` (`gpt-6-luna`),在 Japan、India 行列 `/v1/responses` (`gpt-6-luna`);筛选视图的 Support by region 卡片只在 `/v1/chat/completions` 下显示 `gpt-6-luna`(其余服务折叠在 Show 18 more services 之后);逐端点表 /v1/chat/completions 与 /v1/responses 的 Processing regions 均加入 Australia、India、Japan,但只有 /v1/chat/completions 行的 Regional processing snapshot exceptions 列写「Australia, India, Japan: `gpt-6-luna`」,/v1/responses 行该列仍只有 UAE。缺该例外记录的只是逐端点表的 exceptions 列,不能据此说快照未显示 /v1/responses 的三地模型例外。判定:三地由不支持区域处理变为支持,属区域处理资格扩大;同时该资格要求 active ZDR、MAM 单独不足,比欧洲的「Requires MAM or ZDR**」更严,故变化记录同时覆盖 zdr 维度,方向按放宽与收紧并存记 clarified。api 档 processing_region 与 zdr 结论字段均未变(processing_region 仍 codes=[GLOBAL],zdr 仍 mark=yes/mode=opt_in),既有锚点句均未动,processing_region 新增两条说明点与两个锚点(changes/openai/2026-11-11-au-in-jp-regional-processing-zdr.toml)。同轮其余变化为侧栏与目录(新增 Cloud providers、Automatic review、API keys and service accounts、Keep the prefix unchanged 等,删去 Reinforcement fine-tuning、RFT use cases、Deep research、Local shell 等)、主题切换及最新博客条目,与五维无关。不覆盖 ChatGPT/Codex 消费档。2026-11-14 快照(#1239)把 Data residency controls 整节(区域存储/处理说明、逐区域与逐端点支持表、Endpoint limitations)移出本页,改为一句指向 Data residency guide 的链接;相关区域锚点改绑新来源 741ffdc189ae7ca2。本页 training / retention / zdr 的其余条款未变,api 档五维结论字段未变"
+
+[[source]]
+url = "https://developers.openai.com/api/docs/guides/data-residency"
+channel = "developer_data"
+tier = "core"
+note = "API 档 Data residency 权威页。2026-11-14 your-data 快照(#1239)把原 Data residency controls 整节(区域存储/处理说明、逐区域支持表、逐端点支持表与 Endpoint limitations)迁到本页,原页只留指向本页的一句;迁移中多处与五维有关的条件被改写或删除。(1) 区域存储与处理句改写为「For supported endpoints, models, and snapshots, your Customer Content (as defined in your services agreement) is stored at rest in the selected region when the endpoint requires persistence, such as `/v1/batches`.」与「If the region supports regional processing, inference for your Customer Content also runs in that region.」,语义基本未变。(2) Sub-processors 句由只列 `us`/`eu` 扩为 `us`/`eu`/`au`/`in`/`jp` 五个域,写明这些域的 TLS termination 与 HTTPS decryption 在所选处理区域内完成,属处理地承诺增强(processing_region)。(3) 澳/印/日区域处理句删去「organizations with active Zero Data Retention」前提,改为「In Australia, India, and Japan, `gpt-6-luna` supports regional processing.」;原脚注「Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.」不再出现(processing_region,zdr)。(4) 区域表准入列由「MAM or ZDR required」改为「Additional access requirements」:旧句「Contact our sales team to see if you’re eligible for using data residency controls.」改为「Eligible organizations can enable data residency when creating a project in the API Platform.」,资格仍限 eligible organizations,但不再要求先联系销售确认;Europe、Australia、Japan 等由 Yes 变为「—」,India、United Arab Emirates 写「Contact sales to access this region」;原「** Requires Zero Data Retention, Modified Abuse Monitoring, Private Retention with PSP, or Safety Retention.」与「* Image support in these regions requires approval for enhanced Zero Data Retention or enhanced Modified Abuse Monitoring.」不再出现,图片支持改为「requires additional approval. Contact sales.」;原「Additional requirements for non-US regions」(须获 abuse monitoring controls 批准并签 Modified Retention amendment)及 UAE 额外批准句不再出现。区域处理的 ZDR/MAM 前提放宽,但「Eligible organizations can enable data residency when creating a project in the API Platform」及 India/UAE 的 Contact sales 限制保留(processing_region,zdr)。(5) 逐请求段把「As an alternative ... Existing eligibility and data retention control requirements still apply.」改为建 Global 项目时显式选择「Enable per-request data residency」的开关说明;原句不再出现,端点/模型支持要求仍在,页面未再写明数据保留控制要求(processing_region,zdr)。(6) 逐端点表与 Endpoint limitations 随节迁入,包括 /v1/live/sessions 的 ZDR 会话保留说明。api 档 processing_region 结论字段未变(codes=[GLOBAL]),zdr 结论字段未变(mark=yes、mode=opt_in);区域锚点按本页改绑,新增 eligibility/access 限制与 sub-processors 锚点,撤除原「MAM alone is insufficient」锚点(changes/openai/2026-11-14-data-residency-guide-split-access-and-zdr-conditions-clarified.toml)。"
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
@@ -144,18 +150,44 @@ codes = ["GLOBAL"]
 anchor = "openai-api-region-storage"
 
 [[product.processing_region.point]]
-text = "No residency by default; project-level regional storage can be configured, in which case customer content for that project is stored at rest in the selected region and in some regions inference is performed in the selected region as well; regions outside the US require additional approval"
-text_zh = "默认无驻留;可配置项目级区域存储,部分区域支持就地推理;非美国区域需额外审批"
+text = "No residency by default: data residency is a project configuration option. For supported endpoints, models, and snapshots, Customer Content for that project is stored at rest in the selected region when the endpoint requires persistence, such as /v1/batches"
+text_zh = "默认无驻留:数据驻留是项目级配置项。对受支持的端点、模型和快照,该项目的客户内容在端点需要持久化时(例如 /v1/batches)静态存储在所选区域"
+anchor = "openai-api-region-storage"
 
 [[product.processing_region.point]]
-text = "Regional processing is also available in Australia, India, and Japan for `gpt-6-luna`: the page says organizations with active Zero Data Retention can use that model there, these regions support Standard pay-as-you-go only, the Responses and Chat Completions APIs accept text and image inputs and return text, and hosted tools are unavailable for regional processing in these three regions"
-text_zh = "澳大利亚、印度、日本也支持区域处理:页面写明那里只有已启用 Zero Data Retention 的组织可用 `gpt-6-luna`,三地仅支持 Standard 按量付费,Responses 与 Chat Completions 接受文本/图片输入并返回文本,且这三地不提供托管工具"
-anchor = "openai-api-region-au-in-jp-zdr"
+text = "If the selected region supports regional processing, inference for Customer Content also runs in that region; the page cautions that support for regional storage does not imply support for regional processing"
+text_zh = "若所选区域支持区域处理,客户内容的推理也在该区域进行;页面同时说明支持区域存储不等于支持区域处理"
+anchor = "openai-api-region-processing"
 
 [[product.processing_region.point]]
-text = "The Australia/India/Japan requirement cannot be met by abuse monitoring alone: \"Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient\""
-text_zh = "澳/印/日的区域处理不能只靠滥用监测:「Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient」"
-anchor = "openai-api-region-au-in-jp-mam-insufficient"
+text = "Sub-processors: for requests sent to `us.api.openai.com`, `eu.api.openai.com`, `au.api.openai.com`, `in.api.openai.com`, or `jp.api.openai.com`, OpenAI uses Cloudflare Regional Services so that TLS termination and HTTPS decryption occur within the selected processing region. The old page listed only the US and EU domains"
+text_zh = "子处理商:发往 `us.api.openai.com`、`eu.api.openai.com`、`au.api.openai.com`、`in.api.openai.com` 或 `jp.api.openai.com` 的请求,OpenAI 使用 Cloudflare Regional Services,使 TLS termination 与 HTTPS decryption 在所选处理区域内完成;旧页只列美国与欧盟域"
+anchor = "openai-api-region-subprocessors"
+
+[[product.processing_region.point]]
+text = "Regional processing is also available in Australia, India, and Japan for `gpt-6-luna`: the page says that model supports regional processing there, these regions support Standard pay-as-you-go only, the Responses and Chat Completions APIs accept text and image inputs and return text, and hosted tools are unavailable for regional processing in these three regions"
+text_zh = "澳大利亚、印度、日本也支持区域处理:页面写明那里由 `gpt-6-luna` 支持区域处理,三地仅支持 Standard 按量付费,Responses 与 Chat Completions 接受文本/图片输入并返回文本,且这三地不提供托管工具"
+anchor = "openai-api-region-au-in-jp-gpt6-luna"
+
+[[product.processing_region.point]]
+text = "Eligibility is limited: \"Eligible organizations can enable data residency when creating a project in the API Platform\""
+text_zh = "资格受限:页面写明「Eligible organizations can enable data residency when creating a project in the API Platform」"
+anchor = "openai-api-region-eligible-orgs"
+
+[[product.processing_region.point]]
+text = "India requires contacting sales to access the region: the region table lists \"Contact sales to access this region\""
+text_zh = "印度需要联系销售才能开通该区域:区域表写「Contact sales to access this region」"
+anchor = "openai-api-region-in-contact-sales"
+
+[[product.processing_region.point]]
+text = "The United Arab Emirates requires contacting sales to access the region: the region table lists \"Contact sales to access this region\""
+text_zh = "阿联酋需要联系销售才能开通该区域:区域表写「Contact sales to access this region」"
+anchor = "openai-api-region-ae-contact-sales"
+
+[[product.processing_region.point]]
+text = "Image support in the listed regions still requires approval: \"Image support in these regions requires additional approval. Contact sales.\""
+text_zh = "所列区域的图片支持仍需批准:「Image support in these regions requires additional approval. Contact sales.」"
+anchor = "openai-api-region-image-support"
 
 [product.role]
 kind = "processor"
@@ -310,42 +342,67 @@ suffix = ". Approved customers may select between Modified Abuse Monit"
 
 [[anchor]]
 id = "openai-api-region-storage"
-source_id = "2aca780af5aa59ce"
+source_id = "741ffdc189ae7ca2"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "he supported endpoints, models, and snapshots listed below, "
-exact = "your customer content (as defined in your services agreement) for that project will be stored at rest in the selected region"
-suffix = " to the extent the endpoint requires data persistence to fun"
+exact = "your Customer Content (as defined in your services agreement) is stored at rest in the selected region when the endpoint requires persistence"
 
 [[anchor]]
 id = "openai-api-region-processing"
-source_id = "2aca780af5aa59ce"
+source_id = "741ffdc189ae7ca2"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "orts regional processing, as specifically identified below, "
-exact = "the services will perform inference for your Customer Content in the selected region as well"
-suffix = """
-.
-
-Data residency does not apply to system data, which may b"""
+exact = "If the region supports regional processing, inference for your Customer Content also runs in that region"
 
 [[anchor]]
-id = "openai-api-region-au-in-jp-zdr"
-source_id = "2aca780af5aa59ce"
-topics = ["processing_region", "zdr"]
+id = "openai-api-region-subprocessors"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
 
 [anchor.selector]
-exact = "In Australia, India, and Japan, organizations with active Zero Data Retention can use `gpt-6-luna` for regional processing. These regions support Standard pay-as-you-go only. Use a project in the selected region. The Responses and Chat Completions APIs support text and image inputs and text output. Hosted tools are unavailable for regional processing in these three regions."
+exact = "For requests sent to `us.api.openai.com`, `eu.api.openai.com`, `au.api.openai.com`, `in.api.openai.com`, or `jp.api.openai.com`, OpenAI uses Cloudflare Regional Services so that TLS termination and HTTPS decryption occur within the selected processing region"
 
 [[anchor]]
-id = "openai-api-region-au-in-jp-mam-insufficient"
-source_id = "2aca780af5aa59ce"
-topics = ["processing_region", "zdr"]
+id = "openai-api-region-au-in-jp-gpt6-luna"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
 
 [anchor.selector]
-exact = "Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient."
+exact = "In Australia, India, and Japan, `gpt-6-luna` supports regional processing. These regions support Standard pay-as-you-go only. Use a project in the selected region. The Responses and Chat Completions APIs support text and image inputs and text output. Hosted tools are unavailable for regional processing in these three regions."
+
+[[anchor]]
+id = "openai-api-region-eligible-orgs"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Eligible organizations can enable data residency when creating a project in the API Platform"
+
+[[anchor]]
+id = "openai-api-region-in-contact-sales"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "India `in.api.openai.com` Text, Audio, Voice, Image* Storage Yes Processing Yes Contact sales to access this region"
+
+[[anchor]]
+id = "openai-api-region-ae-contact-sales"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "United Arab Emirates `ae.api.openai.com` Text, Audio, Voice, Image* Storage Yes Processing Yes Contact sales to access this region"
+
+[[anchor]]
+id = "openai-api-region-image-support"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Image support in these regions requires additional approval. Contact sales."
 
 [[anchor]]
 id = "openai-api-role-dpa-processor"
