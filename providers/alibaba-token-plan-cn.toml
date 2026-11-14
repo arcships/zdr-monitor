@@ -36,19 +36,25 @@ note = "百炼国内站《选择地域、服务部署范围和接入域名》（
 url = "https://help.aliyun.com/zh/model-studio/token-plan-overview"
 channel = "developer_data"
 tier = "core"
-note = "百炼「Token Plan 概览」(国内站,2026-11-04 快照)。该页已改版为快速接入与工具配置指南,正文不再分档位介绍产品,也不再包含团队版「承诺不使用数据训练模型」和「Token Plan 目前仅支持华北 2（北京）地域」两句（原训练承诺的对象是范围较宽的「数据」,档位专用页只保留更窄的「对话数据」）。本页现不承载任何五维结论;训练与地域结论分别以 token-plan-team-overview、token-plan-personal-overview 及服务协议为锚点。"
+note = "百炼「Token Plan 概览」(国内站,2026-11-04 快照)。该页已改版为快速接入与工具配置指南,正文不再分档位介绍产品,也不再包含团队版「承诺不使用数据训练模型」和「Token Plan 目前仅支持华北 2（北京）地域」两句（原训练承诺的对象是范围较宽的「数据」,档位专用页当时只保留更窄的「对话数据」;两个档位页在 2026-11-14 改版中又分别删去了这些句子）。本页现不承载任何五维结论;training 以服务协议 §6.2.5/§5.2.2 为锚点,团队版地域仍以 token-plan-team-overview 为锚点,个人版地域改以《Harness 权益》页「仅支持华北2（北京）」句为锚点。"
 
 [[source]]
 url = "https://help.aliyun.com/zh/model-studio/token-plan-personal-overview"
 channel = "developer_data"
 tier = "core"
-note = "百炼「Token Plan 个人版 概述」(国内站,更新时间 2026-09-18)。「订阅前须知」第 2 条把个人版的数据使用授权写成产品侧明文并回指协议第 5.2 条;说明栏载明个人版仅支持华北 2（北京）地域。只覆盖个人版档位。"
+note = "百炼「Token Plan 个人版 订阅与权益」(国内站,2026-11-14 快照)。本轮由《个人版 概述》改版而来：原「说明」中的「仅支持华北2（北京）地域」和「订阅前须知」第 2 条「数据使用授权」均已删除,现正文为套餐档位、支持模型与订阅管理。本页不再承载 training/zdr/processing_region 的五维结论;training/zdr 以服务协议 §5.2.2 为锚点,processing_region 改以《Harness 权益》页「Token Plan 个人版目前仅支持华北2（北京）地域」句为锚点。只覆盖个人版档位。"
 
 [[source]]
 url = "https://help.aliyun.com/zh/model-studio/token-plan-team-overview"
 channel = "developer_data"
 tier = "core"
-note = "百炼「Token Plan 团队版 概述」(国内站,更新时间 2026-09-16)。核心特性与「订阅前须知」两处独立写明团队版不使用对话数据训练模型;说明栏载明团队版仅支持华北 2（北京）地域。只覆盖团队版档位。上一轮未收录此页。"
+note = "百炼「Token Plan 团队版 订阅与权益」(国内站,2026-11-14 快照)。本轮由《团队版 概述》改版而来：说明栏保留并补充「仅支持华北2（北京）地域。如需从海外调用,请确认符合当地法律法规要求」;原「核心特性」与「订阅前须知」两处「不使用对话数据训练模型」表述已删除。processing_region 仍以本页地域句为锚点;training 改以服务协议 §6.2.5（结合 §5.2.2 明文排除团队版）为锚点。只覆盖团队版档位。"
+
+[[source]]
+url = "https://help.aliyun.com/zh/model-studio/token-plan-harness-benefits"
+channel = "developer_data"
+tier = "core"
+note = "百炼「Harness 权益」(国内站,2026-11-14 新增来源)。个人版 Standard/Pro 套餐附赠权益说明;文末「注意事项」载明「地域：Token Plan 个人版目前仅支持华北2（北京）地域。」，用于个人版 processing_region 锚点。该页只覆盖个人版,团队版不支持 Harness 权益。"
 
 [[source]]
 url = "https://terms.alicdn.com/legal-agreement/terms/common_platform_service/20230728213935489/20230728213935489.html"
@@ -108,7 +114,12 @@ anchor = "role-third-party-models-6.2.9"
 
 [product.processing_region]
 codes = ["CN"]
-anchor = "processing-region-personal-cn-beijing"
+anchor = "processing-region-personal-cn-beijing-harness"
+
+[[product.processing_region.point]]
+text = "After the personal overview's 2026-11-14 rewrite, the Beijing-only note is no longer on that page, but the official Harness benefits page still states under 注意事项 that Token Plan 个人版 currently supports only China North 2 (Beijing). The tier therefore remains CN."
+text_zh = "个人版页 2026-11-14 改版删去了「仅支持华北2（北京）」说明，但官方《Harness 权益》页「注意事项」仍写明「Token Plan 个人版目前仅支持华北2（北京）地域」，故本档仍记为 CN。"
+anchor = "processing-region-personal-cn-beijing-harness"
 
 [[product.processing_region.point]]
 text = "Scope limit: if the customer actually uses a third-party model API service from the cloud marketplace, the deployment mode (service access location and inference location) follows the customer's agreement with that third-party provider (§6.2.9)."
@@ -148,8 +159,18 @@ label = "Token Plan 团队版(标准/高级/尊享座席)"
 
 [product.training]
 mark = "yes"
-mode = "by_tier"
+mode = "by_contract"
 anchor = "training-no-train-without-authorization-6.2.5"
+
+[[product.training.point]]
+text = "After the 2026-11-14 rewrite of the team overview page, the two product-page statements that the team plan does not train on conversation data are gone. Service agreement §6.2.5 still promises that we will not use your conversation data to train our models without your authorization."
+text_zh = "2026-11-14 团队版页改版后，原先两处「不使用对话数据训练模型」的产品页表述已删除。服务协议 §6.2.5 仍承诺我们不会在未获您授权的情况下使用您的对话数据训练我们的模型。"
+anchor = "training-no-train-without-authorization-6.2.5"
+
+[[product.training.point]]
+text = "§5.2.2's storage-and-use authorization expressly excludes Token Plan 团队版, so the team tier has no authorization for training; with §6.2.5's condition unmet, the tier is not trained on."
+text_zh = "§5.2.2 的存储并使用授权明文排除 Token Plan 团队版，团队档没有训练授权；§6.2.5 的前提不成立，故本档不用于训练。"
+anchor = "training-team-excluded-5.2.2"
 
 [product.zdr]
 mark = "no"
@@ -377,78 +398,14 @@ suffix = """
 7.1. 您和我们在本协议签订前享有的知识产权，仍归各方所有；除非另有约定，并不会因为双方签订或者履"""
 
 [[anchor]]
-id = "training-personal-data-authorization-personal-overview"
-source_id = "6cea5570b3383fbe"
-topics = ["training", "zdr"]
-
-[anchor.selector]
-prefix = """
-允许范围之外的调用将被视为违规或滥用，可能会导致订阅被暂停或 API Key 被封禁。
-2.   **数据使用授权**："""
-exact = "使用 Token Plan 个人版期间，模型输入以及模型生成的内容将用于服务改进与模型优化。"
-suffix = "停止使用 Token Plan 个人版服务可终止后续数据授权，但终止授权的范围不涵盖已授权使用的数据。详细条款请参见[阿"
-
-[[anchor]]
-id = "training-personal-revocation-scope"
-source_id = "6cea5570b3383fbe"
-topics = ["training"]
-
-[anchor.selector]
-prefix = "   **数据使用授权**：使用 Token Plan 个人版期间，模型输入以及模型生成的内容将用于服务改进与模型优化。"
-exact = "停止使用 Token Plan 个人版服务可终止后续数据授权，但终止授权的范围不涵盖已授权使用的数据。"
-suffix = "详细条款请参见[阿里云百炼服务协议](https://terms.alicdn.com/legal-agreement/"
-
-[[anchor]]
-id = "processing-region-personal-cn-beijing"
-source_id = "6cea5570b3383fbe"
+id = "processing-region-personal-cn-beijing-harness"
+source_id = "85f86d90ad9be802"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-具，Standard 与 Pro 套餐附赠 Harness 权益，适配主流 AI 编程和智能体工具。
-
-**说明**
-
-"""
-exact = "Token Plan 个人版目前仅支持**华北 2（北京）**地域"
-suffix = """
-。
-
-## 核心特性
-
-*   **Credits 统一计量**：通过 Credits 统一抵扣模型调用及[模型内置工具"""
-
-[[anchor]]
-id = "training-team-no-train-team-overview"
-source_id = "dee7f0e38224d6f8"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-管理后台，支持席位分配与回收、成员用量分析等团队管理能力。
-*   **预算可控**：支持按月订阅，预算可控。
-*   """
-exact = "**数据安全**：承诺不使用对话数据进行模型训练，满足企业级数据隐私要求。"
-suffix = """
-
-*   **平稳运行**：多租户隔离架构，调用高峰期间不排队。
-
-Token Plan 团队版提供套餐 Base UR"""
-
-[[anchor]]
-id = "training-team-no-train-team-notice"
-source_id = "dee7f0e38224d6f8"
-topics = ["training"]
-
-[anchor.selector]
-prefix = """
-程和智能体工具中交互式使用，不可用于自动化脚本或应用后端。违规使用可能导致订阅暂停或 API Key 封禁。
-2.   """
-exact = "**数据安全**：Token Plan 团队版不会使用对话数据训练模型。"
-suffix = """
-
-3.   **账号规范**：API Key 仅限已分配席位的成员本人使用，不可共享或公开泄露。
-4.   **服务地域"""
+prefix = ""
+exact = "Token Plan 个人版目前仅支持华北2（北京）地域。"
+suffix = ""
 
 [[anchor]]
 id = "processing-region-team-cn-beijing"
@@ -456,19 +413,9 @@ source_id = "dee7f0e38224d6f8"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = """
-与实时语音对话模型，兼容主流 AI 编程与智能体工具，提供团队管理后台、数据安全保障，调用平稳运行。
-
-**说明**
-
-"""
+prefix = ""
 exact = "Token Plan 团队版目前仅支持**华北 2（北京）**地域。"
-suffix = """
-
-
-## 核心特性
-
-Token Plan 团队版整合千问和三方模型，支持文本生成、图像生成、视频生成、语音识别与实时语"""
+suffix = ""
 
 [[anchor]]
 id = "processing-region-definition-regions"
