@@ -2,8 +2,8 @@
 Oracle PaaS and IaaS
 Public Cloud Services
 Pillar Document
-September 2026
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 2 of 150
+October 2026
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 2 of 154
 TABLE OF CONTENTS
 Scope ..................................................................................................................................... 5
 1 Oracle Cloud Security Policy ......................................................................................... 5
@@ -29,93 +29,94 @@ Scope ..........................................................................
 3.6.7 Oracle Big Data Service ............................................................................................. 24
 3.6.8 Oracle Cloud Guard Instance Security ................................................................... 25
 3.6.9 Oracle Cloud Infrastructure Database with PostgreSQL ................................... 27
-3.6.10 Oracle Cloud Infrastructure Identity and Access Management ....................... 28
-3.6.11 Oracle Cloud Infrastructure Internet of Things Platform .................................. 30
-3.6.12 Oracle Cloud Infrastructure Queue ......................................................................... 31
-3.6.13 Oracle Cloud Infrastructure - AI Services- Language......................................... 32
-3.6.14 Oracle Cloud Infrastructure - API Gateway........................................................... 33
-3.6.15 Oracle Cloud Infrastructure - API Platform Cloud Service ................................ 34
-3.6.16 Oracle Cloud Infrastructure - Application Performance Monitoring Service 35
-3.6.17 Oracle Cloud Infrastructure - Big Data - Compute Edition ............................... 36
-3.6.18 Oracle Cloud Infrastructure - Blockchain Platform Cloud ................................. 38
-3.6.19 Oracle Cloud Infrastructure - Block Volume ........................................................ 40
-3.6.20 Oracle Cloud Infrastructure - Cache ...................................................................... 42
-3.6.21 Oracle Cloud Infrastructure - Compute ................................................................. 43
-3.6.22 Oracle Cloud Infrastructure - Database - Dense I/O ........................................... 51
-3.6.23 Oracle Cloud Infrastructure - Database Exadata and Exadata Exascale ........ 54
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 3 of 150
-3.6.24 Oracle Cloud Infrastructure - Database Management ....................................... 58
-3.6.25 Oracle Cloud Infrastructure - Database Migration.............................................. 60
-3.6.26 Oracle Cloud Infrastructure - Data Integration .................................................... 60
-3.6.27 Oracle Cloud Infrastructure - Data Integrator Cloud Service............................ 62
-3.6.28 Oracle Cloud Infrastructure - Data Safe ................................................................ 63
-3.6.29 Oracle Cloud Infrastructure - Digital Media Services ......................................... 65
-3.6.30 Oracle Cloud Infrastructure - DNS.......................................................................... 74
-3.6.31 Oracle Cloud Infrastructure - Document Understanding .................................. 75
-3.6.32 Oracle Cloud Infrastructure - Email Delivery ....................................................... 76
-3.6.33 Oracle Cloud Infrastructure - FastConnect........................................................... 77
-3.6.34 Oracle Cloud Infrastructure - File Storage ............................................................ 78
-3.6.35 Oracle Cloud Infrastructure - Fleet Application Management ......................... 80
-3.6.36 Oracle Cloud Infrastructure - Full Stack Disaster Recovery Service ................ 80
-3.6.37 Oracle Cloud Infrastructure - Functions................................................................. 81
-3.6.38 Oracle Cloud Infrastructure - Generative AI ......................................................... 82
-3.6.39 Oracle Cloud Infrastructure - Generative AI Agents ........................................... 90
-3.6.40 Oracle Cloud Infrastructure - GoldenGate ............................................................. 91
-3.6.41 Oracle Cloud Infrastructure - Health Checks ....................................................... 92
-3.6.42 Oracle Cloud Infrastructure - Infrequent Access Storage ................................. 93
-3.6.43 Oracle Cloud Infrastructure - Key Management ................................................. 94
-3.6.44 Oracle Cloud Infrastructure - Load Balancer ....................................................... 95
-3.6.45 Oracle Cloud Infrastructure - Logging .................................................................. 96
-3.6.46 Oracle Cloud Infrastructure - Logging Analytics ................................................. 97
-3.6.47 Oracle Cloud Infrastructure - Monitoring ............................................................. 98
-3.6.48 Oracle Cloud Infrastructure - MySQL Database .................................................. 99
-3.6.49 Oracle Cloud Infrastructure - Network Firewall ..................................................103
-3.6.50 Oracle Cloud Infrastructure - Notifications ........................................................ 104
-3.6.51 Oracle Cloud Infrastructure - Object Storage .................................................... 105
-3.6.52 Oracle Cloud Infrastructure - Ops Insights ......................................................... 106
-3.6.53 Oracle Cloud Infrastructure - Outbound Data Transfer................................... 108
-3.6.54 Oracle Cloud Infrastructure - Process Automation .......................................... 109
-3.6.55 Oracle Cloud Infrastructure- Search Service with OpenSearch ...................... 110
-3.6.56 Oracle Cloud Infrastructure - Secure Desktops ................................................... 111
-3.6.57 Oracle Cloud Infrastructure - Speech .................................................................... 112
-3.6.58 Oracle Cloud Infrastructure - Streaming...............................................................113
-3.6.59 Oracle Cloud Infrastructure - Vision ..................................................................... 114
-3.6.60 Oracle Cloud Infrastructure - Vulnerability Detection and Patching ..............115
-3.6.61 Oracle Cloud Infrastructure - Web Application Firewall ................................... 116
-3.6.62 Oracle Cloud Infrastructure - WebLogic .............................................................. 118
-3.6.63 Oracle Cloud Infrastructure Streaming With Apache Kafka ............................ 118
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 4 of 150
-3.6.64 Oracle Cloud VMware Solution .............................................................................. 119
-3.6.65 Oracle Content Management ................................................................................. 124
-3.6.66 Oracle Database Autonomous Recovery Service ............................................... 125
-3.6.67 Oracle Database Backup Cloud .............................................................................. 126
-3.6.68 Oracle Digital Assistant ............................................................................................ 127
-3.6.69 Oracle Integration Cloud Service ........................................................................... 128
-3.6.70 Oracle Kubernetes Engine....................................................................................... 129
-3.6.71 Oracle Kubernetes Engine - Virtual Node ............................................................130
-3.6.72 Oracle Mobile Hub Cloud Service ...........................................................................131
-3.6.73 Oracle NoSQL Database Cloud Service ................................................................ 132
-3.6.74 Oracle SOA Suite Cloud Service ............................................................................. 134
-3.6.75 Oracle Tuxedo for Oracle Cloud Infrastructure .................................................. 136
-3.6.76 Oracle Visual Builder ................................................................................................ 137
-3.6.77 Oracle ZFS Storage - High Availability ................................................................. 138
-4 Oracle Cloud Change Management Policy .......................................................... 139
-4.1 Service Change Notification............................................................................................. 139
-4.2 Disaster Recovery for Identity Domain ....................................................................... 139
-5 Cloud Support Policy ............................................................................................ 140
-6 Oracle Cloud Suspension and Termination Policy ............................................ 140
-7 Oracle Always Free Cloud Services ..................................................................... 140
-8 Surge Protector for Web Application Firewall (WAF) ....................................... 140
-8.1 Definitions........................................................................................................................... 140
-8.2 WAF Service Credits Claims .......................................................................................... 141
-8.3 Exclusions ......................................................................................................................... 143
-9 Oracle European Union Sovereign Cloud and Sovereign Operations .............. 143
-10 Oracle UK Sovereign Cloud ................................................................................... 143
+3.6.10 Oracle Cloud Infrastructure Device Data FHIR Service ...................................... 28
+3.6.11 Oracle Cloud Infrastructure Identity and Access Management ....................... 30
+3.6.12 Oracle Cloud Infrastructure Internet of Things Platform ................................... 31
+3.6.13 Oracle Cloud Infrastructure Queue ........................................................................ 33
+3.6.14 Oracle Cloud Infrastructure - AI Services- Language......................................... 33
+3.6.15 Oracle Cloud Infrastructure - API Gateway........................................................... 34
+3.6.16 Oracle Cloud Infrastructure - API Platform Cloud Service ................................ 35
+3.6.17 Oracle Cloud Infrastructure - Application Performance Monitoring Service 36
+3.6.18 Oracle Cloud Infrastructure - Big Data - Compute Edition ............................... 37
+3.6.19 Oracle Cloud Infrastructure - Blockchain Platform Cloud ................................. 39
+3.6.20 Oracle Cloud Infrastructure - Block Volume ......................................................... 41
+3.6.21 Oracle Cloud Infrastructure - Cache ...................................................................... 44
+3.6.22 Oracle Cloud Infrastructure - Compute ................................................................. 45
+3.6.23 Oracle Cloud Infrastructure - Database - Dense I/O .......................................... 53
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 3 of 154
+3.6.24 Oracle Cloud Infrastructure - Database Exadata and Exadata Exascale ........ 55
+3.6.25 Oracle Cloud Infrastructure - Database Management ....................................... 60
+3.6.26 Oracle Cloud Infrastructure - Database Migration.............................................. 62
+3.6.27 Oracle Cloud Infrastructure - Data Integration .................................................... 62
+3.6.28 Oracle Cloud Infrastructure - Data Integrator Cloud Service............................ 64
+3.6.29 Oracle Cloud Infrastructure - Data Safe ................................................................ 65
+3.6.30 Oracle Cloud Infrastructure - Digital Media Services ......................................... 67
+3.6.31 Oracle Cloud Infrastructure - DNS.......................................................................... 76
+3.6.32 Oracle Cloud Infrastructure - Document Understanding .................................. 77
+3.6.33 Oracle Cloud Infrastructure - Email Delivery ....................................................... 78
+3.6.34 Oracle Cloud Infrastructure - FastConnect........................................................... 79
+3.6.35 Oracle Cloud Infrastructure - File Storage ............................................................ 80
+3.6.36 Oracle Cloud Infrastructure - Fleet Application Management ......................... 82
+3.6.37 Oracle Cloud Infrastructure - Full Stack Disaster Recovery Service ................ 82
+3.6.38 Oracle Cloud Infrastructure - Functions................................................................ 83
+3.6.39 Oracle Cloud Infrastructure - Generative AI ......................................................... 84
+3.6.40 Oracle Cloud Infrastructure - Generative AI Agents ........................................... 93
+3.6.41 Oracle Cloud Infrastructure - GoldenGate ............................................................ 94
+3.6.42 Oracle Cloud Infrastructure - Health Checks ....................................................... 95
+3.6.43 Oracle Cloud Infrastructure - Infrequent Access Storage ................................. 96
+3.6.44 Oracle Cloud Infrastructure - Key Management ................................................. 97
+3.6.45 Oracle Cloud Infrastructure - Load Balancer ....................................................... 98
+3.6.46 Oracle Cloud Infrastructure - Logging ................................................................ 100
+3.6.47 Oracle Cloud Infrastructure - Logging Analytics ................................................ 101
+3.6.48 Oracle Cloud Infrastructure - Monitoring ............................................................ 101
+3.6.49 Oracle Cloud Infrastructure - MySQL Database .................................................102
+3.6.50 Oracle Cloud Infrastructure - Network Firewall ................................................. 106
+3.6.51 Oracle Cloud Infrastructure - Notifications ........................................................ 107
+3.6.52 Oracle Cloud Infrastructure - Object Storage .................................................... 109
+3.6.53 Oracle Cloud Infrastructure - Ops Insights .......................................................... 110
+3.6.54 Oracle Cloud Infrastructure - Outbound Data Transfer..................................... 111
+3.6.55 Oracle Cloud Infrastructure - Process Automation ............................................113
+3.6.56 Oracle Cloud Infrastructure- Search Service with OpenSearch ...................... 114
+3.6.57 Oracle Cloud Infrastructure - Secure Desktops ...................................................115
+3.6.58 Oracle Cloud Infrastructure - Speech ................................................................... 116
+3.6.59 Oracle Cloud Infrastructure - Streaming...............................................................117
+3.6.60 Oracle Cloud Infrastructure - Vision ..................................................................... 118
+3.6.61 Oracle Cloud Infrastructure - Vulnerability Detection and Patching ............. 119
+3.6.62 Oracle Cloud Infrastructure - Web Application Firewall ...................................120
+3.6.63 Oracle Cloud Infrastructure - WebLogic ............................................................... 121
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 4 of 154
+3.6.64 Oracle Cloud Infrastructure Streaming With Apache Kafka ............................ 122
+3.6.65 Oracle Cloud VMware Solution .............................................................................. 123
+3.6.66 Oracle Content Management ................................................................................. 127
+3.6.67 Oracle Database Autonomous Recovery Service ............................................... 128
+3.6.68 Oracle Database Backup Cloud .............................................................................. 129
+3.6.69 Oracle Digital Assistant ............................................................................................130
+3.6.70 Oracle Integration Cloud Service ............................................................................131
+3.6.71 Oracle Kubernetes Engine....................................................................................... 133
+3.6.72 Oracle Kubernetes Engine - Virtual Node ............................................................ 134
+3.6.73 Oracle Mobile Hub Cloud Service .......................................................................... 135
+3.6.74 Oracle NoSQL Database Cloud Service ................................................................ 136
+3.6.75 Oracle SOA Suite Cloud Service ............................................................................. 137
+3.6.76 Oracle Tuxedo for Oracle Cloud Infrastructure .................................................. 139
+3.6.77 Oracle Visual Builder ............................................................................................... 140
+3.6.78 Oracle ZFS Storage - High Availability ................................................................. 141
+4 Oracle Cloud Change Management Policy .......................................................... 142
+4.1 Service Change Notification............................................................................................. 142
+4.2 Disaster Recovery for Identity Domain ....................................................................... 143
+5 Cloud Support Policy ............................................................................................. 143
+6 Oracle Cloud Suspension and Termination Policy ............................................. 143
+7 Oracle Always Free Cloud Services ...................................................................... 143
+8 Surge Protector for Web Application Firewall (WAF) ....................................... 144
+8.1 Definitions........................................................................................................................... 144
+8.2 WAF Service Credits Claims ......................................................................................... 144
+8.3 Exclusions ........................................................................................................................ 146
+9 Oracle European Union Sovereign Cloud and Sovereign Operations ............. 146
+10 Oracle UK Sovereign Cloud ...................................................................................147
 Appendix A- Oracle European Union Sovereign Cloud and Sovereign Operations -
-Additional Terms ("Sovereign Terms") ......................................................................... 144
+Additional Terms ("Sovereign Terms") ......................................................................... 148
 Appendix B - Oracle UK Sovereign Cloud - Additional Terms ("UK Sovereign Cloud
-Terms") ............................................................................................................................. 148
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 5 of 150
+Terms") .............................................................................................................................. 152
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 5 of 154
 SCOPE
 This document applies to Oracle PaaS and IaaS Public Cloud Services purchased by You, and
 supplements the Oracle Cloud Hosting and Delivery Policies incorporated into Your order. Except with
@@ -155,7 +156,7 @@ continuity plan to ensure continuity of Your own operations in the event of a di
 For all Oracle PaaS and IaaS Cloud Services that are designated or otherwise identified in their
 applicable order (or the Service Specifications incorporated therein) as trial, Free Tier, Free or Always
 Free Cloud Services, the following applies in lieu of the text in section 4.1.2 of the Oracle Cloud Hosting
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 6 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 6 of 154
 and Delivery Policies: Oracle may migrate Your Oracle Cloud Services deployed in data centers
 retained by Oracle between production data centers as deemed necessary by Oracle or in the case of
 disaster recovery. Such migrations may be between data centers located in different Regions. For
@@ -200,7 +201,7 @@ Hosting and Delivery Policies as a Cloud Service’s “Target Service Availabil
 Service Uptime”) applicable to a Service Level Agreement, as set forth and defined below for
 each Cloud Service under the section titled Service Level Agreements). The Service
 Commitment is typically expressed as a percentage as part of a Service Level Agreement.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 7 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 7 of 154
 • “Service Level Agreement” refers to a service level agreement applicable to a Cloud Service,
 which may include an Availability Service Level Agreement, a Manageability Service Level
 Agreement and/or a Performance Service Level Agreement, as set forth below for each such
@@ -244,7 +245,7 @@ following Oracle’s approval of Your claim. You must use those Service Credits 
 period (as defined in Your order for such Cloud Services) in which the Service Credits are granted. Any
 unused Service Credits will expire at the end of the annual credit period in which the Service Credits are
 granted and You may not carry those Service Credits over to another annual credit period.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 8 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 8 of 154
 With respect to Cloud Services purchased under a Funded Allocation Model, any Service Credits will be
 subtracted from Your invoice for such Cloud Services under the applicable order in the calendar month
 following Oracle’s approval of Your claim. If at the end of the Services Period in which the Services
@@ -286,7 +287,7 @@ covers the relevant monthly period. For the avoidance of doubt, Service Credits 
 under this section (Oracle PaaS and IaaS Public Cloud Service Level Agreement Policy) for Cloud
 Services that You have actually deployed during the applicable Measured Period pursuant to the
 Pay as You Go or Funded Allocation Model.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 9 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 9 of 154
 3.3 Claims
 In order to be considered to receive Service Credits, You must file a claim with Oracle in accordance
 with the terms listed in this subsection. You must submit the claim by contacting Your account manager
@@ -328,7 +329,7 @@ may receive Service Credits only under the provision which provides for the high
 Credits to You for such Cloud Service, but You may not recover Service Credits under multiple
 provisions for the same event (i.e., You may not recover Service Credits for such Cloud Service under
 both such order and this document for the same incident).
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 10 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 10 of 154
 In no event may You receive more Service Credits than equate to the fees paid by You for the quantity
 of the applicable Non-Compliant Service that is actually used in the relevant Measured Period.
 3.5 Common Exclusions
@@ -370,7 +371,7 @@ minimum technical configuration requirements for accessing and using the applica
 from Your network infrastructure and Your user workstations as set forth in the Program
 Documentation for such Cloud Services, as well as the software versioning requirements set forth in
 section 4.2 of Oracle Cloud Hosting & Delivery Policies.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 11 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 11 of 154
 3.6 Service Level Agreements
 This subsection (Service Level Agreements) sets forth the Oracle PaaS and IaaS Public Cloud Services
 that offer Service Level Agreements and are eligible to submit claims for Service Credits if their
@@ -416,7 +417,7 @@ B109166 MySQL HeatWave - AWS - Storage -
 Gigabyte Storage Capacity Per Month X
 B109187 MySQL Database - AWS - Ingress
 private endpoint - Endpoint Per Hour X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 12 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 12 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -457,7 +458,7 @@ this subsection applies, Oracle will use commercially reasonable efforts to have
 available with a Monthly Uptime Percentage (as defined below) of at least 99.9% during any calendar
 month (the “Service Commitment”). In the event an applicable Cloud Service listed above does not meet
 its Service Commitment for the Manageability Service Level Agreement under this subsection, You will
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 13 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 13 of 154
 be eligible to receive Service Credits for such Non-Compliant Service, with the Service Credit Percentage
 determined as follows:
 Less than 99.9% but equal to or greater than 99.0% 10%
@@ -501,7 +502,7 @@ B97180 Oracle Access Governance for
 Oracle Workloads - Consumer User -
 Consumer User Per Month
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 14 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 14 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -531,7 +532,7 @@ AVAILABILITY MANAGEABILITY PERFORMANCE
 B111363 Oracle AI Data Platform - AI Data
 Platform Unit X
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 15 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 15 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
@@ -565,7 +566,7 @@ Oracle Analytics Cloud –
 Enterprise- BYOL-OCPU Per
 Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 16 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 16 of 154
 Availability Service Level Agreement
 month (the “Service Commitment”). In the event an applicable Cloud Service does not meet its Service
 Commitment for the Availability Service Level Agreement under this subsection, You will be eligible to
@@ -600,7 +601,7 @@ Per Hour
 X X
 B92184 Oracle Autonomous AI Lakehouse -
 Dedicated - BYOL - OCPU Per Hour X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 17 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 17 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -651,7 +652,7 @@ B99594 Oracle Globally Distributed Autonomous
 AI Transaction Processing - Dedicated -
 BYOL - ECPU Per Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 18 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 18 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -690,7 +691,7 @@ Cloud Service without Autonomous Data Guard or Raft Replication using Oracle net
 services.
 minutes during the calendar month in which the applicable Cloud Service without Autonomous
 Data Guard or Raft Replication was Unavailable (as defined below).
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 19 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 19 of 154
 • The Availability Service Level Agreement in this subsection does not apply to Your Cloud
 Services if You choose to set Your node reservation for such Services to 0%.
 Distributed Autonomous AI Database shards and catalog databases when deployed with
@@ -719,7 +720,7 @@ tests, User-initiated Raft replication unit switchovers, or User-initiated
 maintenance, topology changes, data relocation, or other Raft Replication
 administrative operations that intentionally move, stop, or reconfigure replication
 units or their leaders.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 20 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 20 of 154
 Manageability Service Level Agreement
 available with a Monthly Uptime Percentage (as defined below) of at least 99.95% during any calendar
 determined as follows:
@@ -745,7 +746,7 @@ Enterprise Edition Extreme
 Performance - General Purpose -
 OCPU Per Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 21 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 21 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -803,7 +804,7 @@ Performance - OCPU Per Hour
 X X
 B90573 Oracle Base Database Service - All
 Editions - BYOL - OCPU Per Hour X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 22 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 22 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -835,7 +836,7 @@ B112728 Oracle Base Database Service - BYOL-
 x86 - ECPU Per Hour X X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 23 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 23 of 154
 Less than 95.0% 100%
 listed above:
 defined below).
@@ -850,7 +851,7 @@ determined as follows:
 Less than 95.0% 100%
 Services listed above:
 • “Control Plane API Error Rate” means, on a per Availability Domain basis, the percentage value
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 24 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 24 of 154
 3.6.7 Oracle Big Data Service
 The following table indicates which types of Service Level Agreements are applicable to an Oracle Big
 Data Service SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
@@ -876,7 +877,7 @@ defined below).
 external connectivity to any of Your instances of such Cloud Service. This excludes
 circumstances resulting directly or indirectly from any Common Exclusion.
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 25 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 25 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
@@ -895,7 +896,7 @@ Security Adhoc Queries Enterprise –
 request
 X X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 26 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 26 of 154
 determined as follows:
 Less than 95.0% 100%
 listed above:
@@ -909,7 +910,7 @@ Manageability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 27 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 27 of 154
 3.6.9 Oracle Cloud Infrastructure Database with PostgreSQL
 Infrastructure Database with PostgreSQL SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
@@ -934,7 +935,7 @@ Less than 95.0% 100%
 Availability:
 applicable Cloud Service using Oracle network services.
 • “High Availability” is a database system with two or more nodes provisioned.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 28 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 28 of 154
 was Unavailable (as defined below).
 for which the High Availability option is not enabled
 this subsection applies and the High Availability option is not enabled (i.e., the Cloud Service's
@@ -948,10 +949,40 @@ Availability:
 Cloud Service using Oracle network services.
 minutes during the calendar month in which the applicable Cloud Service without High
 Availability was Unavailable (as defined below).
-3.6.10 Oracle Cloud Infrastructure Identity and Access Management
+3.6.10 Oracle Cloud Infrastructure Device Data FHIR Service
+Infrastructure Device Data FHIR Service SKU as indicated below by an “X” in the “Type of Service Level
+Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 29 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
+B112952 Oracle Cloud Infrastructure Device Data
+FHIR Service - Base - ECPU Per Hour X X
+B112953
+Oracle Cloud Infrastructure Device Data
+FHIR Service - Additional Storage -
+Gigabyte Storage Capacity Per Month
+X
+Availability Service Level Agreement
+determined as follows:
+Less than 95.0% 100%
+The following terms apply to the Availability Service Level Agreement for the applicable Cloud
+Services listed above:
+applicable Cloud Service database via its direct database connection feature.
+defined below).
+• “Unavailable” means any time when (i) no Database Connection is or can be established and (ii)
+all continuous attempts (at least five) to establish a Database Connection fail and (iii) all the valid
+invocations of an endpoint of the applicable Cloud Service do not successfully respond to
+console UI Displays or API Calls. This excludes circumstances resulting directly or indirectly from
+any Common Exclusion.
+Manageability Service Level Agreement
+determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 30 of 154
+Less than 95.0% 100%
+Services listed above:
+3.6.11 Oracle Cloud Infrastructure Identity and Access Management
 Infrastructure Identity and Access Management SKU as indicated below by an “X” in the “Type of
 Service Level Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 29 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -969,6 +1000,7 @@ X
 B93495 Oracle Cloud Infrastructure Identity and
 Access Management - Premium X
 Availability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 31 of 154
 determined as follows:
 Less than 99.95% but equal to or greater than
 99.0% 10%
@@ -986,8 +1018,7 @@ email/password, federation with SAML/OpenID Connect, or any other protection mec
 supported by such Cloud Service.
 • “Monthly Uptime Percentage” is calculated by subtracting from 100%, the average of the
 Login Error Rate for each five-minute period during the applicable calendar month.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 30 of 150
-3.6.11 Oracle Cloud Infrastructure Internet of Things Platform
+3.6.12 Oracle Cloud Infrastructure Internet of Things Platform
 Infrastructure Internet of Things Platform SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -999,22 +1030,17 @@ B111995 Oracle Cloud Infrastructure Internet of
 Things Platform – Additional Storage X
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 32 of 154
 Less than 95.0% 100%
-The following terms apply to the Availability Service Level Agreement for the applicable Cloud
 Services listed above:
-applicable Cloud Service database via its direct database connection feature.
 defined below).
-• “Unavailable” means any time when (i) no Database Connection is or can be established and (ii)
-all continuous attempts (at least five) to establish a Database Connection fail and (iii) all the valid
-invocations of an endpoint of the applicable Cloud Service do not successfully respond to
-console UI Displays or API Calls. This excludes circumstances resulting directly or indirectly from
 any Common Exclusion.
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 31 of 150
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.12 Oracle Cloud Infrastructure Queue
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 33 of 154
+3.6.13 Oracle Cloud Infrastructure Queue
 Infrastructure Queue SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -1024,7 +1050,6 @@ B95697 Oracle Cloud Infrastructure Queue -
 1,000,000 Requests X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 32 of 150
 Less than 99.0% but equal to or greater than 95.0% 30%
 Less than 95.0% 100%
 listed above:
@@ -1032,9 +1057,10 @@ listed above:
 total number of internal server errors returned by the applicable Cloud Service with an error
 status of “500” or "503" in a five-minute period during a calendar month divided by, (ii) the total
 number of API requests to such Cloud Service in such five-minute period. This excludes
-3.6.13 Oracle Cloud Infrastructure - AI Services- Language
+3.6.14 Oracle Cloud Infrastructure - AI Services- Language
 Infrastructure - Language SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 34 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -1050,15 +1076,15 @@ Custom Training - Training Hour X
 B95920 Oracle Cloud Infrastructure - Language -
 Text Translation - 1000 Transactions X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 33 of 150
 determined as follows:
 Less than 95.0% 100%
 listed above:
 status of “5xx” in a five-minute period during a calendar month divided by, (ii) the total number
 of API requests to such Cloud Service in such five-minute period. This excludes circumstances
-3.6.14 Oracle Cloud Infrastructure - API Gateway
+3.6.15 Oracle Cloud Infrastructure - API Gateway
 Infrastructure - API Gateway SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 35 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -1069,7 +1095,6 @@ Gateway - 1,000,000 API Calls -
 X
 Availability Service Level Agreement
 as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 34 of 150
 Less than 95.0% 100%
 listed above:
 • “API Call” is a single invocation of a path in the Cloud Service that is mapped to an API
@@ -1078,7 +1103,7 @@ deployment.
 on a per Region basis, the percentage value corresponding to: (i) the total number of failed API
 Calls made to such Cloud Service with a status of “Internal Service Error” or “Service Unavailable”
 in a five-minute period during a calendar month divided by, (ii) the total number of API Calls
-3.6.15 Oracle Cloud Infrastructure - API Platform Cloud Service
+3.6.16 Oracle Cloud Infrastructure - API Platform Cloud Service
 The following table indicates which types of Service Level Agreements are applicable to an Oracle API
 Platform Cloud Service SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
@@ -1087,6 +1112,7 @@ TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
 B89652 Oracle API Platform Cloud Service -
 Gateway Per Hour X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 36 of 154
 Manageability Service Level Agreement
 With respect to a Cloud Service listed above for which the Manageability Service Level Agreement
 under this subsection applies, Oracle will use commercially reasonable efforts to have each such
@@ -1097,8 +1123,7 @@ will be eligible to receive Service Credits for such Non-Compliant Service, with
 Percentage determined as follows:
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 35 of 150
-3.6.16 Oracle Cloud Infrastructure - Application Performance Monitoring Service
+3.6.17 Oracle Cloud Infrastructure - Application Performance Monitoring Service
 Infrastructure – Application Performance Monitoring Service SKU as indicated below by an “X” in the
 “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
@@ -1116,13 +1141,15 @@ Application Performance Monitoring
 Service - Synthetic Usage - 10
 Monitor Runs Per Hour
 X
-B95264
-Oracle Cloud Infrastructure –
-Application Performance Monitoring
+B95264 Oracle Cloud Infrastructure –
+Application Performance Monitoring X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 37 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 Service - Stack Monitoring -
 Standard Edition- 10 Monitored
 Resources Per Hour
-X
 B99259
 Oracle Cloud Infrastructure -
 Application Performance Monitoring
@@ -1139,12 +1166,12 @@ Infrastructure - GPU Monitoring Unit
 Per Hour
 X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 36 of 150
 determined as follows:
 Less than 95.0% 100%
 listed above:
 defined below).
-3.6.17 Oracle Cloud Infrastructure - Big Data - Compute Edition
+3.6.18 Oracle Cloud Infrastructure - Big Data - Compute Edition
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 38 of 154
 Infrastructure - Big Data - Compute Edition SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -1165,17 +1192,16 @@ Storage Capacity Per Month
 X X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 37 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 39 of 154
 this subsection applies, Oracle will use commercially reasonable efforts to have each such Cloud Service
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 38 of 150
-3.6.18 Oracle Cloud Infrastructure - Blockchain Platform Cloud
+3.6.19 Oracle Cloud Infrastructure - Blockchain Platform Cloud
 Infrastructure - Blockchain Platform Cloud SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -1194,6 +1220,10 @@ B92304
 Platform Cloud Service - Storage - TB
 Storage Capacity per month
 X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 40 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B92305
 Platform Cloud Service - Enterprise -
 BYOL - OCPU per hour
@@ -1214,7 +1244,6 @@ Less than 99.5% but equal to or greater than 95.0% 25%
 Less than 95.0% 100%
 Monthly Uptime Percentage for Standard and Storage SKUs Service Credit Percentage
 Less than 99.5% but equal to or greater than 99.0% 10%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 39 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
@@ -1223,6 +1252,7 @@ Exclusion, and means:
 (i) Any one-minute periods when You are unable to connect to the Blockchain Platform
 console or REST proxy of the applicable Cloud Service either via Web browser or via REST
 APIs after multiple (at least five) attempts; or
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 41 of 154
 (ii) If Your application is connecting to a peer component and/or an Ordering Service Node
 (OSN) component of a Cloud Service with a Standard SKU, any one-minute periods when
 You are unable to connect to such peer or OSN after multiple (at least five) attempts; or
@@ -1247,10 +1277,10 @@ error status of “Internal Service Error” or “Service Unavailable” in a f
 calendar month divided by, (ii) the total number of Control Plane API requests made to such
 Cloud Service in such five-minute period. This excludes circumstances resulting directly or
 indirectly from any Common Exclusion.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 40 of 150
-3.6.19 Oracle Cloud Infrastructure - Block Volume
+3.6.20 Oracle Cloud Infrastructure - Block Volume
 Infrastructure - Block Volume SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 42 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -1277,9 +1307,9 @@ listed above:
 defined below).
 • “Unavailable” means any time when all of the attached volumes of the applicable Cloud Service
 perform zero read write IO with pending IO in the queue. This excludes circumstances resulting
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 41 of 150
 Manageability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 43 of 154
 Less than 95.0% 100%
 Services listed above:
 Performance Service Level Agreement
@@ -1297,7 +1327,6 @@ Services listed above:
 • “Block Volume IOPS” is defined as IOPS that is measured at 4K Block Size. The Block Volume
 IOPS will vary with the Block Size; You should refer to the published information for the IOPS for
 the specified Block Size.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 42 of 150
 • “Block Volume Performance Decay Rate” means the percentage value corresponding to: (i) the
 total number of hours in a calendar month during which the IOPS of a single Block Volume of
 the applicable Cloud Service is less than 90% of the minimum Block Volume IOPS published by
@@ -1306,6 +1335,7 @@ circumstances resulting directly or indirectly from any Common Exclusion and any
 backup or snapshot is performed.
 • “Monthly Performance Rate” is calculated by subtracting from 100%, the Block Volume
 Performance Decay Rate for a calendar month of the applicable Cloud Service.
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 44 of 154
 Notwithstanding anything to the contrary, the Performance Service Level Agreement under this
 subsection, (1) will apply only to applicable Cloud Service which consists of raw, unformatted volumes,
 with iSCSI volume attachments, or paravirtualized volume attachments that have (I) 16 cores or higher
@@ -1313,7 +1343,7 @@ VMs at Ultra High Performance level, or (II) 8 cores or higher VMs at Balanced o
 level, and (2) will not apply to any Cloud Service which is configured at the Lower Cost level. For
 information on the performance levels for Oracle Cloud Infrastructure – Block Volume, see the Program
 Documentation for such Cloud Service.
-3.6.20 Oracle Cloud Infrastructure - Cache
+3.6.21 Oracle Cloud Infrastructure - Cache
 Infrastructure - Cache SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -1330,10 +1360,10 @@ X
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 43 of 150
 listed above:
 defined below).
-3.6.21 Oracle Cloud Infrastructure - Compute
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 45 of 154
+3.6.22 Oracle Cloud Infrastructure - Compute
 Infrastructure - Compute SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -1376,22 +1406,24 @@ Compute - Bare Metal
 Standard - X7 - OCPU Per
 Hour
 X X X
-B88514 Oracle Cloud Infrastructure -
-Compute - Virtual Machine X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 44 of 150
+B88514
+Oracle Cloud Infrastructure -
+Compute - Virtual Machine
+Standard - X7 - OCPU Per
+Hour
+X X
+B88515
+Oracle Cloud Infrastructure -
+Compute - Bare Metal Dense
+I/O - X7 - OCPU Per Hour
+X X X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 46 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
 1 (NVME)
 PERFORMANCE 2
 (NETWORK)
-Standard - X7 - OCPU Per
-Hour
-B88515
-Oracle Cloud Infrastructure -
-Compute - Bare Metal Dense
-I/O - X7 - OCPU Per Hour
-X X X X
 B88516
 Oracle Cloud Infrastructure -
 Compute - Virtual Machine
@@ -1442,13 +1474,6 @@ Oracle Cloud Infrastructure -
 Compute - Standard - E3 -
 OCPU Per Hour
 X X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 45 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
-1 (NVME)
-PERFORMANCE 2
-(NETWORK)
 B92307
 Oracle Cloud Infrastructure -
 Compute - Standard - E3 -
@@ -1459,6 +1484,13 @@ Oracle Cloud Infrastructure -
 Compute - GPU - E3 - GPU
 Per Hour
 X X X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 47 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
+1 (NVME)
+PERFORMANCE 2
+(NETWORK)
 B93113
 Oracle Cloud Infrastructure -
 Compute - Standard - E4 -
@@ -1509,25 +1541,23 @@ Oracle Cloud Infrastructure -
 Compute - Standard - X12 -
 Memory - Gigabyte Per Hour
 X X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 46 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
-1 (NVME)
-PERFORMANCE 2
-(NETWORK)
 B93704
 Oracle Cloud Infrastructure -
 Compute - GPU - T1 - GPU
 Per
 Hour
 X X X X
-B93544
-Oracle Cloud Infrastructure -
-Compute - GPU - E4 - GPU
+B93544 Oracle Cloud Infrastructure -
+Compute - GPU - E4 - GPU X X X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 48 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
+1 (NVME)
+PERFORMANCE 2
+(NETWORK)
 Per
 Hour
-X X X X
 B93121
 Oracle Cloud Infrastructure -
 Compute - Dense I/O - E4 -
@@ -1571,13 +1601,6 @@ B98202 Oracle Cloud Infrastructure -
 Compute - Dense I/O - E5
 OCPU - OCPU Per Hour
 X X X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 47 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
-1 (NVME)
-PERFORMANCE 2
-(NETWORK)
 B98203 Oracle Cloud Infrastructure -
 Compute - Dense I/O - E5
 Memory - Gigabyte Per Hour
@@ -1588,6 +1611,13 @@ Compute - Dense I/O - E5
 NVMe - NVMe Terabyte Per
 Hour
 X X X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 49 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
+1 (NVME)
+PERFORMANCE 2
+(NETWORK)
 B109529
 Oracle Cloud Infrastructure -
 Compute - Standard - A2
@@ -1635,13 +1665,6 @@ Oracle Cloud Infrastructure -
 Compute - Standard - E6 Ax
 - OCPU - OCPU Per Hour
 X X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 48 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
-1 (NVME)
-PERFORMANCE 2
-(NETWORK)
 B112531
 Oracle Cloud Infrastructure -
 Compute - Standard - E6 Ax
@@ -1653,6 +1676,13 @@ Oracle Cloud Infrastructure -
 Compute - Dense IO - E6 Ax
 - OCPU - OCPU Per Hour
 X X X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 50 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
+1 (NVME)
+PERFORMANCE 2
+(NETWORK)
 B112557
 Oracle Cloud Infrastructure -
 Compute - Dense IO - E6 Ax
@@ -1696,23 +1726,19 @@ Oracle Cloud Infrastructure -
 Compute - Standard - A4 Ax
 - OCPU - OCPU Per Hour
 X X X X
-B112533 Oracle Cloud Infrastructure -
-Compute - Standard - A4 Ax X X X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 49 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
-1 (NVME)
-PERFORMANCE 2
-(NETWORK)
+B112533
+Oracle Cloud Infrastructure -
+Compute - Standard - A4 Ax
 - Memory - Gigabyte Per
 Hour
+X X X X
 B112613
 Oracle Cloud Infrastructure -
 Compute - GPU - RTX PRO
 6000 - GPU Per Hour
 X X X X
 Availability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 51 of 154
 determined as follows:
 Less than 95.0% 100%
 Domain
@@ -1724,13 +1750,13 @@ listed above:
 minutes during the calendar month in which the applicable Cloud Service was Unavailable.
 Exclusion, and means any time when a problem with the applicable Cloud Service prevents
 external connectivity with:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 50 of 150
 (i) for Regions with more than one Availability Domains, all instances of such Cloud Service
 that are deployed in more than one Availability Domain; or
 (ii) for Regions with one Availability Domain, all instances of such Cloud Service that are
 deployed in more than one Fault Domain; or
 (iii) for a single instance of such Cloud Service, each such instance.
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 52 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
@@ -1744,7 +1770,6 @@ an applicable Cloud Service listed above does not meet its Service Commitment fo
 Service Level Agreement under this subsection, You will be eligible to receive Service Credits for such
 Non-Compliant Service, with the Service Credit Percentage determined as follows:
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 51 of 150
 The following terms apply to the Performance 1 Service Level Agreement for the applicable Cloud
 Services listed above:
 • “NVMe Performance Decay Rate” means the percentage value corresponding to: (i) the total
@@ -1755,6 +1780,7 @@ indirectly from any Common Exclusion and any time while a backup or snapshot is 
 performed.
 • “Monthly Performance Rate” is calculated by subtracting from 100%, the NVMe Performance
 Decay Rate for a calendar month of the applicable Cloud Service.
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 53 of 154
 Performance 2 Service Level Agreement
 With respect to a Cloud Service listed above for which the Performance 2 Service Level Agreement
 under this subsection applies, Oracle will use commercially reasonable efforts to deliver a Network
@@ -1775,8 +1801,7 @@ Measurement for the applicable Cloud Service is less than 90% of the Oracle-publ
 throughput (measured in megabits per second (Mbps) or gigabits per second (Gbps)) per
 Oracle-provided compute instance shape, divided by (ii) the total number of 5-minute intervals
 in such calendar month.
-3.6.22 Oracle Cloud Infrastructure - Database - Dense I/O
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 52 of 150
+3.6.23 Oracle Cloud Infrastructure - Database - Dense I/O
 Infrastructure - Database - Dense I/O SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -1793,6 +1818,10 @@ Enterprise Edition Extreme Performance
 - Dense I/O - Hosted Environment Per
 Hour
 X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 54 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B88334
 Oracle Cloud Infrastructure - Database
 Enterprise Edition High Performance -
@@ -1832,9 +1861,9 @@ All Editions - Dense I/O - X7 - BYOL -
 Hosted Environment Per Hour
 X X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 53 of 150
 determined as follows:
 Less than 95.0% 100%
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 55 of 154
 listed above:
 • “Monthly Uptime Percentage” is calculated by subtracting from 100% the percentage of minutes
 during the calendar month in which the applicable Cloud Service was Unavailable (as defined
@@ -1846,19 +1875,20 @@ Manageability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 54 of 150
-3.6.23 Oracle Cloud Infrastructure - Database Exadata and Exadata Exascale
+3.6.24 Oracle Cloud Infrastructure - Database Exadata and Exadata Exascale
 Infrastructure - Database Exadata or an Oracle Cloud Infrastructure - Exadata Exascale Database SKU
 as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
-B87866
-Oracle Cloud Infrastructure -
-Database Exadata Quarter Rack - X6
+B87866 Oracle Cloud Infrastructure -
+Database Exadata Quarter Rack - X6 X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 56 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 - Metered - Hosted Environment Per
 Month
-X X
 B87867
 Oracle Cloud Infrastructure -
 Database Exadata Half Rack - X6 -
@@ -1905,21 +1935,19 @@ Oracle Cloud Infrastructure -
 Database Exadata Full Rack - X6 -
 Hosted Environment Per Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 55 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B88847
 Oracle Cloud Infrastructure -
 Database Exadata OCPU - BYOL -
 OCPU Per Hour
 X X
-B88854
-Oracle Cloud Infrastructure -
-Database Exadata Full Rack - X6 -
+B88854 Oracle Cloud Infrastructure -
+Database Exadata Full Rack - X6 - X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 57 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 BYOL - Hosted Environment Per
 Hour
-X X
 B88855
 Oracle Cloud Infrastructure -
 Database Exadata Half Rack - X6 -
@@ -1968,16 +1996,16 @@ Database Exadata Infrastructure -
 Half Rack - X8 - Hosted
 Environment Per Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 56 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B91537
 Oracle Cloud Infrastructure -
 Database Exadata Infrastructure -
 Full Rack - X8 - Hosted Environment
 Per Hour
 X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 58 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B92380
 Oracle Cloud Infrastructure -
 Database Exadata Infrastructure -
@@ -2026,14 +2054,14 @@ B109375 Oracle Exadata Exascale Additional
 Flash Cache - Gigabyte (GB) Per
 Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 57 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B110627 Exadata Cloud Infrastructure -
 Database Server - X11M - Hosted
 Environment Per Hour
 X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 59 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B110629 Exadata Cloud Infrastructure -
 Storage Server - X11M - Hosted
 Environment Per Hour
@@ -2070,9 +2098,9 @@ does not meet its Service Commitment for the Availability Service Level Agreemen
 subsection, You will be eligible to receive Service Credits for such Non-Compliant Service, with the
 Service Credit Percentage determined as follows:
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 58 of 150
 listed above:
 defined below).
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 60 of 154
 • “Unavailable” means any time when (i) none of the database compute servers of the applicable
 Cloud Service are able to receive a network connection, or (ii) no I/O operations can be issued
 to the Exadata Storage subsystem of such Cloud Service. This excludes circumstances resulting
@@ -2083,10 +2111,9 @@ meet its Service Commitment for the Manageability Service Level Agreement under 
 Percentage determined as follows:
 Less than 95.0% 100%
 Services listed above, the following shall apply:
-3.6.24 Oracle Cloud Infrastructure - Database Management
+3.6.25 Oracle Cloud Infrastructure - Database Management
 Infrastructure - Database Management SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 59 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2095,6 +2122,10 @@ Oracle Cloud Infrastructure - Database
 Management - External DB BYOL - Host
 CPU Core Per Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 61 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B93083
 Oracle Cloud Infrastructure - Database
 Management - External DB - Host CPU
@@ -2123,8 +2154,8 @@ listed above:
 server errors returned by the applicable Cloud Service with an error status of “5xx” in a five-
 minute period during a calendar month divided by, (ii) the total number of API requests to such
 indirectly from any Common Exclusion.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 60 of 150
-3.6.25 Oracle Cloud Infrastructure - Database Migration
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 62 of 154
+3.6.26 Oracle Cloud Infrastructure - Database Migration
 Infrastructure – Database Migration SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -2145,10 +2176,10 @@ Connection fail. This excludes circumstances resulting directly or indirectly fr
 Exclusion.
 • "Database Migration Connection" is a direct connection established from any tool or application
 to the applicable Cloud Service using Oracle network services.
-3.6.26 Oracle Cloud Infrastructure - Data Integration
+3.6.27 Oracle Cloud Infrastructure - Data Integration
 Infrastructure - Data Integration SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 61 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 63 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2177,10 +2208,10 @@ integration tasks from execution. This excludes circumstances resulting directly
 from any Common Exclusion.
 Manageability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 62 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 64 of 154
 Less than 95.0% 100%
 Services listed above:
-3.6.27 Oracle Cloud Infrastructure - Data Integrator Cloud Service
+3.6.28 Oracle Cloud Infrastructure - Data Integrator Cloud Service
 Infrastructure - Data Integrator Cloud Service SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -2192,7 +2223,7 @@ B88406 Oracle Data Integrator Cloud Service -
 BYOL - OCPU Per Hour X X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 63 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 65 of 154
 Less than 95.0% 100%
 listed above:
 defined below).
@@ -2208,10 +2239,10 @@ defined below).
 • “Unavailable” means any time when You are unable to access the Control Plane UI to perform
 operations with the applicable Cloud Service. This excludes circumstances resulting directly or
 indirectly from any Common Exclusion.
-3.6.28 Oracle Cloud Infrastructure - Data Safe
+3.6.29 Oracle Cloud Infrastructure - Data Safe
 Infrastructure - Data Safe SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 64 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 66 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2242,11 +2273,11 @@ defined below).
 • “Unavailable” means, on a per Region basis, any time when a problem with the applicable Cloud
 Service prevents external connectivity to any of Your instances of such Cloud Service. This
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 65 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 67 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.29 Oracle Cloud Infrastructure - Digital Media Services
+3.6.30 Oracle Cloud Infrastructure - Digital Media Services
 Infrastructure - Digital Media Services SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -2270,7 +2301,7 @@ B95282
 H264 - HD - Below 30fps - Minute of
 Output Media Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 66 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 68 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2322,7 +2353,7 @@ VP8 - HD - Above 60fps and Below
 120fps - Minute of Output Media
 Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 67 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 69 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2373,7 +2404,7 @@ B95304 Media Services - Media Flow - Standard -
 H265VP9 - 4k - Above 30fps and Below
 60fps - Minute of Output Media Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 68 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 70 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2425,7 +2456,7 @@ B95315 Media Services - Media Flow - Speed -
 VP8 - SD - Below 30fps - Minute of
 Output Media Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 69 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 71 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2477,7 +2508,7 @@ H265VP9 - SD - Above 60fps and Below
 120fps - Minute of Output Media
 Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 70 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 72 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2528,7 +2559,7 @@ B95337 Media Services - Media Flow - Quality -
 H264 - HD - Above 30fps and Below
 60fps - Minute of Output Media Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 71 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 73 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2580,7 +2611,7 @@ B95348 Media Services - Media Flow - Quality -
 VP8 - 4k - Below 30fps - Minute of
 Output Media Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 72 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 74 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2632,7 +2663,7 @@ H265VP9 - 4k - Above 60fps and Below
 120fps - Minute of Output Media
 Content
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 73 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 75 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2649,11 +2680,11 @@ Manageability Service Level Agreement
 Service available with a Monthly Uptime Percentage (as defined below) of at least 99.9% during any
 calendar month (the “Service Commitment”). In the event an applicable Cloud Service listed above
 does not meet its Service Commitment for the Manageability Service Level Agreement under this
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 74 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 76 of 154
 Less than 95.0% 100%
 Services listed above:
 to such Cloud Service in such five-minute period. This excludes circumstances resulting directly
-3.6.30 Oracle Cloud Infrastructure - DNS
+3.6.31 Oracle Cloud Infrastructure - DNS
 Infrastructure - DNS SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
@@ -2671,7 +2702,7 @@ Less than 99.99% but equal to or greater than 99.5% 25%
 Less than 99.5% but equal to or greater than 95.0% 50%
 Less than 95.0% 100%
 listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 75 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 77 of 154
 defined below).
 • “Oracle DNS Nameserver” is a group of Oracle controlled systems (servers, hardware, and
 associated software) that are responsible for responding to DNS queries in Oracle’s provision of
@@ -2679,7 +2710,7 @@ the applicable Cloud Service.
 • “Unavailable” means any time when Oracle DNS Nameserver of the applicable Cloud Service
 fails to respond to DNS queries. This excludes circumstances resulting directly or indirectly from
 any Common Exclusion.
-3.6.31 Oracle Cloud Infrastructure - Document Understanding
+3.6.32 Oracle Cloud Infrastructure - Document Understanding
 Infrastructure - Document Understanding SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -2711,11 +2742,11 @@ Understanding - Custom Document
 Extraction - 1,000 Transactions
 X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 76 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 78 of 154
 determined as follows:
 Less than 95.0% 100%
 listed above:
-3.6.32 Oracle Cloud Infrastructure - Email Delivery
+3.6.33 Oracle Cloud Infrastructure - Email Delivery
 Infrastructure - Email Delivery SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -2727,7 +2758,7 @@ Availability Service Level Agreement
 month (the “Service Commitment”). In the event the applicable Cloud Service listed above does not
 Percentage determined as follows:
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 77 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 79 of 154
 listed above:
 minutes during the calendar month in which the Cloud Service was Unavailable (as defined
 below).
@@ -2735,7 +2766,7 @@ below).
 You send Your mail.
 • “Unavailable” means, on a per Region basis, any time when the Oracle SMTP Endpoint of the
 applicable Cloud Service is not able to accept email from You for at least a continuous minute.
-3.6.33 Oracle Cloud Infrastructure - FastConnect
+3.6.34 Oracle Cloud Infrastructure - FastConnect
 Infrastructure - FastConnect SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -2762,7 +2793,7 @@ Oracle Cloud Infrastructure -
 FastConnect 400 Gbps - Port Hour X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 78 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 80 of 154
 Less than 95.0% 100%
 listed above:
 • “Monthly Uptime Percentage” is calculated by subtracting from 100%, the Unavailable
@@ -2779,7 +2810,7 @@ Notwithstanding anything to the contrary, the Availability Service Level Agreeme
 subsection will only apply to a Cloud Service which is configured with redundant connections in the
 same Region (i.e., the Cloud Service must have connections to at least two different FastConnect
 physical devices in the same Region).
-3.6.34 Oracle Cloud Infrastructure - File Storage
+3.6.35 Oracle Cloud Infrastructure - File Storage
 Infrastructure - File Storage SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -2797,7 +2828,7 @@ B89439
 Capacity Per Month
 X X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 79 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 81 of 154
 determined as follows:
 Less than 95.0% 100%
 listed above:
@@ -2809,8 +2840,8 @@ applicable Cloud Service cannot process any NFS request when there are NFS reque
 Manageability Service Level Agreement
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 80 of 150
-3.6.35 Oracle Cloud Infrastructure - Fleet Application Management
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 82 of 154
+3.6.36 Oracle Cloud Infrastructure - Fleet Application Management
 Infrastructure - Fleet Application Management SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -2828,10 +2859,10 @@ Less than 95.0% 100%
 Services listed above:
 • "API Error Rate” means, on a per Region basis, the percentage value corresponding to: (i) the
 status of “5xx" in a five-minute period during a calendar month divided by, (ii) the total number
-3.6.36 Oracle Cloud Infrastructure - Full Stack Disaster Recovery Service
+3.6.37 Oracle Cloud Infrastructure - Full Stack Disaster Recovery Service
 Infrastructure - Full Stack Disaster Recovery Service SKU as indicated below by an “X” in the “Type of
 Service Level Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 81 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 83 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2856,10 +2887,10 @@ Services listed above:
 defined below).
 • “Unavailable” means any time when all the valid invocations of an endpoint of the applicable
 Cloud Service do not successfully respond to console UI Displays or API Calls. This excludes
-3.6.37 Oracle Cloud Infrastructure - Functions
+3.6.38 Oracle Cloud Infrastructure - Functions
 Infrastructure - Functions SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 82 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 84 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -2882,10 +2913,10 @@ failed with an error code of “500” or “503” in a five-minute period duri
 divided by, (ii) the total number of function invocation requests to such Cloud Service in such
 five-minute period. This excludes circumstances resulting directly or indirectly from any
 Common Exclusion.
-3.6.38 Oracle Cloud Infrastructure - Generative AI
+3.6.39 Oracle Cloud Infrastructure - Generative AI
 Infrastructure - Generative AI SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 83 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 85 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY 1 AVAILABILITY 2 MANAGEABILITY PERFORMANCE
@@ -2925,6 +2956,11 @@ B108085 Oracle Cloud Infrastructure
 Generative AI – Large Meta –
 Dedicated – AI Unit Per Hour
 X
+B111882
+Oracle Cloud Infrastructure
+Generative AI – Meta –
+Dedicated - AI Unit Per Hour
+X
 B110517
 Oracle Cloud Infrastructure
 Generative AI – Meta Llama 3.1
@@ -2941,14 +2977,14 @@ Oracle Cloud Infrastructure
 Generative AI – Cohere Rerank
 – Dedicated – Cluster Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 86 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
 B111035
 Oracle Cloud Infrastructure
 Generative AI – Meta Llama 4
 Scout – 10,000 transactions
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 84 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
 B111036
 Oracle Cloud Infrastructure
 Generative AI – Meta Llama 4
@@ -3005,12 +3041,12 @@ B111901
 Oracle Cloud Infrastructure
 Generative AI - xAI - Grok 4
 Fast - Input Tokens greater
-than 128k tokens - 1000000
-Tokens
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 85 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 87 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
+than 128k tokens - 1000000
+Tokens
 B111902
 Oracle Cloud Infrastructure
 Generative AI - xAI - Grok 4
@@ -3061,16 +3097,16 @@ Generative AI - Google - Gemini
 Output less than 200K input
 tokens - 1,000,000 Tokens
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 88 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
 B111850
 Oracle Cloud Infrastructure
 Generative AI - Google - Gemini
 2.5 Pro - Output Tokens - Text
-X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 86 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
 Output greater than 200K input
 tokens - 1,000,000 Tokens
+X
 B111851
 Oracle Cloud Infrastructure
 Generative AI - Google - Gemini
@@ -3121,13 +3157,15 @@ Generative AI - xAI - Grok 3
 Mini - Cached Input Tokens -
 1000000 Tokens
 X
-B111801 Oracle Cloud Infrastructure
-Generative AI - xAI - Grok 3 Fast X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 87 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 89 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
+B111801
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 3 Fast
 - Cached Input Tokens -
 1000000 Tokens
+X
 B111802
 Oracle Cloud Infrastructure
 Generative AI - xAI - Grok 3
@@ -3179,7 +3217,7 @@ Generative AI - xAI - Grok 4.2 -
 Input Tokens greater than 200K
 Tokens - 1000000 Tokens
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 88 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 90 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 B112078
@@ -3237,7 +3275,7 @@ Oracle Cloud Infrastructure
 Generative AI - Rerank 4 Pro -
 1,000 Search Units
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 89 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 91 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 B112424
@@ -3267,14 +3305,91 @@ Generative AI - xAI - Grok Text
 to Speech - 1,000,000
 characters
 X
+B112086
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Input Tokens Short Context -
+1000000 Tokens
+X
+B112087
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Cached Input Tokens Short
+Context - 1000000 Tokens
+X
+B112589
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Output Tokens Short Context -
+1000000 Tokens
+X
+B112590
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Input Tokens Long context -
+1000000 Tokens
+X
+B112591
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Cached Input Tokens Long
+Context - 1000000 Tokens
+X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 92 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+B112592
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6 -
+Output Tokens Long Context -
+1000000 Tokens
+X
+B112593
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Input Tokens Short
+Context - 1000000 Tokens
+X
+B112594
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Cached Input Tokens
+Short Context - 1000000
+Tokens
+X
+B112595
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Output Tokens Short
+Context - 1000000 Tokens
+X
+B112596
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Input Tokens Long
+Context - 1000000 Tokens
+X
+B112597
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Cached Input Tokens
+Long Context - 1000000
+Tokens
+X
+B112598
+Oracle Cloud Infrastructure
+Generative AI - xAI - Grok 4.6
+Priority - Output Tokens Long
+Context - 1000000 Tokens
+X
 Availability 1 Service Level Agreement
 With respect to a Cloud Service listed above for which the Availability 1 Service Level Agreement under
 meet its Service Commitment for the Availability 1 Service Level Agreement under this subsection, You
 Percentage determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 93 of 154
 Less than 95.0% 100%
 The following terms apply to the Availability 1 Service Level Agreement for the applicable Cloud
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 90 of 150
 Availability 2 Service Level Agreement
 With respect to a Cloud Service listed above for which the Availability 2 Service Level Agreement under
 meet its Service Commitment for the Availability 2 Service Level Agreement under this subsection, You
@@ -3286,7 +3401,8 @@ code of “5xx", excluding error code of "500" for "Dedicated AI Cluster Creatio
 five-minute period during a calendar month divided by, (ii) the total number of API requests to
 such Cloud Service in such five-minute period. This excludes circumstances resulting directly or
 indirectly from any Common Exclusion.
-3.6.39 Oracle Cloud Infrastructure - Generative AI Agents
+3.6.40 Oracle Cloud Infrastructure - Generative AI Agents
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 94 of 154
 Infrastructure - Generative AI Agents SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3304,12 +3420,12 @@ Oracle Cloud Infrastructure Generative
 AI Agents – Data Ingestion – 10,000
 Transactions
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 91 of 150
 Availability Service Level Agreement
 Percentage determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.40 Oracle Cloud Infrastructure - GoldenGate
+3.6.41 Oracle Cloud Infrastructure - GoldenGate
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 95 of 154
 Infrastructure - GoldenGate SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3321,7 +3437,6 @@ B92993 Oracle Cloud Infrastructure - GoldenGate
 - BYOL - OCPU Per Hour X
 Availability Service Level Agreement
 available with a Monthly Uptime Percentage (as defined below) of at least 99.95%, during any calendar
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 92 of 150
 Percentage determined as follows:
 Less than 95.0% 100%
 listed above:
@@ -3331,9 +3446,10 @@ minutes during the calendar month in which the applicable Cloud Service was in t
 • “Unavailable” means a minute period when (i) no GoldenGate Connection is or can be
 established and (ii) all continuous attempts (at least five) to establish a GoldenGate Connection
 fail. This excludes circumstances resulting directly or indirectly from any Common Exclusion.
-3.6.41 Oracle Cloud Infrastructure - Health Checks
+3.6.42 Oracle Cloud Infrastructure - Health Checks
 Infrastructure - Health Checks SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 96 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -3346,7 +3462,6 @@ Month
 X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 93 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
@@ -3354,9 +3469,10 @@ defined below).
 the target service including hosted websites, API endpoints, or externally facing load balancers
 reports results. This excludes circumstances resulting directly or indirectly from any Common
 Exclusion.
-3.6.42 Oracle Cloud Infrastructure - Infrequent Access Storage
+3.6.43 Oracle Cloud Infrastructure - Infrequent Access Storage
 Infrastructure – Infrequent Access Storage SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 97 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -3376,9 +3492,8 @@ determined as follows:
 Less than 99.0% but equal to or greater than 98.0% 10%
 Less than 98.0% but equal to or greater than 95.0% 25%
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 94 of 150
 listed above:
-3.6.43 Oracle Cloud Infrastructure - Key Management
+3.6.44 Oracle Cloud Infrastructure - Key Management
 Infrastructure - Key Management SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3389,6 +3504,10 @@ Oracle Cloud Infrastructure - Key
 Management - Virtual Private Vault Per
 Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 98 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B92092
 Oracle Cloud Infrastructure - Key
 Management- Vault - Key Version per
@@ -3405,14 +3524,14 @@ Partitions) - HSM Partition Per Hour
 X
 Availability Service Level Agreement
 available with a Monthly Uptime Percentage (as defined below) of at least 99.99% during any
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 95 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 Cloud Service do not successfully perform any encrypt, decrypt or generate data encryption key
 operations. This excludes circumstances resulting directly or indirectly from any Common
 Exclusion.
-3.6.44 Oracle Cloud Infrastructure - Load Balancer
+3.6.45 Oracle Cloud Infrastructure - Load Balancer
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 99 of 154
 Infrastructure - Load Balancer SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3433,16 +3552,16 @@ Balancer Base - Load Balancer Hour X
 B93031 Oracle Cloud Infrastructure - Load
 Balancer Bandwidth - Mbps Per Hour X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 96 of 150
 determined as follows:
 Less than 99.99% but equal to or greater than 99.9% 10%
 Less than 99.9% but equal to or greater than 95.0% 25%
 Less than 95.0% 100%
 listed above:
 defined below).
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 100 of 154
 • “Unavailable” means any time when the applicable Cloud Service has at least one working
 backend server, and all attempts to connect to such Cloud Service are unsuccessful. This
-3.6.45 Oracle Cloud Infrastructure - Logging
+3.6.46 Oracle Cloud Infrastructure - Logging
 Infrastructure - Logging SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3456,13 +3575,13 @@ X
 Availability Service Level Agreement
 it Service Commitment for the Availability Service Level Agreement under this subsection, You will be
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 97 of 150
 Less than 95.0% 100%
 listed above:
 indirectly from any Common Exclusion.
 • “Monthly Uptime Percentage” is calculated on a per Region basis by subtracting from 100%, the
 average of the API Error Rate for each five-minute period during the applicable calendar month.
-3.6.46 Oracle Cloud Infrastructure - Logging Analytics
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 101 of 154
+3.6.47 Oracle Cloud Infrastructure - Logging Analytics
 Infrastructure - Logging Analytics SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3478,14 +3597,14 @@ Analytics Storage Unit Per Month
 X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 98 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 • “Unavailable” means, on a per Region basis, any time when the applicable Cloud Service has no
 external connectivity. This excludes circumstances resulting directly or indirectly from any
 Common Exclusion.
-3.6.47 Oracle Cloud Infrastructure - Monitoring
+3.6.48 Oracle Cloud Infrastructure - Monitoring
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 102 of 154
 Infrastructure - Monitoring SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3499,7 +3618,6 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 99 of 150
 • "Alarm Error Rate" means, the percentage value corresponding to: (i) the total number of alarms
 in the applicable Cloud Service that failed to correctly execute in a five-minute period during a
 calendar month divided by, (ii) the total number of alarms processed by such Cloud Service in
@@ -3510,7 +3628,8 @@ indirectly from any Common Exclusion.
 amount equal to (i) the average of the API Error Rate in each five-minute period during the
 applicable calendar month and then subtracting from such result (ii) the average of the Alarm
 Error Rate in each five-minute period during such calendar month.
-3.6.48 Oracle Cloud Infrastructure - MySQL Database
+3.6.49 Oracle Cloud Infrastructure - MySQL Database
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 103 of 154
 Infrastructure - MySQL Database SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3546,10 +3665,6 @@ Oracle Cloud Infrastructure - MySQL
 Database - Standard - E3 - Memory -
 Gigabyte Per Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 100 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B92023
 Oracle Cloud Infrastructure - MySQL
 HeatWave - Standard - E3 - Node Per
@@ -3574,6 +3689,10 @@ B96626 Oracle Cloud Infrastructure - HeatWave
 - HeatWave Capacity Per Hour X
 B92756 MySQL Analytics - Bare Metal Standard
 - E2 – Node per Hour X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 104 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B95435 MySQL Database - Standard - AMD E4 -
 Compute - OCPU Per Hour X X
 B95436 MySQL Database - Standard - AMD E4 -
@@ -3592,10 +3711,6 @@ B95442 MySQL Database - Optimized - Intel X9
 - Memory - Gigabyte Per Hour X X
 B108030 MySQL Database - ECPU - ECPU Per
 Hour X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 101 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B109169
 MySQL Database - Outbound Data
 Transfer - Inter OCI Region - Gigabyte
@@ -3603,6 +3718,7 @@ Outbound Data Transfer Per Month
 X
 Availability Service Level Agreement for Oracle Cloud Infrastructure- MySQL Database with the
 High Availability option enabled
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 105 of 154
 Less than 95.0% 100%
 Domain Service Credit Percentage
 Less than 95.0% 100%
@@ -3611,7 +3727,6 @@ Availability:
 was Unavailable (as defined below).
 Availability Service Level Agreement for Oracle Cloud Infrastructure- MySQL Database without
 the High Availability option enabled
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 102 of 150
 database system has only one or two instances provisioned) (each a “Cloud Service without High
 Availability” and collectively the "Cloud Services without High Availability"), Oracle will use
 commercially reasonable efforts to have each such Service available with a Monthly Uptime
@@ -3621,12 +3736,12 @@ Service Commitment for the Availability Service Level Agreement under this subse
 determined as follows:
 Less than 95.0% 100%
 Availability:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 106 of 154
 Manageability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 103 of 150
-3.6.49 Oracle Cloud Infrastructure - Network Firewall
+3.6.50 Oracle Cloud Infrastructure - Network Firewall
 Infrastructure - Network Firewall SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3636,11 +3751,13 @@ B95403 Oracle Cloud Infrastructure -
 Network Firewall Instance - Instance Per
 Hour
 X
-B95404
-Oracle Cloud Infrastructure -
+B95404 Oracle Cloud Infrastructure - X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 107 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 Network Firewall Data Processing -
 Gigabyte of Data Processed
-X
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
@@ -3649,11 +3766,10 @@ listed above:
 defined below).
 • “Unavailable” means a minute period when Your instance of the applicable Cloud Service fails
 to process all the packets routed to it. If no packets are routed to Your instance of the applicable
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 104 of 150
 Cloud Service during the minute, then such Cloud Service is considered available during the
 minute. This excludes circumstances resulting directly or indirectly from any Common
 Exclusion.
-3.6.50 Oracle Cloud Infrastructure - Notifications
+3.6.51 Oracle Cloud Infrastructure - Notifications
 Infrastructure - Notifications SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3664,6 +3780,10 @@ Oracle Cloud Infrastructure -
 Notifications - HTTPS Delivery - Million
 Delivery Operations
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 108 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B90941
 Oracle Cloud Infrastructure -
 Notifications - Email Delivery - 1,000
@@ -3691,18 +3811,18 @@ Country Zone 5 - 1 SMS Message Sent
 X
 Availability Service Level Agreement
 Percentage determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 105 of 150
 Less than 95.0% 100%
 listed above:
 total number of requests made to the applicable Cloud Service that returns an error code of
 “500” or “503” in a five-minute period during a calendar month divided by, (ii) the total number
 of requests to such Cloud Service in such five-minute period. This excludes circumstances
 resulting directly or indirectly from any Common Exclusion and any of the following:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 109 of 154
 (i) Messages that were published to a topic but failed to be delivered,
 (ii) Delivery to third-party endpoints such as PagerDuty & Slack,
 (iii) Delivery to first-party endpoints such as Email and Functions, and/or
 (iv) Delivery to SMS Endpoints.
-3.6.51 Oracle Cloud Infrastructure - Object Storage
+3.6.52 Oracle Cloud Infrastructure - Object Storage
 Infrastructure - Object Storage SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3733,12 +3853,12 @@ Oracle Cloud Infrastructure - Archive
 Storage - Gigabyte Storage Capacity per
 Month
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 106 of 150
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 110 of 154
 Less than 95.0% 100%
 listed above:
-3.6.52 Oracle Cloud Infrastructure - Ops Insights
+3.6.53 Oracle Cloud Infrastructure - Ops Insights
 Infrastructure – Ops Insights SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3758,10 +3878,6 @@ B93706 Oracle Cloud Infrastructure Ops
 Insights for Warehouse -
 Instance - OCPU Per Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 107 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B92889
 Oracle Cloud Infrastructure Ops
 Insights for Cloud Databases-
@@ -3778,12 +3894,14 @@ Oracle Cloud Infrastructure Ops
 Insights for Oracle Autonomous
 Databases - Full - ECPU Per Hour
 X
-B109358
-Oracle Cloud Infrastructure -
-MySQL Database - Oracle Ops
+B109358 Oracle Cloud Infrastructure -
+MySQL Database - Oracle Ops X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 111 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 Insights for MySQL HeatWave -
 OCPU Per Hour
-X
 B109359
 Oracle Cloud Infrastructure -
 MySQL Database - Oracle Ops
@@ -3798,13 +3916,13 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 108 of 150
 Error Rate (as defined below) for each five-minute period during the applicable calendar month.
 • "API Error Rate" means, the percentage value corresponding to: (i) the total number of internal
 indirectly from any Common Exclusion.
-3.6.53 Oracle Cloud Infrastructure - Outbound Data Transfer
+3.6.54 Oracle Cloud Infrastructure - Outbound Data Transfer
 Infrastructure - Outbound Data Transfer SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 112 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -3830,7 +3948,6 @@ X
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 109 of 150
 listed above:
 • “Internet Gateway” means the virtual router You attach to Your Virtual Cloud Network (VCN) to
 enable direct connectivity to the Internet.
@@ -3841,7 +3958,8 @@ minute when You are not able to pass traffic through the Internet Gateway of the
 Cloud Service to the Internet. This excludes (i) any minute periods where there is partial or
 intermittent connectivity to the internet, or (ii) circumstances resulting directly or indirectly from
 any Common Exclusion.
-3.6.54 Oracle Cloud Infrastructure - Process Automation
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 113 of 154
+3.6.55 Oracle Cloud Infrastructure - Process Automation
 Infrastructure - Process Automation SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3861,13 +3979,13 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 110 of 150
 defined below).
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 114 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.55 Oracle Cloud Infrastructure- Search Service with OpenSearch
+3.6.56 Oracle Cloud Infrastructure- Search Service with OpenSearch
 Infrastructure Search Service with OpenSearch SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -3876,12 +3994,12 @@ AVAILABILITY MANAGEABILITY PERFORMANCE
 B93709 Oracle Cloud Infrastructure Search
 Service with OpenSearch HA X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 111 of 150
 determined as follows:
 Less than 95.0% 100%
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 115 of 154
 listed above:
 defined below).
-3.6.56 Oracle Cloud Infrastructure - Secure Desktops
+3.6.57 Oracle Cloud Infrastructure - Secure Desktops
 Infrastructure - Secure Desktops SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -3891,20 +4009,19 @@ B95518 Oracle Cloud Infrastructure – Secure
 Desktops – Desktop per Month X X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 112 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 • "Unavailable” means, on a per Region basis, any time when the applicable Cloud Service has no
 Common Exclusion.
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 116 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.57 Oracle Cloud Infrastructure - Speech
+3.6.58 Oracle Cloud Infrastructure - Speech
 Infrastructure - Speech SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 113 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -3912,9 +4029,10 @@ B94896 Oracle Cloud Infrastructure - Speech -
 Transcription Hour X
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 117 of 154
 Less than 95.0% 100%
 listed above:
-3.6.58 Oracle Cloud Infrastructure - Streaming
+3.6.59 Oracle Cloud Infrastructure - Streaming
 Infrastructure - Streaming SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3927,10 +4045,10 @@ Transferred
 X
 B90939 Oracle Cloud Infrastructure - Streaming -
 Storage - Gigabytes Per Hour X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 114 of 150
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 118 of 154
 listed above:
 Percentage (as defined below) in the calendar month for the applicable Cloud Service.
 • “Unavailable Percentage” means, on a per Region basis, the percentage value corresponding to:
@@ -3938,7 +4056,7 @@ Percentage (as defined below) in the calendar month for the applicable Cloud Ser
 there is an attempt to send or receive a message or to perform other operations on the
 applicable Cloud Service and (b) there is a success code delivered for that action divided by (ii)
 the number of minutes in such calendar month. This excludes circumstances resulting directly
-3.6.59 Oracle Cloud Infrastructure - Vision
+3.6.60 Oracle Cloud Infrastructure - Vision
 Infrastructure - Vision SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -3956,10 +4074,6 @@ B94976 Oracle Cloud Infrastructure - Vision-
 Document Extraction - 1,000
 Transactions
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 115 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B110617 Oracle Cloud Infrastructure - Vision -
 Stored Video Analysis - Processed Video
 Minute
@@ -3970,12 +4084,12 @@ Minute
 X
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 119 of 154
 Less than 95.0% 100%
 listed above:
-3.6.60 Oracle Cloud Infrastructure - Vulnerability Detection and Patching
+3.6.61 Oracle Cloud Infrastructure - Vulnerability Detection and Patching
 Infrastructure - Vulnerability Detection and Patching SKU as indicated below by an “X” in the “Type of
 Service Level Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 116 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -3989,13 +4103,13 @@ Vulnerability Detection and Patching
 BYOL - Host CPU Core Per Hour X
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 120 of 154
 Less than 95.0% 100%
 listed above:
 indirectly from any Common Exclusion.
-3.6.61 Oracle Cloud Infrastructure - Web Application Firewall
+3.6.62 Oracle Cloud Infrastructure - Web Application Firewall
 Infrastructure - Web Application Firewall SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 117 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -4026,14 +4140,14 @@ Application Firewall- Requests-
 Month
 X
 Availability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 121 of 154
 determined as follows:
 Less than 95.0% 100%
 listed above:
 defined below).
 • “Unavailable” means, on a per Region basis, any time when the applicable Cloud Service is not
 able to receive HTTP/S requests according to the configured Web Application Firewall settings.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 118 of 150
-3.6.62 Oracle Cloud Infrastructure - WebLogic
+3.6.63 Oracle Cloud Infrastructure - WebLogic
 Infrastructure - WebLogic SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -4048,12 +4162,12 @@ B91347 Oracle WebLogic Suite for Oracle Cloud
 Infrastructure - OCPU Per Hour X
 Manageability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 122 of 154
 Less than 95.0% 100%
 Services listed above:
 defined below).
 indirectly from any Common Exclusion.
-3.6.63 Oracle Cloud Infrastructure Streaming With Apache Kafka
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 119 of 150
+3.6.64 Oracle Cloud Infrastructure Streaming With Apache Kafka
 Infrastructure Streaming with Apache Kafka SKU as indicated below by an “X” in the “Type of Service
 Level Agreement” column:
 SKU CLOUD SERVICE
@@ -4065,11 +4179,11 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 123 of 154
 • "High Availability Cluster” is a Kafka cluster with at least three or more brokers provisioned.
 subsection will apply only to a Cloud Service with a High Availability Cluster.
-3.6.64 Oracle Cloud VMware Solution
+3.6.65 Oracle Cloud VMware Solution
 VMware Solution SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 120 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -4110,6 +4224,10 @@ Oracle Cloud VMware Solution -
 BM.DenseIO.E4.64 - 3 year Commit -
 OCPU Per Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 124 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B95411 Oracle Cloud VMware Solution -
 BM.DenseIO.E4.32 - Hourly Commit -
 OCPU Per Hour
@@ -4128,10 +4246,6 @@ Oracle Cloud VMware Solution -
 BM.DenseIO.E4.32 - 3 year Commit -
 OCPU Per Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 121 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B95415
 Oracle Cloud VMware Solution -
 BM.DenseIO.E4.128 - Hourly Commit -
@@ -4169,6 +4283,10 @@ B97105 Oracle Cloud VMware Solution - Base -
 BM.Standard3.16 - Hourly Commit -
 Node Per Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 125 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B97106 Oracle Cloud VMware Solution - Base -
 BM.Standard3.16 - 1 Year Commit -
 Node Per Hour
@@ -4186,10 +4304,6 @@ Oracle Cloud VMware Solution - Base -
 BM.Standard.E4.32 - 1 Year Commit -
 Node Per Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 122 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B97110
 Oracle Cloud VMware Solution - Base -
 BM.Standard.E4.32 - 3 Year Commit -
@@ -4225,6 +4339,10 @@ B110680 Oracle Cloud VMware Solution -
 BM.DenseIO.E5.32 - Hourly Commit -
 Node Per Hour
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 126 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B110681 Oracle Cloud VMware Solution -
 BM.DenseIO.E5.32 - Monthly Commit -
 Node Per Hour
@@ -4244,10 +4362,6 @@ Oracle Cloud VMware Solution -
 Expansion - Monthly Commit - OCPU
 Per Hour
 X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 123 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B108806
 Oracle Cloud VMware Solution -
 BM.GPU.A10.64 - Monthly Commit -
@@ -4266,16 +4380,16 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 Domain Service Credit Percentage
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 127 of 154
 Less than 95.0% 100%
 listed above:
 external connectivity with:
 a. For Regions with more than one Availability Domains, all instances of such Cloud Service
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 124 of 150
 b. For Regions with one Availability Domain, all instances of such Cloud Service that are
 deployed in more than one Fault Domain.
 subsection will not apply to any Cloud Service which is configured with less than three ESXi hosts (as
 described in the Service Descriptions for such Cloud Service).
-3.6.65 Oracle Content Management
+3.6.66 Oracle Content Management
 Content Management SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -4304,6 +4418,10 @@ B95422 Oracle Content Management - Video
 Creation Platform - Video Pack (500
 Videos - 500 GB) Per Month
 X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 128 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B96502
 Oracle Content Management -
 Advanced Hosting - Instance Per
@@ -4313,15 +4431,15 @@ B97408 Oracle Content Management - Sales
 Accelerator Suite - User Per Month X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 125 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 the (i) Oracle Content Management web user interface, or (ii) Oracle Content Management REST
 APIs. This excludes circumstances resulting directly or indirectly from any Common Exclusion.
-3.6.66 Oracle Database Autonomous Recovery Service
+3.6.67 Oracle Database Autonomous Recovery Service
 Database Autonomous Recovery Service SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 129 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -4338,7 +4456,6 @@ Autonomous Recovery Service - On
 Premises - Virtualized GB Per Month
 X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 126 of 150
 determined as follows:
 Less than 95.0% 100%
 listed above:
@@ -4346,9 +4463,10 @@ defined below).
 • “Unavailable” means, on a per Region basis, any time when a problem prevents external
 connectivity to the applicable Cloud Service. This excludes circumstances resulting directly or
 indirectly from any Common Exclusion.
-3.6.67 Oracle Database Backup Cloud
+3.6.68 Oracle Database Backup Cloud
 Database Backup Cloud SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 130 of 154
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -4364,12 +4482,11 @@ Month
 X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 127 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 indirectly from any Common Exclusion.
-3.6.68 Oracle Digital Assistant
+3.6.69 Oracle Digital Assistant
 Digital Assistant Cloud SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -4378,6 +4495,7 @@ AVAILABILITY MANAGEABILITY PERFORMANCE
 B90260 Oracle Digital Assistant Cloud Service -
 Request X
 Availability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 131 of 154
 (the “Services Commitment”): (i) for the Production Shape of the Cloud Services, at least 99.9%, and (ii)
 for the Development Shape of the Cloud Services, at least 99.5%. In the event an applicable Cloud
 Service listed above does not meet its Service Commitment for the Availability Service Level Agreement
@@ -4386,14 +4504,13 @@ as production or development shape during its provisioning:
 Monthly Uptime Percentage for Production Shape Service Credit Percentage
 Less than 95.0% 100%
 Monthly Uptime Percentage for Development Shape Service Credit Percentage
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 128 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 external connectivity to any of Your instances of such Cloud Service or no HTTP operations of
 such Cloud Service resulted in a success code. This excludes circumstances resulting directly or
 indirectly from any Common Exclusion.
-3.6.69 Oracle Integration Cloud Service
+3.6.70 Oracle Integration Cloud Service
 Integration Cloud Service SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
 SKU CLOUD SERVICE
@@ -4403,6 +4520,10 @@ B89639 Oracle Integration Cloud Service -
 Standard - 5K Messages Per Hour X X
 B89640 Oracle Integration Cloud Service -
 Enterprise - 5K Messages Per Hour X X
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 132 of 154
+SKU CLOUD SERVICE
+TYPE OF SERVICE LEVEL AGREEMENT
+AVAILABILITY MANAGEABILITY PERFORMANCE
 B89643
 Oracle Integration Cloud Service -
 Standard - BYOL - 20K Messages Per
@@ -4415,26 +4536,26 @@ Hour
 X X
 Availability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 129 of 150
 Less than 95.0% 100%
 listed above:
 defined below).
 Manageability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 133 of 154
 Less than 95.0% 100%
 Services listed above:
-3.6.70 Oracle Kubernetes Engine
+3.6.71 Oracle Kubernetes Engine
 Kubernetes Engine SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
 B96545 Oracle Kubernetes Engine - Enhanced
 Cluster- Cluster Per Hour X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 130 of 150
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 Domain Service Credit Percentage
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 134 of 154
 Less than 95.0% 100%
 listed above:
 • “Monthly Uptime Percentage” is calculated by subtracting from 100%, the percentage of five-
@@ -4444,7 +4565,7 @@ Unavailable.
 Service results in the cluster's Kubernetes API calls to return a status of “Internal Service Error”
 or “Service Unavailable”. This excludes circumstances resulting directly or indirectly from any
 Common Exclusion.
-3.6.71 Oracle Kubernetes Engine - Virtual Node
+3.6.72 Oracle Kubernetes Engine - Virtual Node
 Kubernetes Engine - Virtual Node SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -4453,11 +4574,11 @@ AVAILABILITY MANAGEABILITY PERFORMANCE
 B96109 Oracle Kubernetes Engine - Virtual Node
 Per Hour X
 Availability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 131 of 150
 determined as follows:
 Less than 95.0%
 100%
 Domain Service Credit Percentage
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 135 of 154
 Less than 95.0% 100%
 listed above:
 Exclusion, and means any five-minute period during which:
@@ -4467,10 +4588,9 @@ Cloud Service in all such Availability Domains are not in an "Active" state; or
 Service in all Fault Domains are not in an "Active" state.
 subsection will not apply to any Cloud Service which is configured with less than three virtual nodes
 (as described in the Service Descriptions for such Cloud Service).
-3.6.72 Oracle Mobile Hub Cloud Service
+3.6.73 Oracle Mobile Hub Cloud Service
 Mobile Hub Cloud Service SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 132 of 150
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
 AVAILABILITY MANAGEABILITY PERFORMANCE
@@ -4480,8 +4600,9 @@ Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 136 of 154
 defined below).
-3.6.73 Oracle NoSQL Database Cloud Service
+3.6.74 Oracle NoSQL Database Cloud Service
 NoSQL Database Cloud Service SKU as indicated below by an “X” in the “Type of Service Level
 Agreement” column:
 SKU CLOUD SERVICE
@@ -4491,10 +4612,6 @@ B89737 Oracle NoSQL Database Cloud Service -
 Write - Write Unit Per Month X X
 B89738 Oracle NoSQL Database Cloud Service -
 Read - Read Unit Per Month X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 133 of 150
-SKU CLOUD SERVICE
-TYPE OF SERVICE LEVEL AGREEMENT
-AVAILABILITY MANAGEABILITY PERFORMANCE
 B89739
 Oracle NoSQL Database Cloud Service -
 Storage - Gigabyte Storage Capacity Per
@@ -4514,6 +4631,7 @@ Replicated Write - Write Unit Per Month X X
 Availability Service Level Agreement
 available with a Monthly Uptime Percentage (as defined below) of at least 99.995% during any calendar
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 137 of 154
 99.0% 10%
 Less than 99.0% but equal to or greater than
 95.0% 25%
@@ -4522,7 +4640,6 @@ listed above:
 defined below).
 Common Exclusion.
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 134 of 150
 determined as follows:
 Less than 99.995% but equal to or greater than 99.0% 10%
 Less than 95.0% 100%
@@ -4532,7 +4649,8 @@ number of internal server errors returned by the applicable Cloud Service with a
 “Internal Service Error” or “Service Unavailable” in a five-minute period during a calendar month
 divided by, (ii) the total number of Control Plane API requests made to such Cloud Service in
 Common Exclusion.
-3.6.74 Oracle SOA Suite Cloud Service
+3.6.75 Oracle SOA Suite Cloud Service
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 138 of 154
 The following table indicates which types of Service Level Agreements are applicable to an Oracle SOA
 Suite Cloud SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
@@ -4551,21 +4669,20 @@ Oracle SOA Suite for Oracle Cloud
 Infrastructure - with B2B Adapter for EDI
 - OCPU per Hour
 X X
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 135 of 150
 Availability Service Level Agreement
 determined as follows:
 Less than 95.0% 100%
 listed above:
 defined below).
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 139 of 154
 determined as follows:
 Less than 95.0% 100%
 The following terms apply to the Manageability Service Level Agreement for the Cloud Services listed
 above:
 defined below).
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 136 of 150
 indirectly from any Common Exclusion.
-3.6.75 Oracle Tuxedo for Oracle Cloud Infrastructure
+3.6.76 Oracle Tuxedo for Oracle Cloud Infrastructure
 Tuxedo SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
 TYPE OF SERVICE LEVEL AGREEMENT
@@ -4588,13 +4705,13 @@ Modernization Runtimes for Oracle
 Cloud Infrastructure - OCPU Per Hour
 X
 Manageability Service Level Agreement
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 140 of 154
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
 defined below).
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 137 of 150
 indirectly from any Common Exclusion.
-3.6.76 Oracle Visual Builder
+3.6.77 Oracle Visual Builder
 The following table indicates which types of Service Level Agreements are applicable to an Oracle Visual
 Builder SKU as indicated below by an “X” in the “Type of Service Level Agreement” column:
 SKU CLOUD SERVICE
@@ -4609,15 +4726,16 @@ Month
 X X
 Availability Service Level Agreement
 determined as follows:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 141 of 154
 Less than 95.0% 100%
 listed above:
 defined below).
 Manageability Service Level Agreement
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 138 of 150
 determined as follows:
 Less than 95.0% 100%
 Services listed above:
-3.6.77 Oracle ZFS Storage - High Availability
+3.6.78 Oracle ZFS Storage - High Availability
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 142 of 154
 The following table indicates which types of Service Level Agreements are applicable to an Oracle ZFS
 Storage - High Availability SKU as indicated below by an “X” in the “Type of Service Level Agreement”
 column:
@@ -4628,7 +4746,6 @@ B95410 Oracle ZFS Storage - High Availability
 - Instance Per Hour X
 Manageability Service Level Agreement
 determined as follows:
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 139 of 150
 Less than 95.0% 100%
 Services listed above:
 • “Browser UI” means the interface available to You in supported internet browsers that allows
@@ -4643,6 +4760,7 @@ The scheduled maintenance periods for the Oracle PaaS and IaaS Public Cloud Serv
 documented on My Oracle Support in Knowledge Article 1681146.1:
 https://support.oracle.com/epmos/faces/DocumentDisplay?id=1681146.1.
 4.1 Service Change Notification
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 143 of 154
 For clarity, with respect to orders of Oracle Universal Credits for PaaS and IaaS or orders under the
 Oracle Funded Allocation Model, the notification requirement under section 4.1.4 of the Oracle Cloud
 Hosting and Delivery Policies, applies only to Cloud Services that You have actually deployed using
@@ -4662,7 +4780,6 @@ indicated on the Identity Domain DR Region Pair List (the “ID Primary Region�
 such Identity Domain will be replicated to its designated paired disaster recovery region (the “ID
 Disaster Recovery Paired Region”). Other than with respect to the DR for Identity Domains described
 in this sub-section, You remain solely responsible for implementing disaster recovery and back-up
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 140 of 150
 solutions with respect to Your Oracle PaaS and IaaS Public Cloud Services, including with respect to
 any Identity Domain that You deploy in regions not listed on the Identity Domain DR Region Pair List.
 Upon Oracle’s declaration of a disaster in an ID Primary Region, Oracle will commence its DR plan to
@@ -4685,6 +4802,7 @@ Support Policy. However, if You use more than just the Free Tier of a multi-tier
 and commence paying for that applicable Cloud Service, You will receive the benefit of the entire Oracle
 Cloud Hosting and Delivery Policies for all of Your use of that applicable Cloud Service during such a
 paid subscription period.
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 144 of 154
 Oracle in its sole discretion may remove or modify an Always Free Cloud Service from the Always Free
 category (a “Removed Service”) at any time. With respect to the foregoing, if You are at the time of the
 removal using the Removed Service, then You may switch to a subscription fee-based version of the
@@ -4702,7 +4820,6 @@ The following terms apply to this Section 8:
 • “DDoS” is a distributed denial of service attack.
 • “DDoS Mitigation Specialist” is a member of our Cloud Customer Support team who provides
 support for Layer 7 DDoS attacks.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 141 of 150
 • “Excess Consumption” refers to the increased amount of Impacted Services that You consume
 during a WAF Period due to the automatic scaling of such Impacted Services in response to a
 Layer 7 DDoS attack on WAF.
@@ -4726,6 +4843,7 @@ have paid Oracle for Measured Excess Consumption during a WAF Period.
 If during a WAF Period a Layer 7 DDoS attack on Your deployed WAF Services results in You incurring
 Excess Consumption, then You may seek to receive WAF Service Credits in accordance with the
 following criteria:
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 145 of 154
 • During the DDoS Layer 7 attack, You must submit a Service Request into the Support Portal,
 selecting the WAF Services and the applicable DDoS component, to engage a DDoS Mitigation
 Specialist.
@@ -4747,7 +4865,6 @@ information on Your implementation of recommendations received from the DDoS
 Mitigation Specialist; and
 o relevant documentation/logs (such as audit console and OS events/logs) that can
 confirm that the applicable Impacted Service(s) experienced Excess Consumption.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 142 of 150
 • After reviewing Your claim, if the Service Credit Requests Validation Team determines that the
 incident was a valid Layer 7 DDoS attack and that the underlying Impacted Services
 automatically scaled to absorb the attack, Oracle will provide You with WAF Service Credits for
@@ -4773,6 +4890,7 @@ Credits balance in the calendar month following Oracle’s approval of Your clai
 must use those WAF Service Credits within the annual credit period (as defined in Your
 order for such Cloud Services) in which the WAF Service Credits are granted. Any unused
 WAF Service Credits will expire at the end of the annual credit period in which the WAF
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 146 of 154
 Service Credits are granted and You may not carry those WAF Service Credits over to
 another annual credit period.
 o With respect to WAF Cloud Services purchased under a Funded Allocation Model, any
@@ -4795,7 +4913,6 @@ order for such Oracle Universal Credits whose Services Period covers the relevan
 monthly period. For the avoidance of doubt, WAF Service Credits will only be granted
 under this section (Surge Protector For Web Application Firewall (WAF)) for WAF Services
 that You have actually deployed during the applicable Services Period pursuant to the
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 143 of 150
 application of Oracle Monthly or Annual Universal Credits for PaaS and IaaS or pursuant
 to an Oracle Pay as You Go or Funded Allocation Model.
 o Other than as stated above, WAF Service Credits may not be used to acquire any Oracle
@@ -4819,10 +4936,11 @@ to this document applies only to purchases of:
 • Oracle European Union Sovereign Operations purchased with Oracle Cloud@Customer
 offerings (i.e., Exadata Database-Cloud@Customer (ExaDB-C@C)) and delivered from an
 EUSC data center region.
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 147 of 154
 10 Oracle UK Sovereign Cloud
 Appendix B (Oracle UK Sovereign Cloud - Additional Terms) to this document applies only to
 purchases of the Oracle PaaS and IaaS Cloud Services in the Oracle UK Sovereign Cloud.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 144 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 148 of 154
 Additional Terms ("Sovereign Terms")
 As specifically noted below, these Sovereign Terms apply only to purchases of:
 • Oracle European Union Sovereign Cloud ("EUSC") and / or
@@ -4855,7 +4973,7 @@ data center region(s) is restricted to those personnel who are residents of the 
 1.6 You acknowledge that where Your Cloud at Customer machine is located outside the European
 Union, or You connect to on premises equipment or a cloud service operated in the EUSC data center
 region(s) with another Oracle Cloud Service that is not operated in the same EUSC data center
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 145 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 149 of 154
 region(s) (e.g., using an Oracle commercial public cloud region for disaster recovery for a Cloud at
 Customer offering with EUSO), Your Content may not remain within the EU and these Sovereign
 Terms shall not apply.
@@ -4891,7 +5009,7 @@ agreement referenced therein, Oracle may compile or generate tenant billing, tel
 data from the Services to confirm compliance with licensing and other terms of use and to monitor
 and test system use and performance (“Integral Operations”). In accordance with the Oracle
 agreement referenced in Your order for the Services, data collected for Integral Operations (i) may be
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 146 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 150 of 154
 transferred from the EUSC region(s) for the sole purposes described in this paragraph and in
 accordance with the Oracle agreement referenced in Your order for the Services; (ii) will be protected
 in accordance with the Oracle agreement referenced in Your order for the Services; and (iii) will be
@@ -4929,7 +5047,7 @@ continuity of critical workloads where feasible.
 4.3 Transition and Exit Support
 If a Discontinuation Event cannot be lawfully avoided, Oracle shall, as permitted by applicable law,
 provide You with a reasonable transition period and commercially reasonable assistance to enable an
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 147 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 151 of 154
 orderly exit or migration of workloads, including making Your Content available, via secure protocols
 and in a structured, machine-readable format, or keeping the service system accessible, for the
 purpose of data retrieval by You, and providing available data retrieval functionality, in each case
@@ -4944,7 +5062,7 @@ in the Services; access to or use of the Services to commit an illegal act; viol
 Use Policy; or compliance with applicable export control and economic sanctions laws and
 regulations. This clause reflects a contractual commitment to good-faith governance, proportionality,
 and continuity and shall be interpreted accordingly.
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 148 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 152 of 154
 Appendix B - Oracle UK Sovereign Cloud - Additional Terms ("UK Sovereign
 Cloud Terms")
 As specifically noted below, these UK Sovereign Cloud Terms apply only to purchases of the Oracle
@@ -4971,7 +5089,7 @@ center region(s) with another Oracle Cloud Service that is not operated in the s
 region(s), Your Content may not remain within the United Kingdom and these UK Sovereign Cloud
 Terms shall not apply.
 2. Government Access Requests
-Oracle PaaS and IaaS Public Cloud Services Pillar Document | September 2026 Page 149 of 150
+Oracle PaaS and IaaS Public Cloud Services Pillar Document | October 2026 Page 153 of 154
 2.3 Oracle’s report on law enforcement access requests can be found at
 https://www.oracle.com/legal/law-enforcement-requests-report/ or such other address as Oracle
 may designate from time to time.
@@ -5003,4 +5121,4 @@ Intel and Intel Xeon are trademarks or registered trademarks of Intel Corporatio
 SPARC International, Inc. AMD, Opteron, the AMD logo, and the AMD Opteron logo are trademarks or registered trademarks of Advanced Micro Devices. UNIX is a registered
 trademark of The Open Group.
 Oracle PaaS and IaaS Public Cloud Services Pillar Document
-September 2026
+October 2026
