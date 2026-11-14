@@ -45,7 +45,7 @@ note = "Dedicated Deployment 部署步骤页（.md validation: 2026-04-16）。�
 url = "https://www.scaleway.com/en/docs/generative-apis/reference-content/data-privacy/"
 channel = "developer_data"
 tier = "core"
-note = "Generative APIs 官方数据隐私政策（文档站，页面标注 Reviewed on October 03, 2025，.md 版本 validation: 2025-10-03）。覆盖 api（Serverless）与 dedicated-deployment 两档的公共条款，是 zdr 主结论与 processing_region 的文档层来源；文首自述「supplements the General Privacy Policy and the AI Services Specific Conditions (PDF)」，即合同层优先。"
+note = "Generative APIs 官方数据隐私政策（文档站，页面标注 Reviewed on October 03, 2025，.md 版本 validation: 2025-10-03）。覆盖 api（Serverless）与 dedicated-deployment 两档，是 zdr 主结论与 processing_region 的文档层来源；文首自述「supplements the General Privacy Policy and the AI Services Specific Conditions (PDF)」，即合同层优先。2026-11-13 抓取的正文把滥用临时留存段落限定为「For Serverless」，并新增「This temporary data storage does not apply to Dedicated Deployments」，故该文档层例外只属于 Serverless 档（合同层 AI Services §4.4 的滥用例外不受影响）。"
 
 [[product]]
 id = "api"
@@ -77,8 +77,8 @@ text = "See top-level zdr: \"By default we apply a Zero Data Retention Policy\",
 text_zh = "见顶层 zdr：默认适用，无需申请"
 
 [[product.zdr.point]]
-text = "The exceptions are temporary retention for abuse investigation (up to 2 weeks) and storage for the duration of Batch processing (up to 24 hours)."
-text_zh = "例外为滥用临时留存（≤2 周）与 Batch 处理期间存储（≤24 小时）。"
+text = "The exceptions are temporary retention for abuse investigation (up to 2 weeks, stated \"For Serverless\") and storage for the duration of Batch processing (up to 24 hours)."
+text_zh = "例外为滥用临时留存（≤2 周，正文限定「For Serverless」）与 Batch 处理期间存储（≤24 小时）。"
 
 [[product.zdr.point]]
 text = "Third exception, the token cache: the data-privacy page states that caching \"does not store prompt content itself (only intermediate values such as prefix hashes or KV values) and uses only ephemeral storage\" and that \"Caching is automatic, isolated per project, and cannot be disabled\". The customer therefore cannot switch caching off, and its retention period is not disclosed."
@@ -196,6 +196,11 @@ text = "Same Contract §4.4"
 text_zh = "同合同 §4.4"
 
 [[product.zdr.point]]
+text = "Scope clarification added to the data-privacy page in the 2026-11-13 snapshot: its temporary storage of full HTTP request content (up to two weeks) is now prefixed \"For Serverless\" and expressly \"does not apply to Dedicated Deployments\". The contract-level abuse exception in AI Services §4.4 is unchanged and still covers this tier."
+text_zh = "data-privacy 页在 2026-11-13 的快照中增加了范围限定：其完整 HTTP 请求内容的临时存储（≤2 周）现在以「For Serverless」开头，并明确「does not apply to Dedicated Deployments」。合同层 AI Services §4.4 的滥用例外未改，仍覆盖本档。"
+anchor = "abuse-temporary-storage-serverless-only"
+
+[[product.zdr.point]]
 text = "Processing on this tier takes place on the customer's dedicated, isolated resources (§2.1.2, \"The processing of Inputs and the generation of Outputs take place on private resources\"), but there is no separately disclosed cache retention statement for this tier."
 text_zh = "本档处理发生在客户专属隔离资源上（§2.1.2「The processing of Inputs and the generation of Outputs take place on private resources」），但没有单独披露的、针对本档的缓存保留期说明。"
 
@@ -275,6 +280,20 @@ topics = ["retention", "zdr"]
 [anchor.selector]
 prefix = "error, occurring very rarely (1 out of a million requests). "
 exact = "Data is stored for up to two weeks, only to reproduce, investigate, and fix the underlying issue."
+suffix = """
+ This temporary data storage does not apply to Dedicated Deployments.
+
+
+## [3. How we use your data](https://www.scaleway.com/en/d"""
+
+[[anchor]]
+id = "abuse-temporary-storage-serverless-only"
+source_id = "e3b6104e2c9c77d0"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "fix the underlying issue."
+exact = "This temporary data storage does not apply to Dedicated Deployments."
 suffix = """
 
 
