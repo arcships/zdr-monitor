@@ -39,8 +39,8 @@ mark = "no"
 anchor = "devin-zdr-paid-plan"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
 [[product.zdr.point]]
-text = "No ZDR path is disclosed for this tier, and that is a disclosed qualification rather than a silence: 『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 The zero-retention route is bound to the paid-plan opt-out on the Data Controls page, which this tier does not have. The object of that ZDR is the upstream model providers."
-text_zh = "本档没有零保留途径，而且这是已披露的资格限定、不是厂商未表态：『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』零保留与付费档在 Data Controls 页的退出绑定，免费档没有该开关。该 ZDR 的对象是上游模型商。"
+text = "No ZDR path is disclosed for this tier, and that is a disclosed qualification rather than a silence: 『If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 The zero-retention route is bound to the paid-plan opt-out under Settings > General, which this tier does not have. The object of that ZDR is the upstream model providers."
+text_zh = "本档没有零保留途径，而且这是已披露的资格限定、不是厂商未表态：『If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』零保留与付费档在 Settings > General 的 Data controls & privacy 中开启 Disable training 的退出绑定，免费档没有该开关。该 ZDR 的对象是上游模型商。"
 anchor = "devin-default-training"
 [product.retention]
 object = "mixed"
@@ -82,7 +82,7 @@ mark = "no"
 mode = "opt_out"
 anchor = "devin-default-training"
 [[product.training.point]]
-text_zh = "默认可训练；Team 管理员可在 Data Controls 退出。退出后不训练，并为上游模型商启用 ZDR。"
+text_zh = "默认可训练；Team 管理员可在 Settings > General 的 Data controls & privacy 中开启 Disable training 退出。退出后不训练，并为上游模型商启用 ZDR。"
 [[product.training.point]]
 text = "Opting out does not isolate the project: 『Devin can still learn to fit into your unique workflow via the Skills feature. When you share Skills, Devin can become more reliable at working on your specific projects over time.』 The official text does not say whether shared Skills count as training."
 text_zh = "退出训练不等于完全隔离：『Devin can still learn to fit into your unique workflow via the Skills feature. When you share Skills, Devin can become more reliable at working on your specific projects over time.』——退出后 Devin 仍可基于客户共享的 Skills 持续适配其项目；官方未进一步界定共享的 Skills 内容是否属于训练范围。"
@@ -147,8 +147,8 @@ mode = "opt_in"
 anchor = "devin-default-training"
 searched = ["https://docs.devin.ai/admin/security", "https://cognition.com/legal/data-processing-statement"]
 [[product.zdr.point]]
-text = "Enterprise is a paid plan, so the paid-plan sentence covers it: 『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 Two qualifications: the object of that ZDR is the upstream model providers (the next hop), while retention on the Cognition side is the retention dimension's subject; and the page describes the Data Controls opt-out without writing a separate enterprise-only ZDR mechanism — its enterprise-specific sentence is the no-training-without-written-consent commitment, which is a contract path and does not by itself define ZDR. The page adds that on the Teams plan only an administrator can exercise the opt-out; the enterprise tier is not separately described."
-text_zh = "企业档属付费档，适用同一句：『If you're on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』两点限定：该 ZDR 的对象是上游模型商（下一跳），Cognition 侧的留存归 retention 列；页面描述的是 Data Controls 页的退出动作，没有另写企业专属的 ZDR 机制——同页企业专属的那句是「未经书面同意不训练」，属合同路径，本身不定义 ZDR。原文另写明 Teams 档只能由管理员执行退出，企业档未单独说明。"
+text = "Enterprise is a paid plan, so the paid-plan sentence covers it: 『If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』 Two qualifications: the object of that ZDR is the upstream model providers (the next hop), while retention on the Cognition side is the retention dimension's subject; and the page describes the paid-plan Settings > General opt-out (Disable training under Data controls & privacy) without writing a separate enterprise-only ZDR mechanism — its enterprise-specific sentence is the no-training-without-written-consent commitment, which is a contract path and does not by itself define ZDR. The page adds that on the Teams plan only an administrator can exercise the opt-out; the enterprise tier is not separately described."
+text_zh = "企业档属付费档，适用同一句：『If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.』两点限定：该 ZDR 的对象是上游模型商（下一跳），Cognition 侧的留存归 retention 列；页面描述的是付费档在 Settings > General 的 Data controls & privacy 中开启 Disable training 的退出动作，没有另写企业专属的 ZDR 机制——同页企业专属的那句是「未经书面同意不训练」，属合同路径，本身不定义 ZDR。原文另写明 Teams 档只能由管理员执行退出，企业档未单独说明。"
 anchor = "devin-default-training"
 [product.retention]
 object = "mixed"
@@ -200,7 +200,7 @@ source_id = "3a442cc9dea8a53d"
 topics = ["training", "zdr"]
 [anchor.selector]
 prefix = ""
-exact = "By default, we may use your data for model training purposes to improve and enhance the Services. If you’re on a paid plan, you can opt out at any time on the Data Controls settings page. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers."
+exact = "By default, we may use your data for model training purposes to improve and enhance the Services. If you’re on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General. After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers."
 suffix = ""
 [[anchor]]
 id = "devin-enterprise-no-train"
@@ -232,7 +232,7 @@ source_id = "3a442cc9dea8a53d"
 topics = ["zdr", "training"]
 [anchor.selector]
 prefix = ""
-exact = "If you’re on a paid plan, you can opt out at any time on the Data Controls settings page."
+exact = "If you’re on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General."
 suffix = ""
 [[anchor]]
 id = "devin-knowledge-training"
