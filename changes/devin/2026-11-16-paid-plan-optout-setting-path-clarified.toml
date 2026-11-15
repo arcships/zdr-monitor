@@ -1,0 +1,8 @@
+provider = "devin"
+dimensions = ["training", "zdr"]
+direction = "clarified"
+observed_at = "2026-11-16"
+source_id = "3a442cc9dea8a53d"
+summary_zh = "安全页改写了付费档退出训练的入口位置：旧句「If you're on a paid plan, you can opt out at any time on the Data Controls settings page.」改为「If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General.」。同一段其余句子未变，包括「After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.」——付费档仍可随时退出，退出后不训练、并为上游模型商启用 ZDR 的后果也没有变化，变化只在设置入口的具体位置。默认可训练、Teams 档仅管理员可退出、以及 Enterprise 未经事先书面同意不训练这三句均未改动。免费/Team/企业三档的 training 与 zdr 结论字段均未改变。"
+summary_en = "The security page rewrote where the paid-plan training opt-out lives: the old sentence \"If you're on a paid plan, you can opt out at any time on the Data Controls settings page.\" became \"If you're on a paid plan, you can opt out at any time by turning on Disable training under Data controls & privacy in Settings > General.\" The rest of the answer is unchanged, including \"After you opt out, your data will not be used for training and Zero Data Retention will be enabled with our model providers.\" Paid plans can still opt out at any time and the no-training / ZDR-with-model-providers consequences are unchanged; only the UI location of the setting moved. The default-training sentence, the Teams administrator-only rule and the Enterprise no-training-without-prior-written-consent sentence are untouched. No conclusion fields for training or zdr changed on the free, Team or Enterprise tier."
+issue = "https://github.com/arcships/zdr-monitor/issues/1257"
