@@ -29,14 +29,14 @@ url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-impr
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Business services and managed workspaces」两节。个人档主句现已按档位列「Free, Plus, Pro」、不再点名 Codex;紧接的「Either option is sufficient for ChatGPT conversations and Codex tasks」未变,Codex 仍被覆盖。个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。Business/Enterprise/Edu 段与 FAQ 另写明:除非组织另签协议,否则不使用 prompts/responses/files 改进模型,反馈不构成训练授权。对 API 档无权威性"
+note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Business services and managed workspaces」两节。个人档主句按档位列「Free, Plus, Pro」、不点名 Codex;紧接的「Either option is sufficient for ChatGPT conversations and Codex tasks」未变,Codex 任务仍在退出机制覆盖范围内。个人档默认可用内容训练、可退出。2026-11-17 轮 Codex 小节由「Codex has a separate **Include environments** setting in Codex settings for allowing training on full environments. Changing your settings in ChatGPT or the Privacy Portal does not change that setting.」改为「When you use Codex with a personal ChatGPT account, your ChatGPT model-training preference applies to your Codex conversations.」,原独立开关表述已从正文删除;现行页不再单独说明全环境如何处理。Business/Enterprise/Edu 段与 FAQ 另写明:除非组织另签协议,否则不使用 prompts/responses/files 改进模型,反馈不构成训练授权。对 API 档无权威性"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data controls in ChatGPT(Updated 5 hours ago)。本轮正文有三处训练相关变化:①删除「Turn off Improve the model for everyone」下「When Improve the model for everyone is off, your new conversations won't be used to train OpenAI models.」这句退出后不训练的承诺;②「Manage model training for Codex tasks」只剩「Include environments」独立开关一段,说明 ChatGPT 开关适用于 Codex 任务的首段被删除;③新增「Trusted Access on personal accounts」一节,Daybreak 等 Trusted Access 个人账号会话期间即使关闭训练开关仍可能用内容改进模型,并删除「previously opted out through OpenAI Support」的 FAQ。Codex 个人档受 ChatGPT 训练开关覆盖仍由 5722486 的「Either option is sufficient for ChatGPT conversations and Codex tasks」与 Codex 档位页的「Your ChatGPT training data controls apply to content processed through Codex」支撑。临时会话 30 天删除未变。覆盖消费档,不覆盖 API 档"
+note = "Data controls in ChatGPT。消费档训练控制权威页:个人 Free/Plus/Pro 默认开启数据共享,可在 Settings > Data controls 关闭 Improve the model for everyone;「Trusted Access on personal accounts」写明 Daybreak 等会话期间即使关闭该开关仍可能用内容改进模型。2026-11-17 轮 Codex 小节由「Manage model training for Codex tasks」改名为「Manage model training for Codex conversations」,删除独立「Include environments」开关段,改为说明个人 ChatGPT 账号可在网页端 Settings > Data controls > Improve the model for everyone 查看或修改训练偏好,并写明 Business/Enterprise/Edu 默认不用于训练。Codex 对话受 ChatGPT 训练偏好覆盖仍由 5722486 的「Either option is sufficient for ChatGPT conversations and Codex tasks」等现行文本支撑。此前「When Improve the model for everyone is off...won’t be used to train」与「previously opted out through OpenAI Support」两处已于 2026-10-31 轮删除。临时会话 30 天删除未变。覆盖消费档,不覆盖 API 档"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
@@ -78,7 +78,7 @@ mode = "opt_out"
 anchor = "openai-consumer-training-may-train"
 
 [[product.training.point]]
-text_zh = "ChatGPT 个人账号的数据控制适用于 Codex；默认可能用于训练，可关闭 Improve the model for everyone。Codex 全环境另有独立开关。"
+text_zh = "ChatGPT 个人账号的训练偏好适用于其 Codex 对话；默认可能用于训练，可关闭 Improve the model for everyone。"
 
 [[product.training.point]]
 text = "Even after opting out of training, feedback the user proactively submits (for example thumbs up or thumbs down on a model response) can still be used: the entire conversation associated with that feedback may be used to train the models (context: after opting out)"
@@ -86,9 +86,14 @@ text_zh = "退出训练之后的例外：即使已退出，主动提交反馈（
 anchor = "openai-codex-consumer-training-feedback-exception"
 
 [[product.training.point]]
-text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
-text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
-anchor = "openai-codex-training-include-environments"
+text = "For a personal ChatGPT account the ChatGPT model-training preference applies to \"your Codex conversations\". The current pages no longer separately state how training on full environments is handled: the former \"Include environments\" paragraph has been removed, which does not establish that the preference or opting out now covers full environments"
+text_zh = "个人 ChatGPT 账号下，ChatGPT 的模型训练偏好适用于「your Codex conversations」（Codex 对话）。现行页面已不再单独说明全环境（full environments）的训练如何处理：原「Include environments」独立开关段已被删除，但这不等于确认该偏好或退出训练已覆盖全环境"
+anchor = "openai-codex-personal-preference-applies"
+
+[[product.training.point]]
+text = "Users with a personal ChatGPT account can review or change that training preference for Codex conversations on the web under Settings > Data controls > Improve the model for everyone"
+text_zh = "使用个人 ChatGPT 账号的用户可在网页端 Settings > Data controls > Improve the model for everyone 查看或修改适用于 Codex 对话的训练偏好"
+anchor = "openai-codex-data-controls-preference-steps"
 
 [[product.training.point]]
 text = "The opt-out is not absolute: for Trusted Access programs such as Daybreak Blue, \"During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off\". Outside a Trusted Access session the setting still applies to the account’s other activity"
@@ -154,9 +159,14 @@ text_zh = "退出训练之后的例外：即使已退出，主动提交反馈（
 anchor = "openai-codex-consumer-training-feedback-exception"
 
 [[product.training.point]]
-text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments; changing the ChatGPT or Privacy Portal settings does not change it, so opting out of training does not cover it"
-text_zh = "Codex 全环境（full environments）训练是 Codex 设置里的独立开关「Include environments」：改 ChatGPT 或 Privacy Portal 的设置不影响它，退出训练不覆盖这一项"
-anchor = "openai-codex-training-include-environments"
+text = "For a personal ChatGPT account the ChatGPT model-training preference applies to \"your Codex conversations\". The current pages no longer separately state how training on full environments is handled: the former \"Include environments\" paragraph has been removed, which does not establish that the preference or opting out now covers full environments"
+text_zh = "个人 ChatGPT 账号下，ChatGPT 的模型训练偏好适用于「your Codex conversations」（Codex 对话）。现行页面已不再单独说明全环境（full environments）的训练如何处理：原「Include environments」独立开关段已被删除，但这不等于确认该偏好或退出训练已覆盖全环境"
+anchor = "openai-codex-personal-preference-applies"
+
+[[product.training.point]]
+text = "Users with a personal ChatGPT account can review or change that training preference for Codex conversations on the web under Settings > Data controls > Improve the model for everyone"
+text_zh = "使用个人 ChatGPT 账号的用户可在网页端 Settings > Data controls > Improve the model for everyone 查看或修改适用于 Codex 对话的训练偏好"
+anchor = "openai-codex-data-controls-preference-steps"
 
 [[product.training.point]]
 text = "The opt-out is not absolute: for Trusted Access programs such as Daybreak Blue, \"During Daybreak sessions on your personal account, we may use content from your interactions to improve our models even when “Improve the model for everyone” is off\". Outside a Trusted Access session the setting still applies to the account’s other activity"
@@ -429,13 +439,23 @@ exact = "Even if you have opted out of training, you can still choose to provide
 suffix = ""
 
 [[anchor]]
-id = "openai-codex-training-include-environments"
+id = "openai-codex-personal-preference-applies"
 source_id = "df535f59df9ad959"
 topics = ["training"]
 
 [anchor.selector]
 prefix = ""
-exact = "Codex has a separate **Include environments** setting in Codex settings for allowing training on full environments. Changing your settings in ChatGPT or the Privacy Portal does not change that setting."
+exact = "When you use Codex with a personal ChatGPT account, your ChatGPT model-training preference applies to your Codex conversations."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-data-controls-preference-steps"
+source_id = "c5bdc32bca931e70"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "If you use Codex with a personal ChatGPT account, you can review or change your model-training preference in ChatGPT on the web: 1. Open **Settings**. 2. Select **Data controls**. 3. Select **Improve the model for everyone** to review or change your preference."
 suffix = ""
 
 [[anchor]]
