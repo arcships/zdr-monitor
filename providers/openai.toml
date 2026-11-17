@@ -15,14 +15,14 @@ note = "API 档(developers 文档,Published 2026-09-20)。覆盖 API 档 trainin
 url = "https://developers.openai.com/api/docs/guides/data-residency"
 channel = "developer_data"
 tier = "core"
-note = "API 档 Data residency 权威页。2026-11-14 your-data 快照(#1239)把原 Data residency controls 整节(区域存储/处理说明、逐区域支持表、逐端点支持表与 Endpoint limitations)迁到本页,原页只留指向本页的一句;迁移中多处与五维有关的条件被改写或删除。(1) 区域存储与处理句改写为「For supported endpoints, models, and snapshots, your Customer Content (as defined in your services agreement) is stored at rest in the selected region when the endpoint requires persistence, such as `/v1/batches`.」与「If the region supports regional processing, inference for your Customer Content also runs in that region.」,语义基本未变。(2) Sub-processors 句由只列 `us`/`eu` 扩为 `us`/`eu`/`au`/`in`/`jp` 五个域,写明这些域的 TLS termination 与 HTTPS decryption 在所选处理区域内完成,属处理地承诺增强(processing_region)。(3) 澳/印/日区域处理句删去「organizations with active Zero Data Retention」前提,改为「In Australia, India, and Japan, `gpt-6-luna` supports regional processing.」;原脚注「Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.」不再出现(processing_region,zdr)。(4) 区域表准入列由「MAM or ZDR required」改为「Additional access requirements」:旧句「Contact our sales team to see if you’re eligible for using data residency controls.」改为「Eligible organizations can enable data residency when creating a project in the API Platform.」,资格仍限 eligible organizations,但不再要求先联系销售确认;Europe、Australia、Japan 等由 Yes 变为「—」,India、United Arab Emirates 写「Contact sales to access this region」;原「** Requires Zero Data Retention, Modified Abuse Monitoring, Private Retention with PSP, or Safety Retention.」与「* Image support in these regions requires approval for enhanced Zero Data Retention or enhanced Modified Abuse Monitoring.」不再出现,图片支持改为「requires additional approval. Contact sales.」;原「Additional requirements for non-US regions」(须获 abuse monitoring controls 批准并签 Modified Retention amendment)及 UAE 额外批准句不再出现。区域处理的 ZDR/MAM 前提放宽,但「Eligible organizations can enable data residency when creating a project in the API Platform」及 India/UAE 的 Contact sales 限制保留(processing_region,zdr)。(5) 逐请求段把「As an alternative ... Existing eligibility and data retention control requirements still apply.」改为建 Global 项目时显式选择「Enable per-request data residency」的开关说明;原句不再出现,端点/模型支持要求仍在,页面未再写明数据保留控制要求(processing_region,zdr)。(6) 逐端点表与 Endpoint limitations 随节迁入,包括 /v1/live/sessions 的 ZDR 会话保留说明。api 档 processing_region 结论字段未变(codes=[GLOBAL]),zdr 结论字段未变(mark=yes、mode=opt_in);区域锚点按本页改绑,新增 eligibility/access 限制与 sub-processors 锚点,撤除原「MAM alone is insufficient」锚点(changes/openai/2026-11-14-data-residency-guide-split-access-and-zdr-conditions-clarified.toml)。"
+note = "API 档 Data residency 权威页。2026-11-14 your-data 快照(#1239)把原 Data residency controls 整节(区域存储/处理说明、逐区域支持表、逐端点支持表与 Endpoint limitations)迁到本页,原页只留指向本页的一句;迁移中多处与五维有关的条件被改写或删除。(1) 区域存储与处理句改写为「For supported endpoints, models, and snapshots, your Customer Content (as defined in your services agreement) is stored at rest in the selected region when the endpoint requires persistence, such as `/v1/batches`.」与「If the region supports regional processing, inference for your Customer Content also runs in that region.」,语义基本未变。(2) Sub-processors 句由只列 `us`/`eu` 扩为 `us`/`eu`/`au`/`in`/`jp` 五个域,写明这些域的 TLS termination 与 HTTPS decryption 在所选处理区域内完成,属处理地承诺增强(processing_region)。(3) 澳/印/日区域处理句删去「organizations with active Zero Data Retention」前提,改为「In Australia, India, and Japan, `gpt-6-luna` supports regional processing.」;原脚注「Regional processing in Australia, India, and Japan requires active Zero Data Retention (ZDR). Modified Abuse Monitoring (MAM) alone is insufficient.」不再出现(processing_region,zdr)。(4) 区域表准入列由「MAM or ZDR required」改为「Additional access requirements」:旧句「Contact our sales team to see if you’re eligible for using data residency controls.」改为「Eligible organizations can enable data residency when creating a project in the API Platform.」,资格仍限 eligible organizations,但不再要求先联系销售确认;Europe、Australia、Japan 等由 Yes 变为「—」,India、United Arab Emirates 写「Contact sales to access this region」;原「** Requires Zero Data Retention, Modified Abuse Monitoring, Private Retention with PSP, or Safety Retention.」与「* Image support in these regions requires approval for enhanced Zero Data Retention or enhanced Modified Abuse Monitoring.」不再出现,图片支持改为「requires additional approval. Contact sales.」;原「Additional requirements for non-US regions」(须获 abuse monitoring controls 批准并签 Modified Retention amendment)及 UAE 额外批准句不再出现。区域处理的 ZDR/MAM 前提放宽,但「Eligible organizations can enable data residency when creating a project in the API Platform」及 India/UAE 的 Contact sales 限制保留(processing_region,zdr)。(5) 逐请求段把「As an alternative ... Existing eligibility and data retention control requirements still apply.」改为建 Global 项目时显式选择「Enable per-request data residency」的开关说明;原句不再出现,端点/模型支持要求仍在,页面未再写明数据保留控制要求(processing_region,zdr)。(6) 逐端点表与 Endpoint limitations 随节迁入,包括 /v1/live/sessions 的 ZDR 会话保留说明。api 档 processing_region 结论字段未变(codes=[GLOBAL]),zdr 结论字段未变(mark=yes、mode=opt_in);区域锚点按本页改绑,新增 eligibility/access 限制与 sub-processors 锚点,撤除原「MAM alone is insufficient」锚点(changes/openai/2026-11-14-data-residency-guide-split-access-and-zdr-conditions-clarified.toml)。2026-11-17 快照(#1266)有两处与五维有关的变化。(1) 印度区域准入限制撤销:Support by region 卡片的 India 行不再列出「Contact sales to access this region」这一额外准入要求,完整区域支持表的「Additional access requirements」列改为「—」;United Arab Emirates 在卡片与完整表中仍写「Contact sales to access this region」。区域处理资格对 eligible organizations 放宽,api 档 processing_region 结论字段未变(codes=[GLOBAL]),原 India Contact sales 说明点与锚点因现行正文无对应句而撤除。(2) 新增 /v1/moderations (CSAM classifier)(模型 `omni-moderation-csam-latest`):逐端点表把 Storage regions 与 Processing regions 均记为「Not specified」,Notes 为「Available to approved organizations. Regional processing coverage is not specified for this model.」;支持服务计数由 26 增至 27。该端点不构成区域处理承诺,已补为 processing_region 说明点并绑定新锚点。同轮其余变化为侧栏(Specialized models 新增 CSAM classifier、Collections 展开)、导航与主题,与五维无关(changes/openai/2026-11-17-india-access-requirement-removed-csam-classifier-endpoint-added.toml)。"
 
 [[source]]
 url = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Business services and managed workspaces」两节,个人档默认可用内容训练、可退出;并写明 Codex 全环境训练是独立开关。2026-10-13 快照改写个人档训练句:旧句「services for individuals, such as ChatGPT and Codex」改为「services for individuals (Free, Plus, Pro)」,FAQ 的反馈训练段按个人档与企业档拆分;语义未改(changes/openai/2026-10-13-individual-training-scope-rewording.toml)。对 API 档无权威性"
+note = "消费档(ChatGPT/Codex,含 Free/Plus/Pro)训练维度权威页:分「Services for individuals」与「Business services and managed workspaces」两节,个人档默认可用内容训练、可退出;Codex 节自 2026-11-17 起改为「个人账号的 ChatGPT 训练偏好适用于 Codex 对话」,不再写全环境训练的独立开关。2026-10-13 快照改写个人档训练句:旧句「services for individuals, such as ChatGPT and Codex」改为「services for individuals (Free, Plus, Pro)」,FAQ 的反馈训练段按个人档与企业档拆分;语义未改(changes/openai/2026-10-13-individual-training-scope-rewording.toml)。2026-11-17 快照(#1266)把「## Codex」节整句「Codex has a separate **Include environments** setting in Codex settings for allowing training on full environments. Changing your settings in ChatGPT or the Privacy Portal does not change that setting.」改为「When you use Codex with a personal ChatGPT account, your ChatGPT model-training preference applies to your Codex conversations. For instructions on reviewing or changing this preference, see: Data controls in ChatGPT.」;页面不再披露全环境训练的独立开关,新句只说明个人账号的 ChatGPT 训练偏好适用于 Codex 对话,这不等于确认该偏好或退出训练已覆盖全环境。同一条款在 7730893 同步删除并改为「Manage model training for Codex conversations」节。消费档 training 结论字段未变(mark=no、mode=opt_out);原全环境独立开关说明点因现行快照无对应原文而撤除,新的 Codex 训练偏好句与仍可引用的反馈例外(点赞/点踩关联整段对话仍可能用于训练)分别补为说明点并绑定锚点(changes/openai/2026-11-17-codex-training-preference-replaces-include-environments.toml)。同轮其余变化为 FAQ 标题、Related articles 与 Updated 时间戳,与五维无关。对 API 档无权威性"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
@@ -36,7 +36,7 @@ url = "https://help.openai.com/en/articles/7730893-data-controls-faq"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Data Controls FAQ(Updated 5 hours ago)。现行正文含专节「Manage model training for Codex tasks」,其中「Include environments」独立设置段仍在;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。主要覆盖消费档。2026-10-23 快照(#814)新增四句与五维有关的正文:个人工作区默认开启数据共享、语音模式有独立的训练数据共享开关、锁定对话仍保存但隐藏,以及 Managed workspaces 节的「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」(API 训练口径旁证,api 档 training 的主证据仍是 developer_data)。同轮其余变化是标题层级、Updated 时间戳、Related articles、状态横幅,以及「this setting applies to your account across devices」改为「Improve the model for everyone applies to your account across web and mobile devices」(同义改写),与五维无关。语音模式、锁定对话与 API 训练三句已补进对应维度的说明点,默认共享句由既有 training 说明点覆盖;五维结论字段未变(changes/openai/2026-10-23-data-controls-disclosure-additions.toml)。2026-10-31 快照(#968)删除三处与训练有关的正文:其一,「Turn off Improve the model for everyone」节内的「When Improve the model for everyone is off, your new conversations won’t be used to train OpenAI models. They can still appear in your chat history.」被删;其二,「Manage model training for Codex tasks」节内「If you use Codex on a personal ChatGPT plan, Improve the model for everyone also applies to your Codex tasks. … After you opt out, new conversations and tasks won’t be used to train OpenAI models.」整段被删(即 openai-consumer-codex-optout-applies 的原锚点句),该页只剩「Include environments」独立开关段;其三,FAQ「What happens if I previously opted out through OpenAI Support or a privacy request?」连同「OpenAI continues to honor the opt-out associated with the account.」被删。新增「Trusted Access on personal accounts」段:Daybreak 等 Trusted Access 会话期间,「we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」。该页不再写 ChatGPT 退出设置适用于 Codex 任务,但同一表述仍见于 5722486 快照「Either option is sufficient for ChatGPT conversations and Codex tasks.」,该锚点改绑 df535f59df9ad959;该 Trusted Access 句已补为消费档 training 说明点。消费档 training 结论字段未变(mark=no、mode=opt_out)(changes/openai/2026-10-31-data-controls-codex-optout-removed-trusted-access-added.toml)。同轮其余变化为状态横幅、Updated 时间戳、Related articles 与侧栏,与五维无关。"
+note = "Data Controls FAQ(Updated 8 hours ago)。现行正文的 Codex 节自 2026-11-17 起名为「Manage model training for Codex conversations」,「Include environments」独立设置段已删除;临时会话的措辞是「may be retained for up to 30 days for safety purposes」(上限口径,原「deleted from our systems after 30 days」已改)。主要覆盖消费档。2026-10-23 快照(#814)新增四句与五维有关的正文:个人工作区默认开启数据共享、语音模式有独立的训练数据共享开关、锁定对话仍保存但隐藏,以及 Managed workspaces 节的「By default, OpenAI also does not use inputs and outputs provided through the API Platform to train its models」(API 训练口径旁证,api 档 training 的主证据仍是 developer_data)。同轮其余变化是标题层级、Updated 时间戳、Related articles、状态横幅,以及「this setting applies to your account across devices」改为「Improve the model for everyone applies to your account across web and mobile devices」(同义改写),与五维无关。语音模式、锁定对话与 API 训练三句已补进对应维度的说明点,默认共享句由既有 training 说明点覆盖;五维结论字段未变(changes/openai/2026-10-23-data-controls-disclosure-additions.toml)。2026-10-31 快照(#968)删除三处与训练有关的正文:其一,「Turn off Improve the model for everyone」节内的「When Improve the model for everyone is off, your new conversations won’t be used to train OpenAI models. They can still appear in your chat history.」被删;其二,「Manage model training for Codex tasks」节内「If you use Codex on a personal ChatGPT plan, Improve the model for everyone also applies to your Codex tasks. … After you opt out, new conversations and tasks won’t be used to train OpenAI models.」整段被删(即 openai-consumer-codex-optout-applies 的原锚点句),该页只剩「Include environments」独立开关段;其三,FAQ「What happens if I previously opted out through OpenAI Support or a privacy request?」连同「OpenAI continues to honor the opt-out associated with the account.」被删。新增「Trusted Access on personal accounts」段:Daybreak 等 Trusted Access 会话期间,「we may use content from your interactions to improve our models even when “Improve the model for everyone” is off」。该页不再写 ChatGPT 退出设置适用于 Codex 任务,但同一表述仍见于 5722486 快照「Either option is sufficient for ChatGPT conversations and Codex tasks.」,该锚点改绑 df535f59df9ad959;该 Trusted Access 句已补为消费档 training 说明点。消费档 training 结论字段未变(mark=no、mode=opt_out)(changes/openai/2026-10-31-data-controls-codex-optout-removed-trusted-access-added.toml)。同轮其余变化为状态横幅、Updated 时间戳、Related articles 与侧栏,与五维无关。2026-11-17 快照(#1266)把「Manage model training for Codex tasks」节改名为「Manage model training for Codex conversations」,并删去整段「Codex has a separate **Include environments** setting in Codex settings that controls whether additional context from your Codex environments can be used to train OpenAI models. Changing your ChatGPT setting or opting out through the Privacy Portal does not change that setting.」,改为在 ChatGPT 网页内更改训练偏好的步骤、Business/Enterprise/Edu 默认不训练说明与联系支持说明;该页不再披露全环境训练的独立开关(training)。「What happens to saved chats」的 Locked chats 项删去「When **Locked chats** is available for your account,」前缀,保留「Locked chats remain saved but are hidden from the regular sidebar」;retention 语义未变,锚点去掉旧前缀。同轮其余变化为 Related articles、标题层级与 Updated 时间戳,与五维无关。消费档 training 与 retention 结论字段均未变(changes/openai/2026-11-17-codex-training-preference-replaces-include-environments.toml)。"
 
 [[source]]
 url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retained"
@@ -175,11 +175,6 @@ text_zh = "资格受限:页面写明「Eligible organizations can enable data re
 anchor = "openai-api-region-eligible-orgs"
 
 [[product.processing_region.point]]
-text = "India requires contacting sales to access the region: the region table lists \"Contact sales to access this region\""
-text_zh = "印度需要联系销售才能开通该区域:区域表写「Contact sales to access this region」"
-anchor = "openai-api-region-in-contact-sales"
-
-[[product.processing_region.point]]
 text = "The United Arab Emirates requires contacting sales to access the region: the region table lists \"Contact sales to access this region\""
 text_zh = "阿联酋需要联系销售才能开通该区域:区域表写「Contact sales to access this region」"
 anchor = "openai-api-region-ae-contact-sales"
@@ -188,6 +183,11 @@ anchor = "openai-api-region-ae-contact-sales"
 text = "Image support in the listed regions still requires approval: \"Image support in these regions requires additional approval. Contact sales.\""
 text_zh = "所列区域的图片支持仍需批准:「Image support in these regions requires additional approval. Contact sales.」"
 anchor = "openai-api-region-image-support"
+
+[[product.processing_region.point]]
+text = "The new CSAM-classifier moderation endpoint carries no regional processing commitment: /v1/moderations (CSAM classifier) with `omni-moderation-csam-latest` shows \"Not specified\" for both storage and processing regions, and its note reads \"Available to approved organizations. Regional processing coverage is not specified for this model.\""
+text_zh = "新增的 CSAM 分类器审核端点没有区域处理承诺:/v1/moderations (CSAM classifier) 与 `omni-moderation-csam-latest` 的 Storage regions 与 Processing regions 均记为「Not specified」,Notes 写「Available to approved organizations. Regional processing coverage is not specified for this model.」"
+anchor = "openai-api-region-csam-classifier-unspecified"
 
 [product.role]
 kind = "processor"
@@ -218,8 +218,14 @@ text_zh = "退出方式为 ChatGPT Settings → Data Controls 关掉「Improve t
 anchor = "openai-consumer-codex-optout-applies"
 
 [[product.training.point]]
-text = "Codex has a separate \"Include environments\" setting in Codex settings for allowing training on full environments, and changing the ChatGPT or Privacy Portal settings does not change it. Opting out applies to new content only and is not retroactive. Even after opting out, the whole conversation attached to a thumbs-up or thumbs-down you submit may still be used for training"
-text_zh = "Codex 全环境(full environments)训练是独立开关「Include environments」,在 Codex settings 里,改 ChatGPT 或隐私门户的设置都不影响它。退出后仅对新内容生效,不回溯。即使退出,主动点赞/点踩所关联的整段对话仍可能被用于训练"
+text = "For a personal ChatGPT account the ChatGPT model-training preference applies to \"your Codex conversations\". The current page no longer separately states how training on full environments is handled: the former \"Include environments\" paragraph has been removed, which does not establish that the preference or opting out now covers full environments"
+text_zh = "个人 ChatGPT 账号下,ChatGPT 的模型训练偏好适用于「your Codex conversations」(Codex 对话)。现行页面已不再单独说明全环境(full environments)的训练如何处理:原「Include environments」独立开关段已被删除,但这不等于确认该偏好或退出训练已覆盖全环境"
+anchor = "openai-consumer-codex-preference-applies"
+
+[[product.training.point]]
+text = "The opt-out does not cover feedback you submit: \"Even if you have opted out of training, you can still choose to provide feedback to us about your interactions with our products (for instance, by selecting thumbs up or thumbs down on a model response). If you choose to provide feedback, the entire conversation associated with that feedback may be used to train our models\""
+text_zh = "退出不覆盖主动提交的反馈:即使已退出训练,点赞/点踩所关联的整段对话仍可能被用于训练"
+anchor = "openai-consumer-training-feedback-exception"
 
 [[product.training.point]]
 text = "Improve the model for everyone does not cover voice: \"Voice mode has a separate control for sharing data for model training\""
@@ -266,8 +272,8 @@ text = "No fixed cap: regular and archived chats remain saved to the account unt
 text_zh = "无固定上限:常规/归档对话保存至用户删除(或工作区留存策略生效)"
 
 [[product.retention.point]]
-text = "Locked chats are saved rather than removed: when the feature is available, they \"remain saved but are hidden from the regular sidebar\", Search, recents, notifications and previews, and the account's Improve the model for everyone setting and applicable workspace policies continue to apply"
-text_zh = "锁定对话仍是保存而非删除:功能可用时,它们「remain saved but are hidden from the regular sidebar」,并从 Search、最近会话、通知与预览中隐藏;账号的 Improve the model for everyone 设置与适用的工作区策略继续生效"
+text = "Locked chats are saved rather than removed: they \"remain saved but are hidden from the regular sidebar\", Search, recents, notifications and previews, and the account's Improve the model for everyone setting and applicable workspace policies continue to apply"
+text_zh = "锁定对话仍是保存而非删除:它们「remain saved but are hidden from the regular sidebar」,并从 Search、最近会话、通知与预览中隐藏;账号的 Improve the model for everyone 设置与适用的工作区策略继续生效"
 anchor = "openai-consumer-retention-locked-chats"
 
 [[product.retention.point]]
@@ -381,14 +387,6 @@ topics = ["processing_region"]
 exact = "Eligible organizations can enable data residency when creating a project in the API Platform"
 
 [[anchor]]
-id = "openai-api-region-in-contact-sales"
-source_id = "741ffdc189ae7ca2"
-topics = ["processing_region"]
-
-[anchor.selector]
-exact = "India `in.api.openai.com` Text, Audio, Voice, Image* Storage Yes Processing Yes Contact sales to access this region"
-
-[[anchor]]
 id = "openai-api-region-ae-contact-sales"
 source_id = "741ffdc189ae7ca2"
 topics = ["processing_region"]
@@ -403,6 +401,15 @@ topics = ["processing_region"]
 
 [anchor.selector]
 exact = "Image support in these regions requires additional approval. Contact sales."
+
+[[anchor]]
+id = "openai-api-region-csam-classifier-unspecified"
+source_id = "741ffdc189ae7ca2"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "| `/v1/moderations` (CSAM classifier) | Moderation | Not specified | Not specified | `omni-moderation-csam-latest` | — | "
+exact = "Available to approved organizations. Regional processing coverage is not specified for this model."
 
 [[anchor]]
 id = "openai-api-role-dpa-processor"
@@ -458,14 +465,20 @@ exact = "To opt out, turn off Improve the model for everyone under Settings > Da
 suffix = ", or select Do not train on my content in our Privacy Portal."
 
 [[anchor]]
-id = "openai-consumer-codex-fullenv-setting"
+id = "openai-consumer-codex-preference-applies"
 source_id = "df535f59df9ad959"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "if Improve the model for everyone is enabled in Settings.\n## Codex\n"
-exact = "Codex has a separate Include environments setting in Codex settings for allowing training on full environments"
-suffix = ". Changing your settings in ChatGPT or the Privacy Portal does not change that setting."
+exact = "When you use Codex with a personal ChatGPT account, your ChatGPT model-training preference applies to your Codex conversations."
+
+[[anchor]]
+id = "openai-consumer-training-feedback-exception"
+source_id = "df535f59df9ad959"
+topics = ["training"]
+
+[anchor.selector]
+exact = "Even if you have opted out of training, you can still choose to provide feedback to us about your interactions with our products (for instance, by selecting thumbs up or thumbs down on a model response). If you choose to provide feedback, the entire conversation associated with that feedback may be used to train our models"
 
 [[anchor]]
 id = "openai-consumer-codex-optout-applies"
@@ -704,7 +717,6 @@ source_id = "c5bdc32bca931e70"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "When **Locked chats** is available for your account, "
 exact = "locked chats remain saved but are hidden from the regular sidebar"
 suffix = ", **Search**, recents, notifications, and previews."
 
