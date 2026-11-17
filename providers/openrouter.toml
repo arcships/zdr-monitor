@@ -446,6 +446,11 @@ text = "Routing to region-pinned endpoints now depends on model weight: \"Region
 text_zh = "区域端点路由现在按模型权重区分：「Regional endpoints of open-weight models (models with a Hugging Face id) are not skipped: they stay in default routing and compete on price with the model’s other endpoints, so a BYOK key for that provider can be used on them like on any other endpoint.」同段还写明 closed-weight 模型的区域端点仍默认跳过，fallback key 不会解锁这些端点。因此 open-weight 模型的 BYOK 请求即使走 global API 也可能到达 region-pinned 端点；页面仍未披露实际处理地，故本档仍为 basis=undisclosed、不编码区域。"
 
 [[product.processing_region.point]]
+anchor = "openrouter-byok-bedrock-cross-region-profile-region"
+text = "Bedrock region scoping: AWS Bedrock models are commonly invoked through a cross-region inference profile, and \"A `global.` profile can process a request in any supported AWS commercial region; a geographic profile keeps it within that geography.\" A key can set `crisScope` (`global`, `us`, `eu`, or `apac`), and a geographic scope must match the key's `region`; without it, requests on `openrouter.ai` keep `global.` profiles, while on `us.openrouter.ai` and `eu.openrouter.ai` the key always uses the US or EU geographic profile. This lets the customer narrow AWS-side processing but still does not disclose the actual region a given request is processed in, so this tier remains basis=undisclosed with no coded region."
+text_zh = "Bedrock 区域范围：AWS Bedrock 模型常用 cross-region inference profile 调用，而「A `global.` profile can process a request in any supported AWS commercial region; a geographic profile keeps it within that geography.」key 可设置 `crisScope`（`global`/`us`/`eu`/`apac`），地理范围必须与 key 的 `region` 匹配；未设置时，`openrouter.ai` 上的请求沿用 `global.` profile，而在 `us.openrouter.ai` 与 `eu.openrouter.ai` 上 key 总是使用 US 或 EU 地理 profile。这给客户提供了收窄 AWS 侧处理范围的手段，但仍未披露单次请求实际在哪个区域处理，故本档仍为 basis=undisclosed、不编码区域。"
+
+[[product.processing_region.point]]
 anchor = "openrouter-byok-region-openai-azure-declaration-region"
 text = "The declaration governs the OpenRouter→upstream hop for OpenAI and Azure keys on regional domains, not just the routing pool: \"An OpenAI or Azure key without a declaration matching the request's region is never used on `eu.openrouter.ai` or `us.openrouter.ai`, even when the provider's shared endpoint is in-region.\" OpenRouter still does not disclose where that upstream host actually processes requests."
 text_zh = "区域声明管的是 OpenRouter→上游那一跳本身，不只是可路由池：区域域名下 OpenAI 与 Azure key 若没有匹配的声明就「never used」，即使该 provider 的共享端点本身在区域内。OpenRouter 仍未披露那个上游主机实际在哪里处理请求。"
@@ -1438,6 +1443,14 @@ topics = ["processing_region"]
 
 [anchor.selector]
 exact = "Regional endpoints of open-weight models (models with a Hugging Face id) are not skipped: they stay in default routing and compete on price with the model’s other endpoints, so a BYOK key for that provider can be used on them like on any other endpoint."
+
+[[anchor]]
+id = "openrouter-byok-bedrock-cross-region-profile-region"
+source_id = "87bcd6bb8730937e"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "A `global.` profile can process a request in any supported AWS commercial region; a geographic profile keeps it within that geography."
 
 [[anchor]]
 id = "openrouter-byok-region-openai-azure-declaration-region"
