@@ -4,25 +4,49 @@ site = "global"
 plan_levels = ["free", "individual", "team", "enterprise"]
 entity = "Denver Technologies, Inc."
 endpoint = ""
-doc = "https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md"
+doc = "https://docs.warp.dev/support-and-community/privacy-and-security/privacy.md"
 
 [[source]]
 url = "https://www.warp.dev/privacy"
 channel = "consumer_privacy"
 tier = "core"
-note = "Warp 隐私政策。「Improving, Monitoring and Personalizing the Service」一节明写用途包含 training/fine-tuning 支撑 AI 功能的模型——这是消费档训练口径的来源。第 7 行划出角色边界：已签 DPA 的客户数据由 DPA 而非本通知管辖；第 84 行是消费/团队档处理地的来源（美国 + 其他未列举辖区）；第 82 行是按需保留口径的唯一出处。注意别和 enterprise 安全页那句「不持久保存源码、不用于模型训练」混：那句的对象是自托管部署控制平面里的 your source code。"
+note = "Warp 隐私政策。「Improving, Monitoring and Personalizing the Service」一节明写用途包含 training/fine-tuning 支撑 AI 功能的模型——这是消费档训练口径的来源。第 7 行划出角色边界：已签 DPA 的客户数据由 DPA 而非本通知管辖；第 84 行是消费/团队档处理地的来源（美国 + 其他未列举辖区）；第 82 行是按需保留口径的唯一出处。2026-11-18 安全页改版删除了原自托管控制平面那句「不持久保存源码、不用于模型训练」，本页不再用于反证该句。"
 
 [[source]]
 url = "https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md"
 channel = "developer_data"
 tier = "core"
-note = "Warp 当前安全总览；覆盖各档遥测默认值与采集开关、上游 ZDR（含第 16 行与第 44 行的适用范围分歧）、ZDR 例外、云对话存储、BYOLLM、自托管控制面、账号删除 30 天及遥测无限期。"
+note = "Warp 安全总览；2026-11-18 改版后把上游 ZDR、分析采集与产品存储转引到 Privacy and data control，只保留遥测无限期、账号删除 30 天、自托管控制面会话记录持久化、BYOLLM 路由及云推理/存储边界。原按档遥测默认值、上游 ZDR 句、ZDR 例外细节、云对话存储说明、BYOLLM 不存储句、自托管控制面不训练句与 GCP 数据中心句均已删除。"
 
 [[source]]
 url = "https://www.warp.dev/pricing"
 channel = "developer_data"
 tier = "core"
-note = "Free/Build/Business/Enterprise 档位依据（含各档云对话存储量）。页内另有 marketing 口径的 ZDR 表述（第 139 行），与安全页的适用范围分歧并列保留，不作任何维度的主证据。原 Warp Factories 段 Business 一栏的「Admin-configurable data controls with ZDR」已随价格页改版删除。"
+note = "Free/Build/Max/Business/Enterprise 与 Factories Start/Scale/Enterprise 档位依据（含各档云对话存储量）。2026-11-18 改版新增 Pricing FAQ：ZDR 协议覆盖 Anthropic、OpenAI、Google、xAI 与 Fireworks AI；受支持模型不用于训练，提示词与输出须在响应生成后的固定期限内删除；ZDR 只适用于 Warp-provided inference，自有账号请求按厂商条款；任何用户可关闭 Help Improve Warp 启用 full ZDR，Business/Enterprise 管理员可全员强制。FAQ 同时写明 paid plans 的顶级开源模型由 Fireworks AI 在美国托管。原 marketing ZDR 句保留。"
+
+[[source]]
+url = "https://docs.warp.dev/support-and-community/privacy-and-security/privacy.md"
+channel = "developer_data"
+tier = "core"
+note = "Warp-wide Privacy and data control 页；安全页把上游 ZDR、分析采集与产品存储指向这里。正文区分 provider ZDR（仅 Warp-managed inference、受支持模型）、Help improve Warp 采集控制与产品存储，并写明采集偏好不改变厂商保留要求、也不关闭产品存储。2026-11-18 新登记，待 bot 抓回快照后再写引文。"
+
+[[source]]
+url = "https://docs.warp.dev/agents/inference/model-choice.md"
+channel = "developer_data"
+tier = "core"
+note = "模型清单；列出需厂商保留、不受 ZDR 覆盖的模型，并写明该清单适用于 Warp Terminal 与 factory run 的 Warp-managed inference。2026-11-18 新登记，待 bot 抓回快照后再写引文。"
+
+[[source]]
+url = "https://docs.warp.dev/factories/zero-data-retention.md"
+channel = "developer_data"
+tier = "core"
+note = "Factory 推理的 ZDR 指南；写明 Warp 保存 transcripts / prompt attachments / artifacts 供回看、销毁沙箱不删除这些记录，且自托管执行不等同厂商 ZDR 或迁移已保存的运行数据。2026-11-18 新登记，待 bot 抓回快照后再写引文。"
+
+[[source]]
+url = "https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm.md"
+channel = "developer_data"
+tier = "core"
+note = "BYOLLM 配置页；写明请求改道客户自己的 AWS Bedrock / Google Cloud、Warp 不存储云凭证、推理在客户云账号计费，但未就请求正文是否用于训练作承诺。2026-11-18 按复核意见登记为来源，待 bot 抓回快照后再写引文。"
 
 [[product]]
 id = "free"
@@ -39,38 +63,53 @@ text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」�
 anchor = "warp-privacy-trains-models"
 
 [[product.training.point]]
-text = "Do not read the enterprise security page's source-code sentence as Warp's own purpose commitment for this tier: its object is your source code in the self-hosted deployment control plane (see the Enterprise row), not how consumer data is used."
-text_zh = "别把 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」当作 Warp 对消费档数据的用途承诺——那句的对象是自托管部署控制平面里的 your source code（见 Enterprise 一行的依据）。"
-anchor = "warp-control-plane-no-training"
-
-[[product.training.point]]
 text = "Collection switch: for AI features such as Active AI and Agent Mode, the prompts and outputs collected can be controlled at any time in your settings. This switch governs collection, not the training/fine-tuning purpose listed above — no opt-out from that purpose is disclosed."
 text_zh = "采集开关：Active AI、Agent Mode 等 AI 功能的输入输出，可在设置里随时控制是否收集。该开关控制的是「采集」，不是上面那条训练/微调用途——针对训练用途没有披露退出途径。"
 anchor = "warp-ai-io-collection-control"
 
 [[product.training.point]]
-text = "Free tier: individual users can disable data collection in Settings > Privacy. The switch covers telemetry and crash reporting, not the AI training purpose above."
-text_zh = "Free 档：个人用户可在 Settings > Privacy 关闭数据收集。该开关针对遥测与崩溃上报，不涉及上面的训练用途。"
-anchor = "warp-telemetry-free-tier-toggle"
+text = "Tier control: the pricing page lists Free's data controls as individually configured, and no registered source says the Free settings control switches off the training/fine-tuning purpose. Collection for service improvement is counted as training by this ledger (docs/judgment.md), so the distinction matters: the Privacy Notice's training purpose remains listed, and the registered sources do not tie this switch to withdrawing it."
+text_zh = "档位控制：价格页把 Free 的数据控制列为 individually configured，已登记来源也没有说 Free 的设置开关会关闭 training/fine-tuning 用途。按本台账判定口径，为改进服务而进行的内容采集计入训练，故这一区分很重要：隐私政策的训练用途仍在清单里，已登记来源没有把该开关与撤回该用途对应起来。"
+anchor = "warp-pricing-data-controls"
 
 [product.zdr]
 mark = "no"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "Parallel fact from the same page: Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data, and the page says ZDR applies across all Warp plans. The subject is the contracted LLM providers, not Warp's own retention of your data, and line 44 of the same page limits those ZDR agreements to Enterprise teams. Both scopes are kept side by side; no side is picked."
-text_zh = "同页并列事实：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data，并自称「ZDR applies across all Warp plans」。该句约束的是上游厂商、不是 Warp 自身对数据的保留；同页第 44 行又把 ZDR 协议限定为 Enterprise teams——两种适用范围并列保留，不选边。"
-anchor = "warp-zdr-upstream"
+text = "Provider ZDR scope: Warp has Zero Data Retention agreements with supported LLM providers, including Anthropic, OpenAI, Google, xAI, and Fireworks AI. The agreements cover supported models when Warp supplies the provider account (Warp-managed inference). This is provider retention, not Warp's own product storage."
+text_zh = "上游 ZDR 范围：Warp 与受支持的 LLM 厂商（含 Anthropic、OpenAI、Google、xAI、Fireworks AI）签有零数据保留协议；协议适用于 Warp 提供厂商账号（Warp-managed inference）时的受支持模型。该条约束厂商保留，不是 Warp 自身的产品存储。"
+anchor = "warp-provider-zdr-scope"
 
 [[product.zdr.point]]
-text = "ZDR exception: some models carry provider-specific data retention requirements and are therefore not covered by ZDR. By its own wording the clause is stated for Enterprise teams only (off by default; a workspace admin must explicitly enable them in the Admin Panel); this tier is outside that wording and the page says nothing about the exception here."
-text_zh = "ZDR 例外：部分模型带厂商特定保留要求、不在 ZDR 覆盖内。按原文该例外只声明适用于 Enterprise teams（默认关闭，需工作区管理员在 Admin Panel 显式开启）；本档不在其表述范围内，原文对本档未表态。"
-anchor = "warp-zdr-exception"
+text = "For supported models, the agreements prevent providers from training on customer-generated data processed through Warp and require prompts and outputs to be deleted after the response is generated within a fixed period of time. The length of that period is not stated."
+text_zh = "对受支持模型，协议禁止厂商把经 Warp 处理的客户生成数据用于训练，并要求提示词与输出在响应生成后的固定期限内删除；具体时长未写。"
+anchor = "warp-provider-no-training"
 
 [[product.zdr.point]]
-text = "Parallel fact from the pricing page (marketing wording, no tier split): Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. Kept side by side with the security page's scope divergence; the pricing page ranks below developer_data and consumer_privacy and does not override this row."
-text_zh = "价格页并列事实（marketing 表述、未区分档位）：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」与安全页第 16/44 行的适用范围分歧一并保留；价格页权威性低于 developer_data 与 consumer_privacy，不覆盖本行结论。"
+text = "ZDR exception: the security overview says provider ZDR concerns what AI providers retain, not what Warp stores, and that Model choice lists the model exceptions. The registered snapshots do not reproduce which models are excepted or what retention they require."
+text_zh = "ZDR 例外：安全页说 provider ZDR 管的是 AI 厂商保留什么、不是 Warp 存什么，并指向 Model choice 的例外清单。已登记快照没有复述具体哪些模型例外、要求何种保留。"
+anchor = "warp-model-choice-exceptions"
+
+[[product.zdr.point]]
+text = "Own-account boundary: ZDR applies to Warp-provided inference only. Requests through your own API key, subscription, custom endpoint, or LLM are sent directly to your provider under your own account and terms."
+text_zh = "自有账号边界：ZDR 只适用于 Warp 提供的推理；经你自己的 API key、订阅、自定义端点或 LLM 发出的请求，直接按你与厂商的账号和条款处理。"
+anchor = "warp-provider-zdr-boundary"
+
+[[product.zdr.point]]
+text = "Warp-side storage remains: the security overview says Transcripts can contain code context and persist as product data independently of provider ZDR. This is why the row stays no even where provider ZDR applies."
+text_zh = "Warp 侧仍会存储：安全页写明会话记录可含代码上下文、并作为产品数据独立于上游 ZDR 持久化。因此即使上游 ZDR 成立，本行仍为否。"
+anchor = "warp-product-storage"
+
+[[product.zdr.point]]
+text = "Pricing-page marketing claim, kept as a parallel fact: Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. It does not override the provider/product distinction above."
+text_zh = "价格页 marketing 表述并列保留：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」该句不覆盖上面的厂商保留 / Warp 产品存储之分。"
 anchor = "warp-pricing-zdr-marketing"
+
+[[product.zdr.point]]
+text = "Pricing FAQ self-service claim: any user can enable full ZDR for their own account by disabling Help Improve Warp. The security overview frames ZDR as provider retention only, so this does not turn off Warp product storage."
+text_zh = "价格页 FAQ 自助说法：任何用户都可关闭 Help Improve Warp，为自己的账号启用 full ZDR。安全页把 ZDR 限定为厂商保留，因此这不会关闭 Warp 的产品存储。"
+anchor = "warp-pricing-zdr-self-service"
 
 [product.retention]
 object = "mixed"
@@ -88,13 +127,18 @@ text_zh = "对象=遥测数据；语境=采集开启时；期限类型=无限期
 anchor = "warp-telemetry-indefinite"
 
 [[product.retention.point]]
-text = "Object: cloud conversations and cloud agent runs. Context: features that require storing conversation data to function. Duration type: not quantified — the page states the storage is required and that it is separate from analytics or telemetry collection, but gives no period."
-text_zh = "对象=云对话与云 agent run；语境=功能必需（原文 require storing conversation data to function）；期限类型=未量化——只说明必须存储、且与 analytics/telemetry 采集分开，未给期限。"
-anchor = "warp-cloud-storage"
+text = "Object: cloud conversations. Context: product storage; the pricing table lists 30 cloud-stored conversations on Free. Duration type: not quantified — the source states storage, not a period."
+text_zh = "对象=云对话；语境=产品存储，价格表列 Free 为 30 条云存储对话；期限类型=未量化——来源只说会存储，未给期限。"
+anchor = "warp-pricing-cloud-conversation-storage"
 
 [[product.retention.point]]
-text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is the only quantified deletion period on the page and it is not a retention period for inputs and outputs."
-text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这是全文唯一的量化删除期限，不能当作输入输出正文的保留期限。"
+text = "Object: prompts and outputs at the contracted LLM provider. Context: Warp-managed inference covered by provider ZDR. Duration type: fixed period after the response — the pricing FAQ requires deletion after the response within a fixed period, without stating the length."
+text_zh = "对象=上游 LLM 厂商处的提示词与响应；语境=受 ZDR 覆盖的 Warp-managed inference；期限类型=响应后固定期限内删除——价格页 FAQ 要求在响应生成后的固定期限内删除，未写具体时长。"
+anchor = "warp-provider-no-training"
+
+[[product.retention.point]]
+text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is not a retention period for inputs and outputs."
+text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这不是输入输出正文的保留期限。"
 anchor = "warp-account-deletion-30d"
 
 [product.processing_region]
@@ -136,37 +180,53 @@ text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」�
 anchor = "warp-privacy-trains-models"
 
 [[product.training.point]]
-text = "Do not read the enterprise security page's source-code sentence as Warp's own purpose commitment for this tier: its object is your source code in the self-hosted deployment control plane (see the Enterprise row), not how consumer data is used."
-text_zh = "别把 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」当作 Warp 对消费档数据的用途承诺——那句的对象是自托管部署控制平面里的 your source code（见 Enterprise 一行的依据）。"
-anchor = "warp-control-plane-no-training"
-
-[[product.training.point]]
 text = "Collection switch: for AI features such as Active AI and Agent Mode, the prompts and outputs collected can be controlled at any time in your settings. This switch governs collection, not the training/fine-tuning purpose listed above — no opt-out from that purpose is disclosed."
 text_zh = "采集开关：Active AI、Agent Mode 等 AI 功能的输入输出，可在设置里随时控制是否收集。该开关控制的是「采集」，不是上面那条训练/微调用途——针对训练用途没有披露退出途径。"
 anchor = "warp-ai-io-collection-control"
 
 [[product.training.point]]
-text = "Tier mapping note: the security page's per-plan collection switches name Free tier, Paid teams, and Business and Enterprise only; Build is not named. The verifiable switch evidence for this tier is the Privacy Notice's settings control above."
-text_zh = "档位对应说明：安全页的采集开关按档只列 Free tier / Paid teams / Business and Enterprise，未点名 Build；本档可核的开关依据是上一条隐私政策的设置控制。"
+text = "Tier control: Build is a paid plan, but the pricing page still lists its data controls as individually configured, and no registered source says the Build settings control switches off the training/fine-tuning purpose. Collection for service improvement is counted as training by this ledger, so this switch does not answer the training question: the Privacy Notice's purpose remains listed."
+text_zh = "档位控制：Build 是付费档，但价格页仍把其数据控制列为 individually configured，已登记来源也没有说 Build 的设置开关会关闭 training/fine-tuning 用途。按本台账口径，为改进服务而进行的内容采集计入训练，故该开关不回答训练问题：隐私政策的用途仍在清单里。"
+anchor = "warp-pricing-data-controls"
 
 [product.zdr]
 mark = "no"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "Parallel fact from the same page: Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data, and the page says ZDR applies across all Warp plans. The subject is the contracted LLM providers, not Warp's own retention of your data, and line 44 of the same page limits those ZDR agreements to Enterprise teams. Both scopes are kept side by side; no side is picked."
-text_zh = "同页并列事实：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data，并自称「ZDR applies across all Warp plans」。该句约束的是上游厂商、不是 Warp 自身对数据的保留；同页第 44 行又把 ZDR 协议限定为 Enterprise teams——两种适用范围并列保留，不选边。"
-anchor = "warp-zdr-upstream"
+text = "Provider ZDR scope: Warp has Zero Data Retention agreements with supported LLM providers, including Anthropic, OpenAI, Google, xAI, and Fireworks AI. The agreements cover supported models when Warp supplies the provider account (Warp-managed inference). This is provider retention, not Warp's own product storage."
+text_zh = "上游 ZDR 范围：Warp 与受支持的 LLM 厂商（含 Anthropic、OpenAI、Google、xAI、Fireworks AI）签有零数据保留协议；协议适用于 Warp 提供厂商账号（Warp-managed inference）时的受支持模型。该条约束厂商保留，不是 Warp 自身的产品存储。"
+anchor = "warp-provider-zdr-scope"
 
 [[product.zdr.point]]
-text = "ZDR exception: some models carry provider-specific data retention requirements and are therefore not covered by ZDR. By its own wording the clause is stated for Enterprise teams only (off by default; a workspace admin must explicitly enable them in the Admin Panel); this tier is outside that wording and the page says nothing about the exception here."
-text_zh = "ZDR 例外：部分模型带厂商特定保留要求、不在 ZDR 覆盖内。按原文该例外只声明适用于 Enterprise teams（默认关闭，需工作区管理员在 Admin Panel 显式开启）；本档不在其表述范围内，原文对本档未表态。"
-anchor = "warp-zdr-exception"
+text = "For supported models, the agreements prevent providers from training on customer-generated data processed through Warp and require prompts and outputs to be deleted after the response is generated within a fixed period of time. The length of that period is not stated."
+text_zh = "对受支持模型，协议禁止厂商把经 Warp 处理的客户生成数据用于训练，并要求提示词与输出在响应生成后的固定期限内删除；具体时长未写。"
+anchor = "warp-provider-no-training"
 
 [[product.zdr.point]]
-text = "Parallel fact from the pricing page (marketing wording, no tier split): Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. Kept side by side with the security page's scope divergence; the pricing page ranks below developer_data and consumer_privacy and does not override this row."
-text_zh = "价格页并列事实（marketing 表述、未区分档位）：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」与安全页第 16/44 行的适用范围分歧一并保留；价格页权威性低于 developer_data 与 consumer_privacy，不覆盖本行结论。"
+text = "ZDR exception: the security overview says provider ZDR concerns what AI providers retain, not what Warp stores, and that Model choice lists the model exceptions. The registered snapshots do not reproduce which models are excepted or what retention they require."
+text_zh = "ZDR 例外：安全页说 provider ZDR 管的是 AI 厂商保留什么、不是 Warp 存什么，并指向 Model choice 的例外清单。已登记快照没有复述具体哪些模型例外、要求何种保留。"
+anchor = "warp-model-choice-exceptions"
+
+[[product.zdr.point]]
+text = "Own-account boundary: ZDR applies to Warp-provided inference only. Requests through your own API key, subscription, custom endpoint, or LLM are sent directly to your provider under your own account and terms."
+text_zh = "自有账号边界：ZDR 只适用于 Warp 提供的推理；经你自己的 API key、订阅、自定义端点或 LLM 发出的请求，直接按你与厂商的账号和条款处理。"
+anchor = "warp-provider-zdr-boundary"
+
+[[product.zdr.point]]
+text = "Warp-side storage remains: the security overview says Transcripts can contain code context and persist as product data independently of provider ZDR. This is why the row stays no even where provider ZDR applies."
+text_zh = "Warp 侧仍会存储：安全页写明会话记录可含代码上下文、并作为产品数据独立于上游 ZDR 持久化。因此即使上游 ZDR 成立，本行仍为否。"
+anchor = "warp-product-storage"
+
+[[product.zdr.point]]
+text = "Pricing-page marketing claim, kept as a parallel fact: Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. It does not override the provider/product distinction above."
+text_zh = "价格页 marketing 表述并列保留：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」该句不覆盖上面的厂商保留 / Warp 产品存储之分。"
 anchor = "warp-pricing-zdr-marketing"
+
+[[product.zdr.point]]
+text = "Pricing FAQ self-service claim: any user can enable full ZDR for their own account by disabling Help Improve Warp. The security overview frames ZDR as provider retention only, so this does not turn off Warp product storage."
+text_zh = "价格页 FAQ 自助说法：任何用户都可关闭 Help Improve Warp，为自己的账号启用 full ZDR。安全页把 ZDR 限定为厂商保留，因此这不会关闭 Warp 的产品存储。"
+anchor = "warp-pricing-zdr-self-service"
 
 [product.retention]
 object = "mixed"
@@ -184,18 +244,18 @@ text_zh = "对象=遥测数据；语境=采集开启时；期限类型=无限期
 anchor = "warp-telemetry-indefinite"
 
 [[product.retention.point]]
-text = "Object: cloud conversations and cloud agent runs. Context: features that require storing conversation data to function. Duration type: not quantified — the page states the storage is required and that it is separate from analytics or telemetry collection, but gives no period."
-text_zh = "对象=云对话与云 agent run；语境=功能必需（原文 require storing conversation data to function）；期限类型=未量化——只说明必须存储、且与 analytics/telemetry 采集分开，未给期限。"
-anchor = "warp-cloud-storage"
-
-[[product.retention.point]]
-text = "Object scope for this tier: the pricing page lists unlimited cloud conversation storage under Build, so the unquantified cloud-conversation object above applies without a storage cap."
-text_zh = "本档对象范围：价格页 Build 一栏写明 unlimited cloud conversation storage（云对话存储不限量），故上一条「未量化」的云对话对象在本档没有存储量上限。"
+text = "Object: cloud conversations. Context: product storage; the pricing table lists unlimited cloud conversation storage on Build. Duration type: not quantified — the source states storage, not a period."
+text_zh = "对象=云对话；语境=产品存储，价格表列 Build 为 unlimited cloud conversation storage；期限类型=未量化——来源只说会存储，未给期限。"
 anchor = "warp-pricing-build-cloud-conversations"
 
 [[product.retention.point]]
-text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is the only quantified deletion period on the page and it is not a retention period for inputs and outputs."
-text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这是全文唯一的量化删除期限，不能当作输入输出正文的保留期限。"
+text = "Object: prompts and outputs at the contracted LLM provider. Context: Warp-managed inference covered by provider ZDR. Duration type: fixed period after the response — the pricing FAQ requires deletion after the response within a fixed period, without stating the length."
+text_zh = "对象=上游 LLM 厂商处的提示词与响应；语境=受 ZDR 覆盖的 Warp-managed inference；期限类型=响应后固定期限内删除——价格页 FAQ 要求在响应生成后的固定期限内删除，未写具体时长。"
+anchor = "warp-provider-no-training"
+
+[[product.retention.point]]
+text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is not a retention period for inputs and outputs."
+text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这不是输入输出正文的保留期限。"
 anchor = "warp-account-deletion-30d"
 
 [product.processing_region]
@@ -237,38 +297,53 @@ text_zh = "隐私政策把「training, fine-tuning 支撑 AI 功能的模型」�
 anchor = "warp-privacy-trains-models"
 
 [[product.training.point]]
-text = "Do not read the enterprise security page's source-code sentence as Warp's own purpose commitment for this tier: its object is your source code in the self-hosted deployment control plane (see the Enterprise row), not how consumer data is used."
-text_zh = "别把 enterprise 安全页那句「Warp does not persistently store your source code or use it for model training」当作 Warp 对消费档数据的用途承诺——那句的对象是自托管部署控制平面里的 your source code（见 Enterprise 一行的依据）。"
-anchor = "warp-control-plane-no-training"
-
-[[product.training.point]]
 text = "Collection switch: for AI features such as Active AI and Agent Mode, the prompts and outputs collected can be controlled at any time in your settings. This switch governs collection, not the training/fine-tuning purpose listed above — no opt-out from that purpose is disclosed."
 text_zh = "采集开关：Active AI、Agent Mode 等 AI 功能的输入输出，可在设置里随时控制是否收集。该开关控制的是「采集」，不是上面那条训练/微调用途——针对训练用途没有披露退出途径。"
 anchor = "warp-ai-io-collection-control"
 
 [[product.training.point]]
-text = "Paid teams: team admins can enforce data collection settings for the entire team, and collection is enabled by default. The switch covers telemetry and crash reporting, not the AI training purpose above."
-text_zh = "团队档：管理员可对整队强制配置数据收集设置，且采集默认开启。该开关针对遥测与崩溃上报，不是训练用途的退出途径。"
-anchor = "warp-telemetry-paid-teams-admin"
+text = "Teams: content collection for service improvement is managed by team admins in the Admin Panel's Privacy settings, and the pricing table lists data controls as admin-configurable. The current sources no longer state that collection is enabled by default. Turning content collection off stops collection for service improvement (which this ledger counts as training), while the Privacy Notice's training/fine-tuning purpose remains."
+text_zh = "团队档：为改进服务的内容采集由团队管理员在 Admin Panel 的 Privacy 设置里管理，价格表把数据控制列为 admin-configurable；现行来源已不再声明采集默认开启。关闭内容采集只停止为改进服务而进行的内容采集（本台账按训练计），隐私政策里的 training/fine-tuning 用途仍然存在。"
+anchor = "warp-team-content-collection"
 
 [product.zdr]
 mark = "no"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "Parallel fact from the same page: Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data, and the page says ZDR applies across all Warp plans. The subject is the contracted LLM providers, not Warp's own retention of your data, and line 44 of the same page limits those ZDR agreements to Enterprise teams. Both scopes are kept side by side; no side is picked."
-text_zh = "同页并列事实：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data，并自称「ZDR applies across all Warp plans」。该句约束的是上游厂商、不是 Warp 自身对数据的保留；同页第 44 行又把 ZDR 协议限定为 Enterprise teams——两种适用范围并列保留，不选边。"
-anchor = "warp-zdr-upstream"
+text = "Provider ZDR scope: Warp has Zero Data Retention agreements with supported LLM providers, including Anthropic, OpenAI, Google, xAI, and Fireworks AI. The agreements cover supported models when Warp supplies the provider account (Warp-managed inference). This is provider retention, not Warp's own product storage."
+text_zh = "上游 ZDR 范围：Warp 与受支持的 LLM 厂商（含 Anthropic、OpenAI、Google、xAI、Fireworks AI）签有零数据保留协议；协议适用于 Warp 提供厂商账号（Warp-managed inference）时的受支持模型。该条约束厂商保留，不是 Warp 自身的产品存储。"
+anchor = "warp-provider-zdr-scope"
 
 [[product.zdr.point]]
-text = "ZDR exception: some models carry provider-specific data retention requirements and are therefore not covered by ZDR. By its own wording the clause is stated for Enterprise teams only (off by default; a workspace admin must explicitly enable them in the Admin Panel); this tier is outside that wording and the page says nothing about the exception here."
-text_zh = "ZDR 例外：部分模型带厂商特定保留要求、不在 ZDR 覆盖内。按原文该例外只声明适用于 Enterprise teams（默认关闭，需工作区管理员在 Admin Panel 显式开启）；本档不在其表述范围内，原文对本档未表态。"
-anchor = "warp-zdr-exception"
+text = "For supported models, the agreements prevent providers from training on customer-generated data processed through Warp and require prompts and outputs to be deleted after the response is generated within a fixed period of time. The length of that period is not stated."
+text_zh = "对受支持模型，协议禁止厂商把经 Warp 处理的客户生成数据用于训练，并要求提示词与输出在响应生成后的固定期限内删除；具体时长未写。"
+anchor = "warp-provider-no-training"
 
 [[product.zdr.point]]
-text = "Parallel fact from the pricing page (marketing wording, no tier split): Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. Kept side by side with the security page's scope divergence; the pricing page ranks below developer_data and consumer_privacy and does not override this row."
-text_zh = "价格页并列事实（marketing 表述、未区分档位）：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」与安全页第 16/44 行的适用范围分歧一并保留；价格页权威性低于 developer_data 与 consumer_privacy，不覆盖本行结论。"
+text = "ZDR exception: the security overview says provider ZDR concerns what AI providers retain, not what Warp stores, and that Model choice lists the model exceptions. The registered snapshots do not reproduce which models are excepted or what retention they require."
+text_zh = "ZDR 例外：安全页说 provider ZDR 管的是 AI 厂商保留什么、不是 Warp 存什么，并指向 Model choice 的例外清单。已登记快照没有复述具体哪些模型例外、要求何种保留。"
+anchor = "warp-model-choice-exceptions"
+
+[[product.zdr.point]]
+text = "Own-account boundary: ZDR applies to Warp-provided inference only. Requests through your own API key, subscription, custom endpoint, or LLM are sent directly to your provider under your own account and terms."
+text_zh = "自有账号边界：ZDR 只适用于 Warp 提供的推理；经你自己的 API key、订阅、自定义端点或 LLM 发出的请求，直接按你与厂商的账号和条款处理。"
+anchor = "warp-provider-zdr-boundary"
+
+[[product.zdr.point]]
+text = "Warp-side storage remains: the security overview says Transcripts can contain code context and persist as product data independently of provider ZDR. This is why the row stays no even where provider ZDR applies."
+text_zh = "Warp 侧仍会存储：安全页写明会话记录可含代码上下文、并作为产品数据独立于上游 ZDR 持久化。因此即使上游 ZDR 成立，本行仍为否。"
+anchor = "warp-product-storage"
+
+[[product.zdr.point]]
+text = "Pricing-page marketing claim, kept as a parallel fact: Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. It does not override the provider/product distinction above."
+text_zh = "价格页 marketing 表述并列保留：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」该句不覆盖上面的厂商保留 / Warp 产品存储之分。"
 anchor = "warp-pricing-zdr-marketing"
+
+[[product.zdr.point]]
+text = "Pricing FAQ self-service claim: any user can enable full ZDR for their own account by disabling Help Improve Warp. The security overview frames ZDR as provider retention only, so this does not turn off Warp product storage."
+text_zh = "价格页 FAQ 自助说法：任何用户都可关闭 Help Improve Warp，为自己的账号启用 full ZDR。安全页把 ZDR 限定为厂商保留，因此这不会关闭 Warp 的产品存储。"
+anchor = "warp-pricing-zdr-self-service"
 
 [product.retention]
 object = "mixed"
@@ -281,18 +356,23 @@ text_zh = "对象=个人信息总体；语境=默认；期限类型=按需——
 anchor = "warp-privacy-as-needed-retention"
 
 [[product.retention.point]]
-text = "Object: telemetry data. Context: when collection is on (enabled by default on this tier). Duration type: indefinite — Warp states it retains telemetry data indefinitely for analytics and debugging, with no deletion commitment for this object."
-text_zh = "对象=遥测数据；语境=采集开启时（本档采集默认开启）；期限类型=无限期——原文写 Warp retains telemetry data indefinitely for analytics and debugging，本对象没有删除承诺。"
+text = "Object: telemetry data. Context: when collection is on; the current sources no longer state a per-plan default. Duration type: indefinite — Warp states it retains telemetry data indefinitely for analytics and debugging, with no deletion commitment for this object."
+text_zh = "对象=遥测数据；语境=采集开启时（现行来源已不再声明各档默认值）；期限类型=无限期——原文写 Warp retains telemetry data indefinitely for analytics and debugging，本对象没有删除承诺。"
 anchor = "warp-telemetry-indefinite"
 
 [[product.retention.point]]
-text = "Object: cloud conversations and cloud agent runs. Context: features that require storing conversation data to function. Duration type: not quantified — the page states the storage is required and that it is separate from analytics or telemetry collection, but gives no period."
-text_zh = "对象=云对话与云 agent run；语境=功能必需（原文 require storing conversation data to function）；期限类型=未量化——只说明必须存储、且与 analytics/telemetry 采集分开，未给期限。"
-anchor = "warp-cloud-storage"
+text = "Object: cloud conversations. Context: product storage; the pricing table lists unlimited cloud conversation storage on Business. Duration type: not quantified — the source states storage, not a period."
+text_zh = "对象=云对话；语境=产品存储，价格表列 Business 为 unlimited cloud conversation storage；期限类型=未量化——来源只说会存储，未给期限。"
+anchor = "warp-pricing-cloud-conversation-storage"
 
 [[product.retention.point]]
-text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is the only quantified deletion period on the page and it is not a retention period for inputs and outputs."
-text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这是全文唯一的量化删除期限，不能当作输入输出正文的保留期限。"
+text = "Object: prompts and outputs at the contracted LLM provider. Context: Warp-managed inference covered by provider ZDR. Duration type: fixed period after the response — the pricing FAQ requires deletion after the response within a fixed period, without stating the length."
+text_zh = "对象=上游 LLM 厂商处的提示词与响应；语境=受 ZDR 覆盖的 Warp-managed inference；期限类型=响应后固定期限内删除——价格页 FAQ 要求在响应生成后的固定期限内删除，未写具体时长。"
+anchor = "warp-provider-no-training"
+
+[[product.retention.point]]
+text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is not a retention period for inputs and outputs."
+text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这不是输入输出正文的保留期限。"
 anchor = "warp-account-deletion-30d"
 
 [product.processing_region]
@@ -332,22 +412,22 @@ plan_level = "enterprise"
 [product.training]
 mark = "yes"
 mode = "by_tier"
-anchor = "warp-zdr-upstream"
+anchor = "warp-provider-no-training"
 
 [[product.training.point]]
-text = "Basis narrowed to what the text says: Warp has Zero Data Retention agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data. The sentence binds the contracted LLM providers, not Warp itself, and line 44 of the same page limits those agreements to Enterprise teams while line 16 says they apply across all plans — both scopes are kept side by side."
-text_zh = "依据收窄到原文所说的范围：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data。该句约束的是 contracted LLM providers、不是 Warp 自身；同页第 44 行把该协议限定为 Enterprise teams，第 16 行却自称适用全部档位——两种适用范围并列保留。"
-anchor = "warp-zdr-upstream"
+text = "Basis narrowed to what the text says: for supported models, Warp's Zero Data Retention agreements prevent providers from training on customer-generated data processed through Warp. The agreements cover supported models when Warp supplies the provider account (Warp-managed inference); requests through the customer's own provider account are outside them."
+text_zh = "依据收窄到原文所说的范围：对受支持模型，Warp 的零数据保留协议禁止厂商把经 Warp 处理的客户生成数据用于训练。协议适用于 Warp 提供厂商账号（Warp-managed inference）时的受支持模型；经客户自有厂商账号发出的请求不在其内。"
+anchor = "warp-provider-no-training"
 
 [[product.training.point]]
-text = "Enterprise scope: agent requests are sent to contracted LLM providers with Zero Data Retention agreements for Enterprise teams."
-text_zh = "企业档适用范围：Agent requests 发往与 Warp 签有 ZDR 协议的 LLM 厂商（原文限定为 Enterprise teams）。"
-anchor = "warp-zdr-enterprise-scope"
+text = "Exception models: the security overview says Model choice lists the model exceptions. The registered snapshots do not reproduce that list or its Enterprise default, so the no-training commitment above is expressly for supported models, not for every selectable model."
+text_zh = "例外模型：安全页说 Model choice 列出模型例外；已登记快照没有复述该清单或 Enterprise 默认值，故上面的不训练承诺明确只覆盖受支持模型，不是所有可选模型。"
+anchor = "warp-model-choice-exceptions"
 
 [[product.training.point]]
-text = "Kept for what it does cover, not as the basis of the tier verdict: the self-hosted control-plane sentence states Warp does not persistently store your source code or use it for model training. Its object is your source code, in the self-hosted deployment control plane section; it says nothing about prompts, cloud conversations or telemetry."
-text_zh = "保留这句能覆盖的部分、但不作为本档结论的依据：自托管控制面那句写 Warp 不持久保存源码、不用于模型训练，对象是 your source code，语境是 Self-hosted deployments 的控制平面；它没有覆盖提示词、云对话、遥测等对象。"
-anchor = "warp-control-plane-no-training"
+text = "Own-account boundary: requests through the customer's own API key, subscription, custom endpoint, or LLM are sent directly to the provider under the customer's own account and terms, not under Warp's ZDR agreements."
+text_zh = "自有账号边界：经客户自己的 API key、订阅、自定义端点或 LLM 发出的请求，直接按客户与厂商的账号和条款处理，不适用 Warp 的 ZDR 协议。"
+anchor = "warp-provider-zdr-boundary"
 
 [[product.training.point]]
 text = "Applicable agreement: enterprise customers normally enter into a data processing agreement, and the Privacy Notice expressly does not apply to personal information processed on behalf of customers that have entered into one — that data is governed by the DPA."
@@ -356,56 +436,96 @@ anchor = "warp-privacy-dpa-exclusion"
 
 [product.zdr]
 mark = "no"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "Parallel fact from the same page: Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data, and the page says ZDR applies across all Warp plans. The subject is the contracted LLM providers, not Warp's own retention of your data, and line 44 of the same page limits those ZDR agreements to Enterprise teams. Both scopes are kept side by side; no side is picked."
-text_zh = "同页并列事实：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data，并自称「ZDR applies across all Warp plans」。该句约束的是上游厂商、不是 Warp 自身对数据的保留；同页第 44 行又把 ZDR 协议限定为 Enterprise teams——两种适用范围并列保留，不选边。"
-anchor = "warp-zdr-upstream"
+text = "Provider ZDR scope: Warp has Zero Data Retention agreements with supported LLM providers, including Anthropic, OpenAI, Google, xAI, and Fireworks AI. The agreements cover supported models when Warp supplies the provider account (Warp-managed inference). This is provider retention, not Warp's own product storage."
+text_zh = "上游 ZDR 范围：Warp 与受支持的 LLM 厂商（含 Anthropic、OpenAI、Google、xAI、Fireworks AI）签有零数据保留协议；协议适用于 Warp 提供厂商账号（Warp-managed inference）时的受支持模型。该条约束厂商保留，不是 Warp 自身的产品存储。"
+anchor = "warp-provider-zdr-scope"
 
 [[product.zdr.point]]
-text = "ZDR exception, listed on its own: some models carry provider-specific data retention requirements and are therefore not covered by ZDR. For Enterprise teams these models are off by default; a workspace admin must explicitly enable them in the Admin Panel. Whether this tier's ZDR holds therefore depends on whether an admin enables those models."
-text_zh = "ZDR 例外单列：部分模型带厂商特定保留要求、不在 ZDR 覆盖内。Enterprise 档这些模型默认关闭，需工作区管理员在 Admin Panel 显式开启——本档 ZDR 能否成立取决于管理员是否开启这类模型。"
-anchor = "warp-zdr-exception"
+text = "For supported models, the agreements prevent providers from training on customer-generated data processed through Warp and require prompts and outputs to be deleted after the response is generated within a fixed period of time. The length of that period is not stated."
+text_zh = "对受支持模型，协议禁止厂商把经 Warp 处理的客户生成数据用于训练，并要求提示词与输出在响应生成后的固定期限内删除；具体时长未写。"
+anchor = "warp-provider-no-training"
 
 [[product.zdr.point]]
-text = "Parallel fact from the pricing page (marketing wording, no tier split): Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. Kept side by side with the security page's scope divergence; the pricing page ranks below developer_data and consumer_privacy and does not override this row."
-text_zh = "价格页并列事实（marketing 表述、未区分档位）：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」与安全页第 16/44 行的适用范围分歧一并保留；价格页权威性低于 developer_data 与 consumer_privacy，不覆盖本行结论。"
+text = "ZDR exception: the security overview says provider ZDR concerns what AI providers retain, not what Warp stores, and that Model choice lists the model exceptions. The registered snapshots do not reproduce which models are excepted or what retention they require."
+text_zh = "ZDR 例外：安全页说 provider ZDR 管的是 AI 厂商保留什么、不是 Warp 存什么，并指向 Model choice 的例外清单。已登记快照没有复述具体哪些模型例外、要求何种保留。"
+anchor = "warp-model-choice-exceptions"
+
+[[product.zdr.point]]
+text = "Own-account boundary: ZDR applies to Warp-provided inference only. Requests through your own API key, subscription, custom endpoint, or LLM are sent directly to your provider under your own account and terms."
+text_zh = "自有账号边界：ZDR 只适用于 Warp 提供的推理；经你自己的 API key、订阅、自定义端点或 LLM 发出的请求，直接按你与厂商的账号和条款处理。"
+anchor = "warp-provider-zdr-boundary"
+
+[[product.zdr.point]]
+text = "Warp-side storage remains: the security overview says Transcripts can contain code context and persist as product data independently of provider ZDR. This is why the row stays no even where provider ZDR applies."
+text_zh = "Warp 侧仍会存储：安全页写明会话记录可含代码上下文、并作为产品数据独立于上游 ZDR 持久化。因此即使上游 ZDR 成立，本行仍为否。"
+anchor = "warp-product-storage"
+
+[[product.zdr.point]]
+text = "Pricing-page marketing claim, kept as a parallel fact: Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. It does not override the provider/product distinction above."
+text_zh = "价格页 marketing 表述并列保留：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」该句不覆盖上面的厂商保留 / Warp 产品存储之分。"
 anchor = "warp-pricing-zdr-marketing"
+
+[[product.zdr.point]]
+text = "Pricing FAQ self-service claim: any user can enable full ZDR for their own account by disabling Help Improve Warp. The security overview frames ZDR as provider retention only, so this does not turn off Warp product storage."
+text_zh = "价格页 FAQ 自助说法：任何用户都可关闭 Help Improve Warp，为自己的账号启用 full ZDR。安全页把 ZDR 限定为厂商保留，因此这不会关闭 Warp 的产品存储。"
+anchor = "warp-pricing-zdr-self-service"
+
+[[product.zdr.point]]
+text = "Pricing comparison row, kept as a parallel fact: Contracted LLM providers never retain, store, or train on your data, and the row marks Model provider ZDR as Included on every plan. It neither lists the model exceptions nor distinguishes Warp product storage."
+text_zh = "价格页比较行并列保留：Contracted LLM providers never retain, store, or train on your data，且该行把 Model provider ZDR 标为各档 Included。该行没有列出模型例外，也没有区分 Warp 自身的产品存储。"
+anchor = "warp-pricing-model-provider-zdr"
+
+[[product.zdr.point]]
+text = "Pricing FAQ organization-wide claim: on the Business and Enterprise plans, admins can enforce ZDR for all members by default via the admin panel, ensuring team-wide compliance without relying on individual settings."
+text_zh = "价格页 FAQ 全员强制说法：Business 与 Enterprise 档管理员可在 admin panel 为全员默认强制 ZDR，不依赖个人设置。"
+anchor = "warp-pricing-zdr-org"
 
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.retention.point]]
-text = "Object: cloud conversations and cloud agent runs. Context: features that require storing conversation data to function. Duration type: not quantified — the page states the storage is required and that it is separate from analytics or telemetry collection, but gives no period."
-text_zh = "对象=云对话与云 agent run；语境=功能必需（原文 require storing conversation data to function）；期限类型=未量化——只说明必须存储、且与 analytics/telemetry 采集分开，未给期限。"
-anchor = "warp-cloud-storage"
+text = "Object: cloud conversations. Context: product storage; the pricing table lists cloud conversation storage as Custom on Enterprise. Duration type: not quantified — the source states storage, not a period."
+text_zh = "对象=云对话；语境=产品存储，价格表列 Enterprise 为 Custom；期限类型=未量化——来源只说会存储，未给期限。"
+anchor = "warp-pricing-cloud-conversation-storage"
 
 [[product.retention.point]]
-text = "Object: telemetry data. Context: when collection is on. Duration type: indefinite — Warp states it retains telemetry data indefinitely for analytics and debugging, with no deletion commitment for this object."
-text_zh = "对象=遥测数据；语境=采集开启时；期限类型=无限期——原文写 Warp retains telemetry data indefinitely for analytics and debugging，本对象没有删除承诺。"
+text = "Object: telemetry data. Context: when collection is on; the current sources no longer state a per-plan default. Duration type: indefinite — Warp states it retains telemetry data indefinitely for analytics and debugging, with no deletion commitment for this object."
+text_zh = "对象=遥测数据；语境=采集开启时（现行来源已不再声明各档默认值）；期限类型=无限期——原文写 Warp retains telemetry data indefinitely for analytics and debugging，本对象没有删除承诺。"
 anchor = "warp-telemetry-indefinite"
 
 [[product.retention.point]]
-text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is the only quantified deletion period on the page and it is not a retention period for inputs and outputs."
-text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这是全文唯一的量化删除期限，不能当作输入输出正文的保留期限。"
+text = "Object: prompts and outputs at the contracted LLM provider. Context: Warp-managed inference covered by provider ZDR. Duration type: fixed period after the response — the pricing FAQ requires deletion after the response within a fixed period, without stating the length."
+text_zh = "对象=上游 LLM 厂商处的提示词与响应；语境=受 ZDR 覆盖的 Warp-managed inference；期限类型=响应后固定期限内删除——价格页 FAQ 要求在响应生成后的固定期限内删除，未写具体时长。"
+anchor = "warp-provider-no-training"
+
+[[product.retention.point]]
+text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost. This is not a retention period for inputs and outputs."
+text_zh = "对象=账号数据；语境=经身份验证的删除请求；期限类型=上限——删除请求 30 天内处理完毕、不收费。这不是输入输出正文的保留期限。"
 anchor = "warp-account-deletion-30d"
 
 [[product.retention.point]]
-text = "Context for this tier: data collection is disabled by default and team admins can enforce settings for the whole team."
-text_zh = "本档语境：数据收集默认关闭、管理员可对整队强制配置（Business and Enterprise 一栏）。"
-anchor = "warp-telemetry-business-enterprise-default"
+text = "Object: self-hosted agent data storage (this tier only). Context: Enterprise admins can configure self-hosted agent data storage separately from execution hosting. Duration type: not quantified — the source states where storage can be configured, not for how long."
+text_zh = "对象=自托管 agent 数据存储（仅本档）；语境=Enterprise 管理员可把自托管 agent 数据存储与执行托管分开配置；期限类型=未量化——来源只说存储配置在哪里，没说保留多久。"
+anchor = "warp-selfhosted-storage-config"
 
 [product.processing_region]
-codes = ["unknown"]
-searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://www.warp.dev/privacy"]
+codes = ["US", "unknown"]
+searched = ["https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://docs.warp.dev/support-and-community/privacy-and-security/privacy.md", "https://www.warp.dev/privacy", "https://www.warp.dev/pricing"]
 
 [[product.processing_region.point]]
-text = "The company-wide Privacy Notice's transfer sentence (United States and other jurisdictions) does not cover this tier: the notice expressly does not apply to personal information processed on behalf of customers that have entered into a data processing agreement, which is the usual enterprise arrangement. No processing region for the enterprise tier appears in the registered sources, so the verdict stays undisclosed."
-text_zh = "公司级隐私政策的跨境转移句（美国 + 其他辖区）不覆盖本档：本通知明写不适用于已签 DPA 的客户数据，而企业档通常签 DPA。已登记来源中未见企业档的处理地声明，故结论维持未披露。"
+text = "The company-wide Privacy Notice's transfer sentence (United States and other jurisdictions) does not cover this tier when a DPA is in place: the notice expressly does not apply to personal information processed on behalf of customers that have entered into a data processing agreement. The registered enterprise sources state no country for DPA-governed data."
+text_zh = "公司级隐私政策的跨境转移句（美国 + 其他辖区）在签有 DPA 时不覆盖本档：本通知明写不适用于已签 DPA 的客户数据。已登记的企业来源未声明 DPA 管辖数据的国别。"
 anchor = "warp-privacy-dpa-exclusion"
+
+[[product.processing_region.point]]
+text = "Parallel fact from the pricing page: paid plans include frontier models from OpenAI, Anthropic, Google, and xAI, plus top open-source models hosted on Fireworks AI in the US. This covers Warp-managed open-source models on paid plans, not data processed under the enterprise DPA, so the row records US alongside the unenumerated remainder."
+text_zh = "价格页并列事实：paid plans 含 OpenAI、Anthropic、Google、xAI 的前沿模型，以及由 Fireworks AI 在美国托管的顶级开源模型。该句只覆盖付费档的 Warp-managed 开源模型，不覆盖企业 DPA 下的数据，故本行在未列举部分之外记 US。"
+anchor = "warp-pricing-fireworks-us"
 
 [product.role]
 kind = "processor"
@@ -423,58 +543,64 @@ category = "coding_plan"
 plan_level = "enterprise"
 label = "客户云推理；请求仍经 Warp 代理"
 [product.training]
-mark = "yes"
-mode = "by_deployment"
-anchor = "warp-byollm-no-store"
+mark = "unknown"
+searched = ["https://docs.warp.dev/enterprise/enterprise-features/bring-your-own-llm.md", "https://www.warp.dev/privacy", "https://docs.warp.dev/support-and-community/privacy-and-security/privacy.md", "https://docs.warp.dev/enterprise/security-and-compliance/security-overview.md", "https://www.warp.dev/pricing"]
 
 [[product.training.point]]
-text = "Narrowed basis: the text says requests are proxied through Warp's servers to the customer's cloud infrastructure, where inference runs, and that Warp does not store the content of these requests. It says nothing about training. Warp's side therefore holds no training material, while whether the data is trained on depends on the contract of the customer's own cloud hop."
-text_zh = "依据收窄：原文只说请求经 Warp 服务器代理到客户自有云、推理在那里执行，且 Warp 不存储这些请求的内容——一个字都没提训练。Warp 侧因此不产生训练材料，而是否用于训练取决于客户自有云那一跳的合同。"
-anchor = "warp-byollm-no-store"
+text = "Scope note, not a training commitment: the consumer Privacy Notice's training/fine-tuning purpose cannot be read into this tier either way, because the notice expressly does not apply to personal information Warp processes on behalf of customers that have entered into a data processing agreement, and Enterprise BYOLLM is an Enterprise feature normally covered by that arrangement. The DPA carve-out is therefore kept out of the training basis and this row stays unknown."
+text_zh = "范围说明，不是训练承诺：消费档隐私政策的 training/fine-tuning 用途不能正反两面地套到本档，因为本通知明写不适用于 Warp 按客户 DPA 受托处理的数据，而 Enterprise BYOLLM 正是通常签 DPA 的企业功能。该 DPA 排除句因此不作为训练依据，本行维持 unknown。"
 
 [[product.training.point]]
-text = "The inference hop runs in the customer's own AWS account or Google Cloud project, so the training terms there come from the customer's own agreement with its cloud or model provider, not from a Warp commitment."
-text_zh = "推理那一跳在客户自己的 AWS 账号或 Google Cloud 项目里执行，该处的训练口径来自客户与其云/模型方的合同，不是 Warp 的承诺。"
-anchor = "warp-byollm-data-locality"
+text = "Routing note, not a training commitment: BYOLLM requests pass through Warp's servers to the customer's AWS or Google Cloud environment, where inference runs. The current sources do not state whether that hop trains on the content; the provider account's own terms govern it."
+text_zh = "路由说明，不是训练承诺：BYOLLM 请求经 Warp 服务器转到客户自己的 AWS 或 Google Cloud 环境执行推理。现行来源没有说明该跳是否用内容训练；该处按客户厂商账号的条款处理。"
+
+[[product.training.point]]
+text = "Fetch gap on our side: searched[] includes the BYOLLM documentation page and the Warp-wide privacy page, which are registered as sources but had no snapshot in this repository at review time. Their absence is not evidence that the vendor permits or forbids training, and this row stays unknown rather than being written up as either."
+text_zh = "我方抓取缺口：searched[] 含 BYOLLM 文档页与 Warp-wide 隐私页，两者已登记为来源但复核时本仓库尚无快照。没抓到不等于厂商允许或禁止训练；本行维持 unknown，不写成任一方向。"
 
 [product.zdr]
 mark = "no"
-anchor = "warp-cloud-storage"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "Parallel fact from the same page: Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data, and the page says ZDR applies across all Warp plans. The subject is the contracted LLM providers, not Warp's own retention of your data, and line 44 of the same page limits those ZDR agreements to Enterprise teams. Both scopes are kept side by side; no side is picked."
-text_zh = "同页并列事实：Warp 与上游 LLM 厂商（Anthropic、OpenAI、Google、xAI）签有 ZDR 协议，they do not store or train on your data，并自称「ZDR applies across all Warp plans」。该句约束的是上游厂商、不是 Warp 自身对数据的保留；同页第 44 行又把 ZDR 协议限定为 Enterprise teams——两种适用范围并列保留，不选边。"
-anchor = "warp-zdr-upstream"
+text = "Warp still stores product data for this tier: the security overview says Transcripts can contain code context and persist as product data independently of provider ZDR."
+text_zh = "本档 Warp 仍会存产品数据：安全页写明会话记录可含代码上下文、并作为产品数据独立于上游 ZDR 持久化。"
+anchor = "warp-product-storage"
 
 [[product.zdr.point]]
-text = "ZDR exception: some models carry provider-specific data retention requirements and are therefore not covered by ZDR; by its own wording the clause is stated for Enterprise teams only (off by default; a workspace admin must explicitly enable them in the Admin Panel). This tier is an Enterprise tier, so the exception's stated scope covers it."
-text_zh = "ZDR 例外：部分模型带厂商特定保留要求、不在 ZDR 覆盖内；按原文该例外只声明适用于 Enterprise teams（默认关闭，需工作区管理员在 Admin Panel 显式开启）。本档属 Enterprise 档，落在该例外声明的范围内。"
-anchor = "warp-zdr-exception"
+text = "Own-account boundary: Warp's ZDR agreements apply to Warp-provided inference only. BYOLLM requests go to the customer's provider account under the customer's terms, so Warp's agreements do not establish ZDR for this hop."
+text_zh = "自有账号边界：Warp 的 ZDR 协议只适用于 Warp 提供的推理。BYOLLM 请求按客户账号与条款发往客户厂商，Warp 的协议不为该跳确立 ZDR。"
+anchor = "warp-provider-zdr-boundary"
 
 [[product.zdr.point]]
-text = "Parallel fact from the pricing page (marketing wording, no tier split): Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. Kept side by side with the security page's scope divergence; the pricing page ranks below developer_data and consumer_privacy and does not override this row."
-text_zh = "价格页并列事实（marketing 表述、未区分档位）：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」与安全页第 16/44 行的适用范围分歧一并保留；价格页权威性低于 developer_data 与 consumer_privacy，不覆盖本行结论。"
+text = "BYOLLM routing: requests pass through Warp's servers to the customer's cloud infrastructure, where inference runs. The amended security overview points to retention for requests through your provider account instead of stating that Warp does not store the content."
+text_zh = "BYOLLM 路由：请求经 Warp 服务器到客户云基础设施执行推理。改版后的安全页改为指向「经你厂商账号的请求的保留」，不再声明 Warp 不存请求内容。"
+anchor = "warp-byollm-routing"
+
+[[product.zdr.point]]
+text = "Pricing-page marketing claim, kept as a parallel fact: Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training. It is not used to establish ZDR for the customer's own cloud hop."
+text_zh = "价格页 marketing 表述并列保留：「Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training.」该句不用于为客户自有云那一跳确立 ZDR。"
 anchor = "warp-pricing-zdr-marketing"
 
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
-anchor = "warp-byollm-no-store"
+anchor = "warp-byollm-routing"
 
 [[product.retention.point]]
-text = "Object: BYOLLM request content. Context: default for BYOLLM routing. Duration type: none — Warp does not store the content of these requests, on Warp's side of the proxy."
-text_zh = "对象=BYOLLM 请求正文；语境=默认（走 BYOLLM 路由时）；期限类型=不留存——原文写 Warp does not store the content of these requests，指的是 Warp 代理的这一侧。"
-anchor = "warp-byollm-no-store"
+text = "Object: BYOLLM request content. Context: BYOLLM routing. Duration type: undisclosed — the current security overview says requests pass through Warp's servers and refers to retention for requests through your provider account; the former sentence that Warp does not store the content of these requests is gone, and no replacement period is stated."
+text_zh = "对象=BYOLLM 请求正文；语境=走 BYOLLM 路由时；期限类型=未披露——现行安全页只说请求经 Warp 服务器转往客户云，并指向「经你厂商账号的请求的保留」；原「Warp 不存这些请求内容」句已删除，也没有替代期限。"
+anchor = "warp-byollm-routing"
 
 [[product.retention.point]]
-text = "Object: cloud conversations and cloud agent runs. Context: features that require storing conversation data to function. Duration type: not quantified — the page states the storage is required but gives no period."
-text_zh = "对象=云对话与云 agent run；语境=功能必需（原文 require storing conversation data to function）；期限类型=未量化——只说明必须存储，未给期限。"
-anchor = "warp-cloud-storage"
+text = "Object: Terminal cloud conversations and cloud-agent run data. Context: product features store this data independently of provider ZDR and analytics preferences. Duration type: not quantified — no retention period is stated for these objects."
+text_zh = "对象=Terminal 云对话与云 agent run 数据；语境=产品功能独立于上游 ZDR 与分析偏好存储这些数据；期限类型=未量化——原文未给这些对象的保留期限。"
+anchor = "warp-product-storage"
 
 [[product.retention.point]]
-text = "Object: self-hosted control-plane data (orchestration metadata, session transcripts, LLM inference requests and responses). Context: self-hosted cloud agent execution. Duration type: not quantified — the page says these route through Warp under ZDR but gives no period."
-text_zh = "对象=自托管部署的控制面数据（编排元数据、会话记录、LLM 推理请求与响应）；语境=自托管云 agent 执行；期限类型=未量化——原文说这些在 ZDR 下经 Warp 路由，但未给期限。"
-anchor = "warp-selfhosted-control-plane"
+text = "Object: self-hosted execution data. Context: self-hosted cloud agent execution; prompts, transcripts, attachments, and uploaded artifacts can contain code context. Duration type: not quantified — the security overview says inference and run-data storage have separate boundaries but gives no period."
+text_zh = "对象=自托管执行数据；语境=自托管云 agent 执行，提示词、会话记录、附件与上传产物可含代码上下文；期限类型=未量化——安全页只说推理与运行数据存储有分开的边界，未给期限。"
+anchor = "warp-selfhosted-boundaries"
 
 [[product.retention.point]]
 text = "Object: user account data. Context: a verified deletion request. Duration type: upper bound — deletion requests are processed within 30 days at no cost."
@@ -491,9 +617,9 @@ text_zh = "已披露的部分：交互式 agent 推理在客户自己的 AWS 账
 anchor = "warp-byollm-data-locality"
 
 [[product.processing_region.point]]
-text = "Undisclosed part: the Warp-hosted hop. Warp's hosted infrastructure runs on GCP, but no country is stated for that hop."
-text_zh = "未披露的部分：经 Warp 代理的那一跳（Warp-hosted）。Warp 托管基础设施在 GCP 上，但该跳未声明国别。"
-anchor = "warp-hosted-gcp"
+text = "Undisclosed part: the Warp-hosted hop. The amended security overview only points to Warp-hosted execution for compute, sandbox isolation, networking, and capacity; it no longer states a cloud provider or country, so no country is recorded for that hop."
+text_zh = "未披露的部分：经 Warp 代理的那一跳。改版后的安全页只把计算、沙箱隔离、网络与容量指向 Warp-hosted execution，不再声明云厂商或国别，故该跳不记国别。"
+anchor = "warp-hosted-execution-pointer"
 
 [product.role]
 kind = "processor"
@@ -510,9 +636,9 @@ text_zh = "第 2 跳（客户自有云）：推理在客户自己的 AWS 账号�
 anchor = "warp-byollm-data-locality"
 
 [[product.role.point]]
-text = "Kept as the reason this row is not no_data: inference happens in the customer's cloud but requests still pass through Warp's servers, Warp does not store the request content, and cloud conversations and control-plane metadata may still be persisted."
-text_zh = "保留此条说明本行不是 no_data：推理在客户云，但请求仍经 Warp Server；Warp 不存请求内容，云对话与控制面元数据仍可能持久化。"
-anchor = "warp-byollm-no-store"
+text = "Kept as the reason this row is not no_data: inference happens in the customer's cloud, but requests still pass through Warp's servers and Warp may still persist cloud conversations, transcripts, and control-plane metadata as product data."
+text_zh = "保留此条说明本行不是 no_data：推理在客户云，但请求仍经 Warp 服务器，Warp 仍可能把云对话、会话记录与控制面元数据作为产品数据持久化。"
+anchor = "warp-product-storage"
 
 [[anchor]]
 id = "warp-privacy-trains-models"
@@ -525,126 +651,190 @@ exact = "Develop new products and Service, and improve existing products and fea
 suffix = "\n*   Aggregate information we receive from you and third parties"
 
 [[anchor]]
-id = "warp-control-plane-no-training"
-source_id = "8ab6bff0b37bb084"
-topics = ["training"]
+id = "warp-provider-zdr-scope"
+source_id = "dd32b379c73e6f21"
+topics = ["zdr"]
+
 [anchor.selector]
 prefix = ""
-exact = "Warp does not persistently store your source code or use it for model training"
+exact = "Warp has Zero Data Retention agreements with supported LLM providers, including Anthropic, OpenAI, Google, xAI, and Fireworks AI."
 suffix = ""
 
 [[anchor]]
-id = "warp-cloud-storage"
-source_id = "8ab6bff0b37bb084"
-topics = ["zdr", "retention"]
+id = "warp-provider-no-training"
+source_id = "dd32b379c73e6f21"
+topics = ["training", "retention", "zdr"]
+
 [anchor.selector]
 prefix = ""
-exact = "Some product features — including cloud conversations and cloud agent runs — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection."
+exact = "For supported models, these agreements prevent providers from training on customer-generated data processed through Warp, and require prompts and outputs to be deleted after the response is generated within a fixed period of time."
 suffix = ""
+
+[[anchor]]
+id = "warp-provider-zdr-boundary"
+source_id = "dd32b379c73e6f21"
+topics = ["zdr", "training", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Zero Data Retention applies to Warp-provided inference only. If you use your own API key, SuperGrok subscription, custom endpoint, or LLM, requests are sent directly to your provider under your own account and terms."
+suffix = ""
+
+[[anchor]]
+id = "warp-model-choice-exceptions"
+source_id = "8ab6bff0b37bb084"
+topics = ["zdr", "training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Provider ZDR concerns what AI providers retain, not what Warp stores. See the Warp-wide provider ZDR policy for its scope and the boundary for requests through your own provider account. Model choice lists the model exceptions."
+suffix = ""
+
+[[anchor]]
+id = "warp-product-storage"
+source_id = "8ab6bff0b37bb084"
+topics = ["zdr", "retention", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "Transcripts can contain code context and persist as product data independently of provider ZDR."
+suffix = ""
+
+[[anchor]]
+id = "warp-byollm-routing"
+source_id = "8ab6bff0b37bb084"
+topics = ["training", "retention", "role"]
+
+[anchor.selector]
+prefix = ""
+exact = "BYOLLM - Requests pass through Warp’s servers to your cloud infrastructure, where inference runs. See retention for requests through your provider account."
+suffix = ""
+
+[[anchor]]
+id = "warp-selfhosted-boundaries"
+source_id = "8ab6bff0b37bb084"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Repository checkouts and execution workspaces stay on your infrastructure. Prompts, transcripts, attachments, and uploaded artifacts can contain code context. Inference and run-data storage have separate boundaries."
+suffix = ""
+
+[[anchor]]
+id = "warp-team-content-collection"
+source_id = "8ab6bff0b37bb084"
+topics = ["training"]
+
+[anchor.selector]
+prefix = ""
+exact = "Configure team content collection for service improvement, cloud conversation storage, and enterprise secret redaction"
+suffix = ""
+
+[[anchor]]
+id = "warp-selfhosted-storage-config"
+source_id = "8ab6bff0b37bb084"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "Enterprise admins can configure self-hosted agent data storage separately from execution hosting."
+suffix = ""
+
+[[anchor]]
+id = "warp-hosted-execution-pointer"
+source_id = "8ab6bff0b37bb084"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "For compute, sandbox isolation, networking, and capacity, see Warp-hosted execution. Review inference and data-storage boundaries separately from execution hosting."
+suffix = ""
+
+[[anchor]]
+id = "warp-pricing-zdr-self-service"
+source_id = "dd32b379c73e6f21"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "Any user can enable full ZDR for their own account by disabling Help Improve Warp in Settings > Privacy."
+suffix = ""
+
+[[anchor]]
+id = "warp-pricing-zdr-org"
+source_id = "dd32b379c73e6f21"
+topics = ["zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "On the Business and Enterprise plans, admins can enforce ZDR for all members by default via the admin panel, ensuring team-wide compliance without relying on individual settings."
+suffix = ""
+
+[[anchor]]
+id = "warp-pricing-fireworks-us"
+source_id = "dd32b379c73e6f21"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = ""
+exact = "Paid plans include frontier models from OpenAI, Anthropic, Google, and xAI, plus top open-source models like GLM 5.2, Kimi K3, and DeepSeek V4 hosted on Fireworks AI in the US."
+suffix = ""
+
+[[anchor]]
+id = "warp-pricing-cloud-conversation-storage"
+source_id = "dd32b379c73e6f21"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = "Cloud conversation storage"
+exact = "How many AI conversations are stored in the cloud for access across devices."
+suffix = "30 conversations Unlimited Unlimited Unlimited Custom"
+
+[[anchor]]
+id = "warp-pricing-data-controls"
+source_id = "dd32b379c73e6f21"
+topics = ["training"]
+
+[anchor.selector]
+prefix = "Data controls"
+exact = "How telemetry and data settings are managed across your account or team."
+suffix = "Individually configured Individually configured Individually configured Admin-configurable Enterprise data governance"
+
+[[anchor]]
+id = "warp-pricing-model-provider-zdr"
+source_id = "dd32b379c73e6f21"
+topics = ["zdr", "training"]
+
+[anchor.selector]
+prefix = "Model provider ZDR"
+exact = "Contracted LLM providers never retain, store, or train on your data."
+suffix = "Included Included Included Included Included"
 
 [[anchor]]
 id = "warp-telemetry-indefinite"
 source_id = "8ab6bff0b37bb084"
 topics = ["retention"]
+
 [anchor.selector]
 prefix = ""
 exact = "Telemetry data - When collected, Warp retains telemetry data indefinitely for analytics and debugging"
 suffix = ""
 
 [[anchor]]
-id = "warp-byollm-no-store"
-source_id = "8ab6bff0b37bb084"
-topics = ["training", "retention", "processing_region", "role"]
-[anchor.selector]
-prefix = ""
-exact = "BYOLLM - Requests are proxied through Warp’s servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests."
-suffix = ""
-
-[[anchor]]
-id = "warp-zdr-upstream"
-source_id = "8ab6bff0b37bb084"
-topics = ["zdr", "training"]
-[anchor.selector]
-prefix = ""
-exact = "Warp has Zero Data Retention (ZDR) agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data. ZDR applies across all Warp plans."
-suffix = ""
-
-[[anchor]]
-id = "warp-zdr-enterprise-scope"
-source_id = "8ab6bff0b37bb084"
-topics = ["zdr", "training"]
-[anchor.selector]
-prefix = ""
-exact = "Agent requests - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google, xAI) with Zero Data Retention agreements for Enterprise teams"
-suffix = ""
-
-[[anchor]]
-id = "warp-zdr-exception"
-source_id = "8ab6bff0b37bb084"
-topics = ["zdr"]
-[anchor.selector]
-prefix = ""
-exact = "Some models carry provider-specific data retention requirements and are therefore not covered by ZDR. For Enterprise teams, these models are off by default; a workspace admin must explicitly enable them in the Admin Panel."
-suffix = ""
-
-[[anchor]]
-id = "warp-telemetry-free-tier-toggle"
-source_id = "8ab6bff0b37bb084"
-topics = ["training"]
-[anchor.selector]
-prefix = ""
-exact = "Free tier - Individual users can disable data collection in Settings > Privacy."
-suffix = ""
-
-[[anchor]]
-id = "warp-telemetry-paid-teams-admin"
-source_id = "8ab6bff0b37bb084"
-topics = ["training"]
-[anchor.selector]
-prefix = ""
-exact = "Paid teams - Team admins can enforce data collection settings for the entire team. Data collection is enabled by default."
-suffix = ""
-
-[[anchor]]
-id = "warp-telemetry-business-enterprise-default"
-source_id = "8ab6bff0b37bb084"
-topics = ["retention"]
-[anchor.selector]
-prefix = ""
-exact = "Business and Enterprise - Team admins can enforce data collection settings for the entire team. Data collection is disabled by default."
-suffix = ""
-
-[[anchor]]
 id = "warp-account-deletion-30d"
 source_id = "8ab6bff0b37bb084"
 topics = ["retention"]
+
 [anchor.selector]
 prefix = ""
 exact = "User accounts - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations"
 suffix = ""
 
 [[anchor]]
-id = "warp-selfhosted-control-plane"
-source_id = "8ab6bff0b37bb084"
-topics = ["retention", "role"]
-[anchor.selector]
-prefix = ""
-exact = "Self-hosted cloud agent execution - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions."
-suffix = ""
-
-[[anchor]]
-id = "warp-hosted-gcp"
-source_id = "8ab6bff0b37bb084"
-topics = ["processing_region"]
-[anchor.selector]
-prefix = ""
-exact = "Cloud provider - Hosted on GCP with SOC 2 and ISO 27001 certified datacenters"
-suffix = ""
-
-[[anchor]]
 id = "warp-byollm-data-locality"
 source_id = "8ab6bff0b37bb084"
 topics = ["processing_region", "training", "role"]
+
 [anchor.selector]
 prefix = ""
 exact = "Data locality - Interactive agent inference runs in your AWS account or Google Cloud project"
@@ -654,6 +844,7 @@ suffix = ""
 id = "warp-privacy-as-needed-retention"
 source_id = "a77fda589f2386cf"
 topics = ["retention"]
+
 [anchor.selector]
 prefix = ""
 exact = "The length of time we retain personal information will be determined based upon the following criteria: the length of time your personal information remains relevant; the length of time it is reasonable to keep records to demonstrate that we have fulfilled our duties and obligations; any limitation periods within which claims might be made; any retention periods prescribed by law or recommended by regulators, professional bodies or associations; the type of contract we have with you, and our business interest in keeping such information as stated in this Privacy Notice."
@@ -662,7 +853,8 @@ suffix = ""
 [[anchor]]
 id = "warp-privacy-dpa-exclusion"
 source_id = "a77fda589f2386cf"
-topics = ["role", "processing_region"]
+topics = ["role", "processing_region", "training"]
+
 [anchor.selector]
 prefix = ""
 exact = "This Privacy Notice does not apply to personal information we process on behalf of customers that have entered into a data processing agreement with us. In such cases, the data processing agreement and not this Privacy Notice will govern our rights and obligations regarding personal information."
@@ -672,6 +864,7 @@ suffix = ""
 id = "warp-privacy-controller-self"
 source_id = "a77fda589f2386cf"
 topics = ["role"]
+
 [anchor.selector]
 prefix = ""
 exact = "When we use the terms “Warp”, “Warp.dev”, “we”, “us”, or “our” in this Privacy Notice, we are referring to Denver Technologies, Inc., d.b.a. Warp. When we use the term “Service,” we are referring to all of the services that we offer on our own behalf, including our product offerings and the web pages that post or link to this Privacy Notice."
@@ -681,6 +874,7 @@ suffix = ""
 id = "warp-ai-io-collection-control"
 source_id = "a77fda589f2386cf"
 topics = ["training"]
+
 [anchor.selector]
 prefix = ""
 exact = "AI Inputs and Outputs: if you use certain AI features, such as Active AI and Agent Mode, we may collect the prompts and inputs you submit and the outputs you receive. You can control our collection of these inputs and outputs at any time in your settings."
@@ -690,6 +884,7 @@ suffix = ""
 id = "warp-region-us-other-jurisdictions"
 source_id = "a77fda589f2386cf"
 topics = ["processing_region"]
+
 [anchor.selector]
 prefix = ""
 exact = "In the context of providing you with our Service, we may transfer your personal information to our affiliates and service providers in the United States and other jurisdictions."
@@ -699,6 +894,7 @@ suffix = ""
 id = "warp-pricing-zdr-marketing"
 source_id = "dd32b379c73e6f21"
 topics = ["zdr", "training"]
+
 [anchor.selector]
 prefix = ""
 exact = "Warp is SOC 2 compliant and has Zero Data Retention policies with all contracted LLM providers: no customer data is retained, stored, or used for training."
@@ -708,6 +904,7 @@ suffix = ""
 id = "warp-pricing-build-cloud-conversations"
 source_id = "dd32b379c73e6f21"
 topics = ["retention"]
+
 [anchor.selector]
 prefix = "Unlimited Warp Drive objects and collaboration"
 exact = "Unlimited cloud conversation storage"
