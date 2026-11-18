@@ -18,7 +18,7 @@ DocsProduction
 - Home
 ### Get started
 - Quickstart
-- Using GPT-6
+- Using GPT-6.2
 - Key concepts
 - API credits for ChatGPT subscribers
 ### Core concepts
@@ -97,6 +97,7 @@ DocsProduction
 ### Specialized models
 - Embeddings
 - Moderation
+- CSAM classifier
 - Overview
 ### Agents API
 - Overview
@@ -576,6 +577,7 @@ DocsOverview
 - Workspace model availability
 ### Advanced deployment
 - Amazon Bedrock
+- Google Cloud
 - GovCloud deployment
 - Connect to a gateway
 - Roll out a gateway
@@ -606,8 +608,8 @@ DocsOverview
 - Prisma AIRS
 - HIPAA configuration
 - Compliance API and audit events
-- Explore use cases
-- Collections
+- Home
+- All use cases
 - Home
 - Videos
 - Showcase
@@ -621,8 +623,21 @@ DocsOverview
 ### Blog
 - Company blog
 - Developer blog
-- Explore use cases
-- Collections
+- Home
+- All use cases
+### Collections
+- Productivity & Collaboration
+- Business Operations
+- Data Science
+- Web development
+- Game development
+- Native development
+- Production systems
+- Security
+- Finance
+- Sales
+- Life Sciences
+- Education
 - Home
 - Videos
 - Showcase
@@ -770,7 +785,8 @@ The table below indicates when application state is stored for each endpoint. Ze
 - Prompt caching may store encrypted key/value tensors in GPU-local storage as application state. This data is stored on the local GPU machines and is not retained after the 24-hour expiration. For `gpt-5.5` and `gpt-5.5-pro`, setting `prompt_cache_retention` to `in_memory` returns an error. For GPT-5.6 models and later model families, `prompt_cache_options.ttl` controls the minimum cache lifetime, not this maximum application-state retention period. To learn more, see the prompt caching guide.
 #### `/v1/responses`
 - Except as noted below, the Responses API has a 30 day Application State retention period by default, or when the `store` parameter is set to `true`. In those cases, response data will be stored for at least 30 days.
-- Background mode stores response data to disk for roughly 10 minutes to enable polling. For projects using Modified Abuse Monitoring, including enhanced Modified Abuse Monitoring, foreground requests follow standard retention when `store` is omitted or set to `true`. Background responses follow the standard retention period only when the request explicitly sets `store=true`. If `store` is omitted or set to `false` for a background request, the response is deleted after the temporary polling period.
+- Background mode with the default completion window stores response data to disk for roughly 10 minutes to run the request and make the response available for retrieval. For projects using Modified Abuse Monitoring, including enhanced Modified Abuse Monitoring, foreground requests follow standard retention when `store` is omitted or set to `true`. With the default completion window, background responses follow the standard retention period only if you explicitly set `store=true`. If you omit `store` or set it to `false`, the response is deleted after the temporary retention period.
+- Projects with Zero Data Retention can use the `2h` and `8h` background completion windows. The API treats `store` as `false` and temporarily stores application state to process the request and make the response available for retrieval.
 - See image and file inputs.
 - MCP servers (used with the remote MCP server tool) are third-party services, and data sent to an MCP server is subject to their data retention policies.
 - Hosted containers used by Hosted Shell and Code Interpreter may write temporary application state to the container filesystem (backed by ephemeral block storage) while the container is active. Container data is deleted when the container expires or is explicitly deleted.
