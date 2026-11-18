@@ -32,9 +32,9 @@ function quoteSection(provider: string) {
   ]
 }
 
-let files: { url: string; files: { path: string }[] } | undefined
+let files: { url: string; body: string; files: { path: string }[] } | undefined
 const prFiles = async () =>
-  (files ??= JSON.parse(await $`gh pr view ${pr} --json files,url`.quiet().text()) as { url: string; files: { path: string }[] })
+  (files ??= JSON.parse(await $`gh pr view ${pr} --json files,url,body`.quiet().text()) as { url: string; body: string; files: { path: string }[] })
 
 /** 快照多家共用，快照 PR 却只属于抓到它的那一家。同一份快照上别家的引文也坏了，就也给它派活：
  *  它自己的抓取 job 之后读到的已经是合并进来的新快照，判为 same，不会再开 PR、也就不会有人复核
@@ -69,10 +69,17 @@ async function issueFor(provider: string) {
       "",
       "变化的来源（差异见上面 PR 的 Files changed，或 `git log -p` 对应快照文件）：",
       ...changed.map((id) => `- ${urls.get(id)} → \`snapshots/${id}.md\``),
+      ...jevHints(files.body ?? ""),
       "",
       ...quoteSection(provider),
     ].join("\n"),
   }
+}
+
+/** 快照 PR 正文里 Jev 给每个维度的概率：告诉 agent 先看哪几个维度 */
+function jevHints(body: string) {
+  const hints = body.split("\n").filter((l) => /^\s*- Jev 判为政策变化：/.test(l))
+  return hints.length ? ["", "Jev 判断变化涉及的维度（概率越高越可能受影响，仅供参考，以原文为准）：", ...hints.map((l) => l.trim())] : []
 }
 
 const providers = full ? (named.length ? named : providerIds(root)) : named.slice(0, 1)
@@ -80,7 +87,17 @@ if (!providers.length || (!full && !pr)) {
   console.error("用法: review:issues <provider> --pr <n> | review:issues --full [provider...]")
   process.exit(2)
 }
-if (!full) providers.push(...(await coOwners(providers[0]!)))
+if (!full) {
+  const co = await coOwners(providers[0]!)
+  // 快照 PR 正文里有这个标记：Jev 判过这次变化不涉及五个维度，失效引文也已自动改绑（snapshot.ts）。
+  // 本家不用复核；共用这份快照、引文坏了的别家照常派
+  if ((await prFiles()).body?.includes("<!-- jev:no-review -->") && checkQuotes(root, [providers[0]!]).every((c) => c.state === "ok")) {
+    console.log(`#${pr} 经 Jev 判为无政策变化，不给 ${providers[0]} 开复核 issue`)
+    providers.shift()
+  }
+  providers.push(...co)
+  if (!providers.length) process.exit(0)
+}
 
 const kind = full ? "full-review" : "policy-review"
 if (!dryRun)
