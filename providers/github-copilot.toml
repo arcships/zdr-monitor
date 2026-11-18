@@ -17,7 +17,7 @@ note = "GitHub Copilot Trust Center FAQ(页面标题「github.com Trust Center�
 url = "https://docs.github.com/en/copilot/reference/ai-models/model-hosting"
 channel = "developer_data"
 tier = "core"
-note = "GitHub Docs 参考页《Hosting of models for GitHub Copilot》。逐模型族说明由谁托管、数据流向谁、ZDR 覆盖与例外，是本家 zdr 与 processing_region 的主来源，也是「个人档 vs 商业档」分档表述最直接的官方页(Microsoft models 段先写商业档「GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models」，再写个人订阅档「When the model is cloud hosted, GitHub may use Copilot interaction data…to train and improve AI models」，并说明同一模型「can also be hosted locally on a user's own machine」；Moonshot AI models 段另有一段无托管条件的个人档可训练、可退出表述，并给出退出开关的文档入口)。两段的个人档句式并不相同：云托管条件只出现在 Microsoft 段，Moonshot 段仍是无条件授权，不能把前者当作整页口径。覆盖 OpenAI / Anthropic / Google / xAI / Microsoft(MAI) / 开源权重(Kimi) 六类托管，含 Azure、AWS、GCP、xAI、Fireworks AI 等上游；本地托管路径未给区域或数据处理承诺。"
+note = "GitHub Docs 参考页《Hosting of models for GitHub Copilot》。逐模型族说明由谁托管、数据流向谁、ZDR 覆盖与例外，是本家 zdr 与 processing_region 的主来源，也是「个人档 vs 商业档」分档表述最直接的官方页(Microsoft models 段列 MAI Code 1.1 Flash / MAI Code 2 / MAI Code 2 Flash，先写商业档「GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models」，再写个人订阅档「When these models are cloud hosted, GitHub may use Copilot interaction data…to train and improve AI models」，并说明仅 MAI Code 1.1 Flash「can also be hosted locally on a user's own machine」；Moonshot AI models 段另有一段无托管条件的个人档可训练、可退出表述，并给出退出开关的文档入口)。两段的个人档句式并不相同：云托管条件只出现在 Microsoft 段，Moonshot 段仍是无条件授权，不能把前者当作整页口径。覆盖 OpenAI / Anthropic / Google / xAI / Microsoft(MAI) / 开源权重(Kimi) 六类托管，含 Azure、AWS、GCP、xAI、Fireworks AI 等上游；本地托管路径未给区域或数据处理承诺，且只点名 MAI Code 1.1 Flash。"
 
 [[source]]
 url = "https://docs.github.com/en/copilot/using-github-copilot/asking-github-copilot-questions-in-github"
@@ -75,13 +75,13 @@ text_zh = "§J.3 授权范围的官方限定：付费组织仓库的内容不参
 anchor = "ghcopilot-trust-paid-org-repo-no-training"
 
 [[product.training.point]]
-text = "Microsoft models section, cloud-hosting condition: the individual-subscriber permission is expressly conditioned on cloud hosting — 「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — while the same model 「can also be hosted locally on a user's own machine」. The page states no training permission and no data-handling detail for that local path. This condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section keeps the older unconditional wording (next point). The tier's mark=no still comes from Section J.3."
-text_zh = "Microsoft models 段的云托管条件：个人订阅档的训练授权被明确限定为云托管——「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同一模型「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理。该条件只适用于 Microsoft 段的这个模型，不是整页口径：Moonshot AI models 段仍是无条件的旧句式(见下条)。本档 mark=no 仍来自 ToS §J.3，结论值不变。"
+text = "Microsoft models section, cloud-hosting condition: the individual-subscriber permission is expressly conditioned on cloud hosting — 「When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — while MAI Code 1.1 Flash 「can also be hosted locally on a user's own machine」. The page states no training permission and no data-handling detail for that local path; the newly listed MAI Code 2 and MAI Code 2 Flash are described only as hosted on Azure in GitHub's tenant. This condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section keeps the older unconditional wording (next point). The tier's mark=no still comes from Section J.3."
+text_zh = "Microsoft models 段的云托管条件：个人订阅档的训练授权被明确限定为云托管——「When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同时 MAI Code 1.1 Flash「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理。本次新增列出的 MAI Code 2 与 MAI Code 2 Flash 只写明托管在 GitHub 租户内的 Azure 上。该条件只适用于 Microsoft 段的模型，不是整页口径：Moonshot AI models 段仍是无条件的旧句式(见下条)。本档 mark=no 仍来自 ToS §J.3，结论值不变。"
 anchor = "ghcopilot-model-hosting-individual-may-train"
 
 [[product.training.point]]
-text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」, followed by the same opt-out sentence. So the page does not restrict individual-tier training to cloud-hosted paths; the 「When the model is cloud hosted」 wording added in the Microsoft section applies to that model only."
-text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」，其后仍是同一句退出条款。因此整页并未把个人档训练统一收窄为云托管；Microsoft 段新增的「When the model is cloud hosted」只适用于该段的模型。"
+text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」, followed by the same opt-out sentence. So the page does not restrict individual-tier training to cloud-hosted paths; the 「When these models are cloud hosted」 wording added in the Microsoft section applies to that section's models only."
+text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」，其后仍是同一句退出条款。因此整页并未把个人档训练统一收窄为云托管；Microsoft 段的「When these models are cloud hosted」只适用于该段的模型。"
 anchor = "ghcopilot-model-hosting-moonshot-individual-may-train"
 
 [[product.training.point]]
@@ -171,13 +171,13 @@ text_zh = "§J.3 授权范围的官方限定：付费组织仓库的内容不参
 anchor = "ghcopilot-trust-paid-org-repo-no-training"
 
 [[product.training.point]]
-text = "Microsoft models section, cloud-hosting condition: the sentence names Copilot Free explicitly — 「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — and the page also says the same model 「can also be hosted locally on a user's own machine」, with no training permission and no data-handling detail stated for that local path. The condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section stays unconditional (next point). This tier's mark=no is unchanged."
-text_zh = "Microsoft models 段的云托管条件：该句点名 Copilot Free——「When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同一模型「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理。该条件只适用于 Microsoft 段的这个模型，不是整页口径：Moonshot AI models 段仍是无条件授权(见下条)。本档 mark=no 不变。"
+text = "Microsoft models section, cloud-hosting condition: the sentence names Copilot Free explicitly — 「When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」 — and the page also says MAI Code 1.1 Flash 「can also be hosted locally on a user's own machine」, with no training permission and no data-handling detail stated for that local path; the newly listed MAI Code 2 and MAI Code 2 Flash are described only as hosted on Azure in GitHub's tenant. The condition is scoped to the Microsoft model paragraph, not to the page as a whole: the Moonshot AI models section stays unconditional (next point). This tier's mark=no is unchanged."
+text_zh = "Microsoft models 段的云托管条件：该句点名 Copilot Free——「When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models」；同时 MAI Code 1.1 Flash「can also be hosted locally on a user's own machine」，页面未就本地路径写训练授权，也未说明其数据处理；新增列出的 MAI Code 2 与 MAI Code 2 Flash 只写明托管在 GitHub 租户内的 Azure 上。该条件只适用于 Microsoft 段的模型，不是整页口径：Moonshot AI models 段仍是无条件授权(见下条)。本档 mark=no 不变。"
 anchor = "ghcopilot-model-hosting-individual-may-train"
 
 [[product.training.point]]
-text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: the individual-subscriber sentence names Copilot Free and reads 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」. The page therefore does not restrict the free tier's training permission to cloud-hosted paths; the cloud-hosting condition added in the Microsoft section applies to that model only."
-text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件，其个人订阅句点名 Copilot Free：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」。因此整页没有把免费档的训练授权统一收窄为云托管；Microsoft 段新增的云托管条件只适用于该段的模型。"
+text = "Moonshot AI models section (Kimi K3 on Fireworks AI), no hosting condition: the individual-subscriber sentence names Copilot Free and reads 「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」. The page therefore does not restrict the free tier's training permission to cloud-hosted paths; the cloud-hosting condition in the Microsoft section applies to the Microsoft models only."
+text_zh = "Moonshot AI models 段(Kimi K3，托管在 Fireworks AI)没有任何托管条件，其个人订阅句点名 Copilot Free：「For individual subscribers—Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max users—GitHub may use Copilot interaction data, including prompts (inputs), suggestions (outputs), and code snippets generated during Copilot sessions to train and improve AI models」。因此整页没有把免费档的训练授权统一收窄为云托管；Microsoft 段的云托管条件只适用于该段的模型。"
 anchor = "ghcopilot-model-hosting-moonshot-individual-may-train"
 
 [[product.training.point]]
@@ -278,8 +278,8 @@ text = "Other access and use: 「Inputs and Outputs: Retained for the life of th
 text_zh = "其他访问与使用路径：输入输出「Retained for the life of the account」(留至账户存续，无固定天数上限)。此前「最多 28 天」的默认上限已不在现行正文中。同段例外保留：为调查已确认的 AUP/ToS 违规或保护服务安全，GitHub 可在原本不留存处启用保留，且须定向、限时并遵守 DPA。"
 anchor = "ghcopilot-trust-other-access-account-life"
 [[product.retention.point]]
-text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
-text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
+text = "MAI path, cloud only: 「When cloud hosted, these models are served on Microsoft Azure AI Foundry within GitHub's tenant and are subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「MAI Code 1.1 Flash can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure, and the newly listed MAI Code 2 / MAI Code 2 Flash have no local-hosting sentence at all. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, these models are served on Microsoft Azure AI Foundry within GitHub's tenant and are subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「MAI Code 1.1 Flash can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露；本次新增列出的 MAI Code 2 / MAI Code 2 Flash 没有本地托管句。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
 anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
 [[product.retention.point]]
 text_zh = "其他对象：User Engagement Data 保留两年；Feedback Data 按目的所需保留。"
@@ -379,8 +379,8 @@ text_zh = "其他访问与使用——输入输出「Retained for the life of th
 anchor = "ghcopilot-trust-other-access-account-life"
 
 [[product.retention.point]]
-text = "MAI path, cloud only: 「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「This model can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
-text_zh = "MAI 路径仅限云托管：「When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「This model can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
+text = "MAI path, cloud only: 「When cloud hosted, these models are served on Microsoft Azure AI Foundry within GitHub's tenant and are subject to GitHub's data handling configuration for that deployment.」 The page states no period of its own and refers processing, retention and security to Microsoft's Foundry documentation. The local path (「MAI Code 1.1 Flash can also be hosted locally on a user's own machine」) carries no data-handling or retention disclosure, and the newly listed MAI Code 2 / MAI Code 2 Flash have no local-hosting sentence at all. This qualifies the MAI path only and does not change this tier's other-access retention, which is now for the life of the account."
+text_zh = "MAI 路径仅限云托管：「When cloud hosted, these models are served on Microsoft Azure AI Foundry within GitHub's tenant and are subject to GitHub's data handling configuration for that deployment.」页面本身不给期限，把处理、保留与安全指向 Microsoft 的 Foundry 文档。本地路径(「MAI Code 1.1 Flash can also be hosted locally on a user's own machine」)没有任何数据处理或保留披露；本次新增列出的 MAI Code 2 / MAI Code 2 Flash 没有本地托管句。该限定只适用于 MAI 路径，不改变本档其他访问路径「留至账户存续」的保留口径。"
 anchor = "ghcopilot-model-hosting-mai-azure-data-handling"
 
 [[product.retention.point]]
@@ -427,13 +427,13 @@ text_zh = "云托管路径：推理由 model-hosting 页逐模型族点名的上
 anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
 
 [[product.processing_region.point]]
-text = "MAI model, cloud path: 「MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant.」"
-text_zh = "MAI 模型的云托管路径：「MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant.」"
+text = "MAI model, cloud path: 「These models are first-party Microsoft models hosted on Azure in GitHub's tenant.」 The list covers MAI Code 1.1 Flash, MAI Code 2 and MAI Code 2 Flash; the page names no country or region within Azure."
+text_zh = "MAI 模型的云托管路径：「These models are first-party Microsoft models hosted on Azure in GitHub's tenant.」列表覆盖 MAI Code 1.1 Flash、MAI Code 2 与 MAI Code 2 Flash；页面未给出 Azure 内的具体国家或区域。"
 anchor = "ghcopilot-model-hosting-mai-azure-tenant"
 
 [[product.processing_region.point]]
-text = "MAI model, local path: 「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page gives no region and no data-processing commitment for this path; the Azure AI Foundry data-handling paragraph and the content-filter sentence are expressly cloud-only (「When cloud hosted」 / 「When MAI Code 1.1 Flash is cloud hosted」)."
-text_zh = "MAI 模型的本地托管路径：「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」页面未给出该路径的区域，也未说明其数据处理；Azure AI Foundry 的数据处理段与内容过滤句都明确只适用于云托管(「When cloud hosted」/「When MAI Code 1.1 Flash is cloud hosted」)。"
+text = "MAI model, local path: only for MAI Code 1.1 Flash — 「MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page gives no region and no data-processing commitment for this path; the Azure AI Foundry data-handling paragraph and the content-filter sentence are expressly cloud-only (「When cloud hosted」 / 「When these models are cloud hosted」), and the newly listed MAI Code 2 / MAI Code 2 Flash have no local-hosting sentence."
+text_zh = "MAI 模型的本地托管路径：仅限 MAI Code 1.1 Flash——「MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」页面未给出该路径的区域，也未说明其数据处理；Azure AI Foundry 的数据处理段与内容过滤句都明确只适用于云托管(「When cloud hosted」/「When these models are cloud hosted」)，且本次新增的 MAI Code 2 / MAI Code 2 Flash 没有本地托管句。"
 anchor = "ghcopilot-model-hosting-mai-local"
 
 [product.role]
@@ -565,8 +565,8 @@ anchor = "ghcopilot-model-hosting-anthropic-hosting-locations"
 text_zh = "云托管路径：页面只披露托管方(OpenAI/Azure、AWS、Anthropic PBC、GCP、xAI、Fireworks AI)，未披露任何具体区域或国家，因此只能记到「云厂商 + 美国为主的推断」。具体国家未披露即不猜。本地托管路径见下条。"
 
 [[product.processing_region.point]]
-text = "Local-hosting path: for MAI Code 1.1 Flash 「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page discloses no region and no data-processing, retention or security commitment for this path; the Azure AI Foundry paragraph is limited to 「When cloud hosted」."
-text_zh = "本地托管路径：MAI Code 1.1 Flash「This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」。页面未披露该路径的区域，也未给出数据处理、保留或安全承诺；Azure AI Foundry 段以「When cloud hosted」限定。"
+text = "Local-hosting path: for MAI Code 1.1 Flash 「MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」 The page discloses no region and no data-processing, retention or security commitment for this path; the Azure AI Foundry paragraph is limited to 「When cloud hosted」. MAI Code 2 and MAI Code 2 Flash are listed without any local-hosting sentence."
+text_zh = "本地托管路径：MAI Code 1.1 Flash「MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met.」。页面未披露该路径的区域，也未给出数据处理、保留或安全承诺；Azure AI Foundry 段以「When cloud hosted」限定。MAI Code 2 与 MAI Code 2 Flash 未列出任何本地托管句。"
 anchor = "ghcopilot-model-hosting-mai-local"
 
 [product.role]
@@ -927,9 +927,9 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met. See Adding LLM models to the GitHub Copilot app and Adding LLM models to GitHub Copilot CLI. "
+prefix = "MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met. See Adding LLM models to the GitHub Copilot app and Adding LLM models to GitHub Copilot CLI. "
 exact = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models."
-suffix = " When the model is cloud hosted"
+suffix = " When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers"
 
 [[anchor]]
 id = "ghcopilot-model-hosting-individual-may-train"
@@ -938,7 +938,7 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = "GitHub does not use Copilot Business or Copilot Enterprise customer data to train AI models. "
-exact = "When the model is cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models"
+exact = "When these models are cloud hosted, GitHub may use Copilot interaction data for individual subscribers—that is, users on Copilot Free, Copilot Pro, Copilot Pro+, and Copilot Max plans—to train and improve AI models"
 suffix = ", in accordance with our [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) and applicable user settings. This may include prompts"
 
 [[anchor]]
@@ -1063,9 +1063,9 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "Microsoft models Used for: MAI Code 1.1 Flash "
-exact = "MAI Code 1.1 Flash is a first-party Microsoft model hosted on Azure in GitHub's tenant."
-suffix = " This model can also be hosted locally"
+prefix = "Microsoft models Used for: MAI Code 1.1 Flash MAI Code 2 MAI Code 2 Flash "
+exact = "These models are first-party Microsoft models hosted on Azure in GitHub's tenant."
+suffix = " MAI Code 1.1 Flash can also be hosted locally"
 
 [[anchor]]
 id = "ghcopilot-model-hosting-mai-local"
@@ -1073,7 +1073,7 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["processing_region"]
 
 [anchor.selector]
-exact = "This model can also be hosted locally on a user's own machine, if the GPU and memory requirements are met."
+exact = "MAI Code 1.1 Flash can also be hosted locally on a user's own machine, if the GPU and memory requirements are met."
 suffix = " See Adding LLM models to the GitHub Copilot app and Adding LLM models to GitHub Copilot CLI."
 
 [[anchor]]
@@ -1082,7 +1082,7 @@ source_id = "ee2f39c2dc69d4f6"
 topics = ["processing_region", "retention"]
 
 [anchor.selector]
-exact = "When cloud hosted, MAI Code 1.1 Flash is served on Microsoft Azure AI Foundry within GitHub's tenant and is subject to GitHub's data handling configuration for that deployment."
+exact = "When cloud hosted, these models are served on Microsoft Azure AI Foundry within GitHub's tenant and are subject to GitHub's data handling configuration for that deployment."
 suffix = " For details about how data is processed, retained, and secured for models served on Azure AI Foundry, see"
 
 [[anchor]]
