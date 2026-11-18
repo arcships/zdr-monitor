@@ -24,7 +24,7 @@ note = "分享默认是手动触发，可彻底关闭；已分享会话保留到
 url = "https://opencode.ai/docs/zen"
 channel = "developer_data"
 tier = "core"
-note = "OpenCode Console（原 Zen）托管网关、默认美欧处理地（LongCat 2.5 Free 中国托管例外）、上游零保留/不训练口径、30 天与训练例外、团队工作区。"
+note = "OpenCode Console（原 Zen）托管网关、默认美欧处理地（LongCat 2.5 Free 中国托管例外）、上游零保留/不训练口径、30/55 天与训练例外、团队工作区。"
 
 [[source]]
 url = "https://opencode.ai/legal/terms-of-service"
@@ -44,6 +44,10 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 
+[[product.training.point]]
+text = "MiMo-V2.6-Flash Free was removed from the Privacy exception list in the 2026-11-18 snapshot. Its Free models bullet dropped \"and improve the model\" and now reads \"MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.\" With no exception entry, the default sentence — \"All our models are hosted in the US and EU. Our providers follow a zero-retention policy and do not use your data for model training, with the following exceptions:\" — now covers it on the face of the docs, so the default no-training posture applies to MiMo."
+text_zh = "MiMo-V2.6-Flash Free 在 2026-11-18 快照从 Privacy 例外清单移除。其免费模型条目删去「and improve the model」，改为「MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.」。既然不在例外清单内，默认句「All our models are hosted in the US and EU. Our providers follow a zero-retention policy and do not use your data for model training, with the following exceptions:」按文档字面覆盖它，因此 MiMo 适用默认的不训练口径。"
+anchor = "opencode-zen-mimo-free-feedback"
 
 [product.zdr]
 mark = "yes"
@@ -54,6 +58,16 @@ anchor = "opencode-zen-privacy"
 text = "Zero retention is the default only for models outside the exception list in the same privacy section: \"OpenAI APIs: Requests are retained for 30 days in accordance with OpenAI’s Data Policies\" and the identical clause for Anthropic APIs. Claude and GPT models served through the Anthropic and OpenAI API endpoints are listed in this tier's own endpoint and pricing tables, so mark=yes / mode=default does not hold for that subset. The System One decision models (Jev, GPT 6 Luna Decision and Gemini Decision 1) are not in that exception list, so the default applies to them on the face of the docs."
 text_zh = "「默认零保留」只对隐私段例外清单以外的模型成立：走 OpenAI APIs 与 Anthropic APIs 的请求保留 30 天（按各自数据政策）。Claude 与 GPT 模型中经 Anthropic、OpenAI API 端点访问的那些都在本档端点表与价目表内，因此选择这些模型时本档不是零保留；System One 决策模型（Jev、GPT 6 Luna Decision、Gemini Decision 1）不在该例外清单内，按文档字面适用默认零保留。"
 anchor = "opencode-zen-30-days"
+
+[[product.zdr.point]]
+text = "Same exception list, two more upstream carve-outs: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" The Google period is an upper bound. Google covers the Gemini models this tier lists on `google/v1beta/models/...` endpoints; Gemini Decision 1 is listed on the System One endpoint (`systemone/v1/systemone`), not a Google endpoint, so the Google exception does not apply to it. The xAI period is attributed only to the Grok Imagine Image 2.0 image model, the only model in this tier listed on an xAI endpoint; the Grok text models (Grok 4.7, 4.6, 4.5 and Grok Build 0.1) are listed on the OpenAI responses endpoint and the docs do not state which upstream API serves them, so the xAI 30-day period is not attributed to those text models here."
+text_zh = "同一例外清单新增两条上游 carve-out：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」。Google 为最长 55 天的上限，适用于本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型；Gemini Decision 1 列在 System One 端点（`systemone/v1/systemone`），不是 Google 端点，因此不适用该例外。xAI 的 30 天只归到 Grok Imagine Image 2.0 图像模型——它是本档端点表里唯一列在 xAI 端点上的模型；Grok 文本模型（Grok 4.7、4.6、4.5、Grok Build 0.1）列在 OpenAI responses 端点，文档未说明其上游 API，因此这里不把 xAI 30 天期限套到这些文本模型上。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.zdr.point]]
+text = "MiMo-V2.6-Flash Free is no longer in the exception list, so the same default sentence (\"...follow a zero-retention policy...\") now covers it on the face of the docs and mark=yes / mode=default applies. Its Free models bullet (\"...collect feedback.\") does not add a separate retention carve-out; the operative zero-retention commitment is the default sentence."
+text_zh = "MiMo-V2.6-Flash Free 已不在例外清单内，因此同一默认句（「...follow a zero-retention policy...」）按文档字面覆盖它，mark=yes / mode=default 适用。其免费模型条目（「...collect feedback.」）没有另加保留 carve-out；保留承诺来自默认零保留句。"
+anchor = "opencode-zen-mimo-free-feedback"
 
 [[product.zdr.point]]
 text = "Additional data flow: session content is also sent to low-cost models — \"You may notice low-cost models, such as Haiku, Nano, or Flash, in your usage history. OpenCode uses these models to generate session titles.\" Those models are Zen endpoints themselves; the docs give no separate period for the derived title data."
@@ -77,8 +91,18 @@ basis = "none"
 anchor = "opencode-zen-privacy"
 
 [[product.retention.point]]
-text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
+text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，Google API 最长 55 天、xAI API 30 天（见下条及其适用范围），因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Google and xAI exceptions: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" Google's is an upper bound (up to 55 days), xAI's is a fixed 30 days; OpenCode states both periods itself while referring to the providers' terms for the underlying processing. They cover the Gemini models this tier lists on `google/v1beta/models/...` endpoints and the Grok Imagine Image 2.0 image model on the xAI images endpoint; they do not cover Gemini Decision 1 on the System One endpoint, and the docs do not attribute the xAI period to the Grok text models listed on the OpenAI responses endpoint."
+text_zh = "Google 与 xAI 例外：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」——Google 为最长 55 天的上限，xAI 为固定 30 天；期限由 OpenCode 自己写明，同时指向各自上游条款。适用范围是本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型，以及走 xAI 图像端点的 Grok Imagine Image 2.0；不覆盖 System One 端点上的 Gemini Decision 1，也不把 xAI 期限归到列在 OpenAI responses 端点上的 Grok 文本模型。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.retention.point]]
+text = "MiMo-V2.6-Flash Free now falls under the default zero-retention sentence rather than the exception list, so its retention posture is the same as the rest of this tier (object=input_output, basis=none). The Free models bullet only repeats that the team is using the limited-time period to collect feedback and does not add a separate retention carve-out; the operative retention commitment is the default zero-retention sentence."
+text_zh = "MiMo-V2.6-Flash Free 现在适用默认的零保留句，而不是例外清单，因此其保留姿态与本档其余模型一致（object=input_output、basis=none）。免费模型条目只重复团队利用这段限时收集反馈，没有另加保留 carve-out；保留承诺来自默认零保留句。"
+anchor = "opencode-zen-mimo-free-feedback"
 
 [[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
@@ -139,8 +163,8 @@ mark = "no"
 anchor = "opencode-zen-exceptions"
 
 [[product.zdr.point]]
-text = "Free NVIDIA endpoints: \"Nemotron 3 Ultra Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.\" The logging is stated with no time limit, so this tier offers no zero-retention option; the same sentence also bars submitting personal or confidential data."
-text_zh = "免费 NVIDIA 端点：「Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」——使用会被记录且未给期限，本档没有零保留方案；同段还禁止提交个人或机密数据，对采购是硬约束。"
+text = "NVIDIA free endpoints still listed in this tier: \"Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.\" The logging is stated with no time limit, so this tier offers no zero-retention option; the same sentence also bars submitting personal or confidential data. Nemotron 3 Ultra Free carried an identical bullet and was removed from the endpoints table, the pricing table and the Free models list in the 2026-11-18 snapshot."
+text_zh = "本档仍在列的 NVIDIA 免费端点：「Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」——使用会被记录且未给期限，本档没有零保留方案；同段还禁止提交个人或机密数据，对采购是硬约束。原 Nemotron 3 Ultra Free 条目文字相同，已在 2026-11-18 快照随该模型从端点表、价目表和免费模型列表一并移除。"
 anchor = "opencode-zen-nvidia-free"
 
 [[product.zdr.point]]
@@ -215,9 +239,14 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Iceman Free、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
+
+[[product.training.point]]
+text = "MiMo-V2.6-Flash Free left the exception list in the 2026-11-18 snapshot; its Free models bullet now reads \"MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.\" and no longer says the data may be used to improve the model. The default sentence therefore covers it, so it is no longer part of the data-collecting set above. Nemotron 3 Ultra Free, which the previous list included, was delisted from the endpoints, pricing and Free models tables in the same snapshot."
+text_zh = "MiMo-V2.6-Flash Free 在 2026-11-18 快照离开例外清单；其免费模型条目改为「MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.」，不再写收集数据可能用于改进模型。默认句因此覆盖它，它不再属于上面的数据收集集合。上一版清单里的 Nemotron 3 Ultra Free 也在同一快照从端点表、价目表和免费模型列表下架。"
+anchor = "opencode-zen-mimo-free-feedback"
 [[product.training.point]]
 text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models."
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。"
@@ -236,6 +265,11 @@ text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外
 anchor = "opencode-zen-30-days"
 
 [[product.zdr.point]]
+text = "The same exception list adds Google and xAI carve-outs: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" The Google period is an upper bound and covers the Gemini models this tier lists on `google/v1beta/models/...` endpoints; Gemini Decision 1 is listed on the System One endpoint (`systemone/v1/systemone`), not a Google endpoint, so the Google exception does not apply to it. The xAI period is attributed only to the Grok Imagine Image 2.0 image model, the only model in this tier listed on an xAI endpoint; the Grok text models (Grok 4.7, 4.6, 4.5 and Grok Build 0.1) are listed on the OpenAI responses endpoint and the docs do not state which upstream API serves them, so the xAI 30-day period is not attributed to those text models here."
+text_zh = "同一例外清单新增 Google 与 xAI carve-out：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」。Google 为最长 55 天的上限，适用于本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型；Gemini Decision 1 列在 System One 端点（`systemone/v1/systemone`），不是 Google 端点，因此不适用该例外。xAI 的 30 天只归到 Grok Imagine Image 2.0 图像模型——它是本档端点表里唯一列在 xAI 端点上的模型；Grok 文本模型（Grok 4.7、4.6、4.5、Grok Build 0.1）列在 OpenAI responses 端点，文档未说明其上游 API，因此这里不把 xAI 30 天期限套到这些文本模型上。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.zdr.point]]
 text = "A further exception in the same privacy section defers the Mistral models' retention to the provider: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" Mistral Large 4 is a Zen endpoint a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
 text_zh = "同一隐私段的另一条例外把 Mistral 模型的保留期限指向上游：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」Mistral Large 4 是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（Mistral）的政策。"
 anchor = "opencode-zen-mistral-exception"
@@ -250,8 +284,18 @@ object = "input_output"
 basis = "none"
 anchor = "opencode-zen-privacy"
 [[product.retention.point]]
-text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
+text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，Google API 最长 55 天、xAI API 30 天（见下条及其适用范围），因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Google and xAI exceptions: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" Google's is an upper bound (up to 55 days), xAI's is a fixed 30 days; OpenCode states both periods itself while referring to the providers' terms for the underlying processing. They cover the Gemini models this tier lists on `google/v1beta/models/...` endpoints and the Grok Imagine Image 2.0 image model on the xAI images endpoint; they do not cover Gemini Decision 1 on the System One endpoint, and the docs do not attribute the xAI period to the Grok text models listed on the OpenAI responses endpoint."
+text_zh = "Google 与 xAI 例外：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」——Google 为最长 55 天的上限，xAI 为固定 30 天；期限由 OpenCode 自己写明，同时指向各自上游条款。适用范围是本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型，以及走 xAI 图像端点的 Grok Imagine Image 2.0；不覆盖 System One 端点上的 Gemini Decision 1，也不把 xAI 期限归到列在 OpenAI responses 端点上的 Grok 文本模型。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.retention.point]]
+text = "MiMo-V2.6-Flash Free now falls under the default zero-retention sentence rather than the exception list, so its retention posture is the same as the rest of this tier (object=input_output, basis=none). The Free models bullet only repeats that the team is using the limited-time period to collect feedback and does not add a separate retention carve-out; the operative retention commitment is the default zero-retention sentence."
+text_zh = "MiMo-V2.6-Flash Free 现在适用默认的零保留句，而不是例外清单，因此其保留姿态与本档其余模型一致（object=input_output、basis=none）。免费模型条目只重复团队利用这段限时收集反馈，没有另加保留 carve-out；保留承诺来自默认零保留句。"
+anchor = "opencode-zen-mimo-free-feedback"
 
 [[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
@@ -290,9 +334,14 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, MiMo-V2.6-Flash Free, Nemotron 3 Ultra Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。例外清单里会收集数据或用于训练模型的档（Big Pickle、Iceman Free、Flint 40B Free、MiMo-V2.6-Flash Free、Nemotron 3 Ultra Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
+
+[[product.training.point]]
+text = "MiMo-V2.6-Flash Free left the exception list in the 2026-11-18 snapshot; its Free models bullet now reads \"MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.\" and no longer says the data may be used to improve the model. The default sentence therefore covers it, so it is no longer part of the data-collecting set above. Nemotron 3 Ultra Free, which the previous list included, was delisted from the endpoints, pricing and Free models tables in the same snapshot."
+text_zh = "MiMo-V2.6-Flash Free 在 2026-11-18 快照离开例外清单；其免费模型条目改为「MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.」，不再写收集数据可能用于改进模型。默认句因此覆盖它，它不再属于上面的数据收集集合。上一版清单里的 Nemotron 3 Ultra Free 也在同一快照从端点表、价目表和免费模型列表下架。"
+anchor = "opencode-zen-mimo-free-feedback"
 [[product.training.point]]
 text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc's own line — \"OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.\" — describes the local / internal-gateway path this row excludes, and is not used as evidence for the Zen-hosted path."
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。企业文档那句「OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.」说的是本行已排除的本地/内部网关路径，不作为 Zen 托管路径的证据。"
@@ -311,6 +360,11 @@ text_zh = "隐私段的例外清单把本档部分模型排除在零保留之外
 anchor = "opencode-zen-30-days"
 
 [[product.zdr.point]]
+text = "The same exception list adds Google and xAI carve-outs: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" The Google period is an upper bound and covers the Gemini models this tier lists on `google/v1beta/models/...` endpoints; Gemini Decision 1 is listed on the System One endpoint (`systemone/v1/systemone`), not a Google endpoint, so the Google exception does not apply to it. The xAI period is attributed only to the Grok Imagine Image 2.0 image model, the only model in this tier listed on an xAI endpoint; the Grok text models (Grok 4.7, 4.6, 4.5 and Grok Build 0.1) are listed on the OpenAI responses endpoint and the docs do not state which upstream API serves them, so the xAI 30-day period is not attributed to those text models here."
+text_zh = "同一例外清单新增 Google 与 xAI carve-out：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」。Google 为最长 55 天的上限，适用于本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型；Gemini Decision 1 列在 System One 端点（`systemone/v1/systemone`），不是 Google 端点，因此不适用该例外。xAI 的 30 天只归到 Grok Imagine Image 2.0 图像模型——它是本档端点表里唯一列在 xAI 端点上的模型；Grok 文本模型（Grok 4.7、4.6、4.5、Grok Build 0.1）列在 OpenAI responses 端点，文档未说明其上游 API，因此这里不把 xAI 30 天期限套到这些文本模型上。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.zdr.point]]
 text = "A further exception in the same privacy section defers the Mistral models' retention to the provider: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" Mistral Large 4 is a Zen endpoint a workspace can enable, and the docs state no retention period of their own — the period is deferred to a third party's policy."
 text_zh = "同一隐私段的另一条例外把 Mistral 模型的保留期限指向上游：「Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.」Mistral Large 4 是工作区可启用的 Zen 端点；官方未自行给出保留期限，而是把期限指向第三方（Mistral）的政策。"
 anchor = "opencode-zen-mistral-exception"
@@ -325,8 +379,18 @@ object = "input_output"
 basis = "none"
 anchor = "opencode-zen-privacy"
 [[product.retention.point]]
-text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
+text_zh = "标准口径为上游零保留；但 OpenAI API 与 Anthropic API 明列请求保留 30 天，Google API 最长 55 天、xAI API 30 天（见下条及其适用范围），因此选择这些模型时本档不是零保留。缓存价目存在 cached read/write，但缓存期限未披露。"
 anchor = "opencode-zen-30-days"
+
+[[product.retention.point]]
+text = "Google and xAI exceptions: \"Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\" and \"xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.\" Google's is an upper bound (up to 55 days), xAI's is a fixed 30 days; OpenCode states both periods itself while referring to the providers' terms for the underlying processing. They cover the Gemini models this tier lists on `google/v1beta/models/...` endpoints and the Grok Imagine Image 2.0 image model on the xAI images endpoint; they do not cover Gemini Decision 1 on the System One endpoint, and the docs do not attribute the xAI period to the Grok text models listed on the OpenAI responses endpoint."
+text_zh = "Google 与 xAI 例外：「Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.」与「xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy.」——Google 为最长 55 天的上限，xAI 为固定 30 天；期限由 OpenCode 自己写明，同时指向各自上游条款。适用范围是本档列在 `google/v1beta/models/...` 端点上的 Gemini 模型，以及走 xAI 图像端点的 Grok Imagine Image 2.0；不覆盖 System One 端点上的 Gemini Decision 1，也不把 xAI 期限归到列在 OpenAI responses 端点上的 Grok 文本模型。"
+anchor = "opencode-zen-google-xai-retention"
+
+[[product.retention.point]]
+text = "MiMo-V2.6-Flash Free now falls under the default zero-retention sentence rather than the exception list, so its retention posture is the same as the rest of this tier (object=input_output, basis=none). The Free models bullet only repeats that the team is using the limited-time period to collect feedback and does not add a separate retention carve-out; the operative retention commitment is the default zero-retention sentence."
+text_zh = "MiMo-V2.6-Flash Free 现在适用默认的零保留句，而不是例外清单，因此其保留姿态与本档其余模型一致（object=input_output、basis=none）。免费模型条目只重复团队利用这段限时收集反馈，没有另加保留 carve-out；保留承诺来自默认零保留句。"
+anchor = "opencode-zen-mimo-free-feedback"
 
 [[product.retention.point]]
 text = "Mistral exception: \"Mistral APIs: Prompts and other inputs are not used for training. Data is retained in accordance with Mistral’s Data Retention Policy.\" No period or deletion commitment is stated for Mistral requests — the period is deferred to Mistral's policy — so it is recorded as a carve-out from the upstream zero-retention default, not as a fixed term."
@@ -450,7 +514,25 @@ source_id = "81c406603eb0c1a6"
 topics = ["zdr", "retention"]
 [anchor.selector]
 prefix = ""
-exact = "- Nemotron 3 Ultra Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services."
+exact = "- Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-google-xai-retention"
+source_id = "81c406603eb0c1a6"
+topics = ["retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "- Google APIs: Requests are retained for up to 55 days for abuse monitoring in accordance with Google’s Gemini API Terms.\n- xAI APIs: Requests are retained for 30 days in accordance with xAI’s Privacy Policy."
+suffix = ""
+
+[[anchor]]
+id = "opencode-zen-mimo-free-feedback"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "retention", "zdr"]
+[anchor.selector]
+prefix = ""
+exact = "- MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback."
 suffix = ""
 
 [[anchor]]
