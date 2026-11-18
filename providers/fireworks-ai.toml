@@ -9,7 +9,7 @@ doc = "https://fireworks.ai/terms-of-service"
 url = "https://docs.fireworks.ai/accounts/data-residency"
 channel = "developer_data"
 tier = "core"
-note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；residency 同时约束推理与 dedicated 训练，但不搬迁已有流量与部署。列出 residency 开启后受限的功能（serverless 训练、BYOC；Nexus Auto 在 2026-11-03 快照中写明 US residency 下 `auto` 可用——开源轮次走 US-only Serverless、Anthropic/OpenAI 轮次走客户自有 provider 账号，其他区域仍拒绝）。既是处理地维度的主要来源，也是 Nexus Auto/BYOC 多跳与自管档的官方披露点。"
+note = "《Data residency》企业功能页：默认 None（不限制区域），可把账号锁定到 US 单一区域；residency 同时约束推理与 dedicated 训练，但不搬迁已有流量与部署。列出 residency 开启后受限的功能（serverless 训练、第三方模型目录 API、BYOC；Nexus 仅支持 US residency，其他区域拒绝 `auto` 及经其路由的 Anthropic/OpenAI/Bedrock 模型；第三方 provider 的区域由客户自己的账号设置决定，Bedrock `global.` profile 与订阅登录轮次可能在 US 之外处理）。既是处理地维度的主要来源，也是 Nexus Auto/BYOC 多跳与自管档的官方披露点。"
 
 [[source]]
 url = "https://docs.fireworks.ai/deployments/regions"
@@ -21,7 +21,7 @@ note = "《Regions》页：默认多区域（GLOBAL/US/EUROPE/APAC），并列�
 url = "https://docs.fireworks.ai/ecosystem/firerouter/overview"
 channel = "developer_data"
 tier = "core"
-note = "《Nexus Auto》产品文档（原名 FireRouter；`firerouter` 模型 ID 与 `firerouter/...` 自定义路由已下线）：逐轮在 Fireworks serverless 开源模型与客户自有 Anthropic/OpenAI 或 Amazon Bedrock 账号的闭源模型之间选路。凭据可用账号级 Provider Keys，Anthropic/OpenAI 也可逐请求发送；Bedrock 映射模型 ID 和区域。该页仍写「Accounts with data residency enabled cannot use Nexus Auto.」，与 data-residency 页 2026-11-03 的 US 例外口径冲突，按页并列保留；闭源模型构成第三方跳，因此单列 products 行。"
+note = "《Nexus Auto》产品文档（原名 FireRouter；`firerouter` 模型 ID 与 `firerouter/...` 自定义路由已下线）：逐轮在 Fireworks serverless 开源模型与客户自有 Anthropic/OpenAI 或 Amazon Bedrock 账号的闭源模型之间选路。凭据可用账号级 Provider Keys，Anthropic/OpenAI 也可逐请求发送；Bedrock 映射模型 ID 和区域。该页仍写「Accounts with data residency enabled cannot use Nexus Auto.」，与 data-residency 页现行的 US-only 口径冲突，按页并列保留；闭源模型构成第三方跳，因此单列 products 行。"
 
 [[source]]
 url = "https://docs.fireworks.ai/guides/prompt-caching"
@@ -404,7 +404,7 @@ text_zh = "Nexus Auto（原名 FireRouter）文档描述路由、凭据与计费
 text_zh = "DPA §4.3(f) 的禁令对象是 Company（Fireworks）自身，未延伸约束客户自有账号的 Anthropic/OpenAI/Bedrock 上游。多跳判定：Fireworks 本身受合同禁令约束，但上游跳的训练承诺不在本台账本家范围内；不能将 Fireworks 单跳的正面承诺推广到全链，故本档 training 保持 unknown。"
 
 [[product.training.point]]
-text_zh = "原先绑在本条的处理地引文（旧句「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，既不涉及训练，也不涉及保留，故不绑在本条。厂商已把该句改写为 US residency 下 `auto` 可用的新表述，新句同样不涉及训练。"
+text_zh = "原先绑在本条的处理地引文（旧句「can pass a request through to a third-party provider, which Fireworks cannot constrain to a region.」）讲的是处理地约束力，既不涉及训练，也不涉及保留，故不绑在本条。厂商在 2026-11-18 快照中把该条改写为「Nexus outside the US」，并把第三方 provider 的区域规则移到「What residency covers」，新表述同样不涉及训练。"
 
 [product.zdr]
 mark = "no"
@@ -472,13 +472,28 @@ text_zh = "Bedrock 也是客户自有上游；模型 ID 须映射到 Bedrock 区
 anchor = "fireworks-firerouter-bedrock-account-region"
 
 [[product.processing_region.point]]
-text = "Under US data residency, Nexus Auto is no longer blocked: `auto` works and serves open-model turns from US-only Serverless, while Anthropic and OpenAI turns run on the customer's own provider account, where that provider's data policies apply; other regions reject `auto`. Fireworks therefore still does not promise single-region processing for the closed-model hop."
-text_zh = "US 数据驻留下 Nexus Auto 不再被一律拒绝：`auto` 可用，开源模型轮次由 US-only Serverless 提供；Anthropic 与 OpenAI 轮次走客户自己的 provider 账号，适用该 provider 的数据政策；其他区域仍拒绝 `auto`。因此 Fireworks 仍不承诺闭源模型这一跳的单区域处理。"
+text = "Nexus calls to a Fireworks open model, `auto` included, are covered by data residency and served from the selected region's Serverless."
+text_zh = "Nexus 调用 Fireworks 开源模型（含 `auto`）受数据驻留覆盖，由所选区域的 Serverless 提供。"
+anchor = "fireworks-dataresidency-nexus-open-model-covered"
+
+[[product.processing_region.point]]
+text = "Nexus supports only the US residency region: \"US is the only region Nexus supports. Any other region rejects `auto`, and the Anthropic, OpenAI, and Amazon Bedrock models that route through it.\""
+text_zh = "Nexus 只支持 US 驻留区域：「US is the only region Nexus supports. Any other region rejects `auto`, and the Anthropic, OpenAI, and Amazon Bedrock models that route through it.」"
+anchor = "fireworks-dataresidency-nexus-us-only"
+
+[[product.processing_region.point]]
+text = "For a model served by a third party, Fireworks picks no region: \"Fireworks picks no region for a third-party provider. It follows the setting on your own account with them, which differs by provider.\" The choice therefore rests with the customer's Anthropic, OpenAI, or Amazon Bedrock account, not with Fireworks."
+text_zh = "对第三方提供的模型，Fireworks 不选择区域：「Fireworks picks no region for a third-party provider. It follows the setting on your own account with them, which differs by provider.」区域选择因此取决于客户自己的 Anthropic、OpenAI 或 Amazon Bedrock 账号配置，而不由 Fireworks 决定。"
 anchor = "fireworks-dataresidency-firerouter-third-party"
 
 [[product.processing_region.point]]
-text = "The Nexus Auto page still states the blanket rule: \"Accounts with data residency enabled cannot use Nexus Auto.\" This conflicts with the Data residency page's current US-specific rule above (US residency: `auto` works; other regions: rejected). Both are current first-party pages; the conflict is left visible rather than resolved by preferring one."
-text_zh = "Nexus Auto 页仍写一律规则「Accounts with data residency enabled cannot use Nexus Auto.」；这与上面《Data residency》页现行的 US 专属规则冲突（US residency 下 `auto` 可用，其他区域拒绝）。两页都是现行第一方文档；此处并列保留冲突，不替厂商裁决。"
+text = "Residency does not pin a Claude subscription login or ChatGPT sign-in: \"A Claude subscription login or a ChatGPT sign-in also works with residency on. Its Anthropic or OpenAI turns follow that provider’s own policies and settings, and may be processed outside the US.\" Fireworks therefore still does not promise single-region processing for the closed-model hop."
+text_zh = "驻留不约束通过 Claude 订阅或 ChatGPT 登录的轮次：「A Claude subscription login or a ChatGPT sign-in also works with residency on. Its Anthropic or OpenAI turns follow that provider’s own policies and settings, and may be processed outside the US.」因此 Fireworks 仍不承诺闭源模型这一跳的单区域处理。"
+anchor = "fireworks-dataresidency-third-party-outside-us"
+
+[[product.processing_region.point]]
+text = "The Nexus Auto page still states the blanket rule: \"Accounts with data residency enabled cannot use Nexus Auto.\" This conflicts with the Data residency page's current rule above (Nexus supports only the US; any other region rejects `auto` and the third-party models routed through it). Both are current first-party pages; the conflict is left visible rather than resolved by preferring one."
+text_zh = "Nexus Auto 页仍写一律规则「Accounts with data residency enabled cannot use Nexus Auto.」；这与上面《Data residency》页现行的规则冲突（Nexus 只支持 US，其他区域拒绝 `auto` 及经其路由的第三方模型）。两页都是现行第一方文档；此处并列保留冲突，不替厂商裁决。"
 anchor = "fireworks-firerouter-residency-incompatible"
 
 [[product.processing_region.point]]
@@ -745,12 +760,36 @@ topics = ["processing_region"]
 exact = "| None | `api.fireworks.ai` | Any model | Any region | | US | `us.api.fireworks.ai` | US-only Serverless | `US` multi-region, or a single US region such as `US_IOWA_1` | **None** is the default."
 
 [[anchor]]
-id = "fireworks-dataresidency-firerouter-third-party"
+id = "fireworks-dataresidency-nexus-open-model-covered"
 source_id = "5b91be97039b3320"
-topics = ["processing_region", "role"]
+topics = ["processing_region"]
 
 [anchor.selector]
-exact = "With US residency, `auto` works and serves open-model turns from US-only Serverless. Anthropic and OpenAI turns run on your own provider account, where that provider’s data policies apply. With other regions, `auto` is rejected."
+exact = "| Nexus calls to a Fireworks open model, `auto` included | Yes | The region’s Serverless |"
+
+[[anchor]]
+id = "fireworks-dataresidency-nexus-us-only"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "US is the only region Nexus supports. Any other region rejects `auto`, and the Anthropic, OpenAI, and Amazon Bedrock models that route through it."
+
+[[anchor]]
+id = "fireworks-dataresidency-firerouter-third-party"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "Fireworks picks no region for a third-party provider. It follows the setting on your own account with them, which differs by provider:"
+
+[[anchor]]
+id = "fireworks-dataresidency-third-party-outside-us"
+source_id = "5b91be97039b3320"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "A Claude subscription login or a ChatGPT sign-in also works with residency on. Its Anthropic or OpenAI turns follow that provider’s own policies and settings, and may be processed outside the US."
 
 [[anchor]]
 id = "fireworks-dataresidency-byoc-not-enforceable"
