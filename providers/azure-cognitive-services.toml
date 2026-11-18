@@ -87,6 +87,16 @@ text = "Zero retention is by approval, not by default: only once the customer is
 text_zh = "零保留需获批而非默认:只有获批 modified abuse monitoring 后才不进行该数据存储与人工复核,自动审核仍可能进行"
 
 [[product.zdr.point]]
+text = "Existing approvals are grandfathered for older models: Modified Abuse Monitoring continues to apply to models made available before November 1, 2026, with no change to the functionality provided under that approval."
+text_zh = "旧模型已获批者继续有效:2026 年 11 月 1 日之前上线的模型继续适用 Modified Abuse Monitoring,该批准下的功能不变。"
+anchor = "api-modified-abuse-monitoring-continues"
+
+[[product.zdr.point]]
+text = "Sunset for new models: for models made available on or after November 1, 2026, Modified Abuse Monitoring will no longer be available from a future date to be announced; from that date those models fall under Microsoft's updated data-retention, access and safety-monitoring approach, including customers with an existing approval. The document does not describe a successor zero-retention route."
+text_zh = "新模型的退出安排:2026 年 11 月 1 日及之后上线的模型,Modified Abuse Monitoring 将在另行宣布的日期起不再提供;自该日起这些模型适用 Microsoft 更新后的数据保留、访问与安全监测做法(已有获批的客户亦然)。文中没有给出替代的零保留路径。"
+anchor = "api-modified-abuse-monitoring-sunset"
+
+[[product.zdr.point]]
 text = "Customers can verify the switch: the \"ContentLogging\" attribute appears as \"false\" only if data storage for abuse monitoring is turned off."
 text_zh = "可自助核验开关:只有滥用监测的数据存储确实关闭时,\"ContentLogging\" 属性才会显示为 \"false\""
 anchor = "api-zdr-contentlogging-verification"
@@ -104,6 +114,11 @@ anchor = "api-retention-abuse-monitoring-store"
 [[product.retention.point]]
 text = "Default context: prompts and completions flagged by abuse monitoring are stored in the abuse monitoring data store for human review (logically separated by customer resource, one store per geography); only customers approved for modified abuse monitoring skip that storage and human review."
 text_zh = "默认语境:被滥用监测标记的提示与补全会存入 abuse monitoring 数据存储等待人工复核(按客户资源逻辑隔离,每个 geography 一个存储);只有获批 modified abuse monitoring 的客户才不做这一存储与人工复核"
+
+[[product.retention.point]]
+text = "Forward-looking scope limit: for models made available on or after November 1, 2026, Microsoft says they will be subject to an \"updated approach to data retention, access, and safety monitoring\" from a future date to be announced; this page does not describe that approach, so their retention terms cannot be determined from it."
+text_zh = "前瞻性范围限定:2026 年 11 月 1 日及之后上线的模型,Microsoft 称将从另行宣布的日期起适用「更新后的数据保留、访问与安全监测做法」;本页未描述该做法,这些模型的保留条款无法据本页确定。"
+anchor = "api-modified-abuse-monitoring-sunset"
 
 [[product.retention.point]]
 text = "The models are stateless: no prompts or completions are stored in the model. This describes the model itself, not the service layer around it."
@@ -603,6 +618,26 @@ topics = ["zdr"]
 prefix = "en-us/azure/ai-foundry/openai/concepts/abuse-monitoring))), "
 exact = "the data storage and human review process described above is not performed. However, automated review may still be conducted, leveraging algorithms including AI models"
 suffix = " that review prompts and completions at the time provided or"
+
+[[anchor]]
+id = "api-modified-abuse-monitoring-continues"
+source_id = "82c97913adafd62d"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "### What’s changing with Modified Abuse Monitoring"
+exact = "Modified Abuse Monitoring will continue to apply to models made available before November 1, 2026 for customers with an existing approval, with no change to the functionality provided under that approval."
+suffix = " For models made available on or after November 1, 2026, Modified Abuse Monitoring will no longer be available"
+
+[[anchor]]
+id = "api-modified-abuse-monitoring-sunset"
+source_id = "82c97913adafd62d"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "with no change to the functionality provided under that approval. "
+exact = "For models made available on or after November 1, 2026, Modified Abuse Monitoring will no longer be available, beginning on a future date to be announced. From that date, these models will be subject to Microsoft’s updated approach to data retention, access, and safety monitoring, including for customers with an existing Modified Abuse Monitoring approval."
+suffix = " Customers will receive at least 30 days’ notice before Modified Abuse Monitoring becomes unavailable for a given model."
 
 [[anchor]]
 id = "api-zdr-contentlogging-verification"
