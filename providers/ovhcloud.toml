@@ -8,7 +8,7 @@ doc = "https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stac
 url = "https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-ie.pdf"
 channel = "contract"
 tier = "core"
-note = "OVHcloud Public Cloud 特别条件（SPECIFIC CONDITIONS FOR PUBLIC CLOUD SERVICES，Version dated 26 August 2026，53 页）——本家 EU 档的最高优先级合同文件（GTS 明定 Contract 文件顺序：SC > DPA > GTS > 第三方产品条款 > 订单）。含两个相关附录：附录 10「Specific Conditions - AI Endpoints」（serverless 按量档，§2 服务不含备份或存储、§5 Inputs/Outputs）与附录 7「Specific Conditions – AI Tools Service」（AI Training / AI Notebooks / AI Deploy，§2.3 地点由客户选择、§2.4 数据管理与保留）。注意：该 PDF 文本本身不写签约实体，实体由同域 GTS 版本决定（-ie = OVH Hosting Limited，都柏林）；官方文档站的 Info 栏逐字链接的正是这个 -ie URL。**本轮抓取丢行（待重抓）**：附录 7 §2.4.2 在「…or in the event of a malfunction, the contents」处断行，缺「of the temporary storage space will be deleted.」；同段 §2.4.3 缺「(including the maximum storage capacity) are set out on the Website.」且「Content of the Workspace…」句首丢了 The——对照同构的 US SST §9.3 与附录 6 §2.3.2/§2.3.3 可确认是抓取侧丢字，不是厂商改条款、也不是撤销承诺。锚点 sc-a7-temporary-local-storage-deleted 已按此把引文收窄到快照里确实存在的文本（止于「…in the event of a malfunction, the contents」），完整删除句待重抓后复核；本轮未据此改任何结论。"
+note = "OVHcloud Public Cloud 特别条件（SPECIFIC CONDITIONS FOR PUBLIC CLOUD SERVICES，Version dated 18 November 2026，59 页）——本家 EU 档的最高优先级合同文件（GTS 明定 Contract 文件顺序：SC > DPA > GTS > 第三方产品条款 > 订单）。含两个相关附录：附录 10「Specific Conditions - AI Endpoints」（serverless 按量档；§1 明文 Models hosted and executed in Datacentres located in the EU，§2 不含 Inputs/Outputs 备份或 Snapshot，§5 逐字不训练、不用于执行服务以外的目的、不备份，§7 新增 AI Endpoints 专用 DPA 章节与量化保留期）与附录 7「Specific Conditions – AI Tools Service」（AI Training / AI Notebooks / AI Deploy，§2.3 地点由客户选择、§2.4 数据管理与保留）。注意：该 PDF 文本本身不写签约实体，实体由同域 GTS 版本决定（-ie = OVH Hosting Limited，都柏林）；官方文档站的 Info 栏逐字链接的正是这个 -ie URL。**本轮抓取仍丢行（待重抓）**：附录 7 §2.4.2 在「…or in the event of a malfunction, the contents」处断行，缺「of the temporary storage space will be deleted.」（当前快照 1518-1519 行）。§2.4.3 的 Workspace 删除句本轮已能读到完整文本，厂商把旧表述「Content of the Workspace is deleted…」改为「Workspace Content is deleted on the Notebook deletion date.」；同段仍缺「(including the maximum storage capacity) are set out on the Website.」——对照同构的 US SST §9.3 可确认是抓取侧丢字，不是撤销承诺。锚点 sc-a7-temporary-local-storage-deleted 仍把引文收窄到快照里确实存在的文本（止于「…in the event of a malfunction, the contents」），完整删除句待重抓后复核；本轮未据此改任何结论。"
 
 [[source]]
 url = "https://contract.eu.ovhapis.com/1.0/pdf/contrat_genServices-ie.pdf"
@@ -20,7 +20,7 @@ note = "General Terms of Services（Version of January 17, 2025，19 页），EU
 url = "https://contract.eu.ovhapis.com/1.0/pdf/OVH_Data_Protection_Agreement-ie.pdf"
 channel = "contract"
 tier = "core"
-note = "EU 档 Annex「Data Processing Agreement」的合同主机版本：OVH Hosting Ltd.（都柏林，注册号 468585）与客户之间的 DPA，Version dated on 17.10.2025，42 页，含 2021/914 SCC 模块。这是 SC/附录 4、附录 8 反复提到、GTS 列为合同文件第二优先级的「Annex Data Processing Agreement」，也是 EU 档 role 维度的主权威。与 storage.gra.cloud.ovh.net 上的 12f0d70-…-IE-7.0.pdf 是同一份文档（同版本、同实体、同 42 页）的两个官方托管位置；旧记录两者都没登记，只登记了 US 实体 DPA。"
+note = "EU 档 Annex「Data Processing Agreement」的合同主机版本：OVH Hosting Ltd.（都柏林，注册号 468585）与客户之间的 DPA，Version dated on 17.10.2025，42 页，含 2021/914 SCC 模块。这是 SC/附录 4、附录 8 反复提到、GTS 列为合同文件第二优先级的「Annex Data Processing Agreement」，也是 EU 档 role 维度的重要权威（2026-11 版 SC 附录 10 §7 另有 AI Endpoints 产品专用 data processor 条款）。与 storage.gra.cloud.ovh.net 上的 12f0d70-…-IE-7.0.pdf 是同一份文档（同版本、同实体、同 42 页）的两个官方托管位置；旧记录两者都没登记，只登记了 US 实体 DPA。"
 
 [[source]]
 url = "https://contract.eu.ovhapis.com/1.0/pdf/OVH_Sub_processors-ie.pdf"
@@ -32,13 +32,13 @@ note = "EU/IE 档的 Annex「Sub-processors」清单（Version dated 16 October 
 url = "https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-batch-mode"
 channel = "developer_data"
 tier = "core"
-note = "官方文档「AI Endpoints - Using Batch mode」。附录 10 明文列出的唯一保留例外（Batch API 异步临时存储入参与出参）在这里有量化期限：输出与错误文件 15 天后自动删除；同页另称二者受「Files API retention policy」约束，但该政策在文档站无公开页面（llms.txt 索引中无 Files API 政策页），故该表述的期限不可复核。仅覆盖 Batch API 子功能，不代表在线推理请求内容的保留期。"
+note = "官方文档「AI Endpoints - Using Batch mode」。附录 10 的保留例外之一（Batch API 异步临时存储入参与出参）在这里有量化期限：输出与错误文件 15 天后自动删除；同页另称二者受「Files API retention policy」约束，但该政策在文档站无公开页面（llms.txt 索引中无 Files API 政策页），故该表述的期限不可复核。2026-11 版合同 §7 另给出 Batch 入参文件上限 72 小时（客户可配置）与输出/错误文件 15 天，以合同为准；该文档仍只覆盖 Batch API 子功能，不代表在线推理请求内容的保留期。"
 
 [[source]]
 url = "https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-capabilities"
 channel = "developer_data"
 tier = "core"
-note = "官方文档「AI Endpoints - Features, Capabilities and Limitations」。两处关键：①Info 栏逐字指定管辖条款「AI Endpoints is covered by the OVHcloud Public Cloud Special Conditions (see Appendix 10 – \"Specific Conditions – AI Endpoints\")」——这是把产品与合同串起来的唯一官方文字（同一句还出现在 getting-started、billing、catalog-api、virtual-models 等页的 Info 栏）；②特性表「Data Privacy and Sovereignty」行给出处理地表述（当前快照为「hosted in Europe」；上一版快照为「located in Gravelines, France」）与「Data is not stored or shared during or after model use」。作 api-eu 档 processing_region 的主权威，zdr/retention 的文档层佐证。"
+note = "官方文档「AI Endpoints - Features, Capabilities and Limitations」。两处关键：①Info 栏逐字指定管辖条款「AI Endpoints is covered by the OVHcloud Public Cloud Special Conditions (see Appendix 10 – \"Specific Conditions – AI Endpoints\")」——这是把产品与合同串起来的唯一官方文字（同一句还出现在 getting-started、billing、catalog-api、virtual-models 等页的 Info 栏）；②特性表「Data Privacy and Sovereignty」行给出处理地表述（当前快照为「hosted in Europe」；上一版快照为「located in Gravelines, France」）与「Data is not stored or shared during or after model use」。作 api-eu 档 processing_region 的文档层佐证（2026-11 合同附录 10 §1 已明文 EU，按 contract > developer_data 以合同为主权威），zdr/retention 的文档层佐证。"
 
 [[source]]
 url = "https://us.ovhcloud.com/legal/data-processing-agreement/"
@@ -50,93 +50,113 @@ note = "US 实体 DPA：OVH US LLC dba OVHcloud®（11950 Democracy Drive, Suite
 url = "https://us.ovhcloud.com/legal/service-specific-terms/"
 channel = "contract"
 tier = "core"
-note = "US Service-Specific Terms。本轮逐条核过：**第 9 节「AI Solutions」确实存在**，内容就是 AI Tools Service（AI Training / AI Notebooks / AI Deploy）的 US 版本，与 EU 的 SC 附录 7 同构（临时本地存储删除、Workspace 30 天、地点由客户选择、执行时长 7 天上限）；但全篇**没有 AI Endpoints 条目**（grep「AI Endpoints」零命中），也没有第三方模型条款——即 US 侧不售 AI Endpoints。作 ai-tools-us 档的 retention/processing_region 依据。对照：§9.3 同段在 US 版完整（含「The Content of the Workspace is deleted on the Notebook deletion date.」），EU 附录 7 同段有抓取丢字（见 SC 来源 note），两侧的字面差异不要误读成条款差异。"
+note = "US Service-Specific Terms。本轮逐条核过：**第 9 节「AI Solutions」确实存在**，内容就是 AI Tools Service（AI Training / AI Notebooks / AI Deploy）的 US 版本，与 EU 的 SC 附录 7 同构（临时本地存储删除、Workspace 30 天、地点由客户选择、执行时长 7 天上限）；但全篇**没有 AI Endpoints 条目**（grep「AI Endpoints」零命中），也没有第三方模型条款——即 US 侧不售 AI Endpoints。作 ai-tools-us 档的 retention/processing_region 依据。对照：§9.3 同段在 US 版完整（含「The Content of the Workspace is deleted on the Notebook deletion date.」），EU 附录 7 §2.4.2 仍有抓取丢字（见 SC 来源 note），§2.4.3 的「Workspace Content…」是 EU 版本轮自己的措辞；两侧的字面差异不要误读成条款差异。"
 
 [[product]]
 id = "api-eu"
 badge = "按量 API"
 category = "api"
 plan_level = "any"
-label = "OVHcloud AI Endpoints（serverless 按量 API，EU/IE 合同，官方文档称处理地 hosted in Europe）"
+label = "OVHcloud AI Endpoints（serverless 按量 API，EU/IE 合同，附录 10 §1 明文 Models hosted and executed in the EU）"
 site = "eu"
 
 [product.training]
 mark = "yes"
-anchor = "sc-a10-no-knowledge-no-reuse-no-backup"
+anchor = "sc-a10-no-training-no-backup"
 mode = "default"
 
 [[product.training.point]]
-text_zh = "API 档结论：不用于训练——但合同层与营销层的措辞强度不同，必须并列。①合同层（最高优先级文件，附录 10 §5）逐字：「OVHcloud has no knowledge of Inputs and Outputs, and OVHcloud does not reuse them in any way. OVHcloud does not carry out any backups of Inputs or Outputs.」条款说的是「no knowledge / does not reuse」，不是逐字「不训练」。②逐字「不训练」只在官方产品页（official_blog 层）：「Your data will never be used to train or improve our AI models; one of our many security guarantees.」③文档层：getting-started「we do not store user data」、capabilities「Data is not stored or shared during or after model use」。三点限定：(a) Batch API 是 §5 明文例外（「This does not apply for the AI Endpoint Batch API Service.」），条款未说明该临时存储能否被用于训练或改进模型"
+text_zh = "API 档结论：不用于训练，且 2026-11 版合同已把「不训练」写成逐字条款，不再只靠产品页。①合同层（最高优先级文件）：附录 10 §5「Inputs and Outputs are not used to train, retrain, or improve a Model, including an OVHcloud Model.」；同附录 §7 再次写「Client Data is not used to train, retrain, evaluate or improve a Model.」；§5 同时禁止为执行服务以外的目的使用 Inputs/Outputs。②官方产品页（official_blog 层）「Your data will never be used to train or improve our AI models; one of our many security guarantees.」与之同向，现仅作旁证。③文档层：getting-started「we do not store user data」、capabilities「Data is not stored or shared during or after model use」。限定：(a) §5 的临时保留例外（Batch API、speech-to-text）只讲保留与删除；§7 的「Client Data」定义覆盖 Batch 上传文件、音频流与 API Logs，并把不训练承诺一并覆盖这些子功能"
 
 [[product.training.point]]
-text_zh = "(b) 附录 10 §2 把模型定性为第三方产品并指向第三方条款 URL（endpoints.ai.cloud.ovh.net/licences），该 URL 现 302 到产品目录页、第三方条款不可公开复核，故上游模型提供方对 Inputs/Outputs 的使用约定在公开渠道无答案——这是本维度最大不确定性"
+text_zh = "(b) 第三方模型条款仍指向 endpoints.ai.cloud.ovh.net/licences，该 URL 现 302 到产品目录页、第三方条款不可公开复核。但 2026-11 版合同 §7 已披露数据流：除下述例外，Models 在 OVHcloud Resources 上执行、其 publisher 无法访问任何 Client Data；非关联方 Shadow 作为子处理者仅为执行模型在请求期间处理 Inputs/Outputs，不留存，且基础设施在 EU。故上游访问面已由合同框定，剩余不确定性只是第三方条款文本本身不可复核"
 
 [[product.training.point]]
-text_zh = "(c) Billing 文档的「We continuously monitor the usage of each model on our platform」是聚合用量监控（下线决策用），不含请求内容，不构成训练用途。"
+text_zh = "(c) Billing 文档的「We continuously monitor the usage of each model on our platform」是聚合用量监控（下线决策用）；合同 §7 进一步明确 API Logs 只含技术元数据、不含 Inputs/Outputs，其用途包括安全与正常运行、计费，以及以聚合形式统计服务使用情况（「Monitoring of commercial activity」），均不构成训练用途。"
 
 [product.zdr]
 mark = "yes"
 mode = "default"
+anchor = "sc-a10-input-outputs-not-retained-beyond-request"
+
+[[product.zdr.point]]
+text_zh = "API 档结论：默认即零保留，无需申请或开通。①合同层：附录 10 §2「The AI Endpoints Service does not include any backup of Inputs and Outputs, nor any Snapshot.」；同条另写「Inputs are processed only for the duration necessary for the execution of the Request and are not retained beyond that.」，§5 同旨（不备份）——零保留是本产品的结构性属性（服务不含存储），不是可选开关、也不需要补充协议。"
 anchor = "sc-a10-no-backup-or-storage"
 
 [[product.zdr.point]]
-text_zh = "API 档结论：默认即零保留，无需申请或开通，但两个口径必须写清。①合同层：附录 10 §2「does not include backup or storage, even if it is temporary」+ §5「no knowledge…does not reuse…does not carry out any backups」，零保留是本产品的结构性属性（服务不含存储），不是可选开关、也不需要补充协议——与需要单独申请 ZDR 计划的厂商在制度上不同。②例外：Batch API 明文不在零保留范围内（§2 括注、§5 末句「This does not apply for the AI Endpoint Batch API Service.」），其输出/错误文件在平台保留 15 天。③旁证：产品页「Zero data retention: We keep only the data required for billing purposes.」（全库唯一逐字出现 Zero data retention 之处，属营销层）"
+text_zh = "②例外（2026-11 版扩为两类）：Batch API 与 real-time audio transcription（speech-to-text）Models；§2 明说这两类仅「retained temporarily, for the durations indicated in the “Data Processing Agreement” article of this Appendix」。具体期限按对象列在 retention 维度，均有 point 级锚点。"
+anchor = "sc-a10-temporary-retention-exceptions"
 
 [[product.zdr.point]]
-text_zh = "docs capabilities/getting-started 同旨"
+text_zh = "③旁证：产品页「Zero data retention: We keep only the data required for billing purposes.」（全库唯一逐字出现 Zero data retention 之处，属营销层）；docs capabilities/getting-started 同旨。"
 
 [[product.zdr.point]]
-text_zh = "Responses API 页说明平台未实现服务端状态管理、建议始终 store:false（实现层说明，不构成保留承诺）。④未复核项：附录 10 §2 引用的第三方模型条款已不可公开获取，故「上游模型提供方是否另有保留」无公开答案"
+text_zh = "Responses API 页说明平台未实现服务端状态管理、建议始终 store:false（实现层说明，不构成保留承诺）。④未复核项：第三方模型条款 URL 仍不可公开获取；但合同 §7 已披露 Models 默认在 OVHcloud Resources 执行、publisher 无访问权，例外仅有非关联子处理者 Shadow（请求期间处理、不留存、EU 基础设施），故「上游另有保留」的公开风险已大幅收窄。⑤边界：API Logs 不属请求内容，合同 §7 明确其不含 Inputs/Outputs，但作为访问日志另有安全与正常运行、计费及聚合商用统计用途的保留期，不能读成「所有数据零保留」"
 
 [[product.zdr.point]]
-text_zh = "docs 提到的 Files API retention policy 也没有公开页面。"
+text_zh = "docs 提到的 Files API retention policy 也没有公开页面；不过 2026-11 版合同 §7 已直接给出 Batch 与 speech-to-text 的期限原文，具体见 retention 维度的 point 级锚点，故这些期限现在可机器复核。"
 
 [product.retention]
 object = "input_output"
 basis = "none"
-anchor = "sc-a10-no-backup-or-storage"
+anchor = "sc-a10-input-outputs-not-retained-beyond-request"
 
 [[product.retention.point]]
-text_zh = "按对象分开读，条款层不给天数：①输入输出正文（同步推理）——附录 10 §2「The AI Endpoints Service does not include backup or storage, even if it is temporary」+ §5「does not carry out any backups of Inputs or Outputs」，即合同上服务不含任何（哪怕临时的）存储与备份，故不存在可量化保留期；结构化字段据此记 basis=none（输入输出不留存），不写天数——本档唯一被量化的期限（15 天）属于下条的 Batch 例外，不能读成「输入输出保留 15 天」"
+text_zh = "按对象分开读，默认请求正文不留存。①输入输出正文（同步推理）——附录 10 §7「Inputs and Outputs: no storage. Inputs and Outputs are processed for the duration of the Request and are neither stored nor backed up by OVHcloud.」；§2 另写服务不含 Inputs/Outputs 备份或 Snapshot、Inputs 仅在执行 Request 所必需的期间处理，§5 同旨（不备份）。结构化字段据此记 basis=none（输入输出正文默认不留存），不写天数。"
+anchor = "sc-a10-input-outputs-no-storage"
 
 [[product.retention.point]]
-text_zh = "条款也没有逐字「处理后立即删除」，文档层用「Data is not stored or shared during or after model use」补足。②Batch API——唯一明文例外（§2 括注「temporarily stores incoming and outgoing data for the Service」，§5 末句「This does not apply for the AI Endpoint Batch API Service.」），量化期限只在文档层：输出与错误文件「automatically deleted after 15 days」，同页另称受「Files API retention policy」约束，而该政策在文档站无公开页面（llms.txt 索引核过），故该 15 天之外的期限不可复核。**适用范围**：15 天只覆盖 Batch 的输出与错误文件这一项（上限，起算点为 batch 完成），既不是本档请求内容的保留期，也不覆盖 Batch 的入参文件"
-anchor = "batch-output-error-files-15-days"
+text_zh = "②Batch API（例外）——附录 10 §7：入参文件「input files are kept temporarily for the purposes of processing and returning results to the Client for a duration configured by the Client within a limit of seventy-two (72) hours, then deleted.」；输出/错误文件「Output files and error files are deleted fifteen (15) days after the end of the processing.」。期限类型：入参为客户可配置、上限 72 小时；输出/错误为处理结束后 15 天删除。合同层已覆盖，文档层 Batch 页同旨（见该来源 note）。"
+anchor = "sc-a10-batch-contract-retention"
 
 [[product.retention.point]]
-text_zh = "入参文件的期限未披露。③计费数据——产品页「Zero data retention: We keep only the data required for billing purposes.」，条款与文档都没有对象清单与期限。④平台级——SC 通用条款「OVHcloud does not carry out any specific backups of the Content stored on the Resources.」"
+text_zh = "③real-time audio transcription（speech-to-text，例外）——附录 10 §7：「audio streams are kept temporarily, solely for the purposes of processing the Request and returning the Outputs to the Client, then deleted. Transcriptions are kept for ninety (90) days, then deleted.」即音频流随请求处理删除，转写文本 90 天删除。"
+anchor = "sc-a10-speech-to-text-retention"
 
 [[product.retention.point]]
-text_zh = "EU DPA §10.1 服务到期后按合同删除全部 Content。⑤本家是欧盟实体+GDPR，「网络日志不少于六个月」这类国内站下限条款不适用，公开文件无对应表述"
+text_zh = "④API Logs（技术元数据，不含 Inputs/Outputs）——附录 10 §7 说明 Logs API 含项目标识、API key、模型、时间戳、用量、请求状态与来源 IP，并明确其不含 Inputs/Outputs。安全与正常运行用途：「API logs are kept for one (1) year, then deleted.」同一份日志还用于「Monitoring of commercial activity」（以聚合形式统计服务使用），原文未另给该项期限。"
+anchor = "sc-a10-api-logs-retention"
 
 [[product.retention.point]]
-text_zh = "OVHcloud 作为 controller 的量化保留期（如会计凭证 10 年）针对账号/账单数据，不是请求内容；这部分由 OVHcloud Data Usage Policy 管辖（见 role 维度的边界说明），该政策尚未纳入本文件 [[source]]，机器不可复核。本维度结构化字段只描述请求内容：同步推理＝不含存储（basis=none），Batch 输出/错误文件的 15 天上限见前条 point。"
+text_zh = "⑤API Logs（OVHcloud 作为 controller 的计费用途）——附录 10 §7：「Billing: OVHcloud processes API logs as a data controller, in order to measure the Client's consumption, issue invoices and handle any potential disputes. API logs are kept in detailed form for twenty-four (24) months from the date of the Request, then deleted.」发票上的聚合消费数据按适用法定期间保留。"
+anchor = "sc-a10-api-logs-billing-retention"
+
+[[product.retention.point]]
+text_zh = "⑥服务结束——附录 10 §7：「At the end of the AI Endpoints Service, whatever the reason for termination, OVHcloud does not retain any Client Data, with the exception of files and data still subject to the retention periods above, which are deleted upon their expiry, and API Logs.」EU DPA §10.1 同旨（服务到期后按合同删除全部 Content）。"
+anchor = "sc-a10-end-of-service-no-client-data"
+
+[[product.retention.point]]
+text_zh = "⑦平台级——SC 通用条款「OVHcloud does not carry out any specific backups of the Content stored on the Resources.」。本家是欧盟实体+GDPR，「网络日志不少于六个月」这类国内站下限条款不适用，公开文件无对应表述。"
+anchor = "sc-art5-no-specific-backups"
+
+[[product.retention.point]]
+text_zh = "本维度结构化字段只描述请求内容：同步推理＝不含存储（basis=none），例外子功能与 API Logs 的期限见前条 point；OVHcloud 作为 controller 的账号/账单类政策尚未纳入本文件 [[source]]，机器不可复核。"
 
 [product.processing_region]
 codes = ["EU"]
-anchor = "caps-hosted-in-europe"
+anchor = "sc-a10-models-hosted-eu"
 
 [[product.processing_region.point]]
-text_zh = "API 档结论：官方文档只把处理地说到「Europe」，没有指名法国 Gravelines，也没有把 AI Endpoints 固定到某个具体数据中心；条款层同样没有 AI Endpoints 专用地点条款，故 confidence=medium。①文档层（主权威）：capabilities「Our infrastructure, hosted in Europe, adheres to European data protection regulations.」——2026-10 快照中该句由「located in Gravelines, France」改为「hosted in Europe」，厂商不再逐字承诺法国，故结构化 codes 由 FR 改为 EU。注意 codes=EU 是宽泛归类：原文写的是 Europe，词表没有 Europe 代码，EU 只是最接近的可筛选值，不能读成厂商逐字承诺「欧盟」。"
+text_zh = "API 档结论：处理地由合同明文固定为欧盟，客户不能选择。①合同层（主权威）：附录 10 §1「Notwithstanding article 5.5 of these Specific Conditions of Service, the Client does not choose the location of the AI Endpoints Service. The Models provided by OVHcloud are hosted and executed in Datacentres located in the European Union.」；§7「Location」再次写「Models are hosted and executed on Resources located in the European Union.」结构化 codes=EU 直接对应原文「European Union」，不再是宽泛近似。②文档层（佐证）：capabilities「Our infrastructure, hosted in Europe, adheres to European data protection regulations.」——2026-10 快照中该句由「located in Gravelines, France」改为「hosted in Europe」；合同层现已比文档更具体，按 contract > developer_data 以合同为准。"
 
 [[product.processing_region.point]]
-text_zh = "②产品页与新闻稿均未纳入本文件 [[source]]，没有快照可供核对，故本维度不以它们的措辞作为证据；可机器复核的处理地表述只有 capabilities 的「hosted in Europe」。若以后要引用产品页，需先把它加进 [[source]] 并等 bot 抓回快照。"
+text_zh = "②可机器复核的处理地表述现有两处：合同附录 10 §1/§7（EU）与 capabilities 文档（Europe）；产品页与新闻稿仍未纳入本文件 [[source]]，不作为证据。若以后要引用产品页，需先把它加进 [[source]] 并等 bot 抓回快照。"
 
 [[product.processing_region.point]]
-text_zh = "③条款层：附录 10 全文无地点条款。另，官方新闻稿（2025-04-29）「It is available now in APAC, Canada and Europe and deployed from the Gravelines datacenter.」是发布时点的部署地表述，不能当作现行承诺（现行文档已改为 hosted in Europe）；商业可用范围（APAC/加拿大/欧洲）与处理地也是两件事。"
+text_zh = "③条款层：2026-08 版附录 10 无地点条款，2026-11 版新增 §1 与 §7「Location」，明确欧盟且客户不可选。另，官方新闻稿（2025-04-29）「It is available now in APAC, Canada and Europe and deployed from the Gravelines datacenter.」是发布时点的部署地表述，不能当作现行承诺；商业可用范围（APAC/加拿大/欧洲）与处理地也是两件事。"
 
 [[product.processing_region.point]]
-text_zh = "AI Endpoints 是 serverless，文档示例只有单一全局端点 oai.endpoints.kepler.ai.cloud.ovh.net，客户无法选择处理地（与 AI Tools 档「地点由客户创建时选择」正相反）。EU DPA §6.1 的「客户选择 Datacenter」以「Service allows the Client to store Content」为前提，§6.2 反而允许 OVHcloud 及其子处理者为安全与运维目的远程处理 Content，§6.3/6.4 规定非充分性国家数据中心与关联方传输的适用条件。④子处理者清单（IE 版）中 OVH Hebergement Inc.（Canada）对「All Services, regardless of their location, except SecNumCloud and Trusted Cloud」承担处理——AI Endpoints 既非 SecNumCloud 也非 Trusted Cloud，故加拿大关联方在清单范围内可远程介入"
+text_zh = "AI Endpoints 是 serverless，文档示例只有单一全局端点 oai.endpoints.kepler.ai.cloud.ovh.net，客户无法选择处理地（与 AI Tools 档「地点由客户创建时选择」正相反）。EU DPA §6.1 的「客户选择 Datacenter」以「Service allows the Client to store Content」为前提，§6.2 反而允许 OVHcloud 及其子处理者为安全与运维目的远程处理 Content，§6.3/6.4 规定非充分性国家数据中心与关联方传输的适用条件。④附录 10 §7 进一步披露：Models 默认在 OVHcloud Resources 执行，publisher 无 Client Data 访问权；非关联子处理者 Shadow 仅为执行模型在请求期间处理 Inputs/Outputs、不留存，基础设施在 EU。但「Who are the sub-processors?」同时指向 Sub-processors 附录，而 IE 版清单中 OVH Hebergement Inc.（Canada）对「All Services, regardless of their location, except SecNumCloud and Trusted Cloud」承担处理——AI Endpoints 既非 SecNumCloud 也非 Trusted Cloud，故加拿大关联方在清单范围内仍可远程介入；这与 §1 的「Models hosted in EU」是处理地承诺与远程运维例外的关系，不矛盾"
 
 [[product.processing_region.point]]
 text_zh = "平台页 data sovereignty 称只有 EU 实体或充分性认定国家（特别是加拿大）实体可介入欧洲客户服务，两处方向一致，但都不构成对请求内容处理地的量化承诺。⑤EU 站区域可用性表在 FRANCE 区块给 AI Endpoints 一个 ✓，Canada/USA 区块无 ✓（markdown 表格列被压平，列位不作强断言）。"
 
 [product.role]
 kind = "processor"
-anchor = "eudpa-processor-purpose"
+anchor = "sc-a10-processor"
 
 [[product.role.point]]
-text_zh = "API 档结论：OVHcloud 在协议上自认 processor（受托处理方）——但依据来自通用 DPA 与 GTS，不来自 AI Endpoints 自己的产品条款。附录 10 内没有任何 data processing / 角色条款，这一点可与同一份 SC 的其他附录对照：附录 4（DBaaS）与附录 8（Managed Rancher）逐字写「OVHcloud carries out processing of personal data as a sub-processor on the instructions of the Client」，附录 6（Quantum）反而写「In order to provide the Service, OVHcloud does not process personal data as a processor or access the Client Content」，附录 10 两者皆无，只有 §5「The Client is responsible for Inputs and Outputs.」与「OVHcloud has no knowledge of Inputs and Outputs」。依据链：①EU/IE 版 DPA（Version dated on 17.10.2025）抬头「entered into between OVH Hosting Ltd. … and the Client」，目的条款「OVHcloud is entitled, as a Processor and as part of the Services defined in the Agreement, to carry out the processing of Personal Data on behalf of, and on instructions from the Client」，§1.1「as a Processor acting under Client's instruction」。边界说明（DPA 目的条款紧接的 carve-out，已并入 eudpa-processor-purpose 的 suffix 一并覆盖）：目的条款之后逐字接「excluding the personal data processing activities performed by OVHcloud as a controller. The conditions into which OVHcloud processes, as a Controller, Personal Data relating to the Client (including the Client's agents), are defined in the OVHcloud Data Usage Policy.」——即 role=processor 只覆盖「作为服务一部分」的请求内容处理；OVHcloud 以 controller 身份处理客户（含其代理人）个人数据（账号/用量一类）的条件由 OVHcloud Data Usage Policy 管辖。该政策尚未纳入本文件 [[source]]，机器不可复核，只能记为发现线索，待 bot 抓回快照后再引；它也不推翻本档的 processor 定性。"
+text_zh = "API 档结论：OVHcloud 在协议上自认 processor（受托处理方），依据同时来自产品专用条款、通用 DPA 与 GTS。附录 10 §7 现逐字写「As part of the use and security of the AI Endpoints Service, OVHcloud processes personal data as a data processor upon instruction from the Client.」，并说明以 controller 身份处理 API Logs 的条件不受 DPA 覆盖；§7 的「Who are the sub-processors?」还披露非关联方 Shadow 作为子处理者、仅为执行模型在请求期间处理 Inputs/Outputs。与同一份 SC 的其他附录对照：附录 4（Managed Databases，原 DBaaS）与附录 8（Managed Rancher）现在都写「as a data processor upon instruction from the Client」（旧版是 sub-processor on the instructions），附录 6（Quantum）仍写「In order to provide the Service, OVHcloud does not process personal data as a processor or access the Client Content」；附录 10 的客户责任句仍保留（「The Customer is responsible for the use of the AI Endpoints Service...」与「The Client is responsible for the content of the Inputs...」）。依据链：①EU/IE 版 DPA（Version dated on 17.10.2025）抬头「entered into between OVH Hosting Ltd. … and the Client」，目的条款「OVHcloud is entitled, as a Processor and as part of the Services defined in the Agreement, to carry out the processing of Personal Data on behalf of, and on instructions from the Client」，§1.1「as a Processor acting under Client's instruction」。边界说明（DPA 目的条款紧接的 carve-out，已并入通用 DPA 锚点 eudpa-processor-purpose 的 suffix 一并覆盖）：目的条款之后逐字接「excluding the personal data processing activities performed by OVHcloud as a controller. The conditions into which OVHcloud processes, as a Controller, Personal Data relating to the Client (including the Client's agents), are defined in the OVHcloud Data Usage Policy.」——即 role=processor 只覆盖「作为服务一部分」的请求内容处理；OVHcloud 以 controller 身份处理客户（含其代理人）个人数据（账号/用量一类）的条件由 OVHcloud Data Usage Policy 管辖。该政策尚未纳入本文件 [[source]]，机器不可复核，只能记为发现线索，待 bot 抓回快照后再引；它也不推翻本档的 processor 定性。"
 
 [[product.role.point]]
 text_zh = "②GTS（IE 版）签约主体 OVH Hosting Limited（都柏林，注册号 468585），并规定 Contract 文件优先顺序 SC > DPA > GTS > 第三方产品条款 > 订单"
@@ -145,7 +165,7 @@ text_zh = "②GTS（IE 版）签约主体 OVH Hosting Limited（都柏林，注�
 text = "③GTS §6.2.2「OVHcloud does not exercise prior control over the Content and has no knowledge of it」"
 
 [[product.role.point]]
-text_zh = "④Annex「Sub-processors」（IE 版）逐字说明清单依 DPA 而设、用于「carrying out the processing of the Client's data as part of the Service provision」，OVH Hosting Limited 自身亦列于集团内处理者。两层不确定性：(a) 附录 10 §2 把模型定性为第三方产品并指向不可复核的第三方条款 URL，上游模型提供方的角色未披露"
+text_zh = "④Annex「Sub-processors」（IE 版）逐字说明清单依 DPA 而设、用于「carrying out the processing of the Client's data as part of the Service provision」，OVH Hosting Limited 自身亦列于集团内处理者。附录 10 §7 另点名 Shadow 为非关联子处理者，并称除该例外 Models publisher 无 Client Data 访问权。剩余不确定性：(a) 第三方模型条款 URL 仍不可公开复核；合同已披露 publisher 无访问、Shadow 仅请求期处理且不留存"
 
 [[product.role.point]]
 text_zh = "(b) US 实体（OVH US LLC）是另一份 DPA（见 products 的 ai-tools-us 行），不适用于本档。"
@@ -164,7 +184,7 @@ anchor = "eudpa-1-1-processor-under-instruction"
 mode = "by_contract"
 
 [[product.training.point]]
-text_zh = "AI Tools 档（AI Training / AI Notebooks / AI Deploy）的合同附录 7 完全没有「数据是否用于训练」的条款——与 AI Endpoints 附录 10 §5 的逐字不重用条款形成对比。可用的最接近依据是通用层：EU DPA §1.1「as a Processor acting under Client's instruction, to process the Controller's Personal Data to the extent necessary to provide the Services」+「OVHcloud shall process Personal Data only under the Client's instruction」+ GTS §6.2.2「does not exercise prior control over the Content and has no knowledge of it」——即 OVHcloud 只能按客户指示、为提供服务所必需而处理，不得另作训练用途。这是受托处理者的目的限制推导，不是厂商逐字的「不训练」承诺，故 confidence=medium，且必须注明本档缺 AI Tools 专用训练条款。另注意术语陷阱：AI Training 的产品语义是「客户自己训练模型」，与「厂商拿客户数据训练自己的模型」是两件事，不要混读。"
+text_zh = "AI Tools 档（AI Training / AI Notebooks / AI Deploy）的合同附录 7 完全没有「数据是否用于训练」的条款——与 AI Endpoints 附录 10 §5 的逐字「not used to train, retrain, or improve a Model」形成对比。可用的最接近依据是通用层：EU DPA §1.1「as a Processor acting under Client's instruction, to process the Controller's Personal Data to the extent necessary to provide the Services」+「OVHcloud shall process Personal Data only under the Client's instruction」+ GTS §6.2.2「does not exercise prior control over the Content and has no knowledge of it」——即 OVHcloud 只能按客户指示、为提供服务所必需而处理，不得另作训练用途。这是受托处理者的目的限制推导，不是厂商逐字的「不训练」承诺，故 confidence=medium，且必须注明本档缺 AI Tools 专用训练条款。另注意术语陷阱：AI Training 的产品语义是「客户自己训练模型」，与「厂商拿客户数据训练自己的模型」是两件事，不要混读。"
 
 [product.zdr]
 mark = "no"
@@ -195,11 +215,11 @@ basis = "fixed_period"
 anchor = "sc-a7-workspace-30-days"
 
 [[product.retention.point]]
-text_zh = "本档保留期在合同层逐条量化（与 AI Endpoints「不含存储」正相反，本档服务本身包含客户可见的存储）：①临时本地存储——附录 7 §2.4.2 的删除句「As soon as the Tool is “completed”, “stopped” or “deleted” by the Client (as applicable) or in the event of a malfunction, the contents of the temporary storage space will be deleted.」**待复核，本维度不据此下判断**：当前快照（26bda2a9662b5416.md:1425-1426）在「…the contents」处断行，缺「of the temporary storage space will be deleted.」，锚点 sc-a7-temporary-local-storage-deleted 已按快照现有文本收窄（引文止于「…in the event of a malfunction, the contents」），故不再是 missing，但它只能证明该段落在「…the contents」处断行，删除句本身仍待重抓恢复后复核。这是抓取丢行（同段 §2.4.3 也丢了字，见该来源 note），不是厂商改条款，不得据此写成「未披露」，也不改绑到措辞不同、法律实体不同的 US SST §9.3.2；该句随重抓恢复前只作待复核记录。该段当前可机器复核的只有「The local and temporary storage space is not synchronised or backed up by OVHcloud.」——临时本地存储不受 OVHcloud 的同步或备份"
+text_zh = "本档保留期在合同层逐条量化（与 AI Endpoints「不含存储」正相反，本档服务本身包含客户可见的存储）：①临时本地存储——附录 7 §2.4.2 的删除句「As soon as the Tool is “completed”, “stopped” or “deleted” by the Client (as applicable) or in the event of a malfunction, the contents of the temporary storage space will be deleted.」**待复核，本维度不据此下判断**：当前快照（26bda2a9662b5416.md:1518-1519）在「…the contents」处断行，缺「of the temporary storage space will be deleted.」，锚点 sc-a7-temporary-local-storage-deleted 已按快照现有文本收窄（引文止于「…in the event of a malfunction, the contents」），故不再是 missing，但它只能证明该段落在「…the contents」处断行，删除句本身仍待重抓恢复后复核。这是抓取丢行（§2.4.3 仍缺「(including the maximum storage capacity)…」，见该来源 note），不是厂商改条款，不得据此写成「未披露」，也不改绑到措辞不同、法律实体不同的 US SST §9.3.2；该句随重抓恢复前只作待复核记录。该段当前可机器复核的只有「The local and temporary storage space is not synchronised or backed up by OVHcloud.」——临时本地存储不受 OVHcloud 的同步或备份"
 anchor = "sc-a7-temporary-local-storage-not-backed-up"
 
 [[product.retention.point]]
-text_zh = "②AI Notebooks Workspace——§2.4.3「It is permanently deleted thirty (30) days after the Client deletes a Notebook, unless the Client decides otherwise.」（Workspace 备份到 Object Storage 容器，Notebook 停止时由 OVHcloud 备份）。同段紧接着还有一句「Content of the Workspace is deleted on the Notebook deletion date.」——两句并列保留、不选边：30 天句给的是 Workspace 被 permanently deleted 的期限，第二句给的是内容删除的触发点＝Notebook 删除当日；原文没有说明两句如何衔接（可能分别针对 Workspace 备份与 Workspace 内容），按厂商自己说法冲突的处理口径两条事实都记。本档 days=30 只取前句，不替厂商解释两句的关系。"
+text_zh = "②AI Notebooks Workspace——§2.4.3「It is permanently deleted thirty (30) days after the Client deletes a Notebook, unless the Client decides otherwise.」（Workspace 备份到 Object Storage 容器，Notebook 停止时由 OVHcloud 备份）。同段紧接着还有一句「Workspace Content is deleted on the Notebook deletion date.」（2026-11 版把旧表述「Content of the Workspace…」改成了现在的语序，语义未变）——两句并列保留、不选边：30 天句给的是 Workspace 被 permanently deleted 的期限，第二句给的是内容删除的触发点＝Notebook 删除当日；原文没有说明两句如何衔接（可能分别针对 Workspace 备份与 Workspace 内容），按厂商自己说法冲突的处理口径两条事实都记。本档 days=30 只取前句，不替厂商解释两句的关系。"
 anchor = "sc-a7-workspace-content-deleted-on-notebook-date"
 
 [[product.retention.point]]
@@ -216,20 +236,20 @@ codes = ["EU"]
 anchor = "sc-a7-location-selected-by-client"
 
 [[product.processing_region.point]]
-text_zh = "AI Tools 档的处理地由客户在创建时选择：附录 7 §2.3「The location of the Service Resources is selected by the Client at the time of their creation from among the available Datacenters.」"
+text_zh = "AI Tools 档的处理地由客户在创建时选择：附录 7 §2.3「The location of the Service Resources is selected by the Client at the time of their creation from among the available Datacentres.」"
 
 [[product.processing_region.point]]
 text_zh = "EU DPA §6.1 同旨（允许客户存储 Content 的服务，可用 Datacenter 位置在官网/控制台标明，OVHcloud 未经客户事先同意不得变更），§6.2 允许关联方为安全与运维目的远程处理。即本档没有「固定在某地」的承诺，处理地＝客户所选区域"
 
 [[product.processing_region.point]]
-text_zh = "OVHcloud 及关联方的远程运维是例外路径。对照：AI Endpoints 档无区域选择、官方文档称 hosted in Europe（不再逐字写 Gravelines）。"
+text_zh = "OVHcloud 及关联方的远程运维是例外路径。对照：AI Endpoints 档客户不能选择地点，合同附录 10 §1 明文 Models hosted and executed in the EU；文档称 hosted in Europe。"
 
 [product.role]
 kind = "processor"
 anchor = "eudpa-1-1-processor-under-instruction"
 
 [[product.role.point]]
-text_zh = "与 API 档同源：EU/IE DPA 的 Processor 定性 + GTS 实体 OVH Hosting Limited + Annex Sub-processors。AI Tools 附录 7 本身同样不写角色条款（不同于附录 4/8 的逐字 sub-processor 表述），故 role 依据仍是通用 DPA。本档的差别在介入面：客户数据（训练数据、Notebook 内容、容器镜像）位于客户自管实例，OVHcloud 主要做资源编排与运维——附录 7 §2.2 逐字「The Resources are dedicated to the Client. They are hosted, managed and maintained in operational condition by OVHcloud for the entire duration of the use of the Service.」边界说明（与 API 档同源）：DPA 目的条款之后逐字接「excluding the personal data processing activities performed by OVHcloud as a controller. The conditions into which OVHcloud processes, as a Controller, Personal Data relating to the Client (including the Client's agents), are defined in the OVHcloud Data Usage Policy.」——role=processor 只覆盖「作为服务一部分」的客户内容处理，OVHcloud 以 controller 身份处理客户（含其代理人）个人数据的条件由 OVHcloud Data Usage Policy 管辖；该政策尚未纳入本文件 [[source]]，机器不可复核，只作发现线索。"
+text_zh = "与 API 档同源：EU/IE DPA 的 Processor 定性 + GTS 实体 OVH Hosting Limited + Annex Sub-processors。AI Tools 附录 7 本身同样不写角色条款（不同于附录 4/8 的逐字 data processor 表述，也不同于附录 10 §7），故 role 依据仍是通用 DPA。本档的差别在介入面：客户数据（训练数据、Notebook 内容、容器镜像）位于客户自管实例，OVHcloud 主要做资源编排与运维——附录 7 §2.2 逐字「The Resources are dedicated to the Client. They are hosted, managed and maintained in operational condition by OVHcloud for the entire duration of the use of the Service.」边界说明（与 API 档同源）：DPA 目的条款之后逐字接「excluding the personal data processing activities performed by OVHcloud as a controller. The conditions into which OVHcloud processes, as a Controller, Personal Data relating to the Client (including the Client's agents), are defined in the OVHcloud Data Usage Policy.」——role=processor 只覆盖「作为服务一部分」的客户内容处理，OVHcloud 以 controller 身份处理客户（含其代理人）个人数据的条件由 OVHcloud Data Usage Policy 管辖；该政策尚未纳入本文件 [[source]]，机器不可复核，只作发现线索。"
 
 [[product]]
 id = "ai-tools-us"
@@ -312,17 +332,12 @@ text_zh = "US 档结论：OVH US LLC dba OVHcloud®（Reston, VA）作为 Proces
 text_zh = "US 隐私政策也逐字把 controller 与 processor 两种角色分开（本政策只管 controller 部分）。"
 
 [[anchor]]
-id = "sc-pcsc-version-2026-08-26"
+id = "sc-pcsc-version-2026-11-18"
 source_id = "26bda2a9662b5416"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = """
-e 1 of 53
-> SPECIFIC CONDITIONS FOR PUBLIC CLOUD SERVICES
-> """
-exact = "Version dated 26 August 2026"
-suffix = " Changes: This updated version: -Specifies the Savings Plans"
+exact = "Version dated 18 November 2026"
 
 [[anchor]]
 id = "sc-a10-no-backup-or-storage"
@@ -330,39 +345,47 @@ source_id = "26bda2a9662b5416"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "e of the Models, which the Client acknowledges and accepts. "
-exact = "The AI Endpoints Service does not include backup or storage, even if it is temporary"
-suffix = " (with the exception of the AI Endpoint Batch API Service, w"
+exact = "The AI Endpoints Service does not include any backup of Inputs and Outputs, nor any Snapshot."
 
 [[anchor]]
-id = "sc-a10-batch-api-temporary-storage"
+id = "sc-a10-input-outputs-not-retained-beyond-request"
 source_id = "26bda2a9662b5416"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "oes not include backup or storage, even if it is temporary ("
-exact = "with the exception of the AI Endpoint Batch API Service, which is an asynchronous service offer that temporarily stores incoming and outgoing data for the Service"
-suffix = "). Neither does it include Snapshots. Therefore, the Client "
+exact = "Inputs are processed only for the duration necessary for the execution of the Request and are not retained beyond that."
 
 [[anchor]]
-id = "sc-a10-no-knowledge-no-reuse-no-backup"
+id = "sc-a10-input-outputs-no-storage"
+source_id = "26bda2a9662b5416"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "Inputs and Outputs: no storage. Inputs and Outputs are processed for the duration of the Request and are neither stored nor backed up by OVHcloud."
+
+[[anchor]]
+id = "sc-a10-temporary-retention-exceptions"
+source_id = "26bda2a9662b5416"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+exact = "By way of exception, Inputs and Outputs are retained temporarily, for the durations indicated in the “Data Processing Agreement” article of this Appendix, for the following functionalities: (i) the AI Endpoints Batch API Service; (ii) real-time audio transcription (speech-to-text) Models."
+
+[[anchor]]
+id = "sc-a10-no-training-no-backup"
 source_id = "26bda2a9662b5416"
 topics = ["retention", "training", "zdr"]
 
 [anchor.selector]
-prefix = "tputs ”). The Client is responsible for Inputs and Outputs. "
-exact = "OVHcloud has no knowledge of Inputs and Outputs, and OVHcloud does not reuse them in any way."
-suffix = " OVHcloud does not carry out any backups of Inputs or Output"
+exact = "Inputs and Outputs are not used to train, retrain, or improve a Model, including an OVHcloud Model."
 
 [[anchor]]
-id = "sc-a10-batch-carveout-does-not-apply"
+id = "sc-a10-batch-and-speech-to-text-temporary-retention"
 source_id = "26bda2a9662b5416"
 topics = ["retention", "zdr"]
 
 [anchor.selector]
-prefix = "Hcloud does not carry out any backups of Inputs or Outputs. "
-exact = "This does not apply for the AI Endpoint Batch API Service."
-suffix = " OVHcloud does not provide any guarantees on the AI Endpoint"
+exact = "By way of exception, in the context of the AI Endpoints Batch API Service and speech-to-text Models, Inputs and Outputs are retained temporarily for the purposes of processing and returning results to the Client, for the durations indicated in the “Data Processing Agreement” article below, and are then deleted."
 
 [[anchor]]
 id = "sc-a10-client-responsible-for-inputs-outputs"
@@ -370,9 +393,7 @@ source_id = "26bda2a9662b5416"
 topics = ["role"]
 
 [anchor.selector]
-prefix = "ta generated by the Model based on the Input (“ Outputs ”). "
-exact = "The Client is responsible for Inputs and Outputs."
-suffix = " OVHcloud has no knowledge of Inputs and Outputs, and OVHclo"
+exact = "The Client is responsible for the content of the Inputs they transmit and for the lawfulness of the processing of any personal data they contain."
 
 [[anchor]]
 id = "sc-a10-models-are-third-party-products"
@@ -380,9 +401,7 @@ source_id = "26bda2a9662b5416"
 topics = ["role"]
 
 [anchor.selector]
-prefix = "ce”: https://contract.eu.ovhapis.com/1.0/pdf/AI_Code-IE.pdf "
 exact = "The Models are Third-Party Products subject to the Third-Party Product Conditions applicable to them"
-suffix = " and available here: https://endpoints.ai.cloud.ovh.net/lice"
 
 [[anchor]]
 id = "sc-a10-client-responsible-for-content"
@@ -390,14 +409,63 @@ source_id = "26bda2a9662b5416"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-able are described on the Website. 
+exact = "The Customer is responsible for the use of the AI Endpoints Service, in particular in terms of the Content it submits to the Models."
 
-2. CONDITIONS OF USE 
+[[anchor]]
+id = "sc-a10-models-hosted-eu"
+source_id = "26bda2a9662b5416"
+topics = ["processing_region"]
 
-"""
-exact = "The Client is responsible for the use of the AI Endpoints Service, including the Content integrated into the Models."
-suffix = " By using the AI Endpoints Service, the Client is deemed to "
+[anchor.selector]
+exact = "The Models provided by OVHcloud are hosted and executed in Datacentres located in the European Union."
+
+[[anchor]]
+id = "sc-a10-processor"
+source_id = "26bda2a9662b5416"
+topics = ["role"]
+
+[anchor.selector]
+exact = "As part of the use and security of the AI Endpoints Service, OVHcloud processes personal data as a data processor upon instruction from the Client."
+
+[[anchor]]
+id = "sc-a10-batch-contract-retention"
+source_id = "26bda2a9662b5416"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "input files are kept temporarily for the purposes of processing and returning results to the Client for a duration configured by the Client within a limit of seventy-two (72) hours, then deleted. Output files and error files are deleted fifteen (15) days after the end of the processing."
+
+[[anchor]]
+id = "sc-a10-speech-to-text-retention"
+source_id = "26bda2a9662b5416"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "audio streams are kept temporarily, solely for the purposes of processing the Request and returning the Outputs to the Client, then deleted. Transcriptions are kept for ninety (90) days, then deleted."
+
+[[anchor]]
+id = "sc-a10-api-logs-retention"
+source_id = "26bda2a9662b5416"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Security and proper functioning of the Service: API logs are kept for one (1) year, then deleted."
+
+[[anchor]]
+id = "sc-a10-api-logs-billing-retention"
+source_id = "26bda2a9662b5416"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "Billing: OVHcloud processes API logs as a data controller, in order to measure the Client's consumption, issue invoices and handle any potential disputes. API logs are kept in detailed form for twenty-four (24) months from the date of the Request, then deleted."
+
+[[anchor]]
+id = "sc-a10-end-of-service-no-client-data"
+source_id = "26bda2a9662b5416"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "At the end of the AI Endpoints Service, whatever the reason for termination, OVHcloud does not retain any Client Data, with the exception of files and data still subject to the retention periods above, which are deleted upon their expiry, and API Logs."
 
 [[anchor]]
 id = "sc-a7-ai-tools-scope"
@@ -424,7 +492,7 @@ s relating to the use of these Resources.
 2.3. Location 
 
 """
-exact = "The location of the Service Resources is selected by the Client at the time of their creation from among the available Datacenters."
+exact = "The location of the Service Resources is selected by the Client at the time of their creation from among the available Datacentres."
 suffix = """
  
 
@@ -467,9 +535,7 @@ source_id = "26bda2a9662b5416"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "The storage space allocated to the Client will depend on the options selected when creating a Notebook. "
-exact = "Content of the Workspace is deleted on the Notebook deletion date."
-suffix = " 2.5 End of Service"
+exact = "Workspace Content is deleted on the Notebook deletion date."
 
 [[anchor]]
 id = "sc-a7-end-of-service-delete-resources"
@@ -517,14 +583,7 @@ source_id = "26bda2a9662b5416"
 topics = ["role"]
 
 [anchor.selector]
-prefix = """
-n the GTS. Page 25 of 53 
-
-5. PROCESSING OF PERSONAL DATA 
-
-"""
-exact = "As part of the use of the DBaaS Service and its security, OVHcloud carries out processing of personal data as a sub-processor on the instructions of the Client."
-suffix = " This article supplements the Annex \"Data Processing Agreeme"
+exact = "As part of the use and security of the Service, OVHcloud processes personal data as a data processor upon instruction from the Client."
 
 [[anchor]]
 id = "eudpa-version-2025-10-17"
