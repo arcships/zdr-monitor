@@ -21,7 +21,7 @@ note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security �
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Privacy & Security》页（2026-10-15 快照改版）。新版把 ZDR 明确为**非默认**：只有合格客户通过 account-level configuration 与书面协议才能启用；并非所有模型支持 ZDR，第三方模型提供方可能要求有限期保留。训练口径为「No training by default… Certain APIs may be subject to product-specific terms」；计费/账户数据一节只列 request/token counts、model、timestamps、duration、API key 与账户信息，不再声明不含 prompt/response 内容。该页现在也提到 Agent API 的 ZDR 仅限支持 ZDR 的模型；本档只把它作 Sonar / Chat Completions 档的依据，Agent API 的结论在其独立产品线文件。"
+note = "文档站《Privacy & Security》页（2026-10-15 快照改版）。新版把 ZDR 明确为**非默认**：只有合格客户通过 account-level configuration 与书面协议才能启用；并非所有模型支持 ZDR，第三方模型提供方可能要求有限期保留。训练口径为「No training by default… Certain APIs may be subject to product-specific terms」；计费/账户数据一节只列 request/token counts、model、timestamps、duration、API key 与账户信息，不再声明不含 prompt/response 内容。该页现在也提到 Agent API 的 ZDR 仅限支持 ZDR 的模型。2026-11-19 快照(#1336)在「Zero Data Retention is not default」一条末尾新增 Embeddings 例外：「The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged.」——Embeddings 档据此记 zdr=yes/default、retention basis=none；Sonar / Chat Completions 与 Agent API 不受该例外覆盖。本档把它作 Sonar / Chat Completions 与 Embeddings 档的依据，Agent API 的结论在其独立产品线文件。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/dpa"
@@ -106,8 +106,8 @@ mode = "by_agreement"
 anchor = "perplexity-docs-privacy-security-zdr"
 
 [[product.zdr.point]]
-text = "Structured conclusion: the page now states that ZDR is not default — it is available only to eligible customers through an account-level configuration under a written agreement with Perplexity. This row is therefore recorded as by_agreement rather than default. The same page adds model-level limits (not every model supports ZDR) and that third-party model providers may require limited retention."
-text_zh = "结构化结论：新版页面明确 ZDR 非默认——只有合格客户通过 account-level configuration 与 Perplexity 的书面协议才能启用，故本行记 by_agreement 而非 default。同页还给出模型级限制（并非所有模型支持 ZDR），以及第三方模型提供方可能要求有限期保留。"
+text = "Structured conclusion: the page now states that ZDR is not default — it is available only to eligible customers through an account-level configuration under a written agreement with Perplexity. This row is therefore recorded as by_agreement rather than default. The same page adds model-level limits (not every model supports ZDR) and that third-party model providers may require limited retention. The Embeddings exception added in the 2026-11-19 snapshot (\"The exception is the Embeddings API, which applies ZDR by default\") is expressly scoped to that API and does not cover this tier."
+text_zh = "结构化结论：新版页面明确 ZDR 非默认——只有合格客户通过 account-level configuration 与 Perplexity 的书面协议才能启用，故本行记 by_agreement 而非 default。同页还给出模型级限制（并非所有模型支持 ZDR），以及第三方模型提供方可能要求有限期保留。2026-11-19 快照新增的 Embeddings 例外（「The exception is the Embeddings API, which applies ZDR by default」）明确只针对 Embeddings API，不覆盖本档。"
 anchor = "perplexity-docs-privacy-security-zdr"
 
 [[product.zdr.point]]
@@ -136,8 +136,8 @@ searched = [
 ]
 
 [[product.retention.point]]
-text = "Structured conclusion: since the 2026-10-24 snapshot the FAQ no longer states that the API does not retain query data. The sentence was replaced with \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.\", and Privacy & Security likewise says retention varies by API, model, and account configuration; the API ToS gives no period. No first-party source now gives a retention period or a non-retention commitment for non-personal Input/Output on this tier, so basis=undisclosed. This is non-disclosure, not a vendor statement that data is retained."
-text_zh = "结构化结论：2026-10-24 快照起，FAQ 不再写 API 不保留 query data，该句改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.」；privacy-security 页同样写保留随 API、模型与账户配置而异，API ToS 未给期限。现行官方来源都没有对本档非个人输入输出给出保留期限或不留存承诺，故记 basis=undisclosed——这是「未披露」，不是厂商声明会留存。"
+text = "Structured conclusion: since the 2026-10-24 snapshot the FAQ no longer states that the API does not retain query data. The sentence was replaced with \"Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.\", and Privacy & Security likewise says retention varies by API, model, and account configuration; the API ToS gives no period. No first-party source now gives a retention period or a non-retention commitment for non-personal Input/Output on this tier, so basis=undisclosed. This is non-disclosure, not a vendor statement that data is retained. The Embeddings exception added to the same page on 2026-11-19 (\"inputs and outputs are not stored or logged\") is expressly scoped to the Embeddings API and does not cover this tier."
+text_zh = "结构化结论：2026-10-24 快照起，FAQ 不再写 API 不保留 query data，该句改为「Retention depends on the API, model, and account configuration, and Zero Data Retention (ZDR) is not the default.」；privacy-security 页同样写保留随 API、模型与账户配置而异，API ToS 未给期限。现行官方来源都没有对本档非个人输入输出给出保留期限或不留存承诺，故记 basis=undisclosed——这是「未披露」，不是厂商声明会留存。2026-11-19 同页新增的 Embeddings 例外（「inputs and outputs are not stored or logged」）明确只针对 Embeddings API，不覆盖本档。"
 
 [[product.retention.point]]
 text = "The previous snapshot (see the 2026-10-24 diff) read \"We do not retain any query data sent through the API and do not train on any of your data.\" and, under the hosting question, \"By default, the API has zero day retention of user prompt data, which is never used for AI training.\" The vendor deleted both; this is not a fetch failure — the snapshot is the bot's successful capture of the current page."
@@ -305,31 +305,34 @@ text = "The DPA expressly carves it out of the main posture. This must not be re
 text_zh = "DPA 明确把它划出主姿态。不得反向解读为厂商承诺相反。已撤锚：DPA 序言「Certain Services (including but not limited to the Embeddings API …) may operate under data postures that differ from this DPA」只声明本档不适用 DPA 主姿态，没有对训练表态，故不构成本维度的表述。查阅范围见 searched。"
 
 [product.zdr]
-mark = "unknown"
-searched = [
-  "https://docs.perplexity.ai/docs/embeddings/quickstart",
-  "https://docs.perplexity.ai/docs/embeddings/standard-embeddings",
-  "https://perplexity.ai/hub/legal/dpa",
-  "https://docs.perplexity.ai/docs/resources/privacy-security",
-  "https://docs.perplexity.ai/docs/resources/faq",
-]
+mark = "yes"
+mode = "default"
+anchor = "perplexity-docs-privacy-security-embeddings-zdr-retention"
 
 [[product.zdr.point]]
-text = "Privacy & Security now makes a platform-level statement (ZDR is not default and is available only to eligible customers under a written agreement) and mentions Agent API in its model limits, but it still does not name Embeddings; the FAQ says only \"the API\". Neither source establishes ZDR for this tier."
-text_zh = "Privacy & Security 新版改为平台级表述（ZDR 非默认，只有合格客户按书面协议才能启用），并在模型限制里提到 Agent API，但仍未点名 Embeddings；FAQ 只写「the API」。两个来源都没有确认本档的 ZDR。"
+text = "Structured conclusion: the 2026-11-19 snapshot adds an express exception to the page's ZDR-not-default rule — \"The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged.\" That is a first-party default zero-retention commitment for this tier, so mark=yes and mode=default. The page's general disclaimer (\"This section is provided for convenience and does not modify the API Terms of Service...\") does not retract it: no other first-party document states a contrary posture, and the DPA preamble merely carves Embeddings out of the DPA's main posture."
+text_zh = "结构化结论：2026-11-19 快照在页面「ZDR 非默认」规则后新增明确例外——「The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged.」。这是本档第一方、默认即零保留的承诺，故记 mark=yes、mode=default。页面末尾「仅为便利说明、不修改 API ToS」的通用免责声明不构成撤回：没有其他第一方文件给出相反姿态，DPA 序言也只是把 Embeddings 划出 DPA 主姿态。"
+anchor = "perplexity-docs-privacy-security-embeddings-zdr-retention"
 
 [[product.zdr.point]]
-text = "The DPA preamble instead carves Embeddings out of the main posture. ZDR for this tier is therefore recorded as undisclosed."
-text_zh = "DPA 序言反而把 Embeddings 划出主姿态。故本档 ZDR 记未披露。已撤锚：该句只声明本档不适用 DPA 主姿态，没有对本档是否提供零保留表态。查阅范围见 searched。"
+text = "Background, unchanged: the DPA preamble says Embeddings \"may operate under data postures that differ from this DPA\", so the DPA does not supply the posture for this tier — the documentation page does. The FAQ says only \"the API\" and does not name Embeddings; it is not used for this row."
+text_zh = "背景（未变）：DPA 序言写 Embeddings「may operate under data postures that differ from this DPA」，故 DPA 不提供本档姿态，由文档页提供。FAQ 只写「the API」，未点名 Embeddings，不用于本行。"
+anchor = "perplexity-dpa-preamble-retention"
 
 [product.retention]
 object = "input_output"
-basis = "undisclosed"
-anchor = "perplexity-dpa-preamble-retention"
+basis = "none"
+anchor = "perplexity-docs-privacy-security-embeddings-zdr-retention"
 
 [[product.retention.point]]
-text = "DPA preamble: \"Certain Services (including but not limited to the Embeddings API and Perplexity Search) may operate under data postures that differ from this DPA... the applicable product-specific terms shall govern and control over this DPA.\" — so the DPA's retention clauses may not apply to this tier, and no product-specific terms are public. This is \"undisclosed\" rather than a denial."
-text_zh = "DPA 序言：「Certain Services (including but not limited to the Embeddings API and Perplexity Search) may operate under data postures that differ from this DPA... the applicable product-specific terms shall govern and control over this DPA.」即 DPA 的保留条款对本档可能不适用，而专属条款未见公开。这是「未披露」而非否定。"
+text = "Structured conclusion: the same sentence states that for the Embeddings API \"inputs and outputs are not stored or logged.\" With object=input_output this is an express non-retention commitment, so basis=none — not a retention period and not non-disclosure."
+text_zh = "结构化结论：同一句写明 Embeddings API「inputs and outputs are not stored or logged」。对象为 input_output 时这是明确的不留存承诺，故记 basis=none——既不是保留期限，也不是未披露。"
+anchor = "perplexity-docs-privacy-security-embeddings-zdr-retention"
+
+[[product.retention.point]]
+text = "DPA preamble background: the DPA's retention clauses may not govern this tier (\"...may operate under data postures that differ from this DPA... the applicable product-specific terms shall govern and control over this DPA\"), and no separate product-specific terms are public. The documentation sentence above is the published posture for this tier."
+text_zh = "DPA 序言背景：DPA 的保留条款对本档可能不适用（「...may operate under data postures that differ from this DPA... the applicable product-specific terms shall govern and control over this DPA」），且未见公开的专属条款。本档现行姿态以上面那句文档表述为准。"
+anchor = "perplexity-dpa-preamble-retention"
 
 [product.processing_region]
 mark = "unknown"
@@ -732,6 +735,16 @@ topics = ["retention"]
 prefix = "Service and account data:"
 exact = "Perplexity collects limited usage metadata—such as request and token counts, model used, timestamps, duration, and API key—to operate and bill the service, along with account information such as name and email address."
 suffix = "Personal data:"
+
+[[anchor]]
+id = "perplexity-docs-privacy-security-embeddings-zdr-retention"
+source_id = "1cfb3d54b8658b70"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged."
+suffix = ""
 
 [[anchor]]
 id = "perplexity-docs-faq-training"
