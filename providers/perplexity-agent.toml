@@ -21,7 +21,7 @@ note = "文档站《Frequently Asked Questions》的 Data, Privacy & Security �
 url = "https://docs.perplexity.ai/docs/resources/privacy-security"
 channel = "developer_data"
 tier = "core"
-note = "文档站《Privacy & Security》页（2026-10-15 改版）。旧版把「strict Zero Data Retention Policy」明确限定在 Chat Completions API，并写计费元数据不含请求/响应内容；新版删去这两句，改为平台级表述：ZDR 不是默认，只向合格客户按书面协议做账户级开通；未开通时不得假设 Perplexity 或其模型提供方对请求做零保留；并非所有模型支持 ZDR，第三方模型提供方可能要求有限保留。页面另列收集的用量元数据（请求/token 数、模型、时间戳、时长、API key）与账户信息（姓名、邮箱），不再声明元数据不含内容。页面在模型限制条中直接提到 Agent API 账户，但未确认 ZDR 覆盖 Agent API 的服务端会话状态（conversation-state 页仍要求向客户团队确认）。本页现为 zdr「按协议开通」与「非默认」的平台级依据，**不再支撑任何档位的默认零保留结论**。"
+note = "文档站《Privacy & Security》页（2026-10-15 改版）。旧版把「strict Zero Data Retention Policy」明确限定在 Chat Completions API，并写计费元数据不含请求/响应内容；新版删去这两句，改为平台级表述：ZDR 不是默认，只向合格客户按书面协议做账户级开通；未开通时不得假设 Perplexity 或其模型提供方对请求做零保留；并非所有模型支持 ZDR，第三方模型提供方可能要求有限保留。页面另列收集的用量元数据（请求/token 数、模型、时间戳、时长、API key）与账户信息（姓名、邮箱），不再声明元数据不含内容。页面在模型限制条中直接提到 Agent API 账户，但未确认 ZDR 覆盖 Agent API 的服务端会话状态（conversation-state 页仍要求向客户团队确认）。本页现为 zdr「按协议开通」与「非默认」的平台级依据，**不再支撑任何档位的默认零保留结论**。2026-11-19 快照(#1337)在 ZDR 条末尾新增一句「The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged」——默认零保留的例外只及 Embeddings API，本 provider 三个档位（Agent API、有状态 Agent API、Sonar）都不是 Embeddings API，故该句不改变任何档位结论，只把「非默认」的边界写明；同次其余改动为标题层级（##/###）与页面导航文本。"
 
 [[source]]
 url = "https://perplexity.ai/hub/legal/dpa"
@@ -75,6 +75,11 @@ text_zh = "同顶层 zdr：ZDR 需协议开通"
 text = "The rewritten privacy page states platform-wide that ZDR is not default: \"Zero Data Retention is not default: ZDR is available only to eligible customers through an account-level configuration under a written agreement with Perplexity\". The FAQ now says the same (\"Zero Data Retention (ZDR) is not the default\"), so the literal conflict previously recorded on the api-sonar-chat-completions row no longer exists."
 text_zh = "改版后的隐私页已在平台级写明 ZDR 不是默认，只向合格客户按账户级书面协议开通。FAQ 现在与之一致（「Zero Data Retention (ZDR) is not the default」），原先记在 api-sonar-chat-completions 档的两页字面冲突已消失。"
 anchor = "perplexity-agent-privacy-security-zdr-not-default"
+
+[[product.zdr.point]]
+text = "The 2026-11-19 snapshot adds one express exception to that non-default rule: \"The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged.\" No tier recorded in this provider is the Embeddings API — the rows here are Agent API, its stateful configuration, and Sonar — so the exception changes no zdr verdict; it only marks the outer edge of the \"not default\" statement."
+text_zh = "2026-11-19 快照为「非默认」新增了一个明确例外：「The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged.」本 provider 记录的档位是 Agent API、其有状态配置与 Sonar，均不是 Embeddings API，故该例外不改变任何 zdr 结论，只界定「非默认」表述的边界。"
+anchor = "perplexity-agent-privacy-security-embeddings-zdr-exception"
 
 [product.retention]
 days = 30
@@ -662,4 +667,14 @@ topics = ["zdr"]
 [anchor.selector]
 prefix = ""
 exact = "check with your account team before relying on stateful features"
+suffix = ""
+
+[[anchor]]
+id = "perplexity-agent-privacy-security-embeddings-zdr-exception"
+source_id = "1cfb3d54b8658b70"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "The exception is the Embeddings API, which applies ZDR by default: inputs and outputs are not stored or logged"
 suffix = ""
