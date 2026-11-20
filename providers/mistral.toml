@@ -9,7 +9,7 @@ doc = "https://legal.mistral.ai/terms/commercial-terms-of-service"
 url = "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention"
 channel = "developer_data"
 tier = "core"
-note = "官方开发者文档 Zero data retention 页(2026-11-03 现行有效)。覆盖按量付费的无状态 API;明确排除 stateful API / Agents / Batch / Conversations / Libraries / /v1/files / Vibe Work / Chat / Traces sent to Studio Observability 与 Labs 模型。覆盖 zdr 维度(及 zdr 与训练 opt-out 相互独立这一点),并提供 Studio Observability traces 在启用后会被存储的事实(retention 的对象与语境,页面未给期限);不含 API 输入输出的固定保留期限、处理地、角色条款。"
+note = "官方开发者文档 Zero data retention 页(2026-11-20 现行有效)。覆盖按量付费(pay-as-you-go)的无状态 API;明确排除 stateful API / Agents / Batch / Conversations / Libraries / /v1/files / Vibe Work / Chat / Traces sent to Studio Observability 与 Labs / Public Preview 模型。覆盖 zdr 维度(及 zdr 与训练 opt-out 相互独立这一点),并提供 Studio Observability traces 在启用后会被存储的事实(retention 的对象与语境,页面未给期限);不含 API 输入输出的固定保留期限、处理地、角色条款。"
 
 [[source]]
 url = "https://docs.mistral.ai/inference/regional-inference"
@@ -94,8 +94,8 @@ mode = "by_agreement"
 anchor = "mistral-zdr-paid-stateless"
 
 [[product.zdr.point]]
-text = "Official developer documentation, ZDR page (current this round, 2026-11-03): \"ZDR is available on paid plans for supported stateless API calls\", and once enabled Mistral \"does not store or log inputs and outputs for supported API requests\" beyond what is needed to generate the output. It covers stateless endpoints such as /v1/chat/completions, /v1/fim/completions, /v1/embeddings, moderations, classifications, ocr and audio, and does not apply to stateful APIs or products (Agents, Batch, Conversations, Libraries, /v1/files, Vibe Work, Chat, Traces sent to Studio Observability) or to Labs models. Application-based: a justification must be submitted to support, \"We review each request and may approve or deny it.\", and once approved it appears in Admin privacy settings"
-text_zh = "官方开发者文档 ZDR 页(本轮 2026-11-03 现行):ZDR 在付费计划上对受支持的无状态 API 调用可用,启用后 Mistral 不会为受支持的 API 请求存储或记录输入输出(超出生成输出所需)。覆盖 /v1/chat/completions、/v1/fim/completions、/v1/embeddings、moderations、classifications、ocr、audio 等无状态端点,不覆盖 stateful API 与产品(Agents、Batch、Conversations、Libraries、/v1/files、Vibe Work、Chat、Traces sent to Studio Observability)与 Labs 模型。申请制:需向支持提交正当理由,逐案审核,可批准或拒绝,批准后出现在 Admin privacy settings"
+text = "Official developer documentation, ZDR page (current this round, 2026-11-20): \"ZDR is available on pay-as-you-go for supported stateless API calls\", and once enabled Mistral \"does not store or log inputs and outputs for supported API requests\" beyond what is needed to generate the output. It covers stateless endpoints such as /v1/chat/completions, /v1/fim/completions, /v1/embeddings, moderations, classifications, ocr and audio, and does not apply to stateful APIs or products (Agents, Batch, Conversations, Libraries, /v1/files, Vibe Work, Chat, Traces sent to Studio Observability) or to Labs and Public Preview models. Application-based: a justification must be submitted to support, \"We review each request and may approve or deny it.\", and once approved it appears in Admin privacy settings"
+text_zh = "官方开发者文档 ZDR 页(本轮 2026-11-20 现行):ZDR 在按量付费(pay-as-you-go)上对受支持的无状态 API 调用可用,启用后 Mistral 不会为受支持的 API 请求存储或记录输入输出(超出生成输出所需)。覆盖 /v1/chat/completions、/v1/fim/completions、/v1/embeddings、moderations、classifications、ocr、audio 等无状态端点,不覆盖 stateful API 与产品(Agents、Batch、Conversations、Libraries、/v1/files、Vibe Work、Chat、Traces sent to Studio Observability)与 Labs / Public Preview 模型。申请制:需向支持提交正当理由,逐案审核,可批准或拒绝,批准后出现在 Admin privacy settings"
 
 [[product.zdr.point]]
 text = "ZDR and training opt-out are two separate controls. Help Center 347612 (updated 2026-08-12) is stricter in wording: pay-as-you-go only (Free mode must first enable pay-as-you-go), stateless APIs only. At contract level, DPA §2.3 excludes abuse monitoring as a processing purpose \"when zero data retention has been activated\", so ZDR is recognized in the DPA."
@@ -424,7 +424,7 @@ i
 Information
 
 **"""
-exact = "ZDR is available on paid plans for supported stateless API calls."
+exact = "ZDR is available on pay-as-you-go for supported stateless API calls."
 suffix = "** It gives eligible Organizations stricter control over whe"
 
 [[anchor]]
@@ -450,7 +450,7 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
-supported endpoints across models, **except Labs models**.
+supported endpoints across models, **except Labs and Public Preview models**.
 
 """
 exact = "ZDR **does not apply to stateful APIs or products"
