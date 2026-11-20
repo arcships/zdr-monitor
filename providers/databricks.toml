@@ -21,7 +21,7 @@ note = "平台架构文档：control plane 在 Databricks 账户（不是客户�
 url = "https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/compliance"
 channel = "developer_data"
 tier = "core"
-note = "Foundation Model APIs compliance and security 页（2026-11-03 版）。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须启用跨 Geo 处理，且该处理默认开启（启用 compliance security profile 的工作区除外）；开启后请求可能在工作区 Geo 之外处理，有数据位置要求时可关闭。Regional model availability 节明确区域表只说明模型可用地、不说明请求处理地，分 US-only / EU+US / EU+US+APAC / EU+US+Japan, Singapore, and Australia 四档：EU+US 档中「部分模型」也在亚太区域提供且无需跨 Geo（未点名）；EU+US+APAC 档列 Anthropic Claude Opus 5，在 ap-northeast-2 / ap-south-1 / ap-southeast-1 / ap-southeast-2 提供；新增的 EU+US+Japan/Singapore/Australia 档列 Anthropic Claude Opus 5.5 与 Claude Haiku 5.5，在 ap-northeast-1 / ap-southeast-1 / ap-southeast-2 提供。工作区在 EU/US 或对应所列区域时无需跨 Geo。页末汇总表把 Opus 5.5 / Haiku 5.5 归入「EU, US, and Asia Pacific models」，与正文的 Japan/Singapore/Australia 分档不一致。"
+note = "Foundation Model APIs compliance and security 页（2026-11-18 版）。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须启用跨 Geo 处理，且该处理默认开启（启用 compliance security profile 的工作区除外）；开启后请求可能在工作区 Geo 之外处理，有数据位置要求时可关闭。Regional model availability 节明确区域表只说明模型可用地、不说明请求处理地，分 US-only / EU+US / EU+US+APAC / EU+US+Japan, Singapore, and Australia 四档：EU+US 档中「部分模型」也在亚太区域提供且无需跨 Geo（未点名）；EU+US+APAC 档列 Anthropic Claude Opus 5，在 ap-northeast-2 / ap-south-1 / ap-southeast-1 / ap-southeast-2 提供；EU+US+Japan/Singapore/Australia 档列 Anthropic Claude Opus 5.5 与 Claude Haiku 5.5，在 ap-northeast-1 / ap-southeast-1 / ap-southeast-2 提供。工作区在 EU/US 或对应所列区域时无需跨 Geo。页末汇总表把 Opus 5.5 / Haiku 5.5 归入「EU, US, and Asia Pacific models」，与正文的 Japan/Singapore/Australia 分档不一致。2026-11-18 版新增 Data privacy and use 节，把 FM APIs 输入输出的保护、使用与保留（含伙伴 provider 保留）指向 Model Serving 的 Data protection 一节，本页自身不写保留期限；同轮 EU+US 清单（正文表与页末汇总表）新增 OpenAI GPT-6.2 Astra / GPT-6.2 Sol，区域档位未变。"
 
 [[source]]
 url = "https://docs.databricks.com/aws/en/machine-learning/model-serving/"
@@ -241,6 +241,11 @@ text_zh = "伙伴一跳（链上更弱的一跳）：伙伴 provider 可为安�
 anchor = "serving-partner-provider-retention"
 
 [[product.retention.point]]
+text = "For how Databricks protects, uses, and retains the inputs and outputs of Foundation Model API requests, including partner model provider retention, see Data protection in Model Serving"
+text_zh = "compliance 页（2026-11-18 版）新增的 Data privacy and use 节把 FM APIs 输入输出的保护、使用与保留（含伙伴 provider 保留）指向 Model Serving 的 Data protection 一节。该句本身不给期限、不新增 ZDR 承诺；伙伴一跳的保留仍以 model-serving 页的伙伴保留句为准，期限仍为未披露。"
+anchor = "fmapi-compliance-data-privacy-use-pointer"
+
+[[product.retention.point]]
 text = "OpenAI may retain certain coding and routing customers' customer content that OpenAI's classifiers detect as potentially violating"
 text_zh = "OpenAI：对 gpt-5.5 / gpt-5.5-pro 及后续模型，可保留分类器判定违反其使用政策的 coding/routing 客户内容；其余客户「For all other customers, you may be subject to additional retention upon advance notice.」"
 anchor = "serving-openai-safety-retention"
@@ -258,7 +263,7 @@ codes = ["selected"]
 anchor = "fmapi-compliance-outside-region"
 
 [[product.processing_region.point]]
-text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Opus 4.1、Claude Sonnet 5、BGE Large）、EU+US（多数 GPT 与 Claude，含 OpenAI GPT-6.1 Terra / GPT-6.1 Sol 与新增的 Anthropic Claude Sonnet 5.5；Claude Sonnet 4 已移除）、「EU, US, and Asia Pacific models」档（Anthropic Claude Opus 5，见下条），以及新增的「EU, US, Japan, Singapore, and Australia models」档（Anthropic Claude Opus 5.5、Claude Haiku 5.5，见后条）。"
+text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Opus 4.1、Claude Sonnet 5、BGE Large）、EU+US（多数 GPT 与 Claude，含 OpenAI GPT-6.1 Terra / GPT-6.1 Sol、GPT-6.2 Astra / GPT-6.2 Sol 与 Anthropic Claude Sonnet 5.5；Claude Sonnet 4 已移除）、「EU, US, and Asia Pacific models」档（Anthropic Claude Opus 5，见下条），以及「EU, US, Japan, Singapore, and Australia models」档（Anthropic Claude Opus 5.5、Claude Haiku 5.5，见后条）。"
 
 [[product.processing_region.point]]
 text = "The following tables show where each model is available, not where requests are processed"
@@ -1152,6 +1157,16 @@ topics = ["processing_region"]
 prefix = "Anthropic Claude Haiku 5.5"
 exact = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access these models"
 suffix = ""
+
+[[anchor]]
+id = "fmapi-compliance-data-privacy-use-pointer"
+source_id = "1a56438448bd9279"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = ""
+exact = "For how Databricks protects, uses, and retains the inputs and outputs of Foundation Model API requests, including partner model provider retention, see Data protection in Model Serving"
+suffix = "."
 
 [[anchor]]
 id = "arch-control-plane-not-your-cloud"
