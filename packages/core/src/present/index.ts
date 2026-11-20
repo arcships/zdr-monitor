@@ -301,6 +301,7 @@ export function compile(root: string): Catalog {
   }
 
   for (const detail of merged.values()) {
+    detail.changes.sort((a, b) => b.observed_at.localeCompare(a.observed_at) || a.id.localeCompare(b.id))
     detail.lines.sort((a, b) => a.line.localeCompare(b.line, "zh") || a.id.localeCompare(b.id))
     detail.tiers.sort((a, b) => a.line.localeCompare(b.line, "zh") || a.id.localeCompare(b.id))
     detail.sources.sort(
