@@ -1,0 +1,8 @@
+provider = "vercel"
+dimensions = ["processing_region"]
+direction = "clarified"
+observed_at = "2026-11-04"
+source_id = "16a92c22201a5504"
+summary_zh = "Regional Inference 页把可选区域从 us/eu 扩为 us/eu/au/jp，并新增 team-wide region pinning（Pro/Enterprise，$0.10 / 1,000 请求）：per-request inferenceRegion 必须落在 team-wide pin 内，钉不住返回 HTTP 400，不回退到 pin 外；team-wide pin 会在所选区域内按顺序回退，但不会越出。同页新增说明 AI Gateway 自己运行的 web search / fetch 工具不受区域 pin 约束，由 prompt 构造的搜索词可能离开所钉区域。processing_region 的 codes 由 GLOBAL/US/EU 扩为 GLOBAL/US/EU/AU/JP；其它结论字段未变。"
+summary_en = "The Regional Inference page expanded the selectable regions from us/eu to us/eu/au/jp and added team-wide region pinning (Pro/Enterprise, $0.10 per 1,000 requests): a per-request inferenceRegion must stay inside the team-wide pin, and a region that cannot be honored fails with HTTP 400 instead of falling back outside the pin. A team-wide pin falls back across the selected regions in order but never outside them. The same page now states that web search / fetch tools run by AI Gateway are not pinned, so search queries built from the prompt can leave the pinned region. The processing_region codes changed from GLOBAL/US/EU to GLOBAL/US/EU/AU/JP; no other verdict field changed."
+issue = "https://github.com/arcships/zdr-monitor/pull/1037"

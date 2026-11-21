@@ -1,0 +1,8 @@
+provider = "vercel"
+dimensions = ["training"]
+direction = "strengthened"
+observed_at = "2026-11-07"
+source_id = "3ed59269620e486a"
+summary_zh = "Disallow Prompt Training 页新增 team-wide 开关：Pro/Enterprise 团队及已购买 AI Gateway credits 的团队可在 Dashboard 为全部请求启用，与 per-request 方式按 OR 生效，两者都免费，默认都不开启；启用后无合规 provider 的模型会从 /v1/models 与读取它的模型选择器（Codex、Claude Code）移除。页面同时明确 team-wide disallow prompt training 与 team-wide ZDR 是两个独立设置，开一个不会开另一个。training 结论字段未变（默认路由仍不看训练政策，上游默认仍不过滤）。"
+summary_en = "The Disallow Prompt Training page added a team-wide toggle: Pro and Enterprise teams, plus teams that have purchased AI Gateway credits, can enable it for all requests from the dashboard. It works as an OR with the per-request option, both are free, and neither is on by default. Once enabled, models with no compliant provider are removed from /v1/models and from model pickers that read it, such as Codex and Claude Code. The page also states that team-wide disallow prompt training and team-wide ZDR are separate settings, and turning on one does not turn on the other. No training verdict field changed; default routing still ignores training policy and the upstream hop is still unfiltered by default."
+issue = "https://github.com/arcships/zdr-monitor/pull/1129"
