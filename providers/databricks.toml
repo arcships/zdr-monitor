@@ -21,7 +21,7 @@ note = "平台架构文档：control plane 在 Databricks 账户（不是客户�
 url = "https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/compliance"
 channel = "developer_data"
 tier = "core"
-note = "Foundation Model APIs compliance and security 页（2026-11-18 版）。Data processing and residency 节：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须启用跨 Geo 处理，且该处理默认开启（启用 compliance security profile 的工作区除外）；开启后请求可能在工作区 Geo 之外处理，有数据位置要求时可关闭。Regional model availability 节明确区域表只说明模型可用地、不说明请求处理地，分 US-only / EU+US / EU+US+APAC / EU+US+Japan, Singapore, and Australia 四档：EU+US 档中「部分模型」也在亚太区域提供且无需跨 Geo（未点名）；EU+US+APAC 档列 Anthropic Claude Opus 5，在 ap-northeast-2 / ap-south-1 / ap-southeast-1 / ap-southeast-2 提供；EU+US+Japan/Singapore/Australia 档列 Anthropic Claude Opus 5.5 与 Claude Haiku 5.5，在 ap-northeast-1 / ap-southeast-1 / ap-southeast-2 提供。工作区在 EU/US 或对应所列区域时无需跨 Geo。页末汇总表把 Opus 5.5 / Haiku 5.5 归入「EU, US, and Asia Pacific models」，与正文的 Japan/Singapore/Australia 分档不一致。2026-11-18 版新增 Data privacy and use 节，把 FM APIs 输入输出的保护、使用与保留（含伙伴 provider 保留）指向 Model Serving 的 Data protection 一节，本页自身不写保留期限；同轮 EU+US 清单（正文表与页末汇总表）新增 OpenAI GPT-6.2 Astra / GPT-6.2 Sol，区域档位未变。"
+note = "Foundation Model APIs compliance and security 页（2026-11-19 版）。Data processing and residency 节逐字未变：提供 FM APIs 时 Databricks 可能在数据来源的 region 与云厂商之外处理数据；非 US/EU 工作区须启用跨 Geo 处理，且该处理默认开启（启用 compliance security profile 的工作区除外）；开启后请求可能在工作区 Geo 之外处理，有数据位置要求时可关闭。Data privacy and use 节把 FM APIs 输入输出的保护、使用与保留（含伙伴 provider 保留）指向 Model Serving 的 Data protection 一节，本页自身不写保留期限。Regional model availability 节自 2026-11-19 版起不再列逐模型区域清单：原 US-only / EU+US / EU+US+APAC / EU+US+Japan, Singapore, and Australia 四档、页末汇总表，以及「Some of these models are also available in Asia Pacific regions without cross-Geo data processing」与各档 cross-Geo 条件句均已删除；页面改为指向 Model availability by region，并保留「Model availability shows where you can use a model, not where requests are processed」，即模型可用地不等于请求处理地。逐模型区域可用性与「无需跨 Geo」表述已不在本页，不得再作为处理地证据；处理地仍看 Data processing and residency 与 Designated Services。本轮未新增 Model availability by region 来源，因此不以该页作为证据。"
 
 [[source]]
 url = "https://docs.databricks.com/aws/en/machine-learning/model-serving/"
@@ -263,37 +263,14 @@ codes = ["selected"]
 anchor = "fmapi-compliance-outside-region"
 
 [[product.processing_region.point]]
-text_zh = "伙伴模型有区域分级：US-only（Anthropic Claude Opus 4.1、Claude Sonnet 5、BGE Large）、EU+US（多数 GPT 与 Claude，含 OpenAI GPT-6.1 Terra / GPT-6.1 Sol、GPT-6.2 Astra / GPT-6.2 Sol 与 Anthropic Claude Sonnet 5.5；Claude Sonnet 4 已移除）、「EU, US, and Asia Pacific models」档（Anthropic Claude Opus 5，见下条），以及「EU, US, Japan, Singapore, and Australia models」档（Anthropic Claude Opus 5.5、Claude Haiku 5.5，见后条）。"
+text = "To check where each model is available and whether your region requires cross-Geo data processing, see Model availability by region"
+text_zh = "2026-11-19 版起，本页不再列逐模型区域清单（原 US-only / EU+US / EU+US+APAC / EU+US+Japan, Singapore, Australia 四档、页末汇总表，以及各档 cross-Geo 条件句与「without cross-Geo data processing」句均已删除），改为指向 Model availability by region 页。逐模型可用区域与「无需跨 Geo」表述不再是本页证据；处理地仍看 Data processing and residency 节。"
+anchor = "fmapi-compliance-model-availability-pointer"
 
 [[product.processing_region.point]]
-text = "The following tables show where each model is available, not where requests are processed"
-text_zh = "页面明确：区域表只说明模型在哪里可用，不说明请求在哪里处理；处理地仍看 Data processing and residency 节，不能把模型可用区域直接当作处理地承诺。"
+text = "Model availability shows where you can use a model, not where requests are processed"
+text_zh = "页面明确：模型可用地不说明请求处理地；处理地仍看 Data processing and residency 节，不能把模型可用区域直接当作处理地承诺。"
 anchor = "fmapi-compliance-availability-not-processing"
-
-[[product.processing_region.point]]
-text = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-2`, `ap-south-1`, `ap-southeast-1`, and `ap-southeast-2`"
-text_zh = "「EU, US, and Asia Pacific models」档：Anthropic Claude Opus 5 在 pay-per-token EU/US supported regions 之外，也在 ap-northeast-2、ap-south-1、ap-southeast-1、ap-southeast-2 四个亚太区域提供。"
-anchor = "fmapi-compliance-apac-model-regions"
-
-[[product.processing_region.point]]
-text = "Some of these models are also available in Asia Pacific regions without cross-Geo data processing"
-text_zh = "EU+US 档另新增说明：「这些模型中的一些」也在亚太区域提供且无需跨 Geo。该句位于 EU+US 档说明中，未点名具体模型；Claude Opus 5 已移出该档、单列在下一档，故这句不构成对 Opus 5 的直接依据。"
-anchor = "fmapi-compliance-apac-no-cross-geo"
-
-[[product.processing_region.point]]
-text = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access this model"
-text_zh = "Opus 5 所在亚太档的跨 Geo 条件：仅当工作区不在 EU/US 或所列亚太区域、但位于受支持的 Model Serving region 时才需开启跨 Geo；据此，工作区位于 EU/US 或四个亚太区域时无需跨 Geo 处理。"
-anchor = "fmapi-compliance-apac-cross-geo"
-
-[[product.processing_region.point]]
-text = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-1`, `ap-southeast-1`, and `ap-southeast-2`"
-text_zh = "新增的「EU, US, Japan, Singapore, and Australia models」档：Anthropic Claude Opus 5.5 与 Claude Haiku 5.5 在 pay-per-token EU/US supported regions 之外，也在 ap-northeast-1（东京）、ap-southeast-1（新加坡）、ap-southeast-2（悉尼）三个亚太区域提供；不含 Opus 5 档所列的 ap-northeast-2 与 ap-south-1。"
-anchor = "fmapi-compliance-apac-jp-sg-au-model-regions"
-
-[[product.processing_region.point]]
-text = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access these models"
-text_zh = "新档的跨 Geo 条件：工作区不在 EU/US 或所列亚太区域、但位于受支持的 Model Serving region 时，可开启跨 Geo 以访问这些模型；据此，工作区位于 EU/US 或上述三个亚太区域时无需跨 Geo 处理。"
-anchor = "fmapi-compliance-apac-jp-sg-au-cross-geo"
 
 [[product.processing_region.point]]
 text_zh = "非 US/EU 工作区的跨 Geo 处理默认开启（compliance security profile 除外）。"
@@ -1099,64 +1076,24 @@ exact = "When cross-Geo data processing is on, requests can be processed outside
 suffix = ". If your workloads have data-location requirements, turn it off."
 
 [[anchor]]
+id = "fmapi-compliance-model-availability-pointer"
+source_id = "1a56438448bd9279"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = "Some models are available only in certain regions."
+exact = "To check where each model is available and whether your region requires cross-Geo data processing, see Model availability by region"
+suffix = ". Model availability shows where you can use a model, not where requests are processed."
+
+[[anchor]]
 id = "fmapi-compliance-availability-not-processing"
 source_id = "1a56438448bd9279"
 topics = ["processing_region"]
 
 [anchor.selector]
-prefix = "Certain models have regional restrictions based on compliance and infrastructure requirements."
-exact = "The following tables show where each model is available, not where requests are processed"
+prefix = "see Model availability by region."
+exact = "Model availability shows where you can use a model, not where requests are processed"
 suffix = ". See Data processing and residency."
-
-[[anchor]]
-id = "fmapi-compliance-apac-model-regions"
-source_id = "1a56438448bd9279"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = ""
-exact = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-2`, `ap-south-1`, `ap-southeast-1`, and `ap-southeast-2`"
-suffix = ":"
-
-[[anchor]]
-id = "fmapi-compliance-apac-no-cross-geo"
-source_id = "1a56438448bd9279"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "you can enable cross-Geo data processing to access these models. "
-exact = "Some of these models are also available in Asia Pacific regions without cross-Geo data processing"
-suffix = " See Foundation models hosted on Databricks."
-
-[[anchor]]
-id = "fmapi-compliance-apac-cross-geo"
-source_id = "1a56438448bd9279"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = ""
-exact = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access this model"
-suffix = ""
-
-[[anchor]]
-id = "fmapi-compliance-apac-jp-sg-au-model-regions"
-source_id = "1a56438448bd9279"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "EU, US, Japan, Singapore, and Australia models"
-exact = "The following models are available in pay-per-token EU and US supported regions and in `ap-northeast-1`, `ap-southeast-1`, and `ap-southeast-2`"
-suffix = ":"
-
-[[anchor]]
-id = "fmapi-compliance-apac-jp-sg-au-cross-geo"
-source_id = "1a56438448bd9279"
-topics = ["processing_region"]
-
-[anchor.selector]
-prefix = "Anthropic Claude Haiku 5.5"
-exact = "If your workspace is not in an EU, US, or listed Asia Pacific region but is in a supported Model Serving region, you can enable cross-Geo data processing to access these models"
-suffix = ""
 
 [[anchor]]
 id = "fmapi-compliance-data-privacy-use-pointer"
