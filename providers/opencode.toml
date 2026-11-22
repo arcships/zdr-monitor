@@ -12,7 +12,7 @@ doc = "https://opencode.ai/docs/enterprise/"
 url = "https://opencode.ai/docs/enterprise/"
 channel = "developer_data"
 tier = "core"
-note = "OpenCode Enterprise 官方文档；本地/直连数据路径、企业集中配置、内部网关。"
+note = "OpenCode Enterprise 官方文档；2026-11-22 起重写为托管配置策略（部署、屏蔽免费模型、限定 Console 工作区、仅允许批准的上游、限制 MCP/工具），不再包含不存储代码/上下文、本地处理或分享页自托管等数据处理表述。"
 
 [[source]]
 url = "https://opencode.ai/docs/share"
@@ -149,9 +149,9 @@ text_zh = "合同层（本文件权威性最高的来源）：厂商明文授权
 anchor = "opencode-tos-unpaid-training"
 
 [[product.training.point]]
-text = "Inkling 2 Small Free is a new data-collecting exception in the same privacy section, and its terms expressly reach model training: \"Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training. See Thinking Machines’ Terms of Service and Privacy Notice.\" The Free models list says the same thing in shorter form — \"Its provider retains your data and may use it for model training; see Privacy.\" Under this ledger's rule both are training-use statements, so this is a data-collecting free model, not a no-training one; the bullet defers further detail to Thinking Machines' own terms, which are not used as evidence here."
-text_zh = "Inkling 2 Small Free 是同一隐私段新增的数据收集型例外，其条款明文写到模型训练：「Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training. See Thinking Machines’ Terms of Service and Privacy Notice.」。免费模型列表用更短的措辞表达同一件事——「Its provider retains your data and may use it for model training; see Privacy.」。按本台账口径，两者都属训练用途表述，因此这是数据收集型免费模型，而不是不训练模型；该条把细节指向 Thinking Machines 自己的条款，那些条款不作为本台账证据。"
-anchor = "opencode-zen-inkling-exception"
+text = "Tidepool Alpha Free was added to the Privacy exception list in the 2026-11-22 snapshot, and its terms state that the collected data is retained and used to improve the model: \"Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.\" The Free models list describes the same model as a stealth model whose free period is used \"to collect feedback and improve the model.\" Under this ledger's rule, using data to improve the model counts as training, so this is a data-collecting free model, not a no-training one."
+text_zh = "Tidepool Alpha Free 在 2026-11-22 快照加入 Privacy 例外清单，其条款写明收集的数据会被保留并用于改进模型：「Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.」。免费模型列表把同一模型描述为团队利用免费期「to collect feedback and improve the model」的 stealth 模型。按本台账口径，用于改进模型算训练，因此这是数据收集型免费模型，而不是不训练模型。"
+anchor = "opencode-zen-tidepool-exception"
 
 [[product.training.point]]
 text = "Iceman Free was added in the 2026-11-07 snapshot, and its privacy exception says the collected data is retained and used to improve the model: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The Free models list describes the same model as a stealth model whose free period is used \"to collect feedback and improve the model.\" Both statements point the same way, so there is no conflict: under this ledger's rule this is a data-collecting free model, not a no-training one."
@@ -163,8 +163,8 @@ mark = "no"
 anchor = "opencode-zen-exceptions"
 
 [[product.zdr.point]]
-text = "NVIDIA free endpoints still listed in this tier: \"Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.\" The logging is stated with no time limit, so this tier offers no zero-retention option; the same sentence also bars submitting personal or confidential data. Nemotron 3 Ultra Free carried an identical bullet and was removed from the endpoints table, the pricing table and the Free models list in the 2026-11-18 snapshot."
-text_zh = "本档仍在列的 NVIDIA 免费端点：「Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」——使用会被记录且未给期限，本档没有零保留方案；同段还禁止提交个人或机密数据，对采购是硬约束。原 Nemotron 3 Ultra Free 条目文字相同，已在 2026-11-18 快照随该模型从端点表、价目表和免费模型列表一并移除。"
+text = "NVIDIA free endpoints still listed in this tier: \"Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.\" The logging is stated with no time limit, so this tier offers no zero-retention option; the same sentence also bars submitting personal or confidential data. The bullet also says \"The logged session data for improvement purposes is not linked to your identity or any persistent identifier\" and includes a consent sentence, but states no retention period or zero-retention option. Nemotron 3 Ultra Free carried an identical bullet and was removed from the endpoints table, the pricing table and the Free models list in the 2026-11-18 snapshot."
+text_zh = "本档仍在列的 NVIDIA 免费端点：「Nemotron 3.5 Lightning Free (NVIDIA free endpoints): Trial use only — do not submit personal or confidential data. Your use is logged for security purposes and to improve NVIDIA products and services.」——使用会被记录且未给期限，本档没有零保留方案；同段还禁止提交个人或机密数据，对采购是硬约束。该条同时写「The logged session data for improvement purposes is not linked to your identity or any persistent identifier」并包含同意条款，但仍未给出保留期限或零保留方案。原 Nemotron 3 Ultra Free 条目文字相同，已在 2026-11-18 快照随该模型从端点表、价目表和免费模型列表一并移除。"
 anchor = "opencode-zen-nvidia-free"
 
 [[product.zdr.point]]
@@ -173,9 +173,9 @@ text_zh = "同一 NVIDIA 免费端点组还包含 2026-10-16 快照新增的 Nem
 anchor = "opencode-zen-nemotron-super-vl"
 
 [[product.zdr.point]]
-text = "Inkling 2 Small Free adds an explicit retention-and-training permission to the same exception list: \"Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training.\" The docs state no zero-retention option for this model, so it reinforces zdr=no for this tier."
-text_zh = "Inkling 2 Small Free 在同一例外清单里新增了明确的保留与训练授权：「Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
-anchor = "opencode-zen-inkling-exception"
+text = "Tidepool Alpha Free adds an explicit retention-and-improvement permission to the same exception list: \"Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.\" The docs state no zero-retention option for this model, so it reinforces zdr=no for this tier."
+text_zh = "Tidepool Alpha Free 在同一例外清单里新增了明确的保留与改进授权：「Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
+anchor = "opencode-zen-tidepool-exception"
 
 [[product.zdr.point]]
 text = "Iceman Free adds another explicit retention-and-use permission to the same exception list: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The docs state no zero-retention option for this model, so it reinforces zdr=no for this tier."
@@ -189,14 +189,14 @@ anchor = "opencode-zen-nvidia-free"
 searched = ["https://opencode.ai/docs/zen", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/legal/privacy-policy"]
 
 [[product.retention.point]]
-text = "Objects and context: the data-collecting free models other than Iceman Free, Inkling 2 Small Free and Flint 40B Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Iceman Free, Inkling 2 Small Free and Flint 40B Free are stated separately below because their bullets add retention language."
-text_zh = "对象与语境：除 Iceman Free、Inkling 2 Small Free 与 Flint 40B Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Iceman Free、Inkling 2 Small Free 与 Flint 40B Free 另叙于下，因为它们的条目额外写了保留相关表述。"
+text = "Objects and context: the data-collecting free models other than Iceman Free, Tidepool Alpha Free and Flint 40B Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Iceman Free, Tidepool Alpha Free and Flint 40B Free are stated separately below because their bullets add retention language."
+text_zh = "对象与语境：除 Iceman Free、Tidepool Alpha Free 与 Flint 40B Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Iceman Free、Tidepool Alpha Free 与 Flint 40B Free 另叙于下，因为它们的条目额外写了保留相关表述。"
 anchor = "opencode-zen-exceptions"
 
 [[product.retention.point]]
-text = "Inkling 2 Small Free exception: \"Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
-text_zh = "Inkling 2 Small Free 例外：「Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
-anchor = "opencode-zen-inkling-exception"
+text = "Tidepool Alpha Free exception: \"Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
+text_zh = "Tidepool Alpha Free 例外：「Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
+anchor = "opencode-zen-tidepool-exception"
 
 [[product.retention.point]]
 text = "Iceman Free exception: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
@@ -239,8 +239,8 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 
 [[product.training.point]]
@@ -328,14 +328,14 @@ id = "zen-enterprise"
 badge = "Zen Enterprise 托管链路"
 category = "coding_plan"
 plan_level = "enterprise"
-label = "Enterprise 用户选择 OpenCode Zen 托管模型时的链路（仅 Zen 托管路径），不含会收集数据的免费模型（这些模型单列「Zen 数据收集模型」档）；不把 Enterprise 文档所述本地、内部网关或直连/BYOK 路径计作厂商托管"
+label = "Enterprise 用户选择 OpenCode Zen 托管模型时的链路（仅 Zen 托管路径），不含会收集数据的免费模型（这些模型单列「Zen 数据收集模型」档）；不把企业策略文档所述内部 OpenAI-compatible 网关或自带提供商/账号（BYOK/直连）路径计作厂商托管"
 [product.training]
 mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free, Inkling 2 Small Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free、Inkling 2 Small Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 
 [[product.training.point]]
@@ -343,12 +343,12 @@ text = "MiMo-V2.6-Flash Free left the exception list in the 2026-11-18 snapshot;
 text_zh = "MiMo-V2.6-Flash Free 在 2026-11-18 快照离开例外清单；其免费模型条目改为「MiMo-V2.6-Flash Free is available on OpenCode for a limited time. The team is using this time to collect feedback.」，不再写收集数据可能用于改进模型。默认句因此覆盖它，它不再属于上面的数据收集集合。上一版清单里的 Nemotron 3 Ultra Free 也在同一快照从端点表、价目表和免费模型列表下架。"
 anchor = "opencode-zen-mimo-free-feedback"
 [[product.training.point]]
-text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc's own line — \"OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.\" — describes the local / internal-gateway path this row excludes, and is not used as evidence for the Zen-hosted path."
-text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。企业文档那句「OpenCode does not store your code or context data. All processing happens locally or through direct API calls to your AI provider.」说的是本行已排除的本地/内部网关路径，不作为 Zen 托管路径的证据。"
+text = "The Console docs make the workspace model list an admin choice rather than a fixed list: \"Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.\" Data-collecting models can therefore appear in a workspace's enabled set; the docs do not make disabling them the default, so this row's conclusion is stated for a workspace model list excluding those models. The Enterprise doc was rewritten in the 2026-11-22 snapshot and no longer states the local/direct-processing path or that OpenCode does not store code or context data; it now documents managed policy configuration, so it supplies no evidence for the Zen-hosted path."
+text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。Enterprise 文档在 2026-11-22 快照被重写，已不再写本地/直连处理路径，也不再写 OpenCode 不存储代码或上下文数据；它现在只说明托管配置策略，因此对 Zen 托管路径不提供证据。"
 anchor = "opencode-zen-model-access"
 [[product.training.point]]
-text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Enterprise docs describe per-seat paid pricing and do not define \"unpaid account\" for this product, so this row is not re-judged on that clause — it is recorded as an open question."
-text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务；企业文档写的是按席位付费，也没有界定本产品下什么算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
+text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Enterprise docs no longer describe pricing and do not define \"unpaid account\" for this product, so this row is not re-judged on that clause — it is recorded as an open question."
+text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务；企业文档已不再写定价，也没有界定本产品下什么算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
 anchor = "opencode-tos-unpaid-training"
 [product.zdr]
 mark = "yes"
@@ -464,8 +464,8 @@ codes = ["unknown"]
 searched = ["https://opencode.ai/docs/share", "https://opencode.ai/docs/enterprise/"]
 
 [[product.processing_region.point]]
-text = "The share docs say conversations are synced to \"our servers\" and published at `opncd.ai/s/<share-id>`, but give no processing location. The enterprise docs no longer describe where the share pages are served; they only offer self-hosting them on the customer's own infrastructure. The region is therefore recorded as undisclosed."
-text_zh = "分享文档只写会话同步到「our servers」并生成 `opncd.ai/s/<share-id>` 公开链接，没有给出处理地；企业文档也不再说明分享页的提供位置，只保留把分享页自托管在客户自有基础设施上的选项。因此处理地记为未披露。"
+text = "The share docs say conversations are synced to \"our servers\" and published at `opncd.ai/s/<share-id>`, but give no processing location. The enterprise docs were rewritten in the 2026-11-22 snapshot and no longer mention share pages or self-hosting at all. The region is therefore recorded as undisclosed."
+text_zh = "分享文档只写会话同步到「our servers」并生成 `opncd.ai/s/<share-id>` 公开链接，没有给出处理地；企业文档在 2026-11-22 快照被重写后已完全不提分享页或自托管。因此处理地记为未披露。"
 
 [product.role]
 mark = "unknown"
@@ -497,7 +497,7 @@ topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
 exact = "- Big Pickle: During its free period, collected data may be used to improve the model."
-suffix = "\n- Iceman Free"
+suffix = "\n- Tidepool Alpha Free"
 
 [[anchor]]
 id = "opencode-zen-model-access"
@@ -545,13 +545,13 @@ exact = "- Nemotron 3.5 Super VL Free (NVIDIA free endpoints): Trial use only �
 suffix = ""
 
 [[anchor]]
-id = "opencode-zen-inkling-exception"
+id = "opencode-zen-tidepool-exception"
 source_id = "81c406603eb0c1a6"
 topics = ["training", "zdr", "retention"]
 [anchor.selector]
 prefix = ""
-exact = "- Inkling 2 Small Free: During its free period, collected data is retained and may be used to monitor the model’s real-world performance and for model training."
-suffix = " See Thinking Machines’ Terms of Service and Privacy Notice."
+exact = "- Tidepool Alpha Free: During its free period, collected data is retained and used to improve the model."
+suffix = ""
 
 [[anchor]]
 id = "opencode-zen-iceman-exception"
