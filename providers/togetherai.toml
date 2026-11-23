@@ -41,18 +41,18 @@ mode = "default"
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text_zh = "默认不训练，训练是独立的组织级 opt-in 且默认关闭（ZDR 页 Training 条 + privacy-and-security 页开关默认值）。注意 opt-in 的对象是「models released by Together AI and partners」"
+text_zh = "默认不训练，训练是独立的组织级 opt-in 且默认关闭（ZDR 页 Default behavior 段：Model training is a separate opt-in and is off by default；privacy-and-security 页 Model training 开关 Off by default）。注意 opt-in 的对象是「models released by Together AI and partners」"
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
-text_zh = "并列保留的反向事实：默认档（未开 ZDR）会存储 prompt/output 且可能用于产品改进，退出方式是组织级 Prompt storage 开关（2026-11-03 快照起由 Store prompts and model responses 改名）。按本仓口径「改进服务」算训练，但在 Together 这里「模型训练」与「产品改进」是明写的两个独立设置——本维度 mark=yes 的依据只是 Training 条那句把模型训练明确挡在同意之外的表述。"
+text = "When prompt storage is on, Together stores your prompts and model responses and may use them for product improvements."
+text_zh = "并列保留的反向事实：只有开启 prompt storage 时才会存储 prompt/output 且可能用于产品改进；新组织默认 prompt storage 关闭（即默认 ZDR），退出方式是关闭组织级 Prompt storage 开关。按本仓口径「改进服务」算训练，但在 Together 这里「模型训练」与「产品改进」是明写的两个独立设置——本维度 mark=yes 的依据是 Model training 那句把模型训练明确限定在显式同意之下的表述。"
 anchor = "togetherai-zdr-doc-default-storage"
 
 [[product.training.point]]
-text = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
-text_zh = "组织级存储开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR（同时连带关闭 passthrough 模型）。"
-anchor = "togetherai-privsec-store-toggle-default-on"
+text = "**Prompt storage:** Off by default for new organizations. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
+text_zh = "组织级存储开关的新默认值：仅对新组织默认关闭（即新组织默认已开 ZDR）；开启它会存储 prompt/output 用于产品改进，关掉它才等于开启 ZDR（同时连带关闭 passthrough 模型）。已有组织若仍开着 prompt storage，需要关掉它才启用 ZDR。"
+anchor = "togetherai-privsec-store-toggle-default-off"
 
 [[product.training.point]]
 text = "The Company may monitor your use of the Services to assess compliance with this Agreement and the quality of operations of the Services and to make improvements to the Services."
@@ -65,20 +65,21 @@ text_zh = "consumer_privacy 层《Privacy Policy》§2.2 用途清单首项同�
 anchor = "togetherai-privacy-2-2-improve-services"
 
 [[product.training.point]]
-text_zh = "passthrough 模型走上游 provider 政策，见 zdr 与 retention 的 passthrough 锚点。"
+text_zh = "passthrough 模型走上游 provider 政策；并且仅当 prompt storage 开启时才能启用 passthrough——新组织默认 prompt storage 关闭，故 passthrough 默认不可用。"
 
 [product.zdr]
 mark = "yes"
-mode = "opt_in"
+mode = "default"
 anchor = "togetherai-zdr-doc-org-level-zdr"
 
 [[product.zdr.point]]
-text_zh = "同顶层 zdr。自助开关、默认关闭、覆盖请求内容不覆盖元数据与上传文件"
+text_zh = "自助开关；文档称 Together AI 对新组织默认启用 ZDR（新组织 Prompt storage 默认关闭），已有组织可在组织设置中关闭 Prompt storage 启用。覆盖请求内容，不覆盖请求元数据与显式上传文件。"
+anchor = "togetherai-zdr-doc-enable-existing-orgs"
 
 [[product.zdr.point]]
-text = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
-text_zh = "开关的默认值是 on：默认即存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR——zdr=opt_in 的「默认非零保留」这一侧。"
-anchor = "togetherai-privsec-store-toggle-default-on"
+text = "**Prompt storage:** Off by default for new organizations. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
+text_zh = "组织级存储开关的新默认值：仅对新组织默认关闭（即新组织默认已开 ZDR）；开启它会存储 prompt/output 并用于产品改进，关掉它才等于开启 ZDR——这是已有组织从「默认非零保留」转入零保留的入口。"
+anchor = "togetherai-privsec-store-toggle-default-off"
 
 [[product.zdr.point]]
 text = "The **account** setting applies only to traffic you send under your personal account when it isn’t attached to an organization. The **organization** setting governs all traffic sent under that organization’s projects and API keys, regardless of which member makes the request."
@@ -90,10 +91,12 @@ text_zh = "前置条件：Limited 档组织必须先添加支付方式才能修�
 anchor = "togetherai-privsec-limited-tier"
 
 [[product.zdr.point]]
-text_zh = "开启后 passthrough 模型自动关闭"
+text = "Turning off prompt storage also turns off passthrough models, because passthrough requires retained prompts. Non-passthrough models keep working as normal."
+text_zh = "关闭 prompt storage（即开启 ZDR）会连带关闭 passthrough 模型，因为 passthrough 依赖被保留的 prompt；非 passthrough 模型照常工作。"
+anchor = "togetherai-zdr-doc-passthrough-requires-storage"
 
 [[product.zdr.point]]
-text_zh = "不追溯已处理数据。"
+text_zh = "只对启用后的请求生效，不追溯已处理数据；更早存储的数据需在设置中删除或联系隐私团队。"
 
 [product.retention]
 object = "mixed"
@@ -101,7 +104,7 @@ basis = "as_needed"
 anchor = "togetherai-privsec-default-storage"
 
 [[product.retention.point]]
-text_zh = "同顶层 retention：默认存储 prompt/output 且无期限、用户可随时删除"
+text_zh = "新组织默认即 ZDR：prompt/output 默认不存储；仅当开启 prompt storage 时才存储（无固定期限，用户可随时删除）。"
 
 [[product.retention.point]]
 text_zh = "开 ZDR 后不落盘（仅经易失内存与临时缓存）"
@@ -182,13 +185,13 @@ text_zh = "本档没有专属的数据使用条款，结论建立在组织级隐
 anchor = "togetherai-privacy-1-service-scope"
 
 [[product.training.point]]
-text = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+text = "Model training is a separate opt-in and is off by default. Together uses your data for training only with your explicit consent."
 text_zh = "docs 的这句写在 ZDR 页的 Default behavior 节，语境是组织级隐私设置，未把 dedicated endpoints 排除在外。"
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
-text_zh = "并列保留的反向事实：未开 ZDR 时 prompt/output 默认被存储且可用于产品改进，退出方式是组织级存储开关。"
+text = "When prompt storage is on, Together stores your prompts and model responses and may use them for product improvements."
+text_zh = "并列保留的反向事实：只有开启 prompt storage 时才会存储 prompt/output 且可用于产品改进；新组织默认 prompt storage 关闭（默认 ZDR），退出方式是关闭组织级存储开关。"
 anchor = "togetherai-zdr-doc-default-storage"
 
 [[product.training.point]]
@@ -213,7 +216,7 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text_zh = "ZDR 页把「dedicated endpoints + VPC」列为满足 data-residency / 合规要求的另一条路径（与 ZDR 开关并列，而非同一机制），未说明二者能否叠加、也未说明 dedicated 部署是否默认不保留请求内容。故 dedicated 档的 ZDR 状态在公开文档里无法判定。"
+text_zh = "ZDR 页（2026-11-23 快照）称 Together AI 对新组织默认启用 ZDR（新组织 Prompt storage 默认关闭），但该页把「dedicated endpoints + VPC」列为满足 data-residency / 合规要求的另一条路径（与组织级 ZDR 开关并列，而非同一机制），仍未说明 dedicated 部署是否适用该默认、二者能否叠加、也未说明 dedicated 部署是否默认不保留请求内容。故 dedicated 档的 ZDR 状态在公开文档里仍无法判定。"
 
 [product.retention]
 object = "input_output"
@@ -263,7 +266,7 @@ mode = "default"
 anchor = "togetherai-zdr-doc-training-optin"
 
 [[product.training.point]]
-text = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+text = "Model training is a separate opt-in and is off by default. Together uses your data for training only with your explicit consent."
 text_zh = "训练是独立的组织级 opt-in 且默认关闭；这句是无条件表述，未把上传的微调数据排除在「your data」之外。"
 anchor = "togetherai-zdr-doc-training-optin"
 
@@ -273,8 +276,8 @@ text_zh = "训练 opt-in 开关的对象是「your organization’s data」用�
 anchor = "togetherai-privsec-org-toggle-training"
 
 [[product.training.point]]
-text = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
-text_zh = "并列保留的反向事实：未开 ZDR 时 prompt/output 默认被存储且可用于产品改进，退出方式是组织级存储开关。"
+text = "When prompt storage is on, Together stores your prompts and model responses and may use them for product improvements."
+text_zh = "并列保留的反向事实：只有开启 prompt storage 时才会存储 prompt/output 且可用于产品改进；新组织默认 prompt storage 关闭（默认 ZDR），退出方式是关闭组织级存储开关。"
 anchor = "togetherai-zdr-doc-default-storage"
 
 [[product.training.point]]
@@ -292,7 +295,7 @@ mark = "no"
 anchor = "togetherai-zdr-doc-uploaded-files"
 
 [[product.zdr.point]]
-text_zh = "ZDR 明确只覆盖请求内容，显式上传的微调/batch 文件被单独列为「Together still retains」的对象，故本档拿不到零保留：上传即持久化，直到客户自己删除。"
+text_zh = "ZDR（2026-11-23 快照起对新组织默认开启）明确只覆盖请求内容，显式上传的微调/batch 文件被单独列为「Together still retains」的对象，故本档拿不到零保留：上传即持久化，直到客户自己删除。"
 
 [product.retention]
 object = "input_output"
@@ -333,32 +336,32 @@ source_id = "bf810626889572be"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "pports zero data retention (ZDR) at the organization level. "
-exact = "With ZDR enabled, the prompts you send and the outputs models return are not stored by Together, and are not used for any secondary purpose."
+prefix = ""
+exact = "Together AI enables zero data retention (ZDR) by default for new organizations. With ZDR enabled, the prompts you send and the outputs models return are not stored by Together, and are not used for any secondary purpose."
 suffix = """
 
 
 ## Enable ZDR
 
-ZDR is not enabled by default. To enable it"""
+If your organization has prompt storage turned on, turn it off to enable ZDR."""
 
 [[anchor]]
-id = "togetherai-zdr-doc-not-default"
+id = "togetherai-zdr-doc-enable-existing-orgs"
 source_id = "bf810626889572be"
 topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
-and are not used for any secondary purpose.
+Together AI enables zero data retention (ZDR) by default for new organizations. With ZDR enabled, the prompts you send and the outputs models return are not stored by Together, and are not used for any secondary purpose.
 
 ## Enable ZDR
 
 """
-exact = "ZDR is not enabled by default. To enable it:"
+exact = "If your organization has prompt storage turned on, turn it off to enable ZDR."
 suffix = """
 
 
-1.   Open the **Privacy** section of [Organization Setting"""
+1.   Go to the **Privacy** section of Organization Settings."""
 
 [[anchor]]
 id = "togetherai-zdr-doc-zdr-scope"
@@ -367,7 +370,7 @@ topics = ["retention", "zdr"]
 
 [anchor.selector]
 prefix = """
-dled under that provider’s own policy.
+Together uses your data for training only with your explicit consent.
 
 ## What ZDR covers
 
@@ -397,13 +400,9 @@ topics = ["retention", "training"]
 
 [anchor.selector]
 prefix = """
-organization setting is what applies.
-
-## Default behavior
-
-"""
-exact = "Unless your organization enables ZDR, Together stores the prompts you send and the responses models return, and may use them for product improvements."
-suffix = " This data will never be shared with third parties, and you "
+New organizations start with ZDR enabled and **Prompt storage** turned off. Passthrough models are unavailable while prompt storage is off. """
+exact = "When prompt storage is on, Together stores your prompts and model responses and may use them for product improvements."
+suffix = " Together does not share this stored data with third parties, and you can delete it at any time."
 
 [[anchor]]
 id = "togetherai-zdr-doc-training-optin"
@@ -411,28 +410,29 @@ source_id = "bf810626889572be"
 topics = ["training"]
 
 [anchor.selector]
-prefix = "training models is a separate opt-in and is off by default. "
-exact = "Together does not train on your data without your explicit consent, whether or not ZDR is enabled."
+prefix = "Together does not share this stored data with third parties, and you can delete it at any time. "
+exact = "Model training is a separate opt-in and is off by default. Together uses your data for training only with your explicit consent."
 suffix = """
 
-*   **Passthrough models:** Models that forward requests to"""
+## What ZDR covers"""
 
 [[anchor]]
-id = "togetherai-zdr-doc-passthrough-upstream"
+id = "togetherai-zdr-doc-passthrough-requires-storage"
 source_id = "bf810626889572be"
-topics = ["retention", "training"]
+topics = ["zdr", "retention"]
 
 [anchor.selector]
 prefix = """
- whether or not ZDR is enabled.
-*   **Passthrough models:** """
-exact = "Models that forward requests to a third-party provider are allowed by default. Data sent to them is handled under that provider’s own policy."
+1.   Go to the **Privacy** section of Organization Settings.
+
+2.   Turn off **Prompt storage**.
+
+"""
+exact = "Turning off prompt storage also turns off passthrough models, because passthrough requires retained prompts. Non-passthrough models keep working as normal."
 suffix = """
 
 
-## What ZDR covers
-
-With ZDR enabled, the content you subm"""
+ZDR applies only to requests sent after you enable it."""
 
 [[anchor]]
 id = "togetherai-zdr-doc-uploaded-files"
@@ -441,7 +441,7 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = """
-w.together.ai/privacy).
+handled per the privacy policy.
 *   **Data you explicitly upload:** """
 exact = "Files you upload for [fine-tuning](https://docs.together.ai/docs/fine-tuning/quickstart) or the [batch API](https://docs.together.ai/docs/inference/batch/overview) are stored so your jobs can run, and remain stored until you [delete them](https://docs.together.ai/reference/delete-files-id) through the API, CLI, or web console."
 suffix = """
@@ -488,13 +488,16 @@ topics = ["retention", "training"]
 
 [anchor.selector]
 prefix = """
-residency and private networking.
+How Together handles your inputs, outputs, and account data, plus enterprise options for data residency and private networking.
 
 ## What Together stores
 
 """
-exact = "By default, Together stores the prompts you send and the responses models return, and may use them for product improvements. This data is not shared with third parties, and you can delete it at any time."
-suffix = " Organization admins can turn storage off in privacy setting"
+exact = "New organizations start with zero data retention (ZDR) enabled. When prompt storage is on, Together stores your prompts and model responses and may use them for product improvements. Together does not share this stored data with third parties, and you can delete it at any time."
+suffix = """
+
+
+## Training opt-in"""
 
 [[anchor]]
 id = "togetherai-privsec-training-optin-off"
@@ -503,7 +506,7 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = """
- enable it, and what Together retains.
+Together does not share this stored data with third parties, and you can delete it at any time.
 
 ## Training opt-in
 
@@ -518,7 +521,7 @@ topics = ["training"]
 
 [anchor.selector]
 prefix = """
-- **Passthrough models:** On by default. Allows your organization to use models that forward prompts and responses to third-party providers. Passthrough requires prompt storage, so you can’t turn this toggle on while prompt storage is off.
+- **Passthrough models:** Allows models that forward prompts and responses to third-party providers. You can turn on passthrough models only while prompt storage is on.
 """
 exact = "**Model training:** Off by default. Allows your organization’s data to be used for training models released by Together AI and partners."
 suffix = """
@@ -606,16 +609,16 @@ Account vs. organization settings
 You may see a privac"""
 
 [[anchor]]
-id = "togetherai-privsec-store-toggle-default-on"
+id = "togetherai-privsec-store-toggle-default-off"
 source_id = "a8bf24d0415e4675"
 topics = ["zdr", "retention", "training"]
 
 [anchor.selector]
 prefix = "Only organization admins can change the three toggles in the **Privacy** section of Organization Settings:\n\n- "
-exact = "**Prompt storage:** On by default. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
+exact = "**Prompt storage:** Off by default for new organizations. Stores prompts and model responses for product improvements. Turn it off to enable ZDR, which also turns off passthrough models."
 suffix = """
 
-- **Passthrough models:** On by default."""
+- **Passthrough models:** Allows models that forward prompts and responses"""
 
 [[anchor]]
 id = "togetherai-privsec-account-vs-org-scope"
