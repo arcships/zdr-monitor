@@ -71,8 +71,8 @@ text = "Model-level abuse detection on top of the above: for OpenAI GPT models, 
 text_zh = "其上叠加的模型级滥用检测：OpenAI GPT 被分类器标记的流量为自动化离线滥用检测最多保留 30 天。"
 anchor = "kiro-model-abuse"
 [[product.retention.point]]
-text = "Second model-level case: for Anthropic Claude Fable 5.1 all traffic — not only classifier-flagged traffic — is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
-text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 是全量流量（不只是被标记流量）最多 30 天，且被标记流量可能由 AWS 人工审查。"
+text = "Second model-level case: for Anthropic Claude Fable 5.2 and Claude Fable 5.1 all traffic — not only classifier-flagged traffic — is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.2 与 Claude Fable 5.1 是全量流量（不只是被标记流量）最多 30 天，且被标记流量可能由 AWS 人工审查。"
 anchor = "kiro-fable-abuse"
 [[product.retention.point]]
 text = "Opting out of service improvement does not affect abuse-detection storage: the Free Tier 60-day input retention still applies after opt-out."
@@ -89,17 +89,21 @@ text_zh = "代码索引与缓存期限未披露。"
 codes = ["US"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers use the US endpoint."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者使用 US endpoint。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers follow the US profile column."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者按 US profile 列处理。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
-text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
-text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
+text = "Model-scoped routing rather than a tier switch: the models page resolves routing per profile column, and a cell says Global where that model uses Global routing; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected (Global cross-region inference in the data-protection page)."
+text_zh = "按模型而非按档位切换的路由：models 页按 profile 列逐项给出路由，使用 Global routing 的模型在对应 cell 标 Global；启用 Global routing 时，请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响（见 data-protection 页 Global cross-region inference）。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Why this tier still reads US: the only models marked Global scope are GPT-5.6 Sol/Terra/Luna, and the models page's Quick comparison lists none of them on Free; every model offered on Free is Geography scope, so requests stay within the US endpoint geography."
-text_zh = "本档为何仍记 US：标为 Global scope 的只有 GPT-5.6 Sol/Terra/Luna，而 models 页 Quick comparison 在 Free 一列没有任何一个；Free 可用的模型都是 Geography scope，请求因此留在 US endpoint geography 内。"
-anchor = "kiro-models-gpt56-availability"
+text = "Why this tier reads US: Free Tier users follow the US profile column, and in the per-profile table every model's US profile cell is US — Global appears only in the EU profile column (Auto and GPT-5.6) and a dash means the model is not offered on that profile — so no request from the US profile is routed globally."
+text_zh = "本档记 US 的理由：Free Tier 用户按 US profile 列处理，而按 profile 表中每个模型的 US profile cell 都是 US——Global 只出现在 EU profile 列（Auto 与 GPT-5.6），破折号表示该 profile 不提供此模型——因此 US profile 的请求不会被路由到全球。"
+anchor = "kiro-models-us-profile-table"
+[[product.processing_region.point]]
+text = "Free column of the Quick comparison, read across the whole table: checked for Claude Sonnet 4.5, Claude Sonnet 4.0, Auto, DeepSeek 3.2, MiniMax M2.5, GLM-5, MiniMax M2.1 and Qwen3 Coder Next; unchecked for GPT-5.6 Sol/Terra/Luna, Claude Fable 5.2/5.1, Claude Opus 5.5/5/4.8/4.7/4.6/4.5, Claude Sonnet 5.5/5/4.6, Claude Haiku 5.5/4.5, Grok 4.7 and Kimi K3."
+text_zh = "models 页 Quick comparison 的 Free 列（按整表读）：Claude Sonnet 4.5、Claude Sonnet 4.0、Auto、DeepSeek 3.2、MiniMax M2.5、GLM-5、MiniMax M2.1、Qwen3 Coder Next 勾选；GPT-5.6 Sol/Terra/Luna、Claude Fable 5.2/5.1、Claude Opus 5.5/5/4.8/4.7/4.6/4.5、Claude Sonnet 5.5/5/4.6、Claude Haiku 5.5/4.5、Grok 4.7、Kimi K3 未勾选。"
+anchor = "kiro-models-free-availability"
 [[product.processing_region.point]]
 text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro Free Tier in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
 text_zh = "与 codes=[\"US\"] 并列阅读的合同层张力：§50.3(c) 允许 AWS 把 Kiro Free Tier 的 AI Content 存到使用地以外的 AWS Region，但仅限于 §50.3(a)-(b) 所述的开发与改进目的。"
@@ -150,27 +154,35 @@ text = "Model-level exception: for OpenAI GPT models, classifier-flagged traffic
 text_zh = "模型级例外：OpenAI GPT 被分类器标记的流量最多保留 30 天；未被标记的流量以及清单外的模型都没有公布期限。"
 anchor = "kiro-model-abuse"
 [[product.retention.point]]
-text = "Second model-level case: for Anthropic Claude Fable 5.1 all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
-text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
+text = "Second model-level case: for Anthropic Claude Fable 5.2 and Claude Fable 5.1 all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.2 与 Claude Fable 5.1 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
 anchor = "kiro-fable-abuse"
 [[product.retention.point]]
 text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detection to Kiro use, including retention and potential human review of inputs and outputs when certain models are selected; §50.12.2 puts a 30-day upper bound (with the \"unless otherwise required by law\" carve-out) on the inputs and outputs of certain models only."
 text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查；§50.12.2 只对「特定模型」的输入输出给出 30 天上限，并带「unless otherwise required by law」例外。"
 anchor = "aws-kiro-50-14-2"
 [product.processing_region]
-codes = ["US", "global"]
+codes = ["US"]
 anchor = "kiro-individual-region"
 [[product.processing_region.point]]
-text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers use the US endpoint."
-text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者使用 US endpoint。"
+text = "Default for this tier: content is stored in US East (N. Virginia), and the models page states that Free Tier users and individual subscribers follow the US profile column."
+text_zh = "本档默认：内容存储在 US East (N. Virginia)；models 页说明 Free Tier 与 individual 订阅者按 US profile 列处理。"
 anchor = "kiro-models-us-default"
 [[product.processing_region.point]]
-text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
-text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
+text = "Model-scoped routing rather than a tier switch: the models page resolves routing per profile column, and a cell says Global where that model uses Global routing; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected (Global cross-region inference in the data-protection page)."
+text_zh = "按模型而非按档位切换的路由：models 页按 profile 列逐项给出路由，使用 Global routing 的模型在对应 cell 标 Global；启用 Global routing 时，请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响（见 data-protection 页 Global cross-region inference）。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Why codes also carries global for this tier: the models page marks the three GPT-5.6 models (Sol/Terra/Luna) Global scope, and its Quick comparison offers them on Pro, Pro+, Pro Max and Power — the paid individual subscription tiers — so requests on those models may be processed across commercial AWS Regions worldwide, outside the US endpoint geography."
-text_zh = "本档 codes 另记 global 的原因：models 页把三个 GPT-5.6 模型（Sol/Terra/Luna）标为 Global scope，且 Quick comparison 把它们列在 Pro、Pro+、Pro Max、Power（付费 individual 订阅档），因此这些模型的请求可能在美国 endpoint geography 之外的全球商业 AWS Region 处理。"
+text = "Why this tier no longer carries global: Free Tier users and individual subscribers follow the US profile column, and in the per-profile table every model's US profile cell is US (Global appears only in the EU profile column for Auto and GPT-5.6), so no model available to individual subscribers routes globally."
+text_zh = "本档不再记 global 的理由：Free Tier 用户与 individual 订阅者按 US profile 列处理，而按 profile 表中每个模型的 US profile 列都是 US（Global 只出现在 EU profile 列的 Auto 与 GPT-5.6），因此 individual 订阅者可用的模型都不会路由到全球。"
+anchor = "kiro-models-us-profile-table"
+[[product.processing_region.point]]
+text = "Routing of the models that previously drove the global entry: in the per-profile table GPT-5.6 Sol/Terra/Luna are US on the US profile and Global on the EU profile, so their Global cells apply only to the profile individual subscribers do not use."
+text_zh = "旧 global 条目所涉模型的路由：按 profile 表中 GPT-5.6 Sol/Terra/Luna 在 US profile 为 US、在 EU profile 为 Global，因此其 Global cell 只适用于 individual 订阅者不使用的 profile。"
+anchor = "kiro-models-gpt56-routing"
+[[product.processing_region.point]]
+text = "Those three models are offered on the paid individual tiers: the Quick comparison marks GPT-5.6 Sol/Terra/Luna on Pro, Pro+, Pro Max and Power and leaves the Free column unchecked."
+text_zh = "这三个模型在付费 individual 档提供：Quick comparison 在 Pro、Pro+、Pro Max、Power 列勾选 GPT-5.6 Sol/Terra/Luna，Free 列未勾选。"
 anchor = "kiro-models-gpt56-availability"
 [[product.processing_region.point]]
 text = "Contract-layer tension to read alongside codes=[\"US\"]: §50.3(c) allows AWS to store AI Content processed by Kiro individual subscribers in an AWS region outside of the AWS region where the AI Service is used, solely in connection with the development and improvement in §50.3(a)-(b)."
@@ -208,7 +220,7 @@ object = "mixed"
 basis = "undisclosed"
 searched = ["https://kiro.dev/docs/privacy-and-security/data-protection/", "https://kiro.dev/docs/web/data-protection", "https://kiro.dev/docs/models", "https://aws.amazon.com/service-terms/"]
 [[product.retention.point]]
-text_zh = "一般内容及客户 S3 日志期限由文档/客户配置未披露；GPT 标记流量与 Fable 5.1 流量最长 30 天。代码索引/缓存期限未披露。"
+text_zh = "一般内容及客户 S3 日志期限由文档/客户配置未披露；GPT 标记流量与 Fable 5.2/5.1 全量流量最长 30 天。代码索引/缓存期限未披露。"
 [[product.retention.point]]
 text = "Contract layer deletion commitment: following closure of your AWS account, AWS will delete Your Content in accordance with the technical documentation applicable to the Services. Context = after account closure, object = Your Content; the period type is delegated to technical documentation and is therefore undisclosed — this is not a 60/30-day style retention period."
 text_zh = "合同层的删除承诺：AWS 账户注销后，AWS 会按适用于该服务的技术文档删除 Your Content。语境＝账号注销后，对象＝Your Content；期限类型交给技术文档，等于未披露——不是 60/30 天那样的留存期限。"
@@ -218,25 +230,29 @@ text = "Contract layer, not tier-specific: §50.14.2 applies Bedrock abuse detec
 text_zh = "合同层（不限档位）：§50.14.2 让 Bedrock 滥用检测适用于 Kiro，含选择特定模型时对输入输出的留存与可能的人工审查；§50.12.2 只对「特定模型」的输入输出给出 30 天上限，并带「unless otherwise required by law」例外。"
 anchor = "aws-kiro-50-14-2"
 [[product.retention.point]]
-text = "Second model-level case: for Anthropic Claude Fable 5.1 all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
-text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
+text = "Second model-level case: for Anthropic Claude Fable 5.2 and Claude Fable 5.1 all traffic is retained up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.2 与 Claude Fable 5.1 全量流量最多 30 天，且被标记流量可能由 AWS 人工审查。"
 anchor = "kiro-fable-abuse"
 [product.processing_region]
 codes = ["selected", "global"]
 anchor = "kiro-enterprise-storage"
 [[product.processing_region.point]]
-text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，标记为 Global inference scope 的模型可在全球商业 AWS Regions 推理。"
+text_zh = "存储可在 profile Region；常规模型在 geography 内跨区推理，对应 profile 列标为 Global 的模型可在全球商业 AWS Regions 推理。"
 [[product.processing_region.point]]
-text = "Which endpoint serves a request depends on the model's inference scope and the Kiro profile Region: GPT-5.6 Sol/Terra/Luna are marked Global scope (requests may route across commercial AWS Regions worldwide) with US listed as the endpoint for both the US and EU profiles; Claude Fable 5.1 is Geography scope with US only and no entry for the EU profile; every other listed model is Geography scope and served from the geography that matches the profile."
-text_zh = "由哪个 endpoint 服务取决于模型的 inference scope 与 Kiro profile Region：GPT-5.6 Sol/Terra/Luna 标记为 Global scope（请求可能路由到全球商业 AWS Region），US/EU 两个 profile 的 endpoint 都列为 US；Claude Fable 5.1 为 Geography scope，仅 US，EU profile 无条目；其余模型为 Geography scope，按 profile 所在的 geography 服务。"
+text = "Which endpoint serves a request is resolved per model and per Kiro profile: the models page's Inference endpoint regions table is the source of truth for model routing, and each profile column shows where requests from that Kiro profile are processed (US profile = US East N. Virginia, EU profile = Europe Frankfurt)."
+text_zh = "由哪个 endpoint 服务按模型和 Kiro profile 逐项决定：models 页的 Inference endpoint regions 表是模型路由的 source of truth，每个 profile 列给出该 profile 的请求在哪里处理（US profile＝US East N. Virginia，EU profile＝Europe Frankfurt）。"
 anchor = "kiro-models-geography"
 [[product.processing_region.point]]
-text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
-text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
+text = "Per-profile routing in that table: GPT-5.6 Sol/Terra/Luna are US on the US profile and Global on the EU profile; Claude Fable 5.2 and Claude Fable 5.1 are US on the US profile and not offered on the EU profile; Auto is US on the US profile and Global on the EU profile; Grok 4.7, Kimi K3, DeepSeek 3.2 and GLM-5 are not offered on the EU profile; the remaining Claude, MiniMax and Qwen models are US on the US profile and EU on the EU profile."
+text_zh = "该表的逐 profile 路由：GPT-5.6 Sol/Terra/Luna 在 US profile 为 US、在 EU profile 为 Global；Claude Fable 5.2 与 Claude Fable 5.1 在 US profile 为 US、EU profile 不提供；Auto 在 US profile 为 US、EU profile 为 Global；Grok 4.7、Kimi K3、DeepSeek 3.2、GLM-5 在 EU profile 不提供；其余 Claude、MiniMax、Qwen 模型在 US profile 为 US、EU profile 为 EU。"
+anchor = "kiro-models-us-profile-table"
+[[product.processing_region.point]]
+text = "Model-scoped routing rather than a tier switch: the models page resolves routing per profile column, and a cell says Global where that model uses Global routing; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected (Global cross-region inference in the data-protection page)."
+text_zh = "按模型而非按档位切换的路由：models 页按 profile 列逐项给出路由，使用 Global routing 的模型在对应 cell 标 Global；启用 Global routing 时，请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响（见 data-protection 页 Global cross-region inference）。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Models page states the same scope: its Inference scope legend defines Global as covering supported commercial AWS Regions worldwide, including outside the endpoint geography, and it notes that cross-region inference, including global routing, does not change where Kiro stores your data."
-text_zh = "models 页同旨：其 Inference scope 图例把 Global 定义为覆盖全球商业 AWS Regions（包括 endpoint geography 之外），并说明跨区推理（含 global routing）不改变 Kiro 的数据存储地。"
+text = "Models page legend: a Global cell means that model uses Global routing and refers to the Global cross-region inference disclosure; US or EU cells stay within that geography, and a dash means the model is not offered on that profile."
+text_zh = "models 页图例：标 Global 表示该模型使用 Global routing，并指向 Global cross-region inference 的完整说明；US/EU 表示留在该 geography 内，破折号表示该 profile 不提供此模型。"
 anchor = "kiro-models-experimental-global"
 [product.role]
 kind = "processor"
@@ -274,8 +290,8 @@ text = "Object and model scope of the published 30 days: for OpenAI GPT models o
 text_zh = "已公布 30 天的对象与模型范围：只针对 OpenAI GPT 模型、且只有被分类器标记的流量，为自动化离线滥用检测最多保留 30 天；未被标记的流量没有公布期限，其他模型也不在这句的范围内。"
 anchor = "kiro-model-abuse"
 [[product.retention.point]]
-text = "Second model-level case: for Anthropic Claude Fable 5.1 all traffic — not only classifier-flagged traffic — is retained for up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
-text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.1 是全量流量（不只是被标记流量）最多保留 30 天，且被标记流量可能由 AWS 人工审查。"
+text = "Second model-level case: for Anthropic Claude Fable 5.2 and Claude Fable 5.1 all traffic — not only classifier-flagged traffic — is retained for up to 30 days, and classifier-flagged traffic is subject to potential human review performed by AWS."
+text_zh = "模型级的第二种情形：Anthropic Claude Fable 5.2 与 Claude Fable 5.1 是全量流量（不只是被标记流量）最多保留 30 天，且被标记流量可能由 AWS 人工审查。"
 anchor = "kiro-fable-abuse"
 [[product.retention.point]]
 text = "Period type and scope at the contract layer: §50.12.2 covers only \"certain models identified on the Bedrock abuse detection page\", states an upper bound of 30 days on Service inputs and outputs with the clause's own carve-out \"unless otherwise required by law\", and allows AWS to review inputs and outputs on a suspected violation."
@@ -289,16 +305,20 @@ anchor = "aws-kiro-50-14-2"
 codes = ["selected", "global"]
 anchor = "kiro-bedrock"
 [[product.processing_region.point]]
-text = "Which endpoint serves a request depends on the model's inference scope and the Kiro profile Region: GPT-5.6 Sol/Terra/Luna are marked Global scope (requests may route across commercial AWS Regions worldwide) with US listed as the endpoint for both the US and EU profiles; Claude Fable 5.1 is Geography scope with US only and no entry for the EU profile; every other listed model is Geography scope and served from the geography that matches the profile."
-text_zh = "由哪个 endpoint 服务取决于模型的 inference scope 与 Kiro profile Region：GPT-5.6 Sol/Terra/Luna 标记为 Global scope（请求可能路由到全球商业 AWS Region），US/EU 两个 profile 的 endpoint 都列为 US；Claude Fable 5.1 为 Geography scope，仅 US，EU profile 无条目；其余模型为 Geography scope，按 profile 所在的 geography 服务。"
+text = "Which endpoint serves a request is resolved per model and per Kiro profile: the models page's Inference endpoint regions table is the source of truth for model routing, and each profile column shows where requests from that Kiro profile are processed (US profile = US East N. Virginia, EU profile = Europe Frankfurt)."
+text_zh = "由哪个 endpoint 服务按模型和 Kiro profile 逐项决定：models 页的 Inference endpoint regions 表是模型路由的 source of truth，每个 profile 列给出该 profile 的请求在哪里处理（US profile＝US East N. Virginia，EU profile＝Europe Frankfurt）。"
 anchor = "kiro-models-geography"
 [[product.processing_region.point]]
-text = "Model-scoped routing rather than a tier switch: some Kiro models and capabilities use global cross-region inference; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected. The models page marks each model's inference scope as Global or Geography."
-text_zh = "按模型而非按档位切换的路由：部分 Kiro 模型与能力使用全球跨区推理，启用 Global routing 时其请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响。models 页以 Inference scope（Global 或 Geography）逐模型标注。"
+text = "Per-profile routing in that table: GPT-5.6 Sol/Terra/Luna are US on the US profile and Global on the EU profile; Claude Fable 5.2 and Claude Fable 5.1 are US on the US profile and not offered on the EU profile; Auto is US on the US profile and Global on the EU profile; Grok 4.7, Kimi K3, DeepSeek 3.2 and GLM-5 are not offered on the EU profile; the remaining Claude, MiniMax and Qwen models are US on the US profile and EU on the EU profile."
+text_zh = "该表的逐 profile 路由：GPT-5.6 Sol/Terra/Luna 在 US profile 为 US、在 EU profile 为 Global；Claude Fable 5.2 与 Claude Fable 5.1 在 US profile 为 US、EU profile 不提供；Auto 在 US profile 为 US、EU profile 为 Global；Grok 4.7、Kimi K3、DeepSeek 3.2、GLM-5 在 EU profile 不提供；其余 Claude、MiniMax、Qwen 模型在 US profile 为 US、EU profile 为 EU。"
+anchor = "kiro-models-us-profile-table"
+[[product.processing_region.point]]
+text = "Model-scoped routing rather than a tier switch: the models page resolves routing per profile column, and a cell says Global where that model uses Global routing; when Global routing applies, requests may be processed in supported commercial AWS Regions worldwide, including Regions outside the Kiro profile's geography, while the storage Region is unaffected (Global cross-region inference in the data-protection page)."
+text_zh = "按模型而非按档位切换的路由：models 页按 profile 列逐项给出路由，使用 Global routing 的模型在对应 cell 标 Global；启用 Global routing 时，请求可能在支持范围内的全球商业 AWS Region 处理，包括 profile geography 之外；存储地不受影响（见 data-protection 页 Global cross-region inference）。"
 anchor = "kiro-experimental-global"
 [[product.processing_region.point]]
-text = "Models page states the same scope: its Inference scope legend defines Global as covering supported commercial AWS Regions worldwide, including outside the endpoint geography, and it notes that cross-region inference, including global routing, does not change where Kiro stores your data."
-text_zh = "models 页同旨：其 Inference scope 图例把 Global 定义为覆盖全球商业 AWS Regions（包括 endpoint geography 之外），并说明跨区推理（含 global routing）不改变 Kiro 的数据存储地。"
+text = "Models page legend: a Global cell means that model uses Global routing and refers to the Global cross-region inference disclosure; US or EU cells stay within that geography, and a dash means the model is not offered on that profile."
+text_zh = "models 页图例：标 Global 表示该模型使用 Global routing，并指向 Global cross-region inference 的完整说明；US/EU 表示留在该 geography 内，破折号表示该 profile 不提供此模型。"
 anchor = "kiro-models-experimental-global"
 [[product.processing_region.point]]
 text = "Downstream constraint: model availability varies by country or region, and Kiro's model offerings align with each provider's usage and geographic requirements (OpenAI, Anthropic, MiniMax, Zhipu AI, DeepSeek, Qwen)."
@@ -417,7 +437,7 @@ source_id = "1b5e1c583b858fd5"
 topics = ["retention", "zdr"]
 [anchor.selector]
 prefix = "- "
-exact = "For Anthropic Claude Fable 5.1, all traffic will be retained for up to 30 days (unless otherwise required by law) for automated offline abuse detection."
+exact = "For Anthropic Claude Fable 5.2 and Claude Fable 5.1, all traffic will be retained for up to 30 days (unless otherwise required by law) for automated offline abuse detection."
 suffix = " Classifier-flagged traffic will be subject to potential human review"
 [[anchor]]
 id = "kiro-experimental-global"
@@ -433,7 +453,7 @@ source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "The table below is the source of truth for model routing. **Inference scope** shows whether requests stay within the listed endpoint location or may route globally. The profile columns show the endpoint used for each Kiro profile Region. Lifecycle status and inference routing are independent."
+exact = "The table below is the source of truth for model routing. Each profile column shows where requests from that Kiro profile are processed: **US profile** is a Kiro profile in US East (N. Virginia), and **EU profile** is a Kiro profile in Europe (Frankfurt). **Status** is the model's lifecycle status. Lifecycle status and inference routing are independent."
 suffix = ""
 [[anchor]]
 id = "kiro-models-us-default"
@@ -441,7 +461,7 @@ source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "Profile Region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers use the US endpoint."
+exact = "Profile Region applies to enterprise users who sign in through IAM Identity Center or an external identity provider. Free Tier users and individual subscribers follow the **US profile** column."
 suffix = ""
 [[anchor]]
 id = "kiro-models-experimental-global"
@@ -449,7 +469,7 @@ source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "Across supported commercial AWS Regions worldwide, including outside the endpoint geography."
+exact = "The profile columns use these values: - **US** or **EU:** Within that geography. See Regions in each geography. - **Global:** Uses Global routing. See Global cross-region inference. - **—:** Not offered on that profile."
 suffix = ""
 [[anchor]]
 id = "kiro-models-gpt56-availability"
@@ -457,7 +477,31 @@ source_id = "eeda603304a3f3c4"
 topics = ["processing_region"]
 [anchor.selector]
 prefix = ""
-exact = "| **GPT-5.6 Sol** | 1M | 4.4x* | US, EU | | ✓ | ✓ | ✓ | ✓ |"
+exact = "| Model | Context | Cost | Regions | Free | Pro | Pro+ | Pro Max | Power | | **GPT-5.6 Sol** | 1M | 4.4x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **GPT-5.6 Terra** | 1M | 2.2x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **GPT-5.6 Luna** | 1M | 0.6x* | US, EU | | ✓ | ✓ | ✓ | ✓ |"
+suffix = ""
+[[anchor]]
+id = "kiro-models-gpt56-routing"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "| **GPT-5.6 Sol** | Active | US | Global | | **GPT-5.6 Terra** | Active | US | Global | | **GPT-5.6 Luna** | Active | US | Global |"
+suffix = ""
+[[anchor]]
+id = "kiro-models-free-availability"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "| Model | Context | Cost | Regions | Free | Pro | Pro+ | Pro Max | Power | | **GPT-5.6 Sol** | 1M | 4.4x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **GPT-5.6 Terra** | 1M | 2.2x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **GPT-5.6 Luna** | 1M | 0.6x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Fable 5.2**† | 1M | 6x | US only | | | | | | | **Claude Fable 5.1**† | 1M | 6x | US only | | | | | | | **Claude Opus 5.5** | 1M | 2.0x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Sonnet 5.5** | 1M | 1.3x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Haiku 5.5** | 1M | 0.06x* | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Opus 5** | 1M | 2.2x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Opus 4.8** | 1M | 2.2x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Opus 4.7** | 1M | 2.2x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Opus 4.6** | 1M | 2.2x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Opus 4.5** | 200K | 2.2x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Sonnet 5** | 1M | 1.3x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Sonnet 4.6** | 1M | 1.3x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Claude Sonnet 4.5** | 200K | 1.3x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ | | **Claude Sonnet 4.0** | 200K | 1.3x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ | | **Auto** | — | 1.0x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ | | **Claude Haiku 4.5** | 200K | 0.4x | US, EU | | ✓ | ✓ | ✓ | ✓ | | **Grok 4.7** | 500K | 2.7x* | US | | ✓ | ✓ | ✓ | ✓ | | **Kimi K3** | 1M | 2.4x | US | | ✓ | ✓ | ✓ | ✓ | | **DeepSeek 3.2** | 128K | 0.25x | US | ✓ | ✓ | ✓ | ✓ | ✓ | | **MiniMax M2.5** | 200K | 0.25x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ | | **GLM-5** | 200K | 0.5x | US | ✓ | ✓ | ✓ | ✓ | ✓ | | **MiniMax M2.1** | 200K | 0.15x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ | | **Qwen3 Coder Next** | 256K | 0.05x | US, EU | ✓ | ✓ | ✓ | ✓ | ✓ |"
+suffix = ""
+[[anchor]]
+id = "kiro-models-us-profile-table"
+source_id = "eeda603304a3f3c4"
+topics = ["processing_region"]
+[anchor.selector]
+prefix = ""
+exact = "| Model | Status | US profile | EU profile | | **Auto** | Active | US | Global | | **OpenAI** | | **GPT-5.6 Sol** | Active | US | Global | | **GPT-5.6 Terra** | Active | US | Global | | **GPT-5.6 Luna** | Active | US | Global | | **Anthropic** | | **Claude Fable 5.2** | Experimental | US | — | | **Claude Fable 5.1** | Active | US | — | | **Claude Opus 5.5** | Active | US | EU | | **Claude Sonnet 5.5** | Active | US | EU | | **Claude Haiku 5.5** | Active | US | EU | | **Claude Opus 5** | Active | US | EU | | **Claude Opus 4.8** | Active | US | EU | | **Claude Opus 4.7** | Active | US | EU | | **Claude Opus 4.6** | Active | US | EU | | **Claude Opus 4.5** | Active | US | EU | | **Claude Sonnet 5** | Active | US | EU | | **Claude Sonnet 4.6** | Active | US | EU | | **Claude Sonnet 4.5** | Active | US | EU | | **Claude Sonnet 4.0** | EOL | US | EU | | **Claude Haiku 4.5** | Active | US | EU | | **xAI** | | **Grok 4.7** | Experimental | US | — | | **Open weight** | | **Kimi K3** | Active | US | — | | **DeepSeek 3.2** | Experimental | US | — | | **MiniMax M2.5** | Active | US | EU | | **GLM-5** | Active | US | — | | **MiniMax M2.1** | Experimental | US | EU | | **Qwen3 Coder Next** | Experimental | US | EU |"
 suffix = ""
 [[anchor]]
 id = "kiro-models-availability"
