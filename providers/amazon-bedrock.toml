@@ -27,13 +27,19 @@ note = "AWS Data Processing Addendum 正文(Service Terms §1.14.1 并入)。适
 url = "https://docs.aws.amazon.com/bedrock/latest/userguide/abuse-detection.html"
 channel = "developer_data"
 tier = "core"
-note = "Amazon Bedrock 用户指南「Abuse detection」页。覆盖 api 档的滥用检测保留例外(ZOA 数据安全模型、逐模型 30 天保留、OpenAI 与 Anthropic 模型范围、CSAM 存储与审查、cross-region 保留数据落目标 Region)。#637 快照显示厂商删除了旧的 ZDR 默认不留存句,并把 ZOA 句改为受 model-specific abuse and CSAM detection 约束。"
+note = "Amazon Bedrock 用户指南「Abuse detection」页。覆盖 api 档的滥用检测保留例外(ZOA 数据安全模型、逐模型 30 天保留、OpenAI 与 Anthropic 模型范围、CSAM 存储与审查)。#637 快照显示厂商删除了旧的 ZDR 默认不留存句,并把 ZOA 句改为受 model-specific abuse and CSAM detection 约束。#1409 快照把 EFS ZDR 期限与存储细节移交给 anthropic-efs-enterprise-data-controls 页,并删除句末的 cross-Region 保留数据落点句;该行为现由 Geographic cross-Region inference 页陈述。"
 
 [[source]]
 url = "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html"
 channel = "developer_data"
 tier = "core"
-note = "Amazon Bedrock 用户指南「Data retention」页。覆盖 api 档(Bedrock 托管推理,含 bedrock-runtime 与 bedrock-mantle 端点、Messages/Chat Completions/Responses API)的保留模式与 ZDR 配置机制;不含 Bedrock Marketplace 第三方 endpoint,也不含 Claude Platform on AWS。本轮新发现的 URL(旧仓库与上一轮均未收录)。"
+note = "Amazon Bedrock 用户指南「Data retention」页。覆盖 api 档(Bedrock 托管推理,含 bedrock-runtime 与 bedrock-mantle 端点、Messages/Chat Completions/Responses API)的保留模式与 ZDR 配置机制;不含 Bedrock Marketplace 第三方 endpoint,也不含 Claude Platform on AWS。#1409 快照改写 EFS/EDC 段、删除 cross-Region 保留落点句,并新增「Where retained inputs and outputs are stored」小节。"
+
+[[source]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/anthropic-efs-enterprise-data-controls.html"
+channel = "developer_data"
+tier = "core"
+note = "Bedrock 用户指南「Enterprise Frontier Safeguards and Enterprise Data Controls on Amazon Bedrock (public preview)」页。Data retention 与 abuse detection 两页在 #1409 快照后把 EFS/EDC 的 ZDR 期限、保留内容存储位置与审查方改由本页承载:EFS 合格客户的 ZDR 至少到 2027-06-30;EFS 保留内容存于客户 S3 桶(源 Region),EDC 存于 Amazon 托管存储;加入预览会关闭所选账号/项目的 ZDR;内容在 Amazon 托管存储中 30 天后删除或按桶生命周期规则处理。公开预览页。"
 
 [[source]]
 url = "https://docs.aws.amazon.com/bedrock/latest/userguide/geographic-cross-region-inference.html"
@@ -114,9 +120,14 @@ text_zh = "对需要保留的模型,ZDR 不是自助可得:ZDR 访问按账号�
 anchor = "zdr-eligibility-per-account-model"
 
 [[product.zdr.point]]
-text = "For Claude models that require data retention, ZDR eligibility runs through the Enterprise Frontier Safeguards program: \"ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support.\" This replaces the previous direction to contact an Anthropic account representative."
-text_zh = "对需要保留的 Claude 模型,ZDR 资格走 Enterprise Frontier Safeguards 计划:「ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support.」这取代了原先「联系 Anthropic 客户代表」的说法。"
+text = "For Claude models that require data retention, ZDR eligibility runs through Anthropic Enterprise Frontier Safeguards (EFS): \"If you're eligible for Anthropic Enterprise Frontier Safeguards (EFS), you can get ZDR for certain Claude models that require data retention. If you enroll in EFS or Anthropic Enterprise Data Controls (EDC) without ZDR, or after your ZDR period ends, Amazon Bedrock retains your inputs and outputs for those models. The program's page describes where Amazon Bedrock stores them, for how long, and who reviews them.\" This replaces the earlier wording that said ZDR is granted to customers eligible for the Enterprise Frontier Safeguards program and directed eligibility questions to the AWS account team or AWS Support."
+text_zh = "对需要保留的 Claude 模型,ZDR 资格走 Anthropic Enterprise Frontier Safeguards(EFS):「If you're eligible for Anthropic Enterprise Frontier Safeguards (EFS), you can get ZDR for certain Claude models that require data retention. If you enroll in EFS or Anthropic Enterprise Data Controls (EDC) without ZDR, or after your ZDR period ends, Amazon Bedrock retains your inputs and outputs for those models. The program's page describes where Amazon Bedrock stores them, for how long, and who reviews them.」这取代了原先「合格客户可获得 ZDR、资格问题联系 AWS 客户团队或 AWS Support」的表述。"
 anchor = "zdr-claude-eligibility-frontier-safeguards"
+
+[[product.zdr.point]]
+text = "EFS or EDC enrollment does not by itself make the models that require retention usable with ZDR: \"You must explicitly set your data retention mode to `aws_review`, or to the legacy `provider_data_share`, before you can invoke these models, including when your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC). If your effective mode is `none` or `default`, or if you haven't set a mode, these models will be unavailable. If your account is approved for ZDR on the model, you can also use `none` or `default`.\""
+text_zh = "加入 EFS 或 EDC 本身不会让需要保留的模型在 ZDR 下可用:「You must explicitly set your data retention mode to `aws_review`, or to the legacy `provider_data_share`, before you can invoke these models, including when your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC). If your effective mode is `none` or `default`, or if you haven't set a mode, these models will be unavailable. If your account is approved for ZDR on the model, you can also use `none` or `default`.」"
+anchor = "zdr-efs-enrollment-does-not-bypass-aws-review"
 
 [[product.zdr.point]]
 text = "Operator access is still zero, but the abuse-detection page now qualifies it: \"Amazon Bedrock uses a zero operator access (ZOA) data security model, subject to the model-specific abuse and CSAM detection detailed below.\""
@@ -134,9 +145,19 @@ text_zh = "使审批路径成为必需的模型级例外:Anthropic Claude Fable 
 anchor = "retention-claude-fable-all-traffic-30d"
 
 [[product.zdr.point]]
-text = "The Enterprise Frontier Safeguards (EFS) ZDR window is a floor, not a cutoff: \"If you're eligible for Enterprise Frontier Safeguards (EFS), you can use Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 with zero data retention (ZDR) for internal use through at least June 30, 2027.\" The scope is those three Claude models and internal use. After ZDR ends, all traffic is retained for up to 30 days for automated offline abuse detection."
-text_zh = "Enterprise Frontier Safeguards(EFS)的 ZDR 是下限而非截止日:合格客户可在 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2 上以 ZDR 处理内部用途,「至少」到 2027-06-30。适用范围限于这三个 Claude 模型并按内部用途。ZDR 结束后全部流量会为自动化离线滥用检测保留最多 30 天。"
-anchor = "zdr-frontier-safeguards-through-at-least-2027-06-30"
+text = "The EFS ZDR window is no longer stated on this page; it now defers to the program page: \"If your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC), see the public preview of Enterprise Frontier Safeguards (EFS) and Enterprise Data Controls (EDC) for Anthropic models.\" Before this change the page stated that eligible customers could use Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 with ZDR for internal use through at least June 30, 2027; that sentence has been removed from this page, and the data-retention page did not state that window, so neither of these two pages now states it. The window is now on the EFS/EDC page (next point). ZDR remains conditional on the program, so `mark = yes` / `mode = by_agreement` is unchanged."
+text_zh = "EFS 的 ZDR 期限已不在本页陈述,改为指向计划页:「If your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC), see the public preview of Enterprise Frontier Safeguards (EFS) and Enterprise Data Controls (EDC) for Anthropic models.」此前本页写明合格客户可在 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2 上以 ZDR 处理内部用途、至少到 2027-06-30;该句已从本页删除,而 data-retention 页从未陈述该期限,故这两页现在都不再陈述该期限。期限现由 EFS/EDC 页陈述(见下一条)。ZDR 仍取决于该计划,故 `mark = yes` / `mode = by_agreement` 不变。"
+anchor = "zdr-efs-program-defers-window-and-storage"
+
+[[product.zdr.point]]
+text = "The current EFS ZDR window is now stated on the EFS/EDC page, not on the abuse-detection page: \"Eligible EFS customers can use current Claude Fable models and existing CVP models with ZDR for internal use through at least June 30, 2027.\" The page is a public preview, the scope is current Claude Fable models and existing Cyber Verification Program (CVP) models, for internal use, and the date is again a floor (\"through at least\")."
+text_zh = "现行的 EFS ZDR 期限改由 EFS/EDC 页陈述,不再写在 abuse-detection 页:「Eligible EFS customers can use current Claude Fable models and existing CVP models with ZDR for internal use through at least June 30, 2027.」该页为公开预览,适用范围是当前 Claude Fable 模型与既有的 Cyber Verification Program(CVP)模型,按内部用途,日期同样是下限(「through at least」)。"
+anchor = "zdr-efs-window-through-at-least-2027-06-30"
+
+[[product.zdr.point]]
+text = "Joining the EFS/EDC preview disables ZDR for the added scope: \"Joining the preview turns zero data retention (ZDR) off for the accounts or projects you add, so their content is retained: in your own Amazon S3 bucket with EFS, or in Amazon-managed storage with EDC. Your other accounts keep ZDR.\" ZDR remains available for eligible customers, but joining this preview turns it off for the accounts or projects added to the preview; accounts outside the preview keep ZDR."
+text_zh = "加入 EFS/EDC 预览会关闭所加入范围的 ZDR:「Joining the preview turns zero data retention (ZDR) off for the accounts or projects you add, so their content is retained: in your own Amazon S3 bucket with EFS, or in Amazon-managed storage with EDC. Your other accounts keep ZDR.」ZDR 对合格客户仍可用,但加入该预览会关闭被加入账号或项目的 ZDR;未加入预览的账号仍保持 ZDR。"
+anchor = "zdr-efs-preview-turns-off-zdr"
 
 [product.retention]
 object = "input_output"
@@ -145,8 +166,8 @@ days = 30
 anchor = "retention-abuse-detection-30d-50-12-2"
 
 [[product.retention.point]]
-text = "Object: Bedrock Service inputs and outputs, i.e. request and response bodies. Context: only \"certain models identified on the Bedrock abuse detection page\" — the models listed there for abuse-detection retention (all OpenAI models other than GPT OSS Safeguard 120B, GPT OSS Safeguard 20B, gpt-oss-120b, and gpt-oss-20b; Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2; Enterprise Frontier Safeguards participants after their ZDR ends (no earlier than 2027-06-30)). Period type: an upper bound of 30 days, with the contract's own carve-out \"unless otherwise required by law\". This is the contract layer (AWS Service Terms §50.12.2), so it governs the api tier."
-text_zh = "对象=Bedrock 服务输入输出正文(请求与响应正文);语境=仅 abuse detection 页所列的特定模型(GPT OSS Safeguard 与 gpt-oss 排除项之外的所有 OpenAI 模型、Anthropic Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2、ZDR 结束后(不早于 2027-06-30)的 Enterprise Frontier Safeguards 参与者);期限类型=上限 30 天,并带合同自带的例外「除法律另有要求」。这是合同层(AWS Service Terms §50.12.2),对 api 档有约束力。"
+text = "Object: Bedrock Service inputs and outputs, i.e. request and response bodies. Context: only \"certain models identified on the Bedrock abuse detection page\" — the models listed there for abuse-detection retention (all OpenAI models other than GPT OSS Safeguard 120B, GPT OSS Safeguard 20B, gpt-oss-120b, and gpt-oss-20b; Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2; EFS or EDC participants after their ZDR period ends). Period type: an upper bound of 30 days, with the contract's own carve-out \"unless otherwise required by law\". This is the contract layer (AWS Service Terms §50.12.2), so it governs the api tier."
+text_zh = "对象=Bedrock 服务输入输出正文(请求与响应正文);语境=仅 abuse detection 页所列的特定模型(GPT OSS Safeguard 与 gpt-oss 排除项之外的所有 OpenAI 模型、Anthropic Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2、ZDR 期限结束后的 EFS 或 EDC 参与者);期限类型=上限 30 天,并带合同自带的例外「除法律另有要求」。这是合同层(AWS Service Terms §50.12.2),对 api 档有约束力。"
 anchor = "retention-abuse-detection-30d-50-12-2"
 
 [[product.retention.point]]
@@ -170,9 +191,14 @@ text_zh = "范围更广的模型级例外:除 GPT OSS Safeguard 120B、GPT OSS S
 anchor = "retention-openai-classifier-30d"
 
 [[product.retention.point]]
-text = "Restated on the product-documentation side for the models requiring `aws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. The content is not shared with the model provider."
-text_zh = "产品文档侧对需 `aws_review` 的模型(当前为 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2)的重述:用户 prompt 与 completion 在 AWS 边界内保留最多 30 天,并可能由 AWS 审查,以满足模型商作为访问条件提出的人工审查要求;内容不与模型商共享。"
+text = "Restated on the product-documentation side for the models requiring `aws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2): user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. The content is not shared with the model provider. If the account is enrolled in EFS or EDC, the program's page, not this page, describes where Amazon Bedrock stores the retained inputs and outputs and who reviews them."
+text_zh = "产品文档侧对需 `aws_review` 的模型(当前为 Claude Fable 5、Claude Fable 5.1 与 Claude Fable 5.2)的重述:用户 prompt 与 completion 在 AWS 边界内保留最多 30 天,并可能由 AWS 审查,以满足模型商作为访问条件提出的人工审查要求;内容不与模型商共享。若账号加入 EFS 或 EDC,则保留内容的存储位置与审查方由计划页而非本页说明。"
 anchor = "retention-aws-review-30d"
+
+[[product.retention.point]]
+text = "EFS/EDC preview retention: \"The content is deleted after 30 days in Amazon-managed storage, or under your bucket's lifecycle rules.\" The 30-day figure continues to apply to Amazon-managed storage (EDC); with EFS the retained content sits in the customer's own S3 bucket, so deletion there follows that bucket's lifecycle rules rather than Amazon-managed storage."
+text_zh = "EFS/EDC 预览的保留规则:「The content is deleted after 30 days in Amazon-managed storage, or under your bucket's lifecycle rules.」30 天仍适用于 Amazon 托管存储(EDC);EFS 的保留内容存放在客户自己的 S3 桶,其删除按该桶的生命周期规则执行,不走 Amazon 托管存储。"
+anchor = "retention-efs-30d-or-lifecycle"
 
 [[product.retention.point]]
 text = "Separate CSAM carve-out with no stated period: if Amazon Bedrock detects apparent CSAM in image inputs or outputs, it \"may store and review the flagged input or output exclusively to determine if it is CSAM\" and may report it to NCMEC or a relevant authority. The page gives no retention period for this content."
@@ -189,9 +215,24 @@ text_zh = "默认:Bedrock 处理的客户内容加密存放在你使用 Bedrock 
 anchor = "cri-geography-stays-within-geography"
 
 [[product.processing_region.point]]
-text = "Documented divergence for abuse detection under cross-Region inference: \"To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.\" Scope is limited to requests routed through a cross-Region inference profile and to the models whose inputs and outputs are retained for abuse detection. The product FAQ states that customer content is encrypted and stored at rest in the AWS Region where you are using Amazon Bedrock, while this page says prompts and outputs might move outside the source Region and retained abuse-detection data is stored in the destination region. Both statements are official, so both are kept here rather than picking one."
-text_zh = "启用跨区域推理时,为滥用检测保留的数据落在目标 Region,与 FAQ 那句「存放在使用 Bedrock 的 Region」有适用边界上的分歧:「To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.」适用范围仅限走跨区域推理 profile 的请求,且只涉及为滥用检测而保留输入输出的模型;FAQ 说客户内容加密存放在使用 Bedrock 的 Region,本页则说 prompt 与输出可能移出源 Region、为滥用检测保留的数据存于目标 Region。两句都是官方表述,并列保留、不选边。"
+text = "Documented divergence for abuse detection under cross-Region inference: \"To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.\" Scope is limited to requests routed through a cross-Region inference profile and to the models whose inputs and outputs are retained for abuse detection. The product FAQ states that customer content is encrypted and stored at rest in the AWS Region where you are using Amazon Bedrock, while this page says prompts and outputs might move outside the source Region and retained abuse-detection data is stored in the destination region. Both statements are official, so both are kept here rather than picking one. EFS participants are a separate case: the EFS/EDC page says their retained content stays in the source-Region bucket even when cross-Region inference processes the request elsewhere."
+text_zh = "启用跨区域推理时,为滥用检测保留的数据落在目标 Region,与 FAQ 那句「存放在使用 Bedrock 的 Region」有适用边界上的分歧:「To the extent we store data for abuse detection, your input prompts and output results will be stored in the destination region.」适用范围仅限走跨区域推理 profile 的请求,且只涉及为滥用检测而保留输入输出的模型;FAQ 说客户内容加密存放在使用 Bedrock 的 Region,本页则说 prompt 与输出可能移出源 Region、为滥用检测保留的数据存于目标 Region。两句都是官方表述,并列保留、不选边。EFS 参与者是另一情形:EFS/EDC 页写明其保留内容存于源 Region 的桶,即使跨区域推理在别处处理请求。"
 anchor = "cri-abuse-detection-data-in-destination-region"
+
+[[product.processing_region.point]]
+text = "Retained-data storage is now stated generically on the data-retention page: \"By default, Amazon Bedrock stores retained inputs and outputs in Amazon-managed storage. Some trusted access programs let you store them in your own Amazon S3 bucket instead. For details, see the program's page.\" This page and the abuse-detection page no longer repeat the earlier statement that cross-Region inference stores retained data in the destination Region; the surviving statement of that behavior is on the Geographic cross-Region inference page."
+text_zh = "保留数据的存储位置改由 data-retention 页作一般性陈述:「By default, Amazon Bedrock stores retained inputs and outputs in Amazon-managed storage. Some trusted access programs let you store them in your own Amazon S3 bucket instead. For details, see the program's page.」data-retention 与 abuse-detection 两页已不再重复「跨区域推理时保留数据存于目标 Region」这句;该行为仅存于 Geographic cross-Region inference 页。"
+anchor = "retention-storage-amazon-managed-or-s3"
+
+[[product.processing_region.point]]
+text = "For EFS participants, retained content stays in the source Region's customer bucket even under cross-Region inference: \"For EFS, Amazon Bedrock stores retained content in the bucket configured for the Region you call (the source Region), even when cross-Region inference processes the request in another Region.\" This is the current statement that replaces the deleted destination-Region sentence in the EFS case; it applies only to EFS, not to the general (non-EFS) abuse-detection retention path."
+text_zh = "对 EFS 参与者,即使启用跨区域推理,保留内容仍存于源 Region 的客户桶:「For EFS, Amazon Bedrock stores retained content in the bucket configured for the Region you call (the source Region), even when cross-Region inference processes the request in another Region.」这是 EFS 场景下取代已删除「目标 Region」句的现行表述;它只适用于 EFS,不适用于一般(非 EFS)的滥用检测保留路径。"
+anchor = "processing-region-efs-source-region-bucket"
+
+[[product.processing_region.point]]
+text = "EFS and EDC differ in where retained content lives and who controls the key: \"EFS: retained data is stored in your own Amazon S3 bucket, in your AWS account, encrypted with your AWS KMS key. EDC: retained data is stored in Amazon-managed storage, encrypted with AWS managed keys, so there's no bucket or key to set up.\" Both are public-preview trusted access programs, and the storage location is program-specific rather than fixed by the general Data retention page."
+text_zh = "EFS 与 EDC 的保留内容存放位置与密钥控制方不同:「EFS: retained data is stored in your own Amazon S3 bucket, in your AWS account, encrypted with your AWS KMS key. EDC: retained data is stored in Amazon-managed storage, encrypted with AWS managed keys, so there's no bucket or key to set up.」两者都是公开预览的可信访问计划,存储位置由计划决定,不由 Data retention 页统一固定。"
+anchor = "processing-region-efs-edc-storage-options"
 
 [[product.processing_region.point]]
 text = "Optional path outside any geography: with a global inference profile, requests may be processed in other supported AWS commercial Regions. It has to be chosen explicitly (global profile ARN plus the three-part IAM policy, or a deny SCP to switch it off), and AWS tells organizations with data residency or compliance requirements to assess whether Global cross-Region inference fits their compliance framework."
@@ -316,28 +357,15 @@ source_id = "45084a6538d274c1"
 topics = ["retention"]
 
 [anchor.selector]
-prefix = "ws_review` (currently Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2): "
-exact = "user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access."
-suffix = """
- Your content is not shared with the model provider.
-
-For th"""
+exact = "user prompts and completions are retained within the AWS boundary for up to 30 days and may be reviewed by AWS to meet the human review requirement the model provider imposes as a condition of access. Your content is not shared with the model provider. If your account is enrolled in EFS or EDC, the program's page describes where Amazon Bedrock stores your retained inputs and outputs and who reviews them."
 
 [[anchor]]
-id = "retention-cri-destination-region"
+id = "retention-storage-amazon-managed-or-s3"
 source_id = "45084a6538d274c1"
 topics = ["processing_region", "retention"]
 
 [anchor.selector]
-prefix = """
-store=true`), consult the model's documentation and terms.
-
-"""
-exact = "If cross-region inference is enabled for these models, retained inputs and outputs are stored in destination Regions (that is, the Region where your inference request is processed)."
-suffix = """
-
-
-See [Anthropic Terms of Service](https://aws.amazon.com/le"""
+exact = "By default, Amazon Bedrock stores retained inputs and outputs in Amazon-managed storage. Some trusted access programs let you store them in your own Amazon S3 bucket instead. For details, see the program's page."
 
 [[anchor]]
 id = "retention-store-false-not-guarantee"
@@ -355,8 +383,15 @@ source_id = "45084a6538d274c1"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "###### Anthropic Claude models"
-exact = "ZDR for Claude models that require data retention is granted to customers who are eligible for the Enterprise Frontier Safeguards program. To find out whether you're eligible, contact your AWS account team or AWS Support."
+exact = "If you're eligible for Anthropic Enterprise Frontier Safeguards (EFS), you can get ZDR for certain Claude models that require data retention. If you enroll in EFS or Anthropic Enterprise Data Controls (EDC) without ZDR, or after your ZDR period ends, Amazon Bedrock retains your inputs and outputs for those models. The program's page describes where Amazon Bedrock stores them, for how long, and who reviews them."
+
+[[anchor]]
+id = "zdr-efs-enrollment-does-not-bypass-aws-review"
+source_id = "45084a6538d274c1"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "You must explicitly set your data retention mode to `aws_review`, or to the legacy `provider_data_share`, before you can invoke these models, including when your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC). If your effective mode is `none` or `default`, or if you haven't set a mode, these models will be unavailable. If your account is approved for ZDR on the model, you can also use `none` or `default`."
 
 [[anchor]]
 id = "zoa-zero-operator-access"
@@ -386,12 +421,12 @@ topics = ["retention"]
 exact = "For Anthropic Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2, Amazon Bedrock retains all traffic for up to 30 days for automated offline abuse detection."
 
 [[anchor]]
-id = "zdr-frontier-safeguards-through-at-least-2027-06-30"
+id = "zdr-efs-program-defers-window-and-storage"
 source_id = "4db2307f55ee261d"
-topics = ["zdr"]
+topics = ["zdr", "retention", "processing_region"]
 
 [anchor.selector]
-exact = "If you're eligible for Enterprise Frontier Safeguards (EFS), you can use Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 with zero data retention (ZDR) for internal use through at least June 30, 2027."
+exact = "If your account is enrolled in Anthropic Enterprise Frontier Safeguards (EFS) or Anthropic Enterprise Data Controls (EDC), see the public preview of Enterprise Frontier Safeguards (EFS) and Enterprise Data Controls (EDC) for Anthropic models."
 
 [[anchor]]
 id = "retention-stored-by-aws-not-shared"
@@ -400,20 +435,7 @@ topics = ["retention", "training"]
 
 [anchor.selector]
 exact = "Retained inputs and outputs are stored and processed by AWS and are not shared with third-party model providers."
-suffix = " If cross-region inference is enabled for these models, reta"
-
-[[anchor]]
-id = "retention-cri-destination-region"
-source_id = "4db2307f55ee261d"
-topics = ["processing_region", "retention"]
-
-[anchor.selector]
-prefix = "by AWS and are not shared with third-party model providers. "
-exact = "If cross-region inference is enabled for these models, retained inputs and outputs are stored in destination regions (i.e., the region where your inference request is processed)."
-suffix = """
-
-
-You are responsible for the content you (and your end user"""
+suffix = " For more information on data retention and related controls, see Data retention."
 
 [[anchor]]
 id = "retention-csam-store-and-review"
@@ -424,6 +446,46 @@ topics = ["retention"]
 prefix = "`ValidationException` (HTTP 400) error in the API response. "
 exact = "Amazon Bedrock may store and review the flagged input or output exclusively to determine if it is CSAM"
 suffix = " and may also file a report with the National Center for Mis"
+
+[[anchor]]
+id = "zdr-efs-window-through-at-least-2027-06-30"
+source_id = "5e7b56af1f4940b5"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "Eligible EFS customers can use current Claude Fable models and existing CVP models with ZDR for internal use through at least June 30, 2027."
+
+[[anchor]]
+id = "zdr-efs-preview-turns-off-zdr"
+source_id = "5e7b56af1f4940b5"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+exact = "Joining the preview turns zero data retention (ZDR) off for the accounts or projects you add, so their content is retained: in your own Amazon S3 bucket with EFS, or in Amazon-managed storage with EDC. Your other accounts keep ZDR."
+
+[[anchor]]
+id = "retention-efs-30d-or-lifecycle"
+source_id = "5e7b56af1f4940b5"
+topics = ["retention"]
+
+[anchor.selector]
+exact = "The content is deleted after 30 days in Amazon-managed storage, or under your bucket's lifecycle rules."
+
+[[anchor]]
+id = "processing-region-efs-source-region-bucket"
+source_id = "5e7b56af1f4940b5"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+exact = "For EFS, Amazon Bedrock stores retained content in the bucket configured for the Region you call (the source Region), even when cross-Region inference processes the request in another Region."
+
+[[anchor]]
+id = "processing-region-efs-edc-storage-options"
+source_id = "5e7b56af1f4940b5"
+topics = ["processing_region", "retention"]
+
+[anchor.selector]
+exact = "EFS: retained data is stored in your own Amazon S3 bucket, in your AWS account, encrypted with your AWS KMS key. EDC: retained data is stored in Amazon-managed storage, encrypted with AWS managed keys, so there's no bucket or key to set up."
 
 [[anchor]]
 id = "training-no-train-nova-titan-third-party"
