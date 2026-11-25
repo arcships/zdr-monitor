@@ -28,7 +28,7 @@ note = "ZDR 文档的官方 .md 直连通道快照（同一文档的 HTML 地址
 url = "https://openrouter.ai/docs/guides/overview/auth/byok"
 channel = "developer_data"
 tier = "core"
-note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。ZDR 声明可经钥匙卡或 BYOK 管理 API 的 declared_zdr 字段设置，并明确同样覆盖 Safety Retention：声明为 My account has ZDR 的 key 即使账户选 ZDR only 也按 ZDR 处理，前提是客户自有协议排除该上游的 safety retention。BYOK 档的 ZDR 与区域结论都以此为准。另区分 closed-weight 与 open-weight 模型：global API 默认跳过 closed-weight 模型的 region-pinned 端点（除非显式指定），但 open-weight 模型（带 Hugging Face id）的区域端点留在默认路由并与其他端点按价格竞争，BYOK key 可像其他端点一样使用。"
+note = "「BYOK」文档页：BYOK 键不改变可路由的端点，需自行声明 ZDR/区域；声明是客户自述、OpenRouter 看不到你与上游的协议。区域声明覆盖 OpenAI/Azure/Anthropic key（前两者有 Global / European Union / United States，Anthropic 只有 Global / United States）。ZDR 声明可经钥匙卡或 BYOK 管理 API 的 declared_zdr 字段设置，并明确同样覆盖 Safety Retention：声明为 My account has ZDR 的 key 即使账户选 ZDR only 也按 ZDR 处理，前提是客户自有协议排除该上游的 safety retention。BYOK 档的 ZDR 与区域结论都以此为准。另区分 closed-weight 与 open-weight 模型：global API 默认跳过 closed-weight 模型的 region-pinned 端点（除非显式指定），但 open-weight 模型（带 Hugging Face id）的区域端点留在默认路由并与其他端点按价格竞争，BYOK key 可像其他端点一样使用。同轮还改写区域 guardrail 规则：旧文称 guardrail 尚不识别区域声明，新文称按同一规则识别（其它 provider 仍只按 OpenRouter 分类判定，声明不能让 OpenRouter 自己计费的端点通过 guardrail）。"
 
 [[source]]
 url = "https://openrouter.ai/docs/guides/privacy/data-collection"
@@ -454,6 +454,11 @@ text_zh = "Bedrock 区域范围：AWS Bedrock 模型常用 cross-region inferenc
 anchor = "openrouter-byok-region-openai-azure-declaration-region"
 text = "The declaration governs the OpenRouter→upstream hop for OpenAI and Azure keys on regional domains, not just the routing pool: \"An OpenAI or Azure key without a declaration matching the request's region is never used on `eu.openrouter.ai` or `us.openrouter.ai`, even when the provider's shared endpoint is in-region.\" OpenRouter still does not disclose where that upstream host actually processes requests."
 text_zh = "区域声明管的是 OpenRouter→上游那一跳本身，不只是可路由池：区域域名下 OpenAI 与 Azure key 若没有匹配的声明就「never used」，即使该 provider 的共享端点本身在区域内。OpenRouter 仍未披露那个上游主机实际在哪里处理请求。"
+
+[[product.processing_region.point]]
+anchor = "openrouter-byok-region-guardrail-recognition-region"
+text = "Region guardrails now honor the declaration: \"A guardrail that restricts `allowed_data_regions` recognizes the declaration under the same rules. Your key’s endpoint passes the guardrail when the key declares a region the guardrail allows, the declaration can apply to that endpoint, and the provider supports a declared region (OpenAI, Azure, or Anthropic).\" For every other provider the guardrail still judges the key's endpoint by OpenRouter's classification only, and \"a declaration never makes an OpenRouter-credit endpoint pass the guardrail.\" This changes how a declaration interacts with region guardrails, not where the upstream host actually processes requests, so the tier remains basis=undisclosed with no coded region."
+text_zh = "区域 guardrail 现在识别声明：「A guardrail that restricts `allowed_data_regions` recognizes the declaration under the same rules. Your key’s endpoint passes the guardrail when the key declares a region the guardrail allows, the declaration can apply to that endpoint, and the provider supports a declared region (OpenAI, Azure, or Anthropic).」对其它 provider，guardrail 仍只按 OpenRouter 的分类判定，且「a declaration never makes an OpenRouter-credit endpoint pass the guardrail」。这只改变声明与区域 guardrail 的交互，不披露上游主机实际处理地，故本档仍为 basis=undisclosed、不编码区域。"
 
 [[product.processing_region.point]]
 anchor = "openrouter-byok-region-management-api-declared-region-region"
@@ -1459,6 +1464,14 @@ topics = ["processing_region"]
 
 [anchor.selector]
 exact = "OpenAI and Azure keys need a declaration on a regional domain. An OpenAI or Azure key without a declaration matching the request’s region is never used on `eu.openrouter.ai` or `us.openrouter.ai`, even when the provider’s shared endpoint is in-region."
+
+[[anchor]]
+id = "openrouter-byok-region-guardrail-recognition-region"
+source_id = "87bcd6bb8730937e"
+topics = ["processing_region"]
+
+[anchor.selector]
+exact = "A guardrail that restricts `allowed_data_regions` recognizes the declaration under the same rules. Your key’s endpoint passes the guardrail when the key declares a region the guardrail allows, the declaration can apply to that endpoint, and the provider supports a declared region (OpenAI, Azure, or Anthropic). For any other provider, the guardrail judges your key’s endpoint by OpenRouter’s classification only. OpenRouter’s own endpoints are still judged by OpenRouter’s classification, so a declaration never makes an OpenRouter-credit endpoint pass the guardrail."
 
 [[anchor]]
 id = "openrouter-byok-region-management-api-declared-region-region"
