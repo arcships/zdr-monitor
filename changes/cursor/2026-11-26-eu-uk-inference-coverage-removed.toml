@@ -1,0 +1,20 @@
+provider = "cursor"
+dimensions = ["processing_region"]
+direction = "weakened"
+observed_at = "2026-11-26"
+source_id = "bef6bc0f45f77258"
+summary_zh = """
+企业数据治理文档更新（快照 PR #1435）。数据驻留段落由「- Today, customers can enroll in US-only data residency ... - EU + UK inference-only coverage is available on request. Broader EU support and additional regions are in active development. - Contact your account executive if you are interested in either option.」改为「- US-only data residency keeps inference, processing, and storage in the US. - Contact your account executive to enroll, or to ask about other regions.」；FAQ「Is data residency available outside the US?」由「US-only data residency is available today. Coverage for the EU/EEA and APAC is in active development. Please reach out to your account manager for more information.」改为「No. Data residency is US-only. To ask about other regions, reach out to your account manager.」。此前按申请提供的 EU + UK inference-only 覆盖被删除，美国以外不再有可选驻留地。
+
+Enterprise 的 processing_region 结论 codes=["US","global","selected"] 不变（US-only 仍按团队可选）；锚点 cursor-enterprise-us-residency 引用的「What stays in-region」清单（含 Grok Bot）一字未动；新增锚点 cursor-enterprise-us-only-residency-faq 绑定 FAQ 的「No. Data residency is US-only. To ask about other regions, reach out to your account manager.」，并加一条对应说明点。US-only 选项条目里「Contact your account executive ... to ask about other regions」与 FAQ「Data residency is US-only」措辞略有张力，但 FAQ 是明确回答，按 FAQ 记录。
+
+同次快照的 retention 改动另记在 2026-11-26-cloud-agents-repo-copy-detail-moved.toml；其余改动（导语、Privacy Mode 措辞、DPA/CMEK 措辞、删除「today」、列表符号、导航增删）与五个维度无关。
+"""
+summary_en = """
+The enterprise data governance page was updated (snapshot PR #1435). The data residency bullets changed from "- Today, customers can enroll in US-only data residency ... - EU + UK inference-only coverage is available on request. Broader EU support and additional regions are in active development. - Contact your account executive if you are interested in either option." to "- US-only data residency keeps inference, processing, and storage in the US. - Contact your account executive to enroll, or to ask about other regions."; the FAQ "Is data residency available outside the US?" changed from "US-only data residency is available today. Coverage for the EU/EEA and APAC is in active development. Please reach out to your account manager for more information." to "No. Data residency is US-only. To ask about other regions, reach out to your account manager." The on-request EU + UK inference-only coverage was removed, leaving no selectable residency outside the US.
+
+The Enterprise processing_region verdict codes=["US","global","selected"] are unchanged (US-only is still selectable per team); the "What stays in-region" list quoted by anchor cursor-enterprise-us-residency (including Grok Bot) is untouched; a new anchor, cursor-enterprise-us-only-residency-faq, was added for the FAQ answer "No. Data residency is US-only. To ask about other regions, reach out to your account manager.", with a matching point. Note a slight tension between "Contact your account executive ... to ask about other regions" and the FAQ's "Data residency is US-only"; the FAQ is the explicit answer and is what this record follows.
+
+The retention change in the same snapshot is recorded separately in 2026-11-26-cloud-agents-repo-copy-detail-moved.toml; the remaining changes (intro, Privacy Mode wording, DPA/CMEK wording, removals of "today", list markers, navigation) are unrelated to the five dimensions.
+"""
+issue = "https://github.com/arcships/zdr-monitor/issues/1438"
