@@ -1,0 +1,24 @@
+provider = "cursor"
+dimensions = ["retention"]
+direction = "clarified"
+observed_at = "2026-11-26"
+source_id = "bef6bc0f45f77258"
+summary_zh = """
+企业数据治理文档更新（快照 PR #1435）。Cloud Agents 的「What gets stored」由「- Encrypted copies of repositories that Cloud Agents work on / - Stored temporarily while the agent runs / - Deleted after the agent completes」改为只保留第一条，并新增「See what data is stored, where, and for how long.」。
+
+这不是保留承诺的收紧。被删的两句本来只给一个笼统的「跑完即删」；该页指向的 Cloud Agent 安全文档（未改动）把仓库副本分成两种对象：运行 workspace（live run 的已检出仓库）「Recycled automatically after the run goes idle; the timer refreshes when you send follow-up prompts」，Recycle 阶段也写明 VM runtime resources 在 run idle 后按生命周期计时器「hibernated and then deleted」；VM snapshots（含克隆代码的 VM 磁盘时点副本）按不活动滚动 30 日「then automatic deletion」，且「Snapshots can't be deleted on demand」。治理页删掉的「Deleted after the agent completes」对应安全页的 runtime workspace（run idle 后回收）；VM snapshot 另有 30 天不活动窗口，安全页这两个对象的条款都没有变化，因此记为澄清而非收紧。
+
+三个 Cloud Agents 档的 retention 结论字段不变（days=30、object=repository_snapshot、basis=fixed_period）；锚点 cursor-governance-cloud-agents-repo-copy 的旧 exact 已失效，改绑到现存句「Encrypted copies of repositories that Cloud Agents work on」+ 后缀「See what data is stored, where, and for how long.」；另新增锚点 cursor-cloud-agent-runtime-workspace 绑定运行 workspace 那一行，三档说明并列写清两个对象，不再声称 30 天是仓库副本的唯一现行表述。
+
+同次快照其余改动与五个维度无关：开头导语、「Privacy Mode enforcement」首句改写、DPA 句删「comprehensive」、CMEK 措辞、驻留段落导语、多处删除「today」、列表符号由「—」改「:」，以及导航增删。
+"""
+summary_en = """
+The enterprise data governance page was updated (snapshot PR #1435). The Cloud Agents "What gets stored" list changed from "- Encrypted copies of repositories that Cloud Agents work on / - Stored temporarily while the agent runs / - Deleted after the agent completes" to the first bullet only, followed by a new pointer, "See what data is stored, where, and for how long."
+
+This is not a tightening of retention. The two removed sentences only gave a blanket "deleted when the agent completes". The Cloud Agent security page the overview points to (unchanged) separates two repository copies: the runtime workspace (the checked-out repository for a live run) is "Recycled automatically after the run goes idle; the timer refreshes when you send follow-up prompts", and the Recycle stage likewise says VM runtime resources are hibernated and then deleted on lifecycle timers once the run is idle; VM snapshots (point-in-time copies of the VM disk, including cloned code) follow a rolling 30-day inactivity window that ends in automatic deletion, and "Snapshots can't be deleted on demand". The removed "Deleted after the agent completes" corresponds to the security page's runtime workspace (recycled once the run goes idle), while the VM snapshot has its own 30-day inactivity window; the security page's entries for both objects are unchanged, so this is recorded as a clarification rather than a weakening.
+
+For all three Cloud Agents tiers the retention verdict fields are unchanged (days=30, object=repository_snapshot, basis=fixed_period). The old exact of anchor cursor-governance-cloud-agents-repo-copy no longer resolves and was rebound to the remaining sentence "Encrypted copies of repositories that Cloud Agents work on" plus the suffix "See what data is stored, where, and for how long."; a new anchor, cursor-cloud-agent-runtime-workspace, binds the runtime-workspace row, and the three tier points now state both objects instead of claiming the 30-day bound is the only current statement for repository copies.
+
+The rest of the snapshot is unrelated to the five dimensions: the opening paragraph, the first sentence of "Privacy Mode enforcement", dropping "comprehensive" from the DPA sentence, CMEK wording, the data-residency intro, several removals of "today", list markers changed from em dashes to colons, and navigation changes.
+"""
+issue = "https://github.com/arcships/zdr-monitor/issues/1438"
