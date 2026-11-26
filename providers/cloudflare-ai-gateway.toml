@@ -16,7 +16,7 @@ note = "AI Gateway 官方 Unified Billing 文档(Last updated Oct 27, 2026):覆�
 url = "https://developers.cloudflare.com/ai-gateway/observability/logging/"
 channel = "developer_data"
 tier = "core"
-note = "AI Gateway Logging 文档(Last updated Nov 5, 2026):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs;逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出;cf-aig-collect-log 关闭时跳过日志条目其余部分,但统一计费请求仍会记录请求计费明细(不含请求/响应正文)。"
+note = "AI Gateway Logging 文档(最新快照已不显示 Last updated 行):网关日志默认开启、可含 prompt/response;按首次创建 gateway 日期分流至 Workers Logs 或 Legacy Logs;逐请求日志 header 只控制 AI Gateway 存储的日志,不改变 Logpush 导出;cf-aig-collect-log 关闭时跳过日志条目其余部分,但通过统一计费或 Machine Payments (x402) 支付的请求例外——始终记录元数据与计费明细(不含请求/响应正文),即使网关级或逐请求日志已关闭。"
 
 [[source]]
 url = "https://developers.cloudflare.com/workers/observability/logs/workers-logs/"
@@ -298,8 +298,8 @@ text_zh = "2026-09-24 前已创建 gateway 的客户使用 Legacy Logs:已存日
 anchor = "cf-aigw-legacy-logs-until-deleted"
 
 [[product.retention.point]]
-text = "On Unified Billing, per-request logging headers cannot fully suppress the log entry: 'For Unified Billing requests, AI Gateway always logs the request billing details.' With the collect-log headers set to false, the entry is stored without request and response bodies; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
-text_zh = "统一计费档下,逐请求日志 header 不能完全抑制日志条目:『For Unified Billing requests, AI Gateway always logs the request billing details.』collect-log 系列 header 设为 false 时条目仍会记录,只是不含请求/响应正文;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
+text = "Requests paid through Unified Billing or Machine Payments (x402) are always logged, even when logs are turned off for the gateway or the request: 'The log entry includes metadata and billing details, but not the request and response bodies.' The per-request section restates that such requests are the exception to cf-aig-collect-log: false; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
+text_zh = "通过统一计费或 Machine Payments (x402) 支付的请求始终会记录日志,即使网关级或逐请求日志已关闭:『The log entry includes metadata and billing details, but not the request and response bodies.』逐请求一节也重申这类请求是 cf-aig-collect-log: false 的例外;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
 anchor = "cf-aigw-logging-collect-log-unified-billing-billing-details"
 
 [[product.retention.point]]
@@ -496,8 +496,8 @@ text_zh = "网关日志默认开启且可含提示词/响应正文。"
 anchor = "cf-aigw-logging-fields-include-prompt-response"
 
 [[product.retention.point]]
-text = "On Unified Billing, per-request logging headers cannot fully suppress the log entry: 'For Unified Billing requests, AI Gateway always logs the request billing details.' With the collect-log headers set to false, the entry is stored without request and response bodies; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
-text_zh = "统一计费档下,逐请求日志 header 不能完全抑制日志条目:『For Unified Billing requests, AI Gateway always logs the request billing details.』collect-log 系列 header 设为 false 时条目仍会记录,只是不含请求/响应正文;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
+text = "Requests paid through Unified Billing or Machine Payments (x402) are always logged, even when logs are turned off for the gateway or the request: 'The log entry includes metadata and billing details, but not the request and response bodies.' The per-request section restates that such requests are the exception to cf-aig-collect-log: false; cf-aig-collect-log-payload: false alone skips the payload while metadata remains."
+text_zh = "通过统一计费或 Machine Payments (x402) 支付的请求始终会记录日志,即使网关级或逐请求日志已关闭:『The log entry includes metadata and billing details, but not the request and response bodies.』逐请求一节也重申这类请求是 cf-aig-collect-log: false 的例外;单独用 cf-aig-collect-log-payload: false 则仅跳过正文、保留元数据。"
 anchor = "cf-aigw-logging-collect-log-unified-billing-billing-details"
 
 [[product.retention.point]]
@@ -675,7 +675,7 @@ topics = ["retention"]
 
 [anchor.selector]
 prefix = ""
-exact = "For Unified Billing requests, AI Gateway always logs the request billing details. If the collect logs headers are set to `false`, the entry is logged without the request and response bodies."
+exact = "Requests paid through Unified Billing or Machine Payments (x402) are always logged, even when logs are turned off for the gateway or the request. The log entry includes metadata and billing details, but not the request and response bodies."
 suffix = ""
 
 [[anchor]]
