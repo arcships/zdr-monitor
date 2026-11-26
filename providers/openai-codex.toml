@@ -43,7 +43,7 @@ url = "https://help.openai.com/en/articles/8983778-how-are-files-vs-chats-retain
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Chat and file retention in ChatGPT(Updated 7 hours ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。本轮重抓时 Library 一节改名为「Files saved to Library or Space」,Enterprise/Edu/Healthcare 条款由「Library files」改为「these saved files」,其余留存条款未变。对 API 档无权威性。同页也含工作区口径(overview 的 any workspace retention policy that applies、Enterprise/Edu/Healthcare 存入 Library 或 Space 的文件按工作区留存策略、临时文件 48 小时、备份最多再留 30 天),故 Business/Enterprise 的留存证据也取自本页,适用档位以各 point 标注为准"
+note = "Chat and file retention in ChatGPT(Updated 2 hours ago):消费档留存权威页(常规/归档对话保存至删除、删除后 30 天内永久删除、临时对话最多 30 天、GPT/project 文件规则)。2026-11-26 轮 Library/Space 删除段由「Deleting a chat does not delete a separately saved file. Delete the file from **Library** or **Space** if you also want to remove that saved copy.」改写为可选机制:删除对话时可能看到「Also delete files uploaded or created in this chat」,勾选则把该对话中符合条件的文件(含截图)移入 Trash,不勾选或看不到该选项则单独保存的文件留在原处。同轮还新增导航句「Data controls in ChatGPT explains your options for model training, data export, and account deletion.」并移除 Related articles 列表。核心留存期限条款(对话保存至删除、删除后 30 天、临时对话 30 天、GPT/project 文件)与 Enterprise/Edu/Healthcare 工作区留存策略、临时文件 48 小时、备份最多再留 30 天均未变。对 API 档无权威性。同页也含工作区口径(overview 的 any workspace retention policy that applies、Enterprise/Edu/Healthcare 存入 Library 或 Space 的文件按工作区留存策略),故 Business/Enterprise 的留存证据也取自本页,适用档位以各 point 标注为准"
 
 [[source]]
 url = "https://help.openai.com/en/articles/7039943-data-usage-for-consumer-services-faq"
@@ -120,6 +120,11 @@ text = "Temporary chats are a separate track from chats saved until deletion: th
 text_zh = "临时对话不属于「保存至用户删除」那一轨：不保存则不进入历史，OpenAI 可为安全目的最多保留 30 天（对象=临时对话正文；语境=临时对话；期限类型=上限）"
 anchor = "openai-codex-consumer-temporary-chat-30d"
 
+[[product.retention.point]]
+text = "Files saved separately in Library or Space are a distinct retention object: deleting a chat may offer an \"Also delete files uploaded or created in this chat\" checkbox that moves eligible files, including screenshots, from that chat to Trash; if cleared or not shown, those files stay. No fixed period is stated for Trash or for saved files (object: files saved to Library or Space; context: default; period type: unquantified, user-initiated deletion)"
+text_zh = "单独存入 Library 或 Space 的文件是另一个留存对象：删除对话时可能提供「Also delete files uploaded or created in this chat」选项，勾选后 ChatGPT 把该对话中符合条件的文件（含截图）移入 Trash；不勾选或没有该选项时，这些文件仍留在原处。Trash 与已保存文件均未给出固定期限（对象=存入 Library 或 Space 的文件；语境=默认；期限类型=未量化，由用户主动删除）"
+anchor = "openai-codex-consumer-saved-files-delete-option"
+
 [product.processing_region]
 codes = ["GLOBAL"]
 anchor = "openai-consumer-region-storage"
@@ -192,6 +197,11 @@ text_zh = "常规/归档对话保存至用户删除，删除后通常 30 天内�
 text = "Temporary chats are a separate track from chats saved until deletion: they do not appear in chat history unless saved, and OpenAI may keep a copy for up to 30 days for safety purposes (object: temporary chat content; context: temporary chat; period type: upper bound)"
 text_zh = "临时对话不属于「保存至用户删除」那一轨：不保存则不进入历史，OpenAI 可为安全目的最多保留 30 天（对象=临时对话正文；语境=临时对话；期限类型=上限）"
 anchor = "openai-codex-consumer-temporary-chat-30d"
+
+[[product.retention.point]]
+text = "Files saved separately in Library or Space are a distinct retention object: deleting a chat may offer an \"Also delete files uploaded or created in this chat\" checkbox that moves eligible files, including screenshots, from that chat to Trash; if cleared or not shown, those files stay. No fixed period is stated for Trash or for saved files (object: files saved to Library or Space; context: default; period type: unquantified, user-initiated deletion)"
+text_zh = "单独存入 Library 或 Space 的文件是另一个留存对象：删除对话时可能提供「Also delete files uploaded or created in this chat」选项，勾选后 ChatGPT 把该对话中符合条件的文件（含截图）移入 Trash；不勾选或没有该选项时，这些文件仍留在原处。Trash 与已保存文件均未给出固定期限（对象=存入 Library 或 Space 的文件；语境=默认；期限类型=未量化，由用户主动删除）"
+anchor = "openai-codex-consumer-saved-files-delete-option"
 
 [product.processing_region]
 codes = ["GLOBAL"]
@@ -476,6 +486,16 @@ topics = ["retention"]
 [anchor.selector]
 prefix = ""
 exact = "Temporary chats don’t appear in your chat history unless you save them. OpenAI may keep a copy for up to 30 days for safety purposes."
+suffix = ""
+
+[[anchor]]
+id = "openai-codex-consumer-saved-files-delete-option"
+source_id = "440d61867cdd2e05"
+topics = ["retention"]
+
+[anchor.selector]
+prefix = ""
+exact = "When you delete a chat, you may see **Also delete files uploaded or created in this chat**. If the checkbox is selected when you confirm, ChatGPT moves eligible files from that chat, including screenshots, to **Trash**. If you clear the checkbox or don’t see it, files saved separately in **Library** or **Space** stay there."
 suffix = ""
 
 [[anchor]]
