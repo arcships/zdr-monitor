@@ -140,8 +140,8 @@ mark = "no"
 anchor = "opencode-zen-exceptions"
 
 [[product.training.point]]
-text = "Contract layer (the highest-authority source in this file): \"In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services.\" Using Content to improve the Services counts as training under this ledger's rules, and this clause covers the free tier's Content independently of the Zen privacy exceptions."
-text_zh = "合同层（本文件权威性最高的来源）：厂商明文授权对 unpaid account 用 Content「further develop and improve our Services」。按本台账口径「用于改进服务算训练」，免费档的 Content 直接落在该授权范围内；与 Zen 隐私段的例外清单互相印证。"
+text = "Contract layer (the highest-authority source in this file): \"In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services, except Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.\" Using Content to improve the Services counts as training under this ledger's rules. The carve-out was first observed in our 2026-11-26 snapshot; the Privacy Policy it points to is not among this provider's captured sources, so the term \"Connected Service\" is undefined here. We therefore do not assume that prompts submitted directly to these free models fall outside the carve-out. If they did fall inside it, the TOS commitment not to use such Content for improvement would sit against the Zen privacy exceptions saying collected data is retained and used to improve the model; that possible divergence is left open. The training=no mark for this tier rests on the Zen exception bullets themselves, not on resolving the carve-out."
+text_zh = "合同层（本文件权威性最高的来源）：厂商明文授权对 unpaid account 用 Content「further develop and improve our Services」，并在 2026-11-26 快照（我们的观察日期）出现例外「except Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.」。按本台账口径「用于改进服务算训练」。该例外所指的 Privacy Policy 不在本 provider 已抓取的来源中，「Connected Service」的范围在本台账里未定义；因此本点不假设用户直接提交给这些免费模型的提示一定在该例外之外。若这些提示落入例外，则 TOS 的不用于改进承诺会与 Zen 隐私例外（收集数据保留并用于改进模型）形成潜在分歧，此处并列保留、不替厂商裁决。本档 training=no 的依据是 Zen 隐私段自身的例外，而不是对 carve-out 范围的判断。"
 anchor = "opencode-tos-unpaid-training"
 
 [[product.training.point]]
@@ -153,6 +153,11 @@ anchor = "opencode-zen-tidepool-exception"
 text = "Iceman Free was added in the 2026-11-07 snapshot, and its privacy exception says the collected data is retained and used to improve the model: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The Free models list describes the same model as a stealth model whose free period is used \"to collect feedback and improve the model.\" Both statements point the same way, so there is no conflict: under this ledger's rule this is a data-collecting free model, not a no-training one."
 text_zh = "Iceman Free 在 2026-11-07 快照新增，其隐私例外写明收集的数据会被保留并用于改进模型：「Iceman Free: During its free period, collected data is retained and used to improve the model.」免费模型列表对同一模型的描述也是团队利用免费期「to collect feedback and improve the model」。两句方向一致，不存在冲突：按本台账口径，这是数据收集型免费模型，而不是不训练模型。"
 anchor = "opencode-zen-iceman-exception"
+
+[[product.training.point]]
+text = "Seaglass Alpha Free was added to the Privacy exception list in the 2026-11-26 snapshot: \"Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.\" The Free models list describes the same model as a stealth model whose free period is used \"to collect feedback and improve the model.\" Under this ledger's rule, using data to improve the model counts as training, so this is another data-collecting free model, not a no-training one."
+text_zh = "Seaglass Alpha Free 在 2026-11-26 快照加入 Privacy 例外清单：「Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.」。免费模型列表把同一模型描述为团队利用免费期「to collect feedback and improve the model」的 stealth 模型。按本台账口径，用于改进模型算训练，因此这又是一个数据收集型免费模型，而不是不训练模型。"
+anchor = "opencode-zen-seaglass-exception"
 
 [product.zdr]
 mark = "no"
@@ -178,6 +183,11 @@ text = "Iceman Free adds another explicit retention-and-use permission to the sa
 text_zh = "Iceman Free 在同一例外清单里新增了又一条明确的保留与使用授权：「Iceman Free: During its free period, collected data is retained and used to improve the model.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
 anchor = "opencode-zen-iceman-exception"
 
+[[product.zdr.point]]
+text = "Seaglass Alpha Free adds another explicit retention-and-improvement permission to the same exception list: \"Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.\" The docs state no zero-retention option for this model, so it reinforces zdr=no for this tier."
+text_zh = "Seaglass Alpha Free 在同一例外清单里新增了又一条明确的保留与改进授权：「Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.」文档没有为该模型提供零保留方案，因此本档 zdr=no 继续成立。"
+anchor = "opencode-zen-seaglass-exception"
+
 [product.retention]
 object = "mixed"
 basis = "undisclosed"
@@ -185,8 +195,8 @@ anchor = "opencode-zen-nvidia-free"
 searched = ["https://opencode.ai/docs/zen", "https://opencode.ai/legal/terms-of-service", "https://opencode.ai/legal/privacy-policy"]
 
 [[product.retention.point]]
-text = "Objects and context: the data-collecting free models other than Iceman Free, Tidepool Alpha Free and Flint 40B Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Iceman Free, Tidepool Alpha Free and Flint 40B Free are stated separately below because their bullets add retention language."
-text_zh = "对象与语境：除 Iceman Free、Tidepool Alpha Free 与 Flint 40B Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Iceman Free、Tidepool Alpha Free 与 Flint 40B Free 另叙于下，因为它们的条目额外写了保留相关表述。"
+text = "Objects and context: the data-collecting free models other than Iceman Free, Tidepool Alpha Free, Seaglass Alpha Free and Flint 40B Free say only that collected data may be used to improve the model (\"Big Pickle: During its free period, collected data may be used to improve the model.\"), and the NVIDIA free endpoints say use is logged for security and product-improvement purposes. Neither gives a period or a deletion commitment. Iceman Free, Tidepool Alpha Free, Seaglass Alpha Free and Flint 40B Free are stated separately below because their bullets add retention language."
+text_zh = "对象与语境：除 Iceman Free、Tidepool Alpha Free、Seaglass Alpha Free 与 Flint 40B Free 外的数据收集类免费模型只写收集的数据可能用于改进模型（Big Pickle 等），NVIDIA 免费端点只写使用会被记录（安全与改进 NVIDIA 产品）；这些都没有期限或删除承诺。Iceman Free、Tidepool Alpha Free、Seaglass Alpha Free 与 Flint 40B Free 另叙于下，因为它们的条目额外写了保留相关表述。"
 anchor = "opencode-zen-exceptions"
 
 [[product.retention.point]]
@@ -198,6 +208,11 @@ anchor = "opencode-zen-tidepool-exception"
 text = "Iceman Free exception: \"Iceman Free: During its free period, collected data is retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
 text_zh = "Iceman Free 例外：「Iceman Free: During its free period, collected data is retained and used to improve the model.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
 anchor = "opencode-zen-iceman-exception"
+
+[[product.retention.point]]
+text = "Seaglass Alpha Free exception: \"Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.\" The retention permission is scoped to the free period; its length and any post-free-period deletion are not stated, so this is a further carve-out with basis=undisclosed rather than a fixed term."
+text_zh = "Seaglass Alpha Free 例外：「Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model.」——保留授权以免费期为范围；免费期多长、免费期结束后是否删除均未说明，因此这是又一条 basis=undisclosed 的例外，而非固定期限。"
+anchor = "opencode-zen-seaglass-exception"
 
 [[product.retention.point]]
 text = "Beam Free is not part of this tier: its exception bullet says it is not used for training and is retained for 30 days, and that posture is recorded in the zdr and retention points of zen-standard, zen-team and zen-enterprise, not here."
@@ -235,8 +250,8 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Seaglass Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) are Console models a team workspace can enable, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Seaglass Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）都是团队工作区可启用的 Console 模型，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 
 [[product.training.point]]
@@ -248,8 +263,8 @@ text = "The Console docs make the workspace model list an admin choice rather th
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。"
 anchor = "opencode-zen-model-access"
 [[product.training.point]]
-text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Console docs describe workspace model selection and budgets but no longer state whether a team workspace is free or paid, and no official text defines whether a team workspace is an \"unpaid account\", so this row is not re-judged on that clause — it is recorded as an open question."
-text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务。Console 文档只写工作区模型选择与预算，已不再说明团队工作区是免费还是付费；官方文本也没有界定团队工作区是否算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
+text = "Contract layer, applicability unresolved: for unpaid accounts the Terms of Use allow using Content to improve the Services, except \"Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose\" (carve-out first observed in our 2026-11-26 snapshot; the Privacy Policy definition is not among this provider's captured sources, so its scope is undetermined). The Console docs describe workspace model selection and budgets but no longer state whether a team workspace is free or paid, and no official text defines whether a team workspace is an \"unpaid account\", so this row is not re-judged on that clause — it is recorded as an open question."
+text_zh = "合同层适用性待澄清：对 unpaid account，Terms of Use 授权用 Content 改进服务，但 2026-11-26 快照（我们的观察日期）新增例外「Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.」；该定义所在的 Privacy Policy 不在本 provider 已抓取的来源中，范围未定。Console 文档只写工作区模型选择与预算，已不再说明团队工作区是免费还是付费；官方文本也没有界定团队工作区是否算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
 anchor = "opencode-tos-unpaid-training"
 [product.zdr]
 mark = "yes"
@@ -326,8 +341,8 @@ mark = "yes"
 mode = "default"
 anchor = "opencode-zen-privacy"
 [[product.training.point]]
-text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
-text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
+text = "Scope limit: mark=yes / mode=default holds only for models outside the exception list in the same privacy section. The free models that collect data or are used for training (Big Pickle, Tidepool Alpha Free, Seaglass Alpha Free, Iceman Free, Flint 40B Free, Nemotron 3.5 Lightning Free, Nemotron 3.5 Super VL Free) can be enabled in a workspace, so their posture is recorded in the separate \"Zen 数据收集模型\" tier, not in this row."
+text_zh = "适用范围限定：mark=yes / mode=default 只对隐私段例外清单以外的模型成立。会收集数据或用于训练模型的免费档（Big Pickle、Tidepool Alpha Free、Seaglass Alpha Free、Iceman Free、Flint 40B Free、Nemotron 3.5 Lightning Free、Nemotron 3.5 Super VL Free）可以在工作区启用，其姿态记在「Zen 数据收集模型」档，不在本行。"
 anchor = "opencode-zen-exceptions"
 
 [[product.training.point]]
@@ -339,8 +354,8 @@ text = "The Console docs make the workspace model list an admin choice rather th
 text_zh = "Console 文档把工作区模型清单写成管理员的选择，而不是固定清单：「Owners and admins can invite members, choose which models are enabled from the **Models** tab, set budgets, and connect their own providers.」——会收集数据的模型因此可能出现在工作区启用的模型里；文档没有把关闭它们设为默认，因此本行结论只对不含这些模型的工作区模型清单成立。Enterprise 文档在 2026-11-22 快照被重写，已不再写本地/直连处理路径，也不再写 OpenCode 不存储代码或上下文数据；它现在只说明托管配置策略，因此对 Zen 托管路径不提供证据。"
 anchor = "opencode-zen-model-access"
 [[product.training.point]]
-text = "Contract layer, applicability unresolved: the Terms of Use allow using Content to improve the Services for unpaid accounts. The Enterprise docs no longer describe pricing and do not define \"unpaid account\" for this product, so this row is not re-judged on that clause — it is recorded as an open question."
-text_zh = "合同层适用性待澄清：Terms of Use 授权对 unpaid account 用 Content 改进服务；企业文档已不再写定价，也没有界定本产品下什么算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
+text = "Contract layer, applicability unresolved: for unpaid accounts the Terms of Use allow using Content to improve the Services, except \"Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose\" (carve-out first observed in our 2026-11-26 snapshot; the Privacy Policy definition is not among this provider's captured sources, so its scope is undetermined). The Enterprise docs no longer describe pricing and do not define \"unpaid account\" for this product, so this row is not re-judged on that clause — it is recorded as an open question."
+text_zh = "合同层适用性待澄清：对 unpaid account，Terms of Use 授权用 Content 改进服务，但 2026-11-26 快照（我们的观察日期）新增例外「Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.」；该定义所在的 Privacy Policy 不在本 provider 已抓取的来源中，范围未定。企业文档已不再写定价，也没有界定本产品下什么算 unpaid account，因此本行不据此改写结论，只记为待澄清项。"
 anchor = "opencode-tos-unpaid-training"
 [product.zdr]
 mark = "yes"
@@ -418,8 +433,8 @@ mark = "no"
 anchor = "opencode-tos-unpaid-training"
 
 [[product.training.point]]
-text = "No no-training commitment covers the share pages. The only clause touching how Content is used is the contract layer: \"In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services.\" It is conditional on the account being unpaid and comes with no opt-out, so the conservative reading (mark=no) applies rather than a blanket permission."
-text_zh = "分享页没有任何「不用于训练」承诺。唯一涉及 Content 用途的是合同层那句：对 unpaid account 厂商可「use Content to further develop and improve our Services」；它带 unpaid 条件、也没有退出开关，因此按保守口径记 mark=no，不写成整档明文许可。"
+text = "No no-training commitment covers the share pages. The only clause touching how Content is used is the contract layer: \"In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services, except Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.\" The carve-out first observed in our 2026-11-26 snapshot could cover shared conversations only if they count as Content obtained or derived from a Connected Service; the Privacy Policy definition is not among this provider's captured sources, so that scope is undetermined. If it did apply it could support a no-training reading for that subset, but we cannot verify the scope and there is no separate no-training statement for the share path, so the conservative reading (mark=no) stands."
+text_zh = "分享页没有任何「不用于训练」承诺。唯一涉及 Content 用途的是合同层那句：对 unpaid account 厂商可「use Content to further develop and improve our Services」，但 2026-11-26 快照（我们的观察日期）新增例外「except Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose.」。该例外所指的 Privacy Policy 不在本 provider 已抓取的来源中：分享的会话是否算 Connected Service 内容无法确定；若算，该例外可支撑这一子集的「不用于训练」解读，但范围无法核实，且这条路径没有单独的「不用于训练」表述，因此按保守口径记 mark=no。"
 anchor = "opencode-tos-unpaid-training"
 
 [product.zdr]
@@ -551,6 +566,15 @@ exact = "- Iceman Free: During its free period, collected data is retained and u
 suffix = ""
 
 [[anchor]]
+id = "opencode-zen-seaglass-exception"
+source_id = "81c406603eb0c1a6"
+topics = ["training", "zdr", "retention"]
+[anchor.selector]
+prefix = ""
+exact = "- Seaglass Alpha Free: During its free period, collected data is retained and used to improve the model."
+suffix = ""
+
+[[anchor]]
 id = "opencode-zen-session-titles"
 source_id = "81c406603eb0c1a6"
 topics = ["zdr"]
@@ -592,7 +616,7 @@ source_id = "4899aa7260ccf262"
 topics = ["training"]
 [anchor.selector]
 prefix = ""
-exact = "We use Content to provide our Services, comply with applicable law, enforce our terms and policies, and keep our Services safe. In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services."
+exact = "We use Content to provide our Services, comply with applicable law, enforce our terms and policies, and keep our Services safe. In addition, if you are using the Services through an unpaid account, we may use Content to further develop and improve our Services, except Content obtained or derived from a Connected Service (as defined in our Privacy Policy), which we never use for that purpose."
 suffix = ""
 
 [[anchor]]
