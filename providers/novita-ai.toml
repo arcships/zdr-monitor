@@ -20,14 +20,14 @@ note = "《Novita AI Privacy Policy》(Effective date 2026-05-13，Last updated 
 url = "https://novita.ai/legal/terms-of-service"
 channel = "contract"
 tier = "core"
-note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-08-05)，合同层最高权威，覆盖全部 Marketplace Offerings：§1 把「AI-powered cloud services, including: AI inference APIs (text generation, image generation, speech, video, and multimodal models), storage, and related software products」定义为 Marketplace Offerings，即 Model API、GPU 实例、Agent Sandbox 共用同一份 TOS；§6 提到 Model 可能来自 Model Provider，但未披露数据是否流向该主体；§10 是训练/保留/ZDR 的唯一合同层条款（§10.2 标题即 Zero Data Retention）；§20 适用法为 Delaware。全文没有量化保留期限，也没有任何 DPA/ZDR 申请表入口。"
+note = "《Novita AI Terms of Service》(Policy date 2024-10-12，Updated 2026-11-27)，合同层最高权威，覆盖全部 Marketplace Offerings：§1 把「AI-powered cloud services, including: AI inference APIs (text generation, image generation, speech, video, and multimodal models), storage, and related software products」定义为 Marketplace Offerings，即 Model API、GPU 实例、Agent Sandbox 共用同一份 TOS；§6（2026-11-27 由「Model Availability」整节改写为「Models and Model Terms」§6.1–§6.10）区分 Novita-Managed Models 与 Third-Party APIs，§6.4 明确 Third-Party API 的 Inputs/Outputs 由 Model Provider 在其自有基础设施上按 Model Terms 处理、Novita 的 Section 10 承诺（含 §10.2 ZDR）不延伸至任何 Model Provider，且 Model Provider 可在 Model Terms 允许范围内记录、保留、审查或使用输入输出（包括用于模型训练）；§10 仍是训练/保留/ZDR 的合同层条款（§10.2 末尾新增 ZDR 仅覆盖 Novita-Managed Models 的范围句）；§20 适用法为 Delaware。全文没有量化保留期限，也没有任何 DPA/ZDR 申请表入口。"
 
 [[source]]
 url = "https://trust.novita.ai/faq"
 fetch = "browser"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层，与 TOS §10.2 在方向上一致。"
+note = "Novita AI Trust Center FAQ（Vanta 托管的官方信任中心，17 条问答）。本轮最重要的新来源：是唯一把保留期限量化到对象级的文档（API 输入输出「transiently, not retained beyond the time required to generate and deliver Output」；技术元数据 6 个月；账户与鉴权数据为账户存续期加法定期间），也是唯一写明「Zero Data Retention is the default for all endpoints, including serverless API calls」、唯一披露子处理者类别中「Model provider」处理 API inputs and outputs、唯一说明基础设施托管在 AWS 数据中心、并提供 DPA（GDPR Art.28）与 SCC Module 2 的文档。属企业侧 FAQ，权威性低于合同层；2026-11-27 起 TOS §10.2 把 ZDR 限定在 Novita-Managed Models，FAQ 的「all endpoints」口径与合同冲突，两条并列保留、以合同为准。"
 
 [[product]]
 id = "api"
@@ -36,18 +36,28 @@ category = "api"
 plan_level = "any"
 
 [product.training]
-mark = "yes"
-mode = "default"
+mark = "no"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.training.point]]
+text = "Novita AI's own promise, unchanged in the same clause: TOS §10.2 says \"By Default, Novita AI will not use your Content to train our own models or to improve the Services.\" Read together with the 2026-11-27 scope sentence, it covers Novita AI's own handling of Content in connection with Novita-Managed Models, not the Model Provider hop."
+text_zh = "厂商自身承诺在同一节未变：TOS §10.2「By Default, Novita AI will not use your Content to train our own models or to improve the Services.」与 2026-11-27 新增的范围句合读，它只覆盖 Novita 自身对 Content 的处理、且限于 Novita-Managed Models，不覆盖 Model Provider 那一跳。"
 anchor = "novita-tos-10-2-no-training"
 
 [[product.training.point]]
-text = "See top-level training. Contract §10.2, \"By Default, Novita AI will not use your Content to train our own models or to improve the Services.\", plus FAQ item 1, \"No. By default, we do not use any data submitted through our API — including prompts, inputs, outputs, or conversation histories — to train or improve our models.\" No opt-in tier permitting training is disclosed"
-text_zh = "见顶层 training。合同 §10.2「By Default, Novita AI will not use your Content to train our own models or to improve the Services.」+ FAQ 第 1 条「No... to train or improve our models」。未披露任何允许训练的可选档"
+text = "The carve-out, added 2026-11-27: TOS §6.4 states that Novita AI's data handling commitments under Section 10 \"apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider\", and that \"A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" Upstream training is therefore expressly permitted rather than undisclosed."
+text_zh = "2026-11-27 新增的除外条款：TOS §6.4 写明 Section 10 的数据处理承诺「apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider」，且「A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」——上游训练属明文许可，不再是「未披露」。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
 
 [[product.training.point]]
-text = "Upstream hop: FAQ item 12 lists \"Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.\" as a sub-processor category, and that answer gives no entity name for it (the other categories there carry examples such as AWS and Stripe); TOS §6 likewise refers only to a generic \"Model Provider\". Whether that hop trains on or retains API inputs and outputs is not disclosed, so the chain is recorded by its weakest hop."
-text_zh = "上游一跳：FAQ 第 12 条把「Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests.」列为子处理者类别，该条回答未给它任何主体名（同类目里其他项带 AWS、Stripe 这类例子）；TOS §6 也只以「Model Provider」泛指。该跳是否用 API 输入输出训练或保留未披露，整链按最弱一跳记录。"
-anchor = "novita-trustfaq-subprocessor-model-provider"
+text = "Why §6.4 reaches this tier: §6.1 of the same TOS defines the Services as providing access to both \"Novita-Managed Models\" and \"Third-Party APIs\", and §6.4 routes every Input and Output sent to a Third-Party API to that Model Provider's own infrastructure and terms. The API tier therefore contains a path the contract expressly allows to train on inputs and outputs. Under the multi-hop rule (any hop that is clearly negative makes the whole chain negative), the tier mark records the weakest hop; requests served only by Novita-Managed Models still get the §10.2 no-training promise."
+text_zh = "§6.4 为什么落到本档：同一份 TOS 的 §6.1 把 Services 定义为同时提供「Novita-Managed Models」与「Third-Party APIs」，§6.4 又把提交给 Third-Party API 的输入输出交给相应 Model Provider 的自有基础设施与条款。因此按量 API 档包含一条合同明文允许用输入输出训练模型的路径。按多跳口径（任一跳明确为否，则全链为否），本档 mark 记录最弱一跳；仅由 Novita-Managed Models 服务的请求仍受 §10.2 不训练承诺保护。"
+anchor = "novita-tos-6-1-model-categories"
+
+[[product.training.point]]
+text = "Conflict kept visible: FAQ item 1 still says \"No. By default, we do not use any data submitted through our API — including prompts, inputs, outputs, or conversation histories — to train or improve our models. This commitment is contractually binding under our Terms of Service, and is further documented in our Privacy Policy.\" The FAQ is lower authority than the TOS, and the TOS now limits Section 10 to Novita AI's own handling and Novita-Managed Models while expressly permitting a Model Provider to train on Third-Party API inputs and outputs. Both statements are kept; the contract governs."
+text_zh = "冲突并列保留：FAQ 第 1 条仍称「No. By default, we do not use any data submitted through our API — including prompts, inputs, outputs, or conversation histories — to train or improve our models. This commitment is contractually binding under our Terms of Service, and is further documented in our Privacy Policy.」FAQ 权威性低于 TOS，而 TOS 现在把 Section 10 限制在 Novita 自身处理与 Novita-Managed Models，并明文允许 Model Provider 用 Third-Party API 的输入输出训练。两条表述均保留，以合同为准。"
+anchor = "novita-trustfaq-no-training-on-api-data"
 
 [[product.training.point]]
 text = "Policy layer (Privacy Policy, object = Personal Information): \"The Personal Information will not be used for model training\" sits in the same paragraph as the purpose \"To improve our Services and conduct research\", and the business-purposes list adds \"Research and Development: To conduct research and analysis to improve our Services and develop new products and features.\" Under the house rule that improving the service counts as training, both halves are kept side by side; the object is account and website personal information, not API inputs and outputs (those are governed by TOS §10.2)."
@@ -55,17 +65,28 @@ text_zh = "政策层（隐私政策，对象=Personal Information）：「The Pe
 anchor = "novita-privacy-no-model-training"
 
 [product.zdr]
-mark = "yes"
-mode = "default"
+mark = "no"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.zdr.point]]
+text = "Managed-model path, unchanged: TOS §10.2 still says Novita AI \"will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you.\" This is the zero-retention promise for Novita AI's own handling."
+text_zh = "托管模型路径未变：TOS §10.2 仍写 Novita AI「will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you.」这是针对 Novita 自身处理的零保留承诺。"
 anchor = "novita-tos-10-2-zero-data-retention"
 
 [[product.zdr.point]]
-text = "See top-level zdr. The definition in TOS §10.2 plus FAQ item 3, \"Zero Data Retention is the default for all endpoints, including serverless API calls.\" — no application required"
-text_zh = "见顶层 zdr。TOS §10.2 定义 + FAQ 第 3 条「Zero Data Retention is the default for all endpoints, including serverless API calls.」，无需申请"
+text = "The new scope sentence, added 2026-11-27 at the end of §10.2: \"For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.\" The ZDR promise is now expressly bounded by model category."
+text_zh = "2026-11-27 在 §10.2 末尾新增的范围句：「For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.」——ZDR 承诺现在明示以模型类别为界。"
+anchor = "novita-tos-10-2-zdr-scope-managed-models"
 
 [[product.zdr.point]]
-text = "The exceptions and the open-ended \"as necessary to provide the Services or technical support\" clause are left undefined."
-text_zh = "例外与「as necessary to provide the Services or technical support」开口条款未界定。"
+text = "The contract carve-out and its consequence: §6.4 states that Section 10 commitments, \"including the Zero Data Retention policy set out in Section 10.2, apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider\", and that \"A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" Retention on that hop is therefore expressly possible, not merely undisclosed."
+text_zh = "合同层的除外及其后果：§6.4 写明 Section 10 的承诺「including the Zero Data Retention policy set out in Section 10.2, apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider」，且「A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」——该跳的保留属明文可能，而不只是「未披露」。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
+
+[[product.zdr.point]]
+text = "The exception list and the open-ended \"as necessary to provide the Services or technical support\" clause remain undefined; they qualify the managed-model path, not the reason for this tier's mark."
+text_zh = "例外清单与「as necessary to provide the Services or technical support」开口条款仍未界定；它们限定的是托管模型路径，不是本档判 no 的理由。"
+anchor = "novita-tos-10-2-zero-data-retention"
 
 [[product.zdr.point]]
 text = "Contract layer keeps a second, coexisting clause (§25 USER DATA): \"We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Marketplace Offerings… Although we perform regular routine backups of data…\" Routine backups are the classic exception to zero retention; the vendor does not quantify how long backup residue is kept, and §25 neither narrows nor widens §10.2 — the two clauses stand side by side."
@@ -73,25 +94,39 @@ text_zh = "合同层另有一条并存条款（§25 USER DATA）：「We will ma
 anchor = "novita-tos-25-user-data-maintained"
 
 [[product.zdr.point]]
-text = "Upstream hop: the sub-processor category \"Model provider\" processes \"API inputs and outputs per your requests\" (FAQ item 12) and that answer names no entity for it; its own retention policy is not disclosed, so the zero-retention chain cannot be closed at that hop."
-text_zh = "上游一跳：子处理者类别「Model provider」处理「API inputs and outputs per your requests」（FAQ 第 12 条），该条回答未给出主体名，其自身的保留政策未披露，零保留链在该跳无法闭合。"
-anchor = "novita-trustfaq-subprocessor-model-provider"
+text = "Conflict kept visible: FAQ item 3 still says \"Zero Data Retention is the default for all endpoints, including serverless API calls\", and the FAQ's no-retention sentence says it applies \"across all endpoints\". That is enterprise-FAQ language and now conflicts with the contract's model-category limit; under the authority order contract > enterprise_privacy_faq, the narrower contract text governs this row, while both statements remain on record."
+text_zh = "冲突并列保留：FAQ 第 3 条仍称「Zero Data Retention is the default for all endpoints, including serverless API calls」，且 FAQ 的不保留句声称适用于「across all endpoints」。这是企业 FAQ 口径，现与合同层的模型类别限定冲突；按 contract > enterprise_privacy_faq 的权威顺序，本行以更窄的合同文本为准，但两条表述都保留在案。"
+anchor = "novita-trustfaq-retention-by-category"
+
+[[product.zdr.point]]
+text = "Why the tier is marked no: §6.1 defines the Services as covering both Novita-Managed Models and Third-Party APIs, and §6.4 excludes the Model Provider hop from Novita's ZDR while expressly allowing it to log, retain, review, or use Inputs and Outputs. The chain therefore contains a hop that the contract excludes from ZDR; under the multi-hop rule (any hop that is clearly negative makes the whole chain negative), zero retention is not established for this tier, only for requests served by Novita-Managed Models."
+text_zh = "判 no 的理由：§6.1 把 Services 定义为同时覆盖 Novita-Managed Models 与 Third-Party APIs，§6.4 又把 Model Provider 那一跳排除在 Novita 的 ZDR 之外，并明文允许其记录、保留、审查或使用输入输出。整条链因此包含一个被合同排除在 ZDR 之外的跳；按多跳口径（任一跳明确为否，则全链为否），本档不成立零保留，零保留只对由 Novita-Managed Models 服务的请求成立。"
+anchor = "novita-tos-6-1-model-categories"
 
 [product.retention]
-days = 180
 object = "mixed"
-basis = "fixed_period"
+basis = "undisclosed"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.retention.point]]
+text = "Managed-model path, object = API input and output content, context = default, type = upper bound with no fixed day count: API inputs and outputs are \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\" (FAQ item 3), and TOS §10.2 caps Content retention at \"the time it takes to generate Output and deliver that Output to you\". Since 2026-11-27 that clause is expressly limited to Novita AI's own handling in connection with Novita-Managed Models. The only quantified figure the FAQ gives for API-side data is technical metadata — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" — which is metadata, not request content."
+text_zh = "托管模型路径：对象＝API 输入输出正文，语境＝默认，期限类型＝上限且无固定天数：API 输入输出「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」（FAQ 第 3 条），TOS §10.2 也把 Content 的保留限制在「the time it takes to generate Output and deliver that Output to you」。自 2026-11-27 起该条明示只覆盖 Novita 自身对 Content 的处理、且限 Novita-Managed Models。FAQ 对 API 侧数据唯一量化的数字是技术元数据——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」——那是元数据，不是请求正文。"
 anchor = "novita-trustfaq-retention-by-category"
 
 [[product.retention.point]]
-text = "The object has to be split rather than summarised by one number: API input and output content is \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\"; the 180 days recorded for this row is the upper bound for technical metadata only — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" Account & authentication data is kept for the duration of the account plus any statutory retention periods (FAQ item 3)."
-text_zh = "对象要分开写，不能用一个数字概括：API 输入输出正文「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」；本行记录的 180 天只是技术元数据的上限——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」。账户与鉴权数据为账户存续期加法定期间（FAQ 第 3 条）。"
-anchor = "novita-trustfaq-retention-by-category"
+text = "Third-party path, object = API inputs and outputs sent to a Third-Party API, context = default, type = undisclosed: §6.4 says those Inputs and Outputs are processed by the applicable Model Provider on its own infrastructure under the applicable Model Terms, that Novita's Section 10 commitments do not extend to any Model Provider, and that a Model Provider \"may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" No period is published on Novita's side. This is why the row carries basis=undisclosed rather than a fixed period: the no-retention cap now covers only part of the tier's content path."
+text_zh = "第三方路径：对象＝提交给 Third-Party API 的 API 输入输出，语境＝默认，期限类型＝未披露。§6.4 写明这些 Inputs/Outputs 由相应 Model Provider 在其自有基础设施上按适用 Model Terms 处理，Novita 的 Section 10 承诺不延伸至任何 Model Provider，且 Model Provider「may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」Novita 侧未公布任何期限。故本行取 basis=undisclosed 而非固定期限：不留存的上限现在只覆盖本档内容路径的一部分。"
+anchor = "novita-tos-6-4-model-provider-may-train"
 
 [[product.retention.point]]
-text = "Contract layer, §10.2 Zero Data Retention: Content is not retained beyond the time it takes to generate and deliver Output, with exceptions for applicable law, what is necessary to provide the Services or technical support, and automated safety screening. The clause carries no day count of its own — the 180 days above comes from the FAQ's metadata line, a different object."
-text_zh = "合同层 §10.2 Zero Data Retention：正文不为生成与交付 Output 所需之外保留，例外为法律要求、为提供服务或技术支持所必需、自动安全筛查。该条本身不含任何天数——上面的 180 天出自 FAQ 的元数据那句，是另一个对象。"
-anchor = "novita-tos-10-2-zero-data-retention"
+text = "Why this tier carries a third-party retention path: §6.1 of the same TOS defines the Services as providing access to both \"Novita-Managed Models\" and \"Third-Party APIs\"; requests sent to the latter are routed by §6.4 to the Model Provider's own terms, for which Novita publishes no retention period."
+text_zh = "本档为什么存在第三方保留路径：同一份 TOS 的 §6.1 把 Services 定义为同时提供「Novita-Managed Models」与「Third-Party APIs」；提交给后者的请求按 §6.4 交给 Model Provider 自己的条款，Novita 未公布其保留期限。"
+anchor = "novita-tos-6-1-model-categories"
+
+[[product.retention.point]]
+text = "The scope sentence that draws the line, added 2026-11-27 at the end of §10.2: \"For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.\""
+text_zh = "划界的范围句，2026-11-27 加在 §10.2 末尾：「For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.」"
+anchor = "novita-tos-10-2-zdr-scope-managed-models"
 
 [[product.retention.point]]
 text = "§25 USER DATA coexists with §10.2: \"We will maintain certain data that you transmit to the Site… Although we perform regular routine backups of data…\" Backup residue is the classic zero-retention exception and the vendor does not quantify its period; read it as a residual copy, not as long-term retention of request content."
@@ -141,6 +176,11 @@ text = "FAQ item 8 gives the cross-border mechanism as SCC Module 2 plus the UK 
 text_zh = "FAQ 第 8 条跨境机制为 SCC Module 2 + UK IDTA。无数据驻留承诺或区域选择项。"
 
 [[product.processing_region.point]]
+text = "TOS §6.4, added 2026-11-27, says Inputs and Outputs sent to a Third-Party API are processed \"by the applicable Model Provider on that Model Provider's own infrastructure\", but names no country or region; it therefore does not establish a processing location for that path either."
+text_zh = "2026-11-27 新增的 TOS §6.4 称提交给 Third-Party API 的输入输出「are processed by the applicable Model Provider on that Model Provider's own infrastructure」，但未点名国家或区域；因此也无法据此确定该路径的处理地。"
+anchor = "novita-tos-6-4-third-party-data-handling"
+
+[[product.processing_region.point]]
 text = "No source registered for this file states a processing location for API request content, so this row is recorded as undisclosed with the searched range listed, rather than read out of the cross-border transfer sentence — the same treatment as the other two tiers."
 text_zh = "本文件登记的来源都没有给出 API 请求内容的处理地，故本行记 undisclosed 并列出查阅范围，不从跨境传输句反推——与另两档口径一致。"
 
@@ -154,9 +194,9 @@ text_zh = "见顶层 role。客户内容「we process on behalf of customers」�
 anchor = "novita-privacy-scope-customer-content"
 
 [[product.role.point]]
-text = "The enterprise tier offers a GDPR Article 28 DPA and SCC Module 2. But FAQ item 12 lists \"Model provider\" as a sub-processor category that processes API inputs and outputs, without naming the entity; the upstream entity and its data policy are not disclosed."
-text_zh = "企业档提供 GDPR Art.28 DPA 与 SCC Module 2。但 FAQ 第 12 条把「Model provider」列为处理 API 输入输出的子处理者类别，未给出主体名；上游主体及其数据政策未披露。"
-anchor = "novita-trustfaq-subprocessor-model-provider"
+text = "The enterprise tier offers a GDPR Article 28 DPA and SCC Module 2. FAQ item 12 lists \"Model provider\" as a sub-processor category that processes API inputs and outputs, without naming the entity. Since 2026-11-27 §6.4 states that for a Third-Party API the Inputs and Outputs are processed by the applicable Model Provider on its own infrastructure under the applicable Model Terms, and that Novita AI's Section 10 commitments do not extend to any Model Provider; the TOS does not state Novita's role on that hop, so kind=processor describes Novita AI's own handling of Content only and the upstream hop's role is set by the applicable Model Terms. The TOS still names no upstream entity."
+text_zh = "企业档提供 GDPR Art.28 DPA 与 SCC Module 2。FAQ 第 12 条把「Model provider」列为处理 API 输入输出的子处理者类别，未给出主体名。自 2026-11-27 起 §6.4 写明走 Third-Party API 时输入输出由相应 Model Provider 在其自有基础设施上按适用 Model Terms 处理，且 Novita 的 Section 10 承诺不延伸至任何 Model Provider；TOS 未声明 Novita 在该跳的角色，故 kind=processor 只描述 Novita 自身对 Content 的处理，上游一跳的角色由适用 Model Terms 决定。TOS 仍未点名上游主体。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
 
 [[product.role.point]]
 text = "The same policy also carries a controller-side stance for the Personal Information Novita collects itself: \"We may share personal information with third parties for purposes such as analytics and advertising, which may be considered a \"sale\" under CCPA.\" Its object is account and website information, not content processed on behalf of customers, so it does not overturn the processor reading above — the two are kept side by side with their own scopes."
@@ -253,17 +293,27 @@ category = "api"
 plan_level = "enterprise"
 
 [product.training]
-mark = "yes"
-mode = "default"
+mark = "no"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.training.point]]
+text = "The carve-out, added 2026-11-27: TOS §6.4 states that Novita AI's data handling commitments under Section 10 \"apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider\", and that \"A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" Upstream training is therefore expressly permitted rather than undisclosed."
+text_zh = "2026-11-27 新增的除外条款：TOS §6.4 写明 Section 10 的数据处理承诺「apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider」，且「A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」——上游训练属明文许可，不再是「未披露」。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
+
+[[product.training.point]]
+text = "Why §6.4 reaches this tier: §6.1 of the same TOS defines the Services as providing access to both \"Novita-Managed Models\" and \"Third-Party APIs\", and §6.4 routes every Input and Output sent to a Third-Party API to that Model Provider. The enterprise custom terms and DPA are not public, so they cannot be read as excluding that path. Under the multi-hop rule (any hop that is clearly negative makes the whole chain negative), the tier mark records the weakest hop."
+text_zh = "§6.4 为什么落到本档：同一份 TOS 的 §6.1 把 Services 定义为同时提供「Novita-Managed Models」与「Third-Party APIs」，§6.4 又把提交给 Third-Party API 的输入输出交给相应 Model Provider。企业自定义条款与 DPA 不公开，不能据此认定该路径被排除。按多跳口径（任一跳明确为否，则全链为否），本档 mark 记录最弱一跳。"
+anchor = "novita-tos-6-1-model-categories"
+
+[[product.training.point]]
+text = "Conflict kept visible: FAQ item 1 still says the no-training commitment is \"contractually binding under our Terms of Service\", and the enterprise tier has a DPA that can reinforce it. The TOS now limits Section 10 to Novita AI's own handling and Novita-Managed Models while expressly permitting a Model Provider to train on Third-Party API inputs and outputs. The FAQ is lower authority than the TOS; both statements are kept, and the contract governs."
+text_zh = "冲突并列保留：FAQ 第 1 条仍称该不训练承诺「contractually binding under our Terms of Service」，企业档另有 DPA 可加固。TOS 现在把 Section 10 限制在 Novita 自身处理与 Novita-Managed Models，并明文允许 Model Provider 用 Third-Party API 的输入输出训练。FAQ 权威性低于 TOS；两条表述均保留，以合同为准。"
 anchor = "novita-trustfaq-no-training-on-api-data"
 
 [[product.training.point]]
-text = "FAQ item 1 states that the commitment is \"contractually binding under our Terms of Service\", and the enterprise tier has a DPA that can reinforce it"
-text_zh = "FAQ 第 1 条明确该承诺「contractually binding under our Terms of Service」，企业档另有 DPA 可加固"
-
-[[product.training.point]]
-text = "But the enterprise custom terms themselves are not public, so whether they contain exceptions cannot be checked."
-text_zh = "但企业自定义条款本身不公开，无法核对是否含例外。"
+text = "The enterprise custom terms themselves are not public, so whether they contain exceptions or add stronger protections cannot be checked."
+text_zh = "企业自定义条款本身不公开，无法核对是否含例外或更强的保护。"
 
 [[product.training.point]]
 text = "Policy layer (Privacy Policy, object = Personal Information): \"The Personal Information will not be used for model training\" sits in the same paragraph as the purpose \"To improve our Services and conduct research\", and the business-purposes list adds \"Research and Development: To conduct research and analysis to improve our Services and develop new products and features.\" Under the house rule that improving the service counts as training, both halves are kept side by side; the object is account and website personal information, not API inputs and outputs (those are governed by TOS §10.2)."
@@ -271,24 +321,58 @@ text_zh = "政策层（隐私政策，对象=Personal Information）：「The Pe
 anchor = "novita-privacy-no-model-training"
 
 [product.zdr]
-mark = "yes"
-mode = "default"
+mark = "no"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.zdr.point]]
+text = "Managed-model path: TOS §10.2 still says Novita AI \"will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you.\" Since 2026-11-27 the new scope sentence limits this to Novita AI's own handling in connection with Novita-Managed Models."
+text_zh = "托管模型路径：TOS §10.2 仍写 Novita AI「will not, unless otherwise required by applicable law (or as necessary to provide the Services or technical support to you): (i) log your Content for human review; or (ii) retain your Content beyond the time it takes to generate Output and deliver that Output to you.」自 2026-11-27 起，新增范围句把它限制在 Novita 自身对 Content 的处理、且限 Novita-Managed Models。"
+anchor = "novita-tos-10-2-zero-data-retention"
+
+[[product.zdr.point]]
+text = "The new scope sentence, added 2026-11-27 at the end of §10.2: \"For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.\" The ZDR promise is now expressly bounded by model category."
+text_zh = "2026-11-27 在 §10.2 末尾新增的范围句：「For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.」——ZDR 承诺现在明示以模型类别为界。"
+anchor = "novita-tos-10-2-zdr-scope-managed-models"
+
+[[product.zdr.point]]
+text = "The contract carve-out and its consequence: §6.4 states that Section 10 commitments, \"including the Zero Data Retention policy set out in Section 10.2, apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider\", and that \"A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" Retention on that hop is therefore expressly possible, not merely undisclosed."
+text_zh = "合同层的除外及其后果：§6.4 写明 Section 10 的承诺「including the Zero Data Retention policy set out in Section 10.2, apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider」，且「A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」——该跳的保留属明文可能，而不只是「未披露」。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
+
+[[product.zdr.point]]
+text = "The enterprise tier additionally has a DPA/SCC and written confirmation (FAQ item 1) as contractual reinforcement, but the DPA template is not public, and nothing in the public text excludes Third-Party APIs from §6.4. Conflict kept visible: FAQ item 3 still calls zero retention the default for \"all endpoints\"; under the authority order contract > enterprise_privacy_faq, the narrower contract text governs this row."
+text_zh = "企业档另有 DPA/SCC 与书面确认（FAQ 第 1 条）可作合同加固，但 DPA 模板不公开，公开文本也没有把 Third-Party APIs 排除出 §6.4。冲突并列保留：FAQ 第 3 条仍称零保留是「all endpoints」的默认；按 contract > enterprise_privacy_faq 的权威顺序，本行以更窄的合同文本为准。"
 anchor = "novita-trustfaq-retention-by-category"
 
 [[product.zdr.point]]
-text = "Zero retention is the default; the enterprise tier additionally has a DPA/SCC and written confirmation (FAQ item 1) as contractual reinforcement, but the DPA template is not public."
-text_zh = "默认即为零保留；企业档另有 DPA/SCC 与书面确认（FAQ 第 1 条）可作合同加固，但 DPA 模板不公开。"
+text = "Why the tier is marked no: §6.1 defines the Services as covering both Novita-Managed Models and Third-Party APIs, and §6.4 excludes the Model Provider hop from Novita's ZDR while expressly allowing it to log, retain, review, or use Inputs and Outputs. Under the multi-hop rule (any hop that is clearly negative makes the whole chain negative), zero retention is not established for this tier, only for requests served by Novita-Managed Models."
+text_zh = "判 no 的理由：§6.1 把 Services 定义为同时覆盖 Novita-Managed Models 与 Third-Party APIs，§6.4 又把 Model Provider 那一跳排除在 Novita 的 ZDR 之外，并明文允许其记录、保留、审查或使用输入输出。按多跳口径（任一跳明确为否，则全链为否），本档不成立零保留，零保留只对由 Novita-Managed Models 服务的请求成立。"
+anchor = "novita-tos-6-1-model-categories"
 
 [product.retention]
-days = 180
 object = "mixed"
-basis = "fixed_period"
+basis = "undisclosed"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.retention.point]]
+text = "Managed-model path, object = API input and output content, context = default, type = upper bound with no fixed day count: API inputs and outputs are \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\" (FAQ item 3), and TOS §10.2 caps Content retention at \"the time it takes to generate Output and deliver that Output to you\". Since 2026-11-27 that clause is expressly limited to Novita AI's own handling in connection with Novita-Managed Models. The only quantified figure the FAQ gives for API-side data is technical metadata — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" — which is metadata, not request content."
+text_zh = "托管模型路径：对象＝API 输入输出正文，语境＝默认，期限类型＝上限且无固定天数：API 输入输出「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」（FAQ 第 3 条），TOS §10.2 也把 Content 的保留限制在「the time it takes to generate Output and deliver that Output to you」。自 2026-11-27 起该条明示只覆盖 Novita 自身对 Content 的处理、且限 Novita-Managed Models。FAQ 对 API 侧数据唯一量化的数字是技术元数据——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」——那是元数据，不是请求正文。"
 anchor = "novita-trustfaq-retention-by-category"
 
 [[product.retention.point]]
-text = "The object has to be split rather than summarised by one number: API input and output content is \"Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law\"; the 180 days recorded for this row is the upper bound for technical metadata only — \"Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.\" Account & authentication data is kept for the duration of the account plus any statutory retention periods (FAQ item 3)."
-text_zh = "对象要分开写，不能用一个数字概括：API 输入输出正文「Processed transiently for inference only. Not retained beyond the time required to generate and deliver Output, except where required by applicable law」；本行记录的 180 天只是技术元数据的上限——「Technical metadata (request timestamps, error codes, usage metrics): Retained for 6 months for the purposes of billing, debugging, and security auditing.」。账户与鉴权数据为账户存续期加法定期间（FAQ 第 3 条）。"
-anchor = "novita-trustfaq-retention-by-category"
+text = "Third-party path, object = API inputs and outputs sent to a Third-Party API, context = default, type = undisclosed: §6.4 says those Inputs and Outputs are processed by the applicable Model Provider on its own infrastructure under the applicable Model Terms, that Novita's Section 10 commitments do not extend to any Model Provider, and that a Model Provider \"may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.\" No period is published on Novita's side. This is why the row carries basis=undisclosed rather than a fixed period: the no-retention cap now covers only part of the tier's content path."
+text_zh = "第三方路径：对象＝提交给 Third-Party API 的 API 输入输出，语境＝默认，期限类型＝未披露。§6.4 写明这些 Inputs/Outputs 由相应 Model Provider 在其自有基础设施上按适用 Model Terms 处理，Novita 的 Section 10 承诺不延伸至任何 Model Provider，且 Model Provider「may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms.」Novita 侧未公布任何期限。故本行取 basis=undisclosed 而非固定期限：不留存的上限现在只覆盖本档内容路径的一部分。"
+anchor = "novita-tos-6-4-model-provider-may-train"
+
+[[product.retention.point]]
+text = "Why this tier carries a third-party retention path: §6.1 of the same TOS defines the Services as providing access to both \"Novita-Managed Models\" and \"Third-Party APIs\"; requests sent to the latter are routed by §6.4 to the Model Provider's own terms, for which Novita publishes no retention period. The enterprise DPA is not public and cannot be read as closing that gap."
+text_zh = "本档为什么存在第三方保留路径：同一份 TOS 的 §6.1 把 Services 定义为同时提供「Novita-Managed Models」与「Third-Party APIs」；提交给后者的请求按 §6.4 交给 Model Provider 自己的条款，Novita 未公布其保留期限。企业 DPA 不公开，不能据此认定该缺口已被补齐。"
+anchor = "novita-tos-6-1-model-categories"
+
+[[product.retention.point]]
+text = "The scope sentence that draws the line, added 2026-11-27 at the end of §10.2: \"For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.\""
+text_zh = "划界的范围句，2026-11-27 加在 §10.2 末尾：「For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms.」"
+anchor = "novita-tos-10-2-zdr-scope-managed-models"
 
 [[product.retention.point]]
 text = "FAQ item 3 says technical metadata is handled \"as described in our Privacy Policy and applicable Data Processing Agreement\", so the periods above are the default tier's; the specific periods for the enterprise tier are set by the DPA, which the public documentation does not carry."
@@ -318,6 +402,11 @@ text = "FAQ item 8 offers SCC Module 2 and the UK IDTA/Addendum, showing that th
 text_zh = "FAQ 第 8 条提供 SCC Module 2 与 UK IDTA/Addendum，说明跨境路径可合同化"
 
 [[product.processing_region.point]]
+text = "TOS §6.4, added 2026-11-27, says Inputs and Outputs sent to a Third-Party API are processed \"by the applicable Model Provider on that Model Provider's own infrastructure\", but names no country or region; it therefore does not establish a processing location for that path either."
+text_zh = "2026-11-27 新增的 TOS §6.4 称提交给 Third-Party API 的输入输出「are processed by the applicable Model Provider on that Model Provider's own infrastructure」，但未点名国家或区域；因此也无法据此确定该路径的处理地。"
+anchor = "novita-tos-6-4-third-party-data-handling"
+
+[[product.processing_region.point]]
 text = "No specific region is disclosed and there is no residency option."
 text_zh = "未披露具体区域，也无驻留选项。"
 
@@ -328,6 +417,11 @@ anchor = "novita-trustfaq-dpa-art28-processor"
 [[product.role.point]]
 text = "FAQ item 9, \"We offer a DPA for enterprise customers. Our DPA covers the required elements under GDPR Article 28, including: ... Controller's obligations and processor's obligations ...\", together with item 8's SCC Module 2 (Controller-to-Processor) — at the agreement layer the enterprise tier is expressly a processor."
 text_zh = "FAQ 第 9 条「We offer a DPA for enterprise customers. Our DPA covers the required elements under GDPR Article 28, including: ... Controller's obligations and processor's obligations ...」，第 8 条 SCC Module 2 Controller-to-Processor——企业档在协议层明确为 processor。"
+
+[[product.role.point]]
+text = "Boundary (kind unchanged): §6.4 says that for a Third-Party API the Inputs and Outputs are processed by the applicable Model Provider on its own infrastructure under the applicable Model Terms, and that Novita AI's Section 10 commitments do not extend to any Model Provider. The TOS does not state Novita's role on that hop, so kind=processor describes Novita AI's own handling of Content only; the upstream hop's role is set by the applicable Model Terms."
+text_zh = "边界（不改 kind）：§6.4 写明走 Third-Party API 时，输入输出由相应 Model Provider 在其自有基础设施上按适用 Model Terms 处理，且 Novita 的 Section 10 承诺不延伸至任何 Model Provider。TOS 未声明 Novita 在该跳的角色，故 kind=processor 只描述 Novita 自身对 Content 的处理；上游一跳的角色由适用 Model Terms 决定。"
+anchor = "novita-tos-6-4-no-extension-to-model-provider"
 
 [[anchor]]
 id = "novita-tos-10-2-no-training"
@@ -619,3 +713,52 @@ topics = ["role"]
 prefix = "ng. Data processed: aggregated/anonymized usage metadata. • "
 exact = "Model provider: Provides model inference for integrated models. Data processed: API inputs and outputs per your requests."
 suffix = " • Payment provider (e.g., Stripe): Provides billing and pay"
+
+[[anchor]]
+id = "novita-tos-6-1-model-categories"
+source_id = "67323c4abe43949b"
+topics = ["training", "zdr", "retention"]
+
+[anchor.selector]
+prefix = "**6.1. Model Categories.** The Services provide access to artificial intelligence models (\"Models\"). "
+exact = "Models fall into two categories: (a) Models that Novita AI operates and manages on its own infrastructure (\"Novita-Managed Models\"); and (b) Models that are operated by a third party and made available to you through the Services by means of an interface to that third party's application programming interface (\"Third-Party APIs\")."
+suffix = " Each provider of a Third-Party API is a \"Model Provider\"."
+
+[[anchor]]
+id = "novita-tos-6-4-third-party-data-handling"
+source_id = "67323c4abe43949b"
+topics = ["training", "zdr", "retention", "processing_region"]
+
+[anchor.selector]
+prefix = "**6.4. Data Handling for Third-Party APIs.** "
+exact = "Inputs and Outputs transmitted to or generated by a Third-Party API are processed by the applicable Model Provider on that Model Provider's own infrastructure and in accordance with the applicable Model Terms."
+suffix = " Novita AI's data handling commitments under Section 10"
+
+[[anchor]]
+id = "novita-tos-6-4-no-extension-to-model-provider"
+source_id = "67323c4abe43949b"
+topics = ["training", "zdr", "retention", "role"]
+
+[anchor.selector]
+prefix = "and in accordance with the applicable Model Terms. "
+exact = "Novita AI's data handling commitments under Section 10, including the Zero Data Retention policy set out in Section 10.2, apply solely to Novita AI's own handling of your Content and do not extend to any Model Provider."
+suffix = " A Model Provider may log, retain, review, or use your Inputs and Outputs"
+
+[[anchor]]
+id = "novita-tos-6-4-model-provider-may-train"
+source_id = "67323c4abe43949b"
+topics = ["training", "zdr", "retention"]
+
+[anchor.selector]
+prefix = "and do not extend to any Model Provider. "
+exact = "A Model Provider may log, retain, review, or use your Inputs and Outputs, including for model training, to the extent permitted by the applicable Model Terms."
+suffix = " You are responsible for reviewing the applicable Model Terms"
+
+[[anchor]]
+id = "novita-tos-10-2-zdr-scope-managed-models"
+source_id = "67323c4abe43949b"
+topics = ["zdr", "retention"]
+
+[anchor.selector]
+prefix = "such screening does not constitute retention of your Content for any other purpose. "
+exact = "For clarity, Novita AI's Zero Data Retention commitment applies solely to Novita AI's own handling of your Content in connection with Novita-Managed Models. It does not extend to Third-Party APIs, which are governed by Section 6.4 and the applicable Model Terms."
