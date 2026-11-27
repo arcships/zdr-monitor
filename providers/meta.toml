@@ -10,7 +10,7 @@ url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Contributor 档，只说『ZDR support may vary by model』。"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。2026-11 版列出 ZDR 覆盖的模型(Muse Spark 1.1/1.2/1.3、Muse Wonder、Muse Ember、Muse Image)并明确『ZDR doesn't cover the Contributor-mode variants of these models』，故 Contributor 档不提供 ZDR；同页还把 Web search 列为 ZDR 下可用、把 Contributor mode 列为 ZDR 下不可用。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/commitments"
@@ -84,9 +84,14 @@ mode = "by_agreement"
 anchor = "zdr-available"
 
 [[product.zdr.point]]
-text = "Not default and not self-serve: ZDR \"isn't part of standard usage and can't be turned on from the web UI\" — it is enabled at the organization level and requires separate enablement by Meta (request it through the contact sales form). The same page adds \"ZDR support may vary by model\"."
-text_zh = "非默认、非自助：ZDR『isn't part of standard usage and can't be turned on from the web UI』——组织级启用、需 Meta 单独开通（走 contact sales 表单申请）。同页另注『ZDR support may vary by model』。"
+text = "Not default and not self-serve: ZDR \"isn't part of standard usage and can't be turned on from the web UI\" — \"Meta enables it for a team after reviewing the request\", requested through the contact sales form."
+text_zh = "非默认、非自助：ZDR『isn't part of standard usage and can't be turned on from the web UI』——由 Meta 审核申请后为 team 开通（走 contact sales 表单申请）。"
 anchor = "zdr-not-standard-org-level"
+
+[[product.zdr.point]]
+text = "Model scope is now spelled out instead of the old \"ZDR support may vary by model\": \"ZDR currently covers these models on Meta Model API\" (Muse Spark 1.3/1.2/1.1, Muse Wonder, Muse Ember, Muse Image), and \"ZDR doesn't cover the Contributor-mode variants of these models.\""
+text_zh = "模型范围不再是一句『ZDR support may vary by model』，而是列明：『ZDR currently covers these models on Meta Model API』（Muse Spark 1.3/1.2/1.1、Muse Wonder、Muse Ember、Muse Image），且『ZDR doesn't cover the Contributor-mode variants of these models.』"
+anchor = "zdr-covered-models"
 
 [[product.zdr.point]]
 text = "Scope: \"ZDR applies only to calls made directly to Meta Model API. Calls routed through third-party platforms follow that platform's data retention policy.\""
@@ -94,8 +99,8 @@ text_zh = "范围：『ZDR applies only to calls made directly to Meta Model API
 anchor = "zdr-scope-direct-calls-only"
 
 [[product.zdr.point]]
-text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — usage statistics (token, request and tool-call counts, without the prompts and responses), account and team data, operational metadata (model name, latency, app ID, for billing, analytics and operations), support feedback, and data processed by third-party tools or external integrations, which ZDR does not cover."
-text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——使用统计（token/请求/工具调用计数，不含提示词与回复）、账户与团队数据、运维元数据（模型名、延迟、app ID，用于计费/分析/运维）、支持反馈，以及第三方工具或外部集成处理的数据（不受 ZDR 覆盖）。"
+text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — usage statistics (token, request and tool-call counts, without the prompts and responses), account and team data, operational metadata (model name, latency, app ID, for billing, analytics and operations), support feedback, and third-party data — now worded \"Calling function tools or remote MCP servers doesn't turn off ZDR, but ZDR covers only Meta's handling of your content. Data sent to a third-party service follows that service's own terms and data handling practices.\""
+text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——使用统计（token/请求/工具调用计数，不含提示词与回复）、账户与团队数据、运维元数据（模型名、延迟、app ID，用于计费/分析/运维）、支持反馈，以及第三方数据——现表述为『Calling function tools or remote MCP servers doesn't turn off ZDR, but ZDR covers only Meta's handling of your content. Data sent to a third-party service follows that service's own terms and data handling practices.』（调用函数工具/远程 MCP 不会关闭 ZDR，但 ZDR 只覆盖 Meta 对内容的处理）。"
 anchor = "zdr-still-retained-metadata"
 
 [[product.zdr.point]]
@@ -232,18 +237,18 @@ text_zh = "2026-10-09 新增：§6.1 明确了边界——原提交给 Standard 
 anchor = "tos-6-1-standard-becomes-contributor"
 
 [product.zdr]
-mark = "unknown"
-searched = [
-  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
-  "https://dev.meta.ai/legal/terms-of-service",
-  "https://dev.meta.ai/legal/commitments",
-  "https://dev.meta.ai/legal/geographic-use-policy",
-  "https://www.facebook.com/legal/terms/Meta-Global-Processor-Terms",
-]
+mark = "no"
+anchor = "zdr-contributor-not-covered"
 
 [[product.zdr.point]]
-text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\"; it does not state whether the Contributor tier can enable ZDR. This tier rests on Meta being able to use Content for training, which sits badly with request-level zero retention, but Meta has taken no position — recorded as not found, and not to be read in reverse as the vendor declining to offer it."
-text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor 档能否启用 ZDR。本档的前提是 Meta 可用 Content 训练，与请求级零保留相斥，但官方未表态——如实记未找到，不得反推为厂商拒绝提供。"
+text = "The ZDR help page now excludes this tier explicitly: \"ZDR doesn't cover the Contributor-mode variants of these models.\" That replaces the old page's silence (it said only \"ZDR support may vary by model\"); this is an explicit negative, so the tier is recorded as no rather than not found."
+text_zh = "ZDR 帮助页现在明确排除本档：『ZDR doesn't cover the Contributor-mode variants of these models.』它取代了旧页的沉默（旧页只说『ZDR support may vary by model』）；这是明确否定，故本档记为 no，而非『未找到』。"
+anchor = "zdr-contributor-not-covered"
+
+[[product.zdr.point]]
+text = "The same exclusion appears in the feature list: with ZDR enabled, \"Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code\" is not available."
+text_zh = "同一排除还出现在功能清单里：启用 ZDR 后『Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code』不可用。"
+anchor = "zdr-contributor-mode-unavailable"
 
 [product.retention]
 object = "input_output"
@@ -339,7 +344,7 @@ prefix = """
 ## Does Model API support Zero Data Retention (ZDR)?
 
 Yes. """
-exact = "Zero Data Retention (ZDR) is available for qualified Meta Model API accounts."
+exact = "Zero Data Retention (ZDR) is available for qualified Meta Model API teams."
 suffix = " When ZDR is enabled, your prompts and the model's responses"
 
 [[anchor]]
@@ -419,7 +424,7 @@ n is required to comply with the law or to address misuse.
 
 """
 exact = "ZDR isn't part of standard usage and can't be turned on from the web UI."
-suffix = " It's enabled at the organization level and requires separat"
+suffix = " Meta enables it for a team after reviewing the request."
 
 [[anchor]]
 id = "zdr-scope-direct-calls-only"
@@ -428,11 +433,35 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
- with a key from a different organization, aren't covered.
+ with a key from a different team, aren't covered.
 
 """
 exact = "ZDR applies only to calls made directly to Meta Model API."
 suffix = " Calls routed through third-party platforms follow that plat"
+
+[[anchor]]
+id = "zdr-covered-models"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "ZDR currently covers these models on Meta Model API"
+
+[[anchor]]
+id = "zdr-contributor-not-covered"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "ZDR doesn't cover the Contributor-mode variants of these models."
+
+[[anchor]]
+id = "zdr-contributor-mode-unavailable"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code"
 
 [[anchor]]
 id = "zdr-abuse-2y"
