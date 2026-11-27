@@ -13,7 +13,7 @@ url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)。页面把 ZDR 限定为面向 qualified Meta Model API accounts、在组织级开通且需 Meta 单独启用(support may vary by model)，写明个人账户或他组织 key 的请求不受覆盖、只覆盖直连 Model API 的调用；同时给出保留侧唯一一条量化期限(AUP 违规的输入输出最长 2 年，上限)。本文件把该页登记为 retention 的证据来源；zdr 维度只用它说明适用边界——订阅凭据是否属于 qualified / ZDR-enabled 组织，官方未表态。"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)。2026-11 版把 ZDR 限定为面向 qualified Meta Model API teams、由 Meta 审核后为 team 开通(须走 contact sales 表单)，列出当前支持 ZDR 的模型(Muse Spark 1.3/1.2/1.1、Muse Wonder、Muse Ember、Muse Image)并明确不覆盖这些模型的 Contributor-mode 变体；写明个人账户或他 team key 的请求不受覆盖、ZDR 只覆盖直连 Meta Model API 的调用。新增 Muse Code 专段：使用 ZDR team 的 API key 时 ZDR 覆盖其 model requests(优先读 META_API_KEY)，web search、telemetry、feedback reports 会另发数据；同页把 Contributor mode(含 Muse Code 的 Contributor mode setting)列为 ZDR 下不可用。保留侧仍给出唯一一条量化期限(AUP 违规的输入输出最长 2 年，上限)。本文件把该页登记为 retention 的证据来源；zdr 维度只用它说明适用边界——个人订阅者能否获得或加入 ZDR-enabled team，官方未表态。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/commitments"
@@ -102,8 +102,8 @@ searched = [
 ]
 
 [[product.zdr.point]]
-text = "No ZDR wording covers this tier: the ToS never mentions ZDR or Zero Data Retention. The ZDR help page (declared as a source in this file) scopes ZDR to 『qualified Meta Model API accounts』, enables it 『at the organization level』 and 『requires separate enablement by Meta』, notes 『ZDR support may vary by model』, and adds that 『Requests made with a personal account, or with a key from a different organization, aren't covered』 while ZDR 『applies only to calls made directly to Meta Model API』. Whether a Coding Harness Subscription credential belongs to a qualified / ZDR-enabled organization is not stated anywhere, so this stays unknown — a gap in our evidence, not a Meta statement. The subscription help page is not declared as a source here and has no snapshot, so nothing in this verdict rests on it."
-text_zh = "本档没有任何零保留表述：ToS 全文没有出现 ZDR / Zero Data Retention。ZDR 帮助页(已登记为本文件来源)把 ZDR 限定为面向『qualified Meta Model API accounts』，在『at the organization level』开通且『requires separate enablement by Meta』，并注明『ZDR support may vary by model』；同时写明『Requests made with a personal account, or with a key from a different organization, aren't covered』、ZDR『applies only to calls made directly to Meta Model API』。订阅凭据是否属于 qualified / ZDR-enabled 组织，官方没有表态，故维持 unknown——这是我方证据缺口，不是 Meta 的声明。订阅帮助页未登记为本文件来源、也没有快照，本判定不依赖它。"
+text = "No ZDR wording establishes coverage for this individual tier: the ToS never mentions ZDR or Zero Data Retention. The ZDR help page (declared as a source in this file) scopes ZDR to 『qualified Meta Model API teams』, says 『Meta enables it for a team after reviewing the request』 and sends requesters to the contact sales form so sales can confirm 『your team's eligibility』. Coverage follows the key: ZDR applies to 『Model API requests made with an API key that belongs to a ZDR-enabled team』, and 『Requests made with a personal account, or with a key from a different team, aren't covered.』 The page adds 『If you use Muse Code, ZDR applies to the model requests it sends with an API key from your ZDR team』, but it does not state whether an individual Coding Harness Subscription subscriber can obtain or join a ZDR-enabled team, so whether this tier can satisfy the key requirement is not disclosed. It also lists 『Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code』 as unavailable with ZDR, while this subscription defaults to Contributor Services (§3.3); the page does not define whether that setting is the same exclusion, so no coverage is inferred for the default configuration. This stays unknown — a gap in our evidence, not a Meta statement that the tier cannot use ZDR. The subscription help page is not declared as a source here and has no snapshot, so nothing in this verdict rests on it."
+text_zh = "本个人档没有任何能确定覆盖的零保留表述：ToS 全文没有出现 ZDR / Zero Data Retention。ZDR 帮助页(已登记为本文件来源)把 ZDR 限定为面向『qualified Meta Model API teams』，写明『Meta enables it for a team after reviewing the request』，并要求通过 contact sales 表单由销售确认『your team's eligibility』。覆盖跟着 key 走：ZDR 适用于『Model API requests made with an API key that belongs to a ZDR-enabled team』，且『Requests made with a personal account, or with a key from a different team, aren't covered.』页面另写『If you use Muse Code, ZDR applies to the model requests it sends with an API key from your ZDR team』，但没有说明个人 Coding Harness Subscription 订阅者能否获得或加入这样的 ZDR-enabled team，因此本档能否满足该 key 条件并未披露。同页还把『Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code』列为 ZDR 下不可用，而本订阅默认是 Contributor Services(§3.3)；页面没有定义该 setting 是否就是这一排除，故不推断默认配置可获得覆盖。故维持 unknown——这是我方证据缺口，不是 Meta 声明本档不能用 ZDR。订阅帮助页未登记为本文件来源、也没有快照，本判定不依赖它。"
 
 [product.retention]
 object = "input_output"
@@ -139,6 +139,16 @@ text_zh = "终止不等于删除：§15.4(iii) 列出的存续条款包含 4、5
 anchor = "retention-zdr-aup-2y"
 text = "The only quantified period we found is an upper bound and sits in the ZDR context rather than on the default path: the ZDR help page says 『If a request is flagged for an Acceptable Use Policy violation, Meta may retain the associated inputs and outputs for up to 2 years』 for abuse detection, integrity and content-safety enforcement and to meet legal obligations. Object = inputs and outputs; context = exception (AUP violation); type = upper bound. The default path still carries no quantified period."
 text_zh = "我们找到的唯一量化期限是上限，且属 ZDR 语境、不在默认路径上：ZDR 帮助页写明『If a request is flagged for an Acceptable Use Policy violation, Meta may retain the associated inputs and outputs for up to 2 years』，用于滥用检测、完整性与内容安全执法及法律义务。对象是输入输出，语境是例外(AUP 违规)，类型是上限。默认路径仍无量化期限。"
+
+[[product.retention.point]]
+anchor = "retention-zdr-web-search"
+text = "Under ZDR, web search is available: 『Web search: Search queries and results are processed in real time and aren't stored.』 The object is search queries and results; the context is ZDR on. That is a real-time/no-storage statement for that object, not a period for the default input/output path, and it does not establish ZDR eligibility for this tier."
+text_zh = "开通 ZDR 后，web search 可用：『Web search: Search queries and results are processed in real time and aren't stored.』对象是搜索查询与结果，语境是已开 ZDR。这是该对象的实时处理/不留存表述，不是默认输入输出路径的期限，也不证明本档可获得 ZDR。"
+
+[[product.retention.point]]
+anchor = "retention-muse-code-separate-channels"
+text = "Muse Code has data channels outside the ZDR model-request path: 『Muse Code can also send data to Meta separately from its model requests, through web search, telemetry and feedback reports.』 The page tells users how to turn these off but gives no period for telemetry or feedback reports, and does not say those separately sent channels inherit the model-request ZDR no-storage sentence. The web search feature has its own no-storage statement above (queries and results aren't stored); that sentence does not cover telemetry or feedback reports."
+text_zh = "Muse Code 在 ZDR 的 model-request 路径之外还有数据渠道：『Muse Code can also send data to Meta separately from its model requests, through web search, telemetry and feedback reports.』页面只说明如何关闭，未给 telemetry 或 feedback reports 期限，也没有说这些单独发送的渠道继承 model requests 的 ZDR 不留存表述。web search 功能另有上面的『不留存』表述（查询与结果不留存），但该句不覆盖 telemetry 或 feedback reports。"
 
 [[product.retention.point]]
 anchor = "retention-commitments-data-retention"
@@ -385,3 +395,23 @@ unt for the purposes described above.
 """
 exact = "Meta will retain your Content as described in the Terms and Privacy Policy."
 suffix = " You can view and delete your Content through your Account. "
+
+[[anchor]]
+id = "retention-zdr-web-search"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "* **Web search**: "
+exact = "Search queries and results are processed in real time and aren't stored"
+suffix = ".\n* **Image generation and editing**"
+
+[[anchor]]
+id = "retention-muse-code-separate-channels"
+source_id = "01dfec88a178b937"
+topics = ["retention", "zdr"]
+
+[anchor.selector]
+prefix = "so set `META_API_KEY` to your ZDR team's key. "
+exact = "Muse Code can also send data to Meta separately from its model requests, through web search, telemetry and feedback reports"
+suffix = ". To turn these off, see Control what Muse Code sends to Meta."
