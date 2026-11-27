@@ -10,7 +10,7 @@ url = "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention"
 fetch = "jina"
 channel = "enterprise_privacy_faq"
 tier = "core"
-note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 所用的同一 API 凭据)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。页面不区分 Standard/Contributor 档，只说『ZDR support may vary by model』。"
+note = "官方帮助中心政策页《Does Model API support Zero Data Retention (ZDR)?》。覆盖 Meta Model API 本身(含 Muse Code 用同一 API 凭据发起模型请求的情形)，是 zdr 维度的唯一权威来源，同时给出 retention 维度里 ZDR 档的例外期限(AUP 违规输入输出最长 2 年)。2026-11-27 版起按 team 说明启用方式：经 Meta 审核后启用；列出支持 ZDR 的模型(Muse Spark 1.3/1.2/1.1、Muse Wonder、Muse Ember、Muse Image)，并写明『ZDR doesn't cover the Contributor-mode variants of these models.』，同时把 Contributor mode 列入 ZDR 下不可用的功能——本页自此区分档位，Contributor 档的 zdr 由 unknown 改为否决。"
 
 [[source]]
 url = "https://dev.meta.ai/legal/terms-of-service"
@@ -60,16 +60,17 @@ mode = "by_agreement"
 anchor = "llama-zdr-available-not-default"
 
 [[product.zdr.point]]
-text = "Organization level, enabled separately by Meta, and \"ZDR support may vary by model\""
-text_zh = "组织级、需 Meta 单独启用、按模型支持程度可能不同"
+text = "Enabled per team after Meta reviews the request, and only for the models the page lists: \"ZDR currently covers these models on Meta Model API\" — Muse Spark 1.3, 1.2 and 1.1, Muse Wonder, Muse Ember and Muse Image; \"ZDR doesn't cover the Contributor-mode variants of these models.\""
+text_zh = "按 team 申请、经 Meta 审核后启用，且只覆盖页面列出的模型：『ZDR currently covers these models on Meta Model API』——Muse Spark 1.3/1.2/1.1、Muse Wonder、Muse Ember、Muse Image；『ZDR doesn't cover the Contributor-mode variants of these models.』"
+anchor = "llama-zdr-supported-models"
 
 [[product.zdr.point]]
 text = "\"ZDR applies only to calls made directly to Meta Model API.\" See top-level zdr."
 text_zh = "只覆盖直连调用。见顶层 zdr。"
 
 [[product.zdr.point]]
-text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — inputs and outputs of requests flagged for an AUP violation (up to 2 years), usage statistics (counts only), account and team data, operational metadata, support feedback, and data handled by third-party tools or external integrations, which ZDR does not cover."
-text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——AUP 违规请求的输入输出（最长 2 年）、使用统计（只有计数）、账户与团队数据、运维元数据、支持反馈，以及第三方工具/外部集成处理的数据（不受 ZDR 覆盖）。"
+text = "ZDR is not \"nothing is kept\": the same page lists the categories Meta still retains under ZDR — inputs and outputs of requests flagged for an AUP violation (up to 2 years), usage statistics (counts only), account and team data, operational metadata and support feedback. On third parties the page now says calling function tools or remote MCP servers \"doesn't turn off ZDR\", but ZDR \"covers only Meta's handling of your content\" — data sent to a third-party service follows that service's own terms and data-handling practices."
+text_zh = "开了 ZDR 不等于完全不留：同页列出仍保留的类别——AUP 违规请求的输入输出（最长 2 年）、使用统计（只有计数）、账户与团队数据、运维元数据、支持反馈。第三方方面，本版改为『呼出 function tools 或远程 MCP server 不会关闭 ZDR』，但 ZDR『只覆盖 Meta 对你内容的处理』——发给第三方服务的数据按其自身条款与数据处理方式处理。"
 anchor = "llama-zdr-still-retained-metadata"
 
 [[product.zdr.point]]
@@ -78,8 +79,8 @@ text_zh = "整套证据里唯一的量化期限是 ZDR 的例外，且为上限�
 anchor = "llama-zdr-policy-violation-2y"
 
 [[product.zdr.point]]
-text = "Availability boundary: \"Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected\" — stateful requests that reference an earlier response, background (asynchronous) requests, file uploads, web search and Playground chat history are unavailable."
-text_zh = "可用性边界：『Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected』——有状态请求、后台（异步）请求、文件上传、web search、Playground 历史都不可用。"
+text = "Availability boundary: \"Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected\" — unavailable are stateful requests that store a response or reference one server-side (such as `store: true`, `previous_response_id` and stored reasoning items), background (asynchronous) requests, file uploads (including multipart image uploads), Contributor mode and Playground chat history. Web search is no longer on this list: the page now says search queries and results \"are processed in real time and aren't stored.\""
+text_zh = "可用性边界：『Because your content isn't stored under ZDR, features that rely on storing your prompts, attachments, or responses are turned off, and requests that use them are rejected』——不可用的是会存储回复或在服务端引用回复的有状态请求（如 `store: true`、`previous_response_id` 与 stored reasoning items）、后台（异步）请求、文件上传（含 multipart 图片上传）、Contributor mode 与 Playground 历史。web search 已不在其中：本版写明搜索查询与结果『are processed in real time and aren't stored』。"
 anchor = "llama-zdr-features-disabled"
 
 [product.retention]
@@ -209,21 +210,16 @@ text_zh = "2026-10-09 新增：§6.1 规定原提交给 Standard Services 的 Co
 anchor = "llama-tos-6-1-standard-becomes-contributor"
 
 [product.zdr]
-mark = "unknown"
-searched = [
-  "https://dev.meta.ai/help/policies-and-privacy/zero-data-retention",
-  "https://dev.meta.ai/legal/terms-of-service",
-  "https://dev.meta.ai/legal/commitments",
-  "https://dev.meta.ai/help/policies-and-privacy/contributor-tier",
-]
+mark = "no"
+anchor = "llama-zdr-contributor-mode-not-covered"
 
 [[product.zdr.point]]
-text = "The ZDR help page does not distinguish tiers and says only \"ZDR support may vary by model\", without stating whether the Contributor tier (formerly Discounted) can enable ZDR. This tier exists on the premise that Meta may use Content for training, which is contractually incompatible with request-level zero retention, but Meta has taken no position, so it is recorded faithfully as not_found and must not be read in reverse as the vendor declining to offer it."
-text_zh = "ZDR 帮助页不区分档位，只说『ZDR support may vary by model』，没有说明 Contributor 档(旧名 Discounted)能否启用 ZDR。该档的存在前提是 Meta 可用 Content 训练，与请求级零保留在条款上相斥，但官方未表态，故如实记 not_found，不得反推为厂商拒绝提供。"
+text = "The ZDR help page now excludes this tier explicitly: \"ZDR doesn't cover the Contributor-mode variants of these models\", and it lists \"Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code\" among the features that aren't available with ZDR. A Contributor-tier request therefore cannot have ZDR; the earlier not_found is resolved to no by this statement, not inferred."
+text_zh = "ZDR 帮助页现在明确把本档排除在外：『ZDR doesn't cover the Contributor-mode variants of these models』，并把『Contributor mode, including Contributor-mode variants on Meta Model API and the Contributor mode setting in Muse Code』列入启用 ZDR 时不可用的功能。因此 Contributor 档请求无法启用 ZDR；原先的 not_found 由这句明文解决为 no，不是推断。"
 
 [[product.zdr.point]]
-text = "The same page sets ZDR's boundaries without distinguishing tiers: features that rely on storing prompts, attachments or responses are turned off (stateful requests, background/asynchronous requests, file uploads, web search, Playground chat history), and even with ZDR Meta still retains a few categories (AUP-violation inputs and outputs for up to 2 years, usage statistics, account and team data, operational metadata, support feedback; data processed by third-party integrations is not covered). None of this states whether the Contributor tier can enable ZDR."
-text_zh = "同一页在不区分档位的前提下给出了 ZDR 的边界：依赖存储提示词、附件或回复的功能会被关闭（有状态请求、后台/异步请求、文件上传、web search、Playground 历史）；且即使开了 ZDR，Meta 仍保留少数类别（AUP 违规的输入输出最长 2 年、使用统计、账户与团队数据、运维元数据、支持反馈；第三方集成处理的数据不受覆盖）。这些都没有说明本档能否启用 ZDR。"
+text = "The same page's ZDR boundaries still apply only to ZDR-enabled teams: features that rely on storing prompts, attachments or responses are turned off, and even with ZDR Meta still retains a few categories (AUP-violation inputs and outputs for up to 2 years, usage statistics, account and team data, operational metadata, support feedback). Since Contributor mode is itself on the unavailable list, none of these can be combined with this tier."
+text_zh = "同页的 ZDR 边界仍只适用于已启用 ZDR 的 team：依赖存储提示词、附件或回复的功能会被关闭；即使开了 ZDR，Meta 仍保留少数类别（AUP 违规的输入输出最长 2 年、使用统计、账户与团队数据、运维元数据、支持反馈）。由于 Contributor mode 本身在不可用清单内，这些都不能与本档组合。"
 
 [product.retention]
 object = "mixed"
@@ -365,7 +361,7 @@ source_id = "01dfec88a178b937"
 topics = ["zdr"]
 
 [anchor.selector]
-prefix = "n (ZDR) is available for qualified Meta Model API accounts. "
+prefix = "n (ZDR) is available for qualified Meta Model API teams. "
 exact = "When ZDR is enabled, your prompts and the model's responses are processed in real time and aren't stored by Meta after the response is returned"
 suffix = ", except where retention is required to comply with the law "
 
@@ -456,7 +452,7 @@ n is required to comply with the law or to address misuse.
 
 """
 exact = "ZDR isn't part of standard usage and can't be turned on from the web UI."
-suffix = " It's enabled at the organization level and requires separat"
+suffix = " Meta enables it for a team after reviewing the request. To r"
 
 [[anchor]]
 id = "llama-zdr-direct-calls-only"
@@ -465,7 +461,7 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
- with a key from a different organization, aren't covered.
+ with a key from a different team, aren't covered.
 
 """
 exact = "ZDR applies only to calls made directly to Meta Model API."
@@ -502,8 +498,6 @@ topics = ["zdr"]
 
 [anchor.selector]
 prefix = """
-tion policy.
-
 ## Which features aren't available with ZDR?
 
 """
@@ -512,6 +506,28 @@ suffix = """
  With ZDR enabled, the following aren't available:
 
 *   Stat"""
+
+[[anchor]]
+id = "llama-zdr-supported-models"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = """
+ZDR currently covers these models on Meta Model API:
+
+* Muse Spark 1.3, Muse Spark 1.2 and Muse Spark 1.1 (`muse-spark-1.3`, `muse-spark-1.2`, `muse-spark-1.1`)
+* Muse Wonder (`muse-wonder-1.0`)
+* Muse Ember (`muse-ember-1.0`)
+* Muse Image (`muse-image-1.0`)"""
+
+[[anchor]]
+id = "llama-zdr-contributor-mode-not-covered"
+source_id = "01dfec88a178b937"
+topics = ["zdr"]
+
+[anchor.selector]
+exact = "ZDR doesn't cover the Contributor-mode variants of these models."
 
 [[anchor]]
 id = "llama-tos-10-3-right-to-monitor"
