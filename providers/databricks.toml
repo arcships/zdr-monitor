@@ -39,7 +39,7 @@ note = "Databricks Geos: Data residency 文档。默认客户内容仅在工作�
 url = "https://docs.databricks.com/aws/en/resources/designated-services"
 channel = "developer_data"
 tier = "core"
-note = "Designated Services 文档，含 Pay-per-token / Provisioned throughput Foundation Model APIs 在各 Geo 的可用性表。关键句：开启跨 Geo 处理后「your data is not stored outside of your workspace's Geo regardless of this setting」——处理地与存储地要分开看。"
+note = "Designated Services 文档（2026-11-25 版），含 Pay-per-token / Provisioned throughput Foundation Model APIs 在各 Geo 的可用性表。关键句：开启跨 Geo 处理后「your data is not stored outside of your workspace's Geo regardless of this setting」——处理地与存储地要分开看。2026-11-25 版在该句后新增唯一点名例外：Genie Search 会把已连接来源的内容与权限副本存到账户管理员设置时选择的 Geo，该 Geo 可能不同于部分 workspace 的 Geo；存储承诺因此不再是全量无例外。"
 
 [[source]]
 url = "https://www.databricks.com/legal/databricks-free-edition"
@@ -153,8 +153,12 @@ codes = ["selected"]
 anchor = "geos-same-geo-processing"
 
 [[product.processing_region.point]]
-text_zh = "见顶层 processing_region：默认工作区 Geo 内处理；Designated Services 例外，但数据不存出 workspace Geo"
+text_zh = "见顶层 processing_region：默认工作区 Geo 内处理；Designated Services 例外，数据不存出 workspace Geo。designated-services 页在 2026-11-25 版为该存储承诺加了唯一点名例外：Genie Search 会在账户管理员设置时选择的 Geo 存一份已连接来源的内容与权限副本，可能不同于部分 workspace 的 Geo。"
 anchor = "ds-not-stored-outside-geo"
+
+[[product.processing_region.point]]
+text_zh = "存储承诺句中的唯一点名例外（对象：Genie Search 已连接来源的内容与权限副本；地点：管理员设置时选择的 Geo，可不同于部分 workspace 的 Geo）。"
+anchor = "ds-genie-search-storage-exception"
 
 [[product.processing_region.point]]
 text_zh = "跨 Geo 处理需账户管理员显式开启。"
@@ -359,7 +363,12 @@ anchor = "ds-not-stored-outside-geo"
 text_zh = "本档同属 Designated Services，按 Geo 处理"
 
 [[product.processing_region.point]]
-text_zh = "designated-services 页给出各国/区域的「Processed in …」明细，并明确美/欧工作区分别使用美国/欧洲的模型（无论是否开启跨 Geo）。数据不存出 workspace Geo。"
+text_zh = "designated-services 页给出各国/区域的「Processed in …」明细，并明确美/欧工作区分别使用美国/欧洲的模型（无论是否开启跨 Geo）。存储承诺为数据不存出 workspace Geo，但 2026-11-25 版加了唯一点名例外：Genie Search 在管理员设置时选择的 Geo 存一份已连接来源的内容与权限副本，该 Geo 可能不同于部分 workspace 的 Geo。"
+anchor = "ds-not-stored-outside-geo"
+
+[[product.processing_region.point]]
+text_zh = "存储承诺句中的唯一点名例外（对象：Genie Search 已连接来源的内容与权限副本；地点：管理员设置时选择的 Geo，可不同于部分 workspace 的 Geo）。"
+anchor = "ds-genie-search-storage-exception"
 
 [product.role]
 kind = "processor"
@@ -1009,11 +1018,18 @@ topics = ["processing_region"]
 
 [anchor.selector]
 prefix = " Designated Service can process your content in other Geos. "
-exact = "Importantly, your data is not stored outside of your workspace's Geo regardless of this setting"
-suffix = """
-.
+exact = "Your data is not stored outside of your workspace's Geo regardless of this setting"
+suffix = ", with one exception: Genie Search stores a copy of your connected sources' content and permissions"
 
-## [](https://docs.databricks.com/aws/en/resources/design"""
+[[anchor]]
+id = "ds-genie-search-storage-exception"
+source_id = "3b748e7c00d3f4b1"
+topics = ["processing_region"]
+
+[anchor.selector]
+prefix = " regardless of this setting, "
+exact = "with one exception: Genie Search stores a copy of your connected sources' content and permissions in the Geo an account admin selects during setup, which can differ from the Geos of some of your workspaces"
+suffix = ". See Set up Genie Search."
 
 [[anchor]]
 id = "ds-content-processed-in-that-geo"
