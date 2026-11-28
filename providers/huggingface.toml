@@ -27,7 +27,7 @@ note = "Inference Endpoints(HF 自有托管专用实例档)的安全页,与 Infe
 url = "https://raw.githubusercontent.com/huggingface/hf-endpoints-documentation/main/docs/source/support/faq.md"
 channel = "developer_data"
 tier = "core"
-note = "Inference Endpoints FAQ,处理地维度的权威依据:明确列出可部署区域(AWS us-east-1 / eu-west-1、Azure eastus、GCP us-east4),并说明 Inference Providers 与 Inference Endpoints 的区别。只覆盖 Inference Endpoints 档。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁,改绑 HF 官方仓库 huggingface/hf-endpoints-documentation 的同名 Markdown。"
+note = "Inference Endpoints FAQ,处理地维度的权威依据:明确列出可部署区域(AWS us-east-1 / us-east-2 / us-west-2 / eu-west-1、GCP us-east4 / us-south1),并说明 Inference Providers 与 Inference Endpoints 的区别。只覆盖 Inference Endpoints 档。**抓取通道**:huggingface.co 整域被 r.jina.ai 匿名封禁,改绑 HF 官方仓库 huggingface/hf-endpoints-documentation 的同名 Markdown。"
 
 [[source]]
 url = "https://huggingface.co/docs/inference-providers/security"
@@ -188,7 +188,7 @@ codes = ["US", "IE", "selected"]
 anchor = "huggingface-ie-faq-regions"
 
 [[product.processing_region.point]]
-text_zh = "FAQ 原文列出四个区域"
+text_zh = "FAQ 原文列出六个可部署区域：AWS us-east-1(N. Virginia)、us-east-2(Ohio)、us-west-2(Oregon)、eu-west-1(Ireland)，GCP us-east4(Virginia)、us-south1(Dallas)；2026-11-28 快照起不再列出 Azure eastus(Virginia)，仍全为 US 或 IE。"
 
 [[product.processing_region.point]]
 text_zh = "另 /docs/hub/storage-regions 称 Team/Enterprise 的 EU 区域覆盖 inference endpoints。部署地可选,是 HF 各档里处理地披露最清楚的一档。"
@@ -462,7 +462,7 @@ prefix = """# FAQs
 ### In which regions can I deploy an Inference Endpoints?
 
 """
-exact = "Inference Endpoints are currently available on AWS in us-east-1 (N. Virginia) & eu-west-1 (Ireland), on Azure in eastus (Virginia), and on GCP in us-east4 (Virginia)."
+exact = "Inference Endpoints are currently available on AWS in us-east-1 (N. Virginia), us-east-2 (Ohio), us-west-2 (Oregon) & eu-west-1 (Ireland), and on GCP in us-east4 (Virginia) & us-south1 (Dallas)."
 suffix = " If you need to deploy in a different region, please let us "
 
 [[anchor]]
